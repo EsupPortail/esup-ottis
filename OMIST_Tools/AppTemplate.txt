@@ -485,12 +485,14 @@ function PopulateVoicesIn() {
   <div id="dialog">OK</div>
 </body>
 <script>
+/*
 var isLinux = navigator.userAgent.indexOf('Linux')>=0;
 var isChrome = navigator.userAgent.indexOf('Chrome')>=0;
 
 console.log("System : Linux ? "+isLinux+"   Chrome ?"+isChrome);
 
 if (isLinux && ! isChrome) alert('Linux user : for a better experience (speech synthesis), use the Google Chrome navigator.')
+*/
 </script>
 
 </html>
