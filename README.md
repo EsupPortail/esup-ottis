@@ -8,6 +8,9 @@ Ses fonctionnalités principales sont :
 - la synthèse du discours dans la langue de l'étudiant
 - un outil de chat multilingue pour simplifier les intéractions entre l'enseignant et les étudiants
 - la prise de note automatique multilingue
+- la diffusion de présentation traduites
+
+Des outils compagnons, les OMIST_Tools permettent de travailler à partir de divers types de présentations (Powerpoint et LaTeX/Beamer par exemple).
 
 # Contributeur unique
 
@@ -17,6 +20,6 @@ Faculté des Sciences et Techniques
 
 Université de Nantes
 
-Version 1.0
+Version 2.0
 
 
