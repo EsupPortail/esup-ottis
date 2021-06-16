@@ -1,0 +1,101 @@
+#!/bin/sh
+#exec wish "$0" "$1" & exit 0
+
+wm title . "PPTX Translation Tool for NExT OMIST"
+wm geometry . 705x320+100+100
+
+
+# Global variables
+
+set ListLang [split "fr-FR|Français (France),de-DE|Deutsch (Deutschland),en-US|English (United States),es-ES|Español (España),it-IT|Italiano (Italia),ja-JP|日本語（日本）,ar-MA|العربية (المغرب),zh-HK|普通話 (香港),af-ZA|Afrikaans (Suid-Afrika),am-ET|አማርኛ (ኢትዮጵያ),hy-AM|Հայ (Հայաստան),az-AZ|Azərbaycan (Azərbaycan),id-ID|Bahasa Indonesia (Indonesia),ms-MY|Bahasa Melayu (Malaysia),bn-BD|বাংলা (বাংলাদেশ),bn-IN|বাংলা (ভারত),ca-ES|Català (Espanya),cs-CZ|Čeština (Česká republika),da-DK|Dansk (Danmark),en-AU|English (Australia),en-CA|English (Canada),en-GH|English (Ghana),en-GB|English (Great Britain),en-IN|English (India),en-IE|English (Ireland),en-KE|English (Kenya),en-NZ|English (New Zealand),en-NG|English (Nigeria),en-PH|English (Philippines),en-SG|‪English (Singapore),en-ZA|English (South Africa),en-TZ|English (Tanzania),es-AR|Español (Argentina),es-BO|Español (Bolivia),es-CL|Español (Chile),es-CO|Español (Colombia),es-CR|Español (Costa Rica),es-EC|Español (Ecuador),es-SV|Español (El Salvador),es-US|Español (Estados Unidos),es-GT|Español (Guatemala),es-HN|Español (Honduras),es-MX|Español (México),es-NI|Español (Nicaragua),es-PA|Español (Panamá),es-PY|Español (Paraguay),es-PE|Español (Perú),es-PR|Español (Puerto Rico),es-DO|Español (República Dominicana),es-UY|Español (Uruguay),es-VE|Español (Venezuela),eu-ES|Euskara (Espainia),fil-PH|Filipino (Pilipinas),fr-CA|Français (Canada),fr-FR|Français (France),gl-ES|Galego (España),ka-GE|ქართული (საქართველო),gu-IN|ગુજરાતી (ભારત),hr-HR|Hrvatski (Hrvatska),zu-ZA|IsiZulu (Ningizimu Afrika),is-IS|Íslenska (Ísland),jv-ID|Jawa (Indonesia),kn-IN|ಕನ್ನಡ (ಭಾರತ),km-KH|ភាសាខ្មែរ (កម្ពុជា),lo-LA|ລາວ (ລາວ),lv-LV|Latviešu (latviešu),lt-LT|Lietuvių (Lietuva),hu-HU|Magyar (Magyarország),ml-IN|മലയാളം (ഇന്ത്യ),mr-IN|मराठी (भारत),nl-NL|Nederlands (Nederland),ne-NP|नेपाली (नेपाल),nb-NO|Norsk bokmål (Norge),pl-PL|Polski (Polska),pt-BR|Português (Brasil),pt-PT|Português (Portugal),ro-RO|Română (România),si-LK|සිංහල (ශ්රී ලංකාව),sk-SK|Slovenčina (Slovensko),sl-SI|Slovenščina (Slovenija),su-ID|Urang (Indonesia),sw-TZ|Swahili (Tanzania),sw-KE|Swahili (Kenya),fi-FI|Suomi (Suomi),sv-SE|Svenska (Sverige),ta-IN|தமிழ் (இந்தியா),ta-SG|தமிழ் (சிங்கப்பூர்),ta-LK|தமிழ் (இலங்கை),ta-MY|தமிழ் (மலேசியா),te-IN|తెలుగు (భారతదేశం),vi-VN|Tiếng Việt (Việt Nam),tr-TR|Türkçe (Türkiye),ur-PK|اردو (پاکستان),ur-IN|اردو (بھارت),el-GR|Ελληνικά (Ελλάδα),bg-BG|Български (България),ru-RU|Русский (Россия),sr-RS|Српски (Србија),uk-UA|Українська (Україна),he-IL|עברית (ישראל),ar-IL|العربية (إسرائيل),ar-JO|العربية (الأردن),ar-AE|العربية (الإمارات),ar-BH|العربية (البحرين),ar-DZ|العربية (الجزائر),ar-SA|العربية (السعودية),ar-QI|العربية (العراق),ar-KW|العربية (الكويت),ar-TN|العربية (تونس),ar-OM|العربية (عُمان),ar-PS|العربية (فلسطين),ar-QA|العربية (قطر),ar-LB|العربية (لبنان),ar-EG|العربية (مصر),fa-IR|فارسی (ایران),hi-IN|हिन्दी (भारत),th-TH|ไทย (ประเทศไทย),ko-KR|한국어 (대한민국),zh-TW|國語 (台灣),yue-Hant-HK|廣東話 (香港),zh|普通话 (中国大陆)" ","]
+
+set SelectedLangFrom {}
+set SelectedLangTo {}
+set filename ""
+
+# Functions and procedures
+
+proc translateSlides {} {
+    global ListLang
+    global filename
+    global KeepAspectRatio
+    global combovalue
+    global slidesnotes
+    set SelectedLangTo {}
+    set SelectedLangFrom {}
+    if {$filename eq ""} {
+      tk_dialog .myDialog "File missing" "Presentation file is missing" questhead 0 "OK"
+      return
+    }
+    for { set a 0}  {$a < [llength $ListLang]} {incr a} {
+      if {[.myListTo selection includes $a] == 1} {append SelectedLangTo [lindex [split [lindex $ListLang $a] "|"] 0] ","}
+      if {[.myListFrom selection includes $a] == 1} {append SelectedLangFrom [lindex [split [lindex $ListLang $a] "|"] 0] ","}
+    }
+    set From [string trimright $SelectedLangFrom ","]
+    set To [string trimright $SelectedLangTo ","]
+    if {$slidesnotes eq 1} {
+      exec ./MultipleTranslatePPTX.sh "$filename" "$From" "$To" --WithNotes
+    } else {
+      exec ./MultipleTranslatePPTX.sh "$filename" "$From" "$To"
+    }
+}
+
+# Widget creation
+label .labelwhite -text " " -font {helvetica -20 bold} -width 1
+
+image create photo imgobj -file "logo-next-omist.png" -width 75 -height 35
+label .labeltitre -text "NExT OMIST : PPTX Translation Tool" -font {helvetica -18 bold}
+label .labeltitreimg -image imgobj
+label .labellfrom -text "Source language" -width 35
+label .labellto  -text "Target languages" -width 35
+label .labelFrom  -text "No Choice selected"
+label .labelTo -text "No Choice selected"
+listbox .myListFrom -exportselection FALSE -width 35
+listbox .myListTo -selectmode multiple -exportselection FALSE -width 35
+label .lf -text "Choose your (.pptx) file"
+entry .filename -textvariable filename
+button .b1 -text "Browse" -command {set filename [tk_getOpenFile -filetypes {{{pptx Files}       {.pptx}}}]}
+checkbutton .cslidesnotes -text "Translate slide notes"  -variable slidesnotes
+button .btranslate -text "Translate" -command "translateSlides" -width 15  -font {"Helvetica" -18 bold}
+button .quit -text "Quit" -command {exit 0} -width 15 -font {helvetica -18 bold}
+
+
+
+# Initializations
+
+for { set a 0}  {$a < [llength $ListLang]} {incr a} {
+  .myListFrom insert end [string map {"|" "  :  "} [lindex $ListLang $a]]
+  .myListTo insert end [string map {"|" "  :  "} [lindex $ListLang $a]]
+}
+
+.myListFrom selection set 0
+.myListTo selection set 0 4
+
+
+# Bindings
+
+# Widget placement layout
+
+grid .labelwhite -row 0 -column 0
+
+grid .labeltitre -row 0 -column 1 -columnspan 3
+grid .labeltitreimg -row 0 -column 4
+grid .labellfrom -row 1 -column 1 -columnspan 2
+grid .labellto -row 1 -column 3 -columnspan 2
+#grid .labelFrom -row 3 -column 1 -columnspan 2
+#grid .labelTo -row 3 -column 3 -columnspan 2
+grid .myListFrom -row 2 -column 1 -sticky news -columnspan 2
+grid .lf -row 4 -column 1
+grid .filename -row 4 -column 2
+grid .b1 -row 4 -column 3
+grid .myListTo -row 2 -column 3 -sticky news -columnspan 2
+grid .cslidesnotes -row 5 -column 1
+
+grid .btranslate -row 16 -column 4
+grid .quit -row 17 -column 4
+
+proc resize {} {
+  wm geometry . [expr [winfo reqwidth .]+20]x[expr [winfo reqheight .]+20]+100+100
+}
+
+after 500 resize
