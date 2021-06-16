@@ -170,7 +170,7 @@ function PopulateVoicesOut() {
     if (true) {//(voices[i].localService) {
       var opt=document.createElement("option");
       opt.value=AllOutputVoices.length;
-      if (voices[i].lang.substr(0,2).toLowerCase() == 'fr') opt.selected=true;
+      if (voices[i].lang.substr(0,2).toLowerCase() == navigator.language) opt.selected=true;
       voices[i].textonly=false;
       AllOutputVoices.push(voices[i]);
       opt.innerHTML=voices[i].lang+" "+voices[i].name+((voices[i].localService)?"":" [external service]");

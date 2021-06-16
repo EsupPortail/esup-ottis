@@ -234,7 +234,7 @@ function PopulateVoicesOut() {
     if (true) {//(voices[i].localService) {
       var opt=document.createElement("option");
       opt.value=AllOutputVoices.length;
-      if (voices[i].lang.substr(0,2).toLowerCase() == 'fr') opt.selected=true;
+      if (voices[i].lang.substr(0,2).toLowerCase() == navigator.language) opt.selected=true;
       AllOutputVoices.push(voices[i]);
       opt.innerHTML=voices[i].lang+" "+voices[i].name;
       select.appendChild(opt);
@@ -253,7 +253,7 @@ function PopulateVoicesIn() {
       if (TLangInput.indexOf(lang)<0) {
         var opt=document.createElement("option");
         opt.value=TLangInput.length;
-        if (voices[i].lang.substr(0,2).toLowerCase() == 'fr') opt.selected=true;
+        if (voices[i].lang.substr(0,2).toLowerCase() == navigator.language) opt.selected=true;
         TLangInput.push(lang);
         opt.innerHTML=lang;
         select.appendChild(opt);
