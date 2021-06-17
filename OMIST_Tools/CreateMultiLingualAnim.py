@@ -78,7 +78,7 @@ def main():
 
 
 def translate(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:9] == "[resource ":
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
     lfrom = lfrom[0:2]
     lto = lto[0:2]
