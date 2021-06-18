@@ -468,8 +468,8 @@ function readImage() {
     if (request.responseText != "") {
       var Trep=request.responseText.split('|||');
       currentrandom=Trep[0];
+      document.getElementById('img_slides').onload=resizeSlides;
       document.getElementById('img_slides').src=Trep[1];
-      resizeSlides();
     }
 
   };
