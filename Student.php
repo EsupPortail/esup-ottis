@@ -702,10 +702,21 @@ window.onresize=resizeSlides;
   <input type="text" id="StudentName" value="<?php echo $randomname; ?>"/>
 </li>
 <li><label for="synthesison">Speech synthesis active ? </label>
-<input type="checkbox" id="synthesison"/></li>
+<input type="checkbox" id="synthesison" onclick="resizeSlides();"/></li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
   </ul>
+    <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+
 	</div>
 	<div id="tabs-1">
     <div id="classroom" style="border: solid 1px;"></div>

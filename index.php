@@ -916,6 +916,16 @@ window.onresize=resizeSlides;
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
   </ul>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 	</div>
 	<div id="tabs-1">
     <div id="classroom" style="border: solid 1px;"></div>
