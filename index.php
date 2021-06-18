@@ -680,6 +680,21 @@ function Init() {
       event.stopPropagation();
     }
   };
+  document.onkeydown=function (event) {
+    if (inSlideTab) {
+      if (event.code === 'ArrowRight') {
+        Forward();
+      }
+      if (event.code === 'Space') {
+        Forward();
+      }
+      if (event.code === 'ArrowLeft') {
+        Backward();
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
 }
 
 function rgb(T) {
