@@ -374,6 +374,15 @@ function progressHandler(event) {
   _("progressBar").value = Math.round(percent);
 //  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
 }
+function addSlideToNB(ch) {
+  var tobesaidbetweenslides='';
+  if (document.getElementById('tobesaid').value != '') tobesaidbetweenslides=document.getElementById('tobesaid').value+'.';
+  addToNB(tobesaidbetweenslides,0);
+  var Tch=ch.split('<br/>');
+  for(var i=0; i<Tch.length;i++) {
+    addToNB(Tch[i],0);
+  }
+}
 
 function addToNB(ch,before) {
   var tobesaidbetweenslides='';
@@ -477,7 +486,8 @@ function formateresponse(datatxt) {
       }
       setTimeout(toexec,10);
     } else {
-      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+//      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
       for (var j=0; j<slide["Notes"].length; j++) {
         res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
         if (slide["Notes"][j].trim() != '') currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
