@@ -692,15 +692,12 @@ function Init() {
   };
   document.onkeydown=function (event) {
     if (inSlideTab) {
-      if (event.code === 'ArrowRight') {
-        Forward();
-      }
-      if (event.code === 'Space') {
-        Forward();
-      }
-      if (event.code === 'ArrowLeft') {
-        Backward();
-      }
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  };
+  document.onkeypress=function (event) {
+    if (inSlideTab) {
       event.preventDefault();
       event.stopPropagation();
     }
