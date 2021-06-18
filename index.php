@@ -932,7 +932,7 @@ window.onresize=resizeSlides;
 		<li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
 		<li><a href="#tabs-3" onclick="inSlideTab=false;">Live translation</a></li>
 		<li><a href="#tabs-4" onclick="inSlideTab=false;">Share</a></li>
-    <li><a href="#tabs-7" onclick="inSlideTab=true;">Slides</a></li>
+    <li><a href="#tabs-7" onclick="inSlideTab=true; document.getElementById('img_slides').focus();">Slides</a></li>
 	</ul>
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
