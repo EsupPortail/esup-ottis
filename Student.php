@@ -663,14 +663,28 @@ slide.style.transform='scale('+aggrandissmentX+')';
 
 
 window.onresize=resizeSlides;
+var Tvoices;
+function loadVoicesWhenAvailable() {
+         Tvoices = window.speechSynthesis.getVoices();
 
+         if (Tvoices.length !== 0) {
+                LoadVoices();
+            }
+            else {
+                setTimeout(function () { loadVoicesWhenAvailable(); }, 10)
+            }
+    }
 
+function LoadVoices() {
+  InitVoices();
+  Lancer();
+}
 </script>
 
 
 
 </head>
-<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); ">
+<body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable();">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 
 <div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
