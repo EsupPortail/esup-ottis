@@ -664,8 +664,8 @@ function Init() {
 
   document.getElementById('pincode').value=(""+Math.floor(100000+Math.random()*100000)).substr(1);
   Synchronize_save();
-/*
-  document.addEventListener('keyup', event => {
+
+  document.onkeyup=function (event) {
     if (inSlideTab) {
       if (event.code === 'ArrowRight') {
         Forward();
@@ -679,8 +679,7 @@ function Init() {
       event.preventDefault();
       event.stopPropagation();
     }
-  });
-  */
+  };
 }
 
 function rgb(T) {
