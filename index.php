@@ -208,6 +208,16 @@ input[type=text] {
 #img_slides {
   transform-origin: top left;
 }
+
+
+#sharedqr {
+    transition: 1s ease;
+  transform-origin: top left;
+}
+#sharedqr:hover {
+  transform: scale(2);
+}
+
 	</style>
 
 
