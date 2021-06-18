@@ -408,7 +408,7 @@ function ShowImage(n) {
     var nimages=0;
     var maxcar=10000;
     for(var i=0; i*maxcar<imageurl.length;i++) {
-      f.append('image'+i,imageurl.substr(i+maxcar,maxcar));
+      f.append('image'+i,imageurl.substr(i*maxcar,maxcar));
       nimages++;
     }
     f.append('nbimages',nimages);
