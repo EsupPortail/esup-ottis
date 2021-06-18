@@ -1041,6 +1041,7 @@ new QRCode(document.getElementById("sharedqr"), {
 	correctLevel : QRCode.CorrectLevel.L
 });
 
+document.getElementById("sharedqr").title="";
 </script>
 </body>
 </html>
