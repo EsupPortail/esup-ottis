@@ -1009,7 +1009,7 @@ window.onresize=resizeSlides;
 	<div id="tabs-4">
     <ul style="list-style-type: none;">
   	    <li>Student application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
-        <li>QR code : <div id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
+        <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>
   </div>
