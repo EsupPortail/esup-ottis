@@ -404,7 +404,7 @@ function ShowImage(n) {
   	request.open("POST", "saveimage.php");
     var f=new FormData();
     f.append('random',Math.floor(Math.random() * 10000));
-    f.append('image',document.getElementById("img_"+n).src);
+    f.append('image',document.getElementById("img_"+n).src.replace('data:image/jpeg;base64,',''));
     f.append('ROOMID',document.getElementById('classroomid').value);
   	request.send(f);
   //	request.onload = function(event) {};
