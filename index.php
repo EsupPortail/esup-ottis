@@ -395,6 +395,31 @@ function saveTextTable(T,i) {
   }
 }
 
+function b64toBlob(b64Data, contentType, sliceSize) {
+                contentType = contentType || '';
+                sliceSize = sliceSize || 512;
+
+                var byteCharacters = atob(b64Data);
+                var byteArrays = [];
+
+                for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+                    var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+                    var byteNumbers = new Array(slice.length);
+                    for (var i = 0; i < slice.length; i++) {
+                        byteNumbers[i] = slice.charCodeAt(i);
+                    }
+
+                    var byteArray = new Uint8Array(byteNumbers);
+
+                    byteArrays.push(byteArray);
+                }
+
+              var blob = new Blob(byteArrays, {type: contentType});
+              return blob;
+            }
+
+
 function ShowImage(n) {
   document.getElementById("img_slides").src=document.getElementById("img_"+n).src;
   resizeSlides();
@@ -404,7 +429,8 @@ function ShowImage(n) {
   	request.open("POST", "saveimage.php");
     var f=new FormData();
     f.append('random',Math.floor(Math.random() * 10000));
-    var imageurl=document.getElementById("img_"+n).src.replace('data:image/jpeg;base64,','');
+    var imageurl=document.getElementById("img_"+n).src;
+    /*
     var nimages=0;
     var maxcar=10000;
     for(var i=0; i*maxcar<imageurl.length;i++) {
@@ -412,6 +438,12 @@ function ShowImage(n) {
       nimages++;
     }
     f.append('nbimages',nimages);
+    */
+    var block = imageurl.split(";");
+    var contentType = block[0].split(":")[1];
+    var realData = block[1].split(",")[1];
+    var blob = b64toBlob(realData, contentType);
+    f.append("image", blob);
     f.append('ROOMID',document.getElementById('classroomid').value);
   	request.send(f);
   //	request.onload = function(event) {};
