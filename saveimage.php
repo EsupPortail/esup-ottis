@@ -1,7 +1,12 @@
 <?php
 
 $random = $_POST["random"];
-$url = "data:image/jpeg;base64,".$_POST["image"];
+$nbimages = $_POST["nbimages"];
+$url = "data:image/jpeg;base64,";
+for($i=0; $i<1*$nbimages;$i++) {
+    $url.=$_POST["image".$i];
+}
+
 $roomid = $_POST["ROOMID"];
 
 $fd=fopen("tmp/ImageID_".$roomid,"w");

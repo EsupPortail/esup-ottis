@@ -404,7 +404,14 @@ function ShowImage(n) {
   	request.open("POST", "saveimage.php");
     var f=new FormData();
     f.append('random',Math.floor(Math.random() * 10000));
-    f.append('image',document.getElementById("img_"+n).src.replace('data:image/jpeg;base64,',''));
+    var imageurl=document.getElementById("img_"+n).src.replace('data:image/jpeg;base64,','');
+    var nimages=0;
+    var maxcar=10000;
+    for(var i=0; i*maxcar<imageurl.length;i++) {
+      f.append('image'+i,imageurl.substr(i+maxcar,maxcar));
+      nimages++;
+    }
+    f.append('nbimages',nimages);
     f.append('ROOMID',document.getElementById('classroomid').value);
   	request.send(f);
   //	request.onload = function(event) {};
