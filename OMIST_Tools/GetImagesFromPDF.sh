@@ -22,9 +22,9 @@ echo "Converting file " $Filename
 echo "Options From=$From and To=$To" $4 $5 $6
 
 rm -rf tmp/*
-cp "$Filename" tmp/test.pdf
+cp "$Filename" tmp/input.pdf
 cp "$FilenameSpeech" tmp/speech.txt
 mkdir tmp/images
-pdftocairo -jpeg tmp/test.pdf tmp/images/images
-./CreateMultiLingualAnim.py --input=tmp/speech.txt --ImagesDir="tmp/images" --output=tmp/out.html --from="$From" --to="$To" $5 $6 $7
+pdftocairo -jpeg tmp/input.pdf tmp/images/images
+./CreateMultiLingualAnim.py --input=tmp/speech.txt --ImagesDir="tmp/images" --output=tmp/output.html --from="$From" --to="$To" $5 $6 $7
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"

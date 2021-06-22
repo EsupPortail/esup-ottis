@@ -31,8 +31,8 @@ echo "Options From=$From and To=$To with slides translated in Translated=$Transl
 rm -rf tmp/*
 $FINDER tmp
 cp "$Filename" tmp/original_file.pptx
-./TranslatePPTX.py --input=tmp/original_file.pptx --output=tmp/test.pptx --from="$From" --to="$Translated"  2>/dev/null
+./TranslatePPTX.py --input=tmp/original_file.pptx --output=tmp/input.pptx --from="$From" --to="$Translated"  2>/dev/null
 mkdir tmp/images
-$SOFFICE --headless --convert-to pdf tmp/test.pptx --outdir tmp  2>/dev/null
-pdftocairo -jpeg tmp/test.pdf tmp/images/images  2>/dev/null
-./CreateMultiLingualAnim.py --input=tmp/test.pptx --ImagesDir="tmp/images" --output=tmp/out.html --from="$From" --to="$To" $5 $6 $7  2>/dev/null
+$SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp  2>/dev/null
+pdftocairo -jpeg tmp/input.pdf tmp/images/images  2>/dev/null
+./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="$From" --to="$To" $5 $6 $7  2>/dev/null

@@ -24,8 +24,8 @@ echo "Options From=$From and To=$To" $4 $6 $7
 
 rm -rf tmp/*
 $FINDER tmp
-cp "$Filename" tmp/test.pptx
+cp "$Filename" tmp/input.pptx
 mkdir tmp/images
-$SOFFICE --headless --convert-to pdf tmp/test.pptx --outdir tmp  2>/dev/null
-pdftocairo -jpeg tmp/test.pdf tmp/images/images  2>/dev/null
-./CreateMultiLingualAnim.py --input=tmp/test.pptx --ImagesDir="tmp/images" --output=tmp/out.html --from="$From" --to="$To" $4 $5 $6  2>/dev/null
+$SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp  2>/dev/null
+pdftocairo -jpeg tmp/input.pdf tmp/images/images  2>/dev/null
+./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="$From" --to="$To" $4 $5 $6  2>/dev/null

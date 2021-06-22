@@ -26,5 +26,5 @@ rm -rf tmp/*
 $FINDER tmp
 cp "$Filename" tmp/test.pptx
 osascript GetImagesFromPPTX.scpt  2>/dev/null
-./CreateMultiLingualAnim.py --input=tmp/test.pptx --ImagesDir="tmp/test" --output=tmp/out.html --from="$From" --to="$To" $4 $5 $6  2>/dev/null
+./CreateMultiLingualAnim.py --input=tmp/test.pptx --ImagesDir="tmp/test" --output=tmp/output.html --from="$From" --to="$To" $4 $5 $6  2>/dev/null
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
