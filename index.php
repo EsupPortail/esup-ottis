@@ -503,6 +503,7 @@ function formateresponse(datatxt) {
         res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
         if (slide["Notes"][j].trim() != '') currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
       }
+      if (slide["Notes"].length == 0) currentPresentation.push({'Slide':slide["Slide"],'Discours':'');
     }
     res+='</dl>'
   }
