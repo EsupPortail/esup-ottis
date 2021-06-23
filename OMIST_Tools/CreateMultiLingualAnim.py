@@ -87,14 +87,13 @@ def translate(txt,lfrom,lto):
     lto = lto[0:2]
     if lfrom == lto:
         return txt
-    txt=txt.replace("'","\'")
+    txt=txt.replace("'"," ")
     txt=txt.replace('"'," ")
     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-    batcmd=batcmd.decode('utf-8')
     result = subprocess.check_output(batcmd, shell=True)
-    result=json.loads(result.decode('utf-8'))
+    result=json.loads(result)
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
     else:
