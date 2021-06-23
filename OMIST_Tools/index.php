@@ -16,7 +16,7 @@
 	<h1>OMIST Tools</h1>
 <?php
 
-$command = 'python3.5 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="FR" --to="EN-DE"';
+$command = 'python3 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="FR" --to="EN-DE"';
 system($command);
 
 ?>
