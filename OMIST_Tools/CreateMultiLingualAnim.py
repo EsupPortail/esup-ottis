@@ -9,7 +9,7 @@ import json
 import base64
 import os
 import pipes
-
+import sys
 import config
 
 def usage():
@@ -18,6 +18,7 @@ def usage():
     print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\"")
 
 def main():
+    print(sys.getdefaultencoding())
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template="])
     except getopt.GetoptError as err:
