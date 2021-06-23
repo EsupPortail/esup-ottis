@@ -86,9 +86,8 @@ def translate(txt,lfrom,lto):
     lto = lto[0:2]
     if lfrom == lto:
         return txt
-    txt=txt.decode("utf-8")
-    txt=txt.replace("'","’".decode("utf-8"))
-    txt=txt.replace('"',"’’".decode("utf-8"))
+    txt=txt.replace("'",u"’")
+    txt=txt.replace('"',u"’’")
     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
