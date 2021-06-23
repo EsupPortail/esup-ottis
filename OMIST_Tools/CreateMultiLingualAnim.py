@@ -86,6 +86,7 @@ def translate(txt,lfrom,lto):
     lto = lto[0:2]
     if lfrom == lto:
         return txt
+    txt=unicode(txt)
     txt=txt.replace("'","’")
     txt=txt.replace('"',"’’")
     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
