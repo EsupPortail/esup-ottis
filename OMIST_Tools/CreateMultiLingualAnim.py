@@ -89,6 +89,8 @@ def translate(txt,lfrom,lto):
         return txt
     txt=txt.replace("'"," ")
     txt=txt.replace('"'," ")
+    txt=txt.replace('\xe0'," ")
+
     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
