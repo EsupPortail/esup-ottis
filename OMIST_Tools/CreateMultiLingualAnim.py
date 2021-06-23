@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# -*- coding: latin-1 -*-
 
 import getopt, sys
 from pptx import Presentation
