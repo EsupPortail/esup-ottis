@@ -499,11 +499,15 @@ function formateresponse(datatxt) {
 //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
 //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
       res = res + '<dt>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+      var flag=false;
       for (var j=0; j<slide["Notes"].length; j++) {
         res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
-        if (slide["Notes"][j].trim() != '') currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
+        if (slide["Notes"][j].trim() != '') {
+          currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
+          flag = true;
+        }
       }
-      if (slide["Notes"].length == 0) currentPresentation.push({'Slide':slide["Slide"],'Discours':''});
+      if (!flag) currentPresentation.push({'Slide':slide["Slide"],'Discours':''});
     }
     res+='</dl>'
   }
