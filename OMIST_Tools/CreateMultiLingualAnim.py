@@ -86,9 +86,8 @@ def translate(txt,lfrom,lto):
     lto = lto[0:2]
     if lfrom == lto:
         return txt
-    txt=unicode(txt)
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
+    txt=txt.replace("'"," ")
+    txt=txt.replace('"'," ")
     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
@@ -124,7 +123,7 @@ def ExtractNotes(filename):
             num+=1
             notesslide=[]
             for note in slide.notes_slide.notes_text_frame.paragraphs:
-                notesslide.append(unicode(note.text))
+                notesslide.append(note.text)
             slidenotes=dict()
             slidenotes["Slide"]=num
             slidenotes["Notes"]=notesslide
