@@ -19,7 +19,7 @@
 	<h1>OMIST Tools</h1>
 <?php
 
-if ($_POST["submit"] && $_FILES["fileToUpload"]["tmp_name"] != "") {
+if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
 $command = 'bash ./CreateAppOnly.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" >/dev/null 2>/dev/null';
 system($command);
