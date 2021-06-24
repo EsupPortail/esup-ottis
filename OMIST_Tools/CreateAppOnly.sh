@@ -1,0 +1,21 @@
+#!/bin/bash
+
+source config.py
+
+Filename=$1
+
+if [ $Filename = "" ]; then
+        echo "Filename is missing"
+        exit
+fi
+
+echo "Converting file " $Filename
+
+rm -rf tmp/*
+cp "$Filename" tmp/input.pptx
+mkdir tmp/images
+$SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp  2>/dev/null
+pdftocairo -jpeg tmp/input.pdf tmp/images/images  2>/dev/null
+./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="FR" --to="FR" $2 $3 $4  2>/dev/null
+# ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
+
