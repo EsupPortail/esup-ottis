@@ -16,6 +16,6 @@ cp "$Filename" tmp/input.pptx
 mkdir tmp/images
 export HOME=/var/www/html/AutomaticTranslator/OMIST_Tools/tmp && $SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp
 pdftocairo -jpeg tmp/input.pdf tmp/images/images
-python3 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="fr" --to="fr" $2 $3 $4
+python3 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="fr-FR" --to="fr-FR" $2 $3 $4
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
 
