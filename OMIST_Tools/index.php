@@ -21,14 +21,14 @@
 
 if ($_POST["submit"] && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
-$command = 'bash ./CreateAppOnly.sh "'.$_FILES["fileToUpload"]["tmp_name"].'"';
+$command = 'bash ./CreateAppOnly.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" >/dev/null 2>/dev/null';
 system($command);
-echo '<a href="tmp/output.html">Output</a>';
+echo '<a href="tmp/output.html">Result</a>';
 } else {
     echo '    <form action="index.php" method="post" enctype="multipart/form-data">';
     echo 'Select PPTX file :';
     echo '<input type="file" name="fileToUpload" id="fileToUpload">';
-    echo '<input type="submit" value="Upload Image" name="submit">';
+    echo '<input type="submit" value="Upload File" name="submit">';
     echo '   </form>';
 }
 ?>
