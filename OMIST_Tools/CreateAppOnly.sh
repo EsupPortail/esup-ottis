@@ -14,8 +14,8 @@ echo "Converting file " $Filename
 rm -rf tmp/*
 cp "$Filename" tmp/input.pptx
 mkdir tmp/images
-/usr/bin/soffice --headless --convert-to pdf tmp/input.pptx --outdir tmp  2>/dev/null
-pdftocairo -jpeg tmp/input.pdf tmp/images/images  2>/dev/null
+/usr/bin/soffice --headless --convert-to pdf tmp/input.pptx --outdir tmp
+pdftocairo -jpeg tmp/input.pdf tmp/images/images
 python3 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="fr" --to="fr" $2 $3 $4
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
 
