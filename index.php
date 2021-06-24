@@ -1045,10 +1045,10 @@ new QRCode(document.getElementById("sharedqr"), {
 
 document.getElementById("sharedqr").title="";
 
-$('#tabs').on('keydown keyup keypress', function(e) {
+$('#bar').on('keydown keyup keypress', function(e) {
   console.log(e.keyCode);
   e.preventDefault();
-})
+});
 
 </script>
 </body>
