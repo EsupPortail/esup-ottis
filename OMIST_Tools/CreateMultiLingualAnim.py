@@ -225,7 +225,7 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     LANGUEORIGINE = source
     LANGUETRADUCTION = source
     NBSLIDES = len(AllImages)
-    with open(templatefile) as f:
+    with open(templatefile,"r", encoding='utf8') as f:
         template = "".join(f.readlines())
     template = template.replace("@@LANGUEORIGINE@@",LANGUEORIGINE)
     template = template.replace("@@LANGUETRADUCTION@@",LANGUETRADUCTION)
@@ -238,7 +238,7 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     for img in AllImages:
         txtimages += "Timages.push('"+img+"');\n";
     template = template.replace("@@IMAGES@@",txtimages)
-    f = open(fileout, "w")
+    f = open(fileout, "w", encoding='utf8')
     f.write(template)
     f.close()
 
