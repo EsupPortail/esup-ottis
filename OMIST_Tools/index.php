@@ -19,10 +19,19 @@
 	<h1>OMIST Tools</h1>
 <?php
 
-$command = 'bash ./CreateAppOnly.sh test.pptx';
-system($command);
+if ($_POST["submit"] && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
+$command = 'bash ./CreateAppOnly.sh "'.$_FILES["fileToUpload"]["tmp_name"].'"';
+system($command);
+echo '<a href="tmp/output.html">Output</a>';
+} else {
+    echo '    <form action="index.php" method="post" enctype="multipart/form-data">';
+    echo 'Select PPTX file :';
+    echo '<input type="file" name="fileToUpload" id="fileToUpload">';
+    echo '<input type="submit" value="Upload Image" name="submit">';
+    echo '   </form>';
+}
 ?>
-<a href="tmp/output.html">output</a>
+
 </body>
 </html>
