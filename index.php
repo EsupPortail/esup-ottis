@@ -501,8 +501,8 @@ function formateresponse(datatxt) {
       res = res + '<dt>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
       var flag=false;
       for (var j=0; j<slide["Notes"].length; j++) {
-        res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
         if (slide["Notes"][j].trim() != '') {
+        res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
           currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
           flag = true;
         }
