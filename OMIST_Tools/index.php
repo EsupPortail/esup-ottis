@@ -6,7 +6,7 @@
     header('Cache-Control: no-cache, must-revalidate');
 
 
-    exit;
+ //   exit;
 ?>
 <!doctype html>
 <html lang="fr">
@@ -19,7 +19,7 @@
 	<h1>OMIST Tools</h1>
 <?php
 
-$command = 'python3 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="FR" --to="EN-DE"';
+$command = 'bash ./CreateAppOnly.sh test.pptx';
 system($command);
 
 ?>
