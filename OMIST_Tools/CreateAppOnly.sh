@@ -16,6 +16,6 @@ cp "$Filename" tmp/input.pptx
 mkdir tmp/images
 export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp
 /usr/local/bin/pdftocairo -jpeg tmp/input.pdf tmp/images/images
-/usr/bin/python3 ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="fr-FR" --to="fr-FR" $2 $3 $4
+python ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="fr-FR" --to="fr-FR" $2 $3 $4
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
 
