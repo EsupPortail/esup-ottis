@@ -124,7 +124,7 @@ function Init() {
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
-  <input id="keepaspectratio1" name="keepaspectratio" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  <input id="keepaspectratio1" name="keepaspectratio" disabled width="1" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
@@ -172,7 +172,7 @@ function Init() {
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
-  <input id="keepaspectratio2" name="keepaspectratio" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  <input id="keepaspectratio2" name="keepaspectratio" disabled width="1"  value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
