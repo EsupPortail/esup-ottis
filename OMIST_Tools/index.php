@@ -49,7 +49,7 @@ function PopulateLanguages(selectelement) {
 }
 
 function Init() {
-  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','translatelanguage2'];
+  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','translatelanguage2','inputlanguage3','outputlanguage3'];
   allselects.map(PopulateLanguages);
 }
 
@@ -195,12 +195,12 @@ function Init() {
   <td style="vertical-align: top;">
     Input language : </td>
   <td>
-  <select id="inputlanguage1" name="inputlanguage"></select>
+  <select id="inputlanguage3" name="inputlanguage"></select>
   </td></tr>
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select>
+  <td><select id="outputlanguage3"  name="outputlanguage" multiple rows="5"></select>
   </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
