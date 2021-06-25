@@ -12,7 +12,7 @@ import pipes
 import sys
 import config
 
-reload(sys)
+
 sys.setdefaultencoding('utf8')
 
 def usage():
