@@ -91,10 +91,21 @@ function Init() {
   <h3>Create web animation from pdf+txt (Complete)</h3>
   <div>
   <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
+  <table>
+  <tr>
+  <td style="vertical-align: top;">
     Select PDF file : 
-    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+  </td>
+  <td>
+    <input type="file" name="fileToUpload" id="fileToUpload">
+  </td></tr>
+  <td style="vertical-align: top;">
     Select SPEECH file (.txt): 
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+  </td>
+  <td>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT">
+  </td></tr>
+  </table>
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
