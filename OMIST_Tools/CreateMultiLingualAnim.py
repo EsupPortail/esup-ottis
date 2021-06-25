@@ -12,6 +12,9 @@ import pipes
 import sys
 import config
 
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 def usage():
     print("Usage:")
     print("Minimal : ./CreateMultiLingualAnim.py --input test.pptx --output out.html")
