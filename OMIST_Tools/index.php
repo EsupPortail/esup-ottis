@@ -49,7 +49,7 @@ function PopulateLanguages(selectelement) {
 }
 
 function Init() {
-  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','translatelanguage2','inputlanguage3','outputlanguage3'];
+  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3'];
   allselects.map(PopulateLanguages);
 }
 
@@ -159,14 +159,6 @@ function Init() {
   <td><select id="outputlanguage2"  name="outputlanguage[]" multiple rows="5"></select>
   </td></tr>
   <tr><td colspan="2"><b>Advanced options</b></td></tr>
-  <tr>
-  <td style="vertical-align: top;">
-    Translate slides in ? </td>
-  <td>
-  <select id="translatelanguage2" name="translatelanguage" value="">
-    <option value="">No translation</option>
-</select>
-  </td></tr>
      <tr>
   <td style="vertical-align: top;">
     Aspect ratio : </td>
