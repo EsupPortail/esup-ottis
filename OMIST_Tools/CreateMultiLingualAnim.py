@@ -13,7 +13,6 @@ import sys
 import config
 
 
-sys.setdefaultencoding('utf8')
 
 def usage():
     print("Usage:")
