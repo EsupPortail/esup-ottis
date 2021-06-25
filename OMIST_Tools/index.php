@@ -49,10 +49,8 @@ function PopulateLanguages(selectelement) {
 }
 
 function Init() {
-  PopulateLanguages('inputlanguage1');
-  PopulateLanguages('outputlanguage1');
-
-  
+  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1'];
+  allselect.map(PopulateLanguages);
 }
 
 </script>
@@ -64,7 +62,7 @@ function Init() {
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload1"><br/>
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
@@ -72,15 +70,83 @@ function Init() {
   <div>
   <form action="CreateAppFromPDF.php" method="post" enctype="multipart/form-data">
     Select PDF file : 
-    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload2"><br/>
     Select SPEECH file (.txt): 
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"><br/>
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
   <h3>Create web animation from pptx (Complete)</h3>
   <div>
   <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
+    Select PPTX file : 
+    <input type="file" name="fileToUpload" id="fileToUpload3"><br/>
+    <table>
+  <tr>
+  <td style="vertical-align: top;">
+    Input language : </td>
+  <td>
+  <select id="inputlanguage1" name="inputlanguage"></select>
+  </td></tr>
+    <tr>
+  <td style="vertical-align: top;">
+  Output languages : </td>
+  <td><select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select>
+  </td></tr>
+  <tr><td colspan="2">Advanced options</td></tr>
+  <tr>
+  <td style="vertical-align: top;">
+    [Optional] Translate slides in ? : </td>
+  <td>
+  <select id="translatelanguage1" name="translatelanguage" value=""></select>
+  </td></tr>
+     <tr>
+  <td style="vertical-align: top;">
+    Aspect ratio : </td>
+  <td>
+  <input id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"/>
+  <datalist id="listaspectratio">
+    <option value="16/10"/>
+    <option value="16/9"/>
+    <option value="4/3"/>
+    <option value="1/1"/>
+  </datalist>
+  </td></tr>
+    <td style="vertical-align: top;">
+    Aspect ratio : </td>
+  <td>
+  <input id="keepaspectratio1" name="keepaspectratio" value="X" disabled onclick="if (this.value =='X') this.value ==''; else this.value =='X';"/>
+  </td></tr>
+    <td style="vertical-align: top;">
+    Extra delay between slides (in tenth of seconds): </td>
+  <td>
+    <input id="extradelay1" name="extradelay" list="listdelays" value="0"/>
+
+  <datalist id="listdelays">
+    <option value="0"/>
+    <option value="5"/>
+    <option value="10"/>
+    <option value="300"/>
+    <option value="600"/>
+    <option value="1200"/>
+  </datalist>
+  </td></tr>
+ </table>
+    <input type="submit" value="Create" name="submit">
+    </form>
+  </div>
+  <h3>Create web animation from pdf+txt (Complete)</h3>
+  <div>
+  <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
+  
+    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+    <input type="submit" value="Create" name="submit">
+    </form>
+  </div>
+    <h3>Translate pptx</h3>
+  <div>
+  <form action="TranslatePPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload"><br/>
     <table>
@@ -95,19 +161,27 @@ function Init() {
   Output languages : </td>
   <td><select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select>
   </td></tr>
-  </table>
-    <input type="submit" value="Create" name="submit">
+ </table>
+    <input type="submit" value="Translate" name="submit">
     </form>
   </div>
-  <h3>Create web animation from pdf+txt (Complete)</h3>
+  <h3>Convert pdf+txt to pptx</h3>
   <div>
-  <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
-  
+  <form action="ConvertPDFtoPPTX.php" method="post" enctype="multipart/form-data">  
     Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
-    <input type="submit" value="Create" name="submit">
+    <input type="submit" value="Convert" name="submit">
     </form>
   </div>
+    <h3>Extract speech from pptx</h3>
+  <div>
+  <form action="ExtractSpeechFromPPTX.php" method="post" enctype="multipart/form-data">
+    Select PPTX file : 
+    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    <input type="submit" value="Extract" name="submit">
+    </form>
+  </div>
+
 </div>
 </body>
 <script>
