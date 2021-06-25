@@ -22,7 +22,7 @@
 <body>
 	<h1>OMIST Tools</h1>
 <div id="menu">
-  <h3>Create web animation from pptx</h3>
+  <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
@@ -30,9 +30,27 @@
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
-  <h3>Create web animation from pdf+txt</h3>
+  <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
   <form action="CreateAppFromPDF.php" method="post" enctype="multipart/form-data">
+    Select PDF file : 
+    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    Select SPEECH file (.txt): 
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+    <input type="submit" value="Create" name="submit">
+    </form>
+  </div>
+  <h3>Create web animation from pptx (Complete)</h3>
+  <div>
+  <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
+    Select PPTX file : 
+    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    <input type="submit" value="Create" name="submit">
+    </form>
+  </div>
+  <h3>Create web animation from pdf+txt (Complete)</h3>
+  <div>
+  <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
     Select PDF file : 
     <input type="file" name="fileToUpload" id="fileToUpload"><br/>
     Select SPEECH file (.txt): 
