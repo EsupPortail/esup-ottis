@@ -113,9 +113,9 @@ function Init() {
   </datalist>
   </td></tr>
     <td style="vertical-align: top;">
-    Aspect ratio : </td>
+    Keep Aspect ratio ? </td>
   <td>
-  <input id="keepaspectratio1" name="keepaspectratio" value="X" disabled onclick="if (this.value =='X') this.value ==''; else this.value =='X';"/>
+  <input id="keepaspectratio1" name="keepaspectratio" value="X" onclick="if (this.value == 'X') this.value ==''; else this.value =='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
