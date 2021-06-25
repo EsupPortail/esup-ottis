@@ -4,6 +4,7 @@
 import getopt, sys
 from pptx import Presentation
 
+import requests
 import subprocess
 import json
 import base64
@@ -80,9 +81,7 @@ def main():
         usage()
 
 
-
-
-def translate(txt,lfrom,lto):
+def translate_old(txt,lfrom,lto):
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
     lfrom = lfrom[0:2]
@@ -103,6 +102,24 @@ def translate(txt,lfrom,lto):
     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
     batcmd = batcmd.encode('utf-8','ignore')
     result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
+    result=json.loads(result.decode("utf-8"))
+    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
+        return ""
+    else:
+        return result.get('data').get('translations')[0].get('translatedText')
+
+def translate(txt,lfrom,lto):
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+        return txt
+    lfrom = lfrom[0:2]
+    lto = lto[0:2]
+    if lfrom == lto:
+        return txt
+    txt=txt.replace("'","’")
+    txt=txt.replace('"',"’’")
+    url = "https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN
+    datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
+    result = requests.post(url,data=datapost)
     result=json.loads(result.decode("utf-8"))
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
