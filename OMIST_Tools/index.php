@@ -49,7 +49,7 @@ function PopulateLanguages(selectelement) {
 }
 
 function Init() {
-  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1'];
+  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','translatelanguage2'];
   allselects.map(PopulateLanguages);
 }
 
