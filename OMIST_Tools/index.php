@@ -56,7 +56,7 @@ function Init() {
 </script>
 </head>
 <body onload="Init();">
-	<h1>OMIST Tools</h1>
+	<h1><img src="logo-next-omist.png"/> OMIST Tools</h1>
   <datalist id="listaspectratio">
     <option value="16/10"/>
     <option value="16/9"/>
