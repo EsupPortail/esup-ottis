@@ -57,7 +57,7 @@ def main():
 
 
 
-def translate(txt,lfrom,lto):
+def translate_old(txt,lfrom,lto):
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]":
         return txt
     lfrom = lfrom[0:2]
@@ -74,6 +74,24 @@ def translate(txt,lfrom,lto):
     else:
         return result.get('data').get('translations')[0].get('translatedText')
 
+def translate(txt,lfrom,lto):
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+        return txt
+    lfrom = lfrom[0:2]
+    lto = lto[0:2]
+    if lfrom == lto:
+        return txt
+    txt=txt.replace("'","’")
+    txt=txt.replace('"',"’’")
+    proxyDict = {"http"  : "http://cache.univ-nantes.fr:3128", "https" : "http://cache.univ-nantes.fr:3128"}
+    url = "https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN
+    datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
+    result = requests.post(url,data=datapost,proxies=proxyDict)
+    result=json.loads(result.text)
+    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
+        return ""
+    else:
+        return result.get('data').get('translations')[0].get('translatedText')
 
 def ExtractNotes(filename):
     prs = Presentation(filename)
