@@ -229,9 +229,9 @@ def PDFtoPPTX(filename,fileout,imagesdir='.',AspectRatio=16/10):
         nslide+=1
 
     prs.save(fileout+".pptx")
-    batcmd=config.SOFFICE+" --headless --convert-to odp "+fileout+".pptx"+" --outdir tmp"
+    batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to odp "+fileout+".pptx"+" --outdir tmp"
     result = subprocess.check_output(batcmd, shell=True)
-    batcmd=config.SOFFICE+" --headless --convert-to ppt "+fileout+".pptx"+" --outdir tmp"
+    batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to ppt "+fileout+".pptx"+" --outdir tmp"
     result = subprocess.check_output(batcmd, shell=True)
 
 
