@@ -50,6 +50,9 @@ function PopulateLanguages(selectelement) {
 
 function Init() {
   PopulateLanguages('inputlanguage1');
+  PopulateLanguages('outputlanguage1');
+
+  
 }
 
 </script>
@@ -80,7 +83,8 @@ function Init() {
   <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload"><br/>
-    Input language : <select id="inputlanguage1"></select></br>
+    Input language : <select id="inputlanguage1" name="inputlanguage"></select></br>
+    Output languages : <select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select></br>
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
