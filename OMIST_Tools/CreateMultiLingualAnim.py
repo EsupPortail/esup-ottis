@@ -121,7 +121,7 @@ def translate(txt,lfrom,lto):
     url = "https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN
     datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
     result = requests.post(url,data=datapost,proxies=proxyDict)
-    result=json.loads(result)
+    result=json.loads(result.text)
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
     else:
