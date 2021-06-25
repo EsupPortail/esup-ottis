@@ -16,4 +16,5 @@ for lang in $To; do
   echo "Translating in $lang"
   $PYTHON ./TranslatePPTX.py --input=tmp/original_file.pptx --output=tmp/translated_$lang.pptx --from="$From" --to="$lang" $4 2>/dev/null
 done
-zip -9 tmp/output.zip tmp/translated*.pptx
+cd tmp
+zip -9 output.zip translated*.pptx
