@@ -50,7 +50,7 @@ function PopulateLanguages(selectelement) {
 
 function Init() {
   var allselects=['inputlanguage1','outputlanguage1','translatelanguage1'];
-  allselect.map(PopulateLanguages);
+  allselects.map(PopulateLanguages);
 }
 
 </script>
