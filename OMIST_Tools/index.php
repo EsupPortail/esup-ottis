@@ -40,12 +40,11 @@ function PopulateLanguages(selectelement) {
   var select = document.getElementById(selectelement);
   for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code; //.substr(0,5);
-      if (TLangInput.indexOf(lang)<0) {
         var opt=document.createElement("option");
-        opt.value=TLangInput.length;
+        opt.value=lang;
         opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
         select.appendChild(opt);
-      }
+      
     }
 }
 
