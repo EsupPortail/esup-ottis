@@ -106,7 +106,7 @@ function Init() {
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select>
+  <td><select id="outputlanguage1"  name="outputlanguage[]" multiple rows="5"></select>
   </td></tr>
   <tr><td colspan="2"><b>Advanced options</b></td></tr>
   <tr>
@@ -154,7 +154,7 @@ function Init() {
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage2"  name="outputlanguage" multiple rows="5"></select>
+  <td><select id="outputlanguage2"  name="outputlanguage[]" multiple rows="5"></select>
   </td></tr>
   <tr><td colspan="2"><b>Advanced options</b></td></tr>
   <tr>
@@ -200,7 +200,7 @@ function Init() {
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage3"  name="outputlanguage" multiple rows="5"></select>
+  <td><select id="outputlanguage3"  name="outputlanguage[]" multiple rows="5"></select>
   </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
