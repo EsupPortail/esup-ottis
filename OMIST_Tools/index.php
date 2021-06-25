@@ -77,18 +77,18 @@ function Init() {
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload1"><br/>
-    <input type="submit" value="Create" name="submit">
+    <input type="file" name="fileToUpload" id="fileToUpload1"/><br/>
+    <input type="submit" value="Create" name="submit"/>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
   <form action="CreateAppFromPDF.php" method="post" enctype="multipart/form-data">
     Select PDF file : 
-    <input type="file" name="fileToUpload" id="fileToUpload2"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload2"/><br/>
     Select SPEECH file (.txt): 
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"><br/>
-    <input type="submit" value="Create" name="submit">
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"/><br/>
+    <input type="submit" value="Create" name="submit"/>
     </form>
   </div>
   <h3>Create web animation from pptx (Complete)</h3>
