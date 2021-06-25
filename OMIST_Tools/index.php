@@ -54,7 +54,7 @@ function Init() {
 
 </script>
 </head>
-<body load="Init();">
+<body onload="Init();">
 	<h1>OMIST Tools</h1>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
