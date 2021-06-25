@@ -1,4 +1,6 @@
 <?php
+
+
 if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
 
@@ -9,8 +11,10 @@ $command = 'bash ./CreateAppComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'
 header('Content-Type: text/html');
 header('Content-Disposition: attachment; filename="output.html"');
 //readfile('tmp/output.html');
-print_r($_POST);
 
 }
+
+print_r($_POST);
+
 ?>
 
