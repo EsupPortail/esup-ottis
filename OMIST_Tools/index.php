@@ -111,9 +111,11 @@ function Init() {
   <tr><td colspan="2"><b>Advanced options</b></td></tr>
   <tr>
   <td style="vertical-align: top;">
-    [Optional] Translate slides in ? : </td>
+    Translate slides in ? </td>
   <td>
-  <select id="translatelanguage1" name="translatelanguage" value=""></select>
+  <select id="translatelanguage1" name="translatelanguage" value="">
+  <option value="">No translation</option>
+  </select>
   </td></tr>
      <tr>
   <td style="vertical-align: top;">
@@ -159,9 +161,11 @@ function Init() {
   <tr><td colspan="2"><b>Advanced options</b></td></tr>
   <tr>
   <td style="vertical-align: top;">
-    [Optional] Translate slides in ? : </td>
+    Translate slides in ? </td>
   <td>
-  <select id="translatelanguage2" name="translatelanguage" value=""></select>
+  <select id="translatelanguage2" name="translatelanguage" value="">
+    <option value="">No translation</option>
+</select>
   </td></tr>
      <tr>
   <td style="vertical-align: top;">
