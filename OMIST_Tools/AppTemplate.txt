@@ -232,9 +232,9 @@ function EcouterTexte(Tch, c) {
     }
 		if (s.indexOf("[pause]") >= 0) {
       console.log("PAUSE");
-      //alert('Pause\nPress OK to resume');
+      alert('Pause\nPress OK to resume');
       
-      myalert('Pause<br/>Press OK to resume');
+      //myalert('Pause<br/>Press OK to resume');
 
       s = s.replace("[pause]", "");
     }
