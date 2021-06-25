@@ -83,29 +83,28 @@ function Init() {
   <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload"><br/>
-    Input language : <select id="inputlanguage1" name="inputlanguage"></select></br>
-    Output languages : <select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select></br>
+    <table>
+  <tr>
+  <td style="vertical-align: top;">
+    Input language : </td>
+  <td>
+  <select id="inputlanguage1" name="inputlanguage"></select>
+  </td></tr>
+    <tr>
+  <td style="vertical-align: top;">
+  Output languages : </td>
+  <td><select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select>
+  </td></tr>
+  </table>
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
   <h3>Create web animation from pdf+txt (Complete)</h3>
   <div>
   <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
-  <table>
-  <tr>
-  <td style="vertical-align: top;">
-    Select PDF file : 
-  </td>
-  <td>
-    <input type="file" name="fileToUpload" id="fileToUpload">
-  </td></tr>
-  <td style="vertical-align: top;">
-    Select SPEECH file (.txt): 
-  </td>
-  <td>
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT">
-  </td></tr>
-  </table>
+  
+    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
