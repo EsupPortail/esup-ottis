@@ -19,9 +19,9 @@ $Delay="--Delay=0";
 if (isset($_POST["extradelay"])) $Delay="--Delay=".$_POST["extradelay"];
 
 
-    $command = 'bash ./CreateAppFromPDFComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppFromPDFComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' ';//>/dev/null 2>/dev/null
     system($command);
-    echo '<pre>'.$command.'</pre>';
+    //echo '<pre>'.$command.'</pre>';
 header('Content-Type: text/html');
 header('Content-Disposition: attachment; filename="output.html"');
 readfile('tmp/output.html');
