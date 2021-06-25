@@ -13,6 +13,9 @@ cp "$Filename" tmp/input.pptx
 mkdir tmp/images
 export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp
 $CAIRO -jpeg tmp/input.pdf tmp/images/images
+
+export PYTHONIOENCODING=utf8
+
 $PYTHON ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="$From" --to="$To" $4 $5 $6
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
 
