@@ -57,6 +57,21 @@ function Init() {
 </head>
 <body onload="Init();">
 	<h1>OMIST Tools</h1>
+  <datalist id="listaspectratio">
+    <option value="16/10"/>
+    <option value="16/9"/>
+    <option value="4/3"/>
+    <option value="1/1"/>
+  </datalist>
+  <datalist id="listdelays">
+    <option value="0"/>
+    <option value="5"/>
+    <option value="10"/>
+    <option value="300"/>
+    <option value="600"/>
+    <option value="1200"/>
+  </datalist>
+ 
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
@@ -81,7 +96,7 @@ function Init() {
   <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload3"><br/>
-    <table>
+  <table>
   <tr>
   <td style="vertical-align: top;">
     Input language : </td>
@@ -93,7 +108,7 @@ function Init() {
   Output languages : </td>
   <td><select id="outputlanguage1"  name="outputlanguage" multiple rows="5"></select>
   </td></tr>
-  <tr><td colspan="2">Advanced options</td></tr>
+  <tr><td colspan="2"><b>Advanced options</b></td></tr>
   <tr>
   <td style="vertical-align: top;">
     [Optional] Translate slides in ? : </td>
@@ -105,31 +120,17 @@ function Init() {
     Aspect ratio : </td>
   <td>
   <input id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"/>
-  <datalist id="listaspectratio">
-    <option value="16/10"/>
-    <option value="16/9"/>
-    <option value="4/3"/>
-    <option value="1/1"/>
-  </datalist>
-  </td></tr>
+ </td></tr>
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
-  <input id="keepaspectratio1" name="keepaspectratio" value="X" onclick="if (this.value == 'X') this.value ==''; else this.value =='X';"/>
+  <input id="keepaspectratio1" name="keepaspectratio" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
   <td>
     <input id="extradelay1" name="extradelay" list="listdelays" value="0"/>
 
-  <datalist id="listdelays">
-    <option value="0"/>
-    <option value="5"/>
-    <option value="10"/>
-    <option value="300"/>
-    <option value="600"/>
-    <option value="1200"/>
-  </datalist>
   </td></tr>
  </table>
     <input type="submit" value="Create" name="submit">
@@ -141,6 +142,46 @@ function Init() {
   
     Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+
+
+<table>
+  <tr>
+  <td style="vertical-align: top;">
+    Input language : </td>
+  <td>
+  <select id="inputlanguage2" name="inputlanguage"></select>
+  </td></tr>
+    <tr>
+  <td style="vertical-align: top;">
+  Output languages : </td>
+  <td><select id="outputlanguage2"  name="outputlanguage" multiple rows="5"></select>
+  </td></tr>
+  <tr><td colspan="2"><b>Advanced options</b></td></tr>
+  <tr>
+  <td style="vertical-align: top;">
+    [Optional] Translate slides in ? : </td>
+  <td>
+  <select id="translatelanguage2" name="translatelanguage" value=""></select>
+  </td></tr>
+     <tr>
+  <td style="vertical-align: top;">
+    Aspect ratio : </td>
+  <td>
+  <input id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"/>
+ </td></tr>
+    <td style="vertical-align: top;">
+    Keep Aspect ratio ? </td>
+  <td>
+  <input id="keepaspectratio2" name="keepaspectratio" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  </td></tr>
+    <td style="vertical-align: top;">
+    Extra delay between slides (in tenth of seconds): </td>
+  <td>
+    <input id="extradelay2" name="extradelay" list="listdelays" value="0"/>
+
+  </td></tr>
+ </table>
+
     <input type="submit" value="Create" name="submit">
     </form>
   </div>
