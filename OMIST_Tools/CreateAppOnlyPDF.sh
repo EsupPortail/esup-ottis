@@ -2,17 +2,20 @@
 
 source config.py
 
-Filename=$1
-Speech=$2
+RANDOMPATH=$1
+Filename=$2
+Speech=$3
 
 echo "Converting file " $Filename
 
-rm -rf tmp/*
-cp "$Filename" tmp/input.pdf
-cp "$Speech" tmp/speech.txt
-mkdir tmp/images
-$CAIRO -jpeg tmp/input.pdf tmp/images/images
-$PYTHON ./CreateMultiLingualAnim.py --input=tmp/speech.txt --ImagesDir="tmp/images" --output=tmp/output.html --from="fr-FR" --to="fr-FR" $3 $4
+mkdir tmp/$RANDOMPATH
+#rm -rf tmp/*
+cp "$Filename" tmp/$RANDOMPATH/input.pdf
+cp "$Speech" tmp/$RANDOMPATH/speech.txt
+mkdir tmp/$RANDOMPATH/images
+$CAIRO -jpeg tmp/$RANDOMPATH/input.pdf tmp/$RANDOMPATH/images/images
+$PYTHON ./CreateMultiLingualAnim.py --input=tmp/$RANDOMPATH/speech.txt --ImagesDir="tmp/$RANDOMPATH/images" --output=tmp/output_$RANDOMPATH.html --from="fr-FR" --to="fr-FR" $4 $5
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
+rm -rf tmp/$RANDOMPATH
 
 

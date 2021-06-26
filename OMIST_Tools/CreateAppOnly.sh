@@ -5,11 +5,6 @@ source config.py
 Filename=$1
 RANDOMPATH=$2
 
-if [ $Filename = "" ]; then
-        echo "Filename is missing"
-        exit
-fi
-
 echo "Converting file " $Filename
 
 mkdir tmp/$RANDOMPATH
