@@ -3,6 +3,8 @@
 
 if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
+$randompath=md5(gmdate("U"));
+
 if (isset($_FILES["fileToUploadTXT"]["tmp_name"]) && trim($_FILES["fileToUploadTXT"]["tmp_name"]) != "") $speech=$_FILES["fileToUploadTXT"]["tmp_name"]; else $speech="blank.txt";
 
 $From="fr-FR";
@@ -19,12 +21,13 @@ $Delay="--Delay=0";
 if (isset($_POST["extradelay"])) $Delay="--Delay=".$_POST["extradelay"];
 
 
-    $command = 'bash ./CreateAppFromPDFComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppFromPDFComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
     system($command);
     //echo '<pre>'.$command.'</pre>';
 header('Content-Type: text/html');
 header('Content-Disposition: attachment; filename="output.html"');
-readfile('tmp/output.html');
+readfile('tmp/output_'.$randompath.'.html');
+unlink('tmp/output_'.$randompath.'.html');
 
 }
 
