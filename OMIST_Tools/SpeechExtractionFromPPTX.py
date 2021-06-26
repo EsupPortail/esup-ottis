@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import getopt, sys
 from pptx import Presentation
 
@@ -99,7 +101,7 @@ def ExtractNotes(filename):
             slidenotes["Notes"]=notesslide
             notes.append(slidenotes)
     else:
-        content = open(filename, 'r').read().split("\n")
+        content = open(filename, 'r',encoding='utf-8').read().split("\n")
         notes=[]
         num=0
         notesslide=[]
