@@ -87,6 +87,7 @@ def ExtractNotes_old(filename):
     return notes
 
 def ExtractNotes(filename):
+    print("DEBUG Filename=",filename)
     if filename.split(".")[-1] == "pptx":
         prs = Presentation(filename)
         notes=[]
@@ -100,7 +101,7 @@ def ExtractNotes(filename):
             slidenotes["Slide"]=num
             slidenotes["Notes"]=notesslide
             notes.append(slidenotes)
-            print("DEBUG Notes',num,' : ",slidenotes)
+            print("DEBUG Notes",num," : ",notesslide.join(','))
     else:
         content = open(filename, 'r',encoding='utf-8').read().split("\n")
         notes=[]
