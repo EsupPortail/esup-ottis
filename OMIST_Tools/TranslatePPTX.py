@@ -8,6 +8,7 @@ import base64
 import os
 import pipes
 import config
+import requests
 
 def usage():
     print("Usage:")
