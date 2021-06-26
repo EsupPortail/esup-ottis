@@ -8,6 +8,6 @@ system($command);
 header('Content-Type: text/html');
 header('Content-Disposition: attachment; filename="output.html"');
 readfile('tmp/output_'.$randompath.'.html');
-
+unlink('tmp/output_'.$randompath.'.html');
 }
 ?>
