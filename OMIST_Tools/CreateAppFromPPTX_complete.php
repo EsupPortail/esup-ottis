@@ -3,6 +3,8 @@
 
 if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
+$randompath=md5(gmdate("U"));
+
 $From="fr-FR";
 if (isset($_POST["inputlanguage"])) $From=$_POST["inputlanguage"];
 $To="fr-FR";
@@ -19,17 +21,18 @@ $Delay="--Delay=0";
 if (isset($_POST["extradelay"])) $Delay="--Delay=".$_POST["extradelay"];
 
 if ($TranslateLang == "") {
-    $command = 'bash ./CreateAppComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
     system($command);
 } else {
-    $command = 'bash ./CreateAppComplete_translate.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
+    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
     system($command);
     
 }
 
 header('Content-Type: text/html');
 header('Content-Disposition: attachment; filename="output.html"');
-readfile('tmp/output.html');
+readfile('tmp/output_'.$randompath.'.html');
+unlink('tmp/output_'.$randompath.'.html');
 
 }
 

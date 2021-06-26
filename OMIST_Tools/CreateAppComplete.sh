@@ -2,21 +2,24 @@
 
 source config.py
 
-Filename=$1
-From=$2
-To=$3
+RANDOMPATH=$1
+Filename=$2
+From=$3
+To=$4
 
 echo "Converting file " $Filename
 
-rm -rf tmp/*
-cp "$Filename" tmp/input.pptx
-mkdir tmp/images
-export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp
-$CAIRO -jpeg tmp/input.pdf tmp/images/images
+mkdir tmp/$RANDOMPATH
+#rm -rf tmp/*
+cp "$Filename" tmp/$RANDOMPATH/input.pptx
+mkdir tmp/$RANDOMPATH/images
+export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/$RANDOMPATH/input.pptx --outdir tmp/$RANDOMPATH
+$CAIRO -jpeg tmp/$RANDOMPATH/input.pdf tmp/$RANDOMPATH/images/images
 
 export PYTHONIOENCODING=utf8
 
-$PYTHON ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="$From" --to="$To" $4 $5 $6
+$PYTHON ./CreateMultiLingualAnim.py --input=tmp/$RANDOMPATH/input.pptx --ImagesDir="tmp/$RANDOMPATH/images" --output=tmp/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
+rm -rf tmp/$RANDOMPATH
 
 
