@@ -92,6 +92,7 @@ def ExtractNotes(filename):
         prs = Presentation(filename)
         notes=[]
         num=0
+        print("DEBUG Filename=",len(prs.slides))
         for slide in prs.slides:
             num+=1
             notesslide=[]
