@@ -10,6 +10,8 @@ To=$5
 
 echo "Converting file " $Filename
 
+export PYTHONIOENCODING=utf8
+
 mkdir tmp/$RANDOMPATH
 #rm -rf tmp/*
 cp "$Filename" tmp/$RANDOMPATH/input.pdf

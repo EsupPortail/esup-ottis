@@ -15,6 +15,8 @@ cp "$Filename" tmp/$RANDOMPATH/input.pdf
 cp "$FilenameSpeech" tmp/$RANDOMPATH/speech.txt
 mkdir tmp/$RANDOMPATH/images
 $CAIRO -jpeg tmp/$RANDOMPATH/input.pdf tmp/$RANDOMPATH/images/images  2>/dev/null
+export PYTHONIOENCODING=utf8
+
 $PYTHON ./PDF_TXT_to_PPTX.py --input=tmp/$RANDOMPATH/speech.txt --ImagesDir=tmp/$RANDOMPATH/images --output=tmp/$RANDOMPATH/converted $4  
 
 cd tmp/$RANDOMPATH
