@@ -172,10 +172,10 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     # Gestion des images
     print("Converting all images in base64")
     AllFilenames=[]
-    with os.scandir(imagesdir) as it:
-        for entry in it:
-            if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
-                AllFilenames.append(entry.name)
+    listfiles = os.listdir(imagesdir)
+    for entry in listfiles:
+        if (entry.endswith('jpeg') or entry.endswith('jpg')):
+            AllFilenames.append(entry)
     AllFilenames.sort()
     AllImages = []
     for f in AllFilenames:
