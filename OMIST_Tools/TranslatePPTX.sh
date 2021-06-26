@@ -2,19 +2,22 @@
 
 source config.py
 
-Filename=$1
-From=$2
-To=$3
+RANDOMPATH=$1
+Filename=$2
+From=$3
+To=$4
 To=`echo "$To"|sed "s/,/ /g"`
 
 echo "Converting file " $Filename
 
-rm -rf tmp/*
-
-cp "$Filename" tmp/original_file.pptx
+mkdir tmp/$RANDOMPATH
+#rm -rf tmp/*
+cp "$Filename" tmp/$RANDOMPATH/original_file.pptx
 for lang in $To; do
   echo "Translating in $lang"
-  $PYTHON ./TranslatePPTX.py --input=tmp/original_file.pptx --output=tmp/translated_$lang.pptx --from="$From" --to="$lang" $4 2>/dev/null
+  $PYTHON ./TranslatePPTX.py --input=tmp/$RANDOMPATH/original_file.pptx --output=tmp/$RANDOMPATH/translated_$lang.pptx --from="$From" --to="$lang" $5 2>/dev/null
 done
-cd tmp
-zip -9 output.zip translated*.pptx
+cd tmp/$RANDOMPATH
+zip -9 ../output_$RANDOMPATH.zip translated*.pptx
+cd ../..
+rm -rf tmp/$RANDOMPATH
