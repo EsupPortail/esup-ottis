@@ -13,7 +13,7 @@ echo "Converting file " $Filename
 mkdir tmp/$RANDOMPATH
 #rm -rf tmp/*
 cp "$Filename" tmp/$RANDOMPATH/original_file.pptx
-$PYTHON ./TranslatePPTX.py --input=tmp/$RANDOMPATH/original_file.pptx --output=tmp/$RANDOMPATH/input.pptx --from="$From" --to="$Translated"  2>/dev/null
+$PYTHON ./TranslatePPTX.py --input=tmp/$RANDOMPATH/original_file.pptx --output=tmp/$RANDOMPATH/input.pptx --from="$From" --to="$Translated"
 mkdir tmp/$RANDOMPATH/images
 export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/$RANDOMPATH/input.pptx --outdir tmp/$RANDOMPATH
 $CAIRO -jpeg tmp/$RANDOMPATH/input.pdf tmp/$RANDOMPATH/images/images
