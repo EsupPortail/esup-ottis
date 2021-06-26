@@ -237,7 +237,7 @@ def SpeechExtract(filename,fileout):
     # Gestion des notes
     print("Extracting notes")
     Notes = ExtractNotes(filename)
-    fd=open(fileout,"w")
+    fd=open(fileout,"w",encoding='utf-8')
     for note in Notes:
         fd.write("------------- Slide "+str(note["Slide"])+" -------------\n")
         fd.write("\n".join(note["Notes"])+"\n")
