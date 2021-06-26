@@ -19,7 +19,7 @@ $Delay="--Delay=0";
 if (isset($_POST["extradelay"])) $Delay="--Delay=".$_POST["extradelay"];
 
 if ($TranslateLang == "") {
-    $command = 'bash ./CreateAppComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' ';//>/dev/null 2>/dev/null
     system($command);
 } else {
     $command = 'bash ./CreateAppComplete_translate.sh "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
