@@ -19,3 +19,5 @@ $PYTHON ./PDF_TXT_to_PPTX.py --input=tmp/$RANDOMPATH/speech.txt --ImagesDir=tmp/
 
 cd tmp/$RANDOMPATH
 zip -9 ../output_$RANDOMPATH.zip converted.*
+cd ../..
+rm -rf tmp/$RANDOMPATH
