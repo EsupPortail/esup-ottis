@@ -100,6 +100,7 @@ def ExtractNotes(filename):
             slidenotes["Slide"]=num
             slidenotes["Notes"]=notesslide
             notes.append(slidenotes)
+            print("DEBUG Notes',num,' : ",slidenotes)
     else:
         content = open(filename, 'r',encoding='utf-8').read().split("\n")
         notes=[]
