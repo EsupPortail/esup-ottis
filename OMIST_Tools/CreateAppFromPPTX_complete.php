@@ -24,7 +24,7 @@ if ($TranslateLang == "") {
     $command = 'bash ./CreateAppComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
     system($command);
 } else {
-    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' ';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
     system($command);
     
 }
