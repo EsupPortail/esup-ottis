@@ -97,7 +97,7 @@ def ExtractNotes(filename):
             num+=1
             notesslide=[]
             for note in slide.notes_slide.notes_text_frame.paragraphs:
-                notesslide.append(note.text)
+                notesslide.append(note.text.decode('utf-8'))
             slidenotes=dict()
             slidenotes["Slide"]=num
             slidenotes["Notes"]=notesslide
