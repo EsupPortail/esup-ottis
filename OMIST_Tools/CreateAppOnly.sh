@@ -3,6 +3,7 @@
 source config.py
 
 Filename=$1
+RANDOMPATH=$2
 
 if [ $Filename = "" ]; then
         echo "Filename is missing"
@@ -11,11 +12,13 @@ fi
 
 echo "Converting file " $Filename
 
-rm -rf tmp/*
-cp "$Filename" tmp/input.pptx
-mkdir tmp/images
-export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/input.pptx --outdir tmp
-$CAIRO -jpeg tmp/input.pdf tmp/images/images
-$PYTHON ./CreateMultiLingualAnim.py --input=tmp/input.pptx --ImagesDir="tmp/images" --output=tmp/output.html --from="fr-FR" --to="fr-FR" $2 $3 $4
+mkdir tmp/$RANDOMPATH
+#rm -rf tmp/*
+cp "$Filename" tmp/$RANDOMPATH/input.pptx
+mkdir tmp/$RANDOMPATH/images
+export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/$RANDOMPATH/input.pptx --outdir tmp/$RANDOMPATH
+$CAIRO -jpeg tmp/$RANDOMPATH/input.pdf tmp/$RANDOMPATH/images/images
+$PYTHON ./CreateMultiLingualAnim.py --input=tmp/$RANDOMPATH/input.pptx --ImagesDir="tmp/$RANDOMPATH/images" --output=tmp/output_$RANDOMPATH.html --from="fr-FR" --to="fr-FR" $3 $4 $5
+rm -rf tmp/$RANDOMPATH
 # ./CreateMultiLingualAnim.py --input tmp/test.pptx --ImagesDir "tmp/test" --output tmp/out.html --to "EN,DE"
 
