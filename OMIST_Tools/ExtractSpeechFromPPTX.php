@@ -8,7 +8,7 @@ system($command);
 header('Content-Type: text/plain');
 header('Content-Disposition: attachment; filename="speech.txt"');
 readfile('tmp/speech_'.$randompath.'.txt');
-unlink('tmp/speech_'.$randompath.'.txt');
+//unlink('tmp/speech_'.$randompath.'.txt');
 
 }
 ?>
