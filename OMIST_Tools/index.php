@@ -28,8 +28,6 @@ fclose($fd);
     <link rel="icon" type="image/png" href="../favicon.png" />
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
-<script type="text/javascript">
-
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
@@ -38,6 +36,8 @@ h1 {
       font-family: 'Fjalla One', sans-serif;
 }
 </style>
+<script type="text/javascript">
+
 <?php
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 ?>
