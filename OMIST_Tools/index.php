@@ -211,7 +211,7 @@ function Init() {
     <td style="vertical-align: top;">
     Translate slide notes too ? </td>
   <td>
-  <input type="checkbox" value=False onclick="alert(this.value); if (this.value) document.getElementById('slidenotes3').value =''; else document.getElementById('slidenotes3').value ='X';"/>
+  <input type="checkbox" value=false onclick="alert(this.value); if (this.value) document.getElementById('slidenotes3').value =''; else document.getElementById('slidenotes3').value ='X';"/>
   <input id="slidenotes3" name="slidenotes"  style="width: 10px;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
  </table>
