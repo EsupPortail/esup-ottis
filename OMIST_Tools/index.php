@@ -25,13 +25,19 @@ fclose($fd);
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="../jquery/jquery-ui.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet"> 
     <link rel="icon" type="image/png" href="../favicon.png" />
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
-
-
 <script type="text/javascript">
 
+<style type="text/css">
+h1 {
+      font-family: 'Fjalla One', sans-serif;
+}
+</style>
 <?php
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 ?>
