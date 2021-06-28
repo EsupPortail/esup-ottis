@@ -21,7 +21,7 @@ fclose($fd);
 <!doctype html>
 <html lang="fr">
 <head>
-	<title>OMIST Tools</title>
+	<title>Slide Manipulation Tools</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="../jquery/jquery-ui.min.css" rel="stylesheet">
@@ -63,7 +63,7 @@ function Init() {
 </script>
 </head>
 <body onload="Init();">
-	<h1><img src="logo-next-omist.png"/> OMIST Tools</h1>
+	<h1><img src="logo-next-omist.png"/>&nbsp;&nbsp;&nbsp;&nbsp;Slide Manipulation Tools</h1>
   <datalist id="listaspectratio">
     <option value="16/10"/>
     <option value="16/9"/>
