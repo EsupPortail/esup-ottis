@@ -32,9 +32,10 @@ fclose($fd);
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
-h1 {
+h1,body {
       font-family: 'Fjalla One', sans-serif;
 }
+
 </style>
 <script type="text/javascript">
 
