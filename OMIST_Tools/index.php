@@ -211,8 +211,8 @@ function Init() {
     <td style="vertical-align: top;">
     Translate slide notes too ? </td>
   <td>
-  <input type="checkbox" onclick="alert(this.checked); if (this.checked) document.getElementById('slidenotes3').value ='X'; else document.getElementById('slidenotes3').value ='';"/>
-  <input id="slidenotes3" name="slidenotes"  style="width: 10px;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  <input type="checkbox" onclick="if (this.checked) document.getElementById('slidenotes3').value ='X'; else document.getElementById('slidenotes3').value ='';" style="font-size:2em;"/>
+  <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
