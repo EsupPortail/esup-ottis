@@ -32,11 +32,7 @@ fclose($fd);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
-  <style type="text/css">
 
-@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
-
-</style>
 
 	<style>
 
@@ -163,7 +159,6 @@ input[type=text] {
   color: white;
   font-size: 18px;
   font-family: helvetica, arial, sans-serif;
-  font-family: 'Fjalla One', sans-serif;
   font-style: italic;
   padding: 10px;
   box-shadow: 2px 2px 5px blue;
