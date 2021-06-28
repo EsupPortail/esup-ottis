@@ -134,7 +134,8 @@ function Init() {
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
-  <input id="keepaspectratio1" name="keepaspectratio" style="width: 10px;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext1">Yes !</span>
+    <input id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
@@ -177,7 +178,9 @@ function Init() {
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
-  <input id="keepaspectratio2" name="keepaspectratio"  style="width: 10px;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext2">Yes !</span>
+    <input id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
