@@ -123,6 +123,7 @@ function Init() {
   <td>
   <input id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"/>
  </td></tr>
+ <tr>
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
@@ -165,6 +166,7 @@ function Init() {
   <td>
   <input id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"/>
  </td></tr>
+ <tr>
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
@@ -197,6 +199,12 @@ function Init() {
   <td style="vertical-align: top;">
   Output languages : </td>
   <td><select id="outputlanguage3"  name="outputlanguage[]" multiple rows="5"></select>
+  </td></tr>
+  <tr>
+    <td style="vertical-align: top;">
+    Translate slide notes too ? </td>
+  <td>
+  <input id="slidenotes3" name="slidenotes"  style="width: 10px;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
