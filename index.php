@@ -234,6 +234,7 @@ var AllOutputVoices=[];
 var TLangInput=[];
 var builtin_voice;
 var builtin_language;
+var subtitle_language;
 
 function PopulateVoicesOut() {
   var select = document.getElementById('VoiceOutput');
@@ -297,6 +298,23 @@ function PopulateVoicesIn() {
   }
 }
 
+function PopulateSubtitlesLang() {
+  var select = document.getElementById('subtitlelanguage');
+  for(var i=0; i<supportedlanguages.length; i++) {
+      var lang=supportedlanguages[i].code; //.substr(0,5);
+        var opt=document.createElement("option");
+        opt.value=lang;
+        if (i == 0) {
+          opt.selected=true;
+          builtin_language=lang;
+        }
+        opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+        select.appendChild(opt);
+      }
+    }
+  }
+}
+
 
 function setLanguageInput(i) {
   builtin_language=TLangInput[i];
@@ -306,6 +324,10 @@ function setLanguageInput(i) {
 function setLanguageOutput(i) {
   builtin_voice=AllOutputVoices[i];
   //Ecrire(builtin_voice.lang);
+}
+
+function setLanguageSubtitle(i) {
+  subtitle_language=i;
 }
 
 function Parle(txt) {
@@ -668,7 +690,7 @@ function Lancer() {
 }
 
 function Init() {
-
+  PopulateSubtitlesLang();
   document.getElementById('question').addEventListener('keyup', function (event) {
     if (event.code === 'Enter') {
         saveTextQ(document.getElementById('question').value);
@@ -956,6 +978,9 @@ window.onresize=resizeSlides;
     <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
+<li>Translate subtitles ?  <input type="checkbox" id="subtitleon"/></li>
+<li>Language for subtitles ? <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
+  </select></li>
   </ul>
   <br/>
   <br/>
