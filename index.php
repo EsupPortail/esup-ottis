@@ -657,10 +657,13 @@ function EcrireNB(ch) {
 }
 
 function EcrireTitle(ch) {
-  if (! document.getElementById('subtitleon').checked || document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase() == document.getElementById('subtitlelanguage').value.substr(0,2).toLowerCase()) {
+  var linput = document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase();
+  var loutput = document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase();
+
+  if ((! document.getElementById('subtitleon').checked) || (linput == loutput)) {
     document.getElementById('titre').innerHTML=ch;
   } else {
-    TranslateThen(ch,document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase(),document.getElementById('subtitlelanguage').value.substr(0,2).toLowerCase(),function (ch){document.getElementById('titre').innerHTML=ch;});
+    TranslateThen(ch,loutput,linput,function (ch){document.getElementById('titre').innerHTML=ch;});
   }
 }
 
