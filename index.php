@@ -995,8 +995,7 @@ window.onresize=resizeSlides;
 	</ul>
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
-	    <li><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
-<li><label for="classroomlanguage">Classroom language :</label>
+<li><label for="classroomlanguage">Speaker language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
 </li>
@@ -1006,6 +1005,7 @@ window.onresize=resizeSlides;
     <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
+  <li>&nbsp;</li>
 <li>Translate subtitles ?  <input type="checkbox" id="subtitleon"/></li>
 <li>Language for subtitles: <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
   </select></li>
@@ -1015,6 +1015,8 @@ window.onresize=resizeSlides;
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
   </select></li>
+  <li>&nbsp;</li>
+	    <li><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 
   </ul>
   <br/>
