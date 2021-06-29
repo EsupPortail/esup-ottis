@@ -154,7 +154,7 @@ input[type=text] {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  height: 64px;
+  min-height: 64px;
   background-color: rgba(0,0,255,0.5);
   color: white;
   font-size: 18px;
