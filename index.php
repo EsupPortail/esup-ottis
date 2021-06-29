@@ -326,6 +326,7 @@ function setLanguageOutput(i) {
 
 function setLanguageSubtitle(i) {
   subtitle_language=i;
+  console.log("Subtitles set to "+subtitle_language);
 }
 
 function Parle(txt) {
@@ -393,6 +394,24 @@ function Translate(ch, l, linput) {
   xhr.send();
 }
 
+function TranslateThen(ch, l, linput,f) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
+
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      // console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      if ((! response["error"]) && response["data"]["translations"]) {
+        f(response["data"]["translations"][0]["translatedText"]);
+      } else {
+        f("---- Translation ERROR ----");
+      }
+
+    }
+  };
+  xhr.send();
+}
 
 
 
@@ -634,8 +653,17 @@ function EcrireNB(ch) {
   if (document.getElementById('notebook').innerHTML == "")
     document.getElementById('notebook').innerHTML=ch;
   else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
-  document.getElementById('titre').innerHTML=ch;
+  EcrireTitle(ch);
 }
+
+function EcrireTitle(ch) {
+  if (! document.getElementById('subtitleon').checked || document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase() == document.getElementById('subtitlelanguage').value.substr(0,2).toLowerCase()) {
+    document.getElementById('titre').innerHTML=ch;
+  } else {
+    TranslateThen(ch,document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase(),document.getElementById('subtitlelanguage').value.substr(0,2).toLowerCase(),function (ch){document.getElementById('titre').innerHTML=ch;});
+  }
+}
+
 
 
 function Ecrire(ch) {
