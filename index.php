@@ -441,7 +441,7 @@ function addToNB(ch,before) {
 
   ch=tobesaidbetweenslides+ch;
   document.getElementById('notebook').innerHTML+='<br/>'+ch;
-  document.getElementById('titre').innerHTML=ch;
+  EcrireTitle(ch);
   //saveTextNB(document.getElementById('notebook').innerHTML);
   var Tch=ch.split('<br/>');
   saveTextTable(Tch,0);
