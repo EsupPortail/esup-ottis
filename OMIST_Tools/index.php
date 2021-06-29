@@ -35,7 +35,11 @@ fclose($fd);
 h1 {
       font-family: 'Fjalla One', sans-serif;
 }
-
+#logo {
+  position: fixed;
+  top:0px;
+  right:0px;
+}
 </style>
 <script type="text/javascript">
 
@@ -63,7 +67,8 @@ function Init() {
 </script>
 </head>
 <body onload="Init();">
-	<h1><img src="logo-ufr-sciences.jpg" height="50"/>&nbsp;&nbsp;&nbsp;&nbsp;Slide Manipulation Tools</h1>
+	<h1>Slide Manipulation Tools</h1>
+  <div id="logo"><img src="logo-ufr-sciences.jpg" height="50"/></div>
   <datalist id="listaspectratio">
     <option value="16/10"/>
     <option value="16/9"/>
