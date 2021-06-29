@@ -326,7 +326,7 @@ function setLanguageOutput(i) {
 
 function setLanguageSubtitle(i) {
   subtitle_language=i;
-  console.log("Subtitles set to "+subtitle_language);
+  console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
 }
 
 function Parle(txt) {
@@ -657,8 +657,8 @@ function EcrireNB(ch) {
 }
 
 function EcrireTitle(ch) {
-  var linput = document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase();
-  var loutput = document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase();
+  var linput = builtin_language.substr(0,2).toLowerCase();
+  var loutput = subtitle_language.substr(0,2).toLowerCase();
   console.log("Ecrire title : "+document.getElementById('subtitleon').checked+"  "+linput+" -> "+loutput);
   if ((! document.getElementById('subtitleon').checked) || (linput == loutput)) {
     document.getElementById('titre').innerHTML=ch;
