@@ -69,7 +69,7 @@ function Init() {
 </head>
 <body onload="Init();">
 	<h1>Slide Manipulation Tools</h1>
-  <div id="logo"><img src="logo-ufr-sciences.jpg" height="100"/></div>
+  <div id="logo"><img src="logo-ufr-sciences.jpg" height="80"/></div>
   <datalist id="listaspectratio">
     <option value="16/10"/>
     <option value="16/9"/>
