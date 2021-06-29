@@ -86,7 +86,7 @@ input[type=text] {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  height: 64px;
+  min-height: 64px;
   background-color: rgba(0,0,255,0.5);
   color: white;
   font-size: 18px;
@@ -719,6 +719,13 @@ function LoadVoices() {
 <input type="checkbox" id="synthesison" onclick="resizeSlides();"/></li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
+<li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;">
+<option value="12px">Small</option>
+<option value="18px" selected>Normal</option>
+<option value="24px" >Big</option>
+<option value="32px" >Huge</option>
+  </select></li>
+
   </ul>
     <br/>
   <br/>
