@@ -1016,7 +1016,7 @@ window.onresize=resizeSlides;
 <option value="32px" >Huge</option>
   </select></li>
   <li>&nbsp;</li>
-	    <li><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+	    <li title="Do not change that if you do not know what you are doing."><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 
   </ul>
   <br/>
