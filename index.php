@@ -659,7 +659,7 @@ function EcrireNB(ch) {
 function EcrireTitle(ch) {
   var linput = document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase();
   var loutput = document.getElementById('classroomlanguage').value.substr(0,2).toLowerCase();
-
+  console.log("Ecrire title : "+document.getElementById('subtitleon').checked+"  "+linput+" -> "+loutput);
   if ((! document.getElementById('subtitleon').checked) || (linput == loutput)) {
     document.getElementById('titre').innerHTML=ch;
   } else {
