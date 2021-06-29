@@ -1008,8 +1008,15 @@ window.onresize=resizeSlides;
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
 <li>Translate subtitles ?  <input type="checkbox" id="subtitleon"/></li>
-<li>Language for subtitles ? <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
+<li>Language for subtitles: <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
   </select></li>
+<li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;">
+<option value="12px">Small</option>
+<option value="18px" selected>Normal</option>
+<option value="24px" >Big</option>
+<option value="32px" >Huge</option>
+  </select></li>
+
   </ul>
   <br/>
   <br/>
