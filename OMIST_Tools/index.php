@@ -90,7 +90,7 @@ function Init() {
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload1"/><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/><br/>
     <input type="submit" value="Create" name="submit"/>
     </form>
   </div>
@@ -98,9 +98,9 @@ function Init() {
   <div>
   <form action="CreateAppFromPDF.php" method="post" enctype="multipart/form-data">
     Select PDF file : 
-    <input type="file" name="fileToUpload" id="fileToUpload2"/><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000"/><br/>
     Select SPEECH file (.txt): 
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"/><br/>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000"/><br/>
     <input type="submit" value="Create" name="submit"/>
     </form>
   </div>
@@ -108,7 +108,7 @@ function Init() {
   <div>
   <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload3"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"><br/>
   <table>
   <tr>
   <td style="vertical-align: top;">
@@ -157,8 +157,8 @@ function Init() {
   <div>
   <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
   
-    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload"><br/>
-    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" max-size="50000"><br/>
+    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
 
 
 <table>
@@ -203,7 +203,7 @@ function Init() {
   <div>
   <form action="TranslatePPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -230,8 +230,8 @@ function Init() {
   <h3>Convert pdf+txt to pptx</h3>
   <div>
   <form action="ConvertPDFtoPPTX.php" method="post" enctype="multipart/form-data">  
-    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload"><br/>
-    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT"><br/>
+    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" max-size="50000"><br/>
+    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
     <input type="submit" value="Convert" name="submit">
     </form>
   </div>
@@ -239,7 +239,7 @@ function Init() {
   <div>
   <form action="ExtractSpeechFromPPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
     <input type="submit" value="Extract" name="submit">
     </form>
   </div>
