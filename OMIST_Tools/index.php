@@ -39,6 +39,7 @@ h1 {
   position: fixed;
   top:0px;
   right:0px;
+  z-index:1000;
 }
 </style>
 <script type="text/javascript">
