@@ -302,17 +302,15 @@ function PopulateSubtitlesLang() {
   var select = document.getElementById('subtitlelanguage');
   for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code; //.substr(0,5);
-        var opt=document.createElement("option");
-        opt.value=lang;
-        if (i == 0) {
-          opt.selected=true;
-          builtin_language=lang;
-        }
-        opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
-        select.appendChild(opt);
+      var opt=document.createElement("option");
+      opt.value=lang;
+      if (i == 0) {
+        opt.selected=true;
+        subtitle_language=lang;
       }
+      opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+      select.appendChild(opt);
     }
-  }
 }
 
 
