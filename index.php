@@ -912,21 +912,22 @@ function resizeSlides() {
   var ratio = slide.width/slide.height;
   var aggrandissmentX=window.innerWidth/slide.width;
   var aggrandissmentY=(window.innerHeight-150)/slide.height;
-  if (aggrandissmentX/aggrandissmentY > ratio ) {
+  if (aggrandissmentX>aggrandissmentY) {
     /*
     slide.width=aggrandissmentY*slide.width;
     slide.style.width=aggrandissmentY*slide.width+"px";
     slide.height=aggrandissmentY*slide.height;
     slide.style.height=aggrandissmentY*slide.height+"px";
     */
-    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
+    slide.style.transform='scaleX('+aggrandissmentY+') scaleY('+aggrandissmentY+')';
+//    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
   } else {
 /*    slide.width=aggrandissmentX*slide.width;
     slide.style.width=aggrandissmentX*slide.width+"px";
     slide.height=aggrandissmentX*slide.height;
     slide.style.height=aggrandissmentX*slide.height+"px";
 */
-    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
+    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentX+')';
 
 //slide.style.transform='scale('+aggrandissmentX+')';
 
