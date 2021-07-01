@@ -919,14 +919,16 @@ function resizeSlides() {
     slide.height=aggrandissmentY*slide.height;
     slide.style.height=aggrandissmentY*slide.height+"px";
     */
-    slide.style.transform='scale('+aggrandissmentY+')';
+    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
   } else {
 /*    slide.width=aggrandissmentX*slide.width;
     slide.style.width=aggrandissmentX*slide.width+"px";
     slide.height=aggrandissmentX*slide.height;
     slide.style.height=aggrandissmentX*slide.height+"px";
 */
-slide.style.transform='scale('+aggrandissmentX+')';
+    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
+
+//slide.style.transform='scale('+aggrandissmentX+')';
 
   }
 }
