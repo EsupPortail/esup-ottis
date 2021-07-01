@@ -910,8 +910,8 @@ function GoFS() {
 function resizeSlides() {
   var slide = document.getElementById('img_slides');
   var ratio = slide.width/slide.height;
-  var aggrandissmentX=window.innerWidth/slide.width;
-  var aggrandissmentY=(window.innerHeight-150)/slide.height;
+  var aggrandissmentX=(window.innerWidth-30)/slide.width;
+  var aggrandissmentY=(window.innerHeight-80)/slide.height;
   if (aggrandissmentX>aggrandissmentY) {
     /*
     slide.width=aggrandissmentY*slide.width;
