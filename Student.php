@@ -796,8 +796,10 @@ function LoadVoices() {
               },
               qrCodeMessage => {
                 var content=qrCodeMessage;
-                document.getElementById('classroomid').value=content.substr(-32);
-                alert('Find Classroom id : '+content.substr(-32));
+                var pattern='ROOMID=';
+                var offset=content.length-content.indexOf(pattern)-pattern.length;
+                document.getElementById('classroomid').value=content.substr(-offset);
+                alert('Find Classroom id : '+content.substr(-offset));
                 scanner.stop();
             },
           errorMessage => {
