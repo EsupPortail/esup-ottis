@@ -763,8 +763,8 @@ function LoadVoices() {
 
   <div id="tabs-4">
     <input type="button" value="Start Scanning" onclick="StartScan();"/>
-    <input type="button" value="Stop Scanning" onclick="if (scanner) scanner.clear();"/>
-    <select id="AllCameras" style="display:none" onchange="if (scanner) scanner.clear(); StartScan();"></select>
+    <input type="button" value="Stop Scanning" onclick="if (scanner) scanner.stop();"/>
+    <select id="AllCameras" style="display:none" onchange="if (scanner) scanner.stop(); StartScan();"></select>
     <!--<script type="text/javascript" src="instascan.min.js"></script>-->
     <script src="html5-qrcode.min.js"></script>
     <!--<video id="preview"></video>-->
@@ -798,7 +798,7 @@ function LoadVoices() {
                 var content=qrCodeMessage;
                 document.getElementById('classroomid').value=content.substr(-32);
                 alert('Find Classroom id : '+content.substr(-32));
-                scanner.clear();
+                scanner.stop();
             },
           errorMessage => {
             console.log(`QR Code no longer in front of camera.`);
