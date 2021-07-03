@@ -1113,7 +1113,7 @@ new QRCode(document.getElementById("sharedqr"), {
 });
 
 document.getElementById("sharedqr").title="";
-document.getElementById("sharedqr").onclick=function () {document.getElementById("sharedqr").firstChild.toBlob(function (url) {window.open(url);});};
+document.getElementById("sharedqr").onclick=function () {document.getElementById("sharedqr").firstChild.toBlob(function (blob) {var url = URL.createObjectURL(blob);window.open(url);});};
 
 $('#bar').on('keydown keyup keypress', function(e) {
   //console.log(e.keyCode);
