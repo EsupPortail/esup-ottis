@@ -763,9 +763,42 @@ function LoadVoices() {
 
   <div id="tabs-4">
     <input type="button" value="Start Scanning" onclick="StartScan();"/>
-    <script type="text/javascript" src="instascan.min.js"></script>
-    <video id="preview"></video>
+
+    <!--<script type="text/javascript" src="instascan.min.js"></script>-->
+    <script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
+    <!--<video id="preview"></video>-->
+    <div id="reader"></div>
     <script type="text/javascript">
+      function StartScan() {
+        Html5Qrcode.getCameras().then(devices => {
+          if (devices && devices.length) {
+            var cameraId = devices[0].id;
+            const scanner = new Html5Qrcode("reader");
+            scanner.start(
+              cameraId,
+              {
+                fps: 10,
+                qrbox: 250
+              },
+              qrCodeMessage => {
+                var content=${qrCodeMessage};
+                document.getElementById('classroomid').value=content.substr(-32);
+                alert('Find Classroom id : '+content.substr(-32));
+                scanner.stop();
+                alert('QR Code detected: ${qrCodeMessage}');
+            },
+          errorMessage => {
+            console.log(`QR Code no longer in front of camera.`);
+          })
+          .catch(err => {
+              console.log(`Unable to start scanning, error: ${err}`);
+          });
+          }
+        }).catch(err => {
+          alert('No camera found !')
+        });
+      }
+    /*
     function StartScan() {
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview'), mirror: false });
       scanner.addListener('scan', function (content) {
@@ -783,6 +816,7 @@ function LoadVoices() {
         console.error(e);
       });
     }
+    */
     </script>
   </div>
 
