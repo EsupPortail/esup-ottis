@@ -763,17 +763,31 @@ function LoadVoices() {
 
   <div id="tabs-4">
     <input type="button" value="Start Scanning" onclick="StartScan();"/>
-
+    <input type="button" value="Stop Scanning" onclick="if (scanner) scanner.stop();"/>
+    <select id="AllCameras" style="display:none" onchange="if (scanner) scanner.stop(); StartScan();"></select>
     <!--<script type="text/javascript" src="instascan.min.js"></script>-->
     <script src="html5-qrcode.min.js"></script>
     <!--<video id="preview"></video>-->
     <div id="reader"></div>
     <script type="text/javascript">
+      const scanner = new Html5Qrcode("reader");
       function StartScan() {
+        document.getElementById('AllCameras').style.display='block';
+
         Html5Qrcode.getCameras().then(devices => {
           if (devices && devices.length) {
-            var cameraId = devices[0].id;
-            const scanner = new Html5Qrcode("reader");
+            var select = document.getElementById('AllCameras');
+            if (select.length == 0) {
+              for(var i=0; i<devices.length; i++) {
+                var opt=document.createElement("option");
+                opt.value=devices[i].id;
+                opt.innerHTML=devices[i].name;
+                if (i==0) opt.selected=true;
+                select.appendChild(opt);
+              }
+            }
+
+            var cameraId = select.value;
             scanner.start(
               cameraId,
               {
