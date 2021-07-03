@@ -781,7 +781,7 @@ function LoadVoices() {
                 qrbox: 250
               },
               qrCodeMessage => {
-                var content=${qrCodeMessage};
+                var content=qrCodeMessage;
                 document.getElementById('classroomid').value=content.substr(-32);
                 alert('Find Classroom id : '+content.substr(-32));
                 scanner.stop();
