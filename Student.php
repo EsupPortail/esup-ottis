@@ -765,7 +765,7 @@ function LoadVoices() {
     <input type="button" value="Start Scanning" onclick="StartScan();"/>
 
     <!--<script type="text/javascript" src="instascan.min.js"></script>-->
-    <script src="https://raw.githubusercontent.com/mebjas/html5-qrcode/master/minified/html5-qrcode.min.js"></script>
+    <script src="html5-qrcode.min.js"></script>
     <!--<video id="preview"></video>-->
     <div id="reader"></div>
     <script type="text/javascript">
