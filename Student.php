@@ -781,7 +781,7 @@ function LoadVoices() {
               for(var i=0; i<devices.length; i++) {
                 var opt=document.createElement("option");
                 opt.value=devices[i].id;
-                opt.innerHTML=devices[i].name;
+                opt.innerHTML=devices[i].label;
                 if (i==0) opt.selected=true;
                 select.appendChild(opt);
               }
