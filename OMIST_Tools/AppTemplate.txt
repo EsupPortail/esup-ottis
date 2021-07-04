@@ -468,6 +468,7 @@ function PopulateVoicesIn() {
 	var posslang=[];
 	for(var lang in slidesnotes) posslang[lang.substr(0,2)] = lang;
 
+  var seenlang=[];
   var allvoices = "";
   var select = document.getElementById('classroomlanguage');
   nopt = 0;
@@ -479,9 +480,19 @@ function PopulateVoicesIn() {
         opt.innerHTML=lang+" ("+Tvoices[i].name+")";
         if (lang.toLowerCase() == languetraduction.toLowerCase()) opt.selected = true;
 				if (! posslang[lang.substr(0,2)]) opt.disabled = true;
+        if (posslang[lang.substr(0,2)]) seenlang[lang.substr(0,2)] = true;
         select.appendChild(opt);
         allvoices+='|'+Tvoices[i].lang.replace("_","-")+'_'+Tvoices[i].name+'|';
       }
+    }
+  }
+  for(var lang in slidesnotes) {
+    if (! seenlang[lang.substr(0,2)]) {
+        var opt=document.createElement("option");
+        opt.value=lang+" (no voice)";
+        opt.innerHTML=lang+" (no voice)";
+       select.appendChild(opt);
+    }
   }
 }
 
