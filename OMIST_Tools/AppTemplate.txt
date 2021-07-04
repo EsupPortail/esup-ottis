@@ -174,7 +174,7 @@ function forward() {
 //  document.getElementById('slide').src=filename+formate(current)+extension;
 //  document.getElementById('slide').src=filename+formate(TslideNumber[currenttxt]+1)+extension;
 	document.getElementById('slide').src=Timages[current-1];
-  console.log('Forward to slide '+(current-1));
+  //console.log('Forward to slide '+(current-1));
   update();
 }
 
@@ -182,14 +182,14 @@ function backward() {
   if (current>1) current--;
 //  document.getElementById('slide').src=filename+formate(current)+extension;
 	document.getElementById('slide').src=Timages[current-1];
-	console.log('Backward to slide '+(current-1));
+	//console.log('Backward to slide '+(current-1));
     update();
 }
 
 var flagresource=-1;
 
 function HideResource(flag) {
-  console.log("HideResource with flag="+flag+" and flagresource="+flagresource);
+  //console.log("HideResource with flag="+flag+" and flagresource="+flagresource);
 	//document.getElementById('dialog').style.transform='scaleX(0)';
 	if (flag == flagresource) {
 		document.getElementById('dialog').style.transform='scaleX(0)';
@@ -344,11 +344,19 @@ function PopulateVoicesIn() {
 function ParleThen(txt, f) {
   if (paused) f=function () {};
   if (txt.length>0) {
-  var discours = new SpeechSynthesisUtterance(txt);
-  discours.voice = builtin_voice;
-	discours.lang = builtin_voice.lang.replace('_','-')
-  window.speechSynthesis.speak(discours);
-  discours.onend = f;
+		if (document.getElementById('classroomlanguage').value.indexOf('no voice')<0) {
+			//console.log("Speak with voice "+builtin_voice)
+  		var discours = new SpeechSynthesisUtterance(txt);
+  		discours.voice = builtin_voice;
+			discours.lang = builtin_voice.lang.replace('_','-')
+  		window.speechSynthesis.speak(discours);
+  		discours.onend = f;
+		} else {
+			//console.log('Speak with no voice');
+			var txtlength=Math.max(20,txt.length);
+			txtlength=Math.min(100,txtlength);
+			setTimeout(f,50*txt.length);
+		}
   } else setTimeout(f,100);
 }
 
@@ -392,7 +400,7 @@ for(var i=0; i<slidesnotes[lang].length; i++) {
   }
   numslide++;
 }
-console.log('TslideNumber='+TslideNumber);
+//console.log('TslideNumber='+TslideNumber);
 
 
 function resizeslides() {
@@ -437,10 +445,12 @@ function play() {
 
 function setLanguage(i) {
 	builtin_voice=Tvoices[0];
+	var found=false;
 	for(var k=0; k<Tvoices.length; k++) {
-		if ((Tvoices[k].lang.replace("_","-")+" ("+Tvoices[k].name+")") == i) builtin_voice=Tvoices[k];
+		if ((Tvoices[k].lang.replace("_","-")+" ("+Tvoices[k].name+")") == i) {builtin_voice=Tvoices[k]; found=true;}
 	}
   languetraduction = builtin_voice.lang.replace("_","-");
+	if (!found) {buitin_voice=null;}
 }
 
 window.onresize = resizeslides;
@@ -473,19 +483,17 @@ function PopulateVoicesIn() {
   var select = document.getElementById('classroomlanguage');
   nopt = 0;
   for(var i=0; i<Tvoices.length; i++) {
-    if (allvoices.indexOf('|'+Tvoices[i].lang+'_'+Tvoices[i].name+'|')<0) {//(voices[i].localService) {
+    if (allvoices.indexOf('|'+Tvoices[i].lang+'_'+Tvoices[i].name+'|')<0) {
       var lang=Tvoices[i].lang.replace("_","-"); //.substr(0,5);
         var opt=document.createElement("option");
         opt.value=lang+" ("+Tvoices[i].name+")";
         opt.innerHTML=lang+" ("+Tvoices[i].name+")";
         if (lang.toLowerCase() == languetraduction.toLowerCase()) opt.selected = true;
-				if (! posslang[lang.substr(0,2)]) opt.disabled = true;
+				if (! posslang[lang.substr(0,2)]) opt.disabled = true; else select.appendChild(opt);
         if (posslang[lang.substr(0,2)]) seenlang[lang.substr(0,2)] = true;
-        select.appendChild(opt);
         allvoices+='|'+Tvoices[i].lang.replace("_","-")+'_'+Tvoices[i].name+'|';
       }
     }
-  }
   for(var lang in slidesnotes) {
     if (! seenlang[lang.substr(0,2)]) {
         var opt=document.createElement("option");
