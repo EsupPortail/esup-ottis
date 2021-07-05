@@ -47,6 +47,7 @@ h1 {
 <?php
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 ?>
+supportedlanguages.sort(function(a,b) {return a["code"]>b["code"];});
 
 function PopulateLanguages(selectelement) {
   var select = document.getElementById(selectelement);
