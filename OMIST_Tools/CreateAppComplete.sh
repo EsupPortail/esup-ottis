@@ -13,7 +13,7 @@ mkdir tmp/$RANDOMPATH
 #rm -rf tmp/*
 cp "$Filename" tmp/$RANDOMPATH/input.pptx
 mkdir tmp/$RANDOMPATH/images
-export HOME=/tmp && $SOFFICE --headless --convert-to pdf tmp/$RANDOMPATH/input.pptx --outdir tmp/$RANDOMPATH
+export HOME=/tmp && $SOFFICE --headless --convert-to pdf:impress_pdf_Export tmp/$RANDOMPATH/input.pptx --outdir tmp/$RANDOMPATH
 $CAIRO -jpeg tmp/$RANDOMPATH/input.pdf tmp/$RANDOMPATH/images/images
 
 export PYTHONIOENCODING=utf8
