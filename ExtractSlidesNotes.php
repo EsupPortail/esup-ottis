@@ -16,7 +16,7 @@ if( is_uploaded_file($tmp_file) ) {
 }
 
 $textNotes=array();
-$fd=zip_open($filename);
+$fd=zip_open($tmp_file);
 do {
     $entry = zip_read($fd);
     if (is_resource($entry) && strpos(zip_entry_name($entry),"t/notesSlides/notes") > 0) {
