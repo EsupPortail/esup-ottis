@@ -25,7 +25,7 @@ do {
         $slidenumber = $number;
         zip_entry_open($fd, $entry, "r");
         $note = zip_entry_read($entry, zip_entry_filesize($entry));
-        $textonly = trim(strip_tags(str_replace("</a:t>","\n</a:t>",$note)));
+        $textonly = trim(strip_tags(str_replace("<a:endParaRPr>","\n<a:endParaRPr>",$note)));
         zip_entry_close($entry);
 //        echo "Slide #".$slidenumber."\n----------\n".$textonly."\n";
         $textNotes[] = array("Slide"=>$slidenumber,"Notes"=>explode("\n",$textonly));
