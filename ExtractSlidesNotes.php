@@ -35,7 +35,7 @@ zip_close($fd);
 
 function cmp($a, $b)
 {
-    return $b["Slide"]*1 - $a["Slide"]*1;
+    return $a["Slide"]*1 - $b["Slide"]*1;
 }
 
 usort($textNotes, "cmp");
