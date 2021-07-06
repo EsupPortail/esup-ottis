@@ -514,6 +514,7 @@ var currentPresentation=[];
 var currentDiscours=-1;
 
 function formateresponse(datatxt) {
+  console.log(datatxt);
   currentPresentation=[];
   //alert(datatxt);
   var res = '';
