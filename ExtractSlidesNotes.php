@@ -28,10 +28,47 @@ do {
         $textonly = trim(strip_tags(str_replace("<a:endParaRPr>","\n<a:endParaRPr>",$note)));
         zip_entry_close($entry);
 //        echo "Slide #".$slidenumber."\n----------\n".$textonly."\n";
-        $textNotes[$slidenumber] = array("Slide"=>$slidenumber,"Notes"=>explode("\n",$textonly));
+        $textNotes[] = array("Slide"=>$slidenumber,"Notes"=>explode("\n",$textonly));
     }
 } while ($entry);
 zip_close($fd);
+
+function array_sort($array, $on, $order=SORT_ASC)
+{
+    $new_array = array();
+    $sortable_array = array();
+
+    if (count($array) > 0) {
+        foreach ($array as $k => $v) {
+            if (is_array($v)) {
+                foreach ($v as $k2 => $v2) {
+                    if ($k2 == $on) {
+                        $sortable_array[$k] = $v2;
+                    }
+                }
+            } else {
+                $sortable_array[$k] = $v;
+            }
+        }
+
+        switch ($order) {
+            case SORT_ASC:
+                asort($sortable_array);
+            break;
+            case SORT_DESC:
+                arsort($sortable_array);
+            break;
+        }
+
+        foreach ($sortable_array as $k => $v) {
+            $new_array[$k] = $array[$k];
+        }
+    }
+
+    return $new_array;
+}
+
+$textNotes=array_sort($textNotes,"Slide");
 
 echo json_encode($textNotes);
 
