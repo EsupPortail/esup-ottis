@@ -209,6 +209,7 @@ input[type=text] {
 
 #img_slides {
   transform-origin: top left;
+  cursor: url(images/poointer.svg), pointer;
 }
 
 
