@@ -1,5 +1,8 @@
 <?php
 
+ini_set ( "upload_max_filesize" , "50M" );
+ini_set ( "post_max_size" , "50M" );
+
 $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
 
 $flag_justif=false;
