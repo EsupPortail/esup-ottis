@@ -17,7 +17,7 @@ if( is_uploaded_file($tmp_file) ) {
 */
 
 //$filename="tmpfiles/out.html";
-echo "[{'Slide':'1', 'Notes':'ok'}]"; exit;
+//echo "[{'Slide':'1', 'Notes':'ok'}]"; exit;
 
 $contenttxt = file_get_contents($tmp_file);
 $content = explode("\n",$contenttxt);
