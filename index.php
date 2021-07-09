@@ -938,9 +938,9 @@ function resizeSlides() {
 // For wooclap
   var wc=document.getElementById('wooclap');
   wc.style.width = (window.innerWidth-20)+"px";
-  wc.style.height = (window.innerWidth-48)+"px";
+  wc.style.height = (window.innerHeight-48)+"px";
   wc.style.top = "48px";
-  wc.style.left = "10px";
+  wc.style.left = "0px";
 }
 
 function Synchronize(pin) {
