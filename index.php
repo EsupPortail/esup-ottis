@@ -947,7 +947,7 @@ function resizeSlides() {
   }
 
 // For wooclap and others
-  ["wooclap","extratab1","extratab2","extratab3","extratab4"].map(resizeWindow)
+  ["wooclap","extratab1","extratab2","extratab3","extratab4","visio"].map(resizeWindow)
 }
 
 function Synchronize(pin) {
@@ -1106,7 +1106,7 @@ function showET(obj,num) {
 	</div>
 	<div id="tabs-6">
     <div id="slideshow" style="border: solid 1px; height: 600px; overflow: auto;">
-<iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" ></iframe>
+<iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture"  style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
     </div>
 	</div>
 	<div id="tabs-3">
