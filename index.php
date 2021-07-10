@@ -913,7 +913,7 @@ function GoFS() {
 }
 
 function resizeWindow(wname) {
-  var wc=document.getElementById('wname');
+  var wc=document.getElementById(wname);
   wc.style.width = (window.innerWidth-20)+"px";
   wc.style.height = (window.innerHeight-48)+"px";
   wc.style.top = "48px";
