@@ -221,7 +221,7 @@ input[type=text] {
   transform: scale(2);
 }
 
-#titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titleshare {
+#titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titleshare,#titlevisio {
   display:none;
 }
 	</style>
