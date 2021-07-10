@@ -1067,10 +1067,10 @@ function showET(obj,num) {
   <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li>
   <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li>
   <li>Show Share tab ?  <input type="checkbox" id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}"/>&nbsp;<span id="spanembedshareon">No.</span></li>
-  <li>Show Extra tab 1 ?  <input type="checkbox" id="embedET1" onclick="showET(this,1);"/>&nbsp;<span id="spanembedET1">No.</span> URL : <input type="text" id="extraurl1" value="" placeholder="Copy your application url here"/></li>
-  <li>Show Extra tab 2 ?  <input type="checkbox" id="embedET2" onclick="showET(this,2);"/>&nbsp;<span id="spanembedET2">No.</span> URL : <input type="text" id="extraurl2" value="" placeholder="Copy your application url here"/></li>
-  <li>Show Extra tab 3 ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span> URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/></li>
-  <li>Show Extra tab 4 ?  <input type="checkbox" id="embedET4" onclick="showET(this,4);"/>&nbsp;<span id="spanembedET4">No.</span> URL : <input type="text" id="extraurl4" value="" placeholder="Copy your application url here"/></li>
+  <li>Extra tab 1  URL : <input type="text" id="extraurl1" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET1" onclick="showET(this,1);"/>&nbsp;<span id="spanembedET1">No.</span></li>
+  <li>Extra tab 2  URL : <input type="text" id="extraurl2" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET2" onclick="showET(this,2);"/>&nbsp;<span id="spanembedET2">No.</span></li>
+  <li>Extra tab 3  URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span></li>
+  <li>Extra tab 4  URL : <input type="text" id="extraurl4" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET4" onclick="showET(this,4);"/>&nbsp;<span id="spanembedET4">No.</span></li>
   </ul>
   <br/>
   <br/>
