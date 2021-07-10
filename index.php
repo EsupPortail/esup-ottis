@@ -991,7 +991,7 @@ function showET(obj,num) {
       document.getElementById('extratab'+num).src=url;
     } else {
       alert('Enter your url first !');
-      this.checked=false;
+      obj.checked=false;
       document.getElementById('spanembedET'+num).innerHTML='No.';  
       hide('titleextratab'+num);
     }
