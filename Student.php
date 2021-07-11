@@ -74,6 +74,7 @@ input[type=text] {
   top:5px;
   right: 5px;
   z-index: 1000;
+  display: none;
 }
 
 
@@ -130,7 +131,7 @@ input[type=text] {
 
 #FS {
   position: fixed;
-  top:50px;
+  top:0px;
   right: 0px;
   font-size: 12px;
 }

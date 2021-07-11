@@ -104,7 +104,7 @@ input[type=text] {
 #micon {
   position: fixed;
   top:5px;
-  right: 5px;
+  right: 60px;
   font-size: 36px;
   z-index: 1000;
   background-color: red;
@@ -120,7 +120,7 @@ input[type=text] {
 #questionicon {
   position: fixed;
   top:5px;
-  right: 60px;
+  right: 5px;
   font-size: 36px;
   z-index: 1000;
   background-color: green;
