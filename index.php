@@ -183,7 +183,7 @@ input[type=text] {
   left: 0px;
   width: 100%;
   height: 10px;
-  z-index: 20000;
+  z-index: -20000;
 }
 
 #classroom span {
