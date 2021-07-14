@@ -176,6 +176,17 @@ input[type=text] {
   font-weight: bold;
 }
 
+#soustitre {
+  transition: 1s ease;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 10px;
+  background-color: rgba(255,0,255);
+  z-index: 20000;
+}
+
 #classroom span {
   padding: 5px;
   margin-left: 5px;
@@ -1018,6 +1029,7 @@ function showET(obj,num) {
 
 
 <div id="titre" onclick="Forward();"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
+<div id="soustitre" onmouseover="this.style.height='74px'; document.getElementById('titre').style.transform='translateY(-64px)';" onmouseout="this.style.height='10px'; document.getElementById('titre').style.transform='translateY(0px)';"></div>
 
 <form id="myform">
 
