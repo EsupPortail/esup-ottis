@@ -698,8 +698,9 @@ function LoadVoices() {
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable();">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 
-<div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
-<div id="soustitre" onmouseover="this.style.height='74px'; document.getElementById('titre').style.transform='translateY(-64px)';" onmouseout="this.style.height='10px'; document.getElementById('titre').style.transform='translateY(0px)';"></div>
+<div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
+
 
 <form id="myform">
 
