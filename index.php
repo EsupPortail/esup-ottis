@@ -183,7 +183,6 @@ input[type=text] {
   left: 0px;
   width: 100%;
   height: 10px;
-  background-color: rgba(255,0,255);
   z-index: 20000;
 }
 
