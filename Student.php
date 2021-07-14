@@ -102,6 +102,17 @@ input[type=text] {
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
 
+#soustitre {
+  transition: 1s ease;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 10px;
+  background-color: rgba(255,0,255);
+  z-index: 20000;
+}
+
 #titre h1 {
   text-align: center;
   font-size: 1.5em;
@@ -689,6 +700,7 @@ function LoadVoices() {
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 
 <div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="soustitre" onmouseover="this.style.height='74px'; document.getElementById('titre').style.transform='translateY(-64px)';" onmouseout="this.style.height='10px'; document.getElementById('titre').style.transform='translateY(0px)';"></div>
 
 <form id="myform">
 
