@@ -168,7 +168,7 @@ input[type=text] {
   display: none;
 }
 
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 500px) {
   #showmenu {
         display: block;
       }
