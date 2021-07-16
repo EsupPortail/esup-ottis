@@ -162,11 +162,18 @@ input[type=text] {
   color: white;
   text-align: center;
   vertical-align: middle;
-  width: 48px;
-  height: 48px;
+  padding: 15px;
   font-size: 24px;
   z-index: 10000;
+  display: none;
 }
+
+@media screen and (max-width: 300px) {
+  #showmenu {
+        display: block;
+      }
+  }
+  
 	</style>
 
 
