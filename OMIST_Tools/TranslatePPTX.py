@@ -126,13 +126,17 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=Fal
         ns+=1
         if translate_notes:
             for note in slide.notes_slide.notes_text_frame.paragraphs:
-                note.text = translate(note.text,langsrc,langdst)
+                translated = translate(note.text,langsrc,langdst)
+                #if note.text[0]==" ":
+                #    translated=" "+translated
+                #
+                note.text = translated+" "
         for shape in slide.shapes:
             if not shape.has_text_frame:
                 continue
             for paragraph in shape.text_frame.paragraphs:
                 for run in paragraph.runs:
-                    run.text = translate(run.text,langsrc,langdst)
+                    run.text = " "+translate(run.text,langsrc,langdst)+" "
     prs.save(fileout)
 
 
