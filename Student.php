@@ -165,6 +165,7 @@ input[type=text] {
   width: 48px;
   height: 48px;
   font-size: 24px;
+  z-index: 10000;
 }
 	</style>
 
@@ -684,6 +685,9 @@ function resizeSlides() {
     slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentX+')';
   }
   slide.style.top=(48*scalemenu)+'px';
+
+  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
+  TTabs.map(function (name) {document.getElementById(name).style.top=(48*scalemenu)+'px';})
 }
 
 
