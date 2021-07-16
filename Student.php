@@ -174,12 +174,14 @@ input[type=text] {
       }
   }
   
-  #tabs-0, #tabs-1, #tabs-2, #tabs-3, #tabs-4 {
+  #tabs-0, #tabs-1, #tabs-2, #tabs-3, #tabs-4, #tabs-6, #tabs-7, #img_slides {
     position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
+    z-index: 9998;
+
   }
 	</style>
 
