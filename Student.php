@@ -168,7 +168,7 @@ input[type=text] {
   vertical-align: middle;
   padding: 15px;
   font-size: 24px;
-  z-index: 10000;
+  z-index: 12000;
   display: block;
 }
 
@@ -179,12 +179,12 @@ input[type=text] {
   }
   
   #tabs-0, #tabs-1, #tabs-2, #tabs-3, #tabs-4, #tabs-6, #tabs-7, #img_slides {
-    position: absolute;
+     z-index: 1000;
+   position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 9998;
 
   }
 	</style>
