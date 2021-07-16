@@ -153,7 +153,7 @@ input[type=text] {
   transform-origin: top left;
 }
 
-#scalemenu {
+#showmenu {
   border-radius: 5px;
   position: fixed;
   top: 0px;
@@ -161,6 +161,7 @@ input[type=text] {
   background-color: rgb(150,150,150);
   color: white;
   text-align: center;
+  vertical-align: middle;
   width: 48px;
   height: 48px;
   font-size: 24px;
