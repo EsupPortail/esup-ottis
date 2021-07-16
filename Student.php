@@ -165,7 +165,7 @@ input[type=text] {
   padding: 15px;
   font-size: 24px;
   z-index: 10000;
-  display: none;
+  display: block;
 }
 
 @media screen and (max-width: 500px) {
@@ -174,6 +174,13 @@ input[type=text] {
       }
   }
   
+  #tabs-0, #tabs-1, #tabs-2, #tabs-3, #tabs-4 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+  }
 	</style>
 
 
@@ -691,10 +698,10 @@ function resizeSlides() {
 */
     slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentX+')';
   }
-  slide.style.top=(48*scalemenu)+'px';
+  //slide.style.top=(48*scalemenu)+'px';
 
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
-  TTabs.map(function (name) {document.getElementById(name).style.top=(48*scalemenu)+'px';})
+  //var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
+  //TTabs.map(function (name) {document.getElementById(name).style.top=(48*scalemenu)+'px';})
 }
 
 
@@ -716,10 +723,10 @@ function LoadVoices() {
   Lancer();
 }
 
-var scalemenu=0;
+var scalemenu=1;
 function ShowMenu() {
   scalemenu=1-scalemenu;
-  document.getElementById('bar').style.transform="scaleY("+scalemenu+")";
+  document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
   resizeSlides();
 }
 </script>
