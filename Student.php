@@ -44,6 +44,10 @@ fclose($fd);
   <link rel="icon" type="image/png" href="favicon.png" />
 	<style>
 
+body {
+  top:0;
+  left: 0;
+}
 .classselect {
   width: 300px;
   height: 40px;
@@ -136,7 +140,7 @@ input[type=text] {
 #bar {
   transition: 1s ease;
   transform-origin: top left;
-  z-index: 9999;
+  z-index: 11000;
 }
 
 #FS {
