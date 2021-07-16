@@ -156,12 +156,11 @@ input[type=text] {
 #scalemenu {
   border-radius: 5px;
   position: fixed;
-  top:0px;
+  top: 0px;
   left: 0px;
-  background-color: grey;
+  background-color: rgb(150,150,150);
   color: white;
   text-align: center;
-  vertical-align: middle;
   width: 48px;
   height: 48px;
   font-size: 24px;
