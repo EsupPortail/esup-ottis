@@ -136,7 +136,7 @@ input[type=text] {
 #bar {
   transition: 1s ease;
   transform-origin: top left;
-
+  z-index: 999;
 }
 
 #FS {
