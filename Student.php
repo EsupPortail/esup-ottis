@@ -756,7 +756,7 @@ function ShowMenu() {
 		<li><a href="#tabs-1">Classroom</a></li>
 		<li><a href="#tabs-2">Notebook</a></li>
 		<li><a href="#tabs-3">Output</a></li>
-    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>
+<!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
 		<li><a href="#tabs-4">Scan a QRCode</a></li>
     <li><a href="#tabs-7">Slides</a></li>
 	</ul>
@@ -814,11 +814,11 @@ function ShowMenu() {
     <div id="output">
     </div>
   </div>
-  	<div id="tabs-6">
+<!--  	<div id="tabs-6">
     <div id="slideshow" style="border: solid 1px; height: 600px; overflow: auto;">
 <iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" ></iframe>
     </div>
-	</div>
+	</div>-->
 
   <div id="tabs-4">
     <input type="button" value="Start Scanning" onclick="StartScan();"/>
@@ -907,7 +907,7 @@ function ShowMenu() {
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>
   <style>
-  .ui-tabs-vertical { width: 55em; }
+  .ui-tabs-vertical { width: 55em; z-index: 9999;}
   .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
   .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
   .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
