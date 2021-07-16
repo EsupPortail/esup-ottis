@@ -153,6 +153,19 @@ input[type=text] {
   transform-origin: top left;
 }
 
+#scalemenu {
+  border-radius: 5px;
+  position: fixed;
+  top:0px;
+  left: 0px;
+  background-color: grey;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+}
 	</style>
 
 
@@ -670,6 +683,7 @@ function resizeSlides() {
 */
     slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentX+')';
   }
+  slide.style.top=(48*scalemenu)+'px';
 }
 
 
@@ -690,6 +704,13 @@ function LoadVoices() {
   InitVoices();
   Lancer();
 }
+
+var scalemenu=0;
+function ShowMenu() {
+  scalemenu=1-scalemenu;
+  document.getElementById('bar').style.transform="scaleY("+scalemenu+")";
+  resizeSlides();
+}
 </script>
 
 
@@ -697,6 +718,7 @@ function LoadVoices() {
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable();">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
+<div id="showmenu" onclick="ShowMenu();">☰</div>
 
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
