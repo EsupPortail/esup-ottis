@@ -145,6 +145,20 @@ input[type=text] {
   width: 150px;
 }
 
+#bar li {
+  padding: 10px 5px 10px 5px;
+  background-color: rgb(0,0,255);
+  color: white;
+  border: 1px solid;
+  border-color: black;
+}
+
+#bar li:hover {
+  background-color: rgb(100,100,255);
+}
+
+
+
 #FS {
   position: fixed;
   top:0px;
