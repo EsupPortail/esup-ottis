@@ -141,6 +141,8 @@ input[type=text] {
   transition: 1s ease;
   transform-origin: top left;
   z-index: 11000;
+  transform: scaleX(0);
+  width: 150px;
 }
 
 #FS {
@@ -186,7 +188,7 @@ input[type=text] {
     width: 100%;
     height: 100%;
     transition: 1s ease;
-    transform: translateX(55px);
+    transform: translateX(0px);
   }
 	</style>
 
@@ -736,7 +738,7 @@ function ShowMenu() {
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
   for(var i=0; i<TTabs.length; i++) {
-    document.getElementById(TTabs[i]).style.transform="translateX("+(55*scalemenu)+"px);";
+    document.getElementById(TTabs[i]).style.transform="translateX("+(150*scalemenu)+"px);";
   }
 
   resizeSlides();
