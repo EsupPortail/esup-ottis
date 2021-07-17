@@ -179,13 +179,14 @@ input[type=text] {
   }
   
   #tabs-0, #tabs-1, #tabs-2, #tabs-3, #tabs-4, #tabs-6, #tabs-7, #img_slides {
-     z-index: 1000;
-   position: absolute;
+    z-index: 1000;
+    position: absolute;
     top: 0px;
-    left: 20px;
+    left: 0px;
     width: 100%;
     height: 100%;
-
+    transition: 1s ease;
+    transform: translateX(55px);
   }
 	</style>
 
@@ -734,7 +735,7 @@ function ShowMenu() {
   scalemenu=1-scalemenu;
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
-  TTabs.map(function (name) {document.getElementById(name).style.transform="translateX("(55*scalemenu)+"px)";});
+  TTabs.map(function (name) {document.getElementById(name).style.transform="translateX("(55*scalemenu)+"px);";});
 
   resizeSlides();
 }
