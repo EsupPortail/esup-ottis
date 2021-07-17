@@ -743,7 +743,7 @@ function ShowMenu() {
 }
 var atab = 'tabs-0';
 function activetab(tab)  {
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
+  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7','img_slides'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.display="none";
   }
@@ -755,7 +755,7 @@ function activetab(tab)  {
 
 
 </head>
-<body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable();">
+<body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable(); activetab('tabs-0');">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();">☰</div>
 
