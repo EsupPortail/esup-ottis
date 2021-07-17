@@ -738,7 +738,7 @@ function ShowMenu() {
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
   for(var i=0; i<TTabs.length; i++) {
-    document.getElementById(TTabs[i]).style.transform="translateX("+(150*scalemenu)+"px);";
+    document.getElementById(TTabs[i]).style.left="translateX("+(150*scalemenu)+"px)";
   }
 
   resizeSlides();
