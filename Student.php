@@ -741,6 +741,15 @@ function ShowMenu() {
 
   resizeSlides();
 }
+var atab = 'tabs-0';
+function activetab(tab)  {
+  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
+  for(var i=0; i<TTabs.length; i++) {
+    document.getElementById(TTabs[i]).style.display="none";
+  }
+  document.getElementById(tab).style.display='block';
+}
+
 </script>
 
 
@@ -758,13 +767,13 @@ function ShowMenu() {
 
 <div id="tabs">
 	<ul id="bar">
-		<li><a href="#tabs-0">Informations</a></li>
-		<li><a href="#tabs-1">Classroom</a></li>
-		<li><a href="#tabs-2">Notebook</a></li>
-		<li><a href="#tabs-3">Output</a></li>
+		<li onclick="activetab('tabs-0')"><a href="#tabs-0">Informations</a></li>
+		<li onclick="activetab('tabs-1')"><a href="#tabs-1">Classroom</a></li>
+		<li onclick="activetab('tabs-2')"><a href="#tabs-2">Notebook</a></li>
+		<li onclick="activetab('tabs-3')"><a href="#tabs-3">Output</a></li>
 <!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
-		<li><a href="#tabs-4">Scan a QRCode</a></li>
-    <li><a href="#tabs-7">Slides</a></li>
+		<li onclick="activetab('tabs-4')"><a href="#tabs-4">Scan a QRCode</a></li>
+    <li onclick="activetab('tabs-7')"><a href="#tabs-7">Slides</a></li>
 	</ul>
 
 	<div id="tabs-0">
@@ -925,11 +934,12 @@ function ShowMenu() {
 <script>
 //$( "#tabs" ).tabs();
 //$( "#enregistrer" ).button();
+/*
   $( function() {
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
   } );
-
+*/
 
 
 function retourOK(e) {
