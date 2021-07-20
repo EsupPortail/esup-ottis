@@ -771,8 +771,8 @@ function activetab(tab)  {
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.display="none";
-    document.getElementById(TTabs[i]).style.color="black";
-    document.getElementById(TTabs[i]).style.backgroundColor="rgb(247,247,247)";   
+    document.getElementById("l"+TTabs[i]).style.color="black";
+    document.getElementById("l"+TTabs[i]).style.backgroundColor="rgb(247,247,247)";   
   }
   document.getElementById(tab).style.display='block';
     document.getElementById("l"+tab).style.color="white";
