@@ -192,7 +192,7 @@ input[type=text] {
   color: white;
   text-align: center;
   vertical-align: middle;
-  padding: 15px;
+  padding: 5px;
   font-size: 24px;
   z-index: 12000;
   display: block;
@@ -762,7 +762,7 @@ function ShowMenu() {
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
   for(var i=0; i<TTabs.length; i++) {
-    document.getElementById(TTabs[i]).style.transform="translateX("+(150*scalemenu)+"px)";
+    document.getElementById(TTabs[i]).style.transform="translateX("+(155*scalemenu)+"px)";
   }
 
   resizeSlides();
