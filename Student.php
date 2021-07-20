@@ -146,17 +146,19 @@ input[type=text] {
 }
 
 #bar li {
+  list-style: none;
   margin: 0px;
   padding: 10px 5px 10px 5px;
-  background-color: rgb(0,0,255);
-  color: white;
+  background-color: rgb(247,247,247);
+  color: black;
   border: 1px solid;
   border-color: black;
+  border-radius: 3px;
   font-family: arial, helvetica, sans-serif;
 }
 
 #bar li:hover {
-  background-color: rgb(100,100,255);
+  background-color: rgb(236,236,236);
 }
 
 
