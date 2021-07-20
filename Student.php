@@ -775,8 +775,8 @@ function activetab(tab)  {
     document.getElementById(TTabs[i]).style.backgroundColor="rgb(247,247,247)";   
   }
   document.getElementById(tab).style.display='block';
-    document.getElementById(tab).style.color="white";
-    document.getElementById(tab).style.backgroundColor="rgb(57,199,204)";   
+    document.getElementById("l"+tab).style.color="white";
+    document.getElementById("l"+tab).style.backgroundColor="rgb(57,199,204)";   
 }
 
 </script>
@@ -796,13 +796,13 @@ function activetab(tab)  {
 
 <div id="tabs">
 	<ul id="bar">
-		<li onclick="activetab('tabs-0')">Informations</li>
-		<li onclick="activetab('tabs-1')">Classroom</li>
-		<li onclick="activetab('tabs-2')">Notebook</li>
-		<li onclick="activetab('tabs-3')">Output</li>
+		<li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
+		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
+		<li id="ltabs-2" onclick="activetab('tabs-2')">Notebook</li>
+		<li id="ltabs-3" onclick="activetab('tabs-3')">Output</li>
 <!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
-		<li onclick="activetab('tabs-4')">Scan a QRCode</li>
-    <li onclick="activetab('tabs-7')">Slides</li>
+		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>
+    <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
 	</ul>
 
 	<div id="tabs-0">
