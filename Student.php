@@ -39,7 +39,7 @@ fclose($fd);
 <head>
 	<title>Automatic translation for teaching purposes</title>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
 	<style>
