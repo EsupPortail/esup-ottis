@@ -149,6 +149,7 @@ input[type=text] {
 }
 
 #bar li {
+  z-index: 11000;
   padding: 10px 5px 10px 5px;
   background-color: rgb(247,247,247);
   color: black;
@@ -851,7 +852,7 @@ function activetab(tab)  {
 	</div>
 
 	<div id="tabs-2">
-    <input type="button" value="Restart" onclick="inputnumber=-1;"/>
+    <!--<input type="button" value="Restart" onclick="inputnumber=-1;"/>-->
     <div id="notebook" style="border: solid 1px;" contenteditable="true"></div>
 
 	</div>
