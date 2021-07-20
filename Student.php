@@ -138,6 +138,9 @@ input[type=text] {
 
 }
 #bar {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
   transition: 1s ease;
   transform-origin: top left;
   z-index: 11000;
@@ -146,8 +149,6 @@ input[type=text] {
 }
 
 #bar li {
-  list-style: none;
-  margin: 0px;
   padding: 10px 5px 10px 5px;
   background-color: rgb(247,247,247);
   color: black;
@@ -161,6 +162,10 @@ input[type=text] {
   background-color: rgb(236,236,236);
 }
 
+#bar li.selected {
+  background-color: rgb(57,199,204);
+  color: white;
+}
 
 
 #FS {
@@ -766,8 +771,12 @@ function activetab(tab)  {
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.display="none";
+    document.getElementById(TTabs[i]).style.color="black";
+    document.getElementById(TTabs[i]).style.backgroundColor="rgb(247,247,247)";   
   }
   document.getElementById(tab).style.display='block';
+    document.getElementById(tab).style.color="white";
+    document.getElementById(tab).style.backgroundColor="rgb(57,199,204)";   
 }
 
 </script>
