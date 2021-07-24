@@ -196,6 +196,8 @@ input[type=text] {
   font-size: 24px;
   z-index: 12000;
   display: block;
+  border: 1px solid;
+  border-color: black;
 }
 
 @media screen and (max-width: 500px) {
@@ -777,7 +779,8 @@ function activetab(tab)  {
   }
   document.getElementById(tab).style.display='block';
     document.getElementById("l"+tab).style.color="white";
-    document.getElementById("l"+tab).style.backgroundColor="rgb(57,199,204)";   
+    document.getElementById("l"+tab).style.backgroundColor="rgb(57,199,204)";
+  ShowMenu();
 }
 
 </script>
