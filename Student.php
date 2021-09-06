@@ -785,11 +785,11 @@ var atab = 'tabs-0';
 function activetab(tab)  {
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7','tabs-8'];
   for(var i=0; i<TTabs.length; i++) {
-    setTimeout(function() {document.getElementById(TTabs[i]).style.display="none";},1000);
+    document.getElementById(TTabs[i]).style.display="none";
     document.getElementById("l"+TTabs[i]).style.color="black";
     document.getElementById("l"+TTabs[i]).style.backgroundColor="rgb(247,247,247)";   
   }
-  setTimeout(function() {document.getElementById(tab).style.display='block';},1000);
+  document.getElementById(tab).style.display='block';
     document.getElementById("l"+tab).style.color="white";
     document.getElementById("l"+tab).style.backgroundColor="rgb(57,199,204)";
   ShowMenu();
