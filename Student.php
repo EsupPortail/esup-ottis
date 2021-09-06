@@ -711,6 +711,15 @@ function GoFS() {
   }
 }
 
+function resizeWindow(wname) {
+  var wc=document.getElementById(wname);
+  wc.style.width = (window.innerWidth-20)+"px";
+  wc.style.height = (window.innerHeight-48)+"px";
+  wc.style.top = "48px";
+  wc.style.left = "0px";
+}
+
+
 function resizeSlides() {
   var slide = document.getElementById('img_slides');
   var ratio = slide.width/slide.height;
@@ -737,6 +746,9 @@ function resizeSlides() {
 
   //var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
   //TTabs.map(function (name) {document.getElementById(name).style.top=(48*scalemenu)+'px';})
+  // For wooclap and others
+  ["wooclap"].map(resizeWindow)
+
 }
 
 
@@ -771,7 +783,7 @@ function ShowMenu() {
 }
 var atab = 'tabs-0';
 function activetab(tab)  {
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
+  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7','tabs-8'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.display="none";
     document.getElementById("l"+TTabs[i]).style.color="black";
