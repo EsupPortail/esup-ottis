@@ -883,7 +883,7 @@ function activetab(tab)  {
 <iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" ></iframe>
     </div>
 	</div>-->
-  <div id="tabs-8"><iframe id="wooclap" src="https://www.wooclap.com/" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  <div id="tabs-8"><iframe id="wooclap" src="https://www.wooclap.com/" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px; z-index:1000;"></iframe>
   </div>
 
   <div id="tabs-4">
