@@ -807,6 +807,7 @@ function activetab(tab)  {
 <!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
 		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>
     <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
+    <li id="ltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
 	</ul>
 
 	<div id="tabs-0">
@@ -833,6 +834,8 @@ function activetab(tab)  {
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
   </select></li>
+  <li><b>Extra tabs</b></li>
+  <li>WOOCLAP Key?  <input type="text" value="" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
 
   </ul>
     <br/>
@@ -868,6 +871,8 @@ function activetab(tab)  {
 <iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" ></iframe>
     </div>
 	</div>-->
+  <div id="tabs-8"><iframe id="wooclap" src="https://www.wooclap.com/" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  </div>
 
   <div id="tabs-4">
     <input type="button" value="Start Scanning" onclick="StartScan();"/>
