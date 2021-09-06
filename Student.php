@@ -774,7 +774,7 @@ var scalemenu=1;
 function ShowMenu() {
   scalemenu=1-scalemenu;
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7'];
+  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7','tabs-8'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.transform="translateX("+(160*scalemenu)+"px)";
   }
@@ -783,7 +783,7 @@ function ShowMenu() {
 }
 var atab = 'tabs-0';
 function activetab(tab)  {
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7','tabs-8','wooclap'];
+  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-7','tabs-8'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.display="none";
     document.getElementById("l"+TTabs[i]).style.color="black";
