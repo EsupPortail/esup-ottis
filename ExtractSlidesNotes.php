@@ -15,6 +15,20 @@ if( is_uploaded_file($tmp_file) ) {
     echo "ERROR PB UPLOAD !!!!"; exit;
 }
 
+if ($_FILES["ppt_presentation"]["tmp_name"] != "") {
+$randompath=md5(gmdate("U"));
+
+$command = 'bash ./OMIST_Tools/ExtractSpeechFromPPTX.sh '.$randompath.' "'.$_FILES["ppt_presentation"]["tmp_name"].'" >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+system($command);
+
+header('Content-Type: text/plain');
+header('Content-Disposition: attachment; filename="speech.txt"');
+readfile('OMIST_Tools/tmp/speech_'.$randompath.'.txt');
+//unlink('tmp/speech_'.$randompath.'.txt');
+
+}
+
+/*
 $textNotes=array();
 $fd=zip_open($filename);
 do {
@@ -49,5 +63,6 @@ echo json_encode($textNotes);
 
 
 //unlink($filename);
+*/
 
 ?>
