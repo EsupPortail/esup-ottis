@@ -41,7 +41,7 @@ for($i=0;$i<count($content);$i++) {
            $notesslide=array();
 	}
         $num++;
-//	echo "DEBUG : ".$txt."\n";
+	echo "DEBUG : ".$txt."\n";
      } else {
         $notesslide[]=$txt;
      }
@@ -49,7 +49,7 @@ for($i=0;$i<count($content);$i++) {
 
 //print_r($notes);
 echo json_encode($notes);
-unlink($filename);
+//unlink($filename);
 
 
 }
