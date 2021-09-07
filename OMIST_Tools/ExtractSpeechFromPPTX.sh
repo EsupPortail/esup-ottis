@@ -6,6 +6,8 @@ RANDOMPATH=$1
 Filename=$2
 
 echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
 mkdir tmp/$RANDOMPATH
 #rm -rf tmp/*
