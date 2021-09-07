@@ -23,10 +23,34 @@ $randompath=md5(gmdate("U"));
 $command = 'cd OMIST_Tools;bash ./ExtractSpeechFromPPTX.sh '.$randompath.' "'.$tmp_file.'"';//>/dev/null 2>/dev/null
 system($command);
 
-header('Content-Type: text/plain');
-header('Content-Disposition: attachment; filename="speech.txt"');
-readfile('OMIST_Tools/tmp/speech_'.$randompath.'.txt');
-//unlink('tmp/speech_'.$randompath.'.txt');
+$filename='OMIST_Tools/tmp/speech_'.$randompath.'.txt';
+
+$contenttxt = file_get_contents($filename);
+$content = explode("\n",$contenttxt);
+$notes=array();
+$num=0;
+$notesslide=array();
+for($i=0;$i<count($content);$i++) {
+    $txt=$content[$i];
+    if ((strpos("_".$txt,"----------")>0) || (strpos("_".$txt,"[forward]")>0)) {
+	if ($num>0) {
+           $slidenotes=array();
+           $slidenotes["Slide"]=$num;
+           $slidenotes["Notes"]=$notesslide;
+           $notes[]=$slidenotes;
+           $notesslide=array();
+	}
+        $num++;
+//	echo "DEBUG : ".$txt."\n";
+     } else {
+        $notesslide[]=$txt;
+     }
+}
+
+//print_r($notes);
+echo json_encode($notes);
+unlink($filename);
+
 
 }
 
