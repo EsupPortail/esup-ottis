@@ -531,7 +531,7 @@ var currentDiscours=-1;
 function formateresponse(datatxt) {
   console.log(datatxt);
   currentPresentation=[];
-  alert(datatxt);
+  //alert(datatxt);
   var res = '';
   var data = JSON.parse(datatxt);
   for (var i=0; i<data.length; i++) {
