@@ -20,7 +20,7 @@ if( is_uploaded_file($tmp_file) ) {
 if ($_FILES["ppt_presentation"]["tmp_name"] != "") {
 $randompath=md5(gmdate("U"));
 
-$command = 'bash ./OMIST_Tools/ExtractSpeechFromPPTX.sh '.$randompath.' "'.$tmp_file.'" >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+$command = 'cd OMIST_Tools; bash ./ExtractSpeechFromPPTX.sh '.$randompath.' "'.$tmp_file.'" >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
 system($command);
 
 $filename='OMIST_Tools/tmp/speech_'.$randompath.'.txt';
