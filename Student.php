@@ -18,8 +18,10 @@ if (isset($_GET["SYNC"])) {
   $synchronize = false;
 }
 
+$wooclapkey="";
 if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://www.wooclap.com/".$_GET["WOOCLAPKEY"];
+  $wooclapkey=$_GET["WOOCLAPKEY"];
 } else {
   $wooclapaddress = "https://www.wooclap.com";
 }
@@ -853,7 +855,7 @@ function activetab(tab)  {
 <option value="32px" >Huge</option>
   </select></li>
   <li><b>Extra tabs</b></li>
-  <li>WOOCLAP Key?  <input type="text" value="" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
+  <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
 
   </ul>
     <br/>
