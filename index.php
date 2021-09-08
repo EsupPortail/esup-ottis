@@ -183,7 +183,7 @@ input[type=text] {
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
-  left: 1%;
+  left: 0.5%;
   width: 3%;
   margin-left: auto;
   margin-right: auto;
