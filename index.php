@@ -177,6 +177,33 @@ input[type=text] {
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
 
+#titreleft {
+  transition: 1s ease;
+  border-radius: 25px;
+  position: fixed;
+  bottom: 10px;
+  left: 0px;
+  width: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 64px;
+  background-color: rgba(0,0,255,0.5);
+  color: white;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-style: italic;
+  padding: 10px;
+  box-shadow: 2px 2px 5px blue;
+  padding:auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 #titre h1 {
   text-align: center;
   font-size: 1.5em;
@@ -1034,7 +1061,7 @@ function showET(obj,num) {
 
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 
-
+<div id="titreleft" onclick="Backward();">&#9666;</div>
 <div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
 
