@@ -782,6 +782,7 @@ function showET(url,num) {
     } else {
     document.getElementById('spanembedET'+num).innerHTML='No.';  
     hide('titleextratab'+num);
+    }
 }
 
 var Tvoices;
