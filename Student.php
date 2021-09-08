@@ -852,10 +852,10 @@ function activetab(tab)  {
 		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>
     <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
     <li id="ltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
-    <li id="ltabs-9"><a href="#tabs-9" onclick="activetab('tabs-9');">1</a></li>
-		<li id="ltabs-10"><a href="#tabs-10" onclick="activetab('tabs-10');">2</a></li>
-		<li id="ltabs-11"><a href="#tabs-11" onclick="activetab('tabs-11');">3</a></li>
-		<li id="ltabs-12"><a href="#tabs-12" onclick="activetab('tabs-12');">4</a></li>
+    <li id="ltabs-9" onclick="activetab('tabs-9');">1</li>
+		<li id="ltabs-10" onclick="activetab('tabs-10');">2</li>
+		<li id="ltabs-11" onclick="activetab('tabs-11');">3</li>
+		<li id="ltabs-12" onclick="activetab('tabs-12');">4</li>
 
 	</ul>
 
@@ -1003,13 +1003,13 @@ function activetab(tab)  {
   <div id="tabs-8"><iframe id="wooclap" src="<?php echo $wooclapaddress; ?>" width="100%" height="100%" style="width: 95%; height: 90%; bottom:0px; left:0px; z-index:1000;"></iframe>
   </div>
 
-  <div id="tabs-9"><iframe id="extratab1" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  <div id="tabs-9"><iframe id="extratab1" src="" width="100%" height="100%" ></iframe>
   </div>
-  <div id="tabs-10"><iframe id="extratab2" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  <div id="tabs-10"><iframe id="extratab2" src="" width="100%" height="100%" ></iframe>
   </div>
-  <div id="tabs-11"><iframe id="extratab3" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  <div id="tabs-11"><iframe id="extratab3" src="" width="100%" height="100%" ></iframe>
   </div>
-  <div id="tabs-12"><iframe id="extratab4" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  <div id="tabs-12"><iframe id="extratab4" src="" width="100%" height="100%" ></iframe>
   </div>
 
 </div>
