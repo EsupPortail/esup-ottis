@@ -178,6 +178,7 @@ input[type=text] {
 }
 
 #titreleft {
+  display: flex;
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
@@ -201,7 +202,7 @@ input[type=text] {
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
   text-align: center;
   vertical-align: middle;
-  font-size: 1.5em;
+  font-size: 3em;
   font-weight: bold;
 }
 
