@@ -776,10 +776,10 @@ function resizeSlides() {
 window.onresize=resizeSlides;
 
 function showET(url,num) {
-  alert('url='+url+'    num='+num+'     tabs='+'ltabs-'+(8+1*num))
+  //alert('url='+url+'    num='+num+'     tabs='+'ltabs-'+(8+1*num))
     if (url!="") {
       show('ltabs-'+(8+1*num));
-      document.getElementById('extratab'+num).src=url;
+      if (document.getElementById('extratab'+num).src!=url) document.getElementById('extratab'+num).src=url;
     } else {
     hide('ltabs-'+(8+1*num));
     }
