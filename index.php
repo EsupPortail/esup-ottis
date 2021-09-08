@@ -158,7 +158,7 @@ input[type=text] {
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
-  left: 20px;
+  left: 5%;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -179,11 +179,11 @@ input[type=text] {
 
 #titreleft {
   transition: 1s ease;
-  border-radius: 5px;
+  border-radius: 1px;
   position: fixed;
   bottom: 10px;
   left: 0px;
-  width: 15px;
+  width: 3%;
   margin-left: auto;
   margin-right: auto;
   min-height: 64px;
