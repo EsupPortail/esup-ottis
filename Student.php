@@ -777,11 +777,11 @@ window.onresize=resizeSlides;
 
 function showET(url,num) {
     if (url!="") {
-      show('titleextratab'+num);
+      show('ltabs-'+(8+num));
       document.getElementById('extratab'+num).src=url;
     } else {
     document.getElementById('spanembedET'+num).innerHTML='No.';  
-    hide('titleextratab'+num);
+    hide('ltabs-'+(8+num));
     }
 }
 
