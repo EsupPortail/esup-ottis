@@ -871,7 +871,7 @@ function activetab(tab)  {
   </select>
 </li>
 <li><label for="StudentName">Student surname :</label>
-  <input type="text" id="StudentName" value="<?php echo $randomname; ?>"/>
+  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
 <li><label for="synthesison">Speech synthesis active ? </label>
 <input type="checkbox" id="synthesison" onclick="resizeSlides();"/></li>
