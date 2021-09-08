@@ -179,7 +179,7 @@ input[type=text] {
 
 #titreleft {
   transition: 1s ease;
-  border-radius: 25px;
+  border-radius: 5px;
   position: fixed;
   bottom: 10px;
   left: 0px;
