@@ -902,7 +902,8 @@ function TranslateQ(ch, l, linput,name) {
         // Parle(response["data"]["translations"][0]["translatedText"]);
         EcrireCR(name,response["data"]["translations"][0]["translatedText"]);
       } else {
-        EcrireCR("----","---- Translation ERROR ----")
+        //EcrireCR("----","---- Translation ERROR ----")
+        console.log("---- Translation ERROR ----");
       }
 
     }
