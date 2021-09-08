@@ -224,6 +224,11 @@ input[type=text] {
     transition: 1s ease;
     transform: translateX(0px);
   }
+
+  #titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4 {
+  display:none;
+}
+
 	</style>
 
 
@@ -657,11 +662,19 @@ function readTextQ() {
     //console.log('Debug : '+inputnumberQ+T.length);
     for(var i=inputnumberQ; i<T.length; i++) {
       var L=T[i].split(';');
-      console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
-      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-        TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
-      else {
-        EcrireCR(L[0],L[2]);
+      if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
+        // Add an extratab
+        var resource = L[2].replace("[extratab","").replace("]","").split("|");
+        var tabnumber=resource[0];
+        var url=resource[1];
+        showET(url,tabnumber);
+      } else {
+        console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
+        if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+          TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
+        else {
+          EcrireCR(L[0],L[2]);
+        }
       }
     }
     inputnumberQ=T.length;
@@ -755,12 +768,22 @@ function resizeSlides() {
   //var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
   //TTabs.map(function (name) {document.getElementById(name).style.top=(48*scalemenu)+'px';})
   // For wooclap and others
-  ["wooclap"].map(resizeWindow)
+  ["wooclap","extratab1","extratab2","extratab3","extratab4"].map(resizeWindow)
 
 }
 
 
 window.onresize=resizeSlides;
+
+function showET(url,num) {
+    if (url!="") {
+      show('titleextratab'+num);
+      document.getElementById('extratab'+num).src=url;
+    } else {
+    document.getElementById('spanembedET'+num).innerHTML='No.';  
+    hide('titleextratab'+num);
+}
+
 var Tvoices;
 function loadVoicesWhenAvailable() {
          Tvoices = window.speechSynthesis.getVoices();
@@ -828,6 +851,11 @@ function activetab(tab)  {
 		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>
     <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
     <li id="ltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
+    <li id="titleextratab1"><a href="#tabs-9" onclick="activetab('tabs-9');">1</a></li>
+		<li id="titleextratab2"><a href="#tabs-10" onclick="activetab('tabs-10');">2</a></li>
+		<li id="titleextratab3"><a href="#tabs-11" onclick="activetab('tabs-11');">3</a></li>
+		<li id="titleextratab4"><a href="#tabs-12" onclick="activetab('tabs-12');">4</a></li>
+
 	</ul>
 
 	<div id="tabs-0">
@@ -973,6 +1001,16 @@ function activetab(tab)  {
 	</div>
   <div id="tabs-8"><iframe id="wooclap" src="<?php echo $wooclapaddress; ?>" width="100%" height="100%" style="width: 95%; height: 90%; bottom:0px; left:0px; z-index:1000;"></iframe>
   </div>
+
+  <div id="tabs-9"><iframe id="extratab1" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  </div>
+  <div id="tabs-10"><iframe id="extratab2" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  </div>
+  <div id="tabs-11"><iframe id="extratab3" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  </div>
+  <div id="tabs-12"><iframe id="extratab4" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  </div>
+
 </div>
 
 </form>
