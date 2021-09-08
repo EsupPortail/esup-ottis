@@ -920,7 +920,7 @@ function playlesson() {}
 function GoFS() {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen();
-    document.getElementById('bar').style.transform="scaleY(0.5)";
+    document.getElementById('bar').style.transform="scaleY(1)";
     //document.getElementById('bar').style.bottom="10px";
     //resizeSlides();
   } else {
