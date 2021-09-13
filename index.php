@@ -532,6 +532,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 
 function ShowImage(n) {
+  if (document.getElementById("img_"+n) && document.getElementById("img_"+n).src != '') {
   document.getElementById("img_slides").src=document.getElementById("img_"+n).src;
   resizeSlides();
 
@@ -558,7 +559,7 @@ function ShowImage(n) {
     f.append('ROOMID',document.getElementById('classroomid').value);
   	request.send(f);
   //	request.onload = function(event) {};
-
+}
 }
 
 var currentPresentation=[];
