@@ -1207,6 +1207,8 @@ function showET(obj,num) {
   	    <li>Student application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
+        <li>Teacher remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
+        <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
     </ul>
   </div>
   <div id="tabs-7">
@@ -1248,6 +1250,19 @@ new QRCode(document.getElementById("sharedqr"), {
 
 document.getElementById("sharedqr").title="";
 document.getElementById("sharedqr").onclick=function () {document.getElementById("sharedqr").firstChild.toBlob(function (blob) {var url = URL.createObjectURL(blob);window.open(url);});};
+
+new QRCode(document.getElementById("remoteqr"), {
+	text: document.getElementById("remotelink").href,
+	width: 128,
+	height: 128,
+	colorDark : "#0000ff",
+	colorLight : "#ffffff",
+	correctLevel : QRCode.CorrectLevel.L
+});
+
+document.getElementById("remoteqr").title="";
+document.getElementById("remoteqr").onclick=function () {document.getElementById("remoteqr").firstChild.toBlob(function (blob) {var url = URL.createObjectURL(blob);window.open(url);});};
+
 
 $('#bar').on('keydown keyup keypress', function(e) {
   //console.log(e.keyCode);
