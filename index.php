@@ -532,6 +532,8 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 
 function ShowImage(n) {
+  console.log('IMG OBJ = '+document.getElementById("img_"+n));
+  console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
   if (document.getElementById("img_"+n) && document.getElementById("img_"+n).src != '') {
   document.getElementById("img_slides").src=document.getElementById("img_"+n).src;
   resizeSlides();
