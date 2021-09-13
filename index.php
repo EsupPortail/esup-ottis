@@ -769,6 +769,7 @@ function saveTextNB(ch) {
 
 
 function Lancer() {
+  setInterval(remote,200);
   setInterval(readTextQ,1000);
 }
 
@@ -850,6 +851,26 @@ var inputnumberQ=0;
 function TailleCR() {
   return document.getElementById('classroom').innerHTML.split('<br/>').length;
 }
+
+
+function remote() {
+  if (document.getElementById('classroomid').value != "") {
+	var request = new XMLHttpRequest();
+	request.open("POST", "saveremoteorder.php");
+  var f=new FormData();
+  f.append('ROOMID',document.getElementById('classroomid').value);
+  f.append('ORDER','');
+	request.send(f);
+	request.onload = function(event) {
+    var order=request.responseText;
+    if (order != '') {
+      if (order == 'forward') Forward();
+      if (order == 'backward') Backward();
+    }
+  };
+}
+}
+
 
 function readTextQ() {
   if (document.getElementById('classroomid').value != "") {
