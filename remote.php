@@ -159,14 +159,14 @@ input[type=text] {
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
 
-#titreleft {
+#titreleft,#titreright {
   display: flex;
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
   left: 0.5%;
-  width: 3%;
+  width: 25%;
   margin-left: auto;
   margin-right: auto;
   min-height: 64px;
@@ -186,6 +186,11 @@ input[type=text] {
   vertical-align: middle;
   font-size: 2em;
   font-weight: bold;
+}
+
+#titreright {
+  right: 0.5%;
+
 }
 
 #titre h1 {
@@ -258,13 +263,13 @@ input[type=text] {
 
 <script type="text/javascript">
 
-function remote(order) {
+function remote(myorder) {
   if (document.getElementById('classroomid').value != "") {
 	var request = new XMLHttpRequest();
 	request.open("POST", "saveremoteorder.php");
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
-  f.append('ORDER','');
+  f.append('ORDER',myorder);
 	request.send(f);
 	request.onload = function(event) {
     var order=request.responseText;
@@ -288,9 +293,9 @@ function Lancer() {
 </head>
 <body onload=" setTimeout(Lancer,3000);">
 
-<div id="titreleft" onclick="remote('backward');">&#9666;</div>
-<div id="titreright" onclick="remote('forward');">&#9666;</div>
-
+<div id="titreleft" onclick="remote('backward');">&#8592;</div>
+<div id="titreright" onclick="remote('forward');">&#8594;</div>
+<input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
 
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>
