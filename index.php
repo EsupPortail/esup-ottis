@@ -864,6 +864,7 @@ function remote() {
 	request.onload = function(event) {
     var order=request.responseText;
     if (order != '') {
+      console.log('Get order '+order);
       if (order == 'forward') Forward();
       if (order == 'backward') Backward();
     }
