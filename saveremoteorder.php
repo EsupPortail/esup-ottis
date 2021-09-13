@@ -13,4 +13,5 @@ $fd=fopen("tmp/remote_".$roomid,"w");
 if ($towrite != "") fputs($fd,$towrite);
 fclose($fd);
 
+echo $content;
 ?>
