@@ -1255,9 +1255,13 @@ function Micro() {
 </div>
 
 	<div id="tabs-4">
+    <h3>For students</h3>
     <ul style="list-style-type: none;">
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
+    </ul>
+    <ul style="list-style-type: none;">
+    <h3>For teachers</h3>
         <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
@@ -1288,7 +1292,7 @@ function Micro() {
 <script>
 $("body").tooltip();
 $( "#tabs" ).tabs();
-
+$("#tabs-4").accordion();
 //$( "#savenb" ).button();
 
 new QRCode(document.getElementById("sharedqr"), {
