@@ -644,7 +644,7 @@ function saveremotespeech() {
 	request.open("POST", "savespeechforremote.php");
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
-  f.append('ORDER',txt);
+  f.append('SPEECH',txt);
 	request.send(f);
 	request.onload = function(event) {
     var data=request.responseText;
