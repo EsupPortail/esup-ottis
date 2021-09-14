@@ -164,7 +164,7 @@ input[type=text] {
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
-  width: 25%;
+  width: 45%;
   margin-left: auto;
   margin-right: auto;
   min-height: 64px;
