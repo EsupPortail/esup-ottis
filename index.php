@@ -517,7 +517,7 @@ function addToNB(ch,before) {
   var Tch=ch.split('<br/>');
   saveTextTable(Tch,0);
   //for(var c in Tch) saveText(Tch[c].replace(/<br\/>/gi,"").replace(/<br>/gi,""));
-  saveremotespeech();
+  //saveremotespeech();
 }
 
 function saveTextTable(T,i) {
@@ -619,7 +619,7 @@ function formateresponse(datatxt) {
       var flag=false;
       for (var j=0; j<slide["Notes"].length; j++) {
         if (slide["Notes"][j].trim() != '') {
-        res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
+        res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+'; saveremotespeech();">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
         
           currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
           flag = true;
@@ -659,6 +659,7 @@ function Forward() {
     currentDiscours=(currentDiscours+1)%currentPresentation.length;
     addToNB(currentPresentation[currentDiscours]['Discours'],0);
     ShowImage(currentPresentation[currentDiscours]['Slide']);
+    saveremotespeech();
   }
 }
 
@@ -667,6 +668,7 @@ function Backward() {
     currentDiscours=(currentDiscours-1+currentPresentation.length)%currentPresentation.length;
     addToNB(currentPresentation[currentDiscours]['Discours'],0);
     ShowImage(currentPresentation[currentDiscours]['Slide']);
+    saveremotespeech();
   }
 }
 var inSlideTab=false;
