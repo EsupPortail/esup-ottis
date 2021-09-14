@@ -552,8 +552,8 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 
 function ShowImage(n) {
-  console.log('IMG OBJ = '+document.getElementById("img_"+n));
-  console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
+  //console.log('IMG OBJ = '+document.getElementById("img_"+n));
+  //console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
   if (document.getElementById("img_"+n) && document.getElementById("img_"+n).src.length>200) {
   document.getElementById("img_slides").src=document.getElementById("img_"+n).src;
   resizeSlides();
@@ -619,15 +619,17 @@ function formateresponse(datatxt) {
       for (var j=0; j<slide["Notes"].length; j++) {
         if (slide["Notes"][j].trim() != '') {
         res = res + '<dd><span onclick="addToNB(\''+slide["Notes"][j]+'\',0); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;'+slide["Notes"][j]+'</dd>\n';
+        
           currentPresentation.push({'Slide':slide["Slide"],'Discours':slide["Notes"][j]});
           flag = true;
         }
       }
       if (!flag) currentPresentation.push({'Slide':slide["Slide"],'Discours':''});
     }
-    res+='</dl>'
+    res+='</dl>';
   }
 //  alert(res);
+console.log("DEBUG : "+res);
   return res;
 }
 
