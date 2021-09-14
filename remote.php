@@ -88,35 +88,34 @@ else {
   border-radius: 5%;
   left: 5%;
   position: fixed;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgba(0,255,0,0.5);
+  margin: auto;
+  background-color: rgba(0,0,0,0.5);
   color: white;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
   padding: auto;
-  box-shadow: 2px 2px 5px green;
+  box-shadow: 2px 2px 5px black;
   justify-content: center;
   align-items: center;
   z-index: 20000;
-  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+  text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   text-align: center;
   vertical-align: middle;
 }
 
 #speech_before {
   top: 20%;
-  font-size: 1em;
+  font-size: 0.5em;
 }
 #speech_current {
   top: 40%;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
 
 }
 #speech_after {
   top: 60%;
-  font-size: 1em;
+  font-size: 0.5em;
 }
 
 	</style>
