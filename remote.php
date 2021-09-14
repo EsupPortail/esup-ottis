@@ -32,7 +32,7 @@ else {
   font-size: 90%;
   z-index: 1000;
   background-color: red;
-  border-radius: 10px;
+  border-radius: 2%;
   width: 90%;
   height: 100px;
   margin: auto;
@@ -40,12 +40,14 @@ else {
   color: white;
   text-align: center;
   vertical-align: middle;
+    box-shadow: 2px 2px 5px red;
+  text-shadow: 2px 0 0 #f00, -2px 0 0 #f00, 0 2px 0 #f00, 0 -2px 0 #f00, 1px 1px #f00, -1px -1px 0 #f00, 1px -1px 0 #f00, -1px 1px 0 #f00;
 }
 
 
 #titreleft,#titreright {
   transition: 1s ease;
-  border-radius: 25px;
+  border-radius: 2%;
   position: fixed;
   bottom: 10px;
   width: 40%;
@@ -83,7 +85,8 @@ else {
 #speech_before, #speech_current, #speech_after {
   width: 90%;
   height: 100px;
-  border-radius: 25px;
+  border-radius: 2%;
+  left: 5%;
   position: fixed;
   margin-left: auto;
   margin-right: auto;
