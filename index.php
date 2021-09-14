@@ -268,7 +268,7 @@ input[type=text] {
   transform: scale(2);
 }
 
-#titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titleshare,#titlevisio {
+#titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titlevisio {
   display:none;
 }
 	</style>
@@ -1187,7 +1187,7 @@ function Micro() {
   <li>Embed WOOCLAP ?  <input type="checkbox" checked id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">Yes !</span></li>
   <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li>
   <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li>
-  <li>Show Share tab ?  <input type="checkbox" id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}"/>&nbsp;<span id="spanembedshareon">No.</span></li>
+  <li>Show Share tab ?  <input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}"/>&nbsp;<span id="spanembedshareon">Yes !</span></li>
   <li>Extra tab 1  URL : <input type="text" id="extraurl1" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET1" onclick="showET(this,1);"/>&nbsp;<span id="spanembedET1">No.</span>&nbsp;<input type="button" value="Send to students" onclick="saveTextQ('[extratab1|'+document.getElementById('extraurl1').value+']');"/></li>
   <li>Extra tab 2  URL : <input type="text" id="extraurl2" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET2" onclick="showET(this,2);"/>&nbsp;<span id="spanembedET2">No.</span>&nbsp;<input type="button" value="Send to students" onclick="saveTextQ('[extratab2|'+document.getElementById('extraurl2').value+']');"/></li>
   <li>Extra tab 3  URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span>&nbsp;<input type="button" value="Send to students" onclick="saveTextQ('[extratab3|'+document.getElementById('extraurl3').value+']');"/></li>
