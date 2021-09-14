@@ -16,7 +16,7 @@ else {
 <!doctype html>
 <html lang="fr">
 <head>
-	<title>Automatic translation for teaching purposes: Teacher</title>
+	<title>Automatic translation for teaching purposes: Remote</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
@@ -160,12 +160,11 @@ input[type=text] {
 }
 
 #titreleft,#titreright {
-  display: flex;
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
-  left: 0.5%;
+  left: 10px;
   width: 25%;
   margin-left: auto;
   margin-right: auto;
@@ -189,7 +188,7 @@ input[type=text] {
 }
 
 #titreright {
-  right: 0.5%;
+  right: 10px;
 
 }
 
