@@ -164,7 +164,6 @@ input[type=text] {
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
-  left: 10px;
   width: 25%;
   margin-left: auto;
   margin-right: auto;
@@ -185,6 +184,10 @@ input[type=text] {
   vertical-align: middle;
   font-size: 2em;
   font-weight: bold;
+}
+
+#titreleft {
+  left: 10px;
 }
 
 #titreright {
