@@ -161,7 +161,7 @@ function remotespeech() {
 
 
 function Lancer() {
-  setInterval(remotespeech,1000);
+  setInterval(remotespeech,200);
 }
 </script>
 
