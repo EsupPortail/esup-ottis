@@ -134,17 +134,34 @@ function remote(myorder) {
 	request.send(f);
 	request.onload = function(event) {
     var order=request.responseText;
-    if (order != '') {
-      if (order == 'forward') Forward();
-      if (order == 'backward') Backward();
-    }
+  };
+}
+}
+
+function remotespeech() {
+  if (document.getElementById('classroomid').value != "") {
+	var request = new XMLHttpRequest();
+	request.open("POST", "savespeechforremote.php");
+  var f=new FormData();
+  f.append('ROOMID',document.getElementById('classroomid').value);
+  f.append('ORDER','read');
+	request.send(f);
+	request.onload = function(event) {
+    var data=request.responseText;
+    var Tspeech = data.split(':|:');
+    if (document.getElementById('speech_before').innerHTML != Tspeech[0])
+      document.getElementById('speech_before').innerHTML = Tspeech[0];
+    if (document.getElementById('speech_current').innerHTML != Tspeech[1])
+      document.getElementById('speech_current').innerHTML = Tspeech[1];
+    if (document.getElementById('speech_after').innerHTML != Tspeech[2])
+      document.getElementById('speech_after').innerHTML = Tspeech[2];
   };
 }
 }
 
 
 function Lancer() {
-//  setInterval(remote,1000);
+  setInterval(remotespeech,1000);
 }
 </script>
 

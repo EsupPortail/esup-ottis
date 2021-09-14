@@ -517,6 +517,7 @@ function addToNB(ch,before) {
   var Tch=ch.split('<br/>');
   saveTextTable(Tch,0);
   //for(var c in Tch) saveText(Tch[c].replace(/<br\/>/gi,"").replace(/<br>/gi,""));
+  saveremotespeech();
 }
 
 function saveTextTable(T,i) {
@@ -632,6 +633,26 @@ function formateresponse(datatxt) {
 console.log("DEBUG : "+res);
   return res;
 }
+
+function saveremotespeech() {
+  if (currentPresentation.length>0) {
+    var currentDiscoursB=(currentDiscours-1+currentPresentation.length)%currentPresentation.length;
+    var currentDiscoursA=(currentDiscours+1)%currentPresentation.length;
+    var txt = currentPresentation[currentDiscoursB]['Discours']+':|:'+currentPresentation[currentDiscours]['Discours']+':|:'+currentPresentation[currentDiscoursA]['Discours'];
+  if (document.getElementById('classroomid').value != "") {
+	var request = new XMLHttpRequest();
+	request.open("POST", "savespeechforremote.php");
+  var f=new FormData();
+  f.append('ROOMID',document.getElementById('classroomid').value);
+  f.append('ORDER',txt);
+	request.send(f);
+	request.onload = function(event) {
+    var data=request.responseText;
+  };
+}
+}
+}
+
 
 function Forward() {
   if (currentPresentation.length>0) {
