@@ -94,7 +94,7 @@ else {
   color: white;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
-  padding: 10px;
+  padding: auto;
   box-shadow: 2px 2px 5px green;
   justify-content: center;
   align-items: center;
