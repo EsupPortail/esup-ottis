@@ -8,7 +8,7 @@ if ($speech == "read") {
         $content = file_get_contents("tmp/remotespeech_".$roomid);
         echo $content;
     } else {
-        echo ":|: :|:";
+        echo ":|:READY !:|:";
     }
 } else {
     $fd=fopen("tmp/remote_".$roomid,"w");
