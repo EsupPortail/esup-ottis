@@ -1256,14 +1256,14 @@ function Micro() {
 
 	<div id="tabs-4">
     <h3>For students</h3>
-    <ul style="list-style-type: none;">
     <div style="height: 500px;">
+    <ul style="list-style-type: none;">
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
     </ul>
     </div>
     <h3>For teachers</h3>
-        <div style="height: 500px;">
+    <div style="height: 500px;">
     <ul style="list-style-type: none;">
         <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a></li>
