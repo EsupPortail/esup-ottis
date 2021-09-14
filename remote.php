@@ -184,21 +184,19 @@ else {
 }
 
 
-#speech_before, #speech_current,#speech_after {
+#speech_before, #speech_current, #speech_after {
   width: 90%;
   height: 100px;
   border-radius: 25px;
   position: fixed;
   margin-left: auto;
   margin-right: auto;
-  min-height: 64px;
   background-color: rgba(0,255,0,0.5);
   color: white;
-  font-size: 18px;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
   padding: 10px;
-  box-shadow: 2px 2px 5px blue;
+  box-shadow: 2px 2px 5px green;
   padding:auto;
   justify-content: center;
   align-items: center;
