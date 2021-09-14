@@ -27,6 +27,7 @@ if( is_uploaded_file($tmp_file) ) {
 
 
 $contenttxt = file_get_contents($filename);
+$contenttxt = $contenttxt."\n--------------END----------";
 $content = explode("\n",$contenttxt);
 $notes=array();
 $num=0;
