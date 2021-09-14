@@ -290,7 +290,7 @@ function Lancer() {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload=" setTimeout(Lancer,3000);">
+<body onload=" setTimeout(Lancer,3000);" style="width: 100%; height: 100%;">
 
 <div id="titreleft" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" onclick="remote('forward');">&#8594;</div>
