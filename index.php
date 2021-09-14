@@ -733,6 +733,11 @@ function EcrireNB(ch) {
 
 function EcrireTitle(ch) {
   var linput = builtin_language.substr(0,2).toLowerCase();
+  if (ch.indexOf(':|:')>=0) { // If there are a language indication
+    var Tch=ch.split(':|:');
+    linput = Tch[0].substr(0,2).toLowerCase();
+    ch=Tch[1];
+  }
   var loutput = subtitle_language.substr(0,2).toLowerCase();
   if ((! document.getElementById('subtitleon').checked) || (linput == loutput)) {
     document.getElementById('titre').innerHTML=ch;
@@ -764,7 +769,7 @@ function saveText(ch) {
   if (ch.indexOf(':|:')>=0) { // If there are a language indication
     var Tch=ch.split(':|:');
     inputlanguage = Tch[0];
-    ch=ch[1];
+    ch=Tch[1];
   }
 	var request = new XMLHttpRequest();
 	request.open("POST", "savetext.php");
