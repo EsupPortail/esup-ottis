@@ -40,7 +40,7 @@ else {
 #micon {
   position: fixed;
   top:10px;
-  right: 10px;
+  right: 5%;
   font-size: 90%;
   z-index: 1000;
   background-color: red;
@@ -112,7 +112,7 @@ else {
   border-radius: 25px;
   position: fixed;
   bottom: 10px;
-  width: 45%;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
   min-height: 64px;
@@ -244,8 +244,8 @@ function Lancer() {
 <body onload=" setTimeout(Lancer,3000);" style="width: 100%; height: 100%;">
 
 <div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
-<div id="titreleft" onclick="remote('backward');">&#8592;</div>
-<div id="titreright" onclick="remote('forward');">&#8594;</div>
+<div id="titreleft" style="font-size: 5em;" onclick="remote('backward');">&#8592;</div>
+<div id="titreright" style="font-size: 5em;" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
 
 <script src="jquery/jquery.js"></script>
