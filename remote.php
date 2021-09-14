@@ -93,7 +93,6 @@ else {
   font-style: italic;
   padding: 10px;
   box-shadow: 2px 2px 5px green;
-  padding:auto;
   justify-content: center;
   align-items: center;
   z-index: 20000;
@@ -107,14 +106,14 @@ else {
   font-size: 1em;
 }
 #speech_current {
-  top: 250px;
-    font-size: 1.5em;
-    font-weight: bold;
+  top: 260px;
+  font-size: 1.5em;
+  font-weight: bold;
 
 }
 #speech_after {
-  top: 360px;
-    font-size: 1em;
+  top: 380px;
+  font-size: 1em;
 }
 
 	</style>
