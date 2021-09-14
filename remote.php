@@ -93,7 +93,7 @@ else {
   color: white;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
-  padding: auto;
+  padding: 10px;
   box-shadow: 2px 2px 5px black;
   justify-content: center;
   align-items: center;
