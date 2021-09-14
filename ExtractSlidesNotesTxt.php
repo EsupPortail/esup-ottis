@@ -37,7 +37,7 @@ for($i=0;$i<count($content);$i++) {
 	if ($num>0) {
            $slidenotes=array();
            $slidenotes["Slide"]=$num;
-           $slidenotes["Notes"]=$notesslide;
+           $slidenotes["Notes"]=str_replace("\r",$notesslide);
            $notes[]=$slidenotes;
            $notesslide=array();
 	}
