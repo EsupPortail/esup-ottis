@@ -46,7 +46,7 @@ else {
   background-color: red;
   border-radius: 10px;
   width: 90%;
-  height: 50%;
+  height: 100px;
   margin: auto;
   padding: auto;
   color: white;
@@ -141,33 +141,7 @@ else {
 #titreright {
   right: 10px;
 
-}
 
-#titre h1 {
-  text-align: center;
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-#soustitre {
-  transition: 1s ease;
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 10px;
-  z-index: 20000;
-}
-
-#classroom span {
-  padding: 5px;
-  margin-left: 5px;
-  margin-top: 0px;
-  margin-right: 0px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-
-}
 
 #classroom {
   padding: 15px;
@@ -208,6 +182,47 @@ else {
 #titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titleshare,#titlevisio {
   display:none;
 }
+
+
+#speech_before, #speech_current,#speech_after {
+  width: 90%;
+  height: 100px;
+  border-radius: 25px;
+  position: fixed;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 64px;
+  background-color: rgba(0,255,0,0.5);
+  color: white;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-style: italic;
+  padding: 10px;
+  box-shadow: 2px 2px 5px blue;
+  padding:auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#speech_before {
+  top: 140px;
+  font-size: 1em;
+}
+#speech_current {
+  top: 250px;
+    font-size: 1.5em;
+    font-weight: bold;
+
+}
+#speech_after {
+  top: 360px;
+    font-size: 1em;
+}
+
 	</style>
 
 
@@ -244,6 +259,9 @@ function Lancer() {
 <body onload=" setTimeout(Lancer,3000);" style="width: 100%; height: 100%;">
 
 <div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
+<div id="speech_before">Before</div>
+<div id="speech_current">Current</div>
+<div id="speech_after">After</div>
 <div id="titreleft" style="font-size: 5em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 5em;" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
