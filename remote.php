@@ -169,7 +169,7 @@ function Lancer() {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload=" setTimeout(Lancer,3000);" style="width: 100%; height: 100%;">
+<body onload=" setTimeout(Lancer,300);" style="width: 100%; height: 100%;">
 
 <div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
 <div id="speech_before">Before</div>
