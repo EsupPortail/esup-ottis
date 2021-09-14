@@ -25,18 +25,6 @@ else {
 
 	<style>
 
-
-.blink {
-  animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0.1;
-    transform: scale(0.5);
-  }
-}
-
 #micon {
   position: fixed;
   top:10px;
@@ -54,58 +42,6 @@ else {
   vertical-align: middle;
 }
 
-#questionicon {
-  position: fixed;
-  top:5px;
-  right: 5px;
-  font-size: 36px;
-  z-index: 1000;
-  background-color: green;
-  border-radius: 10px;
-  width: 50px;
-  height: 50px;
-  margin: auto;
-  color: white;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#logonext {
-  position: fixed;
-  top:5px;
-  right: 5px;
-  display:none;
-  z-index: 1000;
-}
-
-.big {
-    font-size: 36px;
-    transform: scale(1.5) translateY(5px);
-}
-
-#titre {
-  transition: 1s ease;
-  border-radius: 25px;
-  position: fixed;
-  bottom: 10px;
-  left: 5%;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  min-height: 64px;
-  background-color: rgba(0,0,255,0.5);
-  color: white;
-  font-size: 18px;
-  font-family: helvetica, arial, sans-serif;
-  font-style: italic;
-  padding: 10px;
-  box-shadow: 2px 2px 5px blue;
-  padding:auto;
-  justify-content: center;
-  align-items: center;
-  z-index: 20000;
-  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
-}
 
 #titreleft,#titreright {
   transition: 1s ease;
@@ -140,48 +76,8 @@ else {
 
 #titreright {
   right: 10px;
-
-
-
-#classroom {
-  padding: 15px;
-
-
 }
 
-#bar {
-  transition: 1s ease;
-  transform-origin: top left;
-
-}
-
-#FS {
-  position: fixed;
-  top:50px;
-  right: 0px;
-  font-size: 12px;
-}
-
-#tabs-7 {
-}
-
-#img_slides {
-  transform-origin: top left;
-  cursor: url(images/pointer.png), pointer;
-}
-
-
-#sharedqr {
-    transition: 1s ease;
-  transform-origin: top left;
-}
-#sharedqr:hover {
-  transform: scale(2);
-}
-
-#titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titleshare,#titlevisio {
-  display:none;
-}
 
 
 #speech_before, #speech_current, #speech_after {
