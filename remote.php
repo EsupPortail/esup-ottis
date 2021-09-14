@@ -41,13 +41,14 @@ else {
   position: fixed;
   top:10px;
   right: 10px;
-  font-size: 50%;
+  font-size: 90%;
   z-index: 1000;
   background-color: red;
   border-radius: 10px;
   width: 90%;
   height: 50%;
   margin: auto;
+  padding: auto;
   color: white;
   text-align: center;
   vertical-align: middle;
