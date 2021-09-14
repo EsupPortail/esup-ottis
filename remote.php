@@ -105,7 +105,7 @@ else {
 
 #speech_before {
   top: 20%;
-  font-size: 0.5em;
+  font-size: 0.8em;
 }
 #speech_current {
   top: 40%;
@@ -115,7 +115,7 @@ else {
 }
 #speech_after {
   top: 60%;
-  font-size: 0.5em;
+  font-size: 0.8em;
 }
 
 	</style>
