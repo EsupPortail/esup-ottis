@@ -106,18 +106,22 @@ else {
 #speech_before {
   top: 20%;
   font-size: 0.8em;
-  height: 10%
+  height: 10%;
+  background-color: rgba(0,0,0,0.3);
+
 }
 #speech_current {
   top: 35%;
   font-size: 1em;
   font-weight: bold;
+  height: 25%;
 
 }
 #speech_after {
   top: 65%;
   font-size: 0.8em;
   height: 10%;
+  background-color: rgba(0,0,0,0.3);
 }
 
 	</style>
