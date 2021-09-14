@@ -243,7 +243,7 @@ function Lancer() {
 </head>
 <body onload=" setTimeout(Lancer,3000);" style="width: 100%; height: 100%;">
 
-<div id="micon" onclick="remote('micro');"><i class='material-icons big'>record_voice_over</i></div>
+<div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
 <div id="titreleft" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
