@@ -286,6 +286,7 @@ var TLangInput=[];
 var builtin_voice;
 var builtin_language;
 var subtitle_language;
+var speech_language='same';
 
 function PopulateVoicesOut() {
   var select = document.getElementById('VoiceOutput');
@@ -364,6 +365,17 @@ function PopulateSubtitlesLang() {
     }
 }
 
+function PopulateSpeechLang() {
+  var select = document.getElementById('speechlanguage');
+  for(var i=0; i<supportedlanguages.length; i++) {
+      var lang=supportedlanguages[i].code; //.substr(0,5);
+      var opt=document.createElement("option");
+      opt.value=lang;
+      opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+      select.appendChild(opt);
+    }
+}
+
 
 function setLanguageInput(i) {
   builtin_language=TLangInput[i];
@@ -377,6 +389,11 @@ function setLanguageOutput(i) {
 
 function setLanguageSubtitle(i) {
   subtitle_language=i;
+  //console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
+}
+
+function setLanguageSpeech(i) {
+  speech_language=i;
   //console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
 }
 
@@ -487,10 +504,13 @@ function addSlideToNB(ch) {
 }
 
 function addToNB(ch,before) {
+  var speechlanguage = document.getElementById('speechlanguage').value;
+  var tobeinserted = '';
+  if (speechlanguage != 'same') tobeinserted = speechlanguage+':|:';
   var tobesaidbetweenslides='';
-  if (before == 1 && document.getElementById('tobesaid').value != '') tobesaidbetweenslides=document.getElementById('tobesaid').value+'. <br/>';
+  if (before == 1 && document.getElementById('tobesaid').value != '') tobesaidbetweenslides=tobeinserted+document.getElementById('tobesaid').value+'. <br/>';
 
-  ch=tobesaidbetweenslides+ch;
+  ch=tobesaidbetweenslides+tobeinserted+ch;
   document.getElementById('notebook').innerHTML+='<br/>'+ch;
   EcrireTitle(ch);
   //saveTextNB(document.getElementById('notebook').innerHTML);
@@ -740,13 +760,19 @@ function show(e) {
 //document.body.addEventListener('load',Init,true);
 
 function saveText(ch) {
+  var inputlanguage = builtin_language;
+  if (ch.indexOf(':|:')>=0) { // If there are a language indication
+    var Tch=ch.split(':|:');
+    inputlanguage = Tch[0];
+    ch=ch[1];
+  }
 	var request = new XMLHttpRequest();
 	request.open("POST", "savetext.php");
   var f=new FormData();
   f.append('lineid',inputnumber);
   inputnumber++;
   f.append('text',ch);
-  f.append('inputlanguage',builtin_language);
+  f.append('inputlanguage',inputlanguage);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 //	request.onload = function(event) {};
@@ -775,6 +801,8 @@ function Lancer() {
 
 function Init() {
   PopulateSubtitlesLang();
+  PopulateSpeechLang();
+
   document.getElementById('question').addEventListener('keyup', function (event) {
     if (event.code === 'Enter') {
         saveTextQ(document.getElementById('question').value);
@@ -1173,8 +1201,14 @@ function showET(obj,num) {
     <div>
     <label for="ppt_presentation">Powerpoint presentation : </label>
     <input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes()" accept=".pptx,.odp,.txt,.html" max-size="50000"/>
+    <label for="speechlanguage">Speech language : </label>
+  <select id="speechlanguage" onchange="setLanguageSpeech(this.value);">
+  <option value="same" selected>Same as speaker</option>
+  </select>
+  <span style="display:none">
    <label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
     <input type="text" id="tobesaid" value="">
+    </span>
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     </div>
