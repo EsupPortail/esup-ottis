@@ -11,7 +11,7 @@ if ($speech == "read") {
         echo ":|:READY !:|:";
     }
 } else {
-    $fd=fopen("tmp/remote_".$roomid,"w");
+    $fd=fopen("tmp/remotespeech_".$roomid,"w");
     fputs($fd,$speech);
     fclose($fd);
     echo "OK !";
