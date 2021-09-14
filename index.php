@@ -902,6 +902,7 @@ function remote() {
       console.log('Get order '+order);
       if (order == 'forward') Forward();
       if (order == 'backward') Backward();
+      if (order == 'micro') Micro();
     }
   };
 }
@@ -1110,6 +1111,16 @@ function showET(obj,num) {
     hide('titleextratab'+num);
   }
 }
+
+function Micro() {
+  var mybox = document.getElementById('micon');
+  document.getElementById('recognitionon').checked = !document.getElementById('recognitionon').checked; 
+  if (document.getElementById('recognitionon').checked) {
+    mybox.innerHTML='<i class=\'material-icons blink big\'>record_voice_over</i>';
+  } else {
+    mybox.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';
+  };
+}
 </script>
 
 
@@ -1119,7 +1130,7 @@ function showET(obj,num) {
 <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready();">
 
 
-<div id="micon" onclick="document.getElementById('recognitionon').checked = !document.getElementById('recognitionon').checked; if (document.getElementById('recognitionon').checked) {this.innerHTML='<i class=\'material-icons blink big\'>record_voice_over</i>';} else {this.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';};"><i class='material-icons big'>voice_over_off</i></div>
+<div id="micon" onclick="Micro();"><i class='material-icons big'>voice_over_off</i></div>
 
 <div id="questionicon"><i class='material-icons big'>thumb_up</i></div>
 

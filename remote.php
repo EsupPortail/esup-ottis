@@ -25,59 +25,6 @@ else {
 
 	<style>
 
-.classselect {
-  width: 300px;
-  height: 40px;
-  font-family:Verdana,Arial,sans-serif;
-	font-size:1em;
-  background-color: #2191c0;
-  color: #eaf5f7;
-}
-
-option{
-  font-family:Verdana,Arial,sans-serif;
-	font-size:1.5em;
-  color: black;
-  background-color: white;
-}
-
-option:hover{
-  color: white;
-  background-color: #acdd4a;
-}
-
-input[type=text] {
-	width: 500px;
-}
-
-#tabs-5 dl:hover {
-  background-color: lightblue;
-}
-
-#tabs-5 dl dd {
-  background-color: white;
-}
-
-#tabs-5 dl dd:hover {
-  background-color: blue;
-  color: white;
-}
-
-#tabs-5 dl dt span, #tabs-5 dl dd span  {
-  transition: 0.2s ease;
-}
-
-#tabs-5 dl dt span:hover {
-  font-size: 1.5em;
-  text-shadow: 2px 2px 5px blue;
-}
-
-#tabs-5 dl dd span:hover {
-  font-size: 1.2em;
-  text-shadow: 2px 2px 5px white;
-
-}
-
 
 .blink {
   animation: blinker 1s linear infinite;
@@ -92,14 +39,14 @@ input[type=text] {
 
 #micon {
   position: fixed;
-  top:5px;
-  right: 60px;
-  font-size: 36px;
+  top:10px;
+  right: 10px;
+  font-size: 50%;
   z-index: 1000;
   background-color: red;
   border-radius: 10px;
-  width: 50px;
-  height: 50px;
+  width: 90%;
+  height: 50%;
   margin: auto;
   color: white;
   text-align: center;
@@ -295,6 +242,7 @@ function Lancer() {
 </head>
 <body onload=" setTimeout(Lancer,3000);" style="width: 100%; height: 100%;">
 
+<div id="micon" onclick="remote('micro');"><i class='material-icons big'>record_voice_over</i></div>
 <div id="titreleft" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
