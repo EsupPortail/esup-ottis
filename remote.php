@@ -54,6 +54,7 @@ else {
   margin-left: auto;
   margin-right: auto;
   min-height: 10%;
+  height: 10%;
   background-color: rgba(0,0,255,0.5);
   color: white;
   font-size: 18px;
@@ -95,7 +96,7 @@ else {
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
   padding: 10px;
-  box-shadow: 2px 2px 5px blue;
+  box-shadow: 2px 2px 5px #ff7f00;
   padding:auto;
   justify-content: center;
   align-items: center;
