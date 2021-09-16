@@ -53,8 +53,7 @@ else {
   width: 40%;
   margin-left: auto;
   margin-right: auto;
-  min-height: 10%;
-  height: 10%;
+  height: 7%;
   background-color: rgba(0,0,255,0.5);
   color: white;
   font-size: 18px;
@@ -85,11 +84,11 @@ else {
   transition: 1s ease;
   border-radius: 5%;
   position: fixed;
-  bottom: 11%;
+  bottom: 9%;
   width: 40%;
   margin-left: auto;
   margin-right: auto;
-  height: 10%;
+  height: 7%;
   background-color: rgba(255,120,0,0.5);
   color: white;
   font-size: 18px;
@@ -128,7 +127,7 @@ else {
   color: white;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
-  padding: 10px;
+  padding: 0px;
   box-shadow: 2px 2px 5px black;
   justify-content: center;
   align-items: center;
@@ -149,11 +148,11 @@ else {
   top: 35%;
   font-size: 1em;
   font-weight: bold;
-  height: 25%;
+  height: 20%;
 
 }
 #speech_after {
-  top: 65%;
+  top: 60%;
   font-size: 0.8em;
   height: 10%;
   background-color: rgba(0,0,0,0.3);
@@ -215,8 +214,8 @@ function Lancer() {
 <div id="speech_before">Before</div>
 <div id="speech_current">Current</div>
 <div id="speech_after">After</div>
-<div title="Skip subtitle" id="skipleft" style="font-size: 5em;" onclick="remote('skipbackward');">&#219A;</div>
-<div title="Skip subtitle" id="skipright" style="font-size: 5em;" onclick="remote('skipforward');">&#219B;</div>
+<div title="Skip subtitle" id="skipleft" style="font-size: 5em;" onclick="remote('skipbackward');">&#8592;</div>
+<div title="Skip subtitle" id="skipright" style="font-size: 5em;" onclick="remote('skipforward');">&#8594;</div>
 <div id="titreleft" style="font-size: 5em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 5em;" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
