@@ -84,7 +84,7 @@ else {
   transition: 1s ease;
   border-radius: 5%;
   position: fixed;
-  bottom: 9%;
+  bottom: 12%;
   width: 40%;
   margin-left: auto;
   margin-right: auto;
@@ -107,11 +107,11 @@ else {
   font-weight: bold;
 }
 
-#titreleft {
+#skipleft {
   left: 10px;
 }
 
-#titreright {
+#skipright {
   right: 10px;
 }
 
