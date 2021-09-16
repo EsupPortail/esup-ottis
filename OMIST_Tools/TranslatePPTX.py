@@ -86,10 +86,13 @@ def translate(txt,lfrom,lto):
         return txt
     txt=txt.replace("'","’")
     txt=txt.replace('"',"’’")
-    proxyDict = {"http"  : "http://cache.univ-nantes.fr:3128", "https" : "http://cache.univ-nantes.fr:3128"}
+    proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
     url = "https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN
     datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
-    result = requests.post(url,data=datapost,proxies=proxyDict)
+    if config.PROXYHTTP != "":
+        result = requests.post(url,data=datapost,proxies=proxyDict)
+    else:
+        result = requests.post(url,data=datapost)
     result=json.loads(result.text)
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
