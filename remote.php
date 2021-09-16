@@ -211,9 +211,9 @@ function Lancer() {
 <body onload=" setTimeout(Lancer,300);" style="width: 100%; height: 100%;">
 
 <div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
-<div id="speech_before">Before</div>
-<div id="speech_current">Current</div>
-<div id="speech_after">After</div>
+<div id="speech_before" onclick="remote('backward');">Before</div>
+<div id="speech_current" onclick="remote('playcurrent');">Current</div>
+<div id="speech_after" onclick="remote('forward');">After</div>
 <div title="Skip subtitle" id="skipleft" onclick="remote('skipbackward');"><span style="font-size: 1em;">&#8592; Skip</span></div>
 <div title="Skip subtitle" id="skipright" onclick="remote('skipforward');"><span style="font-size: 1em;">Skip &#8594;</span></div>
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward');">&#8592;</div>

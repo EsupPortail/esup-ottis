@@ -942,6 +942,7 @@ function remote() {
       if (order == 'backward') Backward();
       if (order == 'skipforward') SkipForward();
       if (order == 'skipbackward') SkipBackward();
+      if (order == 'playcurrent') {SkipBackward(); Forward();}
       if (order == 'micro') Micro();
     }
   };
