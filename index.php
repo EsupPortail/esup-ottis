@@ -654,6 +654,21 @@ function saveremotespeech() {
 }
 
 
+function SkipForward() {
+  if (currentPresentation.length>0) {
+    currentDiscours=(currentDiscours+1)%currentPresentation.length;
+    saveremotespeech();
+  }
+}
+
+function SkipBackward() {
+  if (currentPresentation.length>0) {
+    currentDiscours=(currentDiscours-1+currentPresentation.length)%currentPresentation.length;
+    saveremotespeech();
+  }
+}
+
+
 function Forward() {
   if (currentPresentation.length>0) {
     currentDiscours=(currentDiscours+1)%currentPresentation.length;
@@ -925,6 +940,8 @@ function remote() {
       console.log('Get order '+order);
       if (order == 'forward') Forward();
       if (order == 'backward') Backward();
+      if (order == 'skipforward') SkipForward();
+      if (order == 'skipbackward') SkipBackward();
       if (order == 'micro') Micro();
     }
   };
