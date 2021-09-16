@@ -59,7 +59,7 @@ else {
   font-size: 18px;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
-  padding: 10px;
+  padding: 0px;
   box-shadow: 2px 2px 5px blue;
   padding:auto;
   justify-content: center;
@@ -94,7 +94,7 @@ else {
   font-size: 18px;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
-  padding: 10px;
+  padding: 0px;
   box-shadow: 2px 2px 5px #ff7f00;
   padding:auto;
   justify-content: center;
@@ -214,8 +214,8 @@ function Lancer() {
 <div id="speech_before">Before</div>
 <div id="speech_current">Current</div>
 <div id="speech_after">After</div>
-<div title="Skip subtitle" id="skipleft" style="font-size: 5em;" onclick="remote('skipbackward');">&#8592;</div>
-<div title="Skip subtitle" id="skipright" style="font-size: 5em;" onclick="remote('skipforward');">&#8594;</div>
+<div title="Skip subtitle" id="skipleft" onclick="remote('skipbackward');"><span style="font-size: 1em;">Skip<br/></span><span style="font-size: 1em;">&#8592;</span></div>
+<div title="Skip subtitle" id="skipright" style="font-size: 5em;" onclick="remote('skipforward');"><span style="font-size: 1em;">Skip<br/></span><span style="font-size: 1em;">&#8594;</span></div>
 <div id="titreleft" style="font-size: 5em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 5em;" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
