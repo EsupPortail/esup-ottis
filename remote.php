@@ -135,6 +135,7 @@ else {
   text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   text-align: center;
   vertical-align: middle;
+  overflow:hidden;
 }
 
 #speech_before {
