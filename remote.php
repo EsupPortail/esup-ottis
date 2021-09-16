@@ -141,7 +141,7 @@ else {
 #speech_before {
   top: 20%;
   font-size: 0.8em;
-  height: 10%;
+  height: 15%;
   background-color: rgba(0,0,0,0.3);
 
 }
@@ -149,13 +149,13 @@ else {
   top: 35%;
   font-size: 1em;
   font-weight: bold;
-  height: 20%;
+  height: 25%;
 
 }
 #speech_after {
   top: 60%;
   font-size: 0.8em;
-  height: 10%;
+  height: 15%;
   background-color: rgba(0,0,0,0.3);
 }
 
