@@ -206,6 +206,34 @@ input[type=text] {
   font-weight: bold;
 }
 
+#titreright {
+  display: flex;
+  transition: 1s ease;
+  border-radius: 25px;
+  position: fixed;
+  bottom: 10px;
+  right: 0.5%;
+  width: 2%;
+  height: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(255,255,0,0.5);
+  color: white;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-style: italic;
+  box-shadow: 2px 2px 5px #ff0;
+  padding:auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  text-shadow: 2px 0 0 #ff0, -2px 0 0 #ff0, 0 2px 0 #ff0, 0 -2px 0 #ff0, 1px 1px #ff0, -1px -1px 0 #ff0, 1px -1px 0 #ff0, -1px 1px 0 #ff0;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 2em;
+  font-weight: bold;
+}
+
 #titre h1 {
   text-align: center;
   font-size: 1.5em;
@@ -555,6 +583,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 function ShowImage(n) {
   //console.log('IMG OBJ = '+document.getElementById("img_"+n));
   //console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
+  document.getElementById('titreright').innerHTML=n;
   if (document.getElementById("img_"+n) && document.getElementById("img_"+n).src.length>200) {
   document.getElementById("img_slides").src=document.getElementById("img_"+n).src;
   resizeSlides();
@@ -1178,8 +1207,9 @@ function Micro() {
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 
 <div id="titreleft" onclick="Backward();">&#9666;</div>
-<div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
-<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
+<div id="titreright"></div>
+<div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
+<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titreright').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
 
 <form id="myform">
 
