@@ -213,12 +213,12 @@ input[type=text] {
   position: fixed;
   bottom: 10px;
   right: 0.5%;
-  width: 2%;
+  width: 3%;
   height: 24px;
   margin-left: auto;
   margin-right: auto;
   background-color: rgba(255,255,0,0.5);
-  color: white;
+  color: black;
   font-size: 18px;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
@@ -230,7 +230,7 @@ input[type=text] {
   text-shadow: 2px 0 0 #ff0, -2px 0 0 #ff0, 0 2px 0 #ff0, 0 -2px 0 #ff0, 1px 1px #ff0, -1px -1px 0 #ff0, 1px -1px 0 #ff0, -1px 1px 0 #ff0;
   text-align: center;
   vertical-align: middle;
-  font-size: 2em;
+  font-size: 1em;
   font-weight: bold;
 }
 
