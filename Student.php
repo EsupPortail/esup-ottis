@@ -50,6 +50,7 @@ fclose($fd);
     <meta name="viewport" content="width=device-width, user-scalable=no" />
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<style>
 
 body {
@@ -208,6 +209,27 @@ input[type=text] {
   border-color: black;
 }
 
+#micon {
+  position: fixed;
+  bottom:5px;
+  right: 60px;
+  font-size: 36px;
+  z-index: 1000;
+  background-color: red;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.big {
+    font-size: 36px;
+    transform: scale(1.5) translateY(5px);
+}
+
 @media screen and (max-width: 500px) {
   #showmenu {
         display: block;
@@ -228,6 +250,7 @@ input[type=text] {
   #ltabs-9,#ltabs-10,#ltabs-11,#ltabs-12 {
   display:none;
 }
+
 
 	</style>
 
@@ -835,6 +858,7 @@ function activetab(tab)  {
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable(); activetab('tabs-0');">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();">☰</div>
+<div id="micon"><i class='material-icons big'>sensors</i></div>
 
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
