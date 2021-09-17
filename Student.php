@@ -211,7 +211,7 @@ input[type=text] {
 
 #micon {
   position: fixed;
-  bottom:5px;
+  top:5px;
   right: 60px;
   font-size: 36px;
   z-index: 1000;
@@ -858,7 +858,7 @@ function activetab(tab)  {
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable(); activetab('tabs-0');">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();">☰</div>
-<div id="micon"><i class='material-icons'>sensors</i><br/><span style="font-size: 0.5em">LIVE</span></div>
+<div id="micon"><i class='material-icons'>sensors</i><br/><span style="font-size: 0.5em;color: white;">LIVE</span></div>
 
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
