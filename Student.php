@@ -520,11 +520,14 @@ function CompleteSpeech() {
     }
   }
   if (gotolive) {
+    console.log('Restart Speech');
+    console.log('Discours : '+currentdiscours+'   '+nextdiscours)
     for(var i=1000; i>0; i--) {
     if (ToSay[''+(currentdiscours+i)]) {
       nextdiscours = currentdiscours+i;
       break;
     }
+    console.log('Discours next : '+currentdiscours+'   '+nextdiscours)
     gotolive=false;
   }
   }
@@ -870,7 +873,7 @@ function activetab(tab)  {
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable(); activetab('tabs-0');">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();">☰</div>
-<div id="micon" onclick="gotolive=true;"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
+<div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
