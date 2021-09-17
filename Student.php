@@ -183,6 +183,7 @@ input[type=text] {
   top:0px;
   right: 0px;
   font-size: 12px;
+  z-index:15000;
 }
 
 #tabs-7 {
@@ -214,7 +215,7 @@ input[type=text] {
   top:5px;
   right: 60px;
   font-size: 16px;
-  z-index: 1000;
+  z-index: 15000;
   font-family: helvetica, arial, sans-serif;
   background-color: red;
   border-radius: 10px;
