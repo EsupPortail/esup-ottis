@@ -527,6 +527,7 @@ function CompleteSpeech() {
     }
     gotolive=false;
   }
+  }
     //Ecrire(currentdiscours+'   '+nextdiscours);
     if (nextdiscours > currentdiscours) {
       var L=ToSay[''+nextdiscours];
