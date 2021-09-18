@@ -299,6 +299,18 @@ input[type=text] {
 #titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titlevisio {
   display:none;
 }
+
+#scrollbar {
+  position: fixed;
+  bottom: 0px;
+  height: 5px;
+  background-color: lightblue;
+  width: 100%;
+  transform-origin: top left;
+  transform: scaleX(0.5);
+  z-index: 15000;
+}
+
 	</style>
 
 
@@ -1210,6 +1222,7 @@ function Micro() {
 <div id="titreright"></div>
 <div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titreright').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
+<div id="scrollbar"></div>
 
 <form id="myform">
 
