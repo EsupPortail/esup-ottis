@@ -1206,7 +1206,7 @@ function Micro() {
 
 var currentscroll=0;
 var currentindent=0;
-var scrollinterval=200;
+var scrollinterval=50;
 
 function ScrollBar() {
   currentscroll=currentscroll-currentindent;
