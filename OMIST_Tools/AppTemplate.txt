@@ -355,7 +355,7 @@ function ParleThen(txt, f) {
 			//console.log('Speak with no voice');
 			var txtlength=Math.max(20,txt.length);
 			txtlength=Math.min(100,txtlength);
-			setTimeout(f,50*txt.length);
+			setTimeout(f,50*txtlength);
 		}
   } else setTimeout(f,100);
 }
