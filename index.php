@@ -822,8 +822,10 @@ function EcrireTitle(ch) {
   var loutput = subtitle_language.substr(0,2).toLowerCase();
   if ((! document.getElementById('subtitleon').checked) || (linput == loutput)) {
     document.getElementById('titre').innerHTML=ch;
+    // for scrollbar
+    setScrollvalues(ch.length);
   } else {
-    TranslateThen(ch,loutput,linput,function (ch){document.getElementById('titre').innerHTML=ch;});
+    TranslateThen(ch,loutput,linput,function (ch){document.getElementById('titre').innerHTML=ch; setScrollvalues(ch.length);});
   }
 }
 
@@ -877,12 +879,10 @@ function saveTextNB(ch) {
 //	request.onload = function(event) {};
 }
 
-
-
-
 function Lancer() {
   setInterval(remote,200);
   setInterval(readTextQ,1000);
+  setInterval(ScrollBar,scrollinterval);
 }
 
 function Init() {
@@ -1202,6 +1202,24 @@ function Micro() {
   } else {
     mybox.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';
   };
+}
+
+var currentscroll=0;
+var currentindent=0;
+var scrollinterval=200;
+
+function ScrollBar() {
+  currentscroll=currentscroll-currentindent;
+  if (currentscroll<0) currentscroll=0;
+  document.getElementById('scrollbar').style.transform='scaleX('+currentscroll+')';
+}
+
+function setScrollvalues(l) {
+    currentscroll=1;
+    var txtlength=Math.max(20,l);
+		txtlength=Math.min(100,txtlength);
+		var duration=50*txt.length; // estimated duration in ms
+    currentindent=scrollinterval/duration;
 }
 </script>
 
