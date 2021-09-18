@@ -1218,7 +1218,7 @@ function setScrollvalues(l) {
     currentscroll=1;
     var txtlength=Math.max(20,l);
 		//txtlength=Math.min(200,txtlength);
-		var duration=65*txtlength; // estimated duration in ms
+		var duration=55*txtlength; // estimated duration in ms
     currentindent=scrollinterval/duration;
 }
 </script>
