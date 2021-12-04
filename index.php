@@ -1254,7 +1254,10 @@ function setScrollvalues(l) {
 		<li id="titlevisio"><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
 		<li id="titlelive"><a href="#tabs-3" onclick="inSlideTab=false;">Live translation</a></li>
 		<li id="titleshare"><a href="#tabs-4" onclick="inSlideTab=false;">Share</a></li>
-		<li id="titlewooclap"><a href="#tabs-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
+		<li id="titlewooclap"><a href="#tabs-8" onclick="inSlideTab=false;">WOOCLAP</a>
+    <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
+    <button onclick="document.getElementById('wooclap').src='https://app.wooclap.com/auth/login?lang=en&redirectTo=/home';">Update the wooclap tab</button>
+    </li>
 		<li id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;">1</a></li>
 		<li id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;">2</a></li>
 		<li id="titleextratab3"><a href="#tabs-11" onclick="inSlideTab=false;">3</a></li>
