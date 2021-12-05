@@ -31,11 +31,18 @@ if (isset($_GET["ROOMID"])) {
       fclose($fd);
       }
       if ($result == "") {
+
+        // Launch Google Traduction application
+
         $output=array(); $retval=0;
         exec($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte)."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
         $result=$resultjson;
         //$result=$resultjson->data->translations[0]->translatedText;
+
+
+        
+
         echo $resultjson;
         $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"a");
         fputs($fd,$_GET["lineid"].";".$lang.";".$result."\n");
