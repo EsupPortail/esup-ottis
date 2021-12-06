@@ -484,7 +484,7 @@ function Traduction(ch) {
 
 function Translate(ch, l, linput) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput+ "&ROOMID=" + document.getElementById('classroomid').value, true);
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
