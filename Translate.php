@@ -66,7 +66,7 @@ if (isset($_GET["ROOMID"])) {
 
         echo $resultjson;
         $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"a");
-        fputs($fd,$_GET["lineid"].";".$lang.";".$result."\n");
+        fputs($fd,$lineid.";".$lang.";".$result."\n");
         fclose($fd);
       } else {
         echo $result;
@@ -74,7 +74,7 @@ if (isset($_GET["ROOMID"])) {
 
 
 } else {
-  system($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte." WRONG.")."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"");
+  system($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte."")."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"");
 }
 
 ?>
