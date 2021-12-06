@@ -33,7 +33,7 @@ if (isset($_GET["ROOMID"])) {
       fclose($fd);
       }
       if ($result == "") {
-
+        if ($DEBUG) $texte=$WhichTranslator." --- ".$texte;
         // Launch Google Traduction API
         if ($WhichTranslator == "GOOGLE") {
         $output=array(); $retval=0;
