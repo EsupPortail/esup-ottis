@@ -35,7 +35,7 @@ if (isset($_GET["ROOMID"])) {
         // Launch Google Traduction API
         if ($WhichTranslator == "GOOGLE") {
         $output=array(); $retval=0;
-        exec($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte)."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"",$output,$retval);
+        exec($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte." GOOGLE.")."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
         $result=$resultjson;
         //$result=$resultjson->data->translations[0]->translatedText;
@@ -74,7 +74,7 @@ if (isset($_GET["ROOMID"])) {
 
 
 } else {
-  system($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte)."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"");
+  system($proxy."curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte." WRONG.")."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"");
 }
 
 ?>
