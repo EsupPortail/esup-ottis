@@ -54,6 +54,23 @@ if (isset($_GET["ROOMID"])) {
         $result=$resultjson;
 
         }
+
+        if ($WhichTranslator == "LIBRETRANSLATE") {
+
+        // Launch the free LibreTranslate API at https://translate.mentality.rip
+
+        $output=array(); $retval=0;
+        exec($proxy."curl https://translate.mentality.rip/translate -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
+        $resultjson = (implode(" ",$output));
+        $resultsinjson = json_decode($resultjson);
+        $resultjson = '{   "data": { "translations": ['.str_replace("\n"," ",$resultjson).'] } }';
+
+        $result=$resultjson;
+
+
+        
+
+        }
 /*
 {   "data": {     "translations": [       {         "translatedText": "For a lattice mode P, all the values h, k, l are possible. Consequently, the first reflection has the index 1 0 0. The series of the ratios of the squared distances is therefore 1, 2, 3, 4, 5, 6, 8, 9"       }     ]   } }
 */
