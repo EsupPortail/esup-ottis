@@ -16,7 +16,7 @@ if (isset($_GET["ROOMID"])) {
       $result = "";
       if (file_exists("tmp/Translated_".$_GET["ROOMID"])) {
       $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"r");
-      $lineid=$_GET["lineid"];
+      if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
       while($T=fgetcsv($fd,4096,";")) {
         //print_r($T);
         //echo implode(" ",$T)." --- ".$lineid." = ".$T[0]." , ".$lang." = ".$T[1]."\n";
