@@ -46,12 +46,23 @@ if (isset($_GET["ROOMID"])) {
         $output=array(); $retval=0;
         exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte)."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
+        $resultsinjson = json_decode($resultjson);
+        $resultjson = '{   "data": '.str_replace("\n"," ",str_replace('"text"','"translatedText"',$resultjson)).' }';
+
         $result=$resultjson;
+
         }
 /*
 {   "data": {     "translations": [       {         "translatedText": "For a lattice mode P, all the values h, k, l are possible. Consequently, the first reflection has the index 1 0 0. The series of the ratios of the squared distances is therefore 1, 2, 3, 4, 5, 6, 8, 9"       }     ]   } }
 */
-        
+/*
+{
+	"translations": [{
+		"detected_source_language":"EN",
+		"text":"Hallo, Welt!"
+	}]
+}
+*/      
 
         echo $resultjson;
         $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"a");
