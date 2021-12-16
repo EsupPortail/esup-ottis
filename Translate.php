@@ -8,8 +8,8 @@ $langinput = $_GET["langinput"];
 if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
 
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
-if (! in_array($DEEPLKNOWNLANG, strtolower(substr($lang,0,2)))) $WhichTranslator = "GOOGLE";
-if (! in_array($DEEPLKNOWNLANG, strtolower(substr($langinput,0,2)))) $WhichTranslator = "GOOGLE";
+if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
+if (! in_array(strtolower(substr($langinput,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
 
 
 function removeAccents($str) {
