@@ -762,11 +762,15 @@ function GoFS() {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen();
     document.getElementById('bar').style.transform="scaleY(0.5)";
+    scalemenu=1;
+    ShowMenu();
     //document.getElementById('bar').style.bottom="10px";
     //resizeSlides();
   } else {
     document.exitFullscreen();
     document.getElementById('bar').style.transform="scaleY(1)";
+      scalemenu=1;
+    ShowMenu();  
     //resizeSlides();
   }
 }
