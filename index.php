@@ -900,6 +900,7 @@ function Init() {
   resizeSlides();
 
   document.getElementById('pincode').value=(""+Math.floor(100000+Math.random()*100000)).substr(1);
+  document.getElementById('sharedpin').innerHTML=document.getElementById('pincode').value;
   Synchronize_save();
 
   document.onkeyup=function (event) {
