@@ -1154,7 +1154,7 @@ function Synchronize(pin) {
     if (request.responseText != "") {
       document.getElementById('classroomid').value=request.responseText;
       document.getElementById('pincode').value=pin;
-      document.getElementById('sharepin').innerHTML=pin;
+      document.getElementById('sharedpin').innerHTML=pin;
     } else {
       alert("ERROR : unknown pin code");
     }
@@ -1364,7 +1364,7 @@ function setScrollvalues(l) {
     <div>
     <ul style="list-style-type: none;">
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
-        <li>Pin code : <span title="" id="sharepin" style="font-size: 5em;"></span></li>
+        <li>Pin code : <span title="" id="sharedpin" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
     </ul>
     </div>
