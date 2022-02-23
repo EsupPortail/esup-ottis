@@ -1096,7 +1096,7 @@ window.onbeforeunload = function(event) {
 };
 
   $( function() {
-    $( "#todrag" ).draggable();
+    $( "#titre" ).draggable();
   } );
 </script>
 </body>
