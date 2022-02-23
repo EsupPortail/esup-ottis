@@ -90,7 +90,7 @@ input[type=text] {
   display: none;
 }
 
-
+/*
 #titre {
   transition: 1s ease;
   border-radius: 25px;
@@ -114,8 +114,8 @@ input[type=text] {
   z-index: 20000;
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
+*/
 
-/*
 #titre {
   border-radius: 25px;
   position: fixed;
@@ -138,7 +138,7 @@ input[type=text] {
   z-index: 20000;
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
-*/
+
 
 #soustitre {
   transition: 1s ease;
@@ -1291,9 +1291,9 @@ function fixTitle() {
 
 
   $( function() {
-    //fixTitle();
+    fixTitle();
     //$( "#titre" ).draggable();
-    $("#titre").draggableTouch({useTransform:true});
+    $("#titre").draggableTouch();
 
   } );
 
