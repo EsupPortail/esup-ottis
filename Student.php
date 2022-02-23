@@ -303,8 +303,21 @@ function PopulateVoicesOut() {
   var optgroup=document.createElement("optgroup");
   optgroup.label="Voice translation";
   var voices = window.speechSynthesis.getVoices();
+  // Voices in english first
   for(var i=0; i<voices.length; i++) {
-    if (true) {//(voices[i].localService) {
+    if (voices[i].lang.substr(0,2).toLowerCase() == 'en') {//(voices[i].localService) {
+      var opt=document.createElement("option");
+      opt.value=AllOutputVoices.length;
+      if (voices[i].lang.substr(0,2).toLowerCase() == navigator.language) opt.selected=true;
+      voices[i].textonly=false;
+      AllOutputVoices.push(voices[i]);
+      opt.innerHTML=voices[i].lang+" "+voices[i].name+((voices[i].localService)?"":" [external service]");
+      optgroup.appendChild(opt);
+    }
+  }
+
+  for(var i=0; i<voices.length; i++) {
+    if (voices[i].lang.substr(0,2).toLowerCase() != 'en') {//(voices[i].localService) {
       var opt=document.createElement("option");
       opt.value=AllOutputVoices.length;
       if (voices[i].lang.substr(0,2).toLowerCase() == navigator.language) opt.selected=true;
