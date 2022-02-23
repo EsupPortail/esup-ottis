@@ -1122,7 +1122,7 @@ window.onbeforeunload = function(event) {
 
 function fixTitle() {
   var e=document.getElementById("titre");
-  e.style.top=(window.innerHeight-e.style.height-50-10)+'px';
+  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
 }
 
 
