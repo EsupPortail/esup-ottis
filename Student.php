@@ -974,7 +974,7 @@ function activetab(tab)  {
     <div id="classroom" style="border: solid 1px;"></div>
 
     <input type="text" id="question" placeholder="Your question here"/>
-    <input type="button" value="send" onclick="saveTextQ(document.getElementById('question').value);"/>
+    <input type="button" value="send" onclick="saveTextQ(document.getElementById('question').value); document.getElementById('question').value='';"/>
 	</div>
 
 	<div id="tabs-2">
