@@ -880,9 +880,10 @@ function activetab(tab)  {
 <div id="showmenu" onclick="ShowMenu();">☰</div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 
+<div id="todrag">
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
-
+</div>
 
 <form id="myform">
 
@@ -1090,7 +1091,13 @@ function retourOK(e) {
 
 function retourErreur() {}
 
+window.onbeforeunload = function(event) {
+  event.returnValue = "Quit";
+};
 
+  $( function() {
+    $( "#todrag" ).draggable();
+  } );
 </script>
 </body>
 </html>
