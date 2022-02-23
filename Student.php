@@ -988,7 +988,7 @@ function activetab(tab)  {
     <div id="classroom" style="border: solid 1px;"></div>
 
     <input type="text" id="question" placeholder="Your question here"/>
-    <input type="button" value="send" id="questionsend" onclick="saveTextQ(document.getElementById('question').value); document.getElementById('question').value='';"/>
+    <input type="button" value="send" id="questionsend" onclick="sendclick();"/>
 	</div>
 
 	<div id="tabs-2">
@@ -1311,13 +1311,17 @@ function fixTitle() {
 
   } );
 
-document.getElementById("question")
-    .addEventListener("keyup", function(event) {
-    event.preventDefault();
+function sendclick() {
+  saveTextQ(document.getElementById('question').value); 
+  document.getElementById('question').value='';
+}
+
+$("#question").keyup(function(event) {
     if (event.keyCode === 13) {
-        document.getElementById("questionsend").click();
+        sendclick();
     }
 });
+
 </script>
 </body>
 </html>
