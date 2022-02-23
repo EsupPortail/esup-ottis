@@ -904,10 +904,11 @@ function activetab(tab)  {
 <div id="showmenu" onclick="ShowMenu();">☰</div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 
-<div id="todrag">
+<!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
-<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
-</div>
+<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
+<div id="titre" ><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="soustitre"></div>
 
 <form id="myform">
 
