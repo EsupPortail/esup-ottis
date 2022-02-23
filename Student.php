@@ -1098,7 +1098,7 @@ window.onbeforeunload = function(event) {
 function fixTitle() {
   var e=document.getElementById("titre");
   e.style.position = "absolute";
-  a.style.top=(window.innerHeight-e.style.height-10)+'px';
+  e.style.top=(window.innerHeight-e.style.height-10)+'px';
 }
 
 
