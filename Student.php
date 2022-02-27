@@ -1316,13 +1316,13 @@ function sendclick() {
   document.getElementById('question').value='';
 }
 
-/*
+
 $("#question").keyup(function(event) {
     if (event.keyCode === 13) {
         sendclick();
     }
 });
-*/
+
 
 </script>
 </body>
