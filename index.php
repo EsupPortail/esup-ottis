@@ -154,7 +154,7 @@ input[type=text] {
 }
 
 #titre {
-  transition: 1s ease; // change here for touchable
+  transition: 1s ease;
   border-radius: 25px;
   position: fixed;
   bottom: 10px; // change here for touchable
@@ -180,11 +180,11 @@ input[type=text] {
 
 #titreleft {
   display: flex;
-  transition: 1s ease;  // change here for touchable
+  transition: 1s ease;  
   border-radius: 25px;
   position: fixed;
-  bottom: 10px;  // change here for touchable
-  top: 10px;  // change here for touchable
+  bottom: 10px; 
+  //top: 10px;  
   left: 0.5%;
   width: 3%;
   margin-left: auto;
