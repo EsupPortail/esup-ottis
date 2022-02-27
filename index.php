@@ -211,7 +211,7 @@ input[type=text] {
   //transition: 1s ease;
   border-radius: 25px;
   position: fixed;
-  top: 10px;
+  bottom: 10px;
   right: 0.5%;
   width: 3%;
   height: 24px;
@@ -1512,8 +1512,8 @@ function fixTitle() {
   e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
   var e=document.getElementById("titreleft");
   e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
-  var e=document.getElementById("titreright");
-  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
+  //var e=document.getElementById("titreright");
+  //e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
 }
 
 /**
