@@ -1685,7 +1685,7 @@ function fixTitle() {
     //$( "#titre" ).draggable();
     $("#titre").draggableTouch();
     $("#titreleft").draggableTouch();
-    $("#titreright").draggableTouch();
+    //$("#titreright").draggableTouch();
 
   } );
 
