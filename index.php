@@ -947,14 +947,14 @@ function Init() {
   PopulateSubtitlesLang();
   PopulateSpeechLang();
 
-  document.getElementById('question').addEventListener('keyup', function (event) {
+/*  document.getElementById('question').addEventListener('keyup', function (event) {
     if (event.code === 'Enter') {
         saveTextQ(document.getElementById('question').value);
       event.preventDefault();
       event.stopPropagation();
     }
   },false);
-
+*/
   resizeSlides();
 
   document.getElementById('pincode').value=(""+Math.floor(100000+Math.random()*100000)).substr(1);
