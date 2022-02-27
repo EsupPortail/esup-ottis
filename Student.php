@@ -219,11 +219,12 @@ input[type=text] {
 }
 
 #showmenu {
+  transition: 1s ease;
   border-radius: 5px;
   position: fixed;
   top: 0px;
   left: 0px;
-  background-color: rgb(150,150,150);
+  background-color: rgb(150,150,255);
   color: white;
   text-align: center;
   vertical-align: middle;
@@ -232,7 +233,11 @@ input[type=text] {
   z-index: 12000;
   display: block;
   border: 1px solid;
-  border-color: black;
+  border-color: blue;
+}
+
+#showmenu:hover {
+  background-color: rgb(200,200,255);
 }
 
 #micon {
