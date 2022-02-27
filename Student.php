@@ -924,7 +924,7 @@ function activetab(tab)  {
 <div id="titre" ><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre"></div>
 
-<form id="myform">
+<form id="myform" onsubmit="return false;">
 
 <div id="tabs">
 	<ul id="bar">
