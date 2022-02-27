@@ -174,6 +174,7 @@ input[type=text] {
 #bar {
   list-style: none;
   margin: 0px;
+  margin-top: 64px;
   padding: 0px;
   transition: 1s ease;
   transform-origin: top left;
