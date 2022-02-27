@@ -154,7 +154,7 @@ input[type=text] {
 }
 
 #titre {
-  transition: 1s ease;
+  //transition: 1s ease;
   border-radius: 25px;
   position: fixed;
   top: 10px;
@@ -179,7 +179,7 @@ input[type=text] {
 
 #titreleft {
   display: flex;
-  transition: 1s ease;
+  //transition: 1s ease;
   border-radius: 25px;
   position: fixed;
   top: 10px;
@@ -208,7 +208,7 @@ input[type=text] {
 
 #titreright {
   display: flex;
-  transition: 1s ease;
+  //transition: 1s ease;
   border-radius: 25px;
   position: fixed;
   top: 10px;
