@@ -667,6 +667,7 @@ function Lancer() {
 }
 
 function Init() {
+  /*
   document.getElementById('question').addEventListener('keyup', function (event) {
     if (event.code === 'Enter') {
         saveTextQ(document.getElementById('question').value);
@@ -674,6 +675,7 @@ function Init() {
       event.stopPropagation();
     }
   },false);
+  */
   resizeSlides();
 <?php
 if ($synchronize) {
@@ -1315,18 +1317,17 @@ function fixTitle() {
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
-  alert("Will send : ("+tosend+")");
+  //alert("Will send : ("+tosend+")");
   if (tosend != "") saveTextQ(tosend); 
   document.getElementById('question').value='';
 }
 
-/*
 $("#question").keyup(function(event) {
     if (event.keyCode === 13) {
         sendclick();
     }
 });
-*/
+
 
 </script>
 </body>
