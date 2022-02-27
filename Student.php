@@ -1314,7 +1314,7 @@ function fixTitle() {
   } );
 
 function sendclick() {
-  saveTextQ(document.getElementById('question').value); 
+  saveTextQ(document.getElementById('question').value.replaceAll('\n','')); 
   document.getElementById('question').value='';
 }
 
