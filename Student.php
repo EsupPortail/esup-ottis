@@ -991,7 +991,7 @@ function activetab(tab)  {
 		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
 		<li id="ltabs-2" onclick="activetab('tabs-2')">Notebook</li>
 		<li id="ltabs-3" onclick="activetab('tabs-3')">Output</li>
-<!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
+    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>
 <!--		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>-->
     <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
     <li id="ltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
@@ -1060,11 +1060,11 @@ function activetab(tab)  {
     <div id="output">
     </div>
   </div>
-<!--  	<div id="tabs-6">
+  	<div id="tabs-6">
     <div id="slideshow" style="border: solid 1px; height: 600px; overflow: auto;">
 <iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" ></iframe>
     </div>
-	</div>-->
+	</div>
 
 <!--
   <div id="tabs-4">
