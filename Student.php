@@ -1047,7 +1047,7 @@ function activetab(tab)  {
     <div id="classroom" style="border: solid 1px;"></div>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
-    <textarea id="question" placeholder="Your question here" rows="1" cols="50"></textarea>
+    <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea>
 
     <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
 	</div>
