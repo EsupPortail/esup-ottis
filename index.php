@@ -157,7 +157,7 @@ input[type=text] {
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
-  bottom: 10px;
+  top: 10px;
   left: 5%;
   width: 90%;
   margin-left: auto;
@@ -182,7 +182,7 @@ input[type=text] {
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
-  bottom: 10px;
+  top: 10px;
   left: 0.5%;
   width: 3%;
   margin-left: auto;
@@ -211,7 +211,7 @@ input[type=text] {
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
-  bottom: 10px;
+  top: 10px;
   right: 0.5%;
   width: 3%;
   height: 24px;
@@ -1510,6 +1510,10 @@ $('#bar').on('keydown keyup keypress', function(e) {
 function fixTitle() {
   var e=document.getElementById("titre");
   e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
+  var e=document.getElementById("titreleft");
+  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
+  var e=document.getElementById("titreright");
+  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
 }
 
 /**
@@ -1679,7 +1683,9 @@ function fixTitle() {
   $( function() {
     fixTitle();
     //$( "#titre" ).draggable();
-    $("#titreall").draggableTouch();
+    $("#titre").draggableTouch();
+    $("#titreleft").draggableTouch();
+    $("#titreright").draggableTouch();
 
   } );
 
