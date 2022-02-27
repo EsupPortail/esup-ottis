@@ -1352,6 +1352,7 @@ function setScrollvalues(l) {
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
+<option value="48px" >Enormous</option>
   </select></li>
   <li>&nbsp;</li>
 	    <li title="Do not change that if you do not know what you are doing."><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
