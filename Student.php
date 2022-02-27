@@ -1316,17 +1316,17 @@ function fixTitle() {
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
   alert("Will send : ("+tosend+")");
-  saveTextQ(tosend); 
+  if (tosend != "") saveTextQ(tosend); 
   document.getElementById('question').value='';
 }
 
-
+/*
 $("#question").keyup(function(event) {
     if (event.keyCode === 13) {
         sendclick();
     }
 });
-
+*/
 
 </script>
 </body>
