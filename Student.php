@@ -278,6 +278,11 @@ input[type=text] {
   display:none;
 }
 
+#question {
+  outline: none;
+  font-size: 1.5em;
+  font-style: italic;
+}
 
 	</style>
 

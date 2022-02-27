@@ -1312,8 +1312,8 @@ function setScrollvalues(l) {
 	<div id="tabs-1">
     <div id="classroom" style="border: solid 1px;"></div>
 
-    <input type="text" id="question" placeholder="Your question here"/>
-    <input type="button" value="send" onclick="saveTextQ(document.getElementById('question').value);"/>
+    <textarea id="question" placeholder="Your question here" rows="1" cols="50"></textarea>
+    <input type="button" value="send" id="questionsend" onclick="sendclick();"/>
 	</div>
 	<div id="tabs-2">
     <div id="notebook" style="border: solid 1px;" contenteditable="true">
@@ -1435,6 +1435,19 @@ document.getElementById("remoteqr").onclick=function () {document.getElementById
 $('#bar').on('keydown keyup keypress', function(e) {
   //console.log(e.keyCode);
   e.preventDefault();
+});
+
+function sendclick() {
+  var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
+  //alert("Will send : ("+tosend+")");
+  if (tosend != "") saveTextQ(tosend); 
+  document.getElementById('question').value='';
+}
+
+$("#question").keyup(function(event) {
+    if (event.keyCode === 13) {
+        sendclick();
+    }
 });
 
 </script>
