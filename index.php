@@ -157,8 +157,7 @@ input[type=text] {
   transition: 1s ease;
   border-radius: 25px;
   position: fixed;
-  bottom: 10px; // change here for touchable
-  //top: 10px; // change here for touchable
+  bottom: 10px; 
   left: 5%;
   width: 90%;
   margin-left: auto;
