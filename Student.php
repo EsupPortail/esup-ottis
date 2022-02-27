@@ -1385,7 +1385,7 @@ $("#question").keyup(function(event) {
 });
 
   $( function() {
-    $( document ).tooltip();
+    $( "#showmenu" ).tooltip();
   } );
 </script>
 </body>
