@@ -342,6 +342,35 @@ input[type=text] {
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
+      input[type="checkbox"] {
+        visibility: hidden;
+      }
+      .checkbox-example {
+        width: 45px;
+        height: 15px;
+        background: #aaa;
+        margin: 20px 10px;
+        position: relative;
+        border-radius: 5px;
+      }
+      .checkbox-example label {
+        display: block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        transition: all 0.5s ease;
+        cursor: pointer;
+        position: absolute;
+        top: -2px;
+        left: -3px;
+        background: red;
+      }
+      .checkbox-example input[type="checkbox"]:checked + label {
+background-color: green;
+        left: 27px;
+      }
+
+
 	</style>
 
 
@@ -1023,7 +1052,12 @@ function activetab(tab)  {
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
 <li><label for="synthesison">Speech synthesis active ? </label>
-<input type="checkbox" id="synthesison" onclick="resizeSlides();"/></li>
+<div class="checkbox-example">
+        <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
+        <label for="synthesison"></label>
+      </div>
+<!--<input type="checkbox" id="synthesison" onclick="resizeSlides();"/>-->
+</li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
 <li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;">
