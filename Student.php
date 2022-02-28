@@ -342,9 +342,9 @@ input[type=text] {
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
-      input[type="checkbox"] {
-        visibility: hidden;
-      }
+      //input[type="checkbox"] {
+      //  visibility: hidden;
+      //}
       .checkbox-example {
         width: 45px;
         height: 15px;
