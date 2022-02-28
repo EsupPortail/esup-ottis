@@ -1052,11 +1052,11 @@ function activetab(tab)  {
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
 <li><label for="synthesison">Speech synthesis active ? </label>
-<div class="checkbox-example">
+<!--<div class="checkbox-example">
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
-      </div>
-<!--<input type="checkbox" id="synthesison" onclick="resizeSlides();"/>-->
+      </div>-->
+<input type="checkbox" id="synthesison" onclick="resizeSlides();"/>
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
