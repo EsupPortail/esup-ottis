@@ -354,7 +354,7 @@ input[type=text] {
         border-radius: 5px;
       }
       .checkbox-example label {
-        display: block;
+        display: inline;
         width: 18px;
         height: 18px;
         border-radius: 50%;
