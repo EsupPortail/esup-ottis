@@ -124,6 +124,22 @@ input[type=text] {
   vertical-align: middle;
 }
 
+#pincodediv {
+  position: fixed;
+  top:5px;
+  right: 115px;
+  font-size: 24px;
+  z-index: 1000;
+  background-color: purple;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  color: white;
+  text-align: right;
+  vertical-align: middle;
+}
+
 #questionicon {
   position: fixed;
   top:5px;
@@ -960,6 +976,7 @@ function Init() {
 
   document.getElementById('pincode').value=(""+Math.floor(100000+Math.random()*100000)).substr(1);
   document.getElementById('sharedpin').innerHTML=document.getElementById('pincode').value;
+  document.getElementById('sharedpin2').innerHTML=document.getElementById('pincode').value;
   Synchronize_save();
 
   document.onkeyup=function (event) {
@@ -1214,6 +1231,7 @@ function Synchronize(pin) {
       document.getElementById('classroomid').value=request.responseText;
       document.getElementById('pincode').value=pin;
       document.getElementById('sharedpin').innerHTML=pin;
+      document.getElementById('sharedpin2').innerHTML=pin;
     } else {
       alert("ERROR : unknown pin code");
     }
@@ -1291,6 +1309,7 @@ function setScrollvalues(l) {
 <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready();">
 
 
+<div id="pincodediv"><span title="" id="sharedpin" style=""></span></div>
 <div id="micon" onclick="Micro();"><i class='material-icons big'>voice_over_off</i></div>
 
 <div id="questionicon"><i class='material-icons big'>thumb_up</i></div>
@@ -1388,7 +1407,7 @@ function setScrollvalues(l) {
 	<div id="tabs-2">
     <div id="notebook" style="border: solid 1px;" contenteditable="true">
     </div>
-    <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(document.getElementById('notebook').innerHTML);"/>
+    <!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(document.getElementById('notebook').innerHTML);"/> -->
 	</div>
 	<div id="tabs-5">
     <div>
@@ -1434,16 +1453,16 @@ function setScrollvalues(l) {
     <div>
     <ul style="list-style-type: none;">
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
-        <li>Pin code : <span title="" id="sharedpin" style="font-size: 5em;"></span></li>
+        <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
     </ul>
     </div>
     <h3>For teachers</h3>
     <div>
     <ul style="list-style-type: none;">
-        <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
+        <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>
     </div>
   </div>
