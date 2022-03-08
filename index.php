@@ -132,12 +132,13 @@ input[type=text] {
   z-index: 1000;
   background-color: purple;
   border-radius: 10px;
-  width: 50px;
+  width: 150px;
   height: 50px;
   margin: auto;
   color: white;
   text-align: right;
   vertical-align: middle;
+  font-family: arial, helvetica, sans-serif;
 }
 
 #questionicon {
@@ -1309,7 +1310,7 @@ function setScrollvalues(l) {
 <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready();">
 
 
-<div id="pincodediv"><span title="" id="sharedpin" style=""></span></div>
+<div id="pincodediv"><span style="font-size: 0.25em;">Pin code</span><br/><span title="" id="sharedpin" style=""></span></div>
 <div id="micon" onclick="Micro();"><i class='material-icons big'>voice_over_off</i></div>
 
 <div id="questionicon"><i class='material-icons big'>thumb_up</i></div>
