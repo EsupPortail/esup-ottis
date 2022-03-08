@@ -130,6 +130,7 @@ input[type=text] {
 #pincodediv {
   position: fixed;
   transition: 1s ease;
+  transform-origin: right;
   top:5px;
   right: 115px;
   font-size: 36px;
