@@ -130,7 +130,7 @@ input[type=text] {
   right: 115px;
   font-size: 36px;
   z-index: 1000;
-  background-color: purple;
+  background-color: rgba(128,0,128,0.5);
   border-radius: 10px;
   width: 150px;
   height: 50px;
