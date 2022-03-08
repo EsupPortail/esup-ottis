@@ -1310,7 +1310,7 @@ function setScrollvalues(l) {
 <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready();">
 
 
-<div id="pincodediv" title="Pincode"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style=""></span></div>
+<div id="pincodediv" title="Pincode"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
 <div id="micon" onclick="Micro();"><i class='material-icons big'>voice_over_off</i></div>
 
 <div id="questionicon"><i class='material-icons big'>thumb_up</i></div>
