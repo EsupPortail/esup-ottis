@@ -39,6 +39,9 @@ fclose($fd);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
 
 
 	<style>
@@ -138,7 +141,7 @@ input[type=text] {
   color: white;
   text-align: center;
   vertical-align: top;
-  font-family: arial, helvetica, sans-serif;
+  font-family: 'Anton', sans-serif;
 }
 
 #questionicon {
