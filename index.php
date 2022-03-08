@@ -128,7 +128,7 @@ input[type=text] {
   position: fixed;
   top:5px;
   right: 115px;
-  font-size: 24px;
+  font-size: 36px;
   z-index: 1000;
   background-color: purple;
   border-radius: 10px;
@@ -137,7 +137,7 @@ input[type=text] {
   margin: auto;
   color: white;
   text-align: center;
-  vertical-align: middle;
+  vertical-align: top;
   font-family: arial, helvetica, sans-serif;
 }
 
