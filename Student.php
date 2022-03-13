@@ -370,37 +370,6 @@ background-color: green;
         left: 27px;
       }
 
-/* Masquage de la checkbox du menu responsive */
-input[type="checkbox"]#burger {display:none;}
-
-/* Style des menus (responsive ou non) */
-#menu {position: fixed; left: 0px; top: 80px;}
-#menu ul {display:flex; width:100%; margin:0 auto; list-style:none;}
-#menu ul li {flex-basis:20%; border-right:1px solid #F3ECE5;}
-#menu ul li:last-child {border:0;}
-#menu ul li a {display:block; width:100%; padding:.4em 1em; background:#147587; color:#F3ECE5; text-align:center; text-decoration:none; transition:.5s;}
-#menu ul li a:hover {background:#FECB5F; color:#147587;}
-
-@media (max-width:768px) {
-#menu ul {display:block; width:100%; margin:0 auto; list-style:none; position:absolute; left:0; top:5.6em; height:auto; max-height:0%; overflow:hidden; transition:max-height 1s;}
-#menu ul li {border-bottom:1px solid #F3ECE5;}
-#menu ul li a {display:block; width:100%; padding:1em; background:#FA7E5C; text-align:center; text-decoration:none;}
-
-/* Menu burger */
-label {background:#147587; display:block; padding:.5em .8em; color:#F3ECE5; text-align:center; font-weight:bold; cursor:pointer;}
-#menu-burger {position: fixed; left: 0px; top: 0px; z-index:10; display:inline-block; cursor:pointer; display:block;}
-#menu-burger .bar1,
-#menu-burger .bar2,
-#menu-burger .bar3 {display:block; width:24px; height:3px; background-color:#F1F1F1; margin:5px 0; transition:0.4s;}
-#menu-burger:hover {opacity:.75; transition:.5s;}
-input[type="checkbox"]#burger:checked ~ label .bar1 {-webkit-transform:rotate(-45deg) translate(-4px, 8px); transform:rotate(-45deg) translate(-5px, 5px);}
-input[type="checkbox"]#burger:checked ~ label .bar2 {opacity:0;}
-input[type="checkbox"]#burger:checked ~ label .bar3 {-webkit-transform:rotate(45deg) translate(-4px, -8px); transform:rotate(45deg) translate(-6px, -6px);}
-
-/* Effet Slide/Swipe pleine page */
-input[type="checkbox"]:checked ~ #menu ul {max-height:100%; transition:max-height 1s;}
-}
-
 
 	</style>
 
@@ -1041,13 +1010,7 @@ function activetab(tab)  {
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ loadVoicesWhenAvailable(); activetab('tabs-0');">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
-<!--<div id="showmenu" onclick="ShowMenu();" title="Menu">☰</div>-->
-<input type="checkbox" name="burger" id="burger"/>
-<label for="burger" id="menu-burger">
-<span class="bar1"></span>
-<span class="bar2"></span>
-<span class="bar3"></span>
-</label>
+<div id="showmenu" onclick="ShowMenu();" title="Menu">☰</div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 
 <!--
@@ -1059,7 +1022,6 @@ function activetab(tab)  {
 <form id="myform" onsubmit="return false;">
 
 <div id="tabs">
-  <nav id="menu">
 	<ul id="bar">
 		<li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
 		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
@@ -1075,7 +1037,6 @@ function activetab(tab)  {
 		<li id="ltabs-12" onclick="activetab('tabs-12');">4</li>
 
 	</ul>
-  </nav>
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
 <li style="display:block"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
