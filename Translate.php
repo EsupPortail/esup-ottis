@@ -51,6 +51,19 @@ if (isset($_GET["ROOMID"])) {
         // Launch DeepL Translation API
         if ($WhichTranslator == "DEEPL") {
         $output=array(); $retval=0;
+        //exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
+        exec($proxy."curl https://api.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
+        $resultjson = (implode(" ",$output));
+        $resultsinjson = json_decode($resultjson);
+        $resultjson = '{   "data": '.str_replace("\n"," ",str_replace('"text"','"translatedText"',$resultjson)).' }';
+
+        $result=$resultjson;
+
+        }
+
+        // Launch DeepL Translation API
+        if ($WhichTranslator == "DEEPLFREE") {
+        $output=array(); $retval=0;
         exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
         $resultsinjson = json_decode($resultjson);
