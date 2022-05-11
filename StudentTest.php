@@ -50,7 +50,7 @@ fclose($fd);
     <meta name="viewport" content="width=device-width, user-scalable=no" />
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
-  <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<style>
 
 body {
