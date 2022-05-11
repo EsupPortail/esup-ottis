@@ -23,7 +23,7 @@ if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://www.wooclap.com/".$_GET["WOOCLAPKEY"];
   $wooclapkey=$_GET["WOOCLAPKEY"];
 } else {
-  $wooclapaddress = "https://www.wooclap.com";
+  $wooclapaddress = "";
 }
 
 $Tcolors=array("Red","Blue","Orange","Purple","Black","White","Green");
