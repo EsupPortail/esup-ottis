@@ -777,7 +777,7 @@ if ($synchronize) {
   echo "Synchronize(prompt('Enter the session pincode'));\n";
 }
 ?>
-  setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
+  //setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
 }
 
 function ClearCR() {
