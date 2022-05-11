@@ -770,12 +770,14 @@ function Init() {
   },false);
   */
   resizeSlides();
+  activetab('tabs-0');
+
 <?php
 if ($synchronize) {
   echo "Synchronize(prompt('Enter the session pincode'));\n";
 }
 ?>
-
+  setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
 }
 
 function ClearCR() {
@@ -1008,7 +1010,7 @@ function activetab(tab)  {
 
 
 </head>
-<body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/ activetab('tabs-0');">
+<body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" title="Menu">☰</div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
