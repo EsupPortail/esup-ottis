@@ -1395,6 +1395,7 @@ function setScrollvalues(l) {
   </ul>
   <br/>
   <br/>
+  <p>The OMIST Tools are accessible <a href="OMIST_Tools">here</a>.</p>
   <br/>
   <br/>
   <br/>
