@@ -1479,7 +1479,7 @@ $("#question").keyup(function(event) {
 <script>
 
 var bufferWC=[];
-var sizebufferWC=5;
+var sizebufferWC=15;
 var placebufferWC=0;
 var buffer_has_changed=true;
 
