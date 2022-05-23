@@ -1481,7 +1481,7 @@ var sizebufferWC=5;
 var placebufferWC=0;
 var buffer_has_changed=true;
 
-for(var i=0; i<sizebufferWC;i++) bufferWC="";
+for(var i=0; i<sizebufferWC;i++) bufferWC[i]="";
 
 function removeTags(str) {
     if ((str===null) || (str===''))
