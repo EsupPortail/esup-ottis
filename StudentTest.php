@@ -1502,8 +1502,8 @@ function CreateString() {
 function updateWC() {
   //if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
   if (buffer_has_changed) {
-  parseText(bufferWC.join(' '));
-  console.log("WC with : "+bufferWC.join(' '));
+  parseText(CreateString());
+  console.log("WC with : "+CreateString());
   }
   buffer_has_changed=false;
 }
