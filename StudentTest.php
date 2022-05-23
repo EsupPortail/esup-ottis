@@ -1492,12 +1492,13 @@ function removeTags(str) {
 }
 
 function updateWC() {
-  if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
+  //if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
+  if (buffer_has_changed) parseText(bufferWC.join(' '));
   buffer_has_changed=false;
 }
 
 function LaunchWC() {
-  setInterval(updateWC,2000);
+  setInterval(updateWC,1000);
 }
 setTimeout(LaunchWC,3000);
 </script>
