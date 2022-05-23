@@ -1111,6 +1111,7 @@ function activetab(tab)  {
   </div>
 	<div id="tabs-13">
     <div id="vis"></div>
+    <div id="configwc" style="display: none">
     <p><textarea id="text">
 Ceci est un test...
     </textarea>
@@ -1139,6 +1140,7 @@ Ceci est un test...
   <p><input type="number" id="angle-count" value="5" min="1"> <label for="angle-count">orientations</label>
     <label for="angle-from">from</label> <input type="number" id="angle-from" value="-60" min="-90" max="90"> °
     <label for="angle-to">to</label> <input type="number" id="angle-to" value="60" min="-90" max="90"> °
+</div>
 </div>
 
   </div>
