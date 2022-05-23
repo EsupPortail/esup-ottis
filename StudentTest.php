@@ -1496,7 +1496,8 @@ function removeTags(str) {
 function CreateString() {
   var previous = (placebufferWC -1 + sizebufferWC)%sizebufferWC;
   var pprevious = (placebufferWC -2 + sizebufferWC)%sizebufferWC;
-  var ch = bufferWC.join(' ') + ' '+bufferWC[previous]+ ' '+bufferWC[previous]+ ' '+bufferWC[pprevious]
+  var ch = bufferWC.join(' ') + ' '+bufferWC[previous]+ ' '+bufferWC[previous]+ ' '+bufferWC[pprevious];
+  return ch;
 }
 
 function updateWC() {
