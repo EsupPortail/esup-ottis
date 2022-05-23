@@ -593,12 +593,17 @@ function EcrireNB(ch) {
 }
 
 
+
 function Ecrire(ch) {
   if (document.getElementById('output').innerHTML == "")
     document.getElementById('output').innerHTML=ch;
   else document.getElementById('output').innerHTML=document.getElementById('output').innerHTML+"<br/>"+ch;
   //document.getElementById('titre').innerHTML=ch;
   //document.getElementById('subtitles').innerHTML=ch;
+
+  bufferWC[placebufferWC]=ch;
+  placebufferWC = (placebufferWC+1)%sizebufferWC;
+  buffer_has_changed=true;
 }
 
 function hide(e) {
@@ -1470,12 +1475,29 @@ $("#question").keyup(function(event) {
 <script src="https://www.jasondavies.com/d3.min.js"></script>
 <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
 <script>
+
+var bufferWC=[];
+var sizebufferWC=5;
+var placebufferWC=0;
+var buffer_has_changed=true;
+
+for(var i=0; i<sizebufferWC;i++) bufferWC="";
+
+function removeTags(str) {
+    if ((str===null) || (str===''))
+        return false;
+    else
+        str = str.toString();
+    return str.replace( /(<([^>]+)>)/ig, ' ');
+}
+
 function updateWC() {
-  parseText(d3.select("#output").property("innerHTML"))
+  if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
+  buffer_has_changed=false;
 }
 
 function LaunchWC() {
-  setInterval(updateWC,1000);
+  setInterval(updateWC,2000);
 }
 setTimeout(LaunchWC,3000);
 </script>
