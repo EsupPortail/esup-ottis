@@ -1493,6 +1493,12 @@ function removeTags(str) {
     return str.replace( /(<([^>]+)>)/ig, ' ');
 }
 
+function CreateString() {
+  var previous = (placebufferWC -1 + sizebufferWC)%sizebufferWC;
+  var pprevious = (placebufferWC -2 + sizebufferWC)%sizebufferWC;
+  var ch = bufferWC.join(' ') + ' '+bufferWC[previous]+ ' '+bufferWC[previous]+ ' '+bufferWC[pprevious]
+}
+
 function updateWC() {
   //if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
   if (buffer_has_changed) {
