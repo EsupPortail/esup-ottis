@@ -1469,5 +1469,15 @@ $("#question").keyup(function(event) {
 </script>
 <script src="https://www.jasondavies.com/d3.min.js"></script>
 <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
+<script>
+function updateWC() {
+  parseText(d3.select("#output").property("innerHTML"))
+}
+
+function LaunchWC() {
+  setInterval(updateWC,1000);
+}
+setTimeout(LaunchWC,3000);
+</script>
 </body>
 </html>
