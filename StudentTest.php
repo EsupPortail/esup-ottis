@@ -1493,7 +1493,10 @@ function removeTags(str) {
 
 function updateWC() {
   //if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
-  if (buffer_has_changed) parseText(bufferWC.join(' '));
+  if (buffer_has_changed) {
+  parseText(bufferWC.join(' '));
+  console.log("WC with : "+bufferWC.join(' '));
+  }
   buffer_has_changed=false;
 }
 
