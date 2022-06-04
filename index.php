@@ -1408,7 +1408,7 @@ function updateLinks() {
   <br/>
   <br/>
   <p>The Slide Manipulation Tools are accessible <a href="javascript:void(window.open('OMIST_Tools'))">here</a>.</p>
-  <p>The following links to open sources online tools can be useful for the extra tabs feature.
+  <p>The following links to open source online tools can be useful for the extra tabs feature.
   <dl>
   <dd>Tableau noir blackboard : <a id="link1" src="https://tableaunoir.github.io/?id=test"></a></dd>
   <dd>WBO whiteboard : <a id="link2" src="https://wbo.ophir.dev/boards/test"></a></dd>
