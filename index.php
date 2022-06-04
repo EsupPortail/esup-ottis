@@ -1238,6 +1238,7 @@ function Synchronize(pin) {
       document.getElementById('pincode').value=pin;
       document.getElementById('sharedpin').innerHTML=pin;
       document.getElementById('sharedpin2').innerHTML=pin;
+      updateLinks();
     } else {
       alert("ERROR : unknown pin code");
     }
@@ -1306,13 +1307,24 @@ function setScrollvalues(l) {
 		var duration=55*txtlength; // estimated duration in ms
     currentindent=scrollinterval/duration;
 }
+
+
+function updateLinks() {
+  var roomid = document.getElementById.classroomid.value;
+  document.getElementById("link1").src="https://tableaunoir.github.io/?id="+roomid;
+  document.getElementById("link1").innerHTML=document.getElementById("link1").src;
+  document.getElementById("link2").src="https://wbo.ophir.dev/boards/"+roomid;
+  document.getElementById("link2").innerHTML=document.getElementById("link2").src;
+  document.getElementById("link3").src="https://meet.jit.si/"+roomid;
+  document.getElementById("link3").innerHTML=document.getElementById("link3").src;
+}
 </script>
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready();">
+<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready(); updateLinks();">
 
 
 <div id="pincodediv" title="Pincode" onclick="if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
@@ -1396,6 +1408,13 @@ function setScrollvalues(l) {
   <br/>
   <br/>
   <p>The Slide Manipulation Tools are accessible <a href="javascript:void(window.open('OMIST_Tools'))">here</a>.</p>
+  <p>The following links to open sources online tools can be useful for the extra tabs feature.
+  <dl>
+  <dd>Tableau noir blackboard : <a id="link1" src="https://tableaunoir.github.io/?id=test"></a></dd>
+  <dd>WBO whiteboard : <a id="link2" src="https://wbo.ophir.dev/boards/test"></a></dd>
+  <dd>Jitsi visioconference : <a id="link3" src="https://meet.jit.si/test"></a></dd>  
+  </dl>
+  </p>
   <br/>
   <br/>
   <br/>
