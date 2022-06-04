@@ -1310,7 +1310,7 @@ function setScrollvalues(l) {
 
 
 function updateLinks() {
-  var roomid = document.getElementById.classroomid.value;
+  var roomid = document.getElementById('classroomid').value;
   document.getElementById("link1").src="https://tableaunoir.github.io/?id="+roomid;
   document.getElementById("link1").innerHTML=document.getElementById("link1").src;
   document.getElementById("link2").src="https://wbo.ophir.dev/boards/"+roomid;
