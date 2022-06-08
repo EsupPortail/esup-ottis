@@ -1023,9 +1023,9 @@ function EcrireQ_int(ch) {
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
-builtin_recognition.continuous = true;
+builtin_recognition.continuous = false;
 builtin_recognition.interimResults = true;
-var builtin_recognitionon = true;
+var builtin_recognitionon = false;
 
 function StartSpeechRecognition() {
   EcrireQ('Listening...');
@@ -1042,7 +1042,7 @@ function StartSpeechRecognition() {
           EcrireQ_int(ch);
         }
       }
-      //builtin_recognition.stop();
+      builtin_recognition.stop();
     }
   };
   builtin_recognition.onend = function(event) {
