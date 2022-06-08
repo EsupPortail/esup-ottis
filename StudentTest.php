@@ -1040,6 +1040,7 @@ function StartSpeechRecognition() {
         } else {
           ch += event.results[i][0].transcript;
           EcrireQ_int(ch);
+          console.log(event.results[i][0].transcript);
         }
       }
       builtin_recognition.stop();
