@@ -1070,7 +1070,7 @@ function StartStop() {
     document.getElementById('questionsstart').value = 'Talk';
   } else {
     builtin_courant_question='';
-    StopSpeechRecognition();
+    StartSpeechRecognition();
     listeningon = true;
     document.getElementById('questionsstart').value = 'Stop';
   }
