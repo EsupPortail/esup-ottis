@@ -1012,6 +1012,8 @@ function activetab(tab)  {
 
 // Test 
 var builtin_courant_question='';
+var listeningon=false;
+
 function EcrireQ(ch) {
   builtin_courant_question += ch + "\n";
   document.getElementById('question').value = builtin_courant_question;
@@ -1028,7 +1030,6 @@ builtin_recognition.interimResults = true;
 var builtin_recognitionon = false;
 
 function StartSpeechRecognition() {
-  builtin_courant_question='';
   //EcrireQ_int('Listening...');
   builtin_recognition.lang = builtin_voice.lang;
   builtin_recognition.onresult = function(event) {
@@ -1062,7 +1063,18 @@ function StopSpeechRecognition() {
 }
 
 
-
+function StartStop() {
+  if (listeningon) {
+    StopSpeechRecognition();
+    listeningon = false;
+    document.getElementById('questionsstart').value = 'Talk';
+  } else {
+    builtin_courant_question='';
+    StopSpeechRecognition();
+    listeningon = true;
+    document.getElementById('questionsstart').value = 'Stop';
+  }
+}
 </script>
 
 
@@ -1150,8 +1162,8 @@ function StopSpeechRecognition() {
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
-    <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
-    <input type="button" value="talk" class="button-3" role="button" id="questionsstart" onclick="StartSpeechRecognition();"/>
+    <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick(); listeningon=true; StartStop();"/>
+    <input type="button" value="talk" class="button-3" role="button" id="questionsstart" onclick="StartStop();"/>
 	</div>
 
 	<div id="tabs-2">
