@@ -1028,6 +1028,7 @@ builtin_recognition.interimResults = true;
 var builtin_recognitionon = false;
 
 function StartSpeechRecognition() {
+  builtin_courant_question='';
   EcrireQ_int('Listening...');
   builtin_recognition.lang = builtin_voice.lang;
   builtin_recognition.onresult = function(event) {
