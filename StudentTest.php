@@ -1046,7 +1046,7 @@ function StartSpeechRecognition() {
   };
   builtin_recognition.onend = function(event) {
     if (builtin_recognitionon) {
-      StartSpeechRecognition(callback);
+      StartSpeechRecognition();
     }
   };
   builtin_recognitionon = true;
