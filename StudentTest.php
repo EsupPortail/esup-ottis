@@ -1028,7 +1028,7 @@ builtin_recognition.interimResults = true;
 var builtin_recognitionon = false;
 
 function StartSpeechRecognition() {
-  EcrireQ('Listening...');
+  EcrireQ_int('Listening...');
   builtin_recognition.lang = builtin_voice.lang;
   builtin_recognition.onresult = function(event) {
     if (builtin_recognitionon) {
