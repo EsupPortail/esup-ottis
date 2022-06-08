@@ -1014,11 +1014,11 @@ function activetab(tab)  {
 var builtin_courant_question='';
 function EcrireQ(ch) {
   builtin_courant_question += ch + "\n";
-  document.getElementById('question').value = builtin_courant;
+  document.getElementById('question').value = builtin_courant_question;
 }
 
 function EcrireQ_int(ch) {
-  document.getElementById('question').value = builtin_courant + ch + "\n";;
+  document.getElementById('question').value = builtin_courant_question + ch + "\n";;
 }
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
