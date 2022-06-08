@@ -1010,6 +1010,56 @@ function activetab(tab)  {
   ShowMenu();
 }
 
+// Test 
+var builtin_courant_question='';
+function EcrireQ(ch) {
+  builtin_courant_question += ch + "\n";
+  document.getElementById('question').value = builtin_courant;
+}
+
+function EcrireQ_int(ch) {
+  document.getElementById('question').value = builtin_courant + ch + "\n";;
+}
+
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var builtin_recognition = new SpeechRecognition();
+builtin_recognition.continuous = true;
+builtin_recognition.interimResults = true;
+var builtin_recognitionon = true;
+
+function StartSpeechRecognition() {
+  builtin_recognition.lang = builtin_voice.lang;
+  builtin_recognition.onresult = function(event) {
+    if (builtin_recognitionon) {
+
+      var ch = '';
+      for (i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          EcrireQ(event.results[i][0].transcript);
+        } else {
+          ch += event.results[i][0].transcript;
+          EcrireQ_int(ch);
+        }
+      }
+      //builtin_recognition.stop();
+    }
+  };
+  builtin_recognition.onend = function(event) {
+    if (builtin_recognitionon) {
+      StartSpeechRecognition(callback);
+    }
+  };
+  builtin_recognitionon = true;
+  builtin_recognition.start();
+}
+
+function StopSpeechRecognition() {
+  builtin_recognitionon = false;
+  builtin_recognition.stop();
+}
+
+
+
 </script>
 
 
@@ -1098,6 +1148,7 @@ function activetab(tab)  {
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
     <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
+    <input type="button" value="talk" class="button-3" role="button" id="questionsstart" onclick="StartSpeechRecognition();"/>
 	</div>
 
 	<div id="tabs-2">

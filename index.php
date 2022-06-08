@@ -858,7 +858,7 @@ function StartSpeechRecognition(callback) {
   builtin_recognition.lang = builtin_language;
   builtin_recognition.onresult = function(event) {
     if (builtin_recognitionon) {
-      for (i = event.resultIndex; i < event.results.length; i++) {
+      for (var i = event.resultIndex; i < event.results.length; i++) {
         callback(event.results[i][0].transcript);
       }
       builtin_recognition.stop();
