@@ -853,11 +853,12 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
 var builtin_recognitionon = false;
+var builtin_externaltranscritionon=false;
 
 function StartSpeechRecognition(callback) {
   builtin_recognition.lang = builtin_language;
   builtin_recognition.onresult = function(event) {
-    if (builtin_recognitionon) {
+    if (builtin_recognitionon && ! builtin_externaltranscritionon) {
       for (var i = event.resultIndex; i < event.results.length; i++) {
         callback(event.results[i][0].transcript);
       }
@@ -1097,7 +1098,7 @@ function readTextQ() {
         console.log('Opening an extra tab')
       } else {
         if (L[0] == 'ROBOT') {
-          Traduction(L[2]);
+          if (builtin_externaltranscritionon) Traduction(L[2]);
         } else {
           console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
           if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
@@ -1407,6 +1408,7 @@ function updateLinks() {
   </select></li>
   <li>&nbsp;</li>
 	    <li title="Do not change that if you do not know what you are doing."><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+  <li>External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
   <li>Embed WOOCLAP ?  <input type="checkbox" checked id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">Yes !</span><button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
