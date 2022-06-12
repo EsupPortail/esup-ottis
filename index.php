@@ -963,7 +963,7 @@ function saveTextNB(ch) {
 
 function Lancer() {
   setInterval(remote,200);
-  setInterval(readTextQ,500);
+  setInterval(readTextQ,100);
   setInterval(ScrollBar,scrollinterval);
 }
 
