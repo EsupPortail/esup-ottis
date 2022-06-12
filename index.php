@@ -1108,14 +1108,6 @@ function readTextQ() {
           }
         }
       }
-
-      
-      //console.log('Debug -- '+T[i]+'     '+builtin_language.substr(0,2)+' -> '+L[1].substr(0,2));
-      if (builtin_language.substr(0,2).toLowerCase() != L[1].substr(0,2).toLowerCase())
-        TranslateQ(L[2], builtin_language.substr(0,2), L[1].substr(0,2),L[0]);
-      else {
-        EcrireCR(L[0],L[2]);
-      }
     }
     // Is there a new question there ?
     if (inputnumberQ!=T.length) EventNewQuestion();
