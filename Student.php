@@ -758,7 +758,7 @@ function Synchronize(pin) {
 
 function Lancer() {
   setInterval(readText,500);
-  setInterval(readTextQ,1000);
+  setInterval(readTextQ,500);
   setInterval(readImage,500);
   setLanguageInput(0);
   resizeSlides();
@@ -848,11 +848,13 @@ function readTextQ() {
         var url=resource[1];
         showET(url,tabnumber);
       } else {
-        console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
-        if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-          TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
-        else {
-          EcrireCR(L[0],L[2]);
+        if (L[0] != 'ROBOT') {
+          console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
+          if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+            TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
+          else {
+            EcrireCR(L[0],L[2]);
+          }
         }
       }
     }

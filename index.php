@@ -962,7 +962,7 @@ function saveTextNB(ch) {
 
 function Lancer() {
   setInterval(remote,200);
-  setInterval(readTextQ,1000);
+  setInterval(readTextQ,500);
   setInterval(ScrollBar,scrollinterval);
 }
 
@@ -1093,6 +1093,20 @@ function readTextQ() {
     //console.log('Debug : '+inputnumberQ+T.length);
     for(var i=inputnumberQ; i<T.length; i++) {
       var L=T[i].split(';');
+      if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
+        console.log('Opening an extra tab')
+      } else {
+        if (L[0] == 'ROBOT') {
+          Traduction(L[2]);
+        } else {
+          console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
+          if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+            TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
+          else {
+            EcrireCR(L[0],L[2]);
+          }
+        }
+      }
 
       
       //console.log('Debug -- '+T[i]+'     '+builtin_language.substr(0,2)+' -> '+L[1].substr(0,2));
