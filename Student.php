@@ -388,7 +388,7 @@ background-color: green;
 
 #arrowlanguage, #arrowsynthesis {
   transition: 1s ease;
-  display: inline;
+  //display: inline;
   font-family: helvetica, arial, sans-serif;
   color: red;
 }
