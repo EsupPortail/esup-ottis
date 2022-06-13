@@ -1081,7 +1081,7 @@ function activetab(tab)  {
 </li>
 <li><label for="VoiceOutput">Student language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
-  </select><span id="arrowlanguage" class="hithere">&nbsp;⇦ Choose your language first</span>
+  </select><div id="arrowlanguage" class="hithere">&nbsp;⇦ Choose your language first</div>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
@@ -1091,7 +1091,7 @@ function activetab(tab)  {
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';"/><span id="arrowsynthesis"  class="hithere">&nbsp;⇦ Then launch the speech synthesis</span>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';"/><div id="arrowsynthesis"  class="hithere">&nbsp;⇦ Then launch the speech synthesis</div>
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
