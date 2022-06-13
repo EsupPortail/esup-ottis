@@ -379,10 +379,8 @@ background-color: green;
   animation: hithere 0.5s infinite;
 }
 @keyframes hithere {
-  from, to { transform: scale(1, 1); }
-  25% { transform: scale(0.9, 1.1); }
-  50% { transform: scale(1.1, 0.9); }
-  75% { transform: scale(0.95, 1.05); }
+  from, to { transform: translateX(0); }
+  50% { transform: translateX(10px); }
 }
 
 
@@ -1080,14 +1078,14 @@ function activetab(tab)  {
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
 </li>
-<li><label for="VoiceOutput">Student language :</label>
+<li class="hithere" id="lilanguage"><label for="VoiceOutput">Student language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
-  </select><div id="arrowlanguage" class="hithere">&nbsp;⇦ Choose your language first</div>
+  </select><div id="arrowlanguage">&nbsp;⇦ Choose your language first</div>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li><label for="synthesison">Speech synthesis active ? </label>
+<li class="hithere" id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <!--<div class="checkbox-example">
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
