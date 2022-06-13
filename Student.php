@@ -1064,11 +1064,11 @@ function activetab(tab)  {
   <ul style="list-style-type: none;">
 <li style="display:block"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 <li style="display:none"><label for="classroomlanguage">Classroom language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value);" onclick="alert('ok'); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
+  <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
 </li>
 <li><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="alert('ok'); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
   </select><span id="arrowlanguage">&nbsp;⇦ Choose your language first</span>
 </li>
 <li><label for="StudentName">Student surname :</label>
