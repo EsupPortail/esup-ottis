@@ -375,18 +375,22 @@ background-color: green;
 }
 
 
-.hithere {
-  animation: hithere 0.5s infinite;
-}
 @keyframes hithere {
   from, to { transform: translateX(0); }
   50% { transform: translateX(10px); }
 }
 
+#lilanguage {
+  animation: hithere 0.5s infinite;
+}
+
+#lisynthese {
+  animation: none;
+}
 
 #arrowlanguage, #arrowsynthesis {
   transition: 1s ease;
-  //display: inline;
+  display: inline;
   font-family: helvetica, arial, sans-serif;
   color: red;
 }
@@ -1078,19 +1082,19 @@ function activetab(tab)  {
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
 </li>
-<li class="hithere" id="lilanguage"><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
+<li id="lilanguage"><label for="VoiceOutput">Student language :</label>
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5 inifinite'; ">
   </select><div id="arrowlanguage">&nbsp;⇦ Choose your language first</div>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li class="hithere" id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
+<li id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <!--<div class="checkbox-example">
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';"/><div id="arrowsynthesis"  class="hithere">&nbsp;⇦ Then launch the speech synthesis</div>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none';"/><div id="arrowsynthesis"  class="hithere">&nbsp;⇦ Then launch the speech synthesis</div>
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
