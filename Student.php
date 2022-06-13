@@ -1068,7 +1068,7 @@ function activetab(tab)  {
   </select>
 </li>
 <li><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="alert('ok'); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
   </select><span id="arrowlanguage">&nbsp;⇦ Choose your language first</span>
 </li>
 <li><label for="StudentName">Student surname :</label>
