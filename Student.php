@@ -374,6 +374,17 @@ background-color: green;
   display: none;
 }
 
+.myanim {
+  animation: myanim 0.5s infinite;
+}
+@keyframes myanim {
+  from, to { transform: scale(1, 1); }
+  25% { transform: scale(0.9, 1.1); }
+  50% { transform: scale(1.1, 0.9); }
+  75% { transform: scale(0.95, 1.05); }
+}
+
+
 #arrowlanguage, #arrowsynthesis {
   transition: 1s ease;
   font-family: helvetica, arial, sans-serif;
@@ -1069,7 +1080,7 @@ function activetab(tab)  {
 </li>
 <li><label for="VoiceOutput">Student language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
-  </select><span id="arrowlanguage">&nbsp;⇦ Choose your language first</span>
+  </select><span id="arrowlanguage" class="myanim">&nbsp;⇦ Choose your language first</span>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
@@ -1079,7 +1090,7 @@ function activetab(tab)  {
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';"/><span id="arrowsynthesis">&nbsp;⇦ Then launch the speech synthesis</span>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';"/><span id="arrowsynthesis"  class="myanim">&nbsp;⇦ Then launch the speech synthesis</span>
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
