@@ -370,6 +370,18 @@ background-color: green;
         left: 27px;
       }
 
+.wordcloud {
+  display: none;
+}
+
+#arrowlanguage, #arrowsynthesis {
+  transition: 1s ease;
+  color: red;
+}
+
+#arrowsynthesis {
+  visibility: hidden;
+}
 
 	</style>
 
@@ -1044,19 +1056,19 @@ function activetab(tab)  {
 		<li id="ltabs-10" onclick="activetab('tabs-10');">2</li>
 		<li id="ltabs-11" onclick="activetab('tabs-11');">3</li>
 		<li id="ltabs-12" onclick="activetab('tabs-12');">4</li>
-		<li id="ltabs-13" onclick="activetab('tabs-13');">Word Cloud</li>
+		<li id="ltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li>
 
 	</ul>
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
 <li style="display:block"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 <li style="display:none"><label for="classroomlanguage">Classroom language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
+  <select id="classroomlanguage" onchange="setLanguageInput(this.value); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible';">
   </select>
 </li>
 <li><label for="VoiceOutput">Student language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
-  </select>
+  </select><span id="arrowlanguage">&nbsp;⇦ Choose your language first</span>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
@@ -1066,7 +1078,7 @@ function activetab(tab)  {
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides();"/>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';"/><span id="arrowsynthesis">&nbsp;⇦ Then launch the speech synthesis</span>
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
@@ -1111,7 +1123,7 @@ function activetab(tab)  {
     <div id="output">
     </div>
   </div>
-	<div id="tabs-13">
+	<div id="tabs-13" class="wordcloud">
     <div id="vis"></div>
     <div id="configwc" style="display: none">
     <p><textarea id="text">
