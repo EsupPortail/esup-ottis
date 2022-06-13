@@ -374,20 +374,21 @@ background-color: green;
   display: none;
 }
 
+
 .hithere {
-  animation: hithere 1s ease infinite;
+  animation: hithere 0.5s infinite;
 }
 @keyframes hithere {
-  30% { transform: scale(1.2); }
-  40%, 60% { transform: rotate(-20deg) scale(1.2); }
-  50% { transform: rotate(20deg) scale(1.2); }
-  70% { transform: rotate(0deg) scale(1.2); }
-  100% { transform: scale(1); }
+  from, to { transform: scale(1, 1); }
+  25% { transform: scale(0.9, 1.1); }
+  50% { transform: scale(1.1, 0.9); }
+  75% { transform: scale(0.95, 1.05); }
 }
 
 
 #arrowlanguage, #arrowsynthesis {
   transition: 1s ease;
+  display: inline;
   font-family: helvetica, arial, sans-serif;
   color: red;
 }
