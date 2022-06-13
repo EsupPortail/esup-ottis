@@ -1092,6 +1092,7 @@ function readTextQ() {
     }
     //alert(inputnumberQ+'\n\n'+T);
     //console.log('Debug : '+inputnumberQ+T.length);
+    var nbnewQ=0;
     for(var i=inputnumberQ; i<T.length; i++) {
       var L=T[i].split(';');
       if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
@@ -1100,6 +1101,7 @@ function readTextQ() {
         if (L[0] == 'ROBOT') {
           if (builtin_externaltranscritionon) Traduction(L[2]);
         } else {
+          nbnewQ++;
           console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
           if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
             TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
@@ -1110,7 +1112,8 @@ function readTextQ() {
       }
     }
     // Is there a new question there ?
-    if (inputnumberQ!=T.length) EventNewQuestion();
+    if (nbnewQ>0) EventNewQuestion();
+    //if (inputnumberQ!=T.length) EventNewQuestion();
     inputnumberQ=T.length;
   };
 }
