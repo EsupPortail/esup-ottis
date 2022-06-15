@@ -779,6 +779,7 @@ function saveremotespeech() {
 function SkipForward() {
   if (currentPresentation.length>0) {
     currentDiscours=(currentDiscours+1)%currentPresentation.length;
+    ShowImage(currentPresentation[currentDiscours]['Slide']);
     saveremotespeech();
   }
 }
@@ -786,6 +787,7 @@ function SkipForward() {
 function SkipBackward() {
   if (currentPresentation.length>0) {
     currentDiscours=(currentDiscours-1+currentPresentation.length)%currentPresentation.length;
+    ShowImage(currentPresentation[currentDiscours]['Slide']);
     saveremotespeech();
   }
 }
