@@ -541,8 +541,20 @@ function notready() {
   document.getElementById('bready').style.backgroundColor='red';
 }
 
+function RemoveVerbalTics(ch) {
+  var T_verbaltics=document.getElementById('verbaltics').value.trim().split("\n");
+  var ch2=ch;
+  for(var i = 0; i<T_verbaltics.length; i++) {
+	  ch2=ch2.replaceAll(T_verbaltics[i]+" ","");
+	  ch2=ch2.replaceAll(T_verbaltics[i]+",","");
+  }
+  return ch2;
+}
+
+
 var inputnumber=0;
 function Traduction(ch) {
+  ch = RemoveVerbalTics(ch);
   var recognitionon=document.getElementById('recognitionon').checked;
   if (recognitionon) {
   EcrireNB(ch);
@@ -1417,6 +1429,11 @@ function updateLinks() {
   <li>Extra tab 2  URL : <input type="text" id="extraurl2" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET2" onclick="showET(this,2);"/>&nbsp;<span id="spanembedET2">No.</span>&nbsp;<input type="button" value="Send to students" onclick="saveTextQ('[extratab2|'+document.getElementById('extraurl2').value+']');"/></li>
   <li>Extra tab 3  URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span>&nbsp;<input type="button" value="Send to students" onclick="saveTextQ('[extratab3|'+document.getElementById('extraurl3').value+']');"/></li>
   <li>Extra tab 4  URL : <input type="text" id="extraurl4" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET4" onclick="showET(this,4);"/>&nbsp;<span id="spanembedET4">No.</span>&nbsp;<input type="button" value="Send to students" onclick="saveTextQ('[extratab4|'+document.getElementById('extraurl4').value+']');"/></li>
+    <li></li>
+    <li><b>Extra functionalities</b></li>
+    <li>Remove verbal tics (one per line in lowercase)<br/>
+    <textarea id="verbaltics" rows="5" cols="20">
+    </textarea>
   </ul>
   <br/>
   <br/>
