@@ -1432,7 +1432,7 @@ function updateLinks() {
     <li></li>
     <li><b>Extra functionalities</b></li>
     <li>Remove verbal tics (one per line in lowercase)<br/>
-    <textarea id="verbaltics" rows="5" cols="20"></textarea>
+    <textarea id="verbaltics" rows="3" cols="20"></textarea>
   </ul>
   <br/>
   <br/>
