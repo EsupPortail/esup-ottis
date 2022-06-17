@@ -545,8 +545,14 @@ function RemoveVerbalTics(ch) {
   var T_verbaltics=document.getElementById('verbaltics').value.trim().split("\n");
   var ch2=ch;
   for(var i = 0; i<T_verbaltics.length; i++) {
-	  ch2=ch2.replaceAll(T_verbaltics[i]+" ","");
-	  ch2=ch2.replaceAll(T_verbaltics[i]+",","");
+    var fromword = T_verbaltics[i];
+    if (fromword.strpos("|") === false) {
+	    ch2=ch2.replaceAll(fromword+" ","");
+	    ch2=ch2.replaceAll(fromword+",","");
+    } else {
+      var [fromword,toword]=fromword.split("|");
+	    ch2=ch2.replaceAll(fromword,toword);
+    }
   }
   return ch2;
 }
