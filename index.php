@@ -551,7 +551,9 @@ function RemoveVerbalTics(ch) {
 	    ch2=ch2.replaceAll(fromword+",","");
     } else {
       var [fromword,toword]=fromword.split("|");
-	    ch2=ch2.replaceAll(fromword,toword);
+	    ch2=ch2.replaceAll(fromword+" ",toword+" ");
+	    ch2=ch2.replaceAll(fromword+",",toword+",");
+	    ch2=ch2.replaceAll(fromword+".",toword+".");
     }
   }
   return ch2;
