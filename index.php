@@ -546,6 +546,7 @@ function RemoveVerbalTics(ch) {
   var ch2=ch;
   for(var i = 0; i<T_verbaltics.length; i++) {
     var fromword = T_verbaltics[i];
+    if (fromword.trim() != "") {
     if (fromword.indexOf("|") <= 0) {
 	    ch2=ch2.replaceAll(fromword+" ","");
 	    ch2=ch2.replaceAll(fromword+",","");
@@ -555,6 +556,7 @@ function RemoveVerbalTics(ch) {
 	    ch2=ch2.replaceAll(fromword+",",toword+",");
 	    ch2=ch2.replaceAll(fromword+".",toword+".");
     }
+  }
   }
   return ch2;
 }
