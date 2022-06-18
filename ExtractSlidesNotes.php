@@ -46,6 +46,12 @@ for($i=0;$i<count($content);$i++) {
         $notesslide[]=$txt;
      }
 }
+if (count($notesslide)>0) {
+    $slidenotes=array();
+    $slidenotes["Slide"]=$num;
+    $slidenotes["Notes"]=$notesslide;
+    $notes[]=$slidenotes;
+}
 
 //print_r($notes);
 echo json_encode($notes);
