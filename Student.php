@@ -792,6 +792,8 @@ function Lancer() {
   resizeSlides();
 }
 
+var firsttime = true;
+
 function Init() {
   /*
   document.getElementById('question').addEventListener('keyup', function (event) {
@@ -1083,7 +1085,7 @@ function activetab(tab)  {
   </select>
 </li>
 <li id="lilanguage"><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s infinite'; ">
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; if (firsttime) document.getElementById('lisynthese').style.animation='hithere 0.5s infinite'; ">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
 </li>
 <li><label for="StudentName">Student surname :</label>
@@ -1094,7 +1096,7 @@ function activetab(tab)  {
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none';"/><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"/><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
