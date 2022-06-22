@@ -210,7 +210,7 @@ def readbase64(filename):
         encoded_string = base64.b64encode(image_file.read())
     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt",delay=0):
+def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt",delay=0,complementfile="Complements.txt"):
     # Gestion des notes
     print("Extracting and translating notes")
     AllNotes=dict()
@@ -258,6 +258,9 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     template = template.replace("@@FILENAME@@",FILENAME)
     template = template.replace("@@TITRE@@",TITRE)
     template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
+    with open(complementfile,"r", encoding='utf8') as f:
+        complement = "".join(f.readlines())
+    template = template.replace("@@COMPLEMENTS@@",complement)
     txtimages = "[];\n";
     for img in AllImages:
         txtimages += "Timages.push('"+img+"');\n";
