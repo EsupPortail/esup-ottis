@@ -221,7 +221,7 @@ input[type=text] {
 
 #showmenu {
   transition: 1s ease;
-  border-radius: 5px;
+  //border-radius: 5px;
   position: fixed;
   top: 0px;
   left: 0px;
@@ -229,7 +229,7 @@ input[type=text] {
   color: white;
   text-align: center;
   vertical-align: middle;
-  padding: 5px;
+  //padding: 5px;
   font-size: 24px;
   z-index: 12000;
   display: block;
@@ -239,6 +239,11 @@ input[type=text] {
 
 #showmenu:hover {
   background-color: rgb(200,200,255);
+}
+
+#iconeMenu {
+  width: 36px;
+  height: 36px;
 }
 
 #micon {
@@ -1027,7 +1032,7 @@ function ShowMenu() {
   }
 
   resizeSlides();
-  if (scalemenu == 0) document.getElementById('iconeMenu').src=MenuOnIMG; else document.getElementById('iconeMenu').src=MenuOffIMG;
+  if (scalemenu <0.05) document.getElementById('iconeMenu').src=MenuOnIMG; else document.getElementById('iconeMenu').src=MenuOffIMG;
 }
 var atab = 'tabs-0';
 function activetab(tab)  {
@@ -1053,7 +1058,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
-<div id="showmenu" onclick="ShowMenu();" title="Menu"><img src="" alt="☰" id="iconeMenu" onload="src=MenuOnIMG;" style="width:60px; height: 60px;"/></div>
+<div id="showmenu" onclick="ShowMenu();" title="Menu"><img src="" alt="☰" id="iconeMenu" onload="src=MenuOnIMG;"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 
 <!--
