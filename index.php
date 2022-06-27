@@ -297,7 +297,7 @@ input[type=text] {
 
 #FS {
   position: fixed;
-  top:55px;
+  top:60px;
   right: 5px;
   font-size: 12px;
 }
