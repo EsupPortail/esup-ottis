@@ -249,7 +249,8 @@ input[type=text] {
 
 #micon {
   position: fixed;
-  top:5px;
+  //top:5px;
+  top:0px;
   right: 60px;
   font-size: 16px;
   z-index: 15000;
