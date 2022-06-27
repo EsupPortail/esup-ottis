@@ -1452,7 +1452,7 @@ function updateLinks() {
   <dd>Tableau noir blackboard : <a id="link1" src="https://tableaunoir.github.io/?id=test"></a></dd>
   <dd>WBO whiteboard : <a id="link2" src="https://wbo.ophir.dev/boards/test"></a></dd>
   <dd>Jitsi visioconference : <a id="link3" src="https://meet.jit.si/test"></a></dd>
-  <dd>Symbolic computations (Xcas) : <a id="link4" src="https://algoscript.info/xcas"></a></dd>  
+  <dd>Symbolic computations (Xcas) : <a id="link4" src="https://algoscript.info/xcas">https://algoscript.info/xcas</a></dd>  
   </dl>
   </p>
   <br/>
