@@ -992,7 +992,7 @@ function resizeSlides() {
   //TTabs.map(function (name) {document.getElementById(name).style.top=(48*scalemenu)+'px';})
   // For wooclap and others
   ["wooclap","extratab1","extratab2","extratab3","extratab4"].map(resizeWindow)
-
+  MinTitlePos();
 }
 
 
@@ -1332,6 +1332,14 @@ window.onbeforeunload = function(event) {
 function fixTitle() {
   var e=document.getElementById("titre");
   e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
+}
+
+function MinTitlePos() {
+  var e=document.getElementById("titre");
+  var postop=1*(e.style.top.replace('px',''));
+  if (postop>window.innerHeight-50) {
+    e.style.top=(window.innerHeight-50)+'px';
+  }
 }
 
 /**
