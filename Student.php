@@ -233,12 +233,13 @@ input[type=text] {
   font-size: 24px;
   z-index: 12000;
   display: block;
-  border: 1px solid;
-  border-color: blue;
+  //border: 1px solid;
+  //border-color: blue;
 }
 
 #showmenu:hover {
-  background-color: rgb(200,200,255);
+  //background-color: rgb(200,200,255);
+  transform: scale(0.9);
 }
 
 #iconeMenu {
@@ -1025,6 +1026,11 @@ function LoadVoices() {
 var scalemenu=1;
 function ShowMenu() {
   scalemenu=1-scalemenu;
+  if (scalemenu<0.05) {
+    document.getElementById('iconeMenu').src=MenuOnIMG;
+  } else {
+    document.getElementById('iconeMenu').src=MenuOffIMG;
+  }
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
   var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-7','tabs-8','tabs-9','tabs-10','tabs-11','tabs-12','tabs-13'];
   for(var i=0; i<TTabs.length; i++) {
@@ -1032,7 +1038,7 @@ function ShowMenu() {
   }
 
   resizeSlides();
-  if (scalemenu <0.05) document.getElementById('iconeMenu').src=MenuOnIMG; else document.getElementById('iconeMenu').src=MenuOffIMG;
+  
 }
 var atab = 'tabs-0';
 function activetab(tab)  {
