@@ -244,7 +244,6 @@ def PPTX_TXTtoPPTX(filename,filenamepptx,fileout):
     nslide=0
     for slide in prs.slides:
         print("Adding notes to slide ",nslide+1)
-        ns+=1
         notes_slide = slide.notes_slide
         text_frame = notes_slide.notes_text_frame
         Notes.append({"Notes":[""]})
