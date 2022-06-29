@@ -108,6 +108,7 @@ def ExtractNotes(filename):
             notes.append(slidenotes)
     else:
         content = open(filename, 'r', encoding="utf-8").read().split("\n")
+        content.append('-----------')
         notes=[]
         num=0
         notesslide=[]
