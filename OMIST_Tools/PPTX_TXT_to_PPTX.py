@@ -19,7 +19,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoi:v", ["help", "output=", "input="])
+        opts, args = getopt.getopt(sys.argv[1:], "hoip:v", ["help", "output=", "input=", "inputpptx="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -29,6 +29,7 @@ def main():
     WithNotes = False
     input=""
     output=""
+    inputpptx=""
     lfrom="FR"
     lto="EN"
     C_ASPECTRATIO = "16/10"
@@ -41,6 +42,8 @@ def main():
             sys.exit()
         elif o in ("-i", "--input"):
             input = a
+        elif o in ("-p", "--inputpptx"):
+            inputpptx = a
         elif o in ("-o", "--output"):
             output = a
         else:
@@ -48,7 +51,7 @@ def main():
     if Translate and input != "":
         if output == "":
             output="tmp/out.pptx"
-        PPTX_TXTtoPPTX(input,output)
+        PPTX_TXTtoPPTX(input,inputpptx,output)
     else:
         usage()
 
@@ -233,11 +236,11 @@ def PDFtoPPTX(filename,fileout,imagesdir='.',AspectRatio=16/10):
     batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to ppt "+fileout+".pptx"+" --outdir "+outputdir
     result = subprocess.check_output(batcmd, shell=True)
 
-def PPTX_TXTtoPPTX(filename,fileout):
+def PPTX_TXTtoPPTX(filename,filenamepptx,fileout):
     # Gestion des notes
     print("Extracting notes")
     Notes = ExtractNotes(filename)
-    prs = Presentation(filename)
+    prs = Presentation(filenamepptx)
     nslide=0
     for slide in prs.slides:
         print("Adding notes to slide ",nslide+1)
