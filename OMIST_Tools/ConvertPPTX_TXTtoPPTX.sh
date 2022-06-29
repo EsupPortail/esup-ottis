@@ -19,7 +19,7 @@ export PYTHONIOENCODING=utf8
 $PYTHON ./PPTX_TXT_to_PPTX.py --input=tmp/$RANDOMPATH/speech.txt --inputpptx=tmp/$RANDOMPATH/input.pptx --output=tmp/$RANDOMPATH/converted
 
 cd tmp/$RANDOMPATH
-zip -9 ../output_$RANDOMPATH.zip *.ppt*
+zip -9 ../output_$RANDOMPATH.zip *.ppt* *.odp
 cd ../..
 rm -rf tmp/$RANDOMPATH
 
