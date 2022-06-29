@@ -236,6 +236,14 @@ function Init() {
     <input type="submit" value="Convert" name="submit">
     </form>
   </div>
+  <h3>Convert pptx+txt to pptx</h3>
+  <div>
+  <form action="ConvertPPTX_TXT_toPPTX.php" method="post" enctype="multipart/form-data">  
+    Select PPTx file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
+    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
+    <input type="submit" value="Convert" name="submit">
+    </form>
+  </div>
     <h3>Extract speech from pptx</h3>
   <div>
   <form action="ExtractSpeechFromPPTX.php" method="post" enctype="multipart/form-data">
