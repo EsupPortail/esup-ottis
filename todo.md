@@ -1,2 +1,5 @@
 - [X] Enlever automatiquement les tics de parole ("en fait" par exemple)
 - [X] Bug import pptx dans Complete Lesson, manque le dernier slide
+- [ ] Ajouter un outil pour intégrer des notes (.txt) dans un .pptx dans les OMIST tools
+- [ ] Utiliser DeepL Translate dans les OMIST tools
+- [ ] Voir s'il est possible d'utiliser Argos Translate dans les OMIST Tools
