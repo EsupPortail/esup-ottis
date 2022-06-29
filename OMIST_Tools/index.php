@@ -236,6 +236,7 @@ function Init() {
     <input type="submit" value="Convert" name="submit">
     </form>
   </div>
+<!--
   <h3>Convert pptx+txt to pptx</h3>
   <div>
   <form action="ConvertPPTX_TXT_toPPTX.php" method="post" enctype="multipart/form-data">  
@@ -244,6 +245,7 @@ function Init() {
     <input type="submit" value="Convert" name="submit">
     </form>
   </div>
+  -->
     <h3>Extract speech from pptx</h3>
   <div>
   <form action="ExtractSpeechFromPPTX.php" method="post" enctype="multipart/form-data">
