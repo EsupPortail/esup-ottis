@@ -107,6 +107,7 @@ def ExtractNotes(filename):
             notes.append(slidenotes)
     else:
         content = open(filename, 'r', encoding="utf-8").read().split("\n")
+        content.append('-----------')
         notes=[]
         num=0
         notesslide=[]
@@ -246,10 +247,16 @@ def PPTX_TXTtoPPTX(filename,filenamepptx,fileout):
         print("Adding notes to slide ",nslide+1)
         notes_slide = slide.notes_slide
         text_frame = notes_slide.notes_text_frame
+        text_frame.clear()
         Notes.append({"Notes":[""]})
         text_frame.add_paragraph().text = "\n".join(Notes[nslide]["Notes"])
         nslide += 1
-    prs.save(fileout)
+    prs.save(fileout+".pptx")
+    outputdir=os.path.dirname(fileout)
+    batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to odp "+fileout+".pptx"+" --outdir "+outputdir
+    result = subprocess.check_output(batcmd, shell=True)
+    batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to ppt "+fileout+".pptx"+" --outdir "+outputdir
+    result = subprocess.check_output(batcmd, shell=True)
 
 
 if __name__ == "__main__":
