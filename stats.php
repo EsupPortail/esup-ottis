@@ -18,19 +18,9 @@
 <?php
 include("config.php");
 
-$aContext = array(
-    'http' => array(
-        'proxy'           => $proxy,
-        'request_fulluri' => true,
-    ),
-);
-
-$cxContext = stream_context_create($aContext);
 
 $res=array();
 exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
-
-//$Stats_DEEPL = json_decode(file_get_contents("https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,false,$cxContext),true);
 
 $Stats_DEEPL = json_decode($res[0],true);
 $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/100;
