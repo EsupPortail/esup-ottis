@@ -18,7 +18,16 @@
 <?php
 include("config.php");
 
-$Stats_DEEPL = json_decode(file_get_contents("https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN),true);
+$aContext = array(
+    'http' => array(
+        'proxy'           => $proxy,
+        'request_fulluri' => true,
+    ),
+);
+
+$cxContext = stream_context_create($aContext);
+
+$Stats_DEEPL = json_decode(file_get_contents("https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,false,$cxContext),true);
 
 echo "<h1>Usage Statistics</h1>";
 echo "<dl>";
