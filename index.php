@@ -6,6 +6,16 @@
     header('Cache-Control: no-cache, must-revalidate');
 ?>
 <?php
+
+include("Security/Authentification.php");
+
+$uid = $_SERVER['PHP_AUTH_USER'];
+if ($uid == "") $uid="e18XXX";
+
+if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
+
+AuthenticateNotStudent($uid);
+
 if (isset($_GET["ROOMID"]))
   $classroomid = $_GET["ROOMID"];
 else {
