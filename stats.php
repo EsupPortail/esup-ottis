@@ -24,7 +24,7 @@ exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res
 $Stats_DEEPL = json_decode($res[0],true);
 $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/100;
 
-$Stats_DEEPL_LONG = explode("\n",file_get_contents("/root/Stats.txt"));
+//$Stats_DEEPL_LONG = explode("\n",file_get_contents("/root/Stats.txt"));
 //$Stats_DEEPL_LONG = array();
 
 echo "<h1>Usage Statistics</h1>";
@@ -32,12 +32,13 @@ echo "<dl>";
 echo "<dt>DeepL pro</dt>";
 echo "<dd>".$percentage_DEEPL."% : Characters = ".$Stats_DEEPL["character_count"]." , Limit = ".$Stats_DEEPL["character_limit"]."</dd>\n";
 echo "</dl>";
+/*
 echo "<pre>";
 for($i=0; $i<count($Stats_DEEPL_LONG);$i++) {
   echo $Stats_DEEPL_LONG[$i];
 }
 echo "</pre>"
-
+*/
 ?>
 
 </body>
