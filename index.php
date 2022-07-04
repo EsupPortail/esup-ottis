@@ -1453,6 +1453,7 @@ function updateLinks() {
   <dd>WBO whiteboard : <a id="link2" src="https://wbo.ophir.dev/boards/test"></a></dd>
   <dd>Jitsi visioconference : <a id="link3" src="https://meet.jit.si/test"></a></dd>
   <dd>Symbolic computations (Xcas) : <a id="link4" src="https://algoscript.info/xcas">https://algoscript.info/xcas</a></dd>  
+  <dd>Universal document viewer : <a id="link5" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
   </dl>
   </p>
   <br/>
