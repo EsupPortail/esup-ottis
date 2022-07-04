@@ -5,6 +5,16 @@
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-cache, must-revalidate');
 
+include("../Security/Authentification.php");
+
+$uid = $_SERVER['PHP_AUTH_USER'];
+if ($uid == "") $uid="e18XXX";
+
+if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
+
+AuthenticateNotStudent($uid);
+
+
 $T_lang=array();
 $fd = fopen("../supportedlanguages.csv","r");
 while($line=fgets($fd,4096)) {
