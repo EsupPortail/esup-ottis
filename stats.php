@@ -24,10 +24,6 @@ $aContext = array(
         'proxy'           => $proxy,
         'request_fulluri' => true,
     ),
-    'https' => array(
-        'proxy'           => $proxy,
-        'request_fulluri' => true,
-    ),
 );
 
 $cxContext = stream_context_create($aContext);
