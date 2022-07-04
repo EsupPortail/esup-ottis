@@ -27,9 +27,12 @@ $aContext = array(
 
 $cxContext = stream_context_create($aContext);
 
-$res=exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN);
+$res=array();
+exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
 
-$Stats_DEEPL = json_decode(file_get_contents("https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,false,$cxContext),true);
+//$Stats_DEEPL = json_decode(file_get_contents("https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,false,$cxContext),true);
+
+$Stats_DEEPL = json_decode($res[0],true);
 
 echo "<h1>Usage Statistics</h1>";
 echo "<dl>";
