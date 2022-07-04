@@ -17,7 +17,6 @@
 
 <?php
 include("config.php");
-$proxy="https://cache.univ-nantes.fr:3128";
 
 $aContext = array(
     'http' => array(
@@ -27,6 +26,8 @@ $aContext = array(
 );
 
 $cxContext = stream_context_create($aContext);
+
+$res=exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN);
 
 $Stats_DEEPL = json_decode(file_get_contents("https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,false,$cxContext),true);
 
