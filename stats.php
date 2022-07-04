@@ -37,7 +37,7 @@ $Stats_DEEPL = json_decode($res[0],true);
 echo "<h1>Usage Statistics</h1>";
 echo "<dl>";
 echo "<dt>DeepL pro</dt>";
-$percentage_DEEPL = ceil(1000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/10;
+$percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/100;
 echo "<dd>".$percentage_DEEPL."% : Characters = ".$Stats_DEEPL["character_count"]." , Limit = ".$Stats_DEEPL["character_limit"]."</dd>\n";
 echo "</dl>";
 ?>
