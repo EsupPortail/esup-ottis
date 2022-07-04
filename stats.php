@@ -17,6 +17,7 @@
 
 <?php
 include("config.php");
+$proxy="http://cache.univ-nantes.fr:3128";
 
 $aContext = array(
     'http' => array(
