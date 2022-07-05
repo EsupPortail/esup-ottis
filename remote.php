@@ -6,11 +6,14 @@
     header('Cache-Control: no-cache, must-revalidate');
 ?>
 <?php
-if (isset($_GET["ROOMID"]))
+if (isset($_GET["ROOMID"])) {
   $classroomid = $_GET["ROOMID"];
-else {
-  $classroomid = md5(gmdate("Y-m-d\TH:i:s\Z"));
+  $synchronize = false;
+} else {
+  $classroomid = 'UNKNOWN';
+  $synchronize = true;
 }
+
 
 ?>
 <!doctype html>
@@ -203,13 +206,38 @@ function remotespeech() {
 function Lancer() {
   setInterval(remotespeech,200);
 }
+
+function Synchronize(pin) {
+	var request = new XMLHttpRequest();
+	request.open("POST", "synchronize.php");
+  var f=new FormData();
+  f.append('pincode',pin);
+	request.send(f);
+	request.onload = function(event) {
+    if (request.responseText != "") {
+      document.getElementById('classroomid').value=request.responseText;
+    } else {
+      alert("ERROR : unknown pin code");
+    }
+  };
+}
+
+function Init() {
+<?php
+if ($synchronize) {
+  echo "Synchronize(prompt('Enter the session pincode'));\n";
+}
+?>
+}
+
+
 </script>
 
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload=" setTimeout(Lancer,300);" style="width: 100%; height: 100%;">
+<body onload=" Init(); setTimeout(Lancer,300);" style="width: 100%; height: 100%;">
 
 <div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
 <div id="speech_before" onclick="remote('backward');">Before</div>
@@ -219,7 +247,7 @@ function Lancer() {
 <div title="Skip subtitle" id="skipright" onclick="remote('skipforward');"><span style="font-size: 1em;">Skip &#8594;</span></div>
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward');">&#8594;</div>
-<input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
+<input type="text" style="display: inline;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
 
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>

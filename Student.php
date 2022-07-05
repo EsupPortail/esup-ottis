@@ -6,17 +6,21 @@
     header('Cache-Control: no-cache, must-revalidate');
 ?>
 <?php
-if (isset($_GET["ROOMID"])) {
-  $classroomid = $_GET["ROOMID"];
-} else {
-  $classroomid = '';
-}
 
 if (isset($_GET["SYNC"])) {
   $synchronize = true;
 } else {
   $synchronize = false;
 }
+
+if (isset($_GET["ROOMID"])) {
+  $classroomid = $_GET["ROOMID"];
+  $synchronize = false;
+} else {
+  $classroomid = '';
+  $synchronize = true;
+}
+
 
 $wooclapkey="";
 if (isset($_GET["WOOCLAPKEY"])) {
