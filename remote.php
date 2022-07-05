@@ -247,7 +247,7 @@ if ($synchronize) {
 <div title="Skip subtitle" id="skipright" onclick="remote('skipforward');"><span style="font-size: 1em;">Skip &#8594;</span></div>
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward');">&#8594;</div>
-<input type="text" style="display: inline;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
+<input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
 
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>
