@@ -252,3 +252,7 @@ def WrapSubtitle(filename, wraplength=50):
             fd.write(prettytime(sub[i].get("begin"))+" --> "+prettytime(sub[i].get("end"))+"\n")
             fd.write(sub[i].get("phrase")+"\n\n")
     fd.close()
+
+
+if __name__ == "__main__":
+    main()
