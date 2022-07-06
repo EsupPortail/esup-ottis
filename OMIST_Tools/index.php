@@ -26,6 +26,13 @@ while($line=fgets($fd,4096)) {
 fclose($fd);
 
 
+include("../config.php");
+
+$res=array();
+exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+
+$Stats_DEEPL = json_decode($res[0],true);
+$percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/100;
 
 ?>
 <!doctype html>
@@ -95,7 +102,7 @@ function Init() {
     <option value="600"/>
     <option value="1200"/>
   </datalist>
- <div>Important : Ces outils proposés à titre expérimental utilisent des ressources partagées avec l’outil de traduction en direct (même serveur web et abonnement mutualisé pour le service de traduction). Afin de ne pas impacter ce service, nous vous demandons de les utiliser prioritairement en dehors des heures d’enseignement. En outre, si vous souhaitez obtenir les traductions dans plus de deux langues, nous vous demandons de ne pas utiliser ces outils mais de transmettre votre demande à Lucile Soccoja qui a la possibilité de traiter la demande sans impacter les ressources partagées.</div>
+ <div>Important : Ces outils proposés à titre expérimental utilisent des ressources partagées avec l’outil de traduction en direct (même serveur web et abonnement mutualisé pour le service de traduction (Utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>)). Afin de ne pas impacter ce service, nous vous demandons de les utiliser prioritairement en dehors des heures d’enseignement. En outre, si vous souhaitez obtenir les traductions dans plus de deux langues, nous vous demandons de ne pas utiliser ces outils mais de transmettre votre demande à Lucile Soccoja qui a la possibilité de traiter la demande sans impacter les ressources partagées.</div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
