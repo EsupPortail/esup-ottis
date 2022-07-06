@@ -49,9 +49,9 @@ def main():
             wraplength = a
         else:
             assert False, "unhandled option"
-    if Translate and input != "":
+    if input != "":
         if output == "":
-            output=input.replace(".pptx","_"+lto+".pptx")
+            output=input.replace(".srt","_"+lto+".srt")
         TranslateSRT(input,output,lfrom,lto)
         WrapSubtitle(input, wraplength)
     else:
