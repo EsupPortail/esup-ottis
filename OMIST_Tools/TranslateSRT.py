@@ -52,7 +52,7 @@ def main():
     if input != "":
         if output == "":
             output=input.replace(".srt","_"+lto+".srt")
-        print("TranslateSRT ",input,output,lfrom,lto)
+        #print("TranslateSRT ",input,output,lfrom,lto)
         TranslateSRT(input,output,lfrom[0:2],lto[0:2])
         WrapSubtitle(output, wraplength)
     else:
@@ -196,7 +196,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             begin=""
             end=""
     Subtitles=NewSubtitles
-    fd=open(filename_out,"w")
+    fd=open(filename_out,"w", encoding="utf-8")
     for i in range(len(Subtitles)):
         if (Subtitles[i].get("phrase")):
             fd.write(str(i+1)+"\n")
@@ -244,7 +244,7 @@ def WrapSubtitle(filename, wraplength=50):
             currenttext+=c.replace("\n"," ")
         i+=1
     sub=Subtitles_cutted
-    fd=open(filename.replace(".srt","_wrapped.srt"),"w")
+    fd=open(filename.replace(".srt","_wrapped.srt"),"w", encoding="utf-8")
     for i in range(len(sub)):
         if (sub[i].get("phrase")):
             fd.write(str(i+1)+"\n")
