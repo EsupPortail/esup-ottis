@@ -12,7 +12,7 @@ echo "Converting file " $Filename " from " $From " to " $To
 
 export PYTHONIOENCODING=utf8
 
-mkdir -f tmp/$RANDOMPATH
+mkdir -p tmp/$RANDOMPATH
 #rm -rf tmp/*
 cp "$Filename" tmp/$RANDOMPATH/original_file.srt
 for lang in $To; do
