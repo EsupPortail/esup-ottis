@@ -164,7 +164,7 @@ def prettytime(n):
 
 
 def TranslateSRT(filename,filename_out,in_language,out_language):
-    fd=open(filename,"r")
+    fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
     TSubtitles=("|".join(content).strip()).split("\n|\n|")
@@ -204,7 +204,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
     fd.close()
 
 def WrapSubtitle(filename, wraplength=50):
-    fd=open(filename,"r")
+    fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
     i=0
