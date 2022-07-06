@@ -24,7 +24,7 @@ def usage():
 
 
 def main():
-    print(translate("Bonjour","fr","en"))
+    #print(translate("Bonjour","fr","en"))
     #print(sys.getdefaultencoding())
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template="])
