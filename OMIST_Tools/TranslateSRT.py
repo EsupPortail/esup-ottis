@@ -52,7 +52,8 @@ def main():
     if input != "":
         if output == "":
             output=input.replace(".srt","_"+lto+".srt")
-        TranslateSRT(input,output,lfrom,lto)
+        print("TranslateSRT ",input,output,lfrom,lto)
+        TranslateSRT(input,output,lfrom[0:2],lto[0:2])
         WrapSubtitle(output, wraplength)
     else:
         usage()
