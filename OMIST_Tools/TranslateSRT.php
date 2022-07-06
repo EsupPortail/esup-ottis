@@ -10,7 +10,11 @@ if (isset($_POST["inputlanguage"])) $From=$_POST["inputlanguage"];
 $To="fr-FR";
 if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
 
-$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'"  >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
+$randompath="12345"
+$filename = $_FILES["fileToUpload"]["tmp_name"]
+$filename = "tmp/test.srt"
+
+$command = 'bash ./TranslateSRT.sh '.$randompath.' "'..'" "'.$From.'" "'.$To.'"  >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
 system($command);
 
 
