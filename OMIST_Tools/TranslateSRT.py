@@ -50,7 +50,6 @@ def main():
         else:
             assert False, "unhandled option"
     if input != "":
-        print("OK 1")
         if output == "":
             output=input.replace(".srt","_"+lto+".srt")
         TranslateSRT(input,output,lfrom,lto)
@@ -165,7 +164,6 @@ def prettytime(n):
 
 
 def TranslateSRT(filename,filename_out,in_language,out_language):
-    print("OK 2")
     fd=open(filename,"r")
     content = fd.readlines()
     fd.close()
