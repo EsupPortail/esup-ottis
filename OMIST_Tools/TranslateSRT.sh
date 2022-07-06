@@ -8,7 +8,7 @@ From=$3
 To=$4
 To=`echo "$To"|sed "s/,/ /g"`
 
-echo "Converting file " $Filename " from " $From " to " $To 
+echo "Converting file " $Filename " from " $From " to " $To " in " $RANDOMPATH
 
 export PYTHONIOENCODING=utf8
 
