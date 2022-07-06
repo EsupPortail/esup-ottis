@@ -241,8 +241,8 @@ function Init() {
     <h3>Translate subtitles SRT file</h3>
   <div>
   <form action="TranslateSRT.php" method="post" enctype="multipart/form-data">
-    Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
+    Select SRT file : 
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".srt" max-size="5000"><br/>
     <table>
   <tr>
   <td style="vertical-align: top;">
