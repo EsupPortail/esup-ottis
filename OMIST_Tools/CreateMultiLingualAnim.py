@@ -24,7 +24,7 @@ def usage():
 
 
 def main():
-    translate("Bonjour","fr","en")
+    print(translate("Bonjour","fr","en"))
     #print(sys.getdefaultencoding())
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template="])
@@ -134,7 +134,7 @@ def translate_deeplpro(txt,lfrom,lto):
     else:
         result = requests.post(url,data=datapost)
     result=json.loads(result.text)
-    print(result)
+    #print(result)
     if (not result.get('translations')):
         return ""
     else:
