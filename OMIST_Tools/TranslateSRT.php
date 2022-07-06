@@ -17,7 +17,6 @@ $filename = "tmp/test.srt";
 $command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" ';// >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
 system($command);
 
-echo "</pre>";
 /*
 header('Content-Type: application/zip');
 header('Content-Disposition: attachment; filename="output.zip"');
@@ -26,5 +25,14 @@ readfile('tmp/output_'.$randompath.'.zip');
 //unlink('tmp/output_'.$randompath.'.zip');
 
 }
+
+$randompath="12345";
+$filename = $_FILES["fileToUpload"]["tmp_name"];
+$filename = "tmp/test.srt";
+
+$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" ';// >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
+system($command);
+
+echo "</pre>";
 
 ?>
