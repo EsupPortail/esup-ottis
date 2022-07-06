@@ -22,4 +22,4 @@ done
 cd tmp/$RANDOMPATH
 zip -9 ../output_$RANDOMPATH.zip *.srt
 cd ../..
-#rm -rf tmp/$RANDOMPATH
+rm -rf tmp/$RANDOMPATH
