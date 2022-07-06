@@ -113,9 +113,9 @@ def translate_old(txt,lfrom,lto):
         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate_deeplpro(txt,lfrom,lto):
-    if not lfrom[0:2] in DEEPLKNOWNLANG:
+    if not lfrom[0:2] in config.DEEPLKNOWNLANG:
         return translate_google(txt,lfrom,lto)
-    if not lto[0:2] in DEEPLKNOWNLANG:
+    if not lto[0:2] in config.DEEPLKNOWNLANG:
         return translate_google(txt,lfrom,lto)
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
