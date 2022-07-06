@@ -61,7 +61,7 @@ def main():
 
 
 def translate_old(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]":
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
     lfrom = lfrom[0:2]
     lto = lto[0:2]
@@ -69,15 +69,53 @@ def translate_old(txt,lfrom,lto):
         return txt
     txt=txt.replace("'","’")
     txt=txt.replace('"',"’’")
+    """
+    txt=txt.replace("'"," ")
+    txt=txt.replace('"'," ")
+    txt=txt.replace('\xe0'," ")
+    txt=txt.replace('\xe9'," ")
+    txt=txt.replace('\u2019'," ")
+    """
+    # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
+    # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-    result = subprocess.check_output(batcmd, shell=True)
-    result=json.loads(result)
+    batcmd = batcmd.encode('utf-8','ignore')
+    result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
+    result=json.loads(result.decode("utf-8"))
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
     else:
         return result.get('data').get('translations')[0].get('translatedText')
 
-def translate(txt,lfrom,lto):
+def translate_deeplpro(txt,lfrom,lto):
+    if not lfrom[0:2] in config.DEEPLKNOWNLANG:
+        return translate_google(txt,lfrom,lto)
+    if not lto[0:2] in config.DEEPLKNOWNLANG:
+        return translate_google(txt,lfrom,lto)
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+        return txt
+    lfrom = lfrom[0:2]
+    lto = lto[0:2]
+    if lfrom == lto:
+        return txt
+    txt=txt.replace("'","’")
+    txt=txt.replace('"',"’’")
+    proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
+
+    url = "https://api.deepl.com/v2/translate"
+    datapost={'auth_key':config.DEEPLAPITOKEN, 'text':txt, 'source_lang':lfrom, 'target_lang':lto}
+    if config.PROXYHTTP != "":
+        result = requests.post(url,data=datapost,proxies=proxyDict)
+    else:
+        result = requests.post(url,data=datapost)
+    result=json.loads(result.text)
+    #print(result)
+    if (not result.get('translations')):
+        return ""
+    else:
+        return result.get('translations')[0].get('text')
+
+def translate_google(txt,lfrom,lto):
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
     lfrom = lfrom[0:2]
@@ -98,6 +136,12 @@ def translate(txt,lfrom,lto):
         return ""
     else:
         return result.get('data').get('translations')[0].get('translatedText')
+
+def translate(txt,lfrom,lto):
+    if config.WHICHTRANSLATOR == "DEEPLPRO":
+        return translate_deeplpro(txt,lfrom,lto)
+    else:
+        return translate_google(txt,lfrom,lto)
 
 def ExtractNotes(filename):
     prs = Presentation(filename)

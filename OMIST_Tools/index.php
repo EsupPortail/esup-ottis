@@ -72,7 +72,7 @@ function PopulateLanguages(selectelement) {
 }
 
 function Init() {
-  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3'];
+  var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3','inputlanguage4','outputlanguage4'];
   allselects.map(PopulateLanguages);
 }
 
@@ -233,6 +233,27 @@ function Init() {
   <td>
   <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext3">No.</span>
   <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  </td></tr>
+ </table>
+    <input type="submit" value="Translate" name="submit">
+    </form>
+  </div>
+    <h3>Translate subtitles SRT file</h3>
+  <div>
+  <form action="TranslateSRT.php" method="post" enctype="multipart/form-data">
+    Select PPTX file : 
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
+    <table>
+  <tr>
+  <td style="vertical-align: top;">
+    Input language : </td>
+  <td>
+  <select id="inputlanguage4" name="inputlanguage"></select>
+  </td></tr>
+    <tr>
+  <td style="vertical-align: top;">
+  Output languages : </td>
+  <td><select id="outputlanguage4"  name="outputlanguage[]" multiple rows="5"></select>
   </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
