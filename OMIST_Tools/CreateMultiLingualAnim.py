@@ -20,6 +20,9 @@ def usage():
     print("Minimal : ./CreateMultiLingualAnim.py --input test.pptx --output out.html")
     print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\"")
 
+translate("Bonjour","fr","en")
+
+
 def main():
     #print(sys.getdefaultencoding())
     try:
