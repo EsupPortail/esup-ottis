@@ -108,7 +108,35 @@ def translate_old(txt,lfrom,lto):
     else:
         return result.get('data').get('translations')[0].get('translatedText')
 
-def translate(txt,lfrom,lto):
+def translate_deeplpro(txt,lfrom,lto):
+    if not lfrom[0:2] in DEEPLKNOWNLANG:
+        return translate_google(txt,lfrom,lto)
+    if not lto[0:2] in DEEPLKNOWNLANG:
+        return translate_google(txt,lfrom,lto)
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+        return txt
+    lfrom = lfrom[0:2]
+    lto = lto[0:2]
+    if lfrom == lto:
+        return txt
+    txt=txt.replace("'","’")
+    txt=txt.replace('"',"’’")
+    proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
+
+    url = "https://api.deepl.com/v2/translate"
+    datapost={'auth_key':config.DEEPLAPITOKEN, 'text':txt, 'source_lang':lfrom, 'target_lang':lto}
+    if config.PROXYHTTP != "":
+        result = requests.post(url,data=datapost,proxies=proxyDict)
+    else:
+        result = requests.post(url,data=datapost)
+    result=json.loads(result.text)
+    print(result)
+    if (not result.get('translations')):
+        return ""
+    else:
+        return result.get('translations')[0].get('text')
+
+def translate_google(txt,lfrom,lto):
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
     lfrom = lfrom[0:2]
@@ -129,6 +157,12 @@ def translate(txt,lfrom,lto):
         return ""
     else:
         return result.get('data').get('translations')[0].get('translatedText')
+
+def translate(txt,lfrom,lto):
+    if config.WHICHTRANSLATOR == "DEEPLPRO":
+        return translate_deeplpro(txt,lfrom,lto)
+    else:
+        return translate_google(txt,lfrom,lto)
 
 
 def ExtractNotes_old(filename):
