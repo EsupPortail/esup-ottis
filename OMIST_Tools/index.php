@@ -253,7 +253,7 @@ function Init() {
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage4"  name="outputlanguage[]" multiple rows="5"></select>
+  <td><!--<select id="outputlanguage4"  name="outputlanguage[]" multiple rows="5"></select>--><select id="outputlanguage4"  name="outputlanguage[]" rows="5"></select>
   </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
