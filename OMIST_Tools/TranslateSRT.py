@@ -11,6 +11,7 @@ import os
 import pipes
 import config
 import requests
+import math
 
 def usage():
     print("Usage:")
@@ -18,7 +19,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoift:v", ["help", "output=", "input=","from=","to="])
+        opts, args = getopt.getopt(sys.argv[1:], "hoift:vw", ["help", "output=", "input=","from=","to=","wraplength="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -28,6 +29,7 @@ def main():
     output=""
     lfrom="fr"
     lto="en"
+    wraplength=50
     verbose = False
     for o, a in opts:
         if o == "-v":
@@ -43,12 +45,15 @@ def main():
             lfrom = a
         elif o in ("-t", "--to"):
             lto = a
+        elif o in ("-w", "--wraplength"):
+            wraplength = a
         else:
             assert False, "unhandled option"
     if Translate and input != "":
         if output == "":
             output=input.replace(".pptx","_"+lto+".pptx")
         TranslateSRT(input,output,lfrom,lto)
+        WrapSubtitle(input, wraplength)
     else:
         usage()
 
@@ -149,6 +154,14 @@ def formatetime(t):
   ms = Tt[1];
   return float(ms)+float(s)*1000+float(m)*60*1000+float(h)*3600*1000;
 
+def prettytime(n):
+    timems = math.floor(n)
+    ms = timems % 1000
+    sec = math.floor(timems/1000)%60
+    min = math.floor(timems/1000/60)%60
+    h= math.floor(timems/1000/60/60)
+    return str(100+h)[1:]+":"+str(100+min)[1:]+":"+str(100+sec)[1:]+","+str(1000+ms)[1:]
+
 
 def TranslateSRT(filename,filename_out,in_language,out_language):
     fd=open(filename,"r")
@@ -188,4 +201,52 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             fd.write(str(i+1)+"\n")
             fd.write(Subtitles[i].get("begin")+" --> "+Subtitles[i].get("end")+"\n")
             fd.write(Subtitles[i].get("phrase")+"\n\n")
+    fd.close()
+
+def WrapSubtitle(filename, wraplength=50):
+    fd=open(filename,"r")
+    content = fd.readlines()
+    fd.close()
+    i=0
+    content.append("\n")
+    Subtitles=list()
+    Subtitles_cutted=list()
+    currenttime=""
+    currenttext=""
+    for c in content:
+        if (i == 1):
+            currenttime=c.replace("\n","")#.split(" --> ")[0]
+        elif c == "\n":
+            if not currenttext == "":
+                translatedtext = currenttext
+                begin=currenttime.split("-->")[0].strip()
+                end=currenttime.split("-->")[1].strip()
+                begin_ms=formatetime(begin)
+                end_ms=formatetime(end)
+                Subtitles.append({"begin":currenttime, "phrase":translatedtext, "VO":currenttext})
+                nbcar=0
+                cumultxt=""
+                currentbegin_ms=begin_ms
+                for k in range(len(translatedtext)):
+                    c=translatedtext[k]
+                    cumultxt+=c
+                    if (c == " " and len(cumultxt)>=wraplength):
+                        currentend_ms=k/len(translatedtext)*(end_ms-begin_ms)+begin_ms
+                        Subtitles_cutted.append({"begin":currentbegin_ms, "end":currentend_ms, "phrase":cumultxt})
+                        cumultxt = ""
+                        currentbegin_ms=currentend_ms+100
+                Subtitles_cutted.append({"begin":currentbegin_ms, "end":end_ms, "phrase":cumultxt})
+
+            i=-1
+            currenttext=""
+        elif not i == 0:
+            currenttext+=c.replace("\n"," ")
+        i+=1
+    sub=Subtitles_cutted
+    fd=open(filename.replace(".srt","_wrapped.srt"),"w")
+    for i in range(len(sub)):
+        if (sub[i].get("phrase")):
+            fd.write(str(i+1)+"\n")
+            fd.write(prettytime(sub[i].get("begin"))+" --> "+prettytime(sub[i].get("end"))+"\n")
+            fd.write(sub[i].get("phrase")+"\n\n")
     fd.close()
