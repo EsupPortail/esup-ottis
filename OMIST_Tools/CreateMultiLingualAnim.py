@@ -20,10 +20,11 @@ def usage():
     print("Minimal : ./CreateMultiLingualAnim.py --input test.pptx --output out.html")
     print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\"")
 
-translate("Bonjour","fr","en")
+
 
 
 def main():
+    translate("Bonjour","fr","en")
     #print(sys.getdefaultencoding())
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template="])
