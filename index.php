@@ -187,7 +187,8 @@ input[type=text] {
 
 #titre {
   transition: 1s ease;
-  transform-origin: right;
+  transform-origin: left;
+  transform: scaleX(1);
   border-radius: 25px;
   position: fixed;
   bottom: 10px; 
