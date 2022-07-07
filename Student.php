@@ -1331,9 +1331,12 @@ function retourOK(e) {
 function retourErreur() {}
 
 window.onbeforeunload = function(event) {
-  saveTextQ("[newstudentlived]");
   event.returnValue = "Quit";
 };
+
+window.addEventListener('unload', function(event) {
+  saveTextQ("[newstudentlived]");
+});
 
 function fixTitle() {
   var e=document.getElementById("titre");
