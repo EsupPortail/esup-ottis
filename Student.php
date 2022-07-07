@@ -891,7 +891,7 @@ function readTextQ() {
         var url=resource[1];
         showET(url,tabnumber);
       } else {
-        if (L[0] != 'ROBOT') {
+        if (L[0] != 'ROBOT' || L[2].indexOf("[newstudent")< 0) {
           console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
           if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
             TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
