@@ -824,6 +824,7 @@ if ($synchronize) {
 }
 ?>
   setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
+  setTimeout(function() {saveTextQ("[newstudentarrived]"),1000);
   document.getElementById('iconeMenu').src=MenuOnIMG;
 }
 
@@ -1330,6 +1331,7 @@ function retourOK(e) {
 function retourErreur() {}
 
 window.onbeforeunload = function(event) {
+  saveTextQ("[newstudentlived]");
   event.returnValue = "Quit";
 };
 
