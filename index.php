@@ -1081,6 +1081,8 @@ document.addEventListener('submit', event => {
 });
 
 var inputnumberQ=0;
+var NBconnectedusers=0;
+var Tconnectedusers=[];
 
 function TailleCR() {
   return document.getElementById('classroom').innerHTML.split('<br/>').length;
@@ -1110,6 +1112,9 @@ function remote() {
 }
 }
 
+function updateUsers() {
+  document.getElementById('connectedusers').innerHTML=NBconnectedusers+" connected users";
+}
 
 function readTextQ() {
   if (document.getElementById('classroomid').value != "") {
@@ -1134,6 +1139,16 @@ function readTextQ() {
       if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
         console.log('Opening an extra tab')
       } else {
+        if (L[2].indexOf("[newstudentarrived]")>= 0) {
+          NBconnectedusers++;
+          Tconnectedusers.push(L[0]);
+          updateUsers();
+        } else {
+          if (L[2].indexOf("[newstudentlived]")>= 0) {
+          NBconnectedusers--;
+          updateUsers();
+        } else {
+
         if (L[0] == 'ROBOT') {
           if (builtin_externaltranscritionon) Traduction(L[2]);
         } else {
@@ -1144,6 +1159,8 @@ function readTextQ() {
           else {
             EcrireCR(L[0],L[2]);
           }
+        }
+        }
         }
       }
     }
@@ -1456,6 +1473,7 @@ function updateLinks() {
     <li><b>Extra functionalities</b></li>
     <li>Remove verbal tics (one per line in lowercase)<br/>
     <textarea id="verbaltics" rows="3" cols="20"></textarea>
+    <li><span id="connectedusers"></span></li>
   </ul>
   <br/>
   <br/>
