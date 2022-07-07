@@ -1331,7 +1331,7 @@ function retourOK(e) {
 function retourErreur() {}
 
 window.onbeforeunload = function(event) {
-  saveTextQ("[newstudentlived]");
+  //saveTextQ("[newstudentlived]");
   event.returnValue = "Quit";
 };
 

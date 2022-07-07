@@ -1113,7 +1113,7 @@ function remote() {
 }
 
 function updateUsers() {
-  document.getElementById('connectedusers').innerHTML=NBconnectedusers+" connected users";
+  document.getElementById('connectedusers').innerHTML=(NBconnectedusers)+" connected users";
 }
 
 function readTextQ() {
