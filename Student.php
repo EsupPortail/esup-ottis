@@ -824,7 +824,7 @@ if ($synchronize) {
 }
 ?>
   setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
-  setTimeout(function() {saveTextQ("[newstudentarrived]"),1000);
+  setTimeout(function() {saveTextQ("[newstudentarrived]");},1000);
   document.getElementById('iconeMenu').src=MenuOnIMG;
 }
 
