@@ -922,14 +922,16 @@ function StartSpeechRecognition(callback) {
   builtin_recognition.onresult = function(event) {
     if (builtin_recognitionon && ! builtin_externaltranscritionon) {
       //console.log(event.results);
+      var partial='';
       for (var i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i][0].isFinal) {
+        if (event.results[i].isFinal) {
           callback(event.results[i][0].transcript);
         } else {
-          EcrirePartial(event.results[i][0].transcript);
+          partial+=' '+event.results[i][0].transcript;
         }
       }
-      builtin_recognition.stop();
+      event.results[i][0].transcript;
+      //builtin_recognition.stop();
     }
   };
   builtin_recognition.onend = function(event) {
