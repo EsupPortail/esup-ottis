@@ -1077,7 +1077,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
-<div id="titre" ><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="titre" onlick="parle(this.innerHTML);"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
