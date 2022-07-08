@@ -911,8 +911,9 @@ function SlideNotes() {
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
-//builtin_recognition.continuous = true;
+builtin_recognition.continuous = true;
 builtin_recognition.interimResults = true;
+builtin_recognition.maxAlternatives = 1;
 var builtin_recognitionon = false;
 var builtin_externaltranscritionon=false;
 
