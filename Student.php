@@ -273,7 +273,7 @@ input[type=text] {
   position: fixed;
   //top:5px;
   top:0px;
-  right: 110px;
+  right: 120px;
   font-size: 16px;
   z-index: 15000;
   font-family: helvetica, arial, sans-serif;
