@@ -1167,6 +1167,8 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
 <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
+<option value="0,0,0|0,0,0" selected>black</option>
+<option value="255,255,255|255,255,255|0,0,0" selected>white</option>
   </select></li>
   <li><b>Extra tabs</b></li>
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
