@@ -231,7 +231,7 @@ input[type=text] {
   justify-content: center;
   align-items: center;
   z-index: 20000;
-  text-shadow: 2px 0 0 rgb(0,255,0), -2px 0 0 rgb(0,255,0), 0 2px 0 rgb(0,255,0), 0 -2px 0 rgb(0,255,0), 1px 1px rgb(0,255,0), -1px -1px 0 rgb(0,255,0), 1px -1px 0 rgb(0,255,0), -1px 1px 0 rgb(0,255,0);
+  text-shadow: 2px 0 0 rgb(0,55,0), -2px 0 0 rgb(0,55,0), 0 2px 0 rgb(0,55,0), 0 -2px 0 rgb(0,55,0), 1px 1px rgb(0,55,0), -1px -1px 0 rgb(0,55,0), 1px -1px 0 rgb(0,55,0), -1px 1px 0 rgb(0,55,0);
 }
 
 #titreleft {
