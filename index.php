@@ -1502,9 +1502,15 @@ function ChangeColor(boxname,color) {
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
 <option value="255,0,255|100,0,255" >purple</option>
-<option value="255,255,0|100,255,0" >yellow</option>
+<option value="255,255,0|100,100,0" >yellow</option>
   </select></li>
-<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span></li>
+<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span><select onchange="ChangeColor('partialtitre',this.value);">
+<option value="0,0,255|0,0,255">blue</option>
+<option value="0,255,0|0,100,0" selected>green</option>
+<option value="255,0,0|100,0,0" >red</option>
+<option value="255,0,255|100,0,255" >purple</option>
+<option value="255,255,0|100,100,0" >yellow</option>
+  </select></li>
 <li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
