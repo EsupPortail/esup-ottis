@@ -1423,8 +1423,9 @@ function updateLinks() {
 }
 
 function ChangeColor(boxname,color) {
-  var [bgcolor,bordercolor]=color.split('|');
+  var [bgcolor,bordercolor,textcolor]=color.split('|');
   var e=document.getElementById(boxname);
+  if (textcolor) e.style.color = 'rgb('+textcolor+')'; else e.style.color = 'rgb(255,255,255)';
   e.style.backgroundColor = 'rgba('+bgcolor+',0.5)';
   e.style.boxShadow = '2px 2px 5px rgb('+bgcolor+')';
   e.style.textShadow = '2px 0 0 rgb('+bordercolor+'), -2px 0 0 rgb('+bordercolor+'), 0 2px 0 rgb('+bordercolor+'), 0 -2px 0 rgb('+bordercolor+'), 1px 1px rgb('+bordercolor+'), -1px -1px 0 rgb('+bordercolor+'), 1px -1px 0 rgb('+bordercolor+'), -1px 1px 0 rgb('+bordercolor+')';
@@ -1503,6 +1504,7 @@ function ChangeColor(boxname,color) {
 <option value="255,0,0|100,0,0" >red</option>
 <option value="255,0,255|100,0,255" >purple</option>
 <option value="255,255,0|100,100,0" >yellow</option>
+<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
   </select></li>
 <li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span><select onchange="ChangeColor('partialtitre',this.value);">
 <option value="0,0,255|0,0,255">blue</option>
