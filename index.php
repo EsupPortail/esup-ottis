@@ -1509,7 +1509,7 @@ function ChangeColor(boxname,color) {
 <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
 <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0" selected>black</option>
+<option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0" selected>white</option>
 
   </select></li>
@@ -1524,7 +1524,7 @@ function ChangeColor(boxname,color) {
 <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
 <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0" selected>black</option>
+<option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0" selected>white</option>
   </select></li>
 <li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
