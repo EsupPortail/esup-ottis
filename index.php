@@ -1396,6 +1396,7 @@ function showET(obj,num) {
 }
 
 function Micro() {
+  builtin_recognition.abort();
   var mybox = document.getElementById('micon');
   document.getElementById('recognitionon').checked = !document.getElementById('recognitionon').checked;
   builtin_recognitionon=document.getElementById('recognitionon').checked;
@@ -1406,9 +1407,9 @@ function Micro() {
   }
   if (document.getElementById('recognitionon').checked) {
       StartSpeechRecognition(Traduction);
-  } else {
+  }/* else {
     builtin_recognition.abort();
-  }
+  }*/
   
 }
 
