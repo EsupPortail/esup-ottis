@@ -1421,6 +1421,15 @@ function updateLinks() {
   document.getElementById("link3").src="https://meet.jit.si/"+roomid;
   document.getElementById("link3").innerHTML=document.getElementById("link3").src;
 }
+
+function ChangeColor(boxname,color) {
+  var [bgcolor,bordercolor]=color.split('|');
+  var e=document.getElementById(boxname);
+  e.style.backgroundColor = 'rgba('+bgcolor+',0.5)';
+  e.style.boxShadow = '2px 2px 5px rgb('+bgcolor+')';
+  e.style.textShadow = '2px 0 0 rgb('+bordercolor+'), -2px 0 0 rgb('+bordercolor+'), 0 2px 0 rgb('+bordercolor+'), 0 -2px 0 rgb('+bordercolor+'), 1px 1px rgb('+bordercolor+'), -1px -1px 0 rgb('+bordercolor+'), 1px -1px 0 rgb('+bordercolor+'), -1px 1px 0 rgb('+bordercolor+')';
+}
+
 </script>
 
 
@@ -1488,7 +1497,13 @@ function updateLinks() {
 <li>Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
   </select></li>
-<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span></li>
+<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;<select onchange="ChangeColor('titre',this.value);">
+<option value="0,0,255|0,0,255" selected>blue</option>
+<option value="0,255,0|0,100,0">green</option>
+<option value="255,0,0|100,0,0" >red</option>
+<option value="255,0,255|100,0,255" >purple</option>
+<option value="255,255,0|100,255,0" >yellow</option>
+  </select></li>
 <li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span></li>
 <li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
 <option value="12px">Small</option>
