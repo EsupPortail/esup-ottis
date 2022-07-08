@@ -1091,12 +1091,12 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" title="Menu"><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
-<div id="repeat" onclick="parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
+<div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 
 <!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
-<div id="titre" onlick="parle(this.innerHTML);"><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
