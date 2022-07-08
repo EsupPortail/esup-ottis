@@ -1081,8 +1081,9 @@ function activetab(tab)  {
 
 
 function ChangeColor(boxname,color) {
-  var [bgcolor,bordercolor]=color.split('|');
+  var [bgcolor,bordercolor,textcolor]=color.split('|');
   var e=document.getElementById(boxname);
+  if (textcolor) e.style.color = 'rgb('+textcolor+')'; else e.style.color = 'rgb(255,255,255)';
   e.style.backgroundColor = 'rgba('+bgcolor+',0.5)';
   e.style.boxShadow = '2px 2px 5px rgb('+bgcolor+')';
   e.style.textShadow = '2px 0 0 rgb('+bordercolor+'), -2px 0 0 rgb('+bordercolor+'), 0 2px 0 rgb('+bordercolor+'), 0 -2px 0 rgb('+bordercolor+'), 1px 1px rgb('+bordercolor+'), -1px -1px 0 rgb('+bordercolor+'), 1px -1px 0 rgb('+bordercolor+'), -1px 1px 0 rgb('+bordercolor+')';
@@ -1155,6 +1156,17 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
+  </select>&nbsp; Color : <select onchange="ChangeColor('titre',this.value);">
+<option value="0,0,255|0,0,255" selected>blue</option>
+<option value="0,255,0|0,100,0">green</option>
+<option value="255,0,0|100,0,0" >red</option>
+<option value="255,0,255|100,0,255" >purple</option>
+<option value="255,255,0|100,100,0" >yellow</option>
+<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
   </select></li>
   <li><b>Extra tabs</b></li>
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
