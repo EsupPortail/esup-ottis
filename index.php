@@ -583,7 +583,7 @@ function RemoveVerbalTics(ch) {
   var T_verbaltics=document.getElementById('verbaltics').value.trim().split("\n");
   var ch2=ch;
   for(var i = 0; i<T_verbaltics.length; i++) {
-    var fromword = T_verbaltics[i];
+    var fromword = T_verbaltics[i].trim();
     if (fromword.trim() != "") {
     if (fromword.indexOf("|") <= 0) {
 	    ch2=ch2.replaceAll(fromword+" ","");
