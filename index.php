@@ -1099,6 +1099,7 @@ function Init() {
   ChangeColor('titreleft',document.getElementById('ColorTitre').value);
   ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
 
+  builtin_recognition.abort();
 }
 
 function rgb(T) {
