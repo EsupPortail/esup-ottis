@@ -6,7 +6,7 @@
     header('Cache-Control: no-cache, must-revalidate');
 ?>
 <?php
-.visibility='visible'
+
 include("Security/Authentification.php");
 
 $uid = $_SERVER['PHP_AUTH_USER'];
