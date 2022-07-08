@@ -932,7 +932,7 @@ function StartSpeechRecognition(callback) {
           partial+=' '+event.results[i][0].transcript;
         }
       }
-      if (partial != '') EcrirePartial(partial);
+      if (partial.trim() != '') EcrirePartial(partial);
       //builtin_recognition.stop();
     }
   };
