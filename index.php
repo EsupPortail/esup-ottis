@@ -1099,8 +1099,8 @@ function Init() {
   ChangeColor('titreleft',document.getElementById('ColorTitre').value);
   ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
 
-  setTimeout(Micro,1000);
-  setTimeout(Micro,1500);
+  //setTimeout(Micro,1000);
+  //setTimeout(Micro,1500);
 }
 
 function rgb(T) {
@@ -1456,7 +1456,7 @@ function ChangeColor(boxname,color) {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); setTimeout(function () {StartSpeechRecognition(Traduction); },3000); setTimeout(Lancer,3000); ready(); updateLinks();">
+<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks();">
 
 
 <div id="pincodediv" title="Pincode" onclick="if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
