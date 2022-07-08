@@ -269,6 +269,24 @@ input[type=text] {
   vertical-align: middle;
 }
 
+#repeat {
+  position: fixed;
+  //top:5px;
+  top:0px;
+  right: 110px;
+  font-size: 16px;
+  z-index: 15000;
+  font-family: helvetica, arial, sans-serif;
+  background-color: green;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
 .big {
     font-size: 36px;
     transform: scale(1.5) translateY(5px);
@@ -1073,6 +1091,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" title="Menu"><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
+<div id="repeat" onclick="parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 
 <!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
