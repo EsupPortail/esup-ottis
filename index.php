@@ -936,7 +936,7 @@ function StartSpeechRecognition(callback) {
         }
       }
       if (partial.trim() != '') {
-        if (document.getElementById('recognitionon').checked) EcrirePartial(partial);
+        if (document.getElementById('recognitionon').checked) EcrirePartial(RemoveVerbalTics(partial));
       }
       //builtin_recognition.stop();
     }
