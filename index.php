@@ -6,7 +6,7 @@
     header('Cache-Control: no-cache, must-revalidate');
 ?>
 <?php
-
+.visibility='visible'
 include("Security/Authentification.php");
 
 $uid = $_SERVER['PHP_AUTH_USER'];
@@ -193,6 +193,29 @@ input[type=text] {
   position: fixed;
   bottom: 10px; 
   left: 5%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 64px;
+  background-color: rgba(0,0,255,0.5);
+  color: white;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-style: italic;
+  padding: 10px;
+  box-shadow: 2px 2px 5px blue;
+  padding:auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
+#partialtitre {
+    border-radius: 25px;
+  position: fixed;
+  top: 10px;
+  left: 20px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -947,7 +970,9 @@ function EcrireTitle(ch) {
   }
 }
 
-
+function EcrirePartial(ch) {
+  document.getElementById('partialtitre').innerHTML=ch;
+}
 
 function Ecrire(ch) {
   if (document.getElementById('output').innerHTML == "")
@@ -1407,10 +1432,11 @@ function updateLinks() {
 <div id="soustitre"></div>
 -->
 
-<div id="titreleft" onclick="Backward();">&#9666;</div>
+<div id="titreleft" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';" onclick="Backward();">&#9666;</div>
 <div id="titreright"></div>
 <div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titreright').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
+<div id="partialtitre"></div>
 
 
 <div id="scrollbar"></div>
@@ -1450,6 +1476,7 @@ function updateLinks() {
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
   </select></li>
 <li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span></li>
+<li>Show instant transcription ?  <input type="checkbox" checked id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">Yes !</span></li>
 <li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
@@ -1627,14 +1654,17 @@ $('#bar').on('keydown keyup keypress', function(e) {
 });
 
 
-
 function fixTitle() {
-  var e=document.getElementById("titre");
-  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
-  var e=document.getElementById("titreleft");
-  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
-  //var e=document.getElementById("titreright");
-  //e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
+  var e=document.getElementById("partialtitre");
+  e.style.top=(window.innerHeight-e.style.height-200-10)+'px';
+}
+
+function MinTitlePos() {
+  var e=document.getElementById("partialtitre");
+  var postop=1*(e.style.top.replace('px',''));
+  if (postop>window.innerHeight-50) {
+    e.style.top=(window.innerHeight-50)+'px';
+  }
 }
 
 /**
@@ -1800,16 +1830,13 @@ function fixTitle() {
     };
 })(jQuery);
 
-/*
+
   $( function() {
     fixTitle();
     //$( "#titre" ).draggable();
-    $("#titre").draggableTouch();
-    $("#titreleft").draggableTouch();
-    //$("#titreright").draggableTouch();
+    $("#partialtitre").draggableTouch();
 
   } );
-*/
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
