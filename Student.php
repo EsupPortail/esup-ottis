@@ -1090,7 +1090,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" title="Menu"><img src="" alt="☰" id="iconeMenu"/></div>
-<div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
+<div id="micon" onclick="gotolive=true; CompleteSpeech();"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 
 <!--
