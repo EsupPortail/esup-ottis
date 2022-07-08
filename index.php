@@ -586,11 +586,11 @@ function RemoveVerbalTics(ch) {
     var fromword = T_verbaltics[i].trim();
     if (fromword.trim() != "") {
     if (fromword.indexOf("|") <= 0) {
-	    ch2=ch2.replaceAll(fromword+" ","");
+	    ch2=(ch2+" ").replaceAll(fromword+" ","").trim();
 	    ch2=ch2.replaceAll(fromword+",","");
     } else {
       var [fromword,toword]=fromword.split("|");
-	    ch2=ch2.replaceAll(fromword+" ",toword+" ");
+	    ch2=(ch2+" ").replaceAll(fromword+" ",toword+" ").trim();
 	    ch2=ch2.replaceAll(fromword+",",toword+",");
 	    ch2=ch2.replaceAll(fromword+".",toword+".");
     }
