@@ -947,7 +947,9 @@ function StartSpeechRecognition(callback) {
     }
   };
   builtin_recognitionon = true;
-  builtin_recognition.start();
+  try {
+    builtin_recognition.start();
+  }
 }
 
 function StopSpeechRecognition() {
@@ -1400,7 +1402,8 @@ function Micro() {
   } else {
     mybox.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';
   }
-  builtin_recognition.abort().then(() => {StartSpeechRecognition(Traduction);});
+  builtin_recognition.abort();
+  StartSpeechRecognition(Traduction);
 }
 
 var currentscroll=0;
