@@ -1402,8 +1402,12 @@ function Micro() {
   } else {
     mybox.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';
   }
-  builtin_recognition.abort();
-  StartSpeechRecognition(Traduction);
+  if (document.getElementById('recognitionon').checked) {
+      StartSpeechRecognition(Traduction);
+  } else {
+    builtin_recognition.abort();
+  }
+  
 }
 
 var currentscroll=0;
