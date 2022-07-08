@@ -1114,6 +1114,7 @@ function remote() {
 
 function updateUsers() {
   document.getElementById('connectedusers').innerHTML=(NBconnectedusers)+" connected users";
+  document.getElementById('connectedusers').title=Tconnectedusers.join("\n");
 }
 
 function readTextQ() {
@@ -1146,6 +1147,7 @@ function readTextQ() {
         } else {
           if (L[2].indexOf("[newstudentlived]")>= 0) {
           NBconnectedusers--;
+          Tconnectedusers.filter(student => student != L[0]);
           updateUsers();
         } else {
 
