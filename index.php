@@ -1395,13 +1395,12 @@ function Micro() {
   var mybox = document.getElementById('micon');
   document.getElementById('recognitionon').checked = !document.getElementById('recognitionon').checked;
   builtin_recognitionon=document.getElementById('recognitionon').checked;
-  builtin_recognition.stop();
-  StartSpeechRecognition(Traduction);
   if (document.getElementById('recognitionon').checked) {
     mybox.innerHTML='<i class=\'material-icons blink big\'>record_voice_over</i>';
   } else {
     mybox.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';
   }
+  builtin_recognition.abort().then(() => {StartSpeechRecognition(Traduction);});
 }
 
 var currentscroll=0;
