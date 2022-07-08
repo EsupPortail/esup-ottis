@@ -949,7 +949,7 @@ function StartSpeechRecognition(callback) {
   builtin_recognitionon = true;
   try {
     builtin_recognition.start();
-  }
+  } catch {}
 }
 
 function StopSpeechRecognition() {
