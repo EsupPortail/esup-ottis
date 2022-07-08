@@ -846,6 +846,7 @@ if ($synchronize) {
   setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
   setTimeout(function() {saveTextQ("[newstudentarrived]");},1000);
   document.getElementById('iconeMenu').src=MenuOnIMG;
+  ChangeColor('titre',document.getElementById('ColorTitre').value);
 }
 
 function ClearCR() {
@@ -1159,7 +1160,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
 <option value="48px" >Enormous</option>
-  </select>&nbsp; Color : <select onchange="ChangeColor('titre',this.value);">
+  </select>&nbsp; Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>

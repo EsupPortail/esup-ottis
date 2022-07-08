@@ -1091,6 +1091,10 @@ function Init() {
       event.stopPropagation();
     }
   };
+  ChangeColor('titre',document.getElementById('ColorTitre').value);
+  ChangeColor('titreleft',document.getElementById('ColorTitre').value);
+  ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
+
 }
 
 function rgb(T) {
@@ -1500,7 +1504,7 @@ function ChangeColor(boxname,color) {
 <li>Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
   </select></li>
-<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);">
+<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -1515,9 +1519,9 @@ function ChangeColor(boxname,color) {
 <option value="255,255,255|255,255,255|0,0,0">white</option>
 
   </select></li>
-<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color : <select onchange="ChangeColor('partialtitre',this.value);">
+<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color : <select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);">
 <option value="0,0,255|0,0,255">blue</option>
-<option value="0,255,0|0,100,0" selected>green</option>
+<option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
 <option value="255,0,255|100,0,255" >purple</option>
 <option value="255,255,0|100,100,0" >yellow</option>
@@ -1526,7 +1530,7 @@ function ChangeColor(boxname,color) {
 <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
 <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0">black</option>
+<option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
 <li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
