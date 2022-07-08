@@ -231,7 +231,8 @@ input[type=text] {
   justify-content: center;
   align-items: center;
   z-index: 20000;
-  text-shadow: 2px 0 0 rgb(0,155,0), -2px 0 0 rgb(0,155,0), 0 2px 0 rgb(0,155,0), 0 -2px 0 rgb(0,155,0), 1px 1px rgb(0,155,0), -1px -1px 0 rgb(0,155,0), 1px -1px 0 rgb(0,155,0), -1px 1px 0 rgb(0,155,0);
+  text-shadow: 2px 0 0 rgb(0,100,0), -2px 0 0 rgb(0,100,0), 0 2px 0 rgb(0,100,0), 0 -2px 0 rgb(0,100,0), 1px 1px rgb(0,100,0), -1px -1px 0 rgb(0,100,0), 1px -1px 0 rgb(0,100,0), -1px 1px 0 rgb(0,100,0);
+  visibility: hidden;
 }
 
 #titreleft {
@@ -1488,7 +1489,7 @@ function updateLinks() {
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
   </select></li>
 <li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span></li>
-<li>Show instant transcription ?  <input type="checkbox" checked id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">Yes !</span></li>
+<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span></li>
 <li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
