@@ -167,7 +167,16 @@ document.getElementById('slidesprogress').addEventListener('click', function (e)
   //alert(currenttxt+'   '+TslideNumber[currenttxt]);
 });
 document.getElementById('slide').src=Timages[0];
+setTimeout(InitSelect,1500);
 }
+
+function InitSelect() {
+	var selectitem=document.getElementById('classroomlanguage');
+	if (! selectitem.selectedIndex) selectitem.selectedIndex=0;
+	setLanguage(selectitem.value);
+	updateSlideNotes(selectitem.value);
+}
+
 
 function forward() {
   if (current<nslides) current++;
