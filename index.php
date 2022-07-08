@@ -220,18 +220,18 @@ input[type=text] {
   margin-left: auto;
   margin-right: auto;
   min-height: 64px;
-  background-color: rgba(0,0,255,0.5);
+  background-color: rgba(128,0,255,0.5);
   color: white;
   font-size: 18px;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
   padding: 10px;
-  box-shadow: 2px 2px 5px blue;
+  box-shadow: 2px 2px 5px rgb(128,0,255);
   padding:auto;
   justify-content: center;
   align-items: center;
   z-index: 20000;
-  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+  text-shadow: 2px 0 0 rgb(128,0,255), -2px 0 0 rgb(128,0,255), 0 2px 0 rgb(128,0,255), 0 -2px 0 rgb(128,0,255), 1px 1px rgb(128,0,255), -1px -1px 0 rgb(128,0,255), 1px -1px 0 rgb(128,0,255), -1px 1px 0 rgb(128,0,255);
 }
 
 #titreleft {
@@ -1489,7 +1489,7 @@ function updateLinks() {
   </select></li>
 <li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlebaron">Yes !</span></li>
 <li>Show instant transcription ?  <input type="checkbox" checked id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">Yes !</span></li>
-<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value;">
+<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
