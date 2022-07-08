@@ -911,6 +911,8 @@ function SlideNotes() {
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
+//builtin_recognition.continuous = true;
+builtin_recognition.interimResults = true;
 var builtin_recognitionon = false;
 var builtin_externaltranscritionon=false;
 
@@ -919,7 +921,11 @@ function StartSpeechRecognition(callback) {
   builtin_recognition.onresult = function(event) {
     if (builtin_recognitionon && ! builtin_externaltranscritionon) {
       for (var i = event.resultIndex; i < event.results.length; i++) {
-        callback(event.results[i][0].transcript);
+        if (event.results[i].isFinal) {
+          callback(event.results[i][0].transcript);
+        } else {
+          EcrirePartial(event.results[i][0].transcript);
+        }
       }
       builtin_recognition.stop();
     }
