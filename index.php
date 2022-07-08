@@ -926,12 +926,13 @@ function StartSpeechRecognition(callback) {
       var partial='';
       for (var i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
+          partial=event.results[i][0].transcript;
           callback(event.results[i][0].transcript);
         } else {
           partial+=' '+event.results[i][0].transcript;
         }
       }
-      EcrirePartial(partial);
+      if (partial != '') EcrirePartial(partial);
       //builtin_recognition.stop();
     }
   };
