@@ -122,7 +122,7 @@ input[type=text] {
 
 #titre {
   transition: 1s ease;
-  transition-property: background-color, color, box-shadow, text-shadow;
+  transition-property: background-color, color, box-shadow, text-shadow, font-size;
   border-radius: 25px;
   position: fixed;
   top: 10px;
@@ -1158,6 +1158,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
+<option value="48px" >Enormous</option>
   </select>&nbsp; Color : <select onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
