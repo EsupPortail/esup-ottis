@@ -1099,7 +1099,8 @@ function Init() {
   ChangeColor('titreleft',document.getElementById('ColorTitre').value);
   ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
 
-  Micro(); Micro();
+  setTimeout(Micro,1000);
+  setTimeout(Micro,1500);
 }
 
 function rgb(T) {
