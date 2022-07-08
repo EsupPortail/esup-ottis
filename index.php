@@ -1099,7 +1099,7 @@ function Init() {
   ChangeColor('titreleft',document.getElementById('ColorTitre').value);
   ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
 
-  builtin_recognition.abort();
+  Micro(); Micro();
 }
 
 function rgb(T) {
