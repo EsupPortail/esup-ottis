@@ -1114,7 +1114,7 @@ function remote() {
 
 function updateUsers() {
   document.getElementById('connectedusers').innerHTML=(NBconnectedusers)+" connected users";
-  document.getElementById('connectedusers').title=Tconnectedusers.join("<br/>\n");
+  document.getElementById('connectedusers').title=Tconnectedusers.join(", ");
 }
 
 function readTextQ() {
