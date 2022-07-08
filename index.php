@@ -212,7 +212,9 @@ input[type=text] {
 }
 
 #partialtitre {
-    border-radius: 25px;
+  transition: 1s ease;
+  transition-properties: background-color, color, box-shadow, text-shadow;
+  border-radius: 25px;
   position: fixed;
   top: 10px;
   left: 20px;
