@@ -220,18 +220,18 @@ input[type=text] {
   margin-left: auto;
   margin-right: auto;
   min-height: 64px;
-  background-color: rgba(128,0,255,0.5);
+  background-color: rgba(0,255,0,0.5);
   color: white;
   font-size: 18px;
   font-family: helvetica, arial, sans-serif;
   font-style: italic;
   padding: 10px;
-  box-shadow: 2px 2px 5px rgb(128,0,255);
+  box-shadow: 2px 2px 5px rgb(0,255,0);
   padding:auto;
   justify-content: center;
   align-items: center;
   z-index: 20000;
-  text-shadow: 2px 0 0 rgb(128,0,255), -2px 0 0 rgb(128,0,255), 0 2px 0 rgb(128,0,255), 0 -2px 0 rgb(128,0,255), 1px 1px rgb(128,0,255), -1px -1px 0 rgb(128,0,255), 1px -1px 0 rgb(128,0,255), -1px 1px 0 rgb(128,0,255);
+  text-shadow: 2px 0 0 rgb(0,255,0), -2px 0 0 rgb(0,255,0), 0 2px 0 rgb(0,255,0), 0 -2px 0 rgb(0,255,0), 1px 1px rgb(0,255,0), -1px -1px 0 rgb(0,255,0), 1px -1px 0 rgb(0,255,0), -1px 1px 0 rgb(0,255,0);
 }
 
 #titreleft {
