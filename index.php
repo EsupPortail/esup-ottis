@@ -930,6 +930,7 @@ function StartSpeechRecognition(callback) {
       for (var i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
           partial=event.results[i][0].transcript+" > ";
+          FreeResources();
           callback(event.results[i][0].transcript);
         } else {
           partial+=' '+event.results[i][0].transcript;
@@ -1041,11 +1042,31 @@ function saveTextNB(ch) {
 //	request.onload = function(event) {};
 }
 
+var delayReadtextQ = 100;
+function LaunchReadTextQ() {
+  readTextQ();
+  setTimeout(LaunchReadTextQ,delayReadtextQ);
+}
+
+var delayRemote = 200;
+function LaunchRemote() {
+  remote();
+  setTimeout(LaunchRemote,delayRemote);
+}
+
+function FreeResources() {
+  delayReadtextQ = 1000;
+  delayRemote = 1000;
+  setTimeout(function () {delayReadtextQ=100; delayRemote=1000;},3000);
+}
+
 function Lancer() {
-  setInterval(remote,200);
-  setInterval(readTextQ,100);
+  LaunchRemote();
+  LaunchReadTextQ();
   setInterval(ScrollBar,scrollinterval);
 }
+
+
 
 function Init() {
   PopulateSubtitlesLang();
