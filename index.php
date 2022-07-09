@@ -138,7 +138,9 @@ input[type=text] {
 }
 
 #connexion {
-right: 170px;
+  top: 60px;
+  right: 60px;
+  visibility: hidden;
 }
 
 
