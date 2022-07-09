@@ -239,7 +239,7 @@ if ($synchronize) {
 </head>
 <body onload=" Init(); setTimeout(Lancer,300);" style="width: 100%; height: 100%;">
 
-<div id="micon" onclick="remote('micro');"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
+<div id="micon" onclick="remote('micro'); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
 <div id="speech_before" onclick="remote('backward');">Before</div>
 <div id="speech_current" onclick="remote('playcurrent');">Current</div>
 <div id="speech_after" onclick="remote('forward');">After</div>
