@@ -121,7 +121,7 @@ input[type=text] {
   }
 }
 
-#micon {
+#micon,#connexion {
   position: fixed;
   top:5px;
   right: 60px;
@@ -136,6 +136,11 @@ input[type=text] {
   text-align: center;
   vertical-align: middle;
 }
+
+#connexion {
+right: 170px;
+}
+
 
 #pincodediv {
   position: fixed;
@@ -1058,7 +1063,7 @@ function LaunchRemote() {
 function FreeResources() {
   delayReadtextQ = 1000;
   delayRemote = 1000;
-  setTimeout(function () {delayReadtextQ=100; delayRemote=1000;},3000);
+  setTimeout(function () {delayReadtextQ=100; delayRemote=200;},2000);
 }
 
 function Lancer() {
@@ -1123,6 +1128,20 @@ function Init() {
 
   //setTimeout(Micro,1000);
   //setTimeout(Micro,1500);
+  //version addEventListener
+  window.addEventListener('offline', (event) => {
+    console.log("La connexion au réseau est perdue.");
+    document.getElementById('connexion').style.visibility='visible';
+    delayReadtextQ=100000;
+    delayRemote=100000;
+  });
+ window.addEventListener('online', (event) => {
+    console.log("La connexion au réseau est rétablie.");
+    document.getElementById('connexion').style.visibility='hidden';
+    delayReadtextQ=100; 
+    delayRemote=200;
+ });
+
 }
 
 function rgb(T) {
@@ -1481,6 +1500,8 @@ function ChangeColor(boxname,color) {
 </head>
 <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks();">
 
+
+<div id="connexion"><i class='material-icons big'>signal_wifi_off</i></div>
 
 <div id="pincodediv" title="Pincode" onclick="if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
 <div id="micon" onclick="Micro();"><i class='material-icons big'>voice_over_off</i></div>
