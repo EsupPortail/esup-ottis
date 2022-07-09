@@ -641,6 +641,7 @@ function Translate(ch, l, linput) {
     }
   };
   xhr.send();
+  EcrirePartial("Request sent....");
 }
 
 function TranslateThen(ch, l, linput,f) {
