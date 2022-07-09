@@ -648,7 +648,7 @@ function Translate(ch, l, linput) {
     }
   };
   xhr.send();
-  EcrirePartial("Request sent....");
+  //EcrirePartial("Request sent....");
 }
 
 function TranslateThen(ch, l, linput,f) {
@@ -937,7 +937,7 @@ function StartSpeechRecognition(callback) {
       var partial='';
       for (var i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
-          partial=event.results[i][0].transcript+" > ";
+          partial=event.results[i][0].transcript; //+" > ";
           FreeResources();
           callback(event.results[i][0].transcript);
         } else {
