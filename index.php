@@ -662,9 +662,9 @@ function TranslateThen(ch, l, linput,f) {
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       var d_end=new Date();
-      console.log((d_end.getMilliseconds()-d_begin.getMilliseconds())+" : Receiving translation for "+ch+" from "+linput+" to "+l);
-      console.log(this.responseText);
-      T_durations[ch]=undefined;
+      console.log(d_end.now()+" "+(d_end.now()-d_begin.now())+" : Receiving translation for "+ch+" from "+linput+" to "+l);
+      //console.log(this.responseText);
+      //T_durations[ch]=undefined;
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
         f(response["data"]["translations"][0]["translatedText"]);
@@ -675,7 +675,7 @@ function TranslateThen(ch, l, linput,f) {
     }
   };
   var d_begin=new Date();
-  console.log(d_begin.getMilliseconds()+" : Sending for translation "+ch+" from "+linput+" to "+l);
+  console.log(d_begin.now()+" : Sending for translation "+ch+" from "+linput+" to "+l);
   //T_durations[ch]=d;
   xhr.send();
 }
