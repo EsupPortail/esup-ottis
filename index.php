@@ -647,13 +647,13 @@ function Translate(ch, l, linput) {
 
     }
   };
-  var d=new Date();
+  var d_begin=new Date();
   console.log(d.getMilliseconds()+" : Sending for translation "+ch+" from "+linput+" to "+l)
   xhr.send();
   //EcrirePartial("Request sent....");
 }
 
-var T_durations=[];
+//var T_durations=[];
 
 function TranslateThen(ch, l, linput,f) {
   var xhr = new XMLHttpRequest();
@@ -661,8 +661,8 @@ function TranslateThen(ch, l, linput,f) {
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      var d=new Date();
-      console.log((d.getMilliseconds()-T_durations[ch])+" : Receiving translation for "+ch+" from "+linput+" to "+l);
+      var d_end=new Date();
+      console.log((d_end.getMilliseconds()-d_begin.getMilliseconds())+" : Receiving translation for "+ch+" from "+linput+" to "+l);
       console.log(this.responseText);
       T_durations[ch]=undefined;
       var response = JSON.parse(this.responseText);
@@ -674,9 +674,9 @@ function TranslateThen(ch, l, linput,f) {
 
     }
   };
-  var d=new Date();
-  console.log(d.getMilliseconds()+" : Sending for translation "+ch+" from "+linput+" to "+l);
-  T_durations[ch]=d;
+  var d_begin=new Date();
+  console.log(d_begin.getMilliseconds()+" : Sending for translation "+ch+" from "+linput+" to "+l);
+  //T_durations[ch]=d;
   xhr.send();
 }
 
