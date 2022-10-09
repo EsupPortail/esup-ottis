@@ -39,6 +39,12 @@ while($line=fgets($fd,4096)) {
 }
 fclose($fd);
 
+// Stats and log
+$fd = fopen("tmp/StatsLogs","a");
+fwrite(gmdate("Y-m-d\TH:i:s\Z")."|".$uid."|".$classroomid."\n");
+}
+fclose($fd);
+
 //print_r($T_lang);
 ?>
 <!doctype html>
