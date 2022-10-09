@@ -41,7 +41,7 @@ fclose($fd);
 
 // Stats and log
 $fd = fopen("tmp/StatsLogs.txt","a");
-fwrite(gmdate("Y-m-d\TH:i:s\Z")."|".$uid."|".$classroomid."\n");
+fwrite($fd,gmdate("Y-m-d\TH:i:s\Z")."|".$uid."|".$classroomid."\n");
 fclose($fd);
 
 //print_r($T_lang);
