@@ -402,7 +402,7 @@ background-color: green;
       }
 
 .wordcloud {
-  display: none;
+  display: block;
 }
 
 
