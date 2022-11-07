@@ -135,7 +135,7 @@ def translate_google(txt,lfrom,lto):
         result = requests.post(url,data=datapost)
     result=json.loads(result.text)
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-        return ""
+        return "TRANSLATION PROBLEM"
     else:
         return result.get('data').get('translations')[0].get('translatedText')
 
