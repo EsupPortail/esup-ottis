@@ -171,7 +171,6 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
     fd.close()
     TSubtitles=("|".join(content).strip()).split("\n|\n|")
     Subtitles=list()
-    fd=open(filename.replace(".srt","_TEST_verbatim.txt"),"r", encoding="utf-8")
     for s in TSubtitles:
         s=s.replace("|","").strip()
         if not s == "":
@@ -182,8 +181,6 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             end = stime.split("-->")[1].strip()
             stxt=" ".join(ts[2:]).replace("  "," ").strip()
             Subtitles.append({"begin":begin, "end":end, "VO":stxt})
-            fd.write(stxt+"\n")
-    fd.close()
     NewSubtitles=list()
     currenttxt=""
     begin=""
@@ -201,7 +198,6 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             end=""
     Subtitles=NewSubtitles
     fd=open(filename_out,"w", encoding="utf-8")
-    #fd.write("0\n0:00:00 -> 0:00:00\nTest Ecriture\n\n")
     for i in range(len(Subtitles)):
         if (Subtitles[i].get("phrase")):
             fd.write(str(i+1)+"\n")
@@ -226,9 +222,8 @@ def Verbatim(filename):
             stxt=" ".join(ts[2:]).replace("  "," ").strip()
             Subtitles.append({"begin":begin, "end":end, "VO":stxt})
     fd=open(filename.replace(".srt","_verbatim.txt"),"w", encoding="utf-8")
-    fd.write("Test Ecriture\n")
     for i in range(len(Subtitles)):
-        if True: #(Subtitles[i].get("VO")):
+        if (Subtitles[i].get("VO")):
             fd.write(Subtitles[i].get("VO")+"\n")
     fd.close()
 
