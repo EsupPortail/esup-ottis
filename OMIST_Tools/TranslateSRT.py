@@ -198,7 +198,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             end=""
     Subtitles=NewSubtitles
     fd=open(filename_out,"w", encoding="utf-8")
-    fd.write("0\n0:00:00 -> 0:00:00\nTest Ecriture\n\n")
+    #fd.write("0\n0:00:00 -> 0:00:00\nTest Ecriture\n\n")
     for i in range(len(Subtitles)):
         if (Subtitles[i].get("phrase")):
             fd.write(str(i+1)+"\n")
