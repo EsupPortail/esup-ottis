@@ -20,6 +20,7 @@ for lang in $To; do
   $PYTHON ./TranslateSRT.py --input=tmp/$RANDOMPATH/original_file.srt --output=tmp/$RANDOMPATH/translated_$lang.srt --from="$From" --to="$lang" 2>/dev/null
 done
 cd tmp/$RANDOMPATH
+ls -l
 zip -9 ../output_$RANDOMPATH.zip *.srt verbatim_*
 cd ../..
 rm -rf tmp/$RANDOMPATH
