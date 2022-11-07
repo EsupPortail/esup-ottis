@@ -203,6 +203,11 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             fd.write(Subtitles[i].get("begin")+" --> "+Subtitles[i].get("end")+"\n")
             fd.write(Subtitles[i].get("phrase")+"\n\n")
     fd.close()
+    fd=open("verbatim_"+filename_out.replace(".srt",".txt"),"w", encoding="utf-8")
+    for i in range(len(Subtitles)):
+        if (Subtitles[i].get("phrase")):
+            fd.write(Subtitles[i].get("phrase")+"\n")
+    fd.close()
 
 def WrapSubtitle(filename, wraplength=50):
     fd=open(filename,"r", encoding="utf-8")
