@@ -55,6 +55,7 @@ def main():
         #print("TranslateSRT ",input,output,lfrom,lto)
         TranslateSRT(input,output,lfrom[0:2],lto[0:2])
         WrapSubtitle(output, wraplength)
+        Verbatim(output)
     else:
         usage()
 
@@ -208,6 +209,29 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
         if (Subtitles[i].get("phrase")):
             fd.write(Subtitles[i].get("phrase")+"\n")
     fd.close()
+
+def Verbatim(filename):
+    fd=open(filename,"r", encoding="utf-8")
+    content = fd.readlines()
+    fd.close()
+    TSubtitles=("|".join(content).strip()).split("\n|\n|")
+    Subtitles=list()
+    for s in TSubtitles:
+        s=s.replace("|","").strip()
+        if not s == "":
+            ts = s.split('\n')
+            snumber=ts[0]
+            stime=ts[1]
+            begin = stime.split("-->")[0].strip()
+            end = stime.split("-->")[1].strip()
+            stxt=" ".join(ts[2:]).replace("  "," ").strip()
+            Subtitles.append({"begin":begin, "end":end, "VO":stxt})
+    fd=open("verbatim_"+filename.replace(".srt",".txt"),"w", encoding="utf-8")
+    for i in range(len(Subtitles)):
+        if (Subtitles[i].get("phrase")):
+            fd.write(Subtitles[i].get("phrase")+"\n")
+    fd.close()
+
 
 def WrapSubtitle(filename, wraplength=50):
     fd=open(filename,"r", encoding="utf-8")
