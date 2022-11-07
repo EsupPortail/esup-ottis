@@ -54,8 +54,8 @@ def main():
             output=input.replace(".srt","_"+lto+".srt")
         #print("TranslateSRT ",input,output,lfrom,lto)
         TranslateSRT(input,output,lfrom[0:2],lto[0:2])
-        WrapSubtitle(output, wraplength)
         Verbatim(output)
+        WrapSubtitle(output, wraplength)
     else:
         usage()
 
@@ -226,7 +226,7 @@ def Verbatim(filename):
             end = stime.split("-->")[1].strip()
             stxt=" ".join(ts[2:]).replace("  "," ").strip()
             Subtitles.append({"begin":begin, "end":end, "VO":stxt})
-    fd=open("verbatim_"+filename.replace(".srt",".txt"),"w", encoding="utf-8")
+    fd=open(filename.replace(".srt","_verbatim.txt"),"w", encoding="utf-8")
     for i in range(len(Subtitles)):
         if (Subtitles[i].get("phrase")):
             fd.write(Subtitles[i].get("phrase")+"\n")

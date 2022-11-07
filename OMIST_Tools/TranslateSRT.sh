@@ -21,6 +21,6 @@ for lang in $To; do
 done
 cd tmp/$RANDOMPATH
 ls -l
-zip -9 ../output_$RANDOMPATH.zip *.srt verbatim_*
+zip -9 ../output_$RANDOMPATH.zip *.srt *_verbatim.txt
 cd ../..
 rm -rf tmp/$RANDOMPATH
