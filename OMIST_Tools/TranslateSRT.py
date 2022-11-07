@@ -220,11 +220,11 @@ def Verbatim(filename):
             begin = stime.split("-->")[0].strip()
             end = stime.split("-->")[1].strip()
             stxt=" ".join(ts[2:]).replace("  "," ").strip()
-            Subtitles.append({"begin":begin, "end":end, "phrase":stxt})
+            Subtitles.append({"begin":begin, "end":end, "VO":stxt})
     fd=open(filename.replace(".srt","_verbatim.txt"),"w", encoding="utf-8")
     for i in range(len(Subtitles)):
-        if (Subtitles[i].get("phrase")):
-            fd.write(Subtitles[i].get("phrase")+"\n")
+        if (Subtitles[i].get("VO")):
+            fd.write(Subtitles[i].get("VO")+"\n")
     fd.close()
 
 
