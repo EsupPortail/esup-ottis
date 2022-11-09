@@ -31,7 +31,7 @@ def main():
     lto="en"
     wraplength=50
     verbose = False
-    nopunct = False
+    nopun = False
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -49,14 +49,14 @@ def main():
         elif o in ("-w", "--wraplength"):
             wraplength = a
         elif o in ("-p", "--nopunct"):
-            nopunct = True        
+            nopun = True        
         else:
             assert False, "unhandled option"
-    if input != "":
+    if inputfile != "":
         if output == "":
             output=inputfile.replace(".srt","_"+lto+".srt")
         #print("TranslateSRT ",input,output,lfrom,lto)
-        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=True)
+        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopun)
         Verbatim(inputfile)
         Verbatim(output)
         WrapSubtitle(output, wraplength)
@@ -169,7 +169,7 @@ def prettytime(n):
     return str(100+h)[1:]+":"+str(100+min)[1:]+":"+str(100+sec)[1:]+","+str(1000+ms)[1:]
 
 
-def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=True):
+def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False):
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
