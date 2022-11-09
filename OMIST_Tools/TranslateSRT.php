@@ -9,7 +9,7 @@ $From="fr-FR";
 if (isset($_POST["inputlanguage"])) $From=$_POST["inputlanguage"];
 $To="fr-FR";
 if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
-$NOPUNC=""
+$NOPUNC="";
 if (isset($_POST["nopunct"]) && $_POST["nopunct"]=="Yes") $_POST["nopunct"]="--nopunc ";
 
 
