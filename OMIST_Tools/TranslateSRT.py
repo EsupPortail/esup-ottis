@@ -56,7 +56,7 @@ def main():
         if output == "":
             output=inputfile.replace(".srt","_"+lto+".srt")
         #print("TranslateSRT ",input,output,lfrom,lto)
-        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopunct)
+        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=True)
         Verbatim(inputfile)
         Verbatim(output)
         WrapSubtitle(output, wraplength)
@@ -169,7 +169,7 @@ def prettytime(n):
     return str(100+h)[1:]+":"+str(100+min)[1:]+":"+str(100+sec)[1:]+","+str(1000+ms)[1:]
 
 
-def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False):
+def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=True):
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
