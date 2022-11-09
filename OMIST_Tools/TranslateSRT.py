@@ -19,7 +19,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoiftp:vw", ["help", "output=", "input=","from=","to=","wraplength=","nopunc"])
+        opts, args = getopt.getopt(sys.argv[1:], "hoiftp:vw", ["help", "output=", "input=","from=","to=","wraplength=","nopunct"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -31,7 +31,7 @@ def main():
     lto="en"
     wraplength=50
     verbose = False
-    config.nopunct = False
+    nopunct = False
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -48,15 +48,15 @@ def main():
             lto = a
         elif o in ("-w", "--wraplength"):
             wraplength = a
-        elif o in ("-p", "--nopunc"):
-            config.nopunct = True        
+        elif o in ("-p", "--nopunct"):
+            nopunct = True        
         else:
             assert False, "unhandled option"
     if input != "":
         if output == "":
             output=inputfile.replace(".srt","_"+lto+".srt")
         #print("TranslateSRT ",input,output,lfrom,lto)
-        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2])
+        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopunct)
         Verbatim(inputfile)
         Verbatim(output)
         WrapSubtitle(output, wraplength)
@@ -169,7 +169,7 @@ def prettytime(n):
     return str(100+h)[1:]+":"+str(100+min)[1:]+":"+str(100+sec)[1:]+","+str(1000+ms)[1:]
 
 
-def TranslateSRT(filename,filename_out,in_language,out_language):
+def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False):
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
@@ -194,7 +194,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             begin=s.get("begin")
         currenttxt+=" "+s.get("VO")
         end=s.get("end")
-        if config.nopunct or isphrase(currenttxt):
+        if nopunct or isphrase(currenttxt):
             translatedtext = translate(currenttxt,in_language,out_language)
             NewSubtitles.append({"begin":begin, "end":end, "phrase": translatedtext, "VO":currenttxt})
             currenttxt=""
