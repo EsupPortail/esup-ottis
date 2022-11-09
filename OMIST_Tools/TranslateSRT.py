@@ -31,7 +31,7 @@ def main():
     lto="en"
     wraplength=50
     verbose = False
-    nopunct = False
+    config.nopunct = False
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -49,7 +49,7 @@ def main():
         elif o in ("-w", "--wraplength"):
             wraplength = a
         elif o in ("-p", "--nopunc"):
-            nopunct = True        
+            config.nopunct = True        
         else:
             assert False, "unhandled option"
     if input != "":
@@ -194,7 +194,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             begin=s.get("begin")
         currenttxt+=" "+s.get("VO")
         end=s.get("end")
-        if nopunct or isphrase(currenttxt):
+        if config.nopunct or isphrase(currenttxt):
             translatedtext = translate(currenttxt,in_language,out_language)
             NewSubtitles.append({"begin":begin, "end":end, "phrase": translatedtext, "VO":currenttxt})
             currenttxt=""
