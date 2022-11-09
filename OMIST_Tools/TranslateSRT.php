@@ -10,7 +10,7 @@ if (isset($_POST["inputlanguage"])) $From=$_POST["inputlanguage"];
 $To="fr-FR";
 if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
 $NOPUNC="";
-if (isset($_POST["nopunct"]) && $_POST["nopunct"]=="Yes") $_POST["nopunct"]="--nopunc ";
+if (isset($_POST["nopunct"]) && $_POST["nopunct"]=="Yes") $_POST["nopunct"]="--nopunct ";
 
 
 
@@ -18,7 +18,7 @@ if (isset($_POST["nopunct"]) && $_POST["nopunct"]=="Yes") $_POST["nopunct"]="--n
 $filename = $_FILES["fileToUpload"]["tmp_name"];
 //$filename = "tmp/test.srt";
 
-$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" "'.$NOPUNC.'" >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
+$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$NOPUNC.' >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
 system($command);
 
 
