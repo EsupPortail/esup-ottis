@@ -19,7 +19,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoift:vw", ["help", "output=", "input=","from=","to=","wraplength="])
+        opts, args = getopt.getopt(sys.argv[1:], "hoiftp:vw", ["help", "output=", "input=","from=","to=","wraplength=","nopunc"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -31,6 +31,7 @@ def main():
     lto="en"
     wraplength=50
     verbose = False
+    nopunct = False
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -47,6 +48,8 @@ def main():
             lto = a
         elif o in ("-w", "--wraplength"):
             wraplength = a
+        elif o in ("-p", "--nopunc"):
+            nopunct = True        
         else:
             assert False, "unhandled option"
     if input != "":
@@ -191,7 +194,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
             begin=s.get("begin")
         currenttxt+=" "+s.get("VO")
         end=s.get("end")
-        if isphrase(currenttxt):
+        if nopunct or isphrase(currenttxt):
             translatedtext = translate(currenttxt,in_language,out_language)
             NewSubtitles.append({"begin":begin, "end":end, "phrase": translatedtext, "VO":currenttxt})
             currenttxt=""

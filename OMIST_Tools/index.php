@@ -262,6 +262,11 @@ function Init() {
   Output languages : </td>
   <td><!--<select id="outputlanguage4"  name="outputlanguage[]" multiple rows="5"></select>--><select id="outputlanguage4"  name="outputlanguage[]" rows="5"></select>
   </td></tr>
+  <tr>
+  <td style="vertical-align: top;">
+  My subtitles do not have any punctuation : </td>
+  <td><input type="checkbox" name="nopunct" value="Yes" />
+  </td></tr>
  </table>
     <input type="submit" value="Translate" name="submit">
     </form>
