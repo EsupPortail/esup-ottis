@@ -186,6 +186,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language):
     currenttxt=""
     begin=""
     end=""
+    print(Subtitles)
     for s in Subtitles:
         if begin == "":
             begin=s.get("begin")
