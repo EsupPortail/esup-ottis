@@ -25,7 +25,7 @@ def main():
         print(err)  # will print something like "option -a not recognized"
         usage()
         sys.exit(2)
-    input=""
+    inputfile=""
     output=""
     lfrom="fr"
     lto="en"
@@ -38,7 +38,7 @@ def main():
             usage()
             sys.exit()
         elif o in ("-i", "--input"):
-            input = a
+            inputfile = a
         elif o in ("-o", "--output"):
             output = a
         elif o in ("-f", "--from"):
@@ -51,9 +51,10 @@ def main():
             assert False, "unhandled option"
     if input != "":
         if output == "":
-            output=input.replace(".srt","_"+lto+".srt")
+            output=inputfile.replace(".srt","_"+lto+".srt")
         #print("TranslateSRT ",input,output,lfrom,lto)
-        TranslateSRT(input,output,lfrom[0:2],lto[0:2])
+        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2])
+        Verbatim(inputfile)
         Verbatim(output)
         WrapSubtitle(output, wraplength)
     else:
