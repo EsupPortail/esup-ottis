@@ -68,6 +68,27 @@ text-align: center;
 z-index: 10000;
 }
 
+#dialog2 {
+transform-origin: top right;
+transform: scaleX(0);
+transition: 1s ease;
+border-radius: 10px;
+position: fixed;
+bottom: 10px;
+right: 10px;
+width: 256px;
+height: 64px;
+background-color: yellow;
+color: white;
+font-size: 16px;
+font-family: helvetica, arial, sans-serif;
+padding: 10px;
+box-shadow: 2px 2px 5px yellow;
+vertical-align: middle;
+text-align: center;
+z-index: 10000;
+}
+
 #dialog a {
 	color: white;
 	font-weight: bold;
@@ -196,12 +217,30 @@ function backward() {
 }
 
 var flagresource=-1;
+var flagresource2=-1;
 
 function HideResource(flag) {
   //console.log("HideResource with flag="+flag+" and flagresource="+flagresource);
 	//document.getElementById('dialog').style.transform='scaleX(0)';
 	if (flag == flagresource) {
 		document.getElementById('dialog').style.transform='scaleX(0)';
+	}
+
+}
+
+function ShowNotification(resource) {
+  resource[1]=resource[1].replaceAll(" :",":");
+	document.getElementById('dialog2').innerHTML = resource[0];
+	document.getElementById('dialog2').style.transform='scaleX(1)';
+	flagresource2++;
+	setTimeout("HideNotification("+flagresource2+");",20000);
+}
+
+function HideNotification(flag) {
+  //console.log("HideResource with flag="+flag+" and flagresource="+flagresource);
+	//document.getElementById('dialog2').style.transform='scaleX(0)';
+	if (flag == flagresource2) {
+		document.getElementById('dialog2').style.transform='scaleX(0)';
 	}
 
 }
@@ -214,7 +253,8 @@ function ShowResource(resource) {
 	setTimeout("HideResource("+flagresource+");",20000);
 }
 
-
+function MouseInstruction(instruction) {
+}
 
 function EcouterTexte(Tch, c) {
   if (move) {
@@ -256,6 +296,23 @@ function EcouterTexte(Tch, c) {
 				}
 				s = "";
     }
+    if (s.indexOf("[notification ") >= 0) {
+		  var resource = s.replace("[notification ","").replace("]","").split("|");
+			if (resource.length > 0) {
+				if (resource.length <2) resource[1]=resource[0];
+      	console.log("Notification : "+resource[0]);
+      	ShowNotification(resource);
+				}
+				s = "";
+    }
+    if (s.indexOf("[mouse ") >= 0) {
+		  var instruction = s.replace("[notification ","").replace("]","").split(" ");
+      	console.log("Mouse : "+instruction);
+      	MouseInstruction(instruction);
+				}
+				s = "";
+    }
+
     // console.log(s);
     if (true) { //(langueorigine.substr(0,2) == languetraduction.substr(0,2)) {
       Affiche(s);
