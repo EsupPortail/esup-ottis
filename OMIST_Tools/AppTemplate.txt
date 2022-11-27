@@ -336,7 +336,7 @@ function EcouterTexte(Tch, c) {
 				s = "";
     }
     if (s.indexOf("[mouse ") >= 0) {
-		  var instruction = s.replace("[notification ","").replace("]","").split(" ");
+		  var instruction = s.replace("[mouse ","").replace("]","").split(" ");
       	console.log("Mouse : "+instruction);
       	MouseInstruction(instruction);
 				s = "";
