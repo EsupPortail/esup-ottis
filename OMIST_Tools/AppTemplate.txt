@@ -289,10 +289,8 @@ function MouseInstruction(instruction) {
 	if (instruction[0] == "go") {
 		var pourcx=1*instruction[1]/100;
 		var pourcy=1*instruction[2]/100;
-		var x=window.innerWidth/2+(pourcx-0.5)*c.style.width.replace("px","");
-		var y=window.innerHeight-(1-pourcy)*c.style.height.replace("px","");
-		//alert(instruction+"\n\nContent x="+x+", y="+y+" px="+pourcx+", py="+pourcy);
-		//document.getElementById('mouse').style.transform='translate('+x+','+y+')';
+		var x=c.x+pourcx*c.width-5;
+		var y=c.y+pourcy*c.height-5;
     showMouse();
 		document.getElementById('mouse').style.top=y+"px";
 		document.getElementById('mouse').style.left=x+"px";
