@@ -1509,6 +1509,12 @@ function ChangeColor(boxname,color) {
   e.style.textShadow = '2px 0 0 rgb('+bordercolor+'), -2px 0 0 rgb('+bordercolor+'), 0 2px 0 rgb('+bordercolor+'), 0 -2px 0 rgb('+bordercolor+'), 1px 1px rgb('+bordercolor+'), -1px -1px 0 rgb('+bordercolor+'), 1px -1px 0 rgb('+bordercolor+'), -1px 1px 0 rgb('+bordercolor+')';
 }
 
+
+function Embedcode() {
+  var url=document.getElementById('chatlink').href;
+  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
+  alert("HTML code copied to clipboard !");
+}
 </script>
 
 
@@ -1702,7 +1708,6 @@ function ChangeColor(boxname,color) {
 </ul>
     <div id="output">
     </div>
-
 </div>
 
 	<div id="tabs-4">
@@ -1712,6 +1717,7 @@ function ChangeColor(boxname,color) {
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
+        <li>Tchat only : <button onclick="Embedcode();">Embed</button><a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>
     </div>
     <h3>For teachers</h3>
