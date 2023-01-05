@@ -1727,6 +1727,7 @@ document.getElementById('embedcontent').value='<iframe style="width:100%; overfl
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>
+    </div>
         <h3>Chat only</h3>
     <div>
     <ul style="list-style-type: none;">
@@ -1734,7 +1735,6 @@ document.getElementById('embedcontent').value='<iframe style="width:100%; overfl
       <li>Chat only embed code : <input type="text" id="embedcontent" value=""/>
         </li>
     </ul>
-    </div>
     </div>
   </div>
   <div id="tabs-7">
