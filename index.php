@@ -1718,9 +1718,6 @@ document.getElementById('embedcontent').value='<iframe style="width:100%; overfl
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
-        <li>Tchat only : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
-        <li>Tchat only embed code : <input type="text" id="embedcontent" value=""/>
-        </li>
     </ul>
     </div>
     <h3>For teachers</h3>
@@ -1730,6 +1727,14 @@ document.getElementById('embedcontent').value='<iframe style="width:100%; overfl
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>
+        <h3>Chat only</h3>
+    <div>
+    <ul style="list-style-type: none;">
+    <li>Chat only link : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
+      <li>Chat only embed code : <input type="text" id="embedcontent" value=""/>
+        </li>
+    </ul>
+    </div>
     </div>
   </div>
   <div id="tabs-7">
