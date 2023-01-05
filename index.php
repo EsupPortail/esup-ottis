@@ -1514,7 +1514,7 @@ function Embedcode() {
   var url=document.getElementById('chatlink').href;
 //  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
 //  alert("HTML code copied to clipboard !");
-document.getElementById('embedcontent').innerHTML='<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>';
+document.getElementById('embedcontent').value='<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>';
 }
 </script>
 
@@ -1719,9 +1719,7 @@ document.getElementById('embedcontent').innerHTML='<iframe style="width:100%; ov
         <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Tchat only : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
-        <li>Tchat only embed code
-        <pre id="embedcontent">
-        </pre>
+        <li>Tchat only embed code : <input type="text" id="embedcontent" value=""/>
         </li>
     </ul>
     </div>
