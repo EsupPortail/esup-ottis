@@ -1512,8 +1512,9 @@ function ChangeColor(boxname,color) {
 
 function Embedcode() {
   var url=document.getElementById('chatlink').href;
-  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
-  alert("HTML code copied to clipboard !");
+//  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
+//  alert("HTML code copied to clipboard !");
+document.getElementById('embedcontent').innerHTML='<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>';
 }
 </script>
 
@@ -1521,7 +1522,7 @@ function Embedcode() {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks();">
+<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode();">
 
 
 <div id="connexion"><i class='material-icons big'>signal_wifi_off</i></div>
@@ -1717,7 +1718,11 @@ function Embedcode() {
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
-        <li>Tchat only : <button onclick="Embedcode();">Embed</button><a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
+        <li>Tchat only : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
+        <li>Tchat only embed code
+        <pre id="embedcontent">
+        </pre>
+        </li>
     </ul>
     </div>
     <h3>For teachers</h3>
