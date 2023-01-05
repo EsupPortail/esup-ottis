@@ -398,7 +398,7 @@ background-color: green;
 }
 
 #lilanguage {
-  animation: hithere 0.5s infinite;
+  animation: none;
 }
 
 #lisynthese {
@@ -1088,7 +1088,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
 
 </head>
-<body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
+<body onload="Init();">
 <div id="logonext" style="display:none"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" style="display:none"><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" style="display:none" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
@@ -1107,19 +1107,21 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
   <ul style="list-style-type: none;">
 <li style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 <li id="lilanguage"><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s infinite'; }">
-  </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
+  </select>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-
+<li>
     <div style="height: 50px;"></div>
     <div id="classroom" style="border: solid 1px;"></div>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
     <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
+    </li>
+    </ul>
 	</div>
 </div>
 
