@@ -7,27 +7,13 @@
 ?>
 <?php
 
-if (isset($_GET["SYNC"])) {
-  $synchronize = true;
-} else {
-  $synchronize = false;
-}
+
+$synchronize = false;
 
 if (isset($_GET["ROOMID"])) {
   $classroomid = $_GET["ROOMID"];
-  $synchronize = false;
 } else {
-  $classroomid = '';
-  $synchronize = true;
-}
-
-
-$wooclapkey="";
-if (isset($_GET["WOOCLAPKEY"])) {
-  $wooclapaddress = "https://www.wooclap.com/".$_GET["WOOCLAPKEY"];
-  $wooclapkey=$_GET["WOOCLAPKEY"];
-} else {
-  $wooclapaddress = "https://app.wooclap.com";
+  $classroomid = 'TEST_CHAT';
 }
 
 $Tcolors=array("Red","Blue","Orange","Purple","Black","White","Green");
@@ -49,7 +35,7 @@ fclose($fd);
 <!doctype html>
 <html lang="fr">
 <head>
-	<title>Automatic translation for teaching purposes</title>
+	<title>Automatic translation for teaching purposes : CHAT</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
@@ -835,18 +821,18 @@ function Init() {
     }
   },false);
   */
-  resizeSlides();
-  activetab('tabs-0');
+  //resizeSlides();
+  //activetab('tabs-0');
 
 <?php
 if ($synchronize) {
   echo "Synchronize(prompt('Enter the session pincode'));\n";
 }
 ?>
-  setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
-  setTimeout(function() {saveTextQ("[newstudentarrived]");},1000);
-  document.getElementById('iconeMenu').src=MenuOnIMG;
-  ChangeColor('titre',document.getElementById('ColorTitre').value);
+  //setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
+  //setTimeout(function() {saveTextQ("[newstudentarrived]");},1000);
+  //document.getElementById('iconeMenu').src=MenuOnIMG;
+  //ChangeColor('titre',document.getElementById('ColorTitre').value);
 }
 
 function ClearCR() {
@@ -1060,7 +1046,7 @@ function ShowMenu() {
     document.getElementById('iconeMenu').src=MenuOffIMG;
   }
   document.getElementById('bar').style.transform="scaleX("+scalemenu+")";
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-7','tabs-8','tabs-9','tabs-10','tabs-11','tabs-12','tabs-13'];
+  var TTabs=['tabs-0'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.transform="translateX("+(160*scalemenu)+"px)";
   }
@@ -1070,7 +1056,7 @@ function ShowMenu() {
 }
 var atab = 'tabs-0';
 function activetab(tab)  {
-  var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-7','tabs-8','tabs-9','tabs-10','tabs-11','tabs-12','tabs-13'];
+  var TTabs=['tabs-0'];
   for(var i=0; i<TTabs.length; i++) {
     document.getElementById(TTabs[i]).style.display="none";
     document.getElementById("l"+TTabs[i]).style.color="black";
@@ -1103,43 +1089,23 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
-<div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
-<div id="showmenu" onclick="ShowMenu();" ><img src="" alt="☰" id="iconeMenu"/></div>
-<div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
-<div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
+<div id="logonext" style="display:none"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
+<div id="showmenu" onclick="ShowMenu();" style="display:none"><img src="" alt="☰" id="iconeMenu"/></div>
+<div id="micon" style="display:none" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
+<div id="repeat" style="display:none" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 
 <!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
-<div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
-<div id="soustitre"></div>
+<div style="display:none" id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div style="display:none" id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
 
 <div id="tabs">
-	<ul id="bar">
-		<li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
-		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
-		<li id="ltabs-2" onclick="activetab('tabs-2')">Notebook</li>
-		<li id="ltabs-3" onclick="activetab('tabs-3')">Output</li>
-<!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
-<!--		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>-->
-    <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
-    <li id="ltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
-    <li id="ltabs-9" onclick="activetab('tabs-9');">1</li>
-		<li id="ltabs-10" onclick="activetab('tabs-10');">2</li>
-		<li id="ltabs-11" onclick="activetab('tabs-11');">3</li>
-		<li id="ltabs-12" onclick="activetab('tabs-12');">4</li>
-		<li id="ltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li>
-
-	</ul>
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
 <li style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
-<li style="display:none"><label for="classroomlanguage">Classroom language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
-  </select>
-</li>
 <li id="lilanguage"><label for="VoiceOutput">Student language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s infinite'; }">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
@@ -1147,53 +1113,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
-<!--<div class="checkbox-example">
-        <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
-        <label for="synthesison"></label>
-      </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"/><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
-</li>
-<li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
-</li>
-<li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;">
-<option value="12px">Small</option>
-<option value="18px" selected>Normal</option>
-<option value="24px" >Big</option>
-<option value="32px" >Huge</option>
-<option value="48px" >Enormous</option>
-  </select>&nbsp; Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
-<option value="0,0,255|0,0,255" selected>blue</option>
-<option value="0,255,0|0,100,0">green</option>
-<option value="255,0,0|100,0,0" >red</option>
-<option value="255,0,255|100,0,255" >purple</option>
-<option value="255,255,0|100,100,0" >yellow</option>
-<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
-<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
-<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
-<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
-<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0">black</option>
-<option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></li>
-  <li><b>Extra tabs</b></li>
-  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
-  <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
 
-  </ul>
-    <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-
-	</div>
-	<div id="tabs-1">
     <div style="height: 50px;"></div>
     <div id="classroom" style="border: solid 1px;"></div>
 
@@ -1219,14 +1139,6 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
   </style>
 
 <script>
-//$( "#tabs" ).tabs();
-//$( "#enregistrer" ).button();
-/*
-  $( function() {
-    $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-  } );
-*/
 
 
 function retourOK(e) {
@@ -1240,194 +1152,6 @@ function retourErreur() {}
 window.onbeforeunload = function(event) {
   event.returnValue = "Quit";
 };
-
-window.addEventListener('unload', function(event) {
-  saveTextQ("[newstudentlived]");
-});
-
-function fixTitle() {
-  var e=document.getElementById("titre");
-  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
-}
-
-function MinTitlePos() {
-  var e=document.getElementById("titre");
-  var postop=1*(e.style.top.replace('px',''));
-  if (postop>window.innerHeight-50) {
-    e.style.top=(window.innerHeight-50)+'px';
-  }
-}
-
-/**
- * jQuery Draggable Touch v0.6
- * Jonatan Heyman | http://heyman.info 
- *
- * Make HTML elements draggable by using uses touch events.
- * The plugin also has a fallback that uses mouse events, 
- * in case the device doesn't support touch events.
- * 
- * Licenced under THE BEER-WARE LICENSE (Revision 42):
- * Jonatan Heyman (http://heyman.info) wrote this file. As long as you retain this 
- * notice you can do whatever you want with this stuff. If we meet some day, and 
- * you think this stuff is worth it, you can buy me a beer in return.
- */
-;(function($){
-    $.fn.draggableTouch = function(actionOrSettings) {
-        // check if the device has touch support, and if not, fallback to use mouse
-        // draggableMouse which uses mouse events
-        if (window.ontouchstart === undefined) {
-            return this.draggableMouse(actionOrSettings);
-        }
-
-        if (typeof(actionOrSettings) == "string") {
-            // check if we shall make it not draggable
-            if (actionOrSettings == "disable") {
-                this.unbind("touchstart.draggableTouch");
-                this.unbind("touchmove.draggableTouch");
-                this.unbind("touchend.draggableTouch");
-                this.unbind("touchcancel.draggableTouch");
-                
-                this.trigger("dragdisabled");
-
-                return this;
-            }
-        } else {
-            var useTransform = actionOrSettings && actionOrSettings.useTransform;
-        }
-        
-        this.each(function() {
-            var element = $(this);
-            var offset = null;
-            var draggingTouchId = null;
-            var end = function(e) {
-                e.preventDefault();
-                var orig = e.originalEvent;
-                for (var i=0; i<orig.changedTouches.length; i++) {
-                    var touch = orig.changedTouches[i];
-                    // the only touchend/touchcancel event we care about is the touch
-                    // that started the dragging
-                    if (touch.identifier != draggingTouchId) {
-                        continue;
-                    }
-                    element.trigger("dragend", {
-                        top: orig.changedTouches[0].pageY - offset.y,
-                        left: orig.changedTouches[0].pageX - offset.x
-                    });
-                    draggingTouchId = null;
-                }
-            };
-            
-            element.bind("touchstart.draggableTouch", function(e) {
-                e.preventDefault();
-                var orig = e.originalEvent;
-                // if this element is already being dragged, we can early exit, otherwise
-                // we need to store which touch started dragging the element
-                if (draggingTouchId) {
-                    return;
-                } else {
-                    draggingTouchId = orig.changedTouches[0].identifier;
-                }
-                var pos = $(this).position();
-                offset = {
-                    x: orig.changedTouches[0].pageX - pos.left,
-                    y: orig.changedTouches[0].pageY - pos.top
-                };
-                element.trigger("dragstart", pos);
-            });
-            element.bind("touchmove.draggableTouch", function(e) {
-                e.preventDefault();
-                var orig = e.originalEvent;
-                
-                for (var i=0; i<orig.changedTouches.length; i++) {
-                    var touch = orig.changedTouches[i];
-                    // the only touchend/touchcancel event we care about is the touch
-                    // that started the dragging
-                    if (touch.identifier != draggingTouchId) {
-                        continue;
-                    }
-                    if (useTransform) {
-                        $(this).css({
-                            "transform": "translate3d(" + (touch.pageX - offset.x) + "px, " + (touch.pageY - offset.y) + "px, 0px)",
-                        });
-                    } else {
-                        $(this).css({
-                            top: touch.pageY - offset.y,
-                            left: touch.pageX - offset.x
-                        });
-                    }
-                }
-            });
-            element.bind("touchend.draggableTouch touchcancel.draggableTouch", end);
-        });
-        return this;
-    };
-    
-    /**
-     * Draggable fallback for when touch is not available
-     */
-    $.fn.draggableMouse = function (actionOrSettings) {
-        if (typeof(actionOrSettings) == "string") {
-            // check if we shall make it not draggable
-            if (actionOrSettings == "disable") {
-                this.unbind("mousedown.draggableTouch");
-                this.unbind("mouseup.draggableTouch");
-                $(document).unbind("mousemove.draggableTouch");
-
-                this.trigger("dragdisabled");
-
-                return this;
-            }
-        } else {
-            var useTransform = actionOrSettings && actionOrSettings.useTransform;
-        }
-        
-        this.each(function() {
-            var element = $(this);
-            var offset = null;
-            
-            var move = function(e) {
-                if (useTransform) {
-                    element.css({
-                        "transform": "translate3d(" + (e.pageX - offset.x) + "px, " + (e.pageY - offset.y) + "px, 0px)",
-                    });
-                } else {
-                    element.css({
-                        top: e.pageY - offset.y,
-                        left: e.pageX - offset.x,
-                    });
-                }
-            };
-            var up = function(e) {
-                element.unbind("mouseup.draggableTouch", up);
-                $(document).unbind("mousemove.draggableTouch", move);
-                element.trigger("dragend", {
-                    top: e.pageY - offset.y,
-                    left: e.pageX - offset.x
-                });
-            };
-            element.bind("mousedown.draggableTouch", function(e) {
-                var pos = element.position();
-                offset = {
-                    x: e.pageX - pos.left,
-                    y: e.pageY - pos.top
-                };
-                $(document).bind("mousemove.draggableTouch", move);
-                element.bind("mouseup.draggableTouch", up);
-                element.trigger("dragstart", pos);
-                e.preventDefault();
-            });
-        });
-        return this;
-    };
-})(jQuery);
-
-
-  $( function() {
-    fixTitle();
-    //$( "#titre" ).draggable();
-    $("#titre").draggableTouch();
-
-  } );
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
