@@ -437,6 +437,7 @@ function PopulateVoicesOut() {
   while (select.firstChild) {
     select.removeChild(select.firstChild);
   }
+  /*
   var optgroup=document.createElement("optgroup");
   optgroup.label="Voice translation";
   var voices = window.speechSynthesis.getVoices();
@@ -466,8 +467,9 @@ function PopulateVoicesOut() {
   }
   maxvoices=voices.length;
   select.appendChild(optgroup);
+  */
   var optgroup2=document.createElement("optgroup");
-  optgroup2.label="Text translation only";
+  optgroup2.label="Available languages";
     for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code; //.substr(0,5);
         var opt=document.createElement("option");
@@ -1088,7 +1090,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
 
 </head>
-<body onload="Init();">
+<body onload="Init(); setTimeout(loadVoicesWhenAvailable,100);">
 <div id="logonext" style="display:none"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" style="display:none"><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" style="display:none" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
