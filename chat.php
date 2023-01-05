@@ -1153,9 +1153,9 @@ function retourOK(e) {
 
 function retourErreur() {}
 
-window.onbeforeunload = function(event) {
-  event.returnValue = "Quit";
-};
+//window.onbeforeunload = function(event) {
+//  event.returnValue = "Quit";
+//};
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
