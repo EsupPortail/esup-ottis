@@ -930,7 +930,7 @@ function readTextQ() {
         showET(url,tabnumber);
       } else {
         if (L[0] != 'ROBOT' && L[2].indexOf("[newstudent")< 0) {
-          console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
+          //console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
           if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
             TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
           else {
@@ -1199,7 +1199,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
   <li><b>Extra tabs</b></li>
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
   <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
-  <li>Pending requests : <span id="nbrequests">0</span></li>
+  <li style="display:none;">Pending requests : <span id="nbrequests">0</span></li>
 
   </ul>
     <br/>
