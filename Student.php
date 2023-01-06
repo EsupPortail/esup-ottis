@@ -579,10 +579,18 @@ function ParleThen(txt,f) {
 
 var inputnumber=-1;
 
+function increasependingrequests() {
+  document.getElementById('nbrequests').innerHTML=document.getElementById('nbrequests').innerHTML*1+1;
+}
+
+function decreasependingrequests() {
+  document.getElementById('nbrequests').innerHTML=document.getElementById('nbrequests').innerHTML*1-1;
+}
 
 function Translate(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+  increasependingrequests();
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -598,14 +606,15 @@ function Translate(ch, l, linput, lineid) {
 
     }
   };
-  xhr.onloadend = CompleteTranslation;
+  xhr.onloadend = function () {decreasependingrequests(); CompleteTranslation();};
   xhr.send();
 }
 
 function Translate2(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
-  xhr.onloadend = CompleteTranslation2;
+  increasependingrequests();
+  xhr.onloadend = function () {decreasependingrequests(); CompleteTranslation2();};
   xhr.send();
 }
 
@@ -743,11 +752,13 @@ function readText() {
   if (document.getElementById('classroomid').value != "") {
 	var request = new XMLHttpRequest();
 	request.open("POST", "readtext.php");
+  increasependingrequests();
   var f=new FormData();
   f.append('lineid',inputnumber);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
+    decreasependingrequests();
     var T=request.responseText.split('\n');
     //alert(request.responseText);
     var maxi=-1;
@@ -781,11 +792,13 @@ function readImage() {
   if (document.getElementById('classroomid').value != "") {
 	var request = new XMLHttpRequest();
 	request.open("POST", "readimage.php");
+  increasependingrequests();
   var f=new FormData();
   f.append('random',currentrandom);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
+    decreasependingrequests();
     if (request.responseText != "") {
       var Trep=request.responseText.split('|||');
       currentrandom=Trep[0];
@@ -800,10 +813,12 @@ function readImage() {
 function Synchronize(pin) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "synchronize.php");
+  increasependingrequests();
   var f=new FormData();
   f.append('pincode',pin);
 	request.send(f);
 	request.onload = function(event) {
+    decreasependingrequests();
     if (request.responseText != "") {
       document.getElementById('classroomid').value=request.responseText;
     } else {
@@ -890,11 +905,13 @@ function readTextQ() {
   if (document.getElementById('classroomid').value != "") {
 	var request = new XMLHttpRequest();
 	request.open("POST", "readtextQ.php");
+  increasependingrequests();
   var f=new FormData();
   f.append('lineid',0);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
+    decreasependingrequests();
     var Told=request.responseText.split('\n');
     var k=0;
     var T=[];
@@ -931,6 +948,7 @@ function readTextQ() {
 function saveTextQ(ch) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "savetextQ.php");
+  increasependingrequests();
   var f=new FormData();
   f.append('lineid','Student '+document.getElementById('StudentName').value);
   //inputnumberQ++;
@@ -939,6 +957,7 @@ function saveTextQ(ch) {
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
+    decreasependingrequests();
     readTextQ();
   };
 
@@ -947,8 +966,9 @@ function saveTextQ(ch) {
 function TranslateQ(ch, l, linput,name) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
-
+  increasependingrequests();
   xhr.onreadystatechange = function() { // Call a function when the state changes.
+   decreasependingrequests();
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
       // console.log(this.responseText);
       var response = JSON.parse(this.responseText);
@@ -1179,6 +1199,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
   <li><b>Extra tabs</b></li>
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
   <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
+  <li>Pending requests : <span id="nbrequests">0</span></li>
 
   </ul>
     <br/>
