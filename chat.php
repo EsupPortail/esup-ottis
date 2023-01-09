@@ -1119,7 +1119,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li><button class="button-3" role="button" onclick="recharger();"><i class='material-icons'>refresh</i></button></li>
+<li onclick="recharger();" class="tooltip" title="Refresh"><i class='material-icons'>refresh</i></li>
 <li>
     <!-- <div style="height: 50px;"></div> -->
     <div id="classroom" style="border: solid 1px;"></div>
@@ -1145,6 +1145,8 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
   .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
   .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
   .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+
+  .tooltip {}
   </style>
 
 <script>
@@ -1177,6 +1179,9 @@ $("#question").keyup(function(event) {
 
   $( function() {
     $( "#showmenu" ).tooltip();
+  } );
+  $( function() {
+    $( ".tooltip" ).tooltip();
   } );
   
 </script>
