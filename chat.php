@@ -866,7 +866,7 @@ ColorsForCR["Teacher"]=[[0,0,255],[255,255,255],5];
 var ScreenCR=[];
 
 function RefreshCR() {
-  document.getElementById('classroom').innerHTML == "";
+  document.getElementById('classroom').innerHTML = "";
   for(var i=0; i<ScreenCR.length; i++) {
     if (ScreenCR[i] != undefined) {
       if (document.getElementById('classroom').innerHTML == "") {
