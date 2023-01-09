@@ -851,6 +851,7 @@ if ($synchronize) {
 
 function ClearCR() {
   document.getElementById('classroom').innerHTML='';
+  ScreenCR=[];
 }
 
 function rgb(T) {
@@ -859,6 +860,19 @@ function rgb(T) {
 var ColorsForCR=[];
 ColorsForCR["----"]=[[255,0,0],[255,255,255],5];
 ColorsForCR["Teacher"]=[[0,0,255],[255,255,255],5];
+
+var ScreenCR=[];
+
+function RefreshCR() {
+  document.getElementById('classroom').innerHTML == "";
+  for(var i=0, i<ScreenCR.length; i++) {
+    if (ScreenCR[i] != undefined) {
+      if (document.getElementById('classroom').innerHTML == "")
+    document.getElementById('classroom').innerHTML=ScreenCR[i]+'\n';
+  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+ScreenCR[i]+'\n';
+    }
+  }
+}
 
 function EcrireCR(who,ch,order) {
   if (! ColorsForCR[who]) {
@@ -870,10 +884,13 @@ function EcrireCR(who,ch,order) {
     ColorsForCR[who]=[bg,fg,20];
   }
 
-
+/*
   if (document.getElementById('classroom').innerHTML == "")
-    document.getElementById('classroom').innerHTML='<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
+    document.getElementById('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
   else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
+  */
+  ScreenCR[order] = '<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>';
+  RefreshCR();
 }
 
 document.addEventListener('submit', event => {
