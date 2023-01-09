@@ -866,6 +866,7 @@ if ($synchronize) {
 
 function ClearCR() {
   document.getElementById('classroom').innerHTML='';
+  ScreenCR=[];
 }
 
 function rgb(T) {
@@ -875,7 +876,27 @@ var ColorsForCR=[];
 ColorsForCR["----"]=[[255,0,0],[255,255,255],5];
 ColorsForCR["Teacher"]=[[0,0,255],[255,255,255],5];
 
-function EcrireCR(who,ch) {
+var ScreenCR=[];
+
+function recharger() {
+  ClearCR();
+  inputnumberQ=0;
+  readTextQ();
+  
+}
+
+function RefreshCR() {
+  document.getElementById('classroom').innerHTML = "";
+  for(var i=0; i<ScreenCR.length; i++) {
+    if (ScreenCR[i] != undefined) {
+      if (document.getElementById('classroom').innerHTML == "") {
+    document.getElementById('classroom').innerHTML=ScreenCR[i]+'\n';
+      } else {document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+ScreenCR[i]+'\n';}
+    }
+  }
+}
+
+function EcrireCR(who,ch,order) {
   if (! ColorsForCR[who]) {
     var r=Math.floor(Math.random()*200+55);
     var g=Math.floor(Math.random()*200+55);
@@ -884,9 +905,14 @@ function EcrireCR(who,ch) {
     var fg=[0,0,0];
     ColorsForCR[who]=[bg,fg,20];
   }
+
+/*
   if (document.getElementById('classroom').innerHTML == "")
-    document.getElementById('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>';
-  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>';
+    document.getElementById('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
+  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
+  */
+  ScreenCR[order] = '<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>';
+  RefreshCR();
 }
 
 document.addEventListener('submit', event => {
@@ -932,9 +958,9 @@ function readTextQ() {
         if (L[0] != 'ROBOT' && L[2].indexOf("[newstudent")< 0) {
           //console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
           if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-            TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
+            TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0],i);
           else {
-            EcrireCR(L[0],L[2]);
+            EcrireCR(L[0],L[2],i);
           }
         }
       }
@@ -963,7 +989,7 @@ function saveTextQ(ch) {
 
 }
 
-function TranslateQ(ch, l, linput,name) {
+function TranslateQ(ch, l, linput,name,order) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
   increasependingrequests();
@@ -974,9 +1000,9 @@ function TranslateQ(ch, l, linput,name) {
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
         // Parle(response["data"]["translations"][0]["translatedText"]);
-        EcrireCR(name,response["data"]["translations"][0]["translatedText"]);
+        EcrireCR(name,response["data"]["translations"][0]["translatedText"],order);
       } else {
-        EcrireCR("----","---- Translation ERROR ----")
+        EcrireCR("----","---- Translation ERROR ----",order)
       }
 
     }
@@ -1220,8 +1246,9 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
-    <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
-	</div>
+     <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question"/>
+    <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();"/>
+  	</div>
 
 	<div id="tabs-2">
     <!--<input type="button" value="Restart" onclick="inputnumber=-1;"/>-->
@@ -1606,6 +1633,8 @@ $("#question").keyup(function(event) {
 
   $( function() {
     $( "#showmenu" ).tooltip();
+    $( ".tooltip" ).tooltip();
+
   } );
   
 </script>
