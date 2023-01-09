@@ -860,7 +860,7 @@ var ColorsForCR=[];
 ColorsForCR["----"]=[[255,0,0],[255,255,255],5];
 ColorsForCR["Teacher"]=[[0,0,255],[255,255,255],5];
 
-function EcrireCR(who,ch) {
+function EcrireCR(who,ch,order) {
   if (! ColorsForCR[who]) {
     var r=Math.floor(Math.random()*200+55);
     var g=Math.floor(Math.random()*200+55);
@@ -869,9 +869,11 @@ function EcrireCR(who,ch) {
     var fg=[0,0,0];
     ColorsForCR[who]=[bg,fg,20];
   }
+
+
   if (document.getElementById('classroom').innerHTML == "")
-    document.getElementById('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>';
-  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>';
+    document.getElementById('classroom').innerHTML='<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
+  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
 }
 
 document.addEventListener('submit', event => {
@@ -915,9 +917,9 @@ function readTextQ() {
         if (L[0] != 'ROBOT' && L[2].indexOf("[newstudent")< 0) {
           console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
           if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-            TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0]);
+            TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0],i);
           else {
-            EcrireCR(L[0],L[2]);
+            EcrireCR(L[0],L[2],i);
           }
         }
       }
