@@ -608,6 +608,8 @@ function Translate2(ch, l, linput, lineid) {
 function recharger() {
   ClearCR();
   inputnumberQ=0;
+  readTextQ();
+  
 }
 
 //var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
