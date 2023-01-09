@@ -1134,8 +1134,8 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
-    <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
-    <input type="button" value="refresh" class="button-3" role="button" onclick="recharger();"/>
+    <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();" class="tooltip" title="Send your question"/>
+    <input type="button" value="refresh" class="button-3" role="button" class="tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();"/>
     </li>
     </ul>
 	</div>
