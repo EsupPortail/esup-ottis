@@ -946,7 +946,7 @@ function saveTextQ(ch) {
 
 }
 
-function TranslateQ(ch, l, linput,name) {
+function TranslateQ(ch, l, linput,name,order) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
 
@@ -956,9 +956,9 @@ function TranslateQ(ch, l, linput,name) {
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
         // Parle(response["data"]["translations"][0]["translatedText"]);
-        EcrireCR(name,response["data"]["translations"][0]["translatedText"]);
+        EcrireCR(name,response["data"]["translations"][0]["translatedText"],order);
       } else {
-        EcrireCR("----","---- Translation ERROR ----")
+        EcrireCR("----","---- Translation ERROR ----",order)
       }
 
     }
