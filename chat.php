@@ -816,11 +816,11 @@ function Synchronize(pin) {
 
 
 function Lancer() {
-  setInterval(readText,500);
+  //setInterval(readText,500);
   setInterval(readTextQ,500);
-  setInterval(readImage,500);
+  //setInterval(readImage,500);
   setLanguageInput(0);
-  resizeSlides();
+  //resizeSlides();
 }
 
 var firsttime = true;
@@ -867,9 +867,9 @@ function RefreshCR() {
   document.getElementById('classroom').innerHTML == "";
   for(var i=0; i<ScreenCR.length; i++) {
     if (ScreenCR[i] != undefined) {
-      if (document.getElementById('classroom').innerHTML == "")
+      if (document.getElementById('classroom').innerHTML == "") {
     document.getElementById('classroom').innerHTML=ScreenCR[i]+'\n';
-  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+ScreenCR[i]+'\n';
+      } else {document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+ScreenCR[i]+'\n';}
     }
   }
 }
