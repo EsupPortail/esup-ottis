@@ -416,6 +416,14 @@ background-color: green;
   visibility: hidden;
 }
 
+.highlight {
+  color: black;
+  transition: 1s ease;
+}
+
+.highlight:hover {
+  color:rgb(200,200,200);
+}
 	</style>
 
 
@@ -1119,7 +1127,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li><i class='material-icons' onclick="recharger();" class="tooltip" title="Refresh">refresh</i></li>
+<li><i class='material-icons' onclick="recharger();" class="tooltip highlight" title="Refresh">refresh</i></li>
 <li>
     <!-- <div style="height: 50px;"></div> -->
     <div id="classroom" style="border: solid 1px;"></div>
