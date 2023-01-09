@@ -1127,7 +1127,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li><i class='material-icons' onclick="recharger();" class="tooltip" class="highlight" title="Refresh">refresh</i></li>
+<!-- <li><i class='material-icons' onclick="recharger();" class="tooltip" class="highlight" title="Refresh">refresh</i></li> -->
 <li>
     <!-- <div style="height: 50px;"></div> -->
     <div id="classroom" style="border: solid 1px;"></div>
@@ -1135,6 +1135,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
     <input type="button" value="send" class="button-3" role="button" id="questionsend" onclick="sendclick();"/>
+    <input type="button" value="refresh" class="button-3" role="button" onclick="recharger();"/>
     </li>
     </ul>
 	</div>
