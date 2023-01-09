@@ -597,6 +597,9 @@ function Translate2(ch, l, linput, lineid) {
   xhr.send();
 }
 
+function recharger() {
+  inputnumberQ=0;
+}
 
 //var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 //var builtin_recognition = new SpeechRecognition();
@@ -1115,8 +1118,9 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
+<li><button onclick="recharger();">Reload</button></li>
 <li>
-    <div style="height: 50px;"></div>
+    <!-- <div style="height: 50px;"></div> -->
     <div id="classroom" style="border: solid 1px;"></div>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
