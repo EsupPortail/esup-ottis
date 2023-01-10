@@ -1218,7 +1218,7 @@ function sendnotebook(content) {
   </select>
 </li>
 <li id="lilanguage"><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s infinite'; }">
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; }">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
 </li>
 <li><label for="StudentName">Student surname :</label>
@@ -1283,12 +1283,12 @@ function sendnotebook(content) {
 
 	<div id="tabs-2">
     <!--<input type="button" value="Restart" onclick="inputnumber=-1;"/>-->
-    <input style="display: none;" type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook(document.getElementById('notebook').innerHTML);"/><br/>
+    <input style="margin-left: 64px;" type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook(document.getElementById('notebook').innerHTML);"/><br/>
     <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
 	<div id="tabs-3">
-  <input type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the output by mail." onclick="sendnotebook(document.getElementById('output').innerHTML);"/><br/>
+  <input style="margin-left: 64px;" type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the output by mail." onclick="sendnotebook(document.getElementById('output').innerHTML);"/><br/>
     <div id="output">
     </div>
   </div>
