@@ -23,7 +23,7 @@ if (isset($_GET["ROOMID"])) {
 
 
 $wooclapkey="";
-if (isset($_GET["WOOCLAPKEY"])) {
+if (isset($_GET["WOOCLAPKEY"])) {document.getElementById('dialog_MailTo').value='your.mail@univ-nantes.fr';
   $wooclapaddress = "https://www.wooclap.com/".$_GET["WOOCLAPKEY"];
   $wooclapkey=$_GET["WOOCLAPKEY"];
 } else {
@@ -1711,6 +1711,7 @@ setTimeout(LaunchWC,3000);
     var dialog, form;
  
     function EnvoiMail() {
+      alert("I will send the mail to "+document.getElementById('dialog_MailTo').value.replaceAll(' - ',','));
 		var XHR = new XMLHttpRequest();
   		var FD  = new FormData();
     	FD.append('from', document.getElementById('dialog_MailFrom').value);
