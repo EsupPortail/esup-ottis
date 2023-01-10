@@ -1267,7 +1267,7 @@ function sendnotebook(content) {
 
 	</div>
 	<div id="tabs-3">
-  <input style="display: none;" type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the output by mail." onclick="sendnotebook(document.getElementById('output').innerHTML);"/><br/>
+  <input type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the output by mail." onclick="sendnotebook(document.getElementById('output').innerHTML);"/><br/>
     <div id="output">
     </div>
   </div>
@@ -1743,10 +1743,10 @@ setTimeout(LaunchWC,3000);
       }
     });
  
-    form = dialog.find( "form" ).on( "submit", function( event ) {
-      event.preventDefault();
-      EnvoiMail();
-    });
+//    form = dialog.find( "form" ).on( "submit", function( event ) {
+//      event.preventDefault();
+//      EnvoiMail();
+//    });
  
   } );
 
