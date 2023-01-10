@@ -23,7 +23,7 @@ if (isset($_GET["ROOMID"])) {
 
 
 $wooclapkey="";
-if (isset($_GET["WOOCLAPKEY"])) {document.getElementById('dialog_MailTo').value='your.mail@univ-nantes.fr';
+if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://www.wooclap.com/".$_GET["WOOCLAPKEY"];
   $wooclapkey=$_GET["WOOCLAPKEY"];
 } else {
