@@ -1732,7 +1732,7 @@ setTimeout(LaunchWC,3000);
       autoOpen: false,
       height: 500,
       width: 800,
-      modal: true,
+      modal: false,
       buttons: {
         "Send": EnvoiMail,
         Cancel: function() {
