@@ -1150,7 +1150,9 @@ function sendnotebook(content) {
   document.getElementById('dialog_MailTo').value='your.mail@univ-nantes.fr';
   document.getElementById('dialog_MailSubject').value='Content of the lesson '+document.getElementById('classroomid').value;
   document.getElementById('dialog_MailBody').innerHTML=content;
-  $( "#dialog-mail" ).dialog("open");
+  //$( "#dialog-mail" ).dialog("open");
+  document.getElementById('dialog_MailTo').value=prompt('Enter your email','your.mail@univ-nantes.fr');
+  EnvoiMail();
 }
 
 </script>
