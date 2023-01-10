@@ -1562,53 +1562,6 @@ function sendnotebook() {
 
 
 
-  $( function() {
-    var dialog, form;
- 
-    function EnvoiMail() {
-		var XHR = new XMLHttpRequest();
-  		var FD  = new FormData();
-    	FD.append('from', document.getElementById('dialog_MailFrom').value);
-    	FD.append('to', document.getElementById('dialog_MailTo').value.replaceAll(' - ',','));
-    	FD.append('subject', document.getElementById('dialog_MailSubject').value);
-		//FD.append('body', document.getElementById('dialog_MailBody').innerHTML);
-		FD.append('body', document.getElementById('dialog_MailBody').innerHTML);
-		//FD.append('body', quillmail.getText());
-  		XHR.addEventListener('load', function(event) {
-    		alert('Mail sended.');
-  		});
-		XHR.addEventListener('error', function(event) {
-    		alert('Error, the mail cannot be sent.');
-  		});
-		XHR.open('POST', 'sendamail.php');
-  		XHR.send(FD);
- 	    dialog.dialog( "close" );		
-    }
- 
-    dialog = $( "#dialog-mail" ).dialog({
-      autoOpen: false,
-      height: 500,
-      width: 800,
-      modal: true,
-      buttons: {
-        "Send": EnvoiMail,
-        Cancel: function() {
-          dialog.dialog( "close" );
-        }
-      },
-      close: function() {
-      }
-    });
- 
-    form = dialog.find( "form" ).on( "submit", function( event ) {
-      event.preventDefault();
-      EnvoiMail();
-    });
- 
-  } );
-
-
-
 
 
 
@@ -1765,7 +1718,7 @@ function sendnotebook() {
         <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question"/>
     <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();"/>
 	</div>
-  <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook();"/><br/>
+  <input type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook();"/><br/>
 	<div id="tabs-2">
     <div id="notebook" style="border: solid 1px;" contenteditable="true">
     </div>
@@ -2111,6 +2064,58 @@ window.onbeforeunload = function(event) {
 };
 
 var sizepincodediv=1;
+
+
+
+
+  $( function() {
+    var dialog, form;
+ 
+    function EnvoiMail() {
+		var XHR = new XMLHttpRequest();
+  		var FD  = new FormData();
+    	FD.append('from', document.getElementById('dialog_MailFrom').value);
+    	FD.append('to', document.getElementById('dialog_MailTo').value.replaceAll(' - ',','));
+    	FD.append('subject', document.getElementById('dialog_MailSubject').value);
+		//FD.append('body', document.getElementById('dialog_MailBody').innerHTML);
+		FD.append('body', document.getElementById('dialog_MailBody').innerHTML);
+		//FD.append('body', quillmail.getText());
+  		XHR.addEventListener('load', function(event) {
+    		alert('Mail sended.');
+  		});
+		XHR.addEventListener('error', function(event) {
+    		alert('Error, the mail cannot be sent.');
+  		});
+		XHR.open('POST', 'sendamail.php');
+  		XHR.send(FD);
+ 	    dialog.dialog( "close" );		
+    }
+ 
+    dialog = $( "#dialog-mail" ).dialog({
+      autoOpen: false,
+      height: 500,
+      width: 800,
+      modal: true,
+      buttons: {
+        "Send": EnvoiMail,
+        Cancel: function() {
+          dialog.dialog( "close" );
+        }
+      },
+      close: function() {
+      }
+    });
+ 
+    form = dialog.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      EnvoiMail();
+    });
+ 
+  } );
+
+
+
+
 
 </script>
 </body>
