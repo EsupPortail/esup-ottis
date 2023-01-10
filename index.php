@@ -1228,6 +1228,9 @@ function TailleCR() {
   return document.getElementById('classroom').innerHTML.split('<br/>').length;
 }
 
+function setLanguageStr(l) {
+  
+}
 
 function remote() {
   if (document.getElementById('classroomid').value != "") {
@@ -1247,6 +1250,7 @@ function remote() {
       if (order == 'skipbackward') SkipBackward();
       if (order == 'playcurrent') {SkipBackward(); Forward();}
       if (order == 'micro') Micro();
+      if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length));
     }
   };
 }

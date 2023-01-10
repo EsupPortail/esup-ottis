@@ -230,6 +230,9 @@ if ($synchronize) {
 ?>
 }
 
+function setLanguage() {
+
+}
 
 </script>
 
@@ -244,6 +247,7 @@ if ($synchronize) {
 <div id="speech_current" onclick="remote('playcurrent');">Current</div>
 <div id="speech_after" onclick="remote('forward');">After</div>
 <div title="Skip subtitle" id="skipleft" onclick="remote('skipbackward');"><span style="font-size: 1em;">&#8592; Skip</span></div>
+<!--<div title="Change Language" id="divlanguage""><select id="language" onchange="setLanguage();" style="font-size: 1em;"></select></div>-->
 <div title="Skip subtitle" id="skipright" onclick="remote('skipforward');"><span style="font-size: 1em;">Skip &#8594;</span></div>
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward');">&#8594;</div>
