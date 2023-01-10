@@ -594,7 +594,7 @@ function Translate(ch, l, linput, lineid) {
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      // console.log(this.responseText);
+      console.log(this.responseText);
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
         ToSay[''+lineid]=(response["data"]["translations"][0]["translatedText"]);
@@ -1144,7 +1144,7 @@ var MenuOnIMG=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl
 var MenuOffIMG="data:image/png;base64,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";
 
 function EnvoiMail() {
-      alert("I will send the mail to "+document.getElementById('dialog_MailTo').value.replaceAll(' - ',','));
+      // alert("I will send the mail to "+document.getElementById('dialog_MailTo').value.replaceAll(' - ',','));
 		  var XHR = new XMLHttpRequest();
   		var FD  = new FormData();
     	FD.append('from', document.getElementById('dialog_MailFrom').value);
@@ -1154,7 +1154,7 @@ function EnvoiMail() {
 		  FD.append('body', document.getElementById('dialog_MailBody').innerHTML);
 		//FD.append('body', quillmail.getText());
   		XHR.addEventListener('load', function(event) {
-    		alert('Mail sended.');
+    		alert('Mail sent.');
   		});
 		  XHR.addEventListener('error', function(event) {
     		alert('Error, the mail cannot be sent.');
@@ -1167,7 +1167,7 @@ function EnvoiMail() {
 function sendnotebook(content) {
   document.getElementById('dialog_MailFrom').value='bourdon-j@univ-nantes.fr';
   document.getElementById('dialog_MailTo').value='your.mail@univ-nantes.fr';
-  document.getElementById('dialog_MailSubject').value='Content of the lesson '+document.getElementById('classroomid').value;
+  document.getElementById('dialog_MailSubject').value='Content of lesson '+document.getElementById('classroomid').value;
   document.getElementById('dialog_MailBody').innerHTML=content;
   //$( "#dialog-mail" ).dialog("open");
   document.getElementById('dialog_MailTo').value=prompt('Enter your email','your.mail@univ-nantes.fr');
