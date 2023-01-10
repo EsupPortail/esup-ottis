@@ -1262,12 +1262,12 @@ function sendnotebook(content) {
 
 	<div id="tabs-2">
     <!--<input type="button" value="Restart" onclick="inputnumber=-1;"/>-->
-    <input type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook(document.getElementById('notebook').innerHTML);"/><br/>
-    <div id="notebook" style="border: solid 1px;" contenteditable="false"></div>
+    <input style="display: none;" type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook(document.getElementById('notebook').innerHTML);"/><br/>
+    <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
 	<div id="tabs-3">
-  <input type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the output by mail." onclick="sendnotebook(document.getElementById('output').innerHTML);"/><br/>
+  <input style="display: none;" type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the output by mail." onclick="sendnotebook(document.getElementById('output').innerHTML);"/><br/>
     <div id="output">
     </div>
   </div>
