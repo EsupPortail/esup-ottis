@@ -4,7 +4,6 @@ $ligneID = $_POST["lineid"];
 $roomid = $_POST["ROOMID"];
 $order=0;
 if (isset($_POST["ORDER"])) $order=$_POST["ORDER"];
-$order = $_POST["ORDER"];
 //echo $ligneID."   ".$roomid."\n";
 if (file_exists("tmp/Link_".$roomid)) {
   $fd=fopen("tmp/Link_".$roomid,"r");
