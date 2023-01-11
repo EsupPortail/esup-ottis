@@ -746,6 +746,9 @@ function CompleteSpeech() {
   
 }
 
+var currentorder_readtext=0;
+var maxorder_readtext=-1;
+
 function readText() {
   var synthesison=document.getElementById('synthesison').checked;
   if (synthesison) {
@@ -753,8 +756,10 @@ function readText() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "readtext.php");
   increasependingrequests();
+  currentmaxorder_readtext++;
   var f=new FormData();
   f.append('lineid',inputnumber);
+  f.append('ORDER',currentmaxorder_readtext);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
@@ -762,20 +767,24 @@ function readText() {
     var T=request.responseText.split('\n');
     //alert(request.responseText);
     var maxi=-1;
+    var readedorder=T[i].split(';')[0]*1;
+    if (readedorder>maxorder_readtext) {
+        maxorder_readtext=readedorder;
     for(var i=0; i<T.length; i++) {
       var L=T[i].split(';');
-      if (L.length>2) {
-      if (1*L[0]>maxi) maxi=1*L[0];
-      EcrireNB(L[2]);
-      ToTranslate.push(L);
-      ToTranslate2.push(L);
-/*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+      if (L.length>3) {
+      if (1*L[0]>maxi) maxi=1*L[1];
+      EcrireNB(L[3]);
+      ToTranslate.push([L[1],L[2],L[3]]);
+      ToTranslate2.push([L[1],L[2],L[3]]);
+        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
         Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
       else {
         Parle(L[2]);
         Ecrire(""+L[2]);
       }*/
-    }
+      }
+      }
     }
     //alert(maxi);
     if (maxi>inputnumber) inputnumber=maxi;
