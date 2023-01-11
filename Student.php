@@ -756,10 +756,10 @@ function readText() {
 	var request = new XMLHttpRequest();
 	request.open("POST", "readtext.php");
   increasependingrequests();
-  currentmaxorder_readtext++;
+  currentorder_readtext++;
   var f=new FormData();
   f.append('lineid',inputnumber);
-  f.append('ORDER',currentmaxorder_readtext);
+  f.append('ORDER',currentorder_readtext);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
