@@ -766,7 +766,7 @@ function readText() {
 	request.onload = function(event) {
     decreasependingrequests();
     var T=request.responseText.split('\n');
-    console.log('Readtext get : '+request.responseText);
+    //console.log('Readtext get : '+request.responseText);
     var maxi=-1;
     var readedorder=('0'+T[0]).split(';')[0]*1;
     if (readedorder>maxorder_readtext) {
@@ -775,9 +775,12 @@ function readText() {
       var L=T[i].split(';');
       if (L.length>3) {
       if (1*L[1]>maxi) maxi=1*L[1];
-      EcrireNB(L[3]);
-      ToTranslate.push([L[1],L[2],L[3]]);
-      ToTranslate2.push([L[1],L[2],L[3]]);
+      if (AllPhrases[1*L[1]] != undefined) {
+        AllPhrases[1*L[1]] = true;
+        EcrireNB(L[3]);
+        ToTranslate.push([L[1],L[2],L[3]]);
+        ToTranslate2.push([L[1],L[2],L[3]]);
+      }
         /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
         Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
       else {
