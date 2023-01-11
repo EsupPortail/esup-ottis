@@ -1230,6 +1230,16 @@ function TailleCR() {
 
 function setLanguageStr(l) {
   console.log("Remote says set language to ("+l+")");
+  // Try to find the language in the language list
+  var s=document.getElementById('classroomlanguage');
+  var finded=-1
+  for(var i=0; i<s.options.length && finded == -1; i++) {
+    if (l.substr(0,2).toLowerCase() == s.options[i].innerHTML.substr(0,2).toLowerCase()) finded=i;
+  }
+  if (finded!=-1) {
+    s.selectedIndex=i;
+    setLanguageInput(document.getElementById('classroomlanguage').value);
+  }
 }
 
 function remote() {
