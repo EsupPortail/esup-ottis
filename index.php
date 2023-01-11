@@ -1229,7 +1229,7 @@ function TailleCR() {
 }
 
 function setLanguageStr(l) {
-  
+  console.log("Remote says set language to ("+l+")");
 }
 
 function remote() {
@@ -1250,7 +1250,7 @@ function remote() {
       if (order == 'skipbackward') SkipBackward();
       if (order == 'playcurrent') {SkipBackward(); Forward();}
       if (order == 'micro') Micro();
-      if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length));
+      if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length).trim());
     }
   };
 }

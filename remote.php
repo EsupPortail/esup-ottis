@@ -241,6 +241,7 @@ if ($synchronize) {
 
 if ($lang!="") {
   echo "    AllLanguages='".$lang."'.split(',');\n";
+  echo "    setLanguage();\n";
 } else {
   echo "    document.getElementById('langdiv').style.display='none';\n";
   echo "    document.getElementById('skipleft').style.width='40%';\n";
@@ -248,7 +249,7 @@ if ($lang!="") {
 }
 
 ?>
-  setLanguage();
+
 }
 
 
@@ -270,6 +271,7 @@ function changeLanguage() {
 function setLanguage() {
   if (AllLanguages.length>0) {
     document.getElementById('langdiv').innerHTML=AllLanguages[currentlanguage];
+    remote("language "+AllLanguages[currentlanguage]);
   }
 }
 
