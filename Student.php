@@ -767,7 +767,7 @@ function readText() {
     var T=request.responseText.split('\n');
     //alert(request.responseText);
     var maxi=-1;
-    var readedorder=T[i].split(';')[0]*1;
+    var readedorder=('0'+T[0]).split(';')[0]*1;
     if (readedorder>maxorder_readtext) {
         maxorder_readtext=readedorder;
     for(var i=0; i<T.length; i++) {
