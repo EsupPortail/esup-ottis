@@ -114,9 +114,10 @@ if (isset($_GET["LANG"])) $lang=$_GET["LANG"];
 
 #langdiv {
   left: 35%;
-  background-color: rgba(20,100,20,0.5);
-  box-shadow: 2px 2px 5px rgb(20,100,20);
-text-shadow: 2px 0 0 rgb(20,100,20), -2px 0 0 rgb(20,100,20), 0 2px 0 rgb(20,100,20), 0 -2px 0 rgb(20,100,20), 1px 1px rgb(20,100,20), -1px -1px 0 rgb(20,100,20), 1px -1px 0 rgb(20,100,20), -1px 1px 0 rgb(20,100,20);
+  background-color: rgba(100,20,100,0.5);
+  box-shadow: 2px 2px 5px rgb(100,20,100);
+  text-shadow-color: rgb(100,20,100);
+//text-shadow: 2px 0 0 rgb(20,100,20), -2px 0 0 rgb(20,100,20), 0 2px 0 rgb(20,100,20), 0 -2px 0 rgb(20,100,20), 1px 1px rgb(20,100,20), -1px -1px 0 rgb(20,100,20), 1px -1px 0 rgb(20,100,20), -1px 1px 0 rgb(20,100,20);
 }
 
 #skipleft {
