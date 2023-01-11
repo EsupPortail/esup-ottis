@@ -236,7 +236,7 @@ if ($synchronize) {
 }
   echo "// ".$lang."\n\n";
 
-if ($lang=="") {
+if ($lang!="") {
   echo "    AllLanguages='".$lang."'.split(',');\n";
   echo "    document.getElementById('langdiv').style.display='none';\n";
   echo "    document.getElementById('skipleft').style.width='40%';\n";
