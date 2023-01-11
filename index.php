@@ -1237,7 +1237,7 @@ function setLanguageStr(l) {
     if (l.substr(0,2).toLowerCase() == s.options[i].innerHTML.substr(0,2).toLowerCase()) finded=i;
   }
   if (finded!=-1) {
-    s.selectedIndex=i;
+    s.selectedIndex=finded;
     setLanguageInput(document.getElementById('classroomlanguage').value);
   }
 }
