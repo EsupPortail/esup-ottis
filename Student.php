@@ -775,7 +775,7 @@ function readText() {
       var L=T[i].split(';');
       if (L.length>3) {
       if (1*L[1]>maxi) maxi=1*L[1];
-      if (AllPhrases[1*L[1]] != undefined) {
+      if (AllPhrases[1*L[1]] == undefined) {
         AllPhrases[1*L[1]] = true;
         EcrireNB(L[3]);
         ToTranslate.push([L[1],L[2],L[3]]);
