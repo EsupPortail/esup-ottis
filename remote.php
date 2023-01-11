@@ -112,6 +112,10 @@ if (isset($_GET["LANG"])) $lang=$_GET["LANG"];
   font-weight: bold;
 }
 
+#langdiv {
+  left: 35%;
+}
+
 #skipleft {
   left: 10px;
 }
@@ -230,6 +234,7 @@ function Init() {
 if ($synchronize) {
   echo "Synchronize(prompt('Enter the session pincode'));\n";
 }
+  echo "// ".$lang."\n\n";
 
 if ($lang=="") {
   echo "    AllLanguages='".$lang."'.split(',');\n";
