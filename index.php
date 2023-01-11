@@ -1239,6 +1239,7 @@ function setLanguageStr(l) {
   if (finded!=-1) {
     s.selectedIndex=finded;
     setLanguageInput(document.getElementById('classroomlanguage').value);
+    Micro(); Micro();
   }
 }
 
