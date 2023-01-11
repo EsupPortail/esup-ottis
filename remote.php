@@ -238,6 +238,7 @@ if ($synchronize) {
 
 if ($lang!="") {
   echo "    AllLanguages='".$lang."'.split(',');\n";
+} else {
   echo "    document.getElementById('langdiv').style.display='none';\n";
   echo "    document.getElementById('skipleft').style.width='40%';\n";
   echo "    document.getElementById('skipright').style.width='40%';\n";
