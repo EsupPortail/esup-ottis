@@ -14,6 +14,8 @@ if (isset($_GET["ROOMID"])) {
   $synchronize = true;
 }
 
+$lang="";
+if (isset($_GET["LANG"])) $lang=$_GET["LANG"];
 
 ?>
 <!doctype html>
@@ -83,12 +85,12 @@ if (isset($_GET["ROOMID"])) {
   right: 10px;
 }
 
-#skipleft,#skipright {
+#skipleft,#skipright,#langdiv {
   transition: 1s ease;
   border-radius: 5%;
   position: fixed;
   bottom: 12%;
-  width: 40%;
+  width: 30%;
   margin-left: auto;
   margin-right: auto;
   height: 7%;
@@ -222,16 +224,44 @@ function Synchronize(pin) {
   };
 }
 
+var AllLanguages=[];
 function Init() {
 <?php
 if ($synchronize) {
   echo "Synchronize(prompt('Enter the session pincode'));\n";
 }
+
+if ($lang=="") {
+  echo "    AllLanguages='".$lang."'.split(',');\n";
+  echo "    document.getElementById('langdiv').style.display='none';\n";
+  echo "    document.getElementById('skipleft').style.width='40%';\n";
+  echo "    document.getElementById('skipright').style.width='40%';\n";
+}
+
 ?>
+  setLanguage();
+}
+
+
+<?php
+if ($synchronize) {
+  echo "Synchronize(prompt('Enter the session pincode'));\n";
+}
+?>
+
+var currentlanguage=0;
+
+function changeLanguage() {
+  if (AllLanguages.length>0) {
+    currentlanguage=(currentlanguage+1) % AllLanguages.length;
+  }
+  setLanguage();
 }
 
 function setLanguage() {
-
+  if (AllLanguages.length>0) {
+    document.getElementById('langdiv').innerHTML=AllLanguages[currentlanguage];
+  }
 }
 
 </script>
@@ -247,7 +277,7 @@ function setLanguage() {
 <div id="speech_current" onclick="remote('playcurrent');">Current</div>
 <div id="speech_after" onclick="remote('forward');">After</div>
 <div title="Skip subtitle" id="skipleft" onclick="remote('skipbackward');"><span style="font-size: 1em;">&#8592; Skip</span></div>
-<!--<div title="Change Language" id="divlanguage""><select id="language" onchange="setLanguage();" style="font-size: 1em;"></select></div>-->
+<div title="Change Language" id="langdiv" onclick="changeLanguage();">fr</div>
 <div title="Skip subtitle" id="skipright" onclick="remote('skipforward');"><span style="font-size: 1em;">Skip &#8594;</span></div>
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward');">&#8594;</div>
