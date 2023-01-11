@@ -748,6 +748,7 @@ function CompleteSpeech() {
 
 var currentorder_readtext=0;
 var maxorder_readtext=-1;
+var AllPhrases=[];
 
 function readText() {
   var synthesison=document.getElementById('synthesison').checked;
@@ -773,7 +774,7 @@ function readText() {
     for(var i=0; i<T.length; i++) {
       var L=T[i].split(';');
       if (L.length>3) {
-      if (1*L[0]>maxi) maxi=1*L[1];
+      if (1*L[1]>maxi) maxi=1*L[1];
       EcrireNB(L[3]);
       ToTranslate.push([L[1],L[2],L[3]]);
       ToTranslate2.push([L[1],L[2],L[3]]);
