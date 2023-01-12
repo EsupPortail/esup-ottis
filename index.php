@@ -2096,7 +2096,7 @@ var sizepincodediv=1;
 		FD.append('body', document.getElementById('dialog_MailBody').innerHTML);
 		//FD.append('body', quillmail.getText());
   		XHR.addEventListener('load', function(event) {
-    		alert('Mail sended.');
+    		alert('Mail sent.');
   		});
 		XHR.addEventListener('error', function(event) {
     		alert('Error, the mail cannot be sent.');
