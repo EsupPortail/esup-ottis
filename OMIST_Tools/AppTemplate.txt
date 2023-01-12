@@ -99,6 +99,7 @@ z-index: 10000;
 
 #mouse {
 transform: scale(0);
+transform-origin: center;
 transition: 1s ease;
 border-radius: 10px;
 position: absolute;
