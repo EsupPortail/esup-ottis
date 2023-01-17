@@ -495,8 +495,8 @@ function StudentCompleteTranslation() {
   if (StudentToTranslate.length>0) {
     var L=StudentToTranslate[0];
     StudentToTranslate.splice(0,1);
-    if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2)) {
-      StudentTranslate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+    if (subtitle_language.substr(0,2).toLowerCase() != L[1].substr(0,2)) {
+      StudentTranslate(L[2], subtitle_language.substr(0,2).toLowerCase(), L[1].substr(0,2),L[0]);
     } else {
         StudentToSay[''+L[0]]=L[2];//,CompleteTranslation);
         EcrireFeedback(""+L[2]);
@@ -509,9 +509,9 @@ function StudentCompleteTranslation2() {
   if (StudentToTranslate2.length>0) {
     var L=StudentToTranslate2[0];
     StudentToTranslate2.splice(0,1);
-    if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2)) {
+    if (subtitle_language.substr(0,2).toLowerCase() != L[1].substr(0,2)) {
       // Ecrire("Push : "+L[2]);
-      StudentTranslate2(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+      StudentTranslate2(L[2], subtitle_language.substr(0,2).toLowerCase(), L[1].substr(0,2),L[0]);
     } else StudentCompleteTranslation2();
   } else setTimeout(StudentCompleteTranslation,10);
 }
