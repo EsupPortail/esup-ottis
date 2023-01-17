@@ -1439,7 +1439,7 @@ function remote() {
       if (order == 'playcurrent') {SkipBackward(); Forward();}
       if (order.substr(0,"micro".length)=="micro") {
         var fromremote=order.substr("micro".length).trim();
-        if (fromremote == document.getElementById('appid').value) Micro();
+        if (fromremote == document.getElementById('appid').value || fromremote=='') Micro();
       }
       if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length).trim());
     }
