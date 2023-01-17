@@ -1923,11 +1923,11 @@ function opentab(e) {
   <p>The Slide Manipulation Toolkit is accessible <a href="javascript:void(window.open('OMIST_Tools'))">here</a>.</p>
   <p>The following links to open source online tools can be useful for the extra tabs feature.
   <dl>
-  <dd>Tableau noir blackboard : <a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tab" href="javascript:void(0)"></a></dd>
-  <dd>WBO whiteboard : <a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tab" href="javascript:void(0)"></a></dd>
-  <dd>Jitsi visioconference : <a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tab" href="javascript:void(0)"></a></dd>
-  <dd>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tab" href="javascript:void(0)">https://algoscript.info/xcas</a></dd>  
-  <dd>Universal document viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tab" href="javascript:void(0)"src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
+  <dd>Tableau noir blackboard : <a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
+  <dd>WBO whiteboard : <a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
+  <dd>Jitsi visioconference : <a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
+  <dd>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></dd>  
+  <dd>Universal document viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
   </dl>
   </p>
   <br/>
