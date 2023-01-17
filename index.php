@@ -1480,6 +1480,7 @@ function readTextQ() {
         var url=resource[1];
         if (document.getElementById('extraurl'+tabnumber).value != url) {
           document.getElementById('extraurl'+tabnumber).value=url;
+          document.getElementById('embedET'+tabnumber).checked=true;
           showET(document.getElementById('embedET'+tabnumber),tabnumber);
         }
 
