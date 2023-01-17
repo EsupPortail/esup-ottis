@@ -466,7 +466,7 @@ function StudentTranslate(ch, l, linput, lineid) {
       //console.log(this.responseText);
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
-        ToSay[''+lineid]=(response["data"]["translations"][0]["translatedText"]);
+        StudentToSay[''+lineid]=(response["data"]["translations"][0]["translatedText"]);
 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
         EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
       } else {
