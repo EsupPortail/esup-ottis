@@ -1869,7 +1869,7 @@ function sendnotebook() {
 <option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
-<li>Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);">
+<li style="display:none;">Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);">
 <option value="0,0,255|0,0,255">blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
