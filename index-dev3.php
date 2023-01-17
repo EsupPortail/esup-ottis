@@ -562,8 +562,8 @@ function StudentreadText() {
 	request.open("POST", "readtext.php");
   Studentcurrentorder_readtext++;
   var f=new FormData();
-  f.append('lineid',inputnumber);
-  f.append('ORDER',currentorder_readtext);
+  f.append('lineid',Studentinputnumber);
+  f.append('ORDER',Studentcurrentorder_readtext);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
 	request.onload = function(event) {
