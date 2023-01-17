@@ -226,7 +226,7 @@ input[type=text] {
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
 
-#partialtitre {
+#partialtitre, #studentfeedback {
   transition: 1s ease;
   transition-property: background-color, color, box-shadow, text-shadow, font-size;
   border-radius: 25px;
@@ -1020,6 +1020,10 @@ function EcrirePartial(ch) {
   document.getElementById('partialtitre').innerHTML=ch;
 }
 
+function EcrireFeedback(ch) {
+  document.getElementById('studentfeedback').innerHTML=ch;
+}
+
 function Ecrire(ch) {
   if (document.getElementById('output').innerHTML == "")
     document.getElementById('output').innerHTML=ch;
@@ -1145,6 +1149,7 @@ function Init() {
   ChangeColor('titre',document.getElementById('ColorTitre').value);
   ChangeColor('titreleft',document.getElementById('ColorTitre').value);
   ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
+  ChangeColor('studentfeedback',document.getElementById('Colorstudentfeedback').value);
 
   //setTimeout(Micro,1000);
   //setTimeout(Micro,1500);
@@ -1614,6 +1619,7 @@ function sendnotebook() {
 <div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titreright').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
 <div id="partialtitre"></div>
+<div id="studentfeedback"></div>
 
 
 <div id="scrollbar"></div>
@@ -1681,7 +1687,21 @@ function sendnotebook() {
 <option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
-<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
+<li>Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);">
+<option value="0,0,255|0,0,255">blue</option>
+<option value="0,255,0|0,100,0">green</option>
+<option value="255,0,0|100,0,0" >red</option>
+<option value="255,0,255|100,0,255" >purple</option>
+<option value="255,255,0|100,100,0" >yellow</option>
+<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
+<option value="0,0,0|0,0,0" selected>black</option>
+<option value="255,255,255|255,255,255|0,0,0">white</option>
+  </select></li>
+<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
@@ -1881,15 +1901,19 @@ $('#bar').on('keydown keyup keypress', function(e) {
 
 
 function fixTitle() {
-  var e=document.getElementById("partialtitre");
+  for(var f in {"partialtitre":1,"studentfeedback":1}) {
+  var e=document.getElementById(f);
   e.style.top=(window.innerHeight-e.style.height-200-10)+'px';
+  }
 }
 
 function MinTitlePos() {
-  var e=document.getElementById("partialtitre");
+  for(var f in {"partialtitre":1,"studentfeedback":1}) {
+  var e=document.getElementById(f);
   var postop=1*(e.style.top.replace('px',''));
   if (postop>window.innerHeight-50) {
     e.style.top=(window.innerHeight-50)+'px';
+  }
   }
 }
 
@@ -2061,6 +2085,7 @@ function MinTitlePos() {
     fixTitle();
     //$( "#titre" ).draggable();
     $("#partialtitre").draggableTouch();
+    $("#studentfeedback").draggableTouch();
 
   } );
 
