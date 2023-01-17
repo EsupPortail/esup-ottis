@@ -1766,7 +1766,13 @@ function sendnotebook() {
 
 
 
-
+function openvisio() {
+  var url=document.getElementById('link3').innerHTML;
+  var tabnumber=1; // May be find the first empty slot instead
+  document.getElementById('extraurl'+tabnumber).value=url;
+  document.getElementById('embedET'+tabnumber).checked=true;
+  showET(document.getElementById('embedET'+tabnumber),tabnumber);
+}
 
 
 
@@ -1916,9 +1922,9 @@ function sendnotebook() {
   <p>The Slide Manipulation Toolkit is accessible <a href="javascript:void(window.open('OMIST_Tools'))">here</a>.</p>
   <p>The following links to open source online tools can be useful for the extra tabs feature.
   <dl>
-  <dd>Tableau noir blackboard : <a id="link1" src="https://tableaunoir.github.io/?id=test"></a></dd>
+  <dd>Tableau noir blackboard : <a id="link1" title="" src="https://tableaunoir.github.io/?id=test"></a></dd>
   <dd>WBO whiteboard : <a id="link2" src="https://wbo.ophir.dev/boards/test"></a></dd>
-  <dd>Jitsi visioconference : <a id="link3" src="https://meet.jit.si/test"></a></dd>
+  <dd>Jitsi visioconference : <a id="link3" class="tooltip" onclick="openvisio()" src="" title="Click to add to extra tab 1" href="javascript:void(0)">https://meet.jit.si/test></a></dd>
   <dd>Symbolic computations (Xcas) : <a id="link4" src="https://algoscript.info/xcas">https://algoscript.info/xcas</a></dd>  
   <dd>Universal document viewer : <a id="link5" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
   </dl>
