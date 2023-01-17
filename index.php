@@ -5,9 +5,6 @@
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-cache, must-revalidate');
 
-
-    // Dans cette version, tentative d'inclusion d'un retour de type "étudiant" dans la version enseignant
-
 ?>
 <?php
 
