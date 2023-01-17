@@ -285,7 +285,7 @@ function setLanguage() {
 </head>
 <body onload=" Init(); setTimeout(Lancer,300);" style="width: 100%; height: 100%;">
 
-<div id="micon" onclick="remote('micro'); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
+<div id="micon" onclick="remote('micro '+document.getElementById('appid').value); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><p><i class='material-icons big' style="font-size: 5em;">record_voice_over</i></p></div>
 <div id="speech_before" onclick="remote('backward');">Before</div>
 <div id="speech_current" onclick="remote('playcurrent');">Current</div>
 <div id="speech_after" onclick="remote('forward');">After</div>
@@ -295,6 +295,7 @@ function setLanguage() {
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward');">&#8592;</div>
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward');">&#8594;</div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
+<input type="text" style="display: none;" name="appid" id="appid" value="<?php echo $appid; ?>" />
 
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>

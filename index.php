@@ -1260,7 +1260,7 @@ function remote() {
       if (order == 'skipforward') SkipForward();
       if (order == 'skipbackward') SkipBackward();
       if (order == 'playcurrent') {SkipBackward(); Forward();}
-      if (order == 'micro') Micro();
+      if (order.substr(0,"micro".length)=="micro") Micro();
       if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length).trim());
     }
   };
