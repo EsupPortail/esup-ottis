@@ -4,6 +4,10 @@
     header('Expires: 0');
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-cache, must-revalidate');
+
+
+    // Dans cette version, tentative d'inclusion d'un retour de type "étudiant" dans la version enseignant
+
 ?>
 <?php
 
@@ -21,6 +25,8 @@ if (isset($_GET["ROOMID"]))
 else {
   $classroomid = md5(gmdate("Y-m-d\TH:i:s\Z"));
 }
+
+$appid=md5(gmdate("Y-m-d\TH:i:s\Z")."XXX");
 
 if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://app.wooclap.com/events/".$_GET["WOOCLAPKEY"]."/0";
@@ -57,7 +63,6 @@ fclose($fd);
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
-
 
 	<style>
 
@@ -223,7 +228,7 @@ input[type=text] {
   text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
 
-#partialtitre {
+#partialtitre, #studentfeedback {
   transition: 1s ease;
   transition-property: background-color, color, box-shadow, text-shadow, font-size;
   border-radius: 25px;
@@ -444,6 +449,161 @@ input[type=text] {
 
 	</style>
 
+<script type="text/javascript">
+// Student feedback
+
+function StudentParleThen(txt,f) {
+  EcrireFeedback(txt);
+  setTimeout(f,100*txt.length);
+}
+
+var Studentinputnumber=-1;
+
+function StudentTranslate(ch, l, linput, lineid) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      //console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      if ((! response["error"]) && response["data"]["translations"]) {
+        StudentToSay[''+lineid]=(response["data"]["translations"][0]["translatedText"]);
+//        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
+        EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
+      } else {
+        EcrireFeedback("---- Translation ERROR ----")
+      }
+
+    }
+  };
+  xhr.onloadend = function () {StudentCompleteTranslation();};
+  xhr.send();
+}
+
+function StudentTranslate2(ch, l, linput, lineid) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+  xhr.onloadend = function () {StudentCompleteTranslation2();};
+  xhr.send();
+}
+
+
+var StudentToTranslate=[];
+var StudentToTranslate2=[];
+var Studentcompletespeechactive=false;
+
+function StudentCompleteTranslation() {
+  if (StudentToTranslate.length>0) {
+    var L=StudentToTranslate[0];
+    StudentToTranslate.splice(0,1);
+    if (subtitle_language.substr(0,2).toLowerCase() != L[1].substr(0,2)) {
+      StudentTranslate(L[2], subtitle_language.substr(0,2).toLowerCase(), L[1].substr(0,2),L[0]);
+    } else {
+        StudentToSay[''+L[0]]=L[2];//,CompleteTranslation);
+        EcrireFeedback(""+L[2]);
+        StudentCompleteTranslation();
+    }
+  } else {if (! Studentcompletespeechactive) {Studentcompletespeechactive=true; StudentCompleteSpeech();}}
+}
+
+function StudentCompleteTranslation2() {
+  if (StudentToTranslate2.length>0) {
+    var L=StudentToTranslate2[0];
+    StudentToTranslate2.splice(0,1);
+    if (subtitle_language.substr(0,2).toLowerCase() != L[1].substr(0,2)) {
+      // Ecrire("Push : "+L[2]);
+      StudentTranslate2(L[2], subtitle_language.substr(0,2).toLowerCase(), L[1].substr(0,2),L[0]);
+    } else StudentCompleteTranslation2();
+  } else setTimeout(StudentCompleteTranslation,10);
+}
+
+var StudentToSay=[];
+var Studentcurrentdiscours=-1;
+var Studentgotolive=false;
+
+function StudentCompleteSpeech() {
+  var nextdiscours = Studentcurrentdiscours;
+  for(var i=1; i<1000; i++) {
+    if (StudentToSay[''+(Studentcurrentdiscours+i)]) {
+      nextdiscours = Studentcurrentdiscours+i;
+      break;
+    }
+  }
+  if (Studentgotolive) {
+    //console.log('Restart Speech');
+    //console.log('Discours : '+currentdiscours+'   '+nextdiscours)
+    for(var i=1000; i>0; i--) {
+    if (StudentToSay[''+(Studentcurrentdiscours+i)]) {
+      nextdiscours = Studentcurrentdiscours+i;
+      break;
+    }
+    //console.log('Discours next : '+currentdiscours+'   '+nextdiscours)
+    Studentgotolive=false;
+  }
+  }
+    //Ecrire(currentdiscours+'   '+nextdiscours);
+    if (nextdiscours > Studentcurrentdiscours) {
+      var L=StudentToSay[''+nextdiscours];
+      L=L.replace("&nbsp;"," ");
+      StudentParleThen(L,StudentCompleteSpeech);
+      Studentcurrentdiscours=nextdiscours;
+    } else Studentcompletespeechactive=false;
+  
+}
+
+var Studentcurrentorder_readtext=0;
+var Studentmaxorder_readtext=-1;
+var StudentAllPhrases=[];
+
+function StudentreadText() {
+  var synthesison=true;
+  if (synthesison) {
+  if (document.getElementById('classroomid').value != "") {
+	var request = new XMLHttpRequest();
+	request.open("POST", "readtext.php");
+  Studentcurrentorder_readtext++;
+  var f=new FormData();
+  f.append('lineid',Studentinputnumber);
+  f.append('ORDER',Studentcurrentorder_readtext);
+  f.append('ROOMID',document.getElementById('classroomid').value);
+	request.send(f);
+	request.onload = function(event) {
+    var T=request.responseText.split('\n');
+    var maxi=-1;
+    var readedorder=('0'+T[0]).split(';')[0]*1;
+    if (readedorder>Studentmaxorder_readtext) {
+        Studentmaxorder_readtext=readedorder;
+    for(var i=0; i<T.length; i++) {
+      var L=T[i].split(';');
+      if (L.length>3) {
+      if (1*L[1]>maxi) maxi=1*L[1];
+      if (StudentAllPhrases[1*L[1]] == undefined) {
+        StudentAllPhrases[1*L[1]] = true;
+        //EcrireNB(L[3]);
+        StudentToTranslate.push([L[1],L[2],L[3]]);
+        StudentToTranslate2.push([L[1],L[2],L[3]]);
+      }
+        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+        Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+      else {
+        Parle(L[2]);
+        Ecrire(""+L[2]);
+      }*/
+      }
+      }
+    }
+    //alert(maxi);
+    if (maxi>Studentinputnumber) Studentinputnumber=maxi;
+
+    StudentCompleteTranslation2();
+  };
+}
+}
+}
+
+
+</script>
 
 <script type="text/javascript">
 
@@ -1017,6 +1177,11 @@ function EcrirePartial(ch) {
   document.getElementById('partialtitre').innerHTML=ch;
 }
 
+function EcrireFeedback(ch) {
+  EcrireNB(ch);
+  document.getElementById('studentfeedback').innerHTML=ch;
+}
+
 function Ecrire(ch) {
   if (document.getElementById('output').innerHTML == "")
     document.getElementById('output').innerHTML=ch;
@@ -1077,15 +1242,23 @@ function LaunchRemote() {
   setTimeout(LaunchRemote,delayRemote);
 }
 
+var delayStudentReadtext = 500;
+function LaunchStudentReadText() {
+  StudentreadText();
+  setTimeout(LaunchStudentReadText,delayStudentReadtext);
+}
+
 function FreeResources() {
+  delayStudentReadtext = 1000;
   delayReadtextQ = 1000;
   delayRemote = 1000;
-  setTimeout(function () {delayReadtextQ=100; delayRemote=200;},2000);
+  setTimeout(function () {delayStudentReadtext=500; delayReadtextQ=100; delayRemote=200;},2000);
 }
 
 function Lancer() {
   LaunchRemote();
   LaunchReadTextQ();
+  LaunchStudentReadText();
   setInterval(ScrollBar,scrollinterval);
 }
 
@@ -1142,6 +1315,7 @@ function Init() {
   ChangeColor('titre',document.getElementById('ColorTitre').value);
   ChangeColor('titreleft',document.getElementById('ColorTitre').value);
   ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
+  ChangeColor('studentfeedback',document.getElementById('Colorstudentfeedback').value);
 
   //setTimeout(Micro,1000);
   //setTimeout(Micro,1500);
@@ -1149,12 +1323,14 @@ function Init() {
   window.addEventListener('offline', (event) => {
     console.log("La connexion au réseau est perdue.");
     document.getElementById('connexion').style.visibility='visible';
+    delayStudentReadtext=100000;
     delayReadtextQ=100000;
     delayRemote=100000;
   });
  window.addEventListener('online', (event) => {
     console.log("La connexion au réseau est rétablie.");
     document.getElementById('connexion').style.visibility='hidden';
+    delayStudentReadtext=500;
     delayReadtextQ=100; 
     delayRemote=200;
  });
@@ -1249,6 +1425,7 @@ function remote() {
 	request.open("POST", "saveremoteorder.php");
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
+  f.append('APPID',document.getElementById('appid').value);
   f.append('ORDER','');
 	request.send(f);
 	request.onload = function(event) {
@@ -1260,7 +1437,10 @@ function remote() {
       if (order == 'skipforward') SkipForward();
       if (order == 'skipbackward') SkipBackward();
       if (order == 'playcurrent') {SkipBackward(); Forward();}
-      if (order.substr(0,"micro".length)=="micro") Micro();
+      if (order.substr(0,"micro".length)=="micro") {
+        var fromremote=order.substr("micro".length).trim();
+        if (fromremote == document.getElementById('appid').value || fromremote=='') Micro();
+      }
       if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length).trim());
     }
   };
@@ -1293,7 +1473,14 @@ function readTextQ() {
     for(var i=inputnumberQ; i<T.length; i++) {
       var L=T[i].split(';');
       if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
-        console.log('Opening an extra tab')
+        console.log('Opening an extra tab');
+        // feedback
+        var resource = L[2].replace("[extratab","").replace("]","").split("|");
+        var tabnumber=resource[0];
+        var url=resource[1];
+        //showET(url,tabnumber);
+        // A compléter, il faut modifier les champs de l'interface et appeler la bonne fonction showET.
+
       } else {
         if (L[2].indexOf("[newstudentarrived]")>= 0) {
           NBconnectedusers++;
@@ -1611,6 +1798,7 @@ function sendnotebook() {
 <div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titreright').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';" ></div>
 <div id="partialtitre"></div>
+<div id="studentfeedback"></div>
 
 
 <div id="scrollbar"></div>
@@ -1678,7 +1866,21 @@ function sendnotebook() {
 <option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
-<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value;">
+<li>Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);">
+<option value="0,0,255|0,0,255">blue</option>
+<option value="0,255,0|0,100,0">green</option>
+<option value="255,0,0|100,0,0" >red</option>
+<option value="255,0,255|100,0,255" >purple</option>
+<option value="255,255,0|100,100,0" >yellow</option>
+<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
+<option value="0,0,0|0,0,0" selected>black</option>
+<option value="255,255,255|255,255,255|0,0,0">white</option>
+  </select></li>
+<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
@@ -1687,6 +1889,7 @@ function sendnotebook() {
   </select></li>
   <li>&nbsp;</li>
 	    <li title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
@@ -1789,7 +1992,7 @@ function sendnotebook() {
     <h3>For teachers</h3>
     <div>
     <ul style="list-style-type: none;">
-        <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});"/></li>
+        <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>&APPID=<?php echo $appid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang+'&APPID='+document.getElementById('appid').value; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});"/></li>
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>
@@ -1878,15 +2081,19 @@ $('#bar').on('keydown keyup keypress', function(e) {
 
 
 function fixTitle() {
-  var e=document.getElementById("partialtitre");
+  for(var f in {"partialtitre":1,"studentfeedback":1}) {
+  var e=document.getElementById(f);
   e.style.top=(window.innerHeight-e.style.height-200-10)+'px';
+  }
 }
 
 function MinTitlePos() {
-  var e=document.getElementById("partialtitre");
+  for(var f in {"partialtitre":1,"studentfeedback":1}) {
+  var e=document.getElementById(f);
   var postop=1*(e.style.top.replace('px',''));
   if (postop>window.innerHeight-50) {
     e.style.top=(window.innerHeight-50)+'px';
+  }
   }
 }
 
@@ -2054,12 +2261,12 @@ function MinTitlePos() {
 })(jQuery);
 
 
-  $( function() {
-    fixTitle();
-    //$( "#titre" ).draggable();
-    $("#partialtitre").draggableTouch();
-
-  } );
+$( function() {
+  fixTitle();
+  //$( "#titre" ).draggable();
+  $("#partialtitre").draggableTouch();
+  $("#studentfeedback").draggableTouch();
+} );
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();

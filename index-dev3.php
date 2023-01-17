@@ -18,7 +18,7 @@ if ($uid == "") $uid="e18XXX";
 
 if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 
-//AuthenticateNotStudent($uid);
+AuthenticateNotStudent($uid);
 
 if (isset($_GET["ROOMID"]))
   $classroomid = $_GET["ROOMID"];
