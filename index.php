@@ -1478,8 +1478,10 @@ function readTextQ() {
         var resource = L[2].replace("[extratab","").replace("]","").split("|");
         var tabnumber=resource[0];
         var url=resource[1];
-        //showET(url,tabnumber);
-        // A compléter, il faut modifier les champs de l'interface et appeler la bonne fonction showET.
+        if (document.getElementById('extraurl'+tabnumber).value != url) {
+          document.getElementById('extraurl'+tabnumber).value=url;
+          showET(document.getElementById('embedET'+tabnumber),tabnumber);
+        }
 
       } else {
         if (L[2].indexOf("[newstudentarrived]")>= 0) {
