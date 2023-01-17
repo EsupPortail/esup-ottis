@@ -26,6 +26,8 @@ else {
   $classroomid = md5(gmdate("Y-m-d\TH:i:s\Z"));
 }
 
+$appid=md5(gmdate("Y-m-d\TH:i:s\Z")."XXX");
+
 if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://app.wooclap.com/events/".$_GET["WOOCLAPKEY"]."/0";
 } else {
@@ -1423,6 +1425,7 @@ function remote() {
 	request.open("POST", "saveremoteorder.php");
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
+  f.append('APPID',document.getElementById('appid').value);
   f.append('ORDER','');
 	request.send(f);
 	request.onload = function(event) {
@@ -1434,7 +1437,10 @@ function remote() {
       if (order == 'skipforward') SkipForward();
       if (order == 'skipbackward') SkipBackward();
       if (order == 'playcurrent') {SkipBackward(); Forward();}
-      if (order == 'micro') Micro();
+      if (order.substr(0,"micro".length)=="micro") {
+        var fromremote=order.substr("micro".length).trim();
+        if (fromremote == document.getElementById('appid').value) Micro();
+      }
       if (order.substr(0,"language".length)=="language") setLanguageStr(order.substr("language".length).trim());
     }
   };
@@ -1467,7 +1473,14 @@ function readTextQ() {
     for(var i=inputnumberQ; i<T.length; i++) {
       var L=T[i].split(';');
       if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
-        console.log('Opening an extra tab')
+        console.log('Opening an extra tab');
+        // feedback
+        var resource = L[2].replace("[extratab","").replace("]","").split("|");
+        var tabnumber=resource[0];
+        var url=resource[1];
+        //showET(url,tabnumber);
+        // A compléter, il faut modifier les champs de l'interface et appeler la bonne fonction showET.
+
       } else {
         if (L[2].indexOf("[newstudentarrived]")>= 0) {
           NBconnectedusers++;
@@ -1876,6 +1889,7 @@ function sendnotebook() {
   </select></li>
   <li>&nbsp;</li>
 	    <li title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
@@ -1978,7 +1992,7 @@ function sendnotebook() {
     <h3>For teachers</h3>
     <div>
     <ul style="list-style-type: none;">
-        <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});"/></li>
+        <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>&APPID=<?php echo $appid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang+'&APPID='+document.getElementById('appid').value; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});"/></li>
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
     </ul>

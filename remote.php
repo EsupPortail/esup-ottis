@@ -16,6 +16,8 @@ if (isset($_GET["ROOMID"])) {
 
 $lang="";
 if (isset($_GET["LANG"])) $lang=$_GET["LANG"];
+$appid="";
+if (isset($_GET["APPID"])) $appid=$_GET["APPID"];
 
 ?>
 <!doctype html>
