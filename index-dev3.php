@@ -447,6 +447,161 @@ input[type=text] {
 
 	</style>
 
+<script type="text/javascript">
+// Student feedback
+
+function StudentParleThen(txt,f) {
+  EcrireFeedback(txt);
+  setTimeout(f,100*txt.length);
+}
+
+var Studentinputnumber=-1;
+
+function StudentTranslate(ch, l, linput, lineid) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      //console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      if ((! response["error"]) && response["data"]["translations"]) {
+        ToSay[''+lineid]=(response["data"]["translations"][0]["translatedText"]);
+//        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
+        EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
+      } else {
+        EcrireFeedback("---- Translation ERROR ----")
+      }
+
+    }
+  };
+  xhr.onloadend = function () {StudentCompleteTranslation();};
+  xhr.send();
+}
+
+function StudentTranslate2(ch, l, linput, lineid) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+  xhr.onloadend = function () {StudentCompleteTranslation2();};
+  xhr.send();
+}
+
+
+var StudentToTranslate=[];
+var StudentToTranslate2=[];
+var Studentcompletespeechactive=false;
+
+function StudentCompleteTranslation() {
+  if (StudentToTranslate.length>0) {
+    var L=StudentToTranslate[0];
+    StudentToTranslate.splice(0,1);
+    if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2)) {
+      StudentTranslate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+    } else {
+        StudentToSay[''+L[0]]=L[2];//,CompleteTranslation);
+        EcrireFeedback(""+L[2]);
+        StudentCompleteTranslation();
+    }
+  } else {if (! Studentcompletespeechactive) {Studentcompletespeechactive=true; StudentCompleteSpeech();}}
+}
+
+function StudentCompleteTranslation2() {
+  if (StudentToTranslate2.length>0) {
+    var L=StudentToTranslate2[0];
+    StudentToTranslate2.splice(0,1);
+    if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2)) {
+      // Ecrire("Push : "+L[2]);
+      StudentTranslate2(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+    } else StudentCompleteTranslation2();
+  } else setTimeout(StudentCompleteTranslation,10);
+}
+
+var StudentToSay=[];
+var Studentcurrentdiscours=-1;
+var Studentgotolive=false;
+
+function StudentCompleteSpeech() {
+  var nextdiscours = Studentcurrentdiscours;
+  for(var i=1; i<1000; i++) {
+    if (StudentToSay[''+(Studentcurrentdiscours+i)]) {
+      nextdiscours = Studentcurrentdiscours+i;
+      break;
+    }
+  }
+  if (Studentgotolive) {
+    //console.log('Restart Speech');
+    //console.log('Discours : '+currentdiscours+'   '+nextdiscours)
+    for(var i=1000; i>0; i--) {
+    if (StudentToSay[''+(Studentcurrentdiscours+i)]) {
+      nextdiscours = Studentcurrentdiscours+i;
+      break;
+    }
+    //console.log('Discours next : '+currentdiscours+'   '+nextdiscours)
+    Studentgotolive=false;
+  }
+  }
+    //Ecrire(currentdiscours+'   '+nextdiscours);
+    if (nextdiscours > Studentcurrentdiscours) {
+      var L=StudentToSay[''+nextdiscours];
+      L=L.replace("&nbsp;"," ");
+      StudentParleThen(L,StudentCompleteSpeech);
+      Studentcurrentdiscours=nextdiscours;
+    } else Studentcompletespeechactive=false;
+  
+}
+
+var Studentcurrentorder_readtext=0;
+var Studentmaxorder_readtext=-1;
+var StudentAllPhrases=[];
+
+function StudentreadText() {
+  var synthesison=true;
+  if (synthesison) {
+  if (document.getElementById('classroomid').value != "") {
+	var request = new XMLHttpRequest();
+	request.open("POST", "readtext.php");
+  Studentcurrentorder_readtext++;
+  var f=new FormData();
+  f.append('lineid',inputnumber);
+  f.append('ORDER',currentorder_readtext);
+  f.append('ROOMID',document.getElementById('classroomid').value);
+	request.send(f);
+	request.onload = function(event) {
+    var T=request.responseText.split('\n');
+    var maxi=-1;
+    var readedorder=('0'+T[0]).split(';')[0]*1;
+    if (readedorder>Studentmaxorder_readtext) {
+        Studentmaxorder_readtext=readedorder;
+    for(var i=0; i<T.length; i++) {
+      var L=T[i].split(';');
+      if (L.length>3) {
+      if (1*L[1]>maxi) maxi=1*L[1];
+      if (StudentAllPhrases[1*L[1]] == undefined) {
+        StudentAllPhrases[1*L[1]] = true;
+        EcrireNB(L[3]);
+        StudentToTranslate.push([L[1],L[2],L[3]]);
+        StudentToTranslate2.push([L[1],L[2],L[3]]);
+      }
+        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+        Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+      else {
+        Parle(L[2]);
+        Ecrire(""+L[2]);
+      }*/
+      }
+      }
+    }
+    //alert(maxi);
+    if (maxi>Studentinputnumber) Studentinputnumber=maxi;
+
+    StudentCompleteTranslation2();
+  };
+}
+}
+}
+
+
+</script>
 
 <script type="text/javascript">
 
@@ -1084,15 +1239,23 @@ function LaunchRemote() {
   setTimeout(LaunchRemote,delayRemote);
 }
 
+var delayStudentReadtext = 500;
+function LaunchStudentReadText() {
+  StudentreadText();
+  setTimeout(LaunchStudentReadText,delayStudentReadtext);
+}
+
 function FreeResources() {
+  delayStudentReadtext = 1000;
   delayReadtextQ = 1000;
   delayRemote = 1000;
-  setTimeout(function () {delayReadtextQ=100; delayRemote=200;},2000);
+  setTimeout(function () {delayStudentReadtext=500; delayReadtextQ=100; delayRemote=200;},2000);
 }
 
 function Lancer() {
   LaunchRemote();
   LaunchReadTextQ();
+  LaunchStudentReadText();
   setInterval(ScrollBar,scrollinterval);
 }
 
@@ -1157,12 +1320,14 @@ function Init() {
   window.addEventListener('offline', (event) => {
     console.log("La connexion au réseau est perdue.");
     document.getElementById('connexion').style.visibility='visible';
+    delayStudentReadtext=100000;
     delayReadtextQ=100000;
     delayRemote=100000;
   });
  window.addEventListener('online', (event) => {
     console.log("La connexion au réseau est rétablie.");
     document.getElementById('connexion').style.visibility='hidden';
+    delayStudentReadtext=500;
     delayReadtextQ=100; 
     delayRemote=200;
  });
