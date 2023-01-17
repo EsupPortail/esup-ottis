@@ -2261,13 +2261,12 @@ function MinTitlePos() {
 })(jQuery);
 
 
-  $( function() {
-    fixTitle();
-    //$( "#titre" ).draggable();
-    $("#partialtitre").draggableTouch();
-    $("#studentfeedback").draggableTouch();
-
-  } );
+$( function() {
+  fixTitle();
+  //$( "#titre" ).draggable();
+  $("#partialtitre").draggableTouch();
+  $("#studentfeedback").draggableTouch();
+} );
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
