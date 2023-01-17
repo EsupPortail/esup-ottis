@@ -578,7 +578,7 @@ function StudentreadText() {
       if (1*L[1]>maxi) maxi=1*L[1];
       if (StudentAllPhrases[1*L[1]] == undefined) {
         StudentAllPhrases[1*L[1]] = true;
-        EcrireNB(L[3]);
+        //EcrireNB(L[3]);
         StudentToTranslate.push([L[1],L[2],L[3]]);
         StudentToTranslate2.push([L[1],L[2],L[3]]);
       }
@@ -1176,6 +1176,7 @@ function EcrirePartial(ch) {
 }
 
 function EcrireFeedback(ch) {
+  EcrireNB(ch);
   document.getElementById('studentfeedback').innerHTML=ch;
 }
 
