@@ -1854,7 +1854,7 @@ function opentab(e) {
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
 <li><label for="classroomlanguage">Speaker language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
+  <select id="classroomlanguage" onchange="setLanguageInput(this.value); Micro(); Micro();">
   </select>
 </li>
 <li style="display: none;"><label for="recognitionon">Speech recognition active ? </label>
