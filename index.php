@@ -1441,7 +1441,7 @@ function remote() {
   f.append('APPID',document.getElementById('appid').value);
   f.append('ORDER','');
 	request.send(f);
-    AbortTimeout(request;
+    AbortTimeout(request);
 
 	request.onload = function(event) {
     var order=request.responseText;
