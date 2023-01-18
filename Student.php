@@ -586,6 +586,9 @@ function increasependingrequests() {
 function decreasependingrequests() {
   document.getElementById('nbrequests').innerHTML=document.getElementById('nbrequests').innerHTML*1-1;
 }
+function AbortTimeout(r) {
+  setTimeout(function() {r.abort();},1000);
+}
 
 function Translate(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
@@ -608,6 +611,7 @@ function Translate(ch, l, linput, lineid) {
   };
   xhr.onloadend = function () {decreasependingrequests(); CompleteTranslation();};
   xhr.send();
+  AbortTimeout(xhr);
 }
 
 function Translate2(ch, l, linput, lineid) {
@@ -616,6 +620,7 @@ function Translate2(ch, l, linput, lineid) {
   increasependingrequests();
   xhr.onloadend = function () {decreasependingrequests(); CompleteTranslation2();};
   xhr.send();
+    AbortTimeout(xhr);
 }
 
 
@@ -763,6 +768,7 @@ function readText() {
   f.append('ORDER',currentorder_readtext);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     decreasependingrequests();
     var T=request.responseText.split('\n');
@@ -810,6 +816,7 @@ function readImage() {
   f.append('random',currentrandom);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     decreasependingrequests();
     if (request.responseText != "") {
@@ -830,6 +837,7 @@ function Synchronize(pin) {
   var f=new FormData();
   f.append('pincode',pin);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     decreasependingrequests();
     if (request.responseText != "") {
@@ -949,6 +957,7 @@ function readTextQ() {
   f.append('lineid',0);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     decreasependingrequests();
     var Told=request.responseText.split('\n');
@@ -995,6 +1004,7 @@ function saveTextQ(ch) {
   f.append('inputlanguage',builtin_voice.lang);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     decreasependingrequests();
     readTextQ();
@@ -1021,6 +1031,7 @@ function TranslateQ(ch, l, linput,name,order) {
     }
   };
   xhr.send();
+    AbortTimeout(xhr);
 }
 
 function GoFS() {
@@ -1174,6 +1185,7 @@ function EnvoiMail() {
   		});
 		  XHR.open('POST', 'sendamail.php');
   		XHR.send(FD);
+        AbortTimeout(XHR);
  	    // dialog.dialog( "close" );		
     }
 

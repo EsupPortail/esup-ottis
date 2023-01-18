@@ -454,6 +454,9 @@ function StudentParleThen(txt,f) {
   setTimeout(f,100*txt.length);
 }
 
+function AbortTimeout(r) {
+  setTimeout(function() {r.abort();},1000);
+}
 var Studentinputnumber=-1;
 
 function StudentTranslate(ch, l, linput, lineid) {
@@ -476,6 +479,8 @@ function StudentTranslate(ch, l, linput, lineid) {
   };
   xhr.onloadend = function () {StudentCompleteTranslation();};
   xhr.send();
+  AbortTimeout(xhr);
+
 }
 
 function StudentTranslate2(ch, l, linput, lineid) {
@@ -483,6 +488,7 @@ function StudentTranslate2(ch, l, linput, lineid) {
   xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
   xhr.onloadend = function () {StudentCompleteTranslation2();};
   xhr.send();
+  AbortTimeout(xhr);
 }
 
 
@@ -559,6 +565,7 @@ function StudentreadText() {
   if (document.getElementById('classroomid').value != "") {
 	var request = new XMLHttpRequest();
 	request.open("POST", "readtext.php");
+    AbortTimeout(request);
   Studentcurrentorder_readtext++;
   var f=new FormData();
   f.append('lineid',Studentinputnumber);
@@ -812,6 +819,7 @@ function Translate(ch, l, linput) {
   var d_begin=Date.now();
   console.log(d_begin+" : Sending for translation "+ch+" from "+linput+" to "+l)
   xhr.send();
+    AbortTimeout(xhr);
   //EcrirePartial("Request sent....");
 }
 
@@ -840,6 +848,7 @@ function TranslateThen(ch, l, linput,f) {
   //console.log(d_begin+" : Sending for translation "+ch+" from "+linput+" to "+l);
   //T_durations[ch]=d;
   xhr.send();
+    AbortTimeout(xhr);
 }
 
 
@@ -943,6 +952,7 @@ function ShowImage(n) {
     f.append("image", blob);
     f.append('ROOMID',document.getElementById('classroomid').value);
   	request.send(f);
+      AbortTimeout(request);
   //	request.onload = function(event) {};
 }
 }
@@ -1008,6 +1018,7 @@ function saveremotespeech() {
   f.append('ROOMID',document.getElementById('classroomid').value);
   f.append('SPEECH',txt);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     var data=request.responseText;
   };
@@ -1088,6 +1099,7 @@ function SlideNotes() {
   };
   */
   xhr.send(formdata);
+    AbortTimeout(xhr);
 }
 
 
@@ -1211,6 +1223,8 @@ function saveText(ch) {
   f.append('inputlanguage',inputlanguage);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
+
 //	request.onload = function(event) {};
 }
 
@@ -1224,6 +1238,8 @@ function saveTextNB(ch) {
   f.append('inputlanguage',builtin_language);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
+
 //	request.onload = function(event) {};
 }
 
@@ -1425,6 +1441,8 @@ function remote() {
   f.append('APPID',document.getElementById('appid').value);
   f.append('ORDER','');
 	request.send(f);
+    AbortTimeout(request;
+
 	request.onload = function(event) {
     var order=request.responseText;
     if (order != '') {
@@ -1457,6 +1475,7 @@ function readTextQ() {
   f.append('lineid',0);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     var Told=request.responseText.split('\n');
     var k=0;
@@ -1551,6 +1570,7 @@ function saveTextQ(ch) {
   f.append('inputlanguage',builtin_language);
   f.append('ROOMID',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
   request.onload = function(event) {
     readTextQ();
   };
@@ -1575,6 +1595,7 @@ function TranslateQ(ch, l, linput,name,order) {
     }
   };
   xhr.send();
+    AbortTimeout(xhr);
 }
 
 function FromCompleteLessonToTable() {
@@ -1641,6 +1662,7 @@ function Synchronize(pin) {
   var f=new FormData();
   f.append('pincode',pin);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {
     if (request.responseText != "") {
       document.getElementById('classroomid').value=request.responseText;
@@ -1663,6 +1685,7 @@ function Synchronize_save() {
   f.append('pincode',document.getElementById('pincode').value);
   f.append('roomid',document.getElementById('classroomid').value);
 	request.send(f);
+    AbortTimeout(request);
 	request.onload = function(event) {};
   }
 }
@@ -2317,6 +2340,7 @@ var sizepincodediv=1;
   		});
 		XHR.open('POST', 'sendamail.php');
   		XHR.send(FD);
+        AbortTimeout(XHR);
  	    dialog.dialog( "close" );		
     }
  
