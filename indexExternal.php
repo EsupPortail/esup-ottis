@@ -19,7 +19,7 @@ while($ligne=fgetcsv($fd,4096,";")) {
     $dateid=1*trim($ligne[1]);
      echo $id." --- ".($dateid-$today);
     if ($id !="") {
-        if (($dateid-$today) < 300) {//3600*24) {
+        if (abs($today-$dateid) < 300) {//3600*24) {
             $outids.=$id.";".$dateid."\n";
             if ($roomid == $id) $find=true;
         }
