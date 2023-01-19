@@ -606,6 +606,11 @@ function StudentreadText() {
 }
 }
 
+function myalert(ch) {
+  ch=ch.replaceAll("\n","<br/>");
+  document.getElementById('dialog-invite-p').innerHTML=ch;
+  $( "#dialog-invite" ).dialog("open");
+}
 
 function InviteExternal() {
   if (document.getElementById('classroomid').value != "") {
@@ -2086,6 +2091,11 @@ function opentab(e) {
   </form>
 </div>
 
+<div id="dialog-invite" title="External guest token creation">
+  <p id="dialog-invite-p">
+  </p>
+</div>
+ 
 
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>
@@ -2316,6 +2326,19 @@ $( function() {
   $("#partialtitre").draggableTouch();
   $("#studentfeedback").draggableTouch();
 } );
+
+  $( function() {
+    $( "#dialog-invite" ).dialog({
+      autoOpen: false,
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );
+
 
 function sendclick() {
   var tosend = document.getElementById('question').value.replaceAll('\n','').trim();
