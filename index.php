@@ -12,6 +12,7 @@ include("Security/Authentification.php");
 
 $uid = $_SERVER['PHP_AUTH_USER'];
 if ($uid == "") $uid="e18XXX";
+if ($external) $uit="external";
 
 if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 
