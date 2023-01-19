@@ -17,9 +17,11 @@ $find=false;
 while($ligne=fgetcsv($fd,";",4096)) {
     $id=$ligne[0];
     $dateid=1*$ligne[1];
-    if ($dateid-$today < 3600*24) {
-        $outids.=$id.";".$dateid."\n";
-        if ($roomid == $id) $find=true;
+    if ($id !="") {
+        if (($dateid-$today) < 3600*24) {
+            $outids.=$id.";".$dateid."\n";
+            if ($roomid == $id) $find=true;
+        }
     }
 }
 fclose($fd);
