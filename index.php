@@ -607,6 +607,25 @@ function StudentreadText() {
 }
 
 
+function InviteExternal() {
+  if (document.getElementById('classroomid').value != "") {
+	  var request = new XMLHttpRequest();
+	  request.open("POST", "createExternal.php");
+    AbortTimeout(request);
+    var f=new FormData();
+    f.append('ROOMID',document.getElementById('classroomid').value);
+	  request.send(f);
+	  request.onload = function(event) {
+      var T=request.responseText.trim();
+      if (T == 'ok') {
+        var link=document.getElementById('teacherlink').href.replace("index.php","indexExternal.php");
+        navigator.clipboard.writeText(link);
+        alert("External guest created !\nThe following link has been copied. It must be used in the next 24 hours.\n"+link);
+      }
+    }
+  }
+}
+
 </script>
 
 <script type="text/javascript">
@@ -2024,7 +2043,7 @@ function opentab(e) {
     <ul style="list-style-type: none;">
         <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>&APPID=<?php echo $appid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang+'&APPID='+document.getElementById('appid').value; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});"/></li>
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
-        <li>Teacher's application : <a href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a></li>
+        <li>Teacher's application : <a id="teacherlink" href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<button class="tooltip" title="Create a valid link allowing a non Nantes University user to access the teacher application. The created link expires 24 hours after its creation." onclick="InviteExternal();">Invite an external guest</button></li>
     </ul>
     </div>
         <h3>Chat only</h3>
