@@ -14,9 +14,10 @@ $today=1*gmdate("U");
 $fd = fopen('Security/externalTokens.txt','r');
 $outids="";
 $find=false;
-while($ligne=fgetcsv($fd,";",4096)) {
-    $id=$ligne[0];
-    $dateid=1*$ligne[1];
+while($ligne=fgetcsv($fd,4096,";")) {
+    $id=trim($ligne[0]);
+    $dateid=1*trim($ligne[1]);
+    echo $id." --- ".$dateid;
     if ($id !="") {
         if (($dateid-$today) < 3600*24) {
             $outids.=$id.";".$dateid."\n";
