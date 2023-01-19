@@ -17,7 +17,7 @@ $find=false;
 while($ligne=fgetcsv($fd,4096,";")) {
     $id=trim($ligne[0]);
     $dateid=1*trim($ligne[1]);
-    // echo $id." --- ".$dateid;
+     echo $id." --- ".($dateid-$today);
     if ($id !="") {
         if (($dateid-$today) < 300) {//3600*24) {
             $outids.=$id.";".$dateid."\n";
