@@ -7,10 +7,13 @@
 
 include("../Security/Authentification.php");
 
-$uid = $_SERVER['PHP_AUTH_USER'];
+$uid="";
+if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
 if ($uid == "") $uid="e18XXX";
+if ($external) $uid="external";
 
-if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
+//if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
+$fake=false;
 
 AuthenticateNotStudent($uid);
 
