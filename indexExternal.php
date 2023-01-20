@@ -20,7 +20,7 @@ while($ligne=fgetcsv($fd,4096,";")) {
     // echo $id." --- ".($today-$dateid);
     if ($id !="") {
         if (abs($today-$dateid) < $duration) {
-            $outids.=$id.";".$dateid."\n";
+            $outids.=$id.";".$dateid.";".$duration."\n";
             if ($roomid == $id) $find=true;
         }
     }
