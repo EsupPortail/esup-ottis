@@ -1,6 +1,5 @@
 <?php 
 
-//echo "<p>Bonjour</p>";
 $external=true;
 $roomid="unknown";
 if (isset($_GET["ROOMID"]))
@@ -17,9 +16,10 @@ $find=false;
 while($ligne=fgetcsv($fd,4096,";")) {
     $id=trim($ligne[0]);
     $dateid=1*trim($ligne[1]);
+    if (isset($ligne[3])) $duration=1*$ligne[3]; else $duration=3600*24;
     // echo $id." --- ".($today-$dateid);
     if ($id !="") {
-        if (abs($today-$dateid) < 3600*24) {
+        if (abs($today-$dateid) < $duration) {
             $outids.=$id.";".$dateid."\n";
             if ($roomid == $id) $find=true;
         }
