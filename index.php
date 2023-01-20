@@ -2354,6 +2354,8 @@ $( function() {
     $( "#dialog-invite" ).dialog({
       autoOpen: false,
       modal: true,
+      height: "auto",
+      width: "auto",
       buttons: {
         Ok: function() {
           $( this ).dialog( "close" );
