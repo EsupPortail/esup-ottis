@@ -19,8 +19,12 @@ if ($external) $uid="external";
 $fake=false;
 
 AuthenticateNotStudent($uid);
-$userprivileges=2;
+
 // Mettre en place une liste de privilégiés
+// =1 peut inviter et fixer la durée de l'invitation
+// =2 peut inviter pour 24h
+// sinon ne peut pas inviter
+$userprivileges=2;
 if ($uid == "bourdon-j") $userprivileges=1;
 
 if (isset($_GET["ROOMID"]))
@@ -2056,8 +2060,8 @@ function opentab(e) {
         <li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>&APPID=<?php echo $appid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang+'&APPID='+document.getElementById('appid').value; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});"/></li>
         <li>QR code : <div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div></li>
         <li>Teacher's application : <a id="teacherlink" href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a><?php 
-        if (! $external) echo "&nbsp;<button class=\"tooltip\" title=\"Create a valid link allowing a non Nantes University user to access the teachers application. The created link expires 24 hours after its creation.\" onclick=\"InviteExternal();\">Invite an external guest</button>";
-        if ($userprivileges < 2) {
+        if (! $external  && $userprivileges < 3) echo "&nbsp;<button class=\"tooltip\" title=\"Create a valid link allowing a non Nantes University user to access the teachers application. The created link expires 24 hours after its creation.\" onclick=\"InviteExternal();\">Invite an external guest</button>";
+        if (! $external && $userprivileges < 2) {
           echo "&nbsp;for&nbsp;<select id=\"duration\">";
           echo "<option value=\"600\">10 minutes</option>";
           echo "<option value=\"3600\">1 hour</option>";
