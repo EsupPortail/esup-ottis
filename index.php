@@ -1971,7 +1971,7 @@ function opentab(e) {
   </ul>
   <br/>
   <br/>
-  <p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo "javascript:void(window.open('OMIST_Tools/indexExternal.php'))"; else echo "javascript:void(window.open('OMIST_Tools'))";?>">here</a>.</p>
+  <p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo "javascript:void(window.open('OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."'))"; else echo "javascript:void(window.open('OMIST_Tools'))";?>">here</a>.</p>
   <p>The following links to open source online tools can be useful for the extra tabs feature.
   <dl>
   <dd>Tableau noir blackboard : <a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
