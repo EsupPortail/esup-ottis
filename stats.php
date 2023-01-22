@@ -33,7 +33,7 @@ echo "<dt>DeepL pro</dt>";
 echo "<dd>".$percentage_DEEPL."% : Characters = ".$Stats_DEEPL["character_count"]." , Limit = ".$Stats_DEEPL["character_limit"]."</dd>\n";
 echo "</dl>";
 
-$fd=fopen("/root/Stats.txt","r");
+$fd=fopen("./Stats.txt","r");
 $allvalues=[];
 echo "<pre>";
 
