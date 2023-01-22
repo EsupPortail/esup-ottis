@@ -460,7 +460,7 @@ input[type=text] {
 // Student feedback
 
 function StudentParleThen(txt,f) {
-  EcrireFeedback(txt);
+  //EcrireFeedback(txt);
   setTimeout(f,100*txt.length);
 }
 
