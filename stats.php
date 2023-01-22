@@ -35,13 +35,15 @@ echo "</dl>";
 
 $fd=fopen("/root/Stats.txt","r");
 $allvalues=[];
+echo "<pre>";
+
 while($ligne=fgets($fd,4096)) {
+  echo $ligne;
   $date=substr($ligne,0,24);
   $value=json_decode(substr($ligne,25));
   $allvalues[]=$values;
 }
 fclose($fd);
-echo "<pre>";
 print_r($allvalues);
 echo "</pre>";
 
