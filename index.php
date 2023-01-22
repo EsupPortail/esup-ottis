@@ -1223,7 +1223,7 @@ function EcrirePartial(ch) {
 }
 
 function EcrireFeedback(ch) {
-  EcrireNB('FB : '+ch);
+  EcrireNB(ch);
   document.getElementById('studentfeedback').innerHTML=ch;
 }
 
