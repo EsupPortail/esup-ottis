@@ -32,6 +32,19 @@ echo "<dl>";
 echo "<dt>DeepL pro</dt>";
 echo "<dd>".$percentage_DEEPL."% : Characters = ".$Stats_DEEPL["character_count"]." , Limit = ".$Stats_DEEPL["character_limit"]."</dd>\n";
 echo "</dl>";
+
+$fd=fopen("/root/Stats.txt","r");
+$allvalues=[];
+while($ligne=fgets($fd,4096)) {
+  $date=substr($ligne,0,24);
+  $value=json_decode(substr($ligne,25));
+  $allvalues[];
+}
+fclose($fd);
+echo "<pre>";
+print_r($allvalues);
+echo "</pre>";
+
 /*
 echo "<pre>";
 for($i=0; $i<count($Stats_DEEPL_LONG);$i++) {
