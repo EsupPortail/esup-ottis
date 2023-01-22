@@ -38,7 +38,7 @@ $allvalues=[];
 while($ligne=fgets($fd,4096)) {
   $date=substr($ligne,0,24);
   $value=json_decode(substr($ligne,25));
-  $allvalues[];
+  $allvalues[]=$values;
 }
 fclose($fd);
 echo "<pre>";
