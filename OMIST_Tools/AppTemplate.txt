@@ -303,7 +303,9 @@ function MouseInstruction(instruction) {
 		document.getElementById('mouse').innerHTML=s;
 	}
 	if (instruction[0] == "customshape") {
-    var s=instruction[1];
+    var s=''; 
+    for(var k=1; k<instruction.length; k++) s+=instruction[k]+' ';
+    s=s.trim();
     showMouse();
 		document.getElementById('mouse').innerHTML=s;
 	}
