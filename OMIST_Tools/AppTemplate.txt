@@ -308,6 +308,7 @@ function MouseInstruction(instruction) {
     s=s.trim();
     showMouse();
 		document.getElementById('mouse').innerHTML=s;
+    alert("custom shape with "+s);
 	}
 	if (instruction[0] == "hide") {
     hideMouse();
