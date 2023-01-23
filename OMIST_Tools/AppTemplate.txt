@@ -305,7 +305,7 @@ function MouseInstruction(instruction) {
 	if (instruction[0] == "customshape") {
     var s=''; 
     for(var k=1; k<instruction.length; k++) s+=instruction[k]+' ';
-    s=s.trim();
+    s=s.trim().replaceAll('”','"');
     showMouse();
 		document.getElementById('mouse').innerHTML=s;
     alert("custom shape with "+s);
