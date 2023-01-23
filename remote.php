@@ -273,7 +273,7 @@ function changeLanguage() {
 function setLanguage() {
   if (AllLanguages.length>0) {
     document.getElementById('langdiv').innerHTML=AllLanguages[currentlanguage];
-    remote("language "+AllLanguages[currentlanguage]);
+    remote("language "+AllLanguages[currentlanguage]+" | "+document.getElementById('appid').value);
   }
 }
 
