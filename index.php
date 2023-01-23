@@ -1496,7 +1496,8 @@ function remote() {
         var options=order.substr("language".length).trim().split("|");
         var to_lang=options[0].trim();
         var fromremote=options[1].trim();
-        if (fromremote == document.getElementById('appid').value || fromremote=='') setLanguageStr(order.substr("language".length).trim());
+        //console.log('Order for ('++') for language ('+')')
+        if (fromremote == document.getElementById('appid').value || fromremote=='') setLanguageStr(to_lang);
       }
     }
   };
