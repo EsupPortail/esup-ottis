@@ -2051,11 +2051,6 @@ function opentab(e) {
   </li>
 </ul>
     <div id="output">
-    <pre>
-    <?php
-    print_r($_SERVER);
-    ?>
-    </pre>
     </div>
 </div>
 
