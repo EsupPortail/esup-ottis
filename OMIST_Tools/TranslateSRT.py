@@ -151,7 +151,7 @@ def translate(txt,lfrom,lto):
 
 def isphrase(ch):
     cend=ch[len(ch)-1]
-    return (cend == "." or cend == "!" or cend == "!")
+    return (cend == "." or cend == "!" or cend == "?")
 
 def formatetime(t):
   res=0
