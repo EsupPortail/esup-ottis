@@ -160,6 +160,9 @@ def formatetime(t):
   ms = Tt[1];
   return float(ms)+float(s)*1000+float(m)*60*1000+float(h)*3600*1000;
 
+def duration(time1,time2):
+    return abs(formatetime(time2)-formatetime(time1))
+
 def prettytime(n):
     timems = math.floor(n)
     ms = timems % 1000
@@ -169,7 +172,7 @@ def prettytime(n):
     return str(100+h)[1:]+":"+str(100+min)[1:]+":"+str(100+sec)[1:]+","+str(1000+ms)[1:]
 
 
-def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False):
+def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, sentencesThreshold=2000):
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
@@ -189,17 +192,21 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False):
     currenttxt=""
     begin=""
     end=""
+    lastend="00:00:00.000"
     for s in Subtitles:
         if begin == "":
             begin=s.get("begin")
         currenttxt+=" "+s.get("VO")
         end=s.get("end")
-        if nopunct or isphrase(currenttxt):
+        if nopunct or isphrase(currenttxt) or ( not(currenttxt == "") and duration(lastend,end)>sentencesThreshold):
             translatedtext = translate(currenttxt,in_language,out_language)
             NewSubtitles.append({"begin":begin, "end":end, "phrase": translatedtext, "VO":currenttxt})
+            lastend=end
             currenttxt=""
             begin=""
             end=""
+        else:
+            lastend=end
     Subtitles=NewSubtitles
     #print(Subtitles)
     fd=open(filename_out,"w", encoding="utf-8")
