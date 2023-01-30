@@ -19,7 +19,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoiftp:vw", ["help", "output=", "input=","from=","to=","wraplength=","nopunct"])
+        opts, args = getopt.getopt(sys.argv[1:], "hoiftps:vw", ["help", "output=", "input=","from=","to=","wraplength=","sentencesthreshold=","nopunct"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -30,6 +30,7 @@ def main():
     lfrom="fr"
     lto="en"
     wraplength=50
+    sentencesThreshold=2000
     verbose = False
     nopun = False
     for o, a in opts:
@@ -49,14 +50,16 @@ def main():
         elif o in ("-w", "--wraplength"):
             wraplength = a
         elif o in ("-p", "--nopunct"):
-            nopun = True        
+            nopun = True
+        elif o in ("-s", "--sentencesthreshold"):
+            sentencesThreshold = int(a)          
         else:
             assert False, "unhandled option"
     if inputfile != "":
         if output == "":
             output=inputfile.replace(".srt","_"+lto+".srt")
         #print("TranslateSRT ",input,output,lfrom,lto)
-        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopun)
+        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopun,sentencesThreshold=sentencesThreshold)
         Verbatim(inputfile)
         Verbatim(output)
         WrapSubtitle(output, wraplength)
