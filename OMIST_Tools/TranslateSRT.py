@@ -195,21 +195,21 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
     currenttxt=""
     begin=""
     end=""
-    lastend="00:00:00.000"
-    for s in Subtitles:
+    for i in range(len(Subtitles)):
+        s=Subtitles[i]
         if begin == "":
             begin=s.get("begin")
         currenttxt+=" "+s.get("VO")
         end=s.get("end")
-        if nopunct or isphrase(currenttxt) or ( not(currenttxt == "") and duration(lastend,end)>sentencesThreshold):
+        futureend="99:99:99.999"
+        if i<len(Subtitles)-1:
+            futureend=Subtitles[i+1].get("end")
+        if nopunct or isphrase(currenttxt) or ( not(currenttxt == "") and duration(futureend,end)>sentencesThreshold):
             translatedtext = translate(currenttxt,in_language,out_language)
             NewSubtitles.append({"begin":begin, "end":end, "phrase": translatedtext, "VO":currenttxt})
-            lastend=end
             currenttxt=""
             begin=""
             end=""
-        else:
-            lastend=end
     Subtitles=NewSubtitles
     #print(Subtitles)
     fd=open(filename_out,"w", encoding="utf-8")
