@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import getopt, sys
-from pptx import Presentation
 
 import subprocess
 import json
