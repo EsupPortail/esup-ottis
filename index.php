@@ -1860,7 +1860,8 @@ function updateConfig() {
   document.getElementById("myConfig").value=currentconfig;
 }
 
-function applyConfig(config) {
+function applyConfig() {
+  var config=currentconfig;
   if (config.length != 7) return;
   // classroomlanguage
   document.getElementById('classroomlanguage').selectedIndex = 1*(config.charCodeAt(0)-65);
