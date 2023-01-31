@@ -2054,7 +2054,7 @@ function applyConfig() {
     <textarea id="verbaltics" rows="3" cols="20"></textarea>
     <li><span id="connectedusers"></span></li>
     <li></li>
-    <li>Copy this link to always access the teachers application with this configuration : <a href="" id="LinkConfig" onclick="navigator.clipboard.writeText(this.href); alert('Link copied !');"></a></li>
+    <li>Copy this link to always access the teachers application with this configuration : <a href="" id="LinkConfig"></a></li>
   </ul>
   <br/>
   <br/>
