@@ -1837,7 +1837,7 @@ function opentab(e) {
   showET(document.getElementById('embedET'+tabnumber),tabnumber);
 }
 
-var currentconfig='A';
+var currentconfig='AAYANAB';
 function updateConfig() {
   var newConfig=[];
   newConfig[0]=String.fromCharCode(65+document.getElementById('classroomlanguage').selectedIndex);
@@ -1847,7 +1847,7 @@ function updateConfig() {
   newConfig[4]=(document.getElementById('subtitlepartialon').checked?"Y":"N");
   newConfig[5]=String.fromCharCode(65+document.getElementById('ColorPartialTitre').selectedIndex);
   newConfig[6]=String.fromCharCode(65+document.getElementById('selectfontsize').selectedIndex);
-  currentconfig=newConfig.join();
+  currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
 }
 
