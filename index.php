@@ -1857,10 +1857,10 @@ function updateConfig() {
   newConfig[6]=String.fromCharCode(65+document.getElementById('selectfontsize').selectedIndex);
   currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
-  if (window.location.href.indexOf('?') !== false) {
-	  document.getElementById("LinkConfig").href=window.location.href+'?myconfig='+document.getElementById("myConfig").value;
-  } else {
+  if (window.location.href.indexOf('?') >0) {
 	  document.getElementById("LinkConfig").href=window.location.href+'&myconfig='+document.getElementById("myConfig").value;
+  } else {
+	  document.getElementById("LinkConfig").href=window.location.href+'?myconfig='+document.getElementById("myConfig").value;
   }
   document.getElementById("LinkConfig").innerHTML=document.getElementById("LinkConfig").href;
 }
