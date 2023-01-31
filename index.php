@@ -1857,6 +1857,12 @@ function updateConfig() {
   newConfig[6]=String.fromCharCode(65+document.getElementById('selectfontsize').selectedIndex);
   currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
+  if (window.location.href.indexOf('?') !== false) {
+	  document.getElementById("LinkConfig").href=window.location.href+'?myconfig='+document.getElementById("myConfig").value;
+  } else {
+	  document.getElementById("LinkConfig").href=window.location.href+'&myconfig='+document.getElementById("myConfig").value;
+  }
+  document.getElementById("myConfig").innerHTML=document.getElementById("myConfig").href;
 }
 
 function applyConfig() {
@@ -2047,6 +2053,8 @@ function applyConfig() {
     <li>Remove verbal tics (one per line in lowercase)<br/>
     <textarea id="verbaltics" rows="3" cols="20"></textarea>
     <li><span id="connectedusers"></span></li>
+    <li></li>
+    <li>Copy this link to access the teachers application with the current configuration : <a href="" id="LinkConfig"></a></li>
   </ul>
   <br/>
   <br/>
