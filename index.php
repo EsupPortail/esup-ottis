@@ -1837,7 +1837,13 @@ function opentab(e) {
   showET(document.getElementById('embedET'+tabnumber),tabnumber);
 }
 
-
+var currentconfig='0';
+function updateConfig() {
+  var newConfig=[];
+  newConfig[0]=65+document.getElementById('classroomlanguage').selectedIndex;
+  currentconfig=newConfig.join();
+  document.getElementById("myConfig").value=currentconfig;
+}
 
 </script>
 
@@ -1875,7 +1881,7 @@ function opentab(e) {
 
 <div id="scrollbar"></div>
 
-<form id="myform">
+<form id="myform" onchange="updateConfig();">
 
 <div id="tabs">
 	<ul id="bar">
@@ -1905,6 +1911,7 @@ function opentab(e) {
     <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
+  <li>Current config : <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/></li>
   <li>&nbsp;</li>
 <li style="display: none;">Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
