@@ -1862,7 +1862,7 @@ function updateConfig() {
   } else {
 	  document.getElementById("LinkConfig").href=window.location.href+'&myconfig='+document.getElementById("myConfig").value;
   }
-  document.getElementById("myConfig").innerHTML=document.getElementById("myConfig").href;
+  document.getElementById("LinkConfig").innerHTML=document.getElementById("LinkConfig").href;
 }
 
 function applyConfig() {
