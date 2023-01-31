@@ -1837,10 +1837,16 @@ function opentab(e) {
   showET(document.getElementById('embedET'+tabnumber),tabnumber);
 }
 
-var currentconfig='0';
+var currentconfig='A';
 function updateConfig() {
   var newConfig=[];
-  newConfig[0]=65+document.getElementById('classroomlanguage').selectedIndex;
+  newConfig[0]=String.fromCharCode(65+document.getElementById('classroomlanguage').selectedIndex);
+  newConfig[1]=String.fromCharCode(65+document.getElementById('subtitlelanguage').selectedIndex);
+  newConfig[2]=(document.getElementById('subtitlebaron').checked?"Y":"N");
+  newConfig[3]=String.fromCharCode(65+document.getElementById('ColorTitre').selectedIndex);
+  newConfig[4]=(document.getElementById('subtitlepartialon').checked?"Y":"N");
+  newConfig[5]=String.fromCharCode(65+document.getElementById('ColorPartialTitre').selectedIndex);
+  newConfig[6]=String.fromCharCode(65+document.getElementById('selectfontsize').selectedIndex);
   currentconfig=newConfig.join();
   document.getElementById("myConfig").value=currentconfig;
 }
@@ -1959,7 +1965,7 @@ function updateConfig() {
 <option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
-<li>Subtitles font size : <select onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;">
+<li>Subtitles font size : <select id="selectfontsize" onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
