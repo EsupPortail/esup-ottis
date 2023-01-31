@@ -1309,6 +1309,7 @@ function Lancer() {
   LaunchReadTextQ();
   LaunchStudentReadText();
   setInterval(ScrollBar,scrollinterval);
+  applyConfig();
 }
 
 
@@ -1837,6 +1838,14 @@ function opentab(e) {
   showET(document.getElementById('embedET'+tabnumber),tabnumber);
 }
 
+<?php 
+if (isset($_GET["myconfig"])) {
+  echo "var currentconfig='".$_GET["myconfig"]."';\n";
+} else {
+  echo "var currentconfig='ABYANAB';\n";
+}
+
+?>
 var currentconfig='AAYANAB';
 function updateConfig() {
   var newConfig=[];
@@ -1849,6 +1858,52 @@ function updateConfig() {
   newConfig[6]=String.fromCharCode(65+document.getElementById('selectfontsize').selectedIndex);
   currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
+}
+
+function applyConfig(config) {
+  if (config.length != 7) return;
+  // classroomlanguage
+  document.getElementById('classroomlanguage').selectedIndex = 1*(config.charCodeAt(0)-65);
+  setLanguageInput(document.getElementById('classroomlanguage').value);
+  // subtitlelanguage
+  document.getElementById('subtitlelanguage').selectedIndex= 1*(config.charCodeAt(1)-65);
+  setLanguageSubtitle(document.getElementById('subtitlelanguage').value);
+  // subtitlebaron
+  document.getElementById('subtitlebaron').checked=(config.charAt(2) == "Y");
+  if (document.getElementById('subtitlebaron').checked) {
+    document.getElementById('spansubtitlebaron').innerHTML='Yes !'; 
+    document.getElementById('titre').style.visibility='visible'; 
+    document.getElementById('titreleft').style.visibility='visible';   
+    document.getElementById('titreright').style.visibility='visible'; 
+  } else {
+    document.getElementById('spansubtitlebaron').innerHTML='No.'; 
+    document.getElementById('titre').style.visibility='hidden'; 
+    document.getElementById('titreleft').style.visibility='hidden'; 
+    document.getElementById('titreright').style.visibility='hidden';
+  }
+  // ColorTitre
+  document.getElementById('ColorTitre').selectedIndex= 1*(config.charCodeAt(3)-65);
+  ChangeColor('titre',document.getElementById('ColorTitre').value); 
+  ChangeColor('titreleft',document.getElementById('ColorTitre').value);
+  // subtitlepartialbaron
+  document.getElementById('subtitlepartialon').checked=(config.charAt(4) == "Y");
+  if (document.getElementById('subtitlepartialon').checked) {
+    document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; 
+    document.getElementById('partialtitre').style.visibility='visible'; 
+  } else {
+    document.getElementById('spansubtitlepartialon').innerHTML='No.'; 
+    document.getElementById('partialtitre').style.visibility='hidden'; 
+  }
+  // ColorPartialTitre
+  document.getElementById('ColorPartialTitre').selectedIndex = 1*(config.charCodeAt(5)-65);
+  ChangeColor('partialtitre',document.getElementById('ColorPartialTitre').value);
+  // selectfontsize
+  document.getElementById('selectfontsize').selectedIndex= 1*(config.charCodeAt(6)-65);
+  document.getElementById('titre').style.fontSize = document.getElementById('selectfontsize').value; 
+  document.getElementById('partialtitre').style.fontSize = document.getElementById('selectfontsize').value; 
+  document.getElementById('studentfeedback').style.fontSize = document.getElementById('selectfontsize').value;
+
+  updateConfig();
 }
 
 </script>
