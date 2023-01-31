@@ -1846,7 +1846,6 @@ if (isset($_GET["myconfig"])) {
 }
 
 ?>
-var currentconfig='AAYANAB';
 function updateConfig() {
   var newConfig=[];
   newConfig[0]=String.fromCharCode(65+document.getElementById('classroomlanguage').selectedIndex);
