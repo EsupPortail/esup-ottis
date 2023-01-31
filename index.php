@@ -1842,7 +1842,7 @@ function opentab(e) {
 if (isset($_GET["myconfig"])) {
   echo "var currentconfig='".$_GET["myconfig"]."';\n";
 } else {
-  echo "var currentconfig='ABYANAB';\n";
+  echo "var currentconfig='AAYANAB';\n";
 }
 
 ?>
