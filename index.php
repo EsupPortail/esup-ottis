@@ -1978,7 +1978,7 @@ function applyConfig() {
     <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
-  <li>Current config : <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/></li>
+  <li style="display: none;">Current config : <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/></li>
   <li>&nbsp;</li>
 <li style="display: none;">Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
@@ -2054,7 +2054,7 @@ function applyConfig() {
     <textarea id="verbaltics" rows="3" cols="20"></textarea>
     <li><span id="connectedusers"></span></li>
     <li></li>
-    <li>Copy this link to access the teachers application with the current configuration : <a href="" id="LinkConfig"></a></li>
+    <li>Copy this link to always access the teachers application with this configuration : <a href="" id="LinkConfig" onclick="navigator.clipboard.writeText(this.href); alert('Link copied !');"></a></li>
   </ul>
   <br/>
   <br/>
