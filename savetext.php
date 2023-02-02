@@ -7,6 +7,7 @@ $roomid = $_POST["ROOMID"];
 $lastlines = 100000;
 if (isset($_POST["LastLines"])) $lastlines =1*$_POST["LastLines"];
 
+$lastlines=2;
 //GetMaxId
 $ligneID = 0;
 $TLines=[];
@@ -18,7 +19,7 @@ if (file_exists("tmp/Link_".$roomid)) {
 
 $TLines[]=$ligneID.";".$lang.";".$text;
 $TLines=array_slice($TLines,-$lastlines);
-$fd=fopen("tmp/Link_".$roomid,"a");
+$fd=fopen("tmp/Link_".$roomid,"w");
 fputs($fd,implode("\n",$TLines)."\n");
 fclose($fd);
 
