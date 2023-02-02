@@ -1297,7 +1297,7 @@ function showBanner(e) {
       </div>-->
 <input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"/><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
 </li>
-<li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
+<li style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
 <li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
 <option value="12px">Small</option>
