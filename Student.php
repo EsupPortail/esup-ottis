@@ -1309,7 +1309,7 @@ function showBanner(e) {
   </li>
 <li>
 Show the translation banner
-<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('Titre'); else hideBanner('Titre');"/>
+<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/>
 &nbsp; Translated banner color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
