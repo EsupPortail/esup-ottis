@@ -12,14 +12,14 @@ $ligneID = 0;
 $TLines=[];
 if (file_exists("tmp/Link_".$roomid)) {
   $fd=fopen("tmp/Link_".$roomid,"r");
-  while($TLines[]=fgets($fd,4096)) $ligneID++;
+  while($TLines[]=trim(fgets($fd,4096))) $ligneID++;
   fclose($fd);
 }
 
 $TLines[]=$ligneID.";".$lang.";".$text;
 $TLines=array_slice($TLines,-$lastlines);
 $fd=fopen("tmp/Link_".$roomid,"a");
-fputs($fd,implode("\n",$TLines));
+fputs($fd,implode("\n",$TLines)."\n");
 fclose($fd);
 
 //$fd=fopen("tmp/Link_".$roomid,"a");
