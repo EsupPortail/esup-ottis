@@ -1284,13 +1284,13 @@ function showBanner(e) {
   </select>
 </li>
 <li id="lilanguage"><label for="VoiceOutput">Student language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; resizeSlides(); document.getElementById('synthesison').checked=true;}">
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; }">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
 </li>
 <li><label for="StudentName">Student surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
-<li id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
+<li id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
 <!--<div class="checkbox-example">
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
