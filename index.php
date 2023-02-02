@@ -1258,6 +1258,7 @@ function saveText(ch) {
   f.append('text',ch);
   f.append('inputlanguage',inputlanguage);
   f.append('ROOMID',document.getElementById('classroomid').value);
+  f.append('LastLines',3);
 	request.send(f);
     AbortTimeout(request);
 
