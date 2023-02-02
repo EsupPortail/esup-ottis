@@ -690,6 +690,9 @@ function EcrireNB(ch) {
   if (document.getElementById('notebook').innerHTML == "")
     document.getElementById('notebook').innerHTML=ch;
   else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
+
+  // VOBanner
+  document.getElementById('VOBanner').innerHTML=ch;
 }
 
 
@@ -1583,7 +1586,7 @@ function MinTitlePos() {
   var postop=1*(e.style.top.replace('px',''));
   if (postop>window.innerHeight-50) {
     e.style.top=(window.innerHeight-50)+'px';
-
+  }
 
 }
 
