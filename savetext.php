@@ -16,15 +16,16 @@ if (file_exists("tmp/Link_".$roomid)) {
   while($TLines[]=trim(fgets($fd,4096))) $ligneID++;
   fclose($fd);
 }
-
+/*
 $TLines[]=$ligneID.";".$lang.";".$text;
 $TLines=array_slice($TLines,-$lastlines);
 $fd=fopen("tmp/Link_".$roomid,"w");
 fputs($fd,implode("\n",$TLines)."\n");
 fclose($fd);
+*/
 
-//$fd=fopen("tmp/Link_".$roomid,"a");
-//fputs($fd,$ligneID.";".$lang.";".$text."\n");
-//fclose($fd);
+$fd=fopen("tmp/Link_".$roomid,"a");
+fputs($fd,$ligneID.";".$lang.";".$text."\n");
+fclose($fd);
 
 ?>
