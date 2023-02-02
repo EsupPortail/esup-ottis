@@ -18,7 +18,7 @@ if (file_exists("tmp/Link_".$roomid)) {
 
 $TLines[]=$ligneID.";".$lang.";".$text;
 $fd=fopen("tmp/Link_".$roomid,"a");
-fputs($fd,implode("\n",$TLines)."\n")
+fputs($fd,implode("\n",$TLines)."\n");
 fclose($fd);
 
 //$fd=fopen("tmp/Link_".$roomid,"a");
