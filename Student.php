@@ -120,9 +120,36 @@ input[type=text] {
 }
 */
 
+#VOBanner {
+  transition: 1s ease;
+  transition-property: background-color, color, box-shadow, text-shadow, font-size;
+  transform: scale(0);
+  border-radius: 25px;
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 64px;
+  background-color: rgba(0,0,255,0.5);
+  color: white;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-style: italic;
+  padding: 10px;
+  box-shadow: 2px 2px 5px blue;
+  padding:auto;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
 #titre {
   transition: 1s ease;
   transition-property: background-color, color, box-shadow, text-shadow, font-size;
+  transform: scale(1);
   border-radius: 25px;
   position: fixed;
   top: 10px;
@@ -1199,6 +1226,15 @@ function sendnotebook(content) {
   EnvoiMail();
 }
 
+
+function hideBanner(e) {
+  document.getElementById(e).style.transform='scale(0)';
+}
+
+function showBanner(e) {
+  document.getElementById(e).style.transform='scale(1)';
+}
+
 </script>
 
 
@@ -1214,6 +1250,8 @@ function sendnotebook(content) {
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
 <div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
+
+<div id="VOBanner"></div>
 <div id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
@@ -1237,7 +1275,7 @@ function sendnotebook(content) {
 	</ul>
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
-<li style="display:block"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+<li style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 <li style="display:none"><label for="classroomlanguage">Classroom language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
@@ -1264,7 +1302,12 @@ function sendnotebook(content) {
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
 <option value="48px" >Enormous</option>
-  </select>&nbsp; Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
+  </select>
+  </li>
+<li>
+Show the translation banner
+<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('Titre'); else hideBanner('Titre');"/>
+&nbsp; Translated banner color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -1278,6 +1321,24 @@ function sendnotebook(content) {
 <option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
+<li>
+Show the VO banner
+<input type="checkbox" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
+  </select>&nbsp; VO banner color : <select id="ColorTitre" onchange="ChangeColor('VOBanner',this.value);">
+<option value="0,0,255|0,0,255" selected>blue</option>
+<option value="0,255,0|0,100,0">green</option>
+<option value="255,0,0|100,0,0" >red</option>
+<option value="255,0,255|100,0,255" >purple</option>
+<option value="255,255,0|100,100,0" >yellow</option>
+<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
+<option value="0,0,0|0,0,0">black</option>
+<option value="255,255,255|255,255,255|0,0,0">white</option>
+  </select></li>
+
   <li><b>Extra tabs</b></li>
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
   <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
@@ -1507,6 +1568,9 @@ window.addEventListener('unload', function(event) {
 function fixTitle() {
   var e=document.getElementById("titre");
   e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
+  
+  e=document.getElementById("VOBanner");
+  e.style.top=(window.innerHeight-e.style.height-100-10)+'px';
 }
 
 function MinTitlePos() {
@@ -1515,6 +1579,12 @@ function MinTitlePos() {
   if (postop>window.innerHeight-50) {
     e.style.top=(window.innerHeight-50)+'px';
   }
+  var e=document.getElementById("VOBanner");
+  var postop=1*(e.style.top.replace('px',''));
+  if (postop>window.innerHeight-50) {
+    e.style.top=(window.innerHeight-50)+'px';
+
+
 }
 
 /**
@@ -1685,6 +1755,7 @@ function MinTitlePos() {
     fixTitle();
     //$( "#titre" ).draggable();
     $("#titre").draggableTouch();
+    $("#VOBanner").draggableTouch();
 
   } );
 
