@@ -1299,7 +1299,7 @@ function showBanner(e) {
 </li>
 <li>    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </li>
-<li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;">
+<li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
