@@ -25,7 +25,7 @@ AuthenticateNotStudent($uid);
 // =2 peut inviter pour 24h
 // sinon ne peut pas inviter
 
-$userprivileges=getPrivilege($uid,$fileid,2);
+$userprivileges=getPrivilege($uid,"tables/listAdminID.txt",2);
 
 if (isset($_GET["ROOMID"]))
   $classroomid = $_GET["ROOMID"];
