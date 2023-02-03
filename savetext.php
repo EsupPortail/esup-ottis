@@ -13,19 +13,28 @@ $ligneID = 0;
 $TLines=[];
 if (file_exists("tmp/Link_".$roomid)) {
   $fd=fopen("tmp/Link_".$roomid,"r");
-  while($TLines[]=trim(fgets($fd,4096))) $ligneID++;
+  while($ligne=trim(fgets($fd,4096))) {
+    if ($ligne != "") {
+      $TLines[]=$ligne; //replace("\n","",$ligne);
+      $ligneID++;
+    }
+  }
   fclose($fd);
 }
-/*
+
+$ligneID=explode(";",$TLines[count($TLines)-1])[0]+1;
 $TLines[]=$ligneID.";".$lang.";".$text;
-$TLines=array_slice($TLines,-$lastlines);
+if (count($TLines)>$lastlines) {
+  $TLines=array_slice($TLines,count($TLines)-$lastlines);
+}
 $fd=fopen("tmp/Link_".$roomid,"w");
 fputs($fd,implode("\n",$TLines)."\n");
 fclose($fd);
-*/
 
+/*
 $fd=fopen("tmp/Link_".$roomid,"a");
 fputs($fd,$ligneID.";".$lang.";".$text."\n");
 fclose($fd);
+*/
 
 ?>
