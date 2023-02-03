@@ -24,8 +24,8 @@ AuthenticateNotStudent($uid);
 // =1 peut inviter et fixer la durée de l'invitation
 // =2 peut inviter pour 24h
 // sinon ne peut pas inviter
-$userprivileges=2;
-if ($uid == "bourdon-j") $userprivileges=1;
+
+$userprivileges=getPrivilege($uid,$fileid,2)
 
 if (isset($_GET["ROOMID"]))
   $classroomid = $_GET["ROOMID"];

@@ -48,4 +48,15 @@ function IsAStudent($id) {
     return (substr($id,0,1) == "e" && isNumber(substr($id,1,1)));
 }
 
+function getPrivilege($uid,$fileid,$default=3) {
+    $res=$default;
+    $id=strtolower($uid);
+    $T_ids = readfileid($fileid);
+    for($i=0; $i<count($T_ids);$i++) {
+        $Tuser=explode(";",$T_ids[$i]);
+        if ($Tuser[0] == $id) $res=1*$Tuser[1];
+    }
+    return $res;
+}
+
 ?>
