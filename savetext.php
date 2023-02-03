@@ -7,7 +7,6 @@ $roomid = $_POST["ROOMID"];
 $lastlines = 100000;
 if (isset($_POST["LastLines"])) $lastlines =1*$_POST["LastLines"];
 
-$lastlines=2;
 //GetMaxId
 $ligneID = 0;
 $TLines=[];
