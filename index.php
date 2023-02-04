@@ -1148,11 +1148,12 @@ builtin_recognition.enableAutomaticPunctuation= true;
 builtin_recognition.maxAlternatives = 1;
 var builtin_recognitionon = false;
 var builtin_externaltranscritionon=false;
+var builtin_microsofttranscritionon=false;
 
 function StartSpeechRecognition(callback) {
   builtin_recognition.lang = builtin_language;
   builtin_recognition.onresult = function(event) {
-    if (builtin_recognitionon && ! builtin_externaltranscritionon) {
+    if (builtin_recognitionon && ! builtin_externaltranscritionon && ! builtin_microsofttranscritionon) {
       //console.log(event.results);
       var partial='';
       for (var i = event.resultIndex; i < event.results.length; i++) {
@@ -1757,7 +1758,9 @@ function showET(obj,num) {
 }
 
 function Micro() {
-  builtin_recognition.abort();
+  if (! builtin_microsofttranscritionon) {
+    builtin_recognition.abort();
+  }
   var mybox = document.getElementById('micon');
   document.getElementById('recognitionon').checked = !document.getElementById('recognitionon').checked;
   builtin_recognitionon=document.getElementById('recognitionon').checked;
@@ -1766,7 +1769,14 @@ function Micro() {
   } else {
     mybox.innerHTML='<i class=\'material-icons big\'>voice_over_off</i>';
   }
-  if (document.getElementById('recognitionon').checked) {
+  if (builtin_microsofttranscritionon) {
+    if (builtin_recognitionon) {
+      doContinuousRecognition(MicrosoftKey,MicrosoftRegion,builtin_language);
+    } else {
+      stopRecognizer();
+    }
+  }
+  if (document.getElementById('recognitionon').checked && ! builtin_microsofttranscritionon) {
       StartSpeechRecognition(Traduction);
   }/* else {
     builtin_recognition.abort();
@@ -2038,6 +2048,8 @@ function applyConfig() {
 	    <li <?php if ($external) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
+  <li <?php if ($userprivileges>1) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
   <li>Embed WOOCLAP ?  <input type="checkbox" checked id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">Yes !</span><button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
@@ -2524,5 +2536,84 @@ var sizepincodediv=1;
 
 
 </script>
+    <!-- Microsoft Azure Cognitive Services -->
+    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+    <script>
+        var SpeechSDK;
+        var recognizer;
+
+        var AudioContext = window.AudioContext // our preferred impl
+                || window.webkitAudioContext       // fallback, mostly when on Safari
+                || false;
+        var soundContext = new AudioContext();
+        try {
+            var AudioContext = window.AudioContext // our preferred impl
+                || window.webkitAudioContext       // fallback, mostly when on Safari
+                || false;                          // could not find.
+
+            if (AudioContext) {
+                soundContext = new AudioContext();
+            } else {
+                alert("Audio context not supported");
+            }
+        } catch (e) {
+            window.console.log("no sound context found, no audio output. " + e);
+        }
+
+
+        function Initialize(onComplete) {
+            if (!!window.SpeechSDK) {
+                onComplete(window.SpeechSDK);
+            }
+        }
+
+        Initialize(async function (speechSdk) {
+                SpeechSDK = speechSdk;
+            });
+
+
+
+        function onRecognizing(sender, recognitionEventArgs) {
+            var result = recognitionEventArgs.result;
+            document.getElementById('Partial').innerHTML=result.text;
+        }
+
+        function onRecognized(sender, recognitionEventArgs) {
+            var result = recognitionEventArgs.result;
+            document.getElementById('Final').innerHTML=result.text;
+        }
+
+
+        function doContinuousRecognition(key,region,language) {
+            var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+            var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
+            speechConfig.speechRecognitionLanguage = language;
+            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+            recognizer.recognizing = onRecognizing;
+            recognizer.recognized = onRecognized;
+            recognizer.startContinuousRecognitionAsync();
+        }
+
+        function stopRecognizer() {
+            recognizer.stopContinuousRecognitionAsync(
+                            function () {
+                                recognizer.close();
+                                recognizer = undefined;
+                            },
+                            function (err) {
+                                recognizer.close();
+                                recognizer = undefined;
+                            }
+                        );
+        }
+
+
+
+        // A changer car clés personnelles
+        var MicrosoftKey='bae361b8f5ef4337bebc416ab9d44cf8';
+        var MicrosoftRegion='francecentral';
+    </script>
+
+
 </body>
 </html>
