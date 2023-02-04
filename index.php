@@ -51,7 +51,7 @@ if ($userprivileges<-2) {
 }
 if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
 if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
-$Microsofton=(($userprivileges<2)||($MicrosoftKey !=""));
+$Microsofton=(($userprivileges<-2)||($MicrosoftKey !=""));
 
 
 $T_lang=array();
