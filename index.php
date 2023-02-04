@@ -2575,12 +2575,12 @@ var sizepincodediv=1;
 
         function onRecognizing(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
-            document.getElementById('Partial').innerHTML=result.text;
+            EcrirePartial(RemoveVerbalTics(result.text));
         }
 
         function onRecognized(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
-            document.getElementById('Final').innerHTML=result.text;
+            Traduction(RemoveVerbalTics(result.text));
         }
 
 
