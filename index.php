@@ -44,7 +44,7 @@ if (isset($_GET["WOOCLAPKEY"])) {
 // Utilisation de Microsoft Cognitive Services si MicrosoftKey et MicrosoftRegion en paramètres
 $MicrosoftKey="";
 $MicrosoftRegion="";
-if ($userprivileges<2) {
+if ($userprivileges<-2) {
   // default values for privileged users (JB account...)
   $MicrosoftKey='bae361b8f5ef4337bebc416ab9d44cf8';
   $MicrosoftRegion='francecentral';
