@@ -41,6 +41,18 @@ if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://www.wooclap.com";
 }
 
+// Utilisation de Microsoft Cognitive Services si MicrosoftKey et MicrosoftRegion en paramètres
+$MicrosoftKey="";
+$MicrosoftRegion="";
+if ($userprivileges<2) {
+  // default values for privileged users (JB account...)
+  $MicrosoftKey='bae361b8f5ef4337bebc416ab9d44cf8';
+  $MicrosoftRegion='francecentral';
+}
+if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
+if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
+$Microsofton=(($userprivileges<2)||($MicrosoftKey !=""));
+
 
 $T_lang=array();
 $fd = fopen("supportedlanguages.csv","r");
@@ -2048,7 +2060,7 @@ function applyConfig() {
 	    <li <?php if ($external) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
-  <li <?php if ($userprivileges>1) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
 
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
@@ -2609,9 +2621,11 @@ var sizepincodediv=1;
 
 
 
-        // A changer car clés personnelles
-        var MicrosoftKey='bae361b8f5ef4337bebc416ab9d44cf8';
-        var MicrosoftRegion='francecentral';
+        <?php
+
+        echo "var MicrosoftKey='".$MicrosoftKey."';\n";
+        echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
+        ?>
     </script>
 
 
