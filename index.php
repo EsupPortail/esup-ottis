@@ -2606,8 +2606,10 @@ var sizepincodediv=1;
             speechConfig.speechRecognitionLanguage = language;
             recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
             var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
-            var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
-            phraseListGrammar.addPhrases(phrases.value.split(";"));
+            if (phrase.length>0) {
+              var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
+              phraseListGrammar.addPhrases(phrases.value.split(";"));
+            }
             recognizer.recognizing = onRecognizing;
             recognizer.recognized = onRecognized;
             recognizer.startContinuousRecognitionAsync();
