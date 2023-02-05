@@ -1232,7 +1232,7 @@ function EcrireTitle(ch) {
 }
 
 function EcrirePartial(ch) {
-  if (ch!='undefined') document.getElementById('partialtitre').innerHTML=ch;
+  if (ch!='undefined' && ch != undefined) document.getElementById('partialtitre').innerHTML=ch;
 }
 
 function EcrireFeedback(ch) {
