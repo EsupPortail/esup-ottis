@@ -2061,6 +2061,8 @@ function applyConfig() {
 	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
   <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+ <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)<br/>
+    <textarea id="BoostedWords" rows="3" cols="20"></textarea></li>
 
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
@@ -2603,6 +2605,9 @@ var sizepincodediv=1;
             var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
             speechConfig.speechRecognitionLanguage = language;
             recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+            var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
+            var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
+            phraseListGrammar.addPhrases(phrases.value.split(";"));
             recognizer.recognizing = onRecognizing;
             recognizer.recognized = onRecognized;
             recognizer.startContinuousRecognitionAsync();
