@@ -2604,8 +2604,8 @@ var sizepincodediv=1;
             var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
             var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
             speechConfig.speechRecognitionLanguage = language;
-            var profanityConfig = profanityOption('profanity', 2);
-            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig, profanityConfig);
+            speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
+            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
             var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
             if (phrases.length>0) {
               var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
