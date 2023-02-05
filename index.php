@@ -2608,7 +2608,7 @@ var sizepincodediv=1;
             var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
             if (phrases.length>0) {
               var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
-              phraseListGrammar.addPhrases(phrases.value.split(";"));
+              phraseListGrammar.addPhrases(phrases.split(";"));
             }
             recognizer.recognizing = onRecognizing;
             recognizer.recognized = onRecognized;
