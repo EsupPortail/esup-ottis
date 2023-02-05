@@ -2606,7 +2606,7 @@ var sizepincodediv=1;
             speechConfig.speechRecognitionLanguage = language;
             recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
             var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
-            if (phrase.length>0) {
+            if (phrases.length>0) {
               var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
               phraseListGrammar.addPhrases(phrases.value.split(";"));
             }
