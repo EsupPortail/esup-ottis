@@ -2587,7 +2587,7 @@ var sizepincodediv=1;
 
         function onRecognizing(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
-            EcrirePartial(RemoveVerbalTics(result.text));
+            if (result.text != undefined) EcrirePartial(RemoveVerbalTics(result.text));
         }
 
         function onRecognized(sender, recognitionEventArgs) {
