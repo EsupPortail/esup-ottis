@@ -2592,7 +2592,9 @@ var sizepincodediv=1;
 
         function onRecognized(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
-            Traduction(RemoveVerbalTics(result.text));
+            var text = RemoveVerbalTics(result.text)
+            EcrirePartial(text);
+            Traduction(text);
         }
 
 
