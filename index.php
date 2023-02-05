@@ -1232,7 +1232,7 @@ function EcrireTitle(ch) {
 }
 
 function EcrirePartial(ch) {
-  document.getElementById('partialtitre').innerHTML=ch;
+  if (ch!='undefined') document.getElementById('partialtitre').innerHTML=ch;
 }
 
 function EcrireFeedback(ch) {
@@ -2587,12 +2587,12 @@ var sizepincodediv=1;
 
         function onRecognizing(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
-            if (result.text != undefined) EcrirePartial(RemoveVerbalTics(result.text));
+            EcrirePartial(RemoveVerbalTics(result.text));
         }
 
         function onRecognized(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
-            var text = RemoveVerbalTics(result.text)
+            var text = RemoveVerbalTics(result.text);
             EcrirePartial(text);
             Traduction(text);
         }
