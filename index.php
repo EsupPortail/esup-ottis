@@ -2023,7 +2023,7 @@ function applyConfig() {
 </li>
 <li style="display: none;"><label for="recognitionon">Speech recognition active ? </label>
 <input type="checkbox" id="recognitionon"/></li>
-<li <?php if ($external) echo "style=\"display:none;\""; ?> >Pin code : <input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
+<li <?php if (true) echo "style=\"display:none;\""; ?> >Pin code : <input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
     <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
     <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
 </li>
@@ -2083,7 +2083,7 @@ function applyConfig() {
 <option value="48px" >Enormous</option>
   </select></li>
   <li>&nbsp;</li>
-	    <li <?php if ($external) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+	    <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
   <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
