@@ -91,11 +91,43 @@ fclose($fd);
   padding: 2px;
 }
 
-textarea {
-  border-radius: 10px;
-  margin: 0px; 
-    padding: 10px;
-
+input[type=checkbox] {
+         position: relative;
+	       cursor: pointer;
+    }
+    input[type=checkbox]:before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 20px;
+         height: 20px;
+         top: 0;
+         left: 0;
+         background-color:#e9e9e9;
+}
+input[type=checkbox]:checked:before {
+         content: "";
+         display: block;
+         position: absolute;
+         width: 20px;
+         height: 20px;
+         top: 0;
+         left: 0;
+         background-color:#1E80EF;
+}
+    input[type=checkbox]:checked:after {
+         content: "";
+         display: block;
+         width: 5px;
+         height: 10px;
+         border: solid white;
+         border-width: 0 2px 2px 0;
+         -webkit-transform: rotate(45deg);
+         -ms-transform: rotate(45deg);
+         transform: rotate(45deg);
+         position: absolute;
+         top: 2px;
+         left: 6px;
 }
 
 .classselect {
@@ -2092,7 +2124,7 @@ function applyConfig() {
 
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
-  <li>Embed WOOCLAP ?  <input type="checkbox" checked id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">Yes !</span><button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
+  <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span><button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
     <button onclick="document.getElementById('wooclap').src='https://app.wooclap.com/auth/login?lang=en&redirectTo=/home';">Update the wooclap tab</button></li>
  <!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li>  -->
 <!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li> -->
