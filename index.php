@@ -929,7 +929,7 @@ function addToNB(ch,before) {
   if (before == 1 && document.getElementById('tobesaid').value != '') tobesaidbetweenslides=tobeinserted+document.getElementById('tobesaid').value+'. <br/>';
 
   ch=tobesaidbetweenslides+tobeinserted+ch;
-  document.getElementById('notebook').innerHTML+='<br/>'+ch;
+  //document.getElementById('notebook').innerHTML+='<br/>'+ch;
   EcrireTitle(ch);
   //saveTextNB(document.getElementById('notebook').innerHTML);
   var Tch=ch.split('<br/>');
