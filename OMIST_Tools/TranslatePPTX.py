@@ -61,7 +61,7 @@ def main():
 
 
 def translate_old(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
         return txt
     lfrom = lfrom[0:2]
     lto = lto[0:2]
@@ -92,7 +92,7 @@ def translate_deeplpro(txt,lfrom,lto):
         return translate_google(txt,lfrom,lto)
     if not lto[0:2] in config.DEEPLKNOWNLANG:
         return translate_google(txt,lfrom,lto)
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
         return txt
     lfrom = lfrom[0:2]
     lto = lto[0:2]
@@ -116,7 +116,7 @@ def translate_deeplpro(txt,lfrom,lto):
         return result.get('translations')[0].get('text')
 
 def translate_google(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
         return txt
     lfrom = lfrom[0:2]
     lto = lto[0:2]
