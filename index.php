@@ -1248,7 +1248,8 @@ function EcrirePartial(ch) {
 }
 
 function EcrireFeedback(ch) {
-  EcrireNB(ch);
+  //EcrireNB(ch);
+  document.getElementById('titre').innerHTML=ch;
   document.getElementById('studentfeedback').innerHTML=ch;
 }
 
