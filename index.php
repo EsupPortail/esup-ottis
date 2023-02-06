@@ -85,6 +85,11 @@ fclose($fd);
 
 	<style>
 
+.jqueryselect {
+  border-radius: 5px;
+  margin: 5px;
+}
+
 .classselect {
   width: 300px;
   height: 40px;
