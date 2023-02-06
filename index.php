@@ -1248,7 +1248,7 @@ function EcrirePartial(ch) {
 }
 
 function EcrireFeedback(ch) {
-  //EcrireNB(ch);
+  EcrireNBonly(ch);
   document.getElementById('titre').innerHTML=ch;
   document.getElementById('studentfeedback').innerHTML=ch;
 }
