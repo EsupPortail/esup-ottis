@@ -85,16 +85,10 @@ fclose($fd);
 
 	<style>
 
-.jqueryselect {
-  border-radius: 10px;
-  margin: 0px;
-  padding: 10px;
-}
-input[type="text"] {
-  border-radius: 10px;
-  margin: 0px;
-    padding: 10px;
-
+.jqueryselect, input[type="text"], textarea, button, input[type="button"] {
+  border-radius: 7px;
+  margin: 1px;
+  padding: 2px;
 }
 
 textarea {
