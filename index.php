@@ -2559,7 +2559,7 @@ var sizepincodediv=1;
   } );
 
   $( function() {
-    $( ".jqueryselect" ).selectmenu();
+    //$( ".jqueryselect" ).selectmenu();
   } );
 
 
