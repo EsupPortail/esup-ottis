@@ -2005,7 +2005,7 @@ function applyConfig() {
 	<div id="tabs-0">
   <ul style="list-style-type: none;">
 <li><label for="classroomlanguage">Speaker language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value); Micro(); Micro();">
+  <select id="classroomlanguage" onchange="setLanguageInput(this.value); Micro(); Micro();" class="jqueryselect">
   </select>
 </li>
 <li style="display: none;"><label for="recognitionon">Speech recognition active ? </label>
@@ -2017,9 +2017,9 @@ function applyConfig() {
   <li style="display: none;">Current config : <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/></li>
   <li>&nbsp;</li>
 <li style="display: none;">Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
-<li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);">
+<li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect">
   </select></li>
-<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);">
+<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);" class="jqueryselect">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -2034,7 +2034,7 @@ function applyConfig() {
 <option value="255,255,255|255,255,255|0,0,0">white</option>
 
   </select></li>
-<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color : <select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);">
+<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color : <select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
 <option value="0,0,255|0,0,255">blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -2048,7 +2048,7 @@ function applyConfig() {
 <option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
-<li style="display:none;">Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);">
+<li style="display:none;">Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect" class="jqueryselect">
 <option value="0,0,255|0,0,255">blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -2062,7 +2062,7 @@ function applyConfig() {
 <option value="0,0,0|0,0,0" selected>black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></li>
-<li>Subtitles font size : <select id="selectfontsize" onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;">
+<li>Subtitles font size : <select id="selectfontsize" onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;" class="jqueryselect">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
@@ -2137,7 +2137,7 @@ function applyConfig() {
     <label for="ppt_presentation">Powerpoint presentation : </label>
     <input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes()" accept=".pptx,.odp,.txt,.html" max-size="50000"/>
     <label for="speechlanguage">Speech language : </label>
-  <select id="speechlanguage" onchange="setLanguageSpeech(this.value);">
+  <select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
   <option value="same" selected>Same as speaker</option>
   </select>
   <span style="display:none">
@@ -2162,7 +2162,7 @@ function applyConfig() {
     <input type="checkbox" id="liveon"/></li>
     <li><button id="bready">Ready to listen ?</button></li>
     <li><label for="liveon">Output language </label>
-    <select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
+    <select id="VoiceOutput" onchange="setLanguageOutput(this.value);" class="jqueryselect">
     </select>
   </li>
 </ul>
@@ -2187,7 +2187,7 @@ function applyConfig() {
         <li>Teacher's application : <a id="teacherlink" href="index.php?ROOMID=<?php echo $classroomid; ?>">index.php?ROOMID=<?php echo $classroomid; ?></a><?php 
         if (! $external  && $userprivileges < 3) echo "&nbsp;<button class=\"tooltip\" title=\"Create a valid link allowing a non Nantes University user to access the teachers application. The created link expires 24 hours after its creation.\" onclick=\"InviteExternal();\">Invite an external guest</button>";
         if (! $external && $userprivileges < 2) {
-          echo "&nbsp;for&nbsp;<select id=\"duration\">";
+          echo "&nbsp;for&nbsp;<select id=\"duration\" class=\"jqueryselect\">";
           echo "<option value=\"600\">10 minutes</option>";
           echo "<option value=\"3600\">1 hour</option>";
           echo "<option value=\"86400\" selected>24 hours</option>";
@@ -2558,6 +2558,9 @@ var sizepincodediv=1;
  
   } );
 
+  $( function() {
+    $( ".jqueryselect" ).selectmenu();
+  } );
 
 
 
