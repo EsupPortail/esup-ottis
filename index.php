@@ -973,6 +973,7 @@ var previousimage=-1;
 
 function ShowImage(n) {
   if (n != previousimage) {
+    EcrireNBonly('---------- Slide '+n+' ----------');
     previousimage=n;
   //console.log('IMG OBJ = '+document.getElementById("img_"+n));
   //console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
@@ -1217,6 +1218,13 @@ function EcrireNB(ch) {
   else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
   EcrireTitle(ch);
 }
+
+function EcrireNBonly(ch) {
+  if (document.getElementById('notebook').innerHTML == "")
+    document.getElementById('notebook').innerHTML=ch;
+  else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
+}
+
 
 function EcrireTitle(ch) {
   var linput = builtin_language.substr(0,2).toLowerCase();
