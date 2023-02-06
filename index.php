@@ -1436,6 +1436,14 @@ function Init() {
     delayRemote=200;
  });
 
+  if (document.getElementById('embedwooclapon').checked) {
+    document.getElementById('spanembedwooclapon').innerHTML='Yes !'; 
+    show('titlewooclap');
+  } else {
+    document.getElementById('spanembedwooclapon').innerHTML='No.';  
+    hide('titlewooclap');
+  }
+  
 }
 
 function ClearCR() {
