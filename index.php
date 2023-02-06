@@ -969,8 +969,11 @@ function b64toBlob(b64Data, contentType, sliceSize) {
               return blob;
             }
 
+var previousimage=-1;
 
 function ShowImage(n) {
+  if (n != previousimage) {
+    previousimage=n;
   //console.log('IMG OBJ = '+document.getElementById("img_"+n));
   //console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
   document.getElementById('titreright').innerHTML=n;
@@ -1002,6 +1005,7 @@ function ShowImage(n) {
   	request.send(f);
       AbortTimeout(request);
   //	request.onload = function(event) {};
+}
 }
 }
 
