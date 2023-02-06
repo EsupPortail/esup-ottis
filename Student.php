@@ -479,7 +479,7 @@ function PopulateVoicesOut() {
     select.removeChild(select.firstChild);
   }
   var optgroup=document.createElement("optgroup");
-  optgroup.label="Voice translation";
+  optgroup.label="Voice and text translation";
   var voices = window.speechSynthesis.getVoices();
   // Voices in english first
   for(var i=0; i<voices.length; i++) {
