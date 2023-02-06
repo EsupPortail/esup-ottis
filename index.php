@@ -94,15 +94,19 @@ fclose($fd);
 input[type=checkbox] {
     position: relative;
 	  cursor: pointer;
+    width: 16px;
+    height: 16px;
     padding: 3px;
     font: 1.5em;
     border-color:rgb(10,10,10);
     color: rgb(100,100,255);
+    background-color: rgb(100,100,255);
 }
 
 input[type=checkbox]:hover {
   border-color:rgba(10,10,10,0.5);
   color: rgba(100,100,255,0.5);
+  background-color: rgba(100,100,255,0.5);
 }
 
 .classselect {
