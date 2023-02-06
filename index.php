@@ -92,42 +92,17 @@ fclose($fd);
 }
 
 input[type=checkbox] {
-         position: relative;
-	       cursor: pointer;
-    }
-    input[type=checkbox]:before {
-         content: "";
-         display: block;
-         position: absolute;
-         width: 20px;
-         height: 20px;
-         top: 0;
-         left: 0;
-         background-color:#e9e9e9;
+    position: relative;
+	  cursor: pointer;
+    padding: 3px;
+    font: 1.5em;
+    border-color:rgb(10,10,10);
+    color: rgb(100,100,255);
 }
-input[type=checkbox]:checked:before {
-         content: "";
-         display: block;
-         position: absolute;
-         width: 20px;
-         height: 20px;
-         top: 0;
-         left: 0;
-         background-color:#1E80EF;
-}
-    input[type=checkbox]:checked:after {
-         content: "";
-         display: block;
-         width: 5px;
-         height: 10px;
-         border: solid white;
-         border-width: 0 2px 2px 0;
-         -webkit-transform: rotate(45deg);
-         -ms-transform: rotate(45deg);
-         transform: rotate(45deg);
-         position: absolute;
-         top: 2px;
-         left: 6px;
+
+input[type=checkbox]:hover {
+  border-color:rgba(10,10,10,0.5);
+  color: rgba(100,100,255,0.5);
 }
 
 .classselect {
