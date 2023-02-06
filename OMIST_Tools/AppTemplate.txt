@@ -357,6 +357,12 @@ function EcouterTexte(Tch, c) {
 
       s = s.replace("[pause]", "");
     }
+    var waittime=0;
+		if (s.indexOf("[wait ") >= 0) {
+		  waittime = 1*s.replace("[wait ","").replace("]","").split("|");
+      console.log("wait : "+waittime);
+			s = "";
+    }
 		if (s.indexOf("[resource ") >= 0) {
 		  var resource = s.replace("[resource ","").replace("]","").split("|");
 			if (resource.length > 0) {
@@ -383,11 +389,14 @@ function EcouterTexte(Tch, c) {
     }
 
     // console.log(s);
+    
     if (true) { //(langueorigine.substr(0,2) == languetraduction.substr(0,2)) {
-      Affiche(s);
-      ParleThen(s, function() {
-        EcouterTexte(Tch, c + 1);
-      });
+      if (waittime>0) {
+				Affiche("Sleeping for "+(waittime/1000)+" s.....");
+			} else {
+				Affiche(s);
+			}
+      setTimeout(function () {ParleThen(s, function() {EcouterTexte(Tch, c + 1);});}, waittime);
     } else {
       Translate(s, languetraduction, langueorigine, function() {
         EcouterTexte(Tch, c + 1);
