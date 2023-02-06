@@ -87,16 +87,21 @@ fclose($fd);
 
 .jqueryselect {
   border-radius: 10px;
-  margin: 10px;
+  margin: 0px;
+  padding: 10px;
 }
 input[type="text"] {
   border-radius: 10px;
-  margin: 10px;
+  margin: 0px;
+    padding: 10px;
+
 }
 
 textarea {
   border-radius: 10px;
-  margin: 10px; 
+  margin: 0px; 
+    padding: 10px;
+
 }
 
 .classselect {
