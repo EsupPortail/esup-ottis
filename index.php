@@ -89,6 +89,15 @@ fclose($fd);
   border-radius: 10px;
   margin: 10px;
 }
+input[type="text"] {
+  border-radius: 10px;
+  margin: 10px;
+}
+
+textarea {
+  border-radius: 10px;
+  margin: 10px; 
+}
 
 .classselect {
   width: 300px;
