@@ -51,7 +51,7 @@ $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["cha
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
-select, .jqueryselect, input[type="text"], textarea, button, input[type="text"], input[type="button"] {
+select, .jqueryselect, input[type="text"], textarea, button, input[type="file"], input[type="button"], input[type="submit"] {
   border-radius: 7px;
   margin: 1px;
   padding: 2px;
@@ -178,14 +178,14 @@ function Init() {
   <td style="vertical-align: top;">
     Aspect ratio : </td>
   <td>
-  <input id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"/>
+  <input class="jqueryselect" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"/>
  </td></tr>
  <tr>
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
     <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext1">Yes !</span>
-    <input id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+    <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
@@ -222,7 +222,7 @@ function Init() {
   <td style="vertical-align: top;">
     Aspect ratio : </td>
   <td>
-  <input id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"/>
+  <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"/>
  </td></tr>
  <tr>
     <td style="vertical-align: top;">
@@ -235,7 +235,7 @@ function Init() {
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
   <td>
-    <input id="extradelay2" name="extradelay" list="listdelays" value="0"/>
+    <input class="jqueryselect" id="extradelay2" name="extradelay" list="listdelays" value="0"/>
 
   </td></tr>
  </table>
