@@ -91,6 +91,12 @@ fclose($fd);
   padding: 2px;
 }
 
+button {
+  background-color: rgb(200,200,200);
+  color: white;
+  padding: 4px;
+}
+
 input[type=checkbox] {
     position: relative;
 	  cursor: pointer;
