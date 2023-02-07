@@ -51,6 +51,29 @@ $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["cha
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+.jqueryselect, input[type="text"], textarea, button {
+  border-radius: 7px;
+  margin: 1px;
+  padding: 2px;
+}
+
+input[type=checkbox] {
+    position: relative;
+	  cursor: pointer;
+    width: 16px;
+    height: 16px;
+    padding: 3px;
+    font: 1.5em;
+    border-color:rgb(10,10,10);
+    color: rgb(100,100,255);
+    background-color: rgb(100,100,255);
+}
+
+input[type=checkbox]:hover {
+  border-color:rgba(10,10,10,0.5);
+  color: rgba(100,100,255,0.5);
+  background-color: rgba(100,100,255,0.5);
+}
 
 h1 {
       font-family: 'Fjalla One', sans-serif;
