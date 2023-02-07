@@ -1910,7 +1910,7 @@ function opentab(e) {
 if (isset($_GET["myconfig"])) {
   echo "var currentconfig='".$_GET["myconfig"]."';\n";
 } else {
-  echo "var currentconfig='AAYANAB';\n";
+  echo "var currentconfig='AAYANABNY';\n";
 }
 
 ?>
@@ -1923,6 +1923,8 @@ function updateConfig() {
   newConfig[4]=(document.getElementById('subtitlepartialon').checked?"Y":"N");
   newConfig[5]=String.fromCharCode(65+document.getElementById('ColorPartialTitre').selectedIndex);
   newConfig[6]=String.fromCharCode(65+document.getElementById('selectfontsize').selectedIndex);
+  newConfig[7]=(document.getElementById('embedwooclapon').checked?"Y":"N");
+  newConfig[8]=(document.getElementById('embedshareon').checked?"Y":"N");
   currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
   if (window.location.href.indexOf('?') >0) {
@@ -1976,7 +1978,24 @@ function applyConfig() {
   document.getElementById('titre').style.fontSize = document.getElementById('selectfontsize').value; 
   document.getElementById('partialtitre').style.fontSize = document.getElementById('selectfontsize').value; 
   document.getElementById('studentfeedback').style.fontSize = document.getElementById('selectfontsize').value;
-
+  // Wooclap tab
+  document.getElementById('embedwooclapon').checked=(config.charAt(7) == "Y");
+  if (document.getElementById('embedwooclapon').checked.checked) {
+    document.getElementById('spanembedwooclapon').innerHTML='Yes !'; 
+    show('titlewooclap');
+  } else {
+    document.getElementById('spanembedwooclapon').innerHTML='No.';
+    hide('titlewooclap');
+  }
+  // Share tab
+  document.getElementById('embedshareon').checked=(config.charAt(8) == "Y");
+  if (document.getElementById('embedshareon').checked.checked) {
+    document.getElementById('spanembedshareon').innerHTML='Yes !'; 
+    show('titleshare');
+  } else {
+    document.getElementById('spanembedshareon').innerHTML='No.';
+    hide('titleshare');
+  }
   updateConfig();
 }
 
