@@ -57,6 +57,16 @@ select, .jqueryselect, input[type="text"], textarea, button, input[type="file"],
   padding: 2px;
 }
 
+label {
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+label input[type="file"] {
+  display: none;
+}
+
+
 input[type="submit"] {
   padding: 10px;
   background-color: rgb(25,190,40);
@@ -140,8 +150,8 @@ function Init() {
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
-    Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/><br/>
+    <label for="fileToUpload1">Select PPTX file : <span class="ui-icon ui-icon-folder-open"></span>
+    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="submit" value="Create" name="submit"/>
     </form>
   </div>

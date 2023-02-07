@@ -92,8 +92,9 @@ fclose($fd);
 }
 
 button {
-  background-color: rgb(50,50,50);
-  color: white;
+  background-color: rgb(200,200,200);
+  border-color: rgb(150,150,150);
+  color: rgb(50,50,50);
   padding: 4px;
 }
 
