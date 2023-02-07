@@ -145,12 +145,12 @@ function Init() {
     <option value="600"/>
     <option value="1200"/>
   </datalist>
- <div>Important : Ces outils proposés à titre expérimental utilisent des ressources partagées avec l’outil de traduction en direct (même serveur web et abonnement mutualisé pour le service de traduction (nb: utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%)). Afin de ne pas impacter ce service, nous vous demandons de les utiliser prioritairement en dehors des heures d’enseignement. En outre, si vous souhaitez obtenir les traductions dans plus de deux langues, nous vous demandons de ne pas utiliser ces outils mais de nous transmettre votre demande car nous avons la possibilité de la traiter sans impacter les ressources partagées.</div>
+ <div>Important : Ces outils proposés à titre expérimental utilisent des ressources partagées avec l’outil de traduction en direct (même serveur web et abonnement mutualisé pour le service de traduction (nb: utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%)). <!--Afin de ne pas impacter ce service, nous vous demandons de les utiliser prioritairement en dehors des heures d’enseignement. En outre, si vous souhaitez obtenir les traductions dans plus de deux langues, nous vous demandons de ne pas utiliser ces outils mais de nous transmettre votre demande car nous avons la possibilité de la traiter sans impacter les ressources partagées.--></div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload1">Select PPTX file : <span class="ui-icon ui-icon-document"></span>
+    <label for="fileToUpload1">Select PPTX file : 📁
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="submit" value="Create" name="submit"/>
     </form>
