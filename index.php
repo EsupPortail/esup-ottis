@@ -85,7 +85,7 @@ fclose($fd);
 
 	<style>
 
-.jqueryselect, input[type="text"], textarea, button {
+.jqueryselect, input[type="text"], textarea, button, input[type="file"] {
   border-radius: 7px;
   margin: 1px;
   padding: 2px;
