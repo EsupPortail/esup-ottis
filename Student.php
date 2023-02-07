@@ -68,6 +68,10 @@ select, .jqueryselect, input[type="text"], textarea, button {
   padding: 2px;
 }
 
+button {
+cursor: pointer;
+}
+
 input[type=checkbox] {
     position: relative;
 	  cursor: pointer;

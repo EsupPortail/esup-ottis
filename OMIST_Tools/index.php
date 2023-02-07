@@ -57,6 +57,10 @@ select, .jqueryselect, input[type="text"], textarea, button, input[type="file"],
   padding: 2px;
 }
 
+input[type="button"], input[type="submit"] {
+cursor: pointer;
+}
+
 label {
   font-size: 1.1em;
   cursor: pointer;
