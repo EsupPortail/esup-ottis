@@ -102,6 +102,13 @@ button {
   padding: 4px;
 }
 
+button:hover {
+  background-color: rgba(200,200,200c);
+  border-color: rgba(150,150,150,0.7);
+  color: rgb(50,50,50);
+  padding: 4px;
+}
+
 input[type=checkbox] {
     position: relative;
 	  cursor: pointer;

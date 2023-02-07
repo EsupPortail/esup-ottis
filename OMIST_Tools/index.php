@@ -78,6 +78,13 @@ input[type="submit"] {
   border-color: rgb(25,190,40);
   font-size: 1.1em;
 }
+
+input[type="submit"]:hover {
+  background-color: rgba(25,190,40,0.7);
+  border-color: rgba(25,190,40,0.7);
+}
+
+
 input[type=checkbox] {
     position: relative;
 	  cursor: pointer;
