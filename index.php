@@ -92,7 +92,7 @@ fclose($fd);
 }
 
 button {
-  background-color: rgb(200,200,200);
+  background-color: rgb(50,50,50);
   color: white;
   padding: 4px;
 }
