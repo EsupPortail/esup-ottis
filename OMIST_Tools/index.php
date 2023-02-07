@@ -58,12 +58,11 @@ select, .jqueryselect, input[type="text"], textarea, button, input[type="file"],
 }
 
 input[type="submit"] {
-  border-radius: 10px;
   padding: 10px;
   background-color: rgb(25,190,40);
   color: white;
   border-color: rgb(25,190,40);
-  font-size: 1.5em;
+  font-size: 1.1em;
 }
 input[type=checkbox] {
     position: relative;
