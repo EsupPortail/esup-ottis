@@ -874,7 +874,7 @@ function Traduction(ch) {
   var recognitionon=document.getElementById('recognitionon').checked;
   if (recognitionon) {
   //EcrireNB(ch);
-  EcrireTitle(ch);
+  EcrireTitle('trad : '+ch);
   saveText(ch);
   var liveon=document.getElementById('liveon').checked;
   if (liveon) {
@@ -975,7 +975,7 @@ function addToNB(ch,before) {
 
   ch=tobesaidbetweenslides+tobeinserted+ch;
   //document.getElementById('notebook').innerHTML+='<br/>'+ch;
-  EcrireTitle(ch);
+  EcrireTitle('addtonb : '+ch);
   //saveTextNB(document.getElementById('notebook').innerHTML);
   var Tch=ch.split('<br/>');
   saveTextTable(Tch,0);
@@ -1261,12 +1261,12 @@ function EcrireNB(ch) {
   // if (document.getElementById('notebook').innerHTML == "")
   //  document.getElementById('notebook').innerHTML=ch;
   //else 
-  document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+ch+"<br/>";
-  EcrireTitle(ch);
+  document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+'nb : '+ch+"<br/>";
+  EcrireTitle('Ecrire NB'+ch);
 }
 
 function EcrireNBonly(ch) {
-  document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+ch+"<br/>";
+  document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+'nb only : '+ch+"<br/>";
 //  if (document.getElementById('notebook').innerHTML == "")
 //    document.getElementById('notebook').innerHTML=ch;
 //  else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
