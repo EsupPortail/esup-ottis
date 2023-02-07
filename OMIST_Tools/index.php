@@ -63,7 +63,7 @@ label {
 }
 
 label input[type="file"] {
-  display: none;
+//  display: none;
 }
 
 
@@ -150,7 +150,7 @@ function Init() {
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload1">Select PPTX file : 📁
+    <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="submit" value="Create" name="submit"/>
     </form>
