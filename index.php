@@ -96,15 +96,15 @@ cursor: pointer;
 }
 
 button {
-  background-color: rgb(200,200,200);
-  border-color: rgb(150,150,150);
+  background-color: rgb(220,220,220);
+  border-color: rgb(200,200,200);
   color: rgb(50,50,50);
   padding: 4px;
 }
 
 button:hover {
-  background-color: rgba(200,200,200c);
-  border-color: rgba(150,150,150,0.7);
+  background-color: rgba(220,220,220,0.7);
+  border-color: rgba(200,200,200,0.7);
   color: rgb(50,50,50);
   padding: 4px;
 }
