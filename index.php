@@ -1258,16 +1258,18 @@ function InitVoices() {
 }
 
 function EcrireNB(ch) {
-  if (document.getElementById('notebook').innerHTML == "")
-    document.getElementById('notebook').innerHTML=ch;
-  else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
+  // if (document.getElementById('notebook').innerHTML == "")
+  //  document.getElementById('notebook').innerHTML=ch;
+  //else 
+  document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+ch+"<br/>";
   EcrireTitle(ch);
 }
 
 function EcrireNBonly(ch) {
-  if (document.getElementById('notebook').innerHTML == "")
-    document.getElementById('notebook').innerHTML=ch;
-  else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
+  document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+ch+"<br/>";
+//  if (document.getElementById('notebook').innerHTML == "")
+//    document.getElementById('notebook').innerHTML=ch;
+//  else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
 }
 
 
