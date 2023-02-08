@@ -166,6 +166,7 @@ def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
     prs.save(fileout)
 
 def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
+    translated_characters=0
     prs = Presentation(filename)
     ns=1
     for slide in prs.slides:
@@ -183,7 +184,8 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=Fal
                 continue
             for paragraph in shape.text_frame.paragraphs:
                 for run in paragraph.runs:
-                    run.text = " "+translate(run.text,langsrc,langdst)+" "
+                    if (translated_characters<config.TRANSLATION_LIMIT):
+                        run.text = " "+translate(run.text,langsrc,langdst)+" "
     prs.save(fileout)
 
 
