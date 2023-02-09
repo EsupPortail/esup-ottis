@@ -226,6 +226,9 @@ def Verbatim(filename):
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
+    # VTT -> SRT conversion
+    if('WEBVTT' in content[0]):
+        content=content[2:]
     TSubtitles=("|".join(content).strip()).split("\n|\n|")
     Subtitles=list()
     for s in TSubtitles:
@@ -234,8 +237,8 @@ def Verbatim(filename):
             ts = s.split('\n')
             snumber=ts[0]
             stime=ts[1]
-            begin = stime.split("-->")[0].strip()
-            end = stime.split("-->")[1].strip()
+            begin = stime.split("-->")[0].strip().replace(".",",")
+            end = stime.split("-->")[1].strip().replace(".",",")
             stxt=" ".join(ts[2:]).replace("  "," ").strip()
             Subtitles.append({"begin":begin, "end":end, "VO":stxt})
     fd=open(filename.replace(".srt","_verbatim.txt"),"w", encoding="utf-8")
@@ -249,6 +252,9 @@ def WrapSubtitle(filename, wraplength=50):
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
+    # VTT -> SRT conversion
+    if('WEBVTT' in content[0]):
+        content=content[2:]
     i=0
     content.append("\n")
     Subtitles=list()
@@ -261,8 +267,8 @@ def WrapSubtitle(filename, wraplength=50):
         elif c == "\n":
             if not currenttext == "":
                 translatedtext = currenttext
-                begin=currenttime.split("-->")[0].strip()
-                end=currenttime.split("-->")[1].strip()
+                begin=currenttime.split("-->")[0].strip().replace(".",",")
+                end=currenttime.split("-->")[1].strip().replace(".",",")
                 begin_ms=formatetime(begin)
                 end_ms=formatetime(end)
                 Subtitles.append({"begin":currenttime, "phrase":translatedtext, "VO":currenttext})
