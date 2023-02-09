@@ -178,6 +178,9 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
+    # VTT -> SRT conversion
+    if content[0:6] == "WEBVTT":
+        content=content.replace("WEBVTT\n","")
     TSubtitles=("|".join(content).strip()).split("\n|\n|")
     Subtitles=list()
     for s in TSubtitles:
@@ -186,8 +189,8 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
             ts = s.split('\n')
             snumber=ts[0]
             stime=ts[1]
-            begin = stime.split("-->")[0].strip()
-            end = stime.split("-->")[1].strip()
+            begin = stime.split("-->")[0].strip().replace(".",",")
+            end = stime.split("-->")[1].strip().replace(".",",")
             stxt=" ".join(ts[2:]).replace("  "," ").strip()
             Subtitles.append({"begin":begin, "end":end, "VO":stxt})
     NewSubtitles=list()

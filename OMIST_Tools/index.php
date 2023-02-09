@@ -304,7 +304,7 @@ function Init() {
   <div>
   <form action="TranslateSRT.php" method="post" enctype="multipart/form-data">
     Select SRT file : 
-    <input type="file" name="fileToUpload" id="fileToUpload" accept=".srt" max-size="5000"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".srt,.vtt" max-size="5000"><br/>
     <table>
   <tr>
   <td style="vertical-align: top;">
