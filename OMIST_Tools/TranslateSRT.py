@@ -180,7 +180,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
     fd.close()
     # VTT -> SRT conversion
     if content[0:6] == "WEBVTT":
-        content=content.replace("WEBVTT\n","")
+        content=content[6:].strip()
     TSubtitles=("|".join(content).strip()).split("\n|\n|")
     Subtitles=list()
     for s in TSubtitles:
