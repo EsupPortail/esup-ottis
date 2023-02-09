@@ -179,8 +179,8 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
     content = fd.readlines()
     fd.close()
     # VTT -> SRT conversion
-    if content[0:6] == "WEBVTT":
-        content=content[6:].strip()
+    if('WEBVTT' in content[0]):
+        content=content[2:]
     TSubtitles=("|".join(content).strip()).split("\n|\n|")
     Subtitles=list()
     for s in TSubtitles:
