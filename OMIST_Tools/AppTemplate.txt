@@ -153,6 +153,10 @@ z-index: 11000;
   cursor: pointer;
 } 
 
+#DEBUG {
+  display: none;
+}
+
 </style>
 <script type="text/javascript">
 // Configuration
@@ -170,9 +174,14 @@ var keepaspectratio = eval("@@KEEPASPECTRATIO@@" != "N");
 
 // --------- Fin Configuration
 
-
-
-
+// Gestion des options
+function InitParams() {
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('debug')) {
+    document.getElementById('DEBUG').style.display='block';
+  }
+}
+window.addEventListener("load", InitParams);
 
 document.title = title;
 var languetraduction_0 = languetraduction;
