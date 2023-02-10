@@ -669,8 +669,8 @@ function PopulateVoicesIn() {
     </button>
     <progress id="slidesprogress" max="100" value="0" style="margin-left: auto; margin-right: auto; height: 30px; width:60%;"> 0% </progress>
     </div>
-    <div id="DEBUG" position="fixed; bottom: 0; left: 0;">
-    <button onclick="var s=prompt('Mouse instruction'); var instruction = s.replace("[mouse ","").replace("]","").split(" "); MouseInstruction(instruction);">DEBUG</button>
+    <div id="DEBUG" position="fixed; bottom: 0px; left: 0px;">
+    <button onclick="var s=prompt('Mouse instruction'); var instruction = s.replace('[mouse ','').replace(']','').split(' '); MouseInstruction(instruction);">DEBUG</button>
     </div>
     <div id="Play" >
         1) Choose your language
