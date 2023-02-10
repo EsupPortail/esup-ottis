@@ -662,6 +662,17 @@ function PopulateVoicesIn() {
   }
 }
 
+function followmouse(e) {
+  var c=document.getElementById('slide');
+  var pourcx=(e.layerX-c.x/window.devicePixelRatio)/c.width+5;
+  var pourcy=c.width;
+	var x=c.x/window.devicePixelRatio+pourcx*c.width-5;
+	var y=c.y/window.devicePixelRatio+pourcy*c.height-5;
+  document.getElementById('mousepos').innerHTML='('+e.layerX+','+e.layerY+','+pourcx+','+pourcy+','+x+','+y+')';};
+  showMouse();
+	document.getElementById('mouse').style.top=y+"px";
+	document.getElementById('mouse').style.left=x+"px";
+}
 
 </script>
 </head>
