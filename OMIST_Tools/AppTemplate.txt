@@ -305,7 +305,7 @@ function MouseInstruction(instruction) {
 		document.getElementById('mouse').style.left=x+"px";
 	}
 	if (instruction[0] == "shape") {
-    var allShapes=['+','X','☝','○','⚫'];
+    var allShapes=['+','X','☝','○','⚫','↖'];
     var s=allShapes[((1*instruction[1])%allShapes.length)];
     showMouse();
 		document.getElementById('mouse').innerHTML=s;
