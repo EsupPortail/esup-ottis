@@ -698,7 +698,7 @@ function PopulateVoicesIn() {
   <div id="dialog2">OK</div>
   <div id="mouse">+</div>
     <div id="DEBUG" style="position: fixed; bottom: 0px; left: 0px;">
-    <button onclick="var s=prompt('Mouse instruction'); var instruction = s.replace('[mouse ','').replace(']','').split(' '); MouseInstruction(instruction);">DEBUG</button>
+    <button onclick="var s=prompt('Mouse instruction'); var instruction = s.replace('[mouse ','').replace(']','').split(' '); MouseInstruction(instruction);">Mouse order</button>
     <button onclick="backward();">Prev slide</button>
     <button onclick="forward();">Next slide</button>
     </div>
