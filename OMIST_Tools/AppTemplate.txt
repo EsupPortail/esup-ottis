@@ -301,8 +301,9 @@ function MouseInstruction(instruction) {
 	if (instruction[0] == "go") {
 		var pourcx=1*instruction[1]/100;
 		var pourcy=1*instruction[2]/100;
-		var x=c.x/window.devicePixelRatio+pourcx*c.width-5;
-		var y=c.y/window.devicePixelRatio+pourcy*c.height-5;
+    	var pr=getDevicePixelRatio();
+		var x=c.x/pr+pourcx*c.width-5;
+		var y=c.y/pr+pourcy*c.height-5;
     showMouse();
 		document.getElementById('mouse').style.top=y+"px";
 		document.getElementById('mouse').style.left=x+"px";
