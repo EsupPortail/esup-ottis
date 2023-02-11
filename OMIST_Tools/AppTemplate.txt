@@ -112,6 +112,7 @@ font-family: helvetica, arial, sans-serif;
 vertical-align: middle;
 text-align: center;
 z-index: 11000;
+cursor: default;
 }
 
 
