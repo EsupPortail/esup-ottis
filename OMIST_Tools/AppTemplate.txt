@@ -732,7 +732,7 @@ function followmouse(e) {
     <button onclick="var s=prompt('Mouse instruction\n (eg. show, hide, go X Y, color c, size f, rotate a, shape n, customshape ch,...)'); var instruction = s.replace('[mouse ','').replace(']','').split(' '); MouseInstruction(instruction);">Mouse order</button>
     <button onclick="backward();">Prev slide</button>
     <button onclick="forward();">Next slide</button>
-    <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition=''; document.getElementById('slide').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('slide').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
+    <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('slide').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('slide').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
     </div>
 <!--  <div id="pausediv" class="modal">
   <div class="modal-content">
