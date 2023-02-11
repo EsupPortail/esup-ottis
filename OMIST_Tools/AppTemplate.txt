@@ -155,6 +155,7 @@ z-index: 11000;
 
 #DEBUG {
   display: none;
+  z-index: 20000;
 }
 
 </style>
