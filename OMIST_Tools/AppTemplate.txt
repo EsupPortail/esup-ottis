@@ -662,16 +662,30 @@ function PopulateVoicesIn() {
   }
 }
 
+function getDevicePixelRatio() {
+    var mediaQuery;
+    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (window.devicePixelRatio !== undefined && !is_firefox) {
+        return window.devicePixelRatio;
+    } else {
+        return 1;
+    }
+}
+
 function followmouse(e) {
   var c=document.getElementById('slide');
-  var pourcx=(e.layerX-c.x/window.devicePixelRatio)/c.width+5;
-  var pourcy=c.width;
-	var x=c.x/window.devicePixelRatio+pourcx*c.width-5;
-	var y=c.y/window.devicePixelRatio+pourcy*c.height-5;
-  document.getElementById('mousepos').innerHTML='('+e.layerX+','+e.layerY+','+pourcx+','+pourcy+','+x+','+y+')';
+	var pr=getDevicePixelRatio();
+  var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+  var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+	var x=c.x/pr+pourcx/100*c.width-5;
+	var y=c.y/pr+pourcy/100*c.height-5;
+  document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
   showMouse();
+	//document.getElementById('mouse').style.top=y+"px";
+	//document.getElementById('mouse').style.left=x+"px";
 	document.getElementById('mouse').style.top=y+"px";
 	document.getElementById('mouse').style.left=x+"px";
+
 }
 
 </script>
@@ -713,11 +727,11 @@ function followmouse(e) {
   <div id="dialog">OK</div>
   <div id="dialog2">OK</div>
   <div id="mouse">+</div>
-    <div id="DEBUG" style="position: fixed; bottom: 0px; left: 0px; background-color: white;">
+     <div id="DEBUG" style="position: fixed; top: 0px; left: 0px; background-color: white;">
     <button onclick="var s=prompt('Mouse instruction\n (eg. show, hide, go X Y, color c, size f, rotate a, shape n, customshape ch,...)'); var instruction = s.replace('[mouse ','').replace(']','').split(' '); MouseInstruction(instruction);">Mouse order</button>
     <button onclick="backward();">Prev slide</button>
     <button onclick="forward();">Next slide</button>
-    <input type="checkbox" onclick="if (this.checked) {window.onmousemove=followmouse;} else {window.onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
+    <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition=''; document.getElementById('slide').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('slide').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
     </div>
 <!--  <div id="pausediv" class="modal">
   <div class="modal-content">
@@ -754,6 +768,8 @@ console.log("System : Linux ? "+isLinux+"   Chrome ?"+isChrome);
 
 if (isLinux && ! isChrome) alert('Linux user : for a better experience (speech synthesis), use the Google Chrome navigator.')
 */
+document.getElementById("mouse").setAttribute("tabIndex", "-1");
+
 </script>
 
 </html>
