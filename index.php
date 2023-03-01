@@ -693,7 +693,7 @@ function InviteExternal() {
       if (T == 'ok') {
         var link=document.getElementById('teacherlink').href.replace("index.php","indexExternal.php");
         navigator.clipboard.writeText(link);
-        myalert('External guest created !\nThe following link has been copied. It must be used in the next 24 hours.\n<a href="'+link+'">'+link+'</a>');
+        myalert('External guest created !\nThe following link has been copied. It must be used in the next 7 days.\n<a href="'+link+'">'+link+'</a>');
       }
     }
   }
