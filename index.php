@@ -2268,6 +2268,8 @@ function applyConfig() {
           echo "<option value=\"604800\" >1 week</option>";
           echo "<option value=\"2678400\" >1 month</option>";
           echo "</select>";
+        } else {
+          echo "<input type=\"text\" value=\"86400\" id=\"duration\" style=\"display:none;\"/>";
         }
         ?>
         </li>
