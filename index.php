@@ -514,6 +514,7 @@ input[type=text] {
 #Allbuttons {
   transition: 1s ease;
   transform-origin: top right;
+  z-index:30000;
 }
 	</style>
 
