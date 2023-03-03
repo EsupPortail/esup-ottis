@@ -419,6 +419,7 @@ input[type=text] {
   top:60px;
   right: 5px;
   font-size: 12px;
+  z-index: 1000;
 }
 
 #tabs-7 {
