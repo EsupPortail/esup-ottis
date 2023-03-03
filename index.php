@@ -2079,7 +2079,7 @@ function applyConfig() {
 <div id="Allbuttons">
 <div id="connexion"><i class='material-icons big'>signal_wifi_off</i></div>
 
-<div id="pincodediv" title="Pincode" onclick="if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
+<div id="pincodediv" title="Pincode" onclick="/*if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';*/"><!--<span style="font-size: 0.5em;">Pin code</span><br/>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
 <div id="micon" onclick="Micro();"><i class='material-icons big'>voice_over_off</i></div>
 
 <div id="questionicon"><i class='material-icons big'>thumb_up</i></div>
