@@ -516,9 +516,40 @@ input[type=text] {
   visibility: visible;
 }
 
+@media (min-width:650px and max-width:800px) {
+  #Allbuttons { visibility: visible; }
+  #pincodediv {
+    scale(0.5);
+    top: 5px;
+    right: 5px;
+  }
+  #questionicon, #connexion,#logonext,#FS {
+    visibility: hidden;
+  }
+
+  #micon {
+    top: 40px;
+    right: 5px;
+  }
+}
+
+@media (min-width:500px and max-width:650px) {
+  #Allbuttons { visibility: visible; }
+  #pincodediv, #questionicon, #connexion,#logonext,#FS {
+    visibility: hidden;
+  }
+
+  #micon {
+    scale(0.5);
+    top: 5px;
+    right: 5px;
+  }
+}
+
 @media (max-width:500px) {
   #Allbuttons { visibility: hidden; }
 }
+
 	</style>
 
 <script type="text/javascript">
