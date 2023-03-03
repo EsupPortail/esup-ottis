@@ -513,12 +513,10 @@ input[type=text] {
 }
 
 #Allbuttons {
-  transition: 1s ease;
-  transform-origin: top right;
-  z-index:30000;
+  visibility: visible;
 }
 
-@media (min-width:500px) {
+@media (max-width:500px) {
   #Allbuttons { visibility: hidden; }
 }
 	</style>
