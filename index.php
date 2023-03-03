@@ -516,7 +516,7 @@ input[type=text] {
   visibility: visible;
 }
 
-@media (min-width:650px and max-width:800px) {
+@media ((min-width:650px) and (max-width:800px)) {
   #Allbuttons { visibility: visible; }
   #pincodediv {
     scale(0.5);
@@ -533,7 +533,7 @@ input[type=text] {
   }
 }
 
-@media (min-width:500px and max-width:650px) {
+@media ((min-width:500px) and (max-width:650px)) {
   #Allbuttons { visibility: visible; }
   #pincodediv, #questionicon, #connexion,#logonext,#FS {
     visibility: hidden;
