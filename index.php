@@ -433,10 +433,9 @@ input[type=text] {
 #sharedqr {
     transition: 1s ease;
   transform-origin: top left;
-  z-index:20000;
 }
 #sharedqr:hover {
-  transform: scale(2);
+  transform: scale(1);
 }
 
 #titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titlevisio {
