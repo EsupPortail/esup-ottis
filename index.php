@@ -516,7 +516,10 @@ input[type=text] {
   transition: 1s ease;
   transform-origin: top right;
   z-index:30000;
-  visibility: hidden;
+}
+
+@media (min-width:500px) {
+  #Allbuttons { visibility: hidden; }
 }
 	</style>
 
