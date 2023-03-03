@@ -522,13 +522,14 @@ input[type=text] {
     scale(0.5);
     top: 5px;
     right: 5px;
+    transition: 0.1s;
   }
   #questionicon, #connexion,#logonext,#FS {
     visibility: hidden;
   }
 
   #micon {
-    top: 40px;
+    top: 60px;
     right: 5px;
   }
 }
