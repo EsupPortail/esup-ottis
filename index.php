@@ -519,6 +519,7 @@ input[type=text] {
 @media ((min-width:650px) and (max-width:800px)) {
   #Allbuttons { visibility: visible; }
   #pincodediv {
+    transform-origin: top right;
     transform: scale(0.5);
     top: 5px;
     right: 5px;
@@ -529,7 +530,7 @@ input[type=text] {
   }
 
   #micon {
-    top: 40px;
+    top: 32px;
     right: 5px;
   }
 }
@@ -544,6 +545,7 @@ input[type=text] {
   }
 
   #micon {
+    transform-origin: top right;
     transform: scale(0.5);
     top: 5px;
     right: 5px;
