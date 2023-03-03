@@ -516,6 +516,7 @@ input[type=text] {
   transition: 1s ease;
   transform-origin: top right;
   z-index:30000;
+  transform: scale(0.5);
 }
 	</style>
 
