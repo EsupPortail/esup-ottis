@@ -215,7 +215,10 @@ document.getElementById('slidesprogress').addEventListener('click', function (e)
   document.getElementById('slidesprogress').value = 100*x/w;
   currenttxt = Math.floor(TslidesNotes.length*x/w);
   move=true;
-  window.speechSynthesis.cancel();
+  if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+	if (navigator.userAgent.indexOf("Firefox")<0) {
+		EcouterTexte(TslidesNotes,currenttxt);
+	}
   //alert(currenttxt+'   '+TslideNumber[currenttxt]);
 });
 document.getElementById('slide').src=Timages[0];
@@ -234,15 +237,16 @@ function forward() {
   if (current<nslides) current++;
 //  document.getElementById('slide').src=filename+formate(current)+extension;
 //  document.getElementById('slide').src=filename+formate(TslideNumber[currenttxt]+1)+extension;
-	document.getElementById('slide').src=Timages[current-1];
+	document.getElementById('slide').src=Timages[TslideNumber[currenttxt]];
+	//document.getElementById('slide').src=Timages[current];
   //console.log('Forward to slide '+(current-1));
   update();
 }
 
 function backward() {
-  if (current>1) current--;
+  if (current>0) current--;
 //  document.getElementById('slide').src=filename+formate(current)+extension;
-	document.getElementById('slide').src=Timages[current-1];
+	document.getElementById('slide').src=Timages[current];
 	//console.log('Backward to slide '+(current-1));
     update();
 }
@@ -315,7 +319,7 @@ function MouseInstruction(instruction) {
 		document.getElementById('mouse').innerHTML=s;
 	}
 	if (instruction[0] == "customshape") {
-    var s=''; 
+    var s='';
     for(var k=1; k<instruction.length; k++) s+=instruction[k]+' ';
     s=s.trim().replaceAll('”','"');
     showMouse();
@@ -347,9 +351,9 @@ function EcouterTexte(Tch, c) {
   if (move) {
     move = false;
     c = currenttxt;
-    document.getElementById('slide').src=Timages[TslideNumber[c]];
 		console.log('Jumping to slide '+TslideNumber[c]);
-		current=TslideNumber[c]+1;
+		document.getElementById('slide').src=Timages[TslideNumber[c]];
+		current=TslideNumber[c]; //+1;
 
   }
   update();
@@ -369,7 +373,7 @@ function EcouterTexte(Tch, c) {
 		if (s.indexOf("[pause]") >= 0) {
       console.log("PAUSE");
       alert('Pause\nPress OK to resume');
-      
+
       //myalert('Pause<br/>Press OK to resume');
 
       s = s.replace("[pause]", "");
@@ -406,7 +410,7 @@ function EcouterTexte(Tch, c) {
     }
 
     // console.log(s);
-    
+
     if (true) { //(langueorigine.substr(0,2) == languetraduction.substr(0,2)) {
       if (waittime>0) {
 				Affiche("Sleeping for "+(waittime/1000)+" s.....");
