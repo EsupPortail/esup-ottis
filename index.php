@@ -2287,6 +2287,7 @@ function applyConfig() {
     <select id="VoiceOutput" onchange="setLanguageOutput(this.value);" class="jqueryselect">
     </select>
   </li>
+  <li><button id="bswitch" onclick="var tmp=document.getElementById('VoiceOutput').value; document.getElementById('VoiceOutput').value=document.getElementById('classroomlanguage').value; setLanguageOutput(document.getElementById('VoiceOutput').value); setLanguageInput(document.getElementById('classroomlanguage').value); Micro(); Micro();">input ↔ output</button></li>
 </ul>
     <div id="output">
     </div>
