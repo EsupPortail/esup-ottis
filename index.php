@@ -75,7 +75,7 @@ fclose($fd);
 //print_r($T_lang);
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="fr-FR">
 <head>
 	<title>Automatic translation for teaching purposes: Teacher</title>
 	<meta charset="utf-8">
