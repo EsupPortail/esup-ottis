@@ -913,7 +913,7 @@ function RemoveVerbalTics(ch) {
 }
 
 
-var inputnumber=1;
+var inputnumber=0;
 function Traduction(ch) {
   ch = RemoveVerbalTics(ch);
   var recognitionon=document.getElementById('recognitionon').checked;
