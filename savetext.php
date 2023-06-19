@@ -24,6 +24,8 @@ if (file_exists("tmp/Link_".$roomid)) {
   if (count($TLines)>$lastlines) {
     $TLines=array_slice($TLines,count($TLines)-$lastlines);
   }
+} else {
+  $TLines[]=$ligneID.";".$lang.";".$text;
 }
 
 
