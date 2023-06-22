@@ -153,7 +153,7 @@ builtin_recognition.continuous = false;
 var builtin_recognitionon = false;
 
 function StartSpeechRecognition(callback) {
-  console.log('DEBUG : '+builtin_language);
+  //console.log('DEBUG : '+builtin_language);
   builtin_recognition.lang = builtin_language.lang.split(" ")[0];
   console.log("Recognition language is "+builtin_recognition.lang);
   builtin_recognition.onresult = function(event) {
@@ -207,6 +207,7 @@ function Exchange() {
   s2.selectedIndex=tmp;
   setLanguageInput(s1.value);
   setLanguageOutput(s2.value);
+  console.log("Input is "+s1.value+" and output is "+s2.value);
   notready();
   ready();
 }
