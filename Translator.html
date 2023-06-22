@@ -42,6 +42,24 @@ function PopulateVoicesOut() {
 
 function PopulateVoicesIn() {
   var select = document.getElementById('VoiceInput');
+  AllOutputVoices=[];
+  while (select.firstChild) {
+    select.removeChild(select.firstChild);
+  }
+  var voices = window.speechSynthesis.getVoices();
+  for(var i=0; i<voices.length; i++) {
+    if (voices[i].localService) {
+      var opt=document.createElement("option");
+      opt.value=AllOutputVoices.length;
+      AllOutputVoices.push(voices[i]);
+      opt.innerHTML=voices[i].lang+" "+voices[i].name;
+      select.appendChild(opt);
+    }
+  }
+}
+
+function old_PopulateVoicesIn() {
+  var select = document.getElementById('VoiceInput');
   var voices = window.speechSynthesis.getVoices();
   TLangInput=[];
   //alert(voices[0].name);
