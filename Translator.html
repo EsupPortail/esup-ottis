@@ -194,9 +194,9 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
 //builtin_recognition.continuous = true;
-builtin_recognition.interimResults = true;
-builtin_recognition.enableAutomaticPunctuation= true;
-builtin_recognition.maxAlternatives = 1;
+//builtin_recognition.interimResults = true;
+//builtin_recognition.enableAutomaticPunctuation= true;
+//builtin_recognition.maxAlternatives = 1;
 
 //builtin_recognition.continuous = false;
 var builtin_recognitionon = false;
@@ -209,7 +209,7 @@ function StartSpeechRecognition(callback) {
     if (builtin_recognitionon) {
     var partial='';
       for (var i = event.resultIndex; i < event.results.length; i++) {
-        if (event.results[i].isFinal) {
+/*        if (event.results[i].isFinal) {
           partial=event.results[i][0].transcript; //+" > ";
           partial='';
           EcrirePartial(partial);
@@ -224,13 +224,13 @@ function StartSpeechRecognition(callback) {
 
       builtin_recognition.stop();
 
+*/
 
-/*
       for (i = event.resultIndex; i < event.results.length; i++) {
         callback(event.results[i][0].transcript);
       }
       builtin_recognition.stop();
-      */
+      
     }
   };
   builtin_recognition.onend = function(event) {
