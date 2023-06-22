@@ -231,6 +231,7 @@ function InitVoices() {
     console.log("Search "+defaultOut+" in "+AllOutputVoices[i].lang+" : "+AllOutputVoices[i].lang.indexOf(defaultOut));
     if (AllOutputVoices[i].lang.indexOf(defaultOut)>=0) {defaulv=i; break;}
   }
+  console.log("Output set to "+defaultv);
   document.getElementById("VoiceOutput").selectedIndex=defaultv;
   setLanguageOutput(defaultv);
 }
