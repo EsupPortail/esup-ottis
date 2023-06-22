@@ -21,6 +21,12 @@ select {
   padding: 10px;
 }
 
+#excbutton {
+  border-radius: 4px;
+  font-family: helvetica;
+  font-size: 1.5em;
+  background-color: rgb(50,255,100);
+}
 </style>
 
 <script type="text/javascript">
@@ -259,8 +265,8 @@ function Lancer() {
 </td>
 </tr>
 <tr>
-<td style="text-align:center;"><button onclick="Exchange();">⬍</button></td>
-<th></th>
+  <th></th>
+  <td style="text-align:center;"><button id="excbutton" onclick="Exchange();">⬍</button></td>
 </tr>
 <tr>
 <th>Output</th>
