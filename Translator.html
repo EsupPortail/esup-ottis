@@ -42,7 +42,7 @@ function PopulateVoicesOut() {
 
 function PopulateVoicesIn() {
   var select = document.getElementById('VoiceInput');
-  AllOutputVoices=[];
+  //AllOutputVoices=[];
   while (select.firstChild) {
     select.removeChild(select.firstChild);
   }
@@ -51,7 +51,7 @@ function PopulateVoicesIn() {
     if (voices[i].localService) {
       var opt=document.createElement("option");
       opt.value=AllOutputVoices.length;
-      AllOutputVoices.push(voices[i]);
+      //AllOutputVoices.push(voices[i]);
       opt.innerHTML=voices[i].lang+" "+voices[i].name;
       select.appendChild(opt);
     }
@@ -78,7 +78,8 @@ function old_PopulateVoicesIn() {
 }
 
 function setLanguageInput(i) {
-  builtin_language=TLangInput[i];
+  //builtin_language=TLangInput[i];
+  builtin_language=AllOutputVoices[i];
   //Ecrire(builtin_language);
 }
 
@@ -114,12 +115,12 @@ function notready() {
 function Traduction(ch) {
   if (readytotalk) {
     notready();
-  Ecrire('Entrée : '+ch);
-  if (builtin_voice.lang.substr(0,2) != builtin_language.substr(0,2))
-    Translate(ch, builtin_voice.lang.substr(0,2), builtin_language.substr(0,2));
+  Ecrire('Input ('+builtin_voice.lang.substr(0,2)+'): '+ch);
+  if (builtin_voice.lang.substr(0,2) != builtin_language.lang.substr(0,2))
+    Translate(ch, builtin_voice.lang.substr(0,2), builtin_language.lang.substr(0,2));
   else {
     Parle(ch);
-    Ecrire("Sortie : "+ch);
+    Ecrire("Output ("+builtin_language.lang.substr(0,2)+"): "+ch);
   }
   }
 }
@@ -134,9 +135,9 @@ function Translate(ch, l, linput) {
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
         Parle(response["data"]["translations"][0]["translatedText"]);
-        Ecrire("Sortie : "+response["data"]["translations"][0]["translatedText"]);
+        Ecrire("Output ("+builtin_language.lang.substr(0,2)+"): "+response["data"]["translations"][0]["translatedText"]);
       } else {
-        Ecrire("Sortie : Erreur de traduction")
+        Ecrire("Output ("+builtin_language.lang.substr(0,2)+"): Erreur de traduction")
       }
 
     }
@@ -203,6 +204,8 @@ function Exchange() {
   s2.selectedIndex=tmp;
   setLanguageInput(s1.value);
   setLanguageOutput(s2.value);
+  notready();
+  ready();
 }
 
 
@@ -223,7 +226,7 @@ function Exchange() {
 <select id="VoiceInput" onchange="setLanguageInput(this.value);">
 </select>
 </td>
-<td><button onclick="Exchange();">⬌</button></td>
+<td style="text-align:center;"><button onclick="Exchange();">⬌</button></td>
 <td>
 <select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
 </select>
