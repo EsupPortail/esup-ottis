@@ -205,8 +205,8 @@ function Exchange() {
   var tmp=s1.selectedIndex;
   s1.selectedIndex=s2.selectedIndex;
   s2.selectedIndex=tmp;
-  setLanguageInput(s1.value);
-  setLanguageOutput(s2.value);
+  setLanguageInput(s1.selectedIndex);
+  setLanguageOutput(s2.selectedIndex);
   console.log("Input is "+s1.value+" and output is "+s2.value);
   notready();
   ready();
@@ -248,12 +248,12 @@ function Lancer() {
 </tr>
 <tr>
 <td>
-<select id="VoiceInput" onchange="setLanguageInput(this.value);">
+<select id="VoiceInput" onchange="setLanguageInput(this.selectedIndex);">
 </select>
 </td>
 <td style="text-align:center;"><button onclick="Exchange();">⬌</button></td>
 <td>
-<select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
+<select id="VoiceOutput" onchange="setLanguageOutput(this.selectedIndex);">
 </select>
 </td>
 </tr>
