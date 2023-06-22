@@ -13,6 +13,14 @@ select {
   color: white;
   background-color: rgb(50,100,255);
 }
+
+#bready {
+  border: none;
+  font-family: helvetica;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -31,7 +39,7 @@ function PopulateVoicesOut() {
   }
   var voices = window.speechSynthesis.getVoices();
   for(var i=0; i<voices.length; i++) {
-    if (voices[i].localService) {
+    if (true) { //voices[i].localService) {
       var opt=document.createElement("option");
       opt.value=AllOutputVoices.length;
       AllOutputVoices.push(voices[i]);
@@ -244,14 +252,18 @@ function Lancer() {
 </div>
 <table id="tb">
 <tr>
-<th>Input</th><th></th><th>Output</th>
-</tr>
-<tr>
+<th>Input</th>
 <td>
 <select id="VoiceInput" onchange="setLanguageInput(this.selectedIndex);">
 </select>
 </td>
-<td style="text-align:center;"><button onclick="Exchange();">⬌</button></td>
+</tr>
+<tr>
+<td style="text-align:center;"><button onclick="Exchange();">⬍</button></td>
+<th></th>
+</tr>
+<tr>
+<th>Output</th>
 <td>
 <select id="VoiceOutput" onchange="setLanguageOutput(this.selectedIndex);">
 </select>
