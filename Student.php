@@ -489,7 +489,7 @@ background-color: green;
 #tmpmessage {
   transition: 1s ease;
   transform: scale(1);
-  background-color: rgb(255,150,150);
+  background-color: rgb(150,150,255);
   border-radius: 5px;
   color: white;
   position: absolute;
@@ -511,7 +511,7 @@ background-color: green;
 	left: 1.5em;
 	border: .75rem solid transparent;
 	border-top: none;
-	border-bottom-color: #fff;
+	border-bottom-color: rgb(150,150,255);
 	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
 }
 
