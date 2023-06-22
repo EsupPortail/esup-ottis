@@ -190,6 +190,12 @@ function Translate(ch, l, linput) {
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
+builtin_recognition.continuous = true;
+builtin_recognition.interimResults = true;
+builtin_recognition.enableAutomaticPunctuation= true;
+builtin_recognition.maxAlternatives = 1;
+
+//builtin_recognition.continuous = false;
 var builtin_recognitionon = false;
 
 function StartSpeechRecognition(callback) {
@@ -198,10 +204,27 @@ function StartSpeechRecognition(callback) {
   console.log("Recognition language is "+builtin_recognition.lang);
   builtin_recognition.onresult = function(event) {
     if (builtin_recognitionon) {
+    var partial='';
+      for (var i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          partial=event.results[i][0].transcript; //+" > ";
+          callback(event.results[i][0].transcript);
+        } else {
+          partial+=' '+event.results[i][0].transcript;
+        }
+      }
+      if (partial.trim() != '') {
+        if (document.getElementById('recognitionon').checked) EcrirePartial(partial);
+      }
+
+
+
+/*
       for (i = event.resultIndex; i < event.results.length; i++) {
         callback(event.results[i][0].transcript);
       }
       builtin_recognition.stop();
+      */
     }
   };
   builtin_recognition.onend = function(event) {
@@ -299,6 +322,9 @@ function SpeakerONOFF() {
   }
 }
 
+function EcrirePartial(txt) {
+  document.getElementById('partial').innerHTML=txt;
+}
 </script>
 </head>
 <body onload="loadVoicesWhenAvailable(); ">
@@ -333,6 +359,8 @@ swap_vert
 </tr>
 
 </table>
+<div id="partial">
+</div>
 <div id="output">
 </div>
 </body>
