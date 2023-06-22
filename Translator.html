@@ -152,7 +152,8 @@ builtin_recognition.continuous = false;
 var builtin_recognitionon = false;
 
 function StartSpeechRecognition(callback) {
-  builtin_recognition.lang = builtin_language;
+  builtin_recognition.lang = builtin_language.lang.split(" ")[0];
+  console.log("Recognition language is "+builtin_recognition.lang);
   builtin_recognition.onresult = function(event) {
     if (builtin_recognitionon) {
       for (i = event.resultIndex; i < event.results.length; i++) {
