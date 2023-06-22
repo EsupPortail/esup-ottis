@@ -51,6 +51,9 @@ var base = new URL(window.location.toLocaleString()).searchParams;
 if (base.has('defaultIn')) defaultIn=base.get('defaultIn');
 if (base.has('defaultOut')) defaultIn=base.get('defaultOut');
 
+console.log("Input = "+defaultIn);
+console.log("Output = "+defaultOut);
+
 var AllOutputVoices=[];
 var TLangInput=[];
 var builtin_voice;
