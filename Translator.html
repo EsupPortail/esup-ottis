@@ -116,12 +116,12 @@ function notready() {
 function Traduction(ch) {
   if (readytotalk) {
     notready();
-  Ecrire('Input ('+builtin_voice.lang.substr(0,2)+'): '+ch);
+  Ecrire('Input ('+builtin_language.lang.substr(0,2)+'): '+ch);
   if (builtin_voice.lang.substr(0,2) != builtin_language.lang.substr(0,2))
     Translate(ch, builtin_voice.lang.substr(0,2), builtin_language.lang.substr(0,2));
   else {
     Parle(ch);
-    Ecrire("Output ("+builtin_language.lang.substr(0,2)+"): "+ch);
+    Ecrire("Output ("+builtin_voice.lang.substr(0,2)+"): "+ch);
   }
   }
 }
@@ -136,9 +136,9 @@ function Translate(ch, l, linput) {
       var response = JSON.parse(this.responseText);
       if ((! response["error"]) && response["data"]["translations"]) {
         Parle(response["data"]["translations"][0]["translatedText"]);
-        Ecrire("Output ("+builtin_language.lang.substr(0,2)+"): "+response["data"]["translations"][0]["translatedText"]);
+        Ecrire("Output ("+builtin_voice.lang.substr(0,2)+"): "+response["data"]["translations"][0]["translatedText"]);
       } else {
-        Ecrire("Output ("+builtin_language.lang.substr(0,2)+"): Erreur de traduction")
+        Ecrire("Output ("+builtin_voice.lang.substr(0,2)+"): Erreur de traduction")
       }
 
     }
