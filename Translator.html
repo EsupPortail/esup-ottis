@@ -43,6 +43,14 @@ select {
 
 <script type="text/javascript">
 
+// Parameters
+var defaultIn="fr-FR";
+var defaultOut="en-US";
+var base = new URL(window.location.toLocaleString()).searchParams;
+
+if (base.has('defaultIn')) defaultIn=base.get('defaultIn');
+if (base.has('defaultOut')) defaultIn=base.get('defaultOut');
+
 var AllOutputVoices=[];
 var TLangInput=[];
 var builtin_voice;
@@ -211,8 +219,16 @@ function StopSpeechRecognition() {
 function InitVoices() {
   PopulateVoicesIn();
   PopulateVoicesOut();
-  setLanguageInput(0);
-  setLanguageOutput(0);
+  var defaultv=0;
+  for(var i=0; i<AllOutputVoices.length;i++) {
+    if (AllOutputVoices[i].lang.indexOf(defaultIn)>=0) {defaulv=i; break;}
+  }
+  setLanguageInput(defaultv);
+  var defaultv=0;
+  for(var i=0; i<AllOutputVoices.length;i++) {
+    if (AllOutputVoices[i].lang.indexOf(defaultOut)>=0) {defaulv=i; break;}
+  }
+  setLanguageOutput(defaultv);
 }
 
 function Ecrire(ch) {
