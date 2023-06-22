@@ -38,6 +38,9 @@ select {
   padding: 10px;
 }
 
+#partial {
+  font-style: italic;
+}
 
 </style>
 
@@ -208,6 +211,7 @@ function StartSpeechRecognition(callback) {
       for (var i = event.resultIndex; i < event.results.length; i++) {
         if (event.results[i].isFinal) {
           partial=event.results[i][0].transcript; //+" > ";
+          partial='';
           callback(event.results[i][0].transcript);
         } else {
           partial+=' '+event.results[i][0].transcript;
