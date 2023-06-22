@@ -49,7 +49,7 @@ function PopulateVoicesIn() {
   }
   var voices = window.speechSynthesis.getVoices();
   for(var i=0; i<voices.length; i++) {
-    if (voices[i].localService) {
+    if (true) { //voices[i].localService) {
       var opt=document.createElement("option");
       opt.value=AllOutputVoices.length;
       //AllOutputVoices.push(voices[i]);
@@ -65,7 +65,7 @@ function old_PopulateVoicesIn() {
   TLangInput=[];
   //alert(voices[0].name);
   for(var i=0; i<voices.length; i++) {
-    if (voices[i].localService) {
+    if (true) { //voices[i].localService) {
       var lang=voices[i].lang; //.substr(0,5);
       if (TLangInput.indexOf(lang)<0) {
         var opt=document.createElement("option");
