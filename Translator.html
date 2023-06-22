@@ -49,7 +49,7 @@ var defaultOut="en-US";
 var base = new URL(window.location.toLocaleString()).searchParams;
 
 if (base.has('defaultIn')) defaultIn=base.get('defaultIn');
-if (base.has('defaultOut')) defaultIn=base.get('defaultOut');
+if (base.has('defaultOut')) defaultOut=base.get('defaultOut');
 
 console.log("Input = "+defaultIn);
 console.log("Output = "+defaultOut);
@@ -225,14 +225,14 @@ function InitVoices() {
   var defaultv=0;
   for(var i=0; i<AllOutputVoices.length;i++) {
     //console.log("Search "+defaultIn+" in "+AllOutputVoices[i].lang+" : "+AllOutputVoices[i].lang.indexOf(defaultIn));
-    if (AllOutputVoices[i].lang.indexOf(defaultIn)>=0) {defaultv=i; break;}
+    if (AllOutputVoices[i].name.indexOf(defaultIn)>=0) {defaultv=i; break;}
   }
   document.getElementById("VoiceInput").selectedIndex=defaultv;
   setLanguageInput(defaultv);
   var defaultv=0;
   for(var i=0; i<AllOutputVoices.length;i++) {
     //console.log("Search "+defaultOut+" in "+AllOutputVoices[i].lang+" : "+AllOutputVoices[i].lang.indexOf(defaultOut));
-    if (AllOutputVoices[i].lang.indexOf(defaultOut)>=0) {defaultv=i; break;}
+    if (AllOutputVoices[i].name.indexOf(defaultOut)>=0) {defaultv=i; break;}
   }
   //console.log("Output set to "+defaultv);
   document.getElementById("VoiceOutput").selectedIndex=defaultv;
