@@ -123,6 +123,8 @@ function Parle(txt) {
     window.speechSynthesis.speak(discours);
     discours.onend=ready;
     discours.onerror=ready;
+  } else {
+    ready();
   }
 }
 
