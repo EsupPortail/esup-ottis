@@ -487,10 +487,11 @@ background-color: green;
 }
 
 #tmpmessage {
+  transition: 1s ease;
+  transform: scale(0);
   background-color: red;
   border-radius: 5px;
   color: white;
-  display: none;
   position: absolute;
   top: 5px;
   left: 64px;	
