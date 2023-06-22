@@ -116,13 +116,14 @@ function setLanguageOutput(i) {
 }
 
 function Parle(txt) {
- var discours = new SpeechSynthesisUtterance(txt);
- discours.voice = builtin_voice;
- discours.lang = builtin_voice.lang;
- window.speechSynthesis.speak(discours);
- discours.onend=ready;
- discours.onerror=ready;
-
+  if (speakeron) {
+    var discours = new SpeechSynthesisUtterance(txt);
+    discours.voice = builtin_voice;
+    discours.lang = builtin_voice.lang;
+    window.speechSynthesis.speak(discours);
+    discours.onend=ready;
+    discours.onerror=ready;
+  }
 }
 
 var readytotalk=true;
