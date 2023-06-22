@@ -204,12 +204,12 @@ var builtin_recognitionon = false;
 function StartSpeechRecognition(callback) {
   //console.log('DEBUG : '+builtin_language);
   builtin_recognition.lang = builtin_language.lang.split(" ")[0];
-  console.log("Recognition language is "+builtin_recognition.lang);
+  //console.log("Recognition language is "+builtin_recognition.lang);
   builtin_recognition.onresult = function(event) {
-    if (builtin_recognitionon) {
+ /*   if (builtin_recognitionon) {
     var partial='';
       for (var i = event.resultIndex; i < event.results.length; i++) {
-/*        if (event.results[i].isFinal) {
+        if (event.results[i].isFinal) {
           partial=event.results[i][0].transcript; //+" > ";
           partial='';
           EcrirePartial(partial);
