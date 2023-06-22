@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
 
 <style type="text/css">
 select {
@@ -249,6 +251,16 @@ function Lancer() {
   StartSpeechRecognition(Traduction);
 }
 
+var speakeron=true;
+function SpeakerONOFF() {
+  speakeron = !speakeron;
+  if (speakeron) {
+    document.getElementById('iconspeaker').innerHTML='record_voice_over';
+  } else {
+    document.getElementById('iconspeaker').innerHTML='voice_over_off';
+  }
+}
+
 </script>
 </head>
 <body onload="loadVoicesWhenAvailable(); ">
@@ -267,7 +279,10 @@ function Lancer() {
 </tr>
 <tr>
   <th></th>
-  <td style="text-align:center;"><button id="excbutton" onclick="Exchange();" title="Switch Input and Output languages">⬍</button></td>
+  <td style="text-align:center;">
+    <button id="excbutton" onclick="Exchange();" title="Switch Input and Output languages">⬍</button>
+    <button id="speakbutton" onclick="SpeakerONOFF();" title="Turn on the audio on or off"><span id="iconspeaker" class="material-symbols-outlined">record_voice_over</span></button>
+    </td>
 </tr>
 <tr>
 <th>Output</th>
