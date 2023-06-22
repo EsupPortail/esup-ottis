@@ -177,6 +177,17 @@ function show(e) {
 }
 //document.body.addEventListener('load',Init,true);
 
+function Exchange() {
+  var s1=document.getElementById('VoiceInput');
+  var s2=document.getElementById('VoiceOutput');
+  var tmp=s1.selectedIndex;
+  var s1.selectedIndex=s2.selectedIndex;
+  var s2.selectedIndex=tmp;
+  setLanguageInput(s1.value);
+  setLanguageOutput(s2.value);
+}
+
+
 </script>
 </head>
 <body onload="InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); ready(); StartSpeechRecognition(Traduction);">
@@ -194,6 +205,7 @@ function show(e) {
 <select id="VoiceInput" onchange="setLanguageInput(this.value);">
 </select>
 </td>
+<td><button onclick="exchange();">⬌</button></td>
 <td>
 <select id="VoiceOutput" onchange="setLanguageOutput(this.value);">
 </select>
