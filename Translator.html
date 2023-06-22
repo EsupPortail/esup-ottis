@@ -181,8 +181,8 @@ function Exchange() {
   var s1=document.getElementById('VoiceInput');
   var s2=document.getElementById('VoiceOutput');
   var tmp=s1.selectedIndex;
-  var s1.selectedIndex=s2.selectedIndex;
-  var s2.selectedIndex=tmp;
+  s1.selectedIndex=s2.selectedIndex;
+  s2.selectedIndex=tmp;
   setLanguageInput(s1.value);
   setLanguageOutput(s2.value);
 }
