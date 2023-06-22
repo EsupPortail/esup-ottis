@@ -487,6 +487,7 @@ background-color: green;
 }
 
 #tmpmessage {
+  font-family: arial, helvetica, sans-serif;
   transition: 1s ease;
   transform: scale(1);
   background-color: rgb(150,150,255);
