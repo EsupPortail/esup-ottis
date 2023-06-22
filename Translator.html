@@ -211,18 +211,39 @@ function Exchange() {
   ready();
 }
 
+var Tvoices;
+function loadVoicesWhenAvailable() {
+         Tvoices = window.speechSynthesis.getVoices();
+
+         if (Tvoices.length !== 0) {
+                LoadVoices();
+            }
+            else {
+                setTimeout(function () { loadVoicesWhenAvailable(); }, 10)
+            }
+    }
+
+function LoadVoices() {
+  InitVoices();
+  Lancer();
+}
+
+function Lancer() {
+  ready(); 
+  StartSpeechRecognition(Traduction);
+}
 
 </script>
 </head>
-<body onload="InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); ready(); StartSpeechRecognition(Traduction);">
-<h1>Instant universal translator</h1>
+<body onload="loadVoicesWhenAvailable(); ">
+<h1>Conversation</h1>
 <div id="buttons">
 <button id="bready">Ready to listen ?</button>
 <!-- <button onclick="StopSpeechRecognition();">Stop</button> -->
 </div>
 <table id="tb">
 <tr>
-<th>Input</th><th>Output</th>
+<th>Input</th><th></th><th>Output</th>
 </tr>
 <tr>
 <td>
