@@ -496,7 +496,7 @@ background-color: green;
   color: white;
   position: absolute;
   top: 54px;
-  left: -10px;	
+  left: -5px;	
 	padding: 1.125em 1.5em;
 	font-size: 1.25em;
 	border-radius: 1rem;
