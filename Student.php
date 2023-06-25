@@ -1090,7 +1090,7 @@ function saveTextQ(ch) {
 	request.open("POST", "savetextQ.php");
   increasependingrequests();
   var f=new FormData();
-  f.append('lineid','Student '+document.getElementById('StudentName').value);
+  f.append('lineid','User '+document.getElementById('StudentName').value);
   //inputnumberQ++;
   f.append('text',ch);
   f.append('inputlanguage',builtin_voice.lang);
@@ -1316,9 +1316,9 @@ function showMessageMenu() {
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 
 <!--
-<div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
-<div id="titre"><h1>Automatic translation for teaching purposes: Student</h1></div>
+<div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 
 <div id="VOBanner"></div>
 <div id="soustitre"></div>
@@ -1349,11 +1349,11 @@ function showMessageMenu() {
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
 </li>
-<li id="lilanguage"><label for="VoiceOutput">Student language :</label>
+<li id="lilanguage"><label for="VoiceOutput">My language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
 </li>
-<li><label for="StudentName">Student surname :</label>
+<li><label for="StudentName">My surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
 <li id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
