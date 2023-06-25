@@ -79,12 +79,12 @@ fclose($fd);
 <head>
 	<title>Automatic translation for teaching purposes: Teacher</title>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
 
 	<style>
 
@@ -752,6 +752,11 @@ function InviteExternal() {
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 ?>
 
+// Parameters
+var base = new URL(window.location.toLocaleString()).searchParams;
+var MaxSavedLines=10;
+if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
+
 var visioactive=false;
 var AllOutputVoices=[];
 var TLangInput=[];
@@ -1376,9 +1381,9 @@ function saveText(ch) {
   f.append('text',ch);
   f.append('inputlanguage',inputlanguage);
   f.append('ROOMID',document.getElementById('classroomid').value);
-  f.append('LastLines',10);
+  f.append('LastLines',MaxSavedLines);
 	request.send(f);
-    AbortTimeout(request);
+  AbortTimeout(request);
 
 //	request.onload = function(event) {};
 }
