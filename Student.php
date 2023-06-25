@@ -972,7 +972,7 @@ if ($synchronize) {
 ?>
   setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
   setTimeout(function() {saveTextQ("[newstudentarrived]");},1000);
-  setTimeout(function() {showMessageMenu()},5000);
+  setTimeout(function() {showMessageMenu()},3000);
   document.getElementById('iconeMenu').src=MenuOnIMG;
   ChangeColor('titre',document.getElementById('ColorTitre').value);
 }
