@@ -4,6 +4,8 @@ ini_set ( "post_max_size" , "50M" );
 
 $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
 
+if (! isset($_FILES['ppt_presentation'])) $tmp_file="tmpfiles/input.pptx";
+
 $flag_justif=false;
 $filename = "tmpfiles/test.html";
 
