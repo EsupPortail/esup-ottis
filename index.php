@@ -755,7 +755,9 @@ echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 // Parameters
 var base = new URL(window.location.toLocaleString()).searchParams;
 var MaxSavedLines=10;
+vvar LoadPPTX=false;
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
+if (base.has('LoadPPTX')) LoadPPTX=true; 
 
 var visioactive=false;
 var AllOutputVoices=[];
@@ -1223,7 +1225,8 @@ function completeHandler(event) {
 function SlideNotes() {
   var file = _("ppt_presentation").files[0];
   var scriptfile = "";
-  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
+//  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
+  if (file.name.endsWith('pptx') && LoadPPTX) scriptfile = "ExtractSlidesNotes_PPTX_images.php"; else scriptfile = "ExtractSlidesNotes.php";
   if (file.name.endsWith('odp')) scriptfile = "ExtractSlidesNotes.php";
   if (file.name.endsWith('txt')) scriptfile = "ExtractSlidesNotesTxt.php";
   if (file.name.endsWith('html')) scriptfile = "ExtractSlidesNotesAppHTML.php";
