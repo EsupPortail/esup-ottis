@@ -755,7 +755,7 @@ echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 // Parameters
 var base = new URL(window.location.toLocaleString()).searchParams;
 var MaxSavedLines=10;
-vvar LoadPPTX=false;
+var LoadPPTX=false;
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
 if (base.has('LoadPPTX')) LoadPPTX=true; 
 
