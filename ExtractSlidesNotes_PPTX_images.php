@@ -4,15 +4,18 @@ ini_set ( "post_max_size" , "50M" );
 
 $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
 
+$flag_justif=false;
+$filename = "tmpfiles/test.html";
+
 $randompath=md5(gmdate("U"));
 
 $command = 'cd OMIST_Tools; bash ./CreateAppOnly.sh "'.$tmp_file.'" '.$randompath.' >/dev/null 2>/dev/null';
 system($command);
 
-$filename='OMIST_Tools/tmp/output_'.$randompath.'.html';
+$tmp_file='OMIST_Tools/tmp/output_'.$randompath.'.html';
 
 
-$contenttxt = file_get_contents($filename);
+$contenttxt = file_get_contents($tmp_file);
 $content = explode("\n",$contenttxt);
 $txtslidenotes="";
 $T_images = array();
@@ -46,7 +49,7 @@ $notes[$n]=$T;
 //print_r($notes);
 echo json_encode($notes);
 
-unlink($filename);
+unlink($tmp_file);
 
 
 ?>
