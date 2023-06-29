@@ -696,6 +696,8 @@ function Translate(ch, l, linput, lineid) {
 
     }
   };
+  xhr.timeout=999;
+  xhr.ontimeout = function () {console.log('ERROR TRANSLATE Timeout');};
   xhr.onloadend = function () {decreasependingrequests(); CompleteTranslation();};
   xhr.send();
   AbortTimeout(xhr);
