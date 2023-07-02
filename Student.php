@@ -839,6 +839,7 @@ function CompleteSpeech() {
       L=L.replace("&nbsp;"," ");
       ParleThen(L,CompleteSpeech);
       currentdiscours=nextdiscours;
+      completespeechactive=false; // Doute ici
     } else completespeechactive=false;
   
 }
