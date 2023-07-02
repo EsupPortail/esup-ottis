@@ -658,8 +658,10 @@ function ParleThen(txt,f) {
   if (! builtin_voice.textonly) {
     var discours = new SpeechSynthesisUtterance(txt);
     discours.voice = builtin_voice;
+    discours.rate=1;
     discours.lang = builtin_voice.lang.replace('_','-')
     discours.onend=f;
+    discours.onerror=function() {console.log('Error Speech synthesis for '+txt); f();}
     window.speechSynthesis.speak(discours);
   } else setTimeout(f,10000);
 }
