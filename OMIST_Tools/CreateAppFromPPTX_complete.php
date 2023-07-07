@@ -35,7 +35,6 @@ header('Content-Disposition: attachment; filename="output.html"');
 readfile('tmp/output_'.$randompath.'.html');
 unlink('tmp/output_'.$randompath.'.html');
 
-}
 } else {
     if ($TranslateLang == "") {
     $command = 'bash ./CreateAppComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
@@ -48,7 +47,6 @@ unlink('tmp/output_'.$randompath.'.html');
 
     echo "<html><head><title>Result</title></head><body><p>Please be patient for one or two minutes, your file is being processed.</p><p>When it is finished, you will get the result <a href=\"tmp/output_".$randompath.".html\">here</a>.</p></body></html>";
 
-    }
 }
 //print_r($_POST);
 
