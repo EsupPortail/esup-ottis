@@ -223,12 +223,12 @@ function Init() {
     <input id="extradelay1" name="extradelay" list="listdelays" value="0"/>
 
   </td></tr>
-  <!--
+  
   <tr>
     <td>
     <input type="checkbox" name="longrun" value="long"/> Offline mode (for long presentations)
     </td>
-  </tr>-->
+  </tr>
  </table>
     <input type="submit" value="Create" name="submit">
     </form>
