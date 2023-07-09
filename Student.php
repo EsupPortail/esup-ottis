@@ -529,6 +529,7 @@ var visioactive=false;
 var AllOutputVoices=[];
 var TLangInput=[];
 var builtin_voice;
+var builtin_discoursrate=1;
 var builtin_language;
 var maxvoices=0;
 
@@ -645,6 +646,7 @@ function Parle(txt) {
   if (! builtin_voice.textonly) {
  var discours = new SpeechSynthesisUtterance(txt);
  discours.voice = builtin_voice;
+ discours.rate=builtin_discoursrate;
  discours.lang = builtin_voice.lang;
  window.speechSynthesis.speak(discours);
   }
@@ -658,7 +660,7 @@ function ParleThen(txt,f) {
   if (! builtin_voice.textonly) {
     var discours = new SpeechSynthesisUtterance(txt);
     discours.voice = builtin_voice;
-    discours.rate=1;
+    discours.rate=builtin_discoursrate;
     discours.lang = builtin_voice.lang.replace('_','-')
     discours.onend=f;
     discours.onerror=function() {console.log('Error Speech synthesis for '+txt); f();}
@@ -1417,7 +1419,8 @@ Show the original version banner
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
   <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
   <li style="display:none;">Pending requests : <span id="nbrequests">0</span></li>
-
+<li><b>Advanced options</b></li>
+  <li>Voice speed : <div id="slider_speed"></div></li>
   </ul>
     <br/>
   <br/>
@@ -1922,7 +1925,18 @@ setTimeout(LaunchWC,3000);
 //      event.preventDefault();
 //      EnvoiMail();
 //    });
- 
+    function refreshSpeed() {
+      builtin_discoursrate = $( "#slider_speed" ).slider( "value")/100;
+    }
+     $( "#slider_speed" ).slider({
+      orientation: "horizontal",
+      range: "min",
+      max: 200,
+      value: 100,
+      slide: refreshSpeed,
+      change: refreshSpeed
+    });
+    $( "#slider_speed" ).slider( "value", 100 );
   } );
 
 
