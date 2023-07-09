@@ -517,6 +517,12 @@ background-color: green;
 	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
 }
 
+#slider_speed {
+    float: left;
+    clear: left;
+    width: 300px;
+    margin: 15px;
+  }
 	</style>
 
 
