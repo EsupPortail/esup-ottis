@@ -38,7 +38,7 @@ unlink('tmp/output_'.$randompath.'.html');
 } else {
     if ($TranslateLang == "") {
     $command = 'bash ./CreateAppComplete_long.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
-    $out=exec($command." &");
+    $out=exec($command);
     } else {
     $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
     $out=shell_exec($command." &");
