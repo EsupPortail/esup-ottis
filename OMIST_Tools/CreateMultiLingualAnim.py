@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import getopt, sys
+import collections
+import collections.abc
 from pptx import Presentation
 
 import requests
