@@ -518,7 +518,7 @@ background-color: green;
 }
 
 #slider_speed {
-    float: left;
+    float: right;
     clear: left;
     width: 300px;
     margin: 15px;
