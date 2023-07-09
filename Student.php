@@ -519,7 +519,7 @@ background-color: green;
 
 #slider_speed {
     float: left;
-    clear: right;
+    clear: left;
     width: 300px;
     margin: 15px;
   }
@@ -1426,7 +1426,7 @@ Show the original version banner
   <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
   <li style="display:none;">Pending requests : <span id="nbrequests">0</span></li>
 <li><b>Advanced options</b></li>
-  <li>Voice speed : <div id="slider_speed"></div></li>
+  <li>Voice speed : </li><li><div id="slider_speed"></div></li>
   </ul>
     <br/>
   <br/>
