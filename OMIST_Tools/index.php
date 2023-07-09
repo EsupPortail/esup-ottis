@@ -10,6 +10,8 @@ include("../Security/Authentification.php");
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
 if ($uid == "") $uid="e18XXX";
+if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous";
+
 if (! isset($external)) $external=false;
 if ($external) $uid="external";
 
