@@ -1,5 +1,7 @@
 - [X] Enlever automatiquement les tics de parole ("en fait" par exemple)
 - [X] Bug import pptx dans Complete Lesson, manque le dernier slide
-- [ ] Ajouter un outil pour intégrer des notes (.txt) dans un .pptx dans les OMIST tools
-- [ ] Utiliser DeepL Translate dans les OMIST tools
-- [ ] Voir s'il est possible d'utiliser Argos Translate dans les OMIST Tools
+- [X] Ajouter un outil pour intégrer des notes (.txt) dans un .pptx dans les OMIST tools
+- [X] Utiliser DeepL Translate dans les OMIST tools
+- [X] Voir s'il est possible d'utiliser Argos Translate dans les OMIST Tools
+- [ ] Créer un outil d'édition des animations
+- [ ] Donner la possibilité d'avoir des pré-enregistrements des textes joués dans les animations (cela permettra de s'assurer que le texte pourra être lu dans certaines langues avec de voix "Microsoft" par exemple). Il faudra ajouter un champ supplémentaire aux notes des slides. Voir la faisabilité
