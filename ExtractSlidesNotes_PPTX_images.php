@@ -10,13 +10,13 @@ $flag_justif=false;
 $filename = "tmpfiles/test.html";
 
 $randompath=md5(gmdate("U"));
-echo "/*\n\n";
-$command = 'cd OMIST_Tools; bash ./CreateAppOnly.sh "'.$tmp_file.'" '.$randompath; //.'; >/dev/null 2>/dev/null';
+//echo "/*\n\n";
+$command = 'cd OMIST_Tools; bash ./CreateAppOnly.sh "'.$tmp_file.'" '.$randompath.'; >/dev/null 2>/dev/null';
 system($command);
 
 $tmp_file='OMIST_Tools/tmp/output_'.$randompath.'.html';
 
-echo $tmp_file."\n\n";
+//echo $tmp_file."\n\n";
 
 $contenttxt = file_get_contents($tmp_file);
 $content = explode("\n",$contenttxt);
@@ -49,7 +49,7 @@ $T["Slide"]=0;
 $T["Notes"]=array();
 $notes[$n]=$T;
 
-echo "*/\n\n";
+//echo "*/\n\n";
 //print_r($notes);
 echo json_encode($notes);
 
