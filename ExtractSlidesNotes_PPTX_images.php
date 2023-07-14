@@ -12,7 +12,7 @@ $filename = "tmpfiles/test.html";
 $randompath=md5(gmdate("U"));
 //echo "/*\n\n";
 $command = 'cd OMIST_Tools; bash ./CreateAppOnly.sh "'.$tmp_file.'" '.$randompath.'; >/dev/null 2>/dev/null';
-system($command);
+$out=exec($command);
 
 $tmp_file='OMIST_Tools/tmp/output_'.$randompath.'.html';
 
