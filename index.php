@@ -1227,7 +1227,7 @@ function SlideNotes() {
   var file = _("ppt_presentation").files[0];
   var scriptfile = "";
 //  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
-  if (file.name.endsWith('pptx') && LoadPPTX) scriptfile = "ExtractSlidesNotes_PPTX_images.php"; else scriptfile = "ExtractSlidesNotes.php";
+  if (file.name.endsWith('pptx')) if (LoadPPTX) scriptfile = "ExtractSlidesNotes_PPTX_images.php"; else scriptfile = "ExtractSlidesNotes.php";
   if (file.name.endsWith('odp')) scriptfile = "ExtractSlidesNotes.php";
   if (file.name.endsWith('txt')) scriptfile = "ExtractSlidesNotesTxt.php";
   if (file.name.endsWith('html')) scriptfile = "ExtractSlidesNotesAppHTML.php";
