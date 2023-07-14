@@ -1216,7 +1216,7 @@ var inSlideTab=false;
 
 
 function completeHandler(event) {
-//  alert(event.target.responseText);
+  console.log(event.target.responseText);
   _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText);
 //  _("slideshow").innerHTML = '<iframe src = "ViewerJS/#../tmpfiles/DOCUMENT_'+document.getElementById('classroomid').value+'.odp" width="400" height="300" allowfullscreen webkitallowfullscreen></iframe>';
   _("progressBar").value = 0;
@@ -1250,8 +1250,12 @@ function SlideNotes() {
     }
   };
   */
+  xhr.timeout=30000;
+  xhr.ontimeout = (e) => {
+    console.log("Erreur Timeout !")
+  };
   xhr.send(formdata);
-    AbortTimeout(xhr);
+  //AbortTimeout(xhr);
 }
 
 
