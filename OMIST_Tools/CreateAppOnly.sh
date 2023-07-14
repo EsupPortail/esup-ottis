@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source config.py
+source ./config.py
 
 Filename=$1
 RANDOMPATH=$2
