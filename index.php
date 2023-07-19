@@ -2769,7 +2769,7 @@ var sizepincodediv=1;
         function onRecognized(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
             var text = RemoveVerbalTics(result.text);
-            EcrirePartial(result.language+" : "+text);
+            EcrirePartial(text);
             Traduction(text);
         }
 
