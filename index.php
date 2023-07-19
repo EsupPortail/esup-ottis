@@ -757,8 +757,10 @@ echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 var base = new URL(window.location.toLocaleString()).searchParams;
 var MaxSavedLines=10;
 var LoadPPTX=true;
+var zoomid='';
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
 if (base.has('LoadPPTX')) LoadPPTX=true; 
+if (base.has('ZOOMID')) zoomid=base.get('ZOOMID'); 
 
 var visioactive=false;
 var AllOutputVoices=[];
@@ -1524,8 +1526,26 @@ function Init() {
     document.getElementById('spanembedwooclapon').innerHTML='No.';  
     hide('titlewooclap');
   }
-  
+  if (zoomid != '') startZoom(zoomid);
 }
+
+// Special ZOOM session
+function opentab_url(url) {
+  var tabnumber=1;
+  while (tabnumber<4 && document.getElementById('extraurl'+tabnumber).value != '') tabnumber++;
+  document.getElementById('extraurl'+tabnumber).value=url;
+  document.getElementById('embedET'+tabnumber).checked=true;
+  showET(document.getElementById('embedET'+tabnumber),tabnumber);
+}
+
+function startZoom(zoomid) {
+  var lnk='https://univ-nantes-fr.zoom.us/wc/join/'+zoomid;
+  opentab_url(lnk);
+  if (window.confirm("Are you the host for this zoom session ?")) {
+    window.open('https://univ-nantes-fr.zoom.us/wc/'+zoomid+'/start');
+  }
+}
+
 
 function ClearCR() {
   document.getElementById('classroom').innerHTML='';
