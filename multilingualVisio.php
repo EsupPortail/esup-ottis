@@ -28,6 +28,21 @@ var language2="en-US";
                 || window.webkitAudioContext       // fallback, mostly when on Safari
                 || false;
 
+        soundContext = new AudioContext();
+        try {
+            AudioContext = window.AudioContext // our preferred impl
+                || window.webkitAudioContext       // fallback, mostly when on Safari
+                || false;                          // could not find.
+
+            if (AudioContext) {
+                soundContext = new AudioContext();
+            } else {
+                alert("Audio context not supported");
+            }
+        } catch (e) {
+            window.console.log("no sound context found, no audio output. " + e);
+        }
+
 
         function Initialize(onComplete) {
             if (!!window.SpeechSDK) {
@@ -114,20 +129,7 @@ var flag=10;
 
 function Init() {
 
-        soundContext = new AudioContext();
-        try {
-            AudioContext = window.AudioContext // our preferred impl
-                || window.webkitAudioContext       // fallback, mostly when on Safari
-                || false;                          // could not find.
-
-            if (AudioContext) {
-                soundContext = new AudioContext();
-            } else {
-                alert("Audio context not supported");
-            }
-        } catch (e) {
-            window.console.log("no sound context found, no audio output. " + e);
-        }
+        
 
 
     
@@ -137,11 +139,11 @@ function Init() {
 }
 
 function EcrirePartialFR(ch) {
-    document.getElementById('partialfr').innexHTML="<i>"+ch+"</i>";
+    document.getElementById('partialfr').innexHTML="<i>ok "+ch+"</i>";
 }
 
 function EcrirePartialEN(ch) {
-    document.getElementById('partialen').innexHTML="<i>"+ch+"</i>";
+    document.getElementById('partialen').innexHTML="<i>ok "+ch+"</i>";
 }
 
 function TraductionFR(ch) {
