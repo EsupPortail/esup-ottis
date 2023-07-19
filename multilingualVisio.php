@@ -90,11 +90,11 @@ var flag=10;
             speechConfig.speechRecognitionLanguage = language;
             speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
             recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-            var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
-            if (phrases.length>0) {
-              var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
-              phraseListGrammar.addPhrases(phrases.split(";"));
-            }
+            //var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
+            //if (phrases.length>0) {
+            //  var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
+            //  phraseListGrammar.addPhrases(phrases.split(";"));
+            //}
             recognizer.recognizing = recognizing;
             recognizer.recognized = recognized;
             recognizer.startContinuousRecognitionAsync();
