@@ -2769,7 +2769,7 @@ var sizepincodediv=1;
         function onRecognized(sender, recognitionEventArgs) {
             var result = recognitionEventArgs.result;
             var text = RemoveVerbalTics(result.text);
-            EcrirePartial(text);
+            EcrirePartial(result.language+" : "+text);
             Traduction(text);
         }
 
@@ -2779,7 +2779,8 @@ var sizepincodediv=1;
             var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
             speechConfig.speechRecognitionLanguage = language;
             speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
-            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+            var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages([("fr-FR","en-US", "de-DE"]);
+            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
             var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
             if (phrases.length>0) {
               var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
