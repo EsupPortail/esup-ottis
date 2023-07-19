@@ -2780,8 +2780,8 @@ var sizepincodediv=1;
             speechConfig.speechRecognitionLanguage = language;
             speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
           var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(["fr-FR","en-US", "de-DE"]);
-//            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
-            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
+//            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
             var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
             if (phrases.length>0) {
               var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
