@@ -132,7 +132,7 @@ function Init() {
             });
 
     doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr-FR',onRecognizingFR,onRecognizedFR,recognizerFR);
-    doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'en-US',onRecognizingFR,onRecognizedFR,recognizerEN);
+    //doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'en-US',onRecognizingEN,onRecognizedEN,recognizerEN);
 }
 
 function EcrirePartialFR(ch) {
