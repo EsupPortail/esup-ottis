@@ -132,7 +132,7 @@ function Init() {
 
     
 
-    doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr-FR',onRecognizingFR,onRecognizedFR,recognizerFR);
+    doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr',onRecognizingFR,onRecognizedFR,recognizerFR);
     //doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'en-US',onRecognizingEN,onRecognizedEN,recognizerEN);
 }
 
