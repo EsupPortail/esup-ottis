@@ -20,6 +20,8 @@ var language2="en-US";
         var SpeechSDK;
         var recognizerFR;
         var recognizerEN;
+        var soundContext;
+
 
         var AudioContext = window.AudioContext // our preferred impl
                 || window.webkitAudioContext       // fallback, mostly when on Safari
@@ -46,10 +48,7 @@ var language2="en-US";
             }
         }
 
-        Initialize(async function (speechSdk) {
-                SpeechSDK = speechSdk;
-            });
-
+        
 
 
         function onRecognizingFR(sender, recognitionEventArgs) {
@@ -125,6 +124,10 @@ var flag=10;
     <script>
 
 function Init() {
+    Initialize(async function (speechSdk) {
+                SpeechSDK = speechSdk;
+            });
+
     doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr-FR',onRecognizingFR,onRecognizedFR,recognizerFR);
     doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'en-US',onRecognizingFR,onRecognizedFR,recognizerEN);
 }
