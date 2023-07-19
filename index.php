@@ -1541,6 +1541,7 @@ function opentab_url(url) {
 function startZoom(zoomid) {
   var lnk='https://univ-nantes-fr.zoom.us/wc/join/'+zoomid;
   opentab_url(lnk);
+  open("#tabs-9");
   if (window.confirm("Are you the host for this zoom session ?")) {
     window.open('https://univ-nantes-fr.zoom.us/wc/'+zoomid+'/start');
   }
