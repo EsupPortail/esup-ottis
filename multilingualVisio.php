@@ -88,7 +88,7 @@ var flag=10;
         }
 
 
-        function doContinuousRecognition(key,region,language,recognizing,recognized) {
+        function doContinuousRecognition(key,region,language,recognizing,recognized,rec) {
             var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
             var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
             speechConfig.speechRecognitionLanguage = language;
