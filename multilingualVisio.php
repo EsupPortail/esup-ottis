@@ -20,6 +20,7 @@ var language2="en-US";
         var SpeechSDK;
         var recognizerFR;
         var recognizerEN;
+        var recognizer;
         var soundContext;
 
 
@@ -34,7 +35,9 @@ var language2="en-US";
             }
         }
 
-        
+        Initialize(async function (speechSdk) {
+                SpeechSDK = speechSdk;
+            });
 
 
         function onRecognizingFR(sender, recognitionEventArgs) {
@@ -69,7 +72,7 @@ var flag=10;
         }
 
 
-        function doContinuousRecognition(key,region,language,recognizing,recognized,recognizer) {
+        function doContinuousRecognition(key,region,language,recognizing,recognized) {
             var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
             var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
             speechConfig.speechRecognitionLanguage = language;
@@ -127,9 +130,7 @@ function Init() {
         }
 
 
-    Initialize(async function (speechSdk) {
-                SpeechSDK = speechSdk;
-            });
+    
 
     doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr-FR',onRecognizingFR,onRecognizedFR,recognizerFR);
     //doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'en-US',onRecognizingEN,onRecognizedEN,recognizerEN);
