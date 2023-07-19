@@ -28,6 +28,7 @@ var language2="en-US";
                 || window.webkitAudioContext       // fallback, mostly when on Safari
                 || false;
 
+
         soundContext = new AudioContext();
         try {
             AudioContext = window.AudioContext // our preferred impl
@@ -134,7 +135,7 @@ function Init() {
 
     
 
-    doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr',onRecognizingFR,onRecognizedFR,recognizerFR);
+    doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'fr_FR',onRecognizingFR,onRecognizedFR,recognizer);
     //doContinuousRecognition(MicrosoftKey,MicrosoftRegion,'en-US',onRecognizingEN,onRecognizedEN,recognizerEN);
 }
 
