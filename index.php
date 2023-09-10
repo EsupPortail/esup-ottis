@@ -2227,7 +2227,7 @@ function applyConfig() {
 	    <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
-  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)<br/>
     <textarea id="BoostedWords" rows="3" cols="20"></textarea></li>
 
@@ -2727,11 +2727,19 @@ var sizepincodediv=1;
     <!-- Microsoft Azure Cognitive Services -->
     <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
     <script>
-var subscriptionKey, serviceRegion;
+    var subscriptionKey, serviceRegion;
     var SpeechSDK;
     var recognizer;
 
-    document.addEventListener("DOMContentLoaded", function () {
+    var firttimemicrosoft=true;
+    function InitializeMicrosoft() {
+      if (firttimemicrosoft) {
+        firttimemicrosoft=false;
+      
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+      }
+
       
 
       function onRecognizing(sender, recognitionEventArgs) {
@@ -2777,9 +2785,7 @@ var subscriptionKey, serviceRegion;
           }
         );
       }
-    });
-    if (!!window.SpeechSDK) {
-        SpeechSDK = window.SpeechSDK;
+    }
     }
 
 
