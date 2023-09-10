@@ -2730,7 +2730,7 @@ var sizepincodediv=1;
     var subscriptionKey, serviceRegion;
     var SpeechSDK;
     var recognizer;
-
+    var stopRecognizer,onRecognizing,onRecognized,doContinuousRecognition;
     var firttimemicrosoft=true;
     function InitializeMicrosoft() {
       if (firttimemicrosoft) {
@@ -2742,12 +2742,12 @@ var sizepincodediv=1;
 
       
 
-      function onRecognizing(sender, recognitionEventArgs) {
+      onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
         EcrirePartial(RemoveVerbalTics(result.text));
       }
 
-      function onRecognized(sender, recognitionEventArgs) {
+      onRecognized=function onRecognized(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
         var text = RemoveVerbalTics(result.text);
         EcrirePartial(text);
@@ -2755,7 +2755,7 @@ var sizepincodediv=1;
       }
 
 
-      function doContinuousRecognition(key,region,language) {
+      doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
         var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
         speechConfig.speechRecognitionLanguage = language;
@@ -2773,7 +2773,7 @@ var sizepincodediv=1;
         recognizer.startContinuousRecognitionAsync();
       }
 
-      function stopRecognizer() {
+      stopRecognizer=function stopRecognizer() {
         recognizer.stopContinuousRecognitionAsync(
           function () {
             recognizer.close();
