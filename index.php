@@ -2735,49 +2735,52 @@ var subscriptionKey, serviceRegion;
       
 
       function onRecognizing(sender, recognitionEventArgs) {
-            var result = recognitionEventArgs.result;
-            EcrirePartial(RemoveVerbalTics(result.text));
-        }
+        var result = recognitionEventArgs.result;
+        EcrirePartial(RemoveVerbalTics(result.text));
+      }
 
-        function onRecognized(sender, recognitionEventArgs) {
-            var result = recognitionEventArgs.result;
-            var text = RemoveVerbalTics(result.text);
-            EcrirePartial(text);
-            Traduction(text);
-        }
+      function onRecognized(sender, recognitionEventArgs) {
+        var result = recognitionEventArgs.result;
+        var text = RemoveVerbalTics(result.text);
+        EcrirePartial(text);
+        Traduction(text);
+      }
 
 
-        function doContinuousRecognition(key,region,language) {
-            var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-            var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
-            speechConfig.speechRecognitionLanguage = language;
-            speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
+      function doContinuousRecognition(key,region,language) {
+        var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
+        speechConfig.speechRecognitionLanguage = language;
+        speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
 //          var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(["fr-FR","en-US", "de-DE"]);
 //          recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
-            recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-            var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
-            if (phrases.length>0) {
-              var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
-              phraseListGrammar.addPhrases(phrases.split(";"));
-            }
-            recognizer.recognizing = onRecognizing;
-            recognizer.recognized = onRecognized;
-            recognizer.startContinuousRecognitionAsync();
+        recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+        var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
+        if (phrases.length>0) {
+          var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
+          phraseListGrammar.addPhrases(phrases.split(";"));
         }
+        recognizer.recognizing = onRecognizing;
+        recognizer.recognized = onRecognized;
+        recognizer.startContinuousRecognitionAsync();
+      }
 
-        function stopRecognizer() {
-            recognizer.stopContinuousRecognitionAsync(
-                            function () {
-                                recognizer.close();
-                                recognizer = undefined;
-                            },
-                            function (err) {
-                                recognizer.close();
-                                recognizer = undefined;
-                            }
-                        );
-        }
+      function stopRecognizer() {
+        recognizer.stopContinuousRecognitionAsync(
+          function () {
+            recognizer.close();
+            recognizer = undefined;
+          },
+          function (err) {
+            recognizer.close();
+            recognizer = undefined;
+          }
+        );
+      }
     });
+    if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+    }
 
 
 /*
