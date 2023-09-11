@@ -568,7 +568,7 @@ function StudentParleThen(txt,f) {
 }
 
 function AbortTimeout(r) {
-  setTimeout(function() {r.abort();},1000);
+  setTimeout(function() {r.abort();},5000);
 }
 var Studentinputnumber=-1;
 
