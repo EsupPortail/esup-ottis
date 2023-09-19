@@ -332,6 +332,44 @@ function EcrirePartial(txt) {
   document.getElementById('partial').innerHTML=txt;
 }
 
+var ForWebcamvideo = document.createElement("video");
+ForWebcamvideo.setAttribute("width", 640);
+ForWebcamvideo.setAttribute("height", 480);
+
+var ForWebcamcanvas = document.createElement("canvas");
+ForWebcamcanvas.setAttribute("width", 640);
+ForWebcamcanvas.setAttribute("height", 480);
+var ForWebcamcontext = ForWebcamcanvas.getContext('2d');
+
+function ForWebcamProcess(f) {
+  if (ForWebcamvideo.paused || ForWebcamvideo.ended) {
+    return;
+  }
+  ForWebcamcontext.drawImage(ForWebcamvideo, 0, 0, 640, 480);
+  var frame = ForWebcamcontext.getImageData(0, 0, 640, 480);
+  f(frame);
+  setTimeout(function() {
+    ForWebcamProcess(f);
+  }, 0);
+}
+
+function StartWebcam(f) {
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.GetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  navigator.getUserMedia({
+    video: true
+  }, function(stream) {
+    ForWebcamvideo.srcObject = stream;
+    ForWebcamvideo.play();
+    ForWebcamProcess(f);
+  }, function(e) {
+    console.error(e);
+  });
+}
+
+function StopWebcam() {
+  ForWebcamvideo.pause();
+}
+
 function StartWebcam(f) {
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.GetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
   navigator.getUserMedia({
