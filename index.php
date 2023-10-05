@@ -1030,7 +1030,7 @@ function addToNB(ch,before) {
 
   ch=tobesaidbetweenslides+tobeinserted+ch;
   //document.getElementById('notebook').innerHTML+='<br/>'+ch;
-  EcrireTitle(ch);
+  //EcrireTitle(ch);
   //saveTextNB(document.getElementById('notebook').innerHTML);
   var Tch=ch.split('<br/>');
   saveTextTable(Tch,0);
