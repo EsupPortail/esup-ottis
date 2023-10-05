@@ -929,7 +929,7 @@ function Traduction(ch) {
   var recognitionon=document.getElementById('recognitionon').checked;
   if (recognitionon) {
   //EcrireNB(ch);
-  EcrireTitle(ch);
+  //EcrireTitle(ch);
   saveText(ch);
   var liveon=document.getElementById('liveon').checked;
   if (liveon) {
