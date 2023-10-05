@@ -1322,7 +1322,7 @@ function EcrireNB(ch) {
   //  document.getElementById('notebook').innerHTML=ch;
   //else 
   document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+ch+"<br/>";
-  EcrireTitle(ch);
+  //EcrireTitle(ch);
 }
 
 function EcrireNBonly(ch) {
