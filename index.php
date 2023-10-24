@@ -2371,7 +2371,7 @@ function applyConfig() {
 	</div>
   <div id="tabs-8"><iframe id="wooclap" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="<?php echo $wooclapaddress; ?>" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
   </div>
-  <div id="tabs-9"><iframe id="extratab1" allowfullscreen webkitallowfullscreen sandbox="allow-scripts allow-same-origin" allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+  <div id="tabs-9"><iframe id="extratab1" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
   </div>
   <div id="tabs-10"><iframe id="extratab2" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
   </div>
