@@ -159,6 +159,14 @@ function Init() {
     <option value="600"/>
     <option value="1200"/>
   </datalist>
+  <datalist id="listlength">
+    <option value="80"/>
+    <option value="100"/>
+    <option value="120"/>
+    <option value="150"/>
+    <option value="175"/>
+    <option value="200"/>
+  </datalist>
  <div>Important : Ces outils proposés à titre expérimental utilisent des ressources partagées avec l’outil de traduction en direct (même serveur web et abonnement mutualisé pour le service de traduction (nb: utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%)). A noter, les traductions de fichiers pptx sont limitées afin de permettre un partage de ces ressources. Seuls les 5000 premiers caractères des présentations sont traduits.<!--Afin de ne pas impacter ce service, nous vous demandons de les utiliser prioritairement en dehors des heures d’enseignement. En outre, si vous souhaitez obtenir les traductions dans plus de deux langues, nous vous demandons de ne pas utiliser ces outils mais de nous transmettre votre demande car nous avons la possibilité de la traiter sans impacter les ressources partagées.--></div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
@@ -310,9 +318,9 @@ function Init() {
     <input type="submit" value="Translate" name="submit">
     </form>
   </div>
-    <h3>Translate subtitles SRT file</h3>
+  <h3>Translate subtitles SRT file</h3>
   <div>
-  <form action="TranslateSRT.php" method="post" enctype="multipart/form-data">
+  <form action="TranslateSRT/TranslateSRT.php" method="post" enctype="multipart/form-data">
     Select SRT file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".srt,.vtt" max-size="5000"><br/>
     <table>
@@ -326,6 +334,12 @@ function Init() {
   <td style="vertical-align: top;">
   Output languages : </td>
   <td><!--<select id="outputlanguage4"  name="outputlanguage[]" multiple rows="5"></select>--><select id="outputlanguage4"  name="outputlanguage[]" rows="5"></select>
+  </td></tr>
+  <tr>
+  <td style="vertical-align: top;">
+    Maximum subtitle length : </td>
+  <td>
+  <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10"/>
   </td></tr>
   <tr>
   <td style="vertical-align: top;">
