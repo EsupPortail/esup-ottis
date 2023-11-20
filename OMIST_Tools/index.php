@@ -354,12 +354,35 @@ function Init() {
     </form>
   </div>
 
-    <h3>Extract speech from pptx</h3>
+  <h3>Extract speech from pptx</h3>
   <div>
   <form action="ExtractSpeechFromPPTX.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
     <input type="submit" value="Extract" name="submit">
+    </form>
+  </div>
+
+  <h3>Translate XLIFF</h3>
+  <div>
+  <form action="TranslateXLIFF/TranslateXLIFF.php" method="post" enctype="multipart/form-data">
+    Select XLF file : 
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".xlf" max-size="50000"><br/>
+    <table>
+  <tr>
+  <td style="vertical-align: top;">
+    Input language : </td>
+  <td>
+  <select id="inputlanguage5" name="inputlanguage"></select>
+  </td></tr>
+    <tr>
+  <td style="vertical-align: top;">
+  Output languages : </td>
+  <td><select id="outputlanguage5"  name="outputlanguage[]" rows="5"></select>
+  </td></tr>
+
+ </table>
+    <input type="submit" value="Translate" name="submit">
     </form>
   </div>
 
