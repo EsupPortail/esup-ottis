@@ -7,5 +7,6 @@
 - [ ] Donner la possibilité d'avoir des pré-enregistrements des textes joués dans les animations (cela permettra de s'assurer que le texte pourra être lu dans certaines langues avec de voix "Microsoft" par exemple). Il faudra ajouter un champ supplémentaire aux notes des slides. Voir la faisabilité (facultatif)
 - [ ] Dans les OMIST Tools, donner la possibilité d'exécuter les conversions en tâche de fond. Cela permettra de traiter les animations longues. Pour cela, il faut utiliser cron et une file de tâches de conversions. A mettre en place. Il y aura des aspects d'interfaçage aussi.
 - [ ] WOOCLAP ne peut plus être intégré dans un iframe depuis les dernières versions de chrome. Voir ce qui peut coincer. Ceci est probablement dû à une nouvelle gestions des bac à sables.
-- [ ] Intégrer les outils de traduction des fichiers de type SCORM et XLIFF aux Omist Tools.
+- [X] Intégrer les outils de traduction des fichiers de type SCORM et XLIFF aux Omist Tools.
+- [ ] Mettre à jour le token pour inviter une personne extérieure à l'université (Automatic Translator > Teacher > Share) : "This token has expired !"
 
