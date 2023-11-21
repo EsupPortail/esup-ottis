@@ -400,6 +400,29 @@ function Init() {
     </form>
   </div>
 
+  <h3>Translate SCORM</h3>
+  <div>
+  <form action="TranslateSCORM/TranslateSCORM.php" method="post" enctype="multipart/form-data">
+    Select ZIP file : 
+    <input type="file" name="fileToUpload" id="fileToUpload" accept=".zip" max-size="50000"><br/>
+    <table>
+  <tr>
+  <td style="vertical-align: top;">
+    Input language : </td>
+  <td>
+  <select id="inputlanguage6" name="inputlanguage"></select>
+  </td></tr>
+    <tr>
+  <td style="vertical-align: top;">
+  Output languages : </td>
+  <td><select id="outputlanguage6"  name="outputlanguage[]" rows="5"></select>
+  </td></tr>
+
+ </table>
+    <input type="submit" value="Translate" name="submit">
+    </form>
+  </div>
+  
 </div>
 </body>
 <script>
