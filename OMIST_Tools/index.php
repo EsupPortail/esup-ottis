@@ -38,7 +38,7 @@ $res=array();
 exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
 
 $Stats_DEEPL = json_decode($res[0],true);
-$percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/100;
+$percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 
 ?>
 <!doctype html>
@@ -53,7 +53,7 @@ $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["cha
     <script src="../jquery/jquery-ui.min.js"></script>
 <style type="text/css">
 
-//@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 select, .jqueryselect, input[type="text"], textarea, button, input[type="file"], input[type="button"], input[type="submit"] {
   border-radius: 7px;
   margin: 1px;
