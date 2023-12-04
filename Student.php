@@ -684,7 +684,7 @@ function decreasependingrequests() {
   document.getElementById('nbrequests').innerHTML=document.getElementById('nbrequests').innerHTML*1-1;
 }
 function AbortTimeout(r) {
-  setTimeout(function() {r.abort();},1000);
+  setTimeout(function() {r.abort();},10000);
 }
 
 function Translate(ch, l, linput, lineid) {
@@ -706,7 +706,7 @@ function Translate(ch, l, linput, lineid) {
 
     }
   };
-  xhr.timeout=999;
+  xhr.timeout=9999;
   xhr.ontimeout = function () {console.log('ERROR TRANSLATE Timeout');};
   xhr.onloadend = function () {decreasependingrequests(); CompleteTranslation();};
   xhr.send();
