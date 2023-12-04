@@ -18,7 +18,7 @@ system($command);
 header('Content-Type: application/zip');
 header('Content-Disposition: attachment; filename="output.zip"');
 readfile('tmp/output_'.$randompath.'.zip');
-//unlink('tmp/output_'.$randompath.'.zip');
+unlink('tmp/output_'.$randompath.'.zip');
 
 }
 
