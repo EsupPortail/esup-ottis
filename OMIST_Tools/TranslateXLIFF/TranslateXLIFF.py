@@ -202,7 +202,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
         content="".join(fd.readlines())
     soup = bs4.BeautifulSoup(content, 'html.parser')
 
-    l=array_merge(soup.find_all("g"),soup.find_all("source"))
+    l=soup.find_all("g")
     for g in l:
         gtext_from = g.text
 
@@ -215,7 +215,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
             dictionary[gtext_from] = g.string
             count = count + len(gtext_from)
 
-    l=soup.find_all("trans-unit")
+    l=soup.find_all("trans-unit","source")
     for g in l:
         for c in g.children:
             if type(c) == type(ns):
