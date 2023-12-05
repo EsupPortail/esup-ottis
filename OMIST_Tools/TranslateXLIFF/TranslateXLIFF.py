@@ -202,7 +202,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
         content="".join(fd.readlines())
     soup = bs4.BeautifulSoup(content, 'html.parser')
 
-    l=soup.find_all("g","source")
+    l=array_merge(soup.find_all("g"),soup.find_all("source"))
     for g in l:
         gtext_from = g.text
 
