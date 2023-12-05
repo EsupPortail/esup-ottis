@@ -75,7 +75,7 @@ if (isset($_GET["ROOMID"])) {
 
         if ($WhichTranslator == "LIBRETRANSLATE") {
 
-        // Launch the free LibreTranslate API at https://translate.mentality.rip
+        // Launch the free LibreTranslate API at https://translate.terraprint.co
 
         $output=array(); $retval=0;
         exec($proxy."curl https://translate.terraprint.co/translate -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
