@@ -215,7 +215,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
             dictionary[gtext_from] = g.string
             count = count + len(gtext_from)
 
-    l=soup.find_all("trans-unit","source")
+    l=soup.find_all("trans-unit")
     for g in l:
         for c in g.children:
             if type(c) == type(ns):
