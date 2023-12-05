@@ -34,12 +34,12 @@ fclose($fd);
 
 include("../config.php");
 
-//$res=array();
-//exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+$res=array();
+exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
 
-//$Stats_DEEPL = json_decode($res[0],true);
-//$percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
-$percentage_DEEPL = 0;
+$Stats_DEEPL = json_decode($res[0],true);
+$percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
+//$percentage_DEEPL = 0;
 ?>
 <!doctype html>
 <html lang="fr">
