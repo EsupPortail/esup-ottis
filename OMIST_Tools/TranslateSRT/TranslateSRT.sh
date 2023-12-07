@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source config.py
+source ../config.py
 
 RANDOMPATH=$1
 Filename=$2
@@ -18,7 +18,7 @@ mkdir -p tmp/$RANDOMPATH
 cp "$Filename" tmp/$RANDOMPATH/original_file.srt
 for lang in $To; do
   echo "Translating in $lang"
-  python3 ./TranslateSRT.py --input=tmp/$RANDOMPATH/original_file.srt --output=tmp/$RANDOMPATH/translated_$lang.srt --from="$From" --to="$lang" $Wraplength $NOPUNC 2>/dev/null
+  $PYTHON ./TranslateSRT.py --input=tmp/$RANDOMPATH/original_file.srt --output=tmp/$RANDOMPATH/translated_$lang.srt --from="$From" --to="$lang" $Wraplength $NOPUNC 2>/dev/null
 done
 
 cd tmp/$RANDOMPATH
