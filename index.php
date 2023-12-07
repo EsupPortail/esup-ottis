@@ -1469,14 +1469,14 @@ function Init() {
 
   document.onkeyup=function (event) {
     if (inSlideTab) {
-/*      if (event.code === 'ArrowRight') {
+      if (event.code === 'ArrowRight') {
         Forward();
       }
       if (event.code === 'ArrowLeft') {
         Backward();
       }
 
-*/
+
       if (event.code === 'Space') {
         Forward();
       }
