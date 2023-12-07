@@ -10,8 +10,7 @@ $To="fr-FR";
 if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
 
 $filename = $_FILES["fileToUpload"]["tmp_name"];
-$command = 'bash ./TranslateXLIFF.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
-// echo($command);
+$command = 'bash ./TranslateXLIFF.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" >/dev/null 2>/dev/null';
 system($command);
 
 

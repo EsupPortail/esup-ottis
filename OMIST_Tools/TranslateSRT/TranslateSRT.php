@@ -1,5 +1,4 @@
 <?php
-//echo "<pre>";
 
 if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
@@ -15,14 +14,9 @@ $Wraplength="--wraplength=80";
 if (isset($_POST["wraplength"])) $Wraplength="--wraplength=".$_POST["wraplength"];
 
 
-
-
-//$randompath="12345";
 $filename = $_FILES["fileToUpload"]["tmp_name"];
-//$filename = "tmp/test.srt";
 
-$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$Wraplength.' '.$NOPUNC.' >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
-echo($command);
+$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$Wraplength.' '.$NOPUNC.' >/dev/null 2>/dev/null';
 system($command);
 
 
@@ -32,6 +26,5 @@ readfile('tmp/output_'.$randompath.'.zip');
 unlink('tmp/output_'.$randompath.'.zip');
 
 }
-//echo "</pre>";
 
 ?>
