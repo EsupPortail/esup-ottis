@@ -14,7 +14,7 @@ mkdir -p tmp/$RANDOMPATH
 
 cp "$Filename" tmp/$RANDOMPATH/original_file.xlf
 for lang in $To; do
-  $PYTHON ./TranslateXLIFF.py --input=tmp/$RANDOMPATH/original_file.xlf --output=tmp/$RANDOMPATH/translated_$lang.xlf --from="$From" --to="$lang" 2>/dev/null
+  python3 ./TranslateXLIFF.py --input=tmp/$RANDOMPATH/original_file.xlf --output=tmp/$RANDOMPATH/translated_$lang.xlf --from="$From" --to="$lang" 2>/dev/null
 done
 
 cd tmp/$RANDOMPATH
