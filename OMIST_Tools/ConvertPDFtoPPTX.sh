@@ -6,10 +6,7 @@ RANDOMPATH=$1
 Filename=$2
 FilenameSpeech=$3
 
-echo "Converting file " $Filename
-
 mkdir tmp/$RANDOMPATH
-#rm -rf tmp/*
 
 cp "$Filename" tmp/$RANDOMPATH/input.pdf
 cp "$FilenameSpeech" tmp/$RANDOMPATH/speech.txt

@@ -28,6 +28,9 @@ import pipes
 import config
 
 def usage():
+    """Explication de l'utilisation du programme.
+    """
+    
     print("Usage:")
     print("Minimal : ./PPTX_TXT_to_PPTX.py --input test_notes.txt --inputpptx test_pptx.pptx")
     print("Complete : ./PPTX_TXT_to_PPTX.py --input test_notes.txt --inputpptx test_pptx.pptx --output test_pptx_notes>")
