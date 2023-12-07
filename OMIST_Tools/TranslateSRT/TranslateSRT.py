@@ -1,8 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import getopt, sys
+"""Traduction d'un fichier SRTT.
 
+On obtient en sortie le fichier original, le fichier traduit, l'original et la
+traduction sans les timecodes, et la traduction avec les sous-titres d'une longueur définie.
+
+Usage : 
+=======
+    py TranslateSRT.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>
+
+    <input_file> : chemin du fichier SRT à traduire
+    <output_file> : nom fichier SRT traduit
+    <from> : langue d'origine
+    <to> : langue de traduction
+    <wraplength> : longueur maximale des sous-titres voulue (en nombre de caractères)
+    <sentencesthreshold> : 
+    <nopunct> : True si pas de ponctuation dans les sous-titres
+"""
+
+import getopt, sys
 import subprocess
 import json
 import base64
@@ -14,8 +31,12 @@ import requests
 import math
 
 def usage():
+    """Explication de l'utilisation du programme.
+    """
+    
     print("Usage:")
-    print("Complete : ./TranslateSRT.py --input test.pptx --output testEN.pptx --from fr --to en")
+    print("Minimal : ./TranslateSRT.py --input test.srt")
+    print("Complete : ./TranslateSRT.py --input test.srt --output testEN.srt --from fr --to en --wraplength 80 --sentencesthreshold --nopunct")
 
 def main():
     try:
@@ -58,7 +79,7 @@ def main():
     if inputfile != "":
         if output == "":
             output=inputfile.replace(".srt","_"+lto+".srt")
-        #print("TranslateSRT ",input,output,lfrom,lto)
+
         TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopun,sentencesThreshold=sentencesThreshold)
         Verbatim(inputfile)
         Verbatim(output)
@@ -69,34 +90,51 @@ def main():
 
 
 
-def translate_old(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
-        return txt
-    lfrom = lfrom[0:2]
-    lto = lto[0:2]
-    if lfrom == lto:
-        return txt
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
-    """
-    txt=txt.replace("'"," ")
-    txt=txt.replace('"'," ")
-    txt=txt.replace('\xe0'," ")
-    txt=txt.replace('\xe9'," ")
-    txt=txt.replace('\u2019'," ")
-    """
-    # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
-    # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
-    batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-    batcmd = batcmd.encode('utf-8','ignore')
-    result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
-    result=json.loads(result.decode("utf-8"))
-    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-        return ""
-    else:
-        return result.get('data').get('translations')[0].get('translatedText')
+# def translate_old(txt,lfrom,lto):
+#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
+#         return txt
+#     lfrom = lfrom[0:2]
+#     lto = lto[0:2]
+#     if lfrom == lto:
+#         return txt
+#     txt=txt.replace("'","’")
+#     txt=txt.replace('"',"’’")
+#     """
+#     txt=txt.replace("'"," ")
+#     txt=txt.replace('"'," ")
+#     txt=txt.replace('\xe0'," ")
+#     txt=txt.replace('\xe9'," ")
+#     txt=txt.replace('\u2019'," ")
+#     """
+#     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
+#     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
+#     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
+#     batcmd = batcmd.encode('utf-8','ignore')
+#     result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
+#     result=json.loads(result.decode("utf-8"))
+#     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
+#         return ""
+#     else:
+#         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate_deeplpro(txt,lfrom,lto):
+    """Traduction d'un texte par Deepl.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if not lfrom[0:2] in config.DEEPLKNOWNLANG:
         return translate_google(txt,lfrom,lto)
     if not lto[0:2] in config.DEEPLKNOWNLANG:
@@ -125,6 +163,23 @@ def translate_deeplpro(txt,lfrom,lto):
         return result.get('translations')[0].get('text')
 
 def translate_google(txt,lfrom,lto):
+    """Traduction d'un texte par Google.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource ":
         return txt
     lfrom = lfrom[0:2]
@@ -147,6 +202,23 @@ def translate_google(txt,lfrom,lto):
         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate(txt,lfrom,lto):
+    """Traduction d'un texte en fonction de la configuration choisie.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if config.WHICHTRANSLATOR == "DEEPLPRO":
         return translate_deeplpro(txt,lfrom,lto)
     else:
@@ -172,20 +244,73 @@ def faketranslate(txt, lfrom, lto):
     return lfrom +" to " + lto + " : "+ txt + ""
 
 def isphrase(ch):
+    """Détermine si la chaîne de caractères est une phrase.
+    
+    Parameters
+    ----------
+    ch : str
+        Chaîne de caractères à tester.
+    
+    Returns
+    -------
+    boolean
+        Si la chaîne de caractères est une phrase ou non.
+    """
     cend=ch[len(ch)-1]
     return (cend == "." or cend == "!" or cend == "?")
 
 def formatetime(t):
-  res=0
-  Tt = t.split(",")
-  [h,m,s]=Tt[0].split(":")
-  ms = Tt[1];
-  return float(ms)+float(s)*1000+float(m)*60*1000+float(h)*3600*1000;
+    """Conversion du format du chronomètre depuis un fichier SRT.
+    
+    Parameters
+    ----------
+    t : str
+        Chronomètre dans le fichier SRT.
+    
+    Returns
+    -------
+    float
+        Chronomètre converti en float.
+    """
+
+    res=0
+    Tt = t.split(",")
+    [h,m,s]=Tt[0].split(":")
+    ms = Tt[1];
+    return float(ms)+float(s)*1000+float(m)*60*1000+float(h)*3600*1000;
 
 def duration(time1,time2):
+    """Calcul de la durée entre deux chronomètres.
+    
+    Parameters
+    ----------
+    time1 : str
+        Chronomètre dans le fichier SRT.
+    
+    time2 : str
+        Chronomètre dans le fichier SRT.
+
+    Returns
+    -------
+    float
+        Durée entre les deux chronomètres.
+    """
+
     return abs(formatetime(time2)-formatetime(time1))
 
 def prettytime(n):
+    """Conversion du format du chronomètre pour un fichier SRT.
+    
+    Parameters
+    ----------
+    n : 
+    
+    Returns
+    -------
+    str
+        Chronomètre pour un fichier SRT.
+    """
+
     timems = math.floor(n)
     ms = timems % 1000
     sec = math.floor(timems/1000)%60
@@ -195,6 +320,25 @@ def prettytime(n):
 
 
 def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, sentencesThreshold=2000):
+    """Traduction d'un fichier SRT.
+    
+    Parameters
+    ----------
+    filename : str
+        Chemin du fichier SRT à traduire.
+    output_filename : str
+        Nom du fichier SRT traduit.
+    in_language : str
+        Langue d'origine.
+    out_language : str
+        Langue de traduction.
+    nopunct : boolean
+        Pas de ponctuation dans les sous-titres.
+    sentencesThreshold : int
+
+    
+    """
+
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
@@ -243,6 +387,14 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
     fd.close()
 
 def Verbatim(filename):
+    """Conversion d'un fichier SRT en fichier TXT sans les timecodes.
+    
+    Parameters
+    ----------
+    filename : str
+        Chemin du fichier SRT à convertir.    
+    """
+
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
@@ -269,6 +421,16 @@ def Verbatim(filename):
 
 
 def WrapSubtitle(filename, wraplength=80):
+    """Découpage des sous-titres d'un fichier SRT.
+    
+    Parameters
+    ----------
+    filename : str
+        Chemin du fichier SRT découper.
+    wraplength : int
+        Longueur des sous-titres désirée (en nombre de caractères).
+    """
+
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()

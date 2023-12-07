@@ -3,13 +3,11 @@
 
 """Traduction d'un fichier XLIFF.
 
-On obtient en sortie un fichier de log qui répertorie le temps de calcul, le nombre de caractères traduits 
-et le coût de la traduction par Deepl, ainsi qu'un fichier texte contenant le dictionnaire 
-avec les traductions effectuées.
+On obtient en sortie le fichier original et le fichier traduit.
 
 Usage : 
 =======
-    py scorm12_translator.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>
+    py TranslateXLIFF.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>
 
     <input_file> : chemin du fichier XLF à traduire
     <output_file> : nom fichier XLF traduit
@@ -29,9 +27,64 @@ import bs4
 import logging
 import time
 
-COST_DEEPL = 0.00002 #à vérifier si la facture se fait par caractères ou par bloc de 1 000 000)
+COST_DEEPL = 0.00002
 config.PROXYHTTP = ""
 config.PROXYHTTPS = ""
+
+def usage():
+    """Explication de l'utilisation du programme.
+    """
+
+    print("Usage:")
+    print("Minimal : ./XLIFF_translator.py --input test.xlf")
+    print("Complete : ./XLIFF_translator.py --input test.xlf --output testEN.xlf --from FR --to EN")
+
+
+# Programme principal XLIFF
+
+def main():
+    
+    try:
+        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:v",["help","input=","output=","from=","to="])
+    except getopt.GetoptError as err:
+        # print help information and exit:
+        print(err)  # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+
+    Translate = True
+    input=""
+    output=""
+    lfrom="FR"
+    lto="EN"
+    verbose = False
+
+    for opt, arg in opts:
+        if opt == "-v":
+            verbose = True
+        elif opt in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif opt in ("-i", "--input"):
+            input = arg
+        elif opt in ("-o", "--output"):
+            output = arg
+        elif opt in ("-f", "--from"):
+            lfrom = arg
+        elif opt in ("-t", "--to"):
+            lto = arg
+        else:
+            assert False, "unhandled option"
+    
+    if Translate and input != "":
+        if output == "":
+            output=input.replace(".xlf","_"+lto+".xlf")
+        TranslateXLIFF(input,output,lfrom,lto)
+    else:
+        usage()
+
+
+
 
 # Programmes de traductions
 
@@ -165,7 +218,7 @@ def faketranslate(txt, lfrom, lto):
 
 
 def TranslateXLIFF(filename,output_filename,lfrom,lto):
-    """Programme pour traduire un fichier XLIFF.
+    """Traduction d'un fichier XLIFF.
     
     Parameters
     ----------
@@ -245,63 +298,6 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
     # logging.info("Nombre de caractères économisés : " + str(count_saved))
     # logging.info("Coût de traduction Deepl : " + str(count * COST_DEEPL)+" €")
 
-def usage():
-    """Explication de l'utilisation du programme.
-    """
-
-    print("Usage:")
-    print("Minimal : ./XLIFF_translator.py --input test.xlf")
-    print("Complete : ./XLIFF_translator.py --input test.xlf --output testEN.xlf --from FR --to EN")
-
-
-# Programme principal XLIFF
-
-def main():
-    
-    try:
-        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:v",["help","input=","output=","from=","to="])
-    except getopt.GetoptError as err:
-        # print help information and exit:
-        print(err)  # will print something like "option -a not recognized"
-        usage()
-        sys.exit(2)
-
-    Translate = True
-    input=""
-    output=""
-    lfrom="FR"
-    lto="EN"
-    verbose = False
-
-    for opt, arg in opts:
-        if opt == "-v":
-            verbose = True
-        elif opt in ("-h", "--help"):
-            usage()
-            sys.exit()
-        elif opt in ("-i", "--input"):
-            input = arg
-        elif opt in ("-o", "--output"):
-            output = arg
-        elif opt in ("-f", "--from"):
-            lfrom = arg
-        elif opt in ("-t", "--to"):
-            lto = arg
-        else:
-            assert False, "unhandled option"
-    
-    if Translate and input != "":
-        if output == "":
-            output=input.replace(".xlf","_"+lto+".xlf")
-        TranslateXLIFF(input,output,lfrom,lto)
-    else:
-        usage()
-
-
-
-    # except getopt.GetoptError:
-    #     print('xliff_translator.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>')
-    #     sys.exit(2)
 
 if __name__ == "__main__":
     main()

@@ -3,13 +3,11 @@
 
 """Traduction d'un fichier SCORM.
 
-On obtient en sortie un fichier de log qui répertorie le temps de calcul, le nombre de caractères traduits 
-et le coût de la traduction par Deepl, ainsi qu'un fichier texte contenant le dictionnaire 
-avec les traductions effectuées.
+On obtient en sortie les différents éléments du ZIP d'origine. Le fichier HTML traduit se trouve dans le dossier scormcontent.
 
 Usage : 
 =======
-    py scorm12_translator.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to> -u <unzip_path>
+    py TranslateSCORM.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to> -u <unzip_path>
 
     <input_file> : chemin de l'archive ZIP contenant le fichier à traduire
     <output_file> : nom du fichier HTML traduit
@@ -32,7 +30,62 @@ import base64
 import logging
 import time
 
-COST_DEEPL = 0.00002 #à vérifier si la facture se fait par caractères ou par bloc de 1 000 000)
+COST_DEEPL = 0.00002
+config.PROXYHTTP=""
+config.PROXYHTTPS="" 
+
+def usage():
+    """Explication de l'utilisation du programme.
+    """
+
+    print("Usage:")
+    print("Minimal : ./TranslateSCORM.py --input test.zip")
+    print("Complete : ./TranslateSCORM.py --input test.zip --output testEN.html --from FR --to EN")
+
+def main():
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:u:v",["help","input=","output=","from=","to=","unzip_path="])
+    except getopt.GetoptError as err:
+        # print help information and exit:
+        print(err)  # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+    
+    Translate = True
+    input=""
+    output=""
+    lfrom="FR"
+    lto="EN"
+    verbose = False
+
+    for opt, arg in opts:
+        if opt == "-v":
+            verbose = True
+        elif opt in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif opt in ("-i", "--input"):
+            input = arg
+        elif opt in ("-o", "--output"):
+            output = arg
+        elif opt in ("-f", "--from"):
+            lfrom = arg
+        elif opt in ("-t", "--to"):
+            lto = arg
+        elif opt in ("-u", "--unzip_path"):
+            unzip_dest = arg
+        else:
+            assert False, "unhandled option"
+    
+    if Translate and input != "":
+        if output == "":
+            output=input.replace(".zip","_"+lto+".html")
+        TranslateSCORM(input,output,lfrom,lto, unzip_dest)
+    else:
+        usage()
+
+
 
 
 # Programmes de traductions
@@ -360,63 +413,6 @@ def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
     with open(dest,"w") as fd:
         fd.write(translatedcontent)
 
-def usage():
-    """Explication de l'utilisation du programme.
-    """
-
-    print("Usage:")
-    print("Minimal : ./TranslateSCORM.py --input test.zip")
-    print("Complete : ./TranslateSCORM.py --input test.zip --output testEN.html --from FR --to EN")
-
-
-config.PROXYHTTP=""
-config.PROXYHTTPS="" 
-
-
-# Programme principal SCORM 1.2
-
-def main():
-
-    try:
-        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:u:v",["help","input=","output=","from=","to=","unzip_path="])
-    except getopt.GetoptError as err:
-        # print help information and exit:
-        print(err)  # will print something like "option -a not recognized"
-        usage()
-        sys.exit(2)
-    
-    Translate = True
-    input=""
-    output=""
-    lfrom="FR"
-    lto="EN"
-    verbose = False
-
-    for opt, arg in opts:
-        if opt == "-v":
-            verbose = True
-        elif opt in ("-h", "--help"):
-            usage()
-            sys.exit()
-        elif opt in ("-i", "--input"):
-            input = arg
-        elif opt in ("-o", "--output"):
-            output = arg
-        elif opt in ("-f", "--from"):
-            lfrom = arg
-        elif opt in ("-t", "--to"):
-            lto = arg
-        elif opt in ("-u", "--unzip_path"):
-            unzip_dest = arg
-        else:
-            assert False, "unhandled option"
-    
-    if Translate and input != "":
-        if output == "":
-            output=input.replace(".zip","_"+lto+".html")
-        TranslateSCORM(input,output,lfrom,lto, unzip_dest)
-    else:
-        usage()
 
 if __name__ == "__main__":
     main()
