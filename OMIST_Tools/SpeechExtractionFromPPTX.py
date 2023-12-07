@@ -1,6 +1,18 @@
 #!/usr/bin/env python3.5
 # -*- coding: utf-8 -*-
 
+"""Extraction du discours d'un fichier PPTX.
+
+On obtient en sortie le discours au format TXT.
+
+Usage : 
+=======
+    py SpeechExtraction.py -i <input_file> -o <output_file>
+
+    <input_file> : chemin du fichier PPTX
+    <output_file> : nom du fichier TXT avec le discours
+"""
+
 import getopt, sys
 import collections
 import collections.abc
@@ -14,8 +26,12 @@ import pipes
 import config
 
 def usage():
+    """Explication de l'utilisation du programme.
+    """
+
     print("Usage:")
-    print("Minimal : ./SpeechExtraction.py --input test.pptx --output speech.txt")
+    print("Minimal : ./SpeechExtraction.py --input test.pptx")
+    print("Complete : ./SpeechExtraction.py --input test.pptx --output test_speech.txt")
 
 def main():
     try:
@@ -52,50 +68,74 @@ def main():
     else:
         usage()
 
+# def translate(txt,lfrom,lto):
+#     """Traduction d'un texte en fonction de la configuration choisie.
+    
+#     Parameters
+#     ----------
+#     txt : str
+#         Texte à traduire.
+#     lfrom : str
+#         Code du langage initial du texte.
+#     lto : str
+#         Code du langage dans lequel le texte va être traduit.
+    
+#     Returns
+#     -------
+#     str
+#         Le texte traduit.
+#     """
 
+#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
+#         return txt
+#     lfrom = lfrom[0:2]
+#     lto = lto[0:2]
+#     if lfrom == lto:
+#         return txt
+#     txt=txt.replace("'","’")
+#     txt=txt.replace('"',"’’")
+#     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
+#     result = subprocess.check_output(batcmd, shell=True)
+#     result=json.loads(result)
+#     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
+#         return ""
+#     else:
+#         return result.get('data').get('translations')[0].get('translatedText')
 
-
-def translate(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
-        return txt
-    lfrom = lfrom[0:2]
-    lto = lto[0:2]
-    if lfrom == lto:
-        return txt
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
-    batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-    result = subprocess.check_output(batcmd, shell=True)
-    result=json.loads(result)
-    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-        return ""
-    else:
-        return result.get('data').get('translations')[0].get('translatedText')
-
-
-def ExtractNotes_old(filename):
-    prs = Presentation(filename)
-    notes=[]
-    num=0
-    for slide in prs.slides:
-        num+=1
-        notesslide=[]
-        for note in slide.notes_slide.notes_text_frame.paragraphs:
-            notesslide.append(note.text)
-        slidenotes=dict()
-        slidenotes["Slide"]=num
-        slidenotes["Notes"]=notesslide
-        notes.append(slidenotes)
-    return notes
+# def ExtractNotes_old(filename):
+#     prs = Presentation(filename)
+#     notes=[]
+#     num=0
+#     for slide in prs.slides:
+#         num+=1
+#         notesslide=[]
+#         for note in slide.notes_slide.notes_text_frame.paragraphs:
+#             notesslide.append(note.text)
+#         slidenotes=dict()
+#         slidenotes["Slide"]=num
+#         slidenotes["Notes"]=notesslide
+#         notes.append(slidenotes)
+#     return notes
 
 def ExtractNotes(filename):
-    #print("DEBUG Filename=",filename)
+    """Extraction des notes pour chaque slide.
+    
+    Parameters
+    ----------
+    filename : str
+        Fichier PPTX dont on extrait les notes.
+
+    Returns
+    -------
+    array
+        Les notes et les slides associées.
+    """
+
     if filename.split(".")[-1] == "pptx":
         prs = Presentation(filename)
         notes=[]
         num=0
         for slide in prs.slides:
-            #print("DEBUG slide=",num)
             num+=1
             notesslide=[]
             for note in slide.notes_slide.notes_text_frame.paragraphs:
@@ -104,7 +144,6 @@ def ExtractNotes(filename):
             slidenotes["Slide"]=num
             slidenotes["Notes"]=notesslide
             notes.append(slidenotes)
-            #print("DEBUG Notes",num," : ", ",".join(notesslide))
     else:
         content = open(filename, 'r',encoding='utf-8').read().split("\n")
         notes=[]
@@ -123,119 +162,129 @@ def ExtractNotes(filename):
                 notesslide.append(txt)
     return notes
 
-def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
-    prs = Presentation(filename)
-    for slide in prs.slides:
-        for note in slide.notes_slide.notes_text_frame.paragraphs:
-            note.text = translate(note.text,langsrc,langdst)
-    prs.save(fileout)
+# def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
+#     prs = Presentation(filename)
+#     for slide in prs.slides:
+#         for note in slide.notes_slide.notes_text_frame.paragraphs:
+#             note.text = translate(note.text,langsrc,langdst)
+#     prs.save(fileout)
 
-def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
-    prs = Presentation(filename)
-    ns=1
-    for slide in prs.slides:
-        print("Translating slide ",ns)
-        ns+=1
-        if translate_notes:
-            for note in slide.notes_slide.notes_text_frame.paragraphs:
-                note.text = translate(note.text,langsrc,langdst)
-        for shape in slide.shapes:
-            if not shape.has_text_frame:
-                continue
-            for paragraph in shape.text_frame.paragraphs:
-                for run in paragraph.runs:
-                    run.text = translate(run.text,langsrc,langdst)
-    prs.save(fileout)
+# def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
+#     prs = Presentation(filename)
+#     ns=1
+#     for slide in prs.slides:
+#         print("Translating slide ",ns)
+#         ns+=1
+#         if translate_notes:
+#             for note in slide.notes_slide.notes_text_frame.paragraphs:
+#                 note.text = translate(note.text,langsrc,langdst)
+#         for shape in slide.shapes:
+#             if not shape.has_text_frame:
+#                 continue
+#             for paragraph in shape.text_frame.paragraphs:
+#                 for run in paragraph.runs:
+#                     run.text = translate(run.text,langsrc,langdst)
+#     prs.save(fileout)
 
 
-def readbase64(filename):
-    with open(filename, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
+# def readbase64(filename):
+#     with open(filename, "rb") as image_file:
+#         encoded_string = base64.b64encode(image_file.read())
+#     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt"):
-    # Gestion des notes
-    print("Extracting and translating notes")
-    AllNotes=dict()
-    Notes = ExtractNotes(filename)
-    AllNotes[source] = Notes
-    for l in TargetLanguages:
-        translatedNotes=list()
-        for s in Notes:
-            notes=list()
-            for txt in s.get('Notes'):
-                translation = txt
-                if translation != "":
-                    translation =translate(txt,source[0:2].upper(),l[0:2].upper())
-                notes.append(translation)
-            translatedNotes.append({'Slide': s.get('Slide'), 'Notes': notes})
-        AllNotes[l]=translatedNotes
-    # Gestion des images
-    print("Converting all images in base64")
-    AllFilenames=[]
-    with os.scandir(imagesdir) as it:
-        for entry in it:
-            if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
-                AllFilenames.append(entry.name)
-    AllFilenames.sort()
-    AllImages = []
-    for f in AllFilenames:
-        print("    converting ",f)
-        AllImages.append(readbase64(f))
-    LANGUEORIGINE = source
-    LANGUETRADUCTION = source
-    NBSLIDES = len(AllImages)
-    with open(templatefile) as f:
-        template = "".join(f.readlines())
-    template = template.replace("@@LANGUEORIGINE@@",LANGUEORIGINE)
-    template = template.replace("@@LANGUETRADUCTION@@",LANGUETRADUCTION)
-    template = template.replace("@@ASPECTRATIO@@",ASPECTRATIO)
-    template = template.replace("@@NBSLIDES@@",str(NBSLIDES))
-    template = template.replace("@@FILENAME@@",FILENAME)
-    template = template.replace("@@TITRE@@",TITRE)
-    template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
-    txtimages = "[];\n";
-    for img in AllImages:
-        txtimages += "Timages.push('"+img+"');\n";
-    template = template.replace("@@IMAGES@@",txtimages)
-    f = open(fileout, "w")
-    f.write(template)
-    f.close()
+# def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt"):
+#     # Gestion des notes
+#     print("Extracting and translating notes")
+#     AllNotes=dict()
+#     Notes = ExtractNotes(filename)
+#     AllNotes[source] = Notes
+#     for l in TargetLanguages:
+#         translatedNotes=list()
+#         for s in Notes:
+#             notes=list()
+#             for txt in s.get('Notes'):
+#                 translation = txt
+#                 if translation != "":
+#                     translation =translate(txt,source[0:2].upper(),l[0:2].upper())
+#                 notes.append(translation)
+#             translatedNotes.append({'Slide': s.get('Slide'), 'Notes': notes})
+#         AllNotes[l]=translatedNotes
+#     # Gestion des images
+#     print("Converting all images in base64")
+#     AllFilenames=[]
+#     with os.scandir(imagesdir) as it:
+#         for entry in it:
+#             if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
+#                 AllFilenames.append(entry.name)
+#     AllFilenames.sort()
+#     AllImages = []
+#     for f in AllFilenames:
+#         print("    converting ",f)
+#         AllImages.append(readbase64(f))
+#     LANGUEORIGINE = source
+#     LANGUETRADUCTION = source
+#     NBSLIDES = len(AllImages)
+#     with open(templatefile) as f:
+#         template = "".join(f.readlines())
+#     template = template.replace("@@LANGUEORIGINE@@",LANGUEORIGINE)
+#     template = template.replace("@@LANGUETRADUCTION@@",LANGUETRADUCTION)
+#     template = template.replace("@@ASPECTRATIO@@",ASPECTRATIO)
+#     template = template.replace("@@NBSLIDES@@",str(NBSLIDES))
+#     template = template.replace("@@FILENAME@@",FILENAME)
+#     template = template.replace("@@TITRE@@",TITRE)
+#     template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
+#     txtimages = "[];\n";
+#     for img in AllImages:
+#         txtimages += "Timages.push('"+img+"');\n";
+#     template = template.replace("@@IMAGES@@",txtimages)
+#     f = open(fileout, "w")
+#     f.write(template)
+#     f.close()
 
-def PDFtoPPTX(filename,fileout,imagesdir='.',AspectRatio=16/10):
-    # Gestion des notes
-    print("Extracting notes")
-    Notes = ExtractNotes(filename)
-    prs = Presentation()
-    prs.slide_width=int(AspectRatio*prs.slide_height)
-    blank_slide_layout = prs.slide_layouts[6]
+# def PDFtoPPTX(filename,fileout,imagesdir='.',AspectRatio=16/10):
+#     # Gestion des notes
+#     print("Extracting notes")
+#     Notes = ExtractNotes(filename)
+#     prs = Presentation()
+#     prs.slide_width=int(AspectRatio*prs.slide_height)
+#     blank_slide_layout = prs.slide_layouts[6]
 
-    # Gestion des images
-    AllFilenames=[]
-    with os.scandir(imagesdir) as it:
-        for entry in it:
-            if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
-                AllFilenames.append(entry.name)
-    AllFilenames.sort()
-    AllImages = []
-    nslide=0
-    for f in AllFilenames:
-        print("    adding ",f)
-        slide = prs.slides.add_slide(blank_slide_layout)
-        pic = slide.shapes.add_picture(imagesdir+"/"+f, 0,0,width=prs.slide_width,height=prs.slide_height)
-        notes_slide = slide.notes_slide
-        text_frame = notes_slide.notes_text_frame
-        Notes.append({"Notes":[""]})
-        text_frame.add_paragraph().text = "\n".join(Notes[nslide]["Notes"])
-        nslide+=1
+#     # Gestion des images
+#     AllFilenames=[]
+#     with os.scandir(imagesdir) as it:
+#         for entry in it:
+#             if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
+#                 AllFilenames.append(entry.name)
+#     AllFilenames.sort()
+#     AllImages = []
+#     nslide=0
+#     for f in AllFilenames:
+#         print("    adding ",f)
+#         slide = prs.slides.add_slide(blank_slide_layout)
+#         pic = slide.shapes.add_picture(imagesdir+"/"+f, 0,0,width=prs.slide_width,height=prs.slide_height)
+#         notes_slide = slide.notes_slide
+#         text_frame = notes_slide.notes_text_frame
+#         Notes.append({"Notes":[""]})
+#         text_frame.add_paragraph().text = "\n".join(Notes[nslide]["Notes"])
+#         nslide+=1
 
-    prs.save(fileout+".pptx")
-    batcmd="/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to odp "+fileout+".pptx"+" --outdir tmp"
-    result = subprocess.check_output(batcmd, shell=True)
-    batcmd="/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to ppt "+fileout+".pptx"+" --outdir tmp ; rm -f "+fileout+".pptx"
-    result = subprocess.check_output(batcmd, shell=True)
+#     prs.save(fileout+".pptx")
+#     batcmd="/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to odp "+fileout+".pptx"+" --outdir tmp"
+#     result = subprocess.check_output(batcmd, shell=True)
+#     batcmd="/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to ppt "+fileout+".pptx"+" --outdir tmp ; rm -f "+fileout+".pptx"
+#     result = subprocess.check_output(batcmd, shell=True)
 
 def SpeechExtract(filename,fileout):
+    """Création d'un fichier TXT avec les notes du PPTX pour chaque slide.
+    
+    Parameters
+    ----------
+    filename : str
+        Nom du fichier PPTX dont on extrait les notes.
+    fileout : str
+        Nom du fichier TXT où il y aura les notes.
+    """
+
     # Gestion des notes
     print("Extracting notes")
     Notes = ExtractNotes(filename)

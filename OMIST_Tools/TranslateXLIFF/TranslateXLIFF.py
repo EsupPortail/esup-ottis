@@ -10,7 +10,7 @@ Usage :
     py TranslateXLIFF.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>
 
     <input_file> : chemin du fichier XLF à traduire
-    <output_file> : nom fichier XLF traduit
+    <output_file> : nom du fichier XLF traduit
     <lang_from> : langue d'origine
     <lang_to> : langue de traduction
 """
