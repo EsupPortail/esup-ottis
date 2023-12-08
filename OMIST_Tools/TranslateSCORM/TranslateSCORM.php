@@ -1,25 +1,13 @@
 <?php
 
-if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
+if (isset($argc)) {
+    $randompath = $argv[1];
+    $filename = $argv[2];
+    $From = $argv[3];
+    $To = $argv[4];
 
-$randompath=md5(gmdate("U"));
-
-$From="fr-FR";
-if (isset($_POST["inputlanguage"])) $From=$_POST["inputlanguage"];
-$To="fr-FR";
-if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
-
-$filename = $_FILES["fileToUpload"]["tmp_name"];
-$command = 'bash ./TranslateSCORM.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" >/dev/null 2>/dev/null';
-system($command);
-
-
-header('Content-Type: application/zip');
-header('Content-Disposition: attachment; filename="output.zip"');
-readfile('tmp/output_'.$randompath.'.zip');
-unlink('tmp/output_'.$randompath.'.zip');
-
+    $command = 'bash '.dirname(__FILE__).'/TranslateSCORM.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" >/dev/null 2>/dev/null';
+    system($command);
 }
-
 
 ?>

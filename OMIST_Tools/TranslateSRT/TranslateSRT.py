@@ -25,7 +25,7 @@ import json
 import base64
 import os
 import pipes
-sys.path.append('../')
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 import requests
 import math

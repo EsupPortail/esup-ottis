@@ -34,9 +34,10 @@ import base64
 import os
 import pipes
 import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import config
 
-
+ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 def usage():
     """Explication de l'utilisation du programme.
@@ -65,7 +66,7 @@ def main():
     C_KEEPASPECTRATIO = "Y"
     C_FILENAME = "Traduction"
     C_TITRE = "Automatic Translation"
-    C_templatefile="AppTemplate.txt"
+    C_templatefile=ABSOLUTE_PATH + "/AppTemplate.txt"
     C_DELAY=0
     verbose = False
     for o, a in opts:

@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ../config.py
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+source $SCRIPT_DIR/config.py
 
 RANDOMPATH=$1
 Filename=$2
@@ -11,15 +12,17 @@ To=`echo "$To"|sed "s/,/ /g"`
 
 export PYTHONIOENCODING=utf8
 
-mkdir -p tmp/$RANDOMPATH
+mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
 
-cp "$Filename" tmp/$RANDOMPATH/original_file.zip
+cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/original_file.zip
+
 for lang in $To; do
-  $PYTHON ./TranslateSCORM.py --input=tmp/$RANDOMPATH/original_file.zip --output=tmp/$RANDOMPATH/scormcontent/index.html --from="$From" --to="$lang" --unzip_path=tmp/$RANDOMPATH/ 2>/dev/null
+  $PYTHON $SCRIPT_DIR/TranslateSCORM.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/original_file.zip --output=$SCRIPT_DIR/tmp/$RANDOMPATH/scormcontent/index.html --from="$From" --to="$lang" --unzip_path=$SCRIPT_DIR/tmp/$RANDOMPATH/ 2>/dev/null
 done
 
-cd tmp/$RANDOMPATH
-rm original_file.zip
-zip -9 -r ../output_$RANDOMPATH.zip *
+cd $SCRIPT_DIR/tmp/$RANDOMPATH
+zip -9 -r ../../../tmp/output_$RANDOMPATH.zip *
 cd ../..
-rm -rf tmp/$RANDOMPATH
+rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+
+rm  -f $Filename

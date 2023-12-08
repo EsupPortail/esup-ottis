@@ -1,30 +1,22 @@
 <?php
 
-if (isset($_POST["submit"]) && $_FILES["fileToUpload"]["tmp_name"] != "") {
+if (isset($argc)) {
+    $randompath = $argv[1];
+    $filename = $argv[2];
+    $From = $argv[3];
+    $To = $argv[4];
+    $Wraplength = $argv[5];
 
-$randompath=md5(gmdate("U"));
+    if (isset($argv[7])){
+        $NOPUNC = $argv[7];
+    }
+    else {
+        $NOPUNC="";
+    }
 
-$From="fr-FR";
-if (isset($_POST["inputlanguage"])) $From=$_POST["inputlanguage"];
-$To="fr-FR";
-if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
-$NOPUNC="";
-if (isset($_POST["nopunct"]) && $_POST["nopunct"]=="Yes") $NOPUNC="--nopunct ";
-$Wraplength="--wraplength=80";
-if (isset($_POST["wraplength"])) $Wraplength="--wraplength=".$_POST["wraplength"];
-
-
-$filename = $_FILES["fileToUpload"]["tmp_name"];
-
-$command = 'bash ./TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$Wraplength.' '.$NOPUNC.' >/dev/null 2>/dev/null';
+$command = 'bash '.dirname(__FILE__).'/TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$Wraplength.' '.$NOPUNC.' >/dev/null 2>/dev/null';
+echo($command);
 system($command);
-
-
-header('Content-Type: application/zip');
-header('Content-Disposition: attachment; filename="output.zip"');
-readfile('tmp/output_'.$randompath.'.zip');
-unlink('tmp/output_'.$randompath.'.zip');
-
 }
 
 ?>

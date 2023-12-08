@@ -1,17 +1,16 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.5
 # -*- coding: utf-8 -*-
 
-"""Convertisseur d'un fichier PPTX et d'un fichier TXT en PowerPoint avec des notes.
+"""Extraction du discours d'un fichier PPTX.
 
-On obtient en sortie le fichier avec les notes sous 3 formats différents : ODP, PPT et PPTX.
+On obtient en sortie le discours au format TXT.
 
 Usage : 
 =======
-    py PPTX_TXT_to_PPTX.py -i <input> -p <inputpptx> -o <output>
+    py SpeechExtraction.py -i <input_file> -o <output_file>
 
-    <input> : chemin du fichier TXT avec les notes
-    <inputpptx> : chemin du fichier PPTX à convertir
-    <output> : nom du PowerPoint en sortie
+    <input_file> : chemin du fichier PPTX
+    <output_file> : nom du fichier TXT avec le discours
 """
 
 import getopt, sys
@@ -24,20 +23,20 @@ import json
 import base64
 import os
 import pipes
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 
 def usage():
     """Explication de l'utilisation du programme.
     """
-    
+
     print("Usage:")
-    print("Minimal : ./PPTX_TXT_to_PPTX.py --input test_notes.txt --inputpptx test_pptx.pptx")
-    print("Complete : ./PPTX_TXT_to_PPTX.py --input test_notes.txt --inputpptx test_pptx.pptx --output test_pptx_notes>")
+    print("Minimal : ./SpeechExtraction.py --input test.pptx")
+    print("Complete : ./SpeechExtraction.py --input test.pptx --output test_speech.txt")
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoip:v", ["help", "output=", "input=", "inputpptx="])
+        opts, args = getopt.getopt(sys.argv[1:], "hoi:v", ["help", "output=", "input="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -47,7 +46,6 @@ def main():
     WithNotes = False
     input=""
     output=""
-    inputpptx=""
     lfrom="FR"
     lto="EN"
     C_ASPECTRATIO = "16/10"
@@ -60,24 +58,36 @@ def main():
             sys.exit()
         elif o in ("-i", "--input"):
             input = a
-        elif o in ("-p", "--inputpptx"):
-            inputpptx = a
         elif o in ("-o", "--output"):
             output = a
         else:
             assert False, "unhandled option"
     if Translate and input != "":
         if output == "":
-            output="tmp/out.pptx"
-        PPTX_TXTtoPPTX(input,inputpptx,output)
+            output="tmp/out.txt"
+        SpeechExtract(input,output)
     else:
         usage()
 
-
-
-
 # def translate(txt,lfrom,lto):
-#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]":
+#     """Traduction d'un texte en fonction de la configuration choisie.
+    
+#     Parameters
+#     ----------
+#     txt : str
+#         Texte à traduire.
+#     lfrom : str
+#         Code du langage initial du texte.
+#     lto : str
+#         Code du langage dans lequel le texte va être traduit.
+    
+#     Returns
+#     -------
+#     str
+#         Le texte traduit.
+#     """
+
+#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
 #         return txt
 #     lfrom = lfrom[0:2]
 #     lto = lto[0:2]
@@ -92,7 +102,6 @@ def main():
 #         return ""
 #     else:
 #         return result.get('data').get('translations')[0].get('translatedText')
-
 
 # def ExtractNotes_old(filename):
 #     prs = Presentation(filename)
@@ -115,7 +124,7 @@ def ExtractNotes(filename):
     Parameters
     ----------
     filename : str
-        Fichier TXT dont on extrait les notes.
+        Fichier PPTX dont on extrait les notes.
 
     Returns
     -------
@@ -131,14 +140,13 @@ def ExtractNotes(filename):
             num+=1
             notesslide=[]
             for note in slide.notes_slide.notes_text_frame.paragraphs:
-                notesslide.append(note.text)
+                notesslide.append(str(note.text))
             slidenotes=dict()
             slidenotes["Slide"]=num
             slidenotes["Notes"]=notesslide
             notes.append(slidenotes)
     else:
-        content = open(filename, 'r', encoding="utf-8").read().split("\n")
-        content.append('-----------')
+        content = open(filename, 'r',encoding='utf-8').read().split("\n")
         notes=[]
         num=0
         notesslide=[]
@@ -205,10 +213,10 @@ def ExtractNotes(filename):
 #     # Gestion des images
 #     print("Converting all images in base64")
 #     AllFilenames=[]
-#     listfiles = os.listdir(imagesdir)
-#     for entry in listfiles:
-#         if (entry.endswith('jpeg') or entry.endswith('jpg')):
-#             AllFilenames.append(entry)
+#     with os.scandir(imagesdir) as it:
+#         for entry in it:
+#             if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
+#                 AllFilenames.append(entry.name)
 #     AllFilenames.sort()
 #     AllImages = []
 #     for f in AllFilenames:
@@ -244,10 +252,10 @@ def ExtractNotes(filename):
 
 #     # Gestion des images
 #     AllFilenames=[]
-#     listfiles = os.listdir(imagesdir)
-#     for entry in listfiles:
-#         if (entry.endswith('jpeg') or entry.endswith('jpg')):
-#             AllFilenames.append(entry)
+#     with os.scandir(imagesdir) as it:
+#         for entry in it:
+#             if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
+#                 AllFilenames.append(entry.name)
 #     AllFilenames.sort()
 #     AllImages = []
 #     nslide=0
@@ -262,46 +270,31 @@ def ExtractNotes(filename):
 #         nslide+=1
 
 #     prs.save(fileout+".pptx")
-#     outputdir=os.path.dirname(fileout)
-#     batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to odp "+fileout+".pptx"+" --outdir "+outputdir
+#     batcmd="/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to odp "+fileout+".pptx"+" --outdir tmp"
 #     result = subprocess.check_output(batcmd, shell=True)
-#     batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to ppt "+fileout+".pptx"+" --outdir "+outputdir
+#     batcmd="/Applications/LibreOffice.app/Contents/MacOS/soffice --headless --convert-to ppt "+fileout+".pptx"+" --outdir tmp ; rm -f "+fileout+".pptx"
 #     result = subprocess.check_output(batcmd, shell=True)
 
-def PPTX_TXTtoPPTX(filename,filenamepptx,fileout):
-    """Ajout des notes pour chaque slide.
+def SpeechExtract(filename,fileout):
+    """Création d'un fichier TXT avec les notes du PPTX pour chaque slide.
     
     Parameters
     ----------
     filename : str
-        Fichier TXT avec les notes.
-    filenamepptx : str
-        Fichier PPTX sans notes.
+        Nom du fichier PPTX dont on extrait les notes.
     fileout : str
-        nom du PowerPoint en sortie
+        Nom du fichier TXT où il y aura les notes.
     """
 
     # Gestion des notes
     print("Extracting notes")
     Notes = ExtractNotes(filename)
-    prs = Presentation(filenamepptx)
-    nslide=0
-    for slide in prs.slides:
-        print("Adding notes to slide ",nslide+1)
-        notes_slide = slide.notes_slide
-        text_frame = notes_slide.notes_text_frame
-        text_frame.clear()
-        Notes.append({"Notes":[""]})
-        text_frame.add_paragraph().text = "\n".join(Notes[nslide]["Notes"])
-        nslide += 1
-    prs.save(fileout+".pptx")
-    outputdir=os.path.dirname(fileout)
-    batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to odp "+fileout+".pptx"+" --outdir "+outputdir
-    result = subprocess.check_output(batcmd, shell=True)
-    batcmd="HOME=/tmp "+config.SOFFICE+" --headless --convert-to ppt "+fileout+".pptx"+" --outdir "+outputdir
-    result = subprocess.check_output(batcmd, shell=True)
+    fd=open(fileout,"w",encoding='utf-8')
+    for note in Notes:
+        fd.write("------------- Slide "+str(note["Slide"])+" -------------\n")
+        fd.write("\n".join(note["Notes"])+"\n")
+    fd.close()
 
 
 if __name__ == "__main__":
     main()
-

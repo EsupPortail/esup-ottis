@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source ../config.py
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+source $SCRIPT_DIR/config.py
 
 RANDOMPATH=$1
 Filename=$2
@@ -10,15 +11,15 @@ To=`echo "$To"|sed "s/,/ /g"`
 
 export PYTHONIOENCODING=utf8
 
-mkdir -p tmp/$RANDOMPATH
+mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
 
-cp "$Filename" tmp/$RANDOMPATH/original_file.xlf
+cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/original_file.xlf
 for lang in $To; do
-  $PYTHON ./TranslateXLIFF.py --input=tmp/$RANDOMPATH/original_file.xlf --output=tmp/$RANDOMPATH/translated_$lang.xlf --from="$From" --to="$lang" 2>/dev/null
+  $PYTHON $SCRIPT_DIR/TranslateXLIFF.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/original_file.xlf --output=$SCRIPT_DIR/tmp/$RANDOMPATH/translated_$lang.xlf --from="$From" --to="$lang" 2>/dev/null
 done
 
-cd tmp/$RANDOMPATH
-zip -9 ../output_$RANDOMPATH.zip *.xlf *.txt
+cd $SCRIPT_DIR/tmp/$RANDOMPATH
+zip -9 ../../../tmp/output_$RANDOMPATH.zip *.xlf
 cd ../..
-rm -rf tmp/$RANDOMPATH
-
+rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+rm  -f $Filename

@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Empêche la mise en cache
     header('Pragma: no-cache');
     header('Expires: 0');
@@ -172,17 +173,19 @@ function Init() {
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
-  <form action="CreateAppFromPPTX.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
+    <input type="hidden" name="ProgramName" value="CreateAppFromPPTX.php">
     <input type="submit" value="Create" name="submit"/>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
-  <form action="CreateAppFromPDF.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select PDF file : 
     <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000"/><br/>
+    <input type="hidden" name="ProgramName" value="CreateAppFromPDF.php">
     Select SPEECH file (.txt): 
     <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000"/><br/>
     <input type="submit" value="Create" name="submit"/>
@@ -190,9 +193,10 @@ function Init() {
   </div>
   <h3>Create web animation from pptx (Complete)</h3>
   <div>
-  <form action="CreateAppFromPPTX_complete.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="CreateAppFromPPTX_complete.php">
   <table>
   <tr>
   <td style="vertical-align: top;">
@@ -246,10 +250,11 @@ function Init() {
   </div>
   <h3>Create web animation from pdf+txt (Complete)</h3>
   <div>
-  <form action="CreateAppFromPDF_complete.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
   
     Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" max-size="50000"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="CreateAppFromPDF_complete.php">
 
 
 <table>
@@ -293,9 +298,10 @@ function Init() {
   </div>
     <h3>Translate pptx</h3>
   <div>
-  <form action="TranslatePPTX.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -321,9 +327,10 @@ function Init() {
   </div>
   <h3>Translate subtitles SRT file</h3>
   <div>
-  <form action="TranslateSRT/TranslateSRT.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select SRT file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".srt,.vtt" max-size="5000"><br/>
+    <input type="hidden" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -353,36 +360,40 @@ function Init() {
   </div>
   <h3>Convert pdf+txt to pptx</h3>
   <div>
-  <form action="ConvertPDFtoPPTX.php" method="post" enctype="multipart/form-data">  
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">  
     Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" max-size="50000"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
     <input type="submit" value="Convert" name="submit">
     </form>
   </div>
 
   <h3>Convert pptx+txt to pptx</h3>
   <div>
-  <form action="ConvertPPTX_TXT_toPPTX.php" method="post" enctype="multipart/form-data">  
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">  
     Select PPTx file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="submit" value="Convert" name="submit">
     </form>
   </div>
 
   <h3>Extract speech from pptx</h3>
   <div>
-  <form action="ExtractSpeechFromPPTX.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
     <input type="submit" value="Extract" name="submit">
     </form>
   </div>
 
   <h3>Translate XLIFF</h3>
   <div>
-  <form action="TranslateXLIFF/TranslateXLIFF.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select XLF file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".xlf" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -403,9 +414,10 @@ function Init() {
 
   <h3>Translate SCORM</h3>
   <div>
-  <form action="TranslateSCORM/TranslateSCORM.php" method="post" enctype="multipart/form-data">
+  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select ZIP file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".zip" max-size="50000"><br/>
+    <input type="hidden" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
     <table>
   <tr>
   <td style="vertical-align: top;">
