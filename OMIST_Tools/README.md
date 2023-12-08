@@ -55,7 +55,7 @@ CREATE TABLE tasks_queue
   keep_aspect_ratio TEXT,
   delay_slides TEXT,
   long_run TEXT
-)
+);
 ```
 
 **Ne pas oublier d'adapter le fichier config_database.php selon sa configuration.**
