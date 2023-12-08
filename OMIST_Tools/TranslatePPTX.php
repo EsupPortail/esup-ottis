@@ -12,7 +12,7 @@ if (isset($_POST["outputlanguage"])) $To=implode(",",$_POST["outputlanguage"]);
 $SlideNotes="";
 if (isset($_POST["slidenotes"]) && $_POST["slidenotes"] == "X") $SlideNotes="--WithNotes";
 
-$command = 'bash ./TranslatePPTX.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$SlideNotes.'  >/dev/null 2>/dev/null'; //>/dev/null 2>/dev/null
+$command = 'bash ./TranslatePPTX.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$SlideNotes.'  >/dev/null 2>/dev/null';
 system($command);
 
 
@@ -22,8 +22,6 @@ readfile('tmp/output_'.$randompath.'.zip');
 unlink('tmp/output_'.$randompath.'.zip');
 
 }
-
-//print_r($_POST);
 
 ?>
 

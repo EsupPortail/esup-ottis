@@ -8,12 +8,10 @@ From=$3
 To=$4
 To=`echo "$To"|sed "s/,/ /g"`
 
-echo "Converting file " $Filename
-
 export PYTHONIOENCODING=utf8
 
 mkdir tmp/$RANDOMPATH
-#rm -rf tmp/*
+
 cp "$Filename" tmp/$RANDOMPATH/original_file.pptx
 for lang in $To; do
   echo "Translating in $lang"

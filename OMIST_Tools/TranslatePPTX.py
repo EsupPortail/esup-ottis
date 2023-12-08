@@ -1,6 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""Traduction d'un fichier PPTX.
+
+On obtient en sortie le fichier traduit au format PPT et PPTX.
+
+Usage : 
+=======
+    py TranslatePPTX.py -i <input> -o <output> -f <from> -t <to> --WithNotes
+
+    <input> : chemin du fichier PPTX à traduire
+    <output> : nom du fichier PowerPoint traduit
+    <from> : langue d'origine
+    <to> : langue de traduction
+    WithNotes : Traduction des notes des slides
+"""
+
 import getopt, sys
 from pptx import Presentation
 
@@ -13,8 +28,11 @@ import config
 import requests
 
 def usage():
+    """Explication de l'utilisation du programme.
+    """
+
     print("Usage:")
-    print("Minimal : ./TranslatePPTX.py --input test.pptx --to EN")
+    print("Minimal : ./TranslatePPTX.py --input test.pptx")
     print("Complete : ./TranslatePPTX.py --input test.pptx --output testEN.pptx --from FR --to EN --WithNotes")
 
 def main():
@@ -57,37 +75,51 @@ def main():
     else:
         usage()
 
-
-
-
-def translate_old(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
-        return txt
-    lfrom = lfrom[0:2]
-    lto = lto[0:2]
-    if lfrom == lto:
-        return txt
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
-    """
-    txt=txt.replace("'"," ")
-    txt=txt.replace('"'," ")
-    txt=txt.replace('\xe0'," ")
-    txt=txt.replace('\xe9'," ")
-    txt=txt.replace('\u2019'," ")
-    """
-    # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
-    # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
-    batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-    batcmd = batcmd.encode('utf-8','ignore')
-    result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
-    result=json.loads(result.decode("utf-8"))
-    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-        return ""
-    else:
-        return result.get('data').get('translations')[0].get('translatedText')
+# def translate_old(txt,lfrom,lto):
+#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
+#         return txt
+#     lfrom = lfrom[0:2]
+#     lto = lto[0:2]
+#     if lfrom == lto:
+#         return txt
+#     txt=txt.replace("'","’")
+#     txt=txt.replace('"',"’’")
+#     """
+#     txt=txt.replace("'"," ")
+#     txt=txt.replace('"'," ")
+#     txt=txt.replace('\xe0'," ")
+#     txt=txt.replace('\xe9'," ")
+#     txt=txt.replace('\u2019'," ")
+#     """
+#     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
+#     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
+#     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
+#     batcmd = batcmd.encode('utf-8','ignore')
+#     result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
+#     result=json.loads(result.decode("utf-8"))
+#     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
+#         return ""
+#     else:
+#         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate_deeplpro(txt,lfrom,lto):
+    """Traduction d'un texte par Deepl.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if not lfrom[0:2] in config.DEEPLKNOWNLANG:
         return translate_google(txt,lfrom,lto)
     if not lto[0:2] in config.DEEPLKNOWNLANG:
@@ -116,6 +148,23 @@ def translate_deeplpro(txt,lfrom,lto):
         return result.get('translations')[0].get('text')
 
 def translate_google(txt,lfrom,lto):
+    """Traduction d'un texte par Google.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
         return txt
     lfrom = lfrom[0:2]
@@ -138,34 +187,67 @@ def translate_google(txt,lfrom,lto):
         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate(txt,lfrom,lto):
+    """Traduction d'un texte en fonction de la configuration choisie.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if config.WHICHTRANSLATOR == "DEEPLPRO":
         return translate_deeplpro(txt,lfrom,lto)
     else:
         return translate_google(txt,lfrom,lto)
 
-def ExtractNotes(filename):
-    prs = Presentation(filename)
-    notes=[]
-    num=0
-    for slide in prs.slides:
-        num+=1
-        notesslide=[]
-        for note in slide.notes_slide.notes_text_frame.paragraphs:
-            notesslide.append(note.text)
-        slidenotes=dict()
-        slidenotes["Slide"]=num
-        slidenotes["Notes"]=notesslide
-        notes.append(slidenotes)
-    return notes
+# def ExtractNotes(filename):
+#     prs = Presentation(filename)
+#     notes=[]
+#     num=0
+#     for slide in prs.slides:
+#         num+=1
+#         notesslide=[]
+#         for note in slide.notes_slide.notes_text_frame.paragraphs:
+#             notesslide.append(note.text)
+#         slidenotes=dict()
+#         slidenotes["Slide"]=num
+#         slidenotes["Notes"]=notesslide
+#         notes.append(slidenotes)
+#     return notes
 
-def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
-    prs = Presentation(filename)
-    for slide in prs.slides:
-        for note in slide.notes_slide.notes_text_frame.paragraphs:
-            note.text = translate(note.text,langsrc,langdst)
-    prs.save(fileout)
+# def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
+#     prs = Presentation(filename)
+#     for slide in prs.slides:
+#         for note in slide.notes_slide.notes_text_frame.paragraphs:
+#             note.text = translate(note.text,langsrc,langdst)
+#     prs.save(fileout)
 
 def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
+    """Traduction d'un fichier PPTX.
+    
+    Parameters
+    ----------
+    filename : str
+        Chemin du fichier PPTX à traduire.
+    output_filename : str
+        Nom du fichier PowerPoint traduit.
+    langsrc : str
+        Langue d'origine.
+    langdst : str
+        Langue de traduction.
+    translate_notes : boolean
+        True si traduction des notes des slides.
+    """
+
     translated_characters=0
     prs = Presentation(filename)
     ns=1
@@ -175,9 +257,6 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=Fal
         if translate_notes:
             for note in slide.notes_slide.notes_text_frame.paragraphs:
                 translated = translate(note.text,langsrc,langdst)
-                #if note.text[0]==" ":
-                #    translated=" "+translated
-                #
                 note.text = translated+" "
         for shape in slide.shapes:
             if not shape.has_text_frame:
@@ -190,59 +269,59 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=Fal
     prs.save(fileout)
 
 
-def readbase64(filename):
-    with open(filename, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
-    return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
+# def readbase64(filename):
+#     with open(filename, "rb") as image_file:
+#         encoded_string = base64.b64encode(image_file.read())
+#     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt"):
-    # Gestion des notes
-    print("Extracting and translating notes")
-    AllNotes=dict()
-    Notes = ExtractNotes(filename)
-    AllNotes[source] = Notes
-    for l in TargetLanguages:
-        translatedNotes=list()
-        for s in Notes:
-            notes=list()
-            for txt in s.get('Notes'):
-                translation = txt
-                if translation != "":
-                    translation =translate(txt,source[0:2].upper(),l[0:2].upper())
-                notes.append(translation)
-            translatedNotes.append({'Slide': s.get('Slide'), 'Notes': notes})
-        AllNotes[l]=translatedNotes
-    # Gestion des images
-    print("Converting all images in base64")
-    AllFilenames=[]
-    with os.scandir(imagesdir) as it:
-        for entry in it:
-            if entry.name.endswith('jpeg') and entry.is_file():
-                AllFilenames.append(entry.name)
-    AllFilenames.sort()
-    AllImages = []
-    for f in AllFilenames:
-        print("    converting ",f)
-        AllImages.append(readbase64(f))
-    LANGUEORIGINE = source
-    LANGUETRADUCTION = source
-    NBSLIDES = len(AllImages)
-    with open(templatefile) as f:
-        template = "".join(f.readlines())
-    template = template.replace("@@LANGUEORIGINE@@",LANGUEORIGINE)
-    template = template.replace("@@LANGUETRADUCTION@@",LANGUETRADUCTION)
-    template = template.replace("@@ASPECTRATIO@@",ASPECTRATIO)
-    template = template.replace("@@NBSLIDES@@",str(NBSLIDES))
-    template = template.replace("@@FILENAME@@",FILENAME)
-    template = template.replace("@@TITRE@@",TITRE)
-    template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
-    txtimages = "[];\n";
-    for img in AllImages:
-        txtimages += "Timages.push('"+img+"');\n";
-    template = template.replace("@@IMAGES@@",txtimages)
-    f = open(fileout, "w")
-    f.write(template)
-    f.close()
+# def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt"):
+#     # Gestion des notes
+#     print("Extracting and translating notes")
+#     AllNotes=dict()
+#     Notes = ExtractNotes(filename)
+#     AllNotes[source] = Notes
+#     for l in TargetLanguages:
+#         translatedNotes=list()
+#         for s in Notes:
+#             notes=list()
+#             for txt in s.get('Notes'):
+#                 translation = txt
+#                 if translation != "":
+#                     translation =translate(txt,source[0:2].upper(),l[0:2].upper())
+#                 notes.append(translation)
+#             translatedNotes.append({'Slide': s.get('Slide'), 'Notes': notes})
+#         AllNotes[l]=translatedNotes
+#     # Gestion des images
+#     print("Converting all images in base64")
+#     AllFilenames=[]
+#     with os.scandir(imagesdir) as it:
+#         for entry in it:
+#             if entry.name.endswith('jpeg') and entry.is_file():
+#                 AllFilenames.append(entry.name)
+#     AllFilenames.sort()
+#     AllImages = []
+#     for f in AllFilenames:
+#         print("    converting ",f)
+#         AllImages.append(readbase64(f))
+#     LANGUEORIGINE = source
+#     LANGUETRADUCTION = source
+#     NBSLIDES = len(AllImages)
+#     with open(templatefile) as f:
+#         template = "".join(f.readlines())
+#     template = template.replace("@@LANGUEORIGINE@@",LANGUEORIGINE)
+#     template = template.replace("@@LANGUETRADUCTION@@",LANGUETRADUCTION)
+#     template = template.replace("@@ASPECTRATIO@@",ASPECTRATIO)
+#     template = template.replace("@@NBSLIDES@@",str(NBSLIDES))
+#     template = template.replace("@@FILENAME@@",FILENAME)
+#     template = template.replace("@@TITRE@@",TITRE)
+#     template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
+#     txtimages = "[];\n";
+#     for img in AllImages:
+#         txtimages += "Timages.push('"+img+"');\n";
+#     template = template.replace("@@IMAGES@@",txtimages)
+#     f = open(fileout, "w")
+#     f.write(template)
+#     f.close()
 
 
 
