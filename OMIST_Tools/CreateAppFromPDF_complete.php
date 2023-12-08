@@ -21,9 +21,9 @@ $Delay="--Delay=0";
 if (isset($_POST["extradelay"])) $Delay="--Delay=".$_POST["extradelay"];
 
 
-    $command = 'bash ./CreateAppFromPDFComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
-    system($command);
-    //echo '<pre>'.$command.'</pre>';
+$command = 'bash ./CreateAppFromPDFComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
+system($command);
+
 header('Content-Type: text/html');
 header('Content-Disposition: attachment; filename="output.html"');
 readfile('tmp/output_'.$randompath.'.html');
@@ -31,6 +31,5 @@ unlink('tmp/output_'.$randompath.'.html');
 
 }
 
-//print_r($_POST);
 
 ?>

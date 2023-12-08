@@ -1,4 +1,26 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+"""Création d'une animation web sous forme de diaporama.
+
+On obtient en sortie le fichier html de l'animation.
+
+Usage : 
+=======
+    py CreateMultiLingualAnim.py -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template
+
+    <input> : chemin du fichier contenant la présentation à animer
+    <output> : nom du fichier html de l'animation
+    <from> : langue d'origine
+    <to> : langue de traduction
+    <ImagesDir> : chemin du dossier contenant les images extraites de la présentation
+    --AspectRatio : ratio de l'animation
+    --KeepAspectRatio : le ratio est gardé
+    --Delay : ajout d'un délai entre chaque slide
+    --Title : titre de la page web de l'animation
+    --Name :
+    --Template : template de la page web de l'animation
+"""
 
 import getopt, sys
 import collections
@@ -17,16 +39,14 @@ import config
 
 
 def usage():
+    """Explication de l'utilisation du programme.
+    """
+
     print("Usage:")
-    print("Minimal : ./CreateMultiLingualAnim.py --input test.pptx --output out.html")
-    print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\"")
-
-
-
+    print("Minimal : ./CreateMultiLingualAnim.py --input test.pptx")
+    print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\" --ImagesDir /tmp/images --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template")
 
 def main():
-    #print(translate("Bonjour","fr","en"))
-    #print(sys.getdefaultencoding())
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template="])
     except getopt.GetoptError as err:
@@ -85,35 +105,51 @@ def main():
     else:
         usage()
 
-
-def translate_old(txt,lfrom,lto):
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
-        return txt
-    lfrom = lfrom[0:2]
-    lto = lto[0:2]
-    if lfrom == lto:
-        return txt
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
-    """
-    txt=txt.replace("'"," ")
-    txt=txt.replace('"'," ")
-    txt=txt.replace('\xe0'," ")
-    txt=txt.replace('\xe9'," ")
-    txt=txt.replace('\u2019'," ")
-    """
-    # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
-    # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
-    batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-    batcmd = batcmd.encode('utf-8','ignore')
-    result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
-    result=json.loads(result.decode("utf-8"))
-    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-        return ""
-    else:
-        return result.get('data').get('translations')[0].get('translatedText')
+# def translate_old(txt,lfrom,lto):
+#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
+#         return txt
+#     lfrom = lfrom[0:2]
+#     lto = lto[0:2]
+#     if lfrom == lto:
+#         return txt
+#     txt=txt.replace("'","’")
+#     txt=txt.replace('"',"’’")
+#     """
+#     txt=txt.replace("'"," ")
+#     txt=txt.replace('"'," ")
+#     txt=txt.replace('\xe0'," ")
+#     txt=txt.replace('\xe9'," ")
+#     txt=txt.replace('\u2019'," ")
+#     """
+#     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
+#     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
+#     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
+#     batcmd = batcmd.encode('utf-8','ignore')
+#     result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
+#     result=json.loads(result.decode("utf-8"))
+#     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
+#         return ""
+#     else:
+#         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate_deeplpro(txt,lfrom,lto):
+    """Traduction d'un texte par Deepl.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if not lfrom[0:2] in config.DEEPLKNOWNLANG:
         return translate_google(txt,lfrom,lto)
     if not lto[0:2] in config.DEEPLKNOWNLANG:
@@ -142,6 +178,23 @@ def translate_deeplpro(txt,lfrom,lto):
         return result.get('translations')[0].get('text')
 
 def translate_google(txt,lfrom,lto):
+    """Traduction d'un texte par Google.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
         return txt
     lfrom = lfrom[0:2]
@@ -164,28 +217,58 @@ def translate_google(txt,lfrom,lto):
         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate(txt,lfrom,lto):
+    """Traduction d'un texte en fonction de la configuration choisie.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
     if config.WHICHTRANSLATOR == "DEEPLPRO":
         return translate_deeplpro(txt,lfrom,lto)
     else:
         return translate_google(txt,lfrom,lto)
 
 
-def ExtractNotes_old(filename):
-    prs = Presentation(filename)
-    notes=[]
-    num=0
-    for slide in prs.slides:
-        num+=1
-        notesslide=[]
-        for note in slide.notes_slide.notes_text_frame.paragraphs:
-            notesslide.append(note.text)
-        slidenotes=dict()
-        slidenotes["Slide"]=num
-        slidenotes["Notes"]=notesslide
-        notes.append(slidenotes)
-    return notes
+# def ExtractNotes_old(filename):
+#     prs = Presentation(filename)
+#     notes=[]
+#     num=0
+#     for slide in prs.slides:
+#         num+=1
+#         notesslide=[]
+#         for note in slide.notes_slide.notes_text_frame.paragraphs:
+#             notesslide.append(note.text)
+#         slidenotes=dict()
+#         slidenotes["Slide"]=num
+#         slidenotes["Notes"]=notesslide
+#         notes.append(slidenotes)
+#     return notes
 
 def ExtractNotes(filename):
+    """Extraction des notes pour chaque slide.
+    
+    Parameters
+    ----------
+    filename : str
+        Fichier TXT dont on extrait les notes.
+
+    Returns
+    -------
+    array
+        Les notes et les slides associées.
+    """
+
     if filename.split(".")[-1] == "pptx":
         prs = Presentation(filename)
         notes=[]
@@ -218,39 +301,80 @@ def ExtractNotes(filename):
                 notesslide.append(txt)
     return notes
 
+# def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
+#     prs = Presentation(filename)
+#     for slide in prs.slides:
+#         for note in slide.notes_slide.notes_text_frame.paragraphs:
+#             note.text = translate(note.text,langsrc,langdst)
+#     prs.save(fileout)
 
-
-def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
-    prs = Presentation(filename)
-    for slide in prs.slides:
-        for note in slide.notes_slide.notes_text_frame.paragraphs:
-            note.text = translate(note.text,langsrc,langdst)
-    prs.save(fileout)
-
-def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
-    prs = Presentation(filename)
-    ns=1
-    for slide in prs.slides:
-        print("Translating slide ",ns)
-        ns+=1
-        if translate_notes:
-            for note in slide.notes_slide.notes_text_frame.paragraphs:
-                note.text = translate(note.text,langsrc,langdst)
-        for shape in slide.shapes:
-            if not shape.has_text_frame:
-                continue
-            for paragraph in shape.text_frame.paragraphs:
-                for run in paragraph.runs:
-                    run.text = translate(run.text,langsrc,langdst)
-    prs.save(fileout)
+# def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
+#     prs = Presentation(filename)
+#     ns=1
+#     for slide in prs.slides:
+#         print("Translating slide ",ns)
+#         ns+=1
+#         if translate_notes:
+#             for note in slide.notes_slide.notes_text_frame.paragraphs:
+#                 note.text = translate(note.text,langsrc,langdst)
+#         for shape in slide.shapes:
+#             if not shape.has_text_frame:
+#                 continue
+#             for paragraph in shape.text_frame.paragraphs:
+#                 for run in paragraph.runs:
+#                     run.text = translate(run.text,langsrc,langdst)
+#     prs.save(fileout)
 
 
 def readbase64(filename):
+    """Conversion d'une image en base64.
+    
+    Parameters
+    ----------
+    filename : str
+        Chemin de l'image.
+
+    Returns
+    -------
+    str
+        L'image convertie.
+    """
+
     with open(filename, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
 def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt",delay=0,complementfile="Complements.txt"):
+    """Création d'une animation web sous forme de diaporama.
+    
+    Parameters
+    ----------
+    filename : str
+        Chemin de l'image.
+    fileout : str
+        Nom du fichier html de l'animation.
+    source : str
+        Langue d'origine.
+    TargetLanguages : str
+        Langue de traduction.
+    imagesdir : str
+        Chemin du dossier contenant les images extraites de la présentation.
+    ASPECTRATIO : str
+        Ratio de l'animation.
+    KEEPASPECTRATIO : str
+        Ratio gardé ou non.
+    FILENAME : str
+
+    TITRE : str
+        Titre de la page web de l'animation.
+    templatefile : str
+        Template de la page web de l'animation.
+    delay : int
+        Délai entre chaque slide (en dixième de secondes).
+    complementfile : str
+        Compléments pour la page web de l'animation.
+    """
+
     # Gestion des notes
     print("Extracting and translating notes")
     AllNotes=dict()
@@ -339,17 +463,3 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
 
 if __name__ == "__main__":
     main()
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
