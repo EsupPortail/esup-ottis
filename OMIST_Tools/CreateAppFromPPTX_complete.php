@@ -22,10 +22,10 @@ if (isset($_POST["longrun"]) && $_POST["longrun"] == "long") $longrun=true;
 
 if (!$longrun) {
 if ($TranslateLang == "") {
-    $command = 'bash ./CreateAppComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
     system($command);
 } else {
-    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
     system($command);
     
 }
@@ -37,10 +37,10 @@ unlink('tmp/output_'.$randompath.'.html');
 
 } else {
     if ($TranslateLang == "") {
-    $command = 'bash ./CreateAppComplete_long.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete_long.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
     $out=exec($command);
     } else {
-    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
+    $command = 'bash ./CreateAppComplete_translate.sh '.$randompath.' "'.$_FILES["fileToUpload"]["tmp_name"].'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
     $out=shell_exec($command." &");
     
     }
@@ -53,6 +53,6 @@ unlink('tmp/output_'.$randompath.'.html');
     print_r($_POST);
     print_r($_FILES);
 }
-//print_r($_POST);
+
 
 ?>
