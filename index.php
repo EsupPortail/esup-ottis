@@ -57,6 +57,8 @@ if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
 if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
 $Microsofton=(($userprivileges<2)||($MicrosoftKey !=""));
 
+$theme="";
+if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 $T_lang=array();
 $fd = fopen("supportedlanguages.csv","r");
@@ -81,7 +83,12 @@ fclose($fd);
 	<title>Automatic translation for teaching purposes: Teacher</title>
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
+  <?php if ($theme != "") {
+    echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">\n';
+  } else {
+    echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet">\n';
+  }
+	?>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2402,9 +2409,16 @@ function applyConfig() {
   </p>
 </div>
  
+<?php if ($theme != "") {
+    echo '<script src="jquery/'.$theme.'/jquery.js"></script>\n';
+    echo '<script src="jquery/'.$theme.'/jquery-ui.min.js"></script>\n';
+  } else {
+    echo '<script src="jquery/jquery.js"></script>\n';
+    echo '<script src="jquery/jquery-ui.min.js"></script>\n';
+  }
+	?>
 
-<script src="jquery/jquery.js"></script>
-<script src="jquery/jquery-ui.min.js"></script>
+
 <script src="qrcode.min.js"></script>
 <script>
 $("body").tooltip();
