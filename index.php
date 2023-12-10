@@ -2241,8 +2241,9 @@ function applyConfig() {
 
   <li>&nbsp;</li>
   <li><b>Extra tabs</b></li>
-  <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span><button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
-    <button onclick="document.getElementById('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button></li>
+  <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span>
+  <button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
+    <button style="display:none;" onclick="document.getElementById('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button></li>
 <!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li> -->
 <!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li> -->
   <li>Show Share tab ?  <input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}"/>&nbsp;<span id="spanembedshareon">Yes !</span></li>
