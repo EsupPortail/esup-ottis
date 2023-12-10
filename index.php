@@ -42,7 +42,9 @@ $appid=md5(gmdate("Y-m-d\TH:i:s\Z")."XXX");
 if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://app.wooclap.com/events/".$_GET["WOOCLAPKEY"]."/0";
 } else {
-  $wooclapaddress = "https://www.wooclap.com";
+  //$wooclapaddress = "https://www.wooclap.com";
+  //$wooclapaddress = "https://app.wooclap.com/auth/login?lang=en&redirectTo=/home";
+  $wooclapaddress = "https://app.wooclap.com/events/";
 }
 
 // Utilisation de Microsoft Cognitive Services si MicrosoftKey et MicrosoftRegion en paramètres
