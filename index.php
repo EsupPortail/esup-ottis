@@ -2411,7 +2411,7 @@ function applyConfig() {
 </div>
  
 <?php if ($theme != "") {
-    echo '<script src="jquery/'.$theme.'/external/jquery.js"></script>';
+    echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
     echo '<script src="jquery/'.$theme.'/jquery-ui.min.js"></script>';
   } else {
     echo '<script src="jquery/jquery.js"></script>';
