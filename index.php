@@ -84,11 +84,12 @@ fclose($fd);
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php if ($theme != "") {
-    echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">\n';
+    echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet"/>';
   } else {
-    echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet">\n';
+    echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet"/>';
   }
 	?>
+
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2410,11 +2411,11 @@ function applyConfig() {
 </div>
  
 <?php if ($theme != "") {
-    echo '<script src="jquery/'.$theme.'/jquery.js"></script>\n';
-    echo '<script src="jquery/'.$theme.'/jquery-ui.min.js"></script>\n';
+    echo '<script src="jquery/'.$theme.'/jquery.js"></script>';
+    echo '<script src="jquery/'.$theme.'/jquery-ui.min.js"></script>';
   } else {
-    echo '<script src="jquery/jquery.js"></script>\n';
-    echo '<script src="jquery/jquery-ui.min.js"></script>\n';
+    echo '<script src="jquery/jquery.js"></script>';
+    echo '<script src="jquery/jquery-ui.min.js"></script>';
   }
 	?>
 
