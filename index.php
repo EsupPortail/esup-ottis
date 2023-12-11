@@ -2763,7 +2763,7 @@ var sizepincodediv=1;
       onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
         var result2 = recognitionEventArgs.translations[0];
-        console.log("Result Transl : "+result2);
+        console.log("Result Transl : "+recognitionEventArgs.translations);
         EcrirePartial('TEST : '+RemoveVerbalTics(result2.text));
 //        EcrirePartial(RemoveVerbalTics(result.text));
       }
