@@ -2766,7 +2766,7 @@ var sizepincodediv=1;
         var result = recognitionEventArgs.result;
         if (document.getElementById("directMicrosoftTranslation").checked) {
          var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
-        else {
+        } else {
           var text = RemoveVerbalTics(result.text);
         }
          EcrirePartial(text);
@@ -2777,7 +2777,7 @@ var sizepincodediv=1;
         if (document.getElementById("directMicrosoftTranslation").checked) {
           var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
           var textVO = RemoveVerbalTics(result.text);
-        else {
+        } else {
           var text = RemoveVerbalTics(result.text);
           var textVO = text;
         }
