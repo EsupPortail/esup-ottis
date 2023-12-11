@@ -2743,7 +2743,8 @@ var sizepincodediv=1;
 
 </script>
     <!-- Microsoft Azure Cognitive Services -->
-    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<!--    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> -->
+    <script src="libs/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
     <script>
     var subscriptionKey, serviceRegion;
     var SpeechSDK;
