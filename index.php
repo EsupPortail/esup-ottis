@@ -2764,7 +2764,7 @@ var sizepincodediv=1;
       onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
         //var result2 = recognitionEventArgs.translations[0];
-        res=''; for(p in recognitionEventArgs) res+=p+" | "; console.log("Result Transl : "+res);
+        // res=''; for(p in recognitionEventArgs.result) res+=p+" | "; console.log("Result Transl : "+res);
         //EcrirePartial('TEST : '+RemoveVerbalTics(result2.text));
         EcrirePartial(RemoveVerbalTics(result.text));
       }
