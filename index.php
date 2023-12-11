@@ -2764,7 +2764,7 @@ var sizepincodediv=1;
       onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
         //var result2 = recognitionEventArgs.translations[0];
-        // res=''; for(p in recognitionEventArgs.result) res+=p+" | "; console.log("Result Transl : "+res);
+         res=''; for(p in recognitionEventArgs) res+=p+" | "; console.log("Result Transl : "+res);
         //EcrirePartial('TEST : '+result.text+" -- "+RemoveVerbalTics(result2.text));
         EcrirePartial(RemoveVerbalTics(result.text));
       }
@@ -2779,15 +2779,15 @@ var sizepincodediv=1;
 
       doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
-        //var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
-        //speechConfig.addTargetLanguage("en-US");
+        //var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
+        speechConfig.addTargetLanguage("de-DE");
         speechConfig.speechRecognitionLanguage = language;
         speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
 //          var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(["fr-FR","en-US", "de-DE"]);
 //          recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
-        recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-        //recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+        //recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+        recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
         var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
         if (phrases.length>0) {
           var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
