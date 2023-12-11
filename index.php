@@ -2762,10 +2762,10 @@ var sizepincodediv=1;
 
       onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
-        var result2 = recognitionEventArgs.translations[0];
-        console.log("Result Transl : "+recognitionEventArgs.translations);
-        EcrirePartial('TEST : '+RemoveVerbalTics(result2.text));
-//        EcrirePartial(RemoveVerbalTics(result.text));
+        //var result2 = recognitionEventArgs.translations[0];
+        //console.log("Result Transl : "+recognitionEventArgs.translations);
+        //EcrirePartial('TEST : '+RemoveVerbalTics(result2.text));
+        EcrirePartial(RemoveVerbalTics(result.text));
       }
 
       onRecognized=function onRecognized(sender, recognitionEventArgs) {
@@ -2778,8 +2778,8 @@ var sizepincodediv=1;
 
       doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        //var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
-        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
+        //var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
         speechConfig.addTargetLanguage("en-US");
         speechConfig.speechRecognitionLanguage = language;
         speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
