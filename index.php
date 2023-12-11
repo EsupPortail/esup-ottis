@@ -2238,6 +2238,7 @@ function applyConfig() {
 	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
   <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
   <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft live translation ?  <input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='No.';"/>&nbsp;<span id="spanmicrosoftdirecttranscritionon">No.</span></li>
  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)<br/>
     <textarea id="BoostedWords" rows="3" cols="20"></textarea></li>
 
@@ -2763,32 +2764,45 @@ var sizepincodediv=1;
 
       onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
-        //var result2 = recognitionEventArgs.translations[0];
-         var res = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
-         //console.log("Result Transl : "+res);
-        EcrirePartial(res);
-        //EcrirePartial(RemoveVerbalTics(result.text));
+        if (document.getElementById("directMicrosoftTranslation").checked) {
+         var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
+        else {
+          var text = RemoveVerbalTics(result.text);
+        }
+         EcrirePartial(text);
       }
 
       onRecognized=function onRecognized(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
-        var text = RemoveVerbalTics(result.text);
-        EcrirePartial(text);
-        Traduction(text);
+        if (document.getElementById("directMicrosoftTranslation").checked) {
+          var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
+          var textVO = RemoveVerbalTics(result.text);
+        else {
+          var text = RemoveVerbalTics(result.text);
+          var textVO = text;
+        }
+         EcrirePartial(text);
+         Traduction(textVO);
       }
 
 
       doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        //var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
-        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
-        speechConfig.addTargetLanguage("en-US");
-        speechConfig.speechRecognitionLanguage = language;
-        speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
+        if (document.getElementById("directMicrosoftTranslation").checked) {
+          var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
+          speechConfig.addTargetLanguage(subtitle_language);
+          speechConfig.speechRecognitionLanguage = language;
+          speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
+          recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+        } else {
+          var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
+          speechConfig.speechRecognitionLanguage = language;
+          speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
+          recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+        }
+
 //          var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(["fr-FR","en-US", "de-DE"]);
 //          recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
-        //recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-        recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
         var phrases = document.getElementById('BoostedWords').value.replaceAll("\n",";");
         if (phrases.length>0) {
           var phraseListGrammar = SpeechSDK.PhraseListGrammar.fromRecognizer(recognizer);
