@@ -21,21 +21,24 @@ Il faudra ensuite éditer le fichier de configuration config.py.
 
 ### Mise en place de la base de données
 
-*Ecrire un script qui permet de créer la base et la table*
+```
+php CreateDatabase.php
+```
+Si le programme ne fonctionne pas, il est possible de créer la base de données à la main, selon les étapes 1 à 3 suivantes.
 
-#### Connexion à MySQL
+#### *1. Connexion à MySQL*
 ```
 mysql -u root -p
 ```
 
-#### Création de la base de données
+#### *2. Création de la base de données*
 
 ```
 CREATE DATABASE db_tasks;
 USE db_tasks;
 ```
 
-#### Création de la table
+#### *3. Création de la table*
 
 ```
 CREATE TABLE tasks_queue
