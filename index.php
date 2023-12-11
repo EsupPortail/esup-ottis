@@ -2779,9 +2779,9 @@ var sizepincodediv=1;
 
       doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        //var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
-        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
-        speechConfig.addTargetLanguage("en-US");
+        var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, region);
+        //var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
+        //speechConfig.addTargetLanguage("en-US");
         speechConfig.speechRecognitionLanguage = language;
         speechConfig.setProfanity(SpeechSDK.ProfanityOption.Raw);
 //          var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(["fr-FR","en-US", "de-DE"]);
