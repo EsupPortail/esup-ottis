@@ -1124,7 +1124,7 @@ var currentPresentation=[];
 var currentDiscours=-1;
 
 function formateresponse(datatxt) {
-  console.log(datatxt);
+  //console.log(datatxt);
   currentPresentation=[];
   //alert(datatxt);
   var res = '';
@@ -1220,6 +1220,29 @@ function Backward() {
   if (currentPresentation.length>0) {
     currentDiscours=(currentDiscours-1+currentPresentation.length)%currentPresentation.length;
     addToNB(currentPresentation[currentDiscours]['Discours'],0);
+    ShowImage(currentPresentation[currentDiscours]['Slide']);
+    saveremotespeech();
+  }
+}
+
+
+function SlideForward() {
+  if (slide["Images"].length>1) {
+    var currentSlide=currentPresentation[currentDiscours]['Slide'];
+    while (currentDiscours<currentPresentation.length-1 && currentPresentation[currentDiscours]['Slide']==currentSlide) {
+      currentDiscours++;
+    }
+    ShowImage(currentPresentation[currentDiscours]['Slide']);
+    saveremotespeech();
+  }
+}
+
+function SlideBackward() {
+  if (slide["Images"].length>1) {
+    var currentSlide=currentPresentation[currentDiscours]['Slide'];
+    while (currentDiscours>0 && currentPresentation[currentDiscours]['Slide']==currentSlide) {
+      currentDiscours--;
+    }
     ShowImage(currentPresentation[currentDiscours]['Slide']);
     saveremotespeech();
   }
@@ -1479,14 +1502,19 @@ function Init() {
 
   document.onkeyup=function (event) {
     if (inSlideTab) {
-/*      if (event.code === 'ArrowRight') {
+      if (event.code === 'ArrowDown') {
         Forward();
       }
-      if (event.code === 'ArrowLeft') {
+      if (event.code === 'ArrowUp') {
         Backward();
       }
+      if (event.code === 'ArrowRight') {
+        SlideForward();
+      }
+      if (event.code === 'ArrowLeft') {
+        SlideBackward();
+      }
 
-*/
       if (event.code === 'Space') {
         Forward();
       }
