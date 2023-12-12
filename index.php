@@ -2788,6 +2788,7 @@ var sizepincodediv=1;
 
       doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        console.log("Subtitles : "+inputlanguage+" -> "+subtitle_language);
         if (document.getElementById("directMicrosoftTranslation").checked) {
           var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
           speechConfig.addTargetLanguage(subtitle_language);
