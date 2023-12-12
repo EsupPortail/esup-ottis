@@ -2764,7 +2764,7 @@ var sizepincodediv=1;
 
       onRecognizing=function onRecognizing(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
-        if (document.getElementById("directMicrosoftTranslation").checked) {
+        if (document.getElementById("directMicrosoftTranslation").checked && builtin_language != subtitle_language) {
          var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
         } else {
           var text = RemoveVerbalTics(result.text);
@@ -2774,7 +2774,7 @@ var sizepincodediv=1;
 
       onRecognized=function onRecognized(sender, recognitionEventArgs) {
         var result = recognitionEventArgs.result;
-        if (document.getElementById("directMicrosoftTranslation").checked) {
+        if (document.getElementById("directMicrosoftTranslation").checked && builtin_language != subtitle_language) {
           var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
           var textVO = RemoveVerbalTics(result.text);
         } else {
@@ -2788,8 +2788,7 @@ var sizepincodediv=1;
 
       doContinuousRecognition=function doContinuousRecognition(key,region,language) {
         var audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        console.log("Subtitles : "+inputlanguage+" -> "+subtitle_language);
-        if (document.getElementById("directMicrosoftTranslation").checked) {
+        if (document.getElementById("directMicrosoftTranslation").checked && builtin_language != subtitle_language) {
           var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(key, region);
           speechConfig.addTargetLanguage(subtitle_language);
           speechConfig.speechRecognitionLanguage = language;
