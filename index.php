@@ -2371,7 +2371,7 @@ function applyConfig() {
 	<div id="tabs-4">
     <h3>For students</h3>
     <div>
-    <ul style="list-style-type: none;">
+    <ul style="list-style-type: none; min-height: 1100px">
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
