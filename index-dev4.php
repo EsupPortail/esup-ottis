@@ -1597,7 +1597,7 @@ function Init() {
             }
 
             if (event.code === 'Space') {
-                Forward();
+                Micro();
             }
             event.preventDefault();
             event.stopPropagation();
@@ -2749,7 +2749,7 @@ function MinTitlePos() {
 $( function() {
   fixTitle();
   //$( "#titre" ).draggable();
-  $( "#titre" ).draggableTouch();
+  // $( "#titre" ).draggableTouch();
   $("#partialtitre").draggableTouch();
   $("#studentfeedback").draggableTouch();
 } );
