@@ -281,15 +281,19 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     #    for entry in it:
     #        if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
     #            AllFilenames.append(entry.name)
+
     AllFilenames.sort()
+
+    # Il ne peut pas y avoir plus de notes que de slides
+    AllNotes=AllNotes[0:len(AllFilenames)]
+    # Il ne peut pas y avoir plus de slides que de notes
+    AllFilenames=AllFilenames[0:len(AllNotes)]
+
     AllImages = []
     for f in AllFilenames:
         print("    converting ",f)
         AllImages.append(readbase64(imagesdir+"/"+f))
-    # Il ne peut pas y avoir plus de notes que de slides
-    #AllNotes=AllNotes[0:len(AllImages)]
-    # Il ne peut pas y avoir plus de slides que de notes
-    #AllImages=AllImages[0:len(AllNotes)]
+    
     LANGUEORIGINE = source
     LANGUETRADUCTION = source
     NBSLIDES = len(AllImages)
