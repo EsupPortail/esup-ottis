@@ -445,6 +445,7 @@ input[type=text] {
 #sharedqr {
     transition: 1s ease;
   transform-origin: bottom left;
+  z-index: 10000;
 }
 #sharedqr:hover {
   transform: scale(2);
