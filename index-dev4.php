@@ -1334,11 +1334,15 @@ function SlideBackward() {
 }
 
 function completeHandler(event) {
-    //console.log(event.target.responseText);
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText);
-    //  _("slideshow").innerHTML = '<iframe src = "ViewerJS/#../tmpfiles/DOCUMENT_'+document.getElementById('classroomid').value+'.odp" width="400" height="300" allowfullscreen webkitallowfullscreen></iframe>';
     _("progressBar").value = 0;
-    //alert(event.target.responseText);
+
+    // Re-initialize the presentation
+    var previousimage = -1;
+    var currentDiscours = -1;
+    if (currentPresentation.length>0) {
+        ShowImage(currentPresentation[0]['Slide']);
+    }
 }
 
 function SlideNotes() {
