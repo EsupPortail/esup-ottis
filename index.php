@@ -1256,7 +1256,7 @@ function completeHandler(event) {
 
   // Re-initialize the presentation
   previousimage = -1;
-    currentDiscours = -1;
+    currentDiscours = 0;
     if (currentPresentation.length>0) {
         setTimeout(function () {ShowImage(currentPresentation[0]['Slide']);}, 1000);
     }
