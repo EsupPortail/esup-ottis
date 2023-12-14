@@ -7,7 +7,7 @@ L'outil de création simple d'animation (sans traduction) est aussi disponible s
 
 # Pré-requis
 
-Les logiciels LibreOffice, Poppler ainsi que la bibliothèque python python-pptx sont requis.
+Les logiciels LibreOffice, Poppler ainsi que les bibliothèques python python-pptx et lxml sont requis.
 Il faut également le programme **cron**, **mysql** avec une base de données avec le format donné ci-dessous et un **dossier /var/html/uploads/**.
 Il faudra ensuite éditer le fichier de configuration config.py.
 
@@ -17,6 +17,7 @@ Il faudra ensuite éditer le fichier de configuration config.py.
   pip install python-pptx
   sudo apt install cron
   sudo apt install mysql-server
+  pip3 install lxml
 ```
 
 ### Mise en place de la base de données
