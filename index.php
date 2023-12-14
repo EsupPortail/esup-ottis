@@ -443,12 +443,11 @@ input[type=text] {
 
 
 #sharedqr {
-    transition: 1s ease;
-  transform-origin: bottom left;
-  z-index: 10000;
+  transition: 1s ease;
+  transform-origin: 30% left;
 }
 #sharedqr:hover {
-  transform: scale(2);
+  transform: scale(1.5);
 }
 
 #titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titlevisio {
@@ -2371,7 +2370,7 @@ function applyConfig() {
 	<div id="tabs-4">
     <h3>For students</h3>
     <div>
-    <ul style="list-style-type: none; min-height: 1100px">
+    <ul style="list-style-type: none;">
   	    <li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
         <li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
         <li>QR code : <div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div></li>
