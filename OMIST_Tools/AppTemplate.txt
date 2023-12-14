@@ -416,7 +416,7 @@ function EcouterTexte(Tch, c) {
 
     if (true) { //(langueorigine.substr(0,2) == languetraduction.substr(0,2)) {
       if (waittime>0) {
-				Affiche("Sleeping for "+(waittime/1000)+" s.....");
+				//Affiche("Sleeping for "+(waittime/1000)+" s.....");
 			} else {
 				Affiche(s);
 			}
