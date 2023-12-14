@@ -1251,11 +1251,15 @@ var inSlideTab=false;
 
 
 function completeHandler(event) {
-  //console.log(event.target.responseText);
   _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText);
-//  _("slideshow").innerHTML = '<iframe src = "ViewerJS/#../tmpfiles/DOCUMENT_'+document.getElementById('classroomid').value+'.odp" width="400" height="300" allowfullscreen webkitallowfullscreen></iframe>';
   _("progressBar").value = 0;
-  //alert(event.target.responseText);
+
+  // Re-initialize the presentation
+  previousimage = -1;
+    currentDiscours = -1;
+    if (currentPresentation.length>0) {
+        setTimeout(function () {ShowImage(currentPresentation[0]['Slide']);}, 1000);
+    }
 }
 
 function SlideNotes() {
