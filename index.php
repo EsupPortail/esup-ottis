@@ -1503,25 +1503,35 @@ function Init() {
   document.onkeyup=function (event) {
     if (inSlideTab) {
       if (event.code === 'ArrowDown') {
-        Forward();
-      }
-      if (event.code === 'ArrowUp') {
-        Backward();
-      }
-      if (event.code === 'ArrowRight') {
-        SlideForward();
-      }
-      if (event.code === 'ArrowLeft') {
-        SlideBackward();
-      }
+                Forward();
+            }
+            if (event.code === 'ArrowUp') {
+                Backward();
+            }
+            if (event.code === 'ArrowRight') {
+                SlideForward();
+            }
+            if (event.code === 'ArrowLeft') {
+                SlideBackward();
+            }
+            if (event.code === 'PageDown') {
+                SlideForward();
+            }
+            if (event.code === 'PageUp') {
+                SlideBackward();
+            }
 
-      if (event.code === 'Space') {
-        Forward();
-      }
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  };
+            if (event.code === 'Space') {
+                Micro();
+            }
+            if (event.code === 'KeyB') {
+                Micro();
+            }
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    };
+
   document.onkeydown=function (event) {
     if (inSlideTab) {
       event.preventDefault();
