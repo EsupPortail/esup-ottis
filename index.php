@@ -444,10 +444,10 @@ input[type=text] {
 
 #sharedqr {
     transition: 1s ease;
-  transform-origin: top left;
+  transform-origin: bottom left;
 }
 #sharedqr:hover {
-  transform: scale(1);
+  transform: scale(2);
 }
 
 #titleextratab1,#titleextratab2,#titleextratab3,#titleextratab4,#titlelive,#titlevisio {
@@ -2464,8 +2464,8 @@ $("#tabs-4").accordion({
 
 new QRCode(document.getElementById("sharedqr"), {
 	text: document.getElementById("sharedlink").href,
-	width: 128,
-	height: 128,
+	width: 256,
+	height: 256,
 	colorDark : "#0000ff",
 	colorLight : "#ffffff",
 	correctLevel : QRCode.CorrectLevel.L
