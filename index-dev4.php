@@ -1203,9 +1203,7 @@ function ShowImage(n) {
 }
 
 function formateresponse(datatxt) {
-    //console.log(datatxt);
     currentPresentation = [];
-    //alert(datatxt);
     var res = '';
     var data = JSON.parse(datatxt);
     for (var i = 0; i < data.length; i++) {
@@ -1227,8 +1225,6 @@ function formateresponse(datatxt) {
             }
             setTimeout(toexec, 10);
         } else {
-            //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
-            //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
             res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
             var flag = false;
             for (var j = 0; j < slide["Notes"].length; j++) {
@@ -1250,7 +1246,7 @@ function formateresponse(datatxt) {
         res += '</dl>';
     }
     //  alert(res);
-    console.log("DEBUG : " + res);
+    //  console.log("DEBUG : " + res);
     return res;
 }
 
@@ -1338,10 +1334,11 @@ function completeHandler(event) {
     _("progressBar").value = 0;
 
     // Re-initialize the presentation
-    var previousimage = -1;
-    var currentDiscours = -1;
+    previousimage = -1;
+    currentDiscours = -1;
+    console.log("DEBUG IMG = "+currentPresentation[0]['Slide']);
     if (currentPresentation.length>0) {
-        ShowImage(currentPresentation[0]['Slide']);
+        setTimeout(function () {ShowImage(currentPresentation[0]['Slide']);}, 1000);
     }
 }
 
