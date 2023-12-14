@@ -22,6 +22,10 @@ if ($external) $uid="external";
 //if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 $fake=false;
 
+
+// A MODIFIER !!!!
+$uid = "anonymous";
+
 AuthenticateNotStudent($uid);
 
 // Mettre en place une liste de privilégiés
