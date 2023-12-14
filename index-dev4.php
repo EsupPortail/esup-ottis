@@ -1595,8 +1595,17 @@ function Init() {
             if (event.code === 'ArrowLeft') {
                 SlideBackward();
             }
+            if (event.code === 'PageDown') {
+                SlideForward();
+            }
+            if (event.code === 'PageUp') {
+                SlideBackward();
+            }
 
             if (event.code === 'Space') {
+                Micro();
+            }
+            if (event.code === 'KeyB') {
                 Micro();
             }
             event.preventDefault();
