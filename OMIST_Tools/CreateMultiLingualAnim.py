@@ -287,9 +287,9 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
         print("    converting ",f)
         AllImages.append(readbase64(imagesdir+"/"+f))
     # Il ne peut pas y avoir plus de notes que de slides
-    AllNotes=AllNotes[0:len(AllImages)]
+    #AllNotes=AllNotes[0:len(AllImages)]
     # Il ne peut pas y avoir plus de slides que de notes
-    AllImages=AllImages[0:len(AllNotes)]
+    #AllImages=AllImages[0:len(AllNotes)]
     LANGUEORIGINE = source
     LANGUETRADUCTION = source
     NBSLIDES = len(AllImages)
