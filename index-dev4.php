@@ -2236,7 +2236,7 @@ document.addEventListener('submit', event => {
 <div id="titre" onclick="Forward();"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre"></div>
 
-<--
+<!--
 <div id="titreleft" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';" onclick="Backward();">&#9666;</div>
 <div id="titreright"></div>
 <div id="titre" onclick="Forward();"  onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes: Teacher</h1></div>
