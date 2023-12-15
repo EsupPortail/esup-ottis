@@ -23,6 +23,12 @@ if (! function_exists('str_ends_with')) {
 }
 // fin
 
+// Ajout JB
+print_r($pdo);
+// fin
+
+
+
 $pdo->exec('START TRANSACTION'); # begin transaction
 
 # On récupère la première ligne de la base
