@@ -84,7 +84,7 @@ h1 {
             if ($num_of_rows==0){
                 echo "<div>The process is complete. You can download the files by clicking on the following link : </div>";
                 echo "<a href=$file>Download ZIP file</a>";
-
+                echo "<div>You have 24 hours to download the files. After this time, it will no longer be possible to retrieve them.</div>";
             }
             else {
                 echo "<div>The process is not yet complete, please wait.</div>";
