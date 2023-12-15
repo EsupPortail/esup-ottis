@@ -32,7 +32,11 @@ print_r($pdo);
 $pdo->exec('START TRANSACTION'); # begin transaction
 
 # On récupère la première ligne de la base
-$statement = $pdo->prepare("SELECT * FROM tasks_queue ORDER BY id LIMIT 1 FOR UPDATE SKIP LOCKED"); # get job and lock it
+// Ajout JB (Pb de syntaxe pas connue de MariaDB= mysql installée sur le serveur)
+$statement = $pdo->prepare("SELECT * FROM tasks_queue ORDER BY id LIMIT 1"); # get job and lock it
+//$statement = $pdo->prepare("SELECT * FROM tasks_queue ORDER BY id LIMIT 1 FOR UPDATE SKIP LOCKED"); # get job and lock it
+// Fin
+
 $statement->execute();
 $job = $statement->fetch(); # fetch selected data into php variable
 
