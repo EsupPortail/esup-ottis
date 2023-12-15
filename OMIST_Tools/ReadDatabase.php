@@ -52,14 +52,21 @@ $KeepAspectRatio = $job['keep_aspect_ratio'];
 $Delay = $job['delay_slides'];
 $longrun = $job['long_run'];
 
+
+// Ajout JB
+$command = "";
+// fin
 # On exécute la commande lue
 if (str_ends_with(trim($command_to_do), 'php')){
     $command = 'php '.dirname(__FILE__).'/'.$command_to_do. ' '.$randompath. ' '.$path_file. ' ' .$from. ' ' .$to. ' ' .$sub_length. ' ' .$speech. ' ' .$AspectRatio. ' ' .$KeepAspectRatio. ' ' .$Delay. ' ' .$longrun. ' ' .$TranslateLang. ' ' .$SlideNotes. ' ' .$sub_punct;
     echo $command;
 }
 
-system($command);
+// Ajout JB
+if ($command != "") system($command);
 
+// system($command);
+// fin
 
 # remove fetched job from queue
 $pdo->exec('DELETE FROM tasks_queue WHERE id = ' . $job['id']);
