@@ -8,7 +8,20 @@ try{
     $pdo = new PDO("mysql:host=" . $dbhost . ";dbname=" . $dbname, $dbuser, $dbpass);
 }catch(PDOException $err){
     echo "Database connection problem: " . $err->getMessage();
+    // Ajout JB
+    exit;
+    // fin
 }
+
+// Ajout JB car version php server = 7.4
+if (! function_exists('str_ends_with')) {
+    function str_ends_with(string $haystack, string $needle): bool
+    {
+        $needle_len = strlen($needle);
+        return ($needle_len === 0 || 0 === substr_compare($haystack, $needle, - $needle_len));
+    }
+}
+// fin
 
 $pdo->exec('START TRANSACTION'); # begin transaction
 
