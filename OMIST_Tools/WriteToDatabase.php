@@ -46,7 +46,9 @@ if (isset($_POST['ProgramName']) && isset($_POST["submit"]) && $_FILES["fileToUp
     $name_file = basename($_FILES["fileToUpload"]["tmp_name"]);
     move_uploaded_file($tmp_name_file, "$uploads_dir/$name_file");
     
-    $randompath=md5(gmdate("U"));
+    // Ajout JB (possibilité d'envoyer le RandomPath via POST)
+    if (isset($_POST['randompath'])) $randompath=$_POST['randompath']; else $randompath=md5(gmdate("U"));
+    // Fin
     $_SESSION['randompath']=$randompath;
     
     error_reporting(E_ALL);
