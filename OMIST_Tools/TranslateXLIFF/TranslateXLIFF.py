@@ -29,8 +29,9 @@ import logging
 import time
 
 COST_DEEPL = 0.00002
-config.PROXYHTTP = ""
-config.PROXYHTTPS = ""
+# Modif JB (les deux lignes suivantes ont été commentées, il y a besoin du proxy sur le serveur)
+#config.PROXYHTTP = ""
+#config.PROXYHTTPS = ""
 
 def usage():
     """Explication de l'utilisation du programme.
@@ -190,7 +191,7 @@ def translate(txt,lfrom,lto):
     str
         Le texte traduit.
     """
-
+    print("Traduction de ",txt, "de ",lfrom,"en",lto)
     if txt.strip() == "":
         return txt
     if config.WHICHTRANSLATOR == "DEEPLPRO":
