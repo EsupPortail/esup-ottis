@@ -36,6 +36,8 @@ $statement->execute();
 $job = $statement->fetch(); # fetch selected data into php variable
 
 #On récupère toutes les variables de la base
+// Ajout JB **: si pas de job dans la queue, pas de tableau
+if (is_array($job)) {
 $command_to_do = $job['command_to_do'];
 $path_file = $job['path_file'];
 $randompath = $job['randompath'];
@@ -57,7 +59,8 @@ $command = "";
 // fin
 # On exécute la commande lue
 if (str_ends_with(trim($command_to_do), 'php')){
-    $command = 'php '.dirname(__FILE__).'/'.$command_to_do. ' '.$randompath. ' '.$path_file. ' ' .$from. ' ' .$to. ' ' .$sub_length. ' ' .$speech. ' ' .$AspectRatio. ' ' .$KeepAspectRatio. ' ' .$Delay. ' ' .$longrun. ' ' .$TranslateLang. ' ' .$SlideNotes. ' ' .$sub_punct;
+    // Ajout JB : /usr/bin devant php
+    $command = '/usr/bin/php '.dirname(__FILE__).'/'.$command_to_do. ' '.$randompath. ' '.$path_file. ' ' .$from. ' ' .$to. ' ' .$sub_length. ' ' .$speech. ' ' .$AspectRatio. ' ' .$KeepAspectRatio. ' ' .$Delay. ' ' .$longrun. ' ' .$TranslateLang. ' ' .$SlideNotes. ' ' .$sub_punct;
     echo $command;
 }
 
@@ -71,4 +74,6 @@ if ($command != "") system($command);
 $pdo->exec('DELETE FROM tasks_queue WHERE id = ' . $job['id']);
 $pdo->exec('COMMIT'); # commit transaction
 
+}
+// fin ** (pour le "}")
 ?>
