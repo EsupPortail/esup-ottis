@@ -18,11 +18,12 @@ Usage :
 import sys
 import getopt
 from bs4 import BeautifulSoup
+# Modif JB (déplacement de import os)
+import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 import json
 import requests
-import os
 import bs4
 import logging
 import time
