@@ -203,6 +203,7 @@ function SubmitJobCreateAnim1() {
     _("App1").value = "Processing";
     _("App1").disabled = true;
     _("Random1").value = MD5((new Date()).getTime());
+    console.log("Randompath = "+_("Random1").value);
     var form = new FormData();
     form.append("RandomPath", _("Random1").value);
     form.append("ProgramName", _("ProgName1").value);
@@ -223,6 +224,7 @@ function SubmitJobCreateAnim1() {
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
+      console.log("isReady = "+rep);
       if (rep == "0") {
         // Ready to download
         _("App1").value = "Ready to download";
