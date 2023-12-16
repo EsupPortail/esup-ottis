@@ -18,7 +18,7 @@ mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
 # Modif JB (j'ai ajouté le répertoire TranslateXLIFF)
 cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/original_file.xlf
 for lang in $To; do
-  $PYTHON $SCRIPT_DIR/TranslateXLIFF/TranslateXLIFF.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/original_file.xlf --output=$SCRIPT_DIR/tmp/$RANDOMPATH/translated_$lang.xlf --from="$From" --to="$lang" #2>/dev/null
+  $PYTHON $SCRIPT_DIR/TranslateXLIFF/TranslateXLIFF.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/original_file.xlf --output=$SCRIPT_DIR/tmp/$RANDOMPATH/translated_$lang.xlf --from="$From" --to="$lang" 2>/dev/null
 done
 
 cd $SCRIPT_DIR/tmp/$RANDOMPATH

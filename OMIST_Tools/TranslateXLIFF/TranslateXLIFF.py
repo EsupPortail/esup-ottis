@@ -191,7 +191,6 @@ def translate(txt,lfrom,lto):
     str
         Le texte traduit.
     """
-    print("Traduction de ",txt, "de ",lfrom,"en",lto)
     if txt.strip() == "":
         return txt
     if config.WHICHTRANSLATOR == "DEEPLPRO":
