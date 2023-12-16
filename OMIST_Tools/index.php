@@ -205,7 +205,7 @@ function SubmitJobCreateAnim1() {
     _("Random1").value = MD5((new Date()).getTime());
     console.log("Randompath = "+_("Random1").value);
     var form = new FormData();
-    form.append("RandomPath", _("Random1").value);
+    form.append("randompath", _("Random1").value);
     form.append("ProgramName", _("ProgName1").value);
     form.append("fileToUpload", _("fileToUpload1"));
     form.enctype='multipart/form-data';
@@ -216,7 +216,7 @@ function SubmitJobCreateAnim1() {
   }
   if (_("App1").value == "Processing") {
     var form = new FormData();
-    form.append("RandomPath", _("Random1").value);
+    form.append("randompath", _("Random1").value);
     form.append("ProgramName", _("ProgName1").value);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
