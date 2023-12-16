@@ -24,6 +24,9 @@ import base64
 import os
 import pipes
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Ajout JB (ne trouve pas config.py)
+sys.path.append('../')
+# Fin
 import config
 
 def usage():
