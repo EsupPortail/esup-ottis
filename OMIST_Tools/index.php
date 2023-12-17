@@ -102,12 +102,25 @@ input[type="submit"]:hover, .mybutton:hover {
 
 .mybuttonanimation {
   background-size: 200% 100%;
+  border-color: rgba(25,190,40,0);
   background-image: linear-gradient(90deg, rgb(255,0,0) 0%, rgb(0,255,0) 50%, rgb(255,0,0) 100%);
   -webkit-animation: AnimateBG 2s ease infinite;
   animation: AnimateBG 2s ease infinite;
 }
 
 @-webkit-keyframes AnimateBG, @keyframes AnimateBG{
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes AnimateBG{
   0% {
     background-position: 0% 50%;
   }
@@ -309,7 +322,7 @@ function SubmitJob(num) {
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
-  <form id="Form1" action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
