@@ -334,7 +334,7 @@ function SubmitJob(num,apptype) {
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value=""/>
-    <input type="hidden" id="Extension1" name="Extention" value="html"/>
+    <input type="hidden" id="Extension1" name="Extension" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
     <button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message1"></p>
@@ -401,7 +401,7 @@ function SubmitJob(num,apptype) {
   
  </table>
     <input type="hidden" id="Random3" name="randompath" value=""/>
-    <input type="hidden" id="Extension3"  name="Extention" value="html"/>
+    <input type="hidden" id="Extension3"  name="Extension" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
     <button id="App3" value="Create" onclick="if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message3"></p>
