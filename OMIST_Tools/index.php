@@ -235,8 +235,8 @@ function downloadFile(filePath){
 
 function SubmitJob(num) {
   // Step 1
-  if (_("App"+num).value == "Create") {
-    _("App"+num).value = "Processing";
+  if (_("App"+num).innerHTML == "Create") {
+    _("App"+num).innerHTML = "Processing";
     _("App"+num).classList.add("mybuttonanimation");
     _("App"+num).disabled = true;
 
@@ -254,7 +254,7 @@ function SubmitJob(num) {
       setTimeout(function () {SubmitJob(num);},10000);
     }
   }
-  if (_("App1").value == "Processing") {
+  if (_("App1").innerHTML == "Processing") {
     var form = new FormData(_("Form1"));
     //form.append("randompath", _("Random1").value);
     //form.append("ProgramName", _("ProgName1").value);
@@ -269,7 +269,7 @@ function SubmitJob(num) {
         //_("App1").value = "Ready to download";
         _("App"+num).disabled = false;
         _("App"+num).classList.remove("mybuttonanimation");
-        _("App"+num).value = "Create";
+        _("App"+num).innerHTML = "Create";
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
       } else {
         setTimeout(function () {SubmitJob(num);},10000);
@@ -316,7 +316,7 @@ function SubmitJob(num) {
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <input id="App1" type="button" value="Create" onclick="SubmitJob(1);" class="mybutton"/>
+    <button id="App1" value="Create" onclick="SubmitJob(1);" class="mybutton">Create</button>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
