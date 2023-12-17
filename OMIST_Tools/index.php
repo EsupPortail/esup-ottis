@@ -331,7 +331,7 @@ function SubmitJob(num,apptype) {
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <button id="App1" value="Create" onclick="this.innerHTML=''; if (_('fileToUpload1').value!='') SubmitJob(1,'Create'); else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message1"></p>
     </form>
   </div>
