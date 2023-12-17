@@ -326,7 +326,7 @@ function SubmitJob(num,apptype) {
     <option value="175"/>
     <option value="200"/>
   </datalist>
- <div>Important : Ces outils proposés à titre expérimental utilisent des ressources partagées avec l’outil de traduction en direct (même serveur web et abonnement mutualisé pour le service de traduction (nb: utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%)). A noter, les traductions de fichiers pptx sont limitées afin de permettre un partage de ces ressources. Seuls les 5000 premiers caractères des présentations sont traduits.<!--Afin de ne pas impacter ce service, nous vous demandons de les utiliser prioritairement en dehors des heures d’enseignement. En outre, si vous souhaitez obtenir les traductions dans plus de deux langues, nous vous demandons de ne pas utiliser ces outils mais de nous transmettre votre demande car nous avons la possibilité de la traiter sans impacter les ressources partagées.--></div>
+  <div style="position: absolute; top: 0px; right: 200px;">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
