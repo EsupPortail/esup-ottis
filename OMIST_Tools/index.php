@@ -207,7 +207,7 @@ function SubmitJobCreateAnim1() {
     var form = new FormData();
     form.append("randompath", _("Random1").value);
     form.append("ProgramName", _("ProgName1").value);
-    form.append("fileToUpload", _("fileToUpload1"));
+    form.append("fileToUpload", _("fileToUpload1")[0]);
     form.enctype='multipart/form-data';
     console.log(form);
 	  var request = new XMLHttpRequest();
