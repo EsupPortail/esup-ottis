@@ -2,7 +2,7 @@
 
 if (isset($_POST['randompath'])) {
 $randompath=$_POST['randompath'];
-if (isset($_POST['Extension'])) $extension=$_POST['Extension']; else $extension="html";
+if (isset($_POST['Extension'])) $extension=$_POST['Extension']; else $extension="zip";
 # Connexion à la base de données
 include(dirname(__FILE__)."/config_database.php");
 
