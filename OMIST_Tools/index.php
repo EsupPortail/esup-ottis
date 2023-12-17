@@ -268,8 +268,8 @@ function SubmitJob(num) {
       setTimeout(function () {SubmitJob(num);},10000);
     }
   }
-  if (_("App1").innerHTML == "Processing") {
-    var form = new FormData(_("Form1"));
+  if (_("App"+num).innerHTML == "Processing") {
+    var form = new FormData(_("Form"+num));
     //form.append("randompath", _("Random1").value);
     //form.append("ProgramName", _("ProgName1").value);
     form.enctype='multipart/form-data';
@@ -324,14 +324,14 @@ function SubmitJob(num) {
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
-  <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
+  <form id="Form1" action="" onsubmit="function (e) {e.preventDefault(); return false;}" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') SubmitJob(1); else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <button id="App1" value="Create" onclick="function (e) {e.preventDefault(); if (_('fileToUpload1').value!='') SubmitJob(1); else {alert('You must provide a file first !');}}" class="mybutton">Create</button>
     <p id="Message1"></p>
     </form>
   </div>
