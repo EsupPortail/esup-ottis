@@ -350,7 +350,7 @@ function SubmitJob(num,apptype) {
   </div>
   <h3>Create web animation from pptx (Complete)</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form3" onsubmit="return false;" action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"><br/>
     <input type="hidden" name="ProgramName" value="CreateAppFromPPTX_complete.php">
@@ -396,13 +396,12 @@ function SubmitJob(num,apptype) {
 
   </td></tr>
   
-  <tr>
-    <td>
-    <input type="checkbox" name="longrun" value="long"/> Offline mode (for long presentations)
-    </td>
-  </tr>
  </table>
-    <input type="submit" value="Create" name="submit">
+ <input type="hidden" id="Random3" name="randompath" value=""/>
+    <input type="hidden" id="Extension3" value="html"/>
+    <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
+    <button id="App3" value="Create" onclick="if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message3"></p>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (Complete)</h3>
