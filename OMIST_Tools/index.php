@@ -56,6 +56,13 @@ if (isset($Stats_DEEPL["character_count"])) {
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
+.mybutton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 select, .jqueryselect, input[type="text"], textarea, button, input[type="file"], input[type="button"], input[type="submit"], .mybutton {
   border-radius: 7px;
   margin: 1px;
@@ -76,6 +83,7 @@ label input[type="file"] {
 }
 
 
+
 input[type="submit"], .mybutton {
   padding: 10px;
   background-color: rgb(25,190,40);
@@ -84,10 +92,7 @@ input[type="submit"], .mybutton {
   font-size: 1.1em;
 }
 
-.mybutton {
-  padding: 10px;
-  font-size: 1.1em;
-}
+
 
 
 input[type="submit"]:hover, .mybutton:hover {
@@ -311,7 +316,7 @@ function SubmitJob(num) {
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <input id="App1" type="button" value="Create" onclick="SubmitJob(1);" class="mybutton" style="padding: 10px;"/>
+    <input id="App1" type="button" value="Create" onclick="SubmitJob(1);" class="mybutton"/>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
