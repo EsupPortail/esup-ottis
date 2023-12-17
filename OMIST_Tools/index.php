@@ -284,6 +284,7 @@ function SubmitJob(num) {
         _("App"+num).classList.remove("mybuttonanimation");
         _("App"+num).innerHTML = "Create";
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
+        _("Message"+num).innerHTML="Your file has just been created, you can download it <a href=\""+"tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value+"\">here</a>."
       } else {
         setTimeout(function () {SubmitJob(num);},10000);
       }
@@ -330,6 +331,7 @@ function SubmitJob(num) {
     <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
     <button id="App1" value="Create" onclick="SubmitJob(1);" class="mybutton">Create</button>
+    <p id="Message1"></p>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
