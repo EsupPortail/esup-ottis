@@ -202,12 +202,12 @@ function SubmitJobCreateAnim1() {
   if (_("App1").value == "Create") {
     _("App1").value = "Processing";
     _("App1").disabled = true;
-    _("Random1").value = MD5((new Date()).getTime());
+    _("Random1").value = MD5((new Date()).getTime()+"");
     console.log("Randompath = "+_("Random1").value);
-    var form = new FormData();
-    form.append("randompath", _("Random1").value);
-    form.append("ProgramName", _("ProgName1").value);
-    form.append("fileToUpload", _("fileToUpload1")[0]);
+    var form = new FormData(_("Form1"));
+    //form.append("randompath", _("Random1").value);
+    //form.append("ProgramName", _("ProgName1").value);
+    //form.append("fileToUpload", _("fileToUpload1")[0]);
     form.enctype='multipart/form-data';
     console.log(form);
 	  var request = new XMLHttpRequest();
@@ -220,9 +220,9 @@ function SubmitJobCreateAnim1() {
     }
   }
   if (_("App1").value == "Processing") {
-    var form = new FormData();
-    form.append("randompath", _("Random1").value);
-    form.append("ProgramName", _("ProgName1").value);
+    var form = new FormData(_("Form1"));
+    //form.append("randompath", _("Random1").value);
+    //form.append("ProgramName", _("ProgName1").value);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
 	  request.open("POST", "isReady.php");
@@ -276,11 +276,11 @@ function SubmitJobCreateAnim1() {
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form1" action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
-    <input type="hidden" id="Random1" value=""/>
+    <input type="hidden" id="Random1" name="randompath" value=""/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
     <input id="App1" type="button" value="Create" onclick="SubmitJobCreateAnim1();" />
     </form>
