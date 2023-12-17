@@ -326,7 +326,7 @@ function SubmitJob(num,apptype) {
     <option value="175"/>
     <option value="200"/>
   </datalist>
-  <div style="position: absolute; top: 0px; right: 200px;">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
+  <div style="position: absolute; top: 0px; right: 250px;">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
