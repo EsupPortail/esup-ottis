@@ -18,7 +18,10 @@ $insertCommande = $pdo->prepare($requete_SQL);
 $insertCommande->execute();
 $num_of_rows = $insertCommande->rowCount();
 
+if ($num_of_rows == 0) {
+    if (! file_exists(dirname(__FILE__)."tmp/output_".$randompath.".".$_POST["Extension"])) $num_of_rows="-1";    
+}
 echo $num_of_rows;
-} else {echo "-1";}
+} else {echo "-2";}
 
 ?>

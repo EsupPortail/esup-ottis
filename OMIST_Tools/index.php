@@ -275,7 +275,7 @@ function SubmitJob(num,apptype) {
     //form.append("ProgramName", _("ProgName1").value);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
-	  request.open("POST", "isReady.php");
+	  request.open("POST", "isReady.php"); 
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
@@ -288,6 +288,9 @@ function SubmitJob(num,apptype) {
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
         _("Message"+num).innerHTML="Your file has just been created, you can download it <a href=\""+"tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value+"\">here</a>."
       } else {
+        if (rep == "-1") {
+          _("Message"+num).innerHTML="Your file will arrive soon."
+        }
         setTimeout(function () {SubmitJob(num,"Processing");},10000);
       }
     }
@@ -331,7 +334,7 @@ function SubmitJob(num,apptype) {
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value=""/>
-    <input type="hidden" id="Extension1" value="html"/>
+    <input type="hidden" id="Extension1" name="Extention" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
     <button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message1"></p>
@@ -397,8 +400,8 @@ function SubmitJob(num,apptype) {
   </td></tr>
   
  </table>
- <input type="hidden" id="Random3" name="randompath" value=""/>
-    <input type="hidden" id="Extension3" value="html"/>
+    <input type="hidden" id="Random3" name="randompath" value=""/>
+    <input type="hidden" id="Extension3"  name="Extention" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
     <button id="App3" value="Create" onclick="if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message3"></p>
