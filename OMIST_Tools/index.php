@@ -197,6 +197,13 @@ function bit_rol(d, _) {
   return d << _ | d >>> 32 - _
 }
 
+function downloadFile(filePath){
+    var link=document.createElement('a');
+    link.href = filePath;
+    link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
+    link.click();
+}
+
 function SubmitJobCreateAnim1() {
   // Step 1
   if (_("App1").value == "Create") {
@@ -232,17 +239,21 @@ function SubmitJobCreateAnim1() {
       console.log("isReady = "+rep);
       if (rep == "0") {
         // Ready to download
-        _("App1").value = "Ready to download";
+        //_("App1").value = "Ready to download";
         _("App1").disabled = false;
+
+
+        _("App1").value = "Create";
+        downloadFile("tmp/output_"+_("Random1").value+".html");
       } else {
         setTimeout(SubmitJobCreateAnim1,10000);
       }
     }
   }
-  if (_("App1").value == "Ready to download") {
-    _("App1").value = "Create";
-    window.open("tmp/output_"+_("Random1").value+".html");
-  }
+  //if (_("App1").value == "Ready to download") {
+  //  _("App1").value = "Create";
+  //  window.open("tmp/output_"+_("Random1").value+".html");
+  //}
 }
 
 </script>
