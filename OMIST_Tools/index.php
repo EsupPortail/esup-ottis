@@ -212,7 +212,11 @@ function SubmitJobCreateAnim1() {
 	  var request = new XMLHttpRequest();
 	  request.open("POST", _("ProgName1").value);
 	  request.send(form);
-    setTimeout(SubmitJobCreateAnim1,10000);
+    request.onload = function(event) {
+		  var rep = request.responseText;
+      console.log("Sent = "+rep);
+      setTimeout(SubmitJobCreateAnim1,10000);
+    }
   }
   if (_("App1").value == "Processing") {
     var form = new FormData();
@@ -233,7 +237,6 @@ function SubmitJobCreateAnim1() {
         setTimeout(SubmitJobCreateAnim1,10000);
       }
     }
-    setTimeout(SubmitJobCreateAnim1,10000);
   }
   if (_("App1").value == "Ready to download") {
     _("App1").value = "Create";
