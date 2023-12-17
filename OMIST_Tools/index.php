@@ -246,7 +246,7 @@ function SubmitJob(num) {
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
-      setTimeout(SubmitJob,10000);
+      setTimeout(function () {SubmitJob(num);},10000);
     }
   }
   if (_("App1").value == "Processing") {
@@ -267,7 +267,7 @@ function SubmitJob(num) {
         _("App"+num).value = "Create";
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
       } else {
-        setTimeout(SubmitJob,10000);
+        setTimeout(function () {SubmitJob(num);},10000);
       }
     }
   }
@@ -311,7 +311,7 @@ function SubmitJob(num) {
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <input id="App1" type="button" value="Create" onclick="SubmitJob(1);" class="mybutton"/>
+    <input id="App1" type="button" value="Create" onclick="SubmitJob(1);" class="mybutton" style="padding: 10px;"/>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
