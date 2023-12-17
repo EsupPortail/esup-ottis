@@ -76,7 +76,7 @@ label input[type="file"] {
 }
 
 
-input[type="submit"] {
+input[type="submit"], .mybutton {
   padding: 10px;
   background-color: rgb(25,190,40);
   color: white;
@@ -84,11 +84,29 @@ input[type="submit"] {
   font-size: 1.1em;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, .mybutton:hover {
   background-color: rgba(25,190,40,0.7);
   border-color: rgba(25,190,40,0.7);
 }
 
+.mybuttonanimation {
+  background-size: 200% 100%;
+  background-image: linear-gradient(90deg, rgb(255,0,0) 0%, rgb(0,255,0) 50%, rgb(255,0,0) 100%);
+  -webkit-animation: AnimateBG 2s ease infinite;
+  animation: AnimateBG 2s ease infinite;
+}
+
+@-webkit-keyframes AnimateBG, @keyframes AnimateBG{
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 input[type=checkbox] {
     position: relative;
@@ -204,26 +222,25 @@ function downloadFile(filePath){
     link.click();
 }
 
-function SubmitJobCreateAnim1() {
+function SubmitJob(num) {
   // Step 1
-  if (_("App1").value == "Create") {
-    _("App1").value = "Processing";
-    _("App1").disabled = true;
-    _("Random1").value = MD5((new Date()).getTime()+"");
-    console.log("Randompath = "+_("Random1").value);
-    var form = new FormData(_("Form1"));
+  if (_("App"+num).value == "Create") {
+    _("App"+num).value = "Processing";
+    _("App"+num).classList.add("mybuttonanimation");
+    _("App"+num).disabled = true;
+
+    _("Random"+num).value = MD5((new Date()).getTime()+"");
+    var form = new FormData(_("Form"+num));
     //form.append("randompath", _("Random1").value);
     //form.append("ProgramName", _("ProgName1").value);
     //form.append("fileToUpload", _("fileToUpload1")[0]);
     form.enctype='multipart/form-data';
-    console.log(form);
 	  var request = new XMLHttpRequest();
 	  request.open("POST", "SendJob.php");
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
-      console.log("Sent = "+rep);
-      setTimeout(SubmitJobCreateAnim1,10000);
+      setTimeout(SubmitJob,10000);
     }
   }
   if (_("App1").value == "Processing") {
@@ -236,24 +253,18 @@ function SubmitJobCreateAnim1() {
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
-      console.log("isReady = "+rep);
       if (rep == "0") {
         // Ready to download
         //_("App1").value = "Ready to download";
-        _("App1").disabled = false;
-
-
-        _("App1").value = "Create";
-        downloadFile("tmp/output_"+_("Random1").value+".html");
+        _("App"+num).disabled = false;
+        _("App"+num).classList.remove("mybuttonanimation");
+        _("App"+num).value = "Create";
+        downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
       } else {
-        setTimeout(SubmitJobCreateAnim1,10000);
+        setTimeout(SubmitJob,10000);
       }
     }
   }
-  //if (_("App1").value == "Ready to download") {
-  //  _("App1").value = "Create";
-  //  window.open("tmp/output_"+_("Random1").value+".html");
-  //}
 }
 
 </script>
@@ -292,8 +303,9 @@ function SubmitJobCreateAnim1() {
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value=""/>
+    <input type="hidden" id="Extension1" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <input id="App1" type="button" value="Create" onclick="SubmitJobCreateAnim1();" />
+    <input id="App1" type="button" value="Create" onclick="SubmitJob(1);" class="mybutton"/>
     </form>
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
