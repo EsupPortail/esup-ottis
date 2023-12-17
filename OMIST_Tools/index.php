@@ -103,7 +103,7 @@ input[type="submit"]:hover, .mybutton:hover {
 .mybuttonanimation {
   background-size: 200% 100%;
   border-color: rgba(25,190,40,0);
-  background-image: linear-gradient(90deg, rgb(100,255,255) 0%, rgb(0,255,0) 50%, rgb(100,255,255) 100%);
+  background-image: linear-gradient(90deg, rgb(0,255,0) 0%, rgb(255, 153, 0)) 50%, rgb(0,255,0) 100%);
   -webkit-animation: AnimateBG 2s ease infinite;
   animation: AnimateBG 2s ease infinite;
 }
