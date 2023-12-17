@@ -20,7 +20,7 @@ $insertCommande->execute();
 $num_of_rows = $insertCommande->rowCount();
 
 if ($num_of_rows == 0) {
-    if (! file_exists(dirname(__FILE__)."tmp/output_".$randompath.".".$extension)) $num_of_rows=dirname(__FILE__)."tmp/output_".$randompath.".".$extension;    
+    if (! file_exists(dirname(__FILE__)."/tmp/output_".$randompath.".".$extension)) $num_of_rows="-1"; //dirname(__FILE__)."tmp/output_".$randompath.".".$extension;    
 }
 echo $num_of_rows;
 } else {echo "-2";}
