@@ -279,6 +279,7 @@ function SubmitJob(num,apptype) {
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
+      console.log("Received rep = "+rep);
       if (rep == "0") {
         // Ready to download
         //_("App1").value = "Ready to download";
