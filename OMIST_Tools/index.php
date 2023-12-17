@@ -252,6 +252,7 @@ function SubmitJob(num) {
     _("App"+num).innerHTML = "Processing";
     _("App"+num).classList.add("mybuttonanimation");
     _("App"+num).disabled = true;
+    _("Message"+num).innerHTML="Your file is currently being processed, this could take a while (up to several minutes depending on your file). Please be patient...";
 
     _("Random"+num).value = MD5((new Date()).getTime()+"");
     var form = new FormData(_("Form"+num));
