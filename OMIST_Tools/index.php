@@ -56,13 +56,13 @@ if (isset($Stats_DEEPL["character_count"])) {
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
-select, .jqueryselect, input[type="text"], textarea, button, input[type="file"], input[type="button"], input[type="submit"] {
+select, .jqueryselect, input[type="text"], textarea, button, input[type="file"], input[type="button"], input[type="submit"], .mybutton {
   border-radius: 7px;
   margin: 1px;
   padding: 2px;
 }
 
-input[type="button"], input[type="submit"] {
+input[type="button"], input[type="submit"], .mybutton {
 cursor: pointer;
 }
 
@@ -83,6 +83,12 @@ input[type="submit"], .mybutton {
   border-color: rgb(25,190,40);
   font-size: 1.1em;
 }
+
+.mybutton {
+  padding: 10px;
+  font-size: 1.1em;
+}
+
 
 input[type="submit"]:hover, .mybutton:hover {
   background-color: rgba(25,190,40,0.7);
