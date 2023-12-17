@@ -209,6 +209,7 @@ function SubmitJobCreateAnim1() {
     form.append("ProgramName", _("ProgName1").value);
     form.append("fileToUpload", _("fileToUpload1"));
     form.enctype='multipart/form-data';
+    console.log(form);
 	  var request = new XMLHttpRequest();
 	  request.open("POST", "SendJob.php");
 	  request.send(form);
