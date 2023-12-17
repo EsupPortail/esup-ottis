@@ -252,7 +252,7 @@ function SubmitJob(num,apptype) {
     _("App"+num).innerHTML = "Processing";
     _("App"+num).classList.add("mybuttonanimation");
     _("App"+num).disabled = true;
-    _("Message"+num).innerHTML="Your file is currently being processed, this could take a while (up to several minutes depending on your file). Please be patient...";
+    _("Message"+num).innerHTML="Your file is currently being processed. This could take a while (up to several minutes depending on your file). Please be patient...";
 
     _("Random"+num).value = MD5((new Date()).getTime()+"");
     var form = new FormData(_("Form"+num));
@@ -265,6 +265,7 @@ function SubmitJob(num,apptype) {
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
+      console.log('Sent = '+rep);
       setTimeout(function () {SubmitJob(num,"Processing");},10000);
     }
   }
@@ -287,7 +288,7 @@ function SubmitJob(num,apptype) {
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
         _("Message"+num).innerHTML="Your file has just been created, you can download it <a href=\""+"tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value+"\">here</a>."
       } else {
-        setTimeout(function () {SubmitJob(num);},10000);
+        setTimeout(function () {SubmitJob(num,"Processing");},10000);
       }
     }
   }
