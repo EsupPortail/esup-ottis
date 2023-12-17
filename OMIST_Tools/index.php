@@ -268,7 +268,7 @@ function SubmitJob(num,apptype) {
       console.log('Sent = '+rep);
       setTimeout(function () {SubmitJob(num,"Processing");},10000);
     }
-  }
+  } else {
   if (apptype == "Processing") {
     var form = new FormData(_("Form"+num));
     //form.append("randompath", _("Random1").value);
@@ -291,6 +291,7 @@ function SubmitJob(num,apptype) {
         setTimeout(function () {SubmitJob(num,"Processing");},10000);
       }
     }
+  }
   }
 }
 
