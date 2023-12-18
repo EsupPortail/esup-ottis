@@ -28,10 +28,13 @@ import bs4
 import logging
 import time
 
-COST_DEEPL = 0.00002
+COST_DEEPL = 0.00002 # Cout = 20€ pour 1000000 caractères + forfait de 4.99€
 # Modif JB (les deux lignes suivantes ont été commentées, il y a besoin du proxy sur le serveur)
 #config.PROXYHTTP = ""
 #config.PROXYHTTPS = ""
+config.WHICHTRANSLATOR="FAKE" # Uniquement pour les tests
+config.LOG=True
+#config.LOG=False
 
 def usage():
     """Explication de l'utilisation du programme.
@@ -193,7 +196,12 @@ def translate(txt,lfrom,lto):
     """
     if txt.strip() == "":
         return txt
-    if config.WHICHTRANSLATOR == "DEEPLPRO":
+    if config.LOG:
+        with open("tmp/XLIFFTranslations.log","a") as fd:
+            fd.write(str(len(txt))+";"+lfrom+";"+lto+";"+txt+"\n")
+    if config.WHICHTRANSLATOR == "FAKE":
+        return faketranslate(txt,lfrom,lto)
+    elif config.WHICHTRANSLATOR == "DEEPLPRO":
         return translate_deeplpro(txt,lfrom,lto)
     else:
         return translate_google(txt,lfrom,lto)
