@@ -345,7 +345,7 @@ def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
         zip_ref.extractall(unzip_dest)
 
 
-    # # Lecture du fichier copié
+    # Lecture du fichier copié
     src_original = unzip_dest+"/scormcontent/index.html"
     src = unzip_dest+"/scormcontent/original.html"
     os.rename(src_original, src)
