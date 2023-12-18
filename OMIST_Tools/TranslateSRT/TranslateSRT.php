@@ -15,7 +15,6 @@ if (isset($argc)) {
     }
 
 $command = 'bash '.dirname(__FILE__).'/TranslateSRT.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$Wraplength.' '.$NOPUNC.' >/dev/null 2>/dev/null';
-echo($command);
 system($command);
 }
 
