@@ -26,6 +26,7 @@ import base64
 import os
 import pipes
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append("../")
 import config
 
 def usage():
