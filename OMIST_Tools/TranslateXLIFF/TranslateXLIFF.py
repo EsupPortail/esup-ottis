@@ -33,8 +33,17 @@ COST_DEEPL = 0.00002 # Cout = 20€ pour 1000000 caractères + forfait de 4.99�
 #config.PROXYHTTP = ""
 #config.PROXYHTTPS = ""
 config.WHICHTRANSLATOR="FAKE" # Uniquement pour les tests
+config.DEEPLURL = "https://api.deepl.com/v2/translate"
+
+config.WHICHTRANSLATOR="DEEPLPRO" # Uniquement pour les tests
+
+# pour DEEPLFREE
+config.DEEPLAPITOKEN = "***REMOVED***:fx"
+config.DEEPLURL = "https://api-free.deepl.com/v2/translate"
 config.LOG=True
 #config.LOG=False
+
+config.MAX = 1000
 
 def usage():
     """Explication de l'utilisation du programme.
@@ -124,8 +133,7 @@ def translate_deeplpro(txt,lfrom,lto):
     txt=txt.replace("'","’")
     txt=txt.replace('"',"’’")
     proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
-
-    url = "https://api.deepl.com/v2/translate"
+    url = config.DEEPLURL
     datapost={'auth_key':config.DEEPLAPITOKEN, 'text':txt, 'source_lang':lfrom, 'target_lang':lto}
     if config.PROXYHTTP != "":
         result = requests.post(url,data=datapost,proxies=proxyDict)
@@ -199,6 +207,9 @@ def translate(txt,lfrom,lto):
     if config.LOG:
         with open("tmp/XLIFFTranslations.log","a") as fd:
             fd.write(str(len(txt))+";"+lfrom+";"+lto+";"+txt+"\n")
+    config.MAX -= len(txt)
+    if config.MAX < 0:
+        config.WHICHTRANSLATOR = "FAKE"
     if config.WHICHTRANSLATOR == "FAKE":
         return faketranslate(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "DEEPLPRO":
