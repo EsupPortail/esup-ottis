@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-source $SCRIPT_DIR/config.py
+source $SCRIPT_DIR/../config.py
 
 RANDOMPATH=$1
 Filename=$2
