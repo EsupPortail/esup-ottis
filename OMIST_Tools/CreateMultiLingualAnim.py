@@ -26,7 +26,6 @@ import getopt, sys
 import collections
 import collections.abc
 from pptx import Presentation
-
 import requests
 import subprocess
 import json
@@ -105,33 +104,6 @@ def main():
         CreateMultilingualApp(input,output,imagesdir=imgdir,source=lfrom,TargetLanguages=lto.lower().split(","),ASPECTRATIO=C_ASPECTRATIO,KEEPASPECTRATIO=C_KEEPASPECTRATIO,TITRE=C_TITRE,FILENAME=C_FILENAME,templatefile=C_templatefile,delay=C_DELAY)
     else:
         usage()
-
-# def translate_old(txt,lfrom,lto):
-#     if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
-#         return txt
-#     lfrom = lfrom[0:2]
-#     lto = lto[0:2]
-#     if lfrom == lto:
-#         return txt
-#     txt=txt.replace("'","’")
-#     txt=txt.replace('"',"’’")
-#     """
-#     txt=txt.replace("'"," ")
-#     txt=txt.replace('"'," ")
-#     txt=txt.replace('\xe0'," ")
-#     txt=txt.replace('\xe9'," ")
-#     txt=txt.replace('\u2019'," ")
-#     """
-#     # AIzaSyDC46tmAnWSDdjAb2SFQFXOMSWSTsW2_eQ
-#     # batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=AIzaSyBPdSCGtTpS1z9Jmo8DwWXdYQfz2Tui8d0\""
-#     batcmd="curl -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '"+txt+"',  'source': '"+lfrom+"',  'target': '"+lto+"',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN+"\""
-#     batcmd = batcmd.encode('utf-8','ignore')
-#     result = subprocess.check_output(batcmd, shell=True, encoding='utf-8')
-#     result=json.loads(result.decode("utf-8"))
-#     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-#         return ""
-#     else:
-#         return result.get('data').get('translations')[0].get('translatedText')
 
 def translate_deeplpro(txt,lfrom,lto):
     """Traduction d'un texte par Deepl.
@@ -240,22 +212,6 @@ def translate(txt,lfrom,lto):
     else:
         return translate_google(txt,lfrom,lto)
 
-
-# def ExtractNotes_old(filename):
-#     prs = Presentation(filename)
-#     notes=[]
-#     num=0
-#     for slide in prs.slides:
-#         num+=1
-#         notesslide=[]
-#         for note in slide.notes_slide.notes_text_frame.paragraphs:
-#             notesslide.append(note.text)
-#         slidenotes=dict()
-#         slidenotes["Slide"]=num
-#         slidenotes["Notes"]=notesslide
-#         notes.append(slidenotes)
-#     return notes
-
 def ExtractNotes(filename):
     """Extraction des notes pour chaque slide.
     
@@ -301,31 +257,6 @@ def ExtractNotes(filename):
             else:
                 notesslide.append(txt)
     return notes
-
-# def TranslateNotes(filename,fileout,langsrc="FR",langdst="EN"):
-#     prs = Presentation(filename)
-#     for slide in prs.slides:
-#         for note in slide.notes_slide.notes_text_frame.paragraphs:
-#             note.text = translate(note.text,langsrc,langdst)
-#     prs.save(fileout)
-
-# def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=False):
-#     prs = Presentation(filename)
-#     ns=1
-#     for slide in prs.slides:
-#         print("Translating slide ",ns)
-#         ns+=1
-#         if translate_notes:
-#             for note in slide.notes_slide.notes_text_frame.paragraphs:
-#                 note.text = translate(note.text,langsrc,langdst)
-#         for shape in slide.shapes:
-#             if not shape.has_text_frame:
-#                 continue
-#             for paragraph in shape.text_frame.paragraphs:
-#                 for run in paragraph.runs:
-#                     run.text = translate(run.text,langsrc,langdst)
-#     prs.save(fileout)
-
 
 def readbase64(filename):
     """Conversion d'une image en base64.
@@ -402,10 +333,6 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
         if (entry.endswith('jpeg') or entry.endswith('jpg')):
             AllFilenames.append(entry)
 
-    #with os.scandir(imagesdir) as it:
-    #    for entry in it:
-    #        if (entry.name.endswith('jpeg') or entry.name.endswith('jpg')) and entry.is_file():
-    #            AllFilenames.append(entry.name)
     AllFilenames.sort()
     AllImages = []
     for f in AllFilenames:
@@ -433,34 +360,6 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     f = open(fileout, "w", encoding='utf8')
     f.write(template)
     f.close()
-
-
-
-
-
-# In[36]:
-
-
-# Exemple 1 : Traduction d'une présentation powerpoint de Français à Espagnol,
-# en incluant une traduction des notes de l'intervenant
-
-#TranslatePPTX("test.pptx","testES.pptx","FR","ES", translate_notes=True)
-
-
-# In[38]:
-
-
-# Exemple 2 : Création d'une application multilingue indépendante (1 unique fichier html complet)
-# à partir d'un fichier pptx.
-# Les images des slides doivent être générées indépendamment (format et extension .jpeg), elles seront triées par ordre alphabétique
-# La liste par défaut de langages cibles peut être modifiée.
-#CreateMultilingualApp("test.pptx","out.html",imagesdir='.',TargetLanguages=['en-US','de-DE','es-ES','it-IT','ru-RU','ar-AR','zh-ZH'])
-
-
-# In[39]:
-
-
-#TranslatePPTX("/Users/bourdon-j/Downloads/Cours1 L1 MIP 2020-2021(4).pptx","sortie.pptx","FR","AR")
 
 if __name__ == "__main__":
     main()
