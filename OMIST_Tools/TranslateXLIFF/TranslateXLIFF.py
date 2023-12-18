@@ -32,18 +32,6 @@ COST_DEEPL = 0.00002 # Cout = 20€ pour 1000000 caractères + forfait de 4.99�
 # Modif JB (les deux lignes suivantes ont été commentées, il y a besoin du proxy sur le serveur)
 #config.PROXYHTTP = ""
 #config.PROXYHTTPS = ""
-config.WHICHTRANSLATOR="FAKE" # Uniquement pour les tests
-config.DEEPLURL = "https://api.deepl.com/v2/translate"
-
-config.WHICHTRANSLATOR="DEEPLPRO" # Uniquement pour les tests
-
-# pour DEEPLFREE
-config.DEEPLAPITOKEN = "***REMOVED***:fx"
-config.DEEPLURL = "https://api-free.deepl.com/v2/translate"
-config.LOG=True
-#config.LOG=False
-
-config.MAX = 1000
 
 def usage():
     """Explication de l'utilisation du programme.
