@@ -10,21 +10,23 @@ From=$3
 To=$4
 Translated=$5
 
-echo "Converting file " $Filename
-
 export PYTHONIOENCODING=utf8
 
-mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
+echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
-cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/original_file.pptx
-$PYTHON $SCRIPT_DIR/TranslatePPTX/TranslatePPTX.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/original_file.pptx --output=$SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --from="$From" --to="$Translated"
-mkdir $SCRIPT_DIR/tmp/$RANDOMPATH/images
-export HOME=$SCRIPT_DIR/tmp && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --outdir $SCRIPT_DIR/tmp/$RANDOMPATH
-$CAIRO -jpeg $SCRIPT_DIR/tmp/$RANDOMPATH/input.pdf $SCRIPT_DIR/tmp/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --ImagesDir="$SCRIPT_DIR/tmp/$RANDOMPATH/images" --output=$SCRIPT_DIR/tmp/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8
+mkdir -p $INSTALLDIR/$RANDOMPATH
 
-cd $SCRIPT_DIR/tmp/$RANDOMPATH
-zip -9 $SCRIPT_DIR/tmp/output_$RANDOMPATH.zip *.html
-rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/original_file.pptx
+$PYTHON $SCRIPT_DIR/TranslatePPTX/TranslatePPTX.py --input=$INSTALLDIR/$RANDOMPATH/original_file.pptx --output=$INSTALLDIR/$RANDOMPATH/input.pptx --from="$From" --to="$Translated"
+mkdir $INSTALLDIR/$RANDOMPATH/images
+export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $INSTALLDIR/$RANDOMPATH/input.pptx --outdir $INSTALLDIR/$RANDOMPATH
+$CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8
+
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
+rm -rf v$RANDOMPATH
 
 rm  -f $Filename

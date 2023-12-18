@@ -11,20 +11,22 @@ From=$3
 To=$4
 
 echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
-mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
+mkdir -p $INSTALLDIR/$RANDOMPATH
 
-cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx
-mkdir $SCRIPT_DIR/tmp/$RANDOMPATH/images
-export HOME=$SCRIPT_DIR/tmp && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --outdir $SCRIPT_DIR/tmp/$RANDOMPATH
-$CAIRO -jpeg $SCRIPT_DIR/tmp/$RANDOMPATH/input.pdf $SCRIPT_DIR/tmp/$RANDOMPATH/images/images
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
+mkdir $INSTALLDIR/$RANDOMPATH/images
+export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $INSTALLDIR/$RANDOMPATH/input.pptx --outdir $INSTALLDIR/$RANDOMPATH
+$CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
 
 export PYTHONIOENCODING=utf8
 
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --ImagesDir="$SCRIPT_DIR/tmp/$RANDOMPATH/images" --output=$SCRIPT_DIR/tmp/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7
 
-cd $SCRIPT_DIR/tmp/$RANDOMPATH
-zip -9 $SCRIPT_DIR/tmp/output_$RANDOMPATH.zip *.html
-rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
+rm -rf $INSTALLDIR/$RANDOMPATH
 
 rm  -f $Filename

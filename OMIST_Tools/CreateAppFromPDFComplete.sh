@@ -9,21 +9,24 @@ Speech=$3
 From=$4
 To=$5
 
-echo "Converting file " $Filename
 
 export PYTHONIOENCODING=utf8
 
-mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
+echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
-cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/input.pdf
-cp "$Speech" $SCRIPT_DIR/tmp/$RANDOMPATH/speech.txt
-mkdir $SCRIPT_DIR/tmp/$RANDOMPATH/images
-$CAIRO -jpeg $SCRIPT_DIR/tmp/$RANDOMPATH/input.pdf $SCRIPT_DIR/tmp/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/speech.txt --ImagesDir="$SCRIPT_DIR/tmp/$RANDOMPATH/images" --output=$SCRIPT_DIR/tmp/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8
+mkdir -p $INSTALLDIR/$RANDOMPATH
 
-cd $SCRIPT_DIR/tmp/$RANDOMPATH
-zip -9 $SCRIPT_DIR/tmp/output_$RANDOMPATH.zip *.html
-rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pdf
+cp "$Speech" $INSTALLDIR/$RANDOMPATH/speech.txt
+mkdir $INSTALLDIR/$RANDOMPATH/images
+$CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/speech.txt --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8
+
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
+rm -rf $INSTALLDIR/$RANDOMPATH
 
 rm  -f $Filename
 if [[ $Speech != *"blank.txt" ]]; then

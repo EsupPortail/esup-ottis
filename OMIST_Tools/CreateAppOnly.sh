@@ -7,21 +7,23 @@ source $SCRIPT_DIR/config.py
 Filename=$1
 RANDOMPATH=$2
 
-echo "Converting file " $Filename
-
 export PYTHONIOENCODING=utf8
 
-mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
+echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
-cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx
-mkdir $SCRIPT_DIR/tmp/$RANDOMPATH/images
-export HOME=$SCRIPT_DIR/tmp && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --outdir $SCRIPT_DIR/tmp/$RANDOMPATH
-$CAIRO -jpeg $SCRIPT_DIR/tmp/$RANDOMPATH/input.pdf $SCRIPT_DIR/tmp/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --ImagesDir="$SCRIPT_DIR/tmp/$RANDOMPATH/images" --output=$SCRIPT_DIR/tmp/output_$RANDOMPATH.html --from="fr-FR" --to="fr-FR" $3 $4 $5
+mkdir -p $INSTALLDIR/$RANDOMPATH
+
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
+mkdir $INSTALLDIR/$RANDOMPATH/images
+export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $INSTALLDIR/$RANDOMPATH/input.pptx --outdir $INSTALLDIR/$RANDOMPATH
+$CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="fr-FR" --to="fr-FR" $3 $4 $5
 
 
-cd $SCRIPT_DIR/tmp/$RANDOMPATH
-zip -9 $SCRIPT_DIR/tmp/output_$RANDOMPATH.zip *.html
-rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
+rm -rf $INSTALLDIR/$RANDOMPATH
 
 rm  -f $Filename
