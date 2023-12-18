@@ -262,35 +262,43 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
     # Traduction
     with open(filename,"r",encoding='utf-8', errors='ignore') as fd:
         content="".join(fd.readlines())
-    soup = bs4.BeautifulSoup(content, 'html.parser')
+    soup = bs4.BeautifulSoup(content, 'xml')
 
-    l=soup.find_all("g")
-    for g in l:
-        gtext_from = g.text
+    # l=soup.find_all("g")
+    # for g in l:
+    #     gtext_from = g.text
 
-        # Vérification de la présence de la traduction dans le dictionnaire
-        if gtext_from in dictionary:
-            g.string = dictionary.get(gtext_from)
-            count_saved = count_saved + len(gtext_from)
-        else : 
-            g.string=translate(g.text,lfrom,lto)
-            dictionary[gtext_from] = g.string
-            count = count + len(gtext_from)
+    #     # Vérification de la présence de la traduction dans le dictionnaire
+    #     if gtext_from in dictionary:
+    #         g.string = dictionary.get(gtext_from)
+    #         count_saved = count_saved + len(gtext_from)
+    #     else : 
+    #         g.string=translate(g.text,lfrom,lto)
+    #         dictionary[gtext_from] = g.string
+    #         count = count + len(gtext_from)
 
     l=soup.find_all("trans-unit")
     for g in l:
         for c in g.children:
-            if type(c) == type(ns):
-                # Vérification de la présence de la traduction dans le dictionnaire en respectant la casse
+            # if type(c) == type(ns):
+            #     # Vérification de la présence de la traduction dans le dictionnaire en respectant la casse
+            #     ctext_from = c.text
+            #     if ctext_from in dictionary:
+            #         c.replace_with(dictionary.get(ctext_from))
+            #         count_saved = count_saved +  len(ctext_from)
+            #     else :
+            #         c_translated = translate(c.text,lfrom,lto)
+            #         c.replace_with(bs4.element.NavigableString(c_translated))
+            #         dictionary[ctext_from] = c_translated
+            #         count =count + len(ctext_from)
+            if str(type(c)) == "<class 'bs4.element.Tag'>" and c.name=="source":
                 ctext_from = c.text
-                if ctext_from in dictionary:
-                    c.replace_with(dictionary.get(ctext_from))
-                    count_saved = count_saved +  len(ctext_from)
-                else :
-                    c_translated = translate(c.text,lfrom,lto)
-                    c.replace_with(bs4.element.NavigableString(c_translated))
-                    dictionary[ctext_from] = c_translated
-                    count =count + len(ctext_from)
+                mytag = soup.new_tag("target")
+                c_translated = translate(c.text,lfrom,lto)
+                mytag.string = translate(c.text,lfrom,lto)
+                mytag.attrs["xml:lang"]=lto
+                g.append(mytag)
+                count =count + len(ctext_from)
 
     # Stockage du dictionnaire dans un fichier
     # with open("dictionary_XLIFF.txt", 'w',encoding="utf-8") as f: 
@@ -298,7 +306,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
     #         f.write('%s:%s\n' % (key, value))
 
     with open(output_filename,"w", encoding="utf-8") as fd:
-        fd.write(soup.prettify())
+        fd.write(str(soup.find_all("xliff")[0]))
 
     end_timer= time.time()
     timer = round(end_timer - start_timer, 5)
@@ -306,7 +314,6 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
     # logging.info("Nombre de caractères traduits : " + str(count))
     # logging.info("Nombre de caractères économisés : " + str(count_saved))
     # logging.info("Coût de traduction Deepl : " + str(count * COST_DEEPL)+" €")
-
 
 if __name__ == "__main__":
     main()
