@@ -343,18 +343,21 @@ function SubmitJob(num,apptype) {
   </div>
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     Select PDF file : 
     <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000"/><br/>
-    <input type="hidden" name="ProgramName" value="CreateAppFromPDF.php">
+    <input type="hidden" name="ProgName2" value="CreateAppFromPDF.php">
+    <input type="hidden" id="Random2" name="randompath" value=""/>
+    <input type="hidden" id="Extension2" name="Extension" value="html"/>
     Select SPEECH file (.txt): 
     <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000"/><br/>
-    <input type="submit" value="Create" name="submit"/>
+    <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message2"></p>
     </form>
   </div>
   <h3>Create web animation from pptx (Complete)</h3>
   <div>
-  <form id="Form3" onsubmit="return false;" action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"><br/>
     <input type="hidden" name="ProgramName" value="CreateAppFromPPTX_complete.php">
@@ -410,11 +413,13 @@ function SubmitJob(num,apptype) {
   </div>
   <h3>Create web animation from pdf+txt (Complete)</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   
     Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" max-size="50000"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="CreateAppFromPDF_complete.php">
+    <input type="hidden" name="ProgName4" value="CreateAppFromPDF_complete.php">
+    <input type="hidden" id="Random4" name="randompath" value=""/>
+    <input type="hidden" id="Extension4" name="Extension" value="html"/>
 
 
 <table>
@@ -453,15 +458,18 @@ function SubmitJob(num,apptype) {
   </td></tr>
  </table>
 
-    <input type="submit" value="Create" name="submit">
+    <button id="App4" value="Create" onclick="if (_('fileToUpload4').value!='') {this.innerHTML=''; SubmitJob(4,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message4"></p>
     </form>
   </div>
     <h3>Translate pptx</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
+    <input type="hidden" name="ProgName5" value="TranslatePPTX/TranslatePPTX.php">
+    <input type="hidden" id="Random5" name="randompath" value=""/>
+    <input type="hidden" id="Extension5" name="Extension" value="zip"/>
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -482,15 +490,18 @@ function SubmitJob(num,apptype) {
   <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
  </table>
-    <input type="submit" value="Translate" name="submit">
+    <button id="App5" value="Create" onclick="if (_('fileToUpload5').value!='') {this.innerHTML=''; SubmitJob(5,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message5"></p>
     </form>
   </div>
   <h3>Translate subtitles SRT file</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form6" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select SRT file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".srt,.vtt" max-size="5000"><br/>
-    <input type="hidden" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
+    <input type="hidden" name="ProgName6" value="TranslateSRT/TranslateSRT.php">
+    <input type="hidden" id="Random6" name="randompath" value=""/>
+    <input type="hidden" id="Extension6" name="Extension" value="zip"/>
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -515,45 +526,57 @@ function SubmitJob(num,apptype) {
   <td><input type="checkbox" name="nopunct" value="Yes" />
   </td></tr>
  </table>
-    <input type="submit" value="Translate" name="submit">
+    <button id="App6" value="Create" onclick="if (_('fileToUpload6').value!='') {this.innerHTML=''; SubmitJob(6,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message6"></p>
     </form>
   </div>
   <h3>Convert pdf+txt to pptx</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">  
+  <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf" max-size="50000"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
-    <input type="submit" value="Convert" name="submit">
+    <input type="hidden" name="ProgName7" value="ConvertPDF/ConvertPDFtoPPTX.php">
+    <input type="hidden" id="Random7" name="randompath" value=""/>
+    <input type="hidden" id="Extension7" name="Extension" value="zip"/>
+    <button id="App7" value="Create" onclick="if (_('fileToUpload7').value!='') {this.innerHTML=''; SubmitJob(7,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message7"></p>
     </form>
   </div>
 
   <h3>Convert pptx+txt to pptx</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">  
+  <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select PPTx file :   <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
     Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT" accept=".txt" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
-    <input type="submit" value="Convert" name="submit">
+    <input type="hidden" name="ProgName8" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
+    <input type="hidden" id="Random8" name="randompath" value=""/>
+    <input type="hidden" id="Extension8" name="Extension" value="zip"/>
+    <button id="App8" value="Create" onclick="if (_('fileToUpload8').value!='') {this.innerHTML=''; SubmitJob(8,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message8"></p>
     </form>
   </div>
 
   <h3>Extract speech from pptx</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".pptx" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
-    <input type="submit" value="Extract" name="submit">
+    <input type="hidden" name="ProgName9" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
+    <input type="hidden" id="Random9" name="randompath" value=""/>
+    <input type="hidden" id="Extension9" name="Extension" value="txt"/>
+    <button id="App9" value="Create" onclick="if (_('fileToUpload9').value!='') {this.innerHTML=''; SubmitJob(9,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message9"></p>
     </form>
   </div>
 
   <h3>Translate XLIFF</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select XLF file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".xlf" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
+    <input type="hidden" name="ProgName10" value="TranslateXLIFF/TranslateXLIFF.php">
+    <input type="hidden" id="Random10" name="randompath" value=""/>
+    <input type="hidden" id="Extension10" name="Extension" value="zip"/>
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -568,16 +591,19 @@ function SubmitJob(num,apptype) {
   </td></tr>
 
  </table>
-    <input type="submit" value="Translate" name="submit">
+    <button id="App10" value="Create" onclick="if (_('fileToUpload10').value!='') {this.innerHTML=''; SubmitJob(10,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message10"></p>
     </form>
   </div>
 
   <h3>Translate SCORM</h3>
   <div>
-  <form action="WriteToDatabase.php" method="post" enctype="multipart/form-data">
+  <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select ZIP file : 
     <input type="file" name="fileToUpload" id="fileToUpload" accept=".zip" max-size="50000"><br/>
-    <input type="hidden" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
+    <input type="hidden" name="ProgName11" value="TranslateSCORM/TranslateSCORM.php">
+    <input type="hidden" id="Random11" name="randompath" value=""/>
+    <input type="hidden" id="Extension11" name="Extension" value="zip"/>
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -592,7 +618,8 @@ function SubmitJob(num,apptype) {
   </td></tr>
 
  </table>
-    <input type="submit" value="Translate" name="submit">
+    <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message11"></p>
     </form>
   </div>
   
