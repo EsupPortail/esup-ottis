@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 echo "SCRIPT DIR =" $SCRIPT_DIR
+ls ../config.py
 
 #source $SCRIPT_DIR/../config.py
 source ../config.py
