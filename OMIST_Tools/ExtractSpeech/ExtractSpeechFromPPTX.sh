@@ -1,11 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-echo "SCRIPT DIR =" $SCRIPT_DIR
-ls ../config.py
-
-#source $SCRIPT_DIR/../config.py
 source ../config.py
 
 
@@ -16,16 +12,16 @@ echo "Converting file " $Filename
 cd $INSTALLDIR
 cd ..
 
-mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
+mkdir -p $INSTALLDIR/$RANDOMPATH
 
-cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
 export PYTHONIOENCODING=utf8
-$PYTHON $SCRIPT_DIR/SpeechExtractionFromPPTX.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --output=$SCRIPT_DIR/tmp/speech_$RANDOMPATH.txt
+$PYTHON $SCRIPT_DIR/SpeechExtractionFromPPTX.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --output=$INSTALLDIR/speech_$RANDOMPATH.txt
 
-cd $SCRIPT_DIR/tmp/$RANDOMPATH
-zip -9 ../../../tmp/output_$RANDOMPATH.zip *.pptx *.txt
-cd ../..
-rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.pptx *.txt
+cd ..
+rm -rf $INSTALLDIR/$RANDOMPATH
 
 rm  -f $Filename
 
