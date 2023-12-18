@@ -7,20 +7,24 @@ RANDOMPATH=$1
 Filename=$2
 FilenameSpeech=$3
 
-mkdir -p $SCRIPT_DIR/../tmp/$RANDOMPATH
+echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
-cp "$Filename" $SCRIPT_DIR/../tmp/$RANDOMPATH/input.pdf
-cp "$FilenameSpeech" $SCRIPT_DIR/../tmp/$RANDOMPATH/speech.txt
-mkdir $SCRIPT_DIR/../tmp/$RANDOMPATH/images
-$CAIRO -jpeg $SCRIPT_DIR/../tmp/$RANDOMPATH/input.pdf $SCRIPT_DIR/../tmp/$RANDOMPATH/images/images  2>/dev/null
+mkdir -p $INSTALLDIR/$RANDOMPATH
+
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pdf
+cp "$FilenameSpeech" $INSTALLDIR/$RANDOMPATH/speech.txt
+mkdir $INSTALLDIR/$RANDOMPATH/images
+$CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images  2>/dev/null
 export PYTHONIOENCODING=utf8
 
-$PYTHON $SCRIPT_DIR/PDF_TXT_to_PPTX.py --input=$SCRIPT_DIR/../tmp/$RANDOMPATH/speech.txt --ImagesDir=$SCRIPT_DIR/../tmp/$RANDOMPATH/images --output=$SCRIPT_DIR/../tmp/$RANDOMPATH/converted $4  
+$PYTHON $SCRIPT_DIR/PDF_TXT_to_PPTX.py --input=$INSTALLDIR/$RANDOMPATH/speech.txt --ImagesDir=$INSTALLDIR/$RANDOMPATH/images --output=$INSTALLDIR/$RANDOMPATH/converted $4  
 
-cd $SCRIPT_DIR/../tmp/$RANDOMPATH
-zip -9 $SCRIPT_DIR/../tmp/output_$RANDOMPATH.zip converted.*
-cd ../..
-rm -rf $SCRIPT_DIR/../tmp/$RANDOMPATH
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip converted.*
+cd ..
+rm -rf $INSTALLDIR/$RANDOMPATH
 
 rm  -f $Filename
 if [[ $FilenameSpeech != *"blank.txt" ]]; then
