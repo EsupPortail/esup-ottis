@@ -295,7 +295,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
                 ctext_from = c.text
                 mytag = soup.new_tag("target")
                 c_translated = translate(c.text,lfrom,lto)
-                mytag.string = translate(c.text,lfrom,lto)
+                mytag.string = c_translated  # translate(c.text,lfrom,lto) (il y avait doublon ici)
                 mytag.attrs["xml:lang"]=lto
                 g.append(mytag)
                 count =count + len(ctext_from)
