@@ -16,7 +16,7 @@ mkdir -p $INSTALLDIR/$RANDOMPATH
 
 cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
 export PYTHONIOENCODING=utf8
-$PYTHON $SCRIPT_DIR/SpeechExtractionFromPPTX.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --output=$INSTALLDIR/$RANDOMPATH/speech.txt
+$PYTHON $SCRIPT_DIR/SpeechExtractionFromPPTX.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --output=$INSTALLDIR/output_$RANDOMPATH.txt
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.pptx *.txt
