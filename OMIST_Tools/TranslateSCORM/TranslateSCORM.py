@@ -17,12 +17,13 @@ Usage :
 """
 
 import sys
+import os
 from bs4 import BeautifulSoup
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('../')
 import config
 import json
 import requests
-import os
 import getopt
 import shutil
 import zipfile
