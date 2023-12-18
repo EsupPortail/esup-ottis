@@ -7,19 +7,23 @@ RANDOMPATH=$1
 Filename=$2
 FilenameSpeech=$3
 
-mkdir -p $SCRIPT_DIR/tmp/$RANDOMPATH
+echo "Converting file " $Filename
+cd $INSTALLDIR
+cd ..
 
-cp "$Filename" $SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx
-cp "$FilenameSpeech" $SCRIPT_DIR/tmp/$RANDOMPATH/speech.txt
+mkdir -p $INSTALLDIR/$RANDOMPATH
+
+cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
+cp "$FilenameSpeech" $INSTALLDIR/$RANDOMPATH/speech.txt
 
 export PYTHONIOENCODING=utf8
 
-$PYTHON $SCRIPT_DIR/PPTX_TXT_to_PPTX.py --input=$SCRIPT_DIR/tmp/$RANDOMPATH/speech.txt --inputpptx=$SCRIPT_DIR/tmp/$RANDOMPATH/input.pptx --output=$SCRIPT_DIR/tmp/$RANDOMPATH/converted
+$PYTHON $SCRIPT_DIR/PPTX_TXT_to_PPTX.py --input=$INSTALLDIR/$RANDOMPATH/speech.txt --inputpptx=$INSTALLDIR/$RANDOMPATH/input.pptx --output=$INSTALLDIR/$RANDOMPATH/converted
 
-cd $SCRIPT_DIR/tmp/$RANDOMPATH
-zip -9 ../../../tmp/output_$RANDOMPATH.zip converted.*
-cd ../..
-rm -rf $SCRIPT_DIR/tmp/$RANDOMPATH
+cd $INSTALLDIR/$RANDOMPATH
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip converted.*
+cd ..
+rm -rf $INSTALLDIR/$RANDOMPATH
 
 rm  -f $Filename
 if [[ $FilenameSpeech != *"blank.txt" ]]; then
