@@ -118,7 +118,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     }
 
     //licence
-    $licence="";
+    $licence="--Licence=None";
     if (isset($_POST["Licence"]) && $_POST["Licence"] != "") {
         $licence="--Licence=".$_POST["Licence"];
     }
