@@ -116,7 +116,14 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
             $longrun="false";
         }
     }
-    
+
+    //licence
+    $licence="";
+    if (isset($_POST["Licence"]) && $_POST["Licence"] != "") {
+        $licence="--Licence=".$_POST["Licence"];
+    }
+
+
     $requete_SQL = 'INSERT INTO tasks_queue (command_to_do, path_file, randompath, lang_from, lang_to, sub_length, sub_punct, path_file2, slide_notes, translate_lang, aspect_ratio, keep_aspect_ratio, delay_slides, long_run) VALUES (:command_to_add, :file_uploaded, :randompath, :lfrom, :lto, :sub_length, :sub_punct, :path_file2, :slide_notes, :translate_lang, :aspect_ratio, :keep_aspect_ratio, :delay_slides, :long_run)';
     $insertCommande = $pdo->prepare($requete_SQL);
     
@@ -135,12 +142,12 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
         'aspect_ratio'=>$AspectRatio,
         'keep_aspect_ratio'=>$KeepAspectRatio,
         'delay_slides'=>$Delay,
-        'long_run'=> $longrun
+        'long_run'=> $longrun,
+        'licence'=>$licence
     ]);
     
     // $pdo = null;
     echo 'Your request will be processed soon...';
-    echo $longrun;
  }
 
 else{

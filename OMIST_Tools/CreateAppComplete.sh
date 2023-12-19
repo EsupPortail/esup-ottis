@@ -10,6 +10,25 @@ Filename=$2
 From=$3
 To=$4
 
+# Ci-dessous à généraliser
+LICENCE="None"
+
+for i in "$@"; do
+  case $i in
+    -l=*|--Licence=*)
+      LICENCE="${i#*=}"
+      shift # past argument=value
+      ;;
+    -*|--*)
+      echo "Unknown option $i"
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+done
+
+
 echo "Converting file " $Filename
 cd $INSTALLDIR
 cd ..
@@ -23,7 +42,7 @@ $CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/im
 
 export PYTHONIOENCODING=utf8
 
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7 $8 $9 --Licence="$LICENCE"
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
