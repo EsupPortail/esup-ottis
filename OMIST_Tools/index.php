@@ -359,7 +359,7 @@ function SubmitJob(num,apptype) {
   <div>
   <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"/><br/>
     <input type="hidden" name="ProgramName" value="CreateAppFromPPTX_complete.php">
   <table>
   <tr>
