@@ -169,7 +169,7 @@ def translate(txt,lfrom,lto):
     """
     if txt.strip() == "":
         return txt
-    if lfrom[0:2].lower() ==  lto[0:2].lower():
+    if lfrom[0:2].lower() == lto[0:2].lower():
         return txt
     if config.LOG:
         with open("tmp/XLIFFTranslations.log","a") as fd:
