@@ -9,6 +9,22 @@ Speech=$3
 From=$4
 To=$5
 
+# Ci-dessous à généraliser
+LICENCE="None"
+
+for i in "$@"; do
+  case $i in
+    -l=*|--Licence=*)
+      LICENCE="${i#*=}"
+      shift # past argument=value
+      ;;
+    -*|--*)
+      ;;
+    *)
+      ;;
+  esac
+done
+
 
 export PYTHONIOENCODING=utf8
 
@@ -22,7 +38,7 @@ cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pdf
 cp "$Speech" $INSTALLDIR/$RANDOMPATH/speech.txt
 mkdir $INSTALLDIR/$RANDOMPATH/images
 $CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/speech.txt --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/speech.txt --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8 --Licence="$LICENCE"
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html

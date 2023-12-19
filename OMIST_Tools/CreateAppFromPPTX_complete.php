@@ -1,6 +1,10 @@
 <?php
 
 if (isset($argc)) {
+    
+
+
+
     $randompath = $argv[1];
     $filename = $argv[2];
     $From = $argv[3];

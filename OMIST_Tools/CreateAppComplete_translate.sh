@@ -10,6 +10,22 @@ From=$3
 To=$4
 Translated=$5
 
+# Ci-dessous à généraliser
+LICENCE="None"
+
+for i in "$@"; do
+  case $i in
+    -l=*|--Licence=*)
+      LICENCE="${i#*=}"
+      shift # past argument=value
+      ;;
+    -*|--*)
+      ;;
+    *)
+      ;;
+  esac
+done
+
 export PYTHONIOENCODING=utf8
 
 echo "Converting file " $Filename
@@ -23,7 +39,7 @@ $PYTHON $SCRIPT_DIR/TranslatePPTX/TranslatePPTX.py --input=$INSTALLDIR/$RANDOMPA
 mkdir $INSTALLDIR/$RANDOMPATH/images
 export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $INSTALLDIR/$RANDOMPATH/input.pptx --outdir $INSTALLDIR/$RANDOMPATH
 $CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8 --Licence="$LICENCE"
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html

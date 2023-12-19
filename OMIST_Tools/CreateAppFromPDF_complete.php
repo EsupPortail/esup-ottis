@@ -9,8 +9,9 @@ if (isset($argc)) {
     $AspectRatio = $argv[6];
     $KeepAspectRatio = $argv[7];
     $Delay = $argv[8];
+    $licence=$argv[9];
 
-    $command = 'bash '.dirname(__FILE__).'/CreateAppFromPDFComplete.sh '.$randompath.' "'.$filename.'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
+    $command = 'bash '.dirname(__FILE__).'/CreateAppFromPDFComplete.sh '.$randompath.' "'.$filename.'" "'.$speech.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence.' >/dev/null 2>/dev/null';
     system($command);
 
 }
