@@ -39,7 +39,7 @@ if (isset($argc)) {
         
         }
 
-        echo "<html><head><title>Result</title></head><body><p>Please be patient for one or two minutes, your file is being processed.</p><p>When it is finished, you will get the result <a href=\"tmp/output_".$randompath.".html\">here</a>.</p></body></html>";
+        //echo "<html><head><title>Result</title></head><body><p>Please be patient for one or two minutes, your file is being processed.</p><p>When it is finished, you will get the result <a href=\"tmp/output_".$randompath.".html\">here</a>.</p></body></html>";
 
 }
 
