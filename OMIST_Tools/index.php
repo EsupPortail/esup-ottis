@@ -470,7 +470,7 @@ function SubmitJob(num,apptype) {
     <input class="jqueryselect" id="extradelay2" name="extradelay" list="listdelays" value="0"/>
 
   </td></tr>
-  tr><td colspan="2"><b>Licence options</b></td></tr>
+  <tr><td colspan="2"><b>Licence options</b></td></tr>
   <tr>
   <td style="vertical-align: top;">
     Would you like to add a licence ? </td>
