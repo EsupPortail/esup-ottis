@@ -403,7 +403,7 @@ function SubmitJob(num,apptype) {
 
   </td></tr>
   <tr><td colspan="2"><b>Licence options</b></td></tr>
-  <tr>
+  <tr style="display: none;">
   <td style="vertical-align: top;">
     Would you like to add a licence ? </td>
   <td>
