@@ -117,6 +117,14 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
         }
     }
 
+    // JB : je triche en utilisant long run à la lplace de licence. Il faut modifier la base pour ce complément....
+    //long_run
+    $longrun="";
+    if (isset($_POST["Licence"])) {
+        if ($_POST["Licence"] != "")
+            $longrun="--Licence=".$_POST["Licence"];
+    }
+
     
     $requete_SQL = 'INSERT INTO tasks_queue (command_to_do, path_file, randompath, lang_from, lang_to, sub_length, sub_punct, path_file2, slide_notes, translate_lang, aspect_ratio, keep_aspect_ratio, delay_slides, long_run) VALUES (:command_to_add, :file_uploaded, :randompath, :lfrom, :lto, :sub_length, :sub_punct, :path_file2, :slide_notes, :translate_lang, :aspect_ratio, :keep_aspect_ratio, :delay_slides, :long_run)';
     $insertCommande = $pdo->prepare($requete_SQL);
