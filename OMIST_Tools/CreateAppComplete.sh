@@ -23,7 +23,7 @@ $CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/im
 
 export PYTHONIOENCODING=utf8
 
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7 --Licence=CCBY
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
