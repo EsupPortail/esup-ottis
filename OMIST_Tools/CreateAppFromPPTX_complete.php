@@ -15,7 +15,7 @@ if (isset($argc)) {
     else {
         $TranslateLang="";
     }
-
+print_r($argv);
     if (!$longrun) {
     if ($TranslateLang == "") {
         $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
