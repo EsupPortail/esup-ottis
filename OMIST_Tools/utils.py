@@ -95,15 +95,19 @@ def translate_libretranslate(txt,lfrom,lto):
 
     datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
     if config.PROXYHTTP != "":
+        #result = os.popen("HTTPS_PROXY='"+config.HTTPS_PROXY+"' curl "+config.LIBRETRANSLATEURL+" -d \"q='"+txt+"'\" -d \"source="+lfrom+"\" -d \"target="+lto+"\" -d \"format=text\""
         result = requests.post(url,data=datapost,proxies=proxyDict)
     else:
+        #result = os.popen("curl "+config.LIBRETRANSLATEURL+" -d \"q='"+txt+"'\" -d \"source="+lfrom+"\" -d \"target="+lto+"\" -d \"format=text\""
         result = requests.post(url,data=datapost)
     result=json.loads(result.text)
+    #result=json.loads(result.read())
+
     #print(result)
-    if (not result.get('translations')):
+    if (not result.get('translatedText')):
         return ""
     else:
-        return result.get('translations')[0].get('text')
+        return result.get('translatedText')
 
 
 def translate_google(txt,lfrom,lto):
@@ -140,7 +144,7 @@ def translate_google(txt,lfrom,lto):
     else:
         result = requests.post(url,data=datapost)
     result=json.loads(result.text)
-    print(result)
+    
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
     else:
