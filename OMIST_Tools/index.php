@@ -470,7 +470,22 @@ function SubmitJob(num,apptype) {
     <input class="jqueryselect" id="extradelay2" name="extradelay" list="listdelays" value="0"/>
 
   </td></tr>
- </table>
+  tr><td colspan="2"><b>Licence options</b></td></tr>
+  <tr>
+  <td style="vertical-align: top;">
+    Would you like to add a licence ? </td>
+  <td>
+  <select id="licence" name="Licence">
+  <option value="" selected>No licence</option>
+  <option value="CC0">CC0 1.0 Universal</option>
+  <option value="CCBY">CC BY 4.0</option>
+  <option value="CCBYSA">CC BY-SA 4.0</option>
+  <option value="CCBYNC">CC BY-ND 4.0</option>
+  <option value="CCBYND">CC BY-NC 4.0</option>
+  </select>
+  </td></tr>
+  
+</table>
 
     <button id="App4" value="Create" onclick="if (_('fileToUpload4').value!='') {this.innerHTML=''; SubmitJob(4,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message4"></p>
