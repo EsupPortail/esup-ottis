@@ -30,6 +30,7 @@ import zipfile
 import base64
 import logging
 import time
+from utils import translate
 
 COST_DEEPL = 0.00002
 config.PROXYHTTP=""
@@ -85,139 +86,6 @@ def main():
         TranslateSCORM(input,output,lfrom,lto, unzip_dest)
     else:
         usage()
-
-
-
-
-# Programmes de traductions
-
-def translate_deeplpro(txt,lfrom,lto):
-    """Traduction d'un texte par Deepl.
-    
-    Parameters
-    ----------
-    txt : str
-        Texte à traduire.
-    lfrom : str
-        Code du langage initial du texte.
-    lto : str
-        Code du langage dans lequel le texte va être traduit.
-    
-    Returns
-    -------
-    str
-        Le texte traduit.
-    """
-    if not lfrom[0:2] in config.DEEPLKNOWNLANG:
-        return translate_google(txt,lfrom,lto)
-    if not lto[0:2] in config.DEEPLKNOWNLANG:
-        return translate_google(txt,lfrom,lto)
-    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
-        return txt
-    lfrom = lfrom[0:2]
-    lto = lto[0:2]
-    if lfrom == lto:
-        return txt
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
-    proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
-
-    url = "https://api.deepl.com/v2/translate"
-    datapost={'auth_key':config.DEEPLAPITOKEN, 'text':txt, 'source_lang':lfrom, 'target_lang':lto}
-    if config.PROXYHTTP != "":
-        result = requests.post(url,data=datapost,proxies=proxyDict)
-    else:
-        result = requests.post(url,data=datapost)
-    result=json.loads(result.text)
-    #print(result)
-    if (not result.get('translations')):
-        return ""
-    else:
-        return result.get('translations')[0].get('text')
-
-def translate_google(txt,lfrom,lto):
-    """Traduction d'un texte par Google.
-    
-    Parameters
-    ----------
-    txt : str
-        Texte à traduire.
-    lfrom : str
-        Code du langage initial du texte.
-    lto : str
-        Code du langage dans lequel le texte va être traduit.
-    
-    Returns
-    -------
-    str
-        Le texte traduit.
-    """
-    if txt.strip() == "" or txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
-        return txt
-    lfrom = lfrom[0:2]
-    lto = lto[0:2]
-    if lfrom == lto:
-        return txt
-    txt=txt.replace("'","’")
-    txt=txt.replace('"',"’’")
-    proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
-    url = "https://translation.googleapis.com/language/translate/v2?key="+config.GOOGLEAPITOKEN
-    datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
-    if config.PROXYHTTP != "":
-        result = requests.post(url,data=datapost,proxies=proxyDict)
-    else:
-        result = requests.post(url,data=datapost)
-    result=json.loads(result.text)
-    if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
-        return ""
-    else:
-        return result.get('data').get('translations')[0].get('translatedText')
-
-def translate(txt,lfrom,lto):
-    """Traduction d'un texte en fonction de la configuration choisie.
-    
-    Parameters
-    ----------
-    txt : str
-        Texte à traduire.
-    lfrom : str
-        Code du langage initial du texte.
-    lto : str
-        Code du langage dans lequel le texte va être traduit.
-    
-    Returns
-    -------
-    str
-        Le texte traduit.
-    """
-
-    if txt.strip() == "":
-        return txt
-    if config.WHICHTRANSLATOR == "DEEPLPRO":
-        return translate_deeplpro(txt,lfrom,lto)
-    else:
-        return translate_google(txt,lfrom,lto)
-
-
-
-def faketranslate(txt, lfrom, lto):
-    """Fausse traduction pour tester le programme.
-    
-    Parameters
-    ----------
-    txt : str
-        Texte à traduire.
-    lfrom : str
-        Code du langage initial du texte.
-    lto : str
-        Code du langage dans lequel le texte va être traduit.
-    
-    Returns
-    -------
-    str
-        Le texte traduit.
-    """
-    return lfrom+" to "+ lto+" : "+txt+""
 
 def TranslateHtmlText(content,lfrom="fr",lto="en"):
     """Traduction d'un texte HTML.
