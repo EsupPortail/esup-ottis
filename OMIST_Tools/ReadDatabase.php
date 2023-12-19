@@ -65,7 +65,7 @@ if (str_ends_with(trim($command_to_do), 'php')){
 }
 
 // Ajout JB
-if ($command != "") system($command);
+if ($command != "") system($command." &");
 
 // system($command);
 // fin
