@@ -16,10 +16,10 @@ if (isset($argc)) {
         $TranslateLang="No";
     }
     $licence=$argv[10];
-
+    $TranslateLang="No";
     if (!$longrun) {
     if ($TranslateLang == "No") {
-        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence.' >/dev/null 2>/dev/null';
+        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence; //.' >/dev/null 2>/dev/null';
         
         echo $command;
         system($command);
