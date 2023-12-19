@@ -93,7 +93,7 @@ def translate_libretranslate(txt,lfrom,lto):
     proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
     url = config.LIBRETRANSLATEURL
 
-    datapost={'q':txt, 'source':lfrom, 'target':lto}
+    datapost={'q':txt, 'source':lfrom, 'target':lto, 'format':'text'}
     if config.PROXYHTTP != "":
         result = requests.post(url,data=datapost,proxies=proxyDict)
     else:
