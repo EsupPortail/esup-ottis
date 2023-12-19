@@ -414,6 +414,8 @@ function SubmitJob(num,apptype) {
   <option value="CCBYSA">CC BY-SA 4.0</option>
   <option value="CCBYNC">CC BY-ND 4.0</option>
   <option value="CCBYND">CC BY-NC 4.0</option>
+  <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
+  <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
   </select>
   </td></tr>
   
@@ -482,7 +484,9 @@ function SubmitJob(num,apptype) {
   <option value="CCBYSA">CC BY-SA 4.0</option>
   <option value="CCBYNC">CC BY-ND 4.0</option>
   <option value="CCBYND">CC BY-NC 4.0</option>
-  </select>
+  <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
+  <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
+ </select>
   </td></tr>
   
 </table>
