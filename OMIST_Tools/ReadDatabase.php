@@ -61,7 +61,7 @@ $command = "";
 # On exécute la commande lue
 if (str_ends_with(trim($command_to_do), 'php')){
     // Ajout JB : /usr/bin devant php
-    $command = '/usr/bin/php '.dirname(__FILE__).'/'.$command_to_do. ' '.$randompath. ' '.$path_file. ' ' .$from. ' ' .$to. ' ' .$sub_length. ' ' .$speech. ' ' .$AspectRatio. ' ' .$KeepAspectRatio. ' ' .$Delay. ' ' .$longrun. ' ' .$TranslateLang. ' ' .$SlideNotes. ' ' .$sub_punct . ' ' . $licence;
+    $command = '/usr/bin/php '.dirname(__FILE__).'/'.$command_to_do. ' '.$randompath. ' '.$path_file. ' ' .$from. ' ' .$to. ' ' .$sub_length. ' ' .$speech. ' ' .$AspectRatio. ' ' .$KeepAspectRatio. ' ' .$Delay. ' ' .$longrun. ' ' . $licence. ' ' .$TranslateLang. ' ' .$SlideNotes. ' ' .$sub_punct ;
     echo $command;
 }
 
