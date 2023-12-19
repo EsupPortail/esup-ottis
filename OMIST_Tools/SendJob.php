@@ -144,6 +144,8 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
  }
 
 else{
+    print_r($_POST);
+    print_r($_FILES);
     echo ("An error has occurred. Please try again. Don't forget to upload a file.");
 }
 
