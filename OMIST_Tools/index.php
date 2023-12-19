@@ -600,7 +600,7 @@ function SubmitJob(num,apptype) {
   <div>
   <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select ZIP file : 
-    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br/>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
     <input type="hidden" id="Random11" name="randompath" value=""/>
     <input type="hidden" id="Extension11" name="Extension" value="zip"/>
