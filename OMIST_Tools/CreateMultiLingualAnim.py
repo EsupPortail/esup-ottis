@@ -7,7 +7,7 @@ On obtient en sortie le fichier html de l'animation.
 
 Usage : 
 =======
-    py CreateMultiLingualAnim.py -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template
+    py CreateMultiLingualAnim.py -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template --Licence
 
     <input> : chemin du fichier contenant la présentation à animer
     <output> : nom du fichier html de l'animation
@@ -20,6 +20,7 @@ Usage :
     --Title : titre de la page web de l'animation
     --Name :
     --Template : template de la page web de l'animation
+    --Licence : Licence éventuelle (None, CC0, CCBY, CCBYNC, CCBYNCSA, CCBYND,....)
 """
 
 import getopt, sys
@@ -37,6 +38,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import config
 from utils import translate
 from utils import ExtractNotes
+import Licences
 
 ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -70,6 +72,7 @@ def main():
     C_templatefile=ABSOLUTE_PATH + "/AppTemplate.txt"
     C_DELAY=0
     verbose = False
+    C_LICENCE = ""
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -98,12 +101,14 @@ def main():
             C_templatefile = a
         elif o in ("--Delay"):
             C_DELAY = int(a)
+        elif o in ("--Licence"):
+            C_LICENCE = a
         else:
             assert False, "unhandled option"
     if Translate and input != "":
         if output == "":
             output="out.html"
-        CreateMultilingualApp(input,output,imagesdir=imgdir,source=lfrom,TargetLanguages=lto.lower().split(","),ASPECTRATIO=C_ASPECTRATIO,KEEPASPECTRATIO=C_KEEPASPECTRATIO,TITRE=C_TITRE,FILENAME=C_FILENAME,templatefile=C_templatefile,delay=C_DELAY)
+        CreateMultilingualApp(input,output,imagesdir=imgdir,source=lfrom,TargetLanguages=lto.lower().split(","),ASPECTRATIO=C_ASPECTRATIO,KEEPASPECTRATIO=C_KEEPASPECTRATIO,TITRE=C_TITRE,FILENAME=C_FILENAME,templatefile=C_templatefile,delay=C_DELAY,licence=C_LICENCE)
     else:
         usage()
 
@@ -125,7 +130,7 @@ def readbase64(filename):
         encoded_string = base64.b64encode(image_file.read())
     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt",delay=0,complementfile="Complements.txt"):
+def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt",delay=0,complementfile="Complements.txt",licence=""):
     """Création d'une animation web sous forme de diaporama.
     
     Parameters
@@ -154,6 +159,8 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
         Délai entre chaque slide (en dixième de secondes).
     complementfile : str
         Compléments pour la page web de l'animation.
+    licence : str
+        Type de licence sur le contenu
     """
 
     # Gestion des notes
@@ -201,6 +208,8 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
     with open(complementfile,"r", encoding='utf8') as f:
         complement = "".join(f.readlines())
+    if (licence != "" and Licence.LICENCES.get(licence)):
+        complement = complement+"\n"+Licence.LICENCES.get(licence)
     template = template.replace("@@COMPLEMENTS@@",complement)
     txtimages = "[];\n";
     for img in AllImages:
