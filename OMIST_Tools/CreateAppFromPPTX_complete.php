@@ -13,15 +13,16 @@ if (isset($argc)) {
         $TranslateLang = $argv[9];
     }
     else {
-        $TranslateLang="";
+        $TranslateLang="No";
     }
+    $licence=$argv[10];
 print_r($argv);
     if (!$longrun) {
-    if ($TranslateLang == "") {
-        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
+    if ($TranslateLang == "No") {
+        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence.' >/dev/null 2>/dev/null';
         system($command);
     } else {
-        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete_translate.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' >/dev/null 2>/dev/null';
+        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete_translate.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" "'.$TranslateLang.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence.' >/dev/null 2>/dev/null';
         system($command);
         
     }

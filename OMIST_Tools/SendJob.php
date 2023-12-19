@@ -78,19 +78,19 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     }
 
     //translate_lang
-    $TranslateLang = "";
+    $TranslateLang = "No";
     if (isset($_POST["translatelanguage"])) {
         $TranslateLang=$_POST["translatelanguage"];
     }
 
     //aspect_ratio
-    $AspectRatio="";
+    $AspectRatio="--AspectRatio=4/3";
     if (isset($_POST["aspectratio"])) {
         $AspectRatio="--AspectRatio=".$_POST["aspectratio"];
     }
 
     //keep_aspect_ratio
-    $KeepAspectRatio="";
+    $KeepAspectRatio="Y";
     if (isset($_POST["keepaspectratio"])) {
         if ($_POST["keepaspectratio"] != "X") {
             $KeepAspectRatio="--KeepAspectRatio=N";
@@ -101,7 +101,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     }
 
     //delay_slides
-    $Delay="";
+    $Delay="--Delay=0";
     if (isset($_POST["extradelay"])) {
         $Delay="--Delay=".$_POST["extradelay"];
     }
