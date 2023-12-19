@@ -122,7 +122,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     $longrun="";
     if (isset($_POST["Licence"])) {
         if ($_POST["Licence"] != "")
-            $longrun="--Licence=".$_POST["Licence"];
+            $longrun="--Licence ".$_POST["Licence"];
     }
 
     

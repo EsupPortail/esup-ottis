@@ -408,10 +408,10 @@ function SubmitJob(num,apptype) {
     Would you like to add a licence ? </td>
   <td>
   <select id="licence" name="Licence">
-  <option value="" selected>No licence</option>
+  <option value="">No licence</option>
   <option value="CC0">CC0 1.0 Universal</option>
   <option value="CCBY">CC BY 4.0</option>
-  <option value="CCBYSA">CC BY-SA 4.0</option>
+  <option value="CCBYSA" selected>CC BY-SA 4.0</option>
   <option value="CCBYNC">CC BY-ND 4.0</option>
   <option value="CCBYND">CC BY-NC 4.0</option>
   </select>
