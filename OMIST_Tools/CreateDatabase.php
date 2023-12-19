@@ -31,7 +31,8 @@ $requete_createTable= 'CREATE TABLE tasks_queue
   aspect_ratio TEXT,
   keep_aspect_ratio TEXT,
   delay_slides TEXT,
-  long_run TEXT
+  long_run TEXT,
+  licence TEXT
 )';
 $insertCommande3 = $pdo->prepare($requete_createTable);
 $insertCommande3->execute();
