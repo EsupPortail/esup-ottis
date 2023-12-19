@@ -20,8 +20,6 @@ for i in "$@"; do
       shift # past argument=value
       ;;
     -*|--*)
-      echo "Unknown option $i"
-      exit 1
       ;;
     *)
       ;;
