@@ -208,8 +208,8 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     template = template.replace("@@SLIDESNOTES@@",json.dumps(AllNotes))
     with open(complementfile,"r", encoding='utf8') as f:
         complement = "".join(f.readlines())
-    if (licence != "" and Licence.LICENCES.get(licence)):
-        complement = complement+"\n"+Licence.LICENCES.get(licence)
+    if (licence != "" and Licences.LICENCES.get(licence)):
+        complement = complement+"\n"+Licences.LICENCES.get(licence)
     template = template.replace("@@COMPLEMENTS@@",complement)
     txtimages = "[];\n";
     for img in AllImages:
