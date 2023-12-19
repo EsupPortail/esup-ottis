@@ -59,6 +59,53 @@ def translate_deeplpro(txt,lfrom,lto):
     else:
         return result.get('translations')[0].get('text')
 
+
+def translate_libretranslate(txt,lfrom,lto):
+    """Traduction d'un texte par LibreTranslate.
+    
+    Parameters
+    ----------
+    txt : str
+        Texte à traduire.
+    lfrom : str
+        Code du langage initial du texte.
+    lto : str
+        Code du langage dans lequel le texte va être traduit.
+    
+    Returns
+    -------
+    str
+        Le texte traduit.
+    """
+
+    if not lfrom[0:2] in config.LIBRETRANSLATEKNOWNLANG:
+        return translate_google(txt,lfrom,lto)
+    if not lto[0:2] in config.LIBRETRANSLATEKNOWNLANG:
+        return translate_google(txt,lfrom,lto)
+    if txt == "[forward]" or txt == "[backward]" or txt == "[pause]" or txt[0:10] == "[resource " or txt[0:7] == "[mouse " or txt[0:14] == "[notification " or txt[0:6] == "[wait ":
+        return txt
+    lfrom = lfrom[0:2]
+    lto = lto[0:2]
+    if lfrom == lto:
+        return txt
+    txt=txt.replace("'","’")
+    txt=txt.replace('"',"’’")
+    proxyDict = {"http"  : config.PROXYHTTP, "https" : config.PROXYHTTPS}
+    url = config.LIBRETRANSLATEURL
+
+    datapost={'q':txt, 'source':lfrom, 'target':lto}
+    if config.PROXYHTTP != "":
+        result = requests.post(url,data=datapost,proxies=proxyDict)
+    else:
+        result = requests.post(url,data=datapost)
+    result=json.loads(result.text)
+    #print(result)
+    if (not result.get('translations')):
+        return ""
+    else:
+        return result.get('translations')[0].get('text')
+
+
 def translate_google(txt,lfrom,lto):
     """Traduction d'un texte par Google.
     
@@ -127,6 +174,8 @@ def translate(txt,lfrom,lto):
         return faketranslate(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "DEEPLPRO":
         return translate_deeplpro(txt,lfrom,lto)
+    elif config.WHICHTRANSLATOR == "LIBRETRANSLATE":
+        return translate_libretranslate(txt,lfrom,lto)
     else:
         return translate_google(txt,lfrom,lto)
 
