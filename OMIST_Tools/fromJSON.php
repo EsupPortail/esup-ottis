@@ -4,11 +4,5 @@
     $tab=json_decode(file_get_contents($filename),true);
     $value="";
     if (isset($tab[$paramname])) $value=$tab[$paramname];
-
-    print_r($tab);
-    echo "filename = ".$filename."\n";
-
-    echo "paramname = ".$paramname."\n";
-
     echo $value;
 ?>

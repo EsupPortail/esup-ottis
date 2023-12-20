@@ -6,26 +6,34 @@ source $SCRIPT_DIR/config.py
 
 
 RANDOMPATH=$1
-Filename=$2
-From=$3
-To=$4
 
-# Ci-dessous à généraliser
-LICENCE="None"
+PARAMETERFILE=$INSTALLDIR/$RANDOMPATH/parameters.json
 
-for i in "$@"; do
-  case $i in
-    -l=*|--Licence=*)
-      LICENCE="${i#*=}"
-      shift # past argument=value
-      ;;
-    -*|--*)
-      ;;
-    *)
-      ;;
-  esac
-done
-
+if [ -f "$PARAMETERFILE" ]; then
+  Filename=`/usr/bin/php fromJSON.php "$PARAMETERFILE" path_file`
+  From=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_from`
+  To=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_to`
+  LICENCE=`/usr/bin/php fromJSON.php "$PARAMETERFILE" licence`
+  LICENCE="--Licence=CC0"
+else 
+  Filename=$2
+  From=$3
+  To=$4
+  # Ci-dessous à généraliser
+  LICENCE="None"
+  for i in "$@"; do
+    case $i in
+      -l=*|--Licence=*)
+        LICENCE="${i#*=}"
+        shift # past argument=value
+        ;;
+      -*|--*)
+       ;;
+      *)
+        ;;
+    esac
+  done
+fi
 
 echo "Converting file " $Filename
 cd $INSTALLDIR
