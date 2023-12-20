@@ -43,6 +43,6 @@ $PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/in
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
-rm -rf v$RANDOMPATH
+rm -rf $RANDOMPATH
 
 rm  -f $Filename
