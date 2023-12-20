@@ -34,6 +34,11 @@ else
     esac
   done
 fi
+echo "filename= $Filename"
+echo "from= $From"
+echo "to= $To"
+echo "parameters= $PARAMETERFILE"
+echo "Licence= $LICENCE"
 
 echo "Converting file " $Filename
 cd $INSTALLDIR
@@ -42,7 +47,7 @@ cd ..
 mkdir -p $INSTALLDIR/$RANDOMPATH
 
 cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
-mkdir $INSTALLDIR/$RANDOMPATH/images
+mkdir -p $INSTALLDIR/$RANDOMPATH/images
 export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $INSTALLDIR/$RANDOMPATH/input.pptx --outdir $INSTALLDIR/$RANDOMPATH
 $CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
 

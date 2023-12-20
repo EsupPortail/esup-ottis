@@ -7,7 +7,7 @@ On obtient en sortie le fichier html de l'animation.
 
 Usage : 
 =======
-    py CreateMultiLingualAnim.py -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template --Licence
+    py CreateMultiLingualAnim.py -p <parameters.json> -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template --Licence
 
     <input> : chemin du fichier contenant la présentation à animer
     <output> : nom du fichier html de l'animation
@@ -52,7 +52,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template=","Licence="])
+        opts, args = getopt.getopt(sys.argv[1:], "phoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template=","Licence="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -73,12 +73,15 @@ def main():
     C_DELAY=0
     verbose = False
     C_LICENCE = ""
+    C_PARAMETERS = ""
     for o, a in opts:
         if o == "-v":
             verbose = True
         elif o in ("-h", "--help"):
             usage()
             sys.exit()
+        elif o in ("-p"):
+            C_PARAMETERS = a
         elif o in ("-i", "--input"):
             input = a
         elif o in ("-o", "--output"):
@@ -105,6 +108,10 @@ def main():
             C_LICENCE = a
         else:
             assert False, "unhandled option"
+    if C_PARAMETERS != "":
+        with open(C_PARAMETERS) as json_data:
+            allparams = json.load(json_data)
+        
     if Translate and input != "":
         if output == "":
             output="out.html"
