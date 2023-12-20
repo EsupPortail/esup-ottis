@@ -15,7 +15,7 @@ if (isset($argc)) {
     $longrun = $argv[8];
     $licence=$argv[9];
     if (isset($argv[10])){
-        $TranslateLang = $argv[9];
+        $TranslateLang = $argv[10];
     } else {
         $TranslateLang="";
     }
