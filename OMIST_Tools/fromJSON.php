@@ -6,9 +6,9 @@
     if (isset($tab[$paramname])) $value=$tab[$paramname];
 
     print_r($tab);
-    echo "filename = ".$filename.."\n";
+    echo "filename = ".$filename."\n";
 
-    echo "paramname = ".$paramname.."\n";
+    echo "paramname = ".$paramname."\n";
 
     echo $value;
 ?>
