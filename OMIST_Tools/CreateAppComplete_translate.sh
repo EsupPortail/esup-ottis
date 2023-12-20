@@ -5,6 +5,43 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/config.py
 
 RANDOMPATH=$1
+
+PARAMETERFILE=$INSTALLDIR/$RANDOMPATH/parameters.json
+
+if [ -f "$PARAMETERFILE" ]; then
+  Filename=`/usr/bin/php fromJSON.php "$PARAMETERFILE" path_file`
+  From=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_from`
+  To=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_to`
+  LICENCE=`/usr/bin/php fromJSON.php "$PARAMETERFILE" licence`
+  Translated=`/usr/bin/php fromJSON.php "$PARAMETERFILE" translate_lang`
+else 
+  Filename=$2
+  From=$3
+  To=$4
+  Translated=$5
+  # Ci-dessous à généraliser
+  LICENCE="None"
+  for i in "$@"; do
+    case $i in
+      -l=*|--Licence=*)
+        LICENCE="${i#*=}"
+        shift # past argument=value
+        ;;
+      -*|--*)
+       ;;
+      *)
+        ;;
+    esac
+  done
+fi
+echo "filename= $Filename"
+echo "from= $From"
+echo "to= $To"
+echo "parameters= $PARAMETERFILE"
+echo "Licence= $LICENCE"
+
+
+
 Filename=$2
 From=$3
 To=$4
