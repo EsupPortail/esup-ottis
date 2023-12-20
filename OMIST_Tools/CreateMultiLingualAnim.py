@@ -106,6 +106,8 @@ def main():
             C_DELAY = int(a)
         elif o in ("--Licence"):
             C_LICENCE = a
+            if "=" in C_LICENCE:
+                C_LICENCE=C_LICENCE.split("=").pop()
         else:
             assert False, "unhandled option"
     if C_PARAMETERS != "":
