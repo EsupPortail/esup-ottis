@@ -14,7 +14,6 @@ if [ -f "$PARAMETERFILE" ]; then
   From=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_from`
   To=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_to`
   LICENCE=`/usr/bin/php fromJSON.php "$PARAMETERFILE" licence`
-  LICENCE="--Licence=CC0"
 else 
   Filename=$2
   From=$3
