@@ -110,8 +110,8 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",translate_notes=Fal
             for paragraph in shape.text_frame.paragraphs:
                 for run in paragraph.runs:
                     if (translated_characters<config.TRANSLATION_LIMIT):
-                        run.text = " "+translate(run.text,langsrc,langdst)+" "
                         translated_characters+=len(run.text)
+                        run.text = " "+translate(run.text,langsrc,langdst)+" "
     prs.save(fileout)
 
 if __name__ == "__main__":
