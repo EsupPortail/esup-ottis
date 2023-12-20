@@ -115,6 +115,9 @@ def main():
     if Translate and input != "":
         if output == "":
             output="out.html"
+        print("Input = ",input)
+        print("Output = ",output)
+        print("Licence = ",C_LICENCE)
         CreateMultilingualApp(input,output,imagesdir=imgdir,source=lfrom,TargetLanguages=lto.lower().split(","),ASPECTRATIO=C_ASPECTRATIO,KEEPASPECTRATIO=C_KEEPASPECTRATIO,TITRE=C_TITRE,FILENAME=C_FILENAME,templatefile=C_templatefile,delay=C_DELAY,licence=C_LICENCE)
     else:
         usage()
