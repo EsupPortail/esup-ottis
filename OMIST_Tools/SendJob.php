@@ -67,7 +67,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
             $speech="$uploads_dir/$name_file_txt";
         }
         else {
-            $speech=dirname(__FILE__)."/blank.txt";
+            $speech=dirname(__FILE__)."/Templates/blank.txt";
         }
     }
 
