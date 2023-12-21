@@ -4,7 +4,7 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 source $SCRIPT_DIR/../config.py
 
-$TMPDIR=$SCRIPT_DIR/../TMP
+$TMPDIR=$SCRIPT_DIR/../tmp
 
 Filename=$1
 RANDOMPATH=$2
@@ -15,7 +15,7 @@ echo "Converting file " $Filename
 cd $TMPDIR
 cd ..
 
-mkdir -p $INSTALLDIR/$RANDOMPATH
+mkdir -p $TMPDIR/$RANDOMPATH
 
 cp "$Filename" $TMPDIR/$RANDOMPATH/input.pptx
 mkdir $TMPDIR/$RANDOMPATH/images
