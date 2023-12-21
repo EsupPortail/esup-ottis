@@ -2,12 +2,13 @@
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-source $SCRIPT_DIR/config.py
+source $SCRIPT_DIR/../config.py
+TMPDIR=$SCRIPT_DIR/../tmp
 
 
 RANDOMPATH=$1
 
-PARAMETERFILE=$INSTALLDIR/$RANDOMPATH/parameters.json
+PARAMETERFILE=$TMPDIR/$RANDOMPATH/parameters.json
 
 if [ -f "$PARAMETERFILE" ]; then
   Filename=`/usr/bin/php fromJSON.php "$PARAMETERFILE" path_file`
@@ -40,22 +41,21 @@ echo "parameters= $PARAMETERFILE"
 echo "Licence= $LICENCE"
 
 echo "Converting file " $Filename
-cd $INSTALLDIR
+cd $TMPDIR
 cd ..
 
-mkdir -p $INSTALLDIR/$RANDOMPATH
+mkdir -p $TMPDIR/$RANDOMPATH
 
-cp "$Filename" $INSTALLDIR/$RANDOMPATH/input.pptx
-mkdir -p $INSTALLDIR/$RANDOMPATH/images
-export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $INSTALLDIR/$RANDOMPATH/input.pptx --outdir $INSTALLDIR/$RANDOMPATH
-$CAIRO -jpeg $INSTALLDIR/$RANDOMPATH/input.pdf $INSTALLDIR/$RANDOMPATH/images/images
+cp "$Filename" $TMPDIR/$RANDOMPATH/input.pptx
+mkdir -p $TMPDIR/$RANDOMPATH/images
+export HOME=$TMPDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $TMPDIR/$RANDOMPATH/input.pptx --outdir $TMPDIR/$RANDOMPATH
+$CAIRO -jpeg $TMPDIR/$RANDOMPATH/input.pdf $TMPDIR/$RANDOMPATH/images/images
 
 export PYTHONIOENCODING=utf8
 
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$INSTALLDIR/$RANDOMPATH/input.pptx --ImagesDir="$INSTALLDIR/$RANDOMPATH/images" --output=$INSTALLDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7 $8 $9 --Licence="$LICENCE"
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$TMPDIR/$RANDOMPATH/input.pptx --ImagesDir="$TMPDIR/$RANDOMPATH/images" --output=$TMPDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $5 $6 $7 $8 $9 --Licence="$LICENCE"
 
 #cd $INSTALLDIR/$RANDOMPATH
 #zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
-#rm -rf $INSTALLDIR/$RANDOMPATH
-
-#rm  -f $Filename
+rm -rf $INSTALLDIR/$RANDOMPATH
+rm  -f $Filename
