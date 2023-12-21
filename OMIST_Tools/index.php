@@ -333,7 +333,7 @@ function SubmitJob(num,apptype) {
   <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
-    <input type="hidden" id="ProgName1" name="ProgramName" value="CreateAppFromPPTX.php">
+    <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" name="Extension" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->

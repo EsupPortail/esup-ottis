@@ -35,6 +35,7 @@ import os
 import pipes
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append("../")
 import config
 from utils import translate
 from utils import ExtractNotes
@@ -69,7 +70,7 @@ def main():
     C_KEEPASPECTRATIO = "Y"
     C_FILENAME = "Traduction"
     C_TITRE = "Automatic Translation"
-    C_templatefile=ABSOLUTE_PATH + "/AppTemplate.txt"
+    C_templatefile=ABSOLUTE_PATH + "/Templates/AppTemplate.txt"
     C_DELAY=0
     verbose = False
     C_LICENCE = ""
@@ -142,7 +143,7 @@ def readbase64(filename):
         encoded_string = base64.b64encode(image_file.read())
     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="AppTemplate.txt",delay=0,complementfile="Complements.txt",licence=""):
+def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="Templates/AppTemplate.txt",delay=0,complementfile="Templates/Complements.txt",licence=""):
     """Création d'une animation web sous forme de diaporama.
     
     Parameters
