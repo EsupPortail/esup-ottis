@@ -19,7 +19,7 @@
 include("config.php");
 
 $res=array();
-exec($proxy." curl https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
 
 $Stats_DEEPL = json_decode($res[0],true);
 $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/$Stats_DEEPL["character_limit"])/100;
