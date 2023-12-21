@@ -204,6 +204,15 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
             AllFilenames.append(entry)
 
     AllFilenames.sort()
+
+    # Il ne peut pas y avoir plus de notes que de slides
+    lennotes=0
+    for l in AllNotes:
+        AllNotes[l]=AllNotes[l][0:len(AllFilenames)]
+        lennotes=len(AllNotes[l])
+    # Il ne peut pas y avoir plus de slides que de notes
+    AllFilenames=AllFilenames[0:lennotes]
+
     AllImages = []
     for f in AllFilenames:
         print("    converting ",f)
