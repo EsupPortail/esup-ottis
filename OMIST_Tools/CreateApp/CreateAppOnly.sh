@@ -26,5 +26,5 @@ $PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$TMPDIR/$RANDOMPATH/input.
 
 #cd $INSTALLDIR/$RANDOMPATH
 #zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
-rm -rf $INSTALLDIR/$RANDOMPATH
+rm -rf $TMPDIR/$RANDOMPATH
 rm  -f $Filename
