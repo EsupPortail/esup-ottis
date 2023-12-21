@@ -346,7 +346,7 @@ function SubmitJob(num,apptype) {
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     Select PDF file : 
     <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000"/><br/>
-    <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php">
+    <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
     <input type="hidden" id="Random2" name="randompath" value=""/>
     <input type="hidden" id="Extension2" name="Extension" value="html"/>
     Select SPEECH file (.txt): 
