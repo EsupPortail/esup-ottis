@@ -1328,7 +1328,8 @@ function SlideNotes() {
   */
   xhr.timeout=30000;
   xhr.ontimeout = (e) => {
-    console.log("Erreur Timeout !")
+    console.log("Erreur Timeout !");
+    alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
   };
   xhr.send(formdata);
   //AbortTimeout(xhr);
