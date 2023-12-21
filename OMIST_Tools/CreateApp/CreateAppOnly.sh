@@ -4,7 +4,7 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 source $SCRIPT_DIR/../config.py
 
-$TMPDIR=$SCRIPT_DIR/../tmp
+TMPDIR=$SCRIPT_DIR/../tmp
 
 Filename=$1
 RANDOMPATH=$2
