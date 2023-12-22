@@ -38,9 +38,11 @@ for($i=0;$i<count($content);$i++) {
 
 $Tnotes = (array) json_decode($txtslidenotes);
 $notes=array();
+
+// Récupération de la première langue des notes uniquement.
 foreach($Tnotes as $lang => $noteslang) {
   $notes=$noteslang;
-  break;
+  break; 
 }
 
 $n=count($notes);
