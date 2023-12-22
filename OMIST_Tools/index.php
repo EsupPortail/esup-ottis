@@ -36,7 +36,11 @@ fclose($fd);
 include("../config.php");
 
 $res=array();
-exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+if ($WhichTranslator == "DEEPLFREE") {
+  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+} else {
+  exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+}
 
 $Stats_DEEPL = json_decode($res[0],true);
 if (isset($Stats_DEEPL["character_count"])) {
