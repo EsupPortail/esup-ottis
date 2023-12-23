@@ -179,7 +179,7 @@ img {
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=AANAYKCNYC');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=AANAYKCNNCNNNYNN');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
