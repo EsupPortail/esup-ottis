@@ -27,7 +27,7 @@ for($i=0; $i<count($alljobs);$i++) {
 
 
 // On execute TOUS les jobs
-for (count($selectedjobs)>0) {
+for ($i=0; $i<count($selectedjobs);$i++) {
     $job = $selectedjobs[$i];
     #On récupère toutes les variables de la base
     // Ajout JB **: si pas de job dans la queue, pas de tableau
