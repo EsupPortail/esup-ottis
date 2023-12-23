@@ -1300,7 +1300,7 @@ function completeHandler(event) {
     }
 }
 
-function SlideNotes(uncloudlink) {
+function SlideNotes() {
   var file = _("ppt_presentation").files[0];
   var scriptfile = "";
 //  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
@@ -1312,7 +1312,6 @@ function SlideNotes(uncloudlink) {
   var formdata = new FormData();
   formdata.append("ppt_presentation", file);
   formdata.append("ACCESS", document.getElementById('classroomid').value);
-  if (uncloudlink != '') formdata.append("uncloudlink", uncloudlink);
   var xhr = new XMLHttpRequest();
 
   xhr.open("POST", scriptfile);
@@ -1327,6 +1326,25 @@ function SlideNotes(uncloudlink) {
     }
   };
   */
+  xhr.timeout=30000;
+  xhr.ontimeout = (e) => {
+    console.log("Erreur Timeout !");
+    alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
+  };
+  xhr.send(formdata);
+  //AbortTimeout(xhr);
+}
+
+function SlideNotesUncloud(uncloudlink) {
+  var scriptfile = "ExtractSlidesNotes_PPTX_images.php";
+  var formdata = new FormData();
+  formdata.append("ACCESS", document.getElementById('classroomid').value);
+  formdata.append("uncloudlink", uncloudlink);
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", scriptfile);
+  xhr.upload.addEventListener("progress", progressHandler, false);
+  xhr.addEventListener("load", completeHandler, false);
   xhr.timeout=30000;
   xhr.ontimeout = (e) => {
     console.log("Erreur Timeout !");
@@ -1619,7 +1637,7 @@ function Init() {
     hide('titlewooclap');
   }
   if (zoomid != '') startZoom(zoomid);
-  if (uncloudlink != '') SlideNotes(uncloudlink);
+  if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
 }
 
 // Special ZOOM session
