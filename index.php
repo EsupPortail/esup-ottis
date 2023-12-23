@@ -2306,7 +2306,7 @@ function applyConfig() {
 		<li id="titleextratab4"><a href="#tabs-12" onclick="inSlideTab=false;">4</a></li>
 	</ul>
 	<div id="tabs-0">
-    <h3>Language selection</h3>
+    <h3>Language configuration</h3>
     <div>
       <ul style="list-style-type: none;">
         <li><label for="classroomlanguage">Speaker language :</label>
