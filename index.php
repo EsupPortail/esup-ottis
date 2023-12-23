@@ -806,10 +806,14 @@ var MaxSavedLines=10;
 var LoadPPTX=true;
 var zoomid='';
 var uncloudlink='';
+var targettab=0;
+
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
 if (base.has('LoadPPTX')) LoadPPTX=true; 
 if (base.has('ZOOMID')) zoomid=base.get('ZOOMID'); 
 if (base.has('link')) uncloudlink=base.get('link');
+if (base.has('tab')) targettab=base.get('tab');
+
 var visioactive=false;
 var AllOutputVoices=[];
 var TLangInput=[];
@@ -1638,6 +1642,7 @@ function Init() {
   }
   if (zoomid != '') startZoom(zoomid);
   if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
+  if (targettab > 0) document.getElementById('ttab-'+targettab).click();
 }
 
 // Special ZOOM session
@@ -2355,16 +2360,16 @@ function applyConfig() {
 
 <div id="tabs">
 	<ul id="bar">
-		<li><a href="#tabs-0" onclick="inSlideTab=false;">Informations</a></li>
-		<li><a href="#tabs-1" onclick="timenew_question=0; inSlideTab=false;">Classroom</a></li>
-		<li><a href="#tabs-2" onclick="inSlideTab=false;">Notebook</a></li>
-		<li><a href="#tabs-5" onclick="inSlideTab=false;">Complete lesson</a></li>
-    <li id="titleSlides"><a href="#tabs-7" onclick="inSlideTab=true; document.getElementById('img_slides').focus();">Slides</a></li>
-		<li id="titlevisio"><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
-		<li id="titlelive"><a href="#tabs-3" onclick="inSlideTab=false;">Live translation</a></li>
-		<li id="titleshare"><a href="#tabs-4" onclick="inSlideTab=false;">Share</a></li>
-		<li id="titlewooclap"><a href="#tabs-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
-		<li id="titletools"><a href="#tabs-20" onclick="inSlideTab=false;">Slide Tools</a></li>
+		<li><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;">Informations</a></li>
+		<li><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;">Classroom</a></li>
+		<li><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;">Notebook</a></li>
+		<li><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;">Complete lesson</a></li>
+    <li id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; document.getElementById('img_slides').focus();">Slides</a></li>
+		<li id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
+		<li id="titlelive"><a href="#tabs-3"  id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
+		<li id="titleshare"><a href="#tabs-4"  id="ttab-7" onclick="inSlideTab=false;">Share</a></li>
+		<li id="titlewooclap"><a href="#tabs-8"  id="ttab-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
+		<li id="titletools"><a href="#tabs-20"  id="ttab-9" onclick="inSlideTab=false;">Slide Tools</a></li>
 		<li id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;">1</a></li>
 		<li id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;">2</a></li>
 		<li id="titleextratab3"><a href="#tabs-11" onclick="inSlideTab=false;">3</a></li>
