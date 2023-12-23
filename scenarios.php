@@ -70,6 +70,8 @@ img {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-radius: 20px;
+
 }
 
 .cards__item {
@@ -81,7 +83,6 @@ img {
   @media(min-width: 56rem) {
     width: 33.3333%;
   }
-  border-radius: 20px;
 }
 
 .card {
