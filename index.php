@@ -2505,7 +2505,14 @@ function applyConfig() {
 	</div>
 	<div id="tabs-20">
     <div id="tools" style="border: none; height: 1000px; overflow: auto;">
-      <iframe id="toolbox" src = "OMIST_Tools/index.php" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture"  style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+      <iframe id="toolbox" 
+      <?php if ($external) {
+        echo "src=\"OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."\" ";
+      } else {
+        echo "src=\"OMIST_Tools\" ";
+      }
+      ?>
+      width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture"  style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
     </div>
 	</div>
 	<div id="tabs-3">
