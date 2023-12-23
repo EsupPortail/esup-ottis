@@ -2299,6 +2299,7 @@ function applyConfig() {
 		<li id="titlelive"><a href="#tabs-3" onclick="inSlideTab=false;">Live translation</a></li>
 		<li id="titleshare"><a href="#tabs-4" onclick="inSlideTab=false;">Share</a></li>
 		<li id="titlewooclap"><a href="#tabs-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
+		<li id="titletools"><a href="#tabs-20" onclick="inSlideTab=false;">Slide Tools</a></li>
 		<li id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;">1</a></li>
 		<li id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;">2</a></li>
 		<li id="titleextratab3"><a href="#tabs-11" onclick="inSlideTab=false;">3</a></li>
@@ -2490,6 +2491,11 @@ function applyConfig() {
 	<div id="tabs-6">
     <div id="slideshow" style="border: solid 1px; height: 600px; overflow: auto;">
 <iframe id="visio" src = "" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture"  style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+    </div>
+	</div>
+	<div id="tabs-20">
+    <div id="tools" style="border: solid 1px; height: 1000px; overflow: auto;">
+      <iframe id="toolbox" src = "OMIST_Tools/index.php" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture"  style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
     </div>
 	</div>
 	<div id="tabs-3">
