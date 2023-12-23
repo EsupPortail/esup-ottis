@@ -81,6 +81,7 @@ img {
   @media(min-width: 56rem) {
     width: 33.3333%;
   }
+  border-radius: 20px;
 }
 
 .card {
