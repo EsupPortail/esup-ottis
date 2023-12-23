@@ -208,7 +208,7 @@ img {
         <div class="card__title">Sous-titrage anglais avec présentation .PPTX sur uncloud</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
         <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br/>
-            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX ou .html).<br/>
+            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX).<br/>
             &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
             &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
             &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
@@ -216,6 +216,22 @@ img {
       </div>
       <p><input type="text" id="SC31" placeholder="lien public uncloud." class="btn btn--block card__btn" /></p>
       <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
+    </div>
+  </li>
+  <li class="cards__item">
+    <div class="card">
+      <div class="card__content">
+        <div class="card__title">Sous-titrage anglais avec présentation .html sur uncloud</div>
+        <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
+        <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br/>
+            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .html).<br/>
+            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
+            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
+            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+        </p>
+      </div>
+      <p><input type="text" id="SC41" placeholder="lien public uncloud." class="btn btn--block card__btn" /></p>
+      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC41').value);">Y aller</button>
     </div>
   </li>
 </ul>

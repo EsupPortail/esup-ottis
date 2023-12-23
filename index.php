@@ -806,12 +806,14 @@ var MaxSavedLines=10;
 var LoadPPTX=true;
 var zoomid='';
 var uncloudlink='';
+var uncloudhtmllink='';
 var targettab=0;
 
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
 if (base.has('LoadPPTX')) LoadPPTX=true; 
 if (base.has('ZOOMID')) zoomid=base.get('ZOOMID'); 
 if (base.has('link')) uncloudlink=base.get('link');
+if (base.has('htmllink')) uncloudhtmllink=base.get('htmllink');
 if (base.has('tab')) targettab=base.get('tab');
 
 var visioactive=false;
@@ -1358,6 +1360,24 @@ function SlideNotesUncloud(uncloudlink) {
   //AbortTimeout(xhr);
 }
 
+function SlideNotesUncloudHtml(uncloudhtmllink) {
+  var scriptfile = "ExtractSlidesNotesAppHTML.php";
+  var formdata = new FormData();
+  formdata.append("ACCESS", document.getElementById('classroomid').value);
+  formdata.append("uncloudlink", uncloudhtmllink);
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", scriptfile);
+  xhr.upload.addEventListener("progress", progressHandler, false);
+  xhr.addEventListener("load", completeHandler, false);
+  xhr.timeout=30000;
+  xhr.ontimeout = (e) => {
+    console.log("Erreur Timeout !");
+    alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
+  };
+  xhr.send(formdata);
+  //AbortTimeout(xhr);
+}
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
@@ -1642,6 +1662,7 @@ function Init() {
   }
   if (zoomid != '') startZoom(zoomid);
   if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
+  if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
   if (targettab > 0) document.getElementById('ttab-'+targettab).click();
 }
 
