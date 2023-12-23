@@ -34,6 +34,7 @@ fclose($fd);
 
 
 include("../config.php");
+include("configOT.php");
 
 $res=array();
 if ($WhichTranslator == "DEEPLFREE") {
@@ -265,7 +266,13 @@ function SubmitJob(num,apptype) {
     //form.append("fileToUpload", _("fileToUpload1")[0]);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
-	  request.open("POST", "SendJob_noDB.php");
+    <?php
+    if ($DATABASETYPE == "fakeDB") {
+	    echo "request.open(\"POST\", \"SendJob_noDB.php\");\n";
+    } else {
+	    echo "request.open(\"POST\", \"SendJob.php\");\n";
+    }
+    ?>
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
@@ -279,7 +286,13 @@ function SubmitJob(num,apptype) {
     //form.append("ProgramName", _("ProgName1").value);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
-	  request.open("POST", "isReady_noDB.php"); 
+    <?php
+    if ($DATABASETYPE == "fakeDB") {
+	    echo "request.open(\"POST\", \"isReady_noDB.php\");\n";
+    } else {
+	    echo "request.open(\"POST\", \"isReady.php\");\n";
+    }
+    ?>
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
