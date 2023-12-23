@@ -279,7 +279,7 @@ function SubmitJob(num,apptype) {
     //form.append("ProgramName", _("ProgName1").value);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
-	  request.open("POST", "isReady.php"); 
+	  request.open("POST", "isReady_noDB.php"); 
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
