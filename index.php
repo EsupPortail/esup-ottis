@@ -2306,6 +2306,8 @@ function applyConfig() {
 		<li id="titleextratab4"><a href="#tabs-12" onclick="inSlideTab=false;">4</a></li>
 	</ul>
 	<div id="tabs-0">
+  <h3>Language selection</h3>
+  <div>
   <ul style="list-style-type: none;">
 <li><label for="classroomlanguage">Speaker language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value); Micro(); Micro();" class="jqueryselect">
@@ -2322,6 +2324,11 @@ function applyConfig() {
 <li style="display: none;">Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
 <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect">
   </select></li>
+    </ul>
+    </div>
+    <h3>Subtitles configuration and Icons</h3>
+    <div>
+    <ul>
 <li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
@@ -2383,14 +2390,9 @@ function applyConfig() {
 <option value="0.75" >75% opaque</option>
 <option value="1" >100% opaque</option>
   </select></li>
-  <li>&nbsp;</li>
-	    <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
-	    <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
-  <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
-  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
-  <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft live translation ?  <input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='No.';"/>&nbsp;<span id="spanmicrosoftdirecttranscritionon">No.</span></li>
- <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)<br/>
-    <textarea id="BoostedWords" rows="3" cols="20"></textarea></li>
+
+
+
 
   <li>&nbsp;</li>
   <li><b>Icons</b></li>
@@ -2412,7 +2414,10 @@ function applyConfig() {
   <option value=50 selected>Normal</option>
   <option value=80 >Big</option>
   </select></li>
-
+    </ul>
+    </div>
+  <h3>Tabs configuration and external tools</h3>
+    <ul>
   <li><b>Extra tabs</b></li>
   <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span>
   <button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
@@ -2425,17 +2430,8 @@ function applyConfig() {
   <li>Extra tab 3  URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span>&nbsp;<button onclick="saveTextQ('[extratab3|'+document.getElementById('extraurl3').value+']');">Send to students</button></li>
   <li>Extra tab 4  URL : <input type="text" id="extraurl4" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET4" onclick="showET(this,4);"/>&nbsp;<span id="spanembedET4">No.</span>&nbsp;<button onclick="saveTextQ('[extratab4|'+document.getElementById('extraurl4').value+']');">Send to students</button></li>
     <li></li>
-    <li><b>Extra functionalities</b></li>
-    <li>Remove verbal tics (one per line in lowercase)<br/>
-    <textarea id="verbaltics" rows="3" cols="20"></textarea>
-    <li><span id="connectedusers"></span></li>
-    <li></li>
-    <li>Copy this link to always access the teachers application with this configuration : <a href="" id="LinkConfig"></a></li>
-  </ul>
-  <br/>
-  <br/>
-  <p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo "javascript:void(window.open('OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."'))"; else echo "javascript:void(window.open('OMIST_Tools'))";?>">here</a>.</p>
-  <p>The following links to open source online tools can be useful for the extra tabs feature.
+    </ul>
+    <p>The following links to open source online tools can be useful for the extra tabs feature.
   <dl>
   <dd>Tableau noir blackboard : <a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
   <dd>WBO whiteboard : <a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
@@ -2449,14 +2445,32 @@ function applyConfig() {
   </dl>
   </p>
   <br/>
+  <br/>	
+    </div>
+
+    <h3>Extra functionalities</h3>
+    <div>
+    <li>&nbsp;</li>
+	  <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
+	  <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
+    <li title="Do not change unless you know what you are doing !">External transcription service ?  <input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked"/>&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
+    <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?  <input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked"/>&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+    <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft live translation ?  <input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='No.';"/>&nbsp;<span id="spanmicrosoftdirecttranscritionon">No.</span></li>
+    <li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)<br/>
+    <textarea id="BoostedWords" rows="3" cols="20"></textarea></li>
+
+    <li>Remove verbal tics (one per line in lowercase)<br/>
+    <textarea id="verbaltics" rows="3" cols="20"></textarea>
+    <li><span id="connectedusers"></span></li>
+    <li></li>
+    <li>Copy this link to always access the teachers application with this configuration : <a href="" id="LinkConfig"></a></li>
+  </ul>
   <br/>
   <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-	</div>
+  <p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo "javascript:void(window.open('OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."'))"; else echo "javascript:void(window.open('OMIST_Tools'))";?>">here</a>.</p>
+    </div>
+
+</div>
 	<div id="tabs-1">
     <div id="classroom" style="border: solid 1px;"></div>
 
