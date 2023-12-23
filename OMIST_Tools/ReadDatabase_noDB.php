@@ -13,13 +13,12 @@ if (! function_exists('str_ends_with')) {
 // On vide puis vide toute la base
 $content=file_get_contents("fakeDB/db.json");
 $fd=fopen("fakeDB/db.json","w");
-fputs($fd,""):
 fclose($fd);
 
 $alljobs=explode("|||",$content);
 $selectedjobs=array();
 for($i=0; $i<count($alljobs);$i++) {
-    $job=alljobs[$i];
+    $job=$alljobs[$i];
     if (trim($job) !="") {
         $Tjob=(array) json_decode(trim($job));
         $selectedjobs[]=$Tjob;
