@@ -2328,7 +2328,8 @@ function applyConfig() {
     </div>
     <h3>Subtitles configuration and Icons</h3>
     <div>
-      <ul>
+      <ul style="list-style-type: none;">
+        <li><b>Subtitles appearance</b></li>
         <li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
           <option value="0,0,255|0,0,255" selected>blue</option>
           <option value="0,255,0|0,100,0">green</option>
@@ -2386,10 +2387,6 @@ function applyConfig() {
 <option value="0.75" >75% opaque</option>
 <option value="1" >100% opaque</option>
   </select></li>
-
-
-
-
   <li>&nbsp;</li>
   <li><b>Icons</b></li>
   <li>Show icons <input type="checkbox" checked id="iconon" onclick="showEachIcon(); if (this.checked) 
@@ -2405,6 +2402,7 @@ function applyConfig() {
   &nbsp; Full screen ? <input type="checkbox" id="fson" onclick="if (this.checked) {document.getElementById('spanfson').innerHTML='Yes !'; document.getElementById('FS').style.visibility='visible';} else {document.getElementById('spanfson').innerHTML='No.';document.getElementById('FS').style.visibility='hidden';}"/>&nbsp;<span id="spanfson">No.</span></li>
   
   <li>&nbsp;</li>
+  <li><b>Pin code appearance</b></li>
   <li>Pin code size <select id="selecticonsize" onchange="ChangeSizeIcons(this.value);" class="jqueryselect">
   <option value=30>Small</option>
   <option value=50 selected>Normal</option>
@@ -2414,7 +2412,7 @@ function applyConfig() {
     </div>
   <h3>Tabs configuration and external tools</h3>
   <div>
-    <ul>
+    <ul style="list-style-type: none;">
       <li><b>Extra tabs</b></li>
       <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span>
         <button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
@@ -2446,6 +2444,7 @@ function applyConfig() {
 
     <h3>Extra functionalities</h3>
     <div>
+      <ul style="list-style-type: none;">
     <li>&nbsp;</li>
 	  <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
 	  <li style="display:none;" title="Do not change unless you know what you are doing !"><label for="appid">Application identifier :</label><input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" /></li>
