@@ -346,7 +346,7 @@ function SubmitJob(num,apptype) {
   <div style="position: absolute; top: 0px; right: 250px;">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
-  <div>
+  <div style="height: 400px;">
   <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : 
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
