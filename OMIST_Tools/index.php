@@ -265,7 +265,7 @@ function SubmitJob(num,apptype) {
     //form.append("fileToUpload", _("fileToUpload1")[0]);
     form.enctype='multipart/form-data';
 	  var request = new XMLHttpRequest();
-	  request.open("POST", "SendJob.php");
+	  request.open("POST", "SendJob_noDB.php");
 	  request.send(form);
     request.onload = function(event) {
 		  var rep = request.responseText;
