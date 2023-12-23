@@ -13,6 +13,7 @@ if (! function_exists('str_ends_with')) {
 // On vide puis vide toute la base
 $content=file_get_contents("fakeDB/db.json");
 $fd=fopen("fakeDB/db.json","w");
+fputs($fd,""):
 fclose($fd);
 
 $alljobs=explode("|||",$content);
