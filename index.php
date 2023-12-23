@@ -2306,63 +2306,59 @@ function applyConfig() {
 		<li id="titleextratab4"><a href="#tabs-12" onclick="inSlideTab=false;">4</a></li>
 	</ul>
 	<div id="tabs-0">
-  <h3>Language selection</h3>
-  <div>
-  <ul style="list-style-type: none;">
-<li><label for="classroomlanguage">Speaker language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value); Micro(); Micro();" class="jqueryselect">
-  </select>
-</li>
-<li style="display: none;"><label for="recognitionon">Speech recognition active ? </label>
-<input type="checkbox" id="recognitionon"/></li>
-<li <?php if (true) echo "style=\"display:none;\""; ?> >Pin code : <input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
-    <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
-    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
-</li>
-  <li style="display: none;">Current config : <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/></li>
-  <li>&nbsp;</li>
-<li style="display: none;">Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
-<li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect">
-  </select></li>
-    </ul>
+    <h3>Language selection</h3>
+    <div>
+      <ul style="list-style-type: none;">
+        <li><label for="classroomlanguage">Speaker language :</label>
+          <select id="classroomlanguage" onchange="setLanguageInput(this.value); Micro(); Micro();" class="jqueryselect">
+          </select>
+        </li>
+        <li style="display: none;"><label for="recognitionon">Speech recognition active ? </label>
+          <input type="checkbox" id="recognitionon"/></li>
+        <li <?php if (true) echo "style=\"display:none;\""; ?> Pin code : <input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
+          <input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();"/>
+          <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));"/>
+        </li>
+        <li style="display: none;">Current config : <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/></li>
+        <li>&nbsp;</li>
+        <li style="display: none;">Translate subtitles ?  <input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';"/>&nbsp;<span id="spansubtitleon">No.</span></li>
+        <li>Language for subtitles : <select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect">
+          </select></li>
+      </ul>
     </div>
     <h3>Subtitles configuration and Icons</h3>
     <div>
-    <ul>
-<li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
-<option value="0,0,255|0,0,255" selected>blue</option>
-<option value="0,255,0|0,100,0">green</option>
-<option value="255,0,0|100,0,0" >red</option>
-<option value="255,0,255|100,0,255" >purple</option>
-<option value="255,255,0|100,100,0" >yellow</option>
-<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
-<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
-<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
-<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
-<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0">black</option>
-<option value="255,255,255|255,255,255|0,0,0">white</option>
-
-  </select></li>
-
-<li>Show arrows around subtitles ?  <input type="checkbox" checked id="arrowson" onclick="if (this.checked) {document.getElementById('spanarrowson').innerHTML='Yes !';document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spanarrowson').innerHTML='No.'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden';}"/>&nbsp;<span id="spanarrowson">Yes !</span></li>
-
-
-<li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color : <select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
-<option value="0,0,255|0,0,255">blue</option>
-<option value="0,255,0|0,100,0">green</option>
-<option value="255,0,0|100,0,0" >red</option>
-<option value="255,0,255|100,0,255" >purple</option>
-<option value="255,255,0|100,100,0" >yellow</option>
-<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
-<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
-<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
-<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
-<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0" selected>black</option>
-<option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></li>
-<li style="display:none;">Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect" class="jqueryselect">
+      <ul>
+        <li>Show subtitles bar ?  <input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}"/>&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
+          <option value="0,0,255|0,0,255" selected>blue</option>
+          <option value="0,255,0|0,100,0">green</option>
+          <option value="255,0,0|100,0,0" >red</option>
+          <option value="255,0,255|100,0,255" >purple</option>
+          <option value="255,255,0|100,100,0" >yellow</option>
+          <option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+          <option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+          <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+          <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+          <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
+          <option value="0,0,0|0,0,0">black</option>
+          <option value="255,255,255|255,255,255|0,0,0">white</option>
+          </select></li>
+        <li>Show arrows around subtitles ?  <input type="checkbox" checked id="arrowson" onclick="if (this.checked) {document.getElementById('spanarrowson').innerHTML='Yes !';document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spanarrowson').innerHTML='No.'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden';}"/>&nbsp;<span id="spanarrowson">Yes !</span></li>
+        <li>Show instant transcription ?  <input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color : <select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
+          <option value="0,0,255|0,0,255">blue</option>
+          <option value="0,255,0|0,100,0">green</option>
+          <option value="255,0,0|100,0,0" >red</option>
+          <option value="255,0,255|100,0,255" >purple</option>
+          <option value="255,255,0|100,100,0" >yellow</option>
+          <option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+          <option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+          <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+          <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+          <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
+          <option value="0,0,0|0,0,0" selected>black</option>
+          <option value="255,255,255|255,255,255|0,0,0">white</option>
+          </select></li>
+        <li style="display:none;">Show student feedback ?  <input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }"/>&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color : <select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect" class="jqueryselect">
 <option value="0,0,255|0,0,255">blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -2417,33 +2413,33 @@ function applyConfig() {
     </ul>
     </div>
   <h3>Tabs configuration and external tools</h3>
+  <div>
     <ul>
-  <li><b>Extra tabs</b></li>
-  <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span>
-  <button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
-    <button style="display:none;" onclick="document.getElementById('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button></li>
-<!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li> -->
-<!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li> -->
-  <li>Show Share tab ?  <input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}"/>&nbsp;<span id="spanembedshareon">Yes !</span></li>
-  <li>Extra tab 1  URL : <input type="text" id="extraurl1" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET1" onclick="showET(this,1);"/>&nbsp;<span id="spanembedET1">No.</span>&nbsp;<button onclick="saveTextQ('[extratab1|'+document.getElementById('extraurl1').value+']');">Send to students</button></li>
-  <li>Extra tab 2  URL : <input type="text" id="extraurl2" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET2" onclick="showET(this,2);"/>&nbsp;<span id="spanembedET2">No.</span>&nbsp;<button onclick="saveTextQ('[extratab2|'+document.getElementById('extraurl2').value+']');">Send to students</button></li>
-  <li>Extra tab 3  URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span>&nbsp;<button onclick="saveTextQ('[extratab3|'+document.getElementById('extraurl3').value+']');">Send to students</button></li>
-  <li>Extra tab 4  URL : <input type="text" id="extraurl4" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET4" onclick="showET(this,4);"/>&nbsp;<span id="spanembedET4">No.</span>&nbsp;<button onclick="saveTextQ('[extratab4|'+document.getElementById('extraurl4').value+']');">Send to students</button></li>
-    <li></li>
+      <li><b>Extra tabs</b></li>
+      <li>Embed WOOCLAP ?  <input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}"/>&nbsp;<span id="spanembedwooclapon">No.</span>
+        <button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
+        <button style="display:none;" onclick="document.getElementById('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button></li>
+    <!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li> -->
+    <!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li> -->
+      <li>Show Share tab ?  <input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}"/>&nbsp;<span id="spanembedshareon">Yes !</span></li>
+      <li>Extra tab 1  URL : <input type="text" id="extraurl1" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET1" onclick="showET(this,1);"/>&nbsp;<span id="spanembedET1">No.</span>&nbsp;<button onclick="saveTextQ('[extratab1|'+document.getElementById('extraurl1').value+']');">Send to students</button></li>
+      <li>Extra tab 2  URL : <input type="text" id="extraurl2" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET2" onclick="showET(this,2);"/>&nbsp;<span id="spanembedET2">No.</span>&nbsp;<button onclick="saveTextQ('[extratab2|'+document.getElementById('extraurl2').value+']');">Send to students</button></li>
+      <li>Extra tab 3  URL : <input type="text" id="extraurl3" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET3" onclick="showET(this,3);"/>&nbsp;<span id="spanembedET3">No.</span>&nbsp;<button onclick="saveTextQ('[extratab3|'+document.getElementById('extraurl3').value+']');">Send to students</button></li>
+      <li>Extra tab 4  URL : <input type="text" id="extraurl4" value="" placeholder="Copy your application url here"/>&nbsp; Show ?  <input type="checkbox" id="embedET4" onclick="showET(this,4);"/>&nbsp;<span id="spanembedET4">No.</span>&nbsp;<button onclick="saveTextQ('[extratab4|'+document.getElementById('extraurl4').value+']');">Send to students</button></li>
+      <li></li>
     </ul>
     <p>The following links to open source online tools can be useful for the extra tabs feature.
-  <dl>
-  <dd>Tableau noir blackboard : <a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
-  <dd>WBO whiteboard : <a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
-  <dd>Jitsi visioconference : <a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
-  <dd>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></dd>  
-  <dd>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
-  <dd>Universal document viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></dd>
-  <dd>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://3dviewer.net/">https://3dviewer.net/</a></dd>
-  <dd>Nantes University Zoom session [Experimental]: <a id="link5" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" src="">Enter your zoom link</a></dd>
-  <dd>Youtube video [Experimental]: <a id="link6" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" src="">Enter your Youtube video ID</a></dd>
-  </dl>
-  </p>
+    <dl>
+      <dd>Tableau noir blackboard : <a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
+      <dd>WBO whiteboard : <a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
+      <dd>Jitsi visioconference : <a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a></dd>
+      <dd>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></dd>  
+      <dd>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
+      <dd>Universal document viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></dd>
+      <dd>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"src="https://3dviewer.net/">https://3dviewer.net/</a></dd>
+      <dd>Nantes University Zoom session [Experimental]: <a id="link5" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" src="">Enter your zoom link</a></dd>
+      <dd>Youtube video [Experimental]: <a id="link6" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" src="">Enter your Youtube video ID</a></dd>
+    </dl>
   <br/>
   <br/>	
     </div>
