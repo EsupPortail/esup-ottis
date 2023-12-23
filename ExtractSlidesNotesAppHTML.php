@@ -4,7 +4,7 @@ ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );
 
 if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
-  $tmp_file="/var/www/html/uploads/uncloudfile_".md5(gmdate("U")).".pptx";
+  $tmp_file="/var/www/html/uploads/uncloudfile_".md5(gmdate("U")).".html";
   $uncloudlink = $_POST["uncloudlink"];
   if (strpos($uncloudlink,"download") === false) $uncloudlink.="/download";
   $command = $proxy.'curl -q '.$uncloudlink.' -o '.$tmp_file;

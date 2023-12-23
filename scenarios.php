@@ -231,7 +231,7 @@ img {
         </p>
       </div>
       <p><input type="text" id="SC41" placeholder="lien public uncloud." class="btn btn--block card__btn" /></p>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC41').value);">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
     </div>
   </li>
 </ul>
