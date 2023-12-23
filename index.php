@@ -2154,6 +2154,12 @@ function updateConfig() {
   newConfig[7]=(document.getElementById('embedwooclapon').checked?"Y":"N");
   newConfig[8]=(document.getElementById('embedshareon').checked?"Y":"N");
   newConfig[9]=String.fromCharCode(65+document.getElementById('selectopacity').selectedIndex);
+  newConfig[10]=(document.getElementById('arrowson').checked?"Y":"N");
+  newConfig[11]=(document.getElementById('iconon').checked?"Y":"N");
+  newConfig[12]=(document.getElementById('pincodeon').checked?"Y":"N");
+  newConfig[13]=(document.getElementById('microon').checked?"Y":"N");
+  newConfig[14]=(document.getElementById('questionon').checked?"Y":"N");
+  newConfig[15]=(document.getElementById('fson').checked?"Y":"N");
   // newConfig[10]=(document.getElementById('pincodeon').checked?"Y":"N");
   currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
@@ -2221,14 +2227,9 @@ function applyConfig() {
   document.getElementById('titre').style.fontSize = document.getElementById('selectfontsize').value; 
   document.getElementById('partialtitre').style.fontSize = document.getElementById('selectfontsize').value; 
   document.getElementById('studentfeedback').style.fontSize = document.getElementById('selectfontsize').value;
-  //selectopacity
-  document.getElementById('selectopacity').selectedIndex= 1*(config.charCodeAt(6)-65);
-  document.getElementById('titre').style.backgroundColor = document.getElementById('selectopacity').value; 
-  document.getElementById('partialtitre').style.backgroundColor = document.getElementById('selectopacity').value; 
-  document.getElementById('studentfeedback').style.backgroundColor = document.getElementById('selectopacity').value;
   // Wooclap tab
   document.getElementById('embedwooclapon').checked=(config.charAt(7) == "Y");
-  if (document.getElementById('embedwooclapon').checked.checked) {
+  if (document.getElementById('embedwooclapon').checked) {
     document.getElementById('spanembedwooclapon').innerHTML='Yes !'; 
     show('titlewooclap');
   } else {
@@ -2237,13 +2238,57 @@ function applyConfig() {
   }
   // Share tab
   document.getElementById('embedshareon').checked=(config.charAt(8) == "Y");
-  if (document.getElementById('embedshareon').checked.checked) {
+  if (document.getElementById('embedshareon').checked) {
     document.getElementById('spanembedshareon').innerHTML='Yes !'; 
     show('titleshare');
   } else {
     document.getElementById('spanembedshareon').innerHTML='No.';
     hide('titleshare');
   }
+  //selectopacity
+  document.getElementById('selectopacity').selectedIndex= 1*(config.charCodeAt(9)-65);
+  document.getElementById('titre').style.backgroundColor = document.getElementById('selectopacity').value; 
+  document.getElementById('partialtitre').style.backgroundColor = document.getElementById('selectopacity').value; 
+  document.getElementById('studentfeedback').style.backgroundColor = document.getElementById('selectopacity').value;
+
+  // Arrows
+  document.getElementById('arrowson').checked=(config.charAt(10) == "Y");
+  if (document.getElementById('arrowson').checked) {
+    document.getElementById('titreleft').style.visibility='visible'; 
+    document.getElementById('titrerightbis').style.visibility='visible'; 
+    document.getElementById('titreright').style.visibility='visible'; 
+    document.getElementById('spanarrowson').innerHTML='Yes !'; 
+  } else {
+    document.getElementById('spanarrowson').innerHTML='No.';
+    document.getElementById('titreleft').style.visibility='hidden'; 
+    document.getElementById('titrerightbis').style.visibility='hidden'; 
+    document.getElementById('titreright').style.visibility='hidden'; 
+  }
+  // Icons
+  document.getElementById('iconon').checked=(config.charAt(11) == "Y");
+  document.getElementById('spaniconon').innerHTML=(config.charAt(11) == "Y")?"Yes !":"No."; 
+  showEachIcon();
+
+  // Pin code
+  document.getElementById('pincodeon').checked=(config.charAt(12) == "Y");
+  document.getElementById('spanpincodeon').innerHTML=(config.charAt(12) == "Y")?"Yes !":"No."; 
+  document.getElementById('pincodediv').style.visibility=(config.charAt(12) == "Y")?"visible":"hidden"; 
+
+  // Micro
+  document.getElementById('microon').checked=(config.charAt(13) == "Y");
+  document.getElementById('spanmicroon').innerHTML=(config.charAt(13) == "Y")?"Yes !":"No."; 
+  document.getElementById('micon').style.visibility=(config.charAt(13) == "Y")?"visible":"hidden"; 
+
+  // Question
+  document.getElementById('questionon').checked=(config.charAt(14) == "Y");
+  document.getElementById('spanquestionon').innerHTML=(config.charAt(14) == "Y")?"Yes !":"No."; 
+  document.getElementById('questionicon').style.visibility=(config.charAt(14) == "Y")?"visible":"hidden"; 
+
+  // FS
+  document.getElementById('fson').checked=(config.charAt(15) == "Y");
+  document.getElementById('spanfson').innerHTML=(config.charAt(15) == "Y")?"Yes !":"No."; 
+  document.getElementById('FS').style.visibility=(config.charAt(15) == "Y")?"visible":"hidden"; 
+
   updateConfig();
 }
 

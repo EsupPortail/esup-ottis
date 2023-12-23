@@ -6,13 +6,15 @@
     header('Cache-Control: no-cache, must-revalidate');
 
 ?>
-<!doctype html>
-<html lang="fr-FR">
-<head>
+<!DOCTYPE html>
+<html lang="fr-FR"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Automatic translation for teaching purposes: Scenarios</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 
 @gray-darker:               #444444;
 @gray-dark:                 #696969;
@@ -51,12 +53,11 @@ img {
 }
 
 .btn {
-  background-color: white;
+  background-color: rgb(150,150,255);
   border: 1px solid @gray-light;
-  //border-radius: 1rem;
+  border-radius: 1rem;
   color: @gray-dark;
   padding: 0.5rem;
-  text-transform: lowercase;
 }
 
 .btn--block {
@@ -70,8 +71,6 @@ img {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-radius: 20px;
-
 }
 
 .cards__item {
@@ -83,6 +82,7 @@ img {
   @media(min-width: 56rem) {
     width: 33.3333%;
   }
+  border-radius: 20px;
 }
 
 .card {
@@ -97,6 +97,7 @@ img {
       filter: contrast(100%);
     }
   }
+  padding: 5px;
 }
 
 .card__content {
@@ -113,7 +114,7 @@ img {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
   filter: contrast(70%);
-  //filter: saturate(180%);
+  filter: saturate(180%);
   overflow: hidden;
   position: relative;
   transition: filter 0.5s cubic-bezier(.43,.41,.22,.91);;
@@ -129,23 +130,8 @@ img {
   }
 }
 
-.card__image--flowers {
-  background-image: url(https://unsplash.it/800/600?image=82);
-}
-
-.card__image--river {
-  background-image: url(https://unsplash.it/800/600?image=11);
-}
-
-.card__image--record {
-  background-image: url(https://unsplash.it/800/600?image=39);
-}
-
-.card__image--fence {
-  background-image: url(https://unsplash.it/800/600?image=59);
-}
-
 .card__title {
+  font-family: Fjalla One;
   color: @gray-dark;
   font-size: 1.25rem;
   font-weight: 300;
@@ -154,12 +140,22 @@ img {
 }
 
 .card__text {
+  font-family: 'Shadows Into Light', cursive;
   flex: 1 1 auto;
-  font-size: 0.875rem;
+//  font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 1.25rem;
 }
 
+.card__btn {
+  font-family: Fjalla One;
+}
+
+.details {
+  font-size: 0.9em;
+  height: 200px;
+  overflow: auto;
+}
     </style>
 </head>
 <body>
@@ -171,29 +167,40 @@ img {
       <div class="card__content">
         <div class="card__title">Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
-        <button class="btn btn--block card__btn">Go</button>
+        <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
+            &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
+            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
+            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
+            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+              <br/>
+          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes :<br/>
+          &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement.<br/>
+          &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
+          &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+        </p>
       </div>
+      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/?myconfig=AANAYKCNYC');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
         <div class="card__title">Sous-titrage anglais</div>
-        <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
-        <button class="btn btn--block card__btn">Go</button>
+        <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
+        <button class="btn btn--block card__btn">Y aller</button>
       </div>
     </div>
   </li>
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title">Flex Shrink</div>
-        <p class="card__text">This defines the ability for a flex item to shrink if necessary. Negative numbers are invalid.</p>
-        <p><input type="text" value="" placer-holder="lien public uncloud." class="btn btn--block card__btn"/></p>
-        <button class="btn btn--block card__btn">Go</button>
+        <div class="card__title">Sous-titrage anglais avec présentation .PPTX sur uncloud</div>
+        <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
+        <p><input type="text" placeholder="lien public uncloud." class="btn btn--block card__btn" /></p>
+        <button class="btn btn--block card__btn">Y aller</button>
       </div>
     </div>
   </li>
 </ul>
-</body>
-</html>
+
+</body></html>
