@@ -2620,9 +2620,14 @@ function applyConfig() {
 <script>
 $("body").tooltip();
 $( "#tabs" ).tabs();
-$("#tabs-4").accordion({
-      heightStyle: "content"
+$("#tabs-0").accordion({
+      heightStyle: "panel"
     });
+$("#tabs-4").accordion({
+      heightStyle: "panel"
+});
+
+
 //$( "#savenb" ).button();
 
 new QRCode(document.getElementById("sharedqr"), {
