@@ -805,10 +805,11 @@ var base = new URL(window.location.toLocaleString()).searchParams;
 var MaxSavedLines=10;
 var LoadPPTX=true;
 var zoomid='';
+var uncloudlink='';
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
 if (base.has('LoadPPTX')) LoadPPTX=true; 
 if (base.has('ZOOMID')) zoomid=base.get('ZOOMID'); 
-
+if (base.has('link')) uncloudlink=base.get('link');
 var visioactive=false;
 var AllOutputVoices=[];
 var TLangInput=[];
@@ -1299,7 +1300,7 @@ function completeHandler(event) {
     }
 }
 
-function SlideNotes() {
+function SlideNotes(uncloudlink) {
   var file = _("ppt_presentation").files[0];
   var scriptfile = "";
 //  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
@@ -1311,7 +1312,7 @@ function SlideNotes() {
   var formdata = new FormData();
   formdata.append("ppt_presentation", file);
   formdata.append("ACCESS", document.getElementById('classroomid').value);
-
+  if (uncloudlink != '') formdata.append("uncloudlink", uncloudlink);
   var xhr = new XMLHttpRequest();
 
   xhr.open("POST", scriptfile);
@@ -1618,6 +1619,7 @@ function Init() {
     hide('titlewooclap');
   }
   if (zoomid != '') startZoom(zoomid);
+  if (uncloudlink != '') SlideNotes(uncloudlink);
 }
 
 // Special ZOOM session
@@ -2527,7 +2529,7 @@ function applyConfig() {
 	<div id="tabs-5">
     <div>
     <label for="ppt_presentation">Powerpoint presentation : </label>
-    <input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes()" accept=".pptx,.odp,.txt,.html" max-size="50000"/>
+    <input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" max-size="50000"/>
     <label for="speechlanguage">Speech language : </label>
   <select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
   <option value="same" selected>Same as speaker</option>

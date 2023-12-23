@@ -2,7 +2,19 @@
 ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );
 
-$tmp_file = $_FILES['ppt_presentation']['tmp_name'];
+include("config.php");
+
+if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
+  $tmp_file="tmp/uncloudfile_".md5(gmdate("U")).".pptx";
+  $uncloudlink = $_POST["uncloudlink"];
+  if (strpos($uncloudlink,"download") === false) $uncloudlink.="/download";
+  if ()
+  $command = $proxy.'curl -q '.$uncloudlink.' -o '.$tmp_file;
+  $out=exec($command);
+} else {
+  $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
+}
+
 
 //if (! isset($_FILES['ppt_presentation'])) $tmp_file="../tmpfiles/input.pptx";
 
