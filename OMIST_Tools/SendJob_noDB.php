@@ -124,11 +124,11 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     }
 
     $json=json_encode([
-        'command_to_add' => $command_to_add,
-        'file_uploaded' => "$uploads_dir/$name_file",
+        'command_to_do' => $command_to_add,
+        'path_file' => "$uploads_dir/$name_file",
         'randompath' => $randompath,
-        'lfrom'=> $lfrom,
-        'lto' => $lto,
+        'lang_from'=> $lfrom,
+        'lang_to' => $lto,
         'sub_length'=>$Wraplength,
         'sub_punct'=> $NOPUNC,
         'path_file2'=>$speech,
