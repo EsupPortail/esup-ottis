@@ -151,6 +151,17 @@ img {
   font-family: Fjalla One;
 }
 
+.card__input {
+  font-family: Fjalla One;
+  background-color: rgb(150,150,255);
+  border: 1px solid rgb(150,150,255);
+  border-radius: 1rem;
+  color: @gray-dark;
+  padding: 0.5rem;
+  display: block;
+  width: 80%;
+}
+
 .details {
   font-size: 0.9em;
   height: 200px;
@@ -179,7 +190,7 @@ img {
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=AANAYKCNNCNNNYNN');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -251,6 +262,21 @@ img {
       <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
     </div>
   </li>
+  <li class="cards__item">
+    <div class="card">
+      <div class="card__content">
+        <div class="card__title">Préparation de séance</div>
+        <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
+        <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
+            <input type="text" class="class__input" id="persroomid" placeholder="Identifiant de séance libre" value=""/><br/>
+            <input type="text" class="class__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/><br/>
+            <input type="text" id="persolink" placeholder="lien public uncloud." class="card__input" />
+        </p>
+      </div>
+      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
+    </div>
+  </li>
+
 </ul>
 
 </body></html>
