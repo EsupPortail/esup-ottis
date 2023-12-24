@@ -288,6 +288,11 @@ img {
             </select>
             <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" />
             <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" />
+            <select id="persotheme" class="card__input">
+                <option selected disabled>Quel thème ?</option>
+                <option value="">Thème clair (par défaut)</option>
+                <option value="theme2">Thème sombre</option>
+            </select>
         </p>
       </div>
       <button class="btn btn--block card__btn" onclick="alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
