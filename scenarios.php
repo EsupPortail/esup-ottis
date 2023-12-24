@@ -268,13 +268,24 @@ img {
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
-            <input type="text" title="N'importe quelle mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/><br/>
+            <input type="text" title="N'importe quel mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/><br/>
             <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/><br/>
             <input type="text" id="persolink" placeholder="lien public uncloud." class="card__input" />
-            
+            <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
+            <select id="persotab" class="card__input">
+                <option selected disabled>Quelle onglet ouvert par défaut ?</option>
+                <option value="0">Onglet "Informations"</option>
+                <option value="1">Onglet "Classroom"</option>
+                <option value="2">Onglet "Notebook"</option>
+                <option value="3">Onglet "Complete lesson"</option>
+                <option value="4">Onglet "Slides"</option>
+                <option value="7">Onglet "Share"</option>
+                <option value="8">Onglet "WOOCLAP"</option>
+                <option value="9">Onglet "Slide Tools"</option>
+            </select>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
     </div>
   </li>
 
