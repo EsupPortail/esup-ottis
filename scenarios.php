@@ -295,6 +295,7 @@ img {
             </select>
         </p>
       </div>
+      <button class="btn btn--block card__btn" onclick="alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Générer le lien</button>
       <button class="btn btn--block card__btn" onclick="alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
     </div>
   </li>
