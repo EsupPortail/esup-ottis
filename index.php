@@ -1667,7 +1667,6 @@ function Init() {
   if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
   if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
   if (targettab > 0) document.getElementById('ttab-'+targettab).click();
-  applyConfig(); // applyConfig() est appelée deux fois
 }
 
 // Special ZOOM session
@@ -2348,7 +2347,7 @@ function applyConfig() {
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly('');">
+<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig();">
 
 
 <div id="Allbuttons">
