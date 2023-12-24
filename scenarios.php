@@ -268,9 +268,10 @@ img {
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
-            <input type="text" class="card__input" id="persroomid" placeholder="Identifiant de séance libre" value=""/><br/>
-            <input type="text" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/><br/>
+            <input type="text" title="N'importe quelle mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/><br/>
+            <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/><br/>
             <input type="text" id="persolink" placeholder="lien public uncloud." class="card__input" />
+            
         </p>
       </div>
       <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
