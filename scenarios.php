@@ -175,15 +175,15 @@ function _(e) {return document.getElementById(e);}
 
 function CreateLink() {
     res="";
-    if (_e('persroomid').value != "") res+="&ROOMID="+_e('persroomid').value;
-    if (_e('persmaxlines').value != "") res+="&MaxSavedLines="+_e('persmaxlines').value;
-    if (_e('persolink').value != "") res+="&link="+_e('persolink').value;
-    if (_e('persohtmllink').value != "") res+="&htmllink="+_e('persohtmllink').value;
-    if (_e('persoconfig').value != "") res+="&myconfig="+_e('persoconfig').value;
-    if (_e('persotab').value != "" && _e('persotab').value != "0") res+="&tab="+_e('persotab').value;
-    if (_e('persomicrosoftkey').value != "") res+="&MicrosoftKey="+_e('persomicrosoftkey').value;
-    if (_e('persomicrosoftregion').value != "") res+="&MicrosoftRegion="+_e('persomicrosoftregion').value;
-    if (_e('persotheme').value != "" && _e('persotheme').value != "0") res+="&theme="+_e('persotheme').value;
+    if (_('persroomid').value != "") res+="&ROOMID="+_('persroomid').value;
+    if (_('persmaxlines').value != "") res+="&MaxSavedLines="+_('persmaxlines').value;
+    if (_('persolink').value != "") res+="&link="+_('persolink').value;
+    if (_('persohtmllink').value != "") res+="&htmllink="+_('persohtmllink').value;
+    if (_('persoconfig').value != "") res+="&myconfig="+_('persoconfig').value;
+    if (_('persotab').value != "" && _('persotab').value != "0") res+="&tab="+_('persotab').value;
+    if (_('persomicrosoftkey').value != "") res+="&MicrosoftKey="+_('persomicrosoftkey').value;
+    if (_('persomicrosoftregion').value != "") res+="&MicrosoftRegion="+_('persomicrosoftregion').value;
+    if (_('persotheme').value != "" && _('persotheme').value != "0") res+="&theme="+_('persotheme').value;
     return res;
 }
 
