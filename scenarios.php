@@ -173,7 +173,7 @@ img {
 
 function _(e) {return document.getElementById(e);}
 
-function Createlink() {
+function CreateLink() {
     res="";
     if (_e('persroomid').value != "") res+="&ROOMID="+_e('persroomid').value;
     if (_e('persmaxlines').value != "") res+="&MaxSavedLines="+_e('persmaxlines').value;
