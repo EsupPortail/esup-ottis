@@ -808,6 +808,7 @@ var zoomid='';
 var uncloudlink='';
 var uncloudhtmllink='';
 var targettab=0;
+var window_location_href=window.location.href;
 
 if (base.has('MaxSavedLines')) MaxSavedLines=parseInt(base.get('MaxSavedLines'),10);
 if (base.has('LoadPPTX')) LoadPPTX=true; 
@@ -815,6 +816,8 @@ if (base.has('ZOOMID')) zoomid=base.get('ZOOMID');
 if (base.has('link')) uncloudlink=base.get('link');
 if (base.has('htmllink')) uncloudhtmllink=base.get('htmllink');
 if (base.has('tab')) targettab=base.get('tab');
+if (base.has('myconfig')) window_location_href=window_location_href.replace('myconfig='+base.get('myconfig')+'&','').replace('myconfig='+base.get('myconfig'),'');
+
 
 var visioactive=false;
 var AllOutputVoices=[];
@@ -2184,7 +2187,7 @@ function opentab(e) {
 if (isset($_GET["myconfig"])) {
   echo "var currentconfig='".$_GET["myconfig"]."';\n";
 } else {
-  echo "var currentconfig='AAYANABNY';\n";
+  echo "var currentconfig='ABYANACNNCNNYYYY';\n";
 }
 
 ?>
@@ -2210,16 +2213,16 @@ function updateConfig() {
   currentconfig=newConfig.join('');
   document.getElementById("myConfig").value=currentconfig;
   if (window.location.href.indexOf('?') >0) {
-	  document.getElementById("LinkConfig").href=window.location.href+'&myconfig='+document.getElementById("myConfig").value;
+	  document.getElementById("LinkConfig").href=window_location_href+'&myconfig='+document.getElementById("myConfig").value;
   } else {
-	  document.getElementById("LinkConfig").href=window.location.href+'?myconfig='+document.getElementById("myConfig").value;
+	  document.getElementById("LinkConfig").href=window_location_href+'?myconfig='+document.getElementById("myConfig").value;
   }
   document.getElementById("LinkConfig").innerHTML=document.getElementById("LinkConfig").href;
 }
 
 function applyConfig() {
   var config=currentconfig;
-  //if (config.length != 7) return;
+  if (config.length != "ABYANACNNCNNNYYY".length) return;
   // classroomlanguage
   document.getElementById('classroomlanguage').selectedIndex = 1*(config.charCodeAt(0)-65);
   setLanguageInput(document.getElementById('classroomlanguage').value);
