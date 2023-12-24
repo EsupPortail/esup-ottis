@@ -268,9 +268,12 @@ img {
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
+        Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
+        <br/>
             <input type="text" title="N'importe quel mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/>
             <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/>
-            <input type="text" id="persolink" placeholder="lien public uncloud." class="card__input" />
+            <input type="text" id="persolink" placeholder="lien public uncloud (PPTX)." class="card__input" />
+            <input type="text" id="persohtmllink" placeholder="lien public uncloud (HTML)." class="card__input" />
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
             <select id="persotab" class="card__input">
                 <option selected disabled>Quel onglet ouvert par défaut ?</option>
@@ -283,6 +286,8 @@ img {
                 <option value="8">Onglet "WOOCLAP"</option>
                 <option value="9">Onglet "Slide Tools"</option>
             </select>
+            <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" />
+            <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" />
         </p>
       </div>
       <button class="btn btn--block card__btn" onclick="alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
