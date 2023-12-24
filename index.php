@@ -1667,6 +1667,7 @@ function Init() {
   if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
   if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
   if (targettab > 0) document.getElementById('ttab-'+targettab).click();
+  applyConfig(); // applyConfig() est appelée deux fois
 }
 
 // Special ZOOM session
