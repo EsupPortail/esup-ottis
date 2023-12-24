@@ -159,7 +159,7 @@ img {
   color: @gray-dark;
   padding: 0.5rem;
   display: block;
-  width: 80%;
+  width: 100%;
 }
 
 .details {
@@ -268,12 +268,12 @@ img {
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
-            <input type="text" title="N'importe quel mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/><br/>
-            <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/><br/>
+            <input type="text" title="N'importe quel mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/>
+            <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/>
             <input type="text" id="persolink" placeholder="lien public uncloud." class="card__input" />
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
             <select id="persotab" class="card__input">
-                <option selected disabled>Quelle onglet ouvert par défaut ?</option>
+                <option selected disabled>Quel onglet ouvert par défaut ?</option>
                 <option value="0">Onglet "Informations"</option>
                 <option value="1">Onglet "Classroom"</option>
                 <option value="2">Onglet "Notebook"</option>
