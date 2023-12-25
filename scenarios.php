@@ -335,12 +335,8 @@ img {
 html {
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
   background-size: 200% 200%;
-  animation: moveFocus 5s ease infinite alternate;
 }
-@keyframes moveFocus { 
-  0%   { background-position: 0% 150% }
-  100% { background-position: 150% 0% }
-}
+
 </style>
 
 <script>
@@ -378,7 +374,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title">
+        <div class="card__title" data-tooltip="Essai">
     Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
