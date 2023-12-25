@@ -571,7 +571,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title" data-tooltip="Essai" data-tooltip-position="bottom">
+        <div class="card__title">
     Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
