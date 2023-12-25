@@ -197,7 +197,7 @@ var root = window.location.href.replace("/scenarios.php","");
 
 </script>
 </head>
-<body onload="console.log(window.location);">
+<body>
 
 
 <ul class="cards">
