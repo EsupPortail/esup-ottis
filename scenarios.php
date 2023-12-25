@@ -380,7 +380,7 @@ var root = window.location.href.replace("/scenarios.php","");
       <div class="card__content">
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
-        <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
+        <p class="card__text details" data-title="Test" class="tooltip expand">Ici, il est possible de personnaliser le lien de connexion.<br/>
         Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
         <br/>
             <input type="text" data-title="N'importe quel mot, sans espace" class="card__input tooltip expand" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  />
