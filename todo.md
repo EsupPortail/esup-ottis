@@ -12,7 +12,7 @@
 Petit point d'étape :
 1) J'ai intégré toutes les modifications faites dans les branches develop et master dans la branche test. J'ai aussi essayé de la nettoyer de tous les scripts obsolètes et inutiles (il y en a encore quelquesuns). La branche "test" est donc en train de devenir la future branche déployée sur le nouveau serveur. La branche "master" est celle qui sert pour le serveur misc actuellement en exploitation. A mon retour, on discutera de l'avenir de ces différentes branches.
 2) J'ai déployé sur misc la version test. Sur ce serveur, je n'ai pas été en mesure d'installer mysql. J'ai donc dupliqué les différents scripts (sendJob, isReady et ReadDatabase) pour faire en sorte qu'ils utilisent un fichier tampon plutôt qu'une BDD. ça fonctionne et c'est assez transparent. 
-3) J'ai aussi séparé les paramètres de configuration de la première page en plusieurs parties (avec un accordéon). Il commençait à y en avoir beaucoup sur la même page.
+3) J'ai aussi séparé les paramètres de configuration de la première page en plusieurs parties (avec un accordéon). Il commençait à y en avoir beaucoup sur la même page. Au passage, j'ai créé un onglet "Slide Tools", ça évite de chercher le lien.
 4) La semaine du 3/01, je te propose te regarder les différents points ci-dessous. Nb: il y en a pour plus d'une semaine (ce sont des choses que j'aimerai qu'on voit à partir de janvier), il ne s'agit donc pas de tout faire.
 - [ ] Te "pencher sur les retours qu'on a eu lors de la formation du 15 décembre et mettre en place un tutoriel pour l'utilisation des mots-clés pour les animations."
 - [ ] J'ai repéré quelques corrections à apporter
