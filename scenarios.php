@@ -12,6 +12,9 @@
     <title>Automatic translation for teaching purposes: Scenarios</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="jquery/jquery-ui.min.css" rel="stylesheet"/>
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.min.js"></script>
     <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
@@ -168,180 +171,11 @@ img {
   overflow: auto;
 }
 
-// Tooltips style
-
-/* 
-  You want a simple and fancy tooltip?
-  Just copy all [data-tooltip] blocks:
-*/
-[data-tooltip] {
-  --arrow-size: 5px;
-  position: relative;
-  z-index: 10;
-}
-
-/* Positioning and visibility settings of the tooltip */
-[data-tooltip]:before,
-[data-tooltip]:after {
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  left: 50%;
-  bottom: calc(100% + var(--arrow-size));
-  pointer-events: none;
-  transition: 0.2s;
-  will-change: transform;
-}
-
-/* The actual tooltip with a dynamic width */
-[data-tooltip]:before {
-  content: attr(data-tooltip);
-  padding: 10px 18px;
-  min-width: 50px;
-  max-width: 300px;
-  width: max-content;
-  width: -moz-max-content;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: rgba(59, 72, 80, 0.9);
-  background-image: linear-gradient(30deg,
-    rgba(59, 72, 80, 0.44),
-    rgba(59, 68, 75, 0.44),
-    rgba(60, 82, 88, 0.44));
-  box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.2);
-  color: #fff;
-  text-align: center;
-  white-space: pre-wrap;
-  transform: translate(-50%,  calc(0px - var(--arrow-size))) scale(0.5);
-}
-
-/* Tooltip arrow */
-[data-tooltip]:after {
-  content: '';
-  border-style: solid;
-  border-width: var(--arrow-size) var(--arrow-size) 0px var(--arrow-size); /* CSS triangle */
-  border-color: rgba(55, 64, 70, 0.9) transparent transparent transparent;
-  transition-duration: 0s; /* If the mouse leaves the element, 
-                              the transition effects for the 
-                              tooltip arrow are "turned off" */
-  transform-origin: top;   /* Orientation setting for the
-                              slide-down effect */
-  transform: translateX(-50%) scaleY(0);
-}
-
-/* Tooltip becomes visible at hover */
-[data-tooltip]:hover:before,
-[data-tooltip]:hover:after {
-  visibility: visible;
-  opacity: 1;
-}
-/* Scales from 0.5 to 1 -> grow effect */
-[data-tooltip]:hover:before {
-  transition-delay: 0.3s;
-  transform: translate(-50%, calc(0px - var(--arrow-size))) scale(1);
-}
-/* 
-  Arrow slide down effect only on mouseenter (NOT on mouseleave)
-*/
-[data-tooltip]:hover:after {
-  transition-delay: 0.5s; /* Starting after the grow effect */
-  transition-duration: 0.2s;
-  transform: translateX(-50%) scaleY(1);
-}
-/*
-  That's it for the basic tooltip.
-
-  If you want some adjustability
-  here are some orientation settings you can use:
-*/
-
-/* LEFT */
-/* Tooltip + arrow */
-[data-tooltip-location="left"]:before,
-[data-tooltip-location="left"]:after {
-  left: auto;
-  right: calc(100% + var(--arrow-size));
-  bottom: 50%;
-}
-
-/* Tooltip */
-[data-tooltip-location="left"]:before {
-  transform: translate(calc(0px - var(--arrow-size)), 50%) scale(0.5);
-}
-[data-tooltip-location="left"]:hover:before {
-  transform: translate(calc(0px - var(--arrow-size)), 50%) scale(1);
-}
-
-/* Arrow */
-[data-tooltip-location="left"]:after {
-  border-width: var(--arrow-size) 0px var(--arrow-size) var(--arrow-size);
-  border-color: transparent transparent transparent rgba(55, 64, 70, 0.9);
-  transform-origin: left;
-  transform: translateY(50%) scaleX(0);
-}
-[data-tooltip-location="left"]:hover:after {
-  transform: translateY(50%) scaleX(1);
-}
-
-
-
-/* RIGHT */
-[data-tooltip-location="right"]:before,
-[data-tooltip-location="right"]:after {
-  left: calc(100% + var(--arrow-size));
-  bottom: 50%;
-}
-
-[data-tooltip-location="right"]:before {
-  transform: translate(var(--arrow-size), 50%) scale(0.5);
-}
-[data-tooltip-location="right"]:hover:before {
-  transform: translate(var(--arrow-size), 50%) scale(1);
-}
-
-[data-tooltip-location="right"]:after {
-  border-width: var(--arrow-size) var(--arrow-size) var(--arrow-size) 0px;
-  border-color: transparent rgba(55, 64, 70, 0.9) transparent transparent;
-  transform-origin: right;
-  transform: translateY(50%) scaleX(0);
-}
-[data-tooltip-location="right"]:hover:after {
-  transform: translateY(50%) scaleX(1);
-}
-
-
-
-/* BOTTOM */
-[data-tooltip-location="bottom"]:before,
-[data-tooltip-location="bottom"]:after {
-  top: calc(100% + var(--arrow-size));
-  bottom: auto;
-}
-
-[data-tooltip-location="bottom"]:before {
-  transform: translate(-50%, var(--arrow-size)) scale(0.5);
-}
-[data-tooltip-location="bottom"]:hover:before {
-  transform: translate(-50%, var(--arrow-size)) scale(1);
-}
-
-[data-tooltip-location="bottom"]:after {
-  border-width: 0px var(--arrow-size) var(--arrow-size) var(--arrow-size);
-  border-color: transparent transparent rgba(55, 64, 70, 0.9) transparent;
-  transform-origin: bottom;
-}
 
 
 html {
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
   background-size: 200% 200%;
-}
-
-body {
-  padding: 0 4%;
-  display: flex;
-  flex-direction: row;
-  margin: auto 0;
 }
 
 </style>
@@ -381,7 +215,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title" data-tooltip="Essai" data-tooltip-position="bottom">
+        <div class="card__title" title="Essai">
     Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
@@ -396,7 +230,7 @@ var root = window.location.href.replace("/scenarios.php","");
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button data-tooltip="Essai2" data-tooltip-position="bottom" class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
+      <button title="Essai2" class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -508,4 +342,9 @@ var root = window.location.href.replace("/scenarios.php","");
 
 </ul>
 
-</body></html>
+</body>
+<script>
+  $( document ).tooltip();
+</script>
+
+</html>
