@@ -173,7 +173,7 @@ img {
 }
 
 .details {
-  font-size: 0.9rem;
+  font-size: 1.3em;
   height: 200px;
   overflow: auto;
 }
