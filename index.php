@@ -87,6 +87,7 @@ fclose($fd);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php if ($theme != "") {
     echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet"/>';
+    echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet"/>';
   } else {
     echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet"/>';
   }
