@@ -383,7 +383,7 @@ var root = window.location.href.replace("/scenarios.php","");
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
         Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
         <br/>
-            <input type="text" data-title="N'importe quel mot, sans espace" class="card__input tooltip expand" id="persroomid" placeholder="Identifiant de séance (libre)" value="" class="tooltip expand" />
+            <input type="text" data-title="N'importe quel mot, sans espace" class="card__input tooltip fade" id="persroomid" placeholder="Identifiant de séance (libre)" value="" class="tooltip expand" />
             <input type="text" data-title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value="" class="tooltip expand" />
             <input type="text" id="persolink" placeholder="lien public uncloud (PPTX)." class="card__input" />
             <input type="text" id="persohtmllink" placeholder="lien public uncloud (HTML)." class="card__input" />
