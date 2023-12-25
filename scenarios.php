@@ -193,7 +193,7 @@ function CreateLinkStudent() {
     return res;
 }
 
-
+var root = window.location.href.replace("/scenarios.php","");
 
 </script>
 </head>
@@ -218,7 +218,7 @@ function CreateLinkStudent() {
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -238,7 +238,7 @@ function CreateLinkStudent() {
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=ABYANKCNNCNNNYNN');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNN');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -254,7 +254,7 @@ function CreateLinkStudent() {
         </p>
       </div>
       <p><input type="text" id="SC31" placeholder="lien public uncloud." class="card__input" /></p>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -270,7 +270,7 @@ function CreateLinkStudent() {
         </p>
       </div>
       <p><input type="text" id="SC41" placeholder="lien public uncloud." class="card__input" /></p>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -287,7 +287,7 @@ function CreateLinkStudent() {
             &nbsp;&nbsp;Faire bien plus, la liste ici n'est pas exhaustive....
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?tab=9');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?tab=9');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -323,8 +323,8 @@ function CreateLinkStudent() {
             </select>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="var linkteacher = CreateLink(); var linkstudent=CreateLinkStudent(); if (linkstudent != '') linkstudent='\n\nEt voici le lien étudiant : \n https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/Student.php?'+linkstudent; alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?'+linkteacher+linkstudent);">Générer le lien</button>
-      <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?'+CreateLink());">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="var linkteacher = CreateLink(); var linkstudent=CreateLinkStudent(); if (linkstudent != '') linkstudent='\n\nEt voici le lien étudiant : \n '+root+'/Student.php?'+linkstudent; alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+root+'/index.php?'+linkteacher+linkstudent);">Générer le lien</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?'+CreateLink());">Y aller</button>
     </div>
   </li>
 
