@@ -337,6 +337,13 @@ html {
   background-size: 200% 200%;
 }
 
+body {
+  padding: 0 4%;
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
+}
+
 </style>
 
 <script>
