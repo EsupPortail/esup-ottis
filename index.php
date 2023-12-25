@@ -98,9 +98,6 @@ fclose($fd);
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
 
 	<style>
-
-body {background-color: black;}
-
 .jqueryselect, input[type="text"], textarea, button, input[type="file"] {
   border-radius: 7px;
   margin: 1px;
