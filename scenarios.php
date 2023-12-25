@@ -215,7 +215,7 @@ content: attr(data-title)
 		box-shadow: -1px -1px 20px #aaa
   }
 	&__test {
-		color: $cow
+		color: #555
 		box-shadow: 1px 1px 20px rgba(#555, 0.3)
   }
 }
