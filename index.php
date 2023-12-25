@@ -99,6 +99,8 @@ fclose($fd);
 
 	<style>
 
+body {background-color: black;}
+
 .jqueryselect, input[type="text"], textarea, button, input[type="file"] {
   border-radius: 7px;
   margin: 1px;
