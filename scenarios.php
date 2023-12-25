@@ -304,7 +304,7 @@ var root = window.location.href.replace("/scenarios.php","");
             <input type="text" id="persohtmllink" placeholder="lien public uncloud (HTML)." class="card__input" />
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
             <select id="persotab" class="card__input">
-                <option selected disabled>Quel onglet ouvert par défaut ?</option>
+                <option value="0" selected disabled>Quel onglet ouvert par défaut ?</option>
                 <option value="0">Onglet "Informations"</option>
                 <option value="1">Onglet "Classroom"</option>
                 <option value="2">Onglet "Notebook"</option>
@@ -317,7 +317,7 @@ var root = window.location.href.replace("/scenarios.php","");
             <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" />
             <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" />
             <select id="persotheme" class="card__input">
-                <option selected disabled>Quel thème ?</option>
+                <option value="" selected disabled>Quel thème ?</option>
                 <option value="">Thème clair (par défaut)</option>
                 <option value="theme2">Thème sombre</option>
             </select>
