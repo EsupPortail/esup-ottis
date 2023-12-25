@@ -152,6 +152,7 @@ img {
   font-family: 'Amatic SC', sans-serif;
   flex: 1 1 auto;
 //  font-size: 0.875rem;
+  font-size: 1.5em;
   line-height: 1.5;
   margin-bottom: 1.25rem;
 }
