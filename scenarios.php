@@ -170,88 +170,55 @@ img {
 
 // Tooltips style
 
-/* setup tooltips */
 .tooltip {
-  position: relative;
+content: attr(data-title)
+	padding: 10px
+	position: absolute
+	width: auto
+	white-space: nowrap
+	word-wrap: no-wrap
+	box-shadow: 1px 1px 20px #aaa
+	border-radius: 5px
+	background-color: #fff
+	top: 40px
+	left: 50%
+	transform: translate(-50%)
+	transform-style: preserve-3d
+	z-index: 200
+	font-size: 0.9em
+	display: none
+	&:after {
+		content: ''
+		position: absolute
+		display: block
+		width: 10px
+		height: 10px
+		transform-origin: 50% 50%
+		transform: rotate(45deg) translateX(-50%)
+		background-color: #fff
+		left: 50%
+		top: -1px
+		z-index: 400
+  }
+	&:before {
+		content: ''
+		display: block
+		position: absolute
+		width: 10px
+		height: 10px
+		transform-origin: 50% 50%
+		transform: rotate(45deg) translateX(-50%) translateZ(-1px)
+		background-color: #fff
+		left: 50%
+		top: 0px
+		z-index: -1
+		box-shadow: -1px -1px 20px #aaa
+  }
+	&__test {
+		color: $cow
+		box-shadow: 1px 1px 20px rgba(#555, 0.3)
+  }
 }
-.tooltip:before,
-.tooltip:after {
-  display: block;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-}
-.tooltip:after {
-	border-right: 6px solid transparent;
-	border-bottom: 6px solid rgba(0,0,0,.75); 
-  border-left: 6px solid transparent;
-  content: '';
-  height: 0;
-    top: 20px;
-    left: 20px;
-  width: 0;
-}
-.tooltip:before {
-  background: rgba(0,0,0,.75);
-  border-radius: 2px;
-  color: #fff;
-  content: attr(data-title);
-  font-size: 14px;
-  padding: 6px 10px;
-    top: 26px;
-  white-space: nowrap;
-}
-
-/* the animations */
-/* fade */
-.tooltip.fade:after,
-.tooltip.fade:before {
-  transform: translate3d(0,-10px,0);
-  transition: all .15s ease-in-out;
-}
-.tooltip.fade:hover:after,
-.tooltip.fade:hover:before {
-  opacity: 1;
-  transform: translate3d(0,0,0);
-}
-
-/* expand */
-.tooltip.expand:before {
-  transform: scale3d(.2,.2,1);
-  transition: all .2s ease-in-out;
-}
-.tooltip.expand:after {
-  transform: translate3d(0,6px,0);
-  transition: all .1s ease-in-out;
-}
-.tooltip.expand:hover:before,
-.tooltip.expand:hover:after {
-  opacity: 1;
-  transform: scale3d(1,1,1);
-}
-.tooltip.expand:hover:after {
-  transition: all .2s .1s ease-in-out;
-}
-
-/* swing */
-.tooltip.swing:before,
-.tooltip.swing:after {
-  transform: translate3d(0,30px,0) rotate3d(0,0,1,60deg);
-  transform-origin: 0 0;
-  transition: transform .15s ease-in-out, opacity .2s;
-}
-.tooltip.swing:after {
-  transform: translate3d(0,60px,0);
-  transition: transform .15s ease-in-out, opacity .2s;
-}
-.tooltip.swing:hover:before,
-.tooltip.swing:hover:after {
-  opacity: 1;
-  transform: translate3d(0,0,0) rotate3d(1,1,1,0deg);
-}
-
-
-
     </style>
 
 <script>
@@ -289,7 +256,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title">Transcription instantanée</div>
+        <div class="card__title tooltip tooltip__test" data-title="Essai">Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
@@ -380,7 +347,7 @@ var root = window.location.href.replace("/scenarios.php","");
       <div class="card__content">
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
-        <p class="card__text details" data-title="Test" class="tooltip expand">Ici, il est possible de personnaliser le lien de connexion.<br/>
+        <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
         Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
         <br/>
             <input type="text" data-title="N'importe quel mot, sans espace" class="card__input tooltip expand" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  />
