@@ -215,7 +215,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title" title="Essai">
+        <div class="card__title" >
     Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
@@ -230,7 +230,7 @@ var root = window.location.href.replace("/scenarios.php","");
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button title="Essai2" class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=AANAYKCYNCNNNYNN');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
@@ -310,12 +310,12 @@ var root = window.location.href.replace("/scenarios.php","");
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
         Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
         <br/>
-            <input type="text" data-tooltip="Essai2" data-tooltip-position="bottom" title="N'importe quel mot, sans espace" class="card__input tooltip expand" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  />
-            <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""  />
-            <input type="text" id="persolink" placeholder="lien public uncloud (PPTX)." class="card__input" />
-            <input type="text" id="persohtmllink" placeholder="lien public uncloud (HTML)." class="card__input" />
+            <input type="text" title="Définissez ici l'identifiant de connexion au cours. Il peut s'agir de n'importe quel mot, sans espace." class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  />
+            <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""  />
+            <input type="text" id="persolink" title="Coller ici le lkien uncloud public de l'endroit où se trouve l'anmation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input" />
+            <input type="text" id="persohtmllink" title="Coller ici le lkien uncloud public de l'endroit où se trouve l'anmation html que vous souhaitez utiiser" placeholder="lien public uncloud (HTML)." class="card__input" />
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
-            <select id="persotab" class="card__input">
+            <select id="persotab" class="card__input" title="Choix de la fenêtre qui sera ouverte par défaut.">
                 <option value="0" selected disabled>Quel onglet ouvert par défaut ?</option>
                 <option value="0">Onglet "Informations"</option>
                 <option value="1">Onglet "Classroom"</option>
@@ -328,7 +328,7 @@ var root = window.location.href.replace("/scenarios.php","");
             </select>
             <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" />
             <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" />
-            <select id="persotheme" class="card__input">
+            <select id="persotheme" class="card__input" title="Choix du thème de l'application. Pour le moment, il n'y a que deux thèmes disponibles">
                 <option value="" selected disabled>Quel thème ?</option>
                 <option value="">Thème clair (par défaut)</option>
                 <option value="theme2">Thème sombre</option>
