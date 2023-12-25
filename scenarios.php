@@ -197,7 +197,7 @@ function CreateLinkStudent() {
 
 </script>
 </head>
-<body>
+<body onload="console.log(window.location);">
 
 
 <ul class="cards">
