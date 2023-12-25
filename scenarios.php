@@ -19,6 +19,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 @gray-darker:               #444444;
 @gray-dark:                 #696969;
@@ -145,7 +146,8 @@ img {
 
 .card__text {
 //  font-family: 'Shadows Into Light', cursive;
-  font-family: 'Inria Sans', sans-serif;
+//  font-family: 'Permanent Marker', cursive;
+//  font-family: 'Inria Sans', sans-serif;
   flex: 1 1 auto;
 //  font-size: 0.875rem;
   line-height: 1.5;
