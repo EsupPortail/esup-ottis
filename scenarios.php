@@ -441,7 +441,7 @@ var root = window.location.href.replace("/scenarios.php","");
         </p>
       </div>
       <p><input type="text" id="SC41" placeholder="lien public uncloud." class="card__input" /></p>
-      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
+      <button data-tooltip="Essai2" data-tooltip-position="bottom" class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
