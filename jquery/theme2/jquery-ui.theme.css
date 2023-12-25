@@ -444,3 +444,4 @@ a.ui-button:active,
 	-webkit-box-shadow: -6px -6px 6px #303030;
 	box-shadow: -6px -6px 6px #303030;
 }
+body,html {background-color: black;}
