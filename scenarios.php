@@ -167,6 +167,91 @@ img {
   height: 200px;
   overflow: auto;
 }
+
+// Tooltips style
+
+/* setup tooltips */
+.tooltip {
+  position: relative;
+}
+.tooltip:before,
+.tooltip:after {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
+.tooltip:after {
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid rgba(0,0,0,.75); 
+  border-left: 6px solid transparent;
+  content: '';
+  height: 0;
+    top: 20px;
+    left: 20px;
+  width: 0;
+}
+.tooltip:before {
+  background: rgba(0,0,0,.75);
+  border-radius: 2px;
+  color: #fff;
+  content: attr(data-title);
+  font-size: 14px;
+  padding: 6px 10px;
+    top: 26px;
+  white-space: nowrap;
+}
+
+/* the animations */
+/* fade */
+.tooltip.fade:after,
+.tooltip.fade:before {
+  transform: translate3d(0,-10px,0);
+  transition: all .15s ease-in-out;
+}
+.tooltip.fade:hover:after,
+.tooltip.fade:hover:before {
+  opacity: 1;
+  transform: translate3d(0,0,0);
+}
+
+/* expand */
+.tooltip.expand:before {
+  transform: scale3d(.2,.2,1);
+  transition: all .2s ease-in-out;
+}
+.tooltip.expand:after {
+  transform: translate3d(0,6px,0);
+  transition: all .1s ease-in-out;
+}
+.tooltip.expand:hover:before,
+.tooltip.expand:hover:after {
+  opacity: 1;
+  transform: scale3d(1,1,1);
+}
+.tooltip.expand:hover:after {
+  transition: all .2s .1s ease-in-out;
+}
+
+/* swing */
+.tooltip.swing:before,
+.tooltip.swing:after {
+  transform: translate3d(0,30px,0) rotate3d(0,0,1,60deg);
+  transform-origin: 0 0;
+  transition: transform .15s ease-in-out, opacity .2s;
+}
+.tooltip.swing:after {
+  transform: translate3d(0,60px,0);
+  transition: transform .15s ease-in-out, opacity .2s;
+}
+.tooltip.swing:hover:before,
+.tooltip.swing:hover:after {
+  opacity: 1;
+  transform: translate3d(0,0,0) rotate3d(1,1,1,0deg);
+}
+
+
+
     </style>
 
 <script>
@@ -298,8 +383,8 @@ var root = window.location.href.replace("/scenarios.php","");
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
         Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
         <br/>
-            <input type="text" title="N'importe quel mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/>
-            <input type="text" title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/>
+            <input type="text" class="tooltip expand" data-title="N'importe quel mot, sans espace" class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""/>
+            <input type="text" class="tooltip expand" data-title="valeur conseillée : 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""/>
             <input type="text" id="persolink" placeholder="lien public uncloud (PPTX)." class="card__input" />
             <input type="text" id="persohtmllink" placeholder="lien public uncloud (HTML)." class="card__input" />
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
