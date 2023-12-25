@@ -153,8 +153,8 @@ img {
 
 .card__input {
   font-family: Fjalla One;
-  background-color: rgb(150,150,255);
-  border: 1px solid rgb(150,150,255);
+  background-color: rgb(150,255,150);
+  border: 1px solid rgb(150,255,150);
   border-radius: 1rem;
   color: @gray-dark;
   padding: 0.5rem;
@@ -186,6 +186,14 @@ function CreateLink() {
     if (_('persotheme').value != "" && _('persotheme').value != "0") res+="&theme="+_('persotheme').value;
     return res;
 }
+
+function CreateLinkStudent() {
+    res="";
+    if (_('persroomid').value != "") res+="&ROOMID="+_('persroomid').value;
+    return res;
+}
+
+
 
 </script>
 </head>
@@ -245,7 +253,7 @@ function CreateLink() {
             &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <p><input type="text" id="SC31" placeholder="lien public uncloud." class="btn btn--block card__btn" /></p>
+      <p><input type="text" id="SC31" placeholder="lien public uncloud." class="card__input" /></p>
       <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
     </div>
   </li>
@@ -261,7 +269,7 @@ function CreateLink() {
             &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <p><input type="text" id="SC41" placeholder="lien public uncloud." class="btn btn--block card__btn" /></p>
+      <p><input type="text" id="SC41" placeholder="lien public uncloud." class="card__input" /></p>
       <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
     </div>
   </li>
@@ -315,7 +323,7 @@ function CreateLink() {
             </select>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?'+CreateLink());">Générer le lien</button>
+      <button class="btn btn--block card__btn" onclick="var linkteacher = CreateLink(); var linkstudent=CreateLinkStudent(); if (linkstudent != '') linkstudent='\n\nEt voici le lien étudiant : \n https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/Student.php?'+linkstudent; alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+'https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?'+linkteacher+linkstudent);">Générer le lien</button>
       <button class="btn btn--block card__btn" onclick="window.open('https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/index.php?'+CreateLink());">Y aller</button>
     </div>
   </li>
