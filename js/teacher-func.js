@@ -1,7 +1,7 @@
 // Basic functions
 
 function _(el) {
-    return _(el);
+    return document.getElementById(el);
 }
 
 
