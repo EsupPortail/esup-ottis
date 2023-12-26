@@ -9,16 +9,8 @@ Main stylesheet for Teacher application
 }
 
 .yesno {
+  display:none;
 }
-
-.yesno:contains('Yes') {
-  color:#2c974b;
-}
-
-.yesno:contains('No') {
-  color:red;
-}
-
 
 button {
 	cursor: pointer;
