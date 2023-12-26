@@ -1,3 +1,12 @@
+// Basic functions
+
+function _(el) {
+    return _(el);
+}
+
+
+
+
 // Student feedback
 
 function StudentParleThen(txt, f) {
@@ -14,7 +23,7 @@ var Studentinputnumber = -1;
 
 function StudentTranslate(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value + "&lineid=" + lineid, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -40,7 +49,7 @@ function StudentTranslate(ch, l, linput, lineid) {
 
 function StudentTranslate2(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value + "&lineid=" + lineid, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
     };
@@ -111,7 +120,7 @@ function StudentCompleteSpeech() {
 function StudentreadText() {
     var synthesison = true;
     if (synthesison) {
-        if (document.getElementById('classroomid').value != "") {
+        if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "readtext.php");
             AbortTimeout(request);
@@ -119,7 +128,7 @@ function StudentreadText() {
             var f = new FormData();
             f.append('lineid', Studentinputnumber);
             f.append('ORDER', Studentcurrentorder_readtext);
-            f.append('ROOMID', document.getElementById('classroomid').value);
+            f.append('ROOMID', _('classroomid').value);
             request.send(f);
             request.onload = function(event) {
                 var T = request.responseText.split('\n');
@@ -157,23 +166,23 @@ function StudentreadText() {
 
 function myalert(ch) {
     ch = ch.replaceAll("\n", "<br/>");
-    document.getElementById('dialog-invite-p').innerHTML = ch;
+    _('dialog-invite-p').innerHTML = ch;
     $("#dialog-invite").dialog("open");
 }
 
 function InviteExternal() {
-    if (document.getElementById('classroomid').value != "") {
+    if (_('classroomid').value != "") {
         var request = new XMLHttpRequest();
         request.open("POST", "createExternal.php");
         AbortTimeout(request);
         var f = new FormData();
-        f.append('ROOMID', document.getElementById('classroomid').value);
-        f.append('DURATION', document.getElementById('duration').value);
+        f.append('ROOMID', _('classroomid').value);
+        f.append('DURATION', _('duration').value);
         request.send(f);
         request.onload = function(event) {
             var T = request.responseText.trim();
             if (T == 'ok') {
-                var link = document.getElementById('teacherlink').href.replace("index.php", "indexExternal.php");
+                var link = _('teacherlink').href.replace("index.php", "indexExternal.php");
                 navigator.clipboard.writeText(link);
                 myalert('External guest created !\nThe following link has been copied. It must be used in the next 7 days.\n<a href="' + link + '">' + link + '</a>');
             }
@@ -185,7 +194,7 @@ function InviteExternal() {
 
 
 function PopulateVoicesOut() {
-    var select = document.getElementById('VoiceOutput');
+    var select = _('VoiceOutput');
     AllOutputVoices = [];
     while (select.firstChild) {
         select.removeChild(select.firstChild);
@@ -204,7 +213,7 @@ function PopulateVoicesOut() {
 }
 
 function PopulateVoicesIn() {
-    var select = document.getElementById('classroomlanguage');
+    var select = _('classroomlanguage');
     var voices = window.speechSynthesis.getVoices();
     TLangInput = [];
 
@@ -225,7 +234,7 @@ function PopulateVoicesIn() {
 
 function PopulateVoicesIn() {
     if (TLangInput.length == 0) {
-        var select = document.getElementById('classroomlanguage');
+        var select = _('classroomlanguage');
         //var voices = window.speechSynthesis.getVoices();
         TLangInput = [];
 
@@ -247,7 +256,7 @@ function PopulateVoicesIn() {
 }
 
 function PopulateSubtitlesLang() {
-    var select = document.getElementById('subtitlelanguage');
+    var select = _('subtitlelanguage');
     for (var i = 0; i < supportedlanguages.length; i++) {
         var lang = supportedlanguages[i].code; //.substr(0,5);
         var opt = document.createElement("option");
@@ -262,7 +271,7 @@ function PopulateSubtitlesLang() {
 }
 
 function PopulateSpeechLang() {
-    var select = document.getElementById('speechlanguage');
+    var select = _('speechlanguage');
     for (var i = 0; i < supportedlanguages.length; i++) {
         var lang = supportedlanguages[i].code; //.substr(0,5);
         var opt = document.createElement("option");
@@ -306,18 +315,18 @@ var readytotalk = true;
 
 function ready() {
     readytotalk = true;
-    document.getElementById('bready').style.backgroundColor = 'green';
+    _('bready').style.backgroundColor = 'green';
     StartSpeechRecognition(Traduction);
 }
 
 function notready() {
     StopSpeechRecognition();
     readytotalk = false;
-    document.getElementById('bready').style.backgroundColor = 'red';
+    _('bready').style.backgroundColor = 'red';
 }
 
 function RemoveVerbalTics(ch) {
-    var T_verbaltics = document.getElementById('verbaltics').value.trim().split("\n");
+    var T_verbaltics = _('verbaltics').value.trim().split("\n");
     var ch2 = ch;
     for (var i = 0; i < T_verbaltics.length; i++) {
         var fromword = T_verbaltics[i].trim();
@@ -339,12 +348,12 @@ function RemoveVerbalTics(ch) {
 
 function Traduction(ch) {
     ch = RemoveVerbalTics(ch);
-    var recognitionon = document.getElementById('recognitionon').checked;
+    var recognitionon = _('recognitionon').checked;
     if (recognitionon) {
         //EcrireNB(ch);
         //EcrireTitle(ch);
         saveText(ch);
-        var liveon = document.getElementById('liveon').checked;
+        var liveon = _('liveon').checked;
         if (liveon) {
             if (readytotalk) {
                 notready();
@@ -362,7 +371,7 @@ function Traduction(ch) {
 
 function Translate(ch, l, linput) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -388,7 +397,7 @@ function Translate(ch, l, linput) {
 
 function TranslateThen(ch, l, linput, f) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -413,12 +422,6 @@ function TranslateThen(ch, l, linput, f) {
 }
 
 
-
-
-function _(el) {
-    return document.getElementById(el);
-}
-
 function progressHandler(event) {
     var percent = (event.loaded / event.total) * 100;
     _("progressBar").value = Math.round(percent);
@@ -427,7 +430,7 @@ function progressHandler(event) {
 
 function addSlideToNB(ch) {
     var tobesaidbetweenslides = '';
-    if (document.getElementById('tobesaid').value != '') tobesaidbetweenslides = document.getElementById('tobesaid').value + '.';
+    if (_('tobesaid').value != '') tobesaidbetweenslides = _('tobesaid').value + '.';
     addToNB(tobesaidbetweenslides, 0);
     var Tch = ch.split('<br/>');
     for (var i = 0; i < Tch.length; i++) {
@@ -436,16 +439,16 @@ function addSlideToNB(ch) {
 }
 
 function addToNB(ch, before) {
-    var speechlanguage = document.getElementById('speechlanguage').value;
+    var speechlanguage = _('speechlanguage').value;
     var tobeinserted = '';
     if (speechlanguage != 'same') tobeinserted = speechlanguage + ':|:';
     var tobesaidbetweenslides = '';
-    if (before == 1 && document.getElementById('tobesaid').value != '') tobesaidbetweenslides = tobeinserted + document.getElementById('tobesaid').value + '. <br/>';
+    if (before == 1 && _('tobesaid').value != '') tobesaidbetweenslides = tobeinserted + _('tobesaid').value + '. <br/>';
 
     ch = tobesaidbetweenslides + tobeinserted + ch;
-    //document.getElementById('notebook').innerHTML+='<br/>'+ch;
+    //_('notebook').innerHTML+='<br/>'+ch;
     //EcrireTitle(ch);
-    //saveTextNB(document.getElementById('notebook').innerHTML);
+    //saveTextNB(_('notebook').innerHTML);
     var Tch = ch.split('<br/>');
     saveTextTable(Tch, 0);
     //for(var c in Tch) saveText(Tch[c].replace(/<br\/>/gi,"").replace(/<br>/gi,""));
@@ -492,11 +495,11 @@ function ShowImage(n) {
     if (n != previousimage) {
         EcrireNBonly('---------- Slide ' + n + ' ----------');
         previousimage = n;
-        //console.log('IMG OBJ = '+document.getElementById("img_"+n));
-        //console.log('IMG URL = "'+document.getElementById("img_"+n).src+'"');
-        document.getElementById('titreright').innerHTML = n;
-        if (document.getElementById("img_" + n) && document.getElementById("img_" + n).src.length > 200) {
-            document.getElementById("img_slides").src = document.getElementById("img_" + n).src;
+        //console.log('IMG OBJ = '+_("img_"+n));
+        //console.log('IMG URL = "'+_("img_"+n).src+'"');
+        _('titreright').innerHTML = n;
+        if (_("img_" + n) && _("img_" + n).src.length > 200) {
+            _("img_slides").src = _("img_" + n).src;
             resizeSlides();
 
             // Diffusion Image
@@ -504,7 +507,7 @@ function ShowImage(n) {
             request.open("POST", "saveimage.php");
             var f = new FormData();
             f.append('random', Math.floor(Math.random() * 10000));
-            var imageurl = document.getElementById("img_" + n).src;
+            var imageurl = _("img_" + n).src;
             /*
             var nimages=0;
             var maxcar=10000;
@@ -519,7 +522,7 @@ function ShowImage(n) {
             var realData = block[1].split(",")[1];
             var blob = b64toBlob(realData, contentType);
             f.append("image", blob);
-            f.append('ROOMID', document.getElementById('classroomid').value);
+            f.append('ROOMID', _('classroomid').value);
             request.send(f);
             AbortTimeout(request);
             //	request.onload = function(event) {};
@@ -549,7 +552,7 @@ function formateresponse(datatxt) {
             //alert("The presentation contains "+slide["Images"].length+" images");
             var toexec = "";
             for (var j = 1; j <= slide["Images"].length; j++) {
-                toexec += "document.getElementById('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
+                toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
             }
             setTimeout(toexec, 10);
         } else {
@@ -585,11 +588,11 @@ function saveremotespeech() {
         var currentDiscoursB = (currentDiscours - 1 + currentPresentation.length) % currentPresentation.length;
         var currentDiscoursA = (currentDiscours + 1) % currentPresentation.length;
         var txt = currentPresentation[currentDiscoursB]['Discours'] + ':|:' + currentPresentation[currentDiscours]['Discours'] + ':|:' + currentPresentation[currentDiscoursA]['Discours'];
-        if (document.getElementById('classroomid').value != "") {
+        if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "savespeechforremote.php");
             var f = new FormData();
-            f.append('ROOMID', document.getElementById('classroomid').value);
+            f.append('ROOMID', _('classroomid').value);
             f.append('SPEECH', txt);
             request.send(f);
             AbortTimeout(request);
@@ -690,7 +693,7 @@ function SlideNotes() {
     }
     var formdata = new FormData();
     formdata.append("ppt_presentation", file);
-    formdata.append("ACCESS", document.getElementById('classroomid').value);
+    formdata.append("ACCESS", _('classroomid').value);
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", scriptfile);
@@ -700,7 +703,7 @@ function SlideNotes() {
     /*  xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
           var response = JSON.parse(this.responseText);
-          document.getElementById('notebookcompleteformatted').innerHTML = "<pre>"+response+"</pre>";
+          _('notebookcompleteformatted').innerHTML = "<pre>"+response+"</pre>";
           alert(response);
         }
       };
@@ -717,7 +720,7 @@ function SlideNotes() {
 function SlideNotesUncloud(uncloudlink) {
     var scriptfile = "ExtractSlidesNotes_PPTX_images.php";
     var formdata = new FormData();
-    formdata.append("ACCESS", document.getElementById('classroomid').value);
+    formdata.append("ACCESS", _('classroomid').value);
     formdata.append("uncloudlink", uncloudlink);
     var xhr = new XMLHttpRequest();
 
@@ -736,7 +739,7 @@ function SlideNotesUncloud(uncloudlink) {
 function SlideNotesUncloudHtml(uncloudhtmllink) {
     var scriptfile = "ExtractSlidesNotesAppHTML.php";
     var formdata = new FormData();
-    formdata.append("ACCESS", document.getElementById('classroomid').value);
+    formdata.append("ACCESS", _('classroomid').value);
     formdata.append("uncloudlink", uncloudhtmllink);
     var xhr = new XMLHttpRequest();
 
@@ -769,7 +772,7 @@ function StartSpeechRecognition(callback) {
                 }
             }
             if (partial.trim() != '') {
-                if (document.getElementById('recognitionon').checked) EcrirePartial(RemoveVerbalTics(partial));
+                if (_('recognitionon').checked) EcrirePartial(RemoveVerbalTics(partial));
             }
             //builtin_recognition.stop();
         }
@@ -799,18 +802,18 @@ function InitVoices() {
 }
 
 function EcrireNB(ch) {
-    // if (document.getElementById('notebook').innerHTML == "")
-    //  document.getElementById('notebook').innerHTML=ch;
+    // if (_('notebook').innerHTML == "")
+    //  _('notebook').innerHTML=ch;
     //else 
-    document.getElementById('notebook').innerHTML = document.getElementById('notebook').innerHTML + ch + "<br/>";
+    _('notebook').innerHTML = _('notebook').innerHTML + ch + "<br/>";
     //EcrireTitle(ch);
 }
 
 function EcrireNBonly(ch) {
-    document.getElementById('notebook').innerHTML = document.getElementById('notebook').innerHTML + ch + "<br/>";
-    //  if (document.getElementById('notebook').innerHTML == "")
-    //    document.getElementById('notebook').innerHTML=ch;
-    //  else document.getElementById('notebook').innerHTML=document.getElementById('notebook').innerHTML+"<br/>"+ch;
+    _('notebook').innerHTML = _('notebook').innerHTML + ch + "<br/>";
+    //  if (_('notebook').innerHTML == "")
+    //    _('notebook').innerHTML=ch;
+    //  else _('notebook').innerHTML=_('notebook').innerHTML+"<br/>"+ch;
 }
 
 
@@ -822,40 +825,40 @@ function EcrireTitle(ch) {
         ch = Tch[1];
     }
     var loutput = subtitle_language.substr(0, 2).toLowerCase();
-    if ((!document.getElementById('subtitleon').checked) || (linput == loutput)) {
-        document.getElementById('titre').innerHTML = ch;
+    if ((!_('subtitleon').checked) || (linput == loutput)) {
+        _('titre').innerHTML = ch;
         // for scrollbar
         setScrollvalues(ch.length);
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
-            document.getElementById('titre').innerHTML = ch;
+            _('titre').innerHTML = ch;
             setScrollvalues(ch.length);
         });
     }
 }
 
 function EcrirePartial(ch) {
-    if (ch != 'undefined' && ch != undefined) document.getElementById('partialtitre').innerHTML = ch;
+    if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
 }
 
 function EcrireFeedback(ch) {
     EcrireNBonly(ch);
-    document.getElementById('titre').innerHTML = ch;
-    document.getElementById('studentfeedback').innerHTML = ch;
+    _('titre').innerHTML = ch;
+    _('studentfeedback').innerHTML = ch;
 }
 
 function Ecrire(ch) {
-    if (document.getElementById('output').innerHTML == "")
-        document.getElementById('output').innerHTML = ch;
-    else document.getElementById('output').innerHTML = ch + "<br/>" + document.getElementById('output').innerHTML;
+    if (_('output').innerHTML == "")
+        _('output').innerHTML = ch;
+    else _('output').innerHTML = ch + "<br/>" + _('output').innerHTML;
 }
 
 function hide(e) {
-    document.getElementById(e).style.display = 'none';
+    _(e).style.display = 'none';
 }
 
 function show(e) {
-    document.getElementById(e).style.display = 'block';
+    _(e).style.display = 'block';
 }
 
 
@@ -875,7 +878,7 @@ function saveText(ch) {
     inputnumber++;
     f.append('text', ch);
     f.append('inputlanguage', inputlanguage);
-    f.append('ROOMID', document.getElementById('classroomid').value);
+    f.append('ROOMID', _('classroomid').value);
     f.append('LastLines', MaxSavedLines);
     request.send(f);
     AbortTimeout(request);
@@ -891,7 +894,7 @@ function saveTextNB(ch) {
     inputnumber = ch.split('<br/>').length;
     f.append('text', ch);
     f.append('inputlanguage', builtin_language);
-    f.append('ROOMID', document.getElementById('classroomid').value);
+    f.append('ROOMID', _('classroomid').value);
     request.send(f);
     AbortTimeout(request);
 
@@ -942,9 +945,9 @@ function Init() {
     PopulateSubtitlesLang();
     PopulateSpeechLang();
 
-    /*  document.getElementById('question').addEventListener('keyup', function (event) {
+    /*  _('question').addEventListener('keyup', function (event) {
         if (event.code === 'Enter') {
-            saveTextQ(document.getElementById('question').value);
+            saveTextQ(_('question').value);
           event.preventDefault();
           event.stopPropagation();
         }
@@ -952,9 +955,9 @@ function Init() {
     */
     resizeSlides();
 
-    document.getElementById('pincode').value = ("" + Math.floor(100000 + Math.random() * 100000)).substr(1);
-    document.getElementById('sharedpin').innerHTML = document.getElementById('pincode').value;
-    document.getElementById('sharedpin2').innerHTML = document.getElementById('pincode').value;
+    _('pincode').value = ("" + Math.floor(100000 + Math.random() * 100000)).substr(1);
+    _('sharedpin').innerHTML = _('pincode').value;
+    _('sharedpin2').innerHTML = _('pincode').value;
     Synchronize_save();
 
     document.onkeyup = function(event) {
@@ -1001,50 +1004,50 @@ function Init() {
             event.stopPropagation();
         }
     };
-    ChangeColor('titre', document.getElementById('ColorTitre').value);
-    ChangeColor('titreleft', document.getElementById('ColorTitre').value);
-    ChangeColor('titrerightbis', document.getElementById('ColorTitre').value);
-    ChangeColor('partialtitre', document.getElementById('ColorPartialTitre').value);
-    ChangeColor('studentfeedback', document.getElementById('Colorstudentfeedback').value);
+    ChangeColor('titre', _('ColorTitre').value);
+    ChangeColor('titreleft', _('ColorTitre').value);
+    ChangeColor('titrerightbis', _('ColorTitre').value);
+    ChangeColor('partialtitre', _('ColorPartialTitre').value);
+    ChangeColor('studentfeedback', _('Colorstudentfeedback').value);
 
     //setTimeout(Micro,1000);
     //setTimeout(Micro,1500);
     //version addEventListener
     window.addEventListener('offline', (event) => {
         console.log("La connexion au réseau est perdue.");
-        document.getElementById('connexion').style.visibility = 'visible';
+        _('connexion').style.visibility = 'visible';
         delayStudentReadtext = 100000;
         delayReadtextQ = 100000;
         delayRemote = 100000;
     });
     window.addEventListener('online', (event) => {
         console.log("La connexion au réseau est rétablie.");
-        document.getElementById('connexion').style.visibility = 'hidden';
+        _('connexion').style.visibility = 'hidden';
         delayStudentReadtext = 500;
         delayReadtextQ = 100;
         delayRemote = 200;
     });
 
-    if (document.getElementById('embedwooclapon').checked) {
-        document.getElementById('spanembedwooclapon').innerHTML = 'Yes !';
+    if (_('embedwooclapon').checked) {
+        _('spanembedwooclapon').innerHTML = 'Yes !';
         show('titlewooclap');
     } else {
-        document.getElementById('spanembedwooclapon').innerHTML = 'No.';
+        _('spanembedwooclapon').innerHTML = 'No.';
         hide('titlewooclap');
     }
     if (zoomid != '') startZoom(zoomid);
     if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
     if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
-    if (targettab > 0) document.getElementById('ttab-' + targettab).click();
+    if (targettab > 0) _('ttab-' + targettab).click();
 }
 
 // Special ZOOM session
 function opentab_url(url) {
     var tabnumber = 1;
-    while (tabnumber < 4 && document.getElementById('extraurl' + tabnumber).value != '') tabnumber++;
-    document.getElementById('extraurl' + tabnumber).value = url;
-    document.getElementById('embedET' + tabnumber).checked = true;
-    showET(document.getElementById('embedET' + tabnumber), tabnumber);
+    while (tabnumber < 4 && _('extraurl' + tabnumber).value != '') tabnumber++;
+    _('extraurl' + tabnumber).value = url;
+    _('embedET' + tabnumber).checked = true;
+    showET(_('embedET' + tabnumber), tabnumber);
 }
 
 function startZoom(zoomid) {
@@ -1057,7 +1060,7 @@ function startZoom(zoomid) {
 
 
 function ClearCR() {
-    document.getElementById('classroom').innerHTML = '';
+    _('classroom').innerHTML = '';
     ScreenCR = [];
 }
 
@@ -1075,13 +1078,13 @@ function recharger() {
 
 
 function RefreshCR() {
-    document.getElementById('classroom').innerHTML = "";
+    _('classroom').innerHTML = "";
     for (var i = 0; i < ScreenCR.length; i++) {
         if (ScreenCR[i] != undefined) {
-            if (document.getElementById('classroom').innerHTML == "") {
-                document.getElementById('classroom').innerHTML = ScreenCR[i] + '\n';
+            if (_('classroom').innerHTML == "") {
+                _('classroom').innerHTML = ScreenCR[i] + '\n';
             } else {
-                document.getElementById('classroom').innerHTML = document.getElementById('classroom').innerHTML + "<br/><br/>" + ScreenCR[i] + '\n';
+                _('classroom').innerHTML = _('classroom').innerHTML + "<br/><br/>" + ScreenCR[i] + '\n';
             }
         }
     }
@@ -1098,9 +1101,9 @@ function EcrireCR(who, ch, order) {
     }
 
     /*
-      if (document.getElementById('classroom').innerHTML == "")
-        document.getElementById('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
-      else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
+      if (_('classroom').innerHTML == "")
+        _('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
+      else _('classroom').innerHTML=_('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
       */
     ScreenCR[order] = '<span style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; margin-left: ' + ColorsForCR[who][2] + 'px; ">' + (who + ' : ' + ch) + '<span>';
     RefreshCR();
@@ -1114,32 +1117,32 @@ document.addEventListener('submit', event => {
 
 
 function TailleCR() {
-    return document.getElementById('classroom').innerHTML.split('<br/>').length;
+    return _('classroom').innerHTML.split('<br/>').length;
 }
 
 function setLanguageStr(l) {
     console.log("Remote says set language to (" + l + ")");
     // Try to find the language in the language list
-    var s = document.getElementById('classroomlanguage');
+    var s = _('classroomlanguage');
     var finded = -1
     for (var i = 0; i < s.options.length && finded == -1; i++) {
         if (l.substr(0, 2).toLowerCase() == s.options[i].innerHTML.substr(0, 2).toLowerCase()) finded = i;
     }
     if (finded != -1) {
         s.selectedIndex = finded;
-        setLanguageInput(document.getElementById('classroomlanguage').value);
+        setLanguageInput(_('classroomlanguage').value);
         Micro();
         Micro();
     }
 }
 
 function remote() {
-    if (document.getElementById('classroomid').value != "") {
+    if (_('classroomid').value != "") {
         var request = new XMLHttpRequest();
         request.open("POST", "saveremoteorder.php");
         var f = new FormData();
-        f.append('ROOMID', document.getElementById('classroomid').value);
-        f.append('APPID', document.getElementById('appid').value);
+        f.append('ROOMID', _('classroomid').value);
+        f.append('APPID', _('appid').value);
         f.append('ORDER', '');
         request.send(f);
         AbortTimeout(request);
@@ -1158,14 +1161,14 @@ function remote() {
                 }
                 if (order.substr(0, "micro".length) == "micro") {
                     var fromremote = order.substr("micro".length).trim();
-                    if (fromremote == document.getElementById('appid').value || fromremote == '') Micro();
+                    if (fromremote == _('appid').value || fromremote == '') Micro();
                 }
                 if (order.substr(0, "language".length) == "language") {
                     var options = order.substr("language".length).trim().split("|");
                     var to_lang = options[0].trim();
                     var fromremote = options[1].trim();
-                    console.log('Order for (' + document.getElementById('appid').value + ') from (' + fromremote + ') for language (' + to_lang + ')');
-                    if (fromremote == document.getElementById('appid').value || fromremote == '') setLanguageStr(to_lang);
+                    console.log('Order for (' + _('appid').value + ') from (' + fromremote + ') for language (' + to_lang + ')');
+                    if (fromremote == _('appid').value || fromremote == '') setLanguageStr(to_lang);
                 }
             }
         };
@@ -1173,17 +1176,17 @@ function remote() {
 }
 
 function updateUsers() {
-    document.getElementById('connectedusers').innerHTML = (NBconnectedusers) + " connected users";
-    document.getElementById('connectedusers').title = Tconnectedusers.join(", ");
+    _('connectedusers').innerHTML = (NBconnectedusers) + " connected users";
+    _('connectedusers').title = Tconnectedusers.join(", ");
 }
 
 function readTextQ() {
-    if (document.getElementById('classroomid').value != "") {
+    if (_('classroomid').value != "") {
         var request = new XMLHttpRequest();
         request.open("POST", "readtextQ.php");
         var f = new FormData();
         f.append('lineid', 0);
-        f.append('ROOMID', document.getElementById('classroomid').value);
+        f.append('ROOMID', _('classroomid').value);
         request.send(f);
         AbortTimeout(request);
         request.onload = function(event) {
@@ -1204,10 +1207,10 @@ function readTextQ() {
                     var resource = L[2].replace("[extratab", "").replace("]", "").split("|");
                     var tabnumber = resource[0];
                     var url = resource[1];
-                    if (document.getElementById('extraurl' + tabnumber).value != url) {
-                        document.getElementById('extraurl' + tabnumber).value = url;
-                        document.getElementById('embedET' + tabnumber).checked = true;
-                        showET(document.getElementById('embedET' + tabnumber), tabnumber);
+                    if (_('extraurl' + tabnumber).value != url) {
+                        _('extraurl' + tabnumber).value = url;
+                        _('embedET' + tabnumber).checked = true;
+                        showET(_('embedET' + tabnumber), tabnumber);
                     }
 
                 } else {
@@ -1252,7 +1255,7 @@ function draw() {
         timenew_question--;
         setTimeout(draw, 1000);
     } else {
-        var tab = document.getElementById('questionicon');
+        var tab = _('questionicon');
         tab.innerHTML = '<i class=\'material-icons big\'>thumb_up</i>';
         tab.style.backgroundColor = 'green';
     }
@@ -1262,7 +1265,7 @@ function draw() {
 function EventNewQuestion() {
     if (timenew_question == 0) {
         timenew_question = 10;
-        var tab = document.getElementById('questionicon');
+        var tab = _('questionicon');
         tab.innerHTML = '<i class=\'material-icons blink\'>warning</i>';
         tab.style.backgroundColor = 'orange';
         draw();
@@ -1277,7 +1280,7 @@ function saveTextQ(ch) {
     //inputnumberQ++;
     f.append('text', ch);
     f.append('inputlanguage', builtin_language);
-    f.append('ROOMID', document.getElementById('classroomid').value);
+    f.append('ROOMID', _('classroomid').value);
     request.send(f);
     AbortTimeout(request);
     request.onload = function(event) {
@@ -1308,8 +1311,8 @@ function TranslateQ(ch, l, linput, name, order) {
 }
 
 function FromCompleteLessonToTable() {
-    var txt = document.getElementById('notebookcompleteraw').innerHTML;
-    document.getElementById('notebookcompleteformatted').innerHTML = txt;
+    var txt = _('notebookcompleteraw').innerHTML;
+    _('notebookcompleteformatted').innerHTML = txt;
 }
 
 function playlesson() {}
@@ -1317,18 +1320,18 @@ function playlesson() {}
 function GoFS() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
-        document.getElementById('bar').style.transform = "scaleY(1)";
-        //document.getElementById('bar').style.bottom="10px";
+        _('bar').style.transform = "scaleY(1)";
+        //_('bar').style.bottom="10px";
         //resizeSlides();
     } else {
         document.exitFullscreen();
-        document.getElementById('bar').style.transform = "scaleY(1)";
+        _('bar').style.transform = "scaleY(1)";
         //resizeSlides();
     }
 }
 
 function resizeWindow(wname) {
-    var wc = document.getElementById(wname);
+    var wc = _(wname);
     wc.style.width = (window.innerWidth - 20) + "px";
     wc.style.height = (window.innerHeight - 48) + "px";
     wc.style.top = "48px";
@@ -1336,7 +1339,7 @@ function resizeWindow(wname) {
 }
 
 function resizeSlides() {
-    var slide = document.getElementById('img_slides');
+    var slide = _('img_slides');
     var ratio = slide.width / slide.height;
     var aggrandissmentX = (window.innerWidth - 30) / slide.width;
     var aggrandissmentY = (window.innerHeight - 80) / slide.height;
@@ -1374,10 +1377,10 @@ function Synchronize(pin) {
     AbortTimeout(request);
     request.onload = function(event) {
         if (request.responseText != "") {
-            document.getElementById('classroomid').value = request.responseText;
-            document.getElementById('pincode').value = pin;
-            document.getElementById('sharedpin').innerHTML = pin;
-            document.getElementById('sharedpin2').innerHTML = pin;
+            _('classroomid').value = request.responseText;
+            _('pincode').value = pin;
+            _('sharedpin').innerHTML = pin;
+            _('sharedpin2').innerHTML = pin;
             updateLinks();
         } else {
             alert("ERROR : unknown pin code");
@@ -1386,13 +1389,13 @@ function Synchronize(pin) {
 }
 
 function Synchronize_save() {
-    if (document.getElementById('pincode').value != "") {
-        if (document.getElementById('classroomid').value != "") {
+    if (_('pincode').value != "") {
+        if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "synchronize_savepin.php");
             var f = new FormData();
-            f.append('pincode', document.getElementById('pincode').value);
-            f.append('roomid', document.getElementById('classroomid').value);
+            f.append('pincode', _('pincode').value);
+            f.append('roomid', _('classroomid').value);
             request.send(f);
             AbortTimeout(request);
             request.onload = function(event) {};
@@ -1403,19 +1406,19 @@ function Synchronize_save() {
 
 function showET(obj, num) {
     if (obj.checked) {
-        var url = document.getElementById('extraurl' + num).value;
+        var url = _('extraurl' + num).value;
         if (url != "") {
-            document.getElementById('spanembedET' + num).innerHTML = 'Yes !';
+            _('spanembedET' + num).innerHTML = 'Yes !';
             show('titleextratab' + num);
-            document.getElementById('extratab' + num).src = url;
+            _('extratab' + num).src = url;
         } else {
             alert('Enter your url first !');
             obj.checked = false;
-            document.getElementById('spanembedET' + num).innerHTML = 'No.';
+            _('spanembedET' + num).innerHTML = 'No.';
             hide('titleextratab' + num);
         }
     } else {
-        document.getElementById('spanembedET' + num).innerHTML = 'No.';
+        _('spanembedET' + num).innerHTML = 'No.';
         hide('titleextratab' + num);
     }
 }
@@ -1424,10 +1427,10 @@ function Micro() {
     if (!builtin_microsofttranscritionon) {
         builtin_recognition.abort();
     }
-    var mybox = document.getElementById('micon');
-    document.getElementById('recognitionon').checked = !document.getElementById('recognitionon').checked;
-    builtin_recognitionon = document.getElementById('recognitionon').checked;
-    if (document.getElementById('recognitionon').checked) {
+    var mybox = _('micon');
+    _('recognitionon').checked = !_('recognitionon').checked;
+    builtin_recognitionon = _('recognitionon').checked;
+    if (_('recognitionon').checked) {
         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
     } else {
         mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
@@ -1439,7 +1442,7 @@ function Micro() {
             stopRecognizer();
         }
     }
-    if (document.getElementById('recognitionon').checked && !builtin_microsofttranscritionon) {
+    if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
         StartSpeechRecognition(Traduction);
     }
     /* else {
@@ -1452,7 +1455,7 @@ function Micro() {
 function ScrollBar() {
     currentscroll = currentscroll - currentindent;
     if (currentscroll < 0) currentscroll = 0;
-    document.getElementById('scrollbar').style.transform = 'scaleX(' + currentscroll + ')';
+    _('scrollbar').style.transform = 'scaleX(' + currentscroll + ')';
 }
 
 function setScrollvalues(l) {
@@ -1465,19 +1468,19 @@ function setScrollvalues(l) {
 
 
 function updateLinks() {
-    var roomid = document.getElementById('classroomid').value;
-    document.getElementById("link1").src = "https://tableaunoir.github.io/?id=" + roomid;
-    document.getElementById("link1").innerHTML = document.getElementById("link1").src;
-    document.getElementById("link2").src = "https://wbo.ophir.dev/boards/" + roomid;
-    document.getElementById("link2").innerHTML = document.getElementById("link2").src;
-    document.getElementById("link3").src = "https://meet.jit.si/" + roomid;
-    document.getElementById("link3").innerHTML = document.getElementById("link3").src;
+    var roomid = _('classroomid').value;
+    _("link1").src = "https://tableaunoir.github.io/?id=" + roomid;
+    _("link1").innerHTML = _("link1").src;
+    _("link2").src = "https://wbo.ophir.dev/boards/" + roomid;
+    _("link2").innerHTML = _("link2").src;
+    _("link3").src = "https://meet.jit.si/" + roomid;
+    _("link3").innerHTML = _("link3").src;
 }
 
 function ChangeColor(boxname, color) {
     var [bgcolor, bordercolor, textcolor] = color.split('|');
-    var e = document.getElementById(boxname);
-    var opacity = document.getElementById("selectopacity").value
+    var e = _(boxname);
+    var opacity = _("selectopacity").value
     if (textcolor) e.style.color = 'rgb(' + textcolor + ')';
     else e.style.color = 'rgb(255,255,255)';
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
@@ -1486,7 +1489,7 @@ function ChangeColor(boxname, color) {
 }
 
 function ChangeOpacity(boxname, opacity) {
-    var e = document.getElementById(boxname);
+    var e = _(boxname);
     var color = e.style.backgroundColor;
     var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
     var bgcolor = [red, green, blue];
@@ -1494,25 +1497,25 @@ function ChangeOpacity(boxname, opacity) {
 }
 
 function ChangeSizeIcons(size) {
-    document.getElementById('pincodediv').style.fontSize = size * 0.72 + 'px';
-    document.getElementById('pincodediv').style.width = size * 3 + 'px';
-    document.getElementById('pincodediv').style.height = size + 'px';
+    _('pincodediv').style.fontSize = size * 0.72 + 'px';
+    _('pincodediv').style.width = size * 3 + 'px';
+    _('pincodediv').style.height = size + 'px';
 
-    // document.getElementById('micon').style.fontSize = size*0.72+'px';
-    // document.getElementById('micon').style.width = size+'px';
-    // document.getElementById('micon').style.height = size+'px';
+    // _('micon').style.fontSize = size*0.72+'px';
+    // _('micon').style.width = size+'px';
+    // _('micon').style.height = size+'px';
 
-    // document.getElementById('questionicon').style.fontSize = size*0.72+'px';
-    // document.getElementById('questionicon').style.width = size+'px';
-    // document.getElementById('questionicon').style.height = size+'px';
+    // _('questionicon').style.fontSize = size*0.72+'px';
+    // _('questionicon').style.width = size+'px';
+    // _('questionicon').style.height = size+'px';
 
-    // document.getElementById('FSimage').style.width = size+'px';
-    // document.getElementById('FSimage').style.height = size+'px';
+    // _('FSimage').style.width = size+'px';
+    // _('FSimage').style.height = size+'px';
 }
 
 function showEachIcon() {
-    var checkBox = document.getElementById("iconon");
-    var text = document.getElementById("eachicon");
+    var checkBox = _("iconon");
+    var text = _("eachicon");
     if (!checkBox.checked) {
         text.style.display = "block";
         text.style.padding = "0 0 0 20px"
@@ -1522,17 +1525,17 @@ function showEachIcon() {
 }
 
 function Embedcode() {
-    var url = document.getElementById('chatlink').href;
+    var url = _('chatlink').href;
     //  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
     //  alert("HTML code copied to clipboard !");
-    document.getElementById('embedcontent').value = '<iframe style="width:100%; overflow: auto; height: 500px" src="' + url + '"></iframe>';
+    _('embedcontent').value = '<iframe style="width:100%; overflow: auto; height: 500px" src="' + url + '"></iframe>';
 }
 
 function sendnotebook() {
-    document.getElementById('dialog_MailFrom').value = 'bourdon-j@univ-nantes.fr';
-    document.getElementById('dialog_MailTo').value = 'your.mail@univ-nantes.fr';
-    document.getElementById('dialog_MailSubject').value = 'Content of the lesson ' + document.getElementById('classroomid').value;
-    document.getElementById('dialog_MailBody').innerHTML = document.getElementById('notebook').innerHTML;
+    _('dialog_MailFrom').value = 'bourdon-j@univ-nantes.fr';
+    _('dialog_MailTo').value = 'your.mail@univ-nantes.fr';
+    _('dialog_MailSubject').value = 'Content of the lesson ' + _('classroomid').value;
+    _('dialog_MailBody').innerHTML = _('notebook').innerHTML;
     $("#dialog-mail").dialog("open");
 }
 
@@ -1541,159 +1544,174 @@ function sendnotebook() {
 function opentab(e) {
     var url = e.innerHTML;
     var tabnumber = 1;
-    while (tabnumber < 4 && document.getElementById('extraurl' + tabnumber).value != '') tabnumber++;
-    document.getElementById('extraurl' + tabnumber).value = url;
-    document.getElementById('embedET' + tabnumber).checked = true;
-    showET(document.getElementById('embedET' + tabnumber), tabnumber);
+    while (tabnumber < 4 && _('extraurl' + tabnumber).value != '') tabnumber++;
+    _('extraurl' + tabnumber).value = url;
+    _('embedET' + tabnumber).checked = true;
+    showET(_('embedET' + tabnumber), tabnumber);
 }
 
 
 function updateConfig() {
     var newConfig = [];
-    newConfig[0] = String.fromCharCode(65 + document.getElementById('classroomlanguage').selectedIndex);
-    newConfig[1] = String.fromCharCode(65 + document.getElementById('subtitlelanguage').selectedIndex);
-    newConfig[2] = (document.getElementById('subtitlebaron').checked ? "Y" : "N");
-    newConfig[3] = String.fromCharCode(65 + document.getElementById('ColorTitre').selectedIndex);
-    newConfig[4] = (document.getElementById('subtitlepartialon').checked ? "Y" : "N");
-    newConfig[5] = String.fromCharCode(65 + document.getElementById('ColorPartialTitre').selectedIndex);
-    newConfig[6] = String.fromCharCode(65 + document.getElementById('selectfontsize').selectedIndex);
-    newConfig[7] = (document.getElementById('embedwooclapon').checked ? "Y" : "N");
-    newConfig[8] = (document.getElementById('embedshareon').checked ? "Y" : "N");
-    newConfig[9] = String.fromCharCode(65 + document.getElementById('selectopacity').selectedIndex);
-    newConfig[10] = (document.getElementById('arrowson').checked ? "Y" : "N");
-    newConfig[11] = (document.getElementById('iconon').checked ? "Y" : "N");
-    newConfig[12] = (document.getElementById('pincodeon').checked ? "Y" : "N");
-    newConfig[13] = (document.getElementById('microon').checked ? "Y" : "N");
-    newConfig[14] = (document.getElementById('questionon').checked ? "Y" : "N");
-    newConfig[15] = (document.getElementById('fson').checked ? "Y" : "N");
-    // newConfig[10]=(document.getElementById('pincodeon').checked?"Y":"N");
+    newConfig[0] = String.fromCharCode(65 + _('classroomlanguage').selectedIndex);
+    newConfig[1] = String.fromCharCode(65 + _('subtitlelanguage').selectedIndex);
+    newConfig[2] = (_('subtitlebaron').checked ? "Y" : "N");
+    newConfig[3] = String.fromCharCode(65 + _('ColorTitre').selectedIndex);
+    newConfig[4] = (_('subtitlepartialon').checked ? "Y" : "N");
+    newConfig[5] = String.fromCharCode(65 + _('ColorPartialTitre').selectedIndex);
+    newConfig[6] = String.fromCharCode(65 + _('selectfontsize').selectedIndex);
+    newConfig[7] = (_('embedwooclapon').checked ? "Y" : "N");
+    newConfig[8] = (_('embedshareon').checked ? "Y" : "N");
+    newConfig[9] = String.fromCharCode(65 + _('selectopacity').selectedIndex);
+    newConfig[10] = (_('arrowson').checked ? "Y" : "N");
+    newConfig[11] = (_('iconon').checked ? "Y" : "N");
+    newConfig[12] = (_('pincodeon').checked ? "Y" : "N");
+    newConfig[13] = (_('microon').checked ? "Y" : "N");
+    newConfig[14] = (_('questionon').checked ? "Y" : "N");
+    newConfig[15] = (_('fson').checked ? "Y" : "N");
+    // newConfig[10]=(_('pincodeon').checked?"Y":"N");
     currentconfig = newConfig.join('');
-    document.getElementById("myConfig").value = currentconfig;
+    _("myConfig").value = currentconfig;
     if (window.location.href.indexOf('?') > 0) {
-        document.getElementById("LinkConfig").href = window_location_href + '&myconfig=' + document.getElementById("myConfig").value;
+        _("LinkConfig").href = window_location_href + '&myconfig=' + _("myConfig").value;
     } else {
-        document.getElementById("LinkConfig").href = window_location_href + '?myconfig=' + document.getElementById("myConfig").value;
+        _("LinkConfig").href = window_location_href + '?myconfig=' + _("myConfig").value;
     }
-    document.getElementById("LinkConfig").innerHTML = document.getElementById("LinkConfig").href;
+    _("LinkConfig").innerHTML = _("LinkConfig").href;
 }
 
 function applyConfig() {
     var config = currentconfig;
     if (config.length != "ABYANACNNCNNNYYY".length) return;
     // classroomlanguage
-    document.getElementById('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-    setLanguageInput(document.getElementById('classroomlanguage').value);
+    _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    setLanguageInput(_('classroomlanguage').value);
     // subtitlelanguage
-    document.getElementById('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-    setLanguageSubtitle(document.getElementById('subtitlelanguage').value);
+    _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
+    setLanguageSubtitle(_('subtitlelanguage').value);
     // subtitlebaron
-    document.getElementById('subtitlebaron').checked = (config.charAt(2) == "Y");
-    if (document.getElementById('subtitlebaron').checked) {
-        document.getElementById('spansubtitlebaron').innerHTML = 'Yes !';
-        document.getElementById('titre').style.visibility = 'visible';
-        document.getElementById('titreleft').style.visibility = 'visible';
-        document.getElementById('titrerightbis').style.visibility = 'visible';
-        document.getElementById('titreright').style.visibility = 'visible';
+    _('subtitlebaron').checked = (config.charAt(2) == "Y");
+    if (_('subtitlebaron').checked) {
+        _('spansubtitlebaron').innerHTML = 'Yes !';
+        _('titre').style.visibility = 'visible';
+        _('titreleft').style.visibility = 'visible';
+        _('titrerightbis').style.visibility = 'visible';
+        _('titreright').style.visibility = 'visible';
     } else {
-        document.getElementById('spansubtitlebaron').innerHTML = 'No.';
-        document.getElementById('titre').style.visibility = 'hidden';
-        document.getElementById('titreleft').style.visibility = 'hidden';
-        document.getElementById('titrerightbis').style.visibility = 'hidden';
-        document.getElementById('titreright').style.visibility = 'hidden';
+        _('spansubtitlebaron').innerHTML = 'No.';
+        _('titre').style.visibility = 'hidden';
+        _('titreleft').style.visibility = 'hidden';
+        _('titrerightbis').style.visibility = 'hidden';
+        _('titreright').style.visibility = 'hidden';
     }
     // pincodeon
-    // document.getElementById('pincodeon').checked=(config.charAt(10) == "Y");
-    // if (document.getElementById('pincodeon').checked) {
-    //   document.getElementById('spanpincodeon').innerHTML='Yes !'; 
-    //   document.getElementById('pincodediv').style.visibility='visible'; 
+    // _('pincodeon').checked=(config.charAt(10) == "Y");
+    // if (_('pincodeon').checked) {
+    //   _('spanpincodeon').innerHTML='Yes !'; 
+    //   _('pincodediv').style.visibility='visible'; 
     // } else {
-    //   document.getElementById('spanpincodeon').innerHTML='No.'; 
-    //   document.getElementById('pincodediv').style.visibility='hidden';
+    //   _('spanpincodeon').innerHTML='No.'; 
+    //   _('pincodediv').style.visibility='hidden';
     // }
 
     // ColorTitre
-    document.getElementById('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
-    ChangeColor('titre', document.getElementById('ColorTitre').value);
-    ChangeColor('titreleft', document.getElementById('ColorTitre').value);
-    ChangeColor('titrerightbis', document.getElementById('ColorTitre').value);
+    _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
+    ChangeColor('titre', _('ColorTitre').value);
+    ChangeColor('titreleft', _('ColorTitre').value);
+    ChangeColor('titrerightbis', _('ColorTitre').value);
     // subtitlepartialbaron
-    document.getElementById('subtitlepartialon').checked = (config.charAt(4) == "Y");
-    if (document.getElementById('subtitlepartialon').checked) {
-        document.getElementById('spansubtitlepartialon').innerHTML = 'Yes !';
-        document.getElementById('partialtitre').style.visibility = 'visible';
+    _('subtitlepartialon').checked = (config.charAt(4) == "Y");
+    if (_('subtitlepartialon').checked) {
+        _('spansubtitlepartialon').innerHTML = 'Yes !';
+        _('partialtitre').style.visibility = 'visible';
     } else {
-        document.getElementById('spansubtitlepartialon').innerHTML = 'No.';
-        document.getElementById('partialtitre').style.visibility = 'hidden';
+        _('spansubtitlepartialon').innerHTML = 'No.';
+        _('partialtitre').style.visibility = 'hidden';
     }
     // ColorPartialTitre
-    document.getElementById('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
-    ChangeColor('partialtitre', document.getElementById('ColorPartialTitre').value);
+    _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
+    ChangeColor('partialtitre', _('ColorPartialTitre').value);
     // selectfontsize
-    document.getElementById('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
-    document.getElementById('titre').style.fontSize = document.getElementById('selectfontsize').value;
-    document.getElementById('partialtitre').style.fontSize = document.getElementById('selectfontsize').value;
-    document.getElementById('studentfeedback').style.fontSize = document.getElementById('selectfontsize').value;
+    _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
+    _('titre').style.fontSize = _('selectfontsize').value;
+    _('partialtitre').style.fontSize = _('selectfontsize').value;
+    _('studentfeedback').style.fontSize = _('selectfontsize').value;
     // Wooclap tab
-    document.getElementById('embedwooclapon').checked = (config.charAt(7) == "Y");
-    if (document.getElementById('embedwooclapon').checked) {
-        document.getElementById('spanembedwooclapon').innerHTML = 'Yes !';
+    _('embedwooclapon').checked = (config.charAt(7) == "Y");
+    if (_('embedwooclapon').checked) {
+        _('spanembedwooclapon').innerHTML = 'Yes !';
         show('titlewooclap');
     } else {
-        document.getElementById('spanembedwooclapon').innerHTML = 'No.';
+        _('spanembedwooclapon').innerHTML = 'No.';
         hide('titlewooclap');
     }
     // Share tab
-    document.getElementById('embedshareon').checked = (config.charAt(8) == "Y");
-    if (document.getElementById('embedshareon').checked) {
-        document.getElementById('spanembedshareon').innerHTML = 'Yes !';
+    _('embedshareon').checked = (config.charAt(8) == "Y");
+    if (_('embedshareon').checked) {
+        _('spanembedshareon').innerHTML = 'Yes !';
         show('titleshare');
     } else {
-        document.getElementById('spanembedshareon').innerHTML = 'No.';
+        _('spanembedshareon').innerHTML = 'No.';
         hide('titleshare');
     }
     //selectopacity
-    document.getElementById('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    document.getElementById('titre').style.backgroundColor = document.getElementById('selectopacity').value;
-    document.getElementById('partialtitre').style.backgroundColor = document.getElementById('selectopacity').value;
-    document.getElementById('studentfeedback').style.backgroundColor = document.getElementById('selectopacity').value;
+    _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
+    _('titre').style.backgroundColor = _('selectopacity').value;
+    _('partialtitre').style.backgroundColor = _('selectopacity').value;
+    _('studentfeedback').style.backgroundColor = _('selectopacity').value;
 
     // Arrows
-    document.getElementById('arrowson').checked = (config.charAt(10) == "Y");
-    if (document.getElementById('arrowson').checked) {
-        document.getElementById('titreleft').style.visibility = 'visible';
-        document.getElementById('titrerightbis').style.visibility = 'visible';
-        document.getElementById('titreright').style.visibility = 'visible';
-        document.getElementById('spanarrowson').innerHTML = 'Yes !';
+    _('arrowson').checked = (config.charAt(10) == "Y");
+    if (_('arrowson').checked) {
+        _('titreleft').style.visibility = 'visible';
+        _('titrerightbis').style.visibility = 'visible';
+        _('titreright').style.visibility = 'visible';
+        _('spanarrowson').innerHTML = 'Yes !';
     } else {
-        document.getElementById('spanarrowson').innerHTML = 'No.';
-        document.getElementById('titreleft').style.visibility = 'hidden';
-        document.getElementById('titrerightbis').style.visibility = 'hidden';
-        document.getElementById('titreright').style.visibility = 'hidden';
+        _('spanarrowson').innerHTML = 'No.';
+        _('titreleft').style.visibility = 'hidden';
+        _('titrerightbis').style.visibility = 'hidden';
+        _('titreright').style.visibility = 'hidden';
     }
     // Icons
-    document.getElementById('iconon').checked = (config.charAt(11) == "Y");
-    document.getElementById('spaniconon').innerHTML = (config.charAt(11) == "Y") ? "Yes !" : "No.";
+    _('iconon').checked = (config.charAt(11) == "Y");
+    _('spaniconon').innerHTML = (config.charAt(11) == "Y") ? "Yes !" : "No.";
     showEachIcon();
 
     // Pin code
-    document.getElementById('pincodeon').checked = (config.charAt(12) == "Y");
-    document.getElementById('spanpincodeon').innerHTML = (config.charAt(12) == "Y") ? "Yes !" : "No.";
-    document.getElementById('pincodediv').style.visibility = (config.charAt(12) == "Y") ? "visible" : "hidden";
+    _('pincodeon').checked = (config.charAt(12) == "Y");
+    _('spanpincodeon').innerHTML = (config.charAt(12) == "Y") ? "Yes !" : "No.";
+    _('pincodediv').style.visibility = (config.charAt(12) == "Y") ? "visible" : "hidden";
 
     // Micro
-    document.getElementById('microon').checked = (config.charAt(13) == "Y");
-    document.getElementById('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
-    document.getElementById('micon').style.visibility = (config.charAt(13) == "Y") ? "visible" : "hidden";
+    _('microon').checked = (config.charAt(13) == "Y");
+    _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
+    if (_('microon').checked) {
+        show('micon');
+    } else {
+        hide('micon');
+    }
+    //_('micon').style.visibility = (config.charAt(13) == "Y") ? "visible" : "hidden";
 
     // Question
-    document.getElementById('questionon').checked = (config.charAt(14) == "Y");
-    document.getElementById('spanquestionon').innerHTML = (config.charAt(14) == "Y") ? "Yes !" : "No.";
-    document.getElementById('questionicon').style.visibility = (config.charAt(14) == "Y") ? "visible" : "hidden";
+    _('questionon').checked = (config.charAt(14) == "Y");
+    _('spanquestionon').innerHTML = (config.charAt(14) == "Y") ? "Yes !" : "No.";
+    if (_('questionon').checked) {
+        show('questionicon');
+    } else {
+        hide('questionicon');
+    }
+    //_('questionicon').style.visibility = (config.charAt(14) == "Y") ? "visible" : "hidden";
 
     // FS
-    document.getElementById('fson').checked = (config.charAt(15) == "Y");
-    document.getElementById('spanfson').innerHTML = (config.charAt(15) == "Y") ? "Yes !" : "No.";
-    document.getElementById('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
-
+    _('fson').checked = (config.charAt(15) == "Y");
+    _('spanfson').innerHTML = (config.charAt(15) == "Y") ? "Yes !" : "No.";
+    //_('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
+    if (_('fson').checked) {
+        show('FS');
+    } else {
+        hide('FS');
+    }
+   
     updateConfig();
 }
