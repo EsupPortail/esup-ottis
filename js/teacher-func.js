@@ -1518,7 +1518,7 @@ function showEachIcon() {
     var text = _("eachicon");
     if (!checkBox.checked) {
         text.style.display = "block";
-        text.style.padding = "0 0 0 20px"
+        text.style.padding = "0px 0px 0px 20px"
     } else {
         text.style.display = "none";
     }

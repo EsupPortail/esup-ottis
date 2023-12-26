@@ -9,7 +9,11 @@ Main stylesheet for Teacher application
 }
 
 .yesno {
-  display:none;
+  display: inline;
+}
+
+#iconon,#spaniconon {
+  display: none;
 }
 
 button {
