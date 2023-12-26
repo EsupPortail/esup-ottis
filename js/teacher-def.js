@@ -43,6 +43,7 @@ var speech_language = 'same';
 var inputnumber = 0;
 var previousimage = -1;
 
+var readytotalk = true;
 
 var currentPresentation = [];
 var currentDiscours = -1;

@@ -30,3 +30,4 @@ Petit point d'étape :
 
 Pour moi.
 1) dans teacher-func.js, dans la définition de StudentCompleteTranslation2, pourquoi on fait appel à StudentCompleteTranslation dans le sinon ? Bug ?
+2) dans teacher-func.js, revoir SlideBackward()

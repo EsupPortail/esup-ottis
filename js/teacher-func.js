@@ -133,6 +133,7 @@ function StudentCompleteTranslation() {
 /**
  * @summary Orchestrates the sequence of translations
  * 
+ * @todo Comprendre pourquoi on appelle StudentCompleteTranslation dans le sinon et pas StudentCompleteTranslation2
  */
 
 function StudentCompleteTranslation2() {
@@ -263,13 +264,9 @@ function InviteExternal() {
 }
 
 
-
-
 /**
- * @summary
+ * @summary Fill the select VoiceOutput field
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function PopulateVoicesOut() {
@@ -292,10 +289,9 @@ function PopulateVoicesOut() {
 }
 
 /**
- * @summary
+ * @summary Fill the select classroomlanguage field
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @deprecated
  */
 
 function PopulateVoicesIn() {
@@ -319,10 +315,8 @@ function PopulateVoicesIn() {
 }
 
 /**
- * @summary
+ * @summary Fill the select classroomlanguage field
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function PopulateVoicesIn() {
@@ -349,11 +343,10 @@ function PopulateVoicesIn() {
 }
 
 /**
- * @summary
+ * @summary Fill the select subtitlelanguage field
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
+
 
 function PopulateSubtitlesLang() {
     var select = _('subtitlelanguage');
@@ -371,10 +364,8 @@ function PopulateSubtitlesLang() {
 }
 
 /**
- * @summary
+ * @summary Fill the select speechlanguage field
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function PopulateSpeechLang() {
@@ -390,47 +381,42 @@ function PopulateSpeechLang() {
 
 
 /**
- * @summary
+ * @summary setter for the input language
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {number} i Language index.
  */
 
 function setLanguageInput(i) {
     builtin_language = TLangInput[i];
-    //Ecrire(builtin_language);
 }
 
 /**
- * @summary
+ * @summary setter for the output language
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {number} i Language index.
  */
 
 function setLanguageOutput(i) {
     builtin_voice = AllOutputVoices[i];
-    //Ecrire(builtin_voice.lang);
 }
 
 /**
- * @summary
+ * @summary setter for the subtitle language
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {number} i Language index.
  */
+
 
 function setLanguageSubtitle(i) {
     subtitle_language = i;
-    //console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
 }
 
 /**
- * @summary
+ * @summary setter for the speech language
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {number} i Language index.
  */
+
 
 function setLanguageSpeech(i) {
     speech_language = i;
@@ -438,10 +424,9 @@ function setLanguageSpeech(i) {
 }
 
 /**
- * @summary
+ * @summary Speech synthesis of a given text
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} txt a given text.
  */
 
 function Parle(txt) {
@@ -453,13 +438,9 @@ function Parle(txt) {
     discours.onerror = ready;
 }
 
-var readytotalk = true;
-
 /**
- * @summary
+ * @summary Function that is fired when the Parle function has ended
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function ready() {
@@ -469,10 +450,8 @@ function ready() {
 }
 
 /**
- * @summary
+ * @summary Function that is executed when the Parle function has begun
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function notready() {
@@ -482,10 +461,10 @@ function notready() {
 }
 
 /**
- * @summary
+ * @summary Remove the verbal tics of a given sentence
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch A given sentence.
+ * @returns The same sentence without the verbal tics.
  */
 
 function RemoveVerbalTics(ch) {
@@ -510,9 +489,9 @@ function RemoveVerbalTics(ch) {
 
 
 /**
- * @summary
+ * @summary Main function for translating a given text, handles the synchronisation of different translations.
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {string} ch a given sentence.
  * @returns
  */
 
@@ -540,10 +519,11 @@ function Traduction(ch) {
 }
 
 /**
- * @summary
+ * @summary A function that translates a given text from a language to another.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch A given sentence
+ * @param {string} l The output language.
+ * @param {string} linput The input language.
  */
 
 function Translate(ch, l, linput) {
@@ -567,17 +547,17 @@ function Translate(ch, l, linput) {
     console.log(d_begin + " : Sending for translation " + ch + " from " + linput + " to " + l)
     xhr.send();
     AbortTimeout(xhr);
-    //EcrirePartial("Request sent....");
 }
 
-//var T_durations=[];
 
 /**
- * @summary
+ * @summary A function that translates a given text from a language to another, then fire a given feedback function.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
- */
+ * @param {string} ch A given sentence
+ * @param {string} l The output language.
+ * @param {string} linput The input language.
+ * @param {function} f the function that is fired when the translation has ended.
+  */
 
 function TranslateThen(ch, l, linput, f) {
     var xhr = new XMLHttpRequest();
@@ -607,10 +587,9 @@ function TranslateThen(ch, l, linput, f) {
 
 
 /**
- * @summary
+ * @summary Update the progress bar when a lesson is loaded
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {event} event an event.
  */
 
 function progressHandler(event) {
@@ -620,9 +599,10 @@ function progressHandler(event) {
 }
 
 /**
- * @summary
+ * @summary Add several sentences to the buffer containing all the speech
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @deprecated ?
+ * @param {string} ch a <br/> separated list of sentences.
  * @returns
  */
 
@@ -637,10 +617,10 @@ function addSlideToNB(ch) {
 }
 
 /**
- * @summary
+ * @summary Add a single sentence to the buffer cotaining all the speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch a sentence.
+ * @param {number} before a deprecated parameter for adding debugging informations.
  */
 
 function addToNB(ch, before) {
@@ -661,10 +641,10 @@ function addToNB(ch, before) {
 }
 
 /**
- * @summary
+ * @summary A recursive function that saves sequentially all the sentences of a table
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {array} T a table of sentences.
+ * @param {number} i the identifier of the sentence that is to be saved.
  */
 
 function saveTextTable(T, i) {
@@ -677,10 +657,13 @@ function saveTextTable(T, i) {
 }
 
 /**
- * @summary
+ * @summary a function that convert b64 encoded data to an html blob object (useful to encode images)
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @link adapted from https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
+ * @param {string} b64Data contains the data encoded in binary 64.
+ * @param {string} contentType prefix.
+ * @param {number} sliceSize default to 512.
+ * @returns the created blob object
  */
 
 function b64toBlob(b64Data, contentType, sliceSize) {
@@ -711,10 +694,9 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 
 
 /**
- * @summary
+ * @summary Display an image on the Slide tab and send it to all the students
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {number} n The image number.
  */
 
 function ShowImage(n) {
@@ -758,10 +740,10 @@ function ShowImage(n) {
 
 
 /**
- * @summary
+ * @summary a function that is fired when a new lesson is loaded to prepare all the data structures.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} datatxt a text value contained the text of the speech and a b64 version of the images.
+ * @returns an HTML encoding of what should be shown in the complete lesson tab.
  */
 
 function formateresponse(datatxt) {
@@ -817,10 +799,8 @@ function formateresponse(datatxt) {
 }
 
 /**
- * @summary
+ * @summary A function that save the speech for the remote application
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function saveremotespeech() {
@@ -845,10 +825,8 @@ function saveremotespeech() {
 
 
 /**
- * @summary
+ * @summary Go one step forward in the speech list, but do not take into account the current speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function SkipForward() {
@@ -860,10 +838,8 @@ function SkipForward() {
 }
 
 /**
- * @summary
+ * @summary Go one step backward in the speech list , but do not take into account the current speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function SkipBackward() {
@@ -876,10 +852,8 @@ function SkipBackward() {
 
 
 /**
- * @summary
+ * @summary Go one step forward in the speech list, and handle the speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Forward() {
@@ -892,10 +866,8 @@ function Forward() {
 }
 
 /**
- * @summary
+ * @summary Go one step backward in the speech list, and handle the speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Backward() {
@@ -909,10 +881,8 @@ function Backward() {
 
 
 /**
- * @summary
+ * @summary Go one slide forward in the speech list, and do not handle the speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function SlideForward() {
@@ -927,10 +897,9 @@ function SlideForward() {
 }
 
 /**
- * @summary
+ * @summary Go one slide backward in the speech list, and do not handle the speech
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @todo Actuellement, on arrive sur le slide pour la dernière phrase du discours et pas la première, c'est à revoir.
  */
 
 function SlideBackward() {
@@ -946,10 +915,9 @@ function SlideBackward() {
 
 
 /**
- * @summary
+ * @summary A function that is fired when a complete lesson is loaded.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {event} event an event.
  */
 
 function completeHandler(event) {
@@ -967,10 +935,8 @@ function completeHandler(event) {
 }
 
 /**
- * @summary
+ * @summary The function that is executed for reading a new presentation
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function SlideNotes() {
@@ -1014,10 +980,9 @@ function SlideNotes() {
 }
 
 /**
- * @summary
+ * @summary The function that is executed for reading a new PPTX presentation stored on UNCloud
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} uncloudlink A public link on Nantes University cloud (UNCloud) that points to a PPTX file.
  */
 
 function SlideNotesUncloud(uncloudlink) {
@@ -1040,10 +1005,9 @@ function SlideNotesUncloud(uncloudlink) {
 }
 
 /**
- * @summary
+ * @summary The function that is executed for reading a new HTML presentation stored on UNCloud
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} uncloudlink A public link on Nantes University cloud (UNCloud) that points to a HTML Animation file created with the OMIST Tools.
  */
 
 function SlideNotesUncloudHtml(uncloudhtmllink) {
