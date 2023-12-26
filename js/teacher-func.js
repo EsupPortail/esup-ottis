@@ -1,25 +1,64 @@
 // Basic functions
 
+/**
+ * @summary shortcut for document.getElementById
+ * 
+ * @param {string} el identifiant of an HTML DOM element.
+ * @returns the object whose name is el
+ */
+
 function _(el) {
     return document.getElementById(el);
 }
 
+/**
+ * @summary A prettier alert function
+ * 
+ * @param {string} ch The text shown in the alert.
+ * @returns
+ */
 
-
+function myalert(ch) {
+    ch = ch.replaceAll("\n", "<br/>");
+    _('dialog-invite-p').innerHTML = ch;
+    $("#dialog-invite").dialog("open");
+}
 
 // Student feedback
+
+/**
+ * @summary A function that simulate the pronunciation time for a given text at an average rythm in French (En France, prononcer une phrase de n caractères (environ n/5 mots) à un débit moyen (120mots/min en France) prend environ 100*n ms.
+ * 
+ * @param {string} txt a given text.
+ * @param {function} f a feedback function.
+ */
 
 function StudentParleThen(txt, f) {
     //EcrireFeedback(txt);
     setTimeout(f, 100 * txt.length);
 }
 
+/**
+ * @summary Abort a given timeout. Utility function
+ * 
+ * @param {object} r a timeout object.
+ */
+
 function AbortTimeout(r) {
     setTimeout(function() {
         r.abort();
     }, 5000);
 }
-var Studentinputnumber = -1;
+
+/**
+ * @summary Translate a given string from a language to another
+ * 
+ * @deprecated
+ * @param {string} ch the string to translate.
+ * @param {string} l output language.
+ * @param {string} linput input language.
+ * @param {number} lineid unique identifier for the translation.
+ */
 
 function StudentTranslate(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
@@ -47,6 +86,15 @@ function StudentTranslate(ch, l, linput, lineid) {
 
 }
 
+/**
+ * @summary Translate a given string from a language to another
+ * 
+ * @param {string} ch the string to translate.
+ * @param {string} l output language.
+ * @param {string} linput input language.
+ * @param {number} lineid unique identifier for the translation.
+ */
+
 function StudentTranslate2(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
@@ -56,6 +104,12 @@ function StudentTranslate2(ch, l, linput, lineid) {
     xhr.send();
     AbortTimeout(xhr);
 }
+
+/**
+ * @summary Orchestrates the sequence of translations
+ * 
+ * @deprecated
+ */
 
 function StudentCompleteTranslation() {
     if (StudentToTranslate.length > 0) {
@@ -76,6 +130,11 @@ function StudentCompleteTranslation() {
     }
 }
 
+/**
+ * @summary Orchestrates the sequence of translations
+ * 
+ */
+
 function StudentCompleteTranslation2() {
     if (StudentToTranslate2.length > 0) {
         var L = StudentToTranslate2[0];
@@ -86,6 +145,11 @@ function StudentCompleteTranslation2() {
         } else StudentCompleteTranslation2();
     } else setTimeout(StudentCompleteTranslation, 10);
 }
+
+/**
+ * @summary Orchestrates the sequence of speeches
+ * 
+ */
 
 function StudentCompleteSpeech() {
     var nextdiscours = Studentcurrentdiscours;
@@ -116,6 +180,11 @@ function StudentCompleteSpeech() {
     } else Studentcompletespeechactive = false;
 
 }
+
+/**
+ * @summary Verify if there is something new prononced by the teacher.
+ * 
+ */
 
 function StudentreadText() {
     var synthesison = true;
@@ -164,11 +233,14 @@ function StudentreadText() {
     }
 }
 
-function myalert(ch) {
-    ch = ch.replaceAll("\n", "<br/>");
-    _('dialog-invite-p').innerHTML = ch;
-    $("#dialog-invite").dialog("open");
-}
+// End Student Feedback
+
+
+
+/**
+ * @summary Create an association link for a given course that can be shared
+ * 
+ */
 
 function InviteExternal() {
     if (_('classroomid').value != "") {
@@ -193,6 +265,13 @@ function InviteExternal() {
 
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function PopulateVoicesOut() {
     var select = _('VoiceOutput');
     AllOutputVoices = [];
@@ -211,6 +290,13 @@ function PopulateVoicesOut() {
         }
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function PopulateVoicesIn() {
     var select = _('classroomlanguage');
@@ -231,6 +317,13 @@ function PopulateVoicesIn() {
         }
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function PopulateVoicesIn() {
     if (TLangInput.length == 0) {
@@ -255,6 +348,13 @@ function PopulateVoicesIn() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function PopulateSubtitlesLang() {
     var select = _('subtitlelanguage');
     for (var i = 0; i < supportedlanguages.length; i++) {
@@ -270,6 +370,13 @@ function PopulateSubtitlesLang() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function PopulateSpeechLang() {
     var select = _('speechlanguage');
     for (var i = 0; i < supportedlanguages.length; i++) {
@@ -282,25 +389,60 @@ function PopulateSpeechLang() {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function setLanguageInput(i) {
     builtin_language = TLangInput[i];
     //Ecrire(builtin_language);
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function setLanguageOutput(i) {
     builtin_voice = AllOutputVoices[i];
     //Ecrire(builtin_voice.lang);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function setLanguageSubtitle(i) {
     subtitle_language = i;
     //console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function setLanguageSpeech(i) {
     speech_language = i;
     //console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function Parle(txt) {
     var discours = new SpeechSynthesisUtterance(txt);
@@ -313,17 +455,38 @@ function Parle(txt) {
 
 var readytotalk = true;
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function ready() {
     readytotalk = true;
     _('bready').style.backgroundColor = 'green';
     StartSpeechRecognition(Traduction);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function notready() {
     StopSpeechRecognition();
     readytotalk = false;
     _('bready').style.backgroundColor = 'red';
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function RemoveVerbalTics(ch) {
     var T_verbaltics = _('verbaltics').value.trim().split("\n");
@@ -345,6 +508,13 @@ function RemoveVerbalTics(ch) {
     return ch2;
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function Traduction(ch) {
     ch = RemoveVerbalTics(ch);
@@ -368,6 +538,13 @@ function Traduction(ch) {
         }
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function Translate(ch, l, linput) {
     var xhr = new XMLHttpRequest();
@@ -394,6 +571,13 @@ function Translate(ch, l, linput) {
 }
 
 //var T_durations=[];
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function TranslateThen(ch, l, linput, f) {
     var xhr = new XMLHttpRequest();
@@ -422,11 +606,25 @@ function TranslateThen(ch, l, linput, f) {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function progressHandler(event) {
     var percent = (event.loaded / event.total) * 100;
     _("progressBar").value = Math.round(percent);
     //  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function addSlideToNB(ch) {
     var tobesaidbetweenslides = '';
@@ -437,6 +635,13 @@ function addSlideToNB(ch) {
         addToNB(Tch[i], 0);
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function addToNB(ch, before) {
     var speechlanguage = _('speechlanguage').value;
@@ -455,6 +660,13 @@ function addToNB(ch, before) {
     //saveremotespeech();
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function saveTextTable(T, i) {
     if (i < T.length) {
         saveText(T[i].replace(/<br\/>/gi, "").replace(/<br>/gi, ""));
@@ -463,6 +675,13 @@ function saveTextTable(T, i) {
         }, 100);
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function b64toBlob(b64Data, contentType, sliceSize) {
     contentType = contentType || '';
@@ -490,6 +709,13 @@ function b64toBlob(b64Data, contentType, sliceSize) {
     return blob;
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function ShowImage(n) {
     if (n != previousimage) {
@@ -530,6 +756,13 @@ function ShowImage(n) {
     }
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function formateresponse(datatxt) {
     //console.log(datatxt);
@@ -583,6 +816,13 @@ function formateresponse(datatxt) {
     return res;
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function saveremotespeech() {
     if (currentPresentation.length > 0) {
         var currentDiscoursB = (currentDiscours - 1 + currentPresentation.length) % currentPresentation.length;
@@ -604,6 +844,13 @@ function saveremotespeech() {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function SkipForward() {
     if (currentPresentation.length > 0) {
         currentDiscours = (currentDiscours + 1) % currentPresentation.length;
@@ -611,6 +858,13 @@ function SkipForward() {
         saveremotespeech();
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function SkipBackward() {
     if (currentPresentation.length > 0) {
@@ -621,6 +875,13 @@ function SkipBackward() {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function Forward() {
     if (currentPresentation.length > 0) {
         currentDiscours = (currentDiscours + 1) % currentPresentation.length;
@@ -629,6 +890,13 @@ function Forward() {
         saveremotespeech();
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function Backward() {
     if (currentPresentation.length > 0) {
@@ -639,6 +907,13 @@ function Backward() {
     }
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function SlideForward() {
     if (slide["Images"].length > 1) {
@@ -651,6 +926,13 @@ function SlideForward() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function SlideBackward() {
     if (slide["Images"].length > 1) {
         var currentSlide = currentPresentation[currentDiscours]['Slide'];
@@ -662,6 +944,13 @@ function SlideBackward() {
     }
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function completeHandler(event) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText);
@@ -676,6 +965,13 @@ function completeHandler(event) {
         }, 1000);
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function SlideNotes() {
     var file = _("ppt_presentation").files[0];
@@ -717,6 +1013,13 @@ function SlideNotes() {
     //AbortTimeout(xhr);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function SlideNotesUncloud(uncloudlink) {
     var scriptfile = "ExtractSlidesNotes_PPTX_images.php";
     var formdata = new FormData();
@@ -735,6 +1038,13 @@ function SlideNotesUncloud(uncloudlink) {
     xhr.send(formdata);
     //AbortTimeout(xhr);
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function SlideNotesUncloudHtml(uncloudhtmllink) {
     var scriptfile = "ExtractSlidesNotesAppHTML.php";
@@ -755,6 +1065,13 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
     //AbortTimeout(xhr);
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function StartSpeechRecognition(callback) {
     builtin_recognition.lang = builtin_language;
@@ -788,11 +1105,25 @@ function StartSpeechRecognition(callback) {
     } catch {}
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function StopSpeechRecognition() {
     builtin_recognitionon = false;
     builtin_recognition.stop();
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function InitVoices() {
     PopulateVoicesIn();
@@ -800,6 +1131,13 @@ function InitVoices() {
     setLanguageInput(0);
     setLanguageOutput(0);
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function EcrireNB(ch) {
     // if (_('notebook').innerHTML == "")
@@ -809,6 +1147,13 @@ function EcrireNB(ch) {
     //EcrireTitle(ch);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function EcrireNBonly(ch) {
     _('notebook').innerHTML = _('notebook').innerHTML + ch + "<br/>";
     //  if (_('notebook').innerHTML == "")
@@ -816,6 +1161,13 @@ function EcrireNBonly(ch) {
     //  else _('notebook').innerHTML=_('notebook').innerHTML+"<br/>"+ch;
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function EcrireTitle(ch) {
     var linput = builtin_language.substr(0, 2).toLowerCase();
@@ -837,9 +1189,23 @@ function EcrireTitle(ch) {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function EcrirePartial(ch) {
     if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function EcrireFeedback(ch) {
     EcrireNBonly(ch);
@@ -847,15 +1213,36 @@ function EcrireFeedback(ch) {
     _('studentfeedback').innerHTML = ch;
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function Ecrire(ch) {
     if (_('output').innerHTML == "")
         _('output').innerHTML = ch;
     else _('output').innerHTML = ch + "<br/>" + _('output').innerHTML;
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function hide(e) {
     _(e).style.display = 'none';
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function show(e) {
     _(e).style.display = 'block';
@@ -863,6 +1250,13 @@ function show(e) {
 
 
 //document.body.addEventListener('load',Init,true);
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function saveText(ch) {
     var inputlanguage = builtin_language;
@@ -886,6 +1280,13 @@ function saveText(ch) {
     //	request.onload = function(event) {};
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function saveTextNB(ch) {
     var request = new XMLHttpRequest();
     request.open("POST", "savetextNB.php");
@@ -901,12 +1302,26 @@ function saveTextNB(ch) {
     //	request.onload = function(event) {};
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function LaunchReadTextQ() {
     readTextQ();
     setTimeout(LaunchReadTextQ, delayReadtextQ);
 }
 
 var delayRemote = 200;
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function LaunchRemote() {
     remote();
@@ -915,10 +1330,24 @@ function LaunchRemote() {
 
 var delayStudentReadtext = 500;
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function LaunchStudentReadText() {
     StudentreadText();
     setTimeout(LaunchStudentReadText, delayStudentReadtext);
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function FreeResources() {
     delayStudentReadtext = 1000;
@@ -931,6 +1360,13 @@ function FreeResources() {
     }, 2000);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function Lancer() {
     LaunchRemote();
     LaunchReadTextQ();
@@ -940,6 +1376,13 @@ function Lancer() {
 }
 
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function Init() {
     PopulateSubtitlesLang();
@@ -1042,6 +1485,13 @@ function Init() {
 }
 
 // Special ZOOM session
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function opentab_url(url) {
     var tabnumber = 1;
     while (tabnumber < 4 && _('extraurl' + tabnumber).value != '') tabnumber++;
@@ -1049,6 +1499,13 @@ function opentab_url(url) {
     _('embedET' + tabnumber).checked = true;
     showET(_('embedET' + tabnumber), tabnumber);
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function startZoom(zoomid) {
     var lnk = 'https://univ-nantes-fr.zoom.us/wc/join/' + zoomid;
@@ -1059,15 +1516,36 @@ function startZoom(zoomid) {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function ClearCR() {
     _('classroom').innerHTML = '';
     ScreenCR = [];
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function rgb(T) {
     return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")";
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function recharger() {
     ClearCR();
@@ -1076,6 +1554,13 @@ function recharger() {
 
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function RefreshCR() {
     _('classroom').innerHTML = "";
@@ -1089,6 +1574,13 @@ function RefreshCR() {
         }
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function EcrireCR(who, ch, order) {
     if (!ColorsForCR[who]) {
@@ -1116,9 +1608,23 @@ document.addEventListener('submit', event => {
 });
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function TailleCR() {
     return _('classroom').innerHTML.split('<br/>').length;
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function setLanguageStr(l) {
     console.log("Remote says set language to (" + l + ")");
@@ -1135,6 +1641,13 @@ function setLanguageStr(l) {
         Micro();
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function remote() {
     if (_('classroomid').value != "") {
@@ -1175,10 +1688,24 @@ function remote() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function updateUsers() {
     _('connectedusers').innerHTML = (NBconnectedusers) + " connected users";
     _('connectedusers').title = Tconnectedusers.join(", ");
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function readTextQ() {
     if (_('classroomid').value != "") {
@@ -1250,6 +1777,13 @@ function readTextQ() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function draw() {
     if (timenew_question > 0) {
         timenew_question--;
@@ -1262,6 +1796,13 @@ function draw() {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function EventNewQuestion() {
     if (timenew_question == 0) {
         timenew_question = 10;
@@ -1271,6 +1812,13 @@ function EventNewQuestion() {
         draw();
     } else timenew_question = 10;
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function saveTextQ(ch) {
     var request = new XMLHttpRequest();
@@ -1287,6 +1835,13 @@ function saveTextQ(ch) {
         readTextQ();
     };
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function TranslateQ(ch, l, linput, name, order) {
     var xhr = new XMLHttpRequest();
@@ -1310,12 +1865,33 @@ function TranslateQ(ch, l, linput, name, order) {
     AbortTimeout(xhr);
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function FromCompleteLessonToTable() {
     var txt = _('notebookcompleteraw').innerHTML;
     _('notebookcompleteformatted').innerHTML = txt;
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function playlesson() {}
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function GoFS() {
     if (!document.fullscreenElement) {
@@ -1330,6 +1906,13 @@ function GoFS() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function resizeWindow(wname) {
     var wc = _(wname);
     wc.style.width = (window.innerWidth - 20) + "px";
@@ -1337,6 +1920,13 @@ function resizeWindow(wname) {
     wc.style.top = "48px";
     wc.style.left = "0px";
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function resizeSlides() {
     var slide = _('img_slides');
@@ -1368,6 +1958,13 @@ function resizeSlides() {
     ["wooclap", "extratab1", "extratab2", "extratab3", "extratab4", "visio"].map(resizeWindow)
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function Synchronize(pin) {
     var request = new XMLHttpRequest();
     request.open("POST", "synchronize.php");
@@ -1388,6 +1985,13 @@ function Synchronize(pin) {
     };
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function Synchronize_save() {
     if (_('pincode').value != "") {
         if (_('classroomid').value != "") {
@@ -1403,6 +2007,13 @@ function Synchronize_save() {
     }
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function showET(obj, num) {
     if (obj.checked) {
@@ -1422,6 +2033,13 @@ function showET(obj, num) {
         hide('titleextratab' + num);
     }
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function Micro() {
     if (!builtin_microsofttranscritionon) {
@@ -1452,11 +2070,25 @@ function Micro() {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function ScrollBar() {
     currentscroll = currentscroll - currentindent;
     if (currentscroll < 0) currentscroll = 0;
     _('scrollbar').style.transform = 'scaleX(' + currentscroll + ')';
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function setScrollvalues(l) {
     currentscroll = 1;
@@ -1467,6 +2099,13 @@ function setScrollvalues(l) {
 }
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function updateLinks() {
     var roomid = _('classroomid').value;
     _("link1").src = "https://tableaunoir.github.io/?id=" + roomid;
@@ -1476,6 +2115,13 @@ function updateLinks() {
     _("link3").src = "https://meet.jit.si/" + roomid;
     _("link3").innerHTML = _("link3").src;
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function ChangeColor(boxname, color) {
     var [bgcolor, bordercolor, textcolor] = color.split('|');
@@ -1488,6 +2134,13 @@ function ChangeColor(boxname, color) {
     e.style.textShadow = '2px 0 0 rgb(' + bordercolor + '), -2px 0 0 rgb(' + bordercolor + '), 0 2px 0 rgb(' + bordercolor + '), 0 -2px 0 rgb(' + bordercolor + '), 1px 1px rgb(' + bordercolor + '), -1px -1px 0 rgb(' + bordercolor + '), 1px -1px 0 rgb(' + bordercolor + '), -1px 1px 0 rgb(' + bordercolor + ')';
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function ChangeOpacity(boxname, opacity) {
     var e = _(boxname);
     var color = e.style.backgroundColor;
@@ -1495,6 +2148,13 @@ function ChangeOpacity(boxname, opacity) {
     var bgcolor = [red, green, blue];
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function ChangeSizeIcons(size) {
     _('pincodediv').style.fontSize = size * 0.72 + 'px';
@@ -1513,6 +2173,13 @@ function ChangeSizeIcons(size) {
     // _('FSimage').style.height = size+'px';
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function showEachIcon() {
     var checkBox = _("iconon");
     var text = _("eachicon");
@@ -1524,12 +2191,26 @@ function showEachIcon() {
     }
 }
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function Embedcode() {
     var url = _('chatlink').href;
     //  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
     //  alert("HTML code copied to clipboard !");
     _('embedcontent').value = '<iframe style="width:100%; overflow: auto; height: 500px" src="' + url + '"></iframe>';
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function sendnotebook() {
     _('dialog_MailFrom').value = 'bourdon-j@univ-nantes.fr';
@@ -1541,6 +2222,13 @@ function sendnotebook() {
 
 
 
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
+
 function opentab(e) {
     var url = e.innerHTML;
     var tabnumber = 1;
@@ -1550,6 +2238,13 @@ function opentab(e) {
     showET(_('embedET' + tabnumber), tabnumber);
 }
 
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function updateConfig() {
     var newConfig = [];
@@ -1579,6 +2274,13 @@ function updateConfig() {
     }
     _("LinkConfig").innerHTML = _("LinkConfig").href;
 }
+
+/**
+ * @summary
+ * 
+ * @param {number} r Le rayon désiré du cercle.
+ * @returns
+ */
 
 function applyConfig() {
     var config = currentconfig;

@@ -22,3 +22,11 @@ Petit point d'étape :
 - [ ] Meta vient de sortir un nouveau modèle de language très impressionnant qui permet de faire de la traduction speech to speech en gardant la voix de la personne qui parle et quasiment en temps réel (2 secondes d'écart). C'est ici [https://github.com/facebookresearch/seamless_communication/]. Je pense qu'il faut le tester, faire les démos proposées sur HuggingFace (notamment celui [https://huggingface.co/spaces/facebook/seamless-streaming]), regarder le .iypnb, voir ce qui pourrait nous servir.
 - [ ] Créer un outil d'édition des animations. La première phase va correspondre à reprendre un peu ce qu'on a déjà dans l'application enseignante et dans ExtractSlidesNotesAppHTML.php, pour charger une application dans un editeur minimaliste (les discours dans des textarea), et générer une application avec les modifications. Ceci uniquement pour voir la faisabilité de la chose. 
 5) J'ai essayé de mettre en place une sorte de système de scénario tout fait pour faciliter la prise en main. J'ai donc ajouté quelques fonctionnalités accessibles via l'adresse (fournir un lien uncloud du PPTX ou du .HTML, accéder directement à un onglet,....). ça se trouve ici : [https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/scenarios.php].
+
+
+
+
+
+
+Pour moi.
+1) dans teacher-func.js, dans la définition de StudentCompleteTranslation2, pourquoi on fait appel à StudentCompleteTranslation dans le sinon ? Bug ?

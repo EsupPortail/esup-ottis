@@ -1,6 +1,8 @@
 // All global variables definitions
 
 // Student feeback aka Translated subtitle bar
+var Studentinputnumber = -1;
+
 var StudentToTranslate = [];
 var StudentToTranslate2 = [];
 var Studentcompletespeechactive = false;
