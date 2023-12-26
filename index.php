@@ -141,12 +141,12 @@ fclose($fd);
 <div id="titre" onclick="Forward();"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre"></div>
 -->
-	<div id="titreleft" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)';document.getElementById('titrerightbis').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';" onclick="Backward();">&#9666;</div>
-	<div id="titrerightbis" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titrerightbis').style.transform='translateY(0px)';document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';" onclick="Forward();">&#9656;</div>
+	<div id="titreleft" onmouseover="_('soustitre').style.transform='translateY(0px)'; _('titreleft').style.transform='translateY(0px)';_('titrerightbis').style.transform='translateY(0px)'; _('titreright').style.transform='translateY(0px)'; _('titre').style.transform='translateY(0px)';" onclick="Backward();">&#9666;</div>
+	<div id="titrerightbis" onmouseover="_('soustitre').style.transform='translateY(0px)'; _('titreleft').style.transform='translateY(0px)'; _('titrerightbis').style.transform='translateY(0px)';_('titreright').style.transform='translateY(0px)'; _('titre').style.transform='translateY(0px)';" onclick="Forward();">&#9656;</div>
 	<div id="titreright"></div>
-	<div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titreleft').style.transform='translateY(0px)'; document.getElementById('titrerightbis').style.transform='translateY(0px)'; document.getElementById('titreright').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';">
+	<div id="titre" onmouseover="_('soustitre').style.transform='translateY(0px)'; _('titreleft').style.transform='translateY(0px)'; _('titrerightbis').style.transform='translateY(0px)'; _('titreright').style.transform='translateY(0px)'; _('titre').style.transform='translateY(0px)';">
 		<h1>Automatic translation for teaching purposes: Teacher</h1></div>
-	<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titreleft').style.transform='translateY(-64px)'; document.getElementById('titrerightbis').style.transform='translateY(-64px)'; document.getElementById('titreright').style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>
+	<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; _('titreleft').style.transform='translateY(-64px)'; _('titrerightbis').style.transform='translateY(-64px)'; _('titreright').style.transform='translateY(-64px)'; _('titre').style.transform='translateY(-64px)';"></div>
 	<div id="partialtitre"></div>
 	<div id="studentfeedback"></div>
 	<div id="scrollbar"></div>
@@ -157,8 +157,8 @@ fclose($fd);
 				<li><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;">Classroom</a></li>
 				<li><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;">Notebook</a></li>
 				<li><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;">Complete lesson</a></li>
-				<li id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; document.getElementById('img_slides').focus();">Slides</a></li>
-				<li id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
+				<li id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus();">Slides</a></li>
+				<li id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) _('visio').src='https://meet.jit.si/Translator_'+_('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
 				<li id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
 				<li id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;">Share</a></li>
 				<li id="titlewooclap"><a href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
@@ -182,14 +182,14 @@ fclose($fd);
 						</li>
 						<li <?php if (true) echo "style=\"display:none;\""; ?> Pin code :
 							<input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
-							<input type="button" value="Change pin" onclick="document.getElementById('pincode').value=prompt('Enter a PIN code'); Synchronize_save();" />
+							<input type="button" value="Change pin" onclick="_('pincode').value=prompt('Enter a PIN code'); Synchronize_save();" />
 							<input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));" /> </li>
 						<li style="display: none;">Current config :
 							<input type="text" id="myConfig" value="0" style="width: 50px;" disabled/>
 						</li>
 						<li>&nbsp;</li>
 						<li style="display: none;">Translate subtitles ?
-							<input type="checkbox" id="subtitleon" onclick="if (this.checked) document.getElementById('spansubtitleon').innerHTML='Yes !'; else document.getElementById('spansubtitleon').innerHTML='No.';" />&nbsp;<span id="spansubtitleon">No.</span></li>
+							<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" />&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
 						<li>Language for subtitles :
 							<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect"> </select>
 						</li>
@@ -200,7 +200,7 @@ fclose($fd);
 					<ul style="list-style-type: none;">
 						<li><b>Subtitles appearance</b></li>
 						<li>Show subtitles bar ?
-							<input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {document.getElementById('spansubtitlebaron').innerHTML='Yes !'; document.getElementById('titre').style.visibility='visible'; document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spansubtitlebaron').innerHTML='No.'; document.getElementById('titre').style.visibility='hidden'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden'; document.getElementById('titreright').style.visibility='hidden';}" />&nbsp;<span id="spansubtitlebaron">Yes !</span>&nbsp;Color :
+							<input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {_('spansubtitlebaron').innerHTML='Yes !'; _('titre').style.visibility='visible'; _('titreleft').style.visibility='visible'; _('titrerightbis').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spansubtitlebaron').innerHTML='No.'; _('titre').style.visibility='hidden'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden'; _('titreright').style.visibility='hidden';}" />&nbsp;<span class="yesno" id="spansubtitlebaron">Yes !</span>&nbsp;Color :
 							<select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255" selected>blue</option>
 								<option value="0,255,0|0,100,0">green</option>
@@ -217,9 +217,9 @@ fclose($fd);
 							</select>
 						</li>
 						<li>Show arrows around subtitles ?
-							<input type="checkbox" checked id="arrowson" onclick="if (this.checked) {document.getElementById('spanarrowson').innerHTML='Yes !';document.getElementById('titreleft').style.visibility='visible'; document.getElementById('titrerightbis').style.visibility='visible'; document.getElementById('titreright').style.visibility='visible'; } else {document.getElementById('spanarrowson').innerHTML='No.'; document.getElementById('titreleft').style.visibility='hidden'; document.getElementById('titrerightbis').style.visibility='hidden';}" />&nbsp;<span id="spanarrowson">Yes !</span></li>
+							<input type="checkbox" checked id="arrowson" onclick="if (this.checked) {_('spanarrowson').innerHTML='Yes !';_('titreleft').style.visibility='visible'; _('titrerightbis').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spanarrowson').innerHTML='No.'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden';}" />&nbsp;<span class="yesno" id="spanarrowson">Yes !</span></li>
 						<li>Show instant transcription ?
-							<input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {document.getElementById('spansubtitlepartialon').innerHTML='Yes !'; document.getElementById('partialtitre').style.visibility='visible'; } else {document.getElementById('spansubtitlepartialon').innerHTML='No.'; document.getElementById('partialtitre').style.visibility='hidden'; }" />&nbsp;<span id="spansubtitlepartialon">No.</span>&nbsp; Color :
+							<input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {_('spansubtitlepartialon').innerHTML='Yes !'; _('partialtitre').style.visibility='visible'; } else {_('spansubtitlepartialon').innerHTML='No.'; _('partialtitre').style.visibility='hidden'; }" />&nbsp;<span class="yesno" id="spansubtitlepartialon">No.</span>&nbsp; Color :
 							<select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255">blue</option>
 								<option value="0,255,0|0,100,0">green</option>
@@ -236,7 +236,7 @@ fclose($fd);
 							</select>
 						</li>
 						<li style="display:none;">Show student feedback ?
-							<input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {document.getElementById('spansubtitlestudenton').innerHTML='Yes !'; document.getElementById('studentfeedback').style.visibility='visible'; } else {document.getElementById('spansubtitlestudenton').innerHTML='No.'; document.getElementById('studentfeedback').style.visibility='hidden'; }" />&nbsp;<span id="spansubtitlestudenton">No.</span>&nbsp; Color :
+							<input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {_('spansubtitlestudenton').innerHTML='Yes !'; _('studentfeedback').style.visibility='visible'; } else {_('spansubtitlestudenton').innerHTML='No.'; _('studentfeedback').style.visibility='hidden'; }" />&nbsp;<span class="yesno" id="spansubtitlestudenton">No.</span>&nbsp; Color :
 							<select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect" class="jqueryselect">
 								<option value="0,0,255|0,0,255">blue</option>
 								<option value="0,255,0|0,100,0">green</option>
@@ -253,7 +253,7 @@ fclose($fd);
 							</select>
 						</li>
 						<li>Subtitles font size :
-							<select id="selectfontsize" onchange="document.getElementById('titre').style.fontSize = this.value; document.getElementById('partialtitre').style.fontSize = this.value; document.getElementById('studentfeedback').style.fontSize = this.value;" class="jqueryselect">
+							<select id="selectfontsize" onchange="_('titre').style.fontSize = this.value; _('partialtitre').style.fontSize = this.value; _('studentfeedback').style.fontSize = this.value;" class="jqueryselect">
 								<option value="12px">Small</option>
 								<option value="18px" selected>Normal</option>
 								<option value="24px">Big</option>
@@ -273,16 +273,13 @@ fclose($fd);
 						<li>&nbsp;</li>
 						<li><b>Icons</b></li>
 						<li>Show icons
-							<input type="checkbox" checked id="iconon" onclick="showEachIcon(); if (this.checked) 
-    {document.getElementById('spaniconon').innerHTML='Yes !'; 
-      document.getElementById('pincodediv').style.visibility='visible';document.getElementById('micon').style.visibility='visible';document.getElementById('questionicon').style.visibility='visible';document.getElementById('FS').style.visibility='visible';} 
-    else {document.getElementById('spaniconon').innerHTML='No.';
-      document.getElementById('pincodediv').style.visibility='hidden';document.getElementById('micon').style.visibility='hidden';document.getElementById('questionicon').style.visibility='hidden';document.getElementById('FS').style.visibility='hidden';}" /> &nbsp;<span id="spaniconon">Yes !</span></li>
+							<input type="checkbox" checked id="iconon" onclick="showEachIcon(); if (this.checked) {
+    {_('spaniconon').innerHTML='Yes !';} else {_('spaniconon').innerHTML='No.';}" /> &nbsp;<span class="yesno" id="spaniconon">Yes !</span></li>
 						<li id="eachicon" style="display:none">Pin code ?
-							<input type="checkbox" id="pincodeon" onclick="if (this.checked) {document.getElementById('spanpincodeon').innerHTML='Yes !'; document.getElementById('pincodediv').style.visibility='visible';} else {document.getElementById('spanpincodeon').innerHTML='No.';document.getElementById('pincodediv').style.visibility='hidden';}" />&nbsp;<span id="spanpincodeon">No.</span> &nbsp; Micro ?
-							<input type="checkbox" id="microon" onclick="if (this.checked) {document.getElementById('spanmicroon').innerHTML='Yes !'; show('micon');} else {document.getElementById('spanmicroon').innerHTML='No.';hide('micon');}" />&nbsp;<span id="spanmicroon">No.</span> &nbsp; Question ?
-							<input type="checkbox" id="questionon" onclick="if (this.checked) {document.getElementById('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {document.getElementById('spanquestionon').innerHTML='No.';hide('questionicon');}" />&nbsp;<span id="spanquestionon">No.</span> &nbsp; Full screen ?
-							<input type="checkbox" id="fson" onclick="if (this.checked) {document.getElementById('spanfson').innerHTML='Yes !'; show('FS');} else {document.getElementById('spanfson').innerHTML='No.';hide('FS');}" />&nbsp;<span id="spanfson">No.</span></li>
+							<input type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" />&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; Micro ?
+							<input type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" />&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; Question ?
+							<input type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" />&nbsp;<span class="yesno" class="yesno" id="spanquestionon">No.</span> &nbsp; Full screen ?
+							<input type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" />&nbsp;<span class="yesno" id="spanfson">No.</span></li>
 						<li>&nbsp;</li>
 						<li><b>Pin code appearance</b></li>
 						<li>Pin code size
@@ -299,33 +296,33 @@ fclose($fd);
 					<ul style="list-style-type: none;">
 						<li><b>Extra tabs</b></li>
 						<li>Embed WOOCLAP ?
-							<input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {document.getElementById('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {document.getElementById('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}" />&nbsp;<span id="spanembedwooclapon">No.</span>
+							<input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {_('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {_('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}" />&nbsp;<span class="yesno" id="spanembedwooclapon">No.</span>
 							<button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
-							<button style="display:none;" onclick="document.getElementById('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button>
+							<button style="display:none;" onclick="_('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button>
 						</li>
-						<!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {document.getElementById('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {document.getElementById('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span id="spanembedliveon">No.</span></li> -->
-						<!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {document.getElementById('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {document.getElementById('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span id="spanembedvisioon">No.</span></li> -->
+						<!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {_('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {_('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span class="yesno" id="spanembedliveon">No.</span></li> -->
+						<!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {_('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {_('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span class="yesno" id="spanembedvisioon">No.</span></li> -->
 						<li>Show Share tab ?
-							<input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {document.getElementById('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {document.getElementById('spanembedshareon').innerHTML='No.';  hide('titleshare');}" />&nbsp;<span id="spanembedshareon">Yes !</span></li>
+							<input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {_('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {_('spanembedshareon').innerHTML='No.';  hide('titleshare');}" />&nbsp;<span class="yesno" id="spanembedshareon">Yes !</span></li>
 						<li>Extra tab 1 URL :
 							<input type="text" id="extraurl1" value="" placeholder="Copy your application url here" />&nbsp; Show ?
-							<input type="checkbox" id="embedET1" onclick="showET(this,1);" />&nbsp;<span id="spanembedET1">No.</span>&nbsp;
-							<button onclick="saveTextQ('[extratab1|'+document.getElementById('extraurl1').value+']');">Send to students</button>
+							<input type="checkbox" id="embedET1" onclick="showET(this,1);" />&nbsp;<span class="yesno" id="spanembedET1">No.</span>&nbsp;
+							<button onclick="saveTextQ('[extratab1|'+_('extraurl1').value+']');">Send to students</button>
 						</li>
 						<li>Extra tab 2 URL :
 							<input type="text" id="extraurl2" value="" placeholder="Copy your application url here" />&nbsp; Show ?
-							<input type="checkbox" id="embedET2" onclick="showET(this,2);" />&nbsp;<span id="spanembedET2">No.</span>&nbsp;
-							<button onclick="saveTextQ('[extratab2|'+document.getElementById('extraurl2').value+']');">Send to students</button>
+							<input type="checkbox" id="embedET2" onclick="showET(this,2);" />&nbsp;<span class="yesno" id="spanembedET2">No.</span>&nbsp;
+							<button onclick="saveTextQ('[extratab2|'+_('extraurl2').value+']');">Send to students</button>
 						</li>
 						<li>Extra tab 3 URL :
 							<input type="text" id="extraurl3" value="" placeholder="Copy your application url here" />&nbsp; Show ?
-							<input type="checkbox" id="embedET3" onclick="showET(this,3);" />&nbsp;<span id="spanembedET3">No.</span>&nbsp;
-							<button onclick="saveTextQ('[extratab3|'+document.getElementById('extraurl3').value+']');">Send to students</button>
+							<input type="checkbox" id="embedET3" onclick="showET(this,3);" />&nbsp;<span class="yesno" id="spanembedET3">No.</span>&nbsp;
+							<button onclick="saveTextQ('[extratab3|'+_('extraurl3').value+']');">Send to students</button>
 						</li>
 						<li>Extra tab 4 URL :
 							<input type="text" id="extraurl4" value="" placeholder="Copy your application url here" />&nbsp; Show ?
-							<input type="checkbox" id="embedET4" onclick="showET(this,4);" />&nbsp;<span id="spanembedET4">No.</span>&nbsp;
-							<button onclick="saveTextQ('[extratab4|'+document.getElementById('extraurl4').value+']');">Send to students</button>
+							<input type="checkbox" id="embedET4" onclick="showET(this,4);" />&nbsp;<span class="yesno" id="spanembedET4">No.</span>&nbsp;
+							<button onclick="saveTextQ('[extratab4|'+_('extraurl4').value+']');">Send to students</button>
 						</li>
 						<li></li>
 					</ul>
@@ -362,11 +359,11 @@ fclose($fd);
 							<input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" />
 						</li>
 						<li title="Do not change unless you know what you are doing !">External transcription service ?
-							<input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) document.getElementById('spanexternaltranscritionon').innerHTML='Yes !'; else document.getElementById('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked" />&nbsp;<span id="spanexternaltranscritionon">No.</span></li>
+							<input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) _('spanexternaltranscritionon').innerHTML='Yes !'; else _('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked" />&nbsp;<span class="yesno" id="spanexternaltranscritionon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?
-							<input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) document.getElementById('spanmicrosofttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked" />&nbsp;<span id="spanmicrosofttranscritionon">No.</span></li>
+							<input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) _('spanmicrosofttranscritionon').innerHTML='Yes !'; else _('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked" />&nbsp;<span class="yesno" id="spanmicrosofttranscritionon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Microsoft live translation ?
-							<input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else document.getElementById('spanmicrosoftdirecttranscritionon').innerHTML='No.';" />&nbsp;<span id="spanmicrosoftdirecttranscritionon">No.</span></li>
+							<input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionon').innerHTML='No.';" />&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none\";" ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)
 							<br/>
 							<textarea id="BoostedWords" rows="3" cols="20"></textarea>
@@ -395,7 +392,7 @@ fclose($fd);
 				<input type="button" value="Send by mail" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="sendnotebook();" />
 				<br/>
 				<div id="notebook" style="border: solid 1px;" contenteditable="true"> </div>
-				<!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(document.getElementById('notebook').innerHTML);"/> -->
+				<!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(_('notebook').innerHTML);"/> -->
 			</div>
 			<div id="tabs-5">
 				<div>
@@ -437,7 +434,7 @@ fclose($fd);
 						<select id="VoiceOutput" onchange="setLanguageOutput(this.value);" class="jqueryselect"> </select>
 					</li>
 					<li>
-						<button id="bswitch" onclick="var tmp=document.getElementById('VoiceOutput').value; document.getElementById('VoiceOutput').value=document.getElementById('classroomlanguage').value; setLanguageOutput(document.getElementById('VoiceOutput').value); setLanguageInput(document.getElementById('classroomlanguage').value); Micro(); Micro();">input ↔ output</button>
+						<button id="bswitch" onclick="var tmp=_('VoiceOutput').value; _('VoiceOutput').value=_('classroomlanguage').value; setLanguageOutput(_('VoiceOutput').value); setLanguageInput(_('classroomlanguage').value); Micro(); Micro();">input ↔ output</button>
 					</li>
 				</ul>
 				<div id="output"> </div>
@@ -457,7 +454,7 @@ fclose($fd);
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>&LANG=fr,en&APPID=<?php echo $appid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;
-							<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); document.getElementById('remotelink').href=document.getElementById('remotelink').innerHTML+'&LANG='+difflang+'&APPID='+document.getElementById('appid').value; document.getElementById('remoteqr').innerHTML=''; new QRCode(document.getElementById('remoteqr'), {	text: document.getElementById('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});" />
+							<input type="button" value="Language switcher" title="Add the language switcher capability to the remote (useful for multilingual speakers)." onclick="var difflang=prompt('Enter the list of languages (2 letter codes separated by commas).\n Examples : \'fr,en\' or \'fr,en,es,it\'',''); _('remotelink').href=_('remotelink').innerHTML+'&LANG='+difflang+'&APPID='+_('appid').value; _('remoteqr').innerHTML=''; new QRCode(_('remoteqr'), {	text: _('remotelink').href,	width: 128,	height: 128,	colorDark : '#0000ff',	colorLight : '#ffffff',	correctLevel : QRCode.CorrectLevel.L});" />
 						</li>
 						<li>QR code :
 							<div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div>

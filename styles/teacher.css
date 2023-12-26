@@ -8,6 +8,18 @@ Main stylesheet for Teacher application
 	padding: 2px;
 }
 
+.yesno {
+}
+
+.yesno:contains('Yes') {
+  color:#2c974b;
+}
+
+.yesno:contains('No') {
+  color:red;
+}
+
+
 button {
 	cursor: pointer;
 }
