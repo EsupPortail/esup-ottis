@@ -24,6 +24,37 @@ function myalert(ch) {
     $("#dialog-invite").dialog("open");
 }
 
+/**
+ * @summary Hide an HTML object by changing its "display" parameter.
+ * 
+ * @param {HTML div} e an HTML DOM object
+ */
+
+function hide(e) {
+    _(e).style.display = 'none';
+}
+
+/**
+ * @summary Show an HTML object by changing its "display" parameter.
+ * 
+ * @param {HTML div} e an HTML DOM object
+ */
+
+function show(e) {
+    _(e).style.display = 'block';
+}
+
+/**
+ * @summary Array to string RGB color
+ * 
+ * @param {array} T an array of 3 8bits integers
+ * @returns a string description of a color
+ */
+
+function rgb(T) {
+    return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")";
+}
+
 // Student feedback
 
 /**
@@ -1031,9 +1062,9 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
 
 
 /**
- * @summary
+ * @summary StartSpeechRecognition is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {function} callback function that is called each time a new text is recognized.
  * @returns
  */
 
@@ -1070,10 +1101,8 @@ function StartSpeechRecognition(callback) {
 }
 
 /**
- * @summary
+ * @summary StopSpeechRecognition is used to stop a running speech recognition service
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function StopSpeechRecognition() {
@@ -1083,10 +1112,8 @@ function StopSpeechRecognition() {
 
 
 /**
- * @summary
+ * @summary InitVoices is executed when the HTML page is loaded.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function InitVoices() {
@@ -1097,10 +1124,9 @@ function InitVoices() {
 }
 
 /**
- * @summary
+ * @summary Function that update the "notebook" div.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text that is adding to the notebook.
  */
 
 function EcrireNB(ch) {
@@ -1112,10 +1138,9 @@ function EcrireNB(ch) {
 }
 
 /**
- * @summary
+ * @summary Function that update the "notebook" div.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text that is adding to the notebook.
  */
 
 function EcrireNBonly(ch) {
@@ -1127,10 +1152,9 @@ function EcrireNBonly(ch) {
 
 
 /**
- * @summary
+ * @summary Function that update the "title" div.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text that is adding to the title.
  */
 
 function EcrireTitle(ch) {
@@ -1154,10 +1178,9 @@ function EcrireTitle(ch) {
 }
 
 /**
- * @summary
+ * @summary Function that update the "partial title" div.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text that is adding to the title.
  */
 
 function EcrirePartial(ch) {
@@ -1165,10 +1188,9 @@ function EcrirePartial(ch) {
 }
 
 /**
- * @summary
+ * @summary Function that update the "studentfeedback" div.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text that is adding to the title.
  */
 
 function EcrireFeedback(ch) {
@@ -1178,10 +1200,9 @@ function EcrireFeedback(ch) {
 }
 
 /**
- * @summary
+ * @summary Function that update the "output" div.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text that is adding to the title.
  */
 
 function Ecrire(ch) {
@@ -1191,35 +1212,9 @@ function Ecrire(ch) {
 }
 
 /**
- * @summary
+ * @summary Save a given text to the text buffer that is sent to the student App.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
- */
-
-function hide(e) {
-    _(e).style.display = 'none';
-}
-
-/**
- * @summary
- * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
- */
-
-function show(e) {
-    _(e).style.display = 'block';
-}
-
-
-//document.body.addEventListener('load',Init,true);
-
-/**
- * @summary
- * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} ch the text to be saved.
  */
 
 function saveText(ch) {
@@ -1245,10 +1240,10 @@ function saveText(ch) {
 }
 
 /**
- * @summary
+ * @summary Save the entire notebook (several lines at a time)
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @deprecated
+ * @param {string} ch a <br/> separated list of lines.
  */
 
 function saveTextNB(ch) {
@@ -1267,10 +1262,8 @@ function saveTextNB(ch) {
 }
 
 /**
- * @summary
+ * @summary Launch the looping function for reading the CHAT queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function LaunchReadTextQ() {
@@ -1278,13 +1271,10 @@ function LaunchReadTextQ() {
     setTimeout(LaunchReadTextQ, delayReadtextQ);
 }
 
-var delayRemote = 200;
 
 /**
- * @summary
+ * @summary Launch the looping function for reading the REMOTE queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function LaunchRemote() {
@@ -1292,13 +1282,10 @@ function LaunchRemote() {
     setTimeout(LaunchRemote, delayRemote);
 }
 
-var delayStudentReadtext = 500;
 
 /**
- * @summary
+ * @summary Launch the looping function for reading the STUDENT queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function LaunchStudentReadText() {
@@ -1307,10 +1294,8 @@ function LaunchStudentReadText() {
 }
 
 /**
- * @summary
+ * @summary A function that allows to stop all the loops and hence that free the ressources
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function FreeResources() {
@@ -1325,10 +1310,8 @@ function FreeResources() {
 }
 
 /**
- * @summary
+ * @summary A function that is launched when the HTML page is loaded
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Lancer() {
@@ -1342,10 +1325,8 @@ function Lancer() {
 
 
 /**
- * @summary
+ * @summary A function that is launched when the HTML page is loaded
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Init() {
@@ -1450,10 +1431,9 @@ function Init() {
 
 // Special ZOOM session
 /**
- * @summary
+ * @summary Adds a new tab pointing to an external tool
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} url URL of the desired page.
  */
 
 function opentab_url(url) {
@@ -1465,10 +1445,9 @@ function opentab_url(url) {
 }
 
 /**
- * @summary
+ * @summary Open a new tab containing a Zoom session.
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} zoomid An ID of a Nantes University Zoom session
  */
 
 function startZoom(zoomid) {
@@ -1481,10 +1460,8 @@ function startZoom(zoomid) {
 
 
 /**
- * @summary
+ * @summary Clear the classroom div
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function ClearCR() {
@@ -1493,22 +1470,8 @@ function ClearCR() {
 }
 
 /**
- * @summary
+ * @summary Reload the classroom queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
- */
-
-function rgb(T) {
-    return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")";
-}
-
-
-/**
- * @summary
- * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function recharger() {
@@ -1520,10 +1483,8 @@ function recharger() {
 
 
 /**
- * @summary
+ * @summary Refresh the classroom queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function RefreshCR() {
@@ -1540,10 +1501,11 @@ function RefreshCR() {
 }
 
 /**
- * @summary
+ * @summary Write something to the classroom queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} who surname of the person who writes.
+ * @param {string} ch text that is to be written.
+ * @param {number} order synchronisation parameter.
  */
 
 function EcrireCR(who, ch, order) {
@@ -1565,18 +1527,11 @@ function EcrireCR(who, ch, order) {
     RefreshCR();
 }
 
-document.addEventListener('submit', event => {
-    event.preventDefault();
-    // actual logic, e.g. validate the form
-    //alert('Form submission cancelled.');
-});
-
 
 /**
- * @summary
+ * @summary Computes the number of questions in the classroom queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @returns Tthe number of questions in the classroom queue.
  */
 
 function TailleCR() {
@@ -1584,10 +1539,9 @@ function TailleCR() {
 }
 
 /**
- * @summary
+ * @summary Change the classroom language
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} l the two letters code of the language.
  */
 
 function setLanguageStr(l) {
@@ -1607,10 +1561,8 @@ function setLanguageStr(l) {
 }
 
 /**
- * @summary
+ * @summary Read the REMOTE queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function remote() {
@@ -1653,10 +1605,8 @@ function remote() {
 }
 
 /**
- * @summary
+ * @summary Update the number of connected users
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function updateUsers() {
@@ -1665,10 +1615,8 @@ function updateUsers() {
 }
 
 /**
- * @summary
+ * @summary Read the CLASSROOM queue
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function readTextQ() {
@@ -1742,10 +1690,8 @@ function readTextQ() {
 }
 
 /**
- * @summary
+ * @summary Looping function that is executed to animate the question icon
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function draw() {
@@ -1761,10 +1707,8 @@ function draw() {
 
 
 /**
- * @summary
+ * @summary Event that is fired when a new question arrives
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function EventNewQuestion() {
@@ -1778,9 +1722,9 @@ function EventNewQuestion() {
 }
 
 /**
- * @summary
+ * @summary Save a new question in the classroom queue
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {string} ch Text of the question
  * @returns
  */
 
@@ -1801,9 +1745,13 @@ function saveTextQ(ch) {
 }
 
 /**
- * @summary
+ * @summary Translate the text of a question from a language to another
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {string} ch Text of the question
+ * @param {string} l output language
+ * @param {string} linput input language
+ * @param {string} name Person who ask the question
+ * @param {string} order order of the question
  * @returns
  */
 

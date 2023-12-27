@@ -348,3 +348,10 @@ $(function() {
 $(function() {
     //$( ".jqueryselect" ).selectmenu();
 });
+
+document.addEventListener('submit', event => {
+    event.preventDefault();
+    // actual logic, e.g. validate the form
+    //alert('Form submission cancelled.');
+});
+

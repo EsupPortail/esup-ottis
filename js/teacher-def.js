@@ -85,3 +85,6 @@ var timenew_question = 0;
 var currentscroll = 0;
 var currentindent = 0;
 var scrollinterval = 50;
+
+var delayRemote = 200;
+var delayStudentReadtext = 500;
