@@ -271,7 +271,6 @@ function updateWC() {
     //if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
     if (buffer_has_changed) {
         parseText(CreateString());
-        _('form').submit();
         console.log("WC with : " + CreateString());
     }
     buffer_has_changed = false;
