@@ -221,6 +221,7 @@ Show the original version banner
     </div>
   </div>
 	<div id="tabs-13" class="wordcloud">
+    <form id="form">
     <div id="vis"></div>
     <div id="configwc" style="display: none">
     <p><textarea id="text">
@@ -252,6 +253,7 @@ Ceci est un test...
     <label for="angle-from">from</label> <input type="number" id="angle-from" value="-60" min="-90" max="90"> °
     <label for="angle-to">to</label> <input type="number" id="angle-to" value="60" min="-90" max="90"> °
 </div>
+  </form>
 </div>
 
   </div>
