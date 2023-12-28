@@ -7,6 +7,8 @@
   } );
 */
 
+window.onresize=resizeSlides;
+
 
 function retourOK(e) {
     var res = '';
