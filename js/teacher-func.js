@@ -1778,10 +1778,10 @@ function TranslateQ(ch, l, linput, name, order) {
 }
 
 /**
- * @summary
+ * @summary unused and obsolete function
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @deprecated
+ * @unused
  */
 
 function FromCompleteLessonToTable() {
@@ -1790,19 +1790,17 @@ function FromCompleteLessonToTable() {
 }
 
 /**
- * @summary
+ * @summary Do nothing useless ? probably unused
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @deprecated
+ * @unused
  */
 
 function playlesson() {}
 
 /**
- * @summary
+ * @summary Switch the fullscreen mode on and off
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function GoFS() {
@@ -1819,10 +1817,9 @@ function GoFS() {
 }
 
 /**
- * @summary
+ * @summary Resize the main windows
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} wname an HTML DOM identifier
  */
 
 function resizeWindow(wname) {
@@ -1834,10 +1831,8 @@ function resizeWindow(wname) {
 }
 
 /**
- * @summary
+ * @summary Resize the slides window
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function resizeSlides() {
@@ -1871,10 +1866,11 @@ function resizeSlides() {
 }
 
 /**
- * @summary
+ * @summary Synchronize the teacher App with a given PIN number
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @deprecated
+ * @unused
+ * @param {number} pin a 5 digits pin code
  */
 
 function Synchronize(pin) {
@@ -1898,10 +1894,8 @@ function Synchronize(pin) {
 }
 
 /**
- * @summary
+ * @summary Create a new PIN 5 digit code associated to a course channel
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Synchronize_save() {
@@ -1921,9 +1915,10 @@ function Synchronize_save() {
 
 
 /**
- * @summary
+ * @summary Switch a given extratab visible or invisible
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {HTMLInput checkbox} obj a checkbox.
+ * @param {number} num the tab number.
  * @returns
  */
 
@@ -1947,10 +1942,8 @@ function showET(obj, num) {
 }
 
 /**
- * @summary
+ * @summary Switch the Microphone/Speechrecognition on and off
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Micro() {
@@ -1983,10 +1976,8 @@ function Micro() {
 
 
 /**
- * @summary
+ * @summary Display a Scroll bar below the title bar and synchronized with the speech duration
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function ScrollBar() {
@@ -1996,9 +1987,9 @@ function ScrollBar() {
 }
 
 /**
- * @summary
+ * @summary Update the scroll bar value
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {number} l current value.
  * @returns
  */
 
@@ -2012,10 +2003,8 @@ function setScrollvalues(l) {
 
 
 /**
- * @summary
+ * @summary Update the external tools links
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function updateLinks() {
@@ -2029,10 +2018,10 @@ function updateLinks() {
 }
 
 /**
- * @summary
+ * @summary Change the color of a HTML div
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} boxname The div identifier.
+ * @param {string} color Three colors separated by |.
  */
 
 function ChangeColor(boxname, color) {
@@ -2047,10 +2036,10 @@ function ChangeColor(boxname, color) {
 }
 
 /**
- * @summary
+ * @summary Change the opacity of a HTML div
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @param {string} boxname The div identifier.
+ * @param {string} opacity a [0,1] real number.
  */
 
 function ChangeOpacity(boxname, opacity) {
@@ -2062,9 +2051,9 @@ function ChangeOpacity(boxname, opacity) {
 }
 
 /**
- * @summary
+ * @summary Change the icon size
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {number} size the expected size.
  * @returns
  */
 
@@ -2086,10 +2075,9 @@ function ChangeSizeIcons(size) {
 }
 
 /**
- * @summary
+ * @summary Show the selection bar in the information menu
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
+ * @deprecated ?
  */
 
 function showEachIcon() {
@@ -2104,10 +2092,8 @@ function showEachIcon() {
 }
 
 /**
- * @summary
+ * @summary Generate the HTML code allowing to embed a Chat window
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function Embedcode() {
@@ -2118,10 +2104,8 @@ function Embedcode() {
 }
 
 /**
- * @summary
+ * @summary Send the notebook content by mail
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function sendnotebook() {
@@ -2135,9 +2119,9 @@ function sendnotebook() {
 
 
 /**
- * @summary
+ * @summary Open a new tab
  * 
- * @param {number} r Le rayon désiré du cercle.
+ * @param {HTMLDiv} e an HTML div containing the url.
  * @returns
  */
 
@@ -2152,10 +2136,8 @@ function opentab(e) {
 
 
 /**
- * @summary
+ * @summary Update the configuration code according to the current configuration
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function updateConfig() {
@@ -2188,10 +2170,8 @@ function updateConfig() {
 }
 
 /**
- * @summary
+ * @summary Apply a configuration (at startup)
  * 
- * @param {number} r Le rayon désiré du cercle.
- * @returns
  */
 
 function applyConfig() {

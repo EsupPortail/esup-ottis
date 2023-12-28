@@ -184,9 +184,6 @@ fclose($fd);
 							<input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
 							<input type="button" value="Change pin" onclick="_('pincode').value=prompt('Enter a PIN code'); Synchronize_save();" />
 							<input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));" /> </li>
-						<li style="display: none;">Current config :
-							<input type="text" id="myConfig" value="0" style="width: 50px;" disabled/>
-						</li>
 						<li>&nbsp;</li>
 						<li style="display: none;">Translate subtitles ?
 							<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" />&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
@@ -373,13 +370,22 @@ fclose($fd);
 							<textarea id="verbaltics" rows="3" cols="20"></textarea>
 							<li><span id="connectedusers"></span></li>
 							<li></li>
+              </ul>
+              <br/>
+					<br/>
+					<p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo " javascript:void(window.open( 'OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."')) "; else echo "javascript:void(window.open( 'OMIST_Tools')) ";?>">here</a>.</p>
+
+              </div>
+              <h3>Configuration code</h3>
+              <div>
+              <ul>
+              <li style="display: none;">Current configuration code :
+							  <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/>
+						  </li>
 							<li>Copy this link to always access the teachers application with this configuration :
 								<a href="" id="LinkConfig"></a>
 							</li>
 					</ul>
-					<br/>
-					<br/>
-					<p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo " javascript:void(window.open( 'OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."')) "; else echo "javascript:void(window.open( 'OMIST_Tools')) ";?>">here</a>.</p>
 				</div>
 			</div>
 			<div id="tabs-1">
