@@ -379,7 +379,7 @@ fclose($fd);
               <h3>Configuration code</h3>
               <div>
               <ul>
-              <li style="display: none;">Current configuration code :
+              <li>Current configuration code :
 							  <input type="text" id="myConfig" value="0" style="width: 50px;" disabled/>
 						  </li>
 							<li>Copy this link to always access the teachers application with this configuration :
