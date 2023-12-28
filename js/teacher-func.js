@@ -214,7 +214,7 @@ function StudentCompleteSpeech() {
 }
 
 /**
- * @summary Verify if there is something new prononced by the teacher.
+ * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue).
  * 
  */
 
