@@ -55,7 +55,7 @@ fclose($fd);
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="css/student.css" rel="stylesheet"/>
+  <link href="style/student.css" rel="stylesheet"/>
 <script type="text/javascript">
 
 <?php
