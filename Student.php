@@ -377,9 +377,8 @@ Ceci est un test...
 <script src="https://www.jasondavies.com/d3.min.js"></script>
 <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
 <script>
-  function parseText(t) {T(t);}
-</script>
-
+  function parseText(t) {_("text").value=t;}
+  </script>
 <script src="js/student-post.js"></script>
 </body>
 </html>
