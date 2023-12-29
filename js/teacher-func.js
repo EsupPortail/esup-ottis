@@ -2309,3 +2309,54 @@ function applyConfig() {
    
     updateConfig();
 }
+
+
+/**
+ * @summary Function that fix the subtitle bar at the bottom of the page
+ * 
+ * @deprecated
+ */
+
+function fixTitle() {
+    for (var f in {
+            "partialtitre": 1,
+            "studentfeedback": 1
+        }) {
+        var e = document.getElementById(f);
+        e.style.top = (window.innerHeight - e.style.height - 200 - 10) + 'px';
+    }
+
+    var e = document.getElementById("titre");
+    e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
+}
+
+/**
+ * @summary Function that allows to keep the partial title bar inside the window
+ * 
+ * @todo Do not work properly
+ */
+
+function MinTitlePos() {
+    for (var f in {
+            "partialtitre": 1,
+            "studentfeedback": 1
+        }) {
+        var e = document.getElementById(f);
+        var postop = 1 * (e.style.top.replace('px', ''));
+        if (postop > window.innerHeight - 50) {
+            e.style.top = (window.innerHeight - 50) + 'px';
+        }
+    }
+}
+
+/**
+ * @summary Callback function when the question field (Classroom tab) has changed
+ * 
+ */
+
+function sendclick() {
+    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
+    //alert("Will send : ("+tosend+")");
+    if (tosend != "") saveTextQ(tosend);
+    document.getElementById('question').value = '';
+}

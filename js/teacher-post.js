@@ -52,33 +52,6 @@ $('#bar').on('keydown keyup keypress', function(e) {
     e.preventDefault();
 });
 
-
-function fixTitle() {
-    for (var f in {
-            "partialtitre": 1,
-            "studentfeedback": 1
-        }) {
-        var e = document.getElementById(f);
-        e.style.top = (window.innerHeight - e.style.height - 200 - 10) + 'px';
-    }
-
-    var e = document.getElementById("titre");
-    e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
-}
-
-function MinTitlePos() {
-    for (var f in {
-            "partialtitre": 1,
-            "studentfeedback": 1
-        }) {
-        var e = document.getElementById(f);
-        var postop = 1 * (e.style.top.replace('px', ''));
-        if (postop > window.innerHeight - 50) {
-            e.style.top = (window.innerHeight - 50) + 'px';
-        }
-    }
-}
-
 /**
  * jQuery Draggable Touch v0.6
  * Jonatan Heyman | http://heyman.info 
@@ -278,12 +251,6 @@ $(function() {
 });
 
 
-function sendclick() {
-    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
-    //alert("Will send : ("+tosend+")");
-    if (tosend != "") saveTextQ(tosend);
-    document.getElementById('question').value = '';
-}
 
 $("#question").keyup(function(event) {
     if (event.keyCode === 13) {
