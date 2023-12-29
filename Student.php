@@ -70,6 +70,7 @@ if ($synchronize) {
 </script>
 
 <script src="js/student-def.js"></script>
+<script src="js/common-func.js"></script>
 <script src="js/student-func.js"></script>
 
 
@@ -138,7 +139,7 @@ if ($synchronize) {
 <option value="48px" >Enormous</option>
   </select>
   </li>
-  <li>Subtitles opacity : <select id="select-opacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
+  <li>Subtitles opacity : <select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
 <option value="0">0% opaque</option>
 <option value="0.25" >25% opaque</option>
 <option value="0.5" selected>50% opaque</option>
