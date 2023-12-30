@@ -213,6 +213,19 @@ function CreateLinkStudent() {
 
 var root = window.location.href.replace("/scenarios.php","");
 
+/**
+ * @summary A prettier alert function
+ * 
+ * @param {string} ch The text shown in the alert.
+ * @returns
+ */
+
+ function myalert(ch) {
+    ch = ch.replaceAll("\n", "<br/>");
+    _('dialog-invite-p').innerHTML = ch;
+    $("#dialog-invite").dialog("open");
+}
+
 </script>
 </head>
 <body>
@@ -342,16 +355,32 @@ var root = window.location.href.replace("/scenarios.php","");
             </select>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="var linkteacher = CreateLink(); var linkstudent=CreateLinkStudent(); if (linkstudent != '') linkstudent='\n\nEt voici le lien étudiant : \n '+root+'/Student.php?'+linkstudent; alert('Voici le lien de connexion, à utiliser n\'importe quand\n'+root+'/index.php?'+linkteacher+linkstudent);">Générer le lien</button>
+      <button class="btn btn--block card__btn" onclick="var linkteacher = CreateLink(); var linkstudent=CreateLinkStudent(); if (linkstudent != '') linkstudent='\n\nEt voici le lien étudiant : \n '+root+'/Student.php?'+linkstudent; myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+root+'/index.php?'+linkteacher+linkstudent);">Générer le lien</button>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?'+CreateLink());">Y aller</button>
     </div>
   </li>
 
 </ul>
-
+<div id="dialog-invite" title="External guest token creation">
+		<p id="dialog-invite-p"> </p>
+	</div>
 </body>
 <script>
   $( document ).tooltip();
+  $(function() {
+    $("#dialog-invite").dialog({
+        autoOpen: false,
+        modal: true,
+        height: "auto",
+        width: "auto",
+        buttons: {
+            Ok: function() {
+                $(this).dialog("close");
+            }
+        }
+    });
+  });
+
 </script>
 
 </html>
