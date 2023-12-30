@@ -233,7 +233,7 @@ var root = window.location.href.replace("/scenarios.php","");
 
  function myalert(ch,title="Message") {
     ch = ch.replaceAll("\n", "<br/>");
-    _('dialog-invite').title = title;
+    $('#dialog-invite').title = title;
     _('dialog-invite-p').innerHTML = ch;
     $("#dialog-invite").dialog("open");
 }
