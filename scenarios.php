@@ -211,6 +211,17 @@ function CreateLinkStudent() {
     return res;
 }
 
+function GenereLinkAlert() {
+  var linkteacher = root+'/index.php?'+CreateLink(); 
+  linkteacher='<a href="'+linkteacher+'">'+linkteacher+'</a>'; 
+  var linkstudent=CreateLinkStudent(); 
+  if (linkstudent != '') {
+    linkstudent=root+'/Student.php?'+linkstudent; 
+    linkstudent='<a href="'+linkstudent+">'+linkstudent+'</a>';  
+    linkstudent='\n\nEt voici le lien étudiant : \n '+linkstudent;
+  } 
+  myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+linkteacher+linkstudent,'Lien de connexion');
+}
 var root = window.location.href.replace("/scenarios.php","");
 
 /**
@@ -356,7 +367,7 @@ var root = window.location.href.replace("/scenarios.php","");
             </select>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="var linkteacher = root+'/index.php?'+CreateLink(); linkteacher='<a href="'+linkteacher+'">'+linkteacher+'</a>'; var linkstudent=CreateLinkStudent(); if (linkstudent != '') {linkstudent=root+'/Student.php?'+linkstudent; linkstudent='<a href="'+linkstudent+">'+linkstudent+'</a>';  linkstudent='\n\nEt voici le lien étudiant : \n '+linkstudent;} myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+linkteacher+linkstudent,'Lien de connexion');">Générer le lien</button>
+      <button class="btn btn--block card__btn" onclick="GenereLinkAlert();">Générer le lien</button>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?'+CreateLink());">Y aller</button>
     </div>
   </li>
