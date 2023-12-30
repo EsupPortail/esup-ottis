@@ -217,11 +217,12 @@ var root = window.location.href.replace("/scenarios.php","");
  * @summary A prettier alert function
  * 
  * @param {string} ch The text shown in the alert.
- * @returns
+ * @param {string} title The title of the alert box (default to "Message").
  */
 
- function myalert(ch) {
+ function myalert(ch,title="Message") {
     ch = ch.replaceAll("\n", "<br/>");
+    _('dialog-invite-p').title = title;
     _('dialog-invite-p').innerHTML = ch;
     $("#dialog-invite").dialog("open");
 }
@@ -355,13 +356,13 @@ var root = window.location.href.replace("/scenarios.php","");
             </select>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="var linkteacher = CreateLink(); var linkstudent=CreateLinkStudent(); if (linkstudent != '') linkstudent='\n\nEt voici le lien étudiant : \n '+root+'/Student.php?'+linkstudent; myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+root+'/index.php?'+linkteacher+linkstudent);">Générer le lien</button>
+      <button class="btn btn--block card__btn" onclick="var linkteacher = root+'/index.php?'+CreateLink(); linkteacher='<a href=\"'+linkteacher+\">'+linkteacher+'</a>'; var linkstudent=CreateLinkStudent(); if (linkstudent != '') {linkstudent=root+'/Student.php?'+linkstudent; linkstudent='<a href=\"'+linkstudent+\">'+linkstudent+'</a>';  linkstudent='\n\nEt voici le lien étudiant : \n '+linkstudent;} myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+linkteacher+linkstudent,'Lien de connexion');">Générer le lien</button>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?'+CreateLink());">Y aller</button>
     </div>
   </li>
 
 </ul>
-<div id="dialog-invite" title="External guest token creation">
+<div id="dialog-invite" title="Alert">
 		<p id="dialog-invite-p"> </p>
 	</div>
 </body>
