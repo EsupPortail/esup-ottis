@@ -213,11 +213,11 @@ function CreateLinkStudent() {
 
 function GenereLinkAlert() {
   var linkteacher = root+'/index.php?'+CreateLink(); 
-  linkteacher='<a href="'+linkteacher+'">'+linkteacher+'</a>'; 
+  linkteacher="<a href=\""+linkteacher+"\">"+linkteacher+"</a>"; 
   var linkstudent=CreateLinkStudent(); 
   if (linkstudent != '') {
     linkstudent=root+'/Student.php?'+linkstudent; 
-    linkstudent='<a href="'+linkstudent+">'+linkstudent+'</a>';  
+    linkstudent="<a href=\""+linkstudent+"\">"+linkstudent+"</a>"; 
     linkstudent='\n\nEt voici le lien étudiant : \n '+linkstudent;
   } 
   myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+linkteacher+linkstudent,'Lien de connexion');
