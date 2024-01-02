@@ -10,7 +10,7 @@
 - [X] Mettre à jour les droits sur le serveur pour le token qui permet d'inviter une personne extérieure à l'université (Automatic Translator > Teacher > Share) : "This token has expired !"
 
 Petit point d'étape :
-1) J'ai intégré toutes les modifications faites dans les branches develop et master dans la branche test. J'ai aussi essayé de la nettoyer de tous les scripts obsolètes et inutiles (il y en a encore quelquesuns). La branche "test" est donc en train de devenir la future branche déployée sur le nouveau serveur. La branche "master" est celle qui sert pour le serveur misc actuellement en exploitation. A mon retour, on discutera de l'avenir de ces différentes branches.
+1) J'ai intégré toutes les modifications faites dans les branches develop et master dans la branche test. J'ai aussi essayé de la nettoyer de tous les scripts obsolètes et inutiles (il y en a encore quelques uns). La branche "test" est donc en train de devenir la future branche déployée sur le nouveau serveur. La branche "master" est celle qui sert pour le serveur misc actuellement en exploitation. A mon retour, on discutera de l'avenir de ces différentes branches.
 2) J'ai déployé sur misc la version test. Sur ce serveur, je n'ai pas été en mesure d'installer mysql. J'ai donc dupliqué les différents scripts (sendJob, isReady et ReadDatabase) pour faire en sorte qu'ils utilisent un fichier tampon plutôt qu'une BDD. ça fonctionne et c'est assez transparent. 
 3) J'ai aussi séparé les paramètres de configuration de la première page en plusieurs parties (avec un accordéon). Il commençait à y en avoir beaucoup sur la même page. Au passage, j'ai créé un onglet "Slide Tools", ça évite de chercher le lien.
 4) La semaine du 3/01, je te propose te regarder les différents points ci-dessous. Nb: il y en a pour plus d'une semaine (ce sont des choses que j'aimerai qu'on voit à partir de janvier), il ne s'agit donc pas de tout faire.
@@ -18,7 +18,7 @@ Petit point d'étape :
 - [ ] J'ai repéré quelques corrections à apporter
     - [X] Sur le masquage des icones. Si on fait cette suite d'actions "Show icons"->No, "Pin code ?"->Yes, "Show icons"->Yes, "Show icons"->No, la case "Pin code ?" est cochée dans on s'attendrait à voir le pin code mais il est caché. C'est un détail à mon avis.
     - [ ] Sur les flèches à droite et gauche des sous-titres. La flèche à gauche n'est visible qu'après avoir déplacé la barre des sous-titres et la barre droite est très en dehors de l'écran (sur ma résolution au moins). Je propose de désolidariser ces flèches de la barre des sous-titres et de les placer en "position: fixed" en bas à gauche et droite de l'écran. ça sera plus simple. 
-- [ ] Continuer les tests sur whisper, et notamment voir s'il est possible d'utiliser les GPU dans une VM. Foir si la procédure décrire ici [https://www.xda-developers.com/how-use-gpu-virtualbox/] s'applique.
+- [ ] Continuer les tests sur whisper, et notamment voir s'il est possible d'utiliser les GPU dans une VM. Voir si la procédure décrire ici [https://www.xda-developers.com/how-use-gpu-virtualbox/] s'applique. Il vient de sortir une version qui tourne dans le navigateur de whisper [https://github.com/xenova/whisper-web]. A tester aussi surement.
 - [ ] Meta vient de sortir un nouveau modèle de language très impressionnant qui permet de faire de la traduction speech to speech en gardant la voix de la personne qui parle et quasiment en temps réel (2 secondes d'écart). C'est ici [https://github.com/facebookresearch/seamless_communication/]. Je pense qu'il faut le tester, faire les démos proposées sur HuggingFace (notamment celui [https://huggingface.co/spaces/facebook/seamless-streaming]), regarder le .iypnb, voir ce qui pourrait nous servir.
 - [ ] Créer un outil d'édition des animations. La première phase va correspondre à reprendre un peu ce qu'on a déjà dans l'application enseignante et dans ExtractSlidesNotesAppHTML.php, pour charger une application dans un editeur minimaliste (les discours dans des textarea), et générer une application avec les modifications. Ceci uniquement pour voir la faisabilité de la chose. 
 5) J'ai essayé de mettre en place une sorte de système de scénario tout fait pour faciliter la prise en main. J'ai donc ajouté quelques fonctionnalités accessibles via l'adresse (fournir un lien uncloud du PPTX ou du .HTML, accéder directement à un onglet,....). ça se trouve ici : [https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/scenarios.php].
@@ -29,5 +29,5 @@ Petit point d'étape :
 
 
 Pour moi.
-1) dans teacher-func.js, dans la définition de StudentCompleteTranslation2, pourquoi on fait appel à StudentCompleteTranslation dans le sinon ? Bug ?
+1) dans teacher-func.js (ou maintenant dans common-func.js), dans la définition de StudentCompleteTranslation2, pourquoi on fait appel à StudentCompleteTranslation dans le sinon ? Bug ?
 2) dans teacher-func.js, revoir SlideBackward()
