@@ -208,7 +208,7 @@ input[type=text] {
 	transform: scaleX(1);
 	border-radius: 25px;
 	position: fixed;
-	top: 800px;
+	top: 790px;
 	left: 5%;
 	width: 90%;
 	margin-left: auto;
@@ -262,7 +262,7 @@ input[type=text] {
   */
 	border-radius: 25px;
 	position: fixed;
-	top: 830px;
+	top: 810px;
 	left: 0.5%;
 	width: 2.5%;
 	margin-left: auto;
@@ -294,8 +294,8 @@ input[type=text] {
   */
 	border-radius: 25px;
 	position: fixed;
-	top: 830px;
-	left: 96%;
+	top: 810px;
+	right: 0.5%;
 	width: 2.5%;
 	margin-left: auto;
 	margin-right: auto;
