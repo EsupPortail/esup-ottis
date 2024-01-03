@@ -672,11 +672,11 @@ function SubmitJob(num,apptype) {
     <p id="Message11"></p>
     </form>
   </div>
-  
-  <h3>Audio/video file transcription</h3>
-  <div>
-    <iframe src="https://172.26.98.138/"></iframe>
-  </div>
+  <?php
+
+  "  <h3>Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n
+  ";
+  ?>
 </div>
 </body>
 <script>
