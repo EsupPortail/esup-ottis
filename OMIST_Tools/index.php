@@ -674,8 +674,8 @@ function SubmitJob(num,apptype) {
   </div>
   <?php
 
-  "  <h3>Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n
-  ";
+    $ftcontent="  <h3>Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n  ";
+    if (strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false) echo $ftcontent;
   ?>
 </div>
 </body>
