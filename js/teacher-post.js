@@ -219,19 +219,20 @@ $('#bar').on('keydown keyup keypress', function(e) {
 
 $(function() {
     fixTitle();
-    $("#titre").draggable({
-        drag: function(event, ui) {
-            var pos = ui.position;
-            $("#titreleft").css({
-                left: pos.left - 80,
-                top: pos.top
-            });
-            $("#titrerightbis").css({
-                left: pos.left + 1750,
-                top: pos.top
-            });
-        }
-    });
+    // $("#titre").draggable({
+    //     drag: function(event, ui) {
+    //         var pos = ui.position;
+    //         $("#titreleft").css({
+    //             left: pos.left - 80,
+    //             top: pos.top
+    //         });
+    //         $("#titrerightbis").css({
+    //             left: pos.left + 1750,
+    //             top: pos.top
+    //         });
+    //     }
+    // });
+    $("#titre").draggable();
     $("#partialtitre").draggableTouch();
     $("#studentfeedback").draggableTouch();
 });
