@@ -674,8 +674,8 @@ function SubmitJob(num,apptype) {
   </div>
   <?php
 
-    $ftcontent="  <h3>Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n  ";
-    if (strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false) echo $ftcontent;
+    $ftcontent="  <h3 title=\"You must be connected to the Nantes University network to use this tool.\">Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n  ";
+    if (true || strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false) echo $ftcontent;
   ?>
 </div>
 </body>
