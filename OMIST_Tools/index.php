@@ -680,7 +680,7 @@ function SubmitJob(num,apptype) {
   <?php
 
     $ftcontent="  <h3 title=\"You must be connected to the Nantes University network to use this tool.\">Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n  ";
-    if (BeginWith($_SERVER['REMOTE_HOST'],"172.26") echo $ftcontent;
+    if (BeginWith($_SERVER['REMOTE_HOST'],"172.26")) echo $ftcontent;
     //  strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false) echo $ftcontent;
     //$res="<script>console.log('HOST = ".$_SERVER['REMOTE_HOST']." , IP = ".$_SERVER['REMOTE_ADDR']." ');</script>";
     //echo $res;
