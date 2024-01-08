@@ -1299,11 +1299,12 @@ function Init() {
             if (event.code === 'Space') {
                 Micro();
             }
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
             if (event.code === 'KeyB') {
                 Micro();
             }
-            event.preventDefault();
-            event.stopPropagation();
         }
     };
 
