@@ -1299,14 +1299,21 @@ function Init() {
             if (event.code === 'Space') {
                 Micro();
             }
-            event.preventDefault();
-            event.stopPropagation();
-        } else {
             if (event.code === 'KeyB') {
                 Micro();
             }
+            event.preventDefault();
+            event.stopPropagation();
         }
     };
+
+    window.onkeyup = function(event) {
+        if (event.code === 'KeyB') {
+            Micro();
+            }
+    };
+
+    
 
     document.onkeydown = function(event) {
         if (inSlideTab) {
