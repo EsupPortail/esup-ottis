@@ -1296,12 +1296,6 @@ function Init() {
                 SlideBackward();
             }
 
-            if (event.code === 'Space') {
-                Micro();
-            }
-            // if (event.code === 'KeyB') {
-            //     Micro();
-            // }
             event.preventDefault();
             event.stopPropagation();
         }
@@ -1309,6 +1303,13 @@ function Init() {
 
     window.addEventListener("keyup",function(event){
         if (event.code == 'KeyB') {
+            Micro();
+        }
+    }
+    );
+
+    window.addEventListener("keyup",function(event){
+        if (event.code == 'Space') {
             Micro();
         }
     }
