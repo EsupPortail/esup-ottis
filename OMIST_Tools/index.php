@@ -421,7 +421,7 @@ function SubmitJob(num,apptype) {
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
   <td>
-    <input id="extradelay1" name="extradelay" list="listdelays" value="0" required="required"/>
+    <input id="extradelay1" name="extradelay" list="listdelays" value="0"/>
 
   </td></tr>
   <tr><td colspan="2"><b>Licence options</b></td></tr>
@@ -445,7 +445,7 @@ function SubmitJob(num,apptype) {
     <input type="hidden" id="Random3" name="randompath" value=""/>
     <input type="hidden" id="Extension3"  name="Extension" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <button id="App3" value="Create" onclick="if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <button id="App3" value="Create" onclick="if (_('extradelay1').value='') {(_('extradelay1').value=0);} ; if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message3"></p>
     </form>
   </div>
