@@ -445,7 +445,7 @@ function SubmitJob(num,apptype) {
     <input type="hidden" id="Random3" name="randompath" value=""/>
     <input type="hidden" id="Extension3"  name="Extension" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
-    <button id="App3" value="Create" onclick="if ((_('fileToUpload3').value!='') or (_('extradelay1').value!='')) {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file and choose a delay first !');}" class="mybutton">Create</button>
+    <button id="App3" value="Create" onclick="if ((_('fileToUpload3').value!='') || (_('extradelay1').value!='')) {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file and choose a delay first !');}" class="mybutton">Create</button>
     <p id="Message3"></p>
     </form>
   </div>
