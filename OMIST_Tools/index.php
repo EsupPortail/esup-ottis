@@ -421,7 +421,7 @@ function SubmitJob(num,apptype) {
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
   <td>
-    <input id="extradelay1" name="extradelay" list="listdelays" value="0"/>
+    <input id="extradelay1" name="extradelay" list="listdelays" value="0" required="required"/>
 
   </td></tr>
   <tr><td colspan="2"><b>Licence options</b></td></tr>
