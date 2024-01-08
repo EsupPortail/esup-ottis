@@ -1305,10 +1305,6 @@ function Init() {
         if (event.code == 'KeyB') {
             Micro();
         }
-    }
-    );
-
-    window.addEventListener("keyup",function(event){
         if (event.code == 'Space') {
             Micro();
         }
