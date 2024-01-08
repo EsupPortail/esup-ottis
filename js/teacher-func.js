@@ -1307,13 +1307,12 @@ function Init() {
         }
     };
 
-    window.onkeyup = function(event) {
+    window.addEventListener("keyup",function (event){
         if (event.code === 'KeyB') {
             Micro();
-            }
-    };
-
-    
+        }
+    }
+    );
 
     document.onkeydown = function(event) {
         if (inSlideTab) {
