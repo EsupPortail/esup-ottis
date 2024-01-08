@@ -1299,16 +1299,16 @@ function Init() {
             if (event.code === 'Space') {
                 Micro();
             }
-            if (event.code === 'KeyB') {
-                Micro();
-            }
+            // if (event.code === 'KeyB') {
+            //     Micro();
+            // }
             event.preventDefault();
             event.stopPropagation();
         }
     };
 
-    window.addEventListener("keyup",function (event){
-        if (event.code === 'KeyB') {
+    window.addEventListener("keyup",function(event){
+        if (event.code == 'KeyB') {
             Micro();
         }
     }
