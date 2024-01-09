@@ -1295,6 +1295,12 @@ function Init() {
             if (event.code === 'PageUp') {
                 SlideBackward();
             }
+            if (event.code == 'KeyB') {
+                Micro();
+            }
+            if (event.code == 'Space') {
+                Micro();
+            }
 
             event.preventDefault();
             event.stopPropagation();
