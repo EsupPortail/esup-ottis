@@ -348,8 +348,8 @@ var root = window.location.href.replace("/scenarios.php","");
         <br/>
             <input type="text" title="Définissez ici l'identifiant de connexion au cours. Il peut s'agir de n'importe quel mot, sans espace." class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  />
             <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""  />
-            <input type="text" id="persolink" title="Coller ici le lkien uncloud public de l'endroit où se trouve l'anmation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input" />
-            <input type="text" id="persohtmllink" title="Coller ici le lkien uncloud public de l'endroit où se trouve l'anmation html que vous souhaitez utiiser" placeholder="lien public uncloud (HTML)." class="card__input" />
+            <input type="text" id="persolink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input" />
+            <input type="text" id="persohtmllink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation html que vous souhaitez utiiser" placeholder="lien public uncloud (HTML)." class="card__input" />
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
             <select id="persotab" class="card__input" title="Choix de la fenêtre qui sera ouverte par défaut.">
                 <option value="0" selected disabled>Quel onglet ouvert par défaut ?</option>
@@ -369,7 +369,7 @@ var root = window.location.href.replace("/scenarios.php","");
                 <option value="">Thème clair (par défaut)</option>
                 <option value="theme2">Thème sombre</option>
             </select>
-        </p>
+        </p> 
       </div>
       <button class="btn btn--block card__btn" onclick="GenereLinkAlert();">Générer le lien</button>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?'+CreateLink());">Y aller</button>

@@ -122,7 +122,12 @@ fclose($fd);
 	border-radius:50%;
 	margin: auto;
   }
-  
+
+  #stillwaitingspinner {
+	width:150px;
+	height:150px;
+	margin: auto;
+  }
   #stillwaitingspinner, #stillwaitingspinnerdiv {
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transition-duration: 2s;
@@ -563,8 +568,10 @@ $minsize=1.3;
 $maxsize=4;
 $r=20;
 for($i=0; $i<$nbcircles; $i++) {
-	$teinte=255*(1-$i/$nbcircles)+1*$i/$nbcircles;
-	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinte.",".$teinte.",".$teinte.")\"/>\n";
+	$teinteR=255*(1-$i/$nbcircles)+1*$i/$nbcircles;
+	$teinteV=200*(1-$i/$nbcircles)+100*$i/$nbcircles;
+	$teinteB=100*(1-$i/$nbcircles)+200*$i/$nbcircles;
+	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\"/>\n";
 }
 ?>
 					<p>Your presentation is not ready yet....<br/>Still working on it...<p>
