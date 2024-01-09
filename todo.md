@@ -40,5 +40,5 @@ _**(attendre d'avoir Linux sur la machine)**_
 Pour moi.
 1) dans teacher-func.js (ou maintenant dans common-func.js), dans la définition de StudentCompleteTranslation2, pourquoi on fait appel à StudentCompleteTranslation dans le sinon ? Bug ?
 2) dans teacher-func.js, revoir SlideBackward() (quand on retourne à la slide précédente, on veut revenir à la première phrase des commentaires, pas à la dernière)
-3) On/Off du micro par les touches ou le pointeur laser ne fonctionne que dans l'onglet slides. Il faudrait que ça fonctionne au moins dans l'onglet wooclap.
+3) On/Off du micro par les touches ou le pointeur laser ne fonctionne que dans l'onglet slides. Il faudrait que ça fonctionne au moins dans l'onglet wooclap. _**(UPDATE Jeanne : normalement ça fonctionne partout avec les touches du clavier)**_
  
