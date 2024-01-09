@@ -686,7 +686,10 @@ function SubmitJob(num,apptype) {
     <input type="file" name="ppt_presentation2" id="ppt_presentation2" onchange="SlideNotesTools('')" accept=".html" max-size="50000" />
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+    <tr>
+    <td style="vertical-align: top;">
     <input type="submit" value="Download" name="submit"/>
+    </td></tr>
   </form>
     
     <!-- <form action="EditAnim.php" method="post" enctype="multipart/form-data">
