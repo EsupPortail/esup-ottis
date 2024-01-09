@@ -681,10 +681,17 @@ function SubmitJob(num,apptype) {
 
   <h3>Edit Animation</h3>
   <div>
-    <label for="ppt_presentation2">Powerpoint presentation : </label>
-      <input type="file" name="ppt_presentation2" id="ppt_presentation2" onchange="EditAnim.php" accept=".html" max-size="50000" />
+    <!-- <label for="ppt_presentation2">Powerpoint presentation : </label>
+      <input type="file" name="ppt_presentation2" id="ppt_presentation2" onchange="SlideNotesTools('')" accept=".html" max-size="50000" />
       <br/>
-      <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+      <progress id="progressBar" value="0" max="100" style="width:300px;"></progress> -->
+    
+    <form action="EditAnim.php" method="post" enctype="multipart/form-data">
+    <label for="fileToUpload12">Select HTML file : 
+    <input type="file" name="fileToUpload" id="fileToUpload12" accept=".html" max-size="50000"/></label><br/>
+    <input type="submit" value="Create" name="submit"/>
+    </form>
+
   </div>
 
 
