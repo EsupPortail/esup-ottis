@@ -1307,7 +1307,7 @@ function Init() {
         }
     };
 
-    document.addEventListener("keyup",function(event){
+    document.onkeyup = function(event) {
         if (event.code === 'KeyB') {
             if (inSlideTab) {
                 Micro();
