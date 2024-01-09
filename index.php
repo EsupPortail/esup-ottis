@@ -517,12 +517,11 @@ fclose($fd);
 
 #stillwaiting {
 	position: absolute;
-	width: 200px;
-	height: 200px;
-	top:200px;
-	left:200px;
-	background-color: rgb(200,200,200);
-	background-color: rgba(200,200,200,0.5);
+	width: 50%;
+	height: 50%;
+	top:25%;
+	left:25%;
+	background-color: white;
 	color: black;
 	z-index:20000;
 }
@@ -530,9 +529,10 @@ fclose($fd);
 #stillwaitingspinner {
 	width:100px;
 	height:100px;
-	border:20px solid #fcd779;
+	border:20px solid #555555;
 	border-top:20px solid white;
 	border-radius:50%;
+	margin: auto;
   }
   
   #stillwaitingspinner {
