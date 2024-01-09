@@ -677,13 +677,14 @@ function SubmitJob(num,apptype) {
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
     </form>
+    </div>
 
-    <h3>Edit Animation</h3>
+  <h3>Edit Animation</h3>
   <div>
     <label for="ppt_presentation">Powerpoint presentation : </label>
-					<input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes('')" accept=".html" max-size="50000" />
-					<br/>
-					<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+      <input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes('')" accept=".html" max-size="50000" />
+      <br/>
+      <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
   </div>
 
 
