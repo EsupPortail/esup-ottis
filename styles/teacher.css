@@ -531,14 +531,15 @@ input[type=text] {
 	position: fixed;
 	width: 200px;
 	height: 200px;
-	margin: auto;
+	top:200px;
+	left:200px;
 	background-color: rgba(200,200,200);
 	background-color: rgba(200,200,200,0.5);
 	color: black;
 	z-index:20000;
 }
 
-#stillwaitingspinner{
+#stillwaitingspinner {
 	width:100px;
 	height:100px;
 	border:20px solid #fcd779;
@@ -546,7 +547,7 @@ input[type=text] {
 	border-radius:50%;
   }
   
-  #html-spinner, #svg-spinner{
+  #stillwaitingspinner {
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transition-duration: 1.2s;
 	-webkit-animation-name: rotate;
