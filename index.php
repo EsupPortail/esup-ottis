@@ -128,6 +128,7 @@ fclose($fd);
 	height:150px;
 	margin: auto;
   }
+
   #stillwaitingspinner, #stillwaitingspinnerdiv {
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transition-duration: 2s;
@@ -561,7 +562,7 @@ fclose($fd);
 			<div id="tabs-7"> 
 			<div id="stillwaiting">
 <!--					<div id="stillwaitingspinner"></div>-->
-					<svg id="stillwaitingspinner" xmlns="http://www.w3.org/2000/svg" width="148" height="148" viewBox="0 0 48 48">
+					<div style="margin: auto;"><svg id="stillwaitingspinner" xmlns="http://www.w3.org/2000/svg" width="148" height="148" viewBox="0 0 48 48">
 <?php
 $nbcircles=15;
 $minsize=1.3;
@@ -574,6 +575,8 @@ for($i=0; $i<$nbcircles; $i++) {
 	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\"/>\n";
 }
 ?>
+</svg>
+</div>
 					<p>Your presentation is not ready yet....<br/>Still working on it...<p>
 				</div>	
 			<img src=""
