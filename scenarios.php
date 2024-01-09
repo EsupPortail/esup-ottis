@@ -323,7 +323,7 @@ var root = window.location.href.replace("/scenarios.php","");
     <div class="card">
       <div class="card__content">
         <div class="card__title">Outils de manipulation de slides</div>
-        <p class="card__text">Accès à l'ensemble des outils OMIST de manipulation de slides</a>.</p>
+        <p class="card__text">Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos.</a>.</p>
         <p class="card__text details">Parmi les outils proposés, il est possible de :<br/>
             &nbsp;&nbsp;Préparer en amont une présentation/animation au format .html utilisable dans l'outil de traduction en direct. 
             Cette animation peut-être produite à partir de fichiers .PPTX (commentés ou non) ou de .PDF, accompagnés ou non du discours. Ces discours peuvent alors être incorporés à la demande lors de la séance en direct.<br/>
