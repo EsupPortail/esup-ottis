@@ -511,6 +511,10 @@ fclose($fd);
 			</div>
 		</div>
 	</form>
+	<div id="stillwaiting">
+		<div id="stillwaitingspinner"></div>
+		<p>Your presentation is not ready yet<br/>Still working on it...<p>
+	</div>
 	<div id="dialog-mail" title="Envoi d'un mail">
 		<form>
 			<fieldset>
