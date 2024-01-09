@@ -529,10 +529,10 @@ fclose($fd);
 	position: absolute;
 	width: 50%;
 	height: 50%;
-	top:25%;
+	top:200px;
 	left:25%;
-	background-color: white;
 	color: black;
+	font-size: 2em;
 	z-index:20000;
 }
 
