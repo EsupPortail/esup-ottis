@@ -1,4 +1,16 @@
 /**
+ * @summary Update the progress bar when a lesson is loaded
+ * 
+ * @param {event} event an event.
+ */
+
+function progressHandler(event) {
+    var percent = (event.loaded / event.total) * 100;
+    _("progressBar").value = Math.round(percent);
+    //  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+}
+
+/**
  * @summary The function that is executed for reading a new presentation
  * 
  */
