@@ -11,6 +11,26 @@ function progressHandler(event) {
 }
 
 /**
+ * @summary A function that is fired when a complete lesson is loaded.
+ * 
+ * @param {event} event an event.
+ */
+
+function completeHandler(event) {
+    _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText);
+    _("progressBar").value = 0;
+
+    // Re-initialize the presentation
+    previousimage = -1;
+    currentDiscours = 0;
+    if (currentPresentation.length > 0) {
+        setTimeout(function() {
+            ShowImage(currentPresentation[0]['Slide']);
+        }, 1000);
+    }
+}
+
+/**
  * @summary The function that is executed for reading a new presentation
  * 
  */
