@@ -63,6 +63,7 @@ if (isset($Stats_DEEPL["character_count"])) {
     <link rel="icon" type="image/png" href="../favicon.png" />
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
+    <script src="../js/teacher-func.js"></script>
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
@@ -676,6 +677,17 @@ function SubmitJob(num,apptype) {
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
     </form>
+
+    <h3>Edit Animation</h3>
+  <div>
+    <label for="ppt_presentation">Powerpoint presentation : </label>
+					<input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes('')" accept=".html" max-size="50000" />
+					<br/>
+					<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+  </div>
+
+
+
   </div>
   <?php
 
