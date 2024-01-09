@@ -887,6 +887,7 @@ function completeHandler(event) {
     currentDiscours = 0;
     if (currentPresentation.length > 0) {
         setTimeout(function() {
+            _('stillwainting').style.display="none";
             ShowImage(currentPresentation[0]['Slide']);
         }, 1000);
     }
