@@ -118,7 +118,7 @@ fclose($fd);
 	width:100px;
 	height:100px;
 	border:20px solid #555555;
-	border-top:20px solid #aaaaaa;
+	border-top:25px solid #aaaaaa;
 	border-radius:50%;
 	margin: auto;
   }
