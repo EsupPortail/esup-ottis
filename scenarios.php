@@ -146,9 +146,9 @@ img {
 }
 
 .card__text {
-  font-family: 'Shadows Into Light', cursive;
+//  font-family: 'Shadows Into Light', cursive;
 //  font-family: 'Permanent Marker', cursive;
-//  font-family: 'Inria Sans', sans-serif;
+  font-family: 'Inria Sans', sans-serif;
 //  font-family: 'Amatic SC', sans-serif;
   flex: 1 1 auto;
 //  font-size: 0.875rem;
