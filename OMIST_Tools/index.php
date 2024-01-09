@@ -686,9 +686,9 @@ function SubmitJob(num,apptype) {
     //echo $ftcontent;
     //  strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false) echo $ftcontent;
   ?>
-  <h3>External vidéo subtitle editor ()</h3>
+  <h3>External vidéo subtitle editor (Nikse.dk)</h3>
   <div>
-  <iframe width="80%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
+  <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
   </div>
 </div>
 </body>
