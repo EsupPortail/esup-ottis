@@ -114,7 +114,7 @@ fclose($fd);
 	z-index:20000;
 }
 
-#stillwaitingspinner {
+#stillwaitingspinnerdiv {
 	width:100px;
 	height:100px;
 	border:20px solid #555555;
@@ -123,7 +123,7 @@ fclose($fd);
 	margin: auto;
   }
   
-  #stillwaitingspinner {
+  #stillwaitingspinner, #stillwaitingspinnerdiv {
 	-webkit-transition-property: -webkit-transform;
 	-webkit-transition-duration: 1.2s;
 	-webkit-animation-name: rotate;
