@@ -328,6 +328,8 @@ var root = window.location.href.replace("/scenarios.php","");
             &nbsp;&nbsp;Préparer en amont une présentation/animation au format .html utilisable dans l'outil de traduction en direct. 
             Cette animation peut-être produite à partir de fichiers .PPTX (commentés ou non) ou de .PDF, accompagnés ou non du discours. Ces discours peuvent alors être incorporés à la demande lors de la séance en direct.<br/>
             &nbsp;&nbsp;Générer des animations multilingues pour les temps asynchrones. Comme précédemment, ces animations peuvent-être produite à partir de fichiers .PPTX commentés ou de .PDF, accompagnés du discours. Ce discours sera alors traduit dans diverses langues et lu lors de la diffusion de l'animation.<br/>
+            &nbsp;&nbsp;Extraire les sous-titres d'une vidéo (l'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université).<br/>
+            &nbsp;&nbsp;Transcrire une vidéo ou un entretien audio.<br/>
             &nbsp;&nbsp;Traduire les sous-titres d'une vidéo.<br/>
             &nbsp;&nbsp;Traduire des cours scénarisés au format XLIFF ou au format SCORM.<br/>
             &nbsp;&nbsp;Faire bien plus, la liste ici n'est pas exhaustive....
