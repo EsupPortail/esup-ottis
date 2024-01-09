@@ -1314,6 +1314,9 @@ function Init() {
         if (event.code === 'Space') {
             Micro();
         }
+
+        event.preventDefault();
+        event.stopPropagation();
     }
     );
 
