@@ -63,7 +63,7 @@ if (isset($Stats_DEEPL["character_count"])) {
     <link rel="icon" type="image/png" href="../favicon.png" />
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
-    <script src="../js/tools-func.js"></script>
+    <script src="../js/teacher-func.js"></script>
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
