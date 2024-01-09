@@ -1307,21 +1307,21 @@ function Init() {
         }
     };
 
-    document.onkeyup = function(event) {
-        if (event.code === 'KeyB') {
-            if (inSlideTab) {
-                Micro();
-            }
-        }
-        if (event.code === 'Space') {
-            if (inSlideTab) {
-                Micro();
-            }
-        }
+    // document.onkeyup = function(event) {
+    //     if (event.code === 'KeyB') {
+    //         if (inSlideTab) {
+    //             Micro();
+    //         }
+    //     }
+    //     if (event.code === 'Space') {
+    //         if (inSlideTab) {
+    //             Micro();
+    //         }
+    //     }
 
-        event.preventDefault();
-        event.stopPropagation();
-    };
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    // };
 
     document.onkeydown = function(event) {
         if (inSlideTab) {
