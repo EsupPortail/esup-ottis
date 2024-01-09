@@ -260,7 +260,7 @@ var root = window.location.href.replace("/scenarios.php","");
               <br/>
           Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes :<br/>
           &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement.<br/>
-          &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
+          &nbsp;&nbsp;2. Allumer le micro (icone rouge) qui se mettra à clignoter.<br/>
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
