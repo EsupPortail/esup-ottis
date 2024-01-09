@@ -564,7 +564,7 @@ $maxsize=4;
 $r=20;
 for($i=0; $i<$nbcircles; $i++) {
 	$teinte=255*(1-$i/$nbcircles)+1*$i/$nbcircles;
-	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($maxsize*(1-$i/$nbcircles)+$minsize*$i/$nbcircles)."\" fill=\"rgb(".$teinte.",".$teinte.",".$teinte.")"\"/>\n";
+	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($maxsize*(1-$i/$nbcircles)+$minsize*$i/$nbcircles)."\" fill=\"rgb(".$teinte.",".$teinte.",".$teinte.")\"/>\n";
 }
 ?>
 					<p>Your presentation is not ready yet....<br/>Still working on it...<p>
