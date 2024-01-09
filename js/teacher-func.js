@@ -1321,8 +1321,7 @@ function Init() {
 
         event.preventDefault();
         event.stopPropagation();
-    }
-    );
+    };
 
     document.onkeydown = function(event) {
         if (inSlideTab) {
