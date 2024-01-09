@@ -155,6 +155,7 @@ img {
   font-size: 1.0em;
   line-height: 1.5;
   margin-bottom: 1.25rem;
+  font-style: italic;
 }
 
 .card__btn {
@@ -176,6 +177,7 @@ img {
   font-size: 0.9em;
   height: 200px;
   overflow: auto;
+  font-style: normal;
 }
 
 
@@ -269,7 +271,7 @@ var root = window.location.href.replace("/scenarios.php","");
     <div class="card">
       <div class="card__content">
         <div class="card__title">Sous-titrage anglais (projection)</div>
-        <p class="card__text"><em>Scenario d'un cours donné en Français sous-titré en Anglais.</em></p>
+        <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
             &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
