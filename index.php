@@ -556,7 +556,7 @@ fclose($fd);
 			<div id="tabs-7"> 
 			<div id="stillwaiting">
 					<div id="stillwaitingspinner"></div>
-					<p>Your presentation is not ready yet....Still working on it...<p>
+					<p>Your presentation is not ready yet....<br/>Still working on it...<p>
 				</div>	
 			<img src=""
 				 id="img_slides" style="cursor: url(images/pointer.png), zoom-in;" /> 
