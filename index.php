@@ -575,9 +575,10 @@ for($i=0; $i<$nbcircles; $i++) {
 	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\"/>\n";
 }
 ?>
-</svg>
+</svg></div>
 					<p>Your presentation is not ready yet....<br/>Still working on it...<p>
-				</div>	
+</div>
+<div style="width:100%; text-align: center;">
 			<img src=""
 				 id="img_slides" style="cursor: url(images/pointer.png), zoom-in;" /> 
 <!--
