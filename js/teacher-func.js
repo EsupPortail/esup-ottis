@@ -1309,10 +1309,14 @@ function Init() {
 
     document.addEventListener("keyup",function(event){
         if (event.code === 'KeyB') {
-            Micro();
+            if (inSlideTab) {
+                Micro();
+            }
         }
         if (event.code === 'Space') {
-            Micro();
+            if (inSlideTab) {
+                Micro();
+            }
         }
 
         event.preventDefault();
