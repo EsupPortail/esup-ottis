@@ -323,15 +323,15 @@ var root = window.location.href.replace("/scenarios.php","");
     <div class="card">
       <div class="card__content">
         <div class="card__title">Outils de manipulation de slides</div>
-        <p class="card__text">Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos.</a>.</p>
+        <p class="card__text">Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos.</p>
         <p class="card__text details">Parmi les outils proposés, il est possible de :<br/>
-            &nbsp;&nbsp;Préparer en amont une présentation/animation au format .html utilisable dans l'outil de traduction en direct. 
+            &nbsp;&nbsp;- Préparer en amont une présentation/animation au format .html utilisable dans l'outil de traduction en direct. 
             Cette animation peut-être produite à partir de fichiers .PPTX (commentés ou non) ou de .PDF, accompagnés ou non du discours. Ces discours peuvent alors être incorporés à la demande lors de la séance en direct.<br/>
-            &nbsp;&nbsp;Générer des animations multilingues pour les temps asynchrones. Comme précédemment, ces animations peuvent-être produite à partir de fichiers .PPTX commentés ou de .PDF, accompagnés du discours. Ce discours sera alors traduit dans diverses langues et lu lors de la diffusion de l'animation.<br/>
-            &nbsp;&nbsp;Extraire les sous-titres d'une vidéo <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br/>
-            &nbsp;&nbsp;Transcrire un entretien audio <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br/>
-            &nbsp;&nbsp;Traduire les sous-titres d'une vidéo.<br/>
-            &nbsp;&nbsp;Traduire des cours scénarisés au format XLIFF ou au format SCORM.<br/>
+            &nbsp;&nbsp;- Générer des animations multilingues pour les temps asynchrones. Comme précédemment, ces animations peuvent-être produite à partir de fichiers .PPTX commentés ou de .PDF, accompagnés du discours. Ce discours sera alors traduit dans diverses langues et lu lors de la diffusion de l'animation.<br/>
+            &nbsp;&nbsp;- Extraire les sous-titres d'une vidéo <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br/>
+            &nbsp;&nbsp;- Transcrire un entretien audio <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br/>
+            &nbsp;&nbsp;- Traduire les sous-titres d'une vidéo.<br/>
+            &nbsp;&nbsp;- Traduire des cours scénarisés au format XLIFF ou au format SCORM.<br/>
             &nbsp;&nbsp;Faire bien plus, la liste ici n'est pas exhaustive....
         </p>
       </div>
