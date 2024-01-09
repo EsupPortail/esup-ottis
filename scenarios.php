@@ -335,7 +335,7 @@ var root = window.location.href.replace("/scenarios.php","");
             &nbsp;&nbsp;Faire bien plus, la liste ici n'est pas exhaustive....
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?tab=9');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/OMIST_Tools/index.php');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
