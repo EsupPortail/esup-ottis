@@ -1295,10 +1295,10 @@ function Init() {
             if (event.code === 'PageUp') {
                 SlideBackward();
             }
-            if (event.code == 'KeyB') {
+            if (event.code === 'KeyB') {
                 Micro();
             }
-            if (event.code == 'Space') {
+            if (event.code === 'Space') {
                 Micro();
             }
 
@@ -1307,11 +1307,11 @@ function Init() {
         }
     };
 
-    window.addEventListener("keyup",function(event){
-        if (event.code == 'KeyB') {
+    document.addEventListener("keyup",function(event){
+        if (event.code === 'KeyB') {
             Micro();
         }
-        if (event.code == 'Space') {
+        if (event.code === 'Space') {
             Micro();
         }
     }
