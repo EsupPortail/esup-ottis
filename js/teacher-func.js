@@ -1305,6 +1305,17 @@ function Init() {
             event.preventDefault();
             event.stopPropagation();
         }
+        else {
+            if (event.code === 'KeyB') {
+                Micro();
+            }
+            if (event.code === 'Space') {
+                Micro();
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+        }
     };
 
     // document.onkeyup = function(event) {
