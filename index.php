@@ -576,7 +576,7 @@ for($i=0; $i<$nbcircles; $i++) {
 }
 ?>
 </svg></div>
-					<p>Your presentation is not ready yet....<br/>Still working on it...<p>
+					<p id="spinnertxt">No presentation yet...<br/>Please go to the complete lesson tab to import it.</p>
 </div>
 			<img src=""
 				 id="img_slides" style="cursor: url(images/pointer.png), zoom-in;" /> 

@@ -932,9 +932,11 @@ function SlideNotes() {
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
+        _('spinnertxt').innerHTML='Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
@@ -963,9 +965,11 @@ function SlideNotesTools() {
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
-        alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
+        _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
+        alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
@@ -991,9 +995,11 @@ function SlideNotesUncloud(uncloudlink) {
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
+        _('spinnertxt').innerHTML='Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
@@ -1016,9 +1022,11 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
-        alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
+        _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
+        alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
