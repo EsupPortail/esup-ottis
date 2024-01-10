@@ -985,6 +985,7 @@ function SlideNotesTools() {
 
 function SlideNotesUncloud(uncloudlink) {
     _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
+    alert('Your presentation is not ready yet....<br/>Still working on it...');
     var scriptfile = "ExtractSlidesNotes_PPTX_images.php";
     var formdata = new FormData();
     formdata.append("ACCESS", _('classroomid').value);
