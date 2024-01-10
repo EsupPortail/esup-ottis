@@ -912,6 +912,8 @@ function SlideNotes() {
         alert('Only pptx, odp, html and txt files are allowed !');
         return -1;
     }
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
+
     var formdata = new FormData();
     formdata.append("ppt_presentation", file);
     formdata.append("ACCESS", _('classroomid').value);
@@ -936,7 +938,6 @@ function SlideNotes() {
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
@@ -953,6 +954,7 @@ function SlideNotesTools() {
         alert('Only html files are allowed !');
         return -1;
     }
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     var formdata = new FormData();
     formdata.append("ppt_presentation2", file);
     var xhr = new XMLHttpRequest();
@@ -969,7 +971,6 @@ function SlideNotesTools() {
         alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
@@ -983,6 +984,7 @@ function SlideNotesTools() {
  */
 
 function SlideNotesUncloud(uncloudlink) {
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     var scriptfile = "ExtractSlidesNotes_PPTX_images.php";
     var formdata = new FormData();
     formdata.append("ACCESS", _('classroomid').value);
@@ -999,7 +1001,6 @@ function SlideNotesUncloud(uncloudlink) {
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
@@ -1010,6 +1011,8 @@ function SlideNotesUncloud(uncloudlink) {
  */
 
 function SlideNotesUncloudHtml(uncloudhtmllink) {
+    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
+
     var scriptfile = "ExtractSlidesNotesAppHTML.php";
     var formdata = new FormData();
     formdata.append("ACCESS", _('classroomid').value);
@@ -1026,7 +1029,6 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
         alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     //AbortTimeout(xhr);
 }
 
