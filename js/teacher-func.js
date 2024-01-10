@@ -912,6 +912,7 @@ function SlideNotes() {
         alert('Only pptx, odp, html and txt files are allowed !');
         return -1;
     }
+    _('stillwaiting').style.display="block";
     _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
 
     var formdata = new FormData();
@@ -954,6 +955,7 @@ function SlideNotesTools() {
         alert('Only html files are allowed !');
         return -1;
     }
+    _('stillwaiting').style.display="block";
     _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     var formdata = new FormData();
     formdata.append("ppt_presentation2", file);
