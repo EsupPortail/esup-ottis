@@ -40,7 +40,7 @@ def GetHTMLFile(input, output):
     shutil.copy2(input, output)
 
 def CopyHTMLFile(input, output):
-    sock = urllib.urlopen("http://diveintopython.org/")
+    sock = urllib.request.urlopen("http://diveintopython.org/")
     htmlSource = sock.read()
     sock.close()
 
