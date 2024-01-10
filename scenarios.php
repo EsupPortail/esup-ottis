@@ -77,7 +77,6 @@ img {
   list-style: none;
   margin: 0;
   padding: 0;
-  box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .2);
 }
 
 .cards__item {
@@ -95,7 +94,9 @@ img {
 .card {
   background-color: white;
   border-radius: 0.25rem;
-  box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25);
+/*  box-shadow: 0 20px 40px -14px rgba(0,0,0,0.25); */
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, .2);
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
