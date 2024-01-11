@@ -956,7 +956,7 @@ function SlideNotesTools() {
         return -1;
     }
     // _('stillwaiting').style.display="block";
-    _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
+    // _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     var formdata = new FormData();
     formdata.append("ppt_presentation2", file);
     var xhr = new XMLHttpRequest();
@@ -969,7 +969,7 @@ function SlideNotesTools() {
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
-        _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
+        // _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
         alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
