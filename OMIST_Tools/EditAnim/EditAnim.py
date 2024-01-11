@@ -6,7 +6,7 @@ import getopt
 import shutil
 import json
 import hashlib
-import urllib.request
+from urllib.request import urlopen
 import urllib
 
 def main():
@@ -40,12 +40,12 @@ def GetHTMLFile(input, output):
     shutil.copy2(input, output)
 
 def CopyHTMLFile(input, output):
-    sock = urllib.request.urlopen("http://diveintopython.org/")
-    htmlSource = sock.read()
-    sock.close()
+    with urlopen("https://www.example.com") as response:
+        body = response.read()
 
     with open(output,"w") as fd:
-        fd.write(htmlSource)
+        fd.write(body)
+        fd.close()
 
 
 #Traduction du fichier PHP
