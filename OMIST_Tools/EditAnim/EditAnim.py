@@ -8,6 +8,8 @@ import json
 import hashlib
 from urllib.request import urlopen
 import urllib
+from bs4 import BeautifulSoup
+import os
 
 def main():
 
