@@ -42,9 +42,11 @@ def GetHTMLFile(input, output):
 def CopyHTMLFile(input, output):
     with urlopen("https://www.example.com") as response:
         body = response.read()
+    decoded_body = body.decode("utf-8")    
+    # print(decoded_body)
 
     with open(output,"w") as fd:
-        fd.write(body)
+        fd.write(decoded_body)
         fd.close()
 
 
