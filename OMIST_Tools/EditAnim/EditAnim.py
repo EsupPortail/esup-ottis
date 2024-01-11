@@ -34,7 +34,7 @@ def main():
             assert False, "unhandled option"
     
     if input != "":
-        GetHTMLFile(input,output)
+        CopyHTMLFile(input,output)
 
 def GetHTMLFile(input, output):
     shutil.copy2(input, output)
