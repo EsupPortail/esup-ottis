@@ -962,6 +962,7 @@ function SlideNotesTools() {
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", scriptfile);
+    console.log(scriptfile);
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
     xhr.addEventListener("load", completeHandler, false);
