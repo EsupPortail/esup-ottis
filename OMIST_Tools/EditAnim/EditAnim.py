@@ -40,13 +40,16 @@ def GetHTMLFile(input, output):
     shutil.copy2(input, output)
 
 def CopyHTMLFile(input, output):
-    with urlopen("https://www.example.com") as response:
-        body = response.read()
-    decoded_body = body.decode("utf-8")    
-    # print(decoded_body)
 
-    with open(output,"w") as fd:
-        fd.write(decoded_body)
+    HTMLFile = open(input, "r") 
+    index = HTMLFile.read() 
+    
+    soup = BeautifulSoup(index, 'html.parser')
+    print(type(soup))
+    html = soup.decode("utf-8")
+    print(type(html))
+    with open(output, "w") as fd:
+        fd.write(html)
         fd.close()
 
 
