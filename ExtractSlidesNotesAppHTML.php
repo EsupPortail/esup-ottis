@@ -62,6 +62,7 @@ $notes[$n]=$T;
 
 //print_r($notes);
 echo json_encode($notes);
+echo '<script>console.log(json_encode($notes)); </script>';
 //unlink($filename);
 
 ?>
