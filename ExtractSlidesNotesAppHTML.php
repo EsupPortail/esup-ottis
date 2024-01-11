@@ -60,9 +60,9 @@ $T["Slide"]=0;
 $T["Notes"]=array();
 $notes[$n]=$T;
 
+echo '<script>console.log(json_encode($notes)); </script>';
 //print_r($notes);
 echo json_encode($notes);
-echo '<script>console.log(json_encode($notes)); </script>';
 //unlink($filename);
 
 ?>
