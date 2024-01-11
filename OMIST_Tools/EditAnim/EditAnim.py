@@ -50,7 +50,6 @@ def CopyHTMLFile(input, output):
     print(type(html))
     with open(output, "w") as fd:
         fd.write(html)
-        fd.close()
 
 
 #Traduction du fichier PHP
