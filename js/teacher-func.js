@@ -970,7 +970,7 @@ function SlideNotesTools() {
         // The request has been completed successfully
         console.log(xhr.responseText);
         } else {
-        // Oh no! There has been an error with the request!
+            alert('failure!');
         }
     }
     };
