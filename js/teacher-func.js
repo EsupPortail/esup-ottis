@@ -950,7 +950,7 @@ function SlideNotes() {
 function SlideNotesTools() {
     var file = _("ppt_presentation").files[0];
     var scriptfile = "";
-    if (file.name.endsWith('html')) scriptfile = "ExtractSlidesNotesAppHTMLTools.php";
+    if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTML.php";
     if (scriptfile == "") {
         alert('Only html files are allowed !');
         return -1;
