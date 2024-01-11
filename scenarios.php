@@ -129,11 +129,11 @@ img {
   &::before {
     content: "";
 	  display: block;
-    padding-top: 56.25%; // 16:9 aspect ratio
+    padding-top: 56.25%; /* 16:9 aspect ratio */
   }
   @media(min-width: 40rem) {
     &::before {
-      padding-top: 66.6%; // 3:2 aspect ratio
+      padding-top: 66.6%; /* 3:2 aspect ratio */
     }
   }
 }
