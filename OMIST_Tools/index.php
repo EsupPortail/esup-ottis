@@ -691,6 +691,16 @@ function SubmitJob(num,apptype) {
     <input type="submit" value="Download" name="submit"/>
     </td></tr>
   </form> -->
+
+  <label for="ppt_presentation">Powerpoint presentation : </label>
+	<input type="file" name="ppt_presentation" id="ppt_presentation2" onchange="SlideNotesTools('')" accept=".html" max-size="50000" />
+  <span style="display:none">
+  <label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
+  <input type="text" id="tobesaid" value="">
+  </span>
+	<br/>
+	<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+	<div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
     
     <!-- <form action="EditAnim.php" method="post" enctype="multipart/form-data">
     <label for="fileToUpload12">Select HTML file : 
@@ -698,7 +708,7 @@ function SubmitJob(num,apptype) {
     <input type="submit" value="Create" name="submit"/>
     </form> -->
 
-    <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+    <!-- <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select HTML file : 
     <input type="file" name="fileToUpload" id="fileToUpload12" accept=".html" max-size="50000000"><br/>
     <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
@@ -706,7 +716,7 @@ function SubmitJob(num,apptype) {
     <input type="hidden" id="Extension12" name="Extension" value="html"/>
     <button id="App12" value="Create" onclick="if (_('fileToUpload12').value!='') {this.innerHTML=''; SubmitJob(12,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message12"></p>
-    </form>
+    </form> -->
 
   </div>
 
