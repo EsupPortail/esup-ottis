@@ -693,7 +693,7 @@ function SubmitJob(num,apptype) {
   </form> -->
 
   <label for="ppt_presentation">Powerpoint presentation : </label>
-	<input type="file" name="ppt_presentation" id="ppt_presentation2" onchange="SlideNotesTools('')" accept=".html" max-size="50000" />
+	<input type="file" name="ppt_presentation2" id="ppt_presentation2" onchange="SlideNotesTools('')" accept=".html" max-size="50000" />
   <span style="display:none">
   <label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
   <input type="text" id="tobesaid" value="">
