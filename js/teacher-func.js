@@ -964,7 +964,7 @@ function SlideNotesTools() {
     xhr.open("POST", scriptfile);
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
-    // xhr.addEventListener("load", completeHandler, false);
+    xhr.addEventListener("load", completeHandler, false);
 
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
