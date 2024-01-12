@@ -735,8 +735,11 @@ function formateresponse(datatxt,editable=true) {
             var flag = false;
             for (var j = 0; j < slide["Notes"].length; j++) {
                 if (slide["Notes"][j].trim() != '') {
-                    res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + '<span contenteditable="">'+slide["Notes"][j] + '</span>'+'</dd>\n';
-
+                    if (editable) {
+                        res = res + '<dd>&nbsp;' + '<span contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                    else {
+                        res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
+                    }
                     currentPresentation.push({
                         'Slide': slide["Slide"],
                         'Discours': slide["Notes"][j]
@@ -878,8 +881,8 @@ function SlideBackward() {
  * @param {event} event an event.
  */
 
-function completeHandler(event) {
-    _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText);
+function completeHandler(event,editable=false) {
+    _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
 
     // Re-initialize the presentation
@@ -947,7 +950,7 @@ function SlideNotes() {
  * 
  */
 
-function SlideNotesTools() {
+function SlideNotesTools(editable=false) {
     var file = _("ppt_presentation").files[0];
     var scriptfile = "";
     if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTML.php";
@@ -977,7 +980,7 @@ function SlideNotesTools() {
 
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
-    xhr.addEventListener("load", completeHandler, false);
+    xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
 
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
