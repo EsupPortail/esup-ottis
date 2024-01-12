@@ -62,7 +62,7 @@ speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, au
 
 text = text_to_read
 
-speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
+#speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
 
 
 style = "angry"
@@ -136,4 +136,4 @@ ssml=ssml.replace("@@TEXT@@",text)
 ssml=ssml.replace("@@ROLE@@",role)
 ssml=ssml.replace("@@STYLE@@",style)
 
-#speech_synthesis_result = speech_synthesizer.speak_ssml_async(ssml).get()
+speech_synthesis_result = speech_synthesizer.speak_ssml_async(ssml).get()
