@@ -3,18 +3,25 @@
 ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );
 
-if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
-  $tmp_file="/var/www/html/uploads/uncloudfile_".md5(gmdate("U")).".html";
-  $uncloudlink = $_POST["uncloudlink"];
-  if (strpos($uncloudlink,"download") === false) $uncloudlink.="/download";
-  $command = $proxy.'curl -q '.$uncloudlink.' -o '.$tmp_file;
-  $out=exec($command);
-} else {
-  $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
-}
+if (isset($argc)) {
+  $randompath = $argv[1];
+  $filename = $argv[2];
+
+
+// if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
+//   $tmp_file="/var/www/html/uploads/uncloudfile_".md5(gmdate("U")).".html";
+//   $uncloudlink = $_POST["uncloudlink"];
+//   if (strpos($uncloudlink,"download") === false) $uncloudlink.="/download";
+//   $command = $proxy.'curl -q '.$uncloudlink.' -o '.$tmp_file;
+//   $out=exec($command);
+// } else {
+//   $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
+// }
+
+$tmp_file =$filename
 
 $flag_justif=false;
-$filename = "tmpfiles/test.html";
+// $filename = "tmpfiles/test.html";
 
 /*
 if( is_uploaded_file($tmp_file) ) {
@@ -61,7 +68,68 @@ $T["Notes"]=array();
 $notes[$n]=$T;
 
 //print_r($notes);
-echo json_encode($notes);
+// echo json_encode($notes);
 //unlink($filename);
+
+//Test pour refaire le .html
+
+//images
+for($i=0;$i<$n;$i++) {
+  $nom_image = $notes[$n]["Images"][$i];
+  $images_recup[$i] = "Timages.push('" . $nom_image . "');";
+}
+// echo $images_recup[0];
+
+//recup langues
+$lang_remake=array();
+$col = 0;
+foreach($Tnotes as $lang_cherchee => $lang_trouvee) {
+  $lang_remake[$col]=$lang_cherchee;
+  $col = $col+1;
+}
+// var_dump($lang_remake);
+// echo $lang_remake[0];
+
+//texte des notes
+$remake_txtslidenotes = "[";
+for($i=0;$i<$n;$i++) {
+  if ($i==0){
+    $txt_encode = json_encode($notes[$i]);
+    $remake_txtslidenotes = $remake_txtslidenotes . $txt_encode;
+  } else {
+    $txt_encode = json_encode($notes[$i]);
+    $remake_txtslidenotes = $remake_txtslidenotes . ", " . $txt_encode;
+  }
+}
+$remake_txtslidenotes = $remake_txtslidenotes . "]";
+// echo $remake_txtslidenotes ;
+
+$remake_slidesnotes = "{";
+for ($j=0;$j<count($lang_remake);$j++){
+  if ($j==0){
+    $remake_slidesnotes = $remake_slidesnotes . '"' . $lang_remake[$j] . '" : ' . $remake_txtslidenotes ;
+  } else {
+    $remake_slidesnotes = $remake_slidesnotes . ', "' . $lang_remake[$j] . '" : ' . $remake_txtslidenotes ;
+  }
+
+}
+$remake_slidesnotes = $remake_slidesnotes . '};' ;
+
+
+
+$output = "tmp/output_" . $randompath . ".txt";
+$ftest = fopen($output, "a");
+
+fwrite($ftest, $remake_slidesnotes . "\n");
+
+for($k=0;$k<count($images_recup);$k++) {
+  fwrite($ftest, $images_recup[$k] . "\n");
+}
+
+fclose($ftest);
+// echo $remake_slidesnotes;
+
+}
+?>
 
 ?>
