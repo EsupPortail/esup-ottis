@@ -19,7 +19,7 @@ mkdir -p $TMPDIR/$RANDOMPATH
 
 cp "$Filename" $TMPDIR/$RANDOMPATH/input.html
 
-$PYTHON $SCRIPT_DIR/EditAnim.py --input=$TMPDIR/$RANDOMPATH/input.html --output=$TMPDIR/output_$RANDOMPATH.html
+$PYTHON $SCRIPT_DIR/EditAnim.py --input=$TMPDIR/$RANDOMPATH/input.html --output=$TMPDIR/output_$RANDOMPATH.txt
 
 
 #  cd $SCRIPT_DIR/tmp/$RANDOMPATH
