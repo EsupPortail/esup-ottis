@@ -737,7 +737,7 @@ function formateresponse(datatxt,editable=true) {
                 if (slide["Notes"][j].trim() != '') {
                     if (editable) {
                         res = res + '<dd>&nbsp;' + '<span contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
-                    else {
+                    } else {
                         res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
                     }
                     currentPresentation.push({
