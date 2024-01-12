@@ -109,5 +109,3 @@ fwrite($ftest, "Hello World");
 
 }
 ?>
-
-?>
