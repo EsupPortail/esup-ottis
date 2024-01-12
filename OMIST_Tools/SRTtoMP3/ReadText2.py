@@ -1,6 +1,6 @@
 import argparse
 
-import config
+import Subconfig as config
 import os
 import json
 
