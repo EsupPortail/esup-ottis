@@ -4,10 +4,10 @@ ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );
 
 if (isset($argc)) {
-  $randompath = $argv[1];
+  $output = $argv[1];
   $filename = $argv[2];
 
-  echo "Test";
+  // echo "Test";
 
 // $tmp_file =$filename
 
@@ -96,9 +96,9 @@ if (isset($argc)) {
 
 
 // $output = "tmp/output_" . $randompath . ".txt";
-// $ftest = fopen($output, "a");
+$ftest = fopen($output, "a");
 
-// fwrite($ftest, $remake_slidesnotes . "\n");
+fwrite($ftest, "Hello World");
 
 // for($k=0;$k<count($images_recup);$k++) {
 //   fwrite($ftest, $images_recup[$k] . "\n");

@@ -19,7 +19,11 @@ mkdir -p $TMPDIR/$RANDOMPATH
 
 cp "$Filename" $TMPDIR/$RANDOMPATH/input.html
 
-$PYTHON $SCRIPT_DIR/EditAnim.py --input=$TMPDIR/$RANDOMPATH/input.html --output=$TMPDIR/output_$RANDOMPATH.txt
+INPUT=$TMPDIR/$RANDOMPATH/input.html
+OUTPUT=$TMPDIR/output_$RANDOMPATH.txt
+
+# $PYTHON $SCRIPT_DIR/EditAnim.py --input=$TMPDIR/$RANDOMPATH/input.html --output=$TMPDIR/output_$RANDOMPATH.txt
+php /usr/bin/php ExtractSlidesNotesAppHTMLTools.php $OUTPUT $INPUT
 
 
 #  cd $SCRIPT_DIR/tmp/$RANDOMPATH
