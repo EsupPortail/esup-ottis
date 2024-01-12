@@ -66,9 +66,10 @@ def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3
     #print("curl --proxy http://cache.univ-nantes.fr:3128 --output \""+filenameout+"\" --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
 
 with open(filenamein,"r",encoding="utf8") as fd:
-    contentSRT="\n".join(fd.readlines())
+    contentSRT="".join(fd.readlines())
 
 srtfile=list(srt.parse(contentSRT))
 
 for sub in srtfile:
-    print(sub.content)
+    text=sub.content.strip()
+    print(text)
