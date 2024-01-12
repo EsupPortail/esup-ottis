@@ -23,7 +23,7 @@ INPUT=$TMPDIR/$RANDOMPATH/input.html
 OUTPUT=$TMPDIR/output_$RANDOMPATH.txt
 
 # $PYTHON $SCRIPT_DIR/EditAnim.py --input=$TMPDIR/$RANDOMPATH/input.html --output=$TMPDIR/output_$RANDOMPATH.txt
-/usr/bin/php ExtractSlidesNotesAppHTMLTools.php $OUTPUT $INPUT
+/usr/bin/php $SCRIPT_DIR/ExtractSlidesNotesAppHTMLTools.php $OUTPUT $INPUT
 
 
 #  cd $SCRIPT_DIR/tmp/$RANDOMPATH
