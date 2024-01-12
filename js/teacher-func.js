@@ -704,7 +704,7 @@ function ShowImage(n) {
  * @returns an HTML encoding of what should be shown in the complete lesson tab.
  */
 
-function formateresponse(datatxt) {
+function formateresponse(datatxt,editable=true) {
     //console.log(datatxt);
     currentPresentation = [];
     //alert(datatxt);
@@ -735,7 +735,7 @@ function formateresponse(datatxt) {
             var flag = false;
             for (var j = 0; j < slide["Notes"].length; j++) {
                 if (slide["Notes"][j].trim() != '') {
-                    res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j] + '</dd>\n';
+                    res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + '<span contenteditable="">'+slide["Notes"][j] + '</span>'+'</dd>\n';
 
                     currentPresentation.push({
                         'Slide': slide["Slide"],
