@@ -1,5 +1,5 @@
 import os
-import Subconfig
+import Subconfig as config
 import azure.cognitiveservices.speech as speechsdk
 import argparse
 
