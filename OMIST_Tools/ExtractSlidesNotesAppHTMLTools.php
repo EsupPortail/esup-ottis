@@ -7,6 +7,7 @@ if (isset($argc)) {
   $randompath = $argv[1];
   $filename = $argv[2];
 
+  echo "Test";
 
 // if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
 //   $tmp_file="/var/www/html/uploads/uncloudfile_".md5(gmdate("U")).".html";
@@ -21,18 +22,6 @@ if (isset($argc)) {
 $tmp_file =$filename
 
 $flag_justif=false;
-// $filename = "tmpfiles/test.html";
-
-/*
-if( is_uploaded_file($tmp_file) ) {
-    if (!move_uploaded_file($tmp_file, $filename)) {
-        echo "ERROR UPLOAD !!!!"; exit;
-    }
-}
-*/
-
-//$filename="tmpfiles/out.html";
-//echo "[{'Slide':'1', 'Notes':'ok'}]"; exit;
 
 $contenttxt = file_get_contents($tmp_file);
 $content = explode("\n",$contenttxt);
@@ -50,6 +39,8 @@ for($i=0;$i<count($content);$i++) {
       $T_images[] = $txtimage;
     }
 }
+
+echo $txtslidenotes;
 
 $Tnotes = (array) json_decode($txtslidenotes);
 $notes=array();
@@ -87,8 +78,6 @@ foreach($Tnotes as $lang_cherchee => $lang_trouvee) {
   $lang_remake[$col]=$lang_cherchee;
   $col = $col+1;
 }
-// var_dump($lang_remake);
-// echo $lang_remake[0];
 
 //texte des notes
 $remake_txtslidenotes = "[";
@@ -102,7 +91,6 @@ for($i=0;$i<$n;$i++) {
   }
 }
 $remake_txtslidenotes = $remake_txtslidenotes . "]";
-// echo $remake_txtslidenotes ;
 
 $remake_slidesnotes = "{";
 for ($j=0;$j<count($lang_remake);$j++){
@@ -127,7 +115,7 @@ for($k=0;$k<count($images_recup);$k++) {
 }
 
 fclose($ftest);
-// echo $remake_slidesnotes;
+echo $remake_slidesnotes;
 
 }
 ?>
