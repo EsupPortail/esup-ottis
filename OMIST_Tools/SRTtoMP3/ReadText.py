@@ -22,10 +22,6 @@ parser.add_argument(
     help='text to read')
 
 
-speakeroutput=True
-if args.speaker:
-    speakeroutput=True
-
 args = parser.parse_args(remaining)
 
 outputvoice="en-US-JennyNeural"
