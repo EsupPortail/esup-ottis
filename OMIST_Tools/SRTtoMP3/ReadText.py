@@ -1,12 +1,9 @@
 import os
 import Subconfig as config
-import azure.cognitiveservices.speech as speechsdk
 import argparse
 
 parser = argparse.ArgumentParser(add_help=False)
-parser.add_argument(
-    '-S', '--speaker', action='store_true',
-    help='Output to the default speaker')
+
 args, remaining = parser.parse_known_args()
 
 parser = argparse.ArgumentParser(
@@ -44,22 +41,27 @@ text_to_read="Test"
 if args.text:
     text_to_read=args.text
 
-
-
-speech_config = speechsdk.SpeechConfig(subscription=config.MICROSOFT_KEY, region=config.MICROSOFT_REGION)
-
-if speakeroutput:
-    audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
-else:
-    speech_config.set_speech_synthesis_output_format(speechsdk.SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3)
-    audio_config=speechsdk.audio.AudioOutputConfig(filename=filenameout)
-
-#speech_config.speech_synthesis_voice_name='sq-AL-AnilaNeural'
-speech_config.set_proxy("http://cache.univ-nantes.fr",3128)
-speech_config.speech_synthesis_voice_name=outputvoice
-
-speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-
 text = text_to_read
 
-speech_synthesis_result = speech_synthesizer.speak_text_async(text).get()
+ssml = """
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"
+       xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="@@LANG@@">
+    <voice name="@@VOICE@@">
+            @@TEXT@@
+    </voice>
+</speak>
+"""
+
+T_outputvoice=outputvoice.split("-")
+lang=T_outputvoice[0]+"-"+T_outputvoice[1]
+
+ssml=ssml.replace("@@LANG@@",lang)
+ssml=ssml.replace("@@VOICE@@",outputvoice)
+ssml=ssml.replace("@@TEXT@@",text)
+
+ssml=ssml.replace("\n","")
+ssml=ssml.replace("\"","'")
+
+# os.system("curl --proxy http://cache.univ-nantes.fr:3128 --output test.mp3 --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
+
+os.system("curl --proxy http://cache.univ-nantes.fr:3128 --output test.mp3 --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
