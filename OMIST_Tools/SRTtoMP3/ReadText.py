@@ -55,6 +55,7 @@ else:
     audio_config=speechsdk.audio.AudioOutputConfig(filename=filenameout)
 
 #speech_config.speech_synthesis_voice_name='sq-AL-AnilaNeural'
+speech_config.set_proxy("http://cache.univ-nantes.fr",3128)
 speech_config.speech_synthesis_voice_name=outputvoice
 
 speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
