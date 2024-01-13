@@ -71,19 +71,41 @@ with open(filenamein,"r",encoding="utf8") as fd:
 
 srtfile=list(srt.parse(contentSRT))
 
+total_duration=0
+
 i=0
 AllFiles=dict()
 for sub in srtfile:
     text=sub.content.strip()
+    start=int(sub.start.total_seconds()*1000)
     print(i,sub)
-    """
+    
     ReadText(text,filenameout="../tmp/srttomp3/output_"+str(i)+".mp3")
     AllFiles[i]=dict()
-    AllFiles[i]['start']=int(tf[3])
+    AllFiles[i]['start']=start
     AllFiles[i]['song']=AudioSegment.from_mp3("../tmp/srttomp3/output_"+str(i)+".mp3")
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
-    """
-
-
     i+=1
+
+# Recalage
+for i in range(len(AllFiles)-1):
+    current=AllFiles.get(i)
+    suivant=AllFiles.get(i+1)
+    if (current['end']>=suivant['start']):
+        suivant['start']=current['end']+1
+        suivant['end']=suivant['start']+suivant['duration']
+
+# création du son
+res=AudioSegment.empty()
+current=0
+for i in range(len(AllFiles)):
+    res+=AudioSegment.silent(duration=AllFiles.get(i)['start']-current-1)
+    res+=AllFiles.get(i)["song"]
+    current=AllFiles.get(i)['end']
+#res+=AudioSegment.silent(duration=len(original)-len(res))
+
+# export
+res=AudioSegment.from_mono_audiosegments(res,res)
+res.export("../tmp/srttomp3/mytest.mp3", format="mp3")
+
