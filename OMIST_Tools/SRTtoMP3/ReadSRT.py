@@ -2,6 +2,7 @@ import os
 import Subconfig as config
 import argparse
 import srt
+from pydub import AudioSegment
 
 parser = argparse.ArgumentParser(add_help=False)
 
@@ -70,6 +71,19 @@ with open(filenamein,"r",encoding="utf8") as fd:
 
 srtfile=list(srt.parse(contentSRT))
 
+i=0
+AllFiles=dict()
 for sub in srtfile:
     text=sub.content.strip()
-    print(text)
+    print(i,sub)
+    """
+    ReadText(text,filenameout="../tmp/srttomp3/output_"+str(i)+".mp3")
+    AllFiles[i]=dict()
+    AllFiles[i]['start']=int(tf[3])
+    AllFiles[i]['song']=AudioSegment.from_mp3("../tmp/srttomp3/output_"+str(i)+".mp3")
+    AllFiles[i]['duration']=len(AllFiles[i]['song'])
+    AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
+    """
+
+
+    i+=1
