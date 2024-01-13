@@ -723,7 +723,9 @@ function SubmitJob(num,apptype) {
 
 
   <?php
-
+    $ftcontentbis="  <h3 title=\"You must be connected to the Nantes University network to use this tool.\">Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"MyWhisper/index.html\"></iframe>\n  </div>\n  ";
+    echo $ftcontentbis;
+    
     $ftcontent="  <h3 title=\"You must be connected to the Nantes University network to use this tool.\">Audio/video file transcription</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://172.26.98.138/\"></iframe>\n  </div>\n  ";
     $ftcontentalt="  <h3>Audio/video file transcription with Scribe-CEMEA free tool</h3>\n  <div>\n    <iframe width=\"80%\" height=\"500px\" style=\"border: none;\" src=\"https://scribe.cemea.org/\"></iframe>\n  </div>\n  ";
 
