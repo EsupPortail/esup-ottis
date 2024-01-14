@@ -193,7 +193,7 @@ function PopulateLanguages(selectelement) {
 function Init() {
   var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3','inputlanguage4','outputlanguage4','inputlanguage5','outputlanguage5','inputlanguage6','outputlanguage6'];
   allselects.map(PopulateLanguages);
-  PopulateVoicesMicrosoft(_('Voices13'));
+  PopulateVoicesMicrosoft(_('inputlanguage13'));
 }
 
 function _(e) {return document.getElementById(e);}
@@ -337,7 +337,7 @@ function PopulateVoicesMicrosoft(s) {
               var opt = document.createElement("option");
               opt.value = rep[1];
               opt.innerHTML = rep[1];
-              _("Voices13").appendChild(opt);
+              s.appendChild(opt);
               }
             }
         }
@@ -774,12 +774,11 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value=""/>
     <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
-    <label for="Voices13">Select your voice</label>
-    <select id="Voices13">
-    </select>
-    <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
-    
-    
+    <label id="inputlanguage13" name="inputlanguage">Select your voice</label>
+    <select id="inputlanguage13">
+    </select><br/>
+    <input type="text" id="speed13" name="outputlanguage" value="-1" title="Real number. -1 means that the speed is adapted to the video."/><br/>
+    <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>    
     <p id="Message13"></p>
     </form>
 
