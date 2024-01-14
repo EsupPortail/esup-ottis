@@ -74,7 +74,7 @@ def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3
     #print("curl --proxy http://cache.univ-nantes.fr:3128 --output \""+filenameout+"\" --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
 
 def adjustTempo(filename, speed=1, duration=0):
-    audio=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
+    audio=AudioSegment.from_mp3(filename)
     if speed == -1:
         speed=duration/len(audio)
     return speedup(audio,speed)
