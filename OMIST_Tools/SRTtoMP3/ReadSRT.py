@@ -23,7 +23,7 @@ parser.add_argument(
     '-i', '--input', type=str,
     help='input SRT filename')
 parser.add_argument(
-    '-s', '--speed', type=int,
+    '-s', '--speed', type=float,
     help='speed (default to 1, -1 means adapted speed)')
 
 args = parser.parse_args(remaining)
@@ -65,6 +65,14 @@ def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3
     os.system("curl --proxy http://cache.univ-nantes.fr:3128 --output \""+filenameout+"\" --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
     #print("curl --proxy http://cache.univ-nantes.fr:3128 --output \""+filenameout+"\" --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
 
+def adjustTempo(filename, speed=1, duration=0):
+    audio=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
+    if speed == -1:
+        speed=duration/len(audio)
+    return pydub.effects.speedup(audio,speed)
+
+
+
 with open(filenamein,"r",encoding="utf8") as fd:
     contentSRT="".join(fd.readlines())
 
@@ -82,16 +90,9 @@ for sub in srtfile:
     
     ReadText(text,filenameout=diroutput+"output_"+str(i)+".mp3")
 
-    # Tempo adaptation
-    if speed == -1:
-        fileduration=len(AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3"))
-        speedadj=duration/fileduration
-        os.system("sox "+diroutput+"output_"+str(i)+".mp3"+" "+diroutput+"output_"+str(i)+"_adjusted.mp3"+" tempo "+str(speedadj))
-    else:
-        os.system("sox "+diroutput+"output_"+str(i)+".mp3"+" "+diroutput+"output_"+str(i)+"_adjusted.mp3"+" tempo "+str(speed))
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
-    AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+"_adjusted.mp3")
+    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",speed)
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
     i+=1
