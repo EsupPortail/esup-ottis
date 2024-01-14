@@ -750,6 +750,9 @@ function SubmitJob(num,apptype) {
     <select id="Voice13">
     <?php
     $Allvoices=explode("\n",file_get_contents("SRTtoMP3/ListVoices.php"));
+    echo "<!-- ";
+    print_r($Allvoices);
+    echo "-->";
     for($i=0; $i<count($Allvoices); $i++) {
       // zu-ZA|zu-ZA-ThembaNeural_Male_Zulu (South Africa)|Test
       $voice=explode("|",$Allvoices[$i]);
