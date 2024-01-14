@@ -193,6 +193,7 @@ function PopulateLanguages(selectelement) {
 function Init() {
   var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3','inputlanguage4','outputlanguage4','inputlanguage5','outputlanguage5','inputlanguage6','outputlanguage6'];
   allselects.map(PopulateLanguages);
+  PopulateVoicesMicrosoft(_e('voices13'));
 }
 
 function _(e) {return document.getElementById(e);}
@@ -321,6 +322,31 @@ function SubmitJob(num,apptype) {
   }
   }
 }
+
+function PopulateVoicesMicrosoft(s) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "SRTtoMP3/ListVoices.php");
+
+  xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            console.log(this.responseText);
+            var response = this.responseText.split("\n");
+            for(i=0; i<response.length; i++) {
+              var rep=response.split('|')
+              var opt = document.createElement("option");
+              opt.value = rep[1];
+              opt.innerHTML = rep[1];
+              s.appendChild(opt);
+            }
+        }
+  };
+  xhr.timeout = 9999;
+  xhr.ontimeout = function() {
+      console.log('ERROR Timeout');
+  };
+  xhr.send();
+}
+
 
 </script>
 </head>
