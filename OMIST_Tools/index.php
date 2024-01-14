@@ -335,7 +335,8 @@ function PopulateVoicesMicrosoft(s) {
               if (response[i].trim() != "") {
               var rep=response[i].split('|')
               var opt = document.createElement("option");
-              opt.value = rep[1];
+
+              opt.value = rep[1].split("_")[0];
               opt.innerHTML = rep[1];
               _('inputlanguage13').appendChild(opt);
               }
