@@ -15,17 +15,16 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument(
     '-V', '--voice', type=str,
-    help='output voice shortname')
+    help='output voice name (microsoft voice name)')
 parser.add_argument(
     '-o', '--output', type=str,
-    help='output filename')
+    help='output directory')
 parser.add_argument(
     '-i', '--input', type=str,
     help='input SRT filename')
 parser.add_argument(
-    '-t', '--text', type=str,
-    help='text to read')
-
+    '-s', '--speed', type=int,
+    help='speed (default to 1, -1 means adapted speed)')
 
 args = parser.parse_args(remaining)
 
@@ -33,17 +32,17 @@ outputvoice="en-US-JennyNeural"
 if args.voice:
     outputvoice=args.voice
 
-filenameout="output.mp3"
+diroutput="../tmp/sertomp3/"
 if args.output:
-    filenameout=args.output
+    diroutput=args.output
 
 filenamein="test.srt"
 if args.input:
     filenamein=args.input
 
-text_to_read="Test"
-if args.text:
-    text_to_read=args.text
+speed=1
+if args.speed:
+    speed=args.speed
 
 def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3"):
     ssml = """
@@ -78,12 +77,24 @@ AllFiles=dict()
 for sub in srtfile:
     text=sub.content.strip()
     start=int(sub.start.total_seconds()*1000)
+    duration=int((sub.end.total_seconds()-sub.start.total_seconds())*1000)
     print(i,sub)
     
-    ReadText(text,filenameout="../tmp/srttomp3/output_"+str(i)+".mp3")
+    ReadText(text,filenameout=diroutput+"output_"+str(i)+".mp3")
+
+    # Tempo adaptation
+    if speed == -1:
+        fileduration=len(AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3"))
+        speedadj=duration/fileduration
+        os.system("sox "+diroutput+"output_"+str(i)+".mp3"+" "+diroutput+"output_"+str(i)+"_adjusted.mp3"+" tempo "+str(speedadj))
+    else:
+        os.system("sox "+diroutput+"output_"+str(i)+".mp3"+" "+diroutput+"output_"+str(i)+"_adjusted.mp3"+" tempo "+str(speed))
+
+    exec("sox "+outputFile+" "+outputFileAdjusted.replace('DELAI',delai)+" tempo "+speed, (error, stdout, stderr) => {});
+
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
-    AllFiles[i]['song']=AudioSegment.from_mp3("../tmp/srttomp3/output_"+str(i)+".mp3")
+    AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+"_adjusted.mp3")
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
     i+=1
@@ -107,5 +118,5 @@ for i in range(len(AllFiles)):
 
 # export
 res=AudioSegment.from_mono_audiosegments(res,res)
-res.export("../tmp/srttomp3/mytest.mp3", format="mp3")
+res.export(diroutput+"result.mp3", format="mp3")
 
