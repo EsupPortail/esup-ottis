@@ -774,8 +774,8 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value=""/>
     <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
-    <label id="inputlanguage13" name="inputlanguage">Select your voice</label>
-    <select id="inputlanguage13">
+    <label for="inputlanguage13" >Select your voice</label>
+    <select id="inputlanguage13" name="inputlanguage">
     </select><br/>
     <input type="text" id="speed13" name="outputlanguage" value="-1" title="Real number. -1 means that the speed is adapted to the video."/><br/>
     <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>    
