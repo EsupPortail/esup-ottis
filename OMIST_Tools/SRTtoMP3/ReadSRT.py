@@ -88,6 +88,8 @@ srtfile=list(srt.parse(contentSRT))
 
 total_duration=0
 
+os.makedirs(diroutput, exist_ok=True)
+
 i=0
 AllFiles=dict()
 for sub in srtfile:
