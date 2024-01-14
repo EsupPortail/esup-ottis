@@ -98,7 +98,7 @@ for sub in srtfile:
     duration=int((sub.end.total_seconds()-sub.start.total_seconds())*1000)
     print(i,sub)
     
-    ReadText(text,filenameout=diroutput+"output_"+str(i)+".mp3")
+    ReadText(text,filenameout=diroutput+"output_"+str(i)+".mp3",outputvoice=outputvoice)
 
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
