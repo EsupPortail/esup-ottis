@@ -193,7 +193,7 @@ function PopulateLanguages(selectelement) {
 function Init() {
   var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3','inputlanguage4','outputlanguage4','inputlanguage5','outputlanguage5','inputlanguage6','outputlanguage6'];
   allselects.map(PopulateLanguages);
-  PopulateVoicesMicrosoft(_('voices13'));
+  PopulateVoicesMicrosoft(_('Voices13'));
 }
 
 function _(e) {return document.getElementById(e);}
@@ -772,7 +772,7 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value=""/>
     <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
-    <label for="Voice13">Selectyourvoice</label>
+    <label for="Voice13">Select your voice</label>
     <select id="Voice13">
     <?php
     $Allvoices=explode("\n",file_get_contents("SRTtoMP3/ListVoices.php"));
