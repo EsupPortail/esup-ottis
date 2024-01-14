@@ -1,3 +1,5 @@
+<?php
+
 if (isset($argc)) {
     $randompath = $argv[1];
     $filename = $argv[2];
@@ -9,3 +11,5 @@ if (isset($argc)) {
     $command = '/usr/bin/python3 '.dirname(__FILE__).'/ReadSRT.py -o '.$outputdir.' -i "'.$filename.'" -V "'.$Voice.'" -s ".$Speed." -f '".outputfilename."' >/dev/null 2>/dev/null';
     system($command);
 }
+
+?>
