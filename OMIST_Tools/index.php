@@ -337,7 +337,7 @@ function PopulateVoicesMicrosoft(s) {
               var opt = document.createElement("option");
               opt.value = rep[1];
               opt.innerHTML = rep[1];
-              s.appendChild(opt);
+              _('inputlanguage13').appendChild(opt);
               }
             }
         }
