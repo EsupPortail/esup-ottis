@@ -21,6 +21,9 @@ parser.add_argument(
     '-o', '--output', type=str,
     help='output directory')
 parser.add_argument(
+    '-f', '--outputfile', type=str,
+    help='output filename')
+parser.add_argument(
     '-i', '--input', type=str,
     help='input SRT filename')
 parser.add_argument(
@@ -40,6 +43,10 @@ if args.output:
 filenamein="test.srt"
 if args.input:
     filenamein=args.input
+
+filenamefinal=diroutput+"myoutput.mp3"
+if args.outputfile:
+    filenamefinal=args.outputfile
 
 speed=1
 if args.speed:
@@ -117,5 +124,5 @@ for i in range(len(AllFiles)):
 
 # export
 res=AudioSegment.from_mono_audiosegments(res,res)
-res.export(diroutput+"result.mp3", format="mp3")
+res.export(filenamefinal, format="mp3")
 
