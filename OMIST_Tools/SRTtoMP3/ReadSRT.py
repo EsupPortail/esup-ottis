@@ -125,6 +125,6 @@ for i in range(len(AllFiles)):
 #res+=AudioSegment.silent(duration=len(original)-len(res))
 
 # export
-#res=AudioSegment.from_mono_audiosegments(res,res)
+res=AudioSegment.from_mono_audiosegments(res,res)
 res.export(filenamefinal, format="mp3")
 
