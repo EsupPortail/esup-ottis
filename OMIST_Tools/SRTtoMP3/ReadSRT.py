@@ -3,6 +3,7 @@ import Subconfig as config
 import argparse
 import srt
 from pydub import AudioSegment
+from pydub.effects import speedup
 
 parser = argparse.ArgumentParser(add_help=False)
 
@@ -69,7 +70,7 @@ def adjustTempo(filename, speed=1, duration=0):
     audio=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
     if speed == -1:
         speed=duration/len(audio)
-    return pydub.effects.speedup(audio,speed)
+    return speedup(audio,speed)
 
 
 
