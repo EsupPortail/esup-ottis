@@ -332,11 +332,13 @@ function PopulateVoicesMicrosoft(s) {
             console.log(this.responseText);
             var response = this.responseText.split("\n");
             for(i=0; i<response.length; i++) {
+              if (response[i].trim() != "") {
               var rep=response[i].split('|')
               var opt = document.createElement("option");
               opt.value = rep[1];
               opt.innerHTML = rep[1];
               _("Voices13").appendChild(opt);
+              }
             }
         }
   };
