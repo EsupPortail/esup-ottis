@@ -737,6 +737,34 @@ function SubmitJob(num,apptype) {
   <div>
   <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
   </div>
+
+  <h3>Subtitle reader</h3>
+  <div>
+  <form id="Form13" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+    Select SRT file : 
+    <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br/>
+    <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
+    <input type="hidden" id="Random13" name="randompath" value=""/>
+    <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
+    <label for="Voice13">Selectyourvoice</label>
+    <select id="Voice13">
+    <?php
+    $Allvoices=explode("\n",file_get_contents("SRTtoMP3/ListVoices.php"));
+    for($i=0; $i<count($Allvoices); $i++) {
+      // zu-ZA|zu-ZA-ThembaNeural_Male_Zulu (South Africa)|Test
+      $voice=explode("|",$Allvoices[$i]);
+      echo "<option value=\"".$voice[1]."\">".$voice[1]."</option>\n";
+    }
+    ?>
+    </select>
+    <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    
+    
+    <p id="Message13"></p>
+    </form>
+
+  </div>
+
 </div>
 </body>
 <script>
