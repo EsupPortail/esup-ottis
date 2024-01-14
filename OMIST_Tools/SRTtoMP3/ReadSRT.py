@@ -89,9 +89,6 @@ for sub in srtfile:
         os.system("sox "+diroutput+"output_"+str(i)+".mp3"+" "+diroutput+"output_"+str(i)+"_adjusted.mp3"+" tempo "+str(speedadj))
     else:
         os.system("sox "+diroutput+"output_"+str(i)+".mp3"+" "+diroutput+"output_"+str(i)+"_adjusted.mp3"+" tempo "+str(speed))
-
-    exec("sox "+outputFile+" "+outputFileAdjusted.replace('DELAI',delai)+" tempo "+speed, (error, stdout, stderr) => {});
-
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
     AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+"_adjusted.mp3")
