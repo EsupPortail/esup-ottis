@@ -96,7 +96,7 @@ function PopulateVoicesIn() {
 function PopulateVoicesIn() {
     if (TLangInput.length == 0) {
         var select = _('VoiceInput');
-        var select = _('classroomlanguage');
+        var select2 = _('classroomlanguage');
         //var voices = window.speechSynthesis.getVoices();
         TLangInput = [];
 
