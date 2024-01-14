@@ -776,17 +776,6 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
     <label for="Voices13">Select your voice</label>
     <select id="Voices13">
-    <?php
-    $Allvoices=explode("\n",file_get_contents("SRTtoMP3/ListVoices.php"));
-    echo "<!-- ";
-    print_r($Allvoices);
-    echo "-->";
-    for($i=0; $i<count($Allvoices); $i++) {
-      // zu-ZA|zu-ZA-ThembaNeural_Male_Zulu (South Africa)|Test
-      $voice=explode("|",$Allvoices[$i]);
-      echo "<option value=\"".$voice[1]."\">".$voice[1]."</option>\n";
-    }
-    ?>
     </select>
     <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     
