@@ -9,7 +9,7 @@ if (isset($argc)) {
     $Speed = str_replace("--wraplength=","",$Speed);
     $outputdir = "tmp/".$randompath."/";
     $outputfilename = "tmp/output_".$randompath.".mp3";
-    $command = '/usr/bin/python3 '.dirname(__FILE__).'/ReadSRT.py -o '.$outputdir.' -i "'.$filename.'" -V "'.$Voice.'" -f "'.$outputfilename.'" -s '.$Speed.' ';//>/dev/null 2>/dev/null';
+    $command = '/usr/bin/python3 '.dirname(__FILE__).'/ReadSRT.py -o '.$outputdir.' -i "'.$filename.'" -V "'.$Voice.'" -f "'.$outputfilename.'" --speed '.$Speed.' ';//>/dev/null 2>/dev/null';
     echo $command;
     system($command);
 }
