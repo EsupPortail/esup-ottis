@@ -778,7 +778,7 @@ function PopulateVoicesMicrosoft(s) {
     <label for="inputlanguage13" >Select your voice</label>
     <select id="inputlanguage13" name="inputlanguage">
     </select><br/>
-    <input type="text" id="speed13" name="outputlanguage" value="-1" title="Real number. -1 means that the speed is adapted to the video."/><br/>
+    <input type="text" id="speed13" name="wraplength" value="-1" title="Real number. -1 means that the speed is adapted to the video."/><br/>
     <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>    
     <p id="Message13"></p>
     </form>
