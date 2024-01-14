@@ -772,8 +772,8 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value=""/>
     <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
-    <label for="Voice13">Select your voice</label>
-    <select id="Voice13">
+    <label for="Voices13">Select your voice</label>
+    <select id="Voices13">
     <?php
     $Allvoices=explode("\n",file_get_contents("SRTtoMP3/ListVoices.php"));
     echo "<!-- ";
