@@ -55,57 +55,57 @@ $notes[$n]=$T;
 //Test pour refaire le .html
 
 //images
-for($i=0;$i<$n;$i++) {
-  $nom_image = $notes[$n]["Images"][$i];
-  $images_recup[$i] = "Timages.push('" . $nom_image . "');";
-}
-// echo $images_recup[0];
+// for($i=0;$i<$n;$i++) {
+//   $nom_image = $notes[$n]["Images"][$i];
+//   $images_recup[$i] = "Timages.push('" . $nom_image . "');";
+// }
+// // echo $images_recup[0];
 
-//recup langues
-$lang_remake=array();
-$col = 0;
-foreach($Tnotes as $lang_cherchee => $lang_trouvee) {
-  $lang_remake[$col]=$lang_cherchee;
-  $col = $col+1;
-}
+// //recup langues
+// $lang_remake=array();
+// $col = 0;
+// foreach($Tnotes as $lang_cherchee => $lang_trouvee) {
+//   $lang_remake[$col]=$lang_cherchee;
+//   $col = $col+1;
+// }
 
-//texte des notes
-$remake_txtslidenotes = "[";
-for($i=0;$i<$n;$i++) {
-  if ($i==0){
-    $txt_encode = json_encode($notes[$i]);
-    $remake_txtslidenotes = $remake_txtslidenotes . $txt_encode;
-  } else {
-    $txt_encode = json_encode($notes[$i]);
-    $remake_txtslidenotes = $remake_txtslidenotes . ", " . $txt_encode;
-  }
-}
-$remake_txtslidenotes = $remake_txtslidenotes . "]";
+// //texte des notes
+// $remake_txtslidenotes = "[";
+// for($i=0;$i<$n;$i++) {
+//   if ($i==0){
+//     $txt_encode = json_encode($notes[$i]);
+//     $remake_txtslidenotes = $remake_txtslidenotes . $txt_encode;
+//   } else {
+//     $txt_encode = json_encode($notes[$i]);
+//     $remake_txtslidenotes = $remake_txtslidenotes . ", " . $txt_encode;
+//   }
+// }
+// $remake_txtslidenotes = $remake_txtslidenotes . "]";
 
-$remake_slidesnotes = "{";
-for ($j=0;$j<count($lang_remake);$j++){
-  if ($j==0){
-    $remake_slidesnotes = $remake_slidesnotes . '"' . $lang_remake[$j] . '" : ' . $remake_txtslidenotes ;
-  } else {
-    $remake_slidesnotes = $remake_slidesnotes . ', "' . $lang_remake[$j] . '" : ' . $remake_txtslidenotes ;
-  }
+// $remake_slidesnotes = "{";
+// for ($j=0;$j<count($lang_remake);$j++){
+//   if ($j==0){
+//     $remake_slidesnotes = $remake_slidesnotes . '"' . $lang_remake[$j] . '" : ' . $remake_txtslidenotes ;
+//   } else {
+//     $remake_slidesnotes = $remake_slidesnotes . ', "' . $lang_remake[$j] . '" : ' . $remake_txtslidenotes ;
+//   }
 
-}
-$remake_slidesnotes = $remake_slidesnotes . '};' ;
+// }
+// $remake_slidesnotes = $remake_slidesnotes . '};' ;
 
 
 
-// $output = "tmp/output_" . $randompath . ".txt";
-$ftest = fopen($output, "a");
+// // $output = "tmp/output_" . $randompath . ".txt";
+// $ftest = fopen($output, "a");
 
-fwrite($ftest, $remake_slidesnotes . "\n");
+// fwrite($ftest, $remake_slidesnotes . "\n");
 
-for($k=0;$k<count($images_recup);$k++) {
-  fwrite($ftest, $images_recup[$k] . "\n");
-}
+// for($k=0;$k<count($images_recup);$k++) {
+//   fwrite($ftest, $images_recup[$k] . "\n");
+// }
 
-fclose($ftest);
-// echo $remake_slidesnotes;
+// fclose($ftest);
+// // echo $remake_slidesnotes;
 
 }
 ?>
