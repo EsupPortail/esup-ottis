@@ -1003,6 +1003,13 @@ function GetNewPresentation() {
     // xhr.send();
     // console.log(data_new_pres);
     console.log(typeof(data_new_pres));
+    $.post("../ExtractSlidesNotesAppHTMLTools.php", {
+        variable:data_new_pres
+    }, function(data) {
+        if (data != "") {
+            alert('We sent Jquery string to PHP : ' + data);
+        }
+    });
 
 }
 

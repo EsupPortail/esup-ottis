@@ -1,7 +1,7 @@
 <?php 
-$data = $GET["data"];
 
-echo $data;
+$jqueryVariable = $_POST['variable'];
+echo $jqueryVariable;
 
 ?>
 
