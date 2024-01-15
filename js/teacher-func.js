@@ -1001,7 +1001,7 @@ function GetNewPresentation() {
     // xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?data=" + data_new_pres);
     // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     // xhr.send();
-    console.log("data_new_pres");
+    console.log(data_new_pres);
 
 }
 
