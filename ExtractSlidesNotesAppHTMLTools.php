@@ -2,10 +2,12 @@
 
 // https://sebhastian.com/pass-javascript-variables-to-php/?utm_content=cmp-true
 
-$data = json_decode(file_get_contents("php://input"), true);
+// $data = json_decode(file_get_contents("php://input"), true);
 
-echo . $data;
+// echo . $data;
+$texte = html_entity_decode(strip_tags($_GET["texte"]));
 
+echo $texte;
 
 // $jqueryVariable = $_POST['variable'];
 // echo $jqueryVariable;
