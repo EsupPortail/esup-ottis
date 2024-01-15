@@ -999,7 +999,7 @@ function SlideNotesTools(editable=false) {
     //AbortTimeout(xhr);
 }
 
-function GetNewPresentation{
+function GetNewPresentation() {
     console.log("New Presentation : ");
     console.log(_("notebookcompleteformatted").innerHTML);
 }
