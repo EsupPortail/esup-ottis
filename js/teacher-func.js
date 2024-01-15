@@ -1007,7 +1007,7 @@ function GetNewPresentation() {
         }
     };
 
-    xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(data_new_pres));
 
     // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     // xhr.send();
