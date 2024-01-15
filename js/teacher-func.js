@@ -980,6 +980,7 @@ function SlideNotesTools(editable=false) {
 
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
+    console.log("Test1");
     xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
 
     xhr.timeout = 30000;
@@ -990,7 +991,7 @@ function SlideNotesTools(editable=false) {
     };
     xhr.send(formdata);
     //AbortTimeout(xhr);
-    return xhr;
+    console.log("Test2");
 }
 
 
