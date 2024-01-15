@@ -885,7 +885,7 @@ function completeHandler(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
 
-    _("SlideText").addEventListener("input", console.log("Bonjour"));
+    // _("SlideText").addEventListener("input", console.log("Bonjour"));
 
     _("App12").style.backgroundColor = 'rgb(25,190,40)';
     _("App12").style.color='white';
@@ -999,7 +999,10 @@ function SlideNotesTools(editable=false) {
     //AbortTimeout(xhr);
 }
 
-
+function GetNewPresentation{
+    console.log("New Presentation : ");
+    console.log(_("notebookcompleteformatted").innerHTML);
+}
 
 
 /**
