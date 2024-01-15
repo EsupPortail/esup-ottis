@@ -972,18 +972,6 @@ function SlideNotesTools(editable=false) {
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", scriptfile);
-    // xhr.onreadystatechange = () => {
-    // // In local files, status is 0 upon success in Mozilla Firefox
-    // if (xhr.readyState === XMLHttpRequest.DONE) {
-    //     const status = xhr.status;
-    //     if (status === 0 || (status >= 200 && status < 400)) {
-    //     // The request has been completed successfully
-    //     console.log(xhr.responseText);
-    //     } else {
-    //         alert('failure!');
-    //     }
-    // }
-    // };
 
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
@@ -1001,7 +989,9 @@ function SlideNotesTools(editable=false) {
 
 function GetNewPresentation() {
     console.log("New Presentation : ");
-    console.log(_("notebookcompleteformatted").innerHTML);
+    var data_new_pres = _("notebookcompleteformatted").innerHTML;
+    console.log(data_new_pres);
+
 }
 
 
