@@ -885,7 +885,7 @@ function completeHandler(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
     _("button_download").value="Test";
-    _("App12").style.background=rgb(25,190,40);
+    _("App12").style.backgroundColor = 'green';
     _("App12").style.color=white;
 
     // Re-initialize the presentation
