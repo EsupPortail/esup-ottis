@@ -743,7 +743,7 @@ function PopulateVoicesMicrosoft(s) {
     <input type="submit" value="Create" name="submit"/>
     </form> -->
 
-    <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+    <!-- <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select HTML file : 
     <input type="file" name="fileToUpload" id="fileToUpload12" accept=".html" max-size="50000000"><br/>
     <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
@@ -751,7 +751,10 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="Extension12" name="Extension" value="txt"/>
     <button id="App12" value="Create" onclick="if (_('fileToUpload12').value!='') {this.innerHTML=''; SubmitJob(12,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message12"></p>
-    </form>
+    </form> -->
+
+    <button id="App12" value="Download" class="mybutton">Download</button>
+
 
   </div>
 

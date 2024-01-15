@@ -990,6 +990,7 @@ function SlideNotesTools(editable=false) {
     };
     xhr.send(formdata);
     //AbortTimeout(xhr);
+    return xhr;
 }
 
 
