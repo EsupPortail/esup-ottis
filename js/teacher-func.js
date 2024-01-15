@@ -886,7 +886,7 @@ function completeHandler(event,editable=false) {
     _("progressBar").value = 0;
     _("button_download").value="Test";
     _("App12").style.backgroundColor = 'green';
-    _("App12").style.color=white;
+    _("App12").style.color='white';
 
     // Re-initialize the presentation
     previousimage = -1;
