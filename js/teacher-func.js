@@ -884,6 +884,9 @@ function SlideBackward() {
 function completeHandler(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
+
+    _("SlideText").addEventListener("input", console.log("Bonjour"));
+
     _("App12").style.backgroundColor = 'rgb(25,190,40)';
     _("App12").style.color='white';
     _("App12").style.borderColor = 'rgb(25,190,40)';
@@ -1388,7 +1391,7 @@ function Init() {
     // document.onkeyup = function(event) {
     //     if (event.code === 'KeyB') {
     //         if (inSlideTab) {
-    //             Micro();
+    //             Micro();addEventListener
     //         }
     //     }
     //     if (event.code === 'Space') {
