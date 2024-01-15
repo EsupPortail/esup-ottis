@@ -996,22 +996,36 @@ function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     // var formdata = new FormData();
     // formdata.append("ppt_presentation", data_new_pres);
-    // var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
     
-    // xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?data=" + data_new_pres);
+    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            alert(xhr.responseText);
+        }
+    };
+
+    xhr.send(JSON.stringify(data));
+
     // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     // xhr.send();
     // console.log(data_new_pres);
-    console.log(typeof(data_new_pres));
-    $.post("../ExtractSlidesNotesAppHTMLTools.php", {
-        variable:data_new_pres
-    }, function(data) {
-        if (data != "") {
-            alert('We sent Jquery string to PHP : ' + data);
-        }
-    });
+    // console.log(typeof(data_new_pres));
+    // $.post("../ExtractSlidesNotesAppHTMLTools.php", {
+    //     variable:data_new_pres
+    // }, function(data) {
+    //     if (data != "") {
+    //         alert('We sent Jquery string to PHP : ' + data);
+    //     }
+    // });
 
 }
+
+
+
+
 
 
 /**

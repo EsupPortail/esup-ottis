@@ -1,7 +1,14 @@
 <?php 
 
-$jqueryVariable = $_POST['variable'];
-echo $jqueryVariable;
+// https://sebhastian.com/pass-javascript-variables-to-php/?utm_content=cmp-true
+
+$data = json_decode(file_get_contents("php://input"), true);
+
+echo . $data;
+
+
+// $jqueryVariable = $_POST['variable'];
+// echo $jqueryVariable;
 
 ?>
 
