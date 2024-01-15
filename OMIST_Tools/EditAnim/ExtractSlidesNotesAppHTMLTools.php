@@ -49,7 +49,7 @@ $T["Notes"]=array();
 $notes[$n]=$T;
 
 //print_r($notes);
-// echo json_encode($notes);
+ echo json_encode($notes);
 //unlink($filename);
 
 //Test pour refaire le .html
@@ -105,7 +105,7 @@ for($k=0;$k<count($images_recup);$k++) {
 }
 
 fclose($ftest);
-echo $remake_slidesnotes;
+// echo $remake_slidesnotes;
 
 }
 ?>

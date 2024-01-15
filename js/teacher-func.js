@@ -946,14 +946,14 @@ function SlideNotes() {
 }
 
 /**
- * @summary The function that is executed for reading a new presentation
+ * @summary The function that is executed for editing a new presentation
  * 
  */
 
 function SlideNotesTools(editable=false) {
     var file = _("ppt_presentation").files[0];
     var scriptfile = "";
-    if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTML.php";
+    if (file.name.endsWith('html')) scriptfile = "../OMIST_Tools/EditAnim/ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
         alert('Only html files are allowed !');
         return -1;
