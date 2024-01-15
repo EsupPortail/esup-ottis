@@ -13,7 +13,7 @@ if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
   $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
 }
 
-echo "TEST";
+echo json_encode("TEST");
 
 $flag_justif=false;
 $filename = "tmpfiles/test.html";
