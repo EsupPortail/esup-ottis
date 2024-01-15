@@ -997,18 +997,19 @@ function GetNewPresentation() {
     // var formdata = new FormData();
     // formdata.append("ppt_presentation", data_new_pres);
     var xhr = new XMLHttpRequest();
+    var ch = "Hello World";
     
-    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php");
+    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=" + ch, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            alert(xhr.responseText);
+            console.log(this.responseText);
         }
     };
 
-    xhr.send(JSON.stringify(data_new_pres));
-
+    // xhr.send(JSON.stringify(data_new_pres));
+    xhr.send();
     // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     // xhr.send();
     // console.log(data_new_pres);
