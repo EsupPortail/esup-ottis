@@ -753,8 +753,8 @@ function PopulateVoicesMicrosoft(s) {
     <p id="Message12"></p>
     </form> -->
 
-    <input id="button_download" type="button" class="mybutton" value="Enregistrer" />
-    <button id="App12" value="Download" class="mybutton" style="background-color:#e7e7e7; color: black;">Download</button>
+    <!-- <input id="button_download" type="button" class="mybutton" value="Enregistrer" /> -->
+    <button id="App12" disabled value="Download" class="mybutton" style="background-color:#e7e7e7; color: #cccccc; border-color:#e7e7e7;">Download</button>
 
 
   </div>

@@ -884,9 +884,10 @@ function SlideBackward() {
 function completeHandler(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
-    _("button_download").value="Test";
-    _("App12").style.backgroundColor = 'green';
+    _("App12").style.backgroundColor = 'rgb(25,190,40)';
     _("App12").style.color='white';
+    _("App12").style.borderColor = 'rgb(25,190,40)';
+    -("App12").removeAttribute("disabled");
 
     // Re-initialize the presentation
     previousimage = -1;
