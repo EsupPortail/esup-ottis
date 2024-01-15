@@ -69,7 +69,7 @@ if (isset($Stats_DEEPL["character_count"])) {
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 .internalserveronly {
-  <?php if (strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false)) echo "display:none; visibility: hidden;\n";?>
+  <?php if (strpos($_SERVER['SERVER_NAME'],"172.26.98.138") !== false) echo "display:none; visibility: hidden;\n";?>
 }
 
 
