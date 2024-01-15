@@ -988,9 +988,13 @@ function SlideNotesTools(editable=false) {
 }
 
 function GetNewPresentation() {
-    console.log("New Presentation : ");
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    console.log(data_new_pres);
+    // var formdata = new FormData();
+    // formdata.append("ppt_presentation", data_new_pres);
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "../OMIST_Tools/EditAnim/EditAnim.php?data=" + data_new_pres);
+    xhr.send();
 
 }
 

@@ -1,3 +1,11 @@
+<?php 
+$data = $GET["data"];
+
+echo $data;
+
+?>
+
+
 <?php
 
 // ini_set ( "upload_max_filesize" , "50M" );
@@ -7,52 +15,52 @@
 //   $output = $argv[1];
 //   $filename = $argv[2];
 
-$tmp_file = $_FILES['ppt_presentation']['tmp_name'];
+// $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
 
-  // echo "Test";
+//   // echo "Test";
 
-// $tmp_file =$filename
+// // $tmp_file =$filename
 
-$flag_justif=false;
+// $flag_justif=false;
 
-$contenttxt = file_get_contents($tmp_file);
-$content = explode("\n",$contenttxt);
-$txtslidenotes="";
-$T_images = array();
-for($i=0;$i<count($content);$i++) {
-    $txt=$content[$i];
-    if (strpos("_".$txt,"var slidesnotes = ")>0) {
-      $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
-      $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
-    }
-    if (strpos("_".$txt,"Timages.push(")>0) {
-      $txtimage=str_replace("Timages.push('","",$txt);
-      $txtimage=str_replace("');","",$txtimage);
-      $T_images[] = $txtimage;
-    }
-}
+// $contenttxt = file_get_contents($tmp_file);
+// $content = explode("\n",$contenttxt);
+// $txtslidenotes="";
+// $T_images = array();
+// for($i=0;$i<count($content);$i++) {
+//     $txt=$content[$i];
+//     if (strpos("_".$txt,"var slidesnotes = ")>0) {
+//       $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
+//       $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
+//     }
+//     if (strpos("_".$txt,"Timages.push(")>0) {
+//       $txtimage=str_replace("Timages.push('","",$txt);
+//       $txtimage=str_replace("');","",$txtimage);
+//       $T_images[] = $txtimage;
+//     }
+// }
 
-echo $txtslidenotes;
+// echo $txtslidenotes;
 
-$Tnotes = (array) json_decode($txtslidenotes);
-$notes=array();
+// $Tnotes = (array) json_decode($txtslidenotes);
+// $notes=array();
 
-// Récupération de la première langue des notes uniquement.
-foreach($Tnotes as $lang => $noteslang) {
-  $notes=$noteslang;
-  break; 
-}
+// // Récupération de la première langue des notes uniquement.
+// foreach($Tnotes as $lang => $noteslang) {
+//   $notes=$noteslang;
+//   break; 
+// }
 
-$n=count($notes);
-$T=array();
-$T["Images"]=$T_images;
-$T["Slide"]=0;
-$T["Notes"]=array();
-$notes[$n]=$T;
+// $n=count($notes);
+// $T=array();
+// $T["Images"]=$T_images;
+// $T["Slide"]=0;
+// $T["Notes"]=array();
+// $notes[$n]=$T;
 
-//print_r($notes);
- echo json_encode($notes);
-//unlink($filename);
+// //print_r($notes);
+//  echo json_encode($notes);
+// //unlink($filename);
 
 //Test pour refaire le .html
 
