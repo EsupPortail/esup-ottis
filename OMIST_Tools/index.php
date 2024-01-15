@@ -68,6 +68,11 @@ if (isset($Stats_DEEPL["character_count"])) {
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
+.internalserveronly {
+  <?php if (! BeginWith($_SERVER['REMOTE_ADDR'],"172.26.98.138")) echo "display:none; visibility: hidden;\n";?>
+}
+
+
 .mybutton {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -170,11 +175,6 @@ h1 {
   right:0px;
   z-index:1000;
 }
-
-.internalserveronly {
-  <?php if (! BeginWith($_SERVER['REMOTE_ADDR'],"172.26.98.138")) echo "display:none; visibility: hidden;\n";?>
-}
-
 
 </style>
 <script type="text/javascript">
