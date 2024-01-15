@@ -986,6 +986,11 @@ function SlideNotesTools(editable=false) {
     xhr.send(formdata);
     //AbortTimeout(xhr);
 }
+function affichageConsole(event){
+    var datatxt = event.target.responseText;
+    var data = JSON.parse(datatxt);
+    console.log(data);
+}
 
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
@@ -994,6 +999,7 @@ function GetNewPresentation() {
     var xhr = new XMLHttpRequest();
     
     xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?data=" + data_new_pres);
+    xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     xhr.send();
 
 }
