@@ -172,7 +172,7 @@ h1 {
 }
 
 .internalserveronly {
-  <?php if (! BeginWith($_SERVER['REMOTE_ADDR'],"172.26.98.138")) echo "display:none;\n";?>
+  <?php if (! BeginWith($_SERVER['REMOTE_ADDR'],"172.26.98.138")) echo "display:none; visibility: hidden;\n";?>
 }
 
 
