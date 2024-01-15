@@ -170,6 +170,12 @@ h1 {
   right:0px;
   z-index:1000;
 }
+
+.internalserveronly {
+  <?php if (! BeginWith($_SERVER['REMOTE_ADDR'],"172.26")) echo "display:none;\n";
+}
+
+
 </style>
 <script type="text/javascript">
 
@@ -767,8 +773,8 @@ function PopulateVoicesMicrosoft(s) {
   <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
   </div>
 
-  <h3>Subtitle reader</h3>
-  <div>
+  <h3 class="internalserveronly">Subtitle reader</h3>
+  <div class="internalserveronly">
   <form id="Form13" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select SRT file : 
     <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br/>
