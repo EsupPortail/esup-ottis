@@ -736,7 +736,7 @@ function formateresponse(datatxt,editable=true) {
             for (var j = 0; j < slide["Notes"].length; j++) {
                 if (slide["Notes"][j].trim() != '') {
                     if (editable) {
-                        res = res + '<dd>&nbsp;' + '<span contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                        res = res + '<dd>&nbsp;' + '<span id="SlideText" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
                     } else {
                         res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
                     }
@@ -884,6 +884,7 @@ function SlideBackward() {
 function completeHandler(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
+    _("button_download").value="Test";
 
     // Re-initialize the presentation
     previousimage = -1;
@@ -980,7 +981,6 @@ function SlideNotesTools(editable=false) {
 
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
-    console.log("Test1");
     xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
 
     xhr.timeout = 30000;
@@ -991,7 +991,6 @@ function SlideNotesTools(editable=false) {
     };
     xhr.send(formdata);
     //AbortTimeout(xhr);
-    console.log("Test2");
 }
 
 
