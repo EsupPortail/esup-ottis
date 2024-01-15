@@ -3,13 +3,15 @@
 // ini_set ( "upload_max_filesize" , "50M" );
 // ini_set ( "post_max_size" , "50M" );
 
-if (isset($argc)) {
-  $output = $argv[1];
-  $filename = $argv[2];
+// if (isset($argc)) {
+//   $output = $argv[1];
+//   $filename = $argv[2];
+
+$tmp_file = $_FILES['ppt_presentation']['tmp_name'];
 
   // echo "Test";
 
-$tmp_file =$filename
+// $tmp_file =$filename
 
 $flag_justif=false;
 
@@ -107,5 +109,5 @@ $notes[$n]=$T;
 // fclose($ftest);
 // // echo $remake_slidesnotes;
 
-}
+// }
 ?>
