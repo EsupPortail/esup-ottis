@@ -992,8 +992,8 @@ function GetNewPresentation() {
     // var formdata = new FormData();
     // formdata.append("ppt_presentation", data_new_pres);
     var xhr = new XMLHttpRequest();
-
-    xhr.open("POST", "../OMIST_Tools/EditAnim/EditAnim.php?data=" + data_new_pres);
+    
+    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?data=" + data_new_pres);
     xhr.send();
 
 }
