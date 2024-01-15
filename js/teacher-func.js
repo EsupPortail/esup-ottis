@@ -996,12 +996,12 @@ function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     // var formdata = new FormData();
     // formdata.append("ppt_presentation", data_new_pres);
-    var xhr = new XMLHttpRequest();
+    // var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?data=" + data_new_pres);
-    xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
-    xhr.send();
-    console.log("test");
+    // xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?data=" + data_new_pres);
+    // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
+    // xhr.send();
+    console.log("data_new_pres");
 
 }
 
