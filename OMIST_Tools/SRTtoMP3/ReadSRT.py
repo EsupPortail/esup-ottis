@@ -76,7 +76,7 @@ def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3
 def adjustTempo(filename, speed=1, duration=0):
     audio=AudioSegment.from_mp3(filename)
     if speed == -1:
-        speed=duration/len(audio)
+        speed=len(audio)/duration
     return speedup(audio,speed)
 
 
