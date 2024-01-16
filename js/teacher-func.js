@@ -991,6 +991,8 @@ function SlideNotesTools(editable=false) {
  */
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
+    var input_file = _('fileToUpload12').value;
+    console.log(input_file);
     // var formdata = new FormData();
     // formdata.append("ppt_presentation", data_new_pres);
     var xhr = new XMLHttpRequest();
