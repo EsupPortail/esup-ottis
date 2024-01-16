@@ -96,15 +96,16 @@ for sub in srtfile:
     text=sub.content.strip()
     start=int(sub.start.total_seconds()*1000)
     duration=int((sub.end.total_seconds()-sub.start.total_seconds())*1000)
-    print(i,sub)
     
     ReadText(text,filenameout=diroutput+"output_"+str(i)+".mp3",outputvoice=outputvoice)
+    
 
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
     AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")  # adjustTempo(diroutput+"output_"+str(i)+".mp3",speed,duration)
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
+    print(i,text,duration,AllFiles[i]['duration'])
     i+=1
 
 # Recalage
