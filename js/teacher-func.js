@@ -1000,7 +1000,19 @@ function GetNewPresentation() {
     var ch = data_new_pres;
 
     console.log(data_new_pres);
+
+    var re = /\"<span id="SlideText" contenteditable="true">"(.*)\"<'\'span>"/g;
+    var m;
     
+    while ((m = re.exec(data_new_pres)) !== null) {
+        if (m.index === re.lastIndex) {
+            re.lastIndex++;
+        }
+        // View your result using the m-variable.
+        // eg m[0] etc.
+    }
+    
+    console.log(m);
     xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=", true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
