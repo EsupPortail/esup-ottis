@@ -78,8 +78,9 @@ def adjustTempo(filename, speed=1, duration=0):
     if speed == -1:
         speed=len(audio)/float(duration)
     print(filename, len(audio), duration, speed)
-    audio.speedup(speed,150).export(filename.replace('.mp3','_adjusted.mp3'),format="mp3")
-    #return AudioSegment.from_mp3(filename.replace('.mp3','_adjusted.mp3'))
+    os.system("sox "+filename+" "+filename.replace('.mp3','_adjusted.mp3')+" tempo "+speed)
+    #return audio.speedup(speed,150)
+    return AudioSegment.from_mp3(filename.replace('.mp3','_adjusted.mp3'))
 
 
 
@@ -105,8 +106,8 @@ for sub in srtfile:
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
     #AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
-    adjustTempo(diroutput+"output_"+str(i)+".mp3",speed=-1,duration=duration)
-    AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+"_adjusted.mp3")
+    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",speed=-1,duration=duration)
+    #AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+"_adjusted.mp3")
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
     print(i,text,duration,AllFiles[i]['duration'])
