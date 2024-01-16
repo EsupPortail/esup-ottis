@@ -10,7 +10,7 @@ if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
   $command = $proxy.'curl -q '.$uncloudlink.' -o '.$tmp_file;
   $out=exec($command);
 } else {
-  $tmp_file = $_FILES['ppt_presentation']['tmp_name'];
+  $tmp_file = $_FILES['fileToUpload']['tmp_name'];
 }
 
 $flag_justif=false;

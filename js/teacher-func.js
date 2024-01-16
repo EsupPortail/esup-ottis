@@ -951,7 +951,7 @@ function SlideNotes() {
  */
 
 function SlideNotesTools(editable=false) {
-    var file = _("ppt_presentation").files[0];
+    var file = _("fileToUpload").files[0];
     var scriptfile = "";
     if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
@@ -961,7 +961,7 @@ function SlideNotesTools(editable=false) {
     // _('stillwaiting').style.display="block";
     // _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
     var formdata = new FormData();
-    formdata.append("ppt_presentation", file);
+    formdata.append("fileToUpload", file);
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", scriptfile);
