@@ -14,6 +14,19 @@ var_dump($text);
 echo $input_file;
 
 $contenttxt = file_get_contents($input_file);
+$content = explode("\n",$contenttxt);
+$txtslidenotes="";
+$T_images = array();
+for($i=0;$i<count($content);$i++) {
+    $txt=$content[$i];
+    if (strpos("_".$txt,"var slidesnotes = ")>0) {
+      $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
+      $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
+    }
+}
+
+echo $txtslidenotes;
+
 //echo $contenttxt
 
 // $jqueryVariable = $_POST['variable'];
