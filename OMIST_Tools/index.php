@@ -754,8 +754,7 @@ function PopulateVoicesMicrosoft(s) {
     </form> -->
 
     <!-- <input id="button_download" type="button" class="mybutton" value="Enregistrer" /> -->
-    <!-- onclick="if (_('ppt_presentation').value!='') {this.innerHTML=''; GetNewPresentation();} else {alert('You must provide a file first !');}" -->
-    <button id="App12" value="Download" onclick="GetNewPresentation()" class="mybutton">Download</button>
+    <button id="App12" value="Download" onclick="if (_('ppt_presentation').value!='') {GetNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button>
 
 
   </div>
