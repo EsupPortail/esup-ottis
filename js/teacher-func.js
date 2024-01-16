@@ -1008,12 +1008,15 @@ function GetNewPresentation() {
     var i = 0;
     var j = 0;
     var text = "";
+    var tab = [];
 
     while (html.getElementById('SlideText'+i+'_'+j)){
-        console.log(i+'_'+j);
+        tab[i] = [];
+        // console.log(i+'_'+j);
         while (html.getElementById('SlideText'+i+'_'+j)){
-            console.log(i+'_'+j);
+            // console.log(i+'_'+j);
             text = html.getElementById('SlideText'+i+'_'+j).textContent;
+            tab[i][j] = text;
             console.log(text);
             j = j + 1;
         }
@@ -1021,6 +1024,7 @@ function GetNewPresentation() {
         j = 0;
     }
 
+    console.table(tab);
     // var text = html.getElementById('SlideText0_0').textContent;
     // // console.log(body);
     // console.log(text);
