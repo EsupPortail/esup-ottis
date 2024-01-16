@@ -1010,7 +1010,8 @@ function GetNewPresentation() {
         tab[i] = [];
         while (html.getElementById('SlideText'+i+'_'+j)){
             text = html.getElementById('SlideText'+i+'_'+j).textContent;
-            tab[i][j] = text;
+            num_slide = i+1;
+            tab[i][j] = '{"Slide":'+num_slide+',"Notes": ["'+text+'"]}';
             console.log(text);
             j = j + 1;
         }
