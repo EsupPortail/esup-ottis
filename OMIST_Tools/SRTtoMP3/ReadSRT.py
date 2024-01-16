@@ -78,8 +78,7 @@ def adjustTempo(filename, speed=1, duration=0):
     if speed == -1:
         speed=float(duration)/len(audio)
     print(filename, len(audio), duration, speed)
-    newfile=audio.speedup(speed,150)
-    newfile.export(filename.replace('.mp3','_adjusted.mp3'),format="mp3")
+    audio.speedup(speed,150).export(filename.replace('.mp3','_adjusted.mp3'),format="mp3")
     #return AudioSegment.from_mp3(filename.replace('.mp3','_adjusted.mp3'))
 
 
