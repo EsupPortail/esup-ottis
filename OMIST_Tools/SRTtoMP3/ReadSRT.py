@@ -76,7 +76,8 @@ def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3
 def adjustTempo(filename, speed=1, duration=0):
     audio=AudioSegment.from_mp3(filename)
     if speed == -1:
-        speed=len(audio)/duration
+        speed=len(audio)/float(duration)
+    print(filename, len(audio), duration, speed)
     return speedup(audio,speed)
 
 
@@ -103,7 +104,7 @@ for sub in srtfile:
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
     #AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
-    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",-1,duration)
+    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",speed=-1,duration=duration)
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
     print(i,text,duration,AllFiles[i]['duration'])
