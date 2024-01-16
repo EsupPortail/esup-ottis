@@ -13,6 +13,9 @@ $input_file = $_GET["input_file"];
 var_dump($text);
 echo $input_file;
 
+$contenttxt = file_get_contents($input_file);
+echo $contenttxt
+
 // $jqueryVariable = $_POST['variable'];
 // echo $jqueryVariable;
 

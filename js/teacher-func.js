@@ -998,7 +998,7 @@ function GetNewPresentation() {
     var xhr = new XMLHttpRequest();
     var ch = data_new_pres;
 
-    console.log(data_new_pres);
+    //console.log(data_new_pres);
    
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
