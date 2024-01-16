@@ -6,19 +6,18 @@
 
 // echo . $data;
 if ($_FILES["fileToUpload"]["tmp_name"] != "") {
-// $texte = html_entity_decode(strip_tags($_GET["texte"]));
-// // $texte = "Hello World bis";
+$texte = html_entity_decode(strip_tags($_GET["texte"]));
+// $texte = "Hello World bis";
 
-// var_dump($texte);
+var_dump($texte);
 
-// // $jqueryVariable = $_POST['variable'];
-// // echo $jqueryVariable;
+// $jqueryVariable = $_POST['variable'];
+// echo $jqueryVariable;
 
-// header('Content-Type: application/zip');
-// header('Content-Disposition: attachment; filename="output.zip"');
-// readfile('tmp/output_'.$randompath.'.zip');
-// unlink('tmp/output_'.$randompath.'.zip');
-    echo "Hello World";
+header('Content-Type: application/zip');
+header('Content-Disposition: attachment; filename="output.zip"');
+readfile('tmp/output_'.$randompath.'.zip');
+unlink('tmp/output_'.$randompath.'.zip');
 }else{
     echo "Erreur";
 }

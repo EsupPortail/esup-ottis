@@ -1025,7 +1025,7 @@ function GetNewPresentation() {
 
     console.table(tab);
 
-    xhr.open("POST", "../EditSlidesNotesAppHTMLTools.php?texte=" + tab, true);
+    xhr.open("POST", "../OMIST_Tools/EditSlidesNotesAppHTMLTools.php?texte=" + tab, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
