@@ -998,8 +998,10 @@ function GetNewPresentation() {
     // formdata.append("ppt_presentation", data_new_pres);
     var xhr = new XMLHttpRequest();
     var ch = data_new_pres;
+
+    console.log(data_new_pres);
     
-    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=" + ch, true);
+    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=", true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
