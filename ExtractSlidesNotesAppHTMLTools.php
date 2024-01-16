@@ -5,7 +5,8 @@
 // $data = json_decode(file_get_contents("php://input"), true);
 
 // echo . $data;
-$texte = html_entity_decode(strip_tags($_GET["texte"]));
+//$texte = html_entity_decode(strip_tags($_GET["texte"]));
+$texte = "Hello World bis";
 
 echo $texte;
 

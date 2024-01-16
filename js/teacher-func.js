@@ -999,7 +999,8 @@ function GetNewPresentation() {
     var xhr = new XMLHttpRequest();
     var ch = "Hello World";
     
-    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=" + ch, true);
+    // xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=" + ch, true);
+    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=", false);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
