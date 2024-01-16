@@ -887,10 +887,10 @@ function completeHandler(event,editable=false) {
 
     // _("SlideText").addEventListener("input", console.log("Bonjour"));
 
-    _("App12").style.backgroundColor = 'rgb(25,190,40)';
-    _("App12").style.color='white';
-    _("App12").style.borderColor = 'rgb(25,190,40)';
-    _("App12").removeAttribute("disabled");
+    // _("App12").style.backgroundColor = 'rgb(25,190,40)';
+    // _("App12").style.color='white';
+    // _("App12").style.borderColor = 'rgb(25,190,40)';
+    // _("App12").removeAttribute("disabled");
 
     // Re-initialize the presentation
     previousimage = -1;
