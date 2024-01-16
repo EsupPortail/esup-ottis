@@ -736,7 +736,7 @@ function formateresponse(datatxt,editable=true) {
             for (var j = 0; j < slide["Notes"].length; j++) {
                 if (slide["Notes"][j].trim() != '') {
                     if (editable) {
-                        res = res + '<dd>&nbsp;' + '<span id="SlideText'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                        res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
                     } else {
                         res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
                     }
@@ -1004,7 +1004,7 @@ function GetNewPresentation() {
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
     // var body = html.body;
-    var text = html.getElementById('SlideText0').textContent;
+    var text = html.getElementById('SlideText0_0').textContent;
     // console.log(body);
     console.log(text);
     xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=", true);
