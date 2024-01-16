@@ -951,7 +951,7 @@ function SlideNotes() {
  */
 
 function SlideNotesTools(editable=false) {
-    var file = _("fileToUpload").files[0];
+    var file = _("fileToUpload12").files[0];
     var scriptfile = "";
     if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
