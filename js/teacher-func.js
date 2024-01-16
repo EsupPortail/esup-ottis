@@ -1009,7 +1009,7 @@ function GetNewPresentation() {
     // !! Penser à prendre en compte/supprimer les lignes vides
     while (html.getElementById('SlideText'+i+'_'+j)){
         num_slide = i+1;
-        tab[i] = '{"Slide": '+num_slide+',"Notes": ["'+html.getElementById('SlideText'+i+'_0')+'"';
+        tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
         j=1;
         while (html.getElementById('SlideText'+i+'_'+j)){
             text = html.getElementById('SlideText'+i+'_'+j).textContent;
