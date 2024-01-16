@@ -1010,13 +1010,15 @@ function GetNewPresentation() {
     var text = "";
 
     while (html.getElementById('SlideText'+i+'_'+j)){
-        j = 0;
+        console.log(i+'_'+j);
         while (html.getElementById('SlideText'+i+'_'+j)){
+            console.log(i+'_'+j);
             text = html.getElementById('SlideText'+i+'_'+j).textContent;
             console.log(text);
             j = j + 1;
         }
         i = i + 1;
+        j = 0;
     }
 
     // var text = html.getElementById('SlideText0_0').textContent;
