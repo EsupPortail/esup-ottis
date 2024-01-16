@@ -984,12 +984,11 @@ function SlideNotesTools(editable=false) {
     xhr.send(formdata);
     //AbortTimeout(xhr);
 }
-function affichageConsole(event){
-    var datatxt = event.target.responseText;
-    var data = JSON.parse(datatxt);
-    console.log(data);
-}
 
+/**
+ * @summary The function that is executed for downloading the new presentation
+ * 
+ */
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     // var formdata = new FormData();
