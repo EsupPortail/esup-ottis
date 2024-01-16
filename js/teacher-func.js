@@ -1012,7 +1012,12 @@ function GetNewPresentation() {
         // eg m[0] etc.
     }
     
-    console.log(m[0]);
+    var parser = new DOMParser();
+    var html = parser.parseFromString(data_new_pres, 'text/html');
+    var body = html.body;
+    var text = html.getElementById('SlideText').textContent;
+    console.log(body);
+    console.log(text);
     xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=", true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
