@@ -1006,15 +1006,19 @@ function GetNewPresentation() {
     var text = "";
     var tab = [];
 
+    // !! Penser à prendre en compte/supprimer les lignes vides
     while (html.getElementById('SlideText'+i+'_'+j)){
-        tab[i] = [];
+        num_slide = i+1;
+        tab[i] = '{"Slide": '+num_slide+',"Notes": ["'+html.getElementById('SlideText'+i+'_0')+'"';
+        j=1;
         while (html.getElementById('SlideText'+i+'_'+j)){
             text = html.getElementById('SlideText'+i+'_'+j).textContent;
             num_slide = i+1;
-            tab[i][j] = '{"Slide":'+num_slide+',"Notes": ["'+text+'"]}';
+            tab[i] = tab[i]+', "'+text+'"';
             console.log(text);
             j = j + 1;
         }
+        tab[i] = tab[i]+']}';
         i = i + 1;
         j = 0;
     }
