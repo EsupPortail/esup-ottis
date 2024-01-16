@@ -78,7 +78,7 @@ def adjustTempo(filename, speed=1, duration=0):
     if speed == -1:
         speed=float(duration)/len(audio)
     print(filename, len(audio), duration, speed)
-    return speedup(audio,speed)
+    return audio.speedup(speed,150)
 
 
 
