@@ -73,11 +73,14 @@ def ReadText(text="Test",outputvoice="fr-FR-HenriNeural",filenameout="output.mp3
     os.system("curl --proxy http://cache.univ-nantes.fr:3128 --output \""+filenameout+"\" --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
     #print("curl --proxy http://cache.univ-nantes.fr:3128 --output \""+filenameout+"\" --silent --location -d \""+ssml+"\" --header 'Content-Type: application/ssml+xml' --request POST 'https://"+config.MICROSOFT_REGION+".tts.speech.microsoft.com/cognitiveservices/v1' --header 'Ocp-Apim-Subscription-Key: '"+config.MICROSOFT_KEY+" --header 'X-Microsoft-OutputFormat: audio-24khz-48kbitrate-mono-mp3'")
 
-def adjustTempo(filename, speed=1, duration=0):
+def adjustTempo(filename, speed=1, duration=0, minspeed=0.7, maxspeed=1.5):
     audio=AudioSegment.from_mp3(filename)
     if speed == -1:
         speed=len(audio)/float(duration)
-    print(filename, len(audio), duration, speed)
+    if speed<minspeed:
+        speed=minspeed
+    if speed>maxspeed:
+        speed=maxspeed
     os.system("sox "+filename+" "+filename.replace('.mp3','_adjusted.mp3')+" tempo "+str(speed))
     #return audio.speedup(speed,150)
     return AudioSegment.from_mp3(filename.replace('.mp3','_adjusted.mp3'))
@@ -106,7 +109,7 @@ for sub in srtfile:
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
     #AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
-    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",speed=-1,duration=duration)
+    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",speed=speed,duration=duration)
     #AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+"_adjusted.mp3")
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
