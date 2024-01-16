@@ -1004,9 +1004,24 @@ function GetNewPresentation() {
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
     // var body = html.body;
-    var text = html.getElementById('SlideText0_0').textContent;
-    // console.log(body);
-    console.log(text);
+    
+    var i = 0;
+    var j = 0;
+    var text = "";
+
+    while (html.getElementById('SlideText'+i+'_'+j)){
+        j = 0;
+        while (html.getElementById('SlideText'+i+'_'+j)){
+            text = html.getElementById('SlideText'+i+'_'+j).textContent;
+            console.log(text);
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+
+    // var text = html.getElementById('SlideText0_0').textContent;
+    // // console.log(body);
+    // console.log(text);
     xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=", true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
