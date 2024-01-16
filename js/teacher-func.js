@@ -885,13 +885,6 @@ function completeHandler(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
     _("progressBar").value = 0;
 
-    // _("SlideText").addEventListener("input", console.log("Bonjour"));
-
-    // _("App12").style.backgroundColor = 'rgb(25,190,40)';
-    // _("App12").style.color='white';
-    // _("App12").style.borderColor = 'rgb(25,190,40)';
-    // _("App12").removeAttribute("disabled");
-
     // Re-initialize the presentation
     previousimage = -1;
     currentDiscours = 0;
@@ -976,6 +969,11 @@ function SlideNotesTools(editable=false) {
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
     xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
+
+    _("App12").style.backgroundColor = 'rgb(25,190,40)';
+    _("App12").style.color='white';
+    _("App12").style.borderColor = 'rgb(25,190,40)';
+    _("App12").removeAttribute("disabled");
 
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
