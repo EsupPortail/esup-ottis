@@ -953,7 +953,7 @@ function SlideNotes() {
 function SlideNotesTools(editable=false) {
     var file = _("ppt_presentation").files[0];
     var scriptfile = "";
-    if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTML.php";
+    if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
         alert('Only html files are allowed !');
         return -1;
@@ -1025,7 +1025,7 @@ function GetNewPresentation() {
 
     console.table(tab);
 
-    xhr.open("POST", "../ExtractSlidesNotesAppHTMLTools.php?texte=" + tab, true);
+    xhr.open("POST", "../EditSlidesNotesAppHTMLTools.php?texte=" + tab, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {

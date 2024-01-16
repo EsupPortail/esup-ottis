@@ -727,15 +727,16 @@ function PopulateVoicesMicrosoft(s) {
     </td></tr>
   </form> -->
 
-  <label for="ppt_presentation">Presentation in HTML: </label>
-	<input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
-  <span style="display:none">
-  <label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
-  <input type="text" id="tobesaid" value="">
-  </span>
-	<br/>
-	<progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
-	<div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
+  <!-- <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data"> -->
+    <label for="ppt_presentation">Presentation in HTML: </label>
+    <input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
+    <span style="display:none">
+    <label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
+    <input type="text" id="tobesaid" value="">
+    </span>
+    <br/>
+    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+    <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
     
     <!-- <form action="EditAnim.php" method="post" enctype="multipart/form-data">
     <label for="fileToUpload12">Select HTML file : 
