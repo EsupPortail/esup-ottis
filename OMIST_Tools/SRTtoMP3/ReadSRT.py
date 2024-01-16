@@ -102,7 +102,8 @@ for sub in srtfile:
 
     AllFiles[i]=dict()
     AllFiles[i]['start']=start
-    AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")  # adjustTempo(diroutput+"output_"+str(i)+".mp3",speed,duration)
+    #AllFiles[i]['song']=AudioSegment.from_mp3(diroutput+"output_"+str(i)+".mp3")
+    AllFiles[i]['song']=adjustTempo(diroutput+"output_"+str(i)+".mp3",-1,duration)
     AllFiles[i]['duration']=len(AllFiles[i]['song'])
     AllFiles[i]['end']=AllFiles[i]['start']+AllFiles[i]['duration']
     print(i,text,duration,AllFiles[i]['duration'])
