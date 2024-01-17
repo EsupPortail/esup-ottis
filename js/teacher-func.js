@@ -1037,7 +1037,7 @@ function GetNewPresentation() {
         j = 0;
     }
 
-    console.table(tab);
+    //console.table(tab);
 
     xhr.open("POST", "EditSlidesNotesAppHTMLTools.php?text=" + tab);
     // xhr.setRequestHeader("Content-Type", "application/json");
