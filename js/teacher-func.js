@@ -991,10 +991,7 @@ function SlideNotesTools(editable=false) {
  */
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    var input_file = _('fileToUpload12').value;
-    var file = document.getElementById('fileToUpload12').files[0];
-    console.log(input_file);
-    console.log(name);
+    var file = _("fileToUpload12").files[0];
 
     // if(file){
     //     var reader = new FileReader();
@@ -1009,6 +1006,7 @@ function GetNewPresentation() {
 
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
+
     var xhr = new XMLHttpRequest();
     var ch = data_new_pres;
 
@@ -1041,17 +1039,17 @@ function GetNewPresentation() {
 
     console.table(tab);
 
-    // xhr.open("POST", "../OMIST_Tools/EditSlidesNotesAppHTMLTools.php?text=" + tab + "&input_file=" + input_file, true);
-    // xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.open("POST", "../OMIST_Tools/EditSlidesNotesAppHTMLTools.php?text=" + tab + "&input_file=" + input_file, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
 
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState == XMLHttpRequest.DONE) {
-    //         console.log(this.responseText);
-    //     }
-    // };
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            console.log(this.responseText);
+        }
+    };
 
     // xhr.send(JSON.stringify(data_new_pres));
-    // xhr.send(formdata);
+    xhr.send(formdata);
     // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     // xhr.send();
     // console.log(data_new_pres);
