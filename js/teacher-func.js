@@ -953,7 +953,7 @@ function SlideNotes() {
 function SlideNotesTools(editable=false) {
     var file = _("fileToUpload12").files[0];
     var scriptfile = "";
-    if (file.name.endsWith('html')) scriptfile = "ExtractSlidesNotesAppHTMLTools.php";
+    if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
         alert('Only html files are allowed !');
         return -1;
@@ -1039,7 +1039,7 @@ function GetNewPresentation() {
 
     console.table(tab);
 
-    xhr.open("POST", "OMIST_Tools/EditSlidesNotesAppHTMLTools.php");
+    xhr.open("POST", "EditSlidesNotesAppHTMLTools.php);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
