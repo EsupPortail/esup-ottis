@@ -992,9 +992,21 @@ function SlideNotesTools(editable=false) {
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var input_file = _('fileToUpload12').value;
-    var name = document.getElementById('fileToUpload12').files[0].name;
+    var file = document.getElementById('fileToUpload12').files[0];
     console.log(input_file);
     console.log(name);
+
+    if(file){
+        var reader = new FileReader();
+        reader.onload = function(event){
+            console.log(reader.result);
+        }
+        reader.readAsText(file);
+    }else{
+        console.log('Erreur de lecture du fichier');
+    }
+    
+
     // var formdata = new FormData();
     // formdata.append("ppt_presentation", data_new_pres);
     var xhr = new XMLHttpRequest();
