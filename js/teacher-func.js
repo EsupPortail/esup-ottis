@@ -991,7 +991,7 @@ function SlideNotesTools(editable=false) {
  */
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    console.log(data_new_pres0);
+    console.log(data_new_pres);
     var file = _("fileToUpload12").files[0];
 
     // if(file){
