@@ -14,6 +14,23 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     echo $tmp_file;
     echo $new_text;
+
+    $contenttxt = file_get_contents($tmp_file);
+    echo $contenttxt;
+    $content = explode("\n",$contenttxt);
+    $txtslidenotes="";
+
+    // for($i=0;$i<count($content);$i++) {
+    //     $txt=$content[$i];
+    //     if (strpos("_".$txt,"var slidesnotes = ")>0) {
+    //       $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
+    //       $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
+    //     }
+    // }
+
+    // echo $txtslidenotes;
+
+
 }else{
     echo "Test échoué";
 }
