@@ -10,7 +10,7 @@ include("../Security/Authentification.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
-if ($uid == "") $uid="e18XXX";
+if ($uid == "") $uid="anonymous"; //$uid="e18XXX"; // en attendant de rétablir le CAS....
 if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous";
 
 if (! isset($external)) $external=false;
