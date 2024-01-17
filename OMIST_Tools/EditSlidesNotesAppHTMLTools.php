@@ -8,9 +8,12 @@
 
 if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo "Test réussi";
-    $text = html_entity_decode(strip_tags($_GET["text"]));
-    $input_file = $_GET["input_file"];
-    echo $input_file;
+
+    $tmp_file = $_FILES['fileToUpload']['tmp_name'];
+    $new_text = $_POST['newText'];
+
+    echo $tmp_file;
+    echo $new_text;
 }else{
     echo "Test échoué";
 }
