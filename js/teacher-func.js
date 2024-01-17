@@ -991,6 +991,7 @@ function SlideNotesTools(editable=false) {
  */
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
+    console.log(data_new_pres0);
     var file = _("fileToUpload12").files[0];
 
     // if(file){
@@ -1021,6 +1022,7 @@ function GetNewPresentation() {
     var tab = [];
 
     // !! Penser à prendre en compte/supprimer les lignes vides
+    // Revoir le code : problème s'il y a des slides sans notes
     while (html.getElementById('SlideText'+i+'_'+j)){
         num_slide = i+1;
         tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
