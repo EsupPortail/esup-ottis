@@ -6,8 +6,9 @@
 
 // echo . $data;
 
-$nouveau_texte = $_POST["notebookcompleteformatted"];
-echo $nouveau_texte;
+$fichier = $_FILES["fileToUpload"]["tmp_name"];
+echo "Fichier HTML : ";
+echo $fichier;
 
 // $tmp_file = $_FILES['fileToUpload']['tmp_name'];
 

@@ -731,9 +731,9 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="Random12" name="randompath" value=""/>
     <input type="hidden" id="Extension12" name="Extension" value="txt"/>
 
-    <button id="App12" value="Download" class="mybutton">Download</button>
+    <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
 
-    <!-- <button id="App12" value="Download" onclick="if (_('fileToUpload12').value!='') {GetNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button> -->
+    <button id="App12" value="Download" onclick="if (_('fileToUpload12').value!='') {GetNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button>
     <p id="Message12"></p>
   </form> 
 
