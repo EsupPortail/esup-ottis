@@ -13,29 +13,30 @@ $input_file = $_GET["input_file"];
 var_dump($text);
 echo $input_file;
 
-$contenttxt = file_get_contents($input_file);
-$content = explode("\n",$contenttxt);
-$txtslidenotes="";
-$T_images = array();
-for($i=0;$i<count($content);$i++) {
-    $txt=$content[$i];
-    if (strpos("_".$txt,"var slidesnotes = ")>0) {
-      $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
-      $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
-    }
-}
+$contenttxt = file_get_contents($input_file, true);
+echo $contenttxt;
+// $content = explode("\n",$contenttxt);
+// $txtslidenotes="";
+// $T_images = array();
+// for($i=0;$i<count($content);$i++) {
+//     $txt=$content[$i];
+//     if (strpos("_".$txt,"var slidesnotes = ")>0) {
+//       $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
+//       $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
+//     }
+// }
 
-echo $txtslidenotes;
+// echo $txtslidenotes;
 
-//echo $contenttxt
+// //echo $contenttxt
 
-// $jqueryVariable = $_POST['variable'];
-// echo $jqueryVariable;
+// // $jqueryVariable = $_POST['variable'];
+// // echo $jqueryVariable;
 
-header('Content-Type: application/zip');
-header('Content-Disposition: attachment; filename="output.zip"');
-readfile('tmp/output_'.$randompath.'.zip');
-unlink('tmp/output_'.$randompath.'.zip');
+// header('Content-Type: application/zip');
+// header('Content-Disposition: attachment; filename="output.zip"');
+// readfile('tmp/output_'.$randompath.'.zip');
+// unlink('tmp/output_'.$randompath.'.zip');
 
 ?>
 
