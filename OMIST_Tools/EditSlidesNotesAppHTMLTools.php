@@ -6,6 +6,10 @@
 
 // echo . $data;
 
+$tmp_file = $_FILES['fileToUpload']['tmp_name'];
+
+echo $tmp_file;
+
 $text = html_entity_decode(strip_tags($_GET["text"]));
 $input_file = $_GET["input_file"];
 // $texte = "Hello World bis";

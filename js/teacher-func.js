@@ -1007,8 +1007,8 @@ function GetNewPresentation() {
     }
     
 
-    // var formdata = new FormData();
-    // formdata.append("ppt_presentation", data_new_pres);
+    var formdata = new FormData();
+    formdata.append("fileToUpload", file);
     var xhr = new XMLHttpRequest();
     var ch = data_new_pres;
 
@@ -1051,7 +1051,7 @@ function GetNewPresentation() {
     };
 
     // xhr.send(JSON.stringify(data_new_pres));
-    xhr.send();
+    xhr.send(formdata);
     // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
     // xhr.send();
     // console.log(data_new_pres);
