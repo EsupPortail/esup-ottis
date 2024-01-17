@@ -952,7 +952,7 @@ function SlideNotes() {
 
 function SlideNotesTools(editable=false) {
     var file = _("fileToUpload12").files[0];
-    console.log(typeof file);
+    console.log(file);
     var scriptfile = "";
     if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
@@ -993,7 +993,7 @@ function SlideNotesTools(editable=false) {
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var file = _("fileToUpload12").files[0];
-    console.log(typeof file);
+    console.log(file);
 
     // if(file){
     //     var reader = new FileReader();
@@ -1031,7 +1031,7 @@ function GetNewPresentation() {
             text = html.getElementById('SlideText'+i+'_'+j).textContent;
             num_slide = i+1;
             tab[i] = tab[i]+', "'+text+'"';
-            console.log(text);
+            // console.log(text);
             j = j + 1;
         }
         tab[i] = tab[i]+']}';
