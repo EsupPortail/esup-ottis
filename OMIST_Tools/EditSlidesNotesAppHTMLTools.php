@@ -6,7 +6,7 @@
 
 // echo . $data;
 
-if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_GET["input_file"])) {
+if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo "Test réussi";
     $text = html_entity_decode(strip_tags($_GET["text"]));
     $input_file = $_GET["input_file"];
