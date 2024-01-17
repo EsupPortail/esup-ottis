@@ -716,7 +716,7 @@ function PopulateVoicesMicrosoft(s) {
 
   <h3>Edit Animation</h3>
   <div>
-  <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form12" onsubmit="return false;" action="EditSlidesNotesAppHTMLTools.php" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
     <span style="display:none">
@@ -731,7 +731,9 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="Random12" name="randompath" value=""/>
     <input type="hidden" id="Extension12" name="Extension" value="txt"/>
 
-    <button id="App12" value="Download" onclick="if (_('fileToUpload12').value!='') {GetNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button>
+    <button id="App12" value="Download" class="mybutton">Download</button>
+
+    <!-- <button id="App12" value="Download" onclick="if (_('fileToUpload12').value!='') {GetNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button> -->
     <p id="Message12"></p>
   </form> 
 

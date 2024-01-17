@@ -6,19 +6,22 @@
 
 // echo . $data;
 
-$tmp_file = $_FILES['fileToUpload']['tmp_name'];
+$nouveau_texte = $_POST["notebookcompleteformatted"];
+echo $nouveau_texte;
 
-echo $tmp_file;
+// $tmp_file = $_FILES['fileToUpload']['tmp_name'];
 
-$text = html_entity_decode(strip_tags($_GET["text"]));
-$input_file = $_GET["input_file"];
-// $texte = "Hello World bis";
+// echo $tmp_file;
 
-var_dump($text);
-echo $input_file;
+// $text = html_entity_decode(strip_tags($_GET["text"]));
+// $input_file = $_GET["input_file"];
+// // $texte = "Hello World bis";
 
-$contenttxt = file_get_contents($input_file, true);
-echo $contenttxt;
+// var_dump($text);
+// echo $input_file;
+
+// $contenttxt = file_get_contents($input_file, true);
+// echo $contenttxt;
 // $content = explode("\n",$contenttxt);
 // $txtslidenotes="";
 // $T_images = array();
