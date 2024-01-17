@@ -996,15 +996,15 @@ function GetNewPresentation() {
     console.log(input_file);
     console.log(name);
 
-    if(file){
-        var reader = new FileReader();
-        reader.onload = function(event){
-            console.log(reader.result);
-        }
-        reader.readAsText(file);
-    }else{
-        console.log('Erreur de lecture du fichier');
-    }
+    // if(file){
+    //     var reader = new FileReader();
+    //     reader.onload = function(event){
+    //         console.log(reader.result);
+    //     }
+    //     reader.readAsText(file);
+    // }else{
+    //     console.log('Erreur de lecture du fichier');
+    // }
     
 
     var formdata = new FormData();

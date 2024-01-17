@@ -6,9 +6,11 @@
 
 // echo . $data;
 
-$fichier = $_FILES["fileToUpload"]["tmp_name"];
-echo "Fichier HTML : ";
-echo $fichier;
+if ($_FILES["fileToUpload"]["tmp_name"] != "") {
+    echo "Test réussi";
+}else{
+    echo "Test échoué";
+}
 
 // $tmp_file = $_FILES['fileToUpload']['tmp_name'];
 
