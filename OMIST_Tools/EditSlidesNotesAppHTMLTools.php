@@ -26,7 +26,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
         }
 
         if (strpos("_".$txt,"var languetraduction = ")>0) {
-            $lang_trad=str_replace("var traduction = ","",$txt);
+            $lang_trad=str_replace("var languetraduction = ","",$txt);
         }
 
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
