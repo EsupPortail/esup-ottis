@@ -22,16 +22,15 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     for($i=0;$i<count($content);$i++) {
         $txt=$content[$i];
-        echo "ligne";
-        echo $txt;
-        // if (strpos("_".$txt,"var slidesnotes = ")>0) {
-        //     $txtslidenotes=substr(
-        //     $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
-        //     $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
-        // }
+        if (strpos("_".$txt,"var slidesnotes = ")>0) {
+            $long = strlen("var slidesnotes = ");
+            $txtslidenotes=substr($txt, 0, $long);
+            // $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
+            // $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
+        }
     }
 
-    // echo $txtslidenotes;
+    echo $txtslidenotes;
 
 
 }else{
