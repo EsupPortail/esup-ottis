@@ -2,7 +2,7 @@
 
 ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );
-echo "OK";
+echo json_encode("OK");
 if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
   $tmp_file="/var/www/html/uploads/uncloudfile_".md5(gmdate("U")).".html";
   $uncloudlink = $_POST["uncloudlink"];
@@ -12,7 +12,7 @@ if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
 } else {
   $tmp_file = $_FILES['fileToUpload']['tmp_name'];
 }
-echo "Fichier : " .$tmp_file;
+echo json_encode("Fichier : " .$tmp_file);
 $flag_justif=false;
 $filename = "tmpfiles/test.html";
 
