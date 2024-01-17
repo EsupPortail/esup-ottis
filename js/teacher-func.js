@@ -1039,7 +1039,7 @@ function GetNewPresentation() {
 
     console.table(tab);
 
-    xhr.open("POST", "../OMIST_Tools/EditSlidesNotesAppHTMLTools.php?text=" + tab + "&input_file=" + input_file, true);
+    xhr.open("POST", "../OMIST_Tools/EditSlidesNotesAppHTMLTools.php?text=" + tab, true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.onreadystatechange = function () {
