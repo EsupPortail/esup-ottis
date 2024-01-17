@@ -25,6 +25,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
             $long = strlen("var slidesnotes = ");
             $txtslidenotes=substr($txt, 0, $long);
+            $txtslidenotes = $txtslidenotes.$new_text;
             // $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
             // $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
         }
