@@ -952,6 +952,7 @@ function SlideNotes() {
 
 function SlideNotesTools(editable=false) {
     var file = _("fileToUpload12").files[0];
+    console.log(typeof file);
     var scriptfile = "";
     if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
@@ -992,6 +993,7 @@ function SlideNotesTools(editable=false) {
 function GetNewPresentation() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var file = _("fileToUpload12").files[0];
+    console.log(typeof file);
 
     // if(file){
     //     var reader = new FileReader();
