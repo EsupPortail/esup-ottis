@@ -969,7 +969,7 @@ function formateresponseTools(datatxt,editable=true) {
             console.log(slide);
 
             var txtnotes = '';
-            if (key!="Img_slide") {
+            if (slide.indexOf("Notes")) {
                 for (var j = 0; j < slide["Notes"].length; j++) {
                     if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
                         slide["Notes"][j] = '';
