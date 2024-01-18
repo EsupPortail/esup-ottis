@@ -961,7 +961,7 @@ function formateresponseTools(datatxt,editable=true) {
     var data = JSON.parse(datatxt);
     console.log(data);
     for (let key in data) {
-        console.log(key, data[key])
+        console.log(key);
         data_key = data[key];
 
         for (let i in data_key) {
