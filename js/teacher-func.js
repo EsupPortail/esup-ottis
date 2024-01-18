@@ -964,7 +964,7 @@ function formateresponseTools(datatxt,editable=true) {
         console.log(key, data[key])
         data_key = data[key];
 
-        for (var i = 0; i < data_key.length; i++) {
+        for (let i in data) {
             slide = data_key[i];
             console.log(slide);
 
@@ -979,7 +979,7 @@ function formateresponseTools(datatxt,editable=true) {
             }
         
             res += '<dl>';
-            if (slide["Images"]) {
+            if (slide=="Images") {
                 //alert("The presentation contains "+slide["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= slide["Images"].length; j++) {
