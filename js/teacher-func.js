@@ -968,7 +968,7 @@ function SlideNotesTools(editable=false) {
 
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
-    xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
+    //xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
 
     // _("App12").style.backgroundColor = 'rgb(25,190,40)';
     // _("App12").style.color='white';
