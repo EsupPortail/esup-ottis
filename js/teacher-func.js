@@ -963,7 +963,7 @@ function formateresponseTools(datatxt,editable=true) {
     for (let key in data) {
         console.log(key, data[key])
 
-        for (var i = 0; i < data[key]; i++) {
+        for (var i = 0; i < data[key].length; i++) {
             slide = data[i];
             console.log(slide);
         }
