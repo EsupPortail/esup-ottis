@@ -710,6 +710,7 @@ function formateresponse(datatxt,editable=true) {
     //alert(datatxt);
     var res = '';
     var data = JSON.parse(datatxt);
+    console.log(data);
     for (var i = 0; i < data.length; i++) {
         slide = data[i];
         var txtnotes = '';
