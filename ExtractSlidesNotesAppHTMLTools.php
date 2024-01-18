@@ -58,7 +58,7 @@ $T=array();
 $T["Images"]=$T_images;
 $T["Slide"]=0;
 $T["Notes"]=array();
-$notes[$n]=$T;
+$notes["Img_slide"]=$T;
 
 //print_r($notes);
 echo json_encode($notes);
