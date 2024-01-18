@@ -947,6 +947,90 @@ function SlideNotes() {
 }
 
 /**
+ * @summary a function that is fired when a new lesson is loaded to prepare all the data structures.
+ * 
+ * @param {string} datatxt a text value contained the text of the speech and a b64 version of the images.
+ * @returns an HTML encoding of what should be shown in the complete lesson tab.
+ */
+
+function formateresponseTools(datatxt,editable=true) {
+    //console.log(datatxt);
+    currentPresentation = [];
+    //alert(datatxt);
+    var res = '';
+    var data = JSON.parse(datatxt);
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+        slide = data[i];
+        var txtnotes = '';
+        for (var j = 0; j < slide["Notes"].length; j++) {
+            if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
+                slide["Notes"][j] = '';
+            } else {
+                txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
+            }
+        }
+        res += '<dl>';
+        if (slide["Images"]) {
+            //alert("The presentation contains "+slide["Images"].length+" images");
+            var toexec = "";
+            for (var j = 1; j <= slide["Images"].length; j++) {
+                toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
+            }
+            setTimeout(toexec, 10);
+        } else {
+            //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+            //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+            res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
+            var flag = false;
+            for (var j = 0; j < slide["Notes"].length; j++) {
+                if (slide["Notes"][j].trim() != '') {
+                    if (editable) {
+                        res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                    } else {
+                        res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
+                    }
+                    currentPresentation.push({
+                        'Slide': slide["Slide"],
+                        'Discours': slide["Notes"][j]
+                    });
+                    flag = true;
+                }
+            }
+            if (!flag) currentPresentation.push({
+                'Slide': slide["Slide"],
+                'Discours': ''
+            });
+        }
+        res += '</dl>';
+    }
+    //  alert(res);
+    console.log("DEBUG : " + res);
+    return res;
+}
+
+/**
+ * @summary A function that is fired when a complete lesson is loaded.
+ * 
+ * @param {event} event an event.
+ */
+
+function completeHandlerTools(event,editable=false) {
+    _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
+    _("progressBar").value = 0;
+
+    // Re-initialize the presentation
+    previousimage = -1;
+    currentDiscours = 0;
+    if (currentPresentation.length > 0) {
+        setTimeout(function() {
+            _('stillwaiting').style.display="none";
+            ShowImage(currentPresentation[0]['Slide']);
+        }, 1000);
+    }
+}
+
+/**
  * @summary The function that is executed for editing a new presentation
  * 
  */
@@ -969,7 +1053,7 @@ function SlideNotesTools(editable=false) {
 
     xhr.upload.addEventListener("progress", progressHandler, false);
     //  xhr.addEventListener("load", completeHandler, false);
-    xhr.addEventListener("load", function (e) {completeHandler(e,editable);}, false);
+    xhr.addEventListener("load", function (e) {completeHandlerTools(e,editable);}, false);
 
     // _("App12").style.backgroundColor = 'rgb(25,190,40)';
     // _("App12").style.color='white';
