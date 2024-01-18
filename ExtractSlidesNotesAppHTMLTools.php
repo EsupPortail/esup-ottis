@@ -49,12 +49,9 @@ $notes=array();
 
 // Récupération de la première langue des notes uniquement.
 foreach($Tnotes as $lang => $noteslang) {
-  $notes[$lang]=$noteslang;
-  //break; 
+  $notes=$noteslang;
+  break; 
 }
-
-unset($lang);
-//var_dump($notes);
 
 $n=count($notes);
 $T=array();
