@@ -960,6 +960,9 @@ function formateresponseTools(datatxt,editable=true) {
     var res = '';
     var data = JSON.parse(datatxt);
     console.log(data);
+    for (let key in data) {
+        console.log(key, data[key])
+     }
     for (var i = 0; i < data.length; i++) {
         slide = data[i];
         console.log(slide);
