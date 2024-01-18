@@ -969,7 +969,7 @@ function formateresponseTools(datatxt,editable=true) {
             console.log(slide);
 
             var txtnotes = '';
-            if (slide!="Images") {
+            if (key!="Img_slide") {
                 for (var j = 0; j < slide["Notes"].length; j++) {
                     if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
                         slide["Notes"][j] = '';
@@ -980,7 +980,7 @@ function formateresponseTools(datatxt,editable=true) {
                 }
             }
             res += '<dl>';
-            if (slide=="Images") {
+            if (key=="Images") {
                 alert("The presentation contains "+slide["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= slide["Images"].length; j++) {
