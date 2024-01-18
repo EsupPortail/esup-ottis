@@ -49,8 +49,8 @@ $notes=array();
 
 // Récupération de la première langue des notes uniquement.
 foreach($Tnotes as $lang => $noteslang) {
-  $notes[$lang]=$noteslang;
-  // break; 
+  $notes=$noteslang;
+  break; 
 }
 
 $n=count($notes);
@@ -58,7 +58,7 @@ $T=array();
 $T["Images"]=$T_images;
 $T["Slide"]=0;
 $T["Notes"]=array();
-$notes["Img_slide"]=$T;
+$notes[$n]=$T;
 
 //print_r($notes);
 echo json_encode($notes);

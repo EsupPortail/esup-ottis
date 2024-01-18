@@ -979,8 +979,8 @@ function formateresponseTools(datatxt,editable=true) {
             }
         
             res += '<dl>';
-            if (key=="Img_slide") {
-                alert("The presentation contains "+slide["Images"].length+" images");
+            if (slide["Images"]) {
+                //alert("The presentation contains "+slide["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= slide["Images"].length; j++) {
                     toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
