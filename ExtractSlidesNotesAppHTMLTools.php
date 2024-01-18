@@ -53,7 +53,7 @@ foreach($Tnotes as $lang => $noteslang) {
   //break; 
 }
 
-var_dump($notes);
+echo json_encode($notes);
 
 $n=count($notes);
 $T=array();
