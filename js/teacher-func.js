@@ -979,7 +979,7 @@ function formateresponseTools(datatxt,editable=true) {
             }
         
             res += '<dl>';
-            if (slide["Images"]) {
+            if (key=="Img_slide") {
                 alert("The presentation contains "+slide["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= slide["Images"].length; j++) {
