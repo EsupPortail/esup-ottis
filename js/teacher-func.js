@@ -962,10 +962,11 @@ function formateresponseTools(datatxt,editable=true) {
     console.log(data);
     for (let key in data) {
         console.log(key, data[key])
-     }
-    for (var i = 0; i < data[key]; i++) {
-        slide = data[i];
-        console.log(slide);
+
+        for (var i = 0; i < data[key]; i++) {
+            slide = data[i];
+            console.log(slide);
+        }
     }
     //     var txtnotes = '';
     //     for (var j = 0; j < slide["Notes"].length; j++) {
