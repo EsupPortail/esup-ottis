@@ -964,7 +964,7 @@ function formateresponseTools(datatxt,editable=true) {
         console.log(key, data[key])
         data_key = data[key];
 
-        for (let i in data) {
+        for (let i in data_key) {
             slide = data_key[i];
             console.log(slide);
 
