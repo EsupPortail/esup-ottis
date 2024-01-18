@@ -967,16 +967,18 @@ function formateresponseTools(datatxt,editable=true) {
         for (var i = 0; i < data_key.length; i++) {
             slide = data_key[i];
             console.log(slide);
+
+            var txtnotes = '';
+            for (var j = 0; j < slide["Notes"].length; j++) {
+                if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
+                    slide["Notes"][j] = '';
+                } else {
+                    txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
+                }
+                console.log(txtnotes);
+            }
         }
     }
-    //     var txtnotes = '';
-    //     for (var j = 0; j < slide["Notes"].length; j++) {
-    //         if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
-    //             slide["Notes"][j] = '';
-    //         } else {
-    //             txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
-    //         }
-    //     }
     //     res += '<dl>';
     //     if (slide["Images"]) {
     //         //alert("The presentation contains "+slide["Images"].length+" images");
