@@ -980,7 +980,7 @@ function formateresponseTools(datatxt,editable=true) {
         
             res += '<dl>';
             if (slide["Images"]) {
-                //alert("The presentation contains "+slide["Images"].length+" images");
+                alert("The presentation contains "+slide["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= slide["Images"].length; j++) {
                     toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
