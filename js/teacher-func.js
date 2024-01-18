@@ -966,7 +966,7 @@ function formateresponseTools(datatxt,editable=true) {
 
         for (let i in data_key) {
             slide = data_key[i];
-            console.log(slide);
+            // console.log(slide);
 
             var txtnotes = '';
             if (key!="Img_slide") {
@@ -976,7 +976,7 @@ function formateresponseTools(datatxt,editable=true) {
                     } else {
                         txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
                     }
-                    console.log(txtnotes);
+                    // console.log(txtnotes);
                 }
             }
             res += '<dl>';
