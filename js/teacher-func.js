@@ -982,11 +982,11 @@ function formateresponseTools(datatxt,editable=true) {
                 }
             }
             res += '<dl>';
-            if (key=="Img_slide") {
-                alert("The presentation contains "+slide["Images"].length+" images");
+            if (data_key["Images"]) {
+                alert("The presentation contains "+data_key["Images"].length+" images");
                 var toexec = "";
-                for (var j = 1; j <= slide["Images"].length; j++) {
-                    toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
+                for (var j = 1; j <= data_key["Images"].length; j++) {
+                    toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
                 }
                 setTimeout(toexec, 10);
             } else {
