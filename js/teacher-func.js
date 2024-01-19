@@ -960,9 +960,9 @@ function formateresponseTools(datatxt,editable=true) {
     var res = '';
     var data = JSON.parse(datatxt);
     console.log(data);
-    tmp_slides = data["Img_slides"];
-    nb_slides = tmp_slides["Images"].length;
-    console.log(nb_slides);
+    // tmp_slides = data["Img_slides"];
+    // nb_slides = tmp_slides["Images"].length;
+    // console.log(nb_slides);
     
     for (let key in data) {
         console.log(key);
