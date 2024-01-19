@@ -1120,7 +1120,7 @@ function GetNewPresentation() {
     // Revoir le code : problème s'il y a des slides sans notes
     while (html.getElementById('SlideText')){
         num_slide = i+1;
-        tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
+        tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText').textContent+'"';
         j=1;
         while (html.getElementById('SlideText')){
             text = html.getElementById('SlideText').textContent;
