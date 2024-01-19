@@ -964,7 +964,7 @@ function formateresponseTools(datatxt,editable=true) {
     // nb_slides = tmp_slides["Images"].length;
     // console.log(nb_slides);
     console.log("SLIDE : \n");
-    console.log(tmp_slide);
+    console.log(tmp_slides);
 
     for (let key in data) {
         console.log(key);
