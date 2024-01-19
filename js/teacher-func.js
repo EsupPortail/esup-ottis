@@ -960,6 +960,9 @@ function formateresponseTools(datatxt,editable=true) {
     var res = '';
     var data = JSON.parse(datatxt);
     console.log(data);
+    tmp_slides = data["Img_slides"];
+    nb_slides = tmp_slides["Images"].length;
+    console.log(nb_slides);
     for (let key in data) {
         console.log(key);
         data_key = data[key];
@@ -997,7 +1000,7 @@ function formateresponseTools(datatxt,editable=true) {
                 for (var j = 0; j < slide["Notes"].length; j++) {
                     if (slide["Notes"][j].trim() != '') {
                         if (editable) {
-                            res = res + '<dd>&nbsp;' + '<span id="SlideText" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                            res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
                         }
                         currentPresentation.push({
                             'Slide': slide["Slide"],
@@ -1118,12 +1121,12 @@ function GetNewPresentation() {
 
     // !! Penser à prendre en compte/supprimer les lignes vides
     // Revoir le code : problème s'il y a des slides sans notes
-    while (html.getElementById('SlideText')){
+    while (html.getElementById('SlideText'+i+'_'+j)){
         num_slide = i+1;
-        tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText').textContent+'"';
+        tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
         j=1;
-        while (html.getElementById('SlideText')){
-            text = html.getElementById('SlideText').textContent;
+        while (html.getElementById('SlideText'+i+'_'+j)){
+            text = html.getElementById('SlideText'+i+'_'+j).textContent;
             num_slide = i+1;
             tab[i] = tab[i]+', "'+text+'"';
             // console.log(text);
