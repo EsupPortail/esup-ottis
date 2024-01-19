@@ -172,7 +172,7 @@ fclose($fd);
   if (isset($_GET["myconfig"])) {
     echo "var currentconfig='".$_GET["myconfig"]."';\n";
   } else {
-    echo "var currentconfig='AAYANKCNYCNNYYYY';\n";
+    echo "var currentconfig='AAYANKCNYCYNYYYY';\n";
   }
   echo "var MicrosoftKey='".$MicrosoftKey."';\n";
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
