@@ -998,7 +998,7 @@ function formateresponseTools(datatxt,editable=true) {
                 for (var j = 0; j < slide["Notes"].length; j++) {
                     if (slide["Notes"][j].trim() != '') {
                         if (editable) {
-                            res = res + '<dd>&nbsp;' + '<span id="SlideText'+key+'_'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                            res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
                         }
                         currentPresentation.push({
                             'Slide': slide["Slide"],
