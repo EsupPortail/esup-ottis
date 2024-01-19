@@ -967,8 +967,6 @@ function formateresponseTools(datatxt,editable=true) {
         for (let i in data_key) {
             slide = data_key[i];
             console.log(slide);
-            console.log("Type : \n");
-            console.log(typeof(slide));
 
             var txtnotes = '';
             if (key!="Img_slide") {
@@ -983,46 +981,44 @@ function formateresponseTools(datatxt,editable=true) {
                     // console.log(txtnotes);
                 }
             }
+            res += '<dl>';
+            if (key=="Img_slide") {
+                alert("The presentation contains "+slide["Images"].length+" images");
+                var toexec = "";
+                for (var j = 1; j <= slide["Images"].length; j++) {
+                    toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
+                }
+                setTimeout(toexec, 10);
+            } else {
+                //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+                //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
+                res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
+                var flag = false;
+                for (var j = 0; j < slide["Notes"].length; j++) {
+                    if (slide["Notes"][j].trim() != '') {
+                        if (editable) {
+                            res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                        } else {
+                            res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
+                        }
+                        currentPresentation.push({
+                            'Slide': slide["Slide"],
+                            'Discours': slide["Notes"][j]
+                        });
+                        flag = true;
+                    }
+                }
+                if (!flag) currentPresentation.push({
+                    'Slide': slide["Slide"],
+                    'Discours': ''
+                });
+            }
+        res += '</dl>';
         }
     }
-    //         res += '<dl>';
-    //         if (key=="Images") {
-    //             alert("The presentation contains "+slide["Images"].length+" images");
-    //             var toexec = "";
-    //             for (var j = 1; j <= slide["Images"].length; j++) {
-    //                 toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
-    //             }
-    //             setTimeout(toexec, 10);
-    //         } else {
-    //             //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
-    //             //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
-    //             res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
-    //             var flag = false;
-    //             for (var j = 0; j < slide["Notes"].length; j++) {
-    //                 if (slide["Notes"][j].trim() != '') {
-    //                     if (editable) {
-    //                         res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
-    //                     } else {
-    //                         res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
-    //                     }
-    //                     currentPresentation.push({
-    //                         'Slide': slide["Slide"],
-    //                         'Discours': slide["Notes"][j]
-    //                     });
-    //                     flag = true;
-    //                 }
-    //             }
-    //             if (!flag) currentPresentation.push({
-    //                 'Slide': slide["Slide"],
-    //                 'Discours': ''
-    //             });
-    //         }
-    //     res += '</dl>';
-    //     }
-    // }
-    // //  alert(res);
-    // console.log("DEBUG : " + res);
-    // return res;
+    //  alert(res);
+    console.log("DEBUG : " + res);
+    return res;
 }
 
 /**
