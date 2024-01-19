@@ -961,14 +961,14 @@ function formateresponseTools(datatxt,editable=true) {
     var data = JSON.parse(datatxt);
     console.log(data);
     tmp_slides = data["Img_slides"];
-    
-    
+    // nb_slides = tmp_slides["Images"].length;
+    // console.log(nb_slides);
+    console.log("SLIDE : \n");
+    console.log(tmp_slide);
+
     for (let key in data) {
         console.log(key);
         data_key = data[key];
-        nb_slides = data_key["Images"].length;
-        console.log("Nb slides : \n");
-        console.log(nb_slides);
 
         for (let i in data_key) {
             slide = data_key[i];
