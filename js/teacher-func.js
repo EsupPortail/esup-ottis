@@ -983,7 +983,7 @@ function formateresponseTools(datatxt,editable=true) {
             }
             res += '<dl>';
             if (data_key["Images"]) {
-                alert("The presentation contains "+data_key["Images"].length+" images");
+                //alert("The presentation contains "+data_key["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= data_key["Images"].length; j++) {
                     toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
@@ -998,8 +998,6 @@ function formateresponseTools(datatxt,editable=true) {
                     if (slide["Notes"][j].trim() != '') {
                         if (editable) {
                             res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
-                        } else {
-                            res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
                         }
                         currentPresentation.push({
                             'Slide': slide["Slide"],

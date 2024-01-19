@@ -43,6 +43,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo $lang_origin;
     echo "\n";
     echo $lang_trad;
+    echo "\n";
+    echo $new_text;
 
 
 }else{
