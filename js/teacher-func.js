@@ -967,6 +967,8 @@ function formateresponseTools(datatxt,editable=true) {
         for (let i in data_key) {
             slide = data_key[i];
             console.log(slide);
+            console.log("Type : \n");
+            console.log(typeof(slide));
 
             var txtnotes = '';
             if (slide["Notes"]) {
