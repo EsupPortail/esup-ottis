@@ -1031,15 +1031,15 @@ function completeHandlerTools(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
     _("progressBar").value = 0;
 
-    // Re-initialize the presentation
-    previousimage = -1;
-    currentDiscours = 0;
-    if (currentPresentation.length > 0) {
-        setTimeout(function() {
-            _('stillwaiting').style.display="none";
-            ShowImage(currentPresentation[0]['Slide']);
-        }, 1000);
-    }
+    // // Re-initialize the presentation
+    // previousimage = -1;
+    // currentDiscours = 0;
+    // if (currentPresentation.length > 0) {
+    //     setTimeout(function() {
+    //         _('stillwaiting').style.display="none";
+    //         ShowImage(currentPresentation[0]['Slide']);
+    //     }, 1000);
+    // }
 }
 
 /**
