@@ -978,8 +978,9 @@ function formateresponseTools(datatxt,editable=true) {
                 //         txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
                 //     }
                 //     // console.log(txtnotes);
-                }
             }
+        }
+    }
     //         res += '<dl>';
     //         if (key=="Images") {
     //             alert("The presentation contains "+slide["Images"].length+" images");
