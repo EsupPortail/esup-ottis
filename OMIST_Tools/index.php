@@ -181,11 +181,21 @@ h1 {
       font-family: 'Fjalla One', sans-serif;
 }
 #logo {
-  position: fixed;
+  position: absolute;
   top:0px;
   right:0px;
   z-index:1000;
 }
+
+.hidesmallscreens {}
+
+@media (max-width:500px) {
+	.hidesmallscreens {
+		display: none;
+	}
+}
+
+
 
 </style>
 <script type="text/javascript">
@@ -372,7 +382,7 @@ function PopulateVoicesMicrosoft(s) {
 </head>
 <body onload="Init();">
 	<h1>Slide Manipulation Tools</h1>
-  <div id="logo"><img src="logo-ufr-sciences.jpg" height="80"/></div>
+  <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80"/></div>
   <datalist id="listaspectratio">
     <option value="16/10"/>
     <option value="16/9"/>
@@ -395,7 +405,7 @@ function PopulateVoicesMicrosoft(s) {
     <option value="175"/>
     <option value="200"/>
   </datalist>
-  <div style="position: absolute; top: 0px; right: 250px;">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
+  <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="menu">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
