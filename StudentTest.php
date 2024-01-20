@@ -85,7 +85,7 @@ if ($synchronize) {
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
 <div id="logonext"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
-<div style="display: none;" id="showmenu" onclick="ShowMenu();" ><img src="" alt="☰" id="iconeMenu"/></div>
+<div id="showmenu" onclick="ShowMenu();" ><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 
@@ -98,37 +98,9 @@ if ($synchronize) {
 <div id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
-<header id="luxbar" class="luxbar-fixed-bottom">
-    <input type="checkbox" class="luxbar-checkbox" id="luxbar-checkbox"/>
-    <div class="luxbar-menu luxbar-menu-left luxbar-menu-dark">
-        <ul class="luxbar-navigation">
-            <li class="luxbar-header">
-                <label class="luxbar-hamburger luxbar-hamburger-spin" 
-                id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
-            </li>
-            <li id="ltabs-0" class="luxbar-item"><a href="#" onclick="activetab('tabs-0')">Informations</a></li>
-		<li id="ltabs-1" class="luxbar-item"><a href="#" onclick="activetab('tabs-1')">Classroom</a></li>
-		<li id="ltabs-2" class="luxbar-item"><a href="#" onclick="activetab('tabs-2')">Notebook</a></li>
-		<li id="ltabs-3" class="luxbar-item"><a href="#" onclick="activetab('tabs-3')">Output</a></li>
-<!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
-<!--		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>-->
-    <li id="ltabs-7" class="luxbar-item"><a href="#" onclick="activetab('tabs-7')">Slides</a></li>
-    <li id="ltabs-8" class="luxbar-item"><a href="#" onclick="activetab('tabs-8')">WOOCLAP</a></li>
-    <li id="ltabs-9" class="luxbar-item"><a href="#" onclick="activetab('tabs-9')">1</a></li>
-		<li id="ltabs-10" class="luxbar-item"><a href="#" onclick="activetab('tabs-10')">2</a></li>
-		<li id="ltabs-11" class="luxbar-item"><a href="#" onclick="activetab('tabs-11')">3</a></li>
-		<li id="ltabs-12" class="luxbar-item"><a href="#" onclick="activetab('tabs-12')">4</a></li>
-		<li id="ltabs-13" class="wordcloud" class="luxbar-item"><a href="#" onclick="activetab('tabs-13')">Word Cloud</a></li>
-        </ul>
-    </div>
-</header>
 
 <div id="tabs">
-
-<link rel="stylesheet" href="https://cdn.rawgit.com/balzss/luxbar/ae5835e2/build/luxbar.min.css">
-
-  
-	<ul id="bar" style="display: none;">
+	<ul id="bar">
 		<li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
 		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
 		<li id="ltabs-2" onclick="activetab('tabs-2')">Notebook</li>
@@ -417,7 +389,23 @@ Ceci est un test...
 <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
 <script>
   function parseText(t) {_("text").value=t;}
+
   </script>
+
 <script src="js/student-post.js"></script>
+<script>
+  $( function() {
+    $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+  } );
+  </script>
+  <style>
+  .ui-tabs-vertical { width: 55em; }
+  .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+  .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+  .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+  .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
+  .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+  </style>
 </body>
 </html>
