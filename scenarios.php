@@ -370,6 +370,7 @@ var root = window.location.href.replace("/scenarios.php","");
                 <option value="" selected disabled>Quel thème ?</option>
                 <option value="">Thème clair (par défaut)</option>
                 <option value="theme2">Thème sombre</option>
+                <option value="flat">Thème applati (flat)</option>
             </select>
         </p> 
       </div>
