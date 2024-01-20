@@ -383,7 +383,7 @@ function PopulateVoicesMicrosoft(s) {
 </script>
 </head>
 <body onload="Init();">
-	<h1 class="hidesmallscreens" style="filter: invert(0.6);">Slide Manipulation Tools</h1>
+	<h1 class="hidesmallscreens" style="filter: invert(0.9);">Slide Manipulation Tools</h1>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80"/></div>
   <datalist id="listaspectratio">
     <option value="16/10"/>
