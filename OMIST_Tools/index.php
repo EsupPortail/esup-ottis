@@ -189,6 +189,8 @@ h1 {
 
 .hidesmallscreens {}
 
+.inputsmallscreens {max-width: 80%;}
+
 @media (max-width:500px) {
 	.hidesmallscreens {
 		display: none;
@@ -437,9 +439,42 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Create web animation from pptx (Complete)</h3>
   <div>
   <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000"/><br/>
+    <label for="fileToUpload3">Select PPTX file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
     <input type="hidden" name="ProgramName" value="CreateApp/CreateAppFromPPTX_complete.php">
+
+    <td style="vertical-align: top;">
+    <label for="inputlanguage1">Input language : </label>
+    <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"><br/>
+    <label for="outputlanguage1">Output languages : </label>
+    <select id="outputlanguage1"  name="outputlanguage[]" multiple rows="5" class="inputsmallscreens"><br/>
+
+    <p><b>Advanced options</b></p>
+    <label for="translatelanguage1">Translate slides in ? </label>
+    <select id="translatelanguage1" name="translatelanguage" value="" class="inputsmallscreens">
+      <option value="">No translation</option>
+    </select><br/>
+    <label for="aspectratio1">Aspect ratio : </label>
+    <input class="jqueryselect" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"/><br/>
+    <label for="keepaspectratio1">Keep Aspect ratio ? </label>
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext1">Yes !</span>
+    <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+    <label for="keepaspectratio1">Extra delay between slides (in tenth of seconds): </label>
+    <input id="extradelay1" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"/><br/>
+  <p><b>Licence options</b></p>
+  <label for="licence">Would you like to add a licence ? </label>
+  <select id="licence" name="Licence"  class="inputsmallscreens">
+  <option value="" selected>No licence</option>
+  <option value="CC0">CC0 1.0 Universal</option>
+  <option value="CCBY">CC BY 4.0</option>
+  <option value="CCBYSA">CC BY-SA 4.0</option>
+  <option value="CCBYNC">CC BY-ND 4.0</option>
+  <option value="CCBYND">CC BY-NC 4.0</option>
+  <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
+  <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
+  </select>
+  
+  <!--
   <table>
   <tr>
   <td style="vertical-align: top;">
@@ -499,6 +534,8 @@ function PopulateVoicesMicrosoft(s) {
   </td></tr>
   
  </table>
+    -->
+  
     <input type="hidden" id="Random3" name="randompath" value=""/>
     <input type="hidden" id="Extension3"  name="Extension" value="html"/>
     <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
