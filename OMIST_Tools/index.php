@@ -443,7 +443,6 @@ function PopulateVoicesMicrosoft(s) {
     <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
     <input type="hidden" name="ProgramName" value="CreateApp/CreateAppFromPPTX_complete.php">
 
-    <td style="vertical-align: top;">
     <label for="inputlanguage1">Input language : </label>
     <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br/>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
@@ -459,7 +458,7 @@ function PopulateVoicesMicrosoft(s) {
     <label for="keepaspectratio1">Keep Aspect ratio ? </label>
     <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext1">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
-    <label for="keepaspectratio1">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
+    <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay1">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
     <input id="extradelay1" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"/><br/>
   <p><b>Licence options</b></p>
   <label for="licence">Would you like to add a licence ? </label>
@@ -547,13 +546,41 @@ function PopulateVoicesMicrosoft(s) {
   <div>
   <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   
-    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf" max-size="50000"><br/>
-    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt" max-size="50000"><br/>
+    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf" max-size="50000" class="inputsmallscreens"><br/>
+    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt" max-size="50000" class="inputsmallscreens"><br/>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
     <input type="hidden" id="Random4" name="randompath" value=""/>
     <input type="hidden" id="Extension4" name="Extension" value="html"/>
 
 
+    <label for="inputlanguage2">Input language : </label>
+    <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <label for="outputlanguage2" style="vertical-align: top;">Output languages : </label>
+    <select multiple id="outputlanguage2"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+
+    <p><b>Advanced options</b></p>
+    <label for="aspectratio2">Aspect ratio : </label>
+    <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"/><br/>
+    <label for="keepaspectratio2">Keep Aspect ratio ? </label>
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext2">Yes !</span>
+    <input class="jqueryselect" id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+    <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay2">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
+    <input id="extradelay2" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"/><br/>
+  <p><b>Licence options</b></p>
+  <label for="licence2">Would you like to add a licence ? </label>
+  <select id="licence2" name="Licence"  class="inputsmallscreens">
+  <option value="" selected>No licence</option>
+  <option value="CC0">CC0 1.0 Universal</option>
+  <option value="CCBY">CC BY 4.0</option>
+  <option value="CCBYSA">CC BY-SA 4.0</option>
+  <option value="CCBYNC">CC BY-ND 4.0</option>
+  <option value="CCBYND">CC BY-NC 4.0</option>
+  <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
+  <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
+  </select><br/>
+  <br/>
+
+  <!--
 <table>
   <tr>
   <td style="vertical-align: top;">
@@ -605,7 +632,7 @@ function PopulateVoicesMicrosoft(s) {
  </select>
   </td></tr>
   
-</table>
+</table>-->
 
     <button id="App4" value="Create" onclick="if (_('fileToUpload4').value!='') {this.innerHTML=''; SubmitJob(4,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message4"></p>
