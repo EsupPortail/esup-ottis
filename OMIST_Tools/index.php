@@ -685,11 +685,21 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Translate subtitles SRT file</h3>
   <div>
   <form id="Form6" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select SRT file : 
-    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000"><br/>
+  <label for="fileToUpload6">Select SRT file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000" class="inputsmallscreens"><br/>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
     <input type="hidden" id="Random6" name="randompath" value=""/>
     <input type="hidden" id="Extension6" name="Extension" value="zip"/>
+
+    <label for="inputlanguage4">Input language : </label>
+    <select id="inputlanguage4" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <label for="outputlanguage4" style="vertical-align: top;">Output languages : </label>
+    <select id="outputlanguage4"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <label for="wraplength">Maximum subtitle length : </label>
+    <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10" class="inputsmallscreens"/><br/>
+    <label for="nopunct">My subtitles do not have any punctuation : </td>
+    <input type="checkbox" id="nopunct" name="nopunct" value="Yes" /><br/>
+    <!--
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -699,8 +709,8 @@ function PopulateVoicesMicrosoft(s) {
   </td></tr>
     <tr>
   <td style="vertical-align: top;">
-  Output languages : </td>
-  <td><!--<select id="outputlanguage4"  name="outputlanguage[]" multiple rows="5"></select>--><select id="outputlanguage4"  name="outputlanguage[]" rows="5"></select>
+  Output language : </td>
+  <td><select id="outputlanguage4"  name="outputlanguage[]" rows="5"></select>
   </td></tr>
   <tr>
   <td style="vertical-align: top;">
@@ -714,6 +724,7 @@ function PopulateVoicesMicrosoft(s) {
   <td><input type="checkbox" name="nopunct" value="Yes" />
   </td></tr>
  </table>
+    -->
     <button id="App6" value="Create" onclick="if (_('fileToUpload6').value!='') {this.innerHTML=''; SubmitJob(6,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message6"></p>
     </form>
