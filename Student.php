@@ -54,6 +54,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	<title>Automatic translation for teaching purposes</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link href="styles/student.css" rel="stylesheet"/>
     <?php if ($theme != "") {
     echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet"/>';
     echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet"/>';
@@ -63,7 +64,6 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	?>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-  <link href="styles/student.css" rel="stylesheet"/>
 <script type="text/javascript">
 
 <?php
