@@ -490,7 +490,7 @@ fclose($fd);
 			</div>
 			<div id="tabs-20">
 				<div id="tools" style="border: none; height: 1000px; overflow: auto;">
-					<iframe id="toolbox" src="OMIST_Tools\indexNOCAS.php" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+					<iframe id="toolbox" src="OMIST_Tools\indexNOCAS.php<?php if ($theme != "") echo "?theme=".$theme; ?>" width="100%" height="100%" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture" style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 				</div>
 			</div>
 			<div id="tabs-3">
@@ -516,7 +516,7 @@ fclose($fd);
 				<h3>For students</h3>
 				<div>
 					<ul style="list-style-type: none;">
-						<li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; ?>">Student.php?ROOMID=<?php echo $classroomid; ?></a></li>
+						<li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; if ($theme != "") echo "&theme=".$theme; ?>">Student.php?ROOMID=<?php echo $classroomid; if ($theme != "") echo "&theme=".$theme; ?></a></li>
 						<li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
 						<li>QR code :
 							<div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div>
