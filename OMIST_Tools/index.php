@@ -189,7 +189,7 @@ h1 {
 
 .hidesmallscreens {}
 
-.inputsmallscreens {max-width: 80%;}
+.inputsmallscreens {max-width: 90%;}
 
 @media (max-width:500px) {
 	.hidesmallscreens {
@@ -473,7 +473,7 @@ function PopulateVoicesMicrosoft(s) {
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
   </select><br/>
-  
+  <br/>
   <!--
   <table>
   <tr>
