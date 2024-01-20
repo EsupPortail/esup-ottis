@@ -98,10 +98,7 @@ if ($synchronize) {
 <div id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
-<div id="tabs">
-
-<link rel="stylesheet" href="https://cdn.rawgit.com/balzss/luxbar/ae5835e2/build/luxbar.min.css">
-<header id="luxbar" class="luxbar-default">
+<header id="luxbar" class="luxbar-fixed-bottom">
     <input type="checkbox" class="luxbar-checkbox" id="luxbar-checkbox"/>
     <div class="luxbar-menu luxbar-menu-left luxbar-menu-dark">
         <ul class="luxbar-navigation">
@@ -125,6 +122,10 @@ if ($synchronize) {
         </ul>
     </div>
 </header>
+
+<div id="tabs">
+
+<link rel="stylesheet" href="https://cdn.rawgit.com/balzss/luxbar/ae5835e2/build/luxbar.min.css">
 
   
 	<ul id="bar" style="display: none;">
