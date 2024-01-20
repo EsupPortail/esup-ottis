@@ -412,8 +412,8 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload1">Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000"/></label><br/>
+    <label for="fileToUpload1">Select PPTX file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value=""/>
     <input type="hidden" id="Extension1" name="Extension" value="html"/>
@@ -425,13 +425,13 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
-    Select PDF file : 
-    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000"/><br/>
+    <label for="fileToUpload2">Select PDF file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
     <input type="hidden" id="Random2" name="randompath" value=""/>
     <input type="hidden" id="Extension2" name="Extension" value="html"/>
-    Select SPEECH file (.txt): 
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000"/><br/>
+    <label for="fileToUpload2">Select SPEECH file (.txt): </label>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
     <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message2"></p>
     </form>
@@ -693,7 +693,7 @@ function PopulateVoicesMicrosoft(s) {
 
     <label for="inputlanguage4">Input language : </label>
     <select id="inputlanguage4" name="inputlanguage" class="inputsmallscreens"></select><br/>
-    <label for="outputlanguage4" style="vertical-align: top;">Output languages : </label>
+    <label for="outputlanguage4" style="vertical-align: top;">Output language : </label>
     <select id="outputlanguage4"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
     <label for="wraplength">Maximum subtitle length : </label>
     <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10" class="inputsmallscreens"/><br/>
@@ -732,8 +732,8 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Convert pdf+txt to pptx</h3>
   <div>
   <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select PDF file :   <input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000"><br/>
-    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000"><br/>
+    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
+    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
     <input type="hidden" id="Random7" name="randompath" value=""/>
     <input type="hidden" id="Extension7" name="Extension" value="zip"/>
@@ -745,8 +745,8 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Convert pptx+txt to pptx</h3>
   <div>
   <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select PPTx file :   <input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000"><br/>
-    Select SPEECH file (.txt): <input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt" max-size="50000"><br/>
+    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
+    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt" max-size="50000" class="inputsmallscreens"><br/>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="hidden" id="Random8" name="randompath" value=""/>
     <input type="hidden" id="Extension8" name="Extension" value="zip"/>
@@ -758,8 +758,8 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Extract speech from pptx</h3>
   <div>
   <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx" max-size="50000"><br/>
+    <label for="fileToUpload9">Select PPTX file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
     <input type="hidden" id="ProgName9" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
     <input type="hidden" id="Random9" name="randompath" value=""/>
     <input type="hidden" id="Extension9" name="Extension" value="txt"/>
@@ -771,11 +771,18 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Translate XLIFF</h3>
   <div>
   <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select XLF file : 
-    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000"><br/>
+    <label for="fileToUpload10">Select XLF file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000" class="inputsmallscreens"><br/>
     <input type="hidden" id="ProgName10" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
     <input type="hidden" id="Random10" name="randompath" value=""/>
     <input type="hidden" id="Extension10" name="Extension" value="zip"/>
+
+    <label for="inputlanguage5">Input language : </label>
+    <select id="inputlanguage5" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <label for="outputlanguage5" style="vertical-align: top;">Output language : </label>
+    <select id="outputlanguage5"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <br/>
+    <!--
     <table>
   <tr>
   <td style="vertical-align: top;">
@@ -790,6 +797,7 @@ function PopulateVoicesMicrosoft(s) {
   </td></tr>
 
  </table>
+    -->
     <button id="App10" value="Create" onclick="if (_('fileToUpload10').value!='') {this.innerHTML=''; SubmitJob(10,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message10"></p>
     </form>
@@ -798,12 +806,18 @@ function PopulateVoicesMicrosoft(s) {
   <h3>Translate SCORM</h3>
   <div>
   <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select ZIP file : 
+    <label for="fileToUpload11">Select ZIP file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br/>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
     <input type="hidden" id="Random11" name="randompath" value=""/>
     <input type="hidden" id="Extension11" name="Extension" value="zip"/>
-    <table>
+    
+    <label for="inputlanguage6">Input language : </label>
+    <select id="inputlanguage6" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <label for="outputlanguage6" style="vertical-align: top;">Output language : </label>
+    <select id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <br/>
+    <!--<table>
   <tr>
   <td style="vertical-align: top;">
     Input language : </td>
@@ -812,11 +826,13 @@ function PopulateVoicesMicrosoft(s) {
   </td></tr>
     <tr>
   <td style="vertical-align: top;">
-  Output languages : </td>
+  Output language : </td>
   <td><select id="outputlanguage6"  name="outputlanguage[]" rows="5"></select>
   </td></tr>
 
  </table>
+    -->
+
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
     </form>
