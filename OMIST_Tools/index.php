@@ -52,6 +52,11 @@ $Stats_DEEPL = json_decode($res[0],true);
 if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 } else $percentage_DEEPL = 0;
+
+
+$theme="";
+if (isset($_GET["theme"])) $theme=$_GET["theme"];
+
 ?>
 <!doctype html>
 <html lang="fr">
@@ -59,7 +64,13 @@ if (isset($Stats_DEEPL["character_count"])) {
 	<title>Slide Manipulation Tools</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="../jquery/jquery-ui.min.css" rel="stylesheet">
+    <?php if ($theme != "") {
+    echo '<link href="../jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet"/>';
+    echo '<link href="../jquery/'.$theme.'/extras.css" rel="stylesheet"/>';
+  } else {
+    echo '<link href="../jquery/jquery-ui.min.css" rel="stylesheet"/>';
+  }
+	?>
     <link rel="icon" type="image/png" href="../favicon.png" />
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
