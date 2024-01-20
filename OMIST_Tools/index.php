@@ -641,12 +641,22 @@ function PopulateVoicesMicrosoft(s) {
     <h3>Translate pptx</h3>
   <div>
   <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    Select PPTX file : 
-    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx" max-size="50000"><br/>
+  <label for="fileToUpload5">Select PPTX file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
     <input type="hidden" id="ProgName5" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
     <input type="hidden" id="Random5" name="randompath" value=""/>
     <input type="hidden" id="Extension5" name="Extension" value="zip"/>
-    <table>
+    
+    <label for="inputlanguage3">Input language : </label>
+    <select id="inputlanguage3" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <label for="outputlanguage3" style="vertical-align: top;">Output languages : </label>
+    <select multiple id="outputlanguage3"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+
+    <label for="slidenotes3">Translate slide notes too ? </label>
+    <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext3">No.</span>
+    <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+  <br/>
+<!--    <table>
   <tr>
   <td style="vertical-align: top;">
     Input language : </td>
@@ -666,6 +676,8 @@ function PopulateVoicesMicrosoft(s) {
   <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
   </td></tr>
  </table>
+    -->
+
     <button id="App5" value="Create" onclick="if (_('fileToUpload5').value!='') {this.innerHTML=''; SubmitJob(5,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message5"></p>
     </form>
