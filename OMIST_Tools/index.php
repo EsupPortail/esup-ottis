@@ -472,7 +472,7 @@ function PopulateVoicesMicrosoft(s) {
   <option value="CCBYND">CC BY-NC 4.0</option>
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
-  </select>
+  </select><br/>
   
   <!--
   <table>
