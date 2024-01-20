@@ -187,7 +187,7 @@ input[type=text] {
 	width: 150px;
 }
 
-#bar li {
+#bar2 li {
 	z-index: 11000;
 	padding: 10px 5px 10px 5px;
 	background-color: rgb(247,247,247);
@@ -198,11 +198,11 @@ input[type=text] {
 	font-family: arial, helvetica, sans-serif;
 }
 
-#bar li:hover {
+#bar2 li:hover {
 	background-color: rgb(236,236,236);
 }
 
-#bar li.selected {
+#bar2 li.selected {
 	background-color: rgb(57,199,204);
 	color: white;
 }
