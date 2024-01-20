@@ -459,7 +459,7 @@ function PopulateVoicesMicrosoft(s) {
     <label for="keepaspectratio1">Keep Aspect ratio ? </label>
     <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext1">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
-    <label for="keepaspectratio1">Extra delay between slides (in tenth of seconds): </label>
+    <label for="keepaspectratio1">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
     <input id="extradelay1" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"/><br/>
   <p><b>Licence options</b></p>
   <label for="licence">Would you like to add a licence ? </label>
