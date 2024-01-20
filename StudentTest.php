@@ -106,19 +106,19 @@ if ($synchronize) {
                 <label class="luxbar-hamburger luxbar-hamburger-spin" 
                 id="luxbar-hamburger" for="luxbar-checkbox"> <span></span> </label>
             </li>
-            <li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
-		<li id="ltabs-1" onclick="activetab('tabs-1')" class="luxbar-item">Classroom</li>
-		<li id="ltabs-2" onclick="activetab('tabs-2')" class="luxbar-item">Notebook</li>
-		<li id="ltabs-3" onclick="activetab('tabs-3')" class="luxbar-item">Output</li>
+            <li id="ltabs-0" class="luxbar-item"><a href="#" onclick="activetab('tabs-0')">Informations</a></li>
+		<li id="ltabs-1" class="luxbar-item"><a href="#" onclick="activetab('tabs-1')">Classroom</a></li>
+		<li id="ltabs-2" class="luxbar-item"><a href="#" onclick="activetab('tabs-2')">Notebook</a></li>
+		<li id="ltabs-3" class="luxbar-item"><a href="#" onclick="activetab('tabs-3')">Output</a></li>
 <!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
 <!--		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>-->
-    <li id="ltabs-7" onclick="activetab('tabs-7')" class="luxbar-item">Slides</li>
-    <li id="ltabs-8" onclick="activetab('tabs-8')" class="luxbar-item">WOOCLAP</li>
-    <li id="ltabs-9" onclick="activetab('tabs-9');" class="luxbar-item">1</li>
-		<li id="ltabs-10" onclick="activetab('tabs-10');" class="luxbar-item">2</li>
-		<li id="ltabs-11" onclick="activetab('tabs-11');" class="luxbar-item">3</li>
-		<li id="ltabs-12" onclick="activetab('tabs-12');" class="luxbar-item">4</li>
-		<li id="ltabs-13" onclick="activetab('tabs-13');" class="wordcloud" class="luxbar-item">Word Cloud</li>
+    <li id="ltabs-7" class="luxbar-item"><a href="#" onclick="activetab('tabs-7')">Slides</a></li>
+    <li id="ltabs-8" class="luxbar-item"><a href="#" onclick="activetab('tabs-8')">WOOCLAP</a></li>
+    <li id="ltabs-9" class="luxbar-item"><a href="#" onclick="activetab('tabs-9')">1</a></li>
+		<li id="ltabs-10" class="luxbar-item"><a href="#" onclick="activetab('tabs-10')">2</a></li>
+		<li id="ltabs-11" class="luxbar-item"><a href="#" onclick="activetab('tabs-11')">3</a></li>
+		<li id="ltabs-12" class="luxbar-item"><a href="#" onclick="activetab('tabs-12')">4</a></li>
+		<li id="ltabs-13" class="wordcloud" class="luxbar-item"><a href="#" onclick="activetab('tabs-13')">Word Cloud</a></li>
         </ul>
     </div>
 </header>
