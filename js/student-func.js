@@ -758,12 +758,12 @@ function activetab(tab) {
     var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7', 'tabs-8', 'tabs-9', 'tabs-10', 'tabs-11', 'tabs-12', 'tabs-13'];
     for (var i = 0; i < TTabs.length; i++) {
         _(TTabs[i]).style.display = "none";
-        _("l" + TTabs[i]).style.color = "black";
-        _("l" + TTabs[i]).style.backgroundColor = "rgb(247,247,247)";
+        //_("l" + TTabs[i]).style.color = "black";
+        //_("l" + TTabs[i]).style.backgroundColor = "rgb(247,247,247)";
     }
     _(tab).style.display = 'block';
-    _("l" + tab).style.color = "white";
-    _("l" + tab).style.backgroundColor = "rgb(57,199,204)";
+    //_("l" + tab).style.color = "white";
+    //_("l" + tab).style.backgroundColor = "rgb(57,199,204)";
     ShowMenu();
 }
 
