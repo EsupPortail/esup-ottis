@@ -190,21 +190,22 @@ input[type=text] {
 #bar li {
 	z-index: 11000;
 	padding: 10px 5px 10px 5px;
+	/*
 	background-color: rgb(247,247,247);
 	color: black;
 	border: 1px solid;
 	border-color: black;
-	border-radius: 3px;
+	border-radius: 3px;*/
 	font-family: arial, helvetica, sans-serif;
 }
 
 #bar li:hover {
-	background-color: rgb(236,236,236);
+/*	background-color: rgb(236,236,236);*/
 }
 
 #bar li.selected {
-	background-color: rgb(57,199,204);
-	color: white;
+/*	background-color: rgb(57,199,204);
+	color: white;*/
 }
 
 #FS {
