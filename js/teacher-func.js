@@ -1160,10 +1160,13 @@ function GetNewPresentation() {
                 j += 1;
             }
             phrase[i] += ']}';
-            console.log(phrase[i]);
+            //console.log(phrase[i]);
         }
+        phrase[i] += ']';
+        console.log(phrase[i]);
         i =+ 1;
     }
+    console.log(phrase);
 
     // while (html.getElementById('SlideText'+i+'_'+j)){
     //     num_slide = i+1;
