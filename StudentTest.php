@@ -109,7 +109,6 @@ if ($synchronize) {
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 <div id="bar2" style="position: fixed; top: 1px; left: 1px;">
-           
            <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
                    <i class="fa fa-square fa-stack-2x"></i>
@@ -131,23 +130,11 @@ if ($synchronize) {
                
            </ul>
        </div>
-
-<ul id="bar2">
-		<li id="lltabs-0" onclick="activetab('tabs-0')">Informations</li>
-		<li id="lltabs-1" onclick="activetab('tabs-1')">Classroom</li>
-		<li id="lltabs-2" onclick="activetab('tabs-2')">Notebook</li>
-		<li id="lltabs-3" onclick="activetab('tabs-3')">Output</li>
-<!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
-<!--		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>-->
-    <li id="lltabs-7" onclick="activetab('tabs-7')">Slides</li>
-    <li id="lltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
-    <li id="lltabs-9" onclick="activetab('tabs-9');">1</li>
-		<li id="lltabs-10" onclick="activetab('tabs-10');">2</li>
-		<li id="lltabs-11" onclick="activetab('tabs-11');">3</li>
-		<li id="lltabs-12" onclick="activetab('tabs-12');">4</li>
-		<li id="lltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li>
-
-</ul>
+       <script>
+        $(function(){
+            $('#bar2').popmenu();
+        })
+    </script>
 <!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
