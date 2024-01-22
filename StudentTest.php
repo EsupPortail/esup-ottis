@@ -149,7 +149,11 @@ if ($synchronize) {
                <li id="lltabs-9" onclick="activetab('tabs-9');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
                <li id="lltabs-10" onclick="activetab('tabs-10');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 2</div></li>
                <li id="lltabs-11" onclick="activetab('tabs-11')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 3</div></li>
-               <li id="lltabs-12" onclick="activetab('tabs-12')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 4</div></li>
+               <li id="lltabs-12" onclick="activetab('tabs-12')" class="demo_li"><div>
+               <span class="fa-stack fa-lg">
+  <i class="fa fa-desktop fa-stack-1x"></i>
+  <i class="fa fa-ban fa-stack-2x text-danger"></i>
+</span>                <!--<i class="fa fa-desktop"></i>--></div><div>Tab 4</div></li>
 
                
            </ul>
