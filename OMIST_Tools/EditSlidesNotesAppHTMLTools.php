@@ -21,17 +21,10 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     for($i=0;$i<count($content);$i++) {
         $txt=$content[$i];
-        if (strpos("_".$txt,"var langueorigine = ")>0) {
-            $lang_origin=str_replace("var langueorigine = ","",$txt);
-        }
-
-        if (strpos("_".$txt,"var languetraduction = ")>0) {
-            $lang_trad=str_replace("var languetraduction = ","",$txt);
-        }
 
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
             $long = strlen("var slidesnotes = ");
-            $txtslidenotes=substr($txt, 0, $long);
+            $txtslidenotes=substr($txt, $long);
             $txtslidenotes = $txtslidenotes.$new_text;
             // $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
             // $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
@@ -40,11 +33,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     echo $txtslidenotes;
     echo "\n";
-    echo $lang_origin;
-    echo "\n";
-    echo $lang_trad;
-    echo "\n";
-    echo $new_text;
+    //echo $new_text;
 
 
 }else{
