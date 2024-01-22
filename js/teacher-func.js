@@ -1097,7 +1097,7 @@ function GetNewPresentation() {
 
     //Récupérer les notes modifiées
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    console.log(data_new_pres);
+    //console.log(data_new_pres);
     
     var xhr = new XMLHttpRequest();
     var ch = data_new_pres;
