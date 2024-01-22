@@ -80,6 +80,8 @@ if ($synchronize) {
 <script src="js/student-def.js"></script>
 <script src="js/common-func.js"></script>
 <script src="js/student-func.js"></script>
+<script src="jquery/jquery.js"></script>
+<script src="jquery/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="libs/SlickNav/slicknav.css" />
 <script src="libs/SlickNav/jquery.slicknav.min.js"></script>
 <style>
@@ -413,9 +415,6 @@ Ceci est un test...
     </fieldset>
   </form>
 </div>
-
-<script src="jquery/jquery.js"></script>
-<script src="jquery/jquery-ui.min.js"></script>
 
 <script src="https://www.jasondavies.com/d3.min.js"></script>
 <script src="https://www.jasondavies.com/wordcloud/cloud.min.js"></script>
