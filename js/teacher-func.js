@@ -1164,7 +1164,7 @@ function GetNewPresentation() {
         }
         phrase[i] += ']';
         console.log(phrase[i]);
-        i =+ 1;
+        i += 1;
     }
     console.log(phrase);
 
