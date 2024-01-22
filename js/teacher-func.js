@@ -1123,20 +1123,23 @@ function GetNewPresentation() {
     console.log("Nombre de slides : " + nb_slides);
 
     //Récupérer les notes
-    var i = 0;
-    var j = 0;
+    // var i = 0;
+    // var j = 0;
     var text = "";
     var tab = [];
 
     // !! Penser à prendre en compte/supprimer les lignes vides
     // Revoir le code : problème s'il y a des slides sans notes
-
+    var i = 0;
+    var phrase = [];
     for (let key in tab_lang) {
         code_lang = tab_lang[key].trim()
         //console.log(code_lang);
+        phrase[i] = '"'+code_lang+'": [';
         for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
             //console.log("Numero de slide : " + num_slide);
             j = 0;
+            slide = num_slide+1;
             //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
             // console.log(id_text);
             // text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
@@ -1145,9 +1148,21 @@ function GetNewPresentation() {
                 text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
                 console.log(text);
+                if (j==0){
+                    if (num_slide==0){
+                        phrase[i] += '{"Slide": '+slide+', "Notes": ["'+text+'"';
+                    }else{
+                        phrase[i] += ', {"Slide": '+slide+', "Notes": ["'+text+'"';
+                    }
+                }else{
+                    phrase[i] += ', "'+text+'"';
+                }
                 j += 1;
             }
+            phrase[i] += ']}';
+            console.log(phrase[i]);
         }
+        i =+ 1;
     }
 
     // while (html.getElementById('SlideText'+i+'_'+j)){
