@@ -336,7 +336,7 @@ input[type=text] {
 	color: black;
 	font-size: 18px;
 	font-family: helvetica, arial, sans-serif;
-	/* font-style: italic;*/
+	font-style: italic;
 	box-shadow: 2px 2px 5px #ff0;
 	padding: auto;
 	justify-content: center;
