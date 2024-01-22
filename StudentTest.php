@@ -103,6 +103,7 @@ if ($synchronize) {
 	
 	#bar2 {
 		display:block;
+    font-family: helvetica, arial, sans-serif;
 	}
 }
 
