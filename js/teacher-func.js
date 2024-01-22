@@ -1095,13 +1095,6 @@ function GetNewPresentation() {
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
 
-    //Récupérer les langues
-    var lang = html.getElementsByTagName('p');
-    var tab_lang = [];
-    for (var l = 0; l < lang.length; l++) {
-        tab_lang[l] = lang[l].innerHTML;
-    }
-
     //Récupérer les notes modifiées
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     console.log(data_new_pres);
@@ -1145,7 +1138,14 @@ function GetNewPresentation() {
         j = 0;
     }
 
-    //console.table(tab);
+    //Récupérer les langues
+    var lang = html.getElementsByTagName('p');
+    var tab_lang = [];
+    for (var l = 0; l < lang.length; l++) {
+        tab_lang[l] = lang[l].innerHTML;
+    }
+
+    //Envoi des données;
     formdata.append("newText", tab);
     formdata.append("languages", tab_lang);
 
