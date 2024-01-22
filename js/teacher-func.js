@@ -1119,6 +1119,7 @@ function GetNewPresentation() {
     console.log(html);
 
     var lang = html.getElementsByTagName('h1');
+    console.log(lang[2].innerHTML);
     var arr = Array.from(lang);
     var myJsonString = JSON.stringify(arr);
 
