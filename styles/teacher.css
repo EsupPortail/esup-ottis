@@ -275,7 +275,7 @@ input[type=text] {
 	color: white;
 	font-size: 18px;
 	font-family: helvetica, arial, sans-serif;
-	font-style: italic;
+	/* font-style: italic; */
 	padding: 10px;
 	box-shadow: 2px 2px 5px blue;
 	padding: auto;
@@ -307,7 +307,7 @@ input[type=text] {
 	color: white;
 	font-size: 18px;
 	font-family: helvetica, arial, sans-serif;
-	font-style: italic;
+	/* font-style: italic; */
 	padding: 10px;
 	box-shadow: 2px 2px 5px blue;
 	padding: auto;
