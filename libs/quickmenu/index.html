@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Demo Page</title>
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
+    <style>
+        .fa{
+            font-size: 40px;
+            line-height: 70px;
+        }
+        .fa-bars{
+            color: white;
+        }
+        @media screen and (orientation: portrait){
+            pre{
+                overflow-x: scroll;
+            }
+        }
+
+        #ltab-5 {
+            display: none;
+        }
+    </style>
+</head>
+<body onload="setTimeout(function () {document.getElementById('ltab-5').style.display='block';},5000);">
+        <div id="demo_box" style="position: fixed; top: 1px; left: 1px;">
+           
+            <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
+                <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x"></i>
+                    <i class="fa fa-bars fa-stack-1x fa-inverse" style="font-size: 0.8em;"></i>
+                  </span>
+            </div>
+            <ul id="demo_ul">
+                <li class="demo_li"><a href="#"><div><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></div><div>Settings</div></a></li>
+                <li class="demo_li"><a href="#"><div><i class="fa fa-comments fa-2x fa-fw"></i></div><div>Tchat</div></a></li>
+                <li class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
+                <li class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
+                <li class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
+                <li class="demo_li" id="ltab-5"><div><i class="fa fa-comments"></i></div><div>Clock</div></li>
+             
+            </ul>
+        </div>
+   <script src="lib/jquery/jquery.min.js"></script>
+    <script src="src/jquery.popmenu.js"></script>
+    <script>
+        $(function(){
+            $('#demo_box').popmenu();
+          //  $('#demo_box_2').popmenu({'background':'#e67e22','focusColor':'#c0392b','borderRadius':'0'});
+          //  $('#demo_box_3').popmenu({'width': '200px', 'background':'#223','focusColor':'#ee5','borderRadius':'10px', 'top': '70', 'left': '-40', 'color':'#1265fe','border':'3px solid #0035fe'});
+        })
+    </script>
+</body>
+</html>
