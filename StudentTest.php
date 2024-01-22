@@ -82,10 +82,11 @@ if ($synchronize) {
 <script src="js/student-func.js"></script>
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="libs/SlickNav/slicknav.css" />
-<script src="libs/SlickNav/jquery.slicknav.min.js"></script>
+<link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
+<script src="libs/quickmenu/src/jquery.popmenu.js"></script>
+
 <style>
-.slicknav_menu, #bar2 {
+#bar2 {
 	display:none;
 }
 
@@ -95,7 +96,7 @@ if ($synchronize) {
 		display:none;
 	}
 	
-	.slicknav_menu {
+	#bar2 {
 		display:block;
 	}
 }
@@ -107,6 +108,30 @@ if ($synchronize) {
 <div id="showmenu" onclick="ShowMenu();" ><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
+<div id="bar2" style="position: fixed; top: 1px; left: 1px;">
+           
+           <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
+               <span class="fa-stack fa-lg">
+                   <i class="fa fa-square fa-stack-2x"></i>
+                   <i class="fa fa-bars fa-stack-1x fa-inverse" style="font-size: 0.8em;"></i>
+                 </span>
+           </div>
+           <ul id="demo_ul">
+               <li id="lltabs-0" onclick="activetab('tabs-0')" class="demo_li"><a href="#"><div><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></div><div>Settings</div></a></li>
+               <li id="lltabs-1" onclick="activetab('tabs-1')" class="demo_li"><a href="#"><div><i class="fa fa-comments fa-2x fa-fw"></i></div><div>Tchat</div></a></li>
+               <li id="lltabs-7" onclick="activetab('tabs-7')" class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
+               <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
+               <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
+               <li id="lltabs-8" onclick="activetab('tabs-8')" class="demo_li"><div><i class="fa fa-television"></i></div><div>WOOCLAP</div></li>
+               <li id="lltabs-9" onclick="activetab('tabs-9');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
+               <li id="lltabs-10" onclick="activetab('tabs-10');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 2</div></li>
+               <li id="lltabs-11" onclick="activetab('tabs-11')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 3</div></li>
+               <li id="lltabs-12" onclick="activetab('tabs-12')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 4</div></li>
+
+               
+           </ul>
+       </div>
+
 <ul id="bar2">
 		<li id="lltabs-0" onclick="activetab('tabs-0')">Informations</li>
 		<li id="lltabs-1" onclick="activetab('tabs-1')">Classroom</li>

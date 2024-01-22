@@ -13,19 +13,10 @@
         .fa-bars{
             color: white;
         }
-        @media screen and (orientation: portrait){
-            pre{
-                overflow-x: scroll;
-            }
-        }
-
-        #ltab-5 {
-            display: none;
-        }
     </style>
 </head>
-<body onload="setTimeout(function () {document.getElementById('ltab-5').style.display='block';},5000);">
-        <div id="demo_box" style="position: fixed; top: 1px; left: 1px;">
+<body">
+        <div id="bar2" style="position: fixed; top: 1px; left: 1px;">
            
             <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
                 <span class="fa-stack fa-lg">
@@ -40,16 +31,15 @@
                 <li class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                 <li class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
                 <li class="demo_li" id="ltab-5"><div><i class="fa fa-comments"></i></div><div>Clock</div></li>
-             
+
+                
             </ul>
         </div>
    <script src="lib/jquery/jquery.min.js"></script>
     <script src="src/jquery.popmenu.js"></script>
     <script>
         $(function(){
-            $('#demo_box').popmenu();
-          //  $('#demo_box_2').popmenu({'background':'#e67e22','focusColor':'#c0392b','borderRadius':'0'});
-          //  $('#demo_box_3').popmenu({'width': '200px', 'background':'#223','focusColor':'#ee5','borderRadius':'10px', 'top': '70', 'left': '-40', 'color':'#1265fe','border':'3px solid #0035fe'});
+            $('#bar2').popmenu();
         })
     </script>
 </body>
