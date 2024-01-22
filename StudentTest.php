@@ -145,7 +145,7 @@ if ($synchronize) {
        </div>
        <script>
         $(function(){
-            $('#bar2').popmenu({'top': '5'});
+            $('#bar2').popmenu({'top': '-5'});
         })
     </script>
 <!--
