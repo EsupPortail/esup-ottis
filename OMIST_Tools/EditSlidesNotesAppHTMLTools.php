@@ -21,7 +21,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     for($i=0;$i<count($content);$i++) {
         $txt=$content[$i];
-
+        echo "Texte : \n";
+        echo $txt;
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
             $long = strlen("var slidesnotes = ");
             $txtslidenotes=substr($txt, $long);
