@@ -121,7 +121,7 @@ if ($synchronize) {
 <div id="showmenu" onclick="ShowMenu();" ><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
-<div id="bar2" style="position: fixed; top: 1px; left: 1px; z-index: 100000;">
+<div id="bar2" style="border:none; position: fixed; top: 1px; left: 1px; z-index: 100000;">
            <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
                    <i class="fa fa-square fa-stack-2x"></i>
@@ -471,7 +471,7 @@ function activetab(tab) {
     //_("l" + tab).style.color = "white";
     //_("l" + tab).style.backgroundColor = "rgb(57,199,204)";
     //ShowMenu();
-
+    $( "#tabs2" ).hide();
 }
 
   </script>
