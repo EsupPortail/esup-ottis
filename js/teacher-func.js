@@ -1132,7 +1132,7 @@ function GetNewPresentation() {
     // Revoir le code : problème s'il y a des slides sans notes
 
     for (let key in tab_lang) {
-        code_lang = tab_lang[key]
+        code_lang = tab_lang[key].trim()
         console.log(code_lang);
         for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
             console.log("Numero de slide : " + num_slide);
@@ -1142,9 +1142,9 @@ function GetNewPresentation() {
             text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
             console.log(text);
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
-                //text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+                text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
-                console.log(id_text);
+                console.log(text);
                 j += 1;
             }
         }
