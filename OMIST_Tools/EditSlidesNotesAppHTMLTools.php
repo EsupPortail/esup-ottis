@@ -34,7 +34,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     }
 
     //echo $txtslidenotes;
-    echo $content;
+    var_dump($content);
     echo "\n";
     //echo $new_text;
 
