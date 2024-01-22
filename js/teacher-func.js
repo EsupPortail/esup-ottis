@@ -1116,6 +1116,8 @@ function GetNewPresentation() {
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
 
+    console.log(html);
+
     var lang = html.getElementsByTagName('p');
     var arr = Array.from(lang);
     var myJsonString = JSON.stringify(arr);
