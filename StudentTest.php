@@ -146,14 +146,15 @@ if ($synchronize) {
                <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
                <li id="lltabs-8" onclick="activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" width="40px" style="vertical-align: middle;"/></div><div>WOOCLAP</div></li>
-               <li id="lltabs-9" onclick="activetab('tabs-9');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
-               <li id="lltabs-10" onclick="activetab('tabs-10');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 2</div></li>
-               <li id="lltabs-11" onclick="activetab('tabs-11')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 3</div></li>
-               <li id="lltabs-12" onclick="activetab('tabs-12')" class="demo_li"><div>
-               <span class="fa-stack fa-lg">
-  <i class="fa fa-desktop fa-stack-1x"></i>
-  <i class="fa fa-ban fa-stack-2x text-danger"></i>
-</span>                <!--<i class="fa fa-desktop"></i>--></div><div>Tab 4</div></li>
+               <li id="lltabs-9" onclick="if (this.style.opacity 
+               ==1) activetab('tabs-9');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
+               <li id="lltabs-10" style="opacity: 0.5" onclick="if (this.style.opacity 
+               ==1) activetab('tabs-10');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 2</div></li>
+               <li id="lltabs-11" onclick="if (this.style.opacity 
+               ==1) activetab('tabs-11')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 3</div></li>
+               <li id="lltabs-12" onclick="if (this.style.opacity 
+               ==1) activetab('tabs-12')" class="demo_li"><div>
+               <i class="fa fa-desktop"></i></div><div>Tab 4</div></li>
 
                
            </ul>
