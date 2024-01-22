@@ -100,6 +100,14 @@ if ($synchronize) {
 		display:block;
 	}
 }
+
+        .fa{
+            font-size: 40px;
+            line-height: 70px;
+        }
+        .fa-bars{
+            color: white;
+        }
 </style>
 
 </head>
