@@ -115,7 +115,8 @@ if ($synchronize) {
         }
 
         .fa-menu {
-          line-height: 40px;
+          font-size: 50px;
+          line-height: 50px;
         }
 </style>
 
@@ -128,7 +129,7 @@ if ($synchronize) {
 <div id="bar2" style="border:none; position: fixed; top: 1px; left: 1px; z-index: 100000;">
            <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
-                   <i class="fa fa-square fa-stack-2x fa-menu"></i>
+                   <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(100,100,255);;"></i>
                    <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 0.8em;"></i>
                  </span>
            </div>
