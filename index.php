@@ -164,7 +164,7 @@ fclose($fd);
 	  to {transform: rotate(360deg);}
   }
   
-  #ttab:lang(en) {
+  #ttab-0 {
 	content: "<span class='material-icons'>gear</span>Configuration";
   }
 
