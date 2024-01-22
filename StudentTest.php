@@ -119,6 +119,11 @@ if ($synchronize) {
           font-size: 50px;
           line-height: 50px;
         }
+
+
+  #demo_ul li {
+    font-family: helvetica, arial, sans-serif;
+  }
 </style>
 
 </head>
