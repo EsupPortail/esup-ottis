@@ -966,6 +966,8 @@ function formateresponseTools(datatxt,editable=true) {
         console.log("Nb slide : \n");
         console.log(data_key.length);
 
+        res += '<dl> <p> Language : ' + key + '</p>';
+
         for (let i in data_key) {
             slide = data_key[i];
 
@@ -981,7 +983,7 @@ function formateresponseTools(datatxt,editable=true) {
                 }
             }
 
-            res += '<dl> Language : ' + key;
+            res += '<dl>';
 
             if (data_key["Images"]) {
                 //alert("The presentation contains "+data_key["Images"].length+" images");
@@ -1111,6 +1113,10 @@ function GetNewPresentation() {
    
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
+
+    var lang = html.getElementsByTagName('p');
+
+    console.log("Languages : " + lang);
     
     var i = 0;
     var j = 0;
