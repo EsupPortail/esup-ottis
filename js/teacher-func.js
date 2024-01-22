@@ -1136,12 +1136,12 @@ function GetNewPresentation() {
         for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
             console.log("Numero de slide : " + num_slide);
             j = 0;
-            while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
+            //while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
                 //text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
                 console.log(id_text);
                 j += 1;
-            }
+            //}
         }
     }
 
