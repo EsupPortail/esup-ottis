@@ -1090,43 +1090,37 @@ function SlideNotesTools(editable=false) {
  * 
  */
 function GetNewPresentation() {
-    var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    console.log(data_new_pres);
+    //Récupérer le fichier original
     var file = _("fileToUpload12").files[0];
-
-    // if(file){
-    //     var reader = new FileReader();
-    //     reader.onload = function(event){
-    //         console.log(reader.result);
-    //     }
-    //     reader.readAsText(file);
-    // }else{
-    //     console.log('Erreur de lecture du fichier');
-    // }
-    
-
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
 
-    var xhr = new XMLHttpRequest();
-    var ch = data_new_pres;
-
-    //console.log(data_new_pres);
-   
-    var parser = new DOMParser();
-    var html = parser.parseFromString(data_new_pres, 'text/html');
-
-    console.log(html);
-
+    //Récupérer les langues
     var lang = html.getElementsByTagName('p');
     var tab_lang = [];
     for (var l = 0; l < lang.length; l++) {
         tab_lang[l] = lang[l].innerHTML;
     }
 
-    var dl = html.getElementsByTagName('dl');
-    var dt = dl.getElementsByTagName('dt');
-    console.log(dt.length);
+    //Récupérer les notes modifiées
+    var data_new_pres = _("notebookcompleteformatted").innerHTML;
+    console.log(data_new_pres);
+    
+    var xhr = new XMLHttpRequest();
+    var ch = data_new_pres;
+   
+    var parser = new DOMParser();
+    var html = parser.parseFromString(data_new_pres, 'text/html');
+
+    console.log(html);
+
+    var k = 1;
+    var nb_slides = 0;
+    while (html.getElementById('img_'+k)){
+        nb_slides = k;
+    }
+
+    console.log("Nombre de slides : " + nb_slides);
     
     var i = 0;
     var j = 0;
