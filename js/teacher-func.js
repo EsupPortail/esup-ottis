@@ -1133,7 +1133,7 @@ function GetNewPresentation() {
 
     for (let code_lang in tab_lang) {
         console.log(tab_lang[code_lang]);
-        for (var num_slide = 0; num_slide < nb_slides; i++) {
+        for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
             console.log("Numero de slide : " + num_slide);
             j = 0;
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
