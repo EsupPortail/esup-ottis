@@ -1131,6 +1131,7 @@ function GetNewPresentation() {
     while (html.getElementById('img_'+k)){
         nb_slides = k;
         console.log("Nb de slides : " + nb_slides);
+        k += 1;
     }
 
     console.log("Nombre de slides : " + nb_slides);
