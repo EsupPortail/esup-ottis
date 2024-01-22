@@ -81,6 +81,22 @@ if ($synchronize) {
 <script src="js/common-func.js"></script>
 <script src="js/student-func.js"></script>
 
+<style>
+.slicknav_menu {
+	display:none;
+}
+
+@media screen and (max-width: 40em) {
+	/* #menu is the original menu */
+	#bar, #showmenu {
+		display:none;
+	}
+	
+	.slicknav_menu {
+		display:block;
+	}
+}
+</style>
 
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
@@ -88,7 +104,22 @@ if ($synchronize) {
 <div id="showmenu" onclick="ShowMenu();" ><img src="" alt="☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
+<ul id="bar2">
+		<li id="lltabs-0" onclick="activetab('tabs-0')">Informations</li>
+		<li id="lltabs-1" onclick="activetab('tabs-1')">Classroom</li>
+		<li id="lltabs-2" onclick="activetab('tabs-2')">Notebook</li>
+		<li id="lltabs-3" onclick="activetab('tabs-3')">Output</li>
+<!--    <li><a href="#tabs-6" onclick="if (!visioactive) document.getElementById('visio').src='https://meet.jit.si/Translator_'+document.getElementById('classroomid').value; visioactive=true;">Visio</a></li>-->
+<!--		<li id="ltabs-4" onclick="activetab('tabs-4')">Scan a QRCode</li>-->
+    <li id="lltabs-7" onclick="activetab('tabs-7')">Slides</li>
+    <li id="lltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li>
+    <li id="lltabs-9" onclick="activetab('tabs-9');">1</li>
+		<li id="lltabs-10" onclick="activetab('tabs-10');">2</li>
+		<li id="lltabs-11" onclick="activetab('tabs-11');">3</li>
+		<li id="lltabs-12" onclick="activetab('tabs-12');">4</li>
+		<li id="lltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li>
 
+</ul>
 <!--
 <div id="titre" onmouseover="document.getElementById('soustitre').style.transform='translateY(0px)'; document.getElementById('titre').style.transform='translateY(0px)';"><h1>Automatic translation for teaching purposes</h1></div>
 <div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; document.getElementById('titre').style.transform='translateY(-64px)';"></div>-->
@@ -397,15 +428,10 @@ Ceci est un test...
   $( function() {
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+		$('#bar2').slicknav();
   } );
   </script>
   <style>
-  .ui-tabs-vertical { width: 55em; }
-  .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-  .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-  .ui-tabs-vertical .ui-tabs-nav li a { display:block; }
-  .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
-  .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
   </style>
 </body>
 </html>
