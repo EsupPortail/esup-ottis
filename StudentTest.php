@@ -85,7 +85,7 @@ if ($synchronize) {
 <link rel="stylesheet" href="libs/SlickNav/slicknav.css" />
 <script src="libs/SlickNav/jquery.slicknav.min.js"></script>
 <style>
-.slicknav_menu {
+.slicknav_menu, #bar2 {
 	display:none;
 }
 
