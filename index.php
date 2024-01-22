@@ -164,9 +164,6 @@ fclose($fd);
 	  to {transform: rotate(360deg);}
   }
   
-  #ttab-0 {
-	content: "<span class='material-icons'>gear</span>Configuration";
-  }
 
   </style>
   <script type="text/javascript">
