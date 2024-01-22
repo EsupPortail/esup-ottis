@@ -21,18 +21,20 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     for($i=0;$i<count($content);$i++) {
         $txt=$content[$i];
-        echo "Texte : \n";
-        echo $txt;
+
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
-            $long = strlen("var slidesnotes = ");
-            $txtslidenotes=substr($txt, $long);
-            $txtslidenotes = $txtslidenotes.$new_text;
+            echo "TEST SLIDESNOTES";
+            $txt = "var slidesnotes = test";
+            // $long = strlen("var slidesnotes = ");
+            // $txtslidenotes=substr($txt, $long);
+            // $txtslidenotes = $txtslidenotes.$new_text;
             // $txtslidenotes=str_replace("var slidesnotes = ","",$txt);
             // $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
         }
     }
 
-    echo $txtslidenotes;
+    //echo $txtslidenotes;
+    echo $content;
     echo "\n";
     //echo $new_text;
 
