@@ -1132,28 +1132,33 @@ function GetNewPresentation() {
     // Revoir le code : problème s'il y a des slides sans notes
 
     for (let code_lang in tab_lang) {
-        console.log(tab_lang[code_lang]);
-
-        // for (var i = 0; l < nb_slides; i++) {
-        //     tab_lang[l] = lang[l].innerHTML;
-        // }
-    }
-
-    while (html.getElementById('SlideText'+i+'_'+j)){
-        num_slide = i+1;
-        tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
-        j=1;
-        while (html.getElementById('SlideText'+i+'_'+j)){
-            text = html.getElementById('SlideText'+i+'_'+j).textContent;
-            num_slide = i+1;
-            tab[i] = tab[i]+', "'+text+'"';
-            // console.log(text);
-            j = j + 1;
+        //console.log(tab_lang[code_lang]);
+        for (var num_slide = 0; l < nb_slides; i++) {
+            //tab_lang[l] = lang[l].innerHTML;
+            j = 0;
+            while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
+                text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+                console.log(text);
+                j += 1;
+            }
         }
-        tab[i] = tab[i]+']}';
-        i = i + 1;
-        j = 0;
     }
+
+    // while (html.getElementById('SlideText'+i+'_'+j)){
+    //     num_slide = i+1;
+    //     tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
+    //     j=1;
+    //     while (html.getElementById('SlideText'+i+'_'+j)){
+    //         text = html.getElementById('SlideText'+i+'_'+j).textContent;
+    //         num_slide = i+1;
+    //         tab[i] = tab[i]+', "'+text+'"';
+    //         // console.log(text);
+    //         j = j + 1;
+    //     }
+    //     tab[i] = tab[i]+']}';
+    //     i = i + 1;
+    //     j = 0;
+    // }
 
     //console.table(tab);
     formdata.append("newText", tab);
