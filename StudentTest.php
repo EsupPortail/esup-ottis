@@ -488,6 +488,29 @@ function activetab(tab) {
     //_("l" + tab).style.backgroundColor = "rgb(57,199,204)";
     //ShowMenu();
     $( "#demo_ul" ).hide();
+
+
+    
+}
+
+/**
+ * @summary Switch a given extratab visible or invisible
+ * 
+ * @param {HTMLInput checkbox} obj a checkbox.
+ * @param {number} num the tab number.
+ * @returns
+ */
+
+ function showET(url, num) {
+    //alert('url='+url+'    num='+num+'     tabs='+'ltabs-'+(8+1*num))
+    if (url != "") {
+//      show('ltabs-' + (8 + 1 * num));
+      _('ltabs-' + (8 + 1 * num)).style.opacity=1;
+        if (_('extratab' + num).src != url) _('extratab' + num).src = url;
+    } else {
+//        hide('ltabs-' + (8 + 1 * num));
+        _('ltabs-' + (8 + 1 * num)).style.opacity=0.5;
+    }
 }
 
   </script>
