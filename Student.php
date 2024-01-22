@@ -49,7 +49,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 	<title>Automatic translation for teaching purposes</title>
 	<meta charset="utf-8">

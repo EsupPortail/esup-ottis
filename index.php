@@ -80,7 +80,7 @@ fclose($fd);
 //print_r($T_lang);
 ?>
 <!doctype html>
-<html lang="fr-FR">
+<html lang="en">
 <head>
 	<title>Automatic translation for teaching purposes: Teacher</title>
 	<meta charset="utf-8">
