@@ -967,7 +967,7 @@ function formateresponseTools(datatxt,editable=true) {
         console.log(data_key.length);
 
         if (key!="Img_slide") {
-            res += '<h1> Language : ' + key + '</h1>';
+            res += '<p> Language : ' + key + '</p>';
         }
 
         for (let i in data_key) {
@@ -1118,7 +1118,7 @@ function GetNewPresentation() {
 
     console.log(html);
 
-    var lang = html.getElementsByTagName('h1');
+    var lang = html.getElementsByTagName('p');
     console.log(lang[2].innerHTML);
     var arr = Array.from(lang);
     var myJsonString = JSON.stringify(arr);
