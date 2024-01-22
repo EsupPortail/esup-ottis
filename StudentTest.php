@@ -87,8 +87,13 @@ if ($synchronize) {
 
 <style>
 #bar2 {
-	display:none;
+	display:block;
 }
+
+#bar, #showmenu {
+		display:none;
+	}
+
 
 @media screen and (max-width: 40em) {
 	/* #menu is the original menu */
@@ -140,7 +145,7 @@ if ($synchronize) {
        </div>
        <script>
         $(function(){
-            $('#bar2').popmenu();
+            $('#bar2').popmenu({'top': '5'});
         })
     </script>
 <!--
@@ -448,12 +453,27 @@ Ceci est un test...
   $( function() {
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-		$('#bar2').slicknav({	
-    label: '',
-	  duration: 1000,
-	  easingOpen: "easeOutBounce"
-    });
   } );
+
+  /**
+ * @summary Display the selected tab 
+ * 
+ */
+
+function activetab(tab) {
+    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7', 'tabs-8', 'tabs-9', 'tabs-10', 'tabs-11', 'tabs-12', 'tabs-13'];
+    for (var i = 0; i < TTabs.length; i++) {
+        _(TTabs[i]).style.display = "none";
+        //_("l" + TTabs[i]).style.color = "black";
+        //_("l" + TTabs[i]).style.backgroundColor = "rgb(247,247,247)";
+    }
+    _(tab).style.display = 'block';
+    //_("l" + tab).style.color = "white";
+    //_("l" + tab).style.backgroundColor = "rgb(57,199,204)";
+    //ShowMenu();
+
+}
+
   </script>
   <style>
   </style>
