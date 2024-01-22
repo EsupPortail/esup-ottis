@@ -162,7 +162,7 @@ if ($synchronize) {
 
 <form id="myform" onsubmit="return false;">
 
-<div id="tabs">
+<div id="tabs" style="border:none;">
 	<ul id="bar">
 		<li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
 		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
