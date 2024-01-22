@@ -1121,9 +1121,12 @@ function GetNewPresentation() {
     var lang = html.getElementsByTagName('p');
     var tab_lang = [];
     for (var l = 0; l < lang.length; l++) {
-        console.log(lang[l].innerHTML);
+        tab_lang[l] = lang[l].innerHTML;
     }
 
+    var dl = html.getElementsByTagName('dl');
+    var dt = dl.getElementsByTagName('dt');
+    console.log(dt.length);
     
     var i = 0;
     var j = 0;
@@ -1150,6 +1153,7 @@ function GetNewPresentation() {
 
     //console.table(tab);
     formdata.append("newText", tab);
+    formdata.append("languages", tab_lang);
 
     xhr.open("POST", "EditSlidesNotesAppHTMLTools.php");
     // xhr.setRequestHeader("Content-Type", "application/json");
