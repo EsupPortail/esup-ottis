@@ -1122,7 +1122,7 @@ function GetNewPresentation() {
     var arr = Array.from(lang);
     var myJsonString = JSON.stringify(arr);
 
-    console.log("Languages : " + myJsonString);
+    console.log("Languages : " + arr);
     
     var i = 0;
     var j = 0;
