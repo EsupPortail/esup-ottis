@@ -1126,13 +1126,14 @@ function GetNewPresentation() {
 
     console.log(tab_lang);
 
-    // var k = 1;
-    // var nb_slides = 0;
-    // while (html.getElementById('img_'+k)){
-    //     nb_slides = k;
-    // }
+    var k = 1;
+    var nb_slides = 0;
+    while (html.getElementById('img_'+k)){
+        nb_slides = k;
+        console.log("Nb de slides : " + nb_slides);
+    }
 
-    // console.log("Nombre de slides : " + nb_slides);
+    console.log("Nombre de slides : " + nb_slides);
 
     
     var i = 0;
