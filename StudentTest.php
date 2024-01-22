@@ -80,7 +80,8 @@ if ($synchronize) {
 <script src="js/student-def.js"></script>
 <script src="js/common-func.js"></script>
 <script src="js/student-func.js"></script>
-
+<link rel="stylesheet" href="libs/SlickNav/slicknav.css" />
+<script src="libs/SlickNav/jquery.slicknav.min.js"></script>
 <style>
 .slicknav_menu {
 	display:none;
