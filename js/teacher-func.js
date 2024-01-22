@@ -1138,9 +1138,9 @@ function GetNewPresentation() {
             //console.log("Numero de slide : " + num_slide);
             j = 0;
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
-                text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+                //text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
-                console.log(text);
+                console.log(id_text);
                 j += 1;
             }
         }
