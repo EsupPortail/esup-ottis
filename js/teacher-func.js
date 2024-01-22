@@ -1090,34 +1090,20 @@ function SlideNotesTools(editable=false) {
  * 
  */
 function GetNewPresentation() {
+    //Récupérer le code html de l'encart
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    console.log(data_new_pres);
-    var file = _("fileToUpload12").files[0];
-
-    // if(file){
-    //     var reader = new FileReader();
-    //     reader.onload = function(event){
-    //         console.log(reader.result);
-    //     }
-    //     reader.readAsText(file);
-    // }else{
-    //     console.log('Erreur de lecture du fichier');
-    // }
-    
-
-    var formdata = new FormData();
-    formdata.append("fileToUpload", file);
-
     var xhr = new XMLHttpRequest();
-    var ch = data_new_pres;
-
-    //console.log(data_new_pres);
-   
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
 
     console.log(html);
 
+    //Récupérer le fichier original
+    var file = _("fileToUpload12").files[0];
+    var formdata = new FormData();
+    formdata.append("fileToUpload", file);
+
+    //Récupérer les langues
     var lang = html.getElementsByTagName('p');
     var tab_lang = [];
     for (var l = 0; l < lang.length; l++) {
@@ -1126,17 +1112,17 @@ function GetNewPresentation() {
 
     console.log(tab_lang);
 
+    //Récupérer le nombre de slides
     var k = 1;
     var nb_slides = 0;
     while (html.getElementById('img_'+k)){
         nb_slides = k;
-        console.log("Nb de slides : " + nb_slides);
         k += 1;
     }
 
     console.log("Nombre de slides : " + nb_slides);
 
-    
+    //Récupérer les notes
     var i = 0;
     var j = 0;
     var text = "";
@@ -1144,6 +1130,15 @@ function GetNewPresentation() {
 
     // !! Penser à prendre en compte/supprimer les lignes vides
     // Revoir le code : problème s'il y a des slides sans notes
+
+    for (let code_lang in tab_lang) {
+        console.log(tab_lang[code_lang]);
+
+        // for (var i = 0; l < nb_slides; i++) {
+        //     tab_lang[l] = lang[l].innerHTML;
+        // }
+    }
+
     while (html.getElementById('SlideText'+i+'_'+j)){
         num_slide = i+1;
         tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
