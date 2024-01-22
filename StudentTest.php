@@ -139,7 +139,7 @@ if ($synchronize) {
                <li id="lltabs-7" onclick="activetab('tabs-7')" class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
                <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
-               <li id="lltabs-8" onclick="activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle; padding-top: 15px;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" width="40px"/></div><div>WOOCLAP</div></li>
+               <li id="lltabs-8" onclick="activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" width="40px"/></div><div>WOOCLAP</div></li>
                <li id="lltabs-9" onclick="activetab('tabs-9');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
                <li id="lltabs-10" onclick="activetab('tabs-10');"class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 2</div></li>
                <li id="lltabs-11" onclick="activetab('tabs-11')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 3</div></li>
