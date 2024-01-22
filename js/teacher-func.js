@@ -1119,9 +1119,11 @@ function GetNewPresentation() {
     console.log(html);
 
     var lang = html.getElementsByTagName('p');
-    console.log(lang[2].innerHTML);
+    var tab_lang = [];
+    for (var l = 0; l < lang.length; l++) {
+        console.log(lang[l].innerHTML);
+    }
 
-    console.log("Languages : " + arr);
     
     var i = 0;
     var j = 0;
