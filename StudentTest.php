@@ -428,7 +428,11 @@ Ceci est un test...
   $( function() {
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-		$('#bar2').slicknav();
+		$('#bar2').slicknav({	
+    label: '',
+	  duration: 1000,
+	  easingOpen: "easeOutBounce"
+    });
   } );
   </script>
   <style>
