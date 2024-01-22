@@ -1090,30 +1090,50 @@ function SlideNotesTools(editable=false) {
  * 
  */
 function GetNewPresentation() {
-    //Récupérer le fichier original
+    var data_new_pres = _("notebookcompleteformatted").innerHTML;
+    console.log(data_new_pres);
     var file = _("fileToUpload12").files[0];
+
+    // if(file){
+    //     var reader = new FileReader();
+    //     reader.onload = function(event){
+    //         console.log(reader.result);
+    //     }
+    //     reader.readAsText(file);
+    // }else{
+    //     console.log('Erreur de lecture du fichier');
+    // }
+    
+
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
 
-    //Récupérer les notes modifiées
-    var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    //console.log(data_new_pres);
-    
     var xhr = new XMLHttpRequest();
     var ch = data_new_pres;
+
+    //console.log(data_new_pres);
    
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
 
     console.log(html);
 
-    var k = 1;
-    var nb_slides = 0;
-    while (html.getElementById('img_'+k)){
-        nb_slides = k;
+    var lang = html.getElementsByTagName('p');
+    var tab_lang = [];
+    for (var l = 0; l < lang.length; l++) {
+        tab_lang[l] = lang[l].innerHTML;
     }
 
-    console.log("Nombre de slides : " + nb_slides);
+    console.log(tab_lang);
+
+    // var k = 1;
+    // var nb_slides = 0;
+    // while (html.getElementById('img_'+k)){
+    //     nb_slides = k;
+    // }
+
+    // console.log("Nombre de slides : " + nb_slides);
+
     
     var i = 0;
     var j = 0;
@@ -1138,16 +1158,8 @@ function GetNewPresentation() {
         j = 0;
     }
 
-    //Récupérer les langues
-    var lang = html.getElementsByTagName('p');
-    var tab_lang = [];
-    for (var l = 0; l < lang.length; l++) {
-        tab_lang[l] = lang[l].innerHTML;
-    }
-
-    //Envoi des données;
+    //console.table(tab);
     formdata.append("newText", tab);
-    formdata.append("languages", tab_lang);
 
     xhr.open("POST", "EditSlidesNotesAppHTMLTools.php");
     // xhr.setRequestHeader("Content-Type", "application/json");
