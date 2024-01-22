@@ -1123,50 +1123,43 @@ function GetNewPresentation() {
     console.log("Nombre de slides : " + nb_slides);
 
     //Récupérer les notes
-    // var i = 0;
-    // var j = 0;
     var text = "";
-    var tab = [];
+    var tab_text = [];
 
     // !! Penser à prendre en compte/supprimer les lignes vides
     // Revoir le code : problème s'il y a des slides sans notes
     var i = 0;
-    var phrase = [];
     for (let key in tab_lang) {
         code_lang = tab_lang[key].trim()
         //console.log(code_lang);
-        phrase[i] = '"'+code_lang+'": [';
+        tab_text[i] = '"'+code_lang+'": [';
         for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
             //console.log("Numero de slide : " + num_slide);
             j = 0;
             slide = num_slide+1;
-            //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
-            // console.log(id_text);
-            // text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
-            // console.log(text);
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
                 text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
                 console.log(text);
                 if (j==0){
                     if (num_slide==0){
-                        phrase[i] += '{"Slide": '+slide+', "Notes": ["'+text+'"';
+                        tab_text[i] += '{"Slide": '+slide+', "Notes": ["'+text+'"';
                     }else{
-                        phrase[i] += ', {"Slide": '+slide+', "Notes": ["'+text+'"';
+                        tab_text[i] += ', {"Slide": '+slide+', "Notes": ["'+text+'"';
                     }
                 }else{
-                    phrase[i] += ', "'+text+'"';
+                    tab_text[i] += ', "'+text+'"';
                 }
                 j += 1;
             }
-            phrase[i] += ']}';
+            tab_text[i] += ']}';
             //console.log(phrase[i]);
         }
-        phrase[i] += ']';
-        console.log(phrase[i]);
+        tab_text[i] += ']';
+        console.log(tab_text[i]);
         i += 1;
     }
-    console.log(phrase);
+    console.log(tab_text);
 
     // while (html.getElementById('SlideText'+i+'_'+j)){
     //     num_slide = i+1;
@@ -1185,7 +1178,7 @@ function GetNewPresentation() {
     // }
 
     //console.table(tab);
-    formdata.append("newText", tab);
+    formdata.append("newText", tab_text);
 
     xhr.open("POST", "EditSlidesNotesAppHTMLTools.php");
     // xhr.setRequestHeader("Content-Type", "application/json");
