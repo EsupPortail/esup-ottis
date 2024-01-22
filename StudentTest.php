@@ -471,7 +471,7 @@ function activetab(tab) {
     //_("l" + tab).style.color = "white";
     //_("l" + tab).style.backgroundColor = "rgb(57,199,204)";
     //ShowMenu();
-    $( "#tabs2" ).hide();
+    $( "#bar2" ).hide();
 }
 
   </script>
