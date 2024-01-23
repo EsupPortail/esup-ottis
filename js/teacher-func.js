@@ -989,7 +989,7 @@ function formateresponseTools(datatxt,editable=true) {
                 for (var j = 1; j <= data_key["Images"].length; j++) {
                     toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
                 }
-                setTimeout(toexec, 10);
+                setTimeout(toexec, 50);
             } else {
                 res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
                 var flag = false;
