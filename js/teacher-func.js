@@ -1033,7 +1033,7 @@ function formateresponseToolsTEST(datatxt,editable=true) {
     res += '<dl>';
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         console.log("\n Numéro de la slide : " + numero_slide + "\n");
-        res = res + '<dt>style="font-weight : bold" &nbsp;Slide #' + numero_slide + '<img id="img_' +numero_slide + '" width="50" src=""/></dt>\n';
+        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<img id="img_' +numero_slide + '" width="50" src=""/></dt>\n';
         for (let key in data) {
             if (key!="Img_slide") {
                 data_key = data[key];
