@@ -126,7 +126,12 @@ if ($synchronize) {
   }
   #VoiceOutput, select, input {
     max-width: 90%;
-  }
+  } 
+#img_slides {
+  width: 100%;
+  height: 100%;
+}
+
 </style>
 
 </head>
