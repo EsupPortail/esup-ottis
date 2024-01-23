@@ -1155,7 +1155,7 @@ function CreateNewPresentation() {
             console.log(this.responseText);
         }
     };
-    xhr.addEventListener("load", completeHandler, false);
+    xhr.addEventListener("load", GetNewPresentation, false);
     xhr.send(formdata);
 }
 
