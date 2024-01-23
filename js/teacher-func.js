@@ -1096,7 +1096,7 @@ function GetNewPresentation() {
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
 
-    console.log(html);
+    // console.log(html);
 
     //Récupérer le fichier original
     var file = _("fileToUpload12").files[0];
@@ -1110,7 +1110,7 @@ function GetNewPresentation() {
         tab_lang[l] = lang[l].innerHTML;
     }
 
-    console.log(tab_lang);
+    // console.log(tab_lang);
 
     //Récupérer le nombre de slides
     var k = 1;
@@ -1123,17 +1123,14 @@ function GetNewPresentation() {
     console.log("Nombre de slides : " + nb_slides);
 
     //Récupérer les notes
-    // var text = "";
     var tab_text = [];
 
     // !! Penser à prendre en compte/supprimer les lignes vides
     var i = 0;
     for (let key in tab_lang) {
         code_lang = tab_lang[key].trim()
-        //console.log(code_lang);
         tab_text[i] = '"'+code_lang+'": [';
         for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
-            //console.log("Numero de slide : " + num_slide);
             j = 0;
             slide = num_slide+1;
             if (num_slide==0){
@@ -1144,8 +1141,7 @@ function GetNewPresentation() {
             var text = "";
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
                 text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
-                //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
-                console.log(text);
+                // console.log(text);
                 if (j==0){
                     tab_text[i] += text+'"';
                 }else{
@@ -1153,13 +1149,13 @@ function GetNewPresentation() {
                 }
                 j += 1;
             }
+            console.log("Texte de la slide : "+text);
             if (text=""){
                 tab_text[i] += '"]}';
             }else{
                 tab_text[i] += ']}';
             }
             
-            //console.log(phrase[i]);
         }
         tab_text[i] += ']';
         console.log(tab_text[i]);
@@ -1167,48 +1163,14 @@ function GetNewPresentation() {
     }
     console.log(tab_text);
 
-    // while (html.getElementById('SlideText'+i+'_'+j)){
-    //     num_slide = i+1;
-    //     tab[i] = '{"Slide": '+num_slide+', "Notes": ["'+html.getElementById('SlideText'+i+'_0').textContent+'"';
-    //     j=1;
-    //     while (html.getElementById('SlideText'+i+'_'+j)){
-    //         text = html.getElementById('SlideText'+i+'_'+j).textContent;
-    //         num_slide = i+1;
-    //         tab[i] = tab[i]+', "'+text+'"';
-    //         // console.log(text);
-    //         j = j + 1;
-    //     }
-    //     tab[i] = tab[i]+']}';
-    //     i = i + 1;
-    //     j = 0;
-    // }
-
-    //console.table(tab);
     formdata.append("newText", tab_text);
-
     xhr.open("POST", "EditSlidesNotesAppHTMLTools.php");
-    // xhr.setRequestHeader("Content-Type", "application/json");
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             console.log(this.responseText);
         }
     };
-
-    // xhr.send(JSON.stringify(data_new_pres));
     xhr.send(formdata);
-    // xhr.addEventListener("load", function (e) {affichageConsole(e);}, false);
-    // xhr.send();
-    // console.log(data_new_pres);
-    // console.log(typeof(data_new_pres));
-    // $.post("../ExtractSlidesNotesAppHTMLTools.php", {
-    //     variable:data_new_pres
-    // }, function(data) {
-    //     if (data != "") {
-    //         alert('We sent Jquery string to PHP : ' + data);
-    //     }
-    // });
-
 }
 
 
