@@ -1034,6 +1034,19 @@ function formateresponseToolsTEST(datatxt,editable=true) {
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         console.log("\n Numéro de la slide : " + numero_slide + "\n");
         res = res + '<dt>&nbsp;Slide #' + numero_slide + '<img id="img_' +numero_slide + '" width="50" src=""/></dt>\n';
+        for (let key in data) {
+            if (key!="Img_slide") {
+                data_key = data[key];
+                res += '<span style="font-weight : bold"><p> '+ key + '</p></span>';
+                slide = data_key[numero_slide-1];
+                for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
+                    res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+numero_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
+
+                }
+
+
+            }
+        }
 
     }
     
