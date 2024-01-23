@@ -437,6 +437,7 @@ function readImage() {
                 _('img_slides').onload = resizeSlides;
                 _('img_slides').src = Trep[1];
                 _('stillwaiting').style.display="none";
+                console.log('Got a new image');
             }
 
         };
@@ -501,7 +502,7 @@ function Init() {
 
     if (needSynchronize) Synchronize(prompt('Enter the session pincode'));
     setTimeout(function() {
-        _('wooclap').src = 'https://www.wooclap.com/';
+        _('wooclap').src = 'https://app.wooclap.com/';
     }, 1000);
     setTimeout(function() {
         saveTextQ("[newstudentarrived]");
