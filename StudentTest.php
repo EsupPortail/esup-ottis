@@ -208,7 +208,7 @@ if ($synchronize) {
                <span class="fa-stack fa-lg">
                    <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(100,100,255);;"></i>
                    <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;"></i>
-                   <i class="fa fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;">MENU</i>
+                   <i class="fa fa-inverse fa-menu" style="font-size: 0.4em;">MENU</i>
                  </span>
            </div>
            <ul id="demo_ul">
