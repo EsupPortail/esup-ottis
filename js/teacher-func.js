@@ -1040,11 +1040,19 @@ function formateresponseToolsTEST(datatxt,editable=true) {
                 res += '<span style="font-weight : bold"><p> '+ key + '</p></span>';
                 slide = data_key[numero_slide-1];
                 for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
-                    res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+numero_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
+                    num_slide = numero_slide-1;
+                    res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+num_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
 
                 }
 
 
+            }else{
+                data_key = data[key];
+                var toexec = "";
+                for (var j = 1; j <= data_key["Images"].length; j++) {
+                    toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
+                }
+                setTimeout(toexec, 10);
             }
         }
 
