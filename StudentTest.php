@@ -204,10 +204,11 @@ if ($synchronize) {
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
 <div id="bar2" style="border:none; position: fixed; top: 1px; left: 1px; z-index: 100000;">
-           <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
+           <div class="pop_ctrl" title="Open the menu"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
                    <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(100,100,255);;"></i>
                    <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;"></i>
+                   <i class="fa fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;">MENU</i>
                  </span>
            </div>
            <ul id="demo_ul">
@@ -571,6 +572,7 @@ for($i=0; $i<$nbcircles; $i++) {
   $( function() {
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+    $("body").tooltip();
   } );
 
   /**
