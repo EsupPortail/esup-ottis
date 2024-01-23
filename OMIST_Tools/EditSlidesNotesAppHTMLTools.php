@@ -16,15 +16,17 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     $contenttxt = file_get_contents($tmp_file);
     //echo $contenttxt;
-    $content = explode("\n",$contenttxt);
+    //$content = explode("\n",$contenttxt);
+    $content = $contenttxt;
     $txtslidenotes="";
 
     for($i=0;$i<count($content);$i++) {
         $txt=$content[$i];
-
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
             echo "TEST SLIDESNOTES";
-            $txt = "var slidesnotes = test";
+            $txt_to_replace = $txt;
+            echo "\n";
+            echo $txt_to_replace;
             // $long = strlen("var slidesnotes = ");
             // $txtslidenotes=substr($txt, $long);
             // $txtslidenotes = $txtslidenotes.$new_text;
@@ -32,6 +34,11 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
             // $txtslidenotes=substr($txtslidenotes,0,strlen($txtslidenotes)-1);
         }
     }
+
+    $txt_to_insert = str_replace($txt_to_replace, $new_text, $content);
+    file_put_contents($tmp_file, $txt_to_insert);
+
+    echo $tmp_file;
 
     //echo $txtslidenotes;
     // var_dump($content);
