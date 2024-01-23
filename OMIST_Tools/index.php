@@ -857,7 +857,7 @@ function PopulateVoicesMicrosoft(s) {
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
 
-    <button type=submit id="App12" value="Download" onclick="if (_('fileToUpload12').value!='') {GetNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button>
+    <button type=submit id="App12" value="Download" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download</button>
     <p id="Message12"></p>
   </form> 
 

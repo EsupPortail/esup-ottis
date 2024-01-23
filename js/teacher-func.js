@@ -954,9 +954,7 @@ function SlideNotes() {
  */
 
 function formateresponseTools(datatxt,editable=true) {
-    //console.log(datatxt);
     currentPresentation = [];
-    //alert(datatxt);
     var res = '';
     var data = JSON.parse(datatxt);
     console.log(data);
@@ -981,22 +979,18 @@ function formateresponseTools(datatxt,editable=true) {
                     } else {
                         txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
                     }
-                    // console.log(txtnotes);
                 }
             }
 
             res += '<dl>';
 
             if (data_key["Images"]) {
-                //alert("The presentation contains "+data_key["Images"].length+" images");
                 var toexec = "";
                 for (var j = 1; j <= data_key["Images"].length; j++) {
                     toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
                 }
                 setTimeout(toexec, 10);
             } else {
-                //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
-                //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
                 res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
                 var flag = false;
                 for (var j = 0; j < slide["Notes"].length; j++) {
@@ -1019,7 +1013,6 @@ function formateresponseTools(datatxt,editable=true) {
         res += '</dl>';
         }
     }
-    //  alert(res);
     console.log("DEBUG : " + res);
     return res;
 }
@@ -1033,16 +1026,6 @@ function formateresponseTools(datatxt,editable=true) {
 function completeHandlerTools(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
     _("progressBar").value = 0;
-
-    // // Re-initialize the presentation
-    // previousimage = -1;
-    // currentDiscours = 0;
-    // if (currentPresentation.length > 0) {
-    //     setTimeout(function() {
-    //         _('stillwaiting').style.display="none";
-    //         ShowImage(currentPresentation[0]['Slide']);
-    //     }, 1000);
-    // }
 }
 
 /**
@@ -1058,8 +1041,7 @@ function SlideNotesTools(editable=false) {
         alert('Only html files are allowed !');
         return -1;
     }
-    // _('stillwaiting').style.display="block";
-    // _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
+
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
     var xhr = new XMLHttpRequest();
@@ -1067,7 +1049,6 @@ function SlideNotesTools(editable=false) {
     xhr.open("POST", scriptfile);
 
     xhr.upload.addEventListener("progress", progressHandler, false);
-    //  xhr.addEventListener("load", completeHandler, false);
     xhr.addEventListener("load", function (e) {completeHandlerTools(e,editable);}, false);
 
     // _("App12").style.backgroundColor = 'rgb(25,190,40)';
@@ -1078,18 +1059,22 @@ function SlideNotesTools(editable=false) {
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
-        // _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
         alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    //AbortTimeout(xhr);
+}
+
+function GetNewPresentation(event){
+    var json_data = event.target.responseText;
+    var data = JSON.parse(datatxt);
+    console.log(data);
 }
 
 /**
  * @summary The function that is executed for downloading the new presentation
  * 
  */
-function GetNewPresentation() {
+function CreateNewPresentation() {
     //Récupérer le code html de l'encart
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var xhr = new XMLHttpRequest();
@@ -1170,6 +1155,7 @@ function GetNewPresentation() {
             console.log(this.responseText);
         }
     };
+    xhr.addEventListener("load", completeHandler, false);
     xhr.send(formdata);
 }
 
