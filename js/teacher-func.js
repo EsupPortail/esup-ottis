@@ -1066,7 +1066,7 @@ function SlideNotesTools(editable=false) {
 
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
-    var data = JSON.parse(datatxt);
+    var data = JSON.parse(json_data);
     console.log(data);
 }
 
