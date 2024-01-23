@@ -1110,8 +1110,8 @@ function SlideNotesTools(editable=false) {
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
-    _("newnotebook").innerHTML ='<dt style="font-weight : bold">&nbsp;Slide #</dt>';
-    _("newnotebook").innerHTML = json_data;
+    _("newnotebook").innerHTML ='<p>Slide</p>';
+    //_("newnotebook").innerHTML = json_data;
     console.log(json_data);
 
 }
