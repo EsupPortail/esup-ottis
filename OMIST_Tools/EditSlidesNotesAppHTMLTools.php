@@ -40,10 +40,10 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     //var_dump($txt_to_insert);
     file_put_contents($tmp_file, $txt_to_insert);
 
-    $newFile = "tmp/test.html"
-    $open = fopen($newFile,'w');
-    fwrite($open,$txt_to_insert);
-    fclose($open);
+    // $newFile = "tmp/test.html"
+    // $open = fopen($newFile,'w');
+    // fwrite($open,$txt_to_insert);
+    // fclose($open);
 
     // echo $newFile;
 
@@ -65,10 +65,10 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo "Test échoué";
 }
 
-header('Content-Type: text/html');
-header('Content-Disposition: attachment; filename="output.html"');
-readfile('tmp/test.html');
-unlink('tmp/test.html');
+// header('Content-Type: text/html');
+// header('Content-Disposition: attachment; filename="output.html"');
+// readfile('tmp/test.html');
+// unlink('tmp/test.html');
 
 
 ?>
