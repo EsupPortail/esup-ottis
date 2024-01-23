@@ -986,10 +986,10 @@ function formateresponseTools(datatxt,editable=true) {
 
             if (data_key["Images"]) {
                 var toexec = "";
-                // for (var j = 1; j <= data_key["Images"].length; j++) {
-                //     toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
-                // }
-                // setTimeout(toexec, 10);
+                for (var j = 1; j <= data_key["Images"].length; j++) {
+                    toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
+                }
+                setTimeout(toexec, 10);
             } else {
                 res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
                 var flag = false;
@@ -1017,6 +1017,26 @@ function formateresponseTools(datatxt,editable=true) {
     return res;
 }
 
+function formateresponseToolsTEST(datatxt,editable=true) {
+    currentPresentation = [];
+    var res = '';
+    var data = JSON.parse(datatxt);
+    console.log(data);
+    
+    for (let key in data) {
+        if (key!="Img_slide") {
+            data_key = data[key];
+            nb_slides = data_key.length;
+        }
+    }
+
+    for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
+        console.log("\n Numéro de la slide : " + numero_slide + "\n");
+    }
+    
+    return res;
+}
+
 /**
  * @summary A function that is fired when a complete lesson is loaded.
  * 
@@ -1024,7 +1044,8 @@ function formateresponseTools(datatxt,editable=true) {
  */
 
 function completeHandlerTools(event,editable=false) {
-    _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
+    // _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
+    _("notebookcompleteformatted").innerHTML = formateresponseToolsTEST(event.target.responseText,editable);
     _("progressBar").value = 0;
 }
 
