@@ -40,7 +40,17 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     var_dump($txt_to_insert);
     file_put_contents($tmp_file, $txt_to_insert);
 
-    //echo $tmp_file;
+    // $newFile = "test.html"
+    // $open = fopen($newFile,'w');
+    // fwrite($open,$txt_to_insert);
+    // fclose($open);
+
+    // echo $newFile;
+
+    echo "\n Fichier initial \n";
+    echo $tmp_file;
+    echo "\n Fichier \n";
+    var_dump($tmp_file);
 
     //echo $txtslidenotes;
     // var_dump($content);
