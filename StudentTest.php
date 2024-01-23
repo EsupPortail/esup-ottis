@@ -509,11 +509,11 @@ function activetab(tab) {
     //alert('url='+url+'    num='+num+'     tabs='+'ltabs-'+(8+1*num))
     if (url != "") {
 //      show('ltabs-' + (8 + 1 * num));
-      _('ltabs-' + (8 + 1 * num)).style.opacity=1;
+      _('lltabs-' + (8 + 1 * num)).style.opacity=1;
         if (_('extratab' + num).src != url) _('extratab' + num).src = url;
     } else {
 //        hide('ltabs-' + (8 + 1 * num));
-        _('ltabs-' + (8 + 1 * num)).style.opacity=0.5;
+        _('lltabs-' + (8 + 1 * num)).style.opacity=0.5;
     }
 }
 
