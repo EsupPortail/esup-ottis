@@ -510,7 +510,7 @@ for($i=0; $i<$nbcircles; $i++) {
 }
 ?>
 </svg></div>
-					<p id="spinnertxt">No presentation yet...<br/>Please go to the complete lesson tab to import it.</p>
+					<p id="spinnertxt">No presentation yet...</p>
 </div>
 			<img src=""
 				 id="img_slides" style="width: 100%; height: 100%" /> 

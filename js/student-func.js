@@ -436,6 +436,7 @@ function readImage() {
                 currentrandom = Trep[0];
                 _('img_slides').onload = resizeSlides;
                 _('img_slides').src = Trep[1];
+                _('stillwaiting').style.display="none";
             }
 
         };
