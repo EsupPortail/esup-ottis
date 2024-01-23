@@ -124,6 +124,9 @@ if ($synchronize) {
   #demo_ul li {
     font-family: helvetica, arial, sans-serif;
   }
+  #VoiceOutput, select, input {
+    max-width: 90%;
+  }
 </style>
 
 </head>
@@ -145,7 +148,8 @@ if ($synchronize) {
                <li id="lltabs-7" onclick="activetab('tabs-7')" class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
                <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
-               <li id="lltabs-8" onclick="activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" width="40px" style="vertical-align: middle;"/></div><div>WOOCLAP</div></li>
+               <li id="lltabs-8" style="opacity: 0.5" onclick="if (this.style.opacity 
+               ==1) activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" width="40px" style="vertical-align: middle;"/></div><div>WOOCLAP</div></li>
                <li id="lltabs-9" style="opacity: 0.5" onclick="if (this.style.opacity 
                ==1) activetab('tabs-9');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
                <li id="lltabs-10" style="opacity: 0.5" onclick="if (this.style.opacity 
@@ -266,7 +270,7 @@ Show the original version banner
 
   <li><b>Extra tabs</b></li>
   <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
-  <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
+  <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://www.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
   <li style="display:none;">Pending requests : <span id="nbrequests">0</span></li>
 <li><b>Advanced options</b></li>
   <li>Voice speed : </li><li><div id="slider_speed"></div></li>
