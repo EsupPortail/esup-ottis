@@ -1137,16 +1137,17 @@ function GetNewPresentation() {
             //console.log("Numero de slide : " + num_slide);
             j = 0;
             slide = num_slide+1;
+            if (num_slide==0){
+                tab_text[i] += '{"Slide": '+slide+', "Notes": ["';
+            }else{
+                tab_text[i] += ', {"Slide": '+slide+', "Notes": ["';
+            }
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
                 text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
                 console.log(text);
                 if (j==0){
-                    if (num_slide==0){
-                        tab_text[i] += '{"Slide": '+slide+', "Notes": ["'+text+'"';
-                    }else{
-                        tab_text[i] += ', {"Slide": '+slide+', "Notes": ["'+text+'"';
-                    }
+                    tab_text[i] += text+'"';
                 }else{
                     tab_text[i] += ', "'+text+'"';
                 }

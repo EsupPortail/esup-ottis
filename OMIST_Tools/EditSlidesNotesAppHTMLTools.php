@@ -15,7 +15,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo $new_text;
 
     $contenttxt = file_get_contents($tmp_file);
-    echo $contenttxt;
+    //echo $contenttxt;
     $content = explode("\n",$contenttxt);
     $txtslidenotes="";
 
