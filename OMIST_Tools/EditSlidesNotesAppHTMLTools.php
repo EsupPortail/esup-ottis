@@ -65,10 +65,10 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo "Test échoué";
 }
 
-// header('Content-Type: text/html');
-// header('Content-Disposition: attachment; filename="output.html"');
-// readfile('tmp/test.html');
-// unlink('tmp/test.html');
+header('Content-Type: text/html');
+header('Content-Disposition: attachment; filename="output.html"');
+readfile('tmp/test.html');
+unlink('tmp/test.html');
 
 
 ?>
