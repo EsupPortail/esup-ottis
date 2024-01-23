@@ -207,7 +207,7 @@ if ($synchronize) {
            <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
                    <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(100,100,255);;"></i>
-                   <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 0.8em;"></i>
+                   <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;"></i>
                  </span>
            </div>
            <ul id="demo_ul">
