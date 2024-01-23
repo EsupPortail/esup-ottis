@@ -1150,7 +1150,7 @@ function GetNewPresentation() {
                 j += 1;
             }
             console.log("Texte de la slide : "+text);
-            if (text=""){
+            if (text==""){
                 tab_text[i] += '"]}';
             }else{
                 tab_text[i] += ']}';
