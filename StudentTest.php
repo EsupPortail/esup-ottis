@@ -235,13 +235,13 @@ if ($synchronize) {
         $(function(){
             $('#bar2').popmenu({
               'controller': true,
-              'width': '320px',  // default '300px'  
+              'width': '360px',  // default '300px'  
               'background': '#34495e',
               'focusColor': '#1abc9c',
               'borderRadius': '10px',
               'top': '0', // Default = 50
               'left': '0',
-              'iconSize': '80px' // default '100px'           
+              'iconSize': '90px' // default '100px'           
             });
         })
     </script>
