@@ -1030,8 +1030,11 @@ function formateresponseToolsTEST(datatxt,editable=true) {
         }
     }
 
+    res += '<dl>';
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         console.log("\n Numéro de la slide : " + numero_slide + "\n");
+        res = res + '<dt>&nbsp;Slide #' + numero_slide + '<img id="img_' +numero_slide + '" width="50" src=""/></dt>\n';
+
     }
     
     return res;
