@@ -654,6 +654,7 @@ function resizeSlides() {
     var ratio = slide.width / slide.height;
     var aggrandissmentX = (window.innerWidth - 30) / slide.width;
     var aggrandissmentY = (window.innerHeight - 80) / slide.height;
+    console.log("W="+slide.width+", H="+slide.height+', WW='+window.innerWidth+', WH='+window.innerHeight+', AX='+aggrandissmentX+', AY='+aggrandissmentY);
     if (aggrandissmentX > aggrandissmentY) {
         /*
         slide.width=aggrandissmentY*slide.width;
