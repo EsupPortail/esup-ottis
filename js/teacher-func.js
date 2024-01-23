@@ -965,7 +965,7 @@ function formateresponseTools(datatxt,editable=true) {
         console.log(data_key.length);
 
         if (key!="Img_slide") {
-            res += '<span style="font-weight : bold">-----------------Language-----------------<p> '+ key + '</p></span>';
+            res += '<span style="font-weight : bold"><p> '+ key + '</p></span>';
         }
 
         for (let i in data_key) {
