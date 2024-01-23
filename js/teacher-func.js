@@ -953,7 +953,7 @@ function SlideNotes() {
  * @returns an HTML encoding of what should be shown in the complete lesson tab.
  */
 
-function formateresponseTools(datatxt,editable=true) {
+function formateresponseToolsOld(datatxt,editable=true) {
     currentPresentation = [];
     var res = '';
     var data = JSON.parse(datatxt);
@@ -1017,7 +1017,7 @@ function formateresponseTools(datatxt,editable=true) {
     return res;
 }
 
-function formateresponseToolsTEST(datatxt,editable=true) {
+function formateresponseTools(datatxt,editable=true) {
     currentPresentation = [];
     var res = '';
     var data = JSON.parse(datatxt);
@@ -1044,8 +1044,6 @@ function formateresponseToolsTEST(datatxt,editable=true) {
                     res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+num_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
 
                 }
-
-
             }else{
                 data_key = data[key];
                 var toexec = "";
@@ -1069,7 +1067,7 @@ function formateresponseToolsTEST(datatxt,editable=true) {
 
 function completeHandlerTools(event,editable=false) {
     // _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
-    _("notebookcompleteformatted").innerHTML = formateresponseToolsTEST(event.target.responseText,editable);
+    _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
     _("progressBar").value = 0;
 }
 
@@ -1112,7 +1110,7 @@ function SlideNotesTools(editable=false) {
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
-    console.log(data);
+    console.log(json_data);
 
 }
 
