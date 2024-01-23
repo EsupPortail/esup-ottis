@@ -50,7 +50,9 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     echo "\n Fichier initial \n";
     echo $tmp_file;
     echo "\n Fichier \n";
-    var_dump($tmp_file);
+    // var_dump($tmp_file);
+    $new_contenttxt = file_get_contents($tmp_file);
+    echo $new_contenttxt;
 
     //echo $txtslidenotes;
     // var_dump($content);
