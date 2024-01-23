@@ -1033,11 +1033,11 @@ function formateresponseToolsTEST(datatxt,editable=true) {
     res += '<dl>';
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         console.log("\n Numéro de la slide : " + numero_slide + "\n");
-        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<img id="img_' +numero_slide + '" width="100" src=""/></dt>\n';
+        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<img id="img_' +numero_slide + '" width="100" src=""/></dd></dt>\n';
         for (let key in data) {
             if (key!="Img_slide") {
                 data_key = data[key];
-                res += '<span style="font-weight : bold"><p> '+ key + '</p></span>';
+                res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';;
                 slide = data_key[numero_slide-1];
                 for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
                     num_slide = numero_slide-1;
