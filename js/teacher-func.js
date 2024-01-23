@@ -1127,7 +1127,6 @@ function GetNewPresentation() {
     var tab_text = [];
 
     // !! Penser à prendre en compte/supprimer les lignes vides
-    // Revoir le code : problème s'il y a des slides sans notes
     var i = 0;
     for (let key in tab_lang) {
         code_lang = tab_lang[key].trim()
@@ -1147,13 +1146,13 @@ function GetNewPresentation() {
                 //var id_text = 'SlideText_'+code_lang+'_'+num_slide+'_'+j;
                 console.log(text);
                 if (j==0){
-                    tab_text[i] += text+'"';
+                    tab_text[i] += text;
                 }else{
-                    tab_text[i] += ', "'+text+'"';
+                    tab_text[i] += ', "'+text;
                 }
                 j += 1;
             }
-            tab_text[i] += ']}';
+            tab_text[i] += '"]}';
             //console.log(phrase[i]);
         }
         tab_text[i] += ']';
