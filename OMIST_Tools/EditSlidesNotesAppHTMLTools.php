@@ -25,16 +25,16 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     $txt_to_insert = str_replace($txt_to_replace, $new_text, $content);
     var_dump($txt_to_insert);
-    file_put_contents($tmp_file, $txt_to_insert);
+    //file_put_contents($tmp_file, $txt_to_insert);
 
     // $newFile = "tmp/test.html"
     // $open = fopen($newFile,'w');
     // fwrite($open,$txt_to_insert);
     // fclose($open);
 
-    $new_contenttxt = file_get_contents($tmp_file);
+    //$new_contenttxt = file_get_contents($tmp_file);
 
-    //echo json_encode($new_contenttxt);
+    echo json_encode($txt_to_insert);
 }
 
 // header('Content-Type: text/html');
