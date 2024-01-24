@@ -99,6 +99,7 @@ fclose($fd);
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
   <link href="styles/teacher.css" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
   <style>
 
 /* Spinner */
@@ -164,6 +165,17 @@ fclose($fd);
 	  to {transform: rotate(360deg);}
   }
   
+.hidesmallscreens {}
+
+@media (max-width:500px) {
+	.hidesmallscreens {
+		display: none;
+	}
+}
+
+.fa {
+    font-size: 20px;
+}
 
   </style>
   <script type="text/javascript">
@@ -221,7 +233,7 @@ fclose($fd);
 	<form id="myform" onchange="updateConfig();">
 		<div id="tabs">
 			<ul id="bar">
-				<li><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;">Informations</a></li>
+				<li><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">Settings</span></a></li>
 				<li><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;">Classroom</a></li>
 				<li><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;">Notebook</a></li>
 				<li><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;">Complete lesson</a></li>
