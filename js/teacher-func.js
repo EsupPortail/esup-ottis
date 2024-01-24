@@ -1176,7 +1176,8 @@ function CreateNewSpeech() {
         txt += "------------- Slide "+slide+" -------------\n";
         j = 0;
         while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
-            txt += html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent + "\n";
+            txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j).textContent + "\n";
+            j += 1;
         }
 
     }
