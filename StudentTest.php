@@ -195,6 +195,9 @@ if ($synchronize) {
 	  to {transform: rotate(360deg);}
   }
   
+  #tab-0 {
+    margin-top: 50px;
+  }
 </style>
 
 </head>
