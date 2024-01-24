@@ -1107,9 +1107,18 @@ function SlideNotesTools(editable=false) {
     xhr.send(formdata);
 }
 
+function DownloadHTMLFile(filename, elHtml, mimeType) {
+    var link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
+    link.setAttribute('download', filename);
+    link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+    link.click();
+}
+
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
+    DownloadHTMLFile("nouveau.html", data);
     console.log(json_data);
 
 }
