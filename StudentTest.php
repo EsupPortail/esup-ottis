@@ -320,7 +320,7 @@ if ($synchronize) {
   </select></span><br/>
 <span>
 <label>Show the translated version banner ?</label>
-<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/></span>
+<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/></span><br/>
 <span>
 <label for="ColorTitre">Translated version banner color : </label><select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
@@ -339,7 +339,7 @@ if ($synchronize) {
 <span><label>
 Show the original version banner</label>
 <input type="checkbox" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
-  </select></span>
+  </select></span><br/>
 <span><label for="ColorTitreVO">original version banner color : </label><select id="ColorTitreVO" onchange="ChangeColor('VOBanner',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
@@ -360,7 +360,7 @@ Show the original version banner</label>
 <!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
 <span><label>WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></span><br/>
   <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
-  <span><label>Voice speed : </label><div id="slider_speed"></div></span>
+  <span><label for="slider_speed">Voice speed : </label><br/><div id="slider_speed"></div></span>
 </div>
 	</div>
 	<div id="tabs-1">
