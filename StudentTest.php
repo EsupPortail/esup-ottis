@@ -215,8 +215,8 @@ if ($synchronize) {
                  </span>
            </div>
            <ul id="demo_ul">
-               <li id="lltabs-0" onclick="activetab('tabs-0')" class="demo_li"><div><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></div><div>Settings</div></li>
-               <li id="lltabs-1" onclick="activetab('tabs-1')" class="demo_li"><div><i class="fa fa-comments fa-2x fa-fw"></i></div><div>Tchat</div></li>
+               <li id="lltabs-0" onclick="activetab('tabs-0')" class="demo_li"><div><i class="fa fa-cog"></i></div><div>Settings</div></li>
+               <li id="lltabs-1" onclick="activetab('tabs-1')" class="demo_li"><div><i class="fa fa-comments"></i></div><div>Tchat</div></li>
                <li id="lltabs-7" onclick="activetab('tabs-7')" class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
                <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
