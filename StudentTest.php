@@ -296,6 +296,7 @@ if ($synchronize) {
 </span>
 </div>
 <h3>Appearance settings</h3>
+<div>
 <span style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
 </span>
 <span><label>Subtitles font size ? </label><select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
