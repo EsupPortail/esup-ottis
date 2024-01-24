@@ -1167,9 +1167,9 @@ function CreateNewSpeech() {
 
     var txt = "";
     for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-        txt = "------------- Slide "+num_slide+" -------------\n";
-        console.log(txt);
+        txt += "------------- Slide "+num_slide+" -------------\n";
     }
+    console.log(txt);
 }
 
 
