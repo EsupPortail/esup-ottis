@@ -233,20 +233,20 @@ fclose($fd);
 	<form id="myform" onchange="updateConfig();">
 		<div id="tabs">
 			<ul id="bar">
-				<li><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
-				<li><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
-				<li><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;">Notebook</a></li>
-				<li><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;">Complete lesson</a></li>
-				<li id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus();"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Slides</span></a></li>
-				<li id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) _('visio').src='https://meet.jit.si/Translator_'+_('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
-				<li id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
-				<li id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;">Share</a></li>
-				<li id="titlewooclap"><a href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
-				<li id="titletools"><a href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;">Slide Tools</a></li>
-				<li id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;">1</a></li>
-				<li id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;">2</a></li>
-				<li id="titleextratab3"><a href="#tabs-11" onclick="inSlideTab=false;">3</a></li>
-				<li id="titleextratab4"><a href="#tabs-12" onclick="inSlideTab=false;">4</a></li>
+				<li title="Settings tab (language configuration, appearance,...)"><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
+				<li title="Multilingual Tchat tab"><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
+				<li title="Discourse tab"><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;">Notebook</a></li>
+				<li title="Upload your PPTX or HTML lesson in this tab"><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;">Complete lesson</a></li>
+				<li title="The slides are shown in this tab" id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus();"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Slides</span></a></li>
+				<li title="Jitsi visioconference tab" id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) _('visio').src='https://meet.jit.si/Translator_'+_('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
+				<li title="Live translation tab" id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
+				<li title="Links allowing to share to course with students or other teachers are displayed in this tab" id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;"><i class="fa fa-share-alt"></i><span class="hidesmallscreens">&nbsp;Share</span></a></li>
+				<li title="A tab allowing to interact with WOOCLAP(c)" id="titlewooclap"><a href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;">WOOCLAP</a></li>
+				<li title="All the slide manipulation tools can be found here" id="titletools"><a href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;">Slide Tools</a></li>
+				<li title="Extra tab for interacting with external tools" id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 1</span></a></li>
+				<li title="Extra tab for interacting with external tools" id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
+				<li title="Extra tab for interacting with external tools" id="titleextratab3"><a href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
+				<li title="Extra tab for interacting with external tools" id="titleextratab4"><a href="#tabs-12" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 4</span></a></li>
 			</ul>
 			<div id="tabs-0">
 				<h3>Language configuration</h3>
