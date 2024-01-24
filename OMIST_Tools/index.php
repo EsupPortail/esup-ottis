@@ -850,7 +850,6 @@ function PopulateVoicesMicrosoft(s) {
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
-    <div id="newnotebook" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
     <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
     <input type="hidden" id="Random12" name="randompath" value=""/>
     <input type="hidden" id="Extension12" name="Extension" value="txt"/>
