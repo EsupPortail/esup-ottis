@@ -197,7 +197,13 @@ if ($synchronize) {
   
   #tabs-0 {
     margin-top: 50px;
+    width:100%;
   }
+
+  #tabs-0 div{
+    width:100%;
+  }
+  
 </style>
 
 </head>
@@ -275,7 +281,7 @@ if ($synchronize) {
 		<li id="ltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li>
 
 	</ul>
-	<div id="tabs-0" style="width:100%">
+	<div id="tabs-0">
     <h3 >Language and basic settings</h3>
     <div>
     <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></span>
