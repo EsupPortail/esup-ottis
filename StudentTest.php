@@ -199,7 +199,7 @@ if ($synchronize) {
     margin-top: 50px;
     width: 100%;
   }
-  body, #tabs {
+  #tabs {
     width: 100%;
   }
 </style>
