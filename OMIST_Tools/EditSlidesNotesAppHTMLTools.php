@@ -13,6 +13,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     $contenttxt = file_get_contents($tmp_file);
     $content = explode("\n",$contenttxt);
+    var_dump($content);
     $txtslidenotes="";
 
     for($i=0;$i<count($content);$i++) {
@@ -32,7 +33,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     $new_contenttxt = file_get_contents($tmp_file);
 
-    echo $new_contenttxt;
+    //echo json_encode($new_contenttxt);
 }
 
 // header('Content-Type: text/html');
