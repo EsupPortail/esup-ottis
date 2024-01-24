@@ -1125,7 +1125,7 @@ function SlideNotesTools(editable=false) {
  * @param {string} elHtml a text value contained the HTML text of the animation.
  * @param {string} mimeType a text value contained the MIME type.
  */
-function DownloadHTMLFile(filename, elHtml, mimeType) {
+function DownloadFile(filename, elHtml, mimeType) {
     var link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
     link.setAttribute('download', filename);
@@ -1141,7 +1141,7 @@ function DownloadHTMLFile(filename, elHtml, mimeType) {
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
-    DownloadHTMLFile("nouveau.html", data);
+    DownloadFile("nouveau.html", data);
     console.log(json_data);
 
 }
@@ -1170,6 +1170,7 @@ function CreateNewSpeech() {
     var lang_origin = lang[0].innerHTML.trim();
     console.log(lang_origin);
 
+    //Récupérer les notes dans la langue d'origine
     var txt = "";
     for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
         slide = num_slide+1;
@@ -1179,10 +1180,10 @@ function CreateNewSpeech() {
             txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j).textContent + "\n";
             j += 1;
         }
-
     }
-    console.log(txt);
-    DownloadHTMLFile("test_speech.txt", txt);
+    //console.log(txt);
+    var name_file = "speech_"+lang_origin+".txt";
+    DownloadFile(name_file, txt);
 }
 
 
