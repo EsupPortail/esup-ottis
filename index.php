@@ -174,7 +174,7 @@ fclose($fd);
 }
 
 .fa {
-    font-size: 20px;
+    font-size: 18px;
 }
 
   </style>
@@ -233,11 +233,11 @@ fclose($fd);
 	<form id="myform" onchange="updateConfig();">
 		<div id="tabs">
 			<ul id="bar">
-				<li><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">Settings</span></a></li>
-				<li><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;">Classroom</a></li>
+				<li><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
+				<li><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
 				<li><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;">Notebook</a></li>
 				<li><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;">Complete lesson</a></li>
-				<li id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus();">Slides</a></li>
+				<li id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus();"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Slides</span></a></li>
 				<li id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) _('visio').src='https://meet.jit.si/Translator_'+_('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
 				<li id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
 				<li id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;">Share</a></li>
