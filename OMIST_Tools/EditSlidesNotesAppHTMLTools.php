@@ -22,8 +22,12 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
             $txt_to_replace = $txt;
         }
     }
+    echo "Texte à remplacer \n";
+    echo $txt_to_replace;
 
     $txt_to_insert = "var slidesnotes = {" .$new_text. "}";
+    echo "Texte à insérer \n";
+    echo $txt_to_insert;
     $new_file = str_replace($txt_to_replace, $txt_to_insert, $content);
     //var_dump($txt_to_insert);
 
@@ -38,7 +42,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     //$new_contenttxt = file_get_contents($tmp_file);
 
-    echo json_encode($new_html);
+    //echo json_encode($new_html);
 }
 
 // header('Content-Type: text/html');
