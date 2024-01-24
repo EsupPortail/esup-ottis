@@ -25,6 +25,9 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     $txt_to_insert = str_replace($txt_to_replace, $new_text, $content);
     var_dump($txt_to_insert);
+
+    $new_html = implode("\n",$txt_to_insert);
+    echo $new_html;
     //file_put_contents($tmp_file, $txt_to_insert);
 
     // $newFile = "tmp/test.html"
@@ -34,7 +37,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     //$new_contenttxt = file_get_contents($tmp_file);
 
-    echo json_encode($txt_to_insert);
+    echo json_encode($new_html);
 }
 
 // header('Content-Type: text/html');
