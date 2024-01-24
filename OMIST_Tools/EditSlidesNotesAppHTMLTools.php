@@ -19,7 +19,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     for($i=0;$i<count($content);$i++) {
         $txt=$content[$i];
         if (strpos("_".$txt,"var slidesnotes = ")>0) {
-            $txt_to_replace = $txt;
+            $txt_to_replace = "var slidesnotes = {" .$txt. "}";
         }
     }
 
