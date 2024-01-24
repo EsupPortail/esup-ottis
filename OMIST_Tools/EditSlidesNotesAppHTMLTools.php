@@ -27,7 +27,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     $new_file = str_replace($txt_to_replace, $txt_to_insert, $content);
     //var_dump($txt_to_insert);
 
-    $new_html = implode("\n",$txt_to_insert);
+    $new_html = implode("\n",$new_file);
     //echo $new_html;
     //file_put_contents($tmp_file, $txt_to_insert);
 
