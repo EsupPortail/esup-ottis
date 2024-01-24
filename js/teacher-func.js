@@ -1272,7 +1272,7 @@ function CreateNewPresentation() {
             console.log(this.responseText);
         }
     };
-    //xhr.addEventListener("load", GetNewPresentation, false);
+    xhr.addEventListener("load", GetNewPresentation, false);
     xhr.send(formdata);
 }
 
