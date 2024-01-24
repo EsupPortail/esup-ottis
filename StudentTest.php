@@ -203,6 +203,9 @@ if ($synchronize) {
   #tabs-0 div{
     width:100%;
   }
+  #tabs-0 h3{
+    width:100%;
+  }
   
 </style>
 
