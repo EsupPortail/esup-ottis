@@ -125,7 +125,7 @@ if ($synchronize) {
     font-family: helvetica, arial, sans-serif;
   }
   #VoiceOutput, select, input {
-    max-width: 300px;
+    max-width: 30%;
   } 
 #img_slides {
   width: 100%;
