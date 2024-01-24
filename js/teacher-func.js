@@ -1151,6 +1151,8 @@ function GetNewPresentation(event){
  * 
  */
 function CreateNewSpeech() {
+    var data_new_pres = _("notebookcompleteformatted").innerHTML;
+    console.log(data_new_pres);
 }
 
 
