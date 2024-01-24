@@ -244,7 +244,10 @@ fclose($fd);
 				<li title="Live translation tab" id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
 				<li title="Links allowing to share to course with students or other teachers are displayed in this tab" id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;"><i class="fa fa-share-alt"></i><span class="hidesmallscreens">&nbsp;Share</span></a></li>
 				<li title="A tab allowing to interact with WOOCLAP(c)" id="titlewooclap"><a href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;"><img src="images/wooclap-ico.png" width="18px" style="vertical-align: middle;"/><span class="hidesmallscreens">&nbsp;WOOCLAP</span></a></li>
-				<li title="All the slide manipulation tools can be found here" id="titletools"><a href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Slide tools</span></a></li>
+				<li title="All the slide manipulation tools can be found here" id="titletools"><a href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;"><span class="fa fa-stack fa-lg">
+            <i class="fa fa-desktop fa-stack-2x"></i>
+            <i class="fa fa-cogs fa-stack-1x" style="color: black; font-size: 0.5em; line-height: 55px;"></i>
+          </span><!--<i class="fa fa-wrench"></i>--><span class="hidesmallscreens">&nbsp;Slide tools</span></a></li>
 				<li title="Extra tab for interacting with external tools" id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 1</span></a></li>
 				<li title="Extra tab for interacting with external tools" id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
 				<li title="Extra tab for interacting with external tools" id="titleextratab3"><a href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
