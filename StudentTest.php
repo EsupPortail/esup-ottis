@@ -195,7 +195,7 @@ if ($synchronize) {
 	  to {transform: rotate(360deg);}
   }
   
-  #tab-0 {
+  #tabs-0 {
     margin-top: 50px;
   }
 </style>
@@ -209,7 +209,7 @@ if ($synchronize) {
 <div id="bar2" style="border:none; position: fixed; top: 1px; left: 1px; z-index: 100000;">
            <div class="pop_ctrl" title="Open the menu dialog"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
-                   <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(100,100,255);;"></i>
+                   <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(150,150,255);"></i>
                    <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;"></i>
                  </span>
            </div>
