@@ -1017,6 +1017,15 @@ function formateresponseToolsOld(datatxt,editable=true) {
     return res;
 }
 
+/**
+ * @summary a function that is fired when a new lesson is loaded to prepare all the data structures.
+ * 
+ * @param {string} datatxt a text value contained the text of the speech and a b64 version of the images.
+ * @param {boolean} editable a boolean to edit note content.
+ *  
+ * @returns an HTML encoding of what should be shown in the complete lesson tab.
+ */
+
 function formateresponseTools(datatxt,editable=true) {
     currentPresentation = [];
     var res = '';
@@ -1060,9 +1069,10 @@ function formateresponseTools(datatxt,editable=true) {
 }
 
 /**
- * @summary A function that is fired when a complete lesson is loaded.
+ * @summary A function that is fired when a complete lesson is loaded with the animation editor.
  * 
  * @param {event} event an event.
+ * @param {boolean} editable a boolean to edit note content.
  */
 
 function completeHandlerTools(event,editable=false) {
@@ -1072,8 +1082,9 @@ function completeHandlerTools(event,editable=false) {
 }
 
 /**
- * @summary The function that is executed for editing a new presentation
+ * @summary The function that is executed for editing a new presentation with the animation editor.
  * 
+ * @param {boolean} editable a boolean to edit note content.
  */
 
 function SlideNotesTools(editable=false) {
@@ -1107,6 +1118,13 @@ function SlideNotesTools(editable=false) {
     xhr.send(formdata);
 }
 
+/**
+ * @summary The function that is executed for getting the new presentation with the animation editor.
+ * 
+ * @param {string} filename a text value contained the name of the animation's HTML file.
+ * @param {string} elHtml a text value contained the HTML text of the animation.
+ * @param {string} mimeType a text value contained the MIME type.
+ */
 function DownloadHTMLFile(filename, elHtml, mimeType) {
     var link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
@@ -1115,6 +1133,11 @@ function DownloadHTMLFile(filename, elHtml, mimeType) {
     link.click();
 }
 
+/**
+ * @summary The function that is executed for getting the new presentation with the animation editor.
+ * 
+ * @param {event} event an event.
+ */
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
@@ -1124,7 +1147,15 @@ function GetNewPresentation(event){
 }
 
 /**
- * @summary The function that is executed for downloading the new presentation
+ * @summary The function that is executed for creating the new speech with the animation editor.
+ * 
+ */
+function CreateNewSpeech() {
+}
+
+
+/**
+ * @summary The function that is executed for creating the new presentation with the animation editor.
  * 
  */
 function CreateNewPresentation() {
@@ -1211,11 +1242,6 @@ function CreateNewPresentation() {
     xhr.addEventListener("load", GetNewPresentation, false);
     xhr.send(formdata);
 }
-
-
-
-
-
 
 /**
  * @summary The function that is executed for reading a new PPTX presentation stored on UNCloud
