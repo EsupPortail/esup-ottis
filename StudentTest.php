@@ -276,9 +276,9 @@ if ($synchronize) {
 
 	</ul>
 	<div id="tabs-0">
-    <h3>Language and basic settings</h3>
+    <h3 style="width:100%">Language and basic settings</h3>
     <div>
-  <label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /><br/>
+    <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></span>
 <span style="display:none"><label for="classroomlanguage">Classroom language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
