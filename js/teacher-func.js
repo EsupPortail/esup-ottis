@@ -1152,7 +1152,24 @@ function GetNewPresentation(event){
  */
 function CreateNewSpeech() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    console.log(data_new_pres);
+    var parser = new DOMParser();
+    var html = parser.parseFromString(data_new_pres, 'text/html');
+    //console.log(data_new_pres);
+
+    //Récupérer le nombre de slides
+    var k = 1;
+    var nb_slides = 0;
+    while (html.getElementById('img_'+k)){
+        nb_slides = k;
+        k += 1;
+    }
+    console.log(nb_slides);
+
+    var txt = "";
+    for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
+        txt = "------------- Slide "+num_slide+" -------------\n";
+        console.log(txt);
+    }
 }
 
 
