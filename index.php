@@ -59,7 +59,7 @@ if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
 if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
 $Microsofton=(($userprivileges<2)||($MicrosoftKey !=""));
 
-$theme="";
+$theme="flat";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 $T_lang=array();

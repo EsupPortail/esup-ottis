@@ -44,7 +44,7 @@ while($line=fgets($fd,4096)) {
 }
 fclose($fd);
 
-$theme="";
+$theme="flat";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 ?>

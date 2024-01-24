@@ -54,7 +54,7 @@ if (isset($Stats_DEEPL["character_count"])) {
 } else $percentage_DEEPL = 0;
 
 
-$theme="";
+$theme="flat";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 ?>
