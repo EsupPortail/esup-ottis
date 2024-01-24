@@ -199,13 +199,6 @@ if ($synchronize) {
     margin-top: 50px;
     width:100%;
   }
-
-  #tabs-0 div{
-    width:100%;
-  }
-  #tabs-0 h3{
-    width:100%;
-  }
   
 </style>
 
@@ -328,8 +321,9 @@ if ($synchronize) {
   </select></span><br/>
 <span>
 <label>Show the translated version banner ?</label>
-<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/>
-&nbsp; Translated version banner color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
+<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/></span>
+<span>
+<label for="ColorTitre">Translated version banner color : </label><select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
@@ -346,7 +340,8 @@ if ($synchronize) {
 <span><label>
 Show the original version banner</label>
 <input type="checkbox" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
-  </select>&nbsp; original version banner color : <select id="ColorTitre" onchange="ChangeColor('VOBanner',this.value);">
+  </select></span>
+<span><label for="ColorTitreVO">original version banner color : </label><select id="ColorTitreVO" onchange="ChangeColor('VOBanner',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
 <option value="255,0,0|100,0,0" >red</option>
