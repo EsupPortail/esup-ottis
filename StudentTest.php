@@ -197,6 +197,7 @@ if ($synchronize) {
   
   #tabs-0 {
     margin-top: 50px;
+    width: 360px;
   }
   
 </style>
@@ -501,7 +502,7 @@ Ceci est un test...
     </script>
   </div>
 -->
-    <div id="tabs-7">
+    <div id="tabs-7" style="text-align: center;>
     <div id="stillwaiting">
 <!--					<div id="stillwaitingspinner"></div>-->
 					<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
