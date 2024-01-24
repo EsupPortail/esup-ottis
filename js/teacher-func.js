@@ -1206,8 +1206,9 @@ function CreateNewPresentation() {
 
     //Récupérer les langues
     var lang = html.getElementsByTagName('p');
+    nb_lang = lang.length/2;
     var tab_lang = [];
-    for (var l = 0; l < lang.length; l++) {
+    for (var l = 0; l < nb_lang; l++) {
         tab_lang[l] = lang[l].innerHTML;
     }
 
