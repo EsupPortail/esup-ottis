@@ -1253,7 +1253,7 @@ function CreateNewPresentation() {
             }
             console.log("Texte de la slide : "+text);
             if (text==""){
-                tab_text[i] += '"]}';
+                tab_text[i] += ']}';
             }else{
                 tab_text[i] += ']}';
             }
