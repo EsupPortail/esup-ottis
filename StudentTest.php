@@ -197,7 +197,6 @@ if ($synchronize) {
   
   #tabs-0 {
     margin-top: 50px;
-    width:100%;
   }
   
 </style>

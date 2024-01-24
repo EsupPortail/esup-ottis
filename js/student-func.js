@@ -679,7 +679,7 @@ function resizeSlides() {
     //var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
     //TTabs.map(function (name) {_(name).style.top=(48*scalemenu)+'px';})
     // For wooclap and others
-    ["wooclap", "extratab1", "extratab2", "extratab3", "extratab4"].map(resizeWindow)
+    ['tabs-0',"wooclap", "extratab1", "extratab2", "extratab3", "extratab4"].map(resizeWindow)
     MinTitlePos();
 }
 
