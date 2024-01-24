@@ -1211,7 +1211,7 @@ function CreateNewPresentation() {
         tab_lang[l] = lang[l].innerHTML;
     }
 
-    // console.log(tab_lang);
+    console.log(tab_lang);
 
     //Récupérer le nombre de slides
     var k = 1;
