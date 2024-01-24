@@ -32,7 +32,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
 
     $new_contenttxt = file_get_contents($tmp_file);
 
-    echo json_encode($new_contenttxt);
+    echo $new_contenttxt;
 }
 
 // header('Content-Type: text/html');

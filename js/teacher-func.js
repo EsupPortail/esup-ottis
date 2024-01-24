@@ -1139,11 +1139,10 @@ function DownloadFile(filename, elHtml, mimeType) {
  * @param {event} event an event.
  */
 function GetNewPresentation(event){
-    var json_data = event.target.responseText;
-    var data = JSON.parse(json_data);
+    var data = event.target.responseText;
+    //var data = JSON.parse(json_data);
     DownloadFile("nouveau.html", data);
     console.log(json_data);
-
 }
 
 /**
