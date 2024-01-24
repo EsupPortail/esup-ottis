@@ -273,45 +273,48 @@ if ($synchronize) {
 
 	</ul>
 	<div id="tabs-0">
-  <ul style="list-style-type: none;">
-<li style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></li>
-<li style="display:none"><label for="classroomlanguage">Classroom language :</label>
+    <h3>Language and basic settings</h3>
+    <div>
+  <label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /><br/>
+<span style="display:none"><label for="classroomlanguage">Classroom language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
-</li>
-<li id="lilanguage"><label for="VoiceOutput">My language :</label>
+</span>
+<span id="lilanguage"><label for="VoiceOutput">My language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
-</li>
-<li><label for="StudentName">My surname :</label>
+</span><br/>
+<span><label for="StudentName">My surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
-</li>
-<li id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
+</span><br/>
+<span id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
 <!--<div class="checkbox-example">
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
         <label for="synthesison"></label>
       </div>-->
 <input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"/><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
-</li>
-<li style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
-</li>
-<li>Subtitles font size ? <select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
+</span>
+</div>
+<h3>Appearance settings</h3>
+<span style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
+</span>
+<span><label>Subtitles font size ? </label><select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
 <option value="32px" >Huge</option>
 <option value="48px" >Enormous</option>
   </select>
-  </li>
-  <li>Subtitles opacity : <select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
+</span><br/>
+  <span><label>Subtitles opacity : </label><select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
 <option value="0">0% opaque</option>
 <option value="0.25" >25% opaque</option>
 <option value="0.5" selected>50% opaque</option>
 <option value="0.75" >75% opaque</option>
 <option value="1" >100% opaque</option>
-  </select></li>
-<li>
-Show the translated version banner
+  </select></span><br/>
+<span>
+<label>Show the translated version banner ?</label>
 <input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/>
 &nbsp; Translated version banner color : <select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
@@ -326,9 +329,9 @@ Show the translated version banner
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
 <option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></li>
-<li>
-Show the original version banner
+  </select></span><br/>
+<span><label>
+Show the original version banner</label>
 <input type="checkbox" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
   </select>&nbsp; original version banner color : <select id="ColorTitre" onchange="ChangeColor('VOBanner',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
@@ -343,26 +346,15 @@ Show the original version banner
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
 <option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></li>
-
-  <li><b>Extra tabs</b></li>
-  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>
-  <li>WOOCLAP Key?  <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></li>
-  <li style="display:none;">Pending requests : <span id="nbrequests">0</span></li>
-<li><b>Advanced options</b></li>
-  <li>Voice speed : </li><li><div id="slider_speed"></div></li>
-  </ul>
-    <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-
+  </select></span>
+</div>
+<h3>Advanced options</h3>
+<div>
+<!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
+<span><label>WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></span><br/>
+  <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
+  <span><label>Voice speed : </label><div id="slider_speed"></div></span>
+</div>
 	</div>
 	<div id="tabs-1">
     <div style="height: 50px;"></div>
@@ -569,6 +561,9 @@ for($i=0; $i<$nbcircles; $i++) {
 <script src="js/student-post.js"></script>
 <script>
   $( function() {
+    $("#tabs-0").accordion({
+      heightStyle: "panel"
+    });
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
     $("body").tooltip();
