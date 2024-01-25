@@ -964,7 +964,7 @@ function openImg(img) {
     // modal.style.display = "block";
     // modalImg.src = img.src;
     // captionText.innerHTML = img.alt;
-    var id_img = '"#'+img+'"';
+    var id_img = '"#'+img.id+'"';
     $(id_img).dialog();
 }
 
