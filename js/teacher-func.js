@@ -968,6 +968,7 @@ function openImg(img) {
     $( "#dialog" ).dialog();
 
     var img_src=$(img).attr('src');
+    console.log(img_src);
     $("#show-img").attr('src',img);
     $("#imgmodal").modal('show');
 }
