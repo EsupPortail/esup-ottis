@@ -964,15 +964,37 @@ function openImg(img) {
     // modal.style.display = "block";
     // modalImg.src = img.src;
     // captionText.innerHTML = img.alt;
-    var id_img = '"#'+img.id+'"';
-    $('div.myImage').dialog({
-        modal: true
-      });
+    // var id_img = '"#'+img.id+'"';
+    // $('div.myImage').dialog({
+    //     modal: true
+    //   });
 
-    var img_src=$(img).attr('src');
-    console.log(img_src);
+    // var img_src=$(img).attr('src');
+    // console.log(img_src);
     // $("#show-img").attr('src',img);
     // $("#imgmodal").modal('show');
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("img_1");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    //img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = img.src;
+    captionText.innerHTML = img.alt;
+    //}
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+}
+
 }
 
 

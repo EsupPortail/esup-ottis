@@ -75,6 +75,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
     <script src="../js/teacher-func.js"></script>
+    <link href="styles/edit-anim.css" rel="stylesheet"> 
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
@@ -853,11 +854,14 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
     <input type="hidden" id="Random12" name="randompath" value=""/>
     <input type="hidden" id="Extension12" name="Extension" value="txt"/>
-    <div class="modal fade" role="dialog" id="imgmodal">
-      <div class="modal-dialog">
-          <div class="modal-content"></div>          
-          <img class="img-responsive" src="" id="show-img">         
-      </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- The Close Button -->
+      <span class="close">&times;</span>
+      <!-- Modal Content (The Image) -->
+      <img class="modal-content" id="img01">
+      <!-- Modal Caption (Image Text) -->
+      <div id="caption"></div>
     </div>
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
