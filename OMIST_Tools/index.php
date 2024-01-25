@@ -867,6 +867,11 @@ function PopulateVoicesMicrosoft(s) {
       <p>
         Currently using <b>36% of your storage space</b>.
       </p>
+      <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
     </div>
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
