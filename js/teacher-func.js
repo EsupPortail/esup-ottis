@@ -965,7 +965,9 @@ function openImg(img) {
     // modalImg.src = img.src;
     // captionText.innerHTML = img.alt;
     var id_img = '"#'+img.id+'"';
-    $('div.myImage').dialog();
+    $('div.myImage').dialog({
+        modal: true
+      });
 
     var img_src=$(img).attr('src');
     console.log(img_src);
