@@ -974,10 +974,10 @@ function openImg(img) {
             modal: true,
             buttons: {
               Submit: function() {
-                // $( this ).dialog( "close" );
                 var e = document.getElementById("myKeyword");
                 var value = e.value;
                 console.log(value);
+                $( this ).dialog( "close" );
               }
             }
           });
