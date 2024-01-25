@@ -952,8 +952,8 @@ function SlideNotes() {
  * @param {object} img an image to be displayed in larger size.
  */
 function openImg(img) {
-    var src = img.src;
-    window.open(src);
+    // var src = img.src;
+    // window.open(src);
     // Get the modal
     var modal = document.getElementById("myModal");
 
@@ -962,8 +962,8 @@ function openImg(img) {
     var captionText = document.getElementById("caption");
 
     modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
+    modalImg.src = img.src;
+    captionText.innerHTML = img.alt;
 }
 
 
