@@ -41,6 +41,10 @@
     padding: 10px 0;
     height: 150px;
   }
+
+  #dialog-message {
+    display: none;
+  }
   
   /* Add Animation - Zoom in the Modal */
   .modal-content, #caption {
