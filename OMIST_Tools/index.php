@@ -863,14 +863,14 @@ function PopulateVoicesMicrosoft(s) {
       <!-- Modal Caption (Image Text) -->
       <div id="caption"></div>
     </div>
-    <div id="dialog-message" title="Download complete">
+    <div id="dialog-message" title="Add an animation">
       <p>
-        Currently using <b>36% of your storage space</b>.
+        Choose your animation : 
       </p>
       <select>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
+        <option value="mouse show">Show the mouse</option>
+        <option value="mouse go px py">Move the mouse</option>
+        <option value="mouse hide">Hide the mouse</option>
       </select>
     </div>
 
