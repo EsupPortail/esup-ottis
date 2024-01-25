@@ -971,9 +971,16 @@ function openImg(img) {
     }
     modalImg.onclick = function(){
         console.log("Clique sur l'image");
+        $( "#dialog-message" ).dialog({
+            modal: true,
+            buttons: {
+              Ok: function() {
+                $( this ).dialog( "close" );
+              }
+            }
+          });
     }
 }
-
 
 /**
  * @summary a function that is fired when a new lesson is loaded to prepare all the data structures with the animation editor..

@@ -863,6 +863,11 @@ function PopulateVoicesMicrosoft(s) {
       <!-- Modal Caption (Image Text) -->
       <div id="caption"></div>
     </div>
+    <div id="dialog-message" title="Download complete">
+      <p>
+        Currently using <b>36% of your storage space</b>.
+      </p>
+    </div>
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
 
