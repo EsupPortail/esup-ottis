@@ -872,6 +872,7 @@ function PopulateVoicesMicrosoft(s) {
         <option value="mouse go px py">Move the mouse</option>
         <option value="mouse hide">Hide the mouse</option>
       </select>
+      <button type=submit id="chosenKeyword" value="chosen_Keyword">Choose</button>
     </div>
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
