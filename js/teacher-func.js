@@ -965,12 +965,12 @@ function openImg(img) {
     // modalImg.src = img.src;
     // captionText.innerHTML = img.alt;
     var id_img = '"#'+img.id+'"';
-    $( "#dialog" ).dialog();
+    $('img-responsive').dialog();
 
     var img_src=$(img).attr('src');
     console.log(img_src);
-    $("#show-img").attr('src',img);
-    $("#imgmodal").modal('show');
+    // $("#show-img").attr('src',img);
+    // $("#imgmodal").modal('show');
 }
 
 
