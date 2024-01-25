@@ -950,77 +950,6 @@ function SlideNotes() {
  * @summary a function that is fired when a new lesson is loaded to prepare all the data structures.
  * 
  * @param {string} datatxt a text value contained the text of the speech and a b64 version of the images.
- * @returns an HTML encoding of what should be shown in the complete lesson tab.
- */
-
-function formateresponseToolsOld(datatxt,editable=true) {
-    currentPresentation = [];
-    var res = '';
-    var data = JSON.parse(datatxt);
-    console.log(data);
-    
-    for (let key in data) {
-        data_key = data[key];
-        console.log("Nb slide : \n");
-        console.log(data_key.length);
-
-        if (key!="Img_slide") {
-            res += '<span style="font-weight : bold"><p> '+ key + '</p></span>';
-        }
-
-        for (let i in data_key) {
-            slide = data_key[i];
-
-            var txtnotes = '';
-            if (key!="Img_slide") {
-                for (var j = 0; j < slide["Notes"].length; j++) {
-                    if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
-                        slide["Notes"][j] = '';
-                    } else {
-                        txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
-                    }
-                }
-            }
-
-            res += '<dl>';
-
-            if (data_key["Images"]) {
-                var toexec = "";
-                for (var j = 1; j <= data_key["Images"].length; j++) {
-                    toexec += "_('img_" + j + "').src='" + data_key["Images"][j - 1] + "'; ";
-                }
-                setTimeout(toexec, 10);
-            } else {
-                res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
-                var flag = false;
-                for (var j = 0; j < slide["Notes"].length; j++) {
-                    if (slide["Notes"][j].trim() != '') {
-                        if (editable) {
-                            res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
-                        }
-                        currentPresentation.push({
-                            'Slide': slide["Slide"],
-                            'Discours': slide["Notes"][j]
-                        });
-                        flag = true;
-                    }
-                }
-                if (!flag) currentPresentation.push({
-                    'Slide': slide["Slide"],
-                    'Discours': ''
-                });
-            }
-        res += '</dl>';
-        }
-    }
-    console.log("DEBUG : " + res);
-    return res;
-}
-
-/**
- * @summary a function that is fired when a new lesson is loaded to prepare all the data structures.
- * 
- * @param {string} datatxt a text value contained the text of the speech and a b64 version of the images.
  * @param {boolean} editable a boolean to edit note content.
  *  
  * @returns an HTML encoding of what should be shown in the complete lesson tab.
@@ -1039,7 +968,6 @@ function formateresponseTools(datatxt,editable=true) {
         }
     }
 
-    
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         res += '<dl>';
         res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<img id="img_' +numero_slide + '" width="100" src=""/></dd></dt>\n';
@@ -1051,7 +979,6 @@ function formateresponseTools(datatxt,editable=true) {
                 for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
                     num_slide = numero_slide-1;
                     res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+num_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
-
                 }
             }else{
                 data_key = data[key];
@@ -1090,7 +1017,7 @@ function completeHandlerTools(event,editable=false) {
 function SlideNotesTools(editable=false) {
     var file = _("fileToUpload12").files[0];
     var scriptfile = "";
-    if (file.name.endsWith('html')) scriptfile = "../ExtractSlidesNotesAppHTMLTools.php";
+    if (file.name.endsWith('html')) scriptfile = "EditAnim/ExtractSlidesNotesAppHTMLTools.php";
     if (scriptfile == "") {
         alert('Only html files are allowed !');
         return -1;
@@ -1119,17 +1046,17 @@ function SlideNotesTools(editable=false) {
 }
 
 /**
- * @summary The function that is executed for getting the new presentation with the animation editor.
+ * @summary The function that is executed for downloading a file with the animation editor.
  * 
- * @param {string} filename a text value contained the name of the animation's HTML file.
- * @param {string} elHtml a text value contained the HTML text of the animation.
+ * @param {string} filename a text value contained the file name.
+ * @param {string} elText a text value contained the text to download.
  * @param {string} mimeType a text value contained the MIME type.
  */
-function DownloadFile(filename, elHtml, mimeType) {
+function DownloadFile(filename, elText, mimeType) {
     var link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
     link.setAttribute('download', filename);
-    link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elHtml));
+    link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));
     link.click();
 }
 
@@ -1185,7 +1112,6 @@ function CreateNewSpeech() {
     DownloadFile(name_file, txt);
 }
 
-
 /**
  * @summary The function that is executed for creating the new presentation with the animation editor.
  * 
@@ -1226,8 +1152,6 @@ function CreateNewPresentation() {
 
     //Récupérer les notes
     var tab_text = [];
-
-    // !! Penser à prendre en compte/supprimer les lignes vides
     var i = 0;
     for (let key in tab_lang) {
         code_lang = tab_lang[key].trim()
@@ -1257,7 +1181,6 @@ function CreateNewPresentation() {
             }else{
                 tab_text[i] += ']}';
             }
-            
         }
         tab_text[i] += ']';
         console.log(tab_text[i]);
@@ -1266,7 +1189,7 @@ function CreateNewPresentation() {
     console.log(tab_text);
 
     formdata.append("newText", tab_text);
-    xhr.open("POST", "EditSlidesNotesAppHTMLTools.php");
+    xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             console.log(this.responseText);
