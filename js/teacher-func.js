@@ -970,12 +970,14 @@ function openImg(img) {
     modal.style.display = "none";
     }
     modalImg.onclick = function(){
-        console.log("Clique sur l'image");
         $( "#dialog-message" ).dialog({
             modal: true,
             buttons: {
-              Ok: function() {
-                $( this ).dialog( "close" );
+              Submit: function() {
+                // $( this ).dialog( "close" );
+                var e = document.getElementById("myKeyword");
+                var value = e.value;
+                console.log(value);
               }
             }
           });

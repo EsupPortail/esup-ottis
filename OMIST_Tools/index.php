@@ -867,7 +867,7 @@ function PopulateVoicesMicrosoft(s) {
       <p>
         Choose your animation : 
       </p>
-      <select>
+      <select id="myKeyword">
         <option value="mouse show">Show the mouse</option>
         <option value="mouse go px py">Move the mouse</option>
         <option value="mouse hide">Hide the mouse</option>
