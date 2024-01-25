@@ -853,6 +853,12 @@ function PopulateVoicesMicrosoft(s) {
     <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
     <input type="hidden" id="Random12" name="randompath" value=""/>
     <input type="hidden" id="Extension12" name="Extension" value="txt"/>
+    <div class="modal fade" role="dialog" id="imgmodal">
+      <div class="modal-dialog">
+          <div class="modal-content"></div>          
+          <img class="img-responsive" src="" id="show-img">         
+      </div>
+    </div>
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
 
