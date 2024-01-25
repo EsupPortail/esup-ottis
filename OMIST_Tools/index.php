@@ -75,7 +75,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
     <script src="../js/teacher-func.js"></script>
-    <link href="styles/edit-anim.css" rel="stylesheet"> 
+    <link href="../styles/edit-anim.css" rel="stylesheet"> 
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
