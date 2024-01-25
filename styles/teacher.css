@@ -80,10 +80,10 @@ input[type=text] {
 	width: 500px;
 }
 
-div.myImage
+/* div.myImage
 {
     display: none;
-}
+} */
 
 #tabs-5 dl:hover {
 	background-color: lightblue;
