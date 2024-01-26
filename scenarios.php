@@ -165,6 +165,9 @@ img {
   font-family: Fjalla One;
 }
 
+.card__btn:hover {
+  opacity: 0.7;
+}
 .card__input {
   font-family: Fjalla One;
   background-color: rgb(150,255,150);
