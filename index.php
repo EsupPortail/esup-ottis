@@ -239,7 +239,7 @@ fclose($fd);
                  <span class="hidesmallscreens">&nbsp;Speech</span></a></a></li>
 				<li title="Upload your PPTX or HTML complete lesson from this tab"><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;"><!--<i class="fa fa-arrow-right"></i>--><i class="fa fa-upload"></i>
                  <span class="hidesmallscreens">&nbsp;Complete lesson</span></a></li>
-				<li title="The slides are shown in this tab" id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus(); _('linkslides').click();"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Slides</span></a></li>
+				<li title="The slides are shown in this tab" id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; _('img_slides').focus(); _('img_slides').click();"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Slides</span></a></li>
 				<li title="Jitsi visioconference tab" id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) _('visio').src='https://meet.jit.si/Translator_'+_('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
 				<li title="Live translation tab" id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
 				<li title="This tab contains links allowing to share the lesson with students or other teachers. A link for using a smartphone remote is also available." id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;"><i class="fa fa-qrcode"></i><span class="hidesmallscreens">&nbsp;Share</span></a></li>
