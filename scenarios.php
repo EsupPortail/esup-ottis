@@ -67,6 +67,11 @@ img {
   padding: 0.5rem;
 }
 
+.btn:hover {
+  background-color: rgb(200,200,255);
+}
+
+
 .btn--block {
   display: block;
   width: 100%;
@@ -165,9 +170,7 @@ img {
   font-family: Fjalla One;
 }
 
-.card__btn:hover {
-  opacity: 0.7;
-}
+
 .card__input {
   font-family: Fjalla One;
   background-color: rgb(150,255,150);
