@@ -1147,7 +1147,7 @@ function CreateNewSpeech() {
             if (element.getElementsByTagName('br').length != 0) {
                 let br = element.getElementsByTagName('br')
                 console.log(element.getElementsByTagName('br'));
-                br.after("Texte");
+                br[0].after("Texte");
                 console.log(element);
               } else {
                 console.log('Enter is NOT contained in element');
