@@ -367,11 +367,11 @@ var root = window.location.href.replace("/scenarios.php","");
             </select>
             <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" />
             <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" />
-            <select id="persotheme" class="card__input" title="Choix du thème de l'application. Pour le moment, il n'y a que deux thèmes disponibles">
+            <select id="persotheme" class="card__input" title="Choix du thème de l'application. Pour le moment, il n'y a que trois thèmes disponibles">
                 <option value="" selected disabled>Quel thème ?</option>
-                <option value="">Thème clair (par défaut)</option>
+                <option value="">Thème clair</option>
                 <option value="theme2">Thème sombre</option>
-                <option value="flat">Thème applati (flat)</option>
+                <option value="flat">Thème applati/flat (thème par défaut)</option>
             </select>
         </p> 
       </div>
