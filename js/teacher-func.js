@@ -1144,7 +1144,7 @@ function CreateNewSpeech() {
         while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
             var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
             console.log(element);
-            if (element.textContent.includes('<br>')) {
+            if (element.getElementsByTagName('br')) {
                 console.log('Enter is contained in element');
               } else {
                 console.log('Enter is NOT contained in element');
