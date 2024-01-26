@@ -1143,12 +1143,14 @@ function CreateNewSpeech() {
         j = 0;
         while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
             var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
-            console.log(element);
+            //console.log(element);
             if (element.getElementsByTagName('br').length != 0) {
                 let br = element.getElementsByTagName('br')
-                console.log(element.getElementsByTagName('br'));
-                br[0].after("\n");
-                console.log(element);
+                //console.log(element.getElementsByTagName('br'));
+                for (var num_br = 0; num_br < br.length; num_br++) {
+                    br[num_br].after("\n");
+                    console.log(element);
+                }
               } else {
                 console.log('Enter is NOT contained in element');
               }
