@@ -584,9 +584,9 @@ $minsize=1.3;
 $maxsize=4;
 $r=20;
 for($i=0; $i<$nbcircles; $i++) {
-	$teinteR=255*(1-$i/$nbcircles)+1*$i/$nbcircles;
-	$teinteV=200*(1-$i/$nbcircles)+100*$i/$nbcircles;
-	$teinteB=100*(1-$i/$nbcircles)+200*$i/$nbcircles;
+	$teinteR=45*(1-$i/$nbcircles)+26*$i/$nbcircles;
+	$teinteV=63*(1-$i/$nbcircles)+189*$i/$nbcircles;
+	$teinteB=80*(1-$i/$nbcircles)+157*$i/$nbcircles;
 	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\"/>\n";
 }
 ?>
