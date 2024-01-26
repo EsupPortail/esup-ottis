@@ -1145,7 +1145,10 @@ function CreateNewSpeech() {
             var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
             console.log(element);
             if (element.getElementsByTagName('br').length != 0) {
+                let br = element.getElementsByTagName('br')
                 console.log(element.getElementsByTagName('br'));
+                br.after("Texte");
+                console.log(element);
               } else {
                 console.log('Enter is NOT contained in element');
               }
