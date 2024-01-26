@@ -1119,7 +1119,7 @@ function CreateNewSpeech() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
-    console.log(data_new_pres);
+    console.log(html);
 
     //Récupérer le nombre de slides
     var k = 1;
