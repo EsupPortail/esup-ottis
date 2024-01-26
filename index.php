@@ -484,7 +484,7 @@ fclose($fd);
 			</div>
 			<div id="tabs-5">
 				<div>
-					<label for="ppt_presentation">Powerpoint presentation : </label>
+					<label for="ppt_presentation">Powerpoint/HTML presentation : </label>
 					<input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" max-size="50000" />
 					<label for="speechlanguage">Speech language : </label>
 					<select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
