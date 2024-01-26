@@ -355,10 +355,10 @@ fclose($fd);
 							<input type="checkbox" checked id="iconon" onclick="showEachIcon(); if (this.checked) {
     {_('spaniconon').innerHTML='Yes !';} else {_('spaniconon').innerHTML='No.';}" /> &nbsp;<span class="yesno" id="spaniconon">Yes !</span></li>
 						<li id="eachicon" style="display:none">Pin code ?
-							<input type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" />&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; Micro ?
-							<input type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" />&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; Question ?
-							<input type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" />&nbsp;<span class="yesno" class="yesno" id="spanquestionon">No.</span> &nbsp; Full screen ?
-							<input type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" />&nbsp;<span class="yesno" id="spanfson">No.</span></li>
+							<input title="Hide or show the pincode information. If 'Yes !' or checked, the pincode is visible." type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" />&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; Micro ?
+							<input title="Hide or show the microphone icon. If 'Yes !' or checked, the microphone icon is visible." type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" />&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; Question ?
+							<input title="Hide or show the question icon. If 'Yes !' or checked, the question icon is visible." type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" />&nbsp;<span class="yesno" class="yesno" id="spanquestionon">No.</span> &nbsp; Full screen ?
+							<input title="Hide or show the fullscreen icon. If 'Yes !' or checked, the fullscreen icon is visible." type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" />&nbsp;<span class="yesno" id="spanfson">No.</span></li>
 						<li>&nbsp;</li>
 						<li><b>Pin code appearance</b></li>
 						<li>Pin code size
@@ -374,14 +374,14 @@ fclose($fd);
 				<div>
 					<ul style="list-style-type: none;">
 						<li><b>Extra tabs</b></li>
-						<li title="Hide or show the WOOCLAP tab. If 'Yes !' or checked, the WOOCLAP tab is visible if the toolbar.">Embed WOOCLAP ?
+						<li title="Hide or show the WOOCLAP tab. If 'Yes !' or checked, the WOOCLAP tab is visible in the toolbar.">Embed WOOCLAP ?
 							<input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {_('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {_('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}" />&nbsp;<span class="yesno" id="spanembedwooclapon">No.</span>
 							<button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
 							<button style="display:none;" onclick="_('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button>
 						</li>
 						<!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {_('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {_('spanembedliveon').innerHTML='No.';  hide('titlelive');}"/>&nbsp;<span class="yesno" id="spanembedliveon">No.</span></li> -->
 						<!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {_('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {_('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}"/>&nbsp;<span class="yesno" id="spanembedvisioon">No.</span></li> -->
-						<li title="Hide or show the share tab. If 'Yes !' or checked, the share tab is visible if the toolbar.">Show Share tab ?
+						<li title="Hide or show the share tab. If 'Yes !' or checked, the share tab is visible in the toolbar.">Show Share tab ?
 							<input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {_('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {_('spanembedshareon').innerHTML='No.';  hide('titleshare');}" />&nbsp;<span class="yesno" id="spanembedshareon">Yes !</span></li>
 						<li>Extra tab 1 URL :
 							<input type="text" id="extraurl1" value="" placeholder="Copy your application url here" />&nbsp; Show ?
@@ -484,9 +484,9 @@ fclose($fd);
 			</div>
 			<div id="tabs-5">
 				<div>
-					<label for="ppt_presentation">Powerpoint/HTML presentation : </label>
+					<label for="ppt_presentation" title="Select your presentation file. Light weight PPTX are allowed. For bigger files, it is recommended (and sometimes mandatory) to convert first the PPTX file to an HTML animation by using the Slide Tools.">Powerpoint/HTML presentation : </label>
 					<input type="file" name="ppt_presentation" id="ppt_presentation" onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" max-size="50000" />
-					<label for="speechlanguage">Speech language : </label>
+					<label for="speechlanguage" title="If the speech prepared in the slides is of a different language than the speaker language one, it can be adjusted by using this field.">Speech language : </label>
 					<select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
 						<option value="same" selected>Same as speaker</option>
 					</select> <span style="display:none">
