@@ -1107,7 +1107,7 @@ function DownloadFile(filename, elText, mimeType) {
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
-    DownloadFile("nouveau.html", data);
+    DownloadFile("presentation_modified.html", data);
     console.log(json_data);
 }
 
@@ -1119,7 +1119,7 @@ function CreateNewSpeech() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
-    //console.log(data_new_pres);
+    console.log(data_new_pres);
 
     //Récupérer le nombre de slides
     var k = 1;
