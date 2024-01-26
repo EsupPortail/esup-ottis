@@ -1119,7 +1119,7 @@ function CreateNewSpeech() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
-    console.log(html);
+    //console.log(html);
 
     //Récupérer le nombre de slides
     var k = 1;
@@ -1142,6 +1142,8 @@ function CreateNewSpeech() {
         txt += "------------- Slide "+slide+" -------------\n";
         j = 0;
         while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
+            var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
+            console.log(element);
             txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j).textContent + "\n";
             j += 1;
         }
