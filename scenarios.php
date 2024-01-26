@@ -359,8 +359,8 @@ var root = window.location.href.replace("/scenarios.php","");
             <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
             <select id="persotab" class="card__input" title="Choix de la fenêtre qui sera ouverte par défaut.">
                 <option value="0" selected disabled>Quel onglet ouvert par défaut ?</option>
-                <option value="0">Onglet "Informations"</option>
-                <option value="1">Onglet "Classroom"</option>
+                <option value="0">Onglet "Settings"</option>
+                <option value="1">Onglet "Tchat"</option>
                 <option value="2">Onglet "Notebook"</option>
                 <option value="3">Onglet "Complete lesson"</option>
                 <option value="4">Onglet "Slides"</option>
