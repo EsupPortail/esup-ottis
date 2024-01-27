@@ -211,9 +211,8 @@ if ($synchronize) {
     position: absolute;
     top: 0px;
     left: 0px;*/
-    z-index: 40000;
   }
-
+  .ui-dialog { z-index: 40000 !important ;}
 </style>
 
 </head>
