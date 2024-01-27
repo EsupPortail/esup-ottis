@@ -285,7 +285,7 @@ function LaunchWC() {
 
 
 $(function() {
-    var dialog, form;
+    var dialog, form, dialogchoose;
 
 
 
@@ -305,7 +305,7 @@ $(function() {
     dialogchoose = $("#dialog-choose").dialog({
         closeText: "hide",
         closeOnEscape: false,
-        
+
         autoOpen: true,
         height: 800,
         width: 600,

@@ -210,8 +210,8 @@ if ($synchronize) {
     height: 100%;
     position: absolute;
     top: 0px;
-    left: 0px;
-    z-index: 40000;*/
+    left: 0px;*/
+    z-index: 40000;
   }
 
 </style>
