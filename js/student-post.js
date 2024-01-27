@@ -277,9 +277,9 @@ function updateWC() {
 }
 
 function LaunchWC() {
-    setInterval(updateWC, 1000);
+    //setInterval(updateWC, 1000);
 }
-setTimeout(LaunchWC, 3000);
+//setTimeout(LaunchWC, 3000);
 
 
 
@@ -302,7 +302,32 @@ $(function() {
         },
         close: function() {}
     });
-
+    dialogchoose = $("#dialog-choose").dialog({
+        autoOpen: true,
+        //height: 500,
+        //width: 800,
+        modal: false,
+        buttons: {
+            "Go": function() {
+                firsttime=false;
+                firstclick=false;
+                resizeSlides();
+                _('VoiceOutput').value=_('VoiceOutputchoose').value;
+                setLanguageOutput(_('VoiceOutput').value);
+                _('synthesison').checked=true;
+                _('arrowlanguage').style.visibility='hidden';
+                _('arrowlanguage').style.display='none';
+                _('arrowsynthesis').style.visibility='visible';
+                _('arrowsynthesis').style.display='none';
+                _('lilanguage').style.animation='none';
+                _('lisynthese').style.animation='none'; 
+                firstclick=true; 
+                showMessageMenu();
+                dialogchoose.dialog("close");
+            }
+        },
+        close: function() {}
+    });
     //    form = dialog.find( "form" ).on( "submit", function( event ) {
     //      event.preventDefault();
     //      EnvoiMail();

@@ -6,8 +6,8 @@
  * 
  */
 
-function PopulateVoicesOut() {
-    var select = _('VoiceOutput');
+function PopulateVoicesOut(selectname='VoiceOutput') {
+    var select = _(selectname);
     AllOutputVoices = [];
     while (select.firstChild) {
         select.removeChild(select.firstChild);
@@ -244,6 +244,7 @@ function Translate2(ch, l, linput, lineid) {
 
 function InitVoices() {
     PopulateVoicesOut();
+    PopulateVoicesOut('VoiceOutputchoose');
     setLanguageOutput(_("VoiceOutput").value);
 }
 
@@ -275,9 +276,9 @@ function Ecrire(ch) {
     //_('titre').innerHTML=ch;
     //_('subtitles').innerHTML=ch;
 
-    bufferWC[placebufferWC] = ch;
-    placebufferWC = (placebufferWC + 1) % sizebufferWC;
-    buffer_has_changed = true;
+    //bufferWC[placebufferWC] = ch;
+    //placebufferWC = (placebufferWC + 1) % sizebufferWC;
+    //buffer_has_changed = true;
 }
 
 /**
