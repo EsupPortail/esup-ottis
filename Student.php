@@ -205,7 +205,7 @@ if ($synchronize) {
 
 
   #dialog-choose {
-    font-size: 2em;
+    font-size: 1.2em;
 /*    background-color: white;
     width: 100%;
     height: 100%;
@@ -213,6 +213,11 @@ if ($synchronize) {
     top: 0px;
     left: 0px;*/
   }
+
+  #dialog-choose select {
+    max-width: 100%;
+  } 
+  
   .ui-dialog { z-index: 40000 !important ;}
 </style>
 
