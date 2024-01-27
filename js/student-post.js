@@ -307,29 +307,30 @@ $(function() {
         closeOnEscape: false,
 
         autoOpen: true,
-        height: 800,
-        width: 600,
+        //height: 800,
+        //width: 600,
         modal: true,
         buttons: {
             "Go": function() {
-                firsttime=false;
-                firstclick=false;
-                resizeSlides();
-                _('VoiceOutput').value=_('VoiceOutputchoose').value;
-                setLanguageOutput(_('VoiceOutput').value);
-                _('synthesison').checked=true;
-                _('arrowlanguage').style.visibility='hidden';
-                _('arrowlanguage').style.display='none';
-                _('arrowsynthesis').style.visibility='visible';
-                _('arrowsynthesis').style.display='none';
-                _('lilanguage').style.animation='none';
-                _('lisynthese').style.animation='none'; 
-                firstclick=true; 
-                showMessageMenu();
                 $("#dialog-choose").dialog("close");
             }
         },
-        close: function() {}
+        close: function() {
+            firsttime=false;
+            firstclick=false;
+            resizeSlides();
+            _('VoiceOutput').value=_('VoiceOutputchoose').value;
+            setLanguageOutput(_('VoiceOutput').value);
+            _('synthesison').checked=true;
+            _('arrowlanguage').style.visibility='hidden';
+            _('arrowlanguage').style.display='none';
+            _('arrowsynthesis').style.visibility='visible';
+            _('arrowsynthesis').style.display='none';
+            _('lilanguage').style.animation='none';
+            _('lisynthese').style.animation='none'; 
+            firstclick=true; 
+            showMessageMenu();       
+        }
     });
     //    form = dialog.find( "form" ).on( "submit", function( event ) {
     //      event.preventDefault();

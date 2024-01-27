@@ -205,6 +205,7 @@ if ($synchronize) {
 
 
   #dialog-choose {
+    font-size: 2em;
 /*    background-color: white;
     width: 100%;
     height: 100%;
