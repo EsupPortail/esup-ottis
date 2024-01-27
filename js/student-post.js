@@ -304,9 +304,9 @@ $(function() {
     });
     dialogchoose = $("#dialog-choose").dialog({
         autoOpen: true,
-        //height: 500,
-        //width: 800,
-        modal: false,
+        height: window.innerHeight,
+        width: window.innerWidth,
+        modal: true,
         buttons: {
             "Go": function() {
                 firsttime=false;
