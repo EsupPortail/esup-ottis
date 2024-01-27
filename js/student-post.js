@@ -303,9 +303,12 @@ $(function() {
         close: function() {}
     });
     dialogchoose = $("#dialog-choose").dialog({
+        closeText: "hide",
+        closeOnEscape: false,
+        
         autoOpen: true,
-        height: window.innerHeight,
-        width: window.innerWidth,
+        height: 800,
+        width: 600,
         modal: true,
         buttons: {
             "Go": function() {
@@ -323,7 +326,7 @@ $(function() {
                 _('lisynthese').style.animation='none'; 
                 firstclick=true; 
                 showMessageMenu();
-                dialogchoose.dialog("close");
+                $("#dialog-choose").dialog("close");
             }
         },
         close: function() {}

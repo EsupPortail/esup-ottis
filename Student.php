@@ -205,13 +205,13 @@ if ($synchronize) {
 
 
   #dialog-choose {
-    background-color: white;
+/*    background-color: white;
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0px;
     left: 0px;
-    z-index: 40000;
+    z-index: 40000;*/
   }
 
 </style>
@@ -575,7 +575,7 @@ Ceci est un test...
   </form>
 </div>
 
-<div id="dialog-choose" title="Mail"> 
+<div id="dialog-choose" title="Choose your language"> 
   <form>
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br/>
   <select id="VoiceOutputchoose">
