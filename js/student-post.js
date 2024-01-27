@@ -305,7 +305,7 @@ $(function() {
     dialogchoose = $("#dialog-choose").dialog({
         closeText: "hide",
         closeOnEscape: false,
-
+        hide: { effect: "explode", duration: 1000 },
         autoOpen: true,
         //height: 800,
         //width: 600,
