@@ -387,7 +387,7 @@ function showList(ch) {
     for(var i=1; i<20; i++) {
         if (_('tool'+i)) {
             if (ToShow.includes(i)) {
-                _('tool'+i).style.display='block';
+                _('tool'+i).style.display='initial';
             } else {
                 _('tool'+i).style.display='none';
             }
@@ -424,8 +424,9 @@ function showList(ch) {
   </datalist>
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="menu">
-  <h3 id="tool1">Create web animation from pptx (minimal App without translations)</h3>
-  <div id="divtool1">
+<div id="tool1">
+  <h3>Create web animation from pptx (minimal App without translations)</h3>
+  <div>
   <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
@@ -437,9 +438,10 @@ function showList(ch) {
     <p id="Message1"></p>
     </form>
   </div>
-  
-  <h3 id="tool2">Create web animation from pdf+txt (minimal App without translations)</h3>
-  <div id="divtool2">
+</div>
+<div id="tool2">
+  <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
+  <div>
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload2">Select PDF file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
