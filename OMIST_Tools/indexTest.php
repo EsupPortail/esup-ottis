@@ -431,9 +431,9 @@ function showList(ch) {
   <ul>
     <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-cogs"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
     <li title="These tools allows to create and edit HTML animations"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Animations only</span></a></li>
-    <li><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
-    <li><a href="#menu" onclick="showList('5,6,10,11')"><i class="fa fa-language"></i><span class="hidesmallscreens">&nbsp;Translations only</span></a></li>
-    <li><a href="#menu" onclick="showList('7,8,9')"><i class="fa fa-refresh"></i><span class="hidesmallscreens">&nbsp;Conversions only</span></a></li>
+    <li title="These tools allows to transcript a video file or an audio file"><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
+    <li title="These tools allows to translate diverse types of files including PPTX, subtitles files or SCORM and XLIFF course scenarios"><a href="#menu" onclick="showList('5,6,10,11')"><i class="fa fa-language"></i><span class="hidesmallscreens">&nbsp;Translations only</span></a></li>
+    <li title="These tools allowing diverse manipulations, mainly for PPTX files"><a href="#menu" onclick="showList('7,8,9')"><i class="fa fa-refresh"></i><span class="hidesmallscreens">&nbsp;Conversions only</span></a></li>
   </ul>
 <div id="menu">
 <div id="tool1">
