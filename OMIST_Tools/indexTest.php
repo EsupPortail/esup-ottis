@@ -425,10 +425,11 @@ function showList(ch) {
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
-    <li><a href="#menu" onclick="showList('1,2,3,4,12')">Create an animation</a></li>
-    <li><a href="#menu" onclick="showList('5,6,10,11')">Translate a file</a></li>
-    <li><a href="#menu" onclick="showList('7,8,9')">File conversions</a></li>
-    <li><a href="#menu" onclick="showList('13,14,16')">Audio/video manipulations</a></li>
+    <li><a href="#menu" onclick="showList('all')">All tools</a></li>
+    <li><a href="#menu" onclick="showList('1,2,3,4,12')">Animations only</a></li>
+    <li><a href="#menu" onclick="showList('13,14,16')">Audio/video only</a></li>
+    <li><a href="#menu" onclick="showList('5,6,10,11')">Translations only</a></li>
+    <li><a href="#menu" onclick="showList('7,8,9')">Conversions only</a></li>
   </ul>
 <div id="menu">
 <div id="tool1">
