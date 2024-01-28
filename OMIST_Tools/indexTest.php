@@ -224,7 +224,7 @@ function Init() {
   var allselects=['inputlanguage1','outputlanguage1','translatelanguage1','inputlanguage2','outputlanguage2','inputlanguage3','outputlanguage3','inputlanguage4','outputlanguage4','inputlanguage5','outputlanguage5','inputlanguage6','outputlanguage6'];
   allselects.map(PopulateLanguages);
   PopulateVoicesMicrosoft(_('inputlanguage13'));
-  showList("1,2,3,4");
+  showList("all");
 }
 
 function _(e) {return document.getElementById(e);}
