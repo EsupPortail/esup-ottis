@@ -733,7 +733,7 @@ function showList(ch) {
   </div>
 
   <h3 id="tool10">>Translate XLIFF</h3>
-  <div id="divtool10">>
+  <div id="divtool10">
   <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000" class="inputsmallscreens"><br/>
@@ -801,7 +801,6 @@ function showList(ch) {
     <p id="Message11"></p>
     </form>
     </div>
-</div>
 
   <h3 id="tool12">Edit Animation</h3>
   <div id="divtool12">
