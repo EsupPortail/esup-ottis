@@ -905,7 +905,7 @@ function showList(ch) {
 <script>
 $( function() {
     $( "#tabs" ).tabs({
-      collapsible: true
+      
     });
     $("body").tooltip();
     $( "#menu" ).accordion({heightStyle: 'panel', header: "> div > h3"});
