@@ -895,7 +895,7 @@ function showList(ch) {
 </body>
 <script>
 $("body").tooltip();
-for(i=1; i<17; i++) $( "#tool"+i ).accordion({heightStyle: 'panel'});
-//$( "#menu" ).accordion({heightStyle: 'panel'});
+//for(i=1; i<17; i++) $( "#tool"+i ).accordion({heightStyle: 'panel'});
+$( "#menu" ).accordion({heightStyle: 'panel', header: "> div > h3"});
 </script>
 </html>
