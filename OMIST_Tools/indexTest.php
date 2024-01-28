@@ -385,13 +385,11 @@ function showList(ch) {
     if (ch == "all") ch="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20";
     var ToShow=ch.split(',');
     for(var i=1; i<20; i++) {
-        if (_('tool'+i)) {
+        if (_('tool'+i) != none) {
             if (ToShow.includes(i)) {
                 _('tool'+i).style.display='block';
-                _('divtool'+i).style.display='block';
             } else {
                 _('tool'+i).style.display='none';
-                _('divtool'+i).style.display='block';
             }
         }
     }
@@ -426,7 +424,6 @@ function showList(ch) {
   </datalist>
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="menu">
-
   <h3 id="tool1">Create web animation from pptx (minimal App without translations)</h3>
   <div id="divtool1">
   <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
@@ -440,7 +437,7 @@ function showList(ch) {
     <p id="Message1"></p>
     </form>
   </div>
-
+  
   <h3 id="tool2">Create web animation from pdf+txt (minimal App without translations)</h3>
   <div id="divtool2">
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
@@ -455,9 +452,10 @@ function showList(ch) {
     <p id="Message2"></p>
     </form>
   </div>
-
-  <h3 id="tool3">Create web animation from pptx (Complete)</h3>
-  <div id="divtool3">
+</div>
+<div id="tool3">
+  <h3>Create web animation from pptx (Complete)</h3>
+  <div>
   <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
@@ -502,9 +500,10 @@ function showList(ch) {
     <p id="Message3"></p>
     </form>
   </div>
-
-  <h3 id="tool4">Create web animation from pdf+txt (Complete)</h3>
-  <div id="divtool4">
+</div>
+<div id="tool4">
+  <h3>Create web animation from pdf+txt (Complete)</h3>
+  <div>
   <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   
     <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf" max-size="50000" class="inputsmallscreens"><br/>
@@ -599,9 +598,10 @@ function showList(ch) {
     <p id="Message4"></p>
     </form>
   </div>
-
-  <h3 id="tool5">Translate pptx</h3>
-  <div id="divtool5">
+</div>
+<div id="tool5">
+    <h3>Translate pptx</h3>
+  <div>
   <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
@@ -644,9 +644,10 @@ function showList(ch) {
     <p id="Message5"></p>
     </form>
   </div>
-
-  <h3 id="tool6">Translate subtitles SRT file</h3>
-  <div id="divtool6">
+</div>
+<div id="tool6">
+  <h3>Translate subtitles SRT file</h3>
+  <div>
   <form id="Form6" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload6">Select SRT file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000" class="inputsmallscreens"><br/>
@@ -692,9 +693,10 @@ function showList(ch) {
     <p id="Message6"></p>
     </form>
   </div>
-
-  <h3 id="tool7">Convert pdf+txt to pptx</h3>
-  <div id="divtool7">
+</div>
+<div id="tool7">
+  <h3>Convert pdf+txt to pptx</h3>
+  <div>
   <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
     <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
@@ -705,9 +707,10 @@ function showList(ch) {
     <p id="Message7"></p>
     </form>
   </div>
-
-  <h3 id="tool8">Convert pptx+txt to pptx</h3>
-  <div id="divtool8">
+  </div>
+<div id="tool8">
+  <h3>Convert pptx+txt to pptx</h3>
+  <div>
   <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
     <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt" max-size="50000" class="inputsmallscreens"><br/>
@@ -718,9 +721,10 @@ function showList(ch) {
     <p id="Message8"></p>
     </form>
   </div>
-
-  <h3 id="tool9">Extract speech from pptx</h3>
-  <div id="divtool9">
+</div>
+<div id="tool9">
+  <h3>Extract speech from pptx</h3>
+  <div>
   <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload9">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
@@ -731,9 +735,10 @@ function showList(ch) {
     <p id="Message9"></p>
     </form>
   </div>
-
-  <h3 id="tool10">>Translate XLIFF</h3>
-  <div id="divtool10">
+</div>
+<div id="tool10">
+  <h3>Translate XLIFF</h3>
+  <div>
   <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000" class="inputsmallscreens"><br/>
@@ -766,9 +771,10 @@ function showList(ch) {
     <p id="Message10"></p>
     </form>
   </div>
-
-  <h3 id="tool11">Translate SCORM</h3>
-  <div id="divtool11">
+</div>
+<div id="tool11">
+  <h3>Translate SCORM</h3>
+  <div>
   <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload11">Select ZIP file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br/>
@@ -801,9 +807,10 @@ function showList(ch) {
     <p id="Message11"></p>
     </form>
     </div>
-
-  <h3 id="tool12">Edit Animation</h3>
-  <div id="divtool12">
+</div>
+<div id="tool12">
+  <h3>Edit Animation</h3>
+  <div>
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
@@ -847,23 +854,28 @@ function showList(ch) {
 
   </div>
 
-    <h3 id="tool13">Audio/video file transcription</h3>
-        <div id="divtool13">
+</div>
+<div id="tool13">
+    <h3>Audio/video file transcription</h3>
+        <div>
             <iframe width="80%" height="500px" style="border: none;" src="MyWhisper/index.html"></iframe>
         </div>
-
-    <h3 id="tool14">Audio/video file transcription with Scribe-CEMEA free tool</h3>
-        <div id="divtool14">
+</div>
+<div id="tool14">
+    <h3>Audio/video file transcription with Scribe-CEMEA free tool</h3>
+        <div>
             <iframe width="80%" height="500px" style="border: none;" src="https://scribe.cemea.org/"></iframe>
         </div>
-
-  <h3 id="tool15">External vidéo subtitle editor (Nikse.dk)</h3>
-  <div id="divtool15">
+</div>
+<div id="tool15">
+  <h3>External vidéo subtitle editor (Nikse.dk)</h3>
+  <div>
   <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
   </div>
-
-  <h3 class="internalserveronly" id="tool16">Subtitle reader</h3>
-  <div class="internalserveronly" id="divtool16">
+  </div>
+<div id="tool16">
+  <h3 class="internalserveronly">Subtitle reader</h3>
+  <div class="internalserveronly">
   <form id="Form13" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select SRT file : 
     <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br/>
@@ -879,9 +891,11 @@ function showList(ch) {
     </form>
   </div>
 </div>
+</div>
 </body>
 <script>
 $("body").tooltip();
-$( "#menu" ).accordion({heightStyle: 'panel'});
+for(i=1; i<17; i++) $( "#tool"+i ).accordion({heightStyle: 'panel'});
+//$( "#menu" ).accordion({heightStyle: 'panel'});
 </script>
 </html>
