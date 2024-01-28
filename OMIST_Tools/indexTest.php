@@ -387,8 +387,10 @@ function showList(ch) {
     for(var i=1; i<20; i++) {
         if (_('tool'+i)) {
             if (ToShow.includes(i)) {
+                console.log("show tool"+i);
                 _('tool'+i).style.display='initial';
             } else {
+                console.log("hide tool"+i);
                 _('tool'+i).style.display='none';
             }
         }
