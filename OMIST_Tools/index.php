@@ -437,7 +437,7 @@ function showList(ch) {
   </ul>
 <div id="menu">
 <div id="tool1">
-  <h3>Create web animation from pptx (minimal App without translations)</h3>
+  <h3 title="Minimal version of the HTML animation creation tool (from PPTX). With this tool, you will be able to create a self-contained HTML animation. Taking a PPTx file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool.">Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : </label>
@@ -452,7 +452,7 @@ function showList(ch) {
   </div>
 </div>
 <div id="tool2">
-  <h3>Create web animation from pdf+txt (minimal App without translations)</h3>
+  <h3 title="Minimal version of the HTML animation creation tool (from PDF and TXT). With this tool, you will be able to create a self-contained HTML animation. Taking a PDF file as input for the images and a text file as input for the presenter notes, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool.">Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload2">Select PDF file : </label>
@@ -468,7 +468,7 @@ function showList(ch) {
   </div>
 </div>
 <div id="tool3">
-  <h3>Create web animation from pptx (Complete)</h3>
+  <h3 title="Complete version of the HTML animation creation tool (from PPTX). With this tool, you will be able to create a self-contained HTML animation. Taking a PPTx file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to translate the slides before converting them to images or adding a licence for instance.">Create web animation from pptx (Complete)</h3>
   <div>
   <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
@@ -516,7 +516,7 @@ function showList(ch) {
   </div>
 </div>
 <div id="tool4">
-  <h3>Create web animation from pdf+txt (Complete)</h3>
+  <h3 title="Minimal version of the HTML animation creation tool (from PDF and TXT). With this tool, you will be able to create a self-contained HTML animation. Taking a PDF file as input for the images and a text file as input for the presenter notes, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to add a licence for instance."">Create web animation from pdf+txt (Complete)</h3>
   <div>
   <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   
