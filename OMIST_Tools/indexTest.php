@@ -199,6 +199,9 @@ h1 {
 	}
 }
 
+.fa {
+    font-size: 18px;
+}
 
 
 </style>
@@ -426,7 +429,7 @@ function showList(ch) {
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
-    <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
+    <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-cogs"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
     <li title="These tools allows to create and edit HTML animations"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Animations only</span></a></li>
     <li><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
     <li><a href="#menu" onclick="showList('5,6,10,11')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Translations only</span></a></li>
