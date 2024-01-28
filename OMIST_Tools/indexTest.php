@@ -75,7 +75,8 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <script src="../jquery/jquery.js"></script>
     <script src="../jquery/jquery-ui.min.js"></script>
     <script src="../js/teacher-func.js"></script>
-    <link href="../styles/edit-anim.css" rel="stylesheet"> 
+    <link href="../styles/edit-anim.css" rel="stylesheet">
+    <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
 <style type="text/css">
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
@@ -425,11 +426,11 @@ function showList(ch) {
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
-    <li><a href="#menu" onclick="showList('all')">All tools</a></li>
-    <li><a href="#menu" onclick="showList('1,2,3,4,12')">Animations only</a></li>
-    <li><a href="#menu" onclick="showList('13,14,16')">Audio/video only</a></li>
-    <li><a href="#menu" onclick="showList('5,6,10,11')">Translations only</a></li>
-    <li><a href="#menu" onclick="showList('7,8,9')">Conversions only</a></li>
+    <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
+    <li title="These tools allows to create and edit HTML animations"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Animations only</span></a></li>
+    <li><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
+    <li><a href="#menu" onclick="showList('5,6,10,11')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Translations only</span></a></li>
+    <li><a href="#menu" onclick="showList('7,8,9')"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Conversions only</span></a></li>
   </ul>
 <div id="menu">
 <div id="tool1">
