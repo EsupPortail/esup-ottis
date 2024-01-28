@@ -387,7 +387,7 @@ function showList(ch) {
     console.log("Displaying "+ch+" = "+ToShow);
     for(var i=1; i<20; i++) {
         if (_('tool'+i)) {
-            if (ToShow.includes(i)) {
+            if (ToShow.includes(i.toString())) {
                 console.log("show tool"+i);
                 _('tool'+i).style.display='initial';
             } else {
