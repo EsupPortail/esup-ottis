@@ -384,14 +384,11 @@ function PopulateVoicesMicrosoft(s) {
 function showList(ch) {
     if (ch == "all") ch="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20";
     var ToShow=ch.split(',');
-    console.log("Displaying "+ch+" = "+ToShow);
     for(var i=1; i<20; i++) {
         if (_('tool'+i)) {
             if (ToShow.includes(i.toString())) {
-                console.log("show tool"+i);
                 _('tool'+i).style.display='initial';
             } else {
-                console.log("hide tool"+i);
                 _('tool'+i).style.display='none';
             }
         }
@@ -426,6 +423,13 @@ function showList(ch) {
     <option value="200"/>
   </datalist>
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
+<div id="tabs">
+  <ul>
+    <li><a href="#menu" onclick="showList('1,2,3,4,12')">Create an animation</a></li>
+    <li><a href="#menu" onclick="showList('5,6,10,11')">Translate a file</a></li>
+    <li><a href="#menu" onclick="showList('7,8,9')">File conversions</a></li>
+    <li><a href="#menu" onclick="showList('13,14,16')">Audio/video manipulations</a></li>
+  </ul>
 <div id="menu">
 <div id="tool1">
   <h3>Create web animation from pptx (minimal App without translations)</h3>
@@ -899,8 +903,13 @@ function showList(ch) {
 </div>
 </body>
 <script>
-$("body").tooltip();
-//for(i=1; i<17; i++) $( "#tool"+i ).accordion({heightStyle: 'panel'});
-$( "#menu" ).accordion({heightStyle: 'panel', header: "> div > h3"});
+$( function() {
+    $( "#tabs" ).tabs({
+      collapsible: true
+    });
+    $("body").tooltip();
+    $( "#menu" ).accordion({heightStyle: 'panel', header: "> div > h3"});
+} );
+
 </script>
 </html>
