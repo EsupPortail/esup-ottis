@@ -14,8 +14,10 @@
     <link rel="icon" type="image/png" href="favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="jquery/jquery-ui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
     <script src="jquery/jquery.js"></script>
     <script src="jquery/jquery-ui.min.js"></script>
+    <script src="js/common-func.js"></script>
     <style type="text/css">
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
@@ -196,6 +198,10 @@ html {
   background-size: 200% 200%;
 }
 
+.needbrowser {
+  display: none;
+}
+
 </style>
 
 <script>
@@ -258,8 +264,9 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title" >
-    Transcription instantanée</div>
+        <div class="card__title">
+    <span class="needbrowser" title="We detect that your browser has not a built-in Speech-to-Text functionality. So, use Google Chrome of Microsoft Edge instead or create a Microsoft Azure key and use the external transcription capabilities."><i class="fa fa-exclamation-triangle" style="color: red;" aria-hidden="true"></i>
+</span>Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
@@ -279,7 +286,8 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title">Sous-titrage anglais (projection)</div>
+        <div class="card__title"><span class="needbrowser" title="We detect that your browser has not a built-in Speech-to-Text functionality. So, use Google Chrome of Microsoft Edge instead or create a Microsoft Azure key and use the external transcription capabilities."><i class="fa fa-exclamation-triangle" style="color: red;" aria-hidden="true"></i>
+</span>Sous-titrage anglais (projection)</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
@@ -392,8 +400,8 @@ var root = window.location.href.replace("/scenarios.php","");
 	</div>
 </body>
 <script>
-  $( document ).tooltip();
   $(function() {
+    $( document ).tooltip();
     $("#dialog-invite").dialog({
         autoOpen: false,
         modal: true,
@@ -405,6 +413,7 @@ var root = window.location.href.replace("/scenarios.php","");
             }
         }
     });
+    $(".needbrowser").css("display","inline");
   });
 
 </script>

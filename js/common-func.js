@@ -207,3 +207,18 @@ function ChangeOpacity(boxname, opacity) {
     var bgcolor = [red, green, blue];
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
 }
+
+/**
+ * @summary Detect the browser type
+ * 
+ * @returns The comprehensive name of the browser
+ */
+
+function whichBrowser() {
+    var ua = navigator.userAgent;
+    var browsers = ["Chrome","Firefox","Safari","Edge","Opera"];
+    for(var i=0; i<=browsers.length; i++) {
+        if (ua.indexOf(browsers[i]) > 0) return browsers[i];
+    }
+    return "Unknown";
+}
