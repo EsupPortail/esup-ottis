@@ -958,32 +958,36 @@ function copyText() {
 
 function addAttribute(){
     var text = document.getElementById("myKeyword").value;
-    var attr = document.getElementById("numberKeywords").value;
-    var command = text.replace("n", attr.toString());
-    document.getElementById("textArea").innerHTML=command;
+    var attr = document.getElementById("attrKeywords").value;
+    var command = text.replace("n", attr);
     document.getElementById("textField2").style.display = "inline-block";
+    document.getElementById("textArea").style.display = "inline-block";
+    document.getElementById("copyKeyword").style.display = "inline-block";
+    document.getElementById("textArea").innerHTML=command;
 }
 
 function displayText(textToDisplay) {
     var text = document.getElementById("textArea");
-    var nb_keyword = document.getElementById("numberKeywords");
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
+
     if (classic_keyword.includes(textToDisplay)){
-        text.style.display = "inline-block";
-        nb_keyword.style.display = "none";
-        addAttrKeyword.style.display = "none";
+        document.getElementById("textArea").style.display = "inline-block";
         document.getElementById("textField1").style.display = "none";
+        document.getElementById("attrKeywords").style.display = "none";
+        document.getElementById("addAttrKeywords").style.display = "none";
         document.getElementById("textField2").style.display = "inline-block";
+        document.getElementById("copyKeyword").style.display = "inline-block";
         text.innerHTML=textToDisplay;
     }
     else if(textToDisplay==="[wait n]"){
         document.getElementById("textField1").style.display = "inline-block";
-        document.getElementById("textField2").style.display = "none";
         document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
-        text.style.display = "inline-block";
+        document.getElementById("attrKeywords").style.display = "inline-block";
+        document.getElementById("addAttrKeywords").style.display = "inline-block";
+        document.getElementById("textField2").style.display = "none";
+        document.getElementById("textArea").style.display = "none";
+        document.getElementById("copyKeyword").style.display = "none";
         text.innerHTML=textToDisplay;
-        nb_keyword.style.display = "inline-block";
-        addAttrKeyword.style.display = "inline-block";
     }
     
 }
