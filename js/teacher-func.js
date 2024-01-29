@@ -1216,6 +1216,7 @@ function CreateNewPresentation() {
                 tab_text[i] += ', {"Slide": '+slide+', "Notes": ["';
             }
             var text = "";
+            var text_brut = "";
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
             var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
             //console.log(element);
@@ -1229,8 +1230,9 @@ function CreateNewPresentation() {
               } else {
                 console.log('Enter is NOT contained in element');
               }
-                text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+                text_brut = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 // console.log(text);
+                text = text_brut.toUniCode();
                 if (j==0){
                     tab_text[i] += text+'"';
                 }else{
