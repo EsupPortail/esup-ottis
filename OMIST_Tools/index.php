@@ -858,10 +858,8 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="mouse go px py">Move the mouse</option>
         <option value="mouse hide">Hide the mouse</option>
       </select>
-      <button type=submit id="chosenKeyword" onclick="displayText()" value="chosen_Keyword">Choose</button>
-      <textarea id="textField" style="display: none;">
-        This is the text that appears when you click the button.
-      </textarea>
+      <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
+      <textarea id="textField" style="display: block;"></textarea>
     </div>
 
     <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->

@@ -946,9 +946,11 @@ function SlideNotes() {
     //AbortTimeout(xhr);
 }
 
-function displayText() {
+function displayText(textToDisplay) {
     var text = document.getElementById("textField");
     text.style.display = "block";
+    var showarea = document.getElementById("myKeyword");
+    text.innerHTML=textToDisplay;
 }
 
 /**
