@@ -946,6 +946,11 @@ function SlideNotes() {
     //AbortTimeout(xhr);
 }
 
+function displayText() {
+    var text = document.getElementById("textField");
+    text.style.display = "block";
+}
+
 /**
  * @summary The function that is executed for displaying a larger image with the animation editor.
  * 
