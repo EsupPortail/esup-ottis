@@ -972,9 +972,9 @@ function displayText(textToDisplay) {
 
     if (classic_keyword.includes(textToDisplay)){
         document.getElementById("textArea").style.display = "inline-block";
-        // document.getElementById("textField1").style.display = "none";
-        // document.getElementById("attrKeywords").style.display = "none";
-        // document.getElementById("addAttrKeywords").style.display = "none";
+        document.getElementById("textField1").style.display = "none";
+        document.getElementById("attrKeywords").style.display = "none";
+        document.getElementById("addAttrKeywords").style.display = "none";
         document.getElementById("textField2").style.display = "inline-block";
         document.getElementById("copyKeyword").style.display = "inline-block";
         document.getElementById("textArea").innerHTML=textToDisplay;
