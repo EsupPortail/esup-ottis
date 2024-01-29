@@ -961,6 +961,7 @@ function addAttribute(){
     var attr = document.getElementById("numberKeywords").value;
     var command = text.replace("n", attr.toString());
     document.getElementById("textArea").innerHTML=command;
+    document.getElementById("textField2").style.display = "inline-block";
 }
 
 function displayText(textToDisplay) {
@@ -971,12 +972,14 @@ function displayText(textToDisplay) {
         text.style.display = "inline-block";
         nb_keyword.style.display = "none";
         addAttrKeyword.style.display = "none";
-        document.getElementById("textField").style.display = "none";
+        document.getElementById("textField1").style.display = "none";
+        document.getElementById("textField2").style.display = "inline-block";
         text.innerHTML=textToDisplay;
     }
     else if(textToDisplay==="[wait n]"){
-        document.getElementById("textField").style.display = "inline-block";
-        document.getElementById("textField").innerHTML = "Select pause time in milliseconds";
+        document.getElementById("textField1").style.display = "inline-block";
+        document.getElementById("textField2").style.display = "none";
+        document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
         text.style.display = "inline-block";
         text.innerHTML=textToDisplay;
         nb_keyword.style.display = "inline-block";
