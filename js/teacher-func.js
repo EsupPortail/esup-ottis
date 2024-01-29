@@ -958,7 +958,7 @@ function copyText() {
 
 function displayText(textToDisplay) {
     var text = document.getElementById("textField");
-    text.style.display = "block";
+    // text.style.display = "block";
     var showarea = document.getElementById("myKeyword");
     text.innerHTML=textToDisplay;
 }
