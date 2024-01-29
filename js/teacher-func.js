@@ -958,9 +958,11 @@ function copyText() {
 
 function displayText(textToDisplay) {
     var text = document.getElementById("textField");
-    // text.style.display = "block";
-    var showarea = document.getElementById("myKeyword");
-    text.innerHTML=textToDisplay;
+    var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
+    if (classic_keyword.includes(textToDisplay)){
+        text.innerHTML=textToDisplay;
+    }
+    
 }
 
 /**
