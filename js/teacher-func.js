@@ -1217,30 +1217,26 @@ function CreateNewPresentation() {
             }
             var text = "";
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
-                var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
-                if (element.textContent.includes('"')){
-                    alert("Don't use quotation marks in your new notes");
-                }else{
-                    //console.log(element);
-                    if (element.getElementsByTagName('br').length != 0) {
-                        let br = element.getElementsByTagName('br')
-                        //console.log(element.getElementsByTagName('br'));
-                        for (var num_br = 0; num_br < br.length; num_br++) {
-                            br[num_br].after('","');
-                            console.log(element);
-                        }
-                    } else {
-                        console.log('Enter is NOT contained in element');
-                    }
-                    text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
-                    //text = text_brut.replace(/"/g, '\\u0022');
-                    if (j==0){
-                        tab_text[i] += text+'"';
-                    }else{
-                        tab_text[i] += ', "'+text+'"';
-                    }
-                    j += 1;
+            var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
+            //console.log(element);
+            if (element.getElementsByTagName('br').length != 0) {
+                let br = element.getElementsByTagName('br')
+                //console.log(element.getElementsByTagName('br'));
+                for (var num_br = 0; num_br < br.length; num_br++) {
+                    br[num_br].after('","');
+                    console.log(element);
                 }
+              } else {
+                console.log('Enter is NOT contained in element');
+              }
+                text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+                //text = text_brut.replace(/"/g, '\\u0022');
+                if (j==0){
+                    tab_text[i] += text+'"';
+                }else{
+                    tab_text[i] += ', "'+text+'"';
+                }
+                j += 1;
             }
             console.log("Texte de la slide : "+text);
             if (text==""){
