@@ -988,8 +988,8 @@ function openImg(img) {
     }
     modalImg.onclick = function(){
         $( "#dialog-message" ).dialog({
-            height: 800,
-            width: 800,
+            height: 400,
+            width: 400,
             modal: true,
             buttons: {
               Submit: function() {
