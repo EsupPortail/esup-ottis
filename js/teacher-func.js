@@ -1223,7 +1223,7 @@ function CreateNewPresentation() {
                 let br = element.getElementsByTagName('br')
                 //console.log(element.getElementsByTagName('br'));
                 for (var num_br = 0; num_br < br.length; num_br++) {
-                    br[num_br].after(',"');
+                    br[num_br].after('","');
                     console.log(element);
                 }
               } else {
