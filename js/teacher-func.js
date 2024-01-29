@@ -1216,32 +1216,31 @@ function CreateNewPresentation() {
                 tab_text[i] += ', {"Slide": '+slide+', "Notes": ["';
             }
             var text = "";
-            var text_brut = "";
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
-            var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
-            //console.log(element);
-            if (element.getElementsByTagName('br').length != 0) {
-                let br = element.getElementsByTagName('br')
-                //console.log(element.getElementsByTagName('br'));
-                for (var num_br = 0; num_br < br.length; num_br++) {
-                    br[num_br].after('","');
-                    console.log(element);
-                }
-              } else {
-                console.log('Enter is NOT contained in element');
-              }
-                text_brut = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
-                // console.log(text);
-                //Encoder.EncodeType = "entity";
-                //text = encodeURIComponent(text_brut);
-                text = text_brut.replace(/"/g, '\\u0022');
-                //text = text_brut.toUniCode();
-                if (j==0){
-                    tab_text[i] += text+'"';
+                var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
+                if (element.textContent.includes('"')){
+                    alert("Don't use quotation marks in your new notes");
                 }else{
-                    tab_text[i] += ', "'+text+'"';
+                    //console.log(element);
+                    if (element.getElementsByTagName('br').length != 0) {
+                        let br = element.getElementsByTagName('br')
+                        //console.log(element.getElementsByTagName('br'));
+                        for (var num_br = 0; num_br < br.length; num_br++) {
+                            br[num_br].after('","');
+                            console.log(element);
+                        }
+                    } else {
+                        console.log('Enter is NOT contained in element');
+                    }
+                    text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+                    //text = text_brut.replace(/"/g, '\\u0022');
+                    if (j==0){
+                        tab_text[i] += text+'"';
+                    }else{
+                        tab_text[i] += ', "'+text+'"';
+                    }
+                    j += 1;
                 }
-                j += 1;
             }
             console.log("Texte de la slide : "+text);
             if (text==""){
