@@ -265,8 +265,7 @@ var root = window.location.href.replace("/scenarios.php","");
     <div class="card">
       <div class="card__content">
         <div class="card__title">
-    <span class="needbrowser" title="We detect that your browser has not a built-in Speech-to-Text functionality. Use Google Chrome of Microsoft Edge instead or create a Microsoft Azure key and use the external transcription capabilities."><i class="fa fa-exclamation-triangle" style="color: red;" aria-hidden="true"></i>
-</span>Transcription instantanée</div>
+        <span class="needbrowser"></span>Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
@@ -286,8 +285,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title"><span class="needbrowser" title="We detect that your browser has not a built-in Speech-to-Text functionality. Use Google Chrome of Microsoft Edge instead or create a Microsoft Azure key and use the external transcription capabilities."><i class="fa fa-exclamation-triangle" style="color: red;" aria-hidden="true"></i>
-</span>Sous-titrage anglais (projection)</div>
+        <div class="card__title"><span class="needbrowser"></span>Sous-titrage anglais (projection)</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
         <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
@@ -306,8 +304,8 @@ var root = window.location.href.replace("/scenarios.php","");
   </li>
   <li class="cards__item">
     <div class="card">
-      <div class="card__content"><span class="needbrowser"></span>
-        <div class="card__title">Sous-titrage anglais avec présentation .PPTX sur uncloud</div>
+      <div class="card__content">
+        <div class="card__title"><span class="needbrowser"></span>Sous-titrage anglais avec présentation .PPTX sur uncloud</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
         <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX).<br/>
@@ -323,7 +321,7 @@ var root = window.location.href.replace("/scenarios.php","");
   <li class="cards__item">
     <div class="card">
       <div class="card__content">
-        <div class="card__title">Sous-titrage anglais avec présentation .html sur uncloud</div>
+        <div class="card__title"><span class="needbrowser"></span>Sous-titrage anglais avec présentation .html sur uncloud</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
         <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br/>
             &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .html).<br/>
@@ -415,8 +413,8 @@ var root = window.location.href.replace("/scenarios.php","");
     });
     var elements=document.getElementsByClassName("needbrowser");
     for(var i=0; i<elements.length; i++) {
-      elements[i].title="Test";
-      elements[i].innerHTML='<i class="fa fa-exclamation-triangle" style="color: green;" aria-hidden="true"></i>';
+      elements[i].title="We detect that your browser ("+whichBrowser()+") has not a built-in Speech-to-Text functionality. Use Google Chrome of Microsoft Edge instead or create a Microsoft Azure key and use the external transcription capabilities.";
+      elements[i].innerHTML='<i class="fa fa-exclamation-triangle" style="color: red;" aria-hidden="true"></i>';
     }
     if (! ["Chrome","Edge"].includes(whichBrowser())) $(".needbrowser").css("display","inline");
   });
