@@ -970,6 +970,8 @@ function displayText(textToDisplay) {
     if (classic_keyword.includes(textToDisplay)){
         text.style.display = "inline-block";
         nb_keyword.style.display = "none";
+        addAttrKeyword.style.display = "none";
+        document.getElementById("textField").style.display = "none";
         text.innerHTML=textToDisplay;
     }
     else if(textToDisplay==="[wait n]"){
