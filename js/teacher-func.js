@@ -958,9 +958,17 @@ function copyText() {
 
 function displayText(textToDisplay) {
     var text = document.getElementById("textField");
+    var nb_keyword = document.getElementById("numberKeywords");
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
     if (classic_keyword.includes(textToDisplay)){
+        text.style.display = "inline-block";
         text.innerHTML=textToDisplay;
+    }
+    else if(textToDisplay==="[wait n]"){
+        text.style.display = "inline-block";
+        nb_keyword.style.display = "inline-block";
+        text.innerHTML=textToDisplay;
+
     }
     
 }
