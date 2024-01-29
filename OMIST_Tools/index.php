@@ -859,7 +859,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="mouse hide">Hide the mouse</option>
       </select>
       <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
-      <textarea id="textField" style="display: block;"></textarea>
+      <input type="text" id="textField">
       <button type=submit id="copyKeyword" onclick="copyText()" value="copy_Keyword">Copy</button>
     </div>
 
