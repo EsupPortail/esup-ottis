@@ -1222,7 +1222,7 @@ function CreateNewPresentation() {
             if (element.getElementsByTagName('br').length != 0) {
                 let br = element.getElementsByTagName('br')
                 //console.log(element.getElementsByTagName('br'));
-                for (var num_br = 0; num_br < br.length; num_br++) {
+                for (var num_br = 0; num_br < br.length-1; num_br++) {
                     br[num_br].after('","');
                     console.log(element);
                 }
