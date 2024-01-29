@@ -957,7 +957,7 @@ function copyText() {
   }
 
 function displayText(textToDisplay) {
-    var text = document.getElementById("textField");
+    var text = document.getElementById("textArea");
     var nb_keyword = document.getElementById("numberKeywords");
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
     if (classic_keyword.includes(textToDisplay)){
@@ -969,8 +969,8 @@ function displayText(textToDisplay) {
         document.getElementById("textField").style.display = "inline-block";
         document.getElementById("textField").innerHTML = "Select pause time in milliseconds";
         text.style.display = "inline-block";
+        text.innerHTML=textToDisplay;
         nb_keyword.style.display = "inline-block";
-
     }
     
 }
