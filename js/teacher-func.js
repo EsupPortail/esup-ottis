@@ -948,7 +948,7 @@ function SlideNotes() {
 
 function copyText() {
     // Get the text field
-    var copyText = document.getElementById("textField");
+    var copyText = document.getElementById("textArea");
     // Select the text field
     copyText.select();
      // Copy the text inside the text field
@@ -978,6 +978,7 @@ function displayText(textToDisplay) {
         text.style.display = "inline-block";
         text.innerHTML=textToDisplay;
         nb_keyword.style.display = "inline-block";
+        addAttrKeyword.style.display = "inline-block";
     }
     
 }
