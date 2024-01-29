@@ -413,7 +413,8 @@ var root = window.location.href.replace("/scenarios.php","");
             }
         }
     });
-    $(".needbrowser").css("display","inline");
+  
+    if (! ["Chrome","Edge"].includes(whichBrowser())) $(".needbrowser").css("display","inline");
   });
 
 </script>
