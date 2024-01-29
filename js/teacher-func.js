@@ -1232,7 +1232,9 @@ function CreateNewPresentation() {
               }
                 text_brut = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
                 // console.log(text);
-                text = text_brut.toUniCode();
+                Encoder.EncodeType = "entity";
+                text = Encoder.htmlEncode(text_brut);
+                //text = text_brut.toUniCode();
                 if (j==0){
                     tab_text[i] += text+'"';
                 }else{
