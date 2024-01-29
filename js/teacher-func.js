@@ -962,12 +962,13 @@ function displayText(textToDisplay) {
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
     if (classic_keyword.includes(textToDisplay)){
         text.style.display = "inline-block";
+        nb_keyword.style.display = "none";
         text.innerHTML=textToDisplay;
     }
     else if(textToDisplay==="[wait n]"){
         text.style.display = "inline-block";
         nb_keyword.style.display = "inline-block";
-        text.innerHTML=textToDisplay;
+        text.innerHTML=nb_keyword.label;
 
     }
     
