@@ -854,9 +854,16 @@ It's important to note that the resulting animation can serve as comprehensive i
         Choose your animation : 
       </p>
       <select id="myKeyword">
-        <option value="mouse show">Show the mouse</option>
-        <option value="mouse go px py">Move the mouse</option>
-        <option value="mouse hide">Hide the mouse</option>
+        <option value="[pause]">Pause</option>
+        <option value="[wait n]">Pause for n milliseconds</option>
+        <option value="[resource url]">Open a window with the url</option>
+        <option value="[notification message]">Open a window with the text</option>
+        <option value="[mouse show]">Show the mouse</option>
+        <option value="[mouse go px py]">Move the mouse</option>
+        <option value="[mouse hide]">Hide the mouse</option>
+        <option value="[mouse size m]">Change the mouse size</option>
+        <option value="[mouse shape n]">Change the mouse shape</option>
+        <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
       </select>
       <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
       <textarea readonly id="textField"></textarea>
