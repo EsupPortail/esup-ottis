@@ -966,9 +966,10 @@ function displayText(textToDisplay) {
         text.innerHTML=textToDisplay;
     }
     else if(textToDisplay==="[wait n]"){
+        document.getElementById("textField").style.display = "inline-block";
+        document.getElementById("textField").innerHTML = "Select pause time in milliseconds";
         text.style.display = "inline-block";
         nb_keyword.style.display = "inline-block";
-        text.innerHTML=nb_keyword.label;
 
     }
     
