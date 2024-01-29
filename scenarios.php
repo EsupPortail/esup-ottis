@@ -413,8 +413,11 @@ var root = window.location.href.replace("/scenarios.php","");
             }
         }
     });
-    $(".needbrowser").title="Test";
-    $(".needbrowser").innerHTML='<i class="fa fa-exclamation-triangle" style="color: red;" aria-hidden="true"></i>';
+    var elements=document.getElementsByClassName("needbrowser");
+    for(var i=0; i<elements.length; i++) {
+      elements[i].title="Test";
+      elements[i].innerHTML='<i class="fa fa-exclamation-triangle" style="color: green;" aria-hidden="true"></i>';
+    }
     if (! ["Chrome","Edge"].includes(whichBrowser())) $(".needbrowser").css("display","inline");
   });
 
