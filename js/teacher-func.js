@@ -1234,7 +1234,7 @@ function CreateNewPresentation() {
                 // console.log(text);
                 //Encoder.EncodeType = "entity";
                 text = encodeURIComponent(text_brut);
-                text = text_brut.replace(/"/g, '&quot;');
+                text = text_brut.replace(/"/g, '\u201c');
                 //text = text_brut.toUniCode();
                 if (j==0){
                     tab_text[i] += text+'"';
