@@ -956,6 +956,13 @@ function copyText() {
 
   }
 
+function addAttribute(){
+    var text = document.getElementById("myKeyword").value;
+    var attr = document.getElementById("numberKeywords").value;
+    var command = text.replace("n", attr.toString());
+    document.getElementById("textArea").innerHTML=command;
+}
+
 function displayText(textToDisplay) {
     var text = document.getElementById("textArea");
     var nb_keyword = document.getElementById("numberKeywords");
