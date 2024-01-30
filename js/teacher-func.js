@@ -1102,28 +1102,27 @@ function openImg(img) {
     span.onclick = function() {
     modal.style.display = "none";
     }
-    $("#img01").on("click", function(e) {
-    // modalImg.onclick = function(e){
+    modalImg.onclick = function(e){
         console.log("X: " + e.pageX + " Y: " + e.pageY);
         // $("#img01").on("mousemove", function(e) {
-        //     //var x =e.pageX - $(document).scrollLeft();
-        //     //var y =e.pageY - $(document).scrollTop();
-        //     //$("#dialog").dialog("open", "option", "position", [x,y]);
-        //     // var pos = { my: "left top", at: "left bottom", of: e }
+            //var x =e.pageX - $(document).scrollLeft();
+            //var y =e.pageY - $(document).scrollTop();
+            //$("#dialog").dialog("open", "option", "position", [x,y]);
+            // var pos = { my: "left top", at: "left bottom", of: e }
 
-        //     // $("#dialog-message").dialog("option", "position",pos)
-        //     // .dialog("open");
-        //     console.log("X: " + e.pageX + " Y: " + e.pageY);
-        //     //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
+            // $("#dialog-message").dialog("option", "position",pos)
+            // .dialog("open");
+            console.log("X: " + e.pageX + " Y: " + e.pageY);
+            //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
 
 
-        //     var c=document.getElementById('img01');
-        //     var pr=getDevicePixelRatio();
-        //     var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
-        //     var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
-        //     var x=c.x/pr+pourcx/100*c.width-5;
-        //     var y=c.y/pr+pourcy/100*c.height-5;
-        //     console.log('pos=('+pourcx+','+pourcy+')');
+            var c=document.getElementById('img01');
+            var pr=getDevicePixelRatio();
+            var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+            var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+            var x=c.x/pr+pourcx/100*c.width-5;
+            var y=c.y/pr+pourcy/100*c.height-5;
+            console.log('pos=('+pourcx+','+pourcy+')');
 
         // });
 
@@ -1141,7 +1140,7 @@ function openImg(img) {
               }
             }
         }); 
-    });
+    }
 }
 
 /**
