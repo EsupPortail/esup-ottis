@@ -981,8 +981,9 @@ function addParameters(textToDisplay){
     else if (textToDisplay==="[notification message]"){
         command = text.replace("message", attr);
     }
-    // else if (textToDisplay==="[mouse go px py]"){
-    // }
+    else if (textToDisplay==="[mouse go px py]"){
+        command = text.replace("px py", attr);
+    }
     else if (textToDisplay==="[mouse size n]"){
         command = text.replace("n", attr.toString());
     }
@@ -1008,6 +1009,7 @@ function addParameters(textToDisplay){
 function displayText(textToDisplay) {
     var text = document.getElementById("textArea");
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
+    //document.getElementById("mousePosition").style.display = "none";
 
     if (classic_keyword.includes(textToDisplay)){
         document.getElementById("textArea").style.display = "inline-block";
@@ -1058,7 +1060,8 @@ function displayText(textToDisplay) {
         }
         else if (textToDisplay==="[mouse go px py]"){
             document.getElementById("textField1").innerHTML = "<p> Click on the image where you want the mouse to go. The selected position is :  </p>";
-            document.getElementById("mousePosition").style.display = "inline-block";
+            //document.getElementById("mousePosition").style.display = "inline-block";
+            document.getElementById("paramKeyword").type = "text";
         }
         else if (textToDisplay==="[mouse size n]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size : </p>";
@@ -1130,7 +1133,7 @@ function openImg(img) {
             var x=c.x/pr+pourcx/100*c.width-5;
             var y=c.y/pr+pourcy/100*c.height-5;
             console.log('pos=('+pourcx+','+pourcy+')');
-            document.getElementById("mousePosition").innerHTML = 'pos=('+pourcx+','+pourcy+')';
+            document.getElementById("paramKeyword").innerHTML = 'pos=('+pourcx+','+pourcy+')';
 
         // });
 

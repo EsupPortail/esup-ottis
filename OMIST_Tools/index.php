@@ -868,7 +868,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Select</button>
       <div id="textField1" style="display: none;"></div>
       <div style="display: none;" id="mousePosition"></div>
-      <input type="text" name="paramKeywords" style="display: none;" id="paramKeyword" />
+      <input type="text" name="paramKeyword" style="display: none;" id="paramKeyword" />
       <select id="mouseShape" style="display: none;">
         <option value="0">+</option>
         <option value="1">X</option>
