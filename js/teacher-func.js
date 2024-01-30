@@ -954,7 +954,13 @@ function copyText() {
     var copyText = document.getElementById("textArea");
     copyText.select();
     navigator.clipboard.writeText(copyText.value);
-  }
+}
+
+function getPosMouse(){
+    $("#dialog-message").dialog( "close" );
+
+}
+
 
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
@@ -1050,9 +1056,10 @@ function displayText(textToDisplay) {
             document.getElementById("paramKeyword").type = "text";
             document.getElementById("paramKeyword").value = "";
         }
-        // else if (textToDisplay==="[mouse go px py]"){
-        //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
-        // }
+        else if (textToDisplay==="[mouse go px py]"){
+            document.getElementById("textField1").innerHTML = "<p> Click on the image where you want the mouse to go. The selected position is :  </p>";
+            document.getElementById("mousePosition").style.display = "inline-block";
+        }
         else if (textToDisplay==="[mouse size n]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size : </p>";
             document.getElementById("paramKeyword").type = "number";

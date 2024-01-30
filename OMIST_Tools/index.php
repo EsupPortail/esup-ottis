@@ -865,9 +865,9 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="[mouse shape n]">Change the mouse shape</option>
         <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
       </select>
-      <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
+      <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Select</button>
       <div id="textField1" style="display: none;"></div>
-      <div id="mousePosition"></div>
+      <div style="display: none;" id="mousePosition"></div>
       <input type="text" name="paramKeywords" style="display: none;" id="paramKeyword" />
       <select id="mouseShape" style="display: none;">
         <option value="0">+</option>
