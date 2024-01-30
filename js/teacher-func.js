@@ -982,6 +982,8 @@ function addParameters(textToDisplay){
         command = text.replace("message", attr);
     }
     else if (textToDisplay==="[mouse go px py]"){
+        attr = attr.replace("X = ", "");
+        attr = attr.replace(", Y =", "");
         command = text.replace("px py", attr);
     }
     else if (textToDisplay==="[mouse size n]"){
@@ -1134,7 +1136,7 @@ function openImg(img) {
             var x=c.x/pr+pourcx/100*c.width-5;
             var y=c.y/pr+pourcy/100*c.height-5;
             console.log('pos=('+pourcx+','+pourcy+')');
-            document.getElementById("mousePosition").innerHTML = pourcx+' '+pourcy;
+            document.getElementById("mousePosition").innerHTML = 'X = ' +pourcx+', Y = '+pourcy;
 
         // });
 
