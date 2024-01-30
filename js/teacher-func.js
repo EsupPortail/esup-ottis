@@ -978,16 +978,42 @@ function displayText(textToDisplay) {
         document.getElementById("textField2").style.display = "inline-block";
         document.getElementById("copyKeyword").style.display = "inline-block";
         document.getElementById("textArea").innerHTML=textToDisplay;
-    }
-    else if(textToDisplay==="[wait n]"){
+    }else{
         document.getElementById("textField1").style.display = "inline-block";
-        document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
-        document.getElementById("paramKeyword").style.display = "inline-block";
+        
         document.getElementById("addParamKeyword").style.display = "inline-block";
         document.getElementById("textField2").style.display = "none";
         document.getElementById("textArea").style.display = "none";
         document.getElementById("copyKeyword").style.display = "none";
         document.getElementById("textArea").innerHTML=textToDisplay;
+
+        if(textToDisplay==="[wait n]"){
+            document.getElementById("textField1").innerHTML = "<p> Enter pause time in milliseconds. </p>";
+            document.getElementById("paramKeyword").type = "number";
+            document.getElementById("paramKeyword").min = "0";
+            document.getElementById("paramKeyword").value = "0";
+
+        }
+        else if (textToDisplay==="[resource url]"){
+            document.getElementById("textField1").innerHTML = "<p> Add the resource url. </p>";
+            document.getElementById("paramKeyword").type = "url";
+        }
+        else if (textToDisplay==="[notification message]"){
+            document.getElementById("textField1").innerHTML = "<p> Add the message to display. </p>";
+        }
+        // else if (textToDisplay==="[mouse go px py]"){
+        //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
+        // }
+        else if (textToDisplay==="[mouse size m]"){
+            document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size. </p>";
+        }
+        // else if (textToDisplay==="[mouse shape n]"){
+        //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
+        // }
+        else if (textToDisplay==="[mouse customshape ch]"){
+            document.getElementById("textField1").innerHTML = "<p> Enter the code to change the shape of the mouse pointer. This may contain HTML code. </p>";
+        }
+        document.getElementById("paramKeyword").style.display = "inline-block";
     }
     
 }
