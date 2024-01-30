@@ -1092,12 +1092,11 @@ function openImg(img) {
     span.onclick = function() {
     modal.style.display = "none";
     }
-    modalImg.onclick = function(event){
+    modalImg.onclick = function(){
         $( "#dialog-message" ).dialog({
             height: 400,
             width: 400,
             modal: true,
-            position: [event.pageX, event.pageY],
             buttons: {
               Finish: function() {
                 var e = document.getElementById("myKeyword");
@@ -1107,7 +1106,16 @@ function openImg(img) {
                 modal.style.display = "none";
               }
             }
-          });
+        });
+        $("#img01").click(function(e) {
+            //var x =e.pageX - $(document).scrollLeft();
+            //var y =e.pageY - $(document).scrollTop();
+            //$("#dialog").dialog("open", "option", "position", [x,y]);
+            var pos = { my: "left top", at: "left bottom", of: e }
+
+            $("#dialog-message").dialog("option", "position",pos)
+            .dialog("open");
+        });
     }
 }
 
