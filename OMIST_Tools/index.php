@@ -876,7 +876,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="4">⚫</option>
         <option value="5">↖</option>
       </select>
-      <button type=submit style="display: none;" id="addParamKeyword" onclick="if ((_('paramKeyword').value!='') || (_('mouseShape').style.display === 'inline-block')) {addParameters(_('myKeyword').value);} else {alert('You must provide a value first !');}" value="add_Parameters">Generate</button>
+      <button type=submit style="display: none;" id="addParamKeyword" onclick="if ((_('paramKeyword').value!='') || (_('mouseShape').style.display === 'inline-block')) {addParameters(_('myKeyword').value);} else {alert('You must provide a value first !');}" value="add_Parameters">Submit</button>
       <div id="textField2" style="display: none;"><p>The following command needs to be added to the animation speech</p></div>
       <textarea readonly style="display: none;" id="textArea"></textarea>
       <button type=submit id="copyKeyword" style="display: none;" onclick="copyText()" value="copy_Keyword">Copy</button>

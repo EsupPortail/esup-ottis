@@ -1098,7 +1098,7 @@ function openImg(img) {
             width: 400,
             modal: true,
             buttons: {
-              Submit: function() {
+              Finish: function() {
                 var e = document.getElementById("myKeyword");
                 var value = e.value;
                 console.log(value);
