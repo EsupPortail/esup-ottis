@@ -1032,6 +1032,7 @@ function displayText(textToDisplay) {
         }
         else if (textToDisplay==="[notification message]"){
             document.getElementById("textField1").innerHTML = "<p> Add the message to display : </p>";
+            document.getElementById("paramKeyword").type = "text";
             document.getElementById("paramKeyword").value = "";
         }
         // else if (textToDisplay==="[mouse go px py]"){
@@ -1048,6 +1049,7 @@ function displayText(textToDisplay) {
         // }
         else if (textToDisplay==="[mouse customshape ch]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the code to change the shape of the mouse pointer. This may contain HTML code. </p>";
+            document.getElementById("paramKeyword").type = "text";
             document.getElementById("paramKeyword").value = "";
         }
         document.getElementById("paramKeyword").style.display = "inline-block";
