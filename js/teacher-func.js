@@ -1056,8 +1056,8 @@ function displayText(textToDisplay) {
         else if (textToDisplay==="[mouse size n]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size : </p>";
             document.getElementById("paramKeyword").type = "number";
-            document.getElementById("paramKeyword").min = "0";
-            document.getElementById("paramKeyword").value = "0";
+            document.getElementById("paramKeyword").min = "1";
+            document.getElementById("paramKeyword").value = "1";
         }
         else if (textToDisplay==="[mouse customshape ch]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the code to change the shape of the mouse pointer. This may contain HTML code. </p>";
