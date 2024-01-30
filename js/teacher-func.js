@@ -1062,7 +1062,6 @@ function displayText(textToDisplay) {
         }
         else if (textToDisplay==="[mouse go px py]"){
             document.getElementById("textField1").innerHTML = "<p> Click on the image where you want the mouse to go. The selected position is :  </p>";
-            document.getElementById("mousePosition").style.display = "inline-block";
             document.getElementById("paramKeyword").type = "text";
             document.getElementById("paramKeyword").value = document.getElementById("mousePosition").innerHTML;
         }
