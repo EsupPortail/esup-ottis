@@ -1092,11 +1092,12 @@ function openImg(img) {
     span.onclick = function() {
     modal.style.display = "none";
     }
-    modalImg.onclick = function(){
+    modalImg.onclick = function(event){
         $( "#dialog-message" ).dialog({
             height: 400,
             width: 400,
             modal: true,
+            position: [event.pageX, event.pageY],
             buttons: {
               Finish: function() {
                 var e = document.getElementById("myKeyword");
