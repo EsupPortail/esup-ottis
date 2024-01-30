@@ -867,8 +867,8 @@ It's important to note that the resulting animation can serve as comprehensive i
       </select>
       <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
       <div id="textField1" style="display: none;"></div>
-      <input type="text" name="attrKeywords" style="display: none;" id="attrKeywords"/>
-      <button type=submit style="display: none;" id="addAttrKeyword" onclick="addAttribute()" value="add_Attribute">Generate</button>
+      <input type="text" name="paramKeywords" style="display: none;" id="paramKeyword"/>
+      <button type=submit style="display: none;" id="addParamKeyword" onclick="addParameters()" value="add_Parameters">Generate</button>
       <div id="textField2" style="display: none;"><p>The following command needs to be added to the animation speech</p></div>
       <textarea readonly style="display: none;" id="textArea"></textarea>
       <button type=submit id="copyKeyword" onclick="copyText()" value="copy_Keyword">Copy</button>

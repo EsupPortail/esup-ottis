@@ -956,9 +956,9 @@ function copyText() {
 
   }
 
-function addAttribute(){
+function addParameters(){
     var text = document.getElementById("myKeyword").value;
-    var attr = document.getElementById("attrKeywords").value;
+    var attr = document.getElementById("paramKeyword").value;
     var command = text.replace("n", attr);
     document.getElementById("textField2").style.display = "inline-block";
     document.getElementById("textArea").style.display = "inline-block";
@@ -973,8 +973,8 @@ function displayText(textToDisplay) {
     if (classic_keyword.includes(textToDisplay)){
         document.getElementById("textArea").style.display = "inline-block";
         document.getElementById("textField1").style.display = "none";
-        document.getElementById("attrKeywords").style.display = "none";
-        //document.getElementById("addAttrKeywords").style.display = "none";
+        document.getElementById("paramKeyword").style.display = "none";
+        document.getElementById("addParamKeyword").style.display = "none";
         document.getElementById("textField2").style.display = "inline-block";
         document.getElementById("copyKeyword").style.display = "inline-block";
         document.getElementById("textArea").innerHTML=textToDisplay;
@@ -982,8 +982,8 @@ function displayText(textToDisplay) {
     else if(textToDisplay==="[wait n]"){
         document.getElementById("textField1").style.display = "inline-block";
         document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
-        document.getElementById("attrKeywords").style.display = "inline-block";
-        document.getElementById("addAttrKeywords").style.display = "inline-block";
+        document.getElementById("paramKeyword").style.display = "inline-block";
+        document.getElementById("addParamKeyword").style.display = "inline-block";
         document.getElementById("textField2").style.display = "none";
         document.getElementById("textArea").style.display = "none";
         document.getElementById("copyKeyword").style.display = "none";
