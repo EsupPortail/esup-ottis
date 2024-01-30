@@ -1062,6 +1062,7 @@ function displayText(textToDisplay) {
             document.getElementById("textField1").innerHTML = "<p> Click on the image where you want the mouse to go. The selected position is :  </p>";
             //document.getElementById("mousePosition").style.display = "inline-block";
             document.getElementById("paramKeyword").type = "text";
+            document.getElementById("paramKeyword").innerHTML = document.getElementById("mousePosition").innerHTML;
         }
         else if (textToDisplay==="[mouse size n]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size : </p>";
@@ -1133,7 +1134,7 @@ function openImg(img) {
             var x=c.x/pr+pourcx/100*c.width-5;
             var y=c.y/pr+pourcy/100*c.height-5;
             console.log('pos=('+pourcx+','+pourcy+')');
-            document.getElementById("paramKeyword").innerHTML = 'pos=('+pourcx+','+pourcy+')';
+            document.getElementById("mousePosition").innerHTML = 'pos=('+pourcx+','+pourcy+')';
 
         // });
 
