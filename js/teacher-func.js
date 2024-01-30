@@ -1102,7 +1102,8 @@ function openImg(img) {
     span.onclick = function() {
     modal.style.display = "none";
     }
-    modalImg.onclick = function(e){
+    $("#img01").on("click", function(e) {
+    // modalImg.onclick = function(e){
         console.log("X: " + e.pageX + " Y: " + e.pageY);
         // $("#img01").on("mousemove", function(e) {
         //     //var x =e.pageX - $(document).scrollLeft();
@@ -1140,7 +1141,7 @@ function openImg(img) {
               }
             }
         }); 
-    }
+    });
 }
 
 /**
