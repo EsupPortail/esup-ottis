@@ -1103,7 +1103,7 @@ function openImg(img) {
     modal.style.display = "none";
     }
     modalImg.onclick = function(){
-        $("#img01").click(function(e) {
+        $("#img01").on("click", function(e) {
             //var x =e.pageX - $(document).scrollLeft();
             //var y =e.pageY - $(document).scrollTop();
             //$("#dialog").dialog("open", "option", "position", [x,y]);
