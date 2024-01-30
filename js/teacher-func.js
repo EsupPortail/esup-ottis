@@ -1134,7 +1134,7 @@ function openImg(img) {
             var x=c.x/pr+pourcx/100*c.width-5;
             var y=c.y/pr+pourcy/100*c.height-5;
             console.log('pos=('+pourcx+','+pourcy+')');
-            document.getElementById("mousePosition").innerHTML = 'pos=('+pourcx+','+pourcy+')';
+            document.getElementById("mousePosition").innerHTML = pourcx+' '+pourcy;
 
         // });
 
