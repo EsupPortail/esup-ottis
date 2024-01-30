@@ -1005,13 +1005,24 @@ function displayText(textToDisplay) {
         document.getElementById("textArea").style.display = "inline-block";
         document.getElementById("textField1").style.display = "none";
         document.getElementById("paramKeyword").style.display = "none";
+        document.getElementById("mouseShape").style.display = "none";
         document.getElementById("addParamKeyword").style.display = "none";
         document.getElementById("textField2").style.display = "inline-block";
         document.getElementById("copyKeyword").style.display = "inline-block";
         document.getElementById("textArea").innerHTML=textToDisplay;
+    }else if(textToDisplay==="[mouse shape n]"){
+        document.getElementById("textField1").style.display = "inline-block";
+        document.getElementById("paramKeyword").style.display = "none";
+        document.getElementById("mouseShape").style.display = "inline-block";
+        document.getElementById("addParamKeyword").style.display = "inline-block";
+        document.getElementById("textField2").style.display = "none";
+        document.getElementById("textArea").style.display = "none";
+        document.getElementById("copyKeyword").style.display = "none";
+        document.getElementById("textArea").innerHTML=textToDisplay;
+
     }else{
         document.getElementById("textField1").style.display = "inline-block";
-        
+        document.getElementById("mouseShape").style.display = "none";
         document.getElementById("addParamKeyword").style.display = "inline-block";
         document.getElementById("textField2").style.display = "none";
         document.getElementById("textArea").style.display = "none";

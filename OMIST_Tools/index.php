@@ -868,6 +868,14 @@ It's important to note that the resulting animation can serve as comprehensive i
       <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
       <div id="textField1" style="display: none;"></div>
       <input type="text" name="paramKeywords" style="display: none;" id="paramKeyword" />
+      <select id="mouseShape" style="display: none;">
+        <option value="0">+</option>
+        <option value="1">X</option>
+        <option value="2">☝</option>
+        <option value="3">○</option>
+        <option value="4">⚫</option>
+        <option value="5">↖</option>
+      </select>
       <button type=submit style="display: none;" id="addParamKeyword" onclick="if (_('paramKeyword').value!='') {addParameters(_('myKeyword').value);} else {alert('You must provide a value first !');}" value="add_Parameters">Generate</button>
       <div id="textField2" style="display: none;"><p>The following command needs to be added to the animation speech</p></div>
       <textarea readonly style="display: none;" id="textArea"></textarea>
