@@ -980,8 +980,10 @@ function addParameters(textToDisplay){
     else if (textToDisplay==="[mouse size n]"){
         command = text.replace("n", attr.toString());
     }
-    // else if (textToDisplay==="[mouse shape n]"){
-    // }
+    else if (textToDisplay==="[mouse shape n]"){
+        var shape = document.getElementById("mouseShape").value;
+        command = text.replace("n", shape);
+    }
     else if (textToDisplay==="[mouse customshape ch]"){
         command = text.replace("ch", attr);
     }
@@ -1010,7 +1012,9 @@ function displayText(textToDisplay) {
         document.getElementById("textField2").style.display = "inline-block";
         document.getElementById("copyKeyword").style.display = "inline-block";
         document.getElementById("textArea").innerHTML=textToDisplay;
+
     }else if(textToDisplay==="[mouse shape n]"){
+        document.getElementById("textField1").innerHTML = "<p> Choose the shape of the mouse pointer : </p>";
         document.getElementById("textField1").style.display = "inline-block";
         document.getElementById("paramKeyword").style.display = "none";
         document.getElementById("mouseShape").style.display = "inline-block";
@@ -1055,9 +1059,6 @@ function displayText(textToDisplay) {
             document.getElementById("paramKeyword").min = "0";
             document.getElementById("paramKeyword").value = "0";
         }
-        // else if (textToDisplay==="[mouse shape n]"){
-        //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
-        // }
         else if (textToDisplay==="[mouse customshape ch]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the code to change the shape of the mouse pointer. This may contain HTML code. </p>";
             document.getElementById("paramKeyword").type = "text";
@@ -1102,6 +1103,7 @@ function openImg(img) {
                 var value = e.value;
                 console.log(value);
                 $( this ).dialog( "close" );
+                modal.style.display = "none";
               }
             }
           });
