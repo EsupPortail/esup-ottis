@@ -946,16 +946,21 @@ function SlideNotes() {
     //AbortTimeout(xhr);
 }
 
+/**
+ * @summary The function that is executed for copying text to the clipboard.
+ * 
+ */
 function copyText() {
-    // Get the text field
     var copyText = document.getElementById("textArea");
-    // Select the text field
     copyText.select();
-     // Copy the text inside the text field
     navigator.clipboard.writeText(copyText.value);
-
   }
 
+/**
+ * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
+ * 
+ * @param {string} textToDisplay the keyword selected.
+ */
 function addParameters(textToDisplay){
     var text = document.getElementById("myKeyword").value;
     var attr = document.getElementById("paramKeyword").value;
@@ -987,6 +992,11 @@ function addParameters(textToDisplay){
     document.getElementById("textArea").innerHTML=command;
 }
 
+/**
+ * @summary The function that is executed for getting the keyword of an animation with the animation editor.
+ * 
+ * @param {string} textToDisplay the keyword selected.
+ */
 function displayText(textToDisplay) {
     var text = document.getElementById("textArea");
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
@@ -1009,32 +1019,36 @@ function displayText(textToDisplay) {
         document.getElementById("textArea").innerHTML=textToDisplay;
 
         if(textToDisplay==="[wait n]"){
-            document.getElementById("textField1").innerHTML = "<p> Enter pause time in milliseconds. </p>";
+            document.getElementById("textField1").innerHTML = "<p> Enter pause time in milliseconds : </p>";
             document.getElementById("paramKeyword").type = "number";
             document.getElementById("paramKeyword").min = "0";
             document.getElementById("paramKeyword").value = "0";
 
         }
         else if (textToDisplay==="[resource url]"){
-            document.getElementById("textField1").innerHTML = "<p> Add the resource url. </p>";
+            document.getElementById("textField1").innerHTML = "<p> Add the resource url : </p>";
             document.getElementById("paramKeyword").type = "url";
+            document.getElementById("paramKeyword").value = "";
         }
         else if (textToDisplay==="[notification message]"){
-            document.getElementById("textField1").innerHTML = "<p> Add the message to display. </p>";
+            document.getElementById("textField1").innerHTML = "<p> Add the message to display : </p>";
+            document.getElementById("paramKeyword").value = "";
         }
         // else if (textToDisplay==="[mouse go px py]"){
         //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
         // }
         else if (textToDisplay==="[mouse size n]"){
-            document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size. </p>";
+            document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size : </p>";
             document.getElementById("paramKeyword").type = "number";
             document.getElementById("paramKeyword").min = "0";
+            document.getElementById("paramKeyword").value = "0";
         }
         // else if (textToDisplay==="[mouse shape n]"){
         //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
         // }
         else if (textToDisplay==="[mouse customshape ch]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the code to change the shape of the mouse pointer. This may contain HTML code. </p>";
+            document.getElementById("paramKeyword").value = "";
         }
         document.getElementById("paramKeyword").style.display = "inline-block";
     }
