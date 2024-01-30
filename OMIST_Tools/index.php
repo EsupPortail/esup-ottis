@@ -861,14 +861,14 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="[mouse show]">Show the mouse</option>
         <option value="[mouse go px py]">Move the mouse</option>
         <option value="[mouse hide]">Hide the mouse</option>
-        <option value="[mouse size m]">Change the mouse size</option>
+        <option value="[mouse size n]">Change the mouse size</option>
         <option value="[mouse shape n]">Change the mouse shape</option>
         <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
       </select>
       <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Choose</button>
       <div id="textField1" style="display: none;"></div>
       <input type="text" name="paramKeywords" style="display: none;" id="paramKeyword" />
-      <button type=submit style="display: none;" id="addParamKeyword" onclick="if (_('paramKeyword').value!='') {addParameters();} else {alert('You must provide a value first !');}" value="add_Parameters">Generate</button>
+      <button type=submit style="display: none;" id="addParamKeyword" onclick="if (_('paramKeyword').value!='') {addParameters(_('myKeyword').value);} else {alert('You must provide a value first !');}" value="add_Parameters">Generate</button>
       <div id="textField2" style="display: none;"><p>The following command needs to be added to the animation speech</p></div>
       <textarea readonly style="display: none;" id="textArea"></textarea>
       <button type=submit id="copyKeyword" onclick="copyText()" value="copy_Keyword">Copy</button>

@@ -956,10 +956,31 @@ function copyText() {
 
   }
 
-function addParameters(){
+function addParameters(textToDisplay){
     var text = document.getElementById("myKeyword").value;
     var attr = document.getElementById("paramKeyword").value;
-    var command = text.replace("n", attr);
+    var command = "";
+
+    if(textToDisplay==="[wait n]"){
+        command = text.replace("n", attr.toString());
+    }
+    else if (textToDisplay==="[resource url]"){
+        command = text.replace("url", attr);
+    }
+    else if (textToDisplay==="[notification message]"){
+        command = text.replace("message", attr);
+    }
+    // else if (textToDisplay==="[mouse go px py]"){
+    // }
+    else if (textToDisplay==="[mouse size n]"){
+        command = text.replace("n", attr.toString());
+    }
+    // else if (textToDisplay==="[mouse shape n]"){
+    // }
+    else if (textToDisplay==="[mouse customshape ch]"){
+        command = text.replace("ch", attr);
+    }
+
     document.getElementById("textField2").style.display = "inline-block";
     document.getElementById("textArea").style.display = "inline-block";
     document.getElementById("copyKeyword").style.display = "inline-block";
@@ -1004,8 +1025,10 @@ function displayText(textToDisplay) {
         // else if (textToDisplay==="[mouse go px py]"){
         //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
         // }
-        else if (textToDisplay==="[mouse size m]"){
+        else if (textToDisplay==="[mouse size n]"){
             document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size. </p>";
+            document.getElementById("paramKeyword").type = "number";
+            document.getElementById("paramKeyword").min = "0";
         }
         // else if (textToDisplay==="[mouse shape n]"){
         //     document.getElementById("textField1").innerHTML = "<p> Select pause time in milliseconds </p>";
