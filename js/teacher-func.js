@@ -1111,7 +1111,7 @@ function openImg(img) {
 
             // $("#dialog-message").dialog("option", "position",pos)
             // .dialog("open");
-            console.log("X: " + e.pageX + " Y: " + e.pageY);
+            console.log("X: " + e.$( this ).x + " Y: " + e.$( this ).y);
             //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
 
 
