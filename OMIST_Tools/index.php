@@ -854,7 +854,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         Choose your animation : 
       </p>
       <select id="myKeyword">
-        <option value="[pause]">Pause</option>
+        <option selected="selected" value="[pause]">Pause</option>
         <option value="[wait n]">Pause for n milliseconds</option>
         <option value="[resource url]">Open a window with the url</option>
         <option value="[notification message]">Open a window with the text</option>
