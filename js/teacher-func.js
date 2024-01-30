@@ -1103,7 +1103,7 @@ function openImg(img) {
     modal.style.display = "none";
     }
     modalImg.onclick = function(){
-        $("#img01").on("click", function(e) {
+        $("#img01").on("mousemove", function(e) {
             //var x =e.pageX - $(document).scrollLeft();
             //var y =e.pageY - $(document).scrollTop();
             //$("#dialog").dialog("open", "option", "position", [x,y]);
@@ -1111,7 +1111,7 @@ function openImg(img) {
 
             // $("#dialog-message").dialog("option", "position",pos)
             // .dialog("open");
-            console.log("X: " + e.$( this ).x + " Y: " + e.$( this ).y);
+            console.log("X: " + e.pageX + " Y: " + e.pageY);
             //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
 
 
@@ -1131,9 +1131,9 @@ function openImg(img) {
             modal: true,
             buttons: {
               Finish: function() {
-                var e = document.getElementById("myKeyword");
-                var value = e.value;
-                console.log(value);
+                // var e = document.getElementById("myKeyword");
+                // var value = e.value;
+                // console.log(value);
                 $( this ).dialog( "close" );
                 modal.style.display = "none";
               }
