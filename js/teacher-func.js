@@ -1069,6 +1069,16 @@ function displayText(textToDisplay) {
     
 }
 
+function getDevicePixelRatio() {
+    var mediaQuery;
+    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (window.devicePixelRatio !== undefined && !is_firefox) {
+        return window.devicePixelRatio;
+    } else {
+        return 1;
+    }
+}
+
 /**
  * @summary The function that is executed for displaying a larger image with the animation editor.
  * 
@@ -1093,6 +1103,28 @@ function openImg(img) {
     modal.style.display = "none";
     }
     modalImg.onclick = function(){
+        $("#img01").click(function(e) {
+            //var x =e.pageX - $(document).scrollLeft();
+            //var y =e.pageY - $(document).scrollTop();
+            //$("#dialog").dialog("open", "option", "position", [x,y]);
+            // var pos = { my: "left top", at: "left bottom", of: e }
+
+            // $("#dialog-message").dialog("option", "position",pos)
+            // .dialog("open");
+            console.log("X: " + e.pageX + " Y: " + e.pageY);
+            //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
+
+
+            var c=document.getElementById('img01');
+            var pr=getDevicePixelRatio();
+            var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+            var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+            var x=c.x/pr+pourcx/100*c.width-5;
+            var y=c.y/pr+pourcy/100*c.height-5;
+            console.log('pos=('+pourcx+','+pourcy+')');
+
+        });
+
         $( "#dialog-message" ).dialog({
             height: 400,
             width: 400,
@@ -1106,18 +1138,7 @@ function openImg(img) {
                 modal.style.display = "none";
               }
             }
-        });
-        $("#img01").click(function(e) {
-            //var x =e.pageX - $(document).scrollLeft();
-            //var y =e.pageY - $(document).scrollTop();
-            //$("#dialog").dialog("open", "option", "position", [x,y]);
-            // var pos = { my: "left top", at: "left bottom", of: e }
-
-            // $("#dialog-message").dialog("option", "position",pos)
-            // .dialog("open");
-            console.log("X: " + e.pageX + " Y: " + e.pageY);
-            //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
-        });
+        }); 
     }
 }
 
