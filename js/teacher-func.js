@@ -1111,10 +1111,12 @@ function openImg(img) {
             //var x =e.pageX - $(document).scrollLeft();
             //var y =e.pageY - $(document).scrollTop();
             //$("#dialog").dialog("open", "option", "position", [x,y]);
-            var pos = { my: "left top", at: "left bottom", of: e }
+            // var pos = { my: "left top", at: "left bottom", of: e }
 
-            $("#dialog-message").dialog("option", "position",pos)
-            .dialog("open");
+            // $("#dialog-message").dialog("option", "position",pos)
+            // .dialog("open");
+            console.log("X: " + e.pageX + " Y: " + e.pageY);
+            //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
         });
     }
 }
