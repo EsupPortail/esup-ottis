@@ -1112,10 +1112,10 @@ function openImg(img) {
     //modalImg.onclick = function(e){
     $( "#img01" ).on( "click", function(e) {
 
-        var xPos = e.pageX - $(this).position().left;
-        var yPos = e.pageY - $(this).position().top;
-        console.log("position X de l'image : "+$(this).position().left);
-        console.log("position Y de l'image : "+$(this).position().top);
+        var xPos = e.pageX - $(this).offset().left;
+        var yPos = e.pageY - $(this).offset().top;
+        console.log("position X de l'image : "+$(this).offset().left);
+        console.log("position Y de l'image : "+$(this).offset().top);
         console.log("position X: "+ xPos + " position Y: " + yPos);
 
         console.log("X: " + e.pageX + " Y: " + e.pageY);
