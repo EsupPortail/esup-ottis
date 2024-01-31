@@ -1109,7 +1109,8 @@ function openImg(img) {
     modal.style.display = "none";
     }
 
-    modalImg.onclick = function(e){
+    //modalImg.onclick = function(e){
+    $( "#img01" ).on( "click", function(e) {
 
         var xPos = e.pageX - $(this).position().left;
         var yPos = e.pageY - $(this).position().top;
@@ -1146,7 +1147,7 @@ function openImg(img) {
                 document.getElementById("copyKeyword").style.display = "none";
             }
         }); 
-    }
+    });
 }
 
 /**
