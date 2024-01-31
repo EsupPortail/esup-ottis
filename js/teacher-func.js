@@ -1114,6 +1114,8 @@ function openImg(img) {
 
         var xPos = e.pageX - $(this).position().left;
         var yPos = e.pageY - $(this).position().top;
+        console.log("position X de l'image : "+$(this).position().left);
+        console.log("position Y de l'image : "+$(this).position().top);
         console.log("position X: "+ xPos + " position Y: " + yPos);
 
         console.log("X: " + e.pageX + " Y: " + e.pageY);
