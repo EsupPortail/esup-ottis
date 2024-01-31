@@ -1149,6 +1149,7 @@ function openImg(img) {
                 // var value = e.value;
                 // console.log(value);
                 $( this ).dialog( "close" );
+                $(document).find("#myKeyword").val('0')
                 modal.style.display = "none";
               }
             }
