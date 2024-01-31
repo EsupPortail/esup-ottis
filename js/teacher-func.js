@@ -1123,8 +1123,8 @@ function openImg(img) {
         var pourcy=Math.floor((e.pageY-$(this).offset().top/pr)/(modalImg.height)*100000)/1000;
         var x=$(this).offset().left/pr+pourcx/100*modalImg.width-5;
         var y=$(this).offset().top/pr+pourcy/100*modalImg.height-5;
-        console.log('pos=('+pourcx+','+pourcy+')');
-        console.log('x:'+x+', y:'+y);
+        // console.log('pos=('+pourcx+','+pourcy+')');
+        // console.log('x:'+x+', y:'+y);
         document.getElementById("mousePosition").innerHTML = 'X = ' +pourcx+', Y = '+pourcy;
 
         $( "#dialog-message" ).dialog({
@@ -1396,6 +1396,7 @@ function CreateNewPresentation() {
         console.log(tab_text[i]);
         i += 1;
     }
+    tab_text += ';';
     formdata.append("newText", tab_text);
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
