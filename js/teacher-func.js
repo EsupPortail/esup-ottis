@@ -1114,11 +1114,11 @@ function openImg(img) {
 
         var xPos = e.pageX - $(this).offset().left;
         var yPos = e.pageY - $(this).offset().top;
-        console.log("position X de l'image : "+$(this).offset().left);
-        console.log("position Y de l'image : "+$(this).offset().top);
+        // console.log("position X de l'image : "+$(this).offset().left);
+        // console.log("position Y de l'image : "+$(this).offset().top);
         console.log("position X: "+ xPos + " position Y: " + yPos);
 
-        console.log("X: " + e.pageX + " Y: " + e.pageY);
+        // console.log("X: " + e.pageX + " Y: " + e.pageY);
         var c=document.getElementById('img01');
         var pr=getDevicePixelRatio();
         var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
@@ -1127,6 +1127,14 @@ function openImg(img) {
         var y=c.y/pr+pourcy/100*c.height-5;
         console.log('pos=('+pourcx+','+pourcy+')');
         document.getElementById("mousePosition").innerHTML = 'X = ' +pourcx+', Y = '+pourcy;
+
+
+        var pourcx=Math.floor((e.pageX-$(this).offset().left/pr)/(c.width)*100000)/1000;
+        var pourcy=Math.floor((e.pageY-$(this).offset().top/pr)/(c.height)*100000)/1000;
+        var x=$(this).offset().left/pr+pourcx/100*c.width-5;
+        var y=$(this).offset().top/pr+pourcy/100*c.height-5;
+        console.log('pos=('+pourcx+','+pourcy+')');
+        document.getElementById("mousePosition").innerHTML = 'Xbis = ' +pourcx+', Ybis = '+pourcy;
 
         $( "#dialog-message" ).dialog({
             height: 400,
