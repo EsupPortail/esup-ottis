@@ -1108,7 +1108,10 @@ function openImg(img) {
     span.onclick = function() {
     modal.style.display = "none";
     }
-
+    const imgDisplay = document.querySelector(".modal-content");
+    imgDisplay.addEventListener("click", (event) => {
+        console.log("X: " + event.pageX + " Y: " + event.pageY);
+    });
     modalImg.onclick = function(e){
         console.log("X: " + e.pageX + " Y: " + e.pageY);
         var c=document.getElementById('img01');
