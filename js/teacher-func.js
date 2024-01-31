@@ -950,28 +950,23 @@ function SlideNotes() {
  * @summary The function that is executed for copying text to the clipboard.
  * 
  */
+
 function copyText() {
     var copyText = document.getElementById("textArea");
     copyText.select();
     navigator.clipboard.writeText(copyText.value);
 }
 
-function getPosMouse(){
-    $("#dialog-message").dialog( "close" );
-
-}
-
-
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
  * 
  * @param {string} textToDisplay the keyword selected.
  */
+
 function addParameters(textToDisplay){
     var text = document.getElementById("myKeyword").value;
     var attr = document.getElementById("paramKeyword").value;
     var command = "";
-
     if(textToDisplay==="[wait n]"){
         command = text.replace("n", attr.toString());
     }
@@ -996,7 +991,6 @@ function addParameters(textToDisplay){
     else if (textToDisplay==="[mouse customshape ch]"){
         command = text.replace("ch", attr);
     }
-
     document.getElementById("textField2").style.display = "inline-block";
     document.getElementById("textArea").style.display = "inline-block";
     document.getElementById("copyKeyword").style.display = "inline-block";
@@ -1008,11 +1002,10 @@ function addParameters(textToDisplay){
  * 
  * @param {string} textToDisplay the keyword selected.
  */
+
 function displayText(textToDisplay) {
     var text = document.getElementById("textArea");
     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
-    //document.getElementById("mousePosition").style.display = "none";
-
     if (classic_keyword.includes(textToDisplay)){
         document.getElementById("textArea").style.display = "inline-block";
         document.getElementById("textField1").style.display = "none";
@@ -1022,7 +1015,6 @@ function displayText(textToDisplay) {
         document.getElementById("textField2").style.display = "inline-block";
         document.getElementById("copyKeyword").style.display = "inline-block";
         document.getElementById("textArea").innerHTML=textToDisplay;
-
     }else if(textToDisplay==="[mouse shape n]"){
         document.getElementById("textField1").innerHTML = "<p> Choose the shape of the mouse pointer : </p>";
         document.getElementById("textField1").style.display = "inline-block";
@@ -1033,7 +1025,6 @@ function displayText(textToDisplay) {
         document.getElementById("textArea").style.display = "none";
         document.getElementById("copyKeyword").style.display = "none";
         document.getElementById("textArea").innerHTML=textToDisplay;
-
     }else{
         document.getElementById("textField1").style.display = "inline-block";
         document.getElementById("mouseShape").style.display = "none";
@@ -1042,13 +1033,11 @@ function displayText(textToDisplay) {
         document.getElementById("textArea").style.display = "none";
         document.getElementById("copyKeyword").style.display = "none";
         document.getElementById("textArea").innerHTML=textToDisplay;
-
         if(textToDisplay==="[wait n]"){
             document.getElementById("textField1").innerHTML = "<p> Enter pause time in milliseconds : </p>";
             document.getElementById("paramKeyword").type = "number";
             document.getElementById("paramKeyword").min = "0";
             document.getElementById("paramKeyword").value = "0";
-
         }
         else if (textToDisplay==="[resource url]"){
             document.getElementById("textField1").innerHTML = "<p> Add the resource url : </p>";
@@ -1078,8 +1067,12 @@ function displayText(textToDisplay) {
         }
         document.getElementById("paramKeyword").style.display = "inline-block";
     }
-    
 }
+
+/**
+ * @summary The function that is executed for getting the device pixel ratio with the animation editor.
+ * 
+ */
 
 function getDevicePixelRatio() {
     var mediaQuery;
@@ -1096,6 +1089,7 @@ function getDevicePixelRatio() {
  * 
  * @param {object} img an image to be displayed in larger size.
  */
+
 function openImg(img) {
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -1114,30 +1108,17 @@ function openImg(img) {
     span.onclick = function() {
     modal.style.display = "none";
     }
+
     modalImg.onclick = function(e){
         console.log("X: " + e.pageX + " Y: " + e.pageY);
-        // $("#img01").on("mousemove", function(e) {
-            //var x =e.pageX - $(document).scrollLeft();
-            //var y =e.pageY - $(document).scrollTop();
-            //$("#dialog").dialog("open", "option", "position", [x,y]);
-            // var pos = { my: "left top", at: "left bottom", of: e }
-
-            // $("#dialog-message").dialog("option", "position",pos)
-            // .dialog("open");
-            console.log("X: " + e.pageX + " Y: " + e.pageY);
-            //$('#mouse-xy').html("X: " + e.pageX + " Y: " + e.pageY);
-
-
-            var c=document.getElementById('img01');
-            var pr=getDevicePixelRatio();
-            var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
-            var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
-            var x=c.x/pr+pourcx/100*c.width-5;
-            var y=c.y/pr+pourcy/100*c.height-5;
-            console.log('pos=('+pourcx+','+pourcy+')');
-            document.getElementById("mousePosition").innerHTML = 'X = ' +pourcx+', Y = '+pourcy;
-
-        // });
+        var c=document.getElementById('img01');
+        var pr=getDevicePixelRatio();
+        var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+        var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+        var x=c.x/pr+pourcx/100*c.width-5;
+        var y=c.y/pr+pourcy/100*c.height-5;
+        console.log('pos=('+pourcx+','+pourcy+')');
+        document.getElementById("mousePosition").innerHTML = 'X = ' +pourcx+', Y = '+pourcy;
 
         $( "#dialog-message" ).dialog({
             height: 400,
@@ -1145,18 +1126,7 @@ function openImg(img) {
             modal: true,
             buttons: {
               Finish: function() {
-                // var e = document.getElementById("myKeyword");
-                // var value = e.value;
-                // console.log(value);
                 $( this ).dialog( "close" );
-                // $(document).find("#myKeyword").val('Default')
-                // document.getElementById("textArea").style.display = "none";
-                // document.getElementById("textField1").style.display = "none";
-                // document.getElementById("paramKeyword").style.display = "none";
-                // document.getElementById("mouseShape").style.display = "none";
-                // document.getElementById("addParamKeyword").style.display = "none";
-                // document.getElementById("textField2").style.display = "none";
-                // document.getElementById("copyKeyword").style.display = "none";
                 modal.style.display = "none";
               }
             },
@@ -1198,7 +1168,6 @@ function formateresponseTools(datatxt,editable=true) {
 
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         res += '<dl>';
-        // res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<img id="img_' +numero_slide + '"  onclick="openImg(this)" role="button" alt="Slide'+numero_slide+'" width="100" src=""/></dd></dt>\n<div id="myModal" class="modal"><span class="close">&times;</span><img class="modal-content" id="img'+numero_slide+'"><div id="caption"></div></div><div id="dialog" title="Basic dialog"><p>This is the default dialog which is useful for displaying information.</p></div>';
         res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<div class="myImage"><img id="img_' +numero_slide + '"  class="img-responsive" onclick="openImg(this)" role="button" alt="Slide '+numero_slide+'" width="100" src=""/></div></dd></dt>\n';
         for (let key in data) {
             if (key!="Img_slide") {
@@ -1232,7 +1201,6 @@ function formateresponseTools(datatxt,editable=true) {
  */
 
 function completeHandlerTools(event,editable=false) {
-    // _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
     _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
     _("progressBar").value = 0;
 }
@@ -1251,21 +1219,12 @@ function SlideNotesTools(editable=false) {
         alert('Only html files are allowed !');
         return -1;
     }
-
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
     var xhr = new XMLHttpRequest();
-
     xhr.open("POST", scriptfile);
-
     xhr.upload.addEventListener("progress", progressHandler, false);
     xhr.addEventListener("load", function (e) {completeHandlerTools(e,editable);}, false);
-
-    // _("App12").style.backgroundColor = 'rgb(25,190,40)';
-    // _("App12").style.color='white';
-    // _("App12").style.borderColor = 'rgb(25,190,40)';
-    // _("App12").removeAttribute("disabled");
-
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
@@ -1281,6 +1240,7 @@ function SlideNotesTools(editable=false) {
  * @param {string} elText a text value contained the text to download.
  * @param {string} mimeType a text value contained the MIME type.
  */
+
 function DownloadFile(filename, elText, mimeType) {
     var link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
@@ -1294,6 +1254,7 @@ function DownloadFile(filename, elText, mimeType) {
  * 
  * @param {event} event an event.
  */
+
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
     var data = JSON.parse(json_data);
@@ -1305,11 +1266,11 @@ function GetNewPresentation(event){
  * @summary The function that is executed for creating the new speech with the animation editor.
  * 
  */
+
 function CreateNewSpeech() {
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
-    //console.log(html);
 
     //Récupérer le nombre de slides
     var k = 1;
@@ -1318,7 +1279,6 @@ function CreateNewSpeech() {
         nb_slides = k;
         k += 1;
     }
-    console.log(nb_slides);
 
     //Récupérer la langue d'origine
     var lang = html.getElementsByTagName('p');
@@ -1333,10 +1293,8 @@ function CreateNewSpeech() {
         j = 0;
         while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
             var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
-            //console.log(element);
             if (element.getElementsByTagName('br').length != 0) {
                 let br = element.getElementsByTagName('br')
-                //console.log(element.getElementsByTagName('br'));
                 for (var num_br = 0; num_br < br.length; num_br++) {
                     br[num_br].after("\n");
                     console.log(element);
@@ -1348,7 +1306,6 @@ function CreateNewSpeech() {
             j += 1;
         }
     }
-    //console.log(txt);
     var name_file = "speech_"+lang_origin+".txt";
     DownloadFile(name_file, txt);
 }
@@ -1357,14 +1314,13 @@ function CreateNewSpeech() {
  * @summary The function that is executed for creating the new presentation with the animation editor.
  * 
  */
+
 function CreateNewPresentation() {
     //Récupérer le code html de l'encart
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var xhr = new XMLHttpRequest();
     var parser = new DOMParser();
     var html = parser.parseFromString(data_new_pres, 'text/html');
-
-    // console.log(html);
 
     //Récupérer le fichier original
     var file = _("fileToUpload12").files[0];
@@ -1379,8 +1335,6 @@ function CreateNewPresentation() {
         tab_lang[l] = lang[l].innerHTML;
     }
 
-    console.log(tab_lang);
-
     //Récupérer le nombre de slides
     var k = 1;
     var nb_slides = 0;
@@ -1388,8 +1342,6 @@ function CreateNewPresentation() {
         nb_slides = k;
         k += 1;
     }
-
-    //console.log("Nombre de slides : " + nb_slides);
 
     //Récupérer les notes
     var tab_text = [];
@@ -1408,10 +1360,8 @@ function CreateNewPresentation() {
             var text = "";
             while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
             var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
-            //console.log(element);
             if (element.getElementsByTagName('br').length != 0) {
                 let br = element.getElementsByTagName('br')
-                //console.log(element.getElementsByTagName('br'));
                 for (var num_br = 0; num_br < br.length; num_br++) {
                     br[num_br].after('","');
                     console.log(element);
@@ -1439,8 +1389,6 @@ function CreateNewPresentation() {
         console.log(tab_text[i]);
         i += 1;
     }
-    console.log(tab_text);
-
     formdata.append("newText", tab_text);
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
