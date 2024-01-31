@@ -854,7 +854,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         Choose your animation : 
       </p>
       <select id="myKeyword">
-        <option selected="selected" value="">--Please choose an option--</option>
+        <option selected="selected" value="Default">--Please choose an option--</option>
         <option value="[pause]">Pause</option>
         <option value="[wait n]">Pause for n milliseconds</option>
         <option value="[resource url]">Open a window with the url</option>
@@ -866,7 +866,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="[mouse shape n]">Change the mouse shape</option>
         <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
       </select>
-      <button type=submit id="chosenKeyword" onclick="displayText(_('myKeyword').value)" value="chosen_Keyword">Select</button>
+      <button type=submit id="chosenKeyword" onclick="if (_('myKeyword').value!='Default') {displayText(_('myKeyword').value);}else{alert('You must choose an animation first !');}" value="chosen_Keyword">Select</button>
       <div id="textField1" style="display: none;"></div>
       <div style="display: none;" id="mousePosition"></div>
       <input type="text" name="paramKeyword" style="display: none;" id="paramKeyword" />
