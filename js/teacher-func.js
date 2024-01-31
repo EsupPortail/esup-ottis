@@ -1149,9 +1149,26 @@ function openImg(img) {
                 // var value = e.value;
                 // console.log(value);
                 $( this ).dialog( "close" );
-                $(document).find("#myKeyword").val('Default')
+                // $(document).find("#myKeyword").val('Default')
+                // document.getElementById("textArea").style.display = "none";
+                // document.getElementById("textField1").style.display = "none";
+                // document.getElementById("paramKeyword").style.display = "none";
+                // document.getElementById("mouseShape").style.display = "none";
+                // document.getElementById("addParamKeyword").style.display = "none";
+                // document.getElementById("textField2").style.display = "none";
+                // document.getElementById("copyKeyword").style.display = "none";
                 modal.style.display = "none";
               }
+            },
+            close: function() {
+                $(document).find("#myKeyword").val('Default')
+                document.getElementById("textArea").style.display = "none";
+                document.getElementById("textField1").style.display = "none";
+                document.getElementById("paramKeyword").style.display = "none";
+                document.getElementById("mouseShape").style.display = "none";
+                document.getElementById("addParamKeyword").style.display = "none";
+                document.getElementById("textField2").style.display = "none";
+                document.getElementById("copyKeyword").style.display = "none";
             }
         }); 
     }
