@@ -1396,7 +1396,6 @@ function CreateNewPresentation() {
         console.log(tab_text[i]);
         i += 1;
     }
-    tab_text += ';';
     formdata.append("newText", tab_text);
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {

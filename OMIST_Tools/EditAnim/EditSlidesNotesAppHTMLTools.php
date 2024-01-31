@@ -16,7 +16,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
         }
     }
  
-    $txt_to_insert = "var slidesnotes = {" .$new_text. "}";
+    $txt_to_insert = "var slidesnotes = {" .$new_text. "};";
     $new_file = str_replace($txt_to_replace, $txt_to_insert, $content);
     $new_html = implode("\n",$new_file);
     echo json_encode($new_html);
