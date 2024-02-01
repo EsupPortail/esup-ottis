@@ -1189,13 +1189,13 @@ function formateresponseTools(datatxt,editable=true) {
                 res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';
                 slide = data_key[numero_slide-1];
                 num_slide = numero_slide-1;
-                res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_img_'+numero_slide+'> '+slide["Notes"] + '</span>'+'</dd>\n';
-
-                // for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
-                //     num_slide = numero_slide-1;
-                //     res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+num_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
-                // }
-                console.log("Notes");
+                res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_img_'+numero_slide+'> ';
+                for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
+                    num_slide = numero_slide-1;
+                    res = res + slide["Notes"][numero_notes];
+                }
+                res += '</span>'+'</dd>\n';
+                console.log(res);
             }else{
                 data_key = data[key];
                 var toexec = "";
