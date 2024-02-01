@@ -1168,7 +1168,8 @@ function notesSlideLang(){
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
     var lang = _("myLanguage").value.trim();
-    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
+    //textarea.value = '';
+    document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
 
 }
 
@@ -1182,7 +1183,7 @@ function showSlideImage(img){
     imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
-    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
+    document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
 }
 
 /**
