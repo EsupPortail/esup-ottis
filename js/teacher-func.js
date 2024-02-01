@@ -1088,7 +1088,8 @@ function showSlideImage(img){
     var imgToDisplay = "";
     imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
-    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_fr-FR_'+img.id).textContent;
+    var lang = _("myLanguage").value.trim();
+    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
 }
 
 /**
