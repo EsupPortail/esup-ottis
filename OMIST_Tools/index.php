@@ -848,7 +848,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </tr> -->
       <tr>
         <td rowspan="2" style="width: 15%; height:100%">
-          <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"></div>
+          <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
           <div id="imageArea"></div>
@@ -856,6 +856,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </tr>
       <tr>
         <td style="width: 85%; height:200px">
+        <select id="speechLanguage"  name="speechlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
         <textarea id="speechArea"></textarea>
       </td>
       </tr>
