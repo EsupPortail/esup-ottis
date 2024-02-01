@@ -1175,7 +1175,7 @@ function formateresponseTools(datatxt,editable=true) {
     //console.log(data);
     
     var selectedLang = '';
-    console.log("IMAGE : "+document.getElementById("imageArea").childNodes);
+    console.log("IMAGE : "+document.getElementById("imageArea").firstElementChild.id);
     selectedLang = '<select id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
