@@ -1361,10 +1361,9 @@ function CreateNewSpeech() {
     // }
 
     for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-        console.log('SlideText_'+lang_origin+'_'+num_slide);
+        console.log('SlideText_'+lang_origin+'_img_'+num_slide);
         txt += "------------- Slide "+num_slide+" -------------\n";
-        txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide).textContent + "\n";
-
+        txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
     }
 
     var name_file = "speech_"+lang_origin+".txt";
