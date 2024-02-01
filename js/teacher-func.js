@@ -1088,7 +1088,7 @@ function showSlideImage(img){
     var imgToDisplay = "";
     imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
-    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_fr-FR_'+img.id).innerHTML;
+    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_fr-FR_'+img.id).textContent;
 }
 
 /**
@@ -1192,7 +1192,7 @@ function formateresponseTools(datatxt,editable=true) {
                 res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_img_'+numero_slide+'> ';
                 for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
                     num_slide = numero_slide-1;
-                    res = res + slide["Notes"][numero_notes];
+                    res = res + slide["Notes"][numero_notes]+'\n';
                 }
                 res += '</span>'+'</dd>\n';
                 console.log(res);
