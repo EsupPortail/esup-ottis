@@ -1174,16 +1174,17 @@ function formateresponseTools(datatxt,editable=true) {
     console.log(data);
     
     var selectedLang = '';
-    selectedLang = '<select id="myLanguage"> \n';
+    selectedLang = '<select id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
             data_key = data[key];
-            selectedLang += '<option value="'+data_key+'">data_key</option> \n';
+            selectedLang += '<option value="'+key+'">'+key+'</option> \n';
             nb_slides = data_key.length;
         }
     }
     selectedLang += '</select>';
     console.log(selectedLang);
+    _("speechLanguage").innerHTML = selectedLang;
 
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         res += '<dl>';

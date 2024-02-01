@@ -856,7 +856,8 @@ It's important to note that the resulting animation can serve as comprehensive i
       </tr>
       <tr>
         <td style="width: 85%; height:200px">
-        <select id="speechLanguage"  name="speechlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+        <div id="speechLanguage"></div>
+        <!-- <select id="speechLanguage"  name="speechlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/> -->
         <textarea id="speechArea"></textarea>
       </td>
       </tr>
