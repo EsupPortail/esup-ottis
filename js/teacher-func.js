@@ -1333,8 +1333,9 @@ function CreateNewSpeech() {
     }
 
     //Récupérer la langue d'origine
-    var lang = html.getElementsByTagName('p');
-    var lang_origin = lang[0].innerHTML.trim();
+    var lang_origin = document.getElementById("myLanguage").options.item(0).value;
+    // var lang = html.getElementsByTagName('p');
+    // var lang_origin = lang[0].innerHTML.trim();
     console.log(lang_origin);
 
     //Récupérer les notes dans la langue d'origine
