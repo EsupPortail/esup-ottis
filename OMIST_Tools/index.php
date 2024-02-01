@@ -855,7 +855,9 @@ It's important to note that the resulting animation can serve as comprehensive i
       </td>
       </tr>
       <tr>
-        <td style="width: 85%; height:200px">TextArea</td>
+        <td style="width: 85%; height:200px">
+        <div id="speechArea"></div>
+      </td>
       </tr>
     </table>
 
