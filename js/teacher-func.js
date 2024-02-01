@@ -1172,9 +1172,10 @@ function formateresponseTools(datatxt,editable=true) {
     currentPresentation = [];
     var res = '';
     var data = JSON.parse(datatxt);
-    console.log(data);
+    //console.log(data);
     
     var selectedLang = '';
+    console.log("IMAGE : "+document.getElementById("imageArea").childNodes);
     selectedLang = '<select id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
@@ -1184,7 +1185,7 @@ function formateresponseTools(datatxt,editable=true) {
         }
     }
     selectedLang += '</select>';
-    console.log(selectedLang);
+    //console.log(selectedLang);
     _("speechLanguage").innerHTML = selectedLang;
 
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
@@ -1202,7 +1203,7 @@ function formateresponseTools(datatxt,editable=true) {
                     res = res + slide["Notes"][numero_notes]+'\n';
                 }
                 res += '</span>'+'</dd>\n';
-                console.log(res);
+                //console.log(res);
             }else{
                 data_key = data[key];
                 var toexec = "";
