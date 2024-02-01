@@ -1173,12 +1173,17 @@ function formateresponseTools(datatxt,editable=true) {
     var data = JSON.parse(datatxt);
     console.log(data);
     
+    var selectedLang = '';
+    selectedLang = '<select id="myLanguage"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
             data_key = data[key];
+            selectedLang += '<option value="'+data_key+'">data_key</option> \n';
             nb_slides = data_key.length;
         }
     }
+    selectedLang += '</select>';
+    console.log(selectedLang);
 
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         res += '<dl>';
@@ -1189,7 +1194,7 @@ function formateresponseTools(datatxt,editable=true) {
                 //res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';
                 slide = data_key[numero_slide-1];
                 num_slide = numero_slide-1;
-                res = res + '<dd>&nbsp;' + '<span style="display:none" id="SlideText_'+key+'_img_'+numero_slide+'"> ';
+                res = res + '<dd>&nbsp;' + '<span hidden id="SlideText_'+key+'_img_'+numero_slide+'"> ';
                 for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
                     num_slide = numero_slide-1;
                     res = res + slide["Notes"][numero_notes]+'\n';
