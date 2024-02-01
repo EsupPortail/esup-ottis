@@ -858,7 +858,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <td style="width: 85%; height:200px">
         <div id="speechLanguage"></div>
         <!-- <select id="speechLanguage"  name="speechlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/> -->
-        <textarea onchange="alert('You just changed the textarea.')" id="speechArea"></textarea>
+        <textarea onchange="updateNotes()" id="speechArea"></textarea>
       </td>
       </tr>
     </table>

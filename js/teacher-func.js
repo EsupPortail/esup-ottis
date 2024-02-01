@@ -1151,6 +1151,14 @@ function openImg(img) {
     });
 }
 
+function updateNotes(){
+    var lang = _("myLanguage").value.trim();
+    var idImage = document.getElementById("imageArea").firstElementChild.id;
+    var numSlide = idImage.charAt(idImage.length - 1);
+    document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").innerHTML;
+    console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
+}
+
 /**
  * @summary The function that is executed for displaying notes for slides in a specific language with the animation editor.
  * 
