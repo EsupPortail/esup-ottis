@@ -1084,14 +1084,6 @@ function getDevicePixelRatio() {
     }
 }
 
-function showSlideImage(img){
-    var imgToDisplay = "";
-    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
-    document.getElementById("imageArea").innerHTML = imgToDisplay;
-    var lang = _("myLanguage").value.trim();
-    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
-}
-
 /**
  * @summary The function that is executed for displaying a larger image with the animation editor.
  * 
@@ -1159,14 +1151,30 @@ function openImg(img) {
     });
 }
 
-function afficherIdImage(){
-    console.log(document.getElementById("imageArea").firstElementChild.id);
+/**
+ * @summary The function that is executed for displaying notes for slides in a specific language with the animation editor.
+ * 
+ */
+
+function notesSlideLang(){
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
-
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
 
+}
+
+/**
+ * @summary The function that is executed for displaying a larger image with the animation editor.
+ * 
+ */
+
+function showSlideImage(img){
+    var imgToDisplay = "";
+    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
+    // document.getElementById("imageArea").innerHTML = imgToDisplay;
+    // var lang = _("myLanguage").value.trim();
+    // document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
 }
 
 /**
@@ -1186,7 +1194,7 @@ function formateresponseTools(datatxt,editable=true) {
     
     var selectedLang = '';
 
-    selectedLang = '<select onchange="afficherIdImage()" id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
+    selectedLang = '<select onchange="notesSlideLang()" id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
             data_key = data[key];
@@ -1200,7 +1208,7 @@ function formateresponseTools(datatxt,editable=true) {
 
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         res += '<dl>';
-        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<div class="myImage"><img id="img_' +numero_slide + '"  class="img-responsive" onclick="showSlideImage(this)" role="button" alt="Slide '+numero_slide+'" width="100" src=""/></div></dd></dt>\n';
+        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<div class="myImage"><img id="img_' +numero_slide + '"  class="img-responsive" onclick="showSlideImage(this); notesSlideLang();" role="button" alt="Slide '+numero_slide+'" width="100" src=""/></div></dd></dt>\n';
         for (let key in data) {
             if (key!="Img_slide") {
                 data_key = data[key];
