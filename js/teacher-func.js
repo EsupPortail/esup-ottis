@@ -1159,6 +1159,10 @@ function openImg(img) {
     });
 }
 
+function afficherIdImage(){
+    console.log(document.getElementById("imageArea").firstElementChild.id);
+}
+
 /**
  * @summary a function that is fired when a new lesson is loaded to prepare all the data structures with the animation editor..
  * 
@@ -1176,7 +1180,7 @@ function formateresponseTools(datatxt,editable=true) {
     
     var selectedLang = '';
 
-    selectedLang = '<select onchange="console.log("IMAGE : "+document.getElementById("imageArea").firstElementChild.id);" id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
+    selectedLang = '<select onchange="afficherIdImage()" id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
             data_key = data[key];
