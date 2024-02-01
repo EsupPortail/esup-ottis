@@ -49,8 +49,9 @@
   }
 
   #speechArea{
-    width: 90%; 
-    height: 80%;
+    text-align: center;
+    width: 98%; 
+    height: 90%;
   }
   
   /* Add Animation - Zoom in the Modal */
