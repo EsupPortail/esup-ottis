@@ -827,6 +827,23 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool12">
   <h3>Edit Animation</h3>
   <div>
+    <p> 
+      It's a tool for editing your animations. 
+      For each slide and language, you can edit and add notes. 
+      You can also add actions (pause, move mouse, etc.) to slides by clicking on them. 
+      Once the image is open, you can click again, and a menu will appear. 
+      All you have to do is choose the action you want. 
+      Note that for the "move mouse" action, the coordinates of the click on the image are taken into account. 
+    </p>
+
+    <p>
+      Once you've finished modifying your presentation, you can :
+      <ul>
+        <li> Download the complete animation, giving you a ready-to-use HTML file. </li>
+        <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
+      </ul>
+    </p>
+
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
@@ -849,9 +866,9 @@ It's important to note that the resulting animation can serve as comprehensive i
       <!-- Modal Caption (Image Text) -->
       <div id="caption"></div>
     </div>
-    <div id="dialog-message" title="Add an animation">
+    <div id="dialog-message" title="Add an action">
       <p>
-        Choose your animation : 
+        Choose your action : 
       </p>
       <select id="myKeyword">
         <option selected="selected" value="Default">--Please choose an option--</option>
@@ -866,7 +883,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <option value="[mouse shape n]">Change the mouse shape</option>
         <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
       </select>
-      <button type=submit id="chosenKeyword" onclick="if (_('myKeyword').value!='Default') {displayText(_('myKeyword').value);}else{alert('You must choose an animation first !');}" value="chosen_Keyword">Select</button>
+      <button type=submit id="chosenKeyword" onclick="if (_('myKeyword').value!='Default') {displayText(_('myKeyword').value);}else{alert('You must choose an action first !');}" value="chosen_Keyword">Select</button>
       <div id="textField1" style="display: none;"></div>
       <div style="display: none;" id="mousePosition"></div>
       <input type="text" name="paramKeyword" style="display: none;" id="paramKeyword" />
