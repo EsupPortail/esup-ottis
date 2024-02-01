@@ -1172,9 +1172,9 @@ function notesSlideLang(){
 function showSlideImage(img){
     var imgToDisplay = "";
     imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
-    // document.getElementById("imageArea").innerHTML = imgToDisplay;
-    // var lang = _("myLanguage").value.trim();
-    // document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
+    document.getElementById("imageArea").innerHTML = imgToDisplay;
+    var lang = _("myLanguage").value.trim();
+    document.getElementById("speechArea").innerHTML = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
 }
 
 /**
@@ -1208,7 +1208,7 @@ function formateresponseTools(datatxt,editable=true) {
 
     for (var numero_slide=1; numero_slide <= nb_slides; numero_slide++){
         res += '<dl>';
-        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<div class="myImage"><img id="img_' +numero_slide + '"  class="img-responsive" onclick="showSlideImage(this); notesSlideLang();" role="button" alt="Slide '+numero_slide+'" width="100" src=""/></div></dd></dt>\n';
+        res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<div class="myImage"><img id="img_' +numero_slide + '"  class="img-responsive" onclick="showSlideImage(this)" role="button" alt="Slide '+numero_slide+'" width="100" src=""/></div></dd></dt>\n';
         for (let key in data) {
             if (key!="Img_slide") {
                 data_key = data[key];
