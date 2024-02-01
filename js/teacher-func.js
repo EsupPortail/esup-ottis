@@ -1168,7 +1168,6 @@ function notesSlideLang(){
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
     var lang = _("myLanguage").value.trim();
-    //textarea.value = '';
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
 
 }
