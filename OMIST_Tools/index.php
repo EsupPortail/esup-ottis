@@ -850,12 +850,12 @@ It's important to note that the resulting animation can serve as comprehensive i
         <td rowspan="2" style="width: 15%; height:100%">
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"></div>
         </td>
-        <td style="width: 85%; height:70%">
+        <td style="width: 85%; height:400px">
           <div id="imageArea"></div>
       </td>
       </tr>
       <tr>
-        <td style="width: 85%; height:30%">TextArea</td>
+        <td style="width: 85%; height:200px">TextArea</td>
       </tr>
     </table>
 

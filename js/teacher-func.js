@@ -1086,7 +1086,7 @@ function getDevicePixelRatio() {
 
 function showSlideImage(img){
     var imgToDisplay = "";
-    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=100% />';
+    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" max-height=600px width=auto />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
 }
 
