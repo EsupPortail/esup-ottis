@@ -47,6 +47,11 @@
   #dialog-message {
     display: none;
   }
+
+  #speechArea{
+    width: 85%; 
+    height:200px;
+  }
   
   /* Add Animation - Zoom in the Modal */
   .modal-content, #caption {
