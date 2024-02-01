@@ -835,7 +835,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     
-    <table align="center" style="width: 100%;" border="1">
+    <table align="center" style="width: 100%; height:600px" border="1">
       <!-- <tr>
         <td colspan="2" style="width: 100%;">
           <label for="fileToUpload">Presentation in HTML: </label>
@@ -847,15 +847,15 @@ It's important to note that the resulting animation can serve as comprehensive i
         </td>
       </tr> -->
       <tr>
-        <td rowspan="2" style="width: 15%;">
+        <td rowspan="2" style="width: 15%; height:100%">
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"></div>
         </td>
-        <td style="width: 85%;">
+        <td style="width: 85%; height:70%">
           <div id="imageArea"></div>
       </td>
       </tr>
       <tr>
-        <td style="width: 85%;">TextArea</td>
+        <td style="width: 85%; height:30%">TextArea</td>
       </tr>
     </table>
 
