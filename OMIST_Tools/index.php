@@ -830,9 +830,23 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
-  <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
-  <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
+    <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
+    <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
+    <br/>
+    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+    
+    <table align="center">
+        <tr>
+          <td rowspan="2">Slides</td>
+          <td>Image</td>
+        </tr>
+        <tr>
+          <td>TextArea</td>
+        </tr>
+    </table>
+
   </form>
+  
     <!-- <p> 
       It's a tool for editing your animations. 
       For each slide and language, you can edit and add notes. 
@@ -915,6 +929,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 
 </div>
+
 <div id="tool13">
     <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and AI model is downloaded and exectuted by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily changed.">Audio/video file transcription</h3>
         <div>
