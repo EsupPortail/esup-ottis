@@ -1186,7 +1186,7 @@ function formateresponseTools(datatxt,editable=true) {
         for (let key in data) {
             if (key!="Img_slide") {
                 data_key = data[key];
-                res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';
+                //res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';
                 slide = data_key[numero_slide-1];
                 num_slide = numero_slide-1;
                 res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_img_'+numero_slide+'> ';
