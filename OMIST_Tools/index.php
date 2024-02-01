@@ -828,21 +828,31 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3>Edit Animation</h3>
   <div>
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload">Presentation in HTML: </label>
+    <!-- <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <br/>
-    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress> -->
     
-    <table align="center">
-        <tr>
-          <td rowspan="2">Slides</td>
-          <td>Image</td>
-        </tr>
-        <tr>
-          <td>TextArea</td>
-        </tr>
+    <table align="center" style="width: 100%;">
+      <tr>
+        <td colspan="2" style="width: 100%;">
+          <label for="fileToUpload">Presentation in HTML: </label>
+          <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
+          <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
+          <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
+          <br/>
+          <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+        </td>
+      </tr>
+      <tr>
+        <td rowspan="2" style="width: 15%;">Slides</td>
+        <td style="width: 85%;">Image</td>
+      </tr>
+      <tr>
+        <td style="width: 85%;">TextArea</td>
+      </tr>
     </table>
 
   </form>
