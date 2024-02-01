@@ -1178,13 +1178,14 @@ function formateresponseTools(datatxt,editable=true) {
         res = res + '<dt style="font-weight : bold">&nbsp;Slide #' + numero_slide + '<dd>&nbsp;' + '<div class="myImage"><img id="img_' +numero_slide + '"  class="img-responsive" onclick="openImg(this)" role="button" alt="Slide '+numero_slide+'" width="100" src=""/></div></dd></dt>\n';
         for (let key in data) {
             if (key!="Img_slide") {
-                data_key = data[key];
-                res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';
-                slide = data_key[numero_slide-1];
-                for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
-                    num_slide = numero_slide-1;
-                    res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+num_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
-                }
+                // data_key = data[key];
+                // res += '<dd>&nbsp;' + '<span style="font-weight : bold"><p> '+ key + '</p></span>'+'</dd>\n';
+                // slide = data_key[numero_slide-1];
+                // for (numero_notes=0; numero_notes<slide["Notes"].length; numero_notes++){
+                //     num_slide = numero_slide-1;
+                //     res = res + '<dd>&nbsp;' + '<span id="SlideText_'+key+'_'+num_slide+'_'+numero_notes+'" contenteditable="true">'+slide["Notes"][numero_notes] + '</span>'+'</dd>\n';
+                // }
+                console.log("Notes");
             }else{
                 data_key = data[key];
                 var toexec = "";
