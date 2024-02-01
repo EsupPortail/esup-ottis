@@ -835,7 +835,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress> -->
     
-    <table align="center" style="width: 100%;">
+    <table align="center" style="width: 100%;" border="1">
       <tr>
         <td colspan="2" style="width: 100%;">
           <label for="fileToUpload">Presentation in HTML: </label>
