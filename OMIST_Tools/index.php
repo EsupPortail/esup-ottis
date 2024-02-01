@@ -827,7 +827,13 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool12">
   <h3>Edit Animation</h3>
   <div>
-    <p> 
+  <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+    <label for="fileToUpload">Presentation in HTML: </label>
+    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
+  <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
+  <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
+  </form>
+    <!-- <p> 
       It's a tool for editing your animations. 
       For each slide and language, you can edit and add notes. 
       You can also add actions (pause, move mouse, etc.) to slides by clicking on them. 
@@ -856,15 +862,15 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
     <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
     <input type="hidden" id="Random12" name="randompath" value=""/>
-    <input type="hidden" id="Extension12" name="Extension" value="txt"/>
+    <input type="hidden" id="Extension12" name="Extension" value="txt"/> -->
     <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <!-- <div id="myModal" class="modal"> -->
       <!-- The Close Button -->
-      <span class="close">&times;</span>
+      <!-- <span class="close">&times;</span> -->
       <!-- Modal Content (The Image) -->
-      <img class="modal-content" id="img01">
+      <!-- <img class="modal-content" id="img01"> -->
       <!-- Modal Caption (Image Text) -->
-      <div id="caption"></div>
+      <!-- <div id="caption"></div>
     </div>
     <div id="dialog-message" title="Add an action">
       <p>
@@ -899,14 +905,12 @@ It's important to note that the resulting animation can serve as comprehensive i
       <div id="textField2" style="display: none;"><p>The following command needs to be added to the animation speech</p></div>
       <textarea readonly style="display: none;" id="textArea"></textarea>
       <button type=submit id="copyKeyword" style="display: none;" onclick="copyText()" value="copy_Keyword">Copy</button>
-    </div>
+    </div> -->
 
-    <!-- <button id="App12" value="Download" class="mybutton">Download</button> -->
-
-    <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
+    <!-- <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <p id="Message12"></p>
-  </form> 
+  </form>  -->
 
   </div>
 
