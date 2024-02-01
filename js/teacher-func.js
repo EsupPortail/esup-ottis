@@ -1155,7 +1155,7 @@ function updateNotes(){
     var lang = _("myLanguage").value.trim();
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
-    document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").innerHTML;
+    document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
