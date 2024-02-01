@@ -847,7 +847,9 @@ It's important to note that the resulting animation can serve as comprehensive i
         </td>
       </tr>
       <tr>
-        <td rowspan="2" style="width: 15%;">Slides</td>
+        <td rowspan="2" style="width: 15%;">
+          <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"></div>
+        </td>
         <td style="width: 85%;">Image</td>
       </tr>
       <tr>
