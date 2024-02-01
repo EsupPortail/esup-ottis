@@ -1340,25 +1340,34 @@ function CreateNewSpeech() {
 
     //Récupérer les notes dans la langue d'origine
     var txt = "";
+    // for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
+    //     slide = num_slide+1;
+    //     txt += "------------- Slide "+slide+" -------------\n";
+    //     j = 0;
+    //     while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
+    //         var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
+    //         if (element.getElementsByTagName('br').length != 0) {
+    //             let br = element.getElementsByTagName('br')
+    //             for (var num_br = 0; num_br < br.length; num_br++) {
+    //                 br[num_br].after("\n");
+    //                 console.log(element);
+    //             }
+    //           } else {
+    //             console.log('Enter is NOT contained in element');
+    //           }
+    //         txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j).textContent + "\n";
+    //         j += 1;
+    //     }
+    // }
+
     for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
         slide = num_slide+1;
         txt += "------------- Slide "+slide+" -------------\n";
-        j = 0;
-        while (html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j)){
-            var element = html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j);
-            if (element.getElementsByTagName('br').length != 0) {
-                let br = element.getElementsByTagName('br')
-                for (var num_br = 0; num_br < br.length; num_br++) {
-                    br[num_br].after("\n");
-                    console.log(element);
-                }
-              } else {
-                console.log('Enter is NOT contained in element');
-              }
-            txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide+'_'+j).textContent + "\n";
-            j += 1;
-        }
+        
+        txt += html.getElementById('SlideText_'+lang_origin+'_'+num_slide).textContent + "\n";
+
     }
+
     var name_file = "speech_"+lang_origin+".txt";
     DownloadFile(name_file, txt);
 }
