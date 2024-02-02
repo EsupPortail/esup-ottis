@@ -1447,9 +1447,9 @@ function CreateNewPresentation() {
             // }
 
             text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent;
-            text = text.replace('\r\n', ',');
-            text = text.replace('\n', ',');
-            text = text.replace('\r', ',');
+            text = text.replaceAll('\r\n', ',');
+            text = text.replaceAll('\n', ',');
+            text = text.replaceAll('\r', ',');
             tab_text[i] += text+'"';
 
             console.log("Texte de la slide : "+text);
