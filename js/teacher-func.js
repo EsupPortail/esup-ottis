@@ -1190,7 +1190,7 @@ function addAllLanguages(){
         }
         for (let key in tab_lang){
             var keyword = "[pause]";
-            var notes = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
+            var notes = document.getElementById('SlideText_'+key+'_img_'+numSlide).textContent;
             document.getElementById('SlideText_'+key+'_img_'+numSlide).textContent = notes + keyword;
         }
     } else {
