@@ -829,7 +829,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
-    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').style.display = 'inline-block';" accept=".html" max-size="50000" />
+    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').style.display = 'inline';" accept=".html" max-size="50000" />
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <br/>
