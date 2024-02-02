@@ -832,7 +832,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
-    <button type=button id="infoTool" class="btn btn-info" onclick="toolInformation()"><i class="fa fa-info"></i></button>
+    <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button>
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     
