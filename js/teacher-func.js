@@ -1419,7 +1419,7 @@ function CreateNewPresentation() {
         for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
             j = 0;
             //slide = num_slide+1;
-            if (num_slide==0){
+            if (num_slide==1){
                 tab_text[i] += '{"Slide": '+num_slide+', "Notes": ["';
             }else{
                 tab_text[i] += ', {"Slide": '+num_slide+', "Notes": ["';
@@ -1446,7 +1446,7 @@ function CreateNewPresentation() {
             //     j += 1;
             // }
 
-            text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent;
+            text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent.trim();
             text = text.replaceAll('\r\n', ',');
             text = text.replaceAll('\n', ',');
             text = text.replaceAll('\r', ',');
