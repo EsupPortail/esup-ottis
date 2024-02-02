@@ -829,26 +829,18 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
-    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />
-    <select id="myKeyword">
-        <option selected="selected" value="Default">--Select an action to add--</option>
-        <option value="[pause]">Pause</option>
-        <option value="[wait n]">Pause for n milliseconds</option>
-        <option value="[resource url]">Open a window with the url</option>
-        <option value="[notification message]">Open a window with the text</option>
-        <option value="[mouse show]">Show the mouse</option>
-        <option value="[mouse go px py]">Move the mouse</option>
-        <option value="[mouse hide]">Hide the mouse</option>
-        <option value="[mouse size n]">Change the mouse size</option>
-        <option value="[mouse shape n]">Change the mouse shape</option>
-        <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
-    </select>   
-   
+    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />   
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button>
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+    <br/>
+    <button type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
+    <button type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="">pause</i></button>
+    <button type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
+
+    <br/>
     
     <table hidden id="tableEdit" align="center" style="width: 100%; height:600px;" border="1">
       <!-- <tr>
