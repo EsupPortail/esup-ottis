@@ -829,7 +829,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
-    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); document.getElementById('keywordsButton').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />   
+    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />   
     <button type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
     <button type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="pauseKeyword()">pause</i></button>
     <button type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>

@@ -1176,7 +1176,28 @@ function pauseKeyword(){
     var keyword = "[pause]";
     var notes = document.getElementById("speechArea").value;
     document.getElementById("speechArea").value = notes + keyword;
-    updateNotes()
+    //updateNotes();
+}
+
+function addAllLanguages(){
+    let text = "Add action to all languages ?";
+    if (confirm(text) == true) {
+        pauseKeyword();
+        var tab_lang = [];
+        var languages = document.getElementById("myLanguage");
+        for (num_lang = 0; num_lang < languages.length; num_lang++) {
+            tab_lang[num_lang] = languages.options[num_lang].value;
+        }
+        for (let key in tab_lang){
+            var keyword = "[pause]";
+            var notes = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
+            document.getElementById('SlideText_'+key+'_img_'+numSlide).textContent = notes + keyword;
+        }
+    } else {
+        pauseKeyword();
+        updateNotes();
+    }
+    document.getElementById("demo").innerHTML = text;
 }
 
 /**
