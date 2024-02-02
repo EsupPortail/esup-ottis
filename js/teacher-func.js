@@ -1151,6 +1151,12 @@ function openImg(img) {
     });
 }
 
+function pauseKeyword(){
+    var keyword = "[pause]";
+    var notes = document.getElementById("speechArea").value;
+    document.getElementById("speechArea").value = notes + '\n'+keyword;
+}
+
 function toolInformation(){
     $( "#dialog-message" ).dialog({
         height: 400,
