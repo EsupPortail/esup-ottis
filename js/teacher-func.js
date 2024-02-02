@@ -1388,12 +1388,19 @@ function CreateNewPresentation() {
     formdata.append("fileToUpload", file);
 
     //Récupérer les langues
-    var lang = html.getElementsByTagName('p');
-    nb_lang = lang.length/2;
+    // var lang = html.getElementsByTagName('p');
+    // nb_lang = lang.length/2;
+    // var tab_lang = [];
+    // for (var l = 0; l < nb_lang; l++) {
+    //     tab_lang[l] = lang[l].innerHTML;
+    // }
+
     var tab_lang = [];
-    for (var l = 0; l < nb_lang; l++) {
-        tab_lang[l] = lang[l].innerHTML;
-    }
+    var languages = document.getElementById("myLanguage");
+    for (num_lang = 0; num_lang < languages.length; num_lang++) {
+        tab_lang[num_lang] = languages.options[num_lang].value;
+      }
+
 
     //Récupérer le nombre de slides
     var k = 1;
@@ -1409,35 +1416,39 @@ function CreateNewPresentation() {
     for (let key in tab_lang) {
         code_lang = tab_lang[key].trim()
         tab_text[i] = '"'+code_lang+'": [';
-        for (var num_slide = 0; num_slide < nb_slides; num_slide++) {
+        for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
             j = 0;
-            slide = num_slide+1;
+            //slide = num_slide+1;
             if (num_slide==0){
-                tab_text[i] += '{"Slide": '+slide+', "Notes": ["';
+                tab_text[i] += '{"Slide": '+num_slide+', "Notes": ["';
             }else{
-                tab_text[i] += ', {"Slide": '+slide+', "Notes": ["';
+                tab_text[i] += ', {"Slide": '+num_slide+', "Notes": ["';
             }
             var text = "";
-            while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
-            var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
-            if (element.getElementsByTagName('br').length != 0) {
-                let br = element.getElementsByTagName('br')
-                for (var num_br = 0; num_br < br.length; num_br++) {
-                    br[num_br].after('","');
-                    console.log(element);
-                }
-              } else {
-                console.log('Enter is NOT contained in element');
-              }
-                text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
-                //text = text_brut.replace(/"/g, '\\u0022');
-                if (j==0){
-                    tab_text[i] += text+'"';
-                }else{
-                    tab_text[i] += ', "'+text+'"';
-                }
-                j += 1;
-            }
+            // while (html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j)){
+            //     var element = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j);
+            //     if (element.getElementsByTagName('br').length != 0) {
+            //         let br = element.getElementsByTagName('br')
+            //         for (var num_br = 0; num_br < br.length; num_br++) {
+            //             br[num_br].after('","');
+            //             console.log(element);
+            //         }
+            //     } else {
+            //         console.log('Enter is NOT contained in element');
+            //     }
+            //         text = html.getElementById('SlideText_'+code_lang+'_'+num_slide+'_'+j).textContent;
+            //         //text = text_brut.replace(/"/g, '\\u0022');
+            //         if (j==0){
+            //             tab_text[i] += text+'"';
+            //         }else{
+            //             tab_text[i] += ', "'+text+'"';
+            //         }
+            //     j += 1;
+            // }
+
+            text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent;
+            tab_text[i] += text+'"';
+
             console.log("Texte de la slide : "+text);
             if (text==""){
                 tab_text[i] += ']}';
