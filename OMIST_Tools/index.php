@@ -836,10 +836,11 @@ It's important to note that the resulting animation can serve as comprehensive i
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     <br/>
-    <button type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
-    <button type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="">pause</i></button>
-    <button type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
-
+    <div style="text-align: center;"><p>Insert an action : </p>
+      <button type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
+      <button type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="">pause</i></button>
+      <button type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
+    </div>
     <br/>
     
     <table hidden id="tableEdit" align="center" style="width: 100%; height:600px;" border="1">
