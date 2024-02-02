@@ -1151,6 +1151,19 @@ function openImg(img) {
     });
 }
 
+function toolInformation(){
+    $( "#dialog-message" ).dialog({
+        height: 400,
+        width: 400,
+        modal: true,
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+    }); 
+}
+
 function updateNotes(){
     var lang = _("myLanguage").value.trim();
     var idImage = document.getElementById("imageArea").firstElementChild.id;

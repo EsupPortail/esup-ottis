@@ -829,7 +829,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
-    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden');" accept=".html" max-size="50000" />
+    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <br/>
@@ -861,6 +861,25 @@ It's important to note that the resulting animation can serve as comprehensive i
       </td>
       </tr>
     </table>
+
+    <div id="dialog-message" title="Information">
+      <p>
+      It's a tool for editing your animations. 
+      For each slide and language, you can edit and add notes. 
+      You can also add actions (pause, move mouse, etc.) to slides by clicking on them. 
+      Once the image is open, you can click again, and a menu will appear. 
+      All you have to do is choose the action you want. 
+      Note that for the "move mouse" action, the coordinates of the click on the image are taken into account. 
+    </p>
+
+    <p>
+      Once you've finished modifying your presentation, you can :
+      <ul>
+        <li> Download the complete animation, giving you a ready-to-use HTML file. </li>
+        <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
+      </ul>
+    </p>
+    </div>
 
   </form>
   
