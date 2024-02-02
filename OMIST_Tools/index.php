@@ -830,6 +830,20 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />
+    <select id="myKeyword">
+        <option selected="selected" value="Default">--Select an action to add--</option>
+        <option value="[pause]">Pause</option>
+        <option value="[wait n]">Pause for n milliseconds</option>
+        <option value="[resource url]">Open a window with the url</option>
+        <option value="[notification message]">Open a window with the text</option>
+        <option value="[mouse show]">Show the mouse</option>
+        <option value="[mouse go px py]">Move the mouse</option>
+        <option value="[mouse hide]">Hide the mouse</option>
+        <option value="[mouse size n]">Change the mouse size</option>
+        <option value="[mouse shape n]">Change the mouse shape</option>
+        <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
+    </select>   
+   
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button>
