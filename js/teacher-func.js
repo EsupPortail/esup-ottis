@@ -1336,7 +1336,7 @@ function CreateNewSpeech() {
     var lang_origin = document.getElementById("myLanguage").options.item(0).value;
     // var lang = html.getElementsByTagName('p');
     // var lang_origin = lang[0].innerHTML.trim();
-    console.log(lang_origin);
+    //console.log(lang_origin);
 
     //Récupérer les notes dans la langue d'origine
     var txt = "";
@@ -1453,11 +1453,12 @@ function CreateNewPresentation() {
             tab_text[i] += text+'"';
 
             console.log("Texte de la slide : "+text);
-            if (text==""){
-                tab_text[i] += ']}';
-            }else{
-                tab_text[i] += ']}';
-            }
+            // if (text==""){
+            //     tab_text[i] += ']}';
+            // }else{
+            //     tab_text[i] += ']}';
+            // }
+            tab_text[i] += ']}';
         }
         tab_text[i] += ']';
         console.log(tab_text[i]);
