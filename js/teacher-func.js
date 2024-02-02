@@ -1151,12 +1151,6 @@ function openImg(img) {
     });
 }
 
-function pauseKeyword(){
-    var keyword = "[pause]";
-    var notes = document.getElementById("speechArea").value;
-    document.getElementById("speechArea").value = notes + '\n'+keyword;
-}
-
 function toolInformation(){
     $( "#dialog-message" ).dialog({
         height: 400,
@@ -1176,6 +1170,13 @@ function updateNotes(){
     var numSlide = idImage.charAt(idImage.length - 1);
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
+}
+
+function pauseKeyword(){
+    var keyword = "[pause]";
+    var notes = document.getElementById("speechArea").value;
+    document.getElementById("speechArea").value = notes + keyword;
+    updateNotes()
 }
 
 /**
