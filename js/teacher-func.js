@@ -1007,17 +1007,17 @@ function addParameters(button){
     // document.getElementById("textArea").innerHTML=command;
     var keywordToAdd = button.id;
     if (keywordToAdd=="[pause]"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]" checked />Pause animation</div><br><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for n milliseconds <input type="number" name="timeWait";" id="timeWait" /></div>';
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]" checked />Pause animation</div><br><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for <input type="number" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
         $('input[type="radio"]').click(function() {
             if($(this).attr('id') == 'wait') {
-                var text = $(this).value;
+                var text = $(this).attr('value');
                 var attr = document.getElementById("timeWait").value;
                 command = text.replace("n", attr.toString())
                 console.log(command);           
             }
      
             else {
-                console.log($(this).value);   
+                console.log($(this).attr('value'));   
             }
         });
     }
