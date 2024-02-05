@@ -1172,23 +1172,13 @@ function addAllLanguages(keyword){
     }
 }
 
-
-function displayRadioValue() {
-    var ele = document.getElementsByName('param');
-
-    for (i = 0; i < ele.length; i++) {
-        if (ele[i].checked){
-            console.log("Param: " + ele[i].value);
-        }
-    }
-}
-
 function updateCommand(){
     //var text = $(button).attr('value');
     var text = document.getElementById("wait").value
     var attr = document.getElementById("timeWait").value;
     command = text.replace("n", attr.toString());
-    console.log(command); 
+    console.log(command);
+    return command;
 }
 
 /**
@@ -1240,7 +1230,7 @@ function addParameters(button){
                 // var attr = document.getElementById("timeWait").value;
                 // command = text.replace("n", attr.toString());
                 // console.log(command);
-                updateCommand(text);           
+                command = updateCommand(text);           
             }
      
             else {
