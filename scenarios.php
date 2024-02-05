@@ -256,9 +256,36 @@ var root = window.location.href.replace("/scenarios.php","");
 }
 
 </script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+
+<style>
+body > .skiptranslate {
+    //display: none;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+    } 
+body {
+    top: 0px !important; 
+    }
+
+@media print {
+  #google_translate_element {display: none;}
+}
+</style>
+
+
 </head>
 <body>
-
+<div id="google_translate_element"></div>
 
 <ul class="cards">
   <li class="cards__item">
