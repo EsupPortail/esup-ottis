@@ -257,6 +257,11 @@ var root = window.location.href.replace("/scenarios.php","");
 
 </script>
 
+
+
+
+</head>
+<body>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
@@ -292,10 +297,6 @@ body .skiptranslate:first-child {
 #google_translate_element {position: fixed; top: 0px;}
 
 </style>
-
-
-</head>
-<body>
 <div id="google_translate_element"></div>
 
 <ul class="cards">
