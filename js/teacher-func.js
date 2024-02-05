@@ -1148,8 +1148,8 @@ function addKeyword(keyword){
     //updateNotes();
 }
 
-function addAllLanguages(button){
-    var keyword = button.id;
+function addAllLanguages(keyword){
+    //var keyword = button.id;
     console.log(keyword);
     let text = "Add action to all languages ?";
     if (confirm(text) == true) {
@@ -1223,7 +1223,7 @@ function addParameters(button){
     // document.getElementById("textArea").innerHTML=command;
     var keywordToAdd = button.id;
     if (keywordToAdd=="[pause]"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for <input type="number" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for <input type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
         $('input[type="radio"]').click(function() {
             if($(this).attr('id') == 'wait') {
                 var text = $(this).attr('value');
@@ -1239,7 +1239,7 @@ function addParameters(button){
     }
     $( "#keywordParameter" ).dialog({
         height: 300,
-        width: 200,
+        width: 250,
         modal: true,
         buttons: {
           OK: function() {
