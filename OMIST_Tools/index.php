@@ -834,12 +834,18 @@ It's important to note that the resulting animation can serve as comprehensive i
     <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
     <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
     <ul>
-      <li class="ui-widget-content">
-        <a class="dropbtn" onclick="myFunction()">Pause</a>
-        <div class="dropdown-content" id="myDropdown">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+      <li>
+        <a onclick="myFunction()">Pause</a>
+        <div id="myDropdown">
+          <a href="#">Pause animation</a>
+          <a href="#">Pause for n milliseconds</a>
+        </div>
+      </li>
+      <li>
+        <a onclick="myFunction()">Mouse</a>
+        <div id="myDropdown">
+          <a href="#">Show the mouse</a>
+          <a href="#">Hide the mouse</a>
         </div>
       </li>
     </ul>
