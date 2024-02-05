@@ -1145,11 +1145,9 @@ function updateNotes(){
 function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
     document.getElementById("speechArea").value = notes + keyword +'\n';
-    //updateNotes();
 }
 
 function addAllLanguages(keyword){
-    //var keyword = button.id;
     console.log(keyword);
     let text = "Add action to all languages ?";
     if (confirm(text) == true) {
@@ -1162,7 +1160,6 @@ function addAllLanguages(keyword){
             tab_lang[num_lang] = languages.options[num_lang].value;
         }
         for (let key in tab_lang){
-            //var keyword = "[pause]";
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = notes + keyword;
         }
@@ -1173,7 +1170,6 @@ function addAllLanguages(keyword){
 }
 
 function updateCommand(){
-    //var text = $(button).attr('value');
     var text = document.getElementById("wait").value
     var attr = document.getElementById("timeWait").value;
     command = text.replace("n", attr.toString());
@@ -1221,13 +1217,18 @@ function addParameters(button){
     // document.getElementById("textArea").innerHTML=command;
     var keywordToAdd = button.id;
     if (keywordToAdd=="pause"){
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+    }else if(keywordToAdd=="mouse"){
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="mouseShow" name="param1" value="[mouse show]"/>Show the mouse</div><br><div><input type="radio" id="mouseHide" name="param1" value="[mouse hide]"/>Hide the mouse</div><br><div><input type="radio" id="wait" name="param2" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+    }else if(keywordToAdd=="notif"){
         document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param1" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param2" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }
     var command = "";
     $('input[type="radio"]').click(function() {
-        if($(this).attr('name') == 'param2') {
-            //var text = $(this).attr('value');
-            var text = document.getElementById("wait").value
+        if($(this).attr('id').substring(0,3) == 'param') {
+            var text = $(this).attr('value');
+            //var text = document.getElementById("paramWait").value
+            console.log('Texte : '+text);
             command = updateCommand(text);           
         }
     
