@@ -308,7 +308,7 @@ body+.skiptranslate {
 }
 
 body {
-  top: 0px important!;
+  top: 0px;
 }
 
 .goog-te-gadget-simple {
