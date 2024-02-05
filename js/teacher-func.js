@@ -1192,9 +1192,9 @@ function addAllLanguages(){
         }
         for (let key in tab_lang){
             var keyword = "[pause]";
-            console.log('SlideText_'+key+'_img_'+numSlide);
-            var notes = document.getElementById('SlideText_'+key+'_img_'+numSlide).textContent;
-            document.getElementById('SlideText_'+key+'_img_'+numSlide).textContent = notes + keyword;
+            console.log('SlideText_'+tab_lang[key]+'_img_'+numSlide);
+            var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = notes + keyword;
         }
     } else {
         pauseKeyword();
