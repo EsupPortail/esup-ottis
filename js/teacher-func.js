@@ -957,83 +957,6 @@ function copyText() {
     navigator.clipboard.writeText(copyText.value);
 }
 
-function displayRadioValue() {
-    var ele = document.getElementsByName('param');
-
-    for (i = 0; i < ele.length; i++) {
-        if (ele[i].checked){
-            console.log("Param: " + ele[i].value);
-        }
-    }
-}
-
-/**
- * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
- * 
- * @param {string} textToDisplay the keyword selected.
- */
-
-function addParameters(button){
-    // var text = document.getElementById("myKeyword").value;
-    // var attr = document.getElementById("paramKeyword").value;
-    // var command = "";
-    // if(textToDisplay==="[wait n]"){
-    //     command = text.replace("n", attr.toString());
-    // }
-    // else if (textToDisplay==="[resource url]"){
-    //     command = text.replace("url", attr);
-    // }
-    // else if (textToDisplay==="[notification message]"){
-    //     command = text.replace("message", attr);
-    // }
-    // else if (textToDisplay==="[mouse go px py]"){
-    //     attr = attr.replace("X = ", "");
-    //     attr = attr.replace(", Y =", "");
-    //     command = text.replace("px py", attr);
-    // }
-    // else if (textToDisplay==="[mouse size n]"){
-    //     command = text.replace("n", attr.toString());
-    // }
-    // else if (textToDisplay==="[mouse shape n]"){
-    //     var shape = document.getElementById("mouseShape").value;
-    //     command = text.replace("n", shape);
-    // }
-    // else if (textToDisplay==="[mouse customshape ch]"){
-    //     command = text.replace("ch", attr);
-    // }
-    // document.getElementById("textField2").style.display = "inline-block";
-    // document.getElementById("textArea").style.display = "inline-block";
-    // document.getElementById("copyKeyword").style.display = "inline-block";
-    // document.getElementById("textArea").innerHTML=command;
-    var keywordToAdd = button.id;
-    if (keywordToAdd=="[pause]"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]" checked />Pause animation</div><br><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for <input type="number" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
-        $('input[type="radio"]').click(function() {
-            if($(this).attr('id') == 'wait') {
-                var text = $(this).attr('value');
-                var attr = document.getElementById("timeWait").value;
-                command = text.replace("n", attr.toString())
-                console.log(command);           
-            }
-     
-            else {
-                console.log($(this).attr('value'));   
-            }
-        });
-    }
-    $( "#keywordParameter" ).dialog({
-        height: 200,
-        width: 100,
-        modal: true,
-        buttons: {
-          OK: function() {
-            $( this ).dialog( "close" );
-            displayRadioValue();
-          }
-        }
-    });
-}
-
 /**
  * @summary The function that is executed for getting the keyword of an animation with the animation editor.
  * 
@@ -1247,6 +1170,90 @@ function addAllLanguages(button){
         addKeyword(keyword);
         updateNotes();
     }
+}
+
+
+function displayRadioValue() {
+    var ele = document.getElementsByName('param');
+
+    for (i = 0; i < ele.length; i++) {
+        if (ele[i].checked){
+            console.log("Param: " + ele[i].value);
+        }
+    }
+}
+
+/**
+ * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
+ * 
+ * @param {string} textToDisplay the keyword selected.
+ */
+
+function addParameters(button){
+    // var text = document.getElementById("myKeyword").value;
+    // var attr = document.getElementById("paramKeyword").value;
+    // var command = "";
+    // if(textToDisplay==="[wait n]"){
+    //     command = text.replace("n", attr.toString());
+    // }
+    // else if (textToDisplay==="[resource url]"){
+    //     command = text.replace("url", attr);
+    // }
+    // else if (textToDisplay==="[notification message]"){
+    //     command = text.replace("message", attr);
+    // }
+    // else if (textToDisplay==="[mouse go px py]"){
+    //     attr = attr.replace("X = ", "");
+    //     attr = attr.replace(", Y =", "");
+    //     command = text.replace("px py", attr);
+    // }
+    // else if (textToDisplay==="[mouse size n]"){
+    //     command = text.replace("n", attr.toString());
+    // }
+    // else if (textToDisplay==="[mouse shape n]"){
+    //     var shape = document.getElementById("mouseShape").value;
+    //     command = text.replace("n", shape);
+    // }
+    // else if (textToDisplay==="[mouse customshape ch]"){
+    //     command = text.replace("ch", attr);
+    // }
+    // document.getElementById("textField2").style.display = "inline-block";
+    // document.getElementById("textArea").style.display = "inline-block";
+    // document.getElementById("copyKeyword").style.display = "inline-block";
+    // document.getElementById("textArea").innerHTML=command;
+    var keywordToAdd = button.id;
+    if (keywordToAdd=="[pause]"){
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for <input type="number" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        $('input[type="radio"]').click(function() {
+            if($(this).attr('id') == 'wait') {
+                var text = $(this).attr('value');
+                var attr = document.getElementById("timeWait").value;
+                command = text.replace("n", attr.toString())
+                console.log(command);           
+            }
+     
+            else {
+                console.log($(this).attr('value'));   
+            }
+        });
+    }
+    $( "#keywordParameter" ).dialog({
+        height: 300,
+        width: 200,
+        modal: true,
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+            var ele = document.getElementsByName('param');
+            for (i = 0; i < ele.length; i++) {
+                if (ele[i].checked){
+                    var paramToAdd = ele[i].value;
+                }
+            }
+            addAllLanguages(paramToAdd);
+          }
+        }
+    });
 }
 
 /**
