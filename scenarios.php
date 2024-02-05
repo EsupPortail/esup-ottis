@@ -297,7 +297,7 @@ body .skiptranslate:first-child {
   #google_translate_element {display: none;}
 }
 
-#google_translate_element {position: fixed; top: 0px;}
+#google_translate_element {position: fixed; top: 0px; z-index: 500000;}
 
 #google_translate_element .goog-te-gadget-icon {
   display: none;
