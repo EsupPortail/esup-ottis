@@ -838,14 +838,24 @@ It's important to note that the resulting animation can serve as comprehensive i
         <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
         <div class="dropdown-content" id="dropPause">
           <a href="javascript:addAllLanguages('[pause]')">Pause animation</a>
-          <a href="#">Pause for n milliseconds</a>
+          <a href="javascript:addAllLanguages('[wait n]')">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick="myFunction()">Mouse</a>
+        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Mouse</a>
         <div class="dropdown-content" id="dropMouse">
           <a href="javascript:addAllLanguages('[mouse show]')">Show the mouse</a>
           <a href="javascript:addAllLanguages('[mouse hide]')">Hide the mouse</a>
+          <a href="javascript:addAllLanguages('[mouse go px py]')">Move the mouse</a>
+          <a href="javascript:addAllLanguages('[mouse size n]')">Change the mouse size</a>
+          <a href="javascript:addAllLanguages('[mouse shape n]')">Change the mouse shape</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Notification</a>
+        <div class="dropdown-content" id="dropNotification">
+          <a href="javascript:addAllLanguages('[resource url]')">Open a window with the url</a>
+          <a href="javascript:addAllLanguages('[notification message]')">Open a window with the text</a>
         </div>
       </li>
     </ul>
