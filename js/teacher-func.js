@@ -1182,19 +1182,19 @@ function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// // Close the dropdown if the user clicks outside of it
-// window.onclick = function(e) {
-//   if (!e.target.matches('.dropbtn')) {
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
 
-//     var dropdowns = document.getElementsByClassName("dropdown-content");
-//     for (var d = 0; d < dropdowns.length; d++) {
-//       var openDropdown = dropdowns[d];
-//       if (openDropdown.classList.contains('show')) {
-//         openDropdown.classList.remove('show');
-//       }
-//     }
-//   }
-// }
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var d = 0; d < dropdowns.length; d++) {
+      var openDropdown = dropdowns[d];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
