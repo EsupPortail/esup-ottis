@@ -1170,6 +1170,7 @@ function addAllLanguages(keyword){
 }
 
 function updateCommand(text){
+    console.log(document.getElementById('paramWait').value);
     //var text = document.getElementById("wait").value
     var attr = document.getElementById("timeWait").value;
     command = text.replace("n", attr.toString());
@@ -1219,11 +1220,12 @@ function addParameters(button){
     if (keywordToAdd=="pause"){
         document.getElementById("keywordParameter").innerHTML = 
         '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
-        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').innerHTML);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="mouse"){
         '<div><input type="radio" id="mouseShow" name="param" value="[mouse show]"/>Show the mouse</div><br> '+
         '<div><input type="radio" id="mouseHide" name="param" value="[mouse hide]"/>Hide the mouse</div><br> '+
-        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').innerHTML);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        '<div><input type="radio" id="paramMouseSize" name="param" min="0" value="[mouse size n]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').innerHTML);" type="number" style="width:2em" value="0" name="mouseSize" id="mouseSize"/></div>';
+        '<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').innerHTML);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
     }else if(keywordToAdd=="notif"){
         '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
         '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').innerHTML);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
