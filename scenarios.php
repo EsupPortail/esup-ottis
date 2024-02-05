@@ -269,6 +269,7 @@ function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
   //var icone=$(".goog-te-gadget-icon")[0];
   //icone.style.display='none';
+  document.body.style.top='0px';
 }
 
 </script>
