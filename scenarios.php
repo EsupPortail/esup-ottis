@@ -266,6 +266,11 @@ function googleTranslateElementInit() {
 </script>
 
 <style>
+
+body > .skiptranslate {
+    display: none !important;
+}
+
 .skiptranslate iframe {
     display: none !important;
 }
@@ -282,6 +287,9 @@ function googleTranslateElementInit() {
 @media print {
   #google_translate_element {display: none;}
 }
+
+#google_translate_element {position: fixed; top: 0px;}
+
 </style>
 
 
