@@ -1144,7 +1144,7 @@ function updateNotes(){
 
 function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
-    document.getElementById("speechArea").value = notes + keyword;
+    document.getElementById("speechArea").value = notes + keyword +'\n';
     //updateNotes();
 }
 
@@ -1220,26 +1220,23 @@ function addParameters(button){
     // document.getElementById("copyKeyword").style.display = "inline-block";
     // document.getElementById("textArea").innerHTML=command;
     var keywordToAdd = button.id;
-    if (keywordToAdd=="[pause]"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
-        var command = "";
-        $('input[type="radio"]').click(function() {
-            if($(this).attr('id') == 'wait') {
-                //var text = $(this).attr('value');
-                var text = document.getElementById("wait").value
-                // var attr = document.getElementById("timeWait").value;
-                // command = text.replace("n", attr.toString());
-                // console.log(command);
-                command = updateCommand(text);           
-            }
-     
-            else {
-                console.log($(this).attr('value'));
-                command = $(this).attr('value');
-                document.getElementById("commandKeyword").innerHTML = command;
-            }
-        });
+    if (keywordToAdd=="pause"){
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param1" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param2" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }
+    var command = "";
+    $('input[type="radio"]').click(function() {
+        if($(this).attr('name') == 'param2') {
+            //var text = $(this).attr('value');
+            var text = document.getElementById("wait").value
+            command = updateCommand(text);           
+        }
+    
+        else {
+            console.log($(this).attr('value'));
+            command = $(this).attr('value');
+            document.getElementById("commandKeyword").innerHTML = command;
+        }
+    });
     $( "#keywordParameter" ).dialog({
         height: 200,
         width: 350,
