@@ -1185,6 +1185,8 @@ function addAllLanguages(){
         pauseKeyword();
         var tab_lang = [];
         var languages = document.getElementById("myLanguage");
+        var idImage = document.getElementById("imageArea").firstElementChild.id;
+        var numSlide = idImage.charAt(idImage.length - 1);
         for (num_lang = 0; num_lang < languages.length; num_lang++) {
             tab_lang[num_lang] = languages.options[num_lang].value;
         }
@@ -1197,7 +1199,6 @@ function addAllLanguages(){
         pauseKeyword();
         updateNotes();
     }
-    document.getElementById("demo").innerHTML = text;
 }
 
 /**
