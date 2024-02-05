@@ -267,7 +267,10 @@ var root = window.location.href.replace("/scenarios.php","");
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  //var icone=$(".goog-te-gadget-icon")[0];
+  //icone.style.display='none';
 }
+
 </script>
 
 <style>
@@ -296,6 +299,9 @@ body .skiptranslate:first-child {
 
 #google_translate_element {position: fixed; top: 0px;}
 
+#google_translate_element .goog-te-gadget-icon {
+  display: none;
+}
 </style>
 <div id="google_translate_element"></div>
 
