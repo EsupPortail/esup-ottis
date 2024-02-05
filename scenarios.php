@@ -280,6 +280,10 @@ body .skiptranslate:first-child {
 }
 */
 
+body:first-child {
+  display: none !important;
+}
+
 .skiptranslate iframe {
     display: none !important;
 }
