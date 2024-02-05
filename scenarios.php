@@ -310,6 +310,11 @@ body+.skiptranslate {
 body {
   top: 0px important!;
 }
+
+.goog-te-gadget-simple {
+  border-radius: 8px;
+}
+
 </style>
 <div id="google_translate_element"></div>
 
