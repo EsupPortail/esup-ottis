@@ -267,8 +267,8 @@ function googleTranslateElementInit() {
 
 <style>
 
-body > .skiptranslate {
-    display: none !important;
+body .skiptranslate:first-child {
+  display: none !important;
 }
 
 .skiptranslate iframe {
