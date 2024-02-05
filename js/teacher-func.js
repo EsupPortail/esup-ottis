@@ -1221,13 +1221,16 @@ function addParameters(button){
         '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
         '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').innerHTML);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="mouse"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="mouseShow" name="param1" value="[mouse show]"/>Show the mouse</div><br><div><input type="radio" id="mouseHide" name="param1" value="[mouse hide]"/>Hide the mouse</div><br><div><input type="radio" id="wait" name="param2" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        '<div><input type="radio" id="mouseShow" name="param" value="[mouse show]"/>Show the mouse</div><br> '+
+        '<div><input type="radio" id="mouseHide" name="param" value="[mouse hide]"/>Hide the mouse</div><br> '+
+        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').innerHTML);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="notif"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param1" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param2" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
+        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').innerHTML);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }
     var command = "";
     $('input[type="radio"]').click(function() {
-        if($(this).attr('id').substring(0,3) == 'param') {
+        if($(this).attr('id').substring(0,5) == 'param') {
             var text = $(this).attr('value');
             //var text = document.getElementById("paramWait").value
             console.log('Texte : '+text);
