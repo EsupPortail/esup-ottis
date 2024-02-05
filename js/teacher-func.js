@@ -1178,7 +1178,7 @@ function updateCommand(){
     var attr = document.getElementById("timeWait").value;
     command = text.replace("n", attr.toString());
     console.log(command);
-    return command;
+    document.getElementById("commandKeyword").innerHTML = command;
 }
 
 /**
@@ -1236,6 +1236,7 @@ function addParameters(button){
             else {
                 console.log($(this).attr('value'));
                 command = $(this).attr('value');
+                document.getElementById("commandKeyword").innerHTML = command;
             }
         });
     }
@@ -1246,7 +1247,7 @@ function addParameters(button){
         buttons: {
           OK: function() {
             $( this ).dialog( "close" );
-            addAllLanguages(command);
+            addAllLanguages(document.getElementById("commandKeyword").innerHTML);
           }
         }
     });

@@ -891,7 +891,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </ul>
     </p>
     </div>
-
+    <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Select the action to add :"></div>
 
   </form>
