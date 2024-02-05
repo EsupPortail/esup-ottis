@@ -1172,17 +1172,18 @@ function updateNotes(){
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
-function pauseKeyword(){
-    var keyword = "[pause]";
+function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
     document.getElementById("speechArea").value = notes + keyword;
     //updateNotes();
 }
 
 function addAllLanguages(){
+    var keyword = this.id;
+    console.log(keyword);
     let text = "Add action to all languages ?";
     if (confirm(text) == true) {
-        pauseKeyword();
+        addKeyword(keyword);
         var tab_lang = [];
         var languages = document.getElementById("myLanguage");
         var idImage = document.getElementById("imageArea").firstElementChild.id;
@@ -1192,12 +1193,11 @@ function addAllLanguages(){
         }
         for (let key in tab_lang){
             var keyword = "[pause]";
-            console.log('SlideText_'+tab_lang[key]+'_img_'+numSlide);
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = notes + keyword;
         }
     } else {
-        pauseKeyword();
+        addKeyword(keyword);
         updateNotes();
     }
 }

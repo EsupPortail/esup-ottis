@@ -831,7 +831,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); document.getElementById('tableEdit').removeAttribute('hidden'); toolInformation();" accept=".html" max-size="50000" />   
     <button type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
-    <button type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="addAllLanguages()">pause</i></button>
+    <button type=button id="[pause]" class="ui-button ui-widget ui-corner-all" onclick="addAllLanguages()">pause</i></button>
     <button type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
