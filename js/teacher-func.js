@@ -1164,6 +1164,13 @@ function toolInformation(){
     }); 
 }
 
+function initializeEditAnim(){
+    document.getElementById('imageArea').innerHTML = "";
+    document.getElementById("speechArea").value = "";
+    document.getElementById('tableEdit').removeAttribute('hidden'); 
+    toolInformation();
+}
+
 function updateNotes(){
     var lang = _("myLanguage").value.trim();
     var idImage = document.getElementById("imageArea").firstElementChild.id;
@@ -1192,7 +1199,7 @@ function addAllLanguages(button){
             tab_lang[num_lang] = languages.options[num_lang].value;
         }
         for (let key in tab_lang){
-            var keyword = "[pause]";
+            //var keyword = "[pause]";
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = notes + keyword;
         }
