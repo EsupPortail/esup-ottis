@@ -834,16 +834,19 @@ It's important to note that the resulting animation can serve as comprehensive i
     <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
     <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button> -->
     <ul class="ui-menu ui-widget highlight">
-      <li class="dropdown">
-        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
-        <div class="dropdown-content" id="dropPause">
+    <li>
+    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
+      </li>
+      <li>
+        <a onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
+        <div id="dropPause">
           <a href="javascript:addAllLanguages('[pause]')">Pause animation</a>
           <a href="javascript:addAllLanguages('[wait n]')">Pause for n milliseconds</a>
         </div>
       </li>
-      <li class="dropdown">
-        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Mouse</a>
-        <div class="dropdown-content" id="dropMouse">
+      <li>
+        <a onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Mouse</a>
+        <div id="dropMouse">
           <a href="javascript:addAllLanguages('[mouse show]')">Show the mouse</a>
           <a href="javascript:addAllLanguages('[mouse hide]')">Hide the mouse</a>
           <a href="javascript:addAllLanguages('[mouse go px py]')">Move the mouse</a>
@@ -851,26 +854,26 @@ It's important to note that the resulting animation can serve as comprehensive i
           <a href="javascript:addAllLanguages('[mouse shape n]')">Change the mouse shape</a>
         </div>
       </li>
-      <li class="dropdown">
-        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Notification</a>
-        <div class="dropdown-content" id="dropNotification">
+      <li>
+        <a onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Notification</a>
+        <div id="dropNotification">
           <a href="javascript:addAllLanguages('[resource url]')">Open a window with the url</a>
           <a href="javascript:addAllLanguages('[notification message]')">Open a window with the text</a>
         </div>
       </li>
-      <li class="dropdown">
-        <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}">Download complete animation</a>
+      <li>
+        <a onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}">Download complete animation</a>
       </li>
-      <li class="dropdown">
-        <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}">Download speech</a>
+      <li>
+        <a onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}">Download speech</a>
       </li>
-      <li class="dropdown">
-        <a class="dropbtn" onclick="toolInformation()">Aide</a>
+      <li>
+        <a onclick="toolInformation()">Aide</a>
       </li>
     </ul>
-    <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
+    <!-- <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
-    <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button>
+    <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button> -->
     <br/>
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     <br/>
