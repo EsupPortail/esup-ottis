@@ -306,6 +306,10 @@ body+.skiptranslate {
 #google_translate_element .goog-te-gadget-icon {
   display: none;
 }
+
+body {
+  top: 0px important!;
+}
 </style>
 <div id="google_translate_element"></div>
 
