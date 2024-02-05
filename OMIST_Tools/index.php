@@ -835,15 +835,15 @@ It's important to note that the resulting animation can serve as comprehensive i
     <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button> -->
     <ul class="ul-dropdown">
       <li class="dropdown">
-        <a class="dropbtn" onclick="myFunction()">Pause</a>
-        <div class="dropdown-content" id="myDropdown">
+        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
+        <div class="dropdown-content" id="dropPause">
           <a href="javascript:addAllLanguages('[pause]')">Pause animation</a>
           <a href="#">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
         <a class="dropbtn" onclick="myFunction()">Mouse</a>
-        <div class="dropdown-content" id="myDropdown">
+        <div class="dropdown-content" id="dropMouse">
           <a href="javascript:addAllLanguages('[mouse show]')">Show the mouse</a>
           <a href="javascript:addAllLanguages('[mouse hide]')">Hide the mouse</a>
         </div>
