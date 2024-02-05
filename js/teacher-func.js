@@ -963,38 +963,52 @@ function copyText() {
  * @param {string} textToDisplay the keyword selected.
  */
 
-function addParameters(textToDisplay){
-    var text = document.getElementById("myKeyword").value;
-    var attr = document.getElementById("paramKeyword").value;
-    var command = "";
-    if(textToDisplay==="[wait n]"){
-        command = text.replace("n", attr.toString());
+function addParameters(button){
+    // var text = document.getElementById("myKeyword").value;
+    // var attr = document.getElementById("paramKeyword").value;
+    // var command = "";
+    // if(textToDisplay==="[wait n]"){
+    //     command = text.replace("n", attr.toString());
+    // }
+    // else if (textToDisplay==="[resource url]"){
+    //     command = text.replace("url", attr);
+    // }
+    // else if (textToDisplay==="[notification message]"){
+    //     command = text.replace("message", attr);
+    // }
+    // else if (textToDisplay==="[mouse go px py]"){
+    //     attr = attr.replace("X = ", "");
+    //     attr = attr.replace(", Y =", "");
+    //     command = text.replace("px py", attr);
+    // }
+    // else if (textToDisplay==="[mouse size n]"){
+    //     command = text.replace("n", attr.toString());
+    // }
+    // else if (textToDisplay==="[mouse shape n]"){
+    //     var shape = document.getElementById("mouseShape").value;
+    //     command = text.replace("n", shape);
+    // }
+    // else if (textToDisplay==="[mouse customshape ch]"){
+    //     command = text.replace("ch", attr);
+    // }
+    // document.getElementById("textField2").style.display = "inline-block";
+    // document.getElementById("textArea").style.display = "inline-block";
+    // document.getElementById("copyKeyword").style.display = "inline-block";
+    // document.getElementById("textArea").innerHTML=command;
+    var keywordToAdd = button.id;
+    if (keywordToAdd=="[pause]"){
+        document.getElementById("keywordParameter").innerHTML = '<fieldset><legend>Select the action to add:</legend><div><input type="radio" id="pause" value="[pause]" checked /><label for="[pause]">Pause animation</label></div></fieldset>';
     }
-    else if (textToDisplay==="[resource url]"){
-        command = text.replace("url", attr);
-    }
-    else if (textToDisplay==="[notification message]"){
-        command = text.replace("message", attr);
-    }
-    else if (textToDisplay==="[mouse go px py]"){
-        attr = attr.replace("X = ", "");
-        attr = attr.replace(", Y =", "");
-        command = text.replace("px py", attr);
-    }
-    else if (textToDisplay==="[mouse size n]"){
-        command = text.replace("n", attr.toString());
-    }
-    else if (textToDisplay==="[mouse shape n]"){
-        var shape = document.getElementById("mouseShape").value;
-        command = text.replace("n", shape);
-    }
-    else if (textToDisplay==="[mouse customshape ch]"){
-        command = text.replace("ch", attr);
-    }
-    document.getElementById("textField2").style.display = "inline-block";
-    document.getElementById("textArea").style.display = "inline-block";
-    document.getElementById("copyKeyword").style.display = "inline-block";
-    document.getElementById("textArea").innerHTML=command;
+    $( "#keywordParameter" ).dialog({
+        height: 400,
+        width: 400,
+        modal: true,
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+    });
 }
 
 /**
