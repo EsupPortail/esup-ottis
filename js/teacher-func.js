@@ -1183,8 +1183,8 @@ function displayRadioValue() {
     }
 }
 
-function updateCommand(button){
-    var text = $(button).attr('value');
+function updateCommand(text){
+    //var text = $(button).attr('value');
     var attr = document.getElementById("timeWait").value;
     command = text.replace("n", attr.toString());
     console.log(command); 
@@ -1230,15 +1230,15 @@ function addParameters(button){
     // document.getElementById("textArea").innerHTML=command;
     var keywordToAdd = button.id;
     if (keywordToAdd=="[pause]"){
-        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param" min="0" onchange="updateCommand(this);" value="[wait n]"/>Pause for <input type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br><div><input type="radio" id="wait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById("wait").value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
         var command = "";
         $('input[type="radio"]').click(function() {
             if($(this).attr('id') == 'wait') {
-                // var text = $(this).attr('value');
+                var text = $(this).attr('value');
                 // var attr = document.getElementById("timeWait").value;
                 // command = text.replace("n", attr.toString());
                 // console.log(command);
-                updateCommand(this);           
+                updateCommand(text);           
             }
      
             else {
