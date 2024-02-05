@@ -1167,7 +1167,10 @@ function toolInformation(){
 function initializeEditAnim(){
     document.getElementById('imageArea').innerHTML = "";
     document.getElementById("speechArea").value = "";
-    document.getElementById('tableEdit').removeAttribute('hidden'); 
+    document.getElementById('tableEdit').removeAttribute('hidden');
+    document.getElementById('mouse').removeAttribute('hidden');
+    document.getElementById('[pause]').removeAttribute('hidden');
+    document.getElementById('notif').removeAttribute('hidden');
     toolInformation();
 }
 
