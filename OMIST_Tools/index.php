@@ -833,6 +833,16 @@ It's important to note that the resulting animation can serve as comprehensive i
     <button style="display:none" type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
     <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
     <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
+    <ul>
+      <li class="dropdown">
+        <a class="dropbtn" onclick="myFunction()">Pause</a>
+        <div class="dropdown-content" id="myDropdown">
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </div>
+      </li>
+    </ul>
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button>

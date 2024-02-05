@@ -1178,6 +1178,24 @@ function updateCommand(text){
     document.getElementById("commandKeyword").innerHTML = command;
 }
 
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var d = 0; d < dropdowns.length; d++) {
+      var openDropdown = dropdowns[d];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
  * 
@@ -1225,6 +1243,7 @@ function addParameters(button){
         '<div><input type="radio" id="mouseShow" name="param" value="[mouse show]"/>Show the mouse</div><br> '+
         '<div><input type="radio" id="mouseHide" name="param" value="[mouse hide]"/>Hide the mouse</div><br> '+
         '<div><input type="radio" id="paramMouseSize" name="param" min="0" value="[mouse size n]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').innerHTML);" type="number" style="width:2em" value="0" name="mouseSize" id="mouseSize"/></div>';
+        '<div><input type="radio" id="paramMouseShape" name="param" min="0" value="[mouse shape n]"/>Mouse shape : <input onchange="updateCommand(document.getElementById(\'paramMouseShape\').value);" type="number" style="width:2em" value="0" name="mouseSize" id="mouseSize"/></div>';
         '<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').innerHTML);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
     }else if(keywordToAdd=="notif"){
         '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
