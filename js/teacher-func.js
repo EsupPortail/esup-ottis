@@ -1178,8 +1178,8 @@ function addKeyword(keyword){
     //updateNotes();
 }
 
-function addAllLanguages(){
-    var keyword = this.id;
+function addAllLanguages(button){
+    var keyword = button.id;
     console.log(keyword);
     let text = "Add action to all languages ?";
     if (confirm(text) == true) {
