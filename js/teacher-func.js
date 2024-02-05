@@ -957,6 +957,16 @@ function copyText() {
     navigator.clipboard.writeText(copyText.value);
 }
 
+function displayRadioValue() {
+    var ele = document.getElementsByName('param');
+
+    for (i = 0; i < ele.length; i++) {
+        if (ele[i].checked){
+            console.log("Param: " + ele[i].value);
+        }
+    }
+}
+
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
  * 
@@ -997,7 +1007,7 @@ function addParameters(button){
     // document.getElementById("textArea").innerHTML=command;
     var keywordToAdd = button.id;
     if (keywordToAdd=="[pause]"){
-        document.getElementById("keywordParameter").innerHTML = '<fieldset><legend>Select the action to add:</legend><div><input type="radio" id="pause" value="[pause]" checked /><label for="[pause]">Pause animation</label></div></fieldset>';
+        document.getElementById("keywordParameter").innerHTML = '<div><input type="radio" id="pause" name="param" value="[pause]" checked />Pause animation</div><div><input type="radio" id="wait" name="param" value="[wait n]"/>Pause for n milliseconds</div>';
     }
     $( "#keywordParameter" ).dialog({
         height: 400,
@@ -1006,6 +1016,7 @@ function addParameters(button){
         buttons: {
           OK: function() {
             $( this ).dialog( "close" );
+            displayRadioValue();
           }
         }
     });
