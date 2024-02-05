@@ -830,22 +830,22 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
-    <button style="display:none" type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
+    <!-- <button style="display:none" type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
     <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
-    <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
+    <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button> -->
     <ul class="ul-dropdown">
       <li class="dropdown">
         <a class="dropbtn" onclick="myFunction()">Pause</a>
         <div class="dropdown-content" id="myDropdown">
-          <a href="javascript:addKeyword('[pause]')">Pause animation</a>
+          <a href="javascript:addAllLanguages('[pause]')">Pause animation</a>
           <a href="#">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
         <a class="dropbtn" onclick="myFunction()">Mouse</a>
         <div class="dropdown-content" id="myDropdown">
-          <a href="#">Show the mouse</a>
-          <a href="#">Hide the mouse</a>
+          <a href="javascript:addAllLanguages('[mouse show]')">Show the mouse</a>
+          <a href="javascript:addAllLanguages('[mouse hide]')">Hide the mouse</a>
         </div>
       </li>
     </ul>
