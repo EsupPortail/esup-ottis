@@ -280,7 +280,7 @@ body .skiptranslate:first-child {
 }
 */
 
-body>.skiptranslate:first-child {
+body+.skiptranslate {
   display: none !important;
 }
 
