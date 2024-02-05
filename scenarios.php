@@ -266,10 +266,11 @@ function googleTranslateElementInit() {
 </script>
 
 <style>
-
+/*
 body .skiptranslate:first-child {
   display: none !important;
 }
+*/
 
 .skiptranslate iframe {
     display: none !important;
