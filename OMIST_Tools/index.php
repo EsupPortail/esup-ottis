@@ -833,7 +833,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <!-- <button style="display:none" type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
     <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
     <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button> -->
-    <ul class="ul-dropdown">
+    <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
         <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
         <div class="dropdown-content" id="dropPause">
@@ -859,13 +859,19 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a class="mybutton" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}">Download complete animation</a>
+        <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}">Download complete animation</a>
+      </li>
+      <li class="dropdown">
+        <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}">Download speech</a>
+      </li>
+      <li class="dropdown">
+        <a class="dropbtn" onclick="toolInformation()"><i class="fa fa-info">Aide</a>
       </li>
     </ul>
-    <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
+    <!-- <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
     <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button>
-    <br/>
+    <br/> -->
     <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
     <br/>
     <!-- <div id="keywordsButton" hidden style="text-align: center;">Insert an action :
