@@ -266,16 +266,18 @@ function googleTranslateElementInit() {
 </script>
 
 <style>
-body > .skiptranslate {
-    //display: none;
+.skiptranslate iframe {
+    display: none !important;
+}
+
+#google_translate_element .skiptranslate {
+    display: block;
+    /*display: none !important;*/
 }
 
 .goog-te-banner-frame.skiptranslate {
     display: none !important;
-    } 
-body {
-    top: 0px !important; 
-    }
+} 
 
 @media print {
   #google_translate_element {display: none;}
