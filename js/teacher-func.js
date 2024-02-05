@@ -1183,8 +1183,8 @@ function displayRadioValue() {
     }
 }
 
-function updateCommand(this){
-    var text = $(this).attr('value');
+function updateCommand(button){
+    var text = $(button).attr('value');
     var attr = document.getElementById("timeWait").value;
     command = text.replace("n", attr.toString());
     console.log(command); 
