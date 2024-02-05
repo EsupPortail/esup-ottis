@@ -858,6 +858,9 @@ It's important to note that the resulting animation can serve as comprehensive i
           <a href="javascript:addAllLanguages('[notification message]')">Open a window with the text</a>
         </div>
       </li>
+      <li class="dropdown">
+        <a class="mybutton" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}">Download complete animation</a>
+      </li>
     </ul>
     <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
     <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
