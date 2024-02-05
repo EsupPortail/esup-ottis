@@ -833,11 +833,11 @@ It's important to note that the resulting animation can serve as comprehensive i
     <button style="display:none" type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
     <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
     <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
-    <ul>
+    <ul class="ul-dropdown">
       <li class="dropdown">
         <a class="dropbtn" onclick="myFunction()">Pause</a>
         <div class="dropdown-content" id="myDropdown">
-          <a href="addKeyword('[pause]');">Pause animation</a>
+          <a href="javascript:addKeyword('[pause]')">Pause animation</a>
           <a href="#">Pause for n milliseconds</a>
         </div>
       </li>
