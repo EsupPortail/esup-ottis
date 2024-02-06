@@ -840,7 +840,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
         <div class="dropdown-content" id="dropPause">
-          <a href="javascript:addAllLanguages('[pause]')">Pause animation</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {alert('You must select a slide first !');}">Pause animation</a>
           <a href="javascript:addAllLanguages('[wait n]')">Pause for n milliseconds</a>
         </div>
       </li>
