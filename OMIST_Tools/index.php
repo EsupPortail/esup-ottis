@@ -862,11 +862,14 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}">Download complete animation</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Download</a>
+        <div class="dropdown-content" id="dropDownload">
+          <a href="javascript:CreateNewPresentation()">Download complete animation</a>
+          <a href="javascript:CreateNewSpeech()">Download complete animation</a>
       </li>
-      <li class="dropdown">
+      <!-- <li class="dropdown">
         <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}">Download speech</a>
-      </li>
+      </li> -->
       <li class="dropdown">
         <a class="dropbtn" onclick="toolInformation()">Help</a>
       </li>
