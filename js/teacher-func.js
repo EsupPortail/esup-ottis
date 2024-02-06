@@ -1071,8 +1071,8 @@ function myFunction(e) {
 //       document.getElementById('mouse').style.left=x+"px";
 
 
-  var x = e.clientX;
-  var y = e.clientY;
+  var x = e.clientX - rect.x;
+  var y = e.clientY - rect.y;
     let coor = "Coordinates: (" + x + "," + y + ")";
     document.getElementById("demo").innerHTML = coor;
 }
