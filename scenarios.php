@@ -279,7 +279,8 @@ function Init2() {
         a.dispatchEvent(new Event('change'));
     }
   a=document.querySelector("#google_translate_element > div");
-  for(var i=1; i<a.childNodes.length; i++) a.childNodes[i].innerHTML='';
+  a.childNodes[1].deleteData(0,100);
+  for(var i=2; i<a.childNodes.length; i++) a.childNodes[i].innerHTML='';
 }
 
 </script>
