@@ -307,6 +307,14 @@ body+.skiptranslate {
   display: none;
 }
 
+#google_translate_element>div {
+  content: '';
+}
+
+#google_translate_element>div select {
+  border-radius: 5px;
+}
+
 body {
   top: 0px;
 }
