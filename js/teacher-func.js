@@ -1144,7 +1144,7 @@ function updateNotes(){
 
 function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
-    document.getElementById("speechArea").value = notes + keyword +'\n';
+    document.getElementById("speechArea").value = notes + keyword +'TEST2\n';
 }
 
 function addAllLanguages(keyword){
@@ -1176,7 +1176,7 @@ function updateCommand(keyword, param){
     } else {
         parameter = param.toString();
     }
-    command = keyword.replace("toReplace", parameter)+'<br>';
+    command = keyword.replace("toReplace", parameter)+'TEST<br>';
     console.log(command);
     document.getElementById("commandKeyword").innerHTML = command;
 }
