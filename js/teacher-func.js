@@ -1145,7 +1145,6 @@ function updateNotes(){
 function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
     document.getElementById("speechArea").value = notes + keyword +'TEST2\n';
-    document.getElementById("speechArea").innerHTML = notes + keyword +'TEST3\n';
 }
 
 function addAllLanguages(keyword){
@@ -1248,20 +1247,20 @@ function addParameters(keywordToAdd){
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMessage" name="param">Open a window with the message <input onchange="updateCommand(\'[notification toReplace]\', document.getElementById(\'notifMessage\').value)" placeholder="Copy your message here" type="text" name="notifMessage" id="notifMessage"/></div>';
     }
     var command = "";
-    $('input[type="radio"]').click(function() {
-        if($(this).attr('id').substring(0,5) == 'param') {
-            var text = $(this).attr('value');
-            //var text = document.getElementById("paramWait").value
-            console.log('Texte : '+text);
-            command = updateCommand(text);           
-        }
+    // $('input[type="radio"]').click(function() {
+    //     if($(this).attr('id').substring(0,5) == 'param') {
+    //         var text = $(this).attr('value');
+    //         //var text = document.getElementById("paramWait").value
+    //         console.log('Texte : '+text);
+    //         command = updateCommand(text);           
+    //     }
     
-        else {
-            console.log($(this).attr('value'));
-            command = $(this).attr('value');
-            document.getElementById("commandKeyword").innerHTML = command;
-        }
-    });
+    //     else {
+    //         console.log($(this).attr('value'));
+    //         command = $(this).attr('value');
+    //         document.getElementById("commandKeyword").innerHTML = command;
+    //     }
+    // });
     $( "#keywordParameter" ).dialog({
         height: 200,
         width: 350,
