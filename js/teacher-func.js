@@ -1057,6 +1057,7 @@ function getDevicePixelRatio() {
 function myFunction(e) {
 
     var c=document.getElementById('imageArea');
+    let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
     var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
     var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
