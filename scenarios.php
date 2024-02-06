@@ -448,6 +448,40 @@ body {
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?'+CreateLink());">Y aller</button>
     </div>
   </li>
+  <li class="cards__item">
+    <div class="card">
+      <div class="card__content">
+        <div class="card__title">
+        <span class="needbrowser"></span>Conversation en duo</div>
+        <p class="card__text">Scenario pour une conversation multi-lingue en duo.</p>
+        <p class="card__text details">Dans ce scénario, il est possible de configurer les deux langues qui seront utilisées par défaut. Il faudra alors conserver le lien créé.<br/>
+        <select id="defaultIn" class="card__input" title="Choix de la langue/voix d'entrée de l'application.">
+        <option value="" selected disabled>Quelle langue d'entrée ?</option>
+        <?php
+        $allLanguages="";
+        $fd=fopen("supportedlanguages.csv","r");
+        while($ligne=fgetcsv($fd,4096,";")) {
+          if (count($ligne)>2) {
+            $allLanguages.="<option value=\"".$ligne[1]."\">".$ligne[0]."</option>\n";
+          }
+        }
+        fclose($fd);
+        echo $allLanguages;
+        ?>
+
+            </select><br/>
+        <select id="defaultOut" class="card__input" title="Choix de la langue/voix de sortie de l'application.">
+        <option value="" selected disabled>Quelle langue de sortie ?</option>
+        <?php
+        echo $allLanguages;
+        ?>
+            </select><br/>
+       
+        </p>
+      </div>
+            <button class="btn btn--block card__btn" onclick="var dIn=document.getElemenbtById('defaultIn').value; var dOut=document.getElemenbtById('defaultOut').value; var params=''; if (dIn !='') params+='&defaultIn='+dIn; if (dOut !='') params+='&defaultOut='+dOut; window.open(root+'/Translator2.html?'+params;">Y aller</button>
+    </div>
+  </li>
 
 </ul>
 <div id="dialog-invite" title="Alert">
