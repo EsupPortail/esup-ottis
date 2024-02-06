@@ -268,7 +268,7 @@ var root = window.location.href.replace("/scenarios.php","");
 var gt;
 function googleTranslateElementInit() {
   document.cookie='';
-  gt=new google.translate.TranslateElement({pageLanguage: 'auto', autoDisplay: false, gaTrack: true, gaId: 'UA-403844-8', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  gt=new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout.TOP_RIGHT}, 'google_translate_element');
 
 }
 </script>
@@ -454,7 +454,7 @@ body {
       <div class="card__content">
         <div class="card__title">
         <span class="needbrowser"></span>Conversation en duo</div>
-        <p class="card__text">Scenario pour une conversation multi-lingue en duo.</p>
+        <p class="card__text">Scénario pour une conversation multi-lingue en duo.</p>
         <p class="card__text details">Dans ce scénario, il est possible de configurer les deux langues qui seront utilisées par défaut. Il faudra alors conserver le lien créé.<br/>
         <select id="defaultIn" class="card__input" title="Choix de la langue/voix d'entrée de l'application.">
         <option value="" selected disabled>Quelle langue d'entrée ?</option>
