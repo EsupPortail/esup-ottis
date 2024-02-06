@@ -479,7 +479,7 @@ body {
        
         </p>
       </div>
-            <button class="btn btn--block card__btn" onclick="var dIn=document.getElemenbtById('defaultIn').value; var dOut=document.getElemenbtById('defaultOut').value; var params=''; if (dIn !='') params+='&defaultIn='+dIn; if (dOut !='') params+='&defaultOut='+dOut; window.open(root+'/Translator2.html?'+params);">Y aller</button>
+            <button class="btn btn--block card__btn" onclick="var dIn=document.getElementById('defaultIn').value; var dOut=document.getElementById('defaultOut').value; var params=''; if (dIn !='') params+='&defaultIn='+dIn; if (dOut !='') params+='&defaultOut='+dOut; window.open(root+'/Translator2.html?'+params);">Y aller</button>
     </div>
   </li>
 
