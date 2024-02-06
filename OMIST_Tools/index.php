@@ -838,27 +838,27 @@ It's important to note that the resulting animation can serve as comprehensive i
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Pause</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Pause</a>
         <div class="dropdown-content" id="dropPause">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {alert('You must select a slide first !');}">Pause animation</a>
-          <a href="javascript:addAllLanguages('[wait n]')">Pause for n milliseconds</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[wait n]');} else {alert('You must select a slide first !');}">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Mouse</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Mouse</a>
         <div class="dropdown-content" id="dropMouse">
-          <a href="javascript:addAllLanguages('[mouse show]')">Show the mouse</a>
-          <a href="javascript:addAllLanguages('[mouse hide]')">Hide the mouse</a>
-          <a href="javascript:addAllLanguages('[mouse go px py]')">Move the mouse</a>
-          <a href="javascript:addAllLanguages('[mouse size n]')">Change the mouse size</a>
-          <a href="javascript:addAllLanguages('[mouse shape n]')">Change the mouse shape</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]');} else {alert('You must select a slide first !');}">Show the mouse</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]');} else {alert('You must select a slide first !');}">Hide the mouse</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse go px py]');} else {alert('You must select a slide first !');})">Move the mouse</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse size n]');} else {alert('You must select a slide first !');})">Change the mouse size</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse shape n]');} else {alert('You must select a slide first !');}">Change the mouse shape</a>
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='document.getElementById("drop"+this.innerHTML).classList.toggle("show");'>Notification</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Notification</a>
         <div class="dropdown-content" id="dropNotification">
-          <a href="javascript:addAllLanguages('[resource url]')">Open a window with the url</a>
-          <a href="javascript:addAllLanguages('[notification message]')">Open a window with the text</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[resource url]');} else {alert('You must select a slide first !');}">Open a window with the url</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[notification message]');} else {alert('You must select a slide first !');}">Open a window with the text</a>
         </div>
       </li>
       <li class="dropdown">
