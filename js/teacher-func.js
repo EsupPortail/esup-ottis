@@ -1044,19 +1044,6 @@ function SlideNotes() {
 //     }
 // }
 
-function myFunction(e) {
-  let x = e.clientX;
-  let y = e.clientY;
-  let coor = "Coordinates: (" + x + "," + y + ")";
-  document.getElementById("demo").innerHTML = coor;
-}
-
-function showMouse() {
-    var mousesize = 1;
-    var mouseangle = 0;
-    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
-}
-
 function getDevicePixelRatio() {
     var mediaQuery;
     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
@@ -1066,6 +1053,36 @@ function getDevicePixelRatio() {
         return 1;
     }
 }
+
+function myFunction(e) {
+
+    var c=document.getElementById('imageArea');
+    var pr=getDevicePixelRatio();
+    var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+    var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+    var x=c.x/pr+pourcx/100*c.width-5;
+    var y=c.y/pr+pourcy/100*c.height-5;
+//     document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
+//     showMouse();
+//       //document.getElementById('mouse').style.top=y+"px";
+//       //document.getElementById('mouse').style.left=x+"px";
+//       document.getElementById('mouse').style.top=y+"px";
+//       document.getElementById('mouse').style.left=x+"px";
+
+
+//   let x = e.clientX;
+//   let y = e.clientY;
+    let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
+    document.getElementById("demo").innerHTML = coor;
+}
+
+function showMouse() {
+    var mousesize = 1;
+    var mouseangle = 0;
+    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+}
+
+
 
 // /**
 //  * @summary The function that is executed for displaying a larger image with the animation editor.
