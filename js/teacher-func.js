@@ -1045,7 +1045,7 @@ function SlideNotes() {
 // }
 
 function showMouse() {
-    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+    document.getElementById('mouse').style.transform='scale(1) rotate(0deg)';
 }
 
 function getDevicePixelRatio() {
