@@ -1263,8 +1263,10 @@ function addParameters(keywordToAdd){
     //     }
     // });
     $( "#keywordParameter" ).dialog({
-        height: 200,
-        width: 350,
+        position: relative,
+        display: table,
+        height: auto,
+        width: auto,
         modal: true,
         buttons: {
           OK: function() {
