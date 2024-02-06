@@ -1057,6 +1057,7 @@ function getDevicePixelRatio() {
 function myFunction(e) {
 
     var c=document.getElementById('imageArea');
+    let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
     var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
     var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
@@ -1070,9 +1071,9 @@ function myFunction(e) {
 //       document.getElementById('mouse').style.left=x+"px";
 
 
-//   let x = e.clientX;
-//   let y = e.clientY;
-    let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
+  let x = e.clientX - rect.left;
+  let y = e.clientY - rect.top;
+    let coor = "Coordinates: (" + y + "," + y + ")";
     document.getElementById("demo").innerHTML = coor;
 }
 
