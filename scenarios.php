@@ -269,8 +269,9 @@ var gt;
 function googleTranslateElementInit() {
   document.cookie='';
   gt=new google.translate.TranslateElement({pageLanguage: 'fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-  gt.j='fr';
-}
+  var a = document.querySelector("#google_translate_element select");
+  a.selectedIndex=1;
+  a.dispatchEvent(new Event('change'));}
 
 </script>
 
