@@ -1055,10 +1055,12 @@ function getDevicePixelRatio() {
 }
 
 function myFunction(e) {
-
-    var c=document.getElementById('imageArea');
-    let rect = c.getBoundingClientRect();
+    var id_image = document.getElementById("imageArea").firstElementChild.id;
+    var c=document.getElementById(id_image);
+    console.log("ID image : "+id_image);
+    //let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
+    console.log("PR : "+pr);
     // var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
     // var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
     // var x=c.x/pr+pourcx/100*c.width-5;
@@ -1071,10 +1073,27 @@ function myFunction(e) {
 //       document.getElementById('mouse').style.left=x+"px";
 
 
-  var x = e.clientX - rect.x;
-  var y = e.clientY - rect.y;
-    let coor = "Coordinates: (" + x + "," + y + ")";
-    document.getElementById("demo").innerHTML = coor;
+//   var x = e.clientX - rect.x;
+//   var y = e.clientY - rect.y;
+
+        var xPos = e.pageX - c.offsetLeft;
+        var yPos = e.pageY - c.offsetTop;
+        console.log("position X de l'image : "+c.offsetLeft);
+        console.log("position Y de l'image : "+c.offsetTop);
+        console.log("position X: "+ xPos + " position Y: " + yPos);
+
+        //var pr=getDevicePixelRatio();
+        var pourcx=Math.floor((e.pageX-c.offsetLeft/pr)/(c.width)*100000)/1000;
+        var pourcy=Math.floor((e.pageY-c.offsetTop/pr)/(c.height)*100000)/1000;
+        var x=c.offsetLeft/pr+pourcx/100*c.width-5;
+        var y=c.offsetTop/pr+pourcy/100*c.height-5;
+        console.log('pos=('+pourcx+','+pourcy+')');
+        console.log('x:'+x+', y:'+y);
+
+    // var x = e.clientX;
+    // var y = e.clientY;
+        let coor = "Coordinates: (" + x + "," + y + ")";
+        document.getElementById("demo").innerHTML = coor;
 }
 
 function showMouse() {
