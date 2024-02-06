@@ -1176,7 +1176,7 @@ function updateCommand(keyword, param){
     } else {
         parameter = param.toString();
     }
-    command = keyword.replace("toReplace", parameter)+'\n';
+    command = keyword.replace("toReplace", parameter)+'<br>';
     console.log(command);
     document.getElementById("commandKeyword").innerHTML = command;
 }
