@@ -195,7 +195,7 @@ img {
 
 html {
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
-  background-size: 200% 200%;
+  background-size: 200% 300%;
 }
 
 .needbrowser {
