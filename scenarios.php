@@ -269,7 +269,11 @@ var gt;
 function googleTranslateElementInit() {
   document.cookie='';
   gt=new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout.TOP_RIGHT}, 'google_translate_element');
-
+  var a = document.querySelector("#google_translate_element select");
+    if(a){
+        a.selectedIndex=0;
+        a.dispatchEvent(new Event('change'));
+    }
 }
 </script>
 
