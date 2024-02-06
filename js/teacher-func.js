@@ -1059,10 +1059,10 @@ function myFunction(e) {
     var c=document.getElementById('imageArea');
     let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
-    var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
-    var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
-    var x=c.x/pr+pourcx/100*c.width-5;
-    var y=c.y/pr+pourcy/100*c.height-5;
+    // var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+    // var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+    // var x=c.x/pr+pourcx/100*c.width-5;
+    // var y=c.y/pr+pourcy/100*c.height-5;
 //     document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
 //     showMouse();
 //       //document.getElementById('mouse').style.top=y+"px";
@@ -1071,9 +1071,9 @@ function myFunction(e) {
 //       document.getElementById('mouse').style.left=x+"px";
 
 
-//   let x = e.clientX;
-//   let y = e.clientY;
-    let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
+  var x = e.clientX;
+  var y = e.clientY;
+    let coor = "Coordinates: (" + x + "," + y + ")";
     document.getElementById("demo").innerHTML = coor;
 }
 
