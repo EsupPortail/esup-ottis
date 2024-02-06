@@ -903,11 +903,12 @@ It's important to note that the resulting animation can serve as comprehensive i
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
-          <div id="mouse">+</div>
+          <!-- <div id="mouse">+</div>
           <div id="DEBUG" style="background-color: white;">
             <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('imageArea').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('imageArea').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
-          </div>
-          <div id="imageArea"></div>
+          </div> -->
+          <div onmousemove="myFunction(event)" id="imageArea"></div>
+          <p id="demo"></p>
         </td>
       </tr>
       <tr>

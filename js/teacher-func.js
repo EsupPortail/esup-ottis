@@ -1044,8 +1044,17 @@ function SlideNotes() {
 //     }
 // }
 
+function myFunction(e) {
+  let x = e.clientX;
+  let y = e.clientY;
+  let coor = "Coordinates: (" + x + "," + y + ")";
+  document.getElementById("demo").innerHTML = coor;
+}
+
 function showMouse() {
-    document.getElementById('mouse').style.transform='scale(1) rotate(0deg)';
+    var mousesize = 1;
+    var mouseangle = 0;
+    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
 }
 
 function getDevicePixelRatio() {
