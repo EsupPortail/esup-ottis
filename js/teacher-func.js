@@ -1194,10 +1194,10 @@ window.onclick = function(e) {
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
  * 
- * @param {object} button the keyword selected.
+ * @param {string} keywordToAdd the keyword selected.
  */
 
-function addParameters(button){
+function addParameters(keywordToAdd){
     // var text = document.getElementById("myKeyword").value;
     // var attr = document.getElementById("paramKeyword").value;
     // var command = "";
@@ -1229,11 +1229,9 @@ function addParameters(button){
     // document.getElementById("textArea").style.display = "inline-block";
     // document.getElementById("copyKeyword").style.display = "inline-block";
     // document.getElementById("textArea").innerHTML=command;
-    var keywordToAdd = button.id;
-    if (keywordToAdd=="pause"){
-        document.getElementById("keywordParameter").innerHTML = 
-        '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
-        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+    //var keywordToAdd = button.id;
+    if (keywordToAdd=="[wait n]"){
+        document.getElementById("keywordParameter").innerHTML ='<div><input id="paramWait" name="param" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="mouse"){
         '<div><input type="radio" id="mouseShow" name="param" value="[mouse show]"/>Show the mouse</div><br> '+
         '<div><input type="radio" id="mouseHide" name="param" value="[mouse hide]"/>Hide the mouse</div><br> '+
@@ -1241,8 +1239,8 @@ function addParameters(button){
         '<div><input type="radio" id="paramMouseShape" name="param" min="0" value="[mouse shape n]"/>Mouse shape : <input onchange="updateCommand(document.getElementById(\'paramMouseShape\').value);" type="number" style="width:2em" value="0" name="mouseSize" id="mouseSize"/></div>';
         '<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
     }else if(keywordToAdd=="notif"){
-        '<div><input type="radio" id="pause" name="param" value="[pause]"/>Pause animation</div><br> '+
-        '<div><input type="radio" id="paramWait" name="param" min="0" value="[wait n]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+        '<div><input type="radio" id="paramUrl" name="param" value="[resource url]"/>Open a window with the url <input onchange="updateCommand(document.getElementById(\'paramUrl\').value);" placeholder="Copy your URL here" type="text" name="notifUrl" id="notifUrl"/></div>'+
+        '<div><input type="radio" id="paramMessage" name="param" value="[notification message]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }
     var command = "";
     $('input[type="radio"]').click(function() {
