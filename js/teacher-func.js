@@ -1145,6 +1145,7 @@ function updateNotes(){
 function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
     document.getElementById("speechArea").value = notes + keyword +'TEST2\n';
+    document.getElementById("speechArea").innerHTML = notes + keyword +'TEST3\n';
 }
 
 function addAllLanguages(keyword){
