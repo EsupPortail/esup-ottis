@@ -1111,6 +1111,22 @@ function SlideNotes() {
 //     });
 // }
 
+function followmouse(e) {
+    var c=document.getElementById('imageArea');
+      var pr=getDevicePixelRatio();
+    var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+    var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+      var x=c.x/pr+pourcx/100*c.width-5;
+      var y=c.y/pr+pourcy/100*c.height-5;
+    document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
+    showMouse();
+      //document.getElementById('mouse').style.top=y+"px";
+      //document.getElementById('mouse').style.left=x+"px";
+      document.getElementById('mouse').style.top=y+"px";
+      document.getElementById('mouse').style.left=x+"px";
+  
+  }
+
 function toolInformation(){
     $( "#dialog-message" ).dialog({
         height: 400,

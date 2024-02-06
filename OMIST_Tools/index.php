@@ -904,7 +904,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         </td>
         <td style="width: 85%; height:400px">
           <div id="mouse">+</div>
-          <div id="DEBUG" style="position: fixed; top: 0px; left: 0px; background-color: white;">
+          <div id="DEBUG" style="background-color: white;">
             <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('imageArea').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('imageArea').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
           </div>
           <div id="imageArea"></div>
