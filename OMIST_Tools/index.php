@@ -865,7 +865,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Download</a>
         <div class="dropdown-content" id="dropDownload">
           <a href="javascript:CreateNewPresentation()">Download complete animation</a>
-          <a href="javascript:CreateNewSpeech()">Download complete animation</a>
+          <a href="javascript:CreateNewSpeech()">Download speech</a>
       </li>
       <!-- <li class="dropdown">
         <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}">Download speech</a>
@@ -933,7 +933,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </p>
     </div>
     <div id="commandKeyword" style="display: none;"></div>
-    <div id="keywordParameter" title="Add the parameter :"></div>
+    <div id="keywordParameter" title="Parameter :"></div>
 
   </form>
   
