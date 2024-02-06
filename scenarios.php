@@ -265,9 +265,11 @@ var root = window.location.href.replace("/scenarios.php","");
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
+var gt;
 function googleTranslateElementInit() {
   document.cookie='';
-  new google.translate.TranslateElement({pageLanguage: 'fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  gt=new google.translate.TranslateElement({pageLanguage: 'fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  gt.j='fr';
 }
 
 </script>
