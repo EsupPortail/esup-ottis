@@ -268,7 +268,7 @@ var root = window.location.href.replace("/scenarios.php","");
 var gt;
 function googleTranslateElementInit() {
   document.cookie='';
-  gt=new google.translate.TranslateElement({pageLanguage: 'auto', autoDisplay: false, layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+  gt=new google.translate.TranslateElement({pageLanguage: 'auto', autoDisplay: false, gaTrack: true, gaId: 'UA-403844-8', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
 
 }
 </script>
