@@ -1169,11 +1169,11 @@ function addAllLanguages(keyword){
     }
 }
 
-function updateCommand(keyword){
+function updateCommand(keyword, param){
     console.log(document.getElementById('paramWait').value);
     //var text = document.getElementById("wait").value
     var attr = document.getElementById("timeWait").value;
-    command = keyword.replace("n", attr.toString());
+    command = keyword.replace("toReplace", param);
     console.log(command);
     document.getElementById("commandKeyword").innerHTML = command;
 }
@@ -1230,8 +1230,8 @@ function addParameters(keywordToAdd){
     // document.getElementById("copyKeyword").style.display = "inline-block";
     // document.getElementById("textArea").innerHTML=command;
     //var keywordToAdd = button.id;
-    if (keywordToAdd=="[wait n]"){
-        document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait n]\');" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+    if (keywordToAdd=="[wait toReplace]"){
+        document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait n]\', document.getElementById(\'timeWait\').value).toString();" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="mouse"){
         '<div><input type="radio" id="mouseShow" name="param" value="[mouse show]"/>Show the mouse</div><br> '+
         '<div><input type="radio" id="mouseHide" name="param" value="[mouse hide]"/>Hide the mouse</div><br> '+
