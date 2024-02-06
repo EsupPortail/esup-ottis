@@ -1044,6 +1044,16 @@ function SlideNotes() {
 //     }
 // }
 
+function getDevicePixelRatio() {
+    var mediaQuery;
+    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (window.devicePixelRatio !== undefined && !is_firefox) {
+        return window.devicePixelRatio;
+    } else {
+        return 1;
+    }
+}
+
 // /**
 //  * @summary The function that is executed for displaying a larger image with the animation editor.
 //  * 
