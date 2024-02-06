@@ -1058,7 +1058,7 @@ function myFunction(e) {
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var c=document.getElementById(id_image);
     console.log("ID image : "+id_image);
-    //let rect = c.getBoundingClientRect();
+    let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
     // console.log("PR : "+pr);
     // var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
@@ -1073,11 +1073,11 @@ function myFunction(e) {
 //       document.getElementById('mouse').style.left=x+"px";
 
 
-//   var x = e.clientX - rect.x;
-//   var y = e.clientY - rect.y;
+        var xPos = e.clientX - rect.x;
+        var yPos = e.clientY - rect.y;
 
-        var xPos = e.pageX - $(id_image).offset().left;
-        var yPos = e.pageY - $(id_image).offset().top;
+        // var xPos = e.pageX - c.offsetLeft;
+        // var yPos = e.pageY - c.offsetTop;
         // console.log("position X de l'image : "+c.offsetLeft);
         // console.log("position Y de l'image : "+c.offsetTop);
         console.log("position X: "+ xPos + " position Y: " + yPos);
