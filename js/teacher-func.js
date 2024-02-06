@@ -1078,8 +1078,8 @@ function myFunction(e) {
 
         // var xPos = e.pageX - c.offsetLeft;
         // var yPos = e.pageY - c.offsetTop;
-        // console.log("position X de l'image : "+c.offsetLeft);
-        // console.log("position Y de l'image : "+c.offsetTop);
+        console.log("position X de l'image : "+rect.x);
+        console.log("position Y de l'image : "+rect.y);
         console.log("position X: "+ xPos + " position Y: " + yPos);
 
         //var pr=getDevicePixelRatio();
