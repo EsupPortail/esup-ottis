@@ -1170,16 +1170,13 @@ function addAllLanguages(keyword){
 }
 
 function updateCommand(keyword, param){
-    //console.log(document.getElementById('paramWait').value);
-    //var text = document.getElementById("wait").value
-    //var attr = document.getElementById("timeWait").value;
     var parameter = "";
     if(typeof(param) === 'string') {
         parameter = param;
     } else {
         parameter = param.toString();
     }
-    command = keyword.replace("toReplace", parameter);
+    command = keyword.replace("toReplace", parameter)+'\n';
     console.log(command);
     document.getElementById("commandKeyword").innerHTML = command;
 }
