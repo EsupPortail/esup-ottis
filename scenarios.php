@@ -261,15 +261,13 @@ var root = window.location.href.replace("/scenarios.php","");
 
 
 </head>
-<body>
+<body onload="document.cookie='';">
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
 function googleTranslateElementInit() {
+  document.cookie='';
   new google.translate.TranslateElement({pageLanguage: 'fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-  //var icone=$(".goog-te-gadget-icon")[0];
-  //icone.style.display='none';
-  document.body.style.top='0px';
 }
 
 </script>
