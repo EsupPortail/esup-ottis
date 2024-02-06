@@ -1232,15 +1232,16 @@ function addParameters(keywordToAdd){
     //var keywordToAdd = button.id;
     if (keywordToAdd=="[wait toReplace]"){
         document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait toReplace]\', document.getElementById(\'timeWait\').value);" type="number" style="width:5em" min="0" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
-    }else if(keywordToAdd=="mouse"){
+    }else if(keywordToAdd=="[mouse size toReplace]"){
         '<div><input type="radio" id="mouseShow" name="param" value="[mouse show]"/>Show the mouse</div><br> '+
         '<div><input type="radio" id="mouseHide" name="param" value="[mouse hide]"/>Hide the mouse</div><br> '+
         '<div><input type="radio" id="paramMouseSize" name="param" min="0" value="[mouse size n]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseSize" id="mouseSize"/></div>';
         '<div><input type="radio" id="paramMouseShape" name="param" min="0" value="[mouse shape n]"/>Mouse shape : <input onchange="updateCommand(document.getElementById(\'paramMouseShape\').value);" type="number" style="width:2em" value="0" name="mouseSize" id="mouseSize"/></div>';
         '<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
-    }else if(keywordToAdd=="notif"){
-        '<div><input type="radio" id="paramUrl" name="param" value="[resource url]"/>Open a window with the url <input onchange="updateCommand(document.getElementById(\'paramUrl\').value);" placeholder="Copy your URL here" type="text" name="notifUrl" id="notifUrl"/></div>'+
-        '<div><input type="radio" id="paramMessage" name="param" value="[notification message]"/>Pause for <input onchange="updateCommand(document.getElementById(\'paramWait\').value);" type="number" style="width:5em" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
+    }else if(keywordToAdd=="[resource toReplace]"){
+        document.getElementById("keywordParameter").innerHTML ='<div id="paramUrl" name="param">Open a window with the url <input onchange="updateCommand(\'[resource toReplace]\', document.getElementById(\'notifUrl\').value)" placeholder="Copy your URL here" type="text" name="notifUrl" id="notifUrl"/></div>';
+    }else if(keywordToAdd=="[notification toReplace]"){
+        document.getElementById("keywordParameter").innerHTML ='<div id="paramMessage" name="param">Open a window with the message <input onchange="updateCommand(\'[notification toReplace]\', document.getElementById(\'notifMessage\').value)" placeholder="Copy your message here" type="text" name="notifMessage" id="notifMessage"/></div>';
     }
     var command = "";
     $('input[type="radio"]').click(function() {
@@ -1384,7 +1385,7 @@ function SlideNotesTools(editable=false) {
     formdata.append("fileToUpload", file);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", scriptfile);
-    xhr.upload.addEventListener("progress", progressHandler, false);
+    //xhr.upload.addEventListener("progress", progressHandler, false);
     xhr.addEventListener("load", function (e) {completeHandlerTools(e,editable);}, false);
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {

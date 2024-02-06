@@ -850,15 +850,15 @@ It's important to note that the resulting animation can serve as comprehensive i
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]');} else {alert('You must select a slide first !');}">Show the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]');} else {alert('You must select a slide first !');}">Hide the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse go px py]');} else {alert('You must select a slide first !');}">Move the mouse</a>
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse size toReplace]');} else {alert('You must select a slide first !');}">Change the mouse size</a>
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse shape toReplace]');} else {alert('You must select a slide first !');}">Change the mouse shape</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[mouse size toReplace]');} else {alert('You must select a slide first !');}">Change the mouse size</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[mouse shape toReplace]');} else {alert('You must select a slide first !');}">Change the mouse shape</a>
         </div>
       </li>
       <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Notification</a>
         <div class="dropdown-content" id="dropNotification">
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[resource toReplace]');} else {alert('You must select a slide first !');}">Open a window with the url</a>
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[notification toReplace]');} else {alert('You must select a slide first !');}">Open a window with the text</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[resource toReplace]');} else {alert('You must select a slide first !');}">Open a window with the url</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[notification toReplace]');} else {alert('You must select a slide first !');}">Open a window with the text</a>
         </div>
       </li>
       <li class="dropdown">
