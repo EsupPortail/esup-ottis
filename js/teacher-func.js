@@ -1044,6 +1044,10 @@ function SlideNotes() {
 //     }
 // }
 
+function showMouse() {
+    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+}
+
 function getDevicePixelRatio() {
     var mediaQuery;
     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
