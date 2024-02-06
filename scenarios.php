@@ -261,7 +261,7 @@ var root = window.location.href.replace("/scenarios.php","");
 
 
 </head>
-<body onload="document.cookie='';">
+<body onload="document.cookie=''; Init2();">
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
@@ -271,7 +271,7 @@ function googleTranslateElementInit() {
   gt=new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout.TOP_RIGHT}, 'google_translate_element');
 }
 
-function Init() {
+function Init2() {
   var a = document.querySelector("#google_translate_element select");
     if(a){
         a.selectedIndex=0;
