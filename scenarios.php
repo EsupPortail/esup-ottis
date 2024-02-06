@@ -261,7 +261,7 @@ var root = window.location.href.replace("/scenarios.php","");
 
 
 </head>
-<body onload="document.cookie=''; setTimeout(Init2,1000);">
+<body onload="document.cookie=''; ">
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
@@ -269,6 +269,7 @@ var gt;
 function googleTranslateElementInit() {
   document.cookie='';
   gt=new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout.TOP_RIGHT}, 'google_translate_element');
+  setTimeout(Init2,500);
 }
 
 function Init2() {
@@ -277,6 +278,8 @@ function Init2() {
         a.selectedIndex=0;
         a.dispatchEvent(new Event('change'));
     }
+  a=document.querySelector("#google_translate_element > div");
+  for(var i=1; i<a.childNodes.length; i++) a.childNodes[i].innerHTML='';
 }
 
 </script>
