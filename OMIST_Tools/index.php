@@ -82,7 +82,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
 .internalserveronly {
-  <?php if (strpos($_SERVER['SERVER_NAME'],"172.26.98.138") === false) echo "display:none; visibility: hidden;\n";?>
+  <?php if (strpos($_SERVER['SERVER_NAME'],"automatictranslator.sciences.univ-nantes.fr") === false) echo "display:none; visibility: hidden;\n";?>
 }
 
 
@@ -1044,12 +1044,14 @@ It's important to note that the resulting animation can serve as comprehensive i
             <iframe width="80%" height="500px" style="border: none;" src="https://scribe.cemea.org/"></iframe>
         </div>
 </div>
+<!--
 <div id="tool15">
   <h3>External vidéo subtitle editor (Nikse.dk)</h3>
   <div>
   <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
   </div>
   </div>
+  -->
 <div id="tool16">
   <h3 class="internalserveronly">Subtitle reader</h3>
   <div class="internalserveronly">
