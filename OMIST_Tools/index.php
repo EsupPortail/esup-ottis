@@ -944,7 +944,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'; document.getElementById('option-delay').innerHTML=document.getElementById('extradelayEditAnim').value"  class="inputsmallscreens"/><br/>
     </div>
     <div id="dialog-licence" style="display: none;">
-      <label for="licence">Would you like to add a licence ? </label>'+
+      <label for="licence">Would you like to add a licence ? </label>
       <select id="licenceEditAnim" onchange="document.getElementById('option-licence').innerHTML=document.getElementById('licenceEditAnim').value" name="Licence"  class="inputsmallscreens">
       <option value="">No licence</option>
       <option value="CC0">CC0 1.0 Universal</option>

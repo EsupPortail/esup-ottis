@@ -1161,10 +1161,10 @@ function addParameters(keywordToAdd){
 
 function changeOptions(keywordToAdd){
     console.log(keywordToAdd+' : ');
-    console.log(document.getElementById('option-aspectratio').innerHTML);
-    console.log(document.getElementById('option-keepratio').innerHTML);
-    console.log(document.getElementById('option-delay').innerHTML);
-    console.log(document.getElementById('option-licence').innerHTML);
+    console.log(document.getElementById('keepaspectratioEditAnim').value);
+    console.log(document.getElementById('keepaspectratioEditAnim').value);
+    console.log(document.getElementById('extradelayEditAnim').value);
+    console.log(document.getElementById('licenceEditAnim').value);
 }
 
 function addOptions(keywordToAdd){
@@ -1231,18 +1231,18 @@ function addOptions(keywordToAdd){
         // '</select>';
     }
 
-    $( "#dialog-ratio" ).dialog({
-        height: 'auto',
-        width: 'auto',
-        modal: true,
-        buttons: {
-          OK: function() {
-            $( this ).dialog( "close" );
-            changeOptions(keywordToAdd);
-            //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
-          }
-        }
-    });
+    // $( "#dialog-ratio" ).dialog({
+    //     height: 'auto',
+    //     width: 'auto',
+    //     modal: true,
+    //     buttons: {
+    //       OK: function() {
+    //         $( this ).dialog( "close" );
+    //         changeOptions(keywordToAdd);
+    //         //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
+    //       }
+    //     }
+    // });
 }
 
 /**
