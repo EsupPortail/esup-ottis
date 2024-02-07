@@ -59,7 +59,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 ?>
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 	<title>Slide Manipulation Tools</title>
 	<meta charset="utf-8">
@@ -402,6 +402,82 @@ function showList(ch) {
 </script>
 </head>
 <body onload="Init();">
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+var gt;
+function googleTranslateElementInit() {
+  document.cookie='';
+  gt=new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout.TOP_RIGHT}, 'google_translate_element');
+  setTimeout(Init2,500);
+}
+
+function Init2() {
+  var a = document.querySelector("#google_translate_element select");
+    if(a){
+        a.selectedIndex=0;
+        a.dispatchEvent(new Event('change'));
+    }
+  a=document.querySelector("#google_translate_element > div");
+  a.childNodes[1].deleteData(0,100);
+  for(var i=2; i<a.childNodes.length; i++) a.childNodes[i].innerHTML='';
+}
+
+</script>
+
+<style>
+/*
+body .skiptranslate:first-child {
+  display: none !important;
+}
+*/
+
+body+.skiptranslate {
+  display: none !important;
+}
+
+.skiptranslate iframe {
+    display: none !important;
+}
+
+#google_translate_element .skiptranslate {
+    display: block;
+    /*display: none !important;*/
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+} 
+
+@media print {
+  #google_translate_element {display: none;}
+}
+
+#google_translate_element {position: fixed; top: 0px; z-index: 500000;}
+
+#google_translate_element .goog-te-gadget-icon {
+  display: none;
+}
+
+#google_translate_element>div {
+  content: '';
+}
+
+#google_translate_element>div select {
+  border-radius: 5px;
+}
+
+body {
+  position: absolute;
+  top: 0px !important;
+}
+
+.goog-te-gadget-simple {
+  border-radius: 8px;
+}
+
+</style>
+<div id="google_translate_element"></div>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">Slide Manipulation Tools</h1>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80"/></div>
   <datalist id="listaspectratio">
