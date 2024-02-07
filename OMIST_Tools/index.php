@@ -849,7 +849,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <div class="dropdown-content" id="dropMouse">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]\n');} else {alert('You must select a slide first !');}">Show the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]\n');} else {alert('You must select a slide first !');}">Hide the mouse</a>
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse go px py]');} else {alert('You must select a slide first !');}">Move the mouse</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {getMousePosition();} else {alert('You must select a slide first !');}">Move the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[mouse size toReplace]');} else {alert('You must select a slide first !');}">Change the mouse size</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[mouse shape toReplace]');} else {alert('You must select a slide first !');}">Change the mouse shape</a>
         </div>

@@ -1044,6 +1044,20 @@ function getDevicePixelRatio() {
     }
 }
 
+function getMousePosition(){
+    $( "#mouse-position" ).dialog({
+        height: 'auto',
+        width: 'auto',
+        modal: false,
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+            //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
+          }
+        }
+    });
+}
+
 function followmouse(e) {
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var c=document.getElementById(id_image);
@@ -1060,18 +1074,6 @@ function followmouse(e) {
 
     let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
     document.getElementById("mouse-coord").innerHTML = coor;
-
-    $( "#mouse-position" ).dialog({
-        height: 'auto',
-        width: 'auto',
-        modal: false,
-        buttons: {
-          OK: function() {
-            $( this ).dialog( "close" );
-            //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
-          }
-        }
-    });
 }
 
 function showMouse() {
