@@ -1413,13 +1413,19 @@ function CreateNewPresentation() {
     var formdata = new FormData();
     formdata.append("fileToUpload", file);
 
+    //Récupérer les options
+    var tab_options = [];
+    tab_options["aspect_ratio"] = _("aspectratioEditAnim").value;
+    tab_options["keep_ratio"] = _("keepaspectratioEditAnim").value;
+    tab_options["extra_delay"] = _("extradelayEditAnim").value;
+    tab_options["licence"] = _("licenceEditAnim").value;
+
     //Récupérer les langues
     var tab_lang = [];
     var languages = document.getElementById("myLanguage");
     for (num_lang = 0; num_lang < languages.length; num_lang++) {
         tab_lang[num_lang] = languages.options[num_lang].value;
-      }
-
+    }
 
     //Récupérer le nombre de slides
     var k = 1;
@@ -1457,6 +1463,7 @@ function CreateNewPresentation() {
         i += 1;
     }
     formdata.append("newText", tab_text);
+    formdata.append("newOptions", tab_options);
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
