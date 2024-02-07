@@ -902,7 +902,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 </div>
 <div id="tool12">
   <h3>Edit Animation</h3>
-  <div>
+  <div translate="no">
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <!-- <label for="fileToUpload">Presentation in HTML: </label>
     <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />    -->
