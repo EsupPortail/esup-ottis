@@ -1034,16 +1034,6 @@ function SlideNotes() {
 //  * 
 //  */
 
-// function getDevicePixelRatio() {
-//     var mediaQuery;
-//     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-//     if (window.devicePixelRatio !== undefined && !is_firefox) {
-//         return window.devicePixelRatio;
-//     } else {
-//         return 1;
-//     }
-// }
-
 function getDevicePixelRatio() {
     var mediaQuery;
     var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
@@ -1054,55 +1044,34 @@ function getDevicePixelRatio() {
     }
 }
 
-function myFunction(e) {
+function followmouse(e) {
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var c=document.getElementById(id_image);
-    console.log("ID image : "+id_image);
     let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
-    console.log("PR : "+pr);
-    // var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
-    // var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
-    // var x=c.x/pr+pourcx/100*c.width-5;
-    // var y=c.y/pr+pourcy/100*c.height-5;
-//     document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
-//     showMouse();
-//       //document.getElementById('mouse').style.top=y+"px";
-//       //document.getElementById('mouse').style.left=x+"px";
-//       document.getElementById('mouse').style.top=y+"px";
-//       document.getElementById('mouse').style.left=x+"px";
 
+    var x_offset = e.offsetX;
+    var y_offset = e.offsetY;
+    // console.log("Offset : " + x_offset+", "+y_offset);
 
-        var xPos = e.clientX - rect.x;
-        var yPos = e.clientY - rect.y;
+    var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
+    var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
+    // console.log('pos=('+pourcx+','+pourcy+')');
 
-        var x_offset = e.offsetX;
-        var y_offset = e.offsetY;
+    let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
+    document.getElementById("mouse-coord").innerHTML = coor;
 
-        console.log("Offset : " + x_offset+", "+y_offset);
-
-        // var xPos = e.pageX - c.offsetLeft;
-        // var yPos = e.pageY - c.offsetTop;
-        console.log("position X de l'image : "+rect.x);
-        console.log("position Y de l'image : "+rect.y);
-        console.log("position X: "+ xPos + " position Y: " + yPos);
-
-        //var pr=getDevicePixelRatio();
-        // var pourcx=Math.floor((e.pageX-rect.x/pr)/(rect.width)*100000)/1000;
-        // var pourcy=Math.floor((e.pageY-rect.y/pr)/(rect.height)*100000)/1000;
-        var x=c.offsetLeft/pr+pourcx/100*c.width-5;
-        var y=c.offsetTop/pr+pourcy/100*c.height-5;
-
-        var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
-        var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
-
-        console.log('pos=('+pourcx+','+pourcy+')');
-        console.log('x:'+x+', y:'+y);
-
-    // var x = e.clientX;
-    // var y = e.clientY;
-        let coor = "Coordinates: (" + x + "," + y + ")";
-        document.getElementById("demo").innerHTML = coor;
+    $( "#mouse-position" ).dialog({
+        height: 'auto',
+        width: 'auto',
+        modal: false,
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+            //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
+          }
+        }
+    });
 }
 
 function showMouse() {
@@ -1180,7 +1149,7 @@ function showMouse() {
 //     });
 // }
 
-function followmouse(e) {
+function followmouseOld(e) {
     var c=document.getElementById('imageArea');
       var pr=getDevicePixelRatio();
     var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
@@ -1386,7 +1355,7 @@ function notesSlideLang(){
 
 function showSlideImage(img){
     var imgToDisplay = "";
-    imgToDisplay = '<img onmousemove="myFunction(event)" id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
+    imgToDisplay = '<img onmousemove="followmouse(event)" id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;

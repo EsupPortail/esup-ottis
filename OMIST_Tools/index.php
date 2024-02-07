@@ -908,7 +908,7 @@ It's important to note that the resulting animation can serve as comprehensive i
             <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('imageArea').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('imageArea').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
           </div> -->
           <div id="imageArea"></div>
-          <p id="demo"></p>
+          <!-- <p id="demo"></p> -->
         </td>
       </tr>
       <tr>
@@ -936,6 +936,10 @@ It's important to note that the resulting animation can serve as comprehensive i
         <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
       </ul>
     </p>
+    </div>
+    <div id="mouse-position" title="Select the position">
+      <p>The mouse coordinates are : </p>
+      <p id="mouse-coord"></p>
     </div>
     <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Parameter :"></div>
