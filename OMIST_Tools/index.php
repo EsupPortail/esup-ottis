@@ -927,25 +927,20 @@ It's important to note that the resulting animation can serve as comprehensive i
     </div>
     <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Parameter :"></div>
-    <!-- <div id="keywordOptions" title="Option :"></div> -->
-    <!-- <div id="option-aspectratio" style="display: none;">16/10</div>
-    <div id="option-keepratio" style="display: none;">X</div>
-    <div id="option-delay" style="display: none;">0</div>
-    <div id="option-licence" style="display: none;"> </div> -->
     <div id="dialog-ratio" style="display: none;">
       <label for="aspectratioEditAnim">Aspect ratio : </label>
-      <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"/><br/>
+      <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';" class="inputsmallscreens"/><br/>
       <label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>
       <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>
-      <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onchange="document.getElementById('option-keepratio').innerHTML=document.getElementById('keepaspectratioEditAnim').value" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+      <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
     </div>
     <div id="dialog-delay" style="display: none;">
       <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelayEditAnim">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
-      <input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'; document.getElementById('option-delay').innerHTML=document.getElementById('extradelayEditAnim').value"  class="inputsmallscreens"/><br/>
+      <input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0';"  class="inputsmallscreens"/><br/>
     </div>
     <div id="dialog-licence" style="display: none;">
       <label for="licence">Would you like to add a licence ? </label>
-      <select id="licenceEditAnim" onchange="document.getElementById('option-licence').innerHTML=document.getElementById('licenceEditAnim').value" name="Licence"  class="inputsmallscreens">
+      <select id="licenceEditAnim" name="Licence"  class="inputsmallscreens">
       <option value="">No licence</option>
       <option value="CC0">CC0 1.0 Universal</option>
       <option value="CCBY">CC BY 4.0</option>

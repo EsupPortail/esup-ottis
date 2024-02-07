@@ -1169,13 +1169,6 @@ function changeOptions(keywordToAdd){
 
 function addOptions(keywordToAdd){
     if (keywordToAdd=="[ratio]"){
-        // document.getElementById("aspectratioEditAnim").value=document.getElementById("option-aspectratio").innerHTML;
-        // document.getElementById("commandKeyword").innerHTML = "[wait 0]\n"
-        // document.getElementById("keywordOptions").innerHTML ='<label for="aspectratioEditAnim">Aspect ratio : </label>'+
-        // '<input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" onchange="document.getElementById(\'option-aspectratio\').innerHTML=document.getElementById(\'aspectratioEditAnim\').value" value="16/10" class="inputsmallscreens"/><br/>'+
-        // '<label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>'+
-        // '<input type="checkbox" checked onclick="if (this.checked) {document.getElementById(\'keepaspectratioEditAnim\').value =\'X\'; document.getElementById(\'cbtextEditAnim\').innerHTML =\'Yes !\';} else {document.getElementById(\'keepaspectratioEditAnim\').value =\'\'; document.getElementById(\'cbtextEditAnim\').innerHTML =\'No.\'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>'+
-        // '<input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onchange="document.getElementById(\'option-keepratio\').innerHTML=document.getElementById(\'keepaspectratioEditAnim\').value" onclick="if (this.value == \'X\') this.value =\'\'; else this.value =\'X\';"/><br/>';
         $( "#dialog-ratio" ).dialog({
             height: 'auto',
             width: 'auto',
@@ -1189,9 +1182,6 @@ function addOptions(keywordToAdd){
             }
         });
     }else if(keywordToAdd=="[delay]"){
-        //document.getElementById("commandKeyword").innerHTML = "[mouse size 1]\n"
-        // document.getElementById("keywordOptions").innerHTML ='<label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelayEditAnim">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>'+
-        // '<input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()==\'\') this.value=\'0\'; document.getElementById(\'option-delay\').innerHTML=document.getElementById(\'extradelayEditAnim\').value"  class="inputsmallscreens"/><br/>';
         $( "#dialog-delay" ).dialog({
             height: 'auto',
             width: 'auto',
@@ -1217,32 +1207,7 @@ function addOptions(keywordToAdd){
               }
             }
         });
-        //document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
-        // document.getElementById("keywordOptions").innerHTML ='<label for="licence">Would you like to add a licence ? </label>'+
-        // '<select id="licenceEditAnim" onchange="document.getElementById(\'option-licence\').innerHTML=document.getElementById(\'licenceEditAnim\').value" name="Licence"  class="inputsmallscreens">'+
-        // '<option value="">No licence</option>'+
-        // '<option value="CC0">CC0 1.0 Universal</option>'+
-        // '<option value="CCBY">CC BY 4.0</option>'+
-        // '<option value="CCBYSA">CC BY-SA 4.0</option>'+
-        // '<option value="CCBYNC">CC BY-ND 4.0</option>'+
-        // '<option value="CCBYND">CC BY-NC 4.0</option>'+
-        // '<option value="CCBYNCSA">CC BY-NC-SA 4.0</option>'+
-        // '<option value="CCBYNCND">CC BY-NC-ND 4.0</option>'+
-        // '</select>';
     }
-
-    // $( "#dialog-ratio" ).dialog({
-    //     height: 'auto',
-    //     width: 'auto',
-    //     modal: true,
-    //     buttons: {
-    //       OK: function() {
-    //         $( this ).dialog( "close" );
-    //         changeOptions(keywordToAdd);
-    //         //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
-    //       }
-    //     }
-    // });
 }
 
 /**
