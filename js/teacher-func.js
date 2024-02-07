@@ -1076,6 +1076,11 @@ function myFunction(e) {
         var xPos = e.clientX - rect.x;
         var yPos = e.clientY - rect.y;
 
+        var x_offset = e.offsetX;
+        var y_offset = e.offsetY;
+
+        console.log("Offset : " + x_offset+", "+y_offset);
+
         // var xPos = e.pageX - c.offsetLeft;
         // var yPos = e.pageY - c.offsetTop;
         console.log("position X de l'image : "+rect.x);
