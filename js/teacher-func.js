@@ -1045,6 +1045,10 @@ function getDevicePixelRatio() {
 }
 
 function getMousePosition(){
+    var id_image = document.getElementById("imageArea").firstElementChild.id;
+    var img=document.getElementById(id_image);
+    img.setAttribute('onclick','followmouse(event)');
+
     $( "#mouse-position" ).dialog({
         height: 'auto',
         width: 'auto',
@@ -1357,7 +1361,7 @@ function notesSlideLang(){
 
 function showSlideImage(img){
     var imgToDisplay = "";
-    imgToDisplay = '<img onclick="followmouse(event)" id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
+    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
