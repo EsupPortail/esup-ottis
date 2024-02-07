@@ -1185,6 +1185,18 @@ function addOptions(keywordToAdd){
         '<option value="CCBYNCND">CC BY-NC-ND 4.0</option>'+
         '</select>';
     }
+
+    $( "#keywordOptions" ).dialog({
+        height: 'auto',
+        width: 'auto',
+        modal: true,
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+            //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
+          }
+        }
+    });
 }
 
 /**
