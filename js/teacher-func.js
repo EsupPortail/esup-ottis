@@ -1047,7 +1047,7 @@ function getDevicePixelRatio() {
 function getMousePosition(){
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var img=document.getElementById(id_image);
-    img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "The mouse coordinates are : ";');
+    img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
 
     $( "#mouse-position" ).dialog({
         height: 'auto',
@@ -1056,7 +1056,10 @@ function getMousePosition(){
         buttons: {
           OK: function() {
             $( this ).dialog( "close" );
-            //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
+            var coord_x = document.getElementById("coord_x").innerHTML;
+            var coord_y = document.getElementById("coord_y").innerHTML;
+            updateCommand('[mouse go toReplace]', coord_x+" "+coord_y);
+            addAllLanguages(document.getElementById("commandKeyword").innerHTML);
           }
         }
     });
@@ -1076,8 +1079,9 @@ function followmouse(e) {
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
     // console.log('pos=('+pourcx+','+pourcy+')');
 
-    let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
-    document.getElementById("mouse-coord").innerHTML = coor;
+    //let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
+    document.getElementById("coord_x").innerHTML = pourcx;
+    document.getElementById("coord_y").innerHTML = pourcy;
 }
 
 function showMouse() {
@@ -1304,7 +1308,7 @@ function addParameters(keywordToAdd){
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value);" id="mouseShape"'+
         '<option value="0">+</option><option value="1">X</option><option value="2">☝</option><option value="3">○</option><option value="4">⚫</option><option value="5">↖</option></select>';
     }else if(keywordToAdd=="[mouse go px py]"){
-        document.getElementById("commandKeyword").innerHTML = "[mouse go px py]\n"
+        document.getElementById("commandKeyword").innerHTML = "[mouse go 0 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
     }else if(keywordToAdd=="[resource toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[resource ]\n"

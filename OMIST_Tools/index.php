@@ -938,9 +938,9 @@ It's important to note that the resulting animation can serve as comprehensive i
     </p>
     </div>
     <div id="mouse-position" title="Select the position">
-      <p id="instruction">Click on the slide image to get the mouse coordinates</p>
-      <!-- <p>The mouse coordinates are : </p> -->
-      <p id="mouse-coord"></p>
+      <p id="instruction">Click on the slide image to get the mouse coordinates.</p>
+      <p>X : <span id="coord_x"></span></p>
+      <p>Y : <span id="coord_y"></span></p>
     </div>
     <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Parameter :"></div>
