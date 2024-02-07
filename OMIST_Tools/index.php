@@ -863,7 +863,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </li>
       <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Options</a>
-        <div class="dropdown-content" id="dropNotification">
+        <div class="dropdown-content" id="dropOptions">
           <a href="javascript:console.log('test1')">Aspect Ratio</a>
           <a href="javascript:console.log('test2')">Delay</a>
           <a href="javascript:console.log('test3')">Licence</a>
