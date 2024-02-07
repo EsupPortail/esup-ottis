@@ -929,9 +929,16 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="keywordParameter" title="Parameter :"></div>
     <div id="keywordOptions" title="Option :"></div>
     <div id="option-aspectratio" style="display: none;">16/10</div>
-    <div id="option-keepratio" style="display: none;">Y</div>
+    <div id="option-keepratio" style="display: none;">X</div>
     <div id="option-delay" style="display: none;">0</div>
     <div id="option-licence" style="display: none;"> </div>
+    <div id="dialog-ratio" style="display: none;">
+      <label for="aspectratioEditAnim">Aspect ratio : </label>
+      <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" onchange="document.getElementById('option-aspectratio').innerHTML=document.getElementById('aspectratioEditAnim').value" value="16/10" class="inputsmallscreens"/><br/>
+      <label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>'+
+      <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>
+      <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onchange="document.getElementById('option-keepratio').innerHTML=document.getElementById('keepaspectratioEditAnim').value" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+    </div>
 
   </form>
   </div>
