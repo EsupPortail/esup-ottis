@@ -928,6 +928,10 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Parameter :"></div>
     <div id="keywordOptions" title="Option :"></div>
+    <div id="option-aspectratio" style="display: none;">16/10</div>
+    <div id="option-keepratio" style="display: none;">Y</div>
+    <div id="option-delay" style="display: none;">0</div>
+    <div id="option-licence" style="display: none;"> </div>
 
   </form>
   </div>

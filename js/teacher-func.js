@@ -1159,6 +1159,11 @@ function addParameters(keywordToAdd){
     });
 }
 
+function changeOptions(keywordToAdd){
+    console.log(keywordToAdd+' : ');
+    console.log(document.getElementById('option-licence').innerHTML);
+}
+
 function addOptions(keywordToAdd){
     if (keywordToAdd=="[ratio]"){
         //document.getElementById("commandKeyword").innerHTML = "[wait 0]\n"
@@ -1174,7 +1179,7 @@ function addOptions(keywordToAdd){
     }else if(keywordToAdd=="[licence]"){
         //document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
         document.getElementById("keywordOptions").innerHTML ='<label for="licence">Would you like to add a licence ? </label>'+
-        '<select id="licenceEditAnim" name="Licence"  class="inputsmallscreens">'+
+        '<select id="licenceEditAnim" onchange="document.getElementById(\'option-licence\').innerHTML=document.getElementById(\'licenceEditAnim\').value" name="Licence"  class="inputsmallscreens">'+
         '<option value="" selected>No licence</option>'+
         '<option value="CC0">CC0 1.0 Universal</option>'+
         '<option value="CCBY">CC BY 4.0</option>'+
@@ -1193,6 +1198,7 @@ function addOptions(keywordToAdd){
         buttons: {
           OK: function() {
             $( this ).dialog( "close" );
+            changeOptions(keywordToAdd);
             //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
           }
         }
