@@ -1060,7 +1060,7 @@ function myFunction(e) {
     console.log("ID image : "+id_image);
     let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
-    // console.log("PR : "+pr);
+    console.log("PR : "+pr);
     // var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
     // var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
     // var x=c.x/pr+pourcx/100*c.width-5;
@@ -1083,8 +1083,8 @@ function myFunction(e) {
         console.log("position X: "+ xPos + " position Y: " + yPos);
 
         //var pr=getDevicePixelRatio();
-        var pourcx=Math.floor((e.pageX-rect.x)/(c.width)*100000)/1000;
-        var pourcy=Math.floor((e.pageY-rect.y)/(c.height)*100000)/1000;
+        var pourcx=Math.floor((e.pageX-rect.x/pr)/(rect.width)*100000)/1000;
+        var pourcy=Math.floor((e.pageY-rect.y/pr)/(rect.height)*100000)/1000;
         var x=c.offsetLeft/pr+pourcx/100*c.width-5;
         var y=c.offsetTop/pr+pourcy/100*c.height-5;
         console.log('pos=('+pourcx+','+pourcy+')');
