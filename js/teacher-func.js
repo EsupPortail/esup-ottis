@@ -1161,6 +1161,9 @@ function addParameters(keywordToAdd){
 
 function changeOptions(keywordToAdd){
     console.log(keywordToAdd+' : ');
+    console.log(document.getElementById('option-aspectratio').innerHTML);
+    console.log(document.getElementById('option-keepratio').innerHTML);
+    console.log(document.getElementById('option-delay').innerHTML);
     console.log(document.getElementById('option-licence').innerHTML);
 }
 
