@@ -957,82 +957,10 @@ function SlideNotes() {
 //     navigator.clipboard.writeText(copyText.value);
 // }
 
-// /**
-//  * @summary The function that is executed for getting the keyword of an animation with the animation editor.
-//  * 
-//  * @param {string} textToDisplay the keyword selected.
-//  */
-
-// function displayText(textToDisplay) {
-//     var text = document.getElementById("textArea");
-//     var classic_keyword = ["[pause]", "[mouse show]", "[mouse hide]"];
-//     if (classic_keyword.includes(textToDisplay)){
-//         document.getElementById("textArea").style.display = "inline-block";
-//         document.getElementById("textField1").style.display = "none";
-//         document.getElementById("paramKeyword").style.display = "none";
-//         document.getElementById("mouseShape").style.display = "none";
-//         document.getElementById("addParamKeyword").style.display = "none";
-//         document.getElementById("textField2").style.display = "inline-block";
-//         document.getElementById("copyKeyword").style.display = "inline-block";
-//         document.getElementById("textArea").innerHTML=textToDisplay;
-//     }else if(textToDisplay==="[mouse shape n]"){
-//         document.getElementById("textField1").innerHTML = "<p> Choose the shape of the mouse pointer : </p>";
-//         document.getElementById("textField1").style.display = "inline-block";
-//         document.getElementById("paramKeyword").style.display = "none";
-//         document.getElementById("mouseShape").style.display = "inline-block";
-//         document.getElementById("addParamKeyword").style.display = "inline-block";
-//         document.getElementById("textField2").style.display = "none";
-//         document.getElementById("textArea").style.display = "none";
-//         document.getElementById("copyKeyword").style.display = "none";
-//         document.getElementById("textArea").innerHTML=textToDisplay;
-//     }else{
-//         document.getElementById("textField1").style.display = "inline-block";
-//         document.getElementById("mouseShape").style.display = "none";
-//         document.getElementById("addParamKeyword").style.display = "inline-block";
-//         document.getElementById("textField2").style.display = "none";
-//         document.getElementById("textArea").style.display = "none";
-//         document.getElementById("copyKeyword").style.display = "none";
-//         document.getElementById("textArea").innerHTML=textToDisplay;
-//         if(textToDisplay==="[wait n]"){
-//             document.getElementById("textField1").innerHTML = "<p> Enter pause time in milliseconds : </p>";
-//             document.getElementById("paramKeyword").type = "number";
-//             document.getElementById("paramKeyword").min = "0";
-//             document.getElementById("paramKeyword").value = "0";
-//         }
-//         else if (textToDisplay==="[resource url]"){
-//             document.getElementById("textField1").innerHTML = "<p> Add the resource url : </p>";
-//             document.getElementById("paramKeyword").type = "url";
-//             document.getElementById("paramKeyword").value = "";
-//         }
-//         else if (textToDisplay==="[notification message]"){
-//             document.getElementById("textField1").innerHTML = "<p> Add the message to display : </p>";
-//             document.getElementById("paramKeyword").type = "text";
-//             document.getElementById("paramKeyword").value = "";
-//         }
-//         else if (textToDisplay==="[mouse go px py]"){
-//             document.getElementById("textField1").innerHTML = "<p> Click on the image where you want the mouse to go. The selected position is :  </p>";
-//             document.getElementById("paramKeyword").type = "text";
-//             document.getElementById("paramKeyword").value = document.getElementById("mousePosition").innerHTML;
-//         }
-//         else if (textToDisplay==="[mouse size n]"){
-//             document.getElementById("textField1").innerHTML = "<p> Enter the mouse pointer size : </p>";
-//             document.getElementById("paramKeyword").type = "number";
-//             document.getElementById("paramKeyword").min = "1";
-//             document.getElementById("paramKeyword").value = "1";
-//         }
-//         else if (textToDisplay==="[mouse customshape ch]"){
-//             document.getElementById("textField1").innerHTML = "<p> Enter the code to change the shape of the mouse pointer. This may contain HTML code. </p>";
-//             document.getElementById("paramKeyword").type = "text";
-//             document.getElementById("paramKeyword").value = "";
-//         }
-//         document.getElementById("paramKeyword").style.display = "inline-block";
-//     }
-// }
-
-// /**
-//  * @summary The function that is executed for getting the device pixel ratio with the animation editor.
-//  * 
-//  */
+/**
+ * @summary The function that is executed for getting the device pixel ratio with the animation editor.
+ * 
+ */
 
 function getDevicePixelRatio() {
     var mediaQuery;
@@ -1092,91 +1020,6 @@ function showMouse() {
     var mouseangle = 0;
     document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
 }
-
-
-
-// /**
-//  * @summary The function that is executed for displaying a larger image with the animation editor.
-//  * 
-//  * @param {object} img an image to be displayed in larger size.
-//  */
-
-// function openImg(img) {
-//     // Get the modal
-//     var modal = document.getElementById("myModal");
-
-//     // Get the image and insert it inside the modal - use its "alt" text as a caption
-//     var modalImg = document.getElementById("img01");
-//     var captionText = document.getElementById("caption");
-//     modal.style.display = "block";
-//     modalImg.src = img.src;
-//     captionText.innerHTML = img.alt;
-
-//     // Get the <span> element that closes the modal
-//     var span = document.getElementsByClassName("close")[0];
-
-//     // When the user clicks on <span> (x), close the modal
-//     span.onclick = function() {
-//     modal.style.display = "none";
-//     }
-
-//     //modalImg.onclick = function(e){
-//     $( "#img01" ).on( "click", function(e) {
-
-//         var xPos = e.pageX - $(this).offset().left;
-//         var yPos = e.pageY - $(this).offset().top;
-//         // console.log("position X de l'image : "+$(this).offset().left);
-//         // console.log("position Y de l'image : "+$(this).offset().top);
-//         console.log("position X: "+ xPos + " position Y: " + yPos);
-
-//         var pr=getDevicePixelRatio();
-//         var pourcx=Math.floor((e.pageX-$(this).offset().left/pr)/(modalImg.width)*100000)/1000;
-//         var pourcy=Math.floor((e.pageY-$(this).offset().top/pr)/(modalImg.height)*100000)/1000;
-//         var x=$(this).offset().left/pr+pourcx/100*modalImg.width-5;
-//         var y=$(this).offset().top/pr+pourcy/100*modalImg.height-5;
-//         // console.log('pos=('+pourcx+','+pourcy+')');
-//         // console.log('x:'+x+', y:'+y);
-//         document.getElementById("mousePosition").innerHTML = 'X = ' +pourcx+', Y = '+pourcy;
-
-//         $( "#dialog-message" ).dialog({
-//             height: 400,
-//             width: 400,
-//             modal: true,
-//             buttons: {
-//               Finish: function() {
-//                 $( this ).dialog( "close" );
-//                 modal.style.display = "none";
-//               }
-//             },
-//             close: function() {
-//                 $(document).find("#myKeyword").val('Default')
-//                 document.getElementById("textArea").style.display = "none";
-//                 document.getElementById("textField1").style.display = "none";
-//                 document.getElementById("paramKeyword").style.display = "none";
-//                 document.getElementById("mouseShape").style.display = "none";
-//                 document.getElementById("addParamKeyword").style.display = "none";
-//                 document.getElementById("textField2").style.display = "none";
-//                 document.getElementById("copyKeyword").style.display = "none";
-//             }
-//         }); 
-//     });
-// }
-
-function followmouseOld(e) {
-    var c=document.getElementById('imageArea');
-      var pr=getDevicePixelRatio();
-    var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
-    var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
-      var x=c.x/pr+pourcx/100*c.width-5;
-      var y=c.y/pr+pourcy/100*c.height-5;
-    document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
-    showMouse();
-      //document.getElementById('mouse').style.top=y+"px";
-      //document.getElementById('mouse').style.left=x+"px";
-      document.getElementById('mouse').style.top=y+"px";
-      document.getElementById('mouse').style.left=x+"px";
-  
-  }
 
 function toolInformation(){
     $( "#dialog-message" ).dialog({
@@ -1268,38 +1111,6 @@ window.onclick = function(e) {
  */
 
 function addParameters(keywordToAdd){
-    // var text = document.getElementById("myKeyword").value;
-    // var attr = document.getElementById("paramKeyword").value;
-    // var command = "";
-    // if(textToDisplay==="[wait n]"){
-    //     command = text.replace("n", attr.toString());
-    // }
-    // else if (textToDisplay==="[resource url]"){
-    //     command = text.replace("url", attr);
-    // }
-    // else if (textToDisplay==="[notification message]"){
-    //     command = text.replace("message", attr);
-    // }
-    // else if (textToDisplay==="[mouse go px py]"){
-    //     attr = attr.replace("X = ", "");
-    //     attr = attr.replace(", Y =", "");
-    //     command = text.replace("px py", attr);
-    // }
-    // else if (textToDisplay==="[mouse size n]"){
-    //     command = text.replace("n", attr.toString());
-    // }
-    // else if (textToDisplay==="[mouse shape n]"){
-    //     var shape = document.getElementById("mouseShape").value;
-    //     command = text.replace("n", shape);
-    // }
-    // else if (textToDisplay==="[mouse customshape ch]"){
-    //     command = text.replace("ch", attr);
-    // }
-    // document.getElementById("textField2").style.display = "inline-block";
-    // document.getElementById("textArea").style.display = "inline-block";
-    // document.getElementById("copyKeyword").style.display = "inline-block";
-    // document.getElementById("textArea").innerHTML=command;
-    //var keywordToAdd = button.id;
     if (keywordToAdd=="[wait toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[wait 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait toReplace]\', document.getElementById(\'timeWait\').value);" type="number" style="width:5em" min="0" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
@@ -1346,6 +1157,34 @@ function addParameters(keywordToAdd){
           }
         }
     });
+}
+
+function addOptions(keywordToAdd){
+    if (keywordToAdd=="[ratio]"){
+        //document.getElementById("commandKeyword").innerHTML = "[wait 0]\n"
+        document.getElementById("keywordOptions").innerHTML ='<label for="aspectratioEditAnim">Aspect ratio : </label>'+
+        '<input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"/><br/>'+
+        '<label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>'+
+        '<input type="checkbox" checked onclick="if (this.checked) {document.getElementById(\'keepaspectratioEditAnim\').value =\'X\'; document.getElementById(\'cbtextEditAnim\').innerHTML =\'Yes !\';} else {document.getElementById(\'keepaspectratioEditAnim\').value =\'\'; document.getElementById(\'cbtextEditAnim\').innerHTML =\'No.\'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>'+
+        '<input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == \'X\') this.value =\'\'; else this.value =\'X\';"/><br/>';
+    }else if(keywordToAdd=="[delay]"){
+        //document.getElementById("commandKeyword").innerHTML = "[mouse size 1]\n"
+        document.getElementById("keywordOptions").innerHTML ='<label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelayEditAnim">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>'+
+        '<input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()==\'\') this.value=\'0\'"  class="inputsmallscreens"/><br/>';
+    }else if(keywordToAdd=="[licence]"){
+        //document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
+        document.getElementById("keywordOptions").innerHTML ='<label for="licence">Would you like to add a licence ? </label>'+
+        '<select id="licenceEditAnim" name="Licence"  class="inputsmallscreens">'+
+        '<option value="" selected>No licence</option>'+
+        '<option value="CC0">CC0 1.0 Universal</option>'+
+        '<option value="CCBY">CC BY 4.0</option>'+
+        '<option value="CCBYSA">CC BY-SA 4.0</option>'+
+        '<option value="CCBYNC">CC BY-ND 4.0</option>'+
+        '<option value="CCBYND">CC BY-NC 4.0</option>'+
+        '<option value="CCBYNCSA">CC BY-NC-SA 4.0</option>'+
+        '<option value="CCBYNCND">CC BY-NC-ND 4.0</option>'+
+        '</select>';
+    }
 }
 
 /**

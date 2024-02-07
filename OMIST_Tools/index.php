@@ -864,9 +864,9 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Options</a>
         <div class="dropdown-content" id="dropOptions">
-          <a href="javascript:console.log('test1')">Aspect Ratio</a>
-          <a href="javascript:console.log('test2')">Delay</a>
-          <a href="javascript:console.log('test3')">Licence</a>
+          <a href="javascript:addOptions('[ratio]')">Aspect Ratio</a>
+          <a href="javascript:addOptions('[delay]')">Delay</a>
+          <a href="javascript:addOptions('[licence]')">Licence</a>
         </div>
       </li>
       <li class="dropdown">
@@ -927,6 +927,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </div>
     <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Parameter :"></div>
+    <div id="keywordOptions" title="Option :"></div>
 
   </form>
   </div>
