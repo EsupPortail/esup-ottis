@@ -1088,10 +1088,14 @@ function myFunction(e) {
         console.log("position X: "+ xPos + " position Y: " + yPos);
 
         //var pr=getDevicePixelRatio();
-        var pourcx=Math.floor((e.pageX-rect.x/pr)/(rect.width)*100000)/1000;
-        var pourcy=Math.floor((e.pageY-rect.y/pr)/(rect.height)*100000)/1000;
+        // var pourcx=Math.floor((e.pageX-rect.x/pr)/(rect.width)*100000)/1000;
+        // var pourcy=Math.floor((e.pageY-rect.y/pr)/(rect.height)*100000)/1000;
         var x=c.offsetLeft/pr+pourcx/100*c.width-5;
         var y=c.offsetTop/pr+pourcy/100*c.height-5;
+
+        var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
+        var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
+
         console.log('pos=('+pourcx+','+pourcy+')');
         console.log('x:'+x+', y:'+y);
 
