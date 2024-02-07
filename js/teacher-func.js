@@ -1377,7 +1377,7 @@ function notesSlideLang(){
 
 function showSlideImage(img){
     var imgToDisplay = "";
-    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
+    imgToDisplay = '<img onmousemove="myFunction(event)" id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;
