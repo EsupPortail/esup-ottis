@@ -1047,6 +1047,9 @@ function getDevicePixelRatio() {
 function getMousePosition(){
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var img=document.getElementById(id_image);
+    document.getElementById("mouse-position").innerHTML = '<p id="instruction">Click on the slide image to get the mouse coordinates.</p>'+
+    '<p>X : <span id="coord_x"></span></p>'+
+    '<p>Y : <span id="coord_y"></span></p>';
     img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
 
     $( "#mouse-position" ).dialog({
