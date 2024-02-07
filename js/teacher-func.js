@@ -1180,8 +1180,8 @@ function followmouseOld(e) {
 
 function toolInformation(){
     $( "#dialog-message" ).dialog({
-        height: 400,
-        width: 400,
+        height: 'auto',
+        width: 'auto',
         modal: true,
         buttons: {
           OK: function() {

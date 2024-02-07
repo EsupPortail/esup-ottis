@@ -862,31 +862,25 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Options</a>
+        <div class="dropdown-content" id="dropNotification">
+          <a href="javascript:console.log('test1')">Aspect Ratio</a>
+          <a href="javascript:console.log('test2')">Delay</a>
+          <a href="javascript:console.log('test3')">Licence</a>
+        </div>
+      </li>
+      <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Download</a>
         <div class="dropdown-content" id="dropDownload">
           <a href="javascript:CreateNewPresentation()">Download complete animation</a>
           <a href="javascript:CreateNewSpeech()">Download speech</a>
       </li>
-      <!-- <li class="dropdown">
-        <a class="dropbtn" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}">Download speech</a>
-      </li> -->
       <li class="dropdown">
         <a class="dropbtn" onclick="toolInformation()">Help</a>
       </li>
     </ul>
-    <!-- <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
-    <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
-    <button type=button id="infoTool" class="ui-button ui-widget ui-corner-all" onclick="toolInformation()"><i class="fa fa-info"></i></button> -->
     <br/>
-    <!-- <progress id="progressBar" value="0" max="100" style="width:300px;"></progress> -->
     <br/>
-    <!-- <div id="keywordsButton" hidden style="text-align: center;">Insert an action :
-      <button type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
-      <button type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="">pause</i></button>
-      <button type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button>
-    </div>
-    <br/> -->
-    
     <table id="tableEdit" align="center" style="width: 100%; height:600px;" border="1">
       <!-- <tr>
         <td colspan="2" style="width: 100%;">
@@ -903,12 +897,7 @@ It's important to note that the resulting animation can serve as comprehensive i
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
-          <!-- <div id="mouse">+</div>
-          <div id="DEBUG" style="background-color: white;">
-            <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('imageArea').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('imageArea').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span>
-          </div> -->
           <div id="imageArea"></div>
-          <!-- <p id="demo"></p> -->
         </td>
       </tr>
       <tr>
@@ -923,12 +912,9 @@ It's important to note that the resulting animation can serve as comprehensive i
       <p>
       It's a tool for editing your animations. 
       For each slide and language, you can edit and add notes. 
-      You can also add actions (pause, move mouse, etc.) to slides by clicking on them. 
-      Once the image is open, you can click again, and a menu will appear. 
+      You can also add actions (pause, move mouse, add a notification, etc.) to slides, and you can change animation options (delay between slides, image ratio, add license). 
       All you have to do is choose the action you want. 
-      Note that for the "move mouse" action, the coordinates of the click on the image are taken into account. 
     </p>
-
     <p>
       Once you've finished modifying your presentation, you can :
       <ul>
@@ -938,96 +924,12 @@ It's important to note that the resulting animation can serve as comprehensive i
     </p>
     </div>
     <div id="mouse-position" title="Select the position">
-      <!-- <p id="instruction">Click on the slide image to get the mouse coordinates.</p>
-      <p>X : <span id="coord_x"></span></p>
-      <p>Y : <span id="coord_y"></span></p> -->
     </div>
     <div id="commandKeyword" style="display: none;"></div>
     <div id="keywordParameter" title="Parameter :"></div>
 
   </form>
-  
-    <!-- <p> 
-      It's a tool for editing your animations. 
-      For each slide and language, you can edit and add notes. 
-      You can also add actions (pause, move mouse, etc.) to slides by clicking on them. 
-      Once the image is open, you can click again, and a menu will appear. 
-      All you have to do is choose the action you want. 
-      Note that for the "move mouse" action, the coordinates of the click on the image are taken into account. 
-    </p>
-
-    <p>
-      Once you've finished modifying your presentation, you can :
-      <ul>
-        <li> Download the complete animation, giving you a ready-to-use HTML file. </li>
-        <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
-      </ul>
-    </p>
-
-  <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload">Presentation in HTML: </label>
-    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
-    <span style="display:none">
-    <label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
-    <input type="text" id="tobesaid" value="">
-    </span>
-    <br/>
-    <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
-    <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
-    <input type="hidden" id="ProgName12" name="ProgramName" value="EditAnim/EditAnim.php">
-    <input type="hidden" id="Random12" name="randompath" value=""/>
-    <input type="hidden" id="Extension12" name="Extension" value="txt"/> -->
-    <!-- The Modal -->
-    <!-- <div id="myModal" class="modal"> -->
-      <!-- The Close Button -->
-      <!-- <span class="close">&times;</span> -->
-      <!-- Modal Content (The Image) -->
-      <!-- <img class="modal-content" id="img01"> -->
-      <!-- Modal Caption (Image Text) -->
-      <!-- <div id="caption"></div>
-    </div>
-    <div id="dialog-message" title="Add an action">
-      <p>
-        Choose your action : 
-      </p>
-      <select id="myKeyword">
-        <option selected="selected" value="Default">--Please choose an option--</option>
-        <option value="[pause]">Pause</option>
-        <option value="[wait n]">Pause for n milliseconds</option>
-        <option value="[resource url]">Open a window with the url</option>
-        <option value="[notification message]">Open a window with the text</option>
-        <option value="[mouse show]">Show the mouse</option>
-        <option value="[mouse go px py]">Move the mouse</option>
-        <option value="[mouse hide]">Hide the mouse</option>
-        <option value="[mouse size n]">Change the mouse size</option>
-        <option value="[mouse shape n]">Change the mouse shape</option>
-        <option value="[mouse customshape ch]">Change the mouse shape with HTML code</option>
-      </select>
-      <button type=submit id="chosenKeyword" onclick="if (_('myKeyword').value!='Default') {displayText(_('myKeyword').value);}else{alert('You must choose an action first !');}" value="chosen_Keyword">Select</button>
-      <div id="textField1" style="display: none;"></div>
-      <div style="display: none;" id="mousePosition"></div>
-      <input type="text" name="paramKeyword" style="display: none;" id="paramKeyword" />
-      <select id="mouseShape" style="display: none;">
-        <option value="0">+</option>
-        <option value="1">X</option>
-        <option value="2">☝</option>
-        <option value="3">○</option>
-        <option value="4">⚫</option>
-        <option value="5">↖</option>
-      </select>
-      <button type=submit style="display: none;" id="addParamKeyword" onclick="if ((_('paramKeyword').value!='') || (_('mouseShape').style.display === 'inline-block')) {addParameters(_('myKeyword').value);} else {alert('You must provide a value first !');}" value="add_Parameters">Submit</button>
-      <div id="textField2" style="display: none;"><p>The following command needs to be added to the animation speech</p></div>
-      <textarea readonly style="display: none;" id="textArea"></textarea>
-      <button type=submit id="copyKeyword" style="display: none;" onclick="copyText()" value="copy_Keyword">Copy</button>
-    </div> -->
-
-    <!-- <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
-    <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
-    <p id="Message12"></p>
-  </form>  -->
-
   </div>
-
 </div>
 
 <div id="tool13">
