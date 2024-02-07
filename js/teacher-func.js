@@ -1161,7 +1161,7 @@ function addParameters(keywordToAdd){
 
 function changeOptions(keywordToAdd){
     console.log(keywordToAdd+' : ');
-    console.log(document.getElementById('keepaspectratioEditAnim').value);
+    console.log(document.getElementById('aspectratioEditAnim').value);
     console.log(document.getElementById('keepaspectratioEditAnim').value);
     console.log(document.getElementById('extradelayEditAnim').value);
     console.log(document.getElementById('licenceEditAnim').value);
