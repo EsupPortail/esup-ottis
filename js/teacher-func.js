@@ -1047,7 +1047,7 @@ function getDevicePixelRatio() {
 function getMousePosition(){
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var img=document.getElementById(id_image);
-    img.setAttribute('onclick','followmouse(event)');
+    img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "The mouse coordinates are : ";');
 
     $( "#mouse-position" ).dialog({
         height: 'auto',
