@@ -1457,6 +1457,9 @@ function CreateNewPresentation() {
             text = text.replaceAll('\r', '", "');
             tab_text[i] += text+'"';
 
+            if (extra_delay != 0){
+                tab_text[i] += ',""'.repeat(extra_delay);
+            }
             //console.log("Texte de la slide : "+text);
             tab_text[i] += ']}';
         }
@@ -1465,7 +1468,7 @@ function CreateNewPresentation() {
         i += 1;
     }
     formdata.append("newText", tab_text);
-    //formdata.append("newAspectRatio", aspect_ratio);
+    formdata.append("newAspectRatio", aspect_ratio);
     //formdata.append("newKeepRatio", keep_ratio);
     //formdata.append("newDelay", extra_delay);
     formdata.append("newLicence", licence);
