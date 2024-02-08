@@ -52,7 +52,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
         echo "LICENCE : " + $new_licence;
         // $new_file = $test + $new_file
         $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py" ;
-        //$result = shell_exec("python $script");
+        $result = shell_exec("python $script --Licence $new_licence");
         // // $command = $PYTHON .dirname(__FILE__).'/GetLicence.py '.$new_licence.' >/dev/null 2>/dev/null';
         // // system($command);
         // // $filename = "../CreateApp/Templates/Complements.txt";
