@@ -2,20 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import getopt, sys
-import Licences
 
-complement = 'TEST'
+string = ''
 for word in sys.argv[1:]:
-    try:
-        with open("../CreateApp/Templates/Complements.txt","r", encoding='utf8') as f:
-            complement = "".join(f.readlines())
-        if (licence != "" and Licences.LICENCES.get(licence)):
-            complement = complement+"\n"+Licences.LICENCES.get(licence)
-
-    except Exception as error:
-        complement = error
-
-print(complement)
+    string += word + ' '
+print(string)
 
 # import Licences
 
