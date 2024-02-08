@@ -1418,6 +1418,7 @@ function CreateNewPresentation() {
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
     var licence = _("licenceEditAnim").value;
+    console.log("Licence : " +licence);
     
     //Récupérer les langues
     var tab_lang = [];
