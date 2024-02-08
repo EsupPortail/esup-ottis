@@ -4,11 +4,11 @@
 import getopt, sys
 import Licences
 
-string = ''
+complement = 'TEST'
 for word in sys.argv[1:]:
     try:
         with open("../CreateApp/Templates/Complements.txt","r", encoding='utf8') as f:
-                complement = "".join(f.readlines())
+            complement = "".join(f.readlines())
         if (licence != "" and Licences.LICENCES.get(licence)):
             complement = complement+"\n"+Licences.LICENCES.get(licence)
 
