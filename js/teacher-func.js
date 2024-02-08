@@ -1418,7 +1418,7 @@ function CreateNewPresentation() {
     console.log(typeof aspect_ratio);
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
-    var licence = _("licenceEditAnim").value;
+    var test_licence = _("licenceEditAnim").value;
     // var test_licence = "test_licence";
     console.log("Licence : " +test_licence);
     console.log(typeof test_licence);
