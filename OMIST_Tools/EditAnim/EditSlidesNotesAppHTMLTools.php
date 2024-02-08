@@ -52,7 +52,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
         echo $new_licence;
 
         $data = "I'm from PHP file."
-        $output = shell_exec("python3 GetLicence.py " .$data);
+        $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py" ;
+        $output = shell_exec("python " .$script " " .$data);
         echo $output;
 
 
