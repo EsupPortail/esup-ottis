@@ -34,7 +34,8 @@ def getLicenceComplete(licence, complementfile="../CreateApp/Templates/Complemen
             complement = complement+"\n"+Licences.LICENCES.get(licence)
         return complement
     except Exception as error:
-        print("An exception occurred:", error)
+        complement = error
+        return complement
 
 if __name__ == "__main__":
     main()
