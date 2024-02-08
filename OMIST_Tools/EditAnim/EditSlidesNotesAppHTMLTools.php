@@ -50,26 +50,26 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     // // }
 
     //Licence
-    if ($new_licence != ""){
-        $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py --Licence=" .$new_licence. ;
-        $result = shell_exec("python $script");
-        // $command = $PYTHON .dirname(__FILE__).'/GetLicence.py '.$new_licence.' >/dev/null 2>/dev/null';
-        // system($command);
-        // $filename = "../CreateApp/Templates/Complements.txt";
-        // $f = fopen($filename, "r");
-        // $f_read = fread($f, filesize($filename));
-        // $complement = join("",$f_read);
+    // if ($new_licence != ""){
+    //     $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py --Licence=" .$new_licence. ;
+    //     $result = shell_exec("python $script");
+    //     // $command = $PYTHON .dirname(__FILE__).'/GetLicence.py '.$new_licence.' >/dev/null 2>/dev/null';
+    //     // system($command);
+    //     // $filename = "../CreateApp/Templates/Complements.txt";
+    //     // $f = fopen($filename, "r");
+    //     // $f_read = fread($f, filesize($filename));
+    //     // $complement = join("",$f_read);
 
-        for($i=0;$i<count($new_file);$i++) {
-            $line_body=$new_file[$i];
-            if (strpos("_".$line_body,"</body>")>0) {
-                $line_licence = $new_file[$i-1];
-                $licence_to_replace = $line_licence;
-            }
-        }
-        $licence_to_insert = $result;
-        $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
-    }
+    //     for($i=0;$i<count($new_file);$i++) {
+    //         $line_body=$new_file[$i];
+    //         if (strpos("_".$line_body,"</body>")>0) {
+    //             $line_licence = $new_file[$i-1];
+    //             $licence_to_replace = $line_licence;
+    //         }
+    //     }
+    //     $licence_to_insert = $result;
+    //     $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
+    // }
 
     $new_html = implode("\n",$new_file);
 
