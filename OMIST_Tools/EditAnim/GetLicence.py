@@ -6,7 +6,7 @@ import os
 
 string = ''
 ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
-file_complement = ABSOLUTE_PATH + "ComplementsEditAnim.txt"
+file_complement = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
 
 for word in sys.argv[1:]:
     string += word + ' '
