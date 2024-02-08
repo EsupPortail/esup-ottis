@@ -1415,6 +1415,7 @@ function CreateNewPresentation() {
 
     //Récupérer les options
     var aspect_ratio = _("aspectratioEditAnim").value;
+    console.log(typeof aspect_ratio);
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
     var licence = _("licenceEditAnim").value;
