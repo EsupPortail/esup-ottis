@@ -1358,8 +1358,8 @@ function DownloadFile(filename, elText, mimeType) {
 
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
-    var data = JSON.parse(json_data);
-    DownloadFile("presentation_modified.html", data);
+    //var data = JSON.parse(json_data);
+    //DownloadFile("presentation_modified.html", data);
     console.log(json_data);
 }
 
@@ -1419,9 +1419,9 @@ function CreateNewPresentation() {
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
     //var licence = _("licenceEditAnim").value;
-    var licence = "test_licence";
-    console.log("Licence : " +licence);
-    console.log(typeof licence);
+    var test_licence = "test_licence";
+    console.log("Licence : " +test_licence);
+    console.log(typeof test_licence);
     
     //Récupérer les langues
     var tab_lang = [];
@@ -1472,7 +1472,7 @@ function CreateNewPresentation() {
     formdata.append("newText", tab_text);
     formdata.append("newAspectRatio", aspect_ratio);
     //formdata.append("newKeepRatio", keep_ratio);
-    formdata.append("newLicence", licence);
+    formdata.append("newLicence", test_licence);
 
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
