@@ -7,7 +7,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     $new_aspectratio = $_POST['newAspectRatio'];
     // $new_keepratio = $_POST['newKeepRatio'];
     $new_licence = $_POST['newLicence'];
-    print($new_licence);
+    print("Licence obtenue : ", $new_licence);
     $contenttxt = file_get_contents($tmp_file);
     $content = explode("\n",$contenttxt);
     $txtslidenotes="";
