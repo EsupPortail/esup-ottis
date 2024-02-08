@@ -7,7 +7,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     $new_aspectratio = $_POST['newAspectRatio'];
     // $new_keepratio = $_POST['newKeepRatio'];
     $new_licence = $_POST['newLicence'];
-    print("Licence obtenue : ", $new_licence);
+    print($new_licence);
     $contenttxt = file_get_contents($tmp_file);
     $content = explode("\n",$contenttxt);
     $txtslidenotes="";
@@ -50,7 +50,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
 
     //Licence
     if ($new_licence != ""){
-        print($_POST['newLicence']);
+        print("ok");
         // $new_file = $test + $new_file
         // $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py --Licence=" .$new_licence. ;
         // $result = shell_exec("python $script");
