@@ -914,14 +914,14 @@ It's important to note that the resulting animation can serve as comprehensive i
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Pause</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show");} else {alert("You must provide a file first !");}'>Pause</a>
         <div class="dropdown-content" id="dropPause">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]\n');} else {alert('You must select a slide first !');}">Pause animation</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {alert('You must select a slide first !');}">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Mouse</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropMouse").classList.toggle("show");} else {alert("You must provide a file first !");}'>Mouse</a>
         <div class="dropdown-content" id="dropMouse">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]\n');} else {alert('You must select a slide first !');}">Show the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]\n');} else {alert('You must select a slide first !');}">Hide the mouse</a>
@@ -931,14 +931,14 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Notification</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropNotification").classList.toggle("show");} else {alert("You must provide a file first !");}'>Notification</a>
         <div class="dropdown-content" id="dropNotification">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[resource toReplace]');} else {alert('You must select a slide first !');}">Open a window with the url</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[notification toReplace]');} else {alert('You must select a slide first !');}">Open a window with the text</a>
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Options</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropOptions").classList.toggle("show");} else {alert("You must provide a file first !");}'>Options</a>
         <div class="dropdown-content" id="dropOptions">
           <a href="javascript:addOptions('[ratio]')">Aspect Ratio</a>
           <a href="javascript:addOptions('[delay]')">Delay</a>
@@ -946,7 +946,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("drop"+this.innerHTML).classList.toggle("show");} else {alert("You must provide a file first !");}'>Download</a>
+        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropDownload").classList.toggle("show");} else {alert("You must provide a file first !");}'>Download</a>
         <div class="dropdown-content" id="dropDownload">
           <a href="javascript:CreateNewPresentation()">Download complete animation</a>
           <a href="javascript:CreateNewSpeech()">Download speech</a>
