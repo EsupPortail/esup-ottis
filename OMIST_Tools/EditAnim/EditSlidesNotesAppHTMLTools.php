@@ -50,7 +50,9 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     // // }
 
     //Licence
-    // if ($new_licence != ""){
+    if ($new_licence != ""){
+        $test = "LICENCE VIDE"
+        $new_file = $test + $new_file
     //     $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py --Licence=" .$new_licence. ;
     //     $result = shell_exec("python $script");
     //     // $command = $PYTHON .dirname(__FILE__).'/GetLicence.py '.$new_licence.' >/dev/null 2>/dev/null';
@@ -69,8 +71,12 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     //     }
     //     $licence_to_insert = $result;
     //     $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
-    // }
-
+    }else{
+        $test = "LICENCE DETECTEE"
+        $new_file = $test + $new_file
+    }
+    
+    
     $new_html = implode("\n",$new_file);
 
     echo json_encode($new_html);
