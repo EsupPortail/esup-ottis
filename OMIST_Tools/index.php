@@ -469,6 +469,7 @@ body+.skiptranslate {
 
 #google-gt-tt {
   display: none !important;
+  visibility: hidden;
 }
 
 body {
