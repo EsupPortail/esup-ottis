@@ -1417,8 +1417,11 @@ function CreateNewPresentation() {
     var aspect_ratio = _("aspectratioEditAnim").value;
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
-    var licence = _("licenceEditAnim").value;
-    console.log("Licence : " +licence);
+    // if (_("licenceEditAnim").value != ""){
+    //     var licence = _("licenceEditAnim").value;
+    // }
+    var var_licence = _("licenceEditAnim").value;
+    console.log("Licence : " + var_licence);
     
     //Récupérer les langues
     var tab_lang = [];
@@ -1467,7 +1470,7 @@ function CreateNewPresentation() {
     formdata.append("newAspectRatio", aspect_ratio);
     formdata.append("newKeepRatio", keep_ratio);
     formdata.append("newDelay", extra_delay);
-    formdata.append("newLicence", licence);
+    formdata.append("newLicence", var_licence);
 
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
