@@ -6,7 +6,6 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     $new_text = $_POST['newText'];
     $new_aspectratio = $_POST['newAspectRatio'];
     // $new_keepratio = $_POST['newKeepRatio'];
-    // $new_delay = $_POST['newDelay'];
     $new_licence = $_POST['newLicence'];
 
     $contenttxt = file_get_contents($tmp_file);

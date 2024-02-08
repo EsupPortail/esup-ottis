@@ -1470,7 +1470,6 @@ function CreateNewPresentation() {
     formdata.append("newText", tab_text);
     formdata.append("newAspectRatio", aspect_ratio);
     //formdata.append("newKeepRatio", keep_ratio);
-    //formdata.append("newDelay", extra_delay);
     formdata.append("newLicence", licence);
 
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
