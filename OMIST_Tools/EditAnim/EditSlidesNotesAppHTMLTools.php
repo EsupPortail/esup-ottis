@@ -50,10 +50,16 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     //Licence
     if ($new_licence != ""){
         echo $new_licence;
+
+        $data = "I'm from PHP file."
+        $output = shell_exec("python3 GetLicence.py" .$data);
+        echo $output;
+
+
         // $new_file = $test + $new_file
-        $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py" ;
-        $result = shell_exec("python $script --Licence $new_licence");
-        echo $result;
+        // $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py" ;
+        // $result = shell_exec("python $script --licence $new_licence");
+        // echo $result;
         // // $command = $PYTHON .dirname(__FILE__).'/GetLicence.py '.$new_licence.' >/dev/null 2>/dev/null';
         // // system($command);
         // // $filename = "../CreateApp/Templates/Complements.txt";
