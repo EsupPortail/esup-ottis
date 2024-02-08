@@ -1417,11 +1417,9 @@ function CreateNewPresentation() {
     var aspect_ratio = _("aspectratioEditAnim").value;
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
-    // if (_("licenceEditAnim").value != ""){
-    //     var licence = _("licenceEditAnim").value;
-    // }
-    var var_licence = _("licenceEditAnim").value;
-    console.log("Licence : " + var_licence);
+    var licence = _("licenceEditAnim").value;
+    console.log("Licence : " +licence);
+    console.log(typeof licence);
     
     //Récupérer les langues
     var tab_lang = [];
@@ -1467,10 +1465,10 @@ function CreateNewPresentation() {
         i += 1;
     }
     formdata.append("newText", tab_text);
-    formdata.append("newAspectRatio", aspect_ratio);
-    formdata.append("newKeepRatio", keep_ratio);
-    formdata.append("newDelay", extra_delay);
-    formdata.append("newLicence", var_licence);
+    //formdata.append("newAspectRatio", aspect_ratio);
+    //formdata.append("newKeepRatio", keep_ratio);
+    //formdata.append("newDelay", extra_delay);
+    formdata.append("newLicence", licence);
 
     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
     xhr.onreadystatechange = function () {
