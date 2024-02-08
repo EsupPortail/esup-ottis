@@ -467,6 +467,10 @@ body+.skiptranslate {
   border-radius: 5px;
 }
 
+#google-gt-tt {
+  display: none !important;
+}
+
 body {
   position: absolute;
   top: 0px !important;
@@ -1033,7 +1037,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 </div>
 
 <div id="tool13">
-    <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and AI model is downloaded and exectuted by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily changed.">Audio/video file transcription</h3>
+    <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and the AI model are downloaded and exectuted by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily changed.">Audio/video file transcription</h3>
         <div>
             <iframe width="80%" height="500px" style="border: none;" src="MyWhisper/index.html"></iframe>
         </div>
