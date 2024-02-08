@@ -692,7 +692,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool5">
-    <h3>Translate pptx</h3>
+    <h3 title="This tool allows to translate the text elements included in a pptx file. The result is a PPTx file. Notice that several translations can be performed in parallel.">Translate pptx</h3>
   <div>
   <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
@@ -738,7 +738,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool6">
-  <h3>Translate subtitles SRT file</h3>
+  <h3 title="This tool allows to translate subtitle files. It can handle both SRT and VTT files.">Translate subtitles SRT file</h3>
   <div>
   <form id="Form6" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload6">Select SRT file : </label>
@@ -801,7 +801,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
   </div>
 <div id="tool8">
-  <h3>Convert pptx+txt to pptx</h3>
+  <h3 title="Imagine that you have a PPTX file without comments and your notes in a separate text file. This simple tool allows to combine both files. The result is a complete PPTX file.">Convert pptx+txt to pptx</h3>
   <div>
   <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
@@ -815,7 +815,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool9">
-  <h3>Extract speech from pptx</h3>
+  <h3 title="This simple tool allows to extract the comments of a PPTX file. The result is a text file.">Extract speech from pptx</h3>
   <div>
   <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload9">Select PPTX file : </label>
@@ -829,7 +829,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool10">
-  <h3>Translate XLIFF</h3>
+  <h3 title="This tool allows to translate XLIFF files. XLIFF (XML Localisation Interchange File Format) files are used by softwares, such as Rise Articulate, dedicated to the creation of e-learning contents. Consequently, our tool permits to translate a complete and scenarized e-leaning course.">Translate XLIFF</h3>
   <div>
   <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
@@ -865,7 +865,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool11">
-  <h3>Translate SCORM</h3>
+  <h3 title="This tool allows to translate SCORM files. SCORM (Sharable Content Object Reference Model) files are used by softwares, such as Rise Articulate, dedicated to the creation of e-learning contents. SCORM files can be directly integrated to Moodle. Consequently, our tool permits to translate a complete and scenarized e-leaning course.">Translate SCORM</h3>
   <div>
   <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload11">Select ZIP file : </label>
@@ -901,7 +901,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </div>
 </div>
 <div id="tool12">
-  <h3>Edit Animation</h3>
+  <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div translate="no">
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <!-- <label for="fileToUpload">Presentation in HTML: </label>
@@ -1053,7 +1053,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
   -->
 <div id="tool16">
-  <h3 class="internalserveronly">Subtitle reader</h3>
+  <h3 class="internalserveronly" title="This tool allows to obtain a MP3 file that corresponds to synchronized speech synthesis of a given SRT file. The produced file can be re-combined with the original video to obtain a soundtrack translation of the video.">Subtitle reader</h3>
   <div class="internalserveronly">
   <form id="Form13" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select SRT file : 
