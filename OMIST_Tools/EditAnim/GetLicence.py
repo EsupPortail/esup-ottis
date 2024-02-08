@@ -26,13 +26,15 @@ def main():
         print("Licence = ",C_LICENCE)
         getLicenceComplete(licence=C_LICENCE)
 
-def getLicenceComplete(licence):
-    with open(complementfile,"r", encoding='utf8') as f:
-            complement = "".join(f.readlines())
+def getLicenceComplete(licence, complementfile="../CreateApp/Templates/Complements.txt"):
+    try:
+        with open(complementfile,"r", encoding='utf8') as f:
+                complement = "".join(f.readlines())
         if (licence != "" and Licences.LICENCES.get(licence)):
             complement = complement+"\n"+Licences.LICENCES.get(licence)
-    
-    return complement
+        return complement
+    except Exception as error:
+        print("An exception occurred:", error)
 
 if __name__ == "__main__":
     main()
