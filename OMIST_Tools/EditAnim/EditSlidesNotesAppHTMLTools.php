@@ -1,6 +1,6 @@
 <?php 
 
-if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
+if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && isset($_POST['newLicence'])) {
 
     $tmp_file = $_FILES['fileToUpload']['tmp_name'];
     $new_text = $_POST['newText'];
@@ -74,8 +74,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText'])) {
     //     $test = "LICENCE DETECTEE"
     //     $new_file = $test + $new_file
     // }
-    $test = "LICENCE : " + $new_licence;
-    $new_file += $test;
+    // $test = "LICENCE : " + $new_licence;
+    // $new_file += $test;
     $new_html = implode("\n",$new_file);
 
     echo json_encode($new_html);
