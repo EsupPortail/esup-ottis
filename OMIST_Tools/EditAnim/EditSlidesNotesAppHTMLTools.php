@@ -49,7 +49,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
 
     //Licence
     if ($new_licence != ""){
-        echo "LICENCE : " + $new_licence;
+        echo $new_licence;
         // $new_file = $test + $new_file
         $script = __DIR__ . DIRECTORY_SEPARATOR . "GetLicence.py" ;
         $result = shell_exec("python $script --Licence $new_licence");
