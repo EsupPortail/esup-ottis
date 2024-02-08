@@ -11,6 +11,7 @@ file_complement = ABSOLUTE_PATH + "ComplementsEditAnim.txt"
 for word in sys.argv[1:]:
     string += word + ' '
 print(string)
+print(file_complement)
 print(os.path.exists(file_complement))
 
 # import Licences
