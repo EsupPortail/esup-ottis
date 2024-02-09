@@ -1358,9 +1358,9 @@ function DownloadFile(filename, elText, mimeType) {
 
 function GetNewPresentation(event){
     var json_data = event.target.responseText;
-    // var data = JSON.parse(json_data);
-    // DownloadFile("presentation_modified.html", data);
-    //console.log(json_data);
+    var data = JSON.parse(json_data);
+    DownloadFile("presentation_modified.html", data);
+    console.log(json_data);
 }
 
 /**
