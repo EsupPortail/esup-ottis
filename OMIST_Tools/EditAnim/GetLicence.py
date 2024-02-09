@@ -3,7 +3,7 @@
 
 import getopt, sys
 import os
-# import Licences
+import Licences
 
 string = ''
 ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
