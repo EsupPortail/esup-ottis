@@ -51,7 +51,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     if ($new_licence != ""){
         $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
         $output = system($command);
-        echo $output;
+        //echo $output;
 
         for($i=0;$i<count($new_file);$i++) {
             $line_body=$new_file[$i];
