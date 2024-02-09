@@ -3,16 +3,24 @@
 
 import getopt, sys
 import os
+import Licences
 
 string = ''
 ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
-file_complement = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
+complementfile = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
 
 for word in sys.argv[1:]:
     string += word + ' '
 print(string)
-print(file_complement)
-print(os.path.exists(file_complement))
+print(complementfile)
+print(os.path.exists(complementfile))
+
+with open(complementfile,"r", encoding='utf8') as f:
+    complement = "".join(f.readlines())
+if (licence != "" and Licences.LICENCES.get(licence)):
+    complement = complement+"\n"+Licences.LICENCES.get(licence)
+
+print(complement)
 
 # import Licences
 
