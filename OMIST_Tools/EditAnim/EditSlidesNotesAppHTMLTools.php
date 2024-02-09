@@ -60,8 +60,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
                 if ($line_licence != ""){
                     $licence_to_replace = $line_licence;
                 }else{
-                    $licence_to_replace = $new_file[$i-1];
-                    $output += "\n </body>";
+                    $licence_to_replace = $new_file[$i];
+                    $licence_to_insert += "\n </body>";
                 }
                 echo "Licence to replace \n";
                 var_dump($licence_to_replace);
