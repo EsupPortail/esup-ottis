@@ -50,7 +50,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     //Licence
     if ($new_licence != ""){
         $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
-        $output = system($command);
+        $licence_to_insert = system($command);
         //echo $output;
 
         for($i=0;$i<count($new_file);$i++) {
@@ -69,7 +69,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
                 var_dump($licence_to_replace);
             }
         }
-        $licence_to_insert = $output;
+        //$licence_to_insert = $output;
         echo "Licence to insert : \n";
         echo $licence_to_insert;
         $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
