@@ -3,6 +3,9 @@
 
 import getopt, sys
 import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append("../")
+sys.path.append("./")
 import Licences
 
 string = ''
@@ -19,8 +22,8 @@ print(licence)
 
 with open(complementfile,"r", encoding='utf8') as f:
     complement = "".join(f.readlines())
-# if (licence != "" and Licences.LICENCES.get(licence)):
-#     complement = complement+"\n"+Licences.LICENCES.get(licence)
+if (licence != "" and Licences.LICENCES.get(licence)):
+    complement = complement+"\n"+Licences.LICENCES.get(licence)
 
 print(complement)
 
