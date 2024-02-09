@@ -65,6 +65,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
             }
         }
         $licence_to_insert = $output;
+        echo "Licence to insert : \n";
+        echo $licence_to_insert;
         $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
         // print($new_file);
     }
