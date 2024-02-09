@@ -48,7 +48,7 @@ def main():
         else:
             assert False, "unhandled option"
         
-        print("Licence = ",C_LICENCE)
+        # print("Licence = ",C_LICENCE)
         getLicenceComplete(licence=C_LICENCE)
 
 def getLicenceComplete(licence):
@@ -59,7 +59,7 @@ def getLicenceComplete(licence):
     if (licence != "" and Licences.LICENCES.get(licence)):
         complement = complement+"\n"+Licences.LICENCES.get(licence)
     # print("Complement: ", complement)
-    return complement
+    print(complement)
 
 if __name__ == "__main__":
     main()
