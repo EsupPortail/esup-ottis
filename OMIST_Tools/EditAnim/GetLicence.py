@@ -14,6 +14,7 @@ for word in sys.argv[1:]:
 print(string)
 print(complementfile)
 print(os.path.exists(complementfile))
+licence = sys.argv[1]
 
 with open(complementfile,"r", encoding='utf8') as f:
     complement = "".join(f.readlines())
