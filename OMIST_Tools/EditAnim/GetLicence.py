@@ -52,12 +52,13 @@ def main():
         getLicenceComplete(licence=C_LICENCE)
 
 def getLicenceComplete(licence):
-    ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
-    complementfile = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
-    with open(complementfile,"r", encoding='utf8') as f:
-            complement = "".join(f.readlines())
+    # ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
+    # complementfile = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
+    # with open(complementfile,"r", encoding='utf8') as f:
+    #         complement = "".join(f.readlines())
+    complement = ""
     if (licence != "" and Licences.LICENCES.get(licence)):
-        complement = complement+"\n"+Licences.LICENCES.get(licence)
+        complement = Licences.LICENCES.get(licence)
     # print("Complement: ", complement)
     print(complement)
 
