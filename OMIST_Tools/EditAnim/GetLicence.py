@@ -58,12 +58,8 @@ def getLicenceComplete(licence):
             complement = "".join(f.readlines())
     if (licence != "" and Licences.LICENCES.get(licence)):
         complement = complement+"\n"+Licences.LICENCES.get(licence)
-    print("Complement: ", complement)
-
-
-# def helloworld(){
-#     return "Hello World"
-# }
+    # print("Complement: ", complement)
+    return complement
 
 if __name__ == "__main__":
     main()
