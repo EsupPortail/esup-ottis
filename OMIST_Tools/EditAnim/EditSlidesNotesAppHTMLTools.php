@@ -71,7 +71,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     // $test = "LICENCE : " + $new_licence;
     // $new_file += $test;
     $new_html = implode("\n",$new_file);
-    echo $new_file;
+    var_dump($new_file);
     //echo json_encode($new_html);
 }
 
