@@ -58,13 +58,13 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
             if (strpos("_".$line_body,"</body>")>0) {
                 $line_licence = $new_file[$i-1];
                 $licence_to_replace = $line_licence;
-                echo "Line to replace \n";
-                var_dump($i-1);
+                echo "Licence to replace \n";
+                var_dump($licence_to_replace);
                 echo "Licence to replace \n";
                 var_dump($licence_to_replace);
             }
         }
-        $licence_to_insert = $result;
+        $licence_to_insert = $output;
         $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
         // print($new_file);
     }
