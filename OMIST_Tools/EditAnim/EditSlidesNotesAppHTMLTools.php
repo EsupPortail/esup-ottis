@@ -61,12 +61,12 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
                     $licence_to_replace = $line_licence;
                 }else{
                     $licence_to_replace = $new_file[$i];
-                    array_push($licence_to_insert, "\n </body>");
+                    array_push($licence_to_insert, "</body>");
                 }
-                echo "Licence to replace \n";
-                var_dump($licence_to_replace);
-                echo "Licence to replace \n";
-                var_dump($licence_to_replace);
+                // echo "Licence to replace \n";
+                // var_dump($licence_to_replace);
+                // echo "Licence to replace \n";
+                // var_dump($licence_to_replace);
             }
         }
         //$licence_to_insert = $output;
