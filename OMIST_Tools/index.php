@@ -471,9 +471,8 @@ body+.skiptranslate {
   border-radius: 5px;
 }
 
-#google-gt-tt {
+#goog-gt-tt, #goog-gt-vt {
   display: none !important;
-  visibility: hidden;
 }
 
 body {
