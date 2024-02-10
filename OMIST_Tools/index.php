@@ -409,15 +409,16 @@ var gt;
 function googleTranslateElementInit() {
   document.cookie='';
   gt=new google.translate.TranslateElement({pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout.TOP_RIGHT}, 'google_translate_element');
-  setTimeout(Init2,500);
+  setTimeout(Init2,1000);
 }
 
 function Init2() {
   var a = document.querySelector("#google_translate_element select");
     if(a){
-        var l=document.body.lang;
-        
-        a.selectedIndex=0;
+        var find=0;
+        for(var i=0; i<a.options.length; i++) {
+          if (a.options[i].value==document.body.lang) find=i;
+        a.selectedIndex=find;
         a.dispatchEvent(new Event('change'));
     }
   a=document.querySelector("#google_translate_element > div");
