@@ -401,7 +401,7 @@ function showList(ch) {
 
 </script>
 </head>
-<body onload="Init();">
+<body onload="Init();" lang="en">
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
@@ -415,6 +415,8 @@ function googleTranslateElementInit() {
 function Init2() {
   var a = document.querySelector("#google_translate_element select");
     if(a){
+        var l=document.body.lang;
+        
         a.selectedIndex=0;
         a.dispatchEvent(new Event('change'));
     }
