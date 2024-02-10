@@ -418,6 +418,7 @@ function Init2() {
         var find=0;
         for(var i=0; i<a.options.length; i++) {
           if (a.options[i].value==document.body.lang) find=i;
+        }
         a.selectedIndex=find;
         a.dispatchEvent(new Event('change'));
     }
