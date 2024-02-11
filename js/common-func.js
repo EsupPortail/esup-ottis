@@ -50,6 +50,7 @@ function rgb(T) {
 
 function AbortTimeout(r) {
     setTimeout(function() {
+        console.log("Timeout problem !")
         r.abort();
     }, 10000);
 }
