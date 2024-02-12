@@ -49,12 +49,6 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     if ($new_licence != ""){
         $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
         $licence_to_insert = system($command);
-        // echo "Licence to insert BEFORE : \n";
-        // print_r($licence_to_insert);
-        // echo "Type to insert BEFORE: \n";
-        // echo gettype(strval($licence_to_insert)); 
-        // echo "fin type";
-        //echo $output;
 
         for($i=0;$i<count($new_file);$i++) {
             $line_body=$new_file[$i];
@@ -64,26 +58,25 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
                     $licence_to_replace = $line_licence;
                 }else{
                     $licence_to_replace = $new_file[$i];
-                    //array_push($licence_to_insert, "</body>")
                     $licence_to_insert = $licence_to_insert. "\n </body>";
-                    //var_dump($licence_to_insert);
                 }
-                // echo "Licence to replace \n";
-                // var_dump($licence_to_replace);
             }
         }
-        //$licence_to_insert = $output;
-        // echo "Licence to insert AFTER : \n";
-        // print_r($licence_to_insert);
-        // echo "Type to insert AFTER : \n";
-        // echo gettype($licence_to_insert); 
         $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
-        //print($new_file);
+    }else{
+        $licence_to_insert = "";
+        for($i=0;$i<count($new_file);$i++) {
+            $line_body=$new_file[$i];
+            if (strpos("_".$line_body,"</body>")>0) {
+                $line_licence = $new_file[$i-1];
+                if ($line_licence != ""){
+                    $licence_to_replace = $line_licence;
+            }
+        }
+        $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
     }
-    // $test = "LICENCE : " + $new_licence;
-    // $new_file += $test;
+
     $new_html = implode("\n",$new_file);
-    // var_dump($new_file);
     echo json_encode($new_html);
 }
 
