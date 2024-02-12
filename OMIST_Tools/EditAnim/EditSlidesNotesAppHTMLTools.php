@@ -70,8 +70,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
                     $licence_to_insert = $licence_to_insert. " </body>";
                     //var_dump($licence_to_insert);
                 }
-                echo "Licence to replace \n";
-                var_dump($licence_to_replace);
+                // echo "Licence to replace \n";
+                // var_dump($licence_to_replace);
             }
         }
         //$licence_to_insert = $output;
@@ -80,7 +80,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
         // echo "Type to insert AFTER : \n";
         // echo gettype($licence_to_insert); 
         $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
-        print($new_file);
+        //print($new_file);
     }
     // $test = "LICENCE : " + $new_licence;
     // $new_file += $test;
