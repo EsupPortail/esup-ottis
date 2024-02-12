@@ -55,6 +55,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
         print_r($licence_to_insert);
         echo "Type to insert BEFORE: \n";
         echo gettype(strval($licence_to_insert)); 
+        echo "fin type";
         //echo $output;
 
         for($i=0;$i<count($new_file);$i++) {
