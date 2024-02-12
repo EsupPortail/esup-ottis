@@ -1086,7 +1086,7 @@ function addKeyword(keyword){
 
 function addAllLanguages(keyword){
     console.log(keyword);
-    let text = "Add action to all languages ?";
+    let text = "Add action to all languages ? \n Click on \"OK\" to add to all languages or click on \"Cancel\" to add only to the selected language.";
     if (confirm(text) == true) {
         addKeyword(keyword);
         var tab_lang = [];

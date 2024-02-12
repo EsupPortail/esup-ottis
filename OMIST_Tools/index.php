@@ -997,7 +997,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       It's a tool for editing your animations. 
       For each slide and language, you can edit and add notes. 
       You can also add actions (pause, move mouse, add a notification, etc.) to slides, and you can change animation options (delay between slides, image ratio, add license). 
-      All you have to do is choose the action you want. 
+      All you have to do is choose the action or the option you want. 
     </p>
     <p>
       Once you've finished modifying your presentation, you can :
@@ -1007,16 +1007,33 @@ It's important to note that the resulting animation can serve as comprehensive i
       </ul>
     </p>
     <div id="menuHelp"> <h4>More help : </h4>
-    <div id=helpPause>
-    <h4>Pause</h4>
-    <div>You can choose to pause the animation (as if you were pressing a pause button), or incorporate a pause of a certain length.</div>
+      <div id=helpPause>
+        <h4>Pause</h4>
+        <div>
+          Pause animation : pause the animation as if you were pressing a pause button 
+          <br> Pause for n milliseconds : incorporate a pause of a certain duration.
+        </div>
+      </div>
+      <div id=helpMouse>
+        <h4>Mouse</h4>
+        <div>
+          You can choose to pause the animation (as if you were pressing a pause button), or incorporate a pause of a certain length.
+        </div>
+      </div>
+      <div id=helpNotification>
+        <h4>Mouse</h4>
+        <div>
+          You can choose to pause the animation (as if you were pressing a pause button), or incorporate a pause of a certain length.
+        </div>
+      </div>
+      <div id=helpOptions>
+        <h4>Mouse</h4>
+        <div>
+          You can choose to pause the animation (as if you were pressing a pause button), or incorporate a pause of a certain length.
+        </div>
+      </div>
     </div>
-    <div id=helpMouse>
-    <h4>Mouse</h4>
-    <div>You can choose to pause the animation (as if you were pressing a pause button), or incorporate a pause of a certain length.</div>
-    </div>
-    </div>
-    </div>
+  </div>
 
     <div id="mouse-position" title="Select the position">
     </div>
