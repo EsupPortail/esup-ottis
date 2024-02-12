@@ -1034,7 +1034,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <div id=helpOptions>
         <h4>Options</h4>
         <div>
-          <b>Aspect Ratio :</b> change slide image format.
+          <b>Aspect Ratio :</b> change slide image format (default 16/10).
           <br><b>Delay :</b> add a delay between slides in tenth of seconds (hence, a value of 10 means 1 second).
           <br><b>Licence :</b> add a licence.
         </div>
