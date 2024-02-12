@@ -231,6 +231,17 @@ function Init() {
   showList("all");
 }
 
+function displayLanguage(){
+  var values_opt = [];
+  var options = document.getElementById("myLanguage").options;
+  for (let i = 0; i < options.length; i++) { 
+  	values_opt[i] = options[i].value;
+  	console.log(options[i].value);
+  }
+  // var alllanguages= 
+  // alllanguages.map(PopulateLanguages);
+}
+
 function _(e) {return document.getElementById(e);}
 
 // MD5 sum

@@ -1295,7 +1295,7 @@ function formateresponseTools(datatxt,editable=true) {
     
     var selectedLang = '';
 
-    selectedLang = '<select onchange="notesSlideLang()" id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
+    selectedLang = '<select onchange="notesSlideLang(); displayLanguage();" id="myLanguage" class="inputsmallscreens" style="vertical-align: top;"> \n';
     for (let key in data) {
         if (key!="Img_slide") {
             data_key = data[key];
