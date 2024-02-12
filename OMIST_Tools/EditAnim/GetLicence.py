@@ -8,27 +8,6 @@ sys.path.append("../")
 sys.path.append("./")
 import Licences
 
-# string = ''
-# ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
-# complementfile = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
-
-# for word in sys.argv[1:]:
-#     string += word + ' '
-# print(string)
-# print(complementfile)
-# print(os.path.exists(complementfile))
-# licence = sys.argv[1]
-# print(licence)
-
-# with open(complementfile,"r", encoding='utf8') as f:
-#     complement = "".join(f.readlines())
-# if (licence != "" and Licences.LICENCES.get(licence)):
-#     complement = complement+"\n"+Licences.LICENCES.get(licence)
-
-# print(complement)
-
-# import Licences
-
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "l:v", ["licence="])
@@ -52,14 +31,9 @@ def main():
         getLicenceComplete(licence=C_LICENCE)
 
 def getLicenceComplete(licence):
-    # ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
-    # complementfile = ABSOLUTE_PATH + "/ComplementsEditAnim.txt"
-    # with open(complementfile,"r", encoding='utf8') as f:
-    #         complement = "".join(f.readlines())
     complement = ""
     if (licence != "" and Licences.LICENCES.get(licence)):
         complement = Licences.LICENCES.get(licence)
-    # print("Complement: ", complement)
     print(complement)
 
 if __name__ == "__main__":

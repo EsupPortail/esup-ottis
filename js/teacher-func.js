@@ -972,6 +972,11 @@ function getDevicePixelRatio() {
     }
 }
 
+/**
+ * @summary The function that is executed for getting the mouse position for the keyword "mouse go" with the animation editor.
+ * 
+ */
+
 function getMousePosition(){
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var img=document.getElementById(id_image);
@@ -996,6 +1001,11 @@ function getMousePosition(){
     });
 }
 
+/**
+ * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the animation editor.
+ * 
+ */
+
 function followmouse(e) {
     var id_image = document.getElementById("imageArea").firstElementChild.id;
     var c=document.getElementById(id_image);
@@ -1004,22 +1014,23 @@ function followmouse(e) {
 
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
-    // console.log("Offset : " + x_offset+", "+y_offset);
-
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
-    // console.log('pos=('+pourcx+','+pourcy+')');
 
-    //let coor = "Coordinates: (" + pourcx + "," + pourcy + ")";
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
 }
 
-function showMouse() {
-    var mousesize = 1;
-    var mouseangle = 0;
-    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
-}
+// function showMouse() {
+//     var mousesize = 1;
+//     var mouseangle = 0;
+//     document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+// }
+
+/**
+ * @summary The function that is executed for displaying help for the animation editor.
+ * 
+ */
 
 function toolInformation(){
     $( "#dialog-message" ).dialog({
@@ -1034,15 +1045,22 @@ function toolInformation(){
     }); 
 }
 
+/**
+ * @summary The function that is executed for initializing the animation editor when the user loads a file.
+ * 
+ */
+
 function initializeEditAnim(){
     document.getElementById('imageArea').innerHTML = "";
     document.getElementById("speechArea").value = "";
     document.getElementById('tableEdit').removeAttribute('hidden');
-    // document.getElementById('mouse').style.display = "inline";
-    // document.getElementById('pause').style.display = "inline";
-    // document.getElementById('notif').style.display = "inline";
     toolInformation();
 }
+
+/**
+ * @summary The function that is executed for updating the speech in a particular language when the user changes it in the animation editor.
+ * 
+ */
 
 function updateNotes(){
     var lang = _("myLanguage").value.trim();
@@ -1052,10 +1070,20 @@ function updateNotes(){
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
+/**
+ * @summary The function that is executed for adding a keyword to the displayed notes with the animation editor.
+ * 
+ */
+
 function addKeyword(keyword){
     var notes = document.getElementById("speechArea").value;
     document.getElementById("speechArea").value = notes + keyword;
 }
+
+/**
+ * @summary The function that is executed for adding a keyword to notes for one or all languages with the animation editor.
+ * 
+ */
 
 function addAllLanguages(keyword){
     console.log(keyword);
@@ -1079,6 +1107,11 @@ function addAllLanguages(keyword){
     }
 }
 
+/**
+ * @summary The function that is executed for creating the command with the keyword and its parameters with the animation editor.
+ * 
+ */
+
 function updateCommand(keyword, param){
     var parameter = "";
     if(typeof(param) === 'string') {
@@ -1090,6 +1123,7 @@ function updateCommand(keyword, param){
     console.log(command);
     document.getElementById("commandKeyword").innerHTML = command;
 }
+
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(e) {
@@ -1131,21 +1165,7 @@ function addParameters(keywordToAdd){
         document.getElementById("commandKeyword").innerHTML = "[notification ]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMessage" name="param">Open a window with the message <input onchange="updateCommand(\'[notification toReplace]\', document.getElementById(\'notifMessage\').value)" placeholder="Copy your message here" type="text" name="notifMessage" id="notifMessage"/></div>';
     }
-    //var command = "";
-    // $('input[type="radio"]').click(function() {
-    //     if($(this).attr('id').substring(0,5) == 'param') {
-    //         var text = $(this).attr('value');
-    //         //var text = document.getElementById("paramWait").value
-    //         console.log('Texte : '+text);
-    //         command = updateCommand(text);           
-    //     }
-    
-    //     else {
-    //         console.log($(this).attr('value'));
-    //         command = $(this).attr('value');
-    //         document.getElementById("commandKeyword").innerHTML = command;
-    //     }
-    // });
+ 
     $( "#keywordParameter" ).dialog({
         height: 'auto',
         width: 'auto',
@@ -1159,13 +1179,20 @@ function addParameters(keywordToAdd){
     });
 }
 
-function changeOptions(keywordToAdd){
-    console.log(keywordToAdd+' : ');
-    console.log(document.getElementById('aspectratioEditAnim').value);
-    console.log(document.getElementById('keepaspectratioEditAnim').value);
-    console.log(document.getElementById('extradelayEditAnim').value);
-    console.log(document.getElementById('licenceEditAnim').value);
-}
+
+
+// function changeOptions(keywordToAdd){
+//     console.log(keywordToAdd+' : ');
+//     console.log(document.getElementById('aspectratioEditAnim').value);
+//     console.log(document.getElementById('keepaspectratioEditAnim').value);
+//     console.log(document.getElementById('extradelayEditAnim').value);
+//     console.log(document.getElementById('licenceEditAnim').value);
+// }
+
+/**
+ * @summary The function that is executed for displaying the dialog box corresponding to the option the user wishes to modify with the animation editor.
+ * 
+ */
 
 function addOptions(keywordToAdd){
     if (keywordToAdd=="[ratio]"){
@@ -1176,7 +1203,7 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
-                changeOptions(keywordToAdd);
+                // changeOptions(keywordToAdd);
                 //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
               }
             }
@@ -1189,7 +1216,7 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
-                changeOptions(keywordToAdd);
+                // changeOptions(keywordToAdd);
                 //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
               }
             }
@@ -1202,7 +1229,7 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
-                changeOptions(keywordToAdd);
+                // changeOptions(keywordToAdd);
                 //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
               }
             }
