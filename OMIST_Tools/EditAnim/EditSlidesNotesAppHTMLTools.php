@@ -48,35 +48,36 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     // // }
 
     //Licence
-    // if ($new_licence != ""){
-    //     $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
-    //     $licence_to_insert = system($command);
-    //     //echo $output;
+    if ($new_licence != ""){
+        $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
+        $licence_to_insert = system($command);
+        //echo $output;
 
-    //     for($i=0;$i<count($new_file);$i++) {
-    //         $line_body=$new_file[$i];
-    //         if (strpos("_".$line_body,"</body>")>0) {
-    //             $line_licence = $new_file[$i-1];
-    //             if ($line_licence != ""){
-    //                 $licence_to_replace = $line_licence;
-    //             }else{
-    //                 $licence_to_replace = $new_file[$i];
-    //                 array_push($licence_to_insert, "</body>");
-    //             }
-    //             // echo "Licence to replace \n";
-    //             // var_dump($licence_to_replace);
-    //             // echo "Licence to replace \n";
-    //             // var_dump($licence_to_replace);
-    //         }
-    //     }
-    //     //$licence_to_insert = $output;
-    //     echo "Licence to insert : \n";
-    //     print_r($licence_to_insert);
-    //     echo "Type to insert : \n";
-    //     echo gettype($licence_to_insert); 
-    //     $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
-    //     // print($new_file);
-    // }
+        for($i=0;$i<count($new_file);$i++) {
+            $line_body=$new_file[$i];
+            if (strpos("_".$line_body,"</body>")>0) {
+                $line_licence = $new_file[$i-1];
+                if ($line_licence != ""){
+                    $licence_to_replace = $line_licence;
+                }else{
+                    $licence_to_replace = $new_file[$i];
+                    array_push($licence_to_insert, "</body>");
+                    var_dump($licence_to_insert);
+                }
+                // echo "Licence to replace \n";
+                // var_dump($licence_to_replace);
+                // echo "Licence to replace \n";
+                // var_dump($licence_to_replace);
+            }
+        }
+        //$licence_to_insert = $output;
+        echo "Licence to insert : \n";
+        print_r($licence_to_insert);
+        echo "Type to insert : \n";
+        echo gettype($licence_to_insert); 
+        $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
+        // print($new_file);
+    }
     // $test = "LICENCE : " + $new_licence;
     // $new_file += $test;
     $new_html = implode("\n",$new_file);
