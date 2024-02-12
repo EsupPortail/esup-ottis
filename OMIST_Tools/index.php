@@ -1006,13 +1006,10 @@ It's important to note that the resulting animation can serve as comprehensive i
         <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
       </ul>
     </p>
-    <div id="testMenuHelp" aria-labelledby="ui-id-5" role="tablist" class="ui-tabs-panel ui-corner-bottom ui-widget-content ui-accordion ui-widget ui-helper-reset" aria-hidden="false">
-    <div style="display: initial;" class="">
-    <h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-icons ui-accordion-header-collapsed ui-corner-all" 
-    role="tab" id="ui-id-6" aria-controls="ui-id-7" aria-selected="false" aria-expanded="false" tabindex="-1">
-    <span class="ui-accordion-header-icon ui-icon ui-icon-triangle-1-e"></span>
-    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Test de menu pour l'aide</font></font></h3>
-    </div>
+    <div>
+    <!-- <div style="display: initial;" class=""> -->
+    <h3>Test de menu pour l'aide</h3>
+    <!-- </div> -->
     </div>
     </div>
 
