@@ -239,7 +239,17 @@ function displayLanguage(){
   	//console.log(options[i].value);
   }
   console.log(alllanguages);
-  console.log(alllanguages.map(PopulateLanguages));
+  // var select = document.getElementById(selectelement);
+  // for(var i=0; i<supportedlanguages.length; i++) {
+  //     var lang=supportedlanguages[i].code; //.substr(0,5);
+  //       var opt_editanim=document.createElement("option");
+  //       opt.value=lang;
+  //       opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+  //       select.appendChild(opt);
+      
+  //   }
+  console.log(supportedlanguages.code);
+  //console.log(alllanguages.map(supportedlanguages.code));
 }
 
 function _(e) {return document.getElementById(e);}
