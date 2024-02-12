@@ -248,7 +248,9 @@ function displayLanguage(){
   //       select.appendChild(opt);
       
   //   }
-  console.log(supportedlanguages.code);
+  for(var i=0; i<supportedlanguages.length; i++) {
+      var lang=supportedlanguages[i].code;
+      console.log(supportedlanguages[i].code);
   //console.log(alllanguages.map(supportedlanguages.code));
 }
 
