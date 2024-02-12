@@ -71,9 +71,10 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
                 $line_licence = $new_file[$i-1];
                 if ($line_licence != ""){
                     $licence_to_replace = $line_licence;
+                }
             }
-        }
         $new_file = str_replace($licence_to_replace, $licence_to_insert, $new_file);
+        }
     }
 
     $new_html = implode("\n",$new_file);
