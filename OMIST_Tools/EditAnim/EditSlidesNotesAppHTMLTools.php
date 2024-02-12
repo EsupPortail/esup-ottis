@@ -48,7 +48,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     //Licence
     if ($new_licence != ""){
         $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
-        $licence_to_insert = exec($command);
+        $licence_to_insert = shell_exec($command);
         echo "Licence to insert BEFORE : \n";
         print_r($licence_to_insert);
         // echo "Type to insert BEFORE: \n";
