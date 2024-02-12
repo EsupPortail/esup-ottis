@@ -1361,6 +1361,7 @@ function GetNewPresentation(event){
     // var data = JSON.parse(json_data);
     // DownloadFile("presentation_modified.html", data);
     console.log(json_data);
+    console.log(typeof json_data);
 }
 
 /**
