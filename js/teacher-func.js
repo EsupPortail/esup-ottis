@@ -1357,11 +1357,11 @@ function DownloadFile(filename, elText, mimeType) {
  */
 
 function GetNewPresentation(event){
-    var json_data = event.target.responseText;
+    var data_raw = event.target.responseText;
+    var json_data = data_raw.substring(data_raw.indexOf("\"<!doctype html>"));
     // var data = JSON.parse(json_data);
     // DownloadFile("presentation_modified.html", data);
     console.log(json_data);
-    console.log(typeof json_data);
 }
 
 /**
