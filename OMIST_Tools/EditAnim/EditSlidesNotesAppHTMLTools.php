@@ -6,7 +6,6 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     $new_aspectratio = $_POST['newAspectRatio'];
     // $new_keepratio = $_POST['newKeepRatio'];
     $new_licence = $_POST['newLicence'];
-    //print($new_licence);
     $contenttxt = file_get_contents($tmp_file);
     $content = explode("\n",$contenttxt);
     $txtslidenotes="";
@@ -21,7 +20,6 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
  
     $txt_to_insert = "var slidesnotes = {" .$new_text. "};";
     $new_file = str_replace($txt_to_replace, $txt_to_insert, $content);
-    //$new_html = implode("\n",$new_file);
 
     //Aspect ratio
     if ($new_aspectratio != "16/10"){
