@@ -1006,10 +1006,10 @@ It's important to note that the resulting animation can serve as comprehensive i
         <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
       </ul>
     </p>
-    <div>
-    <!-- <div style="display: initial;" class=""> -->
+    <div id="menuHelp">
+    <div id=helpPause>
     <h3>Test de menu pour l'aide</h3>
-    <!-- </div> -->
+    </div>
     </div>
     </div>
 
@@ -1093,6 +1093,7 @@ $( function() {
     });
     $("body").tooltip();
     $( "#menu" ).accordion({heightStyle: 'panel', header: "> div > h3"});
+    $( "#menuHelp" ).accordion({heightStyle: 'panel', header: "> div > h3"});
 } );
 
 </script>
