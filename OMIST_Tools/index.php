@@ -252,6 +252,7 @@ function displayLanguage(){
       var lang=supportedlanguages[i].code;
       console.log(supportedlanguages[i].code);
   //console.log(alllanguages.map(supportedlanguages.code));
+  }
 }
 
 function _(e) {return document.getElementById(e);}
