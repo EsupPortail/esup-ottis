@@ -48,9 +48,9 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     //Licence
     if ($new_licence != ""){
         $command = 'python3 '.dirname(__FILE__).'/GetLicence.py --licence '.$new_licence ;
-        $licence_to_insert = shell_exec($command);
-        echo "Licence to insert BEFORE : \n";
-        print_r($licence_to_insert);
+        $licence_to_insert = system($command);
+        // echo "Licence to insert BEFORE : \n";
+        // print_r($licence_to_insert);
         // echo "Type to insert BEFORE: \n";
         // echo gettype(strval($licence_to_insert)); 
         // echo "fin type";
@@ -84,7 +84,7 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
     // $new_file += $test;
     $new_html = implode("\n",$new_file);
     // var_dump($new_file);
-    echo json_encode($new_html);
+    // echo json_encode($new_html);
 }
 
 ?>

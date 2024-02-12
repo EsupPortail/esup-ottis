@@ -60,7 +60,7 @@ def getLicenceComplete(licence):
     if (licence != "" and Licences.LICENCES.get(licence)):
         complement = Licences.LICENCES.get(licence)
     # print("Complement: ", complement)
-    return(complement)
+    print(complement)
 
 if __name__ == "__main__":
     main()
