@@ -1014,6 +1014,8 @@ It's important to note that the resulting animation can serve as comprehensive i
     <font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Test de menu pour l'aide</font></font></h3>
     </div>
     </div>
+    </div>
+
     <div id="mouse-position" title="Select the position">
     </div>
     <div id="commandKeyword" style="display: none;"></div>
