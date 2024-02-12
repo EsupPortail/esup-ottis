@@ -1138,11 +1138,15 @@ window.onclick = function(e) {
   }
 }
 
-function closeDropdown(){
+function closeDropdown(id_select){
     var dropdowns = document.getElementsByClassName("dropdown-content");
     for (var d = 0; d < dropdowns.length; d++) {
       var openDropdown = dropdowns[d];
-      console.log(openDropdown);
+      console.log(openDropdown.id);
+      if ((id_select != openDropdown.id) && (openDropdown.classList.contains('show'))){
+        openDropdown.classList.remove('show');
+        console.log(openDropdown.id);
+      }
     }
 }
 
