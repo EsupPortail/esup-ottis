@@ -248,10 +248,11 @@ function displayLanguage(){
   //       select.appendChild(opt);
       
   //   }
+  
   for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code;
-      console.log(supportedlanguages[i].code);
-  //console.log(alllanguages.map(supportedlanguages.code));
+      // console.log(supportedlanguages[i].code);
+  console.log(supportedlanguages.code);
   }
 }
 
