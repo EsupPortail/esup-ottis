@@ -248,11 +248,14 @@ function displayLanguage(){
   //       select.appendChild(opt);
       
   //   }
-  
+  // let greaterElement = arr.findIndex(ele => ele > 50);
   for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code;
       // console.log(supportedlanguages[i].code);
-  console.log(supportedlanguages.code);
+      if (alllanguages.includes(lang)){
+        console.log(supportedlanguages[i].name_fr);
+      }
+  // console.log(supportedlanguages.code);
   }
 }
 
