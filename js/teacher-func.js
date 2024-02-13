@@ -710,7 +710,7 @@ function formateresponse(datatxt,editable=true) {
     //alert(datatxt);
     var res = '';
     var data = JSON.parse(datatxt);
-    console.log(data);
+    // console.log(data);
     for (var i = 0; i < data.length; i++) {
         slide = data[i];
         var txtnotes = '';
@@ -1511,8 +1511,7 @@ function CreateNewPresentation() {
             }
             var text = "";
             text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent.trim();
-            console.log(text);
-            // text = text.replaceAll('"')
+            text = text.replaceAll('"', '“')
             text = text.replaceAll('\r\n', '", "');
             text = text.replaceAll('\n', '", "');
             text = text.replaceAll('\r', '", "');
@@ -1525,7 +1524,7 @@ function CreateNewPresentation() {
             tab_text[i] += ']}';
         }
         tab_text[i] += ']';
-        // console.log(tab_text[i]);
+        console.log(tab_text[i]);
         i += 1;
     }
     formdata.append("newText", tab_text);
