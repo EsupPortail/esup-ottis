@@ -1054,7 +1054,7 @@ function initializeEditAnim(){
     document.getElementById("speechArea").value = "";
     document.getElementById('tableEdit').removeAttribute('hidden');
     // toolInformation();
-    displayLanguage();
+    // displayLanguage();
 }
 
 /**
@@ -1347,6 +1347,7 @@ function formateresponseTools(datatxt,editable=true) {
 
 function completeHandlerTools(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
+    displayLanguage();
 }
 
 /**
