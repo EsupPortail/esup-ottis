@@ -242,9 +242,13 @@ function displayLanguage(){
   for(var i=0; i<supportedlanguages.length; i++) {
     var lang=supportedlanguages[i].code;
     if (lang===input_lang){
-      options[0].text = "[INPUT LANGUAGE] " + lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+      if (output_lang.includes(input_lang.toLowerCase())){
+        options[0].text = "[INPUT LANGUAGE] " + lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+      }else{
+        options[0].text = lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+      }
     }
-    
+
     var index_lang_output = output_lang.indexOf(lang.toLowerCase());
     if (index_lang_output != -1){
       console.log("Index : "+index_lang_output+"\n");
