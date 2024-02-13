@@ -249,8 +249,6 @@ function displayLanguage(){
     }
     var index_lang_output = output_lang.indexOf(lang.toLowerCase());
     if (index_lang_output != -1){
-      console.log("Index : "+index_lang_output+"\n");
-      console.log(supportedlanguages[i].name_fr);
       options[index_lang_output].text = lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
     }
   }
