@@ -238,6 +238,7 @@ function displayLanguage(){
   	alllanguages[i] = options[i].value;
   	//console.log(options[i].value);
   }
+  alllanguages[0] = alllanguages[0].toLowerCase();
   console.log(alllanguages);
   // var select = document.getElementById(selectelement);
   // for(var i=0; i<supportedlanguages.length; i++) {
@@ -252,7 +253,7 @@ function displayLanguage(){
   for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code;
       // console.log(supportedlanguages[i].code);
-      index_lang = alllanguages.toLowerCase().indexOf(lang.toLowerCase());
+      index_lang = alllanguages.indexOf(lang.toLowerCase());
       if (index_lang === 0){
         options[index_lang].text = "[INPUT LANGUAGE]" + lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
       }else if (index_lang != -1){
