@@ -1130,7 +1130,7 @@ function updateCommand(keyword, param){
         parameter = param.toString();
     }
     command = keyword.replace("toReplace", parameter)+'\n';
-    console.log(command);
+    // console.log(command);
     document.getElementById("commandKeyword").innerHTML = command;
 }
 
@@ -1442,7 +1442,7 @@ function CreateNewSpeech() {
     //Récupérer les notes dans la langue d'origine
     var txt = "";
     for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-        console.log('SlideText_'+lang_origin+'_img_'+num_slide);
+        // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
         txt += "------------- Slide "+num_slide+" -------------\n";
         txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
     }
@@ -1470,13 +1470,9 @@ function CreateNewPresentation() {
 
     //Récupérer les options
     var aspect_ratio = _("aspectratioEditAnim").value;
-    console.log(typeof aspect_ratio);
     var keep_ratio = _("keepaspectratioEditAnim").value;
     var extra_delay = _("extradelayEditAnim").value;
     var test_licence = _("licenceEditAnim").value;
-    // var test_licence = "test_licence";
-    console.log("Licence : " +test_licence);
-    console.log(typeof test_licence);
     
     //Récupérer les langues
     var tab_lang = [];
@@ -1521,7 +1517,7 @@ function CreateNewPresentation() {
             tab_text[i] += ']}';
         }
         tab_text[i] += ']';
-        console.log(tab_text[i]);
+        // console.log(tab_text[i]);
         i += 1;
     }
     formdata.append("newText", tab_text);
