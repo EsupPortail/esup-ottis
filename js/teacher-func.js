@@ -1022,8 +1022,8 @@ function followmouse(e) {
     document.getElementById("coord_y").innerHTML = pourcy;
 
     document.getElementById('mouse').style.display="inline";
-    document.getElementById('mouse').style.top=y+"px";
-	document.getElementById('mouse').style.left=x+"px";
+    document.getElementById('mouse').style.top=y_offset+"px";
+	document.getElementById('mouse').style.left=x_offset+"px";
 }
 
 // function showMouse() {
