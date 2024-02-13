@@ -1452,6 +1452,7 @@ function CreateNewSpeech() {
         txt += "------------- Slide "+num_slide+" -------------\n";
         txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
     }
+    txt = txt.replaceAll('"', '“');
 
     var name_file = "speech_"+lang_origin+".txt";
     DownloadFile(name_file, txt);
