@@ -1076,8 +1076,14 @@ function updateNotes(){
  */
 
 function addKeyword(keyword){
-    var notes = document.getElementById("speechArea").value;
-    document.getElementById("speechArea").value = notes + keyword;
+    // var notes = document.getElementById("speechArea").value;
+    // document.getElementById("speechArea").value = notes + keyword;
+
+    var cursorPos = $('#speechArea').prop('selectionStart');
+    var v = $('#speechArea').val();
+    var textBefore = v.substring(0,  cursorPos );
+    var textAfter  = v.substring( cursorPos, v.length );
+    $('#speechArea').val( textBefore+ keyword +textAfter );
 }
 
 /**
