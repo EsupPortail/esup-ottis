@@ -1083,7 +1083,11 @@ function addKeyword(keyword){
     var v = $('#speechArea').val();
     var textBefore = v.substring(0,  cursorPos );
     var textAfter  = v.substring( cursorPos, v.length );
-    $('#speechArea').val( textBefore+ "\n" + keyword +textAfter );
+    if (v.substring(cursorPos-1, cursorPos)==="\n"){
+        $('#speechArea').val( textBefore+ keyword +textAfter );
+    }else{
+        $('#speechArea').val( textBefore+ "\n" + keyword +textAfter );
+    }
 }
 
 /**
