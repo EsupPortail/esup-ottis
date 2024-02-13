@@ -232,36 +232,24 @@ function Init() {
 }
 
 function displayLanguage(){
-  var alllanguages = [];
   var options = document.getElementById("myLanguage").options;
-  for (let i = 0; i < options.length; i++) { 
-  	alllanguages[i] = options[i].value;
-  	//console.log(options[i].value);
+  var input_lang = = options[0].value;
+  for (let i = 1; i < options.length; i++) { 
+  	output_lang[i] = options[i].value;
   }
-  alllanguages[0] = alllanguages[0].toLowerCase();
-  console.log(alllanguages);
-  // var select = document.getElementById(selectelement);
-  // for(var i=0; i<supportedlanguages.length; i++) {
-  //     var lang=supportedlanguages[i].code; //.substr(0,5);
-  //       var opt_editanim=document.createElement("option");
-  //       opt.value=lang;
-  //       opt.innerHTML=lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
-  //       select.appendChild(opt);
-      
-  //   }
-  // let greaterElement = arr.findIndex(ele => ele > 50);
+
   for(var i=0; i<supportedlanguages.length; i++) {
-      var lang=supportedlanguages[i].code;
-      // console.log(supportedlanguages[i].code);
-      index_lang = alllanguages.indexOf(lang.toLowerCase());
-      if (index_lang === 0){
-        options[index_lang].text = "[INPUT LANGUAGE]" + lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
-      }else if (index_lang != -1){
-        console.log("Index : "+index_lang+"\n");
+    var lang=supportedlanguages[i].code;
+    if (lang===input_lang){
+      options[0].text = "[INPUT LANGUAGE] " + lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+    }else{
+      var index_lang_output = output_lang.indexOf(lang.toLowerCase());
+      if (index_lang_output != -1){
+        console.log("Index : "+index_lang_output+"\n");
         console.log(supportedlanguages[i].name_fr);
-        options[index_lang].text = lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
+        options[index_lang_output].text = lang+" "+supportedlanguages[i].name_fr+" "+supportedlanguages[i].name_vo;
       }
-  // console.log(supportedlanguages.code);
+    }
   }
 }
 
