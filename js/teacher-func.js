@@ -1511,6 +1511,8 @@ function CreateNewPresentation() {
             }
             var text = "";
             text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent.trim();
+            console.log(text);
+            // text = text.replaceAll('"')
             text = text.replaceAll('\r\n', '", "');
             text = text.replaceAll('\n', '", "');
             text = text.replaceAll('\r', '", "');
