@@ -982,7 +982,7 @@ function getMousePosition(){
     var img=document.getElementById(id_image);
     document.getElementById("mouse-position").innerHTML = '<p id="instruction">Click on the slide image to get the mouse coordinates.</p>'+
     '<p>X coordinate : <span id="coord_x"></span></p>'+ '<p>Y coordinate : <span id="coord_y"></span></p>';
-    img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
+    img.setAttribute('onmouseover','followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
 
     $( "#mouse-position" ).dialog({
         height: 'auto',
@@ -1022,8 +1022,8 @@ function followmouse(e) {
     document.getElementById("coord_y").innerHTML = pourcy;
 
     // document.getElementById('mouse').style.display="inline";
-    // document.getElementById('mouse').style.top=e.offsetY+"px";
-	// document.getElementById('mouse').style.left=e.offsetX+"px";
+    document.getElementById('mouse').style.top=e.offsetY+"px";
+	document.getElementById('mouse').style.left=e.offsetX+"px";
 }
 
 // function showMouse() {
