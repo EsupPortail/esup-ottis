@@ -935,11 +935,6 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div translate="no">
   <form id="Form12" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <!-- <label for="fileToUpload">Presentation in HTML: </label>
-    <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />    -->
-    <!-- <button style="display:none" type=button id="mouse" class="ui-button ui-widget ui-corner-all" onclick="">mouse</button>
-    <button style="display:none" type=button id="pause" class="ui-button ui-widget ui-corner-all" onclick="if (_('imageArea').innerHTML!='') {addParameters(this);} else {alert('You must select a slide first !');}">pause</i></button>
-    <button style="display:none" type=button id="notif" class="ui-button ui-widget ui-corner-all" onclick="">notification</i></button> -->
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
