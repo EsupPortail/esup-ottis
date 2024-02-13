@@ -234,6 +234,7 @@ function Init() {
 function displayLanguage(){
   var options = document.getElementById("myLanguage").options;
   var input_lang = options[0].value;
+  var output_lang = [];
   for (let i = 1; i < options.length; i++) { 
   	output_lang[i] = options[i].value;
   }
