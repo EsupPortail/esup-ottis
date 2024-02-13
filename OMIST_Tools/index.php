@@ -256,6 +256,7 @@ function displayLanguage(){
       if (index_lang != -1){
         console.log("Index : "+index_lang+"\n");
         console.log(supportedlanguages[i].name_fr);
+        options[index_lang].text = supportedlanguages[i].name_fr;
       }
   // console.log(supportedlanguages.code);
   }
