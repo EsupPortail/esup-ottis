@@ -252,7 +252,8 @@ function displayLanguage(){
   for(var i=0; i<supportedlanguages.length; i++) {
       var lang=supportedlanguages[i].code;
       // console.log(supportedlanguages[i].code);
-      if (alllanguages.includes(lang)){
+      index_lang = alllanguages.indexOf(lang.toLowerCase())
+      if (index_lang != -1){
         console.log(supportedlanguages[i].name_fr);
       }
   // console.log(supportedlanguages.code);
