@@ -1308,7 +1308,7 @@ function formateresponseTools(datatxt,editable=true) {
     currentPresentation = [];
     var res = '';
     var data = JSON.parse(datatxt);
-    //console.log(data);
+    console.log(data);
     
     var selectedLang = '';
 
