@@ -233,7 +233,7 @@ function Init() {
 
 function displayLanguage(){
   var options = document.getElementById("myLanguage").options;
-  var input_lang = = options[0].value;
+  var input_lang = options[0].value;
   for (let i = 1; i < options.length; i++) { 
   	output_lang[i] = options[i].value;
   }
