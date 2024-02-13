@@ -1021,9 +1021,9 @@ function followmouse(e) {
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
 
-    document.getElementById('mouse').style.display="inline";
-    document.getElementById('mouse').style.top=e.offsetY+"px";
-	document.getElementById('mouse').style.left=e.offsetX+"px";
+    // document.getElementById('mouse').style.display="inline";
+    // document.getElementById('mouse').style.top=e.offsetY+"px";
+	// document.getElementById('mouse').style.left=e.offsetX+"px";
 }
 
 // function showMouse() {
@@ -1363,7 +1363,7 @@ function formateresponseTools(datatxt,editable=true) {
 
 function completeHandlerTools(event,editable=false) {
     _("notebookcompleteformatted").innerHTML = formateresponseTools(event.target.responseText,editable);
-    //displayLanguage();
+    displayLanguage();
 }
 
 /**
