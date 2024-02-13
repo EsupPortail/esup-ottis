@@ -1015,9 +1015,15 @@ function followmouse(e) {
     var y_offset = e.offsetY;
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
+    var x=rect.width/pr+pourcx/100*c.width-5;
+	var y=rect.height/pr+pourcy/100*c.height-5;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
+
+    document.getElementById('mouse').style.display="inline";
+    document.getElementById('mouse').style.top=y+"px";
+	document.getElementById('mouse').style.left=x+"px";
 }
 
 // function showMouse() {

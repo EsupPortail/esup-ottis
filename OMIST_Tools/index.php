@@ -1004,6 +1004,7 @@ It's important to note that the resulting animation can serve as comprehensive i
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
+          <div id="mouse" style="display:none">+</div>
           <div id="imageArea"></div>
         </td>
       </tr>

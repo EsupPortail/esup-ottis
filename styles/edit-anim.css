@@ -133,3 +133,21 @@ li.dropdown {
 .dropdown-content a:hover {background-color: #f1f1f1}
 
 .show {display:block;}
+
+#mouse {
+  transform: scale(0);
+  transform-origin: center;
+  transition: 1s ease;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 10px;
+  height: 10px;
+  color: black;
+  font-size: 16px;
+  font-family: helvetica, arial, sans-serif;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 11000;
+  cursor: default;
+  }
