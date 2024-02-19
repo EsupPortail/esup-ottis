@@ -1115,6 +1115,8 @@ function addKeyword(keyword){
     let val = notes.split('\n');
     val.splice(line - 1, 1, keyword);
     var new_notes = val.join('\n');
+    console.log("\n New notes : \n");
+    console.log(new_notes);
 
     document.getElementById("speechArea").innerHTML = new_notes;
 
