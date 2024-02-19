@@ -1135,9 +1135,11 @@ function addAllLanguages(keyword){
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
             let line = document.getElementById('cursor-position').innerHTML;
             let val = notes.split('\n');
-            val.splice(line - 1, 1, 'new text');
+            val.splice(line - 1, 1, keyword);
             var new_notes = val.join('\n');
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+            console.log("\n Nouveau texte : \n");
+            console.log(document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent);
         }
     } else {
         var lang = _("myLanguage").value.trim();
