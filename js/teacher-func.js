@@ -1147,6 +1147,7 @@ function addAllLanguages(keyword){
             let val = notes.split('\n');
             val.splice(line - 1, 0, keyword);
             // var new_notes = val.join('\n');
+            val.join('\n');
             console.log("\n On ajoute : \n");
             console.log(val);
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = val;
