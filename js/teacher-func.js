@@ -1139,7 +1139,7 @@ function addKeyword(keyword){
     // console.log("\n New notes : \n");
     // console.log(new_notes);
 
-    // document.getElementById("speechArea").textContent = new_notes;
+    document.getElementById("speechArea").textContent = new_notes;
 
     console.log("\n Speech Area value : \n");
     console.log(document.getElementById("speechArea").value);
