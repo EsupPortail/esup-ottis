@@ -1010,10 +1010,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <div id="container" class="container">
-          <div id="line-numbers" class="container__lines"></div>
-          <textarea onchange="updateNotes(); addLinesTextArea();" class="container__textarea" id="speechArea"></textarea>
-        </div>
+        <textarea onchange="updateNotes()" id="speechArea"></textarea>
       </td>
       </tr>
     </table>
