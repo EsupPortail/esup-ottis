@@ -942,7 +942,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {alert("You must provide a file first !");}'>Pause</a>
         <div class="dropdown-content" id="dropPause">
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]\n');} else {alert('You must select a slide first !');}">Pause animation</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {alert('You must select a slide first !');}">Pause animation</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {alert('You must select a slide first !');}">Pause for n milliseconds</a>
         </div>
       </li>
@@ -1010,7 +1010,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <textarea onchange="updateNotes()" onkeyup="getLineNumber(this);" onmouseup="this.onkeyup();" id="speechArea"></textarea>
+        <textarea onchange="updateNotes()" id="speechArea"></textarea>
       </td>
       </tr>
     </table>
