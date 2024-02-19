@@ -1116,6 +1116,8 @@ function addKeyword(keyword){
     val.splice(line - 1, 1, keyword);
     var new_notes = val.join('\n');
 
+    document.getElementById("speechArea").value = new_notes;
+
     console.log("\n Speech Area value : \n");
     console.log(document.getElementById("speechArea").value);
 }
