@@ -1096,6 +1096,7 @@ function addKeyword(keyword){
     var cursorPos = $('#speechArea').prop('selectionStart');
     console.log('\n LIGNE : \n');
     console.log($('#speechArea').prop('rows'));
+    document.getElementById('cursor-position').innerHTML = $('#speechArea').prop('rows');
     // ta.onclick = function (e) {
     //     var lineNo = ta.value.substr(0, ta.selectionStart).split(/\r?\n|\r/).length;
     //     var lineText = ta.value.split(/\r?\n|\r/)[lineNo - 1];
@@ -1132,7 +1133,11 @@ function addAllLanguages(keyword){
         }
         for (let key in tab_lang){
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = notes + keyword;
+            let line = document.getElementById('cursor-position').innerHTML;
+            let val = notes.split('\n');
+            val.splice(line - 1, 1, 'new text');
+            var new_notes = val.join('\n');
+            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
         }
     } else {
         var lang = _("myLanguage").value.trim();
