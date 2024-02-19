@@ -1012,7 +1012,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <div style="text-align:center" id="speechLanguage"></div>
         <div id="container" class="container">
           <div id="line-numbers" class="container__lines"></div>
-          <textarea onchange="updateNotes()" class="container__textarea id="speechArea"></textarea>
+          <textarea onchange="updateNotes()" class="container__textarea" id="speechArea"></textarea>
         </div>
       </td>
       </tr>
