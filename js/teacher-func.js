@@ -1119,7 +1119,9 @@ function addKeyword(keyword){
     val_notes.splice(line, 0, keyword);
     // var new_notes = val.join('\n');
     var new_notes = val_notes.join('\n');
-    $('speechArea').val(val_notes.join('\n'));
+    console.log("\n New Notes : \n");
+    console.log(new_notes);
+    // $('speechArea').val(val_notes.join('\n'));
 
     // let line = document.getElementById('cursor-position').innerHTML;
     // var notes = document.getElementById('speechArea').innerHTML;
