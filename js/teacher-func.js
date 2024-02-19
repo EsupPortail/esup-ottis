@@ -1090,29 +1090,10 @@ function updateNotes(lang){
  */
 
 function addKeyword(keyword){
-    // var notes = document.getElementById("speechArea").value;
-    // document.getElementById("speechArea").value = notes + keyword;
     let textarea = document.getElementById('speechArea');
     var cursorPos = $('#speechArea').prop('selectionStart');
 
-    // document.getElementById('cursor-position').innerHTML = document.getElementById('speechArea').value.substr(0, textarea.selectionStart).split("\n").length);
-    console.log('\n LIGNE : \n');
-    console.log(textarea.value.substr(0, textarea.selectionStart).split("\n").length);
-    // console.log($('#speechArea').prop('selectionStart'));
     document.getElementById('cursor-position').innerHTML = textarea.value.substr(0, textarea.selectionStart).split("\n").length;
-    // ta.onclick = function (e) {
-    //     var lineNo = ta.value.substr(0, ta.selectionStart).split(/\r?\n|\r/).length;
-    //     var lineText = ta.value.split(/\r?\n|\r/)[lineNo - 1];
-    //     console.log(lineNo, lineText);
-    // }
-    // var v = $('#speechArea').val();
-    // var textBefore = v.substring(0,  cursorPos );
-    // var textAfter  = v.substring( cursorPos, v.length );
-    // if (v.substring(cursorPos-1, cursorPos)==="\n"){
-    //     $('#speechArea').val( textBefore+ keyword +textAfter );
-    // }else{
-    //     $('#speechArea').val( textBefore+ "\n" + keyword +textAfter );
-    // }
 
     let line = document.getElementById('cursor-position').innerHTML;
     var notes = document.getElementById('speechArea').value;
@@ -1120,24 +1101,8 @@ function addKeyword(keyword){
     console.log(notes);
     let val_notes = notes.split('\n');
     val_notes.splice(line, 0, keyword);
-    // var new_notes = val.join('\n');
     var new_notes = val_notes.join('\n');
-    console.log("\n New Notes : \n");
-    console.log(new_notes);
-    // $('speechArea').val(val_notes.join('\n'));
-
-    // let line = document.getElementById('cursor-position').innerHTML;
-    // var notes = document.getElementById('speechArea').innerHTML;
-    // let val = notes.split('\n');
-    // val.splice(line - 1, 1, keyword);
-    // var new_notes = val.join('\n');
-    // console.log("\n New notes : \n");
-    // console.log(new_notes);
-
     document.getElementById("speechArea").value = new_notes;
-
-    console.log("\n Speech Area value : \n");
-    console.log(document.getElementById("speechArea").value);
 }
 
 /**
@@ -1162,7 +1127,6 @@ function addAllLanguages(keyword){
             let line = document.getElementById('cursor-position').innerHTML;
             let val_notes = notes.split('\n');
             val_notes.splice(line, 0, keyword);
-            // var new_notes = val.join('\n');
             var new_notes = val_notes.join('\n');
             $('speechArea').val(val_notes.join('\n'));
             console.log("\n On ajoute : \n");
