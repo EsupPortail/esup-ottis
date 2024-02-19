@@ -1146,10 +1146,10 @@ function addAllLanguages(keyword){
             let line = document.getElementById('cursor-position').innerHTML;
             let val = notes.split('\n');
             val.splice(line - 1, 0, keyword);
-            var new_notes = val.join('\n');
+            // var new_notes = val.join('\n');
             console.log("\n On ajoute : \n");
-            console.log(new_notes);
-            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+            console.log(val);
+            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = val;
             console.log("\n Nouveau texte : \n");
             console.log(document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent);
         }
