@@ -1099,8 +1099,11 @@ function addKeyword(keyword){
     // document.getElementById("speechArea").value = notes + keyword;
 
     var cursorPos = $('#speechArea').prop('selectionStart');
+
+    // console.log(textarea.value.substr(0, textarea.selectionStart).split("\n").length);
     console.log('\n LIGNE : \n');
-    console.log($('#speechArea').prop('selectionStart'));
+    console.log(document.getElementById('speechArea').value.substr(0, textarea.selectionStart).split("\n").length);
+    // console.log($('#speechArea').prop('selectionStart'));
     document.getElementById('cursor-position').innerHTML = $('#speechArea').prop('rows');
     // ta.onclick = function (e) {
     //     var lineNo = ta.value.substr(0, ta.selectionStart).split(/\r?\n|\r/).length;
