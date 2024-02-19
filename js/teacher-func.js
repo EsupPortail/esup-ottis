@@ -1097,14 +1097,14 @@ function getLineNumber(textarea) {
 function addKeyword(keyword){
     // var notes = document.getElementById("speechArea").value;
     // document.getElementById("speechArea").value = notes + keyword;
-
+    let textarea = document.getElementById('speechArea');
     var cursorPos = $('#speechArea').prop('selectionStart');
 
-    // console.log(textarea.value.substr(0, textarea.selectionStart).split("\n").length);
+    // document.getElementById('cursor-position').innerHTML = document.getElementById('speechArea').value.substr(0, textarea.selectionStart).split("\n").length);
     console.log('\n LIGNE : \n');
-    console.log(document.getElementById('speechArea').value.substr(0, textarea.selectionStart).split("\n").length);
+    console.log(textarea.value.substr(0, textarea.selectionStart).split("\n").length);
     // console.log($('#speechArea').prop('selectionStart'));
-    document.getElementById('cursor-position').innerHTML = $('#speechArea').prop('rows');
+    // document.getElementById('cursor-position').innerHTML = $('#speechArea').prop('rows');
     // ta.onclick = function (e) {
     //     var lineNo = ta.value.substr(0, ta.selectionStart).split(/\r?\n|\r/).length;
     //     var lineText = ta.value.split(/\r?\n|\r/)[lineNo - 1];
