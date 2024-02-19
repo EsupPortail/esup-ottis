@@ -1104,7 +1104,7 @@ function addKeyword(keyword){
     console.log('\n LIGNE : \n');
     console.log(textarea.value.substr(0, textarea.selectionStart).split("\n").length);
     // console.log($('#speechArea').prop('selectionStart'));
-    // document.getElementById('cursor-position').innerHTML = $('#speechArea').prop('rows');
+    document.getElementById('cursor-position').innerHTML = textarea.value.substr(0, textarea.selectionStart).split("\n").length;
     // ta.onclick = function (e) {
     //     var lineNo = ta.value.substr(0, ta.selectionStart).split(/\r?\n|\r/).length;
     //     var lineText = ta.value.split(/\r?\n|\r/)[lineNo - 1];
