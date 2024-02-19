@@ -1112,7 +1112,7 @@ function addKeyword(keyword){
     // }
 
     let line = document.getElementById('cursor-position').innerHTML;
-    var notes = document.getElementById('speechArea').innerHTML;
+    var notes = document.getElementById('speechArea').value;
     console.log('\n speech area : \n');
     console.log(notes);
     let val_notes = notes.split('\n');
