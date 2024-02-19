@@ -1080,6 +1080,7 @@ function updateNotes(){
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
+    console.log("\n Slide Text : \n");
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
@@ -1101,6 +1102,8 @@ function addKeyword(keyword){
     }else{
         $('#speechArea').val( textBefore+ "\n" + keyword +textAfter );
     }
+    console.log("\n Speech Area value : \n");
+    console.log(document.getElementById("speechArea").value);
 }
 
 /**
