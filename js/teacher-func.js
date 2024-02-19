@@ -1102,14 +1102,20 @@ function addKeyword(keyword){
     //     var lineText = ta.value.split(/\r?\n|\r/)[lineNo - 1];
     //     console.log(lineNo, lineText);
     // }
-    var v = $('#speechArea').val();
-    var textBefore = v.substring(0,  cursorPos );
-    var textAfter  = v.substring( cursorPos, v.length );
-    if (v.substring(cursorPos-1, cursorPos)==="\n"){
-        $('#speechArea').val( textBefore+ keyword +textAfter );
-    }else{
-        $('#speechArea').val( textBefore+ "\n" + keyword +textAfter );
-    }
+    // var v = $('#speechArea').val();
+    // var textBefore = v.substring(0,  cursorPos );
+    // var textAfter  = v.substring( cursorPos, v.length );
+    // if (v.substring(cursorPos-1, cursorPos)==="\n"){
+    //     $('#speechArea').val( textBefore+ keyword +textAfter );
+    // }else{
+    //     $('#speechArea').val( textBefore+ "\n" + keyword +textAfter );
+    // }
+    let line = document.getElementById('cursor-position').innerHTML;
+    var notes = document.getElementById('speechArea').innerHTML;
+    let val = notes.split('\n');
+    val.splice(line - 1, 1, keyword);
+    var new_notes = val.join('\n');
+
     console.log("\n Speech Area value : \n");
     console.log(document.getElementById("speechArea").value);
 }
