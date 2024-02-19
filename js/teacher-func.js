@@ -1084,6 +1084,11 @@ function updateNotes(lang){
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
+function getLineNumber(textarea) {
+    console.log(textarea.value.substr(0, textarea.selectionStart).split("\n").length);
+}
+
+
 /**
  * @summary The function that is executed for adding a keyword to the displayed notes with the animation editor.
  * 
