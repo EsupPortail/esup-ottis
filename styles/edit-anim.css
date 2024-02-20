@@ -134,7 +134,7 @@ li.dropdown {
 
 .show {display:block;}
 
-#mouse {
+#showMouseSize {
   transform: scale(0);
   transform-origin: center;
   transition: 1s ease;
