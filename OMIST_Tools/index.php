@@ -1069,6 +1069,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </div>
     <div id="commandKeyword" style="display: none;"></div>
     <div id="cursor-position" style="display: none;"></div>
+    <div id="mouse-shape" style="display: none;">+</div>
     <div id="keywordParameter" title="Parameter :"></div>
     <div id="dialog-ratio" style="display: none;">
       <label for="aspectratioEditAnim">Aspect ratio : </label>
