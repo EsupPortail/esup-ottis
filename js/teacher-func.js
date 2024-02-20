@@ -1227,6 +1227,7 @@ function addParameters(keywordToAdd){
         height: 'auto',
         width: 'auto',
         minWidth : 250,
+        minHeight : 215,
         modal: true,
         buttons: {
           OK: function() {

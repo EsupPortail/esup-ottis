@@ -135,11 +135,11 @@ li.dropdown {
 .show {display:block;}
 
 #showMouseSize {
-  transform: scale(0);
+  transform: scale(1);
   transform-origin: center;
   transition: 1s ease;
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
   width: 10px;
   height: 10px;
