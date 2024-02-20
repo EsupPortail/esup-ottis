@@ -1199,6 +1199,12 @@ function displayMouseSize(mousesize){
     document.getElementById("showMouseSize").style.transform='scale('+mousesize+') rotate(0deg)';
 }
 
+function getValue(){
+    var text = document.getElementById('mouse-shape').innerHTML;
+    var optionsShape = document.getElementById('mouse-shape')
+
+}
+
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
  * 
