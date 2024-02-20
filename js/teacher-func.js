@@ -1189,6 +1189,11 @@ function closeDropdown(id_select){
     }
 }
 
+function displayMouseSize(mousesize){
+    // var mousesize = document.getElementById("mouseSize").value;
+    document.getElementById("showMouseSize").style.transform='scale('+mousesize+') rotate(0deg)';
+}
+
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
  * 
@@ -1201,8 +1206,8 @@ function addParameters(keywordToAdd){
         document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait toReplace]\', document.getElementById(\'timeWait\').value);" type="number" style="width:5em" min="0" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="[mouse size toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse size 1]\n"
-        document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:100px" value="1" min="1" max="8" step="1" oninput="sizeOutputId.value = mouseSize.value; showMouseSize.innerHTML = mouseSize.value;" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>'+
-        '<div id="showMouseSize"></div>';
+        document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:100px" value="1" min="1" max="8" step="1" oninput="sizeOutputId.value = mouseSize.value; displayMouseSize(mouseSize.value);" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>'+
+        '<div id="showMouseSize">+</div>';
     }else if(keywordToAdd=="[mouse shape toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value);" id="mouseShape"'+
