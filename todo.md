@@ -33,6 +33,7 @@ _**(attendre d'avoir Linux sur la machine)**_
     - [ ] Faire un affichage de la taille du curseur lors du choix;
     - [ ] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation;
     - [ ] Vérifier les formes du curseur sur les différents navigateurs (pas tous les mêmes sur Edge ?);
+    - [ ] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
 
 5) J'ai essayé de mettre en place une sorte de système de scénario tout fait pour faciliter la prise en main. J'ai donc ajouté quelques fonctionnalités accessibles via l'adresse (fournir un lien uncloud du PPTX ou du .HTML, accéder directement à un onglet,....). ça se trouve ici : [https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/scenarios.php].
 
