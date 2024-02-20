@@ -151,3 +151,7 @@ li.dropdown {
   z-index: 11000;
   cursor: default;
   }
+
+input[type="range"] {
+  width:100px;
+}
