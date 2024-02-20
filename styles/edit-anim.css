@@ -152,6 +152,6 @@ li.dropdown {
   cursor: default;
   }
 
-/* input[type="range"] {
-  width:400px;
-} */
+input[type="range"] {
+  width:100px;
+}

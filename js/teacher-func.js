@@ -1220,7 +1220,7 @@ function addParameters(keywordToAdd){
     $( "#keywordParameter" ).dialog({
         height: 'auto',
         width: 'auto',
-        minWidth : 200,
+        minWidth : 250,
         modal: true,
         buttons: {
           OK: function() {
