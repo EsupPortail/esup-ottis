@@ -1,10 +1,12 @@
-<html>
-    <head></head>
-    <body>
-    <?php
-    if (isset($_GET["file"])) {
-    echo "<img src=\"".$_GET["file"]."#toolbar=0\" width=\"100%\" height=\"500px\"/> ";
-    }
-    ?>
-    </body>
-</html>
+<?php
+if (isset($_GET["file"])) {
+$file = $_GET["file"];
+$filename = 'inline.pdf';
+header('Content-type: application/pdf');
+header('Content-Disposition: inline; filename="' . $filename . '"');
+header('Content-Transfer-Encoding: binary');
+header('Content-Length: ' . filesize($file));
+header('Accept-Ranges: bytes');
+@readfile($file);
+}
+?>
