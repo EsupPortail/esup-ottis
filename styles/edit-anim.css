@@ -139,6 +139,7 @@ li.dropdown {
   transform-origin: center;
   transition: 1s ease;
   position: absolute;
+  top: 50%;
   left: 50%;
   width: 10px;
   height: 10px;

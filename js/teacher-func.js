@@ -1207,7 +1207,7 @@ function addParameters(keywordToAdd){
     }else if(keywordToAdd=="[mouse size toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse size 1]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:100px" value="1" min="1" max="10" step="1" oninput="sizeOutputId.value = mouseSize.value; displayMouseSize(mouseSize.value);" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>'+
-        '<div id="showMouseSize">+</div>';
+        '<textarea id="showMouseSize" readonly >+</textarea>';
     }else if(keywordToAdd=="[mouse shape toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value);" id="mouseShape"'+
