@@ -1201,7 +1201,7 @@ function addParameters(keywordToAdd){
         document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait toReplace]\', document.getElementById(\'timeWait\').value);" type="number" style="width:5em" min="0" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="[mouse size toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse size 1]\n"
-        document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:2em" value="1" min="1" max="8" step="1" oninput="sizeOutputId.value = mouseSize.value" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>';
+        document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:100px" value="1" min="1" max="8" step="1" oninput="sizeOutputId.value = mouseSize.value" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>';
     }else if(keywordToAdd=="[mouse shape toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value);" id="mouseShape"'+
