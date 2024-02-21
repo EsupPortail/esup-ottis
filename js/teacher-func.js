@@ -1228,7 +1228,7 @@ function addParameters(keywordToAdd){
         document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value); getText()" id="mouseShape"'+
         '<option value="0">+</option><option value="1">X</option><option value="2">☝</option><option value="3">○</option><option value="4">⚫</option><option value="5">↖</option></select></div>';
-        getValue();
+        // getValue();
     }else if(keywordToAdd=="[mouse go px py]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse go 0 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
