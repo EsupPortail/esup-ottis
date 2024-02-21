@@ -1027,7 +1027,7 @@ function followmouse(e) {
     document.getElementById("coord_y").innerHTML = pourcy;
 
     showMouse();
-	document.getElementById('mouse').style.top=y+"px";
+	document.getElementById('mouse').style.top="100px";
 	document.getElementById('mouse').style.left=x+"px";
 
     // document.getElementById('mouse').style.display="inline";
