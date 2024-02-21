@@ -996,11 +996,13 @@ function getMousePosition(){
             var coord_x = document.getElementById("coord_x").innerHTML;
             console.log("\n coord_x : \n");
             console.log(coord_x);
-            myString = coord_x.replace(/\D/g,'');
-            console.log("\n Sans les balises : \n");
-            console.log(myString);
+            var coord_x_clean = coord_x.replace(/\D/g,'');
+            // console.log("\n Sans les balises : \n");
+            // console.log(myString);
             var coord_y = document.getElementById("coord_y").innerHTML;
-            updateCommand('[mouse go toReplace]', coord_x+" "+coord_y);
+            console.log(coord_y);
+            var coord_y_clean = coord_y.replace(/\D/g,'');
+            updateCommand('[mouse go toReplace]', coord_x_clean+" "+coord_y_clean);
             addAllLanguages(document.getElementById("commandKeyword").innerHTML);
           }
         }
