@@ -1203,10 +1203,10 @@ function getValue(){
     var text = document.getElementById('mouse-shape').innerHTML;
     for (i=0; i<6; i++){
         console.log(document.getElementById("mouseShape")[i].text);
-        // if (text===document.getElementById("mouseShape")[i].text){
-        // 	let element = document.getElementById("mouseShape");
-    	// 	element.value = i;
-        // }
+        if (text===document.getElementById("mouseShape")[i].text){
+        	let element = document.getElementById("mouseShape");
+    		element.value = i;
+        }
     }
 }
 
