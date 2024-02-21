@@ -996,6 +996,9 @@ function getMousePosition(){
             var coord_x = document.getElementById("coord_x").innerHTML;
             console.log("\n coord_x : \n");
             console.log(coord_x);
+            myString = coord_x.replace(/\D/g,'');
+            console.log("\n Sans les balises : \n");
+            console.log(myString);
             var coord_y = document.getElementById("coord_y").innerHTML;
             updateCommand('[mouse go toReplace]', coord_x+" "+coord_y);
             addAllLanguages(document.getElementById("commandKeyword").innerHTML);
@@ -1123,9 +1126,6 @@ function addKeyword(keyword){
 
 function addAllLanguages(keyword){
     console.log(keyword);
-    myString = keyword.replace(/\D/g,'');
-    console.log("\n Sans les balises : \n");
-    console.log(myString);
     let text = "Add action to all languages ? \nClick on \"OK\" to add to all languages or click on \"Cancel\" to add only to the selected language.";
     if (confirm(text) == true) {
         addKeyword(keyword);
