@@ -30,8 +30,8 @@ _**(attendre d'avoir Linux sur la machine)**_
 
 - [ ] Créer un outil d'édition des animations. La première phase va correspondre à reprendre un peu ce qu'on a déjà dans l'application enseignante et dans ExtractSlidesNotesAppHTML.php, pour charger une application dans un editeur minimaliste (les discours dans des textarea), et générer une application avec les modifications. Ceci uniquement pour voir la faisabilité de la chose. 
     - [ ] Supprimer les vertical tab (VT) des speechs;
-    - [ ] Faire un affichage de la taille du curseur lors du choix;
-    - [ ] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation;
+    - [X] Faire un affichage de la taille du curseur lors du choix; _**(UPDATE : affichage  du curseur "+" pour avoir un ordre d'idée. Ce n'est n'est pas la forme du curseur sélectionné par l'utilisateur qui est affiché.)**_
+    - [ ] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation; 
     - [ ] Vérifier les formes du curseur sur les différents navigateurs (pas tous les mêmes sur Edge ?);
     - [ ] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
     - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
