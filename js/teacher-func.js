@@ -1013,6 +1013,9 @@ function followmouse(e) {
     let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
 
+    console.log("e.offset : \n");
+    console.log(e.offsetX);
+
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
@@ -1021,7 +1024,6 @@ function followmouse(e) {
 	var y=rect.height/pr+pourcy/100*c.height-5;
 
     document.getElementById("coord_x").innerHTML = pourcx;
-    console.log(pourcx);
     document.getElementById("coord_y").innerHTML = pourcy;
     showMouse();
 	//document.getElementById('mouse').style.top=y+"px";
