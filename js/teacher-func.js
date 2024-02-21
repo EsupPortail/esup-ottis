@@ -1123,6 +1123,9 @@ function addKeyword(keyword){
 
 function addAllLanguages(keyword){
     console.log(keyword);
+    myString = keyword.replace(/\D/g,'');
+    console.log("\n Sans les balises : \n");
+    console.log(myString);
     let text = "Add action to all languages ? \nClick on \"OK\" to add to all languages or click on \"Cancel\" to add only to the selected language.";
     if (confirm(text) == true) {
         addKeyword(keyword);
