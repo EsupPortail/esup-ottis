@@ -386,7 +386,7 @@ body {
           &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", aussi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
         </p>
       </div>
-      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNN');">Y aller</button>
+      <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNY');">Y aller</button>
     </div>
   </li>
   <li class="cards__item">
