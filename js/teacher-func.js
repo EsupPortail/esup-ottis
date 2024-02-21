@@ -1021,6 +1021,7 @@ function followmouse(e) {
 	var y=rect.height/pr+pourcy/100*c.height-5;
 
     document.getElementById("coord_x").innerHTML = pourcx;
+    console.log(pourcx);
     document.getElementById("coord_y").innerHTML = pourcy;
     showMouse();
 	//document.getElementById('mouse').style.top=y+"px";
