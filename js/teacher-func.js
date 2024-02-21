@@ -994,13 +994,8 @@ function getMousePosition(){
           OK: function() {
             $( this ).dialog( "close" );
             var coord_x = document.getElementById("coord_x").innerHTML;
-            console.log("\n coord_x : \n");
-            console.log(coord_x);
             var coord_x_clean = coord_x.replace(/\D/g,'');
-            // console.log("\n Sans les balises : \n");
-            // console.log(myString);
             var coord_y = document.getElementById("coord_y").innerHTML;
-            console.log(coord_y);
             var coord_y_clean = coord_y.replace(/\D/g,'');
             updateCommand('[mouse go toReplace]', coord_x_clean+" "+coord_y_clean);
             addAllLanguages(document.getElementById("commandKeyword").innerHTML);
@@ -1020,24 +1015,17 @@ function followmouse(e) {
     let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
 
-    console.log("\n e.offsetX : \n");
-    console.log(e.offsetX);
-
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
-    console.log("\n pourcx : \n");
-    console.log(pourcx);
-    console.log("\n rect.width : \n");
-    console.log(rect.width);
+
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
     var x=rect.width/pr+pourcx/100*c.width-5;
 	var y=rect.height/pr+pourcy/100*c.height-5;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
-    console.log("\n coord_x.innerHTML : \n");
-    console.log(document.getElementById("coord_x").innerHTML);
+
     // showMouse();
 	//document.getElementById('mouse').style.top=y+"px";
 	//document.getElementById('mouse').style.left=x+"px";
@@ -1113,8 +1101,6 @@ function addKeyword(keyword){
 
     let line = document.getElementById('cursor-position').innerHTML;
     var notes = document.getElementById('speechArea').value;
-    // console.log('\n speech area : \n');
-    // console.log(notes);
     let val_notes = notes.split('\n');
     val_notes.splice(line, 0, keyword);
     var new_notes = val_notes.join('\n');
@@ -1145,11 +1131,7 @@ function addAllLanguages(keyword){
             val_notes.splice(line, 0, keyword);
             var new_notes = val_notes.join('\n');
             $('speechArea').val(val_notes.join('\n'));
-            // console.log("\n On ajoute : \n");
-            // console.log(val_notes);
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
-            // console.log("\n Nouveau texte : \n");
-            // console.log(document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent);
         }
     } else {
         var lang = _("myLanguage").value.trim();
@@ -1204,27 +1186,27 @@ function closeDropdown(id_select){
       }
     }
 }
-function getText() {
-    const selectedIndex = document.getElementById('mouseShape').selectedIndex;
-    const selectedOption = document.getElementById('mouseShape').options[selectedIndex].text;
-    document.getElementById('mouse-shape').innerHTML=selectedOption;
-}
+// function getText() {
+//     const selectedIndex = document.getElementById('mouseShape').selectedIndex;
+//     const selectedOption = document.getElementById('mouseShape').options[selectedIndex].text;
+//     document.getElementById('mouse-shape').innerHTML=selectedOption;
+// }
 
 function displayMouseSize(mousesize){
     // var mousesize = document.getElementById("mouseSize").value;
     document.getElementById("showMouseSize").style.transform='scale('+mousesize+') rotate(0deg)';
 }
 
-function getValue(){
-    var text = document.getElementById('mouse-shape').innerHTML;
-    for (i=0; i<6; i++){
-        console.log(document.getElementById("mouseShape")[i].text);
-        if (text===document.getElementById("mouseShape")[i].text){
-        	let element = document.getElementById("mouseShape");
-    		element.value = i;
-        }
-    }
-}
+// function getValue(){
+//     var text = document.getElementById('mouse-shape').innerHTML;
+//     for (i=0; i<6; i++){
+//         console.log(document.getElementById("mouseShape")[i].text);
+//         if (text===document.getElementById("mouseShape")[i].text){
+//         	let element = document.getElementById("mouseShape");
+//     		element.value = i;
+//         }
+//     }
+// }
 
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
