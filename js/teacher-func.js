@@ -1026,11 +1026,9 @@ function followmouse(e) {
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
 
-    // showMouse();
-	//document.getElementById('mouse').style.top=y+"px";
-	//document.getElementById('mouse').style.left=x+"px";
-	// document.getElementById('mouse').style.top=y+"px";
-	// document.getElementById('mouse').style.left=x+"px";
+    showMouse();
+	document.getElementById('mouse').style.top=y+"px";
+	document.getElementById('mouse').style.left=x+"px";
 
     // document.getElementById('mouse').style.display="inline";
     // document.getElementById('mouse').style.top=e.offsetY+"px";
