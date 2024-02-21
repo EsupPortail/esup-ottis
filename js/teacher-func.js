@@ -1013,19 +1013,23 @@ function followmouse(e) {
     let rect = c.getBoundingClientRect();
     var pr=getDevicePixelRatio();
 
-    console.log("e.offset : \n");
+    console.log("\n e.offsetX : \n");
     console.log(e.offsetX);
 
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
+    console.log("\n pourcx : \n");
+    console.log(pourcx);
+    console.log("\n rect.width : \n");
+    console.log(rect.width);
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
     var x=rect.width/pr+pourcx/100*c.width-5;
 	var y=rect.height/pr+pourcy/100*c.height-5;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
-    showMouse();
+    // showMouse();
 	//document.getElementById('mouse').style.top=y+"px";
 	//document.getElementById('mouse').style.left=x+"px";
 	document.getElementById('mouse').style.top=y+"px";
@@ -1100,8 +1104,8 @@ function addKeyword(keyword){
 
     let line = document.getElementById('cursor-position').innerHTML;
     var notes = document.getElementById('speechArea').value;
-    console.log('\n speech area : \n');
-    console.log(notes);
+    // console.log('\n speech area : \n');
+    // console.log(notes);
     let val_notes = notes.split('\n');
     val_notes.splice(line, 0, keyword);
     var new_notes = val_notes.join('\n');
@@ -1132,11 +1136,11 @@ function addAllLanguages(keyword){
             val_notes.splice(line, 0, keyword);
             var new_notes = val_notes.join('\n');
             $('speechArea').val(val_notes.join('\n'));
-            console.log("\n On ajoute : \n");
-            console.log(val_notes);
+            // console.log("\n On ajoute : \n");
+            // console.log(val_notes);
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
-            console.log("\n Nouveau texte : \n");
-            console.log(document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent);
+            // console.log("\n Nouveau texte : \n");
+            // console.log(document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent);
         }
     } else {
         var lang = _("myLanguage").value.trim();
