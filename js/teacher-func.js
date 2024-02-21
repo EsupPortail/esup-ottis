@@ -1226,9 +1226,12 @@ function addParameters(keywordToAdd){
         '<br><div id="showMouseSize">+</div></div>';
         document.getElementById("showMouseSize").innerHTML = document.getElementById("mouse-shape").innerHTML;
     }else if(keywordToAdd=="[mouse shape toReplace]"){
-        // document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
+        document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value); getText()" id="mouseShape">'+
         '<option value="0">+</option><option value="1">X</option><option value="2">☝</option><option value="3">○</option><option value="4">⚫</option><option value="5">↖</option></select></div>';
+        var selectElement = document.querySelector('#mouseShape');
+        document.getElementById("commandKeyword").innerHTML = "[mouse shape "+selectElement.value+"]\n";
+        console.log("[mouse shape "+selectElement.value+"]\n");
         getValue();
     }else if(keywordToAdd=="[mouse go px py]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse go 0 0]\n"
