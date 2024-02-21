@@ -1032,8 +1032,8 @@ function followmouse(e) {
     // showMouse();
 	//document.getElementById('mouse').style.top=y+"px";
 	//document.getElementById('mouse').style.left=x+"px";
-	document.getElementById('mouse').style.top=y+"px";
-	document.getElementById('mouse').style.left=x+"px";
+	// document.getElementById('mouse').style.top=y+"px";
+	// document.getElementById('mouse').style.left=x+"px";
 
     // document.getElementById('mouse').style.display="inline";
     // document.getElementById('mouse').style.top=e.offsetY+"px";
