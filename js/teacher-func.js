@@ -994,6 +994,8 @@ function getMousePosition(){
           OK: function() {
             $( this ).dialog( "close" );
             var coord_x = document.getElementById("coord_x").innerHTML;
+            console.log("\n coord_x : \n");
+            console.log(coord_x);
             var coord_y = document.getElementById("coord_y").innerHTML;
             updateCommand('[mouse go toReplace]', coord_x+" "+coord_y);
             addAllLanguages(document.getElementById("commandKeyword").innerHTML);
@@ -1029,6 +1031,8 @@ function followmouse(e) {
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
+    console.log("\n coord_x.innerHTML : \n");
+    console.log(document.getElementById("coord_x").innerHTML);
     // showMouse();
 	//document.getElementById('mouse').style.top=y+"px";
 	//document.getElementById('mouse').style.left=x+"px";
