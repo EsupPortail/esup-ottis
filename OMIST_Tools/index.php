@@ -931,7 +931,6 @@ It's important to note that the resulting animation can serve as comprehensive i
     </form>
     </div>
 </div>
-<div id="mouse" hidden>+</div>
 <div id="tool12">
   <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div translate="no">
@@ -1000,6 +999,7 @@ It's important to note that the resulting animation can serve as comprehensive i
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
+          <div id="mouse" hidden>+</div>
             <!-- <div id="DEBUG" style="position: fixed; top: 0px; left: 0px; background-color: white;">
             <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('imageArea').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('imageArea').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span> -->
             <!-- </div> -->

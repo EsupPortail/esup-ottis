@@ -1023,6 +1023,8 @@ function followmouse(e) {
 
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
+    console.log("\n coordonnées offset : \n");
+    console.log(x_offset +" "+ y_offset);
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
     // var x=rect.left/pr+pourcx/100*rect.width;
