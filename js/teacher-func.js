@@ -1066,6 +1066,10 @@ function followmouse(e) {
     console.log("\n position image : \n");
     console.log(rect.left +" "+ rect.top);
 
+    console.log("\n header : \n");
+    console.log(document.getElementsByTagName("head").offsetHeight);
+
+
     // document.getElementById('mouse').style.display="inline";
     // document.getElementById('mouse').style.top=e.offsetY+"px";
 	// document.getElementById('mouse').style.left=e.offsetX+"px";
