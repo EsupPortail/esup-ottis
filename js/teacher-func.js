@@ -1051,7 +1051,7 @@ function followmouse(e) {
     console.log("\n position image area : \n");
     console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
 
-    var tabs_top = document.getElementById("tabs").offsetTop;
+    var tabs_top = document.getElementById("menu").offsetTop;
     let x = e.pageX;
     let y = e.pageY-tabs_top;
 
@@ -1076,7 +1076,7 @@ function followmouse(e) {
     console.log(element);
 
     console.log("\n tabs \n");
-    var tabs_top = document.getElementById("tabs").offsetTop;
+    // var tabs_top = document.getElementById("tabs").offsetTop;
     console.log(tabs_top);
 
 
