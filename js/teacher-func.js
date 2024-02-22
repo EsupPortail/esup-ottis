@@ -1034,12 +1034,14 @@ function followmouse(e) {
 
     showMouse();
     document.getElementById('mouse').removeAttribute("hidden"); 
-	document.getElementById('mouse').style.top=y+"px"
-	document.getElementById('mouse').style.left=x+"px";
+	// document.getElementById('mouse').style.top=y+"px"
+	// document.getElementById('mouse').style.left=x+"px";
 
     // document.getElementById('mouse').style.display="inline";
-    // document.getElementById('mouse').style.top=e.offsetY+"px";
-	// document.getElementById('mouse').style.left=e.offsetX+"px";
+    document.getElementById('mouse').style.top=e.offsetY+"px";
+	document.getElementById('mouse').style.left=e.offsetX+"px";
+    console.log("\n coordonnées : \n");
+    console.log(e.offsetX +" "+ e.offsetY);
 }
 
 
