@@ -1068,8 +1068,11 @@ function followmouse(e) {
 
     console.log("\n header : \n");
     const element = document.getElementsByTagName("h1");
-    var tot = element[0].offsetHeight+element[0].offsetTop;
+    var height_h1 = element[0].offsetHeight;
+    var top_h1 = element[0].offsetTop;
+    var tot = height_h1 + top_h1;
     console.log(tot);
+    console.log(element);
 
 
     // document.getElementById('mouse').style.display="inline";
