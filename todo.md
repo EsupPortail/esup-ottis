@@ -37,6 +37,8 @@ _**(attendre d'avoir Linux sur la machine)**_
     - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
     - [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
 
+- [ ] Ajouter dans les scénarios un lien vers Madoc
+
 5) J'ai essayé de mettre en place une sorte de système de scénario tout fait pour faciliter la prise en main. J'ai donc ajouté quelques fonctionnalités accessibles via l'adresse (fournir un lien uncloud du PPTX ou du .HTML, accéder directement à un onglet,....). ça se trouve ici : [https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/scenarios.php].
 
 
