@@ -1028,8 +1028,8 @@ function followmouse(e) {
     // var x=rect.left/pr+pourcx/100*rect.width;
 	// var y=rect.top/pr+pourcy/100*rect.height;
 
-    let x = e.clientX;
-    let y = e.clientY;
+    let x = e.clientX + rect.left;
+    let y = e.clientY + rect.top;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
