@@ -439,6 +439,7 @@ function readImage() {
                 _('img_slides').src = Trep[1];
                 _('stillwaiting').style.display="none";
                 console.log('Got a new image');
+                resizeSlides();
             }
 
         };
