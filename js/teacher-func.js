@@ -1026,7 +1026,7 @@ function followmouse(e) {
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
     var x=rect.left/pr+pourcx/100*c.width;
-	var y=rect.height/pr+pourcy/100*c.height-5;
+	var y=rect.top/pr+pourcy/100*c.height;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
