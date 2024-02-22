@@ -1042,15 +1042,15 @@ function followmouse(e) {
         var top  = box.top +  scrollTop - clientTop;
         var left = box.left + scrollLeft - clientLeft;
 
-        console.log("\n position dans le document : \n");
+        console.log("\n position de l'image dans le document : \n");
         console.log(Math.round(top) +" "+ Math.round(left));
 
     var image_area = document.getElementById("imageArea");
     console.log("\n position image area : \n");
     console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
 
-    let x = e.clientX + rect.left;
-    let y = e.clientY + rect.top;
+    let x = e.pageX;
+    let y = e.pageY;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
