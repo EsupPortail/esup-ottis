@@ -1028,7 +1028,7 @@ function followmouse(e) {
     // var x=rect.left/pr+pourcx/100*rect.width;
 	// var y=rect.top/pr+pourcy/100*rect.height;
 
-    var image_area = document.getElementById("imageArea");
+    var image_area = document.getElementById("td-image");
     console.log("\n position image area : \n");
     console.log(image_area.style.left +" "+ image_area.style.top);
 
