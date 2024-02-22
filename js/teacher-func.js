@@ -1033,6 +1033,7 @@ function followmouse(e) {
     document.getElementById("coord_y").innerHTML = pourcy;
 
     showMouse();
+    document.getElementById('mouse').removeAttribute("hidden"); 
 	document.getElementById('mouse').style.top=y+"px"
 	document.getElementById('mouse').style.left=x+"px";
 
