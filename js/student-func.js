@@ -769,6 +769,7 @@ function activetab(tab) {
     _("l" + tab).style.color = "white";
     _("l" + tab).style.backgroundColor = "rgb(57,199,204)";
     ShowMenu();
+    resizeSlides();
 }
 
 
