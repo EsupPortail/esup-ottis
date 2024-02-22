@@ -1004,6 +1004,12 @@ function getMousePosition(){
     });
 }
 
+function showMouse() {
+    var mousesize = 1;
+    var mouseangle = 0;
+    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+}
+
 /**
  * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the animation editor.
  * 
@@ -1026,20 +1032,16 @@ function followmouse(e) {
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
 
-    // showMouse();
-	// document.getElementById('mouse').style.top="100px";
-	// document.getElementById('mouse').style.left=x+"px";
+    showMouse();
+	document.getElementById('mouse').style.top=y+"px"
+	document.getElementById('mouse').style.left=x+"px";
 
     // document.getElementById('mouse').style.display="inline";
     // document.getElementById('mouse').style.top=e.offsetY+"px";
 	// document.getElementById('mouse').style.left=e.offsetX+"px";
 }
 
-function showMouse() {
-    var mousesize = 1;
-    var mouseangle = 0;
-    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
-}
+
 
 /**
  * @summary The function that is executed for displaying help for the animation editor.
