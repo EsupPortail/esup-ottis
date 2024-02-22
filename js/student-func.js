@@ -436,6 +436,8 @@ function readImage() {
                 var Trep = request.responseText.split('|||');
                 currentrandom = Trep[0];
                 _('img_slides').src = Trep[1];
+                _('img_slides').width=_('img_slides').style.width;
+                _('img_slides').height=_('img_slides').style.height;
                 _('img_slides').onload = resizeSlides;
                 _('stillwaiting').style.display="none";
                 console.log('Got a new image');
