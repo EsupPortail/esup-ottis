@@ -1037,6 +1037,8 @@ function followmouse(e) {
 	document.getElementById('mouse').style.left=x+"px";
     console.log("\n coordonnées : \n");
     console.log(x +" "+ y);
+    console.log("\n position image : \n");
+    console.log(rect.left +" "+ rect.top);
 
     // document.getElementById('mouse').style.display="inline";
     // document.getElementById('mouse').style.top=e.offsetY+"px";
