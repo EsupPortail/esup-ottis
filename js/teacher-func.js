@@ -1028,6 +1028,23 @@ function followmouse(e) {
     // var x=rect.left/pr+pourcx/100*rect.width;
 	// var y=rect.top/pr+pourcy/100*rect.height;
 
+
+        var box = c.getBoundingClientRect();
+        var body = document.body;
+        var docEl = document.documentElement;
+    
+        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+    
+        var clientTop = docEl.clientTop || body.clientTop || 0;
+        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+    
+        var top  = box.top +  scrollTop - clientTop;
+        var left = box.left + scrollLeft - clientLeft;
+
+        console.log("\n position dans le document : \n");
+        console.log(Math.round(top) +" "+ Math.round(left));
+
     var image_area = document.getElementById("imageArea");
     console.log("\n position image area : \n");
     console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
