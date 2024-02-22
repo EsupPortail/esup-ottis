@@ -1053,7 +1053,7 @@ function followmouse(e) {
 
     var tabs_top = document.getElementById("tabs").offsetTop;
     let x = e.pageX;
-    let y = e.pageY+tabs_top;
+    let y = e.pageY-tabs_top;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
