@@ -1051,8 +1051,9 @@ function followmouse(e) {
     console.log("\n position image area : \n");
     console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
 
+    var tabs_top = document.getElementById("tabs").offsetTop;
     let x = e.pageX;
-    let y = e.pageY;
+    let y = e.pageY+tabs_top;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
