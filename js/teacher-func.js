@@ -1074,6 +1074,10 @@ function followmouse(e) {
     console.log(tot);
     console.log(element);
 
+    console.log("\n tabs \n");
+    var tabs_top = document.getElementById("tabs").offsetTop;
+    console.log(tabs_top);
+
 
     // document.getElementById('mouse').style.display="inline";
     // document.getElementById('mouse').style.top=e.offsetY+"px";
