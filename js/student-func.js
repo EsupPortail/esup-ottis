@@ -435,11 +435,10 @@ function readImage() {
             if (request.responseText != "") {
                 var Trep = request.responseText.split('|||');
                 currentrandom = Trep[0];
-                _('img_slides').onload = resizeSlides;
                 _('img_slides').src = Trep[1];
+                _('img_slides').onload = resizeSlides;
                 _('stillwaiting').style.display="none";
                 console.log('Got a new image');
-                resizeSlides();
             }
 
         };
