@@ -1067,7 +1067,7 @@ function followmouse(e) {
     console.log(rect.left +" "+ rect.top);
 
     console.log("\n header : \n");
-    console.log(document.getElementsByTagName("head").offsetHeight);
+    console.log(document.getElementById("header").offsetHeight);
 
 
     // document.getElementById('mouse').style.display="inline";
