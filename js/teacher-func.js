@@ -1028,6 +1028,10 @@ function followmouse(e) {
     // var x=rect.left/pr+pourcx/100*rect.width;
 	// var y=rect.top/pr+pourcy/100*rect.height;
 
+    var image_area = document.getElementById("imageArea");
+    console.log("\n position image area : \n");
+    console.log(image_area.left +" "+ image_area.top);
+
     let x = e.clientX + rect.left;
     let y = e.clientY + rect.top;
 
