@@ -479,6 +479,7 @@ function Lancer() {
     setInterval(readText, 500);
     setInterval(readTextQ, 500);
     setInterval(readImage, 500);
+    setInterval(resizeSlides, 2000);
     setLanguageInput(0);
     resizeSlides();
 }
