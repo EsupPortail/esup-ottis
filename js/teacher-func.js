@@ -1024,9 +1024,8 @@ function followmouse(e) {
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
-
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
-    var x=rect.width/pr+pourcx/100*c.width-5;
+    var x=rect.left/pr+pourcx/100*c.width;
 	var y=rect.height/pr+pourcy/100*c.height-5;
 
     document.getElementById("coord_x").innerHTML = pourcx;
@@ -1034,14 +1033,14 @@ function followmouse(e) {
 
     showMouse();
     document.getElementById('mouse').removeAttribute("hidden"); 
-	// document.getElementById('mouse').style.top=y+"px"
-	// document.getElementById('mouse').style.left=x+"px";
+	document.getElementById('mouse').style.top=y+"px"
+	document.getElementById('mouse').style.left=x+"px";
+    console.log("\n coordonnées : \n");
+    console.log(x +" "+ y);
 
     // document.getElementById('mouse').style.display="inline";
-    document.getElementById('mouse').style.top=e.offsetY+"px";
-	document.getElementById('mouse').style.left=e.offsetX+"px";
-    console.log("\n coordonnées : \n");
-    console.log(e.offsetX +" "+ e.offsetY);
+    // document.getElementById('mouse').style.top=e.offsetY+"px";
+	// document.getElementById('mouse').style.left=e.offsetX+"px";
 }
 
 
