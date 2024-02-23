@@ -1023,33 +1023,32 @@ function followmouse(e) {
 
     var x_offset = e.offsetX;
     var y_offset = e.offsetY;
-    console.log("\n coordonnées offset : \n");
-    console.log(x_offset +" "+ y_offset);
+    // console.log("\n coordonnées offset : \n");
+    // console.log(x_offset +" "+ y_offset);
     var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
     var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
     // var x=rect.left/pr+pourcx/100*rect.width;
 	// var y=rect.top/pr+pourcy/100*rect.height;
 
+    // var box = c.getBoundingClientRect();
+    // var body = document.body;
+    // var docEl = document.documentElement;
 
-        var box = c.getBoundingClientRect();
-        var body = document.body;
-        var docEl = document.documentElement;
-    
-        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-    
-        var clientTop = docEl.clientTop || body.clientTop || 0;
-        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-    
-        var top  = box.top +  scrollTop - clientTop;
-        var left = box.left + scrollLeft - clientLeft;
+    // var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+    // var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
 
-        console.log("\n position de l'image dans le document : \n");
-        console.log(Math.round(top) +" "+ Math.round(left));
+    // var clientTop = docEl.clientTop || body.clientTop || 0;
+    // var clientLeft = docEl.clientLeft || body.clientLeft || 0;
 
-    var image_area = document.getElementById("imageArea");
-    console.log("\n position image area : \n");
-    console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
+    // var top  = box.top +  scrollTop - clientTop;
+    // var left = box.left + scrollLeft - clientLeft;
+
+    // console.log("\n position de l'image dans le document : \n");
+    // console.log(Math.round(top) +" "+ Math.round(left));
+
+    // var image_area = document.getElementById("imageArea");
+    // console.log("\n position image area : \n");
+    // console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
 
     var tabs_top = document.getElementById("tabs").offsetTop;
     var menu_top = document.getElementById("menu").offsetTop;
@@ -1065,25 +1064,25 @@ function followmouse(e) {
     document.getElementById('mouse').removeAttribute("hidden"); 
 	document.getElementById('mouse').style.top=y+"px"
 	document.getElementById('mouse').style.left=x+"px";
-    console.log("\n coordonnées : \n");
-    console.log(x +" "+ y);
-    console.log("\n position image : \n");
-    console.log(rect.left +" "+ rect.top);
+    // console.log("\n coordonnées : \n");
+    // console.log(x +" "+ y);
+    // console.log("\n position image : \n");
+    // console.log(rect.left +" "+ rect.top);
 
-    console.log("\n header : \n");
-    const element = document.getElementsByTagName("h1");
-    var height_h1 = element[0].offsetHeight;
-    var top_h1 = element[0].offsetTop;
-    var tot = height_h1 + top_h1;
-    console.log(tot);
-    console.log(element);
+    // console.log("\n header : \n");
+    // const element = document.getElementsByTagName("h1");
+    // var height_h1 = element[0].offsetHeight;
+    // var top_h1 = element[0].offsetTop;
+    // var tot = height_h1 + top_h1;
+    // console.log(tot);
+    // console.log(element);
 
-    console.log("\n tabs \n");
-    // var tabs_top = document.getElementById("tabs").offsetTop;
-    console.log(tabs_top);
-    console.log("\n menu \n");
-    // var tabs_top = document.getElementById("tabs").offsetTop;
-    console.log(menu_top);
+    // console.log("\n tabs \n");
+    // // var tabs_top = document.getElementById("tabs").offsetTop;
+    // console.log(tabs_top);
+    // console.log("\n menu \n");
+    // // var tabs_top = document.getElementById("tabs").offsetTop;
+    // console.log(menu_top);
 
 
     // document.getElementById('mouse').style.display="inline";
