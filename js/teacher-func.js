@@ -1053,7 +1053,7 @@ function followmouse(e) {
 
     var tabs_top = document.getElementById("tabs").offsetTop;
     var menu_top = document.getElementById("menu").offsetTop;
-    let x = e.pageX - 3.880;
+    let x = e.pageX - 10;
     let y = e.pageY-tabs_top-menu_top;
     // console.log("\n Bordure tab : \n");
     // console.log(document.getElementsByClassName("tabs").style.padding);
