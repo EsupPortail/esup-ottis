@@ -1196,15 +1196,15 @@ function closeDropdown(id_select){
 
 function addParameters(keywordToAdd){
     if (keywordToAdd=="[wait toReplace]"){
-        document.getElementById("commandKeyword").innerHTML = "[wait 0]\n"
+        document.getElementById("commandKeyword").innerHTML = "[wait 0]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramWait" name="param">Pause for <input onchange="updateCommand(\'[wait toReplace]\', document.getElementById(\'timeWait\').value);" type="number" style="width:5em" min="0" value="0" name="timeWait" id="timeWait"/> milliseconds </div>';
     }else if(keywordToAdd=="[mouse size toReplace]"){
-        document.getElementById("commandKeyword").innerHTML = "[mouse size 1]\n"
+        document.getElementById("commandKeyword").innerHTML = "[mouse size 1]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:100px" value="1" min="1" max="10" step="1" oninput="sizeOutputId.value = mouseSize.value; displayMouseSize(mouseSize.value);" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>'+
         '<br><div id="showMouseSize">+</div></div>';
         // document.getElementById("showMouseSize").innerHTML = document.getElementById("mouse-shape").innerHTML;
     }else if(keywordToAdd=="[mouse shape toReplace]"){
-        document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]\n"
+        document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value);" id="mouseShape">'+
         '<option value="0">+</option><option value="1">X</option><option value="2">☝</option><option value="3">○</option><option value="4">⚫</option><option value="5">↖</option></select></div>';
         // var selectElement = document.querySelector('#mouseShape');
@@ -1212,13 +1212,13 @@ function addParameters(keywordToAdd){
         // console.log("[mouse shape "+selectElement.value+"]\n");
         // getValue();
     }else if(keywordToAdd=="[mouse go px py]"){
-        document.getElementById("commandKeyword").innerHTML = "[mouse go 0 0]\n"
+        document.getElementById("commandKeyword").innerHTML = "[mouse go 0 0]"
         document.getElementById("keywordParameter").innerHTML ='<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
     }else if(keywordToAdd=="[resource toReplace]"){
-        document.getElementById("commandKeyword").innerHTML = "[resource ]\n"
+        document.getElementById("commandKeyword").innerHTML = "[resource ]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramUrl" name="param">Open a window with the url <input onchange="updateCommand(\'[resource toReplace]\', document.getElementById(\'notifUrl\').value)" placeholder="Copy your URL here" type="text" name="notifUrl" id="notifUrl"/></div>';
     }else if(keywordToAdd=="[notification toReplace]"){
-        document.getElementById("commandKeyword").innerHTML = "[notification ]\n"
+        document.getElementById("commandKeyword").innerHTML = "[notification ]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMessage" name="param">Open a window with the message <input onchange="updateCommand(\'[notification toReplace]\', document.getElementById(\'notifMessage\').value)" placeholder="Copy your message here" type="text" name="notifMessage" id="notifMessage"/></div>';
     }
  
