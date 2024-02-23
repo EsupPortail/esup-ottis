@@ -49,10 +49,17 @@ function rgb(T) {
  */
 
 function AbortTimeout(r,s) {
-    setTimeout(function() {
+    r.timeout = 10000;
+
+    r.ontimeout = (e) => {
         console.log("Timeout problem in "+s+" !")
         r.abort();
-    }, 10000);
+    };
+
+    //setTimeout(function() {
+    //    console.log("Timeout problem in "+s+" !")
+    //    r.abort();
+    //}, 10000);
 }
 
 
