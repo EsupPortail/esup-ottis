@@ -31,13 +31,14 @@ _**(attendre d'avoir Linux sur la machine)**_
 - [ ] Créer un outil d'édition des animations. La première phase va correspondre à reprendre un peu ce qu'on a déjà dans l'application enseignante et dans ExtractSlidesNotesAppHTML.php, pour charger une application dans un editeur minimaliste (les discours dans des textarea), et générer une application avec les modifications. Ceci uniquement pour voir la faisabilité de la chose. 
     - [ ] Supprimer les vertical tab (VT) des speechs;
     - [X] Faire un affichage de la taille du curseur lors du choix; _**(UPDATE : affichage  du curseur "+" pour avoir un ordre d'idée. Ce n'est n'est pas la forme du curseur sélectionné par l'utilisateur qui est affiché.)**_
-    - [ ] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation; 
+    - [X] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation; _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
     - [ ] Vérifier les formes du curseur sur les différents navigateurs (pas tous les mêmes sur Edge ?);
     - [ ] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
     - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
     - [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
+    - [ ] Supprimer les retours à la ligne automatiquesquand on ajoute un keyword (il ne s'ajoute que sur la langue sur laquelle on travaille).
 
-- [ ] Ajouter dans les scénarios un lien vers Madoc
+- [X] Ajouter dans les scénarios un lien vers Madoc
 
 5) J'ai essayé de mettre en place une sorte de système de scénario tout fait pour faciliter la prise en main. J'ai donc ajouté quelques fonctionnalités accessibles via l'adresse (fournir un lien uncloud du PPTX ou du .HTML, accéder directement à un onglet,....). ça se trouve ici : [https://misc-sciences.univ-nantes.fr/AutomaticTranslator-test/scenarios.php].
 
