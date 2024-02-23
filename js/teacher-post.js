@@ -288,7 +288,7 @@ $(function() {
         });
         XHR.open('POST', 'sendamail.php');
         XHR.send(FD);
-        AbortTimeout(XHR);
+        AbortTimeout(XHR,"EnvoiMail");
         dialog.dialog("close");
     }
 
