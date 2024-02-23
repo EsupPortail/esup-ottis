@@ -60,7 +60,7 @@ function StudentTranslate(ch, l, linput, lineid) {
         StudentCompleteTranslation();
     };
     xhr.send();
-    AbortTimeout(xhr);
+    AbortTimeout(xhr,"StudentTranslate");
 
 }
 
@@ -80,7 +80,7 @@ function StudentTranslate2(ch, l, linput, lineid) {
         StudentCompleteTranslation2();
     };
     xhr.send();
-    AbortTimeout(xhr);
+    AbortTimeout(xhr,"StudentTranslate2");
 }
 
 /**
@@ -171,7 +171,7 @@ function StudentreadText() {
         if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "readtext.php");
-            AbortTimeout(request);
+            AbortTimeout(request,"StudentreadText");
             Studentcurrentorder_readtext++;
             var f = new FormData();
             f.append('lineid', Studentinputnumber);
@@ -225,7 +225,7 @@ function InviteExternal() {
     if (_('classroomid').value != "") {
         var request = new XMLHttpRequest();
         request.open("POST", "createExternal.php");
-        AbortTimeout(request);
+        AbortTimeout(request,"InviteExternal");
         var f = new FormData();
         f.append('ROOMID', _('classroomid').value);
         f.append('DURATION', _('duration').value);
@@ -504,7 +504,7 @@ function Translate(ch, l, linput) {
     var d_begin = Date.now();
     console.log(d_begin + " : Sending for translation " + ch + " from " + linput + " to " + l)
     xhr.send();
-    AbortTimeout(xhr);
+    AbortTimeout(xhr,"Translate");
 }
 
 
@@ -540,7 +540,7 @@ function TranslateThen(ch, l, linput, f) {
     //console.log(d_begin+" : Sending for translation "+ch+" from "+linput+" to "+l);
     //T_durations[ch]=d;
     xhr.send();
-    AbortTimeout(xhr);
+    AbortTimeout(xhr,"TranslateThen");
 }
 
 
@@ -690,7 +690,7 @@ function ShowImage(n) {
             f.append("image", blob);
             f.append('ROOMID', _('classroomid').value);
             request.send(f);
-            AbortTimeout(request);
+            AbortTimeout(request,"ShowImage");
             //	request.onload = function(event) {};
         }
     }
@@ -777,7 +777,7 @@ function saveremotespeech() {
             f.append('ROOMID', _('classroomid').value);
             f.append('SPEECH', txt);
             request.send(f);
-            AbortTimeout(request);
+            AbortTimeout(request,"saveremotespeech");
             request.onload = function(event) {
                 var data = request.responseText;
             };
@@ -943,7 +943,7 @@ function SlideNotes() {
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    //AbortTimeout(xhr);
+    //AbortTimeout(xhr,"SlideNotes");
 }
 
 // /**
@@ -1657,7 +1657,7 @@ function SlideNotesUncloud(uncloudlink) {
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    //AbortTimeout(xhr);
+    //AbortTimeout(xhr,"SlideNotesUNCloud");
 }
 
 /**
@@ -1685,7 +1685,7 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
         alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
     xhr.send(formdata);
-    //AbortTimeout(xhr);
+    //AbortTimeout(xhr,"SlideNotesUncloudHtml");
 }
 
 
@@ -1862,7 +1862,7 @@ function saveText(ch) {
     f.append('ROOMID', _('classroomid').value);
     f.append('LastLines', MaxSavedLines);
     request.send(f);
-    AbortTimeout(request);
+    AbortTimeout(request,"saveText");
 
     //	request.onload = function(event) {};
 }
@@ -1884,7 +1884,7 @@ function saveTextNB(ch) {
     f.append('inputlanguage', builtin_language);
     f.append('ROOMID', _('classroomid').value);
     request.send(f);
-    AbortTimeout(request);
+    AbortTimeout(request,"saveTextNB");
 
     //	request.onload = function(event) {};
 }
@@ -2151,7 +2151,7 @@ function remote() {
         f.append('APPID', _('appid').value);
         f.append('ORDER', '');
         request.send(f);
-        AbortTimeout(request);
+        AbortTimeout(request,"remote");
 
         request.onload = function(event) {
             var order = request.responseText;
@@ -2204,7 +2204,7 @@ function readTextQ() {
         f.append('lineid', 0);
         f.append('ROOMID', _('classroomid').value);
         request.send(f);
-        AbortTimeout(request);
+        AbortTimeout(request,"readTeextQ");
         request.onload = function(event) {
             var Told = request.responseText.split('\n');
             var k = 0;
@@ -2315,7 +2315,7 @@ function saveTextQ(ch) {
     f.append('inputlanguage', builtin_language);
     f.append('ROOMID', _('classroomid').value);
     request.send(f);
-    AbortTimeout(request);
+    AbortTimeout(request,"saveTextQ");
     request.onload = function(event) {
         readTextQ();
     };
@@ -2351,7 +2351,7 @@ function TranslateQ(ch, l, linput, name, order) {
         }
     };
     xhr.send();
-    AbortTimeout(xhr);
+    AbortTimeout(xhr,"TranslateQ");
 }
 
 /**
@@ -2443,7 +2443,7 @@ function Synchronize(pin) {
     var f = new FormData();
     f.append('pincode', pin);
     request.send(f);
-    AbortTimeout(request);
+    AbortTimeout(request,"Synchronize");
     request.onload = function(event) {
         if (request.responseText != "") {
             _('classroomid').value = request.responseText;
@@ -2471,7 +2471,7 @@ function Synchronize_save() {
             f.append('pincode', _('pincode').value);
             f.append('roomid', _('classroomid').value);
             request.send(f);
-            AbortTimeout(request);
+            AbortTimeout(request,"Synchronize_save");
             request.onload = function(event) {};
         }
     }
