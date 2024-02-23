@@ -999,6 +999,7 @@ function getMousePosition(){
             var coord_y_clean = coord_y.replace(/\D/g,'');
             updateCommand('[mouse go toReplace]', coord_x_clean+" "+coord_y_clean);
             addAllLanguages(document.getElementById("commandKeyword").innerHTML);
+            document.getElementById('mouse').addAttribute("hidden");
           }
         }
     });
