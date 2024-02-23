@@ -1053,10 +1053,10 @@ function followmouse(e) {
 
     var tabs_top = document.getElementById("tabs").offsetTop;
     var menu_top = document.getElementById("menu").offsetTop;
-    let x = e.pageX - document.getElementById("tabs").offsetLeft;
+    let x = e.pageX - 3.880;
     let y = e.pageY-tabs_top-menu_top;
-    console.log("\n Bordure tab : \n");
-    console.log(document.getElementsByClassName("ui-tabs").style.padding);
+    // console.log("\n Bordure tab : \n");
+    // console.log(document.getElementsByClassName("tabs").style.padding);
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
