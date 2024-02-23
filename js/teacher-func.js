@@ -1051,9 +1051,10 @@ function followmouse(e) {
     console.log("\n position image area : \n");
     console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
 
-    var tabs_top = document.getElementById("menu").offsetTop;
+    var tabs_top = document.getElementById("tabs").offsetTop;
+    var menu_top = document.getElementById("menu").offsetTop;
     let x = e.pageX;
-    let y = e.pageY-tabs_top;
+    let y = e.pageY-tabs_top-menu_top;
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
@@ -1078,6 +1079,9 @@ function followmouse(e) {
     console.log("\n tabs \n");
     // var tabs_top = document.getElementById("tabs").offsetTop;
     console.log(tabs_top);
+    console.log("\n menu \n");
+    // var tabs_top = document.getElementById("tabs").offsetTop;
+    console.log(menu_top);
 
 
     // document.getElementById('mouse').style.display="inline";
