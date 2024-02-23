@@ -52,3 +52,12 @@ Pour moi.
 2) dans teacher-func.js, revoir SlideBackward() (quand on retourne à la slide précédente, on veut revenir à la première phrase des commentaires, pas à la dernière)
 3) On/Off du micro par les touches ou le pointeur laser ne fonctionne que dans l'onglet slides. Il faudrait que ça fonctionne au moins dans l'onglet wooclap. _**(UPDATE Jeanne : normalement ça fonctionne partout avec les touches du clavier)**_
  
+
+
+
+
+## Partie dédiée à la sécurisation de l'application
+[ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur. Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent.
+[ ] Placer tous les scripts php qui ne sont qu'inclus dans des sous-répertoires adaptés (comme Security par exemple). ça concerne principalement config.php. Fermer les accès à ces répertoires (.htaccess ou via ssl-default.conf)
+[ ] Faire la même chose que précédemment dans les OMIST_Tools
+[ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
