@@ -1,5 +1,5 @@
 <?php 
-
+include("Security/referer.php");
 $external=true;
 $roomid="unknown";
 if (isset($_POST["ROOMID"]))
