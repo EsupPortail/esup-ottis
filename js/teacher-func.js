@@ -946,17 +946,6 @@ function SlideNotes() {
     //AbortTimeout(xhr,"SlideNotes");
 }
 
-// /**
-//  * @summary The function that is executed for copying text to the clipboard.
-//  * 
-//  */
-
-// function copyText() {
-//     var copyText = document.getElementById("textArea");
-//     copyText.select();
-//     navigator.clipboard.writeText(copyText.value);
-// }
-
 /**
  * @summary The function that is executed for getting the device pixel ratio with the animation editor.
  * 
@@ -973,6 +962,57 @@ function getDevicePixelRatio() {
 }
 
 /**
+ * @summary The function that is executed for a preview of the mouse size in the animation editor.
+ * 
+ * @param {int} mousesize the size of the mouse.
+ */
+
+function displayMouseSize(mousesize){
+    document.getElementById("showMouseSize").style.transform='scale('+mousesize+') rotate(0deg)';
+}
+
+/**
+ * @summary The function that is executed for displaying  a cursor that follows the mouse in the animation editor.
+ * 
+ */
+
+function showMouse() {
+    var mousesize = 1;
+    var mouseangle = 0;
+    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+}
+
+/**
+ * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the animation editor.
+ * 
+ */
+
+function followmouse(e) {
+    var id_image = document.getElementById("imageArea").firstElementChild.id;
+    var c=document.getElementById(id_image);
+    let rect = c.getBoundingClientRect();
+    var pr=getDevicePixelRatio();
+
+    var x_offset = e.offsetX;
+    var y_offset = e.offsetY;
+    var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
+    var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
+
+    var tabs_top = document.getElementById("tabs").offsetTop;
+    var menu_top = document.getElementById("menu").offsetTop;
+    let x = e.pageX - 12;
+    let y = e.pageY-tabs_top-menu_top + 12;
+
+    document.getElementById("coord_x").innerHTML = pourcx;
+    document.getElementById("coord_y").innerHTML = pourcy;
+
+    showMouse();
+    document.getElementById('mouse').removeAttribute("hidden"); 
+	document.getElementById('mouse').style.top=y+"px"
+	document.getElementById('mouse').style.left=x+"px";
+}
+
+/**
  * @summary The function that is executed for getting the mouse position for the keyword "mouse go" with the animation editor.
  * 
  */
@@ -982,7 +1022,6 @@ function getMousePosition(){
     var img=document.getElementById(id_image);
     document.getElementById("mouse-position").innerHTML = '<p id="instruction">Click on the slide image to get the mouse coordinates.</p>'+
     '<p>X coordinate : <span id="coord_x"></span></p>'+ '<p>Y coordinate : <span id="coord_y"></span></p>';
-    // img.setAttribute('onclick','document.getElementById("mouse").style.transition="0s"; document.getElementById("imageArea").onmousemove=followmouse; followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
     img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
 
 
@@ -1004,94 +1043,6 @@ function getMousePosition(){
         }
     });
 }
-
-function showMouse() {
-    var mousesize = 1;
-    var mouseangle = 0;
-    document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
-}
-
-/**
- * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the animation editor.
- * 
- */
-
-function followmouse(e) {
-    var id_image = document.getElementById("imageArea").firstElementChild.id;
-    var c=document.getElementById(id_image);
-    let rect = c.getBoundingClientRect();
-    var pr=getDevicePixelRatio();
-
-    var x_offset = e.offsetX;
-    var y_offset = e.offsetY;
-    // console.log("\n coordonnées offset : \n");
-    // console.log(x_offset +" "+ y_offset);
-    var pourcx=Math.floor((e.offsetX)/(rect.width)*100);
-    var pourcy=Math.floor((e.offsetY)/(rect.height)*100);
-    // var x=rect.left/pr+pourcx/100*rect.width;
-	// var y=rect.top/pr+pourcy/100*rect.height;
-
-    // var box = c.getBoundingClientRect();
-    // var body = document.body;
-    // var docEl = document.documentElement;
-
-    // var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-    // var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-    // var clientTop = docEl.clientTop || body.clientTop || 0;
-    // var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-    // var top  = box.top +  scrollTop - clientTop;
-    // var left = box.left + scrollLeft - clientLeft;
-
-    // console.log("\n position de l'image dans le document : \n");
-    // console.log(Math.round(top) +" "+ Math.round(left));
-
-    // var image_area = document.getElementById("imageArea");
-    // console.log("\n position image area : \n");
-    // console.log(document.getElementById("imageArea").style.left +" "+ document.getElementById("imageArea").style.top);
-
-    var tabs_top = document.getElementById("tabs").offsetTop;
-    var menu_top = document.getElementById("menu").offsetTop;
-    let x = e.pageX - 12;
-    let y = e.pageY-tabs_top-menu_top + 12;
-    // console.log("\n Bordure tab : \n");
-    // console.log(document.getElementsByClassName("tabs").style.padding);
-
-    document.getElementById("coord_x").innerHTML = pourcx;
-    document.getElementById("coord_y").innerHTML = pourcy;
-
-    showMouse();
-    document.getElementById('mouse').removeAttribute("hidden"); 
-	document.getElementById('mouse').style.top=y+"px"
-	document.getElementById('mouse').style.left=x+"px";
-    // console.log("\n coordonnées : \n");
-    // console.log(x +" "+ y);
-    // console.log("\n position image : \n");
-    // console.log(rect.left +" "+ rect.top);
-
-    // console.log("\n header : \n");
-    // const element = document.getElementsByTagName("h1");
-    // var height_h1 = element[0].offsetHeight;
-    // var top_h1 = element[0].offsetTop;
-    // var tot = height_h1 + top_h1;
-    // console.log(tot);
-    // console.log(element);
-
-    // console.log("\n tabs \n");
-    // // var tabs_top = document.getElementById("tabs").offsetTop;
-    // console.log(tabs_top);
-    // console.log("\n menu \n");
-    // // var tabs_top = document.getElementById("tabs").offsetTop;
-    // console.log(menu_top);
-
-
-    // document.getElementById('mouse').style.display="inline";
-    // document.getElementById('mouse').style.top=e.offsetY+"px";
-	// document.getElementById('mouse').style.left=e.offsetX+"px";
-}
-
-
 
 /**
  * @summary The function that is executed for displaying help for the animation editor.
@@ -1236,27 +1187,6 @@ function closeDropdown(id_select){
       }
     }
 }
-// function getText() {
-//     const selectedIndex = document.getElementById('mouseShape').selectedIndex;
-//     const selectedOption = document.getElementById('mouseShape').options[selectedIndex].text;
-//     document.getElementById('mouse-shape').innerHTML=selectedOption;
-// }
-
-function displayMouseSize(mousesize){
-    // var mousesize = document.getElementById("mouseSize").value;
-    document.getElementById("showMouseSize").style.transform='scale('+mousesize+') rotate(0deg)';
-}
-
-// function getValue(){
-//     var text = document.getElementById('mouse-shape').innerHTML;
-//     for (i=0; i<6; i++){
-//         console.log(document.getElementById("mouseShape")[i].text);
-//         if (text===document.getElementById("mouseShape")[i].text){
-//         	let element = document.getElementById("mouseShape");
-//     		element.value = i;
-//         }
-//     }
-// }
 
 /**
  * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
@@ -1306,16 +1236,6 @@ function addParameters(keywordToAdd){
         }
     });
 }
-
-
-
-// function changeOptions(keywordToAdd){
-//     console.log(keywordToAdd+' : ');
-//     console.log(document.getElementById('aspectratioEditAnim').value);
-//     console.log(document.getElementById('keepaspectratioEditAnim').value);
-//     console.log(document.getElementById('extradelayEditAnim').value);
-//     console.log(document.getElementById('licenceEditAnim').value);
-// }
 
 /**
  * @summary The function that is executed for displaying the dialog box corresponding to the option the user wishes to modify with the animation editor.
