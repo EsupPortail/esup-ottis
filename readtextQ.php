@@ -18,5 +18,5 @@ fclose($fd);
 if (file_exists("tmp/LinkQuestions_".$roomid)) {
   echo file_get_contents("tmp/LinkQuestions_".$roomid);
 } else echo "";
-exit;
+
 ?>
