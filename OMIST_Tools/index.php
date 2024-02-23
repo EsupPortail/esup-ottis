@@ -942,15 +942,15 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {alert("You must provide a file first !");}'>Pause</a>
         <div class="dropdown-content" id="dropPause">
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]\n');} else {alert('You must select a slide first !');}">Pause animation</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {alert('You must select a slide first !');}">Pause animation</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {alert('You must select a slide first !');}">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
         <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropMouse").classList.toggle("show"); closeDropdown("dropMouse");} else {alert("You must provide a file first !");}'>Mouse</a>
         <div class="dropdown-content" id="dropMouse">
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]\n');} else {alert('You must select a slide first !');}">Show the mouse</a>
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]\n');} else {alert('You must select a slide first !');}">Hide the mouse</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]');} else {alert('You must select a slide first !');}">Show the mouse</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]');} else {alert('You must select a slide first !');}">Hide the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {getMousePosition();} else {alert('You must select a slide first !');}">Move the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[mouse size toReplace]');} else {alert('You must select a slide first !');}">Change the mouse size</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[mouse shape toReplace]');} else {alert('You must select a slide first !');}">Change the mouse shape</a>
