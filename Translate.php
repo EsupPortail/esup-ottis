@@ -1,4 +1,5 @@
 <?php
+include("Security/referer.php");
 
 include "config.php";
 

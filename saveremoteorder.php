@@ -1,4 +1,5 @@
 <?php
+include("Security/referer.php");
 
 $order = $_POST["ORDER"];
 $roomid = $_POST["ROOMID"];

@@ -1,4 +1,5 @@
 <?php
+include("Security/referer.php");
 
 $speech = $_POST["SPEECH"];
 $roomid = $_POST["ROOMID"];

@@ -1,4 +1,5 @@
 <?php
+include("Security/referer.php");
 
 $pincode = $_POST["pincode"];
 $roomid="";

@@ -1,4 +1,5 @@
 <?php
+include("Security/referer.php");
 
 $random = $_POST["random"];
 /*
