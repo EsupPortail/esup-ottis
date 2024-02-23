@@ -1056,7 +1056,7 @@ function followmouse(e) {
     let x = e.pageX - document.getElementById("tabs").offsetLeft;
     let y = e.pageY-tabs_top-menu_top;
     console.log("\n Bordure tab : \n");
-    console.log(document.getElementById("tabs").offsetLeft);
+    console.log(document.getElementById("tabs").style.padding);
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
