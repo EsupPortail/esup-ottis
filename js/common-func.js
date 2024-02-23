@@ -48,9 +48,9 @@ function rgb(T) {
  * @param {object} r a timeout object.
  */
 
-function AbortTimeout(r) {
+function AbortTimeout(r,s) {
     setTimeout(function() {
-        console.log("Timeout problem !")
+        console.log("Timeout problem in "+s+" !")
         r.abort();
     }, 10000);
 }
