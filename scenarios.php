@@ -513,6 +513,23 @@ body {
     </div>
   </li>
 
+  <li class="cards__item">
+    <div class="card">
+      <div class="card__content">
+        <div class="card__title">
+        <span class="needbrowser"></span>Documentation et démonstrations de l'outil</div>
+        <p class="card__text">Accès à la documentation et aux démonstrations disponibles sur Madoc.</p>
+        <p class="card__text details">Vous trouverez des tutoriels pour : <br/>
+            &nbsp;&nbsp;- l'utilisation de l'outil de traduction en direct.<br/>
+            &nbsp;&nbsp;- créer des animations.<br/>
+            &nbsp;&nbsp;- traduire les sous-titres d'une vidéo.<br/>
+            &nbsp;&nbsp;Mais également des guides d'utilisations des applications enseignantes et étudiantes, ainsi que les liens vers ces dernières.
+        </p>
+      </div>
+            <button class="btn btn--block card__btn" onclick="window.open('https\:\/\/madoc.univ-nantes.fr/course/view.php?id=58282');">Y aller</button>
+    </div>
+  </li>
+
 </ul>
 <div id="dialog-invite" title="Alert">
 		<p id="dialog-invite-p"> </p>
