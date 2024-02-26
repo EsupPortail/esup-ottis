@@ -1105,14 +1105,13 @@ function addKeyword(keyword){
     let line = document.getElementById('cursor-position').innerHTML;
 
     var lines_tot = textarea.value.split('\n');
-    for(var i = 0;i < lines_tot.length;i++){
-        if (lines_tot[i] === ""){
-            line = line-1;
-            console.log("Ligne précédente");
-        }else{
-            console.log(lines_tot[i]);
-        }
+    if (lines_tot[line] === ""){
+        line = line-1;
+        console.log("Ligne précédente");
+    }else{
+        console.log(lines_tot[line]);
     }
+
 
     var notes = document.getElementById('speechArea').value;
     let val_notes = notes.split('\n');
