@@ -1140,7 +1140,7 @@ function addAllLanguages(keyword){
         for (let key in tab_lang){
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
             let line = document.getElementById('cursor-position').innerHTML;
-            var lines_tot = textarea.value.split('\n');
+            var lines_tot = notes.split('\n');
             if (lines_tot[line-1] === ""){
                 line = line-1;
                 console.log("Ligne précédente all lang");
