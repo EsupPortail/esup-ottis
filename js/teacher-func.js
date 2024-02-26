@@ -980,6 +980,7 @@ function showMouse() {
     var mousesize = 1;
     var mouseangle = 0;
     document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+    document.getElementById('mouse').removeAttribute("hidden"); 
 }
 
 /**
@@ -1007,7 +1008,7 @@ function followmouse(e) {
     document.getElementById("coord_y").innerHTML = pourcy;
 
     showMouse();
-    document.getElementById('mouse').removeAttribute("hidden"); 
+    // document.getElementById('mouse').removeAttribute("hidden"); 
 	document.getElementById('mouse').style.top=y+"px"
 	document.getElementById('mouse').style.left=x+"px";
 }
@@ -1039,6 +1040,7 @@ function getMousePosition(){
             updateCommand('[mouse go toReplace]', coord_x_clean+" "+coord_y_clean);
             addAllLanguages(document.getElementById("commandKeyword").innerHTML);
             document.getElementById('mouse').setAttribute("hidden", true);
+            document.getElementById(id_image).removeAttribute("onclick");
           }
         }
     });
