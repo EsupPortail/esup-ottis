@@ -1099,6 +1099,8 @@ function addKeyword(keyword){
     var cursorPos = $('#speechArea').prop('selectionStart');
 
     document.getElementById('cursor-position').innerHTML = textarea.value.substr(0, textarea.selectionStart).split("\n").length;
+    console.log("\n cursor position : \n");
+    console.log(document.getElementById('cursor-position').innerHTML);
 
     let line = document.getElementById('cursor-position').innerHTML;
     var notes = document.getElementById('speechArea').value;
