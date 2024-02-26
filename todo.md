@@ -36,7 +36,8 @@ _**(attendre d'avoir Linux sur la machine)**_
     - [ ] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
     - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
     - [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
-    - [X] Supprimer les retours à la ligne automatiquesquand on ajoute un keyword
+    - [X] Supprimer les retours à la ligne automatiques quand on ajoute un keyword
+    - [ ] Changer l'image du lauchbutton d'une animation
 
 - [X] Ajouter dans les scénarios un lien vers Madoc
 
