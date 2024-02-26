@@ -1103,6 +1103,12 @@ function addKeyword(keyword){
     console.log(document.getElementById('cursor-position').innerHTML);
 
     let line = document.getElementById('cursor-position').innerHTML;
+
+    var lines_tot = $('speechArea').val().split('\n');
+    for(var i = 0;i < lines.length;i++){
+        console.log(lines[i]);
+    }
+
     var notes = document.getElementById('speechArea').value;
     let val_notes = notes.split('\n');
     val_notes.splice(line, 0, keyword);
