@@ -1106,7 +1106,12 @@ function addKeyword(keyword){
 
     var lines_tot = textarea.value.split('\n');
     for(var i = 0;i < lines_tot.length;i++){
-        console.log(lines_tot[i]);
+        if (lines_tot[i] === ""){
+            line = line-1;
+            console.log("Ligne précédente");
+        }else{
+            console.log(lines_tot[i]);
+        }
     }
 
     var notes = document.getElementById('speechArea').value;
