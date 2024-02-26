@@ -32,7 +32,7 @@ _**(attendre d'avoir Linux sur la machine)**_
     - [ ] Supprimer les vertical tab (VT) des speechs;
     - [X] Faire un affichage de la taille du curseur lors du choix; _**(UPDATE : affichage  du curseur "+" pour avoir un ordre d'idée. Ce n'est n'est pas la forme du curseur sélectionné par l'utilisateur qui est affiché.)**_
     - [X] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation; _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
-        - [ ] Bug : curseur apparait si on clique sur l'image mais on n'a pas sélectionné "mouse go"
+        - [X] Bug : curseur apparait si on clique sur l'image mais on n'a pas sélectionné "mouse go"
     - [ ] Léger décalage des coordonnées dans "mouse go" sur l'animation finale
     - [X] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
     - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
