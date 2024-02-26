@@ -22,7 +22,7 @@ Petit point d'étape :
     - [X] Sur les flèches à droite et gauche des sous-titres. La flèche à gauche n'est visible qu'après avoir déplacé la barre des sous-titres et la barre droite est très en dehors de l'écran (sur ma résolution au moins). Je propose de désolidariser ces flèches de la barre des sous-titres et de les placer en "position: fixed" en bas à gauche et droite de l'écran. ça sera plus simple.
 _**(UPDATE Jeanne : affichage ok en local et sur la VM, à tester avec d'autres résolutions)**_
 
-- [ ] Continuer les tests sur whisper, et notamment voir s'il est possible d'utiliser les GPU dans une VM. Voir si la procédure décrire ici [https://www.xda-developers.com/how-use-gpu-virtualbox/] s'applique. Il vient de sortir une version qui tourne dans le navigateur de whisper [https://github.com/xenova/whisper-web]. A tester aussi surement. 
+- [X] Continuer les tests sur whisper, et notamment voir s'il est possible d'utiliser les GPU dans une VM. Voir si la procédure décrire ici [https://www.xda-developers.com/how-use-gpu-virtualbox/] s'applique. Il vient de sortir une version qui tourne dans le navigateur de whisper [https://github.com/xenova/whisper-web]. A tester aussi surement. 
 _**(UPDATE Jeanne : GPU -> pas de changement par rapport à avant les vacances au niveau de la rapidité. Voir si je n'ai pas fait une erreur de connexion. Pour la version de whisper en ligne -> on ne peut utiliser que les modèles tiny et base, qui ne sont pas assez performants pour nous.)**_ _**(UPDATE JB : J'ai commencé à installer une version un peu tunée de whisper web sur notre serveur. C'est un peu bancal car je ne suis pas très fort en reverse proxy apache et on ne peut pas tout faire non plus. ça sera à revoir de toutes façons lorsqu'on aura le serveur définitif. En tout cas, ça fonctionne ici : https://172.26.98.138, le reste des outils est accessible en http. ça a l'air de fonctionner avec le modèle medium)**_ 
 _**(attendre d'avoir Linux sur la machine)**_
 
@@ -57,7 +57,7 @@ Pour moi.
 
 
 ## Partie dédiée à la sécurisation de l'application
-[ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
-[ ] Placer tous les scripts php qui ne sont qu'inclus dans des sous-répertoires adaptés (comme Security par exemple). ça concerne principalement config.php. Fermer les accès à ces répertoires (.htaccess ou via ssl-default.conf)
-[ ] Faire la même chose que précédemment dans les OMIST_Tools
-[ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
+- [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
+- [ ] Placer tous les scripts php qui ne sont qu'inclus dans des sous-répertoires adaptés (comme Security par exemple). ça concerne principalement config.php. Fermer les accès à ces répertoires (.htaccess ou via ssl-default.conf)
+- [ ] Faire la même chose que précédemment dans les OMIST_Tools
+- [ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
