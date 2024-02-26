@@ -15,7 +15,7 @@ Petit point d'étape :
 3) J'ai aussi séparé les paramètres de configuration de la première page en plusieurs parties (avec un accordéon). Il commençait à y en avoir beaucoup sur la même page. Au passage, j'ai créé un onglet "Slide Tools", ça évite de chercher le lien.
 4) La semaine du 3/01, je te propose te regarder les différents points ci-dessous. Nb: il y en a pour plus d'une semaine (ce sont des choses que j'aimerai qu'on voit à partir de janvier), il ne s'agit donc pas de tout faire.
 
-- [X] Te "pencher sur les retours qu'on a eu lors de la formation du 15 décembre et mettre en place un tutoriel pour l'utilisation des mots-clés pour les animations." _**(attendre l'outil d'édition des animations)**_
+- [X] Se "pencher sur les retours qu'on a eu lors de la formation du 15 décembre et mettre en place un tutoriel pour l'utilisation des mots-clés pour les animations." _**(attendre l'outil d'édition des animations)**_
 
 - [X] J'ai repéré quelques corrections à apporter
     - [X] Sur le masquage des icones. Si on fait cette suite d'actions "Show icons"->No, "Pin code ?"->Yes, "Show icons"->Yes, "Show icons"->No, la case "Pin code ?" est cochée dans on s'attendrait à voir le pin code mais il est caché. C'est un détail à mon avis.
