@@ -1025,7 +1025,6 @@ function getMousePosition(){
     '<p>X coordinate : <span id="coord_x"></span></p>'+ '<p>Y coordinate : <span id="coord_y"></span></p>';
     img.setAttribute('onclick','followmouse(event); document.getElementById("instruction").innerHTML = "Move the mouse to : ";');
 
-
     $( "#mouse-position" ).dialog({
         height: 'auto',
         width: 'auto',
@@ -1272,8 +1271,6 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
-                // changeOptions(keywordToAdd);
-                //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
               }
             }
         });
@@ -1285,8 +1282,6 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
-                // changeOptions(keywordToAdd);
-                //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
               }
             }
         });
@@ -1298,8 +1293,6 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
-                // changeOptions(keywordToAdd);
-                //addAllLanguages(document.getElementById("commandKeyword").innerHTML);
               }
             }
         });

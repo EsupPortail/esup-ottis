@@ -874,22 +874,6 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="outputlanguage5" style="vertical-align: top;">Output language : </label>
     <select id="outputlanguage5"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
     <br/>
-    <!--
-    <table>
-  <tr>
-  <td style="vertical-align: top;">
-    Input language : </td>
-  <td>
-  <select id="inputlanguage5" name="inputlanguage"></select>
-  </td></tr>
-    <tr>
-  <td style="vertical-align: top;">
-  Output languages : </td>
-  <td><select id="outputlanguage5"  name="outputlanguage[]" rows="5"></select>
-  </td></tr>
-
- </table>
-    -->
     <button id="App10" value="Create" onclick="if (_('fileToUpload10').value!='') {this.innerHTML=''; SubmitJob(10,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message10"></p>
     </form>
@@ -910,22 +894,6 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="outputlanguage6" style="vertical-align: top;">Output language : </label>
     <select id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
     <br/>
-    <!--<table>
-  <tr>
-  <td style="vertical-align: top;">
-    Input language : </td>
-  <td>
-  <select id="inputlanguage6" name="inputlanguage"></select>
-  </td></tr>
-    <tr>
-  <td style="vertical-align: top;">
-  Output language : </td>
-  <td><select id="outputlanguage6"  name="outputlanguage[]" rows="5"></select>
-  </td></tr>
-
- </table>
-    -->
-
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
     </form>
@@ -984,26 +952,12 @@ It's important to note that the resulting animation can serve as comprehensive i
     <br/>
     <br/>
     <table id="tableEdit" align="center" style="width: 100%; height:600px;" border="1">
-      <!-- <tr>
-        <td colspan="2" style="width: 100%;">
-          <label for="fileToUpload">Presentation in HTML: </label>
-          <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true)" accept=".html" max-size="50000" />
-          <button type=submit id="App12_1" value="Download_complete_animation" onclick="if (_('fileToUpload12').value!='') {CreateNewPresentation();} else {alert('You must provide a file first !');}" class="mybutton">Download complete animation</button>
-          <button type=submit id="App12_2" value="Download_speech" onclick="if (_('fileToUpload12').value!='') {CreateNewSpeech();} else {alert('You must provide a file first !');}" class="mybutton">Download speech</button>
-          <br/>
-          <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
-        </td>
-      </tr> -->
       <tr>
         <td rowspan="2" style="width: 15%; height:100%">
           <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
           <div id="mouse" hidden>+</div>
-            <!-- <div id="DEBUG" style="position: fixed; top: 0px; left: 0px; background-color: white;">
-            <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('imageArea').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('imageArea').onmousemove=function (e) {};}"/>Lock Mouse <span id="mousepos"></span> -->
-            <!-- </div> -->
-          <!-- </div> -->
           <div id="imageArea"></div>
         </td>
       </tr>
