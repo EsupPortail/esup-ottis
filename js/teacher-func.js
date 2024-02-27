@@ -1554,7 +1554,7 @@ function CreateNewPresentation() {
             text = text.replaceAll('\r\n', '", "');
             text = text.replaceAll('\n', '", "');
             text = text.replaceAll('\r', '", "');
-            txt = txt.replaceAll('\v', '');
+            text = text.replaceAll('\v', '');
             tab_text[i] += text+'"';
 
             if (extra_delay != 0){
