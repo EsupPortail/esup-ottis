@@ -1490,7 +1490,7 @@ function CreateNewSpeech() {
         txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
     }
     txt = txt.replaceAll('"', '“');
-    txt = txt.replaceAll('\v', 'vertical tab');
+    txt = txt.replaceAll('\v', '');
 
     var name_file = "speech_"+lang_origin+".txt";
     DownloadFile(name_file, txt);
@@ -1554,6 +1554,7 @@ function CreateNewPresentation() {
             text = text.replaceAll('\r\n', '", "');
             text = text.replaceAll('\n', '", "');
             text = text.replaceAll('\r', '", "');
+            txt = txt.replaceAll('\v', '');
             tab_text[i] += text+'"';
 
             if (extra_delay != 0){
