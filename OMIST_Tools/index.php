@@ -908,7 +908,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
       </li>
       <li class="dropdown">
-        <a class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {alert("You must provide a file first !");}'>Pause</a>
+        <a title="Add a pause in your animation" class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {alert("You must provide a file first !");}'>Pause</a>
         <div class="dropdown-content" id="dropPause">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {alert('You must select a slide first !');}">Pause animation</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {alert('You must select a slide first !');}">Pause for n milliseconds</a>
