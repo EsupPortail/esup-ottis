@@ -959,6 +959,7 @@ function GoFSEditAnim() {
         // var form12 = document.getElementById("form12");
         // form12.style.height = "94%";
         elem.requestFullscreen();
+        console.log(document.getElementById("tableEdit").style.height);
     }
 
     // if (!document.fullscreenElement) {
