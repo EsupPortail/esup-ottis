@@ -1460,33 +1460,36 @@ function GetNewPresentation(event){
  */
 
 function CreateNewSpeech() {
-    var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    var parser = new DOMParser();
-    var html = parser.parseFromString(data_new_pres, 'text/html');
+    let text = "Please note that the speech will only be downloaded in the input language.";
+    if (confirm(text) == true) {
+        var data_new_pres = _("notebookcompleteformatted").innerHTML;
+        var parser = new DOMParser();
+        var html = parser.parseFromString(data_new_pres, 'text/html');
 
-    //Récupérer le nombre de slides
-    var k = 1;
-    var nb_slides = 0;
-    while (html.getElementById('img_'+k)){
-        nb_slides = k;
-        k += 1;
+        //Récupérer le nombre de slides
+        var k = 1;
+        var nb_slides = 0;
+        while (html.getElementById('img_'+k)){
+            nb_slides = k;
+            k += 1;
+        }
+
+        //Récupérer la langue d'origine
+        var lang_origin = document.getElementById("myLanguage").options.item(0).value;
+
+        //Récupérer les notes dans la langue d'origine
+        var txt = "";
+        for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
+            // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
+            txt += "------------- Slide "+num_slide+" -------------\n";
+            txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
+        }
+        txt = txt.replaceAll('"', '“');
+        txt = txt.replaceAll('\v', '');
+
+        var name_file = "speech_"+lang_origin+".txt";
+        DownloadFile(name_file, txt);
     }
-
-    //Récupérer la langue d'origine
-    var lang_origin = document.getElementById("myLanguage").options.item(0).value;
-
-    //Récupérer les notes dans la langue d'origine
-    var txt = "";
-    for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-        // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
-        txt += "------------- Slide "+num_slide+" -------------\n";
-        txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
-    }
-    txt = txt.replaceAll('"', '“');
-    txt = txt.replaceAll('\v', '');
-
-    var name_file = "speech_"+lang_origin+".txt";
-    DownloadFile(name_file, txt);
 }
 
 /**
