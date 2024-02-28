@@ -947,6 +947,30 @@ function SlideNotes() {
 }
 
 /**
+ * @summary Switch the fullscreen mode on and off for the animation editor.
+ * 
+ */
+
+function GoFSEditAnim() {
+    var elem = document.getElementById("tool12");
+    if (!elem.fullscreenElement) {
+            elem.requestFullscreen();
+    }
+
+    // if (!document.fullscreenElement) {
+    //     document.documentElement.requestFullscreen();
+    //     _('bar').style.transform = "scaleY(1)";
+    //     //_('bar').style.bottom="10px";
+    //     //resizeSlides();
+    // } 
+    else {
+        document.exitFullscreen();
+        // _('bar').style.transform = "scaleY(1)";
+        //resizeSlides();
+    }
+}
+
+/**
  * @summary The function that is executed for getting the device pixel ratio with the animation editor.
  * 
  */
