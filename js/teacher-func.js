@@ -1004,7 +1004,7 @@ function followmouse(e) {
     let x = e.pageX - 12;
     let y = e.pageY-tabs_top-menu_top + 12;
 
-    document.getElementById("coord_x").innerHTML = pourcx+2;
+    document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
 
     showMouse();
