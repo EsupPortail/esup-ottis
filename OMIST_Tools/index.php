@@ -964,7 +964,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <textarea onchange="updateNotes()" id="speechArea"></textarea>
+        <textarea onchange="updateNotes()" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
       </td>
       </tr>
     </table>
