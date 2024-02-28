@@ -1498,7 +1498,7 @@ function CreateNewSpeech() {
  */
 
 function CreateNewPresentation() {
-    var text_info = "Please note that the speech will only be downloaded in the input language.";
+    var text_info = "Please note that if you have the same language twice (if your first language in the animation editor starts with [INPUT LANGUAGE]), changes made only on [INPUT LANGUAGE] will not be taken into account in the new animation.";
     if (confirm(text_info) == true) {
         //Récupérer le code html de l'encart
         var data_new_pres = _("notebookcompleteformatted").innerHTML;
