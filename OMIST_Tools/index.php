@@ -954,7 +954,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <table id="tableEdit" align="center" style="width: 100%; height:600px; border-collapse: collapse;" border="1">
       <tr>
         <td rowspan="2" style="width: 15%; height:100%">
-          <div id="notebookcompleteformatted" style="border: solid 1px; height: 100%; overflow: auto;"></div>
+          <div id="notebookcompleteformatted" style="border: 1px; height: 100%; overflow: auto;"></div>
         </td>
         <td style="width: 85%; height:400px">
           <div id="mouse" hidden>+</div>
