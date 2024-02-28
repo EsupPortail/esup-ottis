@@ -66,8 +66,8 @@ Pour moi.
 - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
 - [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
 - [X] Supprimer les retours à la ligne automatiques quand on ajoute un keyword
-- [ ] Réduire les bordures (border-collapse)
-- [ ] Ajouter barre scroll dans le speechArea (overflow-y)
+- [X] Réduire les bordures (border-collapse)
+- [X] Ajouter barre scroll dans le speechArea (overflow-y)
 - [ ] Centre l'image de la slide sélectionnée (à voir si c'est compatible avec les coordonnées de la souris)
 - [ ] Possibilité de mettre l'éditeur d'animation en full screen
 - [ ] Sur les boutons, ajouter des titres, des icônes, harmoniser les couleurs avec le thème, voir pour faire des boutons arrondis
