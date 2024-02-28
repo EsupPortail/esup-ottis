@@ -1460,8 +1460,8 @@ function GetNewPresentation(event){
  */
 
 function CreateNewSpeech() {
-    let text = "Please note that the speech will only be downloaded in the input language.";
-    if (confirm(text) == true) {
+    let text_info = "Please note that the speech will only be downloaded in the input language.";
+    if (confirm(text_info) == true) {
         var data_new_pres = _("notebookcompleteformatted").innerHTML;
         var parser = new DOMParser();
         var html = parser.parseFromString(data_new_pres, 'text/html');
@@ -1498,7 +1498,7 @@ function CreateNewSpeech() {
  */
 
 function CreateNewPresentation() {
-    let text = "Please note that the speech will only be downloaded in the input language.";
+    var text_info = "Please note that the speech will only be downloaded in the input language.";
     // if (confirm(text) == true) {
     //Récupérer le code html de l'encart
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
