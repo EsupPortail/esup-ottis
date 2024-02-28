@@ -948,6 +948,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick="toolInformation()">Help</a>
       </li>
+      <li><i class="fa-solid fa-expand"></i></li>
     </ul>
     <br/>
     <br/>
