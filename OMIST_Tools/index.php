@@ -947,9 +947,8 @@ It's important to note that the resulting animation can serve as comprehensive i
       </li>
       <li class="dropdown">
         <a class="dropbtn" onclick="toolInformation()">Help</a>
-      </li>
-      <li><i class="fa fa-cogs"></i></li>
     </ul>
+    <i class="fa-expand"></i>
     <br/>
     <br/>
     <table id="tableEdit" align="center" style="width: 100%; height:600px; border-collapse: collapse;" border="1">
