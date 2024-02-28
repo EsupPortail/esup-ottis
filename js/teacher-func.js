@@ -954,7 +954,9 @@ function SlideNotes() {
 function GoFSEditAnim() {
     var elem = document.getElementById("tool12");
     if (!elem.fullscreenElement) {
-            elem.requestFullscreen();
+        var table = document.getElementById("tableEdit");
+        table.style.height = "100%";
+        elem.requestFullscreen();
     }
 
     // if (!document.fullscreenElement) {

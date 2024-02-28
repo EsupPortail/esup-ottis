@@ -950,7 +950,6 @@ It's important to note that the resulting animation can serve as comprehensive i
     </ul>
     <div id="FS-editanim" title="Toggle fullscreen view" onclick="GoFSEditAnim();" title="Toggle fullscreen mode"><i class="fa fa-expand" style="float: right;"></i></div>
 
-    <i class="fa fa-expand" style="float: right;"></i>
     <br/>
     <br/>
     <table id="tableEdit" align="center" style="width: 100%; height:600px; border-collapse: collapse;" border="1">
