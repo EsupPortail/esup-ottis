@@ -28,17 +28,8 @@ _**(attendre d'avoir Linux sur la machine)**_
 
 - [ ] Meta vient de sortir un nouveau modèle de language très impressionnant qui permet de faire de la traduction speech to speech en gardant la voix de la personne qui parle et quasiment en temps réel (2 secondes d'écart). C'est ici [https://github.com/facebookresearch/seamless_communication/]. Je pense qu'il faut le tester, faire les démos proposées sur HuggingFace (notamment celui [https://huggingface.co/spaces/facebook/seamless-streaming]), regarder le .iypnb, voir ce qui pourrait nous servir. _**(attendre d'avoir Linux sur la machine. Seamless streaming semble ne plus fonctionner)**_
 
-- [ ] Créer un outil d'édition des animations. La première phase va correspondre à reprendre un peu ce qu'on a déjà dans l'application enseignante et dans ExtractSlidesNotesAppHTML.php, pour charger une application dans un editeur minimaliste (les discours dans des textarea), et générer une application avec les modifications. Ceci uniquement pour voir la faisabilité de la chose. 
-    - [X] Supprimer les vertical tab (VT) des speechs;
-    - [X] Faire un affichage de la taille du curseur lors du choix; _**(UPDATE : affichage  du curseur "+" pour avoir un ordre d'idée. Ce n'est n'est pas la forme du curseur sélectionné par l'utilisateur qui est affiché.)**_
-    - [X] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation; _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
-        - [X] Bug : curseur apparait si on clique sur l'image mais on n'a pas sélectionné "mouse go"
-    - [X] Léger décalage des coordonnées dans "mouse go" sur l'animation finale  _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
-    - [X] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
-    - [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
-    - [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
-    - [X] Supprimer les retours à la ligne automatiques quand on ajoute un keyword
-    - [ ] Changer l'image du lauchbutton d'une animation
+- [X] Créer un outil d'édition des animations. La première phase va correspondre à reprendre un peu ce qu'on a déjà dans l'application enseignante et dans ExtractSlidesNotesAppHTML.php, pour charger une application dans un editeur minimaliste (les discours dans des textarea), et générer une application avec les modifications. Ceci uniquement pour voir la faisabilité de la chose. 
+    
 
 - [X] Ajouter dans les scénarios un lien vers Madoc
 
@@ -53,13 +44,46 @@ Pour moi.
 1) dans teacher-func.js (ou maintenant dans common-func.js), dans la définition de StudentCompleteTranslation2, pourquoi on fait appel à StudentCompleteTranslation dans le sinon ? Bug ?
 2) dans teacher-func.js, revoir SlideBackward() (quand on retourne à la slide précédente, on veut revenir à la première phrase des commentaires, pas à la dernière)
 3) On/Off du micro par les touches ou le pointeur laser ne fonctionne que dans l'onglet slides. Il faudrait que ça fonctionne au moins dans l'onglet wooclap. _**(UPDATE Jeanne : normalement ça fonctionne partout avec les touches du clavier)**_
- 
 
+## Partie dédiée à l'outil principal
+- [ ] Mettre le fullscreen en icône (c'est une image pour le moment)
+- [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut
 
+## Partie dédiée aux OMIST Tools
+- [ ] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
+- [ ] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs
+- [ ] Revoir l'interface de l'animation dans AppTemplate.txt
 
+## Partie dédiée à l'éditeur d'animation
+- [X] Supprimer les vertical tab (VT) des speechs;
+- [X] Faire un affichage de la taille du curseur lors du choix; _**(UPDATE : affichage  du curseur "+" pour avoir un ordre d'idée. Ce n'est n'est pas la forme du curseur sélectionné par l'utilisateur qui est affiché.)**_
+- [X] Laisser un curseur qui indique l'emplacement de la souris quand on choisit "mouse go" sur l'animation; _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
+    - [X] Bug : curseur apparait si on clique sur l'image mais on n'a pas sélectionné "mouse go"
+- [X] Léger décalage des coordonnées dans "mouse go" sur l'animation finale  _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
+- [X] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
+- [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
+- [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
+- [X] Supprimer les retours à la ligne automatiques quand on ajoute un keyword
+- [ ] Réduire les bordures (border-collapse)
+- [ ] Ajouter barre scroll dans le speechArea (overflow-y)
+- [ ] Centre l'image de la slide sélectionnée (à voir si c'est compatible avec les coordonnées de la souris)
+- [ ] Possibilité de mettre l'éditeur d'animation en full screen
+- [ ] Sur les boutons, ajouter des titres, des icônes, harmoniser les couleurs avec le thème, voir pour faire des boutons arrondis
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
 - [ ] Placer tous les scripts php qui ne sont qu'inclus dans des sous-répertoires adaptés (comme Security par exemple). ça concerne principalement config.php. Fermer les accès à ces répertoires (.htaccess ou via ssl-default.conf)
-- [ ] Faire la même chose que précédemment dans les OMIST_Tools
+- [ ] Faire la même chose que précédemment dans les OMIST_Tools si on déplace config.py, les fichiers impactés sont : 
+    - OMIST_Tools/ExtractSpeech/SpeechExtractionFromPPTX.py
+    - OMIST_Tools/ConvertPPTX/PPTX_TXT_to_PPTX.py
+    - OMIST_Tools/TranslatePPTX/TranslatePPTX.py
+    - OMIST_Tools/utils.py
+    - OMIST_Tools/CreateApp/CreateMultiLingualAnim.py
+    - OMIST_Tools/TranslateSCORM/TranslateSCORM.py
+    - OMIST_Tools/TranslateXLIFF/TranslateXLIFF.py
+    - OMIST_Tools/TranslateSRT/TranslateSRT.py
+    - OMIST_Tools/ConvertPDF/PDF_TXT_to_PPTX.py
+
 - [ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
+
+
