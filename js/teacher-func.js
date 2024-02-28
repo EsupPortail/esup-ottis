@@ -1498,6 +1498,8 @@ function CreateNewSpeech() {
  */
 
 function CreateNewPresentation() {
+    let text = "Please note that the speech will only be downloaded in the input language.";
+    // if (confirm(text) == true) {
     //Récupérer le code html de l'encart
     var data_new_pres = _("notebookcompleteformatted").innerHTML;
     var xhr = new XMLHttpRequest();
