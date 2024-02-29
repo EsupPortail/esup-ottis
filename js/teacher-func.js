@@ -992,7 +992,7 @@ function GoFSEditAnim() {
         elem.requestFullscreen();
     } else {
         _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
-        elem.exitFullscreen();
+        document.exitFullscreen();
     }
     // if (!elem.fullscreenElement) {
     //     // var block12 = document.getElementById("block12");
