@@ -966,6 +966,7 @@ function GoFSEditAnim() {
             
             var child_id = child1.id;
             console.log(child_id);
+            
             var image_child = document.getElementById("child_id");
             image_child.height = '600';
             console.log(child_id);
@@ -1362,7 +1363,7 @@ function notesSlideLang(){
 function showSlideImage(img){
     var imgToDisplay = "";
     var size = document.getElementById("imageSize").innerHTML;
-    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height='+size+' />';
+    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;

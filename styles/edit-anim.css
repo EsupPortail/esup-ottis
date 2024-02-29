@@ -53,7 +53,11 @@
     height: 83%;
   }
 
-  
+  .container-img img {
+    object-fit: contain;
+  /* or
+    object-fit: cover; */
+  } 
   
   /* Add Animation - Zoom in the Modal */
   .modal-content, #caption {
