@@ -1501,7 +1501,7 @@ function SlideNotesTools(editable=false) {
     xhr.open("POST", scriptfile);
     //xhr.upload.addEventListener("progress", progressHandler, false);
     xhr.addEventListener("load", function (e) {completeHandlerTools(e,editable);}, false);
-    xhr.timeout = 300000;
+    xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
         alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
