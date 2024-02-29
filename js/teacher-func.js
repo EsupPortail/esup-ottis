@@ -959,18 +959,18 @@ function GoFSEditAnim() {
         // var form12 = document.getElementById("form12");
         // form12.style.height = "94%";
         elem.requestFullscreen();
-        document.getElementById("imageSize").innerHTML = "600";
-        if (document.getElementById("imageArea").children.length !=0){
-            var child1 = document.getElementById("imageArea").children[0];
-            console.log(child1);
+        // document.getElementById("imageSize").innerHTML = "600";
+        // if (document.getElementById("imageArea").children.length !=0){
+        //     var child1 = document.getElementById("imageArea").children[0];
+        //     console.log(child1);
             
-            var child_id = child1.id;
-            console.log(child_id);
+        //     var child_id = child1.id;
+        //     console.log(child_id);
             
-            var image_child = document.getElementById("child_id");
-            image_child.height = '600';
-            console.log(child_id);
-        }
+        //     var image_child = document.getElementById("child_id");
+        //     image_child.height = '600';
+        //     console.log(child_id);
+        // }
         // var child1 = document.getElementById("imageArea").children[0];
         // var child_id = child1.id;
         
