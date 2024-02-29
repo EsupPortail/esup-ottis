@@ -54,9 +54,7 @@
   }
 
   .container-img img {
-    object-fit: contain;
-  /* or
-    object-fit: cover; */
+    width: 100%;
   } 
   
   /* Add Animation - Zoom in the Modal */
