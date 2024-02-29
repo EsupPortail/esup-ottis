@@ -1,5 +1,10 @@
 <?php
 $mysite = "automatictranslator.sciences.univ-nantes.fr"; 
+if (! isset($_SERVER['HTTP_REFERER'])) {
+    header("Location: https://automatictranslator.sciences.univ-nantes.fr");
+    exit();
+}
+
 $referer = $_SERVER['HTTP_REFERER'];
 
 if ($referer == "") {
