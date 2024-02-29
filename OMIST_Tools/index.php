@@ -905,7 +905,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form12" style="height : 94%" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
-      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="50000" />   
+      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="500000" />   
       </li>
       <li class="dropdown">
         <a title="Add a pause in your animation" class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {alert("You must provide a file first !");}'>Pause</a>
