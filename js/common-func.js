@@ -240,7 +240,7 @@ function whichBrowser() {
  */
 
 function DownloadSpeechLesson(filename, elText, mimeType) {
-    elText = elText.replaceAll("<br/>", "\n");
+    elText = elText.replaceAll("<br>", "\n");
     var link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
     link.setAttribute('download', filename);
