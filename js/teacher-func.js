@@ -962,8 +962,10 @@ function GoFSEditAnim() {
         document.getElementById("imageSize").innerHTML = "600";
         if (document.getElementById("imageArea").children.length !=0){
             var child1 = document.getElementById("imageArea").children[0];
+            console.log(child1);
+            console.log(child_id);
             var child_id = child1.id;
-            child_id.style.height = "600";
+            child_id.style.height = '600px';
             console.log(child_id);
         }
         // var child1 = document.getElementById("imageArea").children[0];
