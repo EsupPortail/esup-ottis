@@ -963,7 +963,8 @@ It's important to note that the resulting animation can serve as comprehensive i
         </td>
         <td style="width: 85%; height:400px">
           <div id="mouse" hidden>+</div>
-          <div id="imageArea" class="container-img"></div>
+          <!-- <div id="imageArea" class="container-img"></div> -->
+          <div id="imageArea"></div>
         </td>
       </tr>
       <tr>
