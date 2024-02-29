@@ -960,9 +960,15 @@ function GoFSEditAnim() {
         // form12.style.height = "94%";
         elem.requestFullscreen();
         document.getElementById("imageSize").innerHTML = "600";
-        var child1 = document.getElementById("imageArea").children[0];
-        var child_id = child1.id;
-        console.log(child_id);
+        if (document.getElementById("imageArea").children.length !=0){
+            var child1 = document.getElementById("imageArea").children[0];
+            var child_id = child1.id;
+            child_id.style.height = "600";
+            console.log(child_id);
+        }
+        // var child1 = document.getElementById("imageArea").children[0];
+        // var child_id = child1.id;
+        
     }
 
     // if (!document.fullscreenElement) {
