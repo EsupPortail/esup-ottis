@@ -1362,7 +1362,7 @@ function notesSlideLang(){
 
 function showSlideImage(img){
     var imgToDisplay = "";
-    var size = document.getElementById("imageSize").innerHTML;
+    //var size = document.getElementById("imageSize").innerHTML;
     imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
