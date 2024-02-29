@@ -72,6 +72,7 @@ Pour moi.
 - [ ] Centre l'image de la slide sélectionnée (à voir si c'est compatible avec les coordonnées de la souris)
 - [ ] Possibilité de mettre l'éditeur d'animation en full screen
 - [ ] Sur les boutons, ajouter des titres, des icônes, harmoniser les couleurs avec le thème, voir pour faire des boutons arrondis
+- [ ] Si on utilise mouse go mais qu'on ne va pas jusqu'au bout (on ferme la pop-up avec la croix), le curseur reste sur l'image.
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
