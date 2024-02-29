@@ -998,40 +998,14 @@ function GoFSEditAnim() {
         _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
         document.exitFullscreen();
     }
-    // if (!elem.fullscreenElement) {
-    //     // var block12 = document.getElementById("block12");
-    //     // block12.style.height = "94%";
-    //     // var form12 = document.getElementById("form12");
-    //     // form12.style.height = "94%";
-    //     elem.requestFullscreen();
-    //     // document.getElementById("imageSize").innerHTML = "600";
-    //     // if (document.getElementById("imageArea").children.length !=0){
-    //     //     var child1 = document.getElementById("imageArea").children[0];
-    //     //     console.log(child1);
-            
-    //     //     var child_id = child1.id;
-    //     //     console.log(child_id);
-            
-    //     //     var image_child = document.getElementById("child_id");
-    //     //     image_child.height = '600';
-    //     //     console.log(child_id);
-    //     // }
-    //     // var child1 = document.getElementById("imageArea").children[0];
-    //     // var child_id = child1.id;
-        
-    // }
 
-    // // if (!document.fullscreenElement) {
-    // //     document.documentElement.requestFullscreen();
-    // //     _('bar').style.transform = "scaleY(1)";
-    // //     //_('bar').style.bottom="10px";
-    // //     //resizeSlides();
-    // // } 
-    // else {
-    //     document.exitFullscreen();
-    //     // _('bar').style.transform = "scaleY(1)";
-    //     //resizeSlides();
-    // }
+    // document.onkeyup = function(event) {
+    //     if (event.code === 'Escape'){
+    //       if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>'){
+    //         document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
+    //       }
+    //     }            
+    //   }
 }
 
 /**
@@ -1280,13 +1254,6 @@ window.onclick = function(e) {
   }
 }
 
-document.onkeyup = function(event) {
-    if (event.code === 'Escape'){
-      if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>'){
-        document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
-      }
-    }            
-  }
 
 /**
  * @summary The function that is executed for for closing open dropdowns that do not match the selected dropdown in the animation editor.
