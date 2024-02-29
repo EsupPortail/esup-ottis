@@ -905,13 +905,17 @@ function completeHandler(event,editable=false) {
 function SlideNotes() {
     var file = _("ppt_presentation").files[0];
     var scriptfile = "";
+    var time = 30000;
     //  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
     if (file.name.endsWith('pptx'))
         if (LoadPPTX) scriptfile = "ExtractSlidesNotes_PPTX_images.php";
         else scriptfile = "ExtractSlidesNotes.php";
     if (file.name.endsWith('odp')) scriptfile = "ExtractSlidesNotes.php";
     if (file.name.endsWith('txt')) scriptfile = "ExtractSlidesNotesTxt.php";
-    if (file.name.endsWith('html')) scriptfile = "ExtractSlidesNotesAppHTML.php";
+    if (file.name.endsWith('html')){
+        scriptfile = "ExtractSlidesNotesAppHTML.php";
+        time = 300000;
+    } 
     if (scriptfile == "") {
         alert('Only pptx, odp, html and txt files are allowed !');
         return -1;
@@ -936,7 +940,7 @@ function SlideNotes() {
         }
       };
       */
-    xhr.timeout = 30000;
+    xhr.timeout = time;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
         _('spinnertxt').innerHTML='Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
