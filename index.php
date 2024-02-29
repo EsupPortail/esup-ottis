@@ -477,7 +477,7 @@ fclose($fd);
 				<input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question" />
 				<input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();" /> </div>
 			<div id="tabs-2">
-				<input type="button" value="Download the speech" class="button-3 tooltip" role="button" title="Send the notebook by mail." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" />
+				<input type="button" value="Download the speech" class="button-3 tooltip" role="button" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" />
 				<br/>
 				<div id="notebook" style="border: solid 1px;" contenteditable="true"> </div>
 				<!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(_('notebook').innerHTML);"/> -->
