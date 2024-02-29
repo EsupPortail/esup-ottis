@@ -959,7 +959,7 @@ function GoFSEditAnim() {
         // var form12 = document.getElementById("form12");
         // form12.style.height = "94%";
         elem.requestFullscreen();
-        document.getElementById("imageSize").innerHTML = "800";
+        document.getElementById("imageSize").innerHTML = "600";
         var child1 = document.getElementById("imageArea").children[0];
         var child_id = child1.id;
         console.log(child_id);
