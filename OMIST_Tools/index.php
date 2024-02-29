@@ -232,8 +232,8 @@ function Init() {
 
   document.onkeyup = function(event) {
     if (event.code === 'Escape'){
-      if (_('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>';){
-        _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
+      if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>';){
+        document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
       }
     }            
   }
