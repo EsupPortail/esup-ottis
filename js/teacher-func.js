@@ -965,7 +965,7 @@ function GoFSEditAnim() {
             console.log(child1);
             console.log(child_id);
             var child_id = child1.id;
-            child_id.style.height = '600px';
+            child_id.height = '600';
             console.log(child_id);
         }
         // var child1 = document.getElementById("imageArea").children[0];
