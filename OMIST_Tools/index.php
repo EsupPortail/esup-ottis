@@ -229,14 +229,6 @@ function Init() {
   allselects.map(PopulateLanguages);
   PopulateVoicesMicrosoft(_('inputlanguage13'));
   showList("all");
-
-  // document.onkeyup = function(event) {
-  //   if (event.code === 'Escape'){
-  //     if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>';){
-  //       document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
-  //     }
-  //   }            
-  // }
 }
 
 function displayLanguage(){

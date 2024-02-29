@@ -1280,6 +1280,14 @@ window.onclick = function(e) {
   }
 }
 
+document.onkeyup = function(event) {
+    if (event.code === 'Escape'){
+      if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>'){
+        document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
+      }
+    }            
+  }
+
 /**
  * @summary The function that is executed for for closing open dropdowns that do not match the selected dropdown in the animation editor.
  * 
