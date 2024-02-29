@@ -948,10 +948,14 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick="toolInformation()">Help</a>
     </ul>
-    <div id="FS-editanim" title="Toggle fullscreen view" onclick="GoFSEditAnim();" title="Toggle fullscreen mode"><i class="fa fa-expand" style="float: right;"></i></div>
+    <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode"><i class="fa fa-expand" style="float: right;"></i></div>
 
     <br/>
     <br/>
+    <div style="display: none;">
+    <label for="fullscreenon">Fullscreen ? </label>
+    <input type="checkbox" id="fullscreenon" />
+    </div>
     <table id="tableEdit" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
       <tr>
         <td rowspan="2" style="width: 15%; height:100%">

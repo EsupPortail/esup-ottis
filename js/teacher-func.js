@@ -947,46 +947,87 @@ function SlideNotes() {
 }
 
 /**
+ * @summary Switch the Microphone/Speechrecognition on and off
+ * 
+ */
+
+function FullScreen() {
+    if (!builtin_microsofttranscritionon) {
+        builtin_recognition.abort();
+    }
+    var mybox = _('micon');
+    _('recognitionon').checked = !_('recognitionon').checked;
+    builtin_recognitionon = _('recognitionon').checked;
+    if (_('recognitionon').checked) {
+        mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
+    } else {
+        mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
+    }
+    if (builtin_microsofttranscritionon) {
+        if (builtin_recognitionon) {
+            doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
+        } else {
+            stopRecognizer();
+        }
+    }
+    if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+        StartSpeechRecognition(Traduction);
+    }
+    /* else {
+          builtin_recognition.abort();
+        }*/
+
+}
+
+/**
  * @summary Switch the fullscreen mode on and off for the animation editor.
  * 
  */
 
 function GoFSEditAnim() {
+    _('fullscreenon').checked = !_('fullscreenon').checked;
     var elem = document.getElementById("tool12");
-    if (!elem.fullscreenElement) {
-        // var block12 = document.getElementById("block12");
-        // block12.style.height = "94%";
-        // var form12 = document.getElementById("form12");
-        // form12.style.height = "94%";
+    if (_('fullscreenon').checked) {
+        _('FS-editanim').innerHTML = '<i class="fa fa-compress" style="float: right;"></i>';
         elem.requestFullscreen();
-        // document.getElementById("imageSize").innerHTML = "600";
-        // if (document.getElementById("imageArea").children.length !=0){
-        //     var child1 = document.getElementById("imageArea").children[0];
-        //     console.log(child1);
+    } else {
+        _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
+        elem.exitFullscreen();
+    }
+    // if (!elem.fullscreenElement) {
+    //     // var block12 = document.getElementById("block12");
+    //     // block12.style.height = "94%";
+    //     // var form12 = document.getElementById("form12");
+    //     // form12.style.height = "94%";
+    //     elem.requestFullscreen();
+    //     // document.getElementById("imageSize").innerHTML = "600";
+    //     // if (document.getElementById("imageArea").children.length !=0){
+    //     //     var child1 = document.getElementById("imageArea").children[0];
+    //     //     console.log(child1);
             
-        //     var child_id = child1.id;
-        //     console.log(child_id);
+    //     //     var child_id = child1.id;
+    //     //     console.log(child_id);
             
-        //     var image_child = document.getElementById("child_id");
-        //     image_child.height = '600';
-        //     console.log(child_id);
-        // }
-        // var child1 = document.getElementById("imageArea").children[0];
-        // var child_id = child1.id;
+    //     //     var image_child = document.getElementById("child_id");
+    //     //     image_child.height = '600';
+    //     //     console.log(child_id);
+    //     // }
+    //     // var child1 = document.getElementById("imageArea").children[0];
+    //     // var child_id = child1.id;
         
-    }
+    // }
 
-    // if (!document.fullscreenElement) {
-    //     document.documentElement.requestFullscreen();
-    //     _('bar').style.transform = "scaleY(1)";
-    //     //_('bar').style.bottom="10px";
+    // // if (!document.fullscreenElement) {
+    // //     document.documentElement.requestFullscreen();
+    // //     _('bar').style.transform = "scaleY(1)";
+    // //     //_('bar').style.bottom="10px";
+    // //     //resizeSlides();
+    // // } 
+    // else {
+    //     document.exitFullscreen();
+    //     // _('bar').style.transform = "scaleY(1)";
     //     //resizeSlides();
-    // } 
-    else {
-        document.exitFullscreen();
-        // _('bar').style.transform = "scaleY(1)";
-        //resizeSlides();
-    }
+    // }
 }
 
 /**
