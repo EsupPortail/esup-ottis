@@ -963,8 +963,9 @@ function GoFSEditAnim() {
         if (document.getElementById("imageArea").children.length !=0){
             var child1 = document.getElementById("imageArea").children[0];
             console.log(child1);
-            console.log(child_id);
+            
             var child_id = child1.id;
+            console.log(child_id);
             var image_child = document.getElementById("child_id");
             image_child.height = '600';
             console.log(child_id);
