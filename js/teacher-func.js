@@ -1350,7 +1350,8 @@ function notesSlideLang(){
 
 function showSlideImage(img){
     var imgToDisplay = "";
-    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height=400 />';
+    var size = document.getElementById("imageSize").innerHTML;
+    imgToDisplay = '<img id="slide_' +img.id + '" src="'+img.src+'" height='+size+' />';
     document.getElementById("imageArea").innerHTML = imgToDisplay;
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_'+img.id).textContent;

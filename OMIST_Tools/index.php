@@ -960,6 +960,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <td style="width: 85%; height:400px">
           <div id="mouse" hidden>+</div>
           <div id="imageArea"></div>
+          <div id="imageSize" hidden>400</div>
         </td>
       </tr>
       <tr>
