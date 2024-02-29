@@ -230,3 +230,20 @@ function whichBrowser() {
     }
     return "Unknown";
 }
+
+/**
+ * @summary The function that is executed for downloading a file with the animation editor.
+ * 
+ * @param {string} filename a text value contained the file name.
+ * @param {string} elText a text value contained the text to download.
+ * @param {string} mimeType a text value contained the MIME type.
+ */
+
+function DownloadSpeechLesson(filename, elText, mimeType) {
+    elText = elText.replaceAll("<br/>", "\n");
+    var link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
+    link.setAttribute('download', filename);
+    link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));
+    link.click();
+}
