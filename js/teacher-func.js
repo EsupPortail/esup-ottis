@@ -992,10 +992,10 @@ function GoFSEditAnim() {
     _('fullscreenon').checked = !_('fullscreenon').checked;
     var elem = document.getElementById("tool12");
     if (_('fullscreenon').checked) {
-        _('FS-editanim').innerHTML = '<i class="fa fa-compress" style="float: right;"></i>';
+        // _('FS-editanim').innerHTML = '<i class="fa fa-compress" style="float: right;"></i>';
         elem.requestFullscreen();
     } else {
-        _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
+        // _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
         document.exitFullscreen();
     }
 
