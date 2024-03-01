@@ -974,7 +974,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </td>
       </tr>
     </table>
-
+    <div id="DesiredDivID"></div>
     <div id="dialog-message" title="Information">
       <p>
       It's a tool for editing your animations. 

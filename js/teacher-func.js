@@ -1123,6 +1123,7 @@ function toolInformation(){
         height: 'auto',
         width: 'auto',
         modal: true,
+        appendTo: "#DesiredDivID",
         buttons: {
           OK: function() {
             $( this ).dialog( "close" );
