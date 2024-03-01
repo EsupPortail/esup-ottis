@@ -229,6 +229,7 @@ function Init() {
   allselects.map(PopulateLanguages);
   PopulateVoicesMicrosoft(_('inputlanguage13'));
   showList("all");
+  console.log("test");
 }
 
 function displayLanguage(){
