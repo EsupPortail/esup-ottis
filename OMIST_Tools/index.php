@@ -230,6 +230,14 @@ function Init() {
   PopulateVoicesMicrosoft(_('inputlanguage13'));
   showList("all");
   console.log("test");
+  document.onkeyup = function(event) {
+      if (event.code === 'Escape'){
+        console.log("ESCAPE");
+        // if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>'){
+        //   document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
+        // }
+      }            
+    }
 }
 
 function displayLanguage(){
