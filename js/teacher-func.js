@@ -1089,8 +1089,11 @@ function followmouse(e) {
     let x = e.pageX - 12;
     let y = e.pageY-tabs_top-menu_top + 12;
 
+    console.log("\n PAGE Y : \n");
+    console.log(e.pageY)
     console.log("\n Y : \n");
     console.log(y);
+    
 
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
