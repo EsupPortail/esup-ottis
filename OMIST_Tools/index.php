@@ -233,6 +233,8 @@ function Init() {
   document.onkeyup = function(event) {
       if (event.code === 'Escape'){
         console.log("ESCAPE");
+        _('fullscreenon').checked = !_('fullscreenon').checked;
+        console.log(_('fullscreenon').checked);
         // if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>'){
         //   document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
         // }
