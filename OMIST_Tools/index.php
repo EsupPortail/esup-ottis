@@ -817,20 +817,6 @@ It's important to note that the resulting animation can serve as comprehensive i
     </form>
   </div>
 </div>
-<div id="tool7">
-  <h3>Convert pdf+txt to pptx</h3>
-  <div>
-  <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
-    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
-    <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
-    <input type="hidden" id="Random7" name="randompath" value=""/>
-    <input type="hidden" id="Extension7" name="Extension" value="zip"/>
-    <button id="App7" value="Create" onclick="if (_('fileToUpload7').value!='') {this.innerHTML=''; SubmitJob(7,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
-    <p id="Message7"></p>
-    </form>
-  </div>
-  </div>
 <div id="tool8">
   <h3 title="Imagine that you have a PPTX file without comments and your notes in a separate text file. This simple tool allows to combine both files. The result is a complete PPTX file.">Convert pptx+txt to pptx</h3>
   <div>
@@ -845,6 +831,20 @@ It's important to note that the resulting animation can serve as comprehensive i
     </form>
   </div>
 </div>
+<div id="tool7">
+  <h3>Convert pdf+txt to pptx</h3>
+  <div>
+  <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
+    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
+    <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
+    <input type="hidden" id="Random7" name="randompath" value=""/>
+    <input type="hidden" id="Extension7" name="Extension" value="zip"/>
+    <button id="App7" value="Create" onclick="if (_('fileToUpload7').value!='') {this.innerHTML=''; SubmitJob(7,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <p id="Message7"></p>
+    </form>
+  </div>
+  </div>
 <div id="tool9">
   <h3 title="This simple tool allows to extract the comments of a PPTX file. The result is a text file.">Extract speech from pptx</h3>
   <div>
