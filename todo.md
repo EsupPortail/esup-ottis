@@ -54,7 +54,7 @@ Pour moi.
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000. _**(UPDATE : à tester en dehors de l'université.)**_
 
 ## Partie dédiée aux OMIST Tools
-- [ ] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
+- [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
 - [ ] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs
 - [ ] Revoir l'interface de l'animation dans AppTemplate.txt
 
