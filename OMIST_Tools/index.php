@@ -952,10 +952,10 @@ It's important to note that the resulting animation can serve as comprehensive i
 
     <br/>
     <br/>
-    <div style="display: none;">
+    <!-- <div style="display: none;">
     <label for="fullscreenon">Fullscreen ? </label>
     <input type="checkbox" id="fullscreenon" />
-    </div>
+    </div> -->
     <table id="tableEdit" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
       <tr>
         <td rowspan="2" style="width: 15%; height:100%">
