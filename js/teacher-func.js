@@ -1086,8 +1086,15 @@ function followmouse(e) {
     console.log("\n TABLE : \n");
     console.log(table_top);
 
+    var elem = document.getElementById("tool12");
+    if (!document.fullscreenElement) {
+        var gap_mouse = 12;
+    }else{
+        var gap_mouse = 63;
+    }
+
     let x = e.pageX - 12;
-    let y = e.pageY-tabs_top-menu_top + 12;
+    let y = e.pageY-tabs_top-menu_top + gap_mouse;
 
     console.log("\n PAGE Y : \n");
     console.log(e.pageY)
