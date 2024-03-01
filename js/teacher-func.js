@@ -1097,6 +1097,7 @@ function getMousePosition(){
         height: 'auto',
         width: 'auto',
         modal: false,
+        appendTo: "#DesiredDivID",
         buttons: {
           OK: function() {
             $( this ).dialog( "close" );
@@ -1339,6 +1340,7 @@ function addOptions(keywordToAdd){
             height: 'auto',
             width: 'auto',
             modal: true,
+            appendTo: "#DesiredDivID",
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
@@ -1350,6 +1352,7 @@ function addOptions(keywordToAdd){
             height: 'auto',
             width: 'auto',
             modal: true,
+            appendTo: "#DesiredDivID",
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
@@ -1361,6 +1364,7 @@ function addOptions(keywordToAdd){
             height: 'auto',
             width: 'auto',
             modal: true,
+            appendTo: "#DesiredDivID",
             buttons: {
               OK: function() {
                 $( this ).dialog( "close" );
