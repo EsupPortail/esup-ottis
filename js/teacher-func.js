@@ -999,7 +999,7 @@ function GoFSEditAnim() {
     //     document.exitFullscreen();
     // }
 
-    if (!elem.fullscreenElement) {
+    if (!document.fullscreenElement) {
         elem.requestFullscreen();
     } else {
         document.exitFullscreen();
