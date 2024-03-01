@@ -1091,6 +1091,10 @@ function followmouse(e) {
 
     console.log("\n PAGE Y : \n");
     console.log(e.pageY)
+    console.log("\n OFFSET Y : \n");
+    console.log(e.offsetY)
+    console.log("\n POURC Y : \n");
+    console.log(pourcy)
     console.log("\n Y : \n");
     console.log(y);
     
