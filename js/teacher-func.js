@@ -1071,14 +1071,14 @@ function followmouse(e) {
     var menu_top = document.getElementById("menu").offsetTop;
     var tool_top = document.getElementById("tool12").offsetTop;
     var block_top = document.getElementById("block12").offsetTop;
-    var form_top = document.getElementById("form12").offsetTop;
+    // var form_top = document.getElementById("form12").offsetTop;
     var table_top = document.getElementById("tableEdit").offsetTop;
     console.log("\n TOOL : \n");
     console.log(tool_top);
     console.log("\n BLOCK : \n");
     console.log(block_top);
-    console.log("\n FORM : \n");
-    console.log(form_top);
+    // console.log("\n FORM : \n");
+    // console.log(form_top);
     console.log("\n TABLE : \n");
     console.log(table_top);
 
