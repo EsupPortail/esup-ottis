@@ -948,7 +948,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <li class="dropdown">
         <a class="dropbtn" onclick="toolInformation()">Help</a>
     </ul>
-    <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode"><i class="fa fa-expand" style="float: right;"></i></div>
+    <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode" style="float: right;"><i class="fa fa-expand" style="float: right;"></i></div>
 
     <br/>
     <br/>
