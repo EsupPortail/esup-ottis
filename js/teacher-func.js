@@ -1073,6 +1073,10 @@ function followmouse(e) {
     var block_top = document.getElementById("block12").offsetTop;
     // var form_top = document.getElementById("form12").offsetTop;
     var table_top = document.getElementById("tableEdit").offsetTop;
+    console.log("\n TABS : \n");
+    console.log(tabs_top);
+    console.log("\n MENU : \n");
+    console.log(menu_top);
     console.log("\n TOOL : \n");
     console.log(tool_top);
     console.log("\n BLOCK : \n");
