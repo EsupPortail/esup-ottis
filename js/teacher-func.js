@@ -1217,13 +1217,14 @@ function addKeyword(keyword){
     var lines_tot = textarea.value.split('\n');
     if (lines_tot[line-1] === ""){
         line = line-1;
-        console.log("Ligne précédente");
+        // console.log("Ligne précédente");
     }else if (cursorPositionLine === 0){
+        document.getElementById('cursor-position').innerHTML = document.getElementById('cursor-position').innerHTML - 1;
         line = line-1;
-        console.log("Début de phrase");
+        // console.log("Début de phrase");
     }else{
-        console.log("OK");
-        console.log(lines_tot[line-1]);
+        // console.log("OK");
+        // console.log(lines_tot[line-1]);
     }
 
 
