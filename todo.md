@@ -51,7 +51,7 @@ Pour moi.
 - [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [ ] Voir si les tics de language qui sont enlevés le sont pour toutes les langues (par ex. en espagnol "eh" lors des conférences à l'école d'architecture)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
-- [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000. _**(UPDATE : à tester en dehors de l'université.)**_
+- [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
 
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
@@ -74,7 +74,7 @@ Pour moi.
 - [ ] Possibilité de mettre l'éditeur d'animation en full screen
 - [ ] Sur les boutons, ajouter des titres, des icônes, harmoniser les couleurs avec le thème, voir pour faire des boutons arrondis
 - [ ] Si on utilise mouse go mais qu'on ne va pas jusqu'au bout (on ferme la pop-up avec la croix), le curseur reste sur l'image.
-- [ ] Insérer les keywords avant la phrase si le curseur est à 0, après la phrase sinon (pour le moment ça insère à la ligne n+1)
+- [X] Insérer les keywords avant la phrase si le curseur est à 0, après la phrase sinon (pour le moment ça insère à la ligne n+1)  _**(UPDATE : voir avec Claire ses manipulations.)**_
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
