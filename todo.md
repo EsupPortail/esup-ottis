@@ -46,7 +46,7 @@ Pour moi.
 3) On/Off du micro par les touches ou le pointeur laser ne fonctionne que dans l'onglet slides. Il faudrait que ça fonctionne au moins dans l'onglet wooclap. _**(UPDATE Jeanne : normalement ça fonctionne partout avec les touches du clavier)**_
 
 ## Partie dédiée à l'outil principal
-- [ ] Mettre le fullscreen en icône (c'est une image pour le moment)
+- [X] Mettre le fullscreen en icône (c'est une image pour le moment)
 - [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut
 - [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [ ] Voir si les tics de language qui sont enlevés le sont pour toutes les langues (par ex. en espagnol "eh" lors des conférences à l'école d'architecture)
