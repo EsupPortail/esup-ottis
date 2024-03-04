@@ -932,7 +932,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a title="Global options for animation (aspect ratio, delay between each slides, licence)." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropOptions").classList.toggle("show"); closeDropdown("dropOptions");} else {alert("You must provide a file first !");}'>Options</a>
+        <a title="Global options for animation (aspect ratio, delay between each slides, licence)." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropOptions").classList.toggle("show"); closeDropdown("dropOptions");} else {alert("You must provide a file first !");}'><i class="fa fa-cogs"></i>Options</a>
         <div class="dropdown-content" id="dropOptions">
           <a href="javascript:addOptions('[ratio]')">Aspect Ratio</a>
           <a href="javascript:addOptions('[delay]')">Delay</a>
