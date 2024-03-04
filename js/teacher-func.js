@@ -1209,6 +1209,10 @@ function addKeyword(keyword){
 
     let line = document.getElementById('cursor-position').innerHTML;
 
+    var cursorPosition = line.selectionStart;
+    console.log("\n cursor position in the line : \n");
+    console.log(cursorPosition);
+
     var lines_tot = textarea.value.split('\n');
     if (lines_tot[line-1] === ""){
         line = line-1;
