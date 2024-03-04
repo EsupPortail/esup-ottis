@@ -108,10 +108,12 @@ li a, .dropbtn {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border: 1px solid;
+    border-radius: 16px;
 }
 
 li a:hover, .dropdown:hover .dropbtn {
-    background-color: #9d9e9e;
+    background-color: #1ABC9C;
 }
 
 li.dropdown {
