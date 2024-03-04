@@ -1210,7 +1210,7 @@ function addKeyword(keyword){
 
     let line = document.getElementById('cursor-position').innerHTML;
 
-    var cursorPositionLine = textBeforeCursor[ligne-1].length;
+    var cursorPositionLine = textBeforeCursor[line-1].length;
     console.log("\n cursor position in the line : \n");
     console.log(cursorPositionLine);
 
