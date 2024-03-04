@@ -116,12 +116,12 @@ li a, .dropbtn {
   border-radius: 16px;
 }
 
-.dropbtn:hover{
-  background-color: #72dcc7;
+li a:hover, .dropdown:hover{
+    background-color: #1ABC9C;
 }
 
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: #1ABC9C;
+.dropbtn:hover{
+  background-color: #72dcc7;
 }
 
 li.dropdown {
