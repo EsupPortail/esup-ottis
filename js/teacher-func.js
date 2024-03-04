@@ -1218,7 +1218,11 @@ function addKeyword(keyword){
     if (lines_tot[line-1] === ""){
         line = line-1;
         console.log("Ligne précédente");
+    }else if (cursorPositionLine === 0){
+        line = line-1;
+        console.log("Début de phrase");
     }else{
+        console.log("OK");
         console.log(lines_tot[line-1]);
     }
 
