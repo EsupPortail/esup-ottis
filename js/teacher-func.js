@@ -1203,15 +1203,16 @@ function addKeyword(keyword){
     let textarea = document.getElementById('speechArea');
     var cursorPos = $('#speechArea').prop('selectionStart');
 
-    document.getElementById('cursor-position').innerHTML = textarea.value.substr(0, textarea.selectionStart).split("\n").length;
+    var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
+    document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
     console.log("\n cursor position : \n");
     console.log(document.getElementById('cursor-position').innerHTML);
 
     let line = document.getElementById('cursor-position').innerHTML;
 
-    var cursorPosition = line.selectionStart;
+    var cursorPositionLine = textBeforeCursor[ligne-1].length;
     console.log("\n cursor position in the line : \n");
-    console.log(cursorPosition);
+    console.log(cursorPositionLine);
 
     var lines_tot = textarea.value.split('\n');
     if (lines_tot[line-1] === ""){
