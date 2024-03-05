@@ -1026,7 +1026,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </div>
     </div>
     <div id="dialog-warning" class="dialog-window" title="Warning"></div>
-    <div id="dialog-all-lang" class="dialog-window" title="Add to all languages">Add action to all languages ? \n Click on "Yes" to add to all languages or click on "No" to add only to the selected language."</div>
+    <div id="dialog-all-lang" class="dialog-window" title="Add to all languages ?">Click on "Yes" to add the action to all languages or click on "No" to add only to the selected language."</div>
     <div id="mouse-position" title="Select the position">
     </div>
     <div id="commandKeyword" style="display: none;"></div>
