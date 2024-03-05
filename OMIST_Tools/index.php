@@ -944,6 +944,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <div class="dropdown-content" id="dropDownload">
           <a href="javascript:CreateNewPresentation()">Download complete animation</a>
           <a href="javascript:CreateNewSpeech()">Download speech</a>
+          <!-- <a href="javascript:CreateNewPPTX()">Download PPTX presentation</a> -->
       </li>
       <li class="dropdown">
         <a title="Help with the animation editor." class="dropbtn" onclick="toolInformation()" ><i class="fa fa-info"></i> Help</a>

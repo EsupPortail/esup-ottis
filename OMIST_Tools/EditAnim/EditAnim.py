@@ -10,6 +10,7 @@ from urllib.request import urlopen
 import urllib
 from bs4 import BeautifulSoup
 import os
+from pptx import Presentation
 
 def main():
 
@@ -36,7 +37,30 @@ def main():
             assert False, "unhandled option"
     
     if input != "":
-        GetHTMLFile(input,output)
+        CreatePPTX(input,output)
+
+def CreatePPTX():
+    #Create blank PowerPoint file
+    prs = Presentation()
+
+    #set slide template labels. This just makes is easier to read the code. The layout index can also be used.                   
+    SLD_LAYOUT_TITLE = 0
+    SLD_LAYOUT_TITLE_AND_CONTENT = 1
+    SLD_LAYOUT_TITLE_ONLY = 5
+
+    for image_slide in image_tot :
+        #create a dictionary of file names and the location they will be placed on slide
+        shape_location = {image_slide: {"top": Inches(1.92), "left": Inches(1.88)}}
+
+        #Add a slide
+        slide_layout = prs.slide_layouts[SLD_LAYOUT_TITLE_ONLY]
+        slide = prs.slides.add_slide(slide_layout)
+
+        #Add slide images
+        for image, location in shape_location.items():
+            #insert images into slide at the specified location. This will place a single image in the center of the slide.
+            slide.shapes.add_picture(image, location['left'], location['top'])
+
 
 def GetHTMLFile(input, output):
     shutil.copy2(input, output)
