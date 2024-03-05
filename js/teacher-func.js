@@ -1167,10 +1167,6 @@ function toolInformation(){
     }); 
 }
 
-/**
- * @summary The function that is executed for displaying help for the animation editor.
- * 
- */
 
 function warningEmpty(warning_type){
     if (warning_type === "file"){
@@ -1266,38 +1262,84 @@ function addKeyword(keyword){
  */
 
 function addAllLanguages(keyword){
-    console.log(keyword);
-    let text = "Add action to all languages ? \nClick on \"OK\" to add to all languages or click on \"Cancel\" to add only to the selected language.";
-    if (confirm(text) == true) {
-        addKeyword(keyword);
-        var tab_lang = [];
-        var languages = document.getElementById("myLanguage");
-        var idImage = document.getElementById("imageArea").firstElementChild.id;
-        var numSlide = idImage.charAt(idImage.length - 1);
-        for (num_lang = 0; num_lang < languages.length; num_lang++) {
-            tab_lang[num_lang] = languages.options[num_lang].value;
-        }
-        for (let key in tab_lang){
-            var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-            let line = document.getElementById('cursor-position').innerHTML;
-            var lines_tot = notes.split('\n');
-            if (lines_tot[line-1] === ""){
-                line = line-1;
-                console.log("Ligne précédente all lang");
-            }else{
-                console.log(lines_tot[line-1]);
+    $( "#dialog-all-lang" ).dialog({
+        height: 'auto',
+        width: 'auto',
+        modal: true,
+        appendTo: "#DesiredDivID",
+        buttons: {
+            Yes: function() {
+                addKeyword(keyword);
+                var tab_lang = [];
+                var languages = document.getElementById("myLanguage");
+                var idImage = document.getElementById("imageArea").firstElementChild.id;
+                var numSlide = idImage.charAt(idImage.length - 1);
+                for (num_lang = 0; num_lang < languages.length; num_lang++) {
+                    tab_lang[num_lang] = languages.options[num_lang].value;
+                }
+                for (let key in tab_lang){
+                    var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+                    let line = document.getElementById('cursor-position').innerHTML;
+                    var lines_tot = notes.split('\n');
+                    if (lines_tot[line-1] === ""){
+                        line = line-1;
+                        console.log("Ligne précédente all lang");
+                    }else{
+                        console.log(lines_tot[line-1]);
+                    }
+                    let val_notes = notes.split('\n');
+                    val_notes.splice(line, 0, keyword);
+                    var new_notes = val_notes.join('\n');
+                    $('speechArea').val(val_notes.join('\n'));
+                    document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+                }
+                $( this ).dialog( "close" );
+            },
+            No: function() {
+                var lang = _("myLanguage").value.trim();
+                addKeyword(keyword);
+                updateNotes(lang);
+                $( this ).dialog( "close" );
+            },
+            Cancel: function() {
+                $( this ).dialog( "close" );
             }
-            let val_notes = notes.split('\n');
-            val_notes.splice(line, 0, keyword);
-            var new_notes = val_notes.join('\n');
-            $('speechArea').val(val_notes.join('\n'));
-            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
         }
-    } else {
-        var lang = _("myLanguage").value.trim();
-        addKeyword(keyword);
-        updateNotes(lang);
-    }
+    });
+
+
+    // console.log(keyword);
+    // let text = "Add action to all languages ? \nClick on \"OK\" to add to all languages or click on \"Cancel\" to add only to the selected language.";
+    // if (confirm(text) == true) {
+    //     addKeyword(keyword);
+    //     var tab_lang = [];
+    //     var languages = document.getElementById("myLanguage");
+    //     var idImage = document.getElementById("imageArea").firstElementChild.id;
+    //     var numSlide = idImage.charAt(idImage.length - 1);
+    //     for (num_lang = 0; num_lang < languages.length; num_lang++) {
+    //         tab_lang[num_lang] = languages.options[num_lang].value;
+    //     }
+    //     for (let key in tab_lang){
+    //         var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+    //         let line = document.getElementById('cursor-position').innerHTML;
+    //         var lines_tot = notes.split('\n');
+    //         if (lines_tot[line-1] === ""){
+    //             line = line-1;
+    //             console.log("Ligne précédente all lang");
+    //         }else{
+    //             console.log(lines_tot[line-1]);
+    //         }
+    //         let val_notes = notes.split('\n');
+    //         val_notes.splice(line, 0, keyword);
+    //         var new_notes = val_notes.join('\n');
+    //         $('speechArea').val(val_notes.join('\n'));
+    //         document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+    //     }
+    // } else {
+    //     var lang = _("myLanguage").value.trim();
+    //     addKeyword(keyword);
+    //     updateNotes(lang);
+    // }
 }
 
 /**
