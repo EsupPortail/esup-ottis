@@ -1158,12 +1158,7 @@ function toolInformation(){
         height: 'auto',
         width: 'auto',
         modal: true,
-        appendTo: "#DesiredDivID",
-        buttons: {
-          OK: function() {
-            $( this ).dialog( "close" );
-          }
-        }
+        appendTo: "#DesiredDivID"
     }); 
 }
 
@@ -1179,12 +1174,7 @@ function warningEmpty(warning_type){
         height: 'auto',
         width: 'auto',
         modal: true,
-        appendTo: "#DesiredDivID",
-        buttons: {
-          OK: function() {
-            $( this ).dialog( "close" );
-          }
-        }
+        appendTo: "#DesiredDivID"
     }); 
 }
 
