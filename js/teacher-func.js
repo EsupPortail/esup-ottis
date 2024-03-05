@@ -1168,6 +1168,31 @@ function toolInformation(){
 }
 
 /**
+ * @summary The function that is executed for displaying help for the animation editor.
+ * 
+ */
+
+function warningEmpty(warning_type){
+    if (warning_type === "file"){
+        document.getElementById("dialog-warning").innerHTML = "You must provide a file first !";
+    }else if (warning_type === "slide"){
+        document.getElementById("dialog-warning").innerHTML = "You must select a slide first !";
+    }
+
+    $( "#dialog-warning" ).dialog({
+        height: 'auto',
+        width: 'auto',
+        modal: true,
+        appendTo: "#DesiredDivID",
+        buttons: {
+          OK: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+    }); 
+}
+
+/**
  * @summary The function that is executed for initializing the animation editor when the user loads a file.
  * 
  */

@@ -908,9 +908,9 @@ It's important to note that the resulting animation can serve as comprehensive i
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="500000" />   
       </li>
       <li class="dropdown">
-        <a title="Add a pause in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {alert("You must provide a file first !");}'><i class="fa fa-pause"></i> Pause</a>
+        <a title="Add a pause in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
         <div class="dropdown-content" id="dropPause">
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {alert('You must select a slide first !');}">Pause animation</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {warningEmpty('slide');}">Pause animation</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {alert('You must select a slide first !');}">Pause for n milliseconds</a>
         </div>
       </li>
@@ -1025,7 +1025,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </div>
     </div>
   </div>
-
+  <div id="dialog-warning" title="Warning"></div>
     <div id="mouse-position" title="Select the position">
     </div>
     <div id="commandKeyword" style="display: none;"></div>
