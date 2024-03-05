@@ -44,7 +44,7 @@
     height: 150px;
   }
 
-  #dialog-message {
+  .dialog-window {
     display: none;
   }
 
