@@ -1613,52 +1613,45 @@ function CreateNewSpeech() {
     }
 }
 
-function CreateNewPPTX(){
-    var xhr = new XMLHttpRequest();
+// function CreateNewPPTX(){
+//     var xhr = new XMLHttpRequest();
+//     //Récupérer le speech
+//     var k = 1;
+//     var nb_slides = 0;
+//     while (html.getElementById('img_'+k)){
+//         nb_slides = k;
+//         k += 1;
+//     }
+//     var lang_origin = document.getElementById("myLanguage").options.item(0).value;
+//     var txt = "";
+//     for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
+//         // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
+//         txt += "------------- Slide "+num_slide+" -------------\n";
+//         txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
+//     }
+//     txt = txt.replaceAll('"', '“');
+//     txt = txt.replaceAll('\v', '');
+//     var formdata = new FormData();
+//     formdata.append("newText", txt);
 
-
-    //Récupérer le speech
-    var k = 1;
-    var nb_slides = 0;
-    while (html.getElementById('img_'+k)){
-        nb_slides = k;
-        k += 1;
-    }
-    var lang_origin = document.getElementById("myLanguage").options.item(0).value;
-    var txt = "";
-    for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-        // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
-        txt += "------------- Slide "+num_slide+" -------------\n";
-        txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
-    }
-    txt = txt.replaceAll('"', '“');
-    txt = txt.replaceAll('\v', '');
-
-    var formdata = new FormData();
-    formdata.append("newText", txt);
-
-    //Récupérer le nombre de slides
-    var k = 1;
-    var nb_slides = 0;
-    while (html.getElementById('img_'+k)){
-        nb_slides = k;
-        k += 1;
-    }
-
-    //Récupérer les images
-
-
-    formdata.append("newLicence", test_licence);
-
-    xhr.open("POST", "EditAnim/EditAnim.php");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-            console.log(this.responseText);
-        }
-    };
-    xhr.addEventListener("load", GetNewPresentation, false);
-    xhr.send(formdata);
-}
+//     //Récupérer le nombre de slides
+//     var k = 1;
+//     var nb_slides = 0;
+//     while (html.getElementById('img_'+k)){
+//         nb_slides = k;
+//         k += 1;
+//     }
+//     //Récupérer les images
+//     formdata.append("newLicence", test_licence);
+//     xhr.open("POST", "EditAnim/EditAnim.php");
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState == XMLHttpRequest.DONE) {
+//             console.log(this.responseText);
+//         }
+//     };
+//     xhr.addEventListener("load", GetNewPresentation, false);
+//     xhr.send(formdata);
+// }
 
 /**
  * @summary The function that is executed for creating the new presentation with the animation editor.
