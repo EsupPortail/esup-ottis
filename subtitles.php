@@ -215,15 +215,11 @@ fclose($fd);
 <div id="titre" onclick="Forward();"><h1>Automatic translation for teaching purposes: Student</h1></div>
 <div id="soustitre"></div>
 -->
-	<div id="titreleft" onmouseover="_('soustitre').style.transform='translateY(0px)'; _('titreleft').style.transform='translateY(0px)';_('titrerightbis').style.transform='translateY(0px)'; _('titreright').style.transform='translateY(0px)'; _('titre').style.transform='translateY(0px)';" onclick="Backward();">&#9666;</div>
-	<div id="titrerightbis" onmouseover="_('soustitre').style.transform='translateY(0px)'; _('titreleft').style.transform='translateY(0px)'; _('titrerightbis').style.transform='translateY(0px)';_('titreright').style.transform='translateY(0px)'; _('titre').style.transform='translateY(0px)';" onclick="Forward();">&#9656;</div>
-	<div id="titreright"></div>
-	<div id="titre" onmouseover="_('soustitre').style.transform='translateY(0px)'; _('titreleft').style.transform='translateY(0px)'; _('titrerightbis').style.transform='translateY(0px)'; _('titreright').style.transform='translateY(0px)'; _('titre').style.transform='translateY(0px)';">
+	<!-- <div id="titreSub" onmouseover="_('titreSub').style.transform='translateY(0px)';"> -->
+	<div id="titreSub" onmouseover="_('titreSub').style.transform='translateY(0px)';">
 		<h1>Automatic translation for teaching purposes: Teacher</h1></div>
-	<div id="soustitre" onmouseover="this.style.transform='translateY(-64px)'; _('titreleft').style.transform='translateY(-64px)'; _('titrerightbis').style.transform='translateY(-64px)'; _('titreright').style.transform='translateY(-64px)'; _('titre').style.transform='translateY(-64px)';"></div>
-	<div id="partialtitre"></div>
-	<div id="studentfeedback"></div>
-	<div id="scrollbar"></div>
+	<div id="partialtitreSub"></div>
+	<div id="scrollbarSub"></div>
 </body>
 
 </html>

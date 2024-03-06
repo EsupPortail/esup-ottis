@@ -232,12 +232,63 @@ input[type=text] {
 	text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
 }
 
+#titreSub {
+	/* transition: 1s ease; */
+	transform-origin: left;
+	transform: scaleX(1);
+	border-radius: 25px;
+	position: fixed;
+	top: 0%;
+	left: 5%;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	min-height: 64px;
+	background-color: rgba(0,0,255,0.5);
+	color: white;
+	font-size: 18px;
+	font-family: helvetica, arial, sans-serif;
+	font-style: italic;
+	padding: 10px;
+	box-shadow: 2px 2px 5px blue;
+	padding: auto;
+	justify-content: center;
+	align-items: center;
+	z-index: 20000;
+	text-shadow: 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
 #partialtitre, #studentfeedback {
 	transition: 1s ease;
 	transition-property: background-color, color, box-shadow, text-shadow, font-size;
 	border-radius: 25px;
 	position: fixed;
 	top: 10px;
+	left: 20px;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	min-height: 64px;
+	background-color: rgba(0,255,0,0.5);
+	color: white;
+	font-size: 18px;
+	font-family: helvetica, arial, sans-serif;
+	font-style: italic;
+	padding: 10px;
+	box-shadow: 2px 2px 5px rgb(0,255,0);
+	padding: auto;
+	justify-content: center;
+	align-items: center;
+	z-index: 20000;
+	text-shadow: 2px 0 0 rgb(0,100,0), -2px 0 0 rgb(0,100,0), 0 2px 0 rgb(0,100,0), 0 -2px 0 rgb(0,100,0), 1px 1px rgb(0,100,0), -1px -1px 0 rgb(0,100,0), 1px -1px 0 rgb(0,100,0), -1px 1px 0 rgb(0,100,0);
+	visibility: hidden;
+}
+#partialtitreSub {
+	transition: 1s ease;
+	transition-property: background-color, color, box-shadow, text-shadow, font-size;
+	border-radius: 25px;
+	position: fixed;
+	top: 0px;
 	left: 20px;
 	width: 90%;
 	margin-left: auto;
