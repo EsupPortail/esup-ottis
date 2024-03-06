@@ -1054,20 +1054,7 @@ function followmouse(e) {
     var menu_top = document.getElementById("menu").offsetTop;
     var tool_top = document.getElementById("tool12").offsetTop;
     var block_top = document.getElementById("block12").offsetTop;
-    // var form_top = document.getElementById("form12").offsetTop;
     var table_top = document.getElementById("tableEdit").offsetTop;
-    // console.log("\n TABS : \n");
-    // console.log(tabs_top);
-    // console.log("\n MENU : \n");
-    // console.log(menu_top);
-    // console.log("\n TOOL : \n");
-    // console.log(tool_top);
-    // console.log("\n BLOCK : \n");
-    // console.log(block_top);
-    // // console.log("\n FORM : \n");
-    // // console.log(form_top);
-    // console.log("\n TABLE : \n");
-    // console.log(table_top);
 
     var elem = document.getElementById("tool12");
     if (!document.fullscreenElement) {
@@ -1082,24 +1069,10 @@ function followmouse(e) {
         var y = e.pageY - gap_mouse_y;
     }
 
-    // let x = e.pageX - gap_mouse_x;
-    // let y = e.pageY-tabs_top-menu_top + gap_mouse_y;
-
-    // console.log("\n PAGE Y : \n");
-    // console.log(e.pageY)
-    // console.log("\n OFFSET Y : \n");
-    // console.log(e.offsetY)
-    // console.log("\n POURC Y : \n");
-    // console.log(pourcy)
-    // console.log("\n Y : \n");
-    // console.log(y);
-    
-
     document.getElementById("coord_x").innerHTML = pourcx;
     document.getElementById("coord_y").innerHTML = pourcy;
 
     showMouse();
-    // document.getElementById('mouse').removeAttribute("hidden"); 
 	document.getElementById('mouse').style.top=y+"px"
 	document.getElementById('mouse').style.left=x+"px";
 }
