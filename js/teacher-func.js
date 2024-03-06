@@ -1106,7 +1106,11 @@ function getMousePosition(){
             document.getElementById('mouse').setAttribute("hidden", true);
             document.getElementById(id_image).removeAttribute("onclick");
           }
-        }
+        },
+        close: function( event, ui ) {
+            document.getElementById('mouse').setAttribute("hidden", true);
+            console.log('closed')
+        },
     });
 }
 
