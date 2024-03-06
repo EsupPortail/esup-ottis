@@ -1072,13 +1072,13 @@ function followmouse(e) {
     var elem = document.getElementById("tool12");
     if (!document.fullscreenElement) {
         var gap_mouse_y = 12;
-        var gap_mouse_x = 0;
+        var gap_mouse_x = 12;
     }else{
-        var gap_mouse_y = 65;
+        var gap_mouse_y = 72;
         var gap_mouse_x = 1;
     }
 
-    let x = e.pageX - 12;
+    let x = e.pageX - gap_mouse_x;
     let y = e.pageY-tabs_top-menu_top + gap_mouse_y;
 
     console.log("\n PAGE Y : \n");
