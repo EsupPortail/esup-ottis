@@ -401,7 +401,7 @@ input[type=text] {
 	font-weight: bold;
 }
 
-#titre h1 {
+#titre h1, #titreSub h1 {
 	text-align: center;
 	font-size: 1.5em;
 	font-weight: bold;
