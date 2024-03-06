@@ -71,11 +71,11 @@ Pour moi.
 - [X] Réduire les bordures (border-collapse)
 - [X] Ajouter barre scroll dans le speechArea (overflow-y)
 - [ ] Centre l'image de la slide sélectionnée (à voir si c'est compatible avec les coordonnées de la souris)
-- [ ] Possibilité de mettre l'éditeur d'animation en full screen
+- [X] Possibilité de mettre l'éditeur d'animation en full screen
 - [X] Sur les boutons, ajouter des titres, des icônes, harmoniser les couleurs avec le thème, voir pour faire des boutons arrondis
 - [ ] Si on utilise mouse go mais qu'on ne va pas jusqu'au bout (on ferme la pop-up avec la croix), le curseur reste sur l'image.
 - [X] Insérer les keywords avant la phrase si le curseur est à 0, après la phrase sinon (pour le moment ça insère à la ligne n+1)  _**(UPDATE : voir avec Claire ses manipulations.)**_
-- [ ] Modifier toutes les boîtes d'alert (fait quitter le plein écran quand elles se déclenchent)
+- [X] Modifier toutes les boîtes d'alert (fait quitter le plein écran quand elles se déclenchent)
 - [ ] Pas intuitif de passer par toutes les langues (si on fait une modif à la main sur une langue, elle ne se répercute pas sur les autres). Limiter à juste la langue d'origine, puis l'utilisateur doit télécharger le speech et le remettre dans sa présentation avec le convert ? A voir si possible de télécharger direct un pptx en sortie ?
 
 ## Partie dédiée à la sécurisation de l'application
