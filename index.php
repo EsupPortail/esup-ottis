@@ -577,7 +577,7 @@ fclose($fd);
 				<h3>Subtitles only</h3>
 				<div>
 					<ul style="list-style-type: none;">
-						<li>Subtitles only link : (IN PROGRESS) <a id="sublink" target="popup" href="subtitles.php" onclick="window.open('subtitles.php','name','width=100%,height=400')">subtitles.php</a></li>
+						<li>Subtitles only link : (IN PROGRESS) <a id="sublink" target="popup" href="subtitles.php" onclick="window.open('subtitles.php','name','width=auto,height=auto')">subtitles.php</a></li>
 					</ul>
 				</div>
 			</div>
