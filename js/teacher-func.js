@@ -1074,8 +1074,8 @@ function followmouse(e) {
         var gap_mouse_y = 12;
         var gap_mouse_x = 12;
     }else{
-        var gap_mouse_y = 73;
-        var gap_mouse_x = 0;
+        var gap_mouse_y = 74;
+        var gap_mouse_x = -1;
     }
 
     let x = e.pageX - gap_mouse_x;
