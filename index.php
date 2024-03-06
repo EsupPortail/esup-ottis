@@ -574,6 +574,12 @@ fclose($fd);
 							<input type="text" id="embedcontent" value="" /> </li>
 					</ul>
 				</div>
+				<h3>Subtitles only</h3>
+				<div>
+					<ul style="list-style-type: none;">
+						<li>Subtitles only link : (IN PROGRESS)<a id="sublink" href="SubtitlesOnly.php">SubtitlesOnly.php</a></li>
+					</ul>
+				</div>
 			</div>
 			<div id="tabs-7"><a style="display:none;" href="javascript:void(0)" id="linkslides"></a>
 			<div id="stillwaiting">
