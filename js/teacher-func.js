@@ -989,29 +989,12 @@ function FullScreen() {
  */
 
 function GoFSEditAnim() {
-    // _('fullscreenon').checked = !_('fullscreenon').checked;
     var elem = document.getElementById("tool12");
-    // if (_('fullscreenon').checked) {
-    //     // _('FS-editanim').innerHTML = '<i class="fa fa-compress" style="float: right;"></i>';
-    //     elem.requestFullscreen();
-    // } else {
-    //     // _('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
-    //     document.exitFullscreen();
-    // }
-
     if (!document.fullscreenElement) {
         elem.requestFullscreen();
     } else {
         document.exitFullscreen();
     }
-
-    // document.onkeyup = function(event) {
-    //     if (event.code === 'Escape'){
-    //       if (document.getElementById('FS-editanim').innerHTML === '<i class="fa fa-compress" style="float: right;"></i>'){
-    //         document.getElementById('FS-editanim').innerHTML = '<i class="fa fa-expand" style="float: right;"></i>';
-    //       }
-    //     }            
-    //   }
 }
 
 /**
@@ -1088,13 +1071,15 @@ function followmouse(e) {
 
     var elem = document.getElementById("tool12");
     if (!document.fullscreenElement) {
-        var gap_mouse = 12;
+        var gap_mouse_y = 12;
+        var gap_mouse_x = 0;
     }else{
-        var gap_mouse = 63;
+        var gap_mouse_y = 65;
+        var gap_mouse_x = 1;
     }
 
     let x = e.pageX - 12;
-    let y = e.pageY-tabs_top-menu_top + gap_mouse;
+    let y = e.pageY-tabs_top-menu_top + gap_mouse_y;
 
     console.log("\n PAGE Y : \n");
     console.log(e.pageY)
