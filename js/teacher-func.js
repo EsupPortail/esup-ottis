@@ -1056,30 +1056,34 @@ function followmouse(e) {
     var block_top = document.getElementById("block12").offsetTop;
     // var form_top = document.getElementById("form12").offsetTop;
     var table_top = document.getElementById("tableEdit").offsetTop;
-    console.log("\n TABS : \n");
-    console.log(tabs_top);
-    console.log("\n MENU : \n");
-    console.log(menu_top);
-    console.log("\n TOOL : \n");
-    console.log(tool_top);
-    console.log("\n BLOCK : \n");
-    console.log(block_top);
-    // console.log("\n FORM : \n");
-    // console.log(form_top);
-    console.log("\n TABLE : \n");
-    console.log(table_top);
+    // console.log("\n TABS : \n");
+    // console.log(tabs_top);
+    // console.log("\n MENU : \n");
+    // console.log(menu_top);
+    // console.log("\n TOOL : \n");
+    // console.log(tool_top);
+    // console.log("\n BLOCK : \n");
+    // console.log(block_top);
+    // // console.log("\n FORM : \n");
+    // // console.log(form_top);
+    // console.log("\n TABLE : \n");
+    // console.log(table_top);
 
     var elem = document.getElementById("tool12");
     if (!document.fullscreenElement) {
         var gap_mouse_y = 12;
         var gap_mouse_x = 12;
+        var x = e.pageX - gap_mouse_x;
+        var y = e.pageY-tabs_top-menu_top + gap_mouse_y;
     }else{
         var gap_mouse_y = 74+21;
         var gap_mouse_x = -3-7-14;
+        var x = e.pageX - gap_mouse_x;
+        var y = e.pageY + gap_mouse_y;
     }
 
-    let x = e.pageX - gap_mouse_x;
-    let y = e.pageY-tabs_top-menu_top + gap_mouse_y;
+    // let x = e.pageX - gap_mouse_x;
+    // let y = e.pageY-tabs_top-menu_top + gap_mouse_y;
 
     console.log("\n PAGE Y : \n");
     console.log(e.pageY)
