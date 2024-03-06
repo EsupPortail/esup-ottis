@@ -1640,7 +1640,7 @@ function GetNewPresentation(event){
 function CreateNewSpeech() {
     document.getElementById("dialog-download").innerHTML = "Please note that the speech will only be downloaded in the input language.";
     $( "#dialog-download" ).dialog({
-        height: 150,
+        height: 152,
         width: 497,
         modal: true,
         appendTo: "#DesiredDivID",
@@ -1761,7 +1761,7 @@ function CreateNewSpeech() {
 function CreateNewPresentation() {    
     document.getElementById("dialog-download").innerHTML = "Please note that if you have the same language twice (if your first language in the animation editor starts with [INPUT LANGUAGE]), changes made only on [INPUT LANGUAGE] will not be taken into account in the new animation.";
     $( "#dialog-download" ).dialog({
-        height: 170,
+        height: 174,
         width: 636,
         modal: true,
         appendTo: "#DesiredDivID",
