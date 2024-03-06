@@ -1077,7 +1077,7 @@ function followmouse(e) {
         var y = e.pageY-tabs_top-menu_top + gap_mouse_y;
     }else{
         var gap_mouse_y = 74+21-27;
-        var gap_mouse_x = -3-7-14-125;
+        var gap_mouse_x = 0;
         var x = e.pageX - gap_mouse_x;
         var y = e.pageY + gap_mouse_y;
     }
