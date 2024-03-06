@@ -1171,8 +1171,8 @@ function warningEmpty(warning_type){
     }
 
     $( "#dialog-warning" ).dialog({
-        height: 'auto',
-        width: 'auto',
+        height: 80,
+        width: 215,
         modal: true,
         appendTo: "#DesiredDivID"
     }); 
