@@ -1033,7 +1033,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="commandKeyword" style="display: none;"></div>
     <div id="cursor-position" style="display: none;"></div>
     <div id="mouse-shape" style="display: none;">+</div>
-    <div id="keywordParameter" title="Parameter :"></div>
+    <div id="keywordParameter" title="Parameter :" class="dialog-window"></div>
     <div id="dialog-ratio" class="dialog-window">
       <label for="aspectratioEditAnim">Aspect ratio : </label>
       <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';" class="inputsmallscreens"/><br/>

@@ -1253,8 +1253,8 @@ function addKeyword(keyword){
 
 function addAllLanguages(keyword){
     $( "#dialog-all-lang" ).dialog({
-        height: 'auto',
-        width: 'auto',
+        height: 156,
+        width: 446,
         modal: true,
         appendTo: "#DesiredDivID",
         buttons: {
@@ -1640,8 +1640,8 @@ function GetNewPresentation(event){
 function CreateNewSpeech() {
     document.getElementById("dialog-download").innerHTML = "Please note that the speech will only be downloaded in the input language.";
     $( "#dialog-download" ).dialog({
-        height: 'auto',
-        width: 'auto',
+        height: 150,
+        width: 767,
         modal: true,
         appendTo: "#DesiredDivID",
         buttons: {
