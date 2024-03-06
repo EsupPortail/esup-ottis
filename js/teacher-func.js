@@ -1076,23 +1076,23 @@ function followmouse(e) {
         var x = e.pageX - gap_mouse_x;
         var y = e.pageY-tabs_top-menu_top + gap_mouse_y;
     }else{
-        var gap_mouse_y = 0;
+        var gap_mouse_y = 30;
         var gap_mouse_x = 4;
         var x = e.pageX - gap_mouse_x;
-        var y = e.pageY + gap_mouse_y;
+        var y = e.pageY - gap_mouse_y;
     }
 
     // let x = e.pageX - gap_mouse_x;
     // let y = e.pageY-tabs_top-menu_top + gap_mouse_y;
 
-    console.log("\n PAGE Y : \n");
-    console.log(e.pageY)
-    console.log("\n OFFSET Y : \n");
-    console.log(e.offsetY)
-    console.log("\n POURC Y : \n");
-    console.log(pourcy)
-    console.log("\n Y : \n");
-    console.log(y);
+    // console.log("\n PAGE Y : \n");
+    // console.log(e.pageY)
+    // console.log("\n OFFSET Y : \n");
+    // console.log(e.offsetY)
+    // console.log("\n POURC Y : \n");
+    // console.log(pourcy)
+    // console.log("\n Y : \n");
+    // console.log(y);
     
 
     document.getElementById("coord_x").innerHTML = pourcx;
