@@ -1109,7 +1109,6 @@ function getMousePosition(){
         },
         close: function( event, ui ) {
             document.getElementById('mouse').setAttribute("hidden", true);
-            console.log('closed')
         },
     });
 }
