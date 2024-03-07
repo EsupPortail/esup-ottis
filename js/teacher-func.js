@@ -1127,7 +1127,10 @@ function toolInformation(){
     }); 
 }
 
-
+/**
+ * @summary The function that is executed to warn when a file is missing from the animation editor.
+ * 
+ */
 function warningEmpty(warning_type){
     if (warning_type === "file"){
         document.getElementById("dialog-warning").innerHTML = "You must provide a file first !";
@@ -1261,40 +1264,6 @@ function addAllLanguages(keyword){
             }
         }
     });
-
-
-    // console.log(keyword);
-    // let text = "Add action to all languages ? \nClick on \"OK\" to add to all languages or click on \"Cancel\" to add only to the selected language.";
-    // if (confirm(text) == true) {
-    //     addKeyword(keyword);
-    //     var tab_lang = [];
-    //     var languages = document.getElementById("myLanguage");
-    //     var idImage = document.getElementById("imageArea").firstElementChild.id;
-    //     var numSlide = idImage.charAt(idImage.length - 1);
-    //     for (num_lang = 0; num_lang < languages.length; num_lang++) {
-    //         tab_lang[num_lang] = languages.options[num_lang].value;
-    //     }
-    //     for (let key in tab_lang){
-    //         var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-    //         let line = document.getElementById('cursor-position').innerHTML;
-    //         var lines_tot = notes.split('\n');
-    //         if (lines_tot[line-1] === ""){
-    //             line = line-1;
-    //             console.log("Ligne précédente all lang");
-    //         }else{
-    //             console.log(lines_tot[line-1]);
-    //         }
-    //         let val_notes = notes.split('\n');
-    //         val_notes.splice(line, 0, keyword);
-    //         var new_notes = val_notes.join('\n');
-    //         $('speechArea').val(val_notes.join('\n'));
-    //         document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
-    //     }
-    // } else {
-    //     var lang = _("myLanguage").value.trim();
-    //     addKeyword(keyword);
-    //     updateNotes(lang);
-    // }
 }
 
 /**
@@ -1645,78 +1614,7 @@ function CreateNewSpeech() {
             }
         }
     });
-
-    // let text_info = "Please note that the speech will only be downloaded in the input language.";
-    // if (confirm(text_info) == true) {
-    //     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    //     var parser = new DOMParser();
-    //     var html = parser.parseFromString(data_new_pres, 'text/html');
-
-    //     //Récupérer le nombre de slides
-    //     var k = 1;
-    //     var nb_slides = 0;
-    //     while (html.getElementById('img_'+k)){
-    //         nb_slides = k;
-    //         k += 1;
-    //     }
-
-    //     //Récupérer la langue d'origine
-    //     var lang_origin = document.getElementById("myLanguage").options.item(0).value;
-
-    //     //Récupérer les notes dans la langue d'origine
-    //     var txt = "";
-    //     for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-    //         // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
-    //         txt += "------------- Slide "+num_slide+" -------------\n";
-    //         txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
-    //     }
-    //     txt = txt.replaceAll('"', '“');
-    //     txt = txt.replaceAll('\v', '');
-
-    //     var name_file = "speech_"+lang_origin+".txt";
-    //     DownloadFile(name_file, txt);
-    // }
 }
-
-// function CreateNewPPTX(){
-//     var xhr = new XMLHttpRequest();
-//     //Récupérer le speech
-//     var k = 1;
-//     var nb_slides = 0;
-//     while (html.getElementById('img_'+k)){
-//         nb_slides = k;
-//         k += 1;
-//     }
-//     var lang_origin = document.getElementById("myLanguage").options.item(0).value;
-//     var txt = "";
-//     for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-//         // console.log('SlideText_'+lang_origin+'_img_'+num_slide);
-//         txt += "------------- Slide "+num_slide+" -------------\n";
-//         txt += html.getElementById('SlideText_'+lang_origin+'_img_'+num_slide).textContent + "\n";
-//     }
-//     txt = txt.replaceAll('"', '“');
-//     txt = txt.replaceAll('\v', '');
-//     var formdata = new FormData();
-//     formdata.append("newText", txt);
-
-//     //Récupérer le nombre de slides
-//     var k = 1;
-//     var nb_slides = 0;
-//     while (html.getElementById('img_'+k)){
-//         nb_slides = k;
-//         k += 1;
-//     }
-//     //Récupérer les images
-//     formdata.append("newLicence", test_licence);
-//     xhr.open("POST", "EditAnim/EditAnim.php");
-//     xhr.onreadystatechange = function () {
-//         if (xhr.readyState == XMLHttpRequest.DONE) {
-//             console.log(this.responseText);
-//         }
-//     };
-//     xhr.addEventListener("load", GetNewPresentation, false);
-//     xhr.send(formdata);
-// }
 
 /**
  * @summary The function that is executed for creating the new presentation with the animation editor.
@@ -1816,86 +1714,6 @@ function CreateNewPresentation() {
             }
         }
     });
-    // if (confirm(text_info) == true) {
-    //     //Récupérer le code html de l'encart
-    //     var data_new_pres = _("notebookcompleteformatted").innerHTML;
-    //     var xhr = new XMLHttpRequest();
-    //     var parser = new DOMParser();
-    //     var html = parser.parseFromString(data_new_pres, 'text/html');
-
-    //     //Récupérer le fichier original
-    //     var file = _("fileToUpload12").files[0];
-    //     var formdata = new FormData();
-    //     formdata.append("fileToUpload", file);
-
-    //     //Récupérer les options
-    //     var aspect_ratio = _("aspectratioEditAnim").value;
-    //     var keep_ratio = _("keepaspectratioEditAnim").value;
-    //     var extra_delay = _("extradelayEditAnim").value;
-    //     var test_licence = _("licenceEditAnim").value;
-        
-    //     //Récupérer les langues
-    //     var tab_lang = [];
-    //     var languages = document.getElementById("myLanguage");
-    //     for (num_lang = 0; num_lang < languages.length; num_lang++) {
-    //         tab_lang[num_lang] = languages.options[num_lang].value;
-    //     }
-
-
-    //     //Récupérer le nombre de slides
-    //     var k = 1;
-    //     var nb_slides = 0;
-    //     while (html.getElementById('img_'+k)){
-    //         nb_slides = k;
-    //         k += 1;
-    //     }
-
-    //     //Récupérer les notes
-    //     var tab_text = [];
-    //     var i = 0;
-    //     for (let key in tab_lang) {
-    //         code_lang = tab_lang[key].trim()
-    //         tab_text[i] = '"'+code_lang+'": [';
-    //         for (var num_slide = 1; num_slide <= nb_slides; num_slide++) {
-    //             j = 0;
-    //             if (num_slide==1){
-    //                 tab_text[i] += '{"Slide": '+num_slide+', "Notes": ["';
-    //             }else{
-    //                 tab_text[i] += ', {"Slide": '+num_slide+', "Notes": ["';
-    //             }
-    //             var text = "";
-    //             text = html.getElementById('SlideText_'+code_lang+'_img_'+num_slide).textContent.trim();
-    //             text = text.replaceAll('"', '“')
-    //             text = text.replaceAll('\r\n', '", "');
-    //             text = text.replaceAll('\n', '", "');
-    //             text = text.replaceAll('\r', '", "');
-    //             text = text.replaceAll('\v', '');
-    //             tab_text[i] += text+'"';
-
-    //             if (extra_delay != 0){
-    //                 tab_text[i] += ',""'.repeat(extra_delay);
-    //             }
-    //             //console.log("Texte de la slide : "+text);
-    //             tab_text[i] += ']}';
-    //         }
-    //         tab_text[i] += ']';
-    //         console.log(tab_text[i]);
-    //         i += 1;
-    //     }
-    //     formdata.append("newText", tab_text);
-    //     formdata.append("newAspectRatio", aspect_ratio);
-    //     //formdata.append("newKeepRatio", keep_ratio);
-    //     formdata.append("newLicence", test_licence);
-
-    //     xhr.open("POST", "EditAnim/EditSlidesNotesAppHTMLTools.php");
-    //     xhr.onreadystatechange = function () {
-    //         if (xhr.readyState == XMLHttpRequest.DONE) {
-    //             console.log(this.responseText);
-    //         }
-    //     };
-    //     xhr.addEventListener("load", GetNewPresentation, false);
-    //     xhr.send(formdata);
-    // }
 }
 
 /**
