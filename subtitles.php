@@ -185,6 +185,13 @@ fclose($fd);
 		<h1>Automatic translation for teaching purposes: Teacher</h1></div>
 	<div id="partialtitreSub"></div>
 	<div id="scrollbarSub"></div>
+  <select id="selectopacity" class="jqueryselect" style="display : none">
+    <option value="0">0% opaque</option>
+    <option value="0.25">25% opaque</option>
+    <option value="0.5" selected>50% opaque</option>
+    <option value="0.75">75% opaque</option>
+    <option value="1">100% opaque</option>
+  </select>
 </body>
 
 </html>
