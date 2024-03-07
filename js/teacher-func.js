@@ -2997,8 +2997,8 @@ function applyConfigSub() {
     // ChangeOpacity('titreSub', opacity);
     // ChangeOpacity('partialtitreSub', opacity);
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    _('titre').style.backgroundColor = _('selectopacity').value;
-    _('partialtitre').style.backgroundColor = _('selectopacity').value;
+    _('titreSub').style.backgroundColor = _('selectopacity').value;
+    _('partialtitreSub').style.backgroundColor = _('selectopacity').value;
 
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");
