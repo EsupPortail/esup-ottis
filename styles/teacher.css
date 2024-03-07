@@ -237,7 +237,7 @@ input[type=text] {
 	transform-origin: left;
 	transform: scaleX(1);
 	border-radius: 25px;
-	position: absolute;
+	position: fixed;
 	top: 0%;
 	left: 2%;
 	width: 96%;
