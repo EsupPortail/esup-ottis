@@ -2991,6 +2991,7 @@ function applyConfigSub() {
     // var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
     // var bgcolor = [red, green, blue];
     var opacity = 1 * (config.charCodeAt(9) - 65);
+    console.log(opacity);
     // _('titreSub').style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
     // _('partialtitreSub').style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
     ChangeOpacity('titreSub', opacity);
