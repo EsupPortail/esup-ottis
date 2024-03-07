@@ -143,8 +143,12 @@ fclose($fd);
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
   ?>
 
-function testSubtitles(){
-    console.log('Test ok');
+function ChangeOpacity(boxname, opacity) {
+    var e = _(boxname);
+    var color = e.style.backgroundColor;
+    var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
+    var bgcolor = [red, green, blue];
+    e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
 }
 
   </script>
@@ -161,7 +165,7 @@ function testSubtitles(){
 	?>
 </head>
 <!-- <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig();"> -->
-<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ ChangeOpacity('titreSub', '0'); testSubtitles();">
+<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ ChangeOpacity('titreSub', '0');">
 	<div id="Allbuttons">
     <div id="icondiv">
       <div id="micon" onclick="Micro();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
