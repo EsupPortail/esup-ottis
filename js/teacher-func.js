@@ -2999,7 +2999,7 @@ function applyConfigSub() {
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
     console.log(_('selectopacity').selectedIndex);
     console.log(_('selectopacity').value)
-    ChangeOpacity(titreSub, _('selectopacity').value)
+    ChangeOpacity('titreSub', _('selectopacity').value)
     // _('titreSub').style.backgroundColor = _('selectopacity').value;
     // _('partialtitreSub').style.backgroundColor = _('selectopacity').value;
 
