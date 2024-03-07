@@ -1718,7 +1718,7 @@ function CreateNewPresentation() {
 
 function SubWindow(){
     var window_width = window.screen.width;
-    var windowFeatures = "width="+size+",height=320";
+    var windowFeatures = "width=1200,height=320";
     window.open('subtitles.php','SubtitlesWindow',windowFeatures);
 }
 
