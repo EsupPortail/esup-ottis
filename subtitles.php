@@ -181,7 +181,7 @@ function ChangeOpacitySub(boxname, opacity) {
 <div id="soustitre"></div>
 -->
 	<!-- <div id="titreSub" onmouseover="_('titreSub').style.transform='translateY(0px)';"> -->
-	<div id="titreSub" onmouseover="_('titreSub').style.transform='translateY(0px)';">
+	<div id="titreSub" style='background-color: rgba(0,0,255,0.5)'>
 		<h1>Automatic translation for teaching purposes: Teacher</h1></div>
 	<div id="partialtitreSub"></div>
 	<div id="scrollbarSub"></div>
