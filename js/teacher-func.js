@@ -2937,7 +2937,9 @@ function applyConfig() {
  */
 
 function applyConfigSub() {
+    console.log("TEST");
     var config = currentconfig;
+    console.log(config);
     if (config.length != "ABYANACNNCNNNYYY".length) return;
     // classroomlanguage
     // _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
