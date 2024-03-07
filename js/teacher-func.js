@@ -2987,6 +2987,7 @@ function applyConfigSub() {
     // _('studentfeedback').style.fontSize = _('selectfontsize').value;
    
     //selectopacity
+    console.log(1 * (config.charCodeAt(9) - 65));
     _('titreSub').style.backgroundColor = 1 * (config.charCodeAt(9) - 65);
     _('partialtitreSub').style.backgroundColor = 1 * (config.charCodeAt(9) - 65);
 
