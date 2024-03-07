@@ -209,10 +209,12 @@ function ChangeColor(boxname, color) {
  */
 
 function ChangeOpacity(boxname, opacity) {
+    console.log(boxname);
     var e = _(boxname);
     var color = e.style.backgroundColor;
     var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
     var bgcolor = [red, green, blue];
+    console.log(bgcolor);
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
 }
 
