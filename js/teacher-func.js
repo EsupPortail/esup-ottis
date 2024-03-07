@@ -1716,6 +1716,12 @@ function CreateNewPresentation() {
     });
 }
 
+function SubWindow(){
+    var window_width = window.screen.width;
+    var windowFeatures = "width="+size+",height=320";
+    window.open('subtitles.php','SubtitlesWindow',windowFeatures);
+}
+
 /**
  * @summary The function that is executed for reading a new PPTX presentation stored on UNCloud
  * 
