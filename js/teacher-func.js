@@ -2988,8 +2988,12 @@ function applyConfigSub() {
    
     //selectopacity
     console.log(1 * (config.charCodeAt(9) - 65));
-    _('titreSub').style.backgroundColor = 1 * (config.charCodeAt(9) - 65);
-    _('partialtitreSub').style.backgroundColor = 1 * (config.charCodeAt(9) - 65);
+    var color = _('titreSub').style.backgroundColor;
+    var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
+    var bgcolor = [red, green, blue];
+    _('titreSub').style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
+    // _('titreSub').style.backgroundColor = 1 * (config.charCodeAt(9) - 65);
+    // _('partialtitreSub').style.backgroundColor = 1 * (config.charCodeAt(9) - 65);
 
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");
