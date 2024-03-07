@@ -144,9 +144,11 @@ fclose($fd);
   ?>
 
 function ChangeOpacitySub(boxname, opacity) {
-  console.log('test');
+  console.log(boxname);
     var e = _(boxname);
+    console.log(e)
     var color = e.style.backgroundColor;
+    console.log(color);
     var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
     var bgcolor = [red, green, blue];
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
