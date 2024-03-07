@@ -2987,21 +2987,9 @@ function applyConfigSub() {
     // _('studentfeedback').style.fontSize = _('selectfontsize').value;
    
     //selectopacity
-    // var color = _('titreSub').style.backgroundColor;
-    // var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
-    // var bgcolor = [red, green, blue];
-    // var opacity = 1 * (config.charCodeAt(9) - 65);
-    // console.log(opacity);
-    // _('titreSub').style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
-    // _('partialtitreSub').style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
-    // ChangeOpacity('titreSub', opacity);
-    // ChangeOpacity('partialtitreSub', opacity);
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    console.log(_('selectopacity').selectedIndex);
-    console.log(_('selectopacity').value)
     ChangeOpacity('titreSub', _('selectopacity').value)
-    // _('titreSub').style.backgroundColor = _('selectopacity').value;
-    // _('partialtitreSub').style.backgroundColor = _('selectopacity').value;
+    ChangeOpacity('partialtitreSub', _('selectopacity').value)
 
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");
