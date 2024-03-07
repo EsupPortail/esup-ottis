@@ -101,54 +101,6 @@ fclose($fd);
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
   <style>
-
-/* Spinner */
-
-#stillwaiting {
-	position: absolute;
-	width: 50%;
-	height: 50%;
-	top:200px;
-	left:25%;
-	color: black;
-	font-size: 2em;
-	z-index:20000;
-}
-
-#stillwaitingspinnerdiv {
-	width:100px;
-	height:100px;
-	border:20px solid #555555;
-	border-top:25px solid #aaaaaa;
-	border-radius:50%;
-	margin: auto;
-  }
-
-  #stillwaitingspinner {
-	width:150px;
-	height:150px;
-	margin: auto;
-  }
-
-  #stillwaitingspinner, #stillwaitingspinnerdiv {
-	-webkit-transition-property: -webkit-transform;
-	-webkit-transition-duration: 2s;
-	-webkit-animation-name: rotate;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-timing-function: linear;
-	
-	-moz-transition-property: -moz-transform;
-	-moz-animation-name: rotate; 
-	-moz-animation-duration: 2s; 
-	-moz-animation-iteration-count: infinite;
-	-moz-animation-timing-function: linear;
-	
-	transition-property: transform;
-	animation-name: rotate; 
-	animation-duration: 2s; 
-	animation-iteration-count: infinite;
-	animation-timing-function: linear;
-  }
   
   @-webkit-keyframes rotate {
 	  from {-webkit-transform: rotate(0deg);}

@@ -234,6 +234,7 @@ input[type=text] {
 
 #titreSub {
 	align-content: center;
+	text-align: center;
 	/* transition: 1s ease; */
 	transform-origin: left;
 	transform: scaleX(1);
