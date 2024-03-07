@@ -216,9 +216,9 @@ function ChangeOpacity(boxname, opacity) {
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
 }
 
-function testSubtitles(){
-    console.log('Test ok');
-}
+// function testSubtitles(){
+//     console.log('Test ok');
+// }
 
 /**
  * @summary Detect the browser type

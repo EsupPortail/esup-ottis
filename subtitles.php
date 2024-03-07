@@ -142,6 +142,11 @@ fclose($fd);
   echo "var MicrosoftKey='".$MicrosoftKey."';\n";
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
   ?>
+
+function testSubtitles(){
+    console.log('Test ok');
+}
+
   </script>
   <script src="js/teacher-def.js"></script>
   <script src="js/common-func.js"></script>
