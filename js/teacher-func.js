@@ -1378,8 +1378,12 @@ function addOptions(keywordToAdd){
             appendTo: "#DesiredDivID",
             buttons: {
               OK: function() {
+                _("ratio-select").innerHTML = _("aspectratioEditAnim").value;
                 $( this ).dialog( "close" );
               }
+            },
+            close: function( event, ui ) {
+                _("aspectratioEditAnim").value = _("ratio-select").innerHTML;
             }
         });
     }else if(keywordToAdd=="[delay]"){
