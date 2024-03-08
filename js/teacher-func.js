@@ -1717,7 +1717,6 @@ function CreateNewPresentation() {
 }
 
 function SubWindow(){
-    console.log(_("sublink").innerHTML);
     var window_width = window.screen.width;
     var windowFeatures = "status=yes,location=yes,toolbar=yes,menubar=yes,width=1200,height=110";
     var link = _("sublink").innerHTML;
