@@ -2971,11 +2971,9 @@ function applyConfigSub() {
     // }
 
     // // ColorTitre
-    // _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
-    // ChangeColor('titre', _('ColorTitre').value);
-    // ChangeColor('titreleft', _('ColorTitre').value);
-    // ChangeColor('titrerightbis', _('ColorTitre').value);
-    // // subtitlepartialbaron
+    _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
+    ChangeColor('titreSub', _('ColorTitre').value);
+    // subtitlepartialbaron
     // _('subtitlepartialon').checked = (config.charAt(4) == "Y");
     // if (_('subtitlepartialon').checked) {
     //     _('spansubtitlepartialon').innerHTML = 'Yes !';
