@@ -1718,7 +1718,7 @@ function CreateNewPresentation() {
 
 function SubWindow(){
     var window_width = window.screen.width;
-    var windowFeatures = "width=1200,height=110";
+    var windowFeatures = "status=yes,location=yes,toolbar=yes,menubar=yes,width=1200,height=110";
     window.open('subtitles.php','SubtitlesWindow',windowFeatures);
 }
 
@@ -2784,10 +2784,10 @@ function updateConfig() {
     _("myConfig").value = currentconfig;
     if (window.location.href.indexOf('?') > 0) {
         _("LinkConfig").href = window_location_href + '&myconfig=' + _("myConfig").value;
-        _("sublink").href = 'subtitles.php&myconfig=' + _("myConfig").value;
+        _("sublink").href = "subtitles.php&myconfig=" + _("myConfig").value;
     } else {
         _("LinkConfig").href = window_location_href + '?myconfig=' + _("myConfig").value;
-        _("sublink").href = 'subtitles.php?myconfig=' + _("myConfig").value;
+        _("sublink").href = "subtitles.php?myconfig=" + _("myConfig").value;
     }
     _("LinkConfig").innerHTML = _("LinkConfig").href;
     _("sublink").innerHTML = _("sublink").href;
