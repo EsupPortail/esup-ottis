@@ -77,6 +77,7 @@ Pour moi.
 - [X] Insérer les keywords avant la phrase si le curseur est à 0, après la phrase sinon (pour le moment ça insère à la ligne n+1)  _**(UPDATE : voir avec Claire ses manipulations.)**_
 - [X] Modifier toutes les boîtes d'alert (fait quitter le plein écran quand elles se déclenchent)
 - [ ] Pas intuitif de passer par toutes les langues (si on fait une modif à la main sur une langue, elle ne se répercute pas sur les autres). Limiter à juste la langue d'origine, puis l'utilisateur doit télécharger le speech et le remettre dans sa présentation avec le convert ? A voir si possible de télécharger direct un pptx en sortie ?
+- [ ] Pour addOptions : même si on close la fenêtre pour annuler notre action, le chanegement est quand même pris en compte
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
