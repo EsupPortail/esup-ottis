@@ -1042,7 +1042,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <label for="aspectratioEditAnim">Aspect ratio : </label>
       <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';" class="inputsmallscreens"/><br/>
       <label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>
-      <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>
+      <input type="checkbox" id="check-keep-ratio" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>
       <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
     </div>
     <div id="dialog-delay" class="dialog-window">

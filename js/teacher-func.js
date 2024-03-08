@@ -1386,6 +1386,14 @@ function addOptions(keywordToAdd){
             close: function( event, ui ) {
                 _("aspectratioEditAnim").value = _("ratio-select").innerHTML;
                 _("keepaspectratioEditAnim").value = _("keepratio-select").innerHTML;
+                if (_("keepratio-select").innerHTML === "X") {
+                    document.getElementById("check-keep-ratio").checked = true; 
+                    document.getElementById('cbtextEditAnim').innerHTML ='Yes !';
+                } else {
+                    document.getElementById('check-keep-ratio').checked = false;
+                    document.getElementById('cbtextEditAnim').innerHTML ='No.'; 
+                }
+
             }
         });
     }else if(keywordToAdd=="[delay]"){
