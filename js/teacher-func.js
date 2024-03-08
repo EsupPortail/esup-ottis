@@ -2794,6 +2794,7 @@ function updateConfig() {
     }
     _("LinkConfig").innerHTML = _("LinkConfig").href;
     _("sublink").innerHTML = link;
+    _("sublink").href = link;
 }
 
 /**
