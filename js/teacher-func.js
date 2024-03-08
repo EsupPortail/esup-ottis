@@ -1379,11 +1379,13 @@ function addOptions(keywordToAdd){
             buttons: {
               OK: function() {
                 _("ratio-select").innerHTML = _("aspectratioEditAnim").value;
+                _("keepratio-select").innerHTML = _("keepaspectratioEditAnim").value;
                 $( this ).dialog( "close" );
               }
             },
             close: function( event, ui ) {
                 _("aspectratioEditAnim").value = _("ratio-select").innerHTML;
+                _("keepaspectratioEditAnim").value = _("keepratio-select").innerHTML;
             }
         });
     }else if(keywordToAdd=="[delay]"){
@@ -1394,9 +1396,14 @@ function addOptions(keywordToAdd){
             appendTo: "#DesiredDivID",
             buttons: {
               OK: function() {
+                _("delay-select").innerHTML = _("extradelayEditAnim").value;
                 $( this ).dialog( "close" );
               }
+            },
+            close: function( event, ui ) {
+                _("extradelayEditAnim").value = _("delay-select").innerHTML;
             }
+            
         });
     }else if(keywordToAdd=="[licence]"){
         $( "#dialog-licence" ).dialog({
@@ -1406,8 +1413,12 @@ function addOptions(keywordToAdd){
             appendTo: "#DesiredDivID",
             buttons: {
               OK: function() {
+                _("licence-select").innerHTML = _("licenceEditAnim").value;
                 $( this ).dialog( "close" );
               }
+            },
+            close: function( event, ui ) {
+                _("licenceEditAnim").value = _("licence-select").innerHTML;
             }
         });
     }
