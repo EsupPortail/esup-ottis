@@ -1719,7 +1719,8 @@ function CreateNewPresentation() {
 function SubWindow(){
     var window_width = window.screen.width;
     var windowFeatures = "status=yes,location=yes,toolbar=yes,menubar=yes,width=1200,height=110";
-    window.open('subtitles.php','SubtitlesWindow',windowFeatures);
+    var link = _("sublink").innerHTML;
+    window.open(link,'SubtitlesWindow',windowFeatures);
 }
 
 /**
