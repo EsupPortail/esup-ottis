@@ -2985,11 +2985,10 @@ function applyConfigSub() {
     // // ColorPartialTitre
     // _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
     // ChangeColor('partialtitre', _('ColorPartialTitre').value);
-    // // selectfontsize
-    // _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
-    // _('titre').style.fontSize = _('selectfontsize').value;
-    // _('partialtitre').style.fontSize = _('selectfontsize').value;
-    // _('studentfeedback').style.fontSize = _('selectfontsize').value;
+    // selectfontsize
+    _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
+    _('titreSub').style.fontSize = _('selectfontsize').value;
+    _('partialtitreSub').style.fontSize = _('selectfontsize').value;
    
     //selectopacity
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);

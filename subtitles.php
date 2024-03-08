@@ -206,6 +206,13 @@ fclose($fd);
     <option value="0,0,0|0,0,0">black</option>
     <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select>
+  <select id="selectfontsize" class="jqueryselect" style="display : none">
+    <option value="12px">Small</option>
+    <option value="18px" selected>Normal</option>
+    <option value="24px">Big</option>
+    <option value="32px">Huge</option>
+    <option value="48px">Enormous</option>
+  </select>
 </body>
 
 </html>
