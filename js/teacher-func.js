@@ -2834,7 +2834,6 @@ function applyConfig() {
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
-    console.log(_('subtitlelanguage').value);
     // subtitlebaron
     _('subtitlebaron').checked = (config.charAt(2) == "Y");
     if (_('subtitlebaron').checked) {
@@ -2972,12 +2971,13 @@ function applyConfigSub() {
     console.log(config);
     if (config.length != "ABYANACNNCNNNYYY".length) return;
     // classroomlanguage
-    // _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-    // setLanguageInput(_('classroomlanguage').value);
+    _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    setLanguageInput(_('classroomlanguage').value);
 
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
+    console.log(_('subtitlelanguage').value)
 
     // subtitlebaron
     if (config.charAt(2) == "Y") {
