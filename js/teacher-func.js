@@ -2980,46 +2980,27 @@ function applyConfigSub() {
     // setLanguageSubtitle(_('subtitlelanguage').value);
 
     // subtitlebaron
-    // _('subtitlebaron').checked = (config.charAt(2) == "Y");
     if (config.charAt(2) == "Y") {
-        // _('spansubtitlebaron').innerHTML = 'Yes !';
         _('titreSub').style.visibility = 'visible';
-        console.log("visible");
-        // _('titreleft').style.visibility = 'visible';
-        // _('titrerightbis').style.visibility = 'visible';
-        // _('titreright').style.visibility = 'visible';
     } else {
-        // _('spansubtitlebaron').innerHTML = 'No.';
         _('titreSub').style.visibility = 'hidden';
-        console.log("caché");
-        // _('titreleft').style.visibility = 'hidden';
-        // _('titrerightbis').style.visibility = 'hidden';
-        // _('titreright').style.visibility = 'hidden';
     }
-
     // subtitlepartialbaron
-    // _('subtitlepartialon').checked = (config.charAt(4) == "Y");
     if ((config.charAt(4) == "Y")) {
-        // _('spansubtitlepartialon').innerHTML = 'Yes !';
         _('partialtitreSub').style.visibility = 'visible';
     } else {
-        // _('spansubtitlepartialon').innerHTML = 'No.';
         _('partialtitreSub').style.visibility = 'hidden';
     }
-
     // ColorTitre
     _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
     ChangeColor('titreSub', _('ColorTitre').value);
-
     // ColorPartialTitre
     _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
     ChangeColor('partialtitreSub', _('ColorPartialTitre').value);
-
     // selectfontsize
     _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
     _('titreSub').style.fontSize = _('selectfontsize').value;
     _('partialtitreSub').style.fontSize = _('selectfontsize').value;
-   
     //selectopacity
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
     ChangeOpacity('titreSub', _('selectopacity').value)
