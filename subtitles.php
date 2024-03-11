@@ -227,7 +227,7 @@ fclose($fd);
     <option value="32px">Huge</option>
     <option value="48px">Enormous</option>
   </select>
-  <select id="subtitlelanguage" class="jqueryselect" style="display : none"> </select>
+  <select id="subtitlelanguage" class="jqueryselect"> </select>
   <input type="checkbox" id="recognitionon" style="display : none"/>
 </body>
 
