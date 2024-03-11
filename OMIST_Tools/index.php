@@ -994,7 +994,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <div id=helpPause>
         <h4>Pause</h4>
         <div>
-          <b>Pause animation :</b> pause the animation as if you were pressing a pause button.
+          <b>Pause animation :</b> pause the animation as if you were pressing a pause button. ADD TEXT FOR TEST
           <br><b>Pause for n milliseconds :</b> incorporate a pause of a certain duration.
         </div>
       </div>
