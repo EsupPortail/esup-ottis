@@ -213,6 +213,7 @@ fclose($fd);
     <option value="32px">Huge</option>
     <option value="48px">Enormous</option>
   </select>
+  <input type="checkbox" id="recognitionon" style="display : none"/>
 </body>
 
 </html>
