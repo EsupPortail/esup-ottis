@@ -2998,7 +2998,7 @@ function applyConfigSub() {
     }
 
     // subtitlepartialbaron
-    _('subtitlepartialon').checked = (config.charAt(4) == "Y");
+    // _('subtitlepartialon').checked = (config.charAt(4) == "Y");
     if ((config.charAt(4) == "Y")) {
         // _('spansubtitlepartialon').innerHTML = 'Yes !';
         _('partialtitreSub').style.visibility = 'visible';
