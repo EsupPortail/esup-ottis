@@ -168,7 +168,7 @@ fclose($fd);
 	?>
 </head>
 <!-- <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig();"> -->
-<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ applyConfigSub();">
+<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ applyConfigSub(); PopulateSubtitlesLang();">
 	<div id="Allbuttons">
     <div id="icondiv">
       <div id="micon" onclick="Micro();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
@@ -227,6 +227,7 @@ fclose($fd);
     <option value="32px">Huge</option>
     <option value="48px">Enormous</option>
   </select>
+  <select id="subtitlelanguage" class="jqueryselect" style="display : none"> </select>
   <input type="checkbox" id="recognitionon" style="display : none"/>
 </body>
 

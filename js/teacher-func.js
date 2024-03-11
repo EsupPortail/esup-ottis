@@ -2967,7 +2967,6 @@ function applyConfig() {
  */
 
 function applyConfigSub() {
-    console.log("TEST");
     var config = currentconfig;
     console.log(config);
     if (config.length != "ABYANACNNCNNNYYY".length) return;
@@ -2975,9 +2974,9 @@ function applyConfigSub() {
     // _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     // setLanguageInput(_('classroomlanguage').value);
 
-    // // subtitlelanguage
-    // _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-    // setLanguageSubtitle(_('subtitlelanguage').value);
+    // subtitlelanguage
+    _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
+    setLanguageSubtitle(_('subtitlelanguage').value);
 
     // subtitlebaron
     if (config.charAt(2) == "Y") {
