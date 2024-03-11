@@ -2984,12 +2984,14 @@ function applyConfigSub() {
     if (config.charAt(2) == "Y") {
         // _('spansubtitlebaron').innerHTML = 'Yes !';
         _('titreSub').style.visibility = 'visible';
+        console.log("visible");
         // _('titreleft').style.visibility = 'visible';
         // _('titrerightbis').style.visibility = 'visible';
         // _('titreright').style.visibility = 'visible';
     } else {
         // _('spansubtitlebaron').innerHTML = 'No.';
         _('titreSub').style.visibility = 'hidden';
+        console.log("caché");
         // _('titreleft').style.visibility = 'hidden';
         // _('titrerightbis').style.visibility = 'hidden';
         // _('titreright').style.visibility = 'hidden';
