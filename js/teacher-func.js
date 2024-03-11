@@ -2651,12 +2651,6 @@ function Micro() {
 
 }
 
-function MicTest(){
-    var limits = parseInt(document.getElementById('hiddenval').value, 10);
-    var selector = 'input[type="checkbox"]';
-    var countelm = Array.prototype.slice.call(document.querySelectorAll(selector), 0, limits).filter(function(checkbox) { return checkbox.checked }).length;
-    console.log(countelm);
-}
 
 /**
  * @summary Display a Scroll bar below the title bar and synchronized with the speech duration
