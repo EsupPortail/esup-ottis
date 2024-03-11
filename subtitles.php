@@ -206,6 +206,20 @@ fclose($fd);
     <option value="0,0,0|0,0,0">black</option>
     <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select>
+  <select id="ColorPartialTitre" class="jqueryselect" style="display : none">
+    <option value="0,0,255|0,0,255">blue</option>
+    <option value="0,255,0|0,100,0">green</option>
+    <option value="255,0,0|100,0,0">red</option>
+    <option value="255,0,255|100,0,255">purple</option>
+    <option value="255,255,0|100,100,0">yellow</option>
+    <option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+    <option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+    <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+    <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+    <option value="255,255,0|200,200,0|50,50,0">yellow inverted</option>
+    <option value="0,0,0|0,0,0" selected>black</option>
+    <option value="255,255,255|255,255,255|0,0,0">white</option>
+  </select>
   <select id="selectfontsize" class="jqueryselect" style="display : none">
     <option value="12px">Small</option>
     <option value="18px" selected>Normal</option>
