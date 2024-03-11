@@ -2973,6 +2973,7 @@ function applyConfigSub() {
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     setLanguageInput(_('classroomlanguage').value);
+    console.log(_('classroomlanguage').value)
 
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
