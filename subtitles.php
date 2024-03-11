@@ -171,7 +171,7 @@ fclose($fd);
 <body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ PopulateVoicesIn(); PopulateSubtitlesLang(); applyConfigSub(); ">
 	<div id="Allbuttons">
     <div id="icondiv">
-      <div id="micon" onclick="Micro();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
+      <div id="micon" onclick="MicroSub();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
 		</div>
 	</div>
 	<!--  // change here for touchable
