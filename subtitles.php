@@ -231,6 +231,7 @@ fclose($fd);
   <select id="subtitlelanguage" class="jqueryselect" style="display : none"> </select>
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
+  <div id="partialtitre" style="display : none"></div>
 </body>
 
 </html>

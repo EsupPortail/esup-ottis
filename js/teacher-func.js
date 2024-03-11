@@ -477,6 +477,36 @@ function Traduction(ch) {
 }
 
 /**
+ * @summary Main function for translating a given text, handles the synchronisation of different translations.
+ * 
+ * @param {string} ch a given sentence.
+ * @returns
+ */
+
+function TraductionSub(ch) {
+    ch = RemoveVerbalTics(ch);
+    var recognitionon = _('recognitionon').checked;
+    if (recognitionon) {
+        //EcrireNB(ch);
+        //EcrireTitle(ch);
+        // saveText(ch);
+        var liveon = _('liveon').checked;
+        if (liveon) {
+            if (readytotalk) {
+                notready();
+                Ecrire('Input : ' + ch);
+                if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
+                    Translate(ch, builtin_voice.lang.substr(0, 2), builtin_language.substr(0, 2));
+                else {
+                    Parle(ch);
+                    Ecrire("Output : " + ch);
+                }
+            }
+        }
+    }
+}
+
+/**
  * @summary A function that translates a given text from a language to another.
  * 
  * @param {string} ch A given sentence
@@ -2644,6 +2674,39 @@ function Micro() {
     }
     if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
         StartSpeechRecognition(Traduction);
+    }
+    /* else {
+          builtin_recognition.abort();
+        }*/
+
+}
+
+/**
+ * @summary Switch the Microphone/Speechrecognition on and off
+ * 
+ */
+
+function MicroSub() {
+    if (!builtin_microsofttranscritionon) {
+        builtin_recognition.abort();
+    }
+    var mybox = _('micon');
+    _('recognitionon').checked = !_('recognitionon').checked;
+    builtin_recognitionon = _('recognitionon').checked;
+    if (_('recognitionon').checked) {
+        mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
+    } else {
+        mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
+    }
+    if (builtin_microsofttranscritionon) {
+        if (builtin_recognitionon) {
+            doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
+        } else {
+            stopRecognizer();
+        }
+    }
+    if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+        StartSpeechRecognition(TraductionSub);
     }
     /* else {
           builtin_recognition.abort();
