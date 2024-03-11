@@ -490,8 +490,8 @@ function TraductionSub(ch) {
         //EcrireNB(ch);
         //EcrireTitle(ch);
         // saveText(ch);
-        var liveon = _('liveon').checked;
-        if (liveon) {
+        // var liveon = _('liveon').checked;
+        // if (liveon) {
             if (readytotalk) {
                 notready();
                 Ecrire('Input : ' + ch);
@@ -502,7 +502,7 @@ function TraductionSub(ch) {
                     Ecrire("Output : " + ch);
                 }
             }
-        }
+        // }
     }
 }
 

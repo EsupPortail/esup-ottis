@@ -168,7 +168,7 @@ fclose($fd);
 	?>
 </head>
 <!-- <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig();"> -->
-<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ PopulateVoicesIn(); PopulateSubtitlesLang(); applyConfigSub(); ">
+<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ PopulateVoicesIn(); PopulateSubtitlesLang(); applyConfigSub(); ready(); ">
 	<div id="Allbuttons">
     <div id="icondiv">
       <div id="micon" onclick="MicroSub();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
@@ -233,6 +233,7 @@ fclose($fd);
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
   <div id="partialtitre" style="display : none"></div>
   <input type="checkbox" id="liveon" />
+  <button id="bready" style="display : none">Ready to listen ?</button>
 </body>
 
 </html>
