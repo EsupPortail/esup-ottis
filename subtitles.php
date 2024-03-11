@@ -230,6 +230,7 @@ fclose($fd);
   <select id="classroomlanguage" class="jqueryselect" style="display : none"> </select>
   <select id="subtitlelanguage" class="jqueryselect" style="display : none"> </select>
   <input type="checkbox" id="recognitionon" style="display : none"/>
+  <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
 </body>
 
 </html>
