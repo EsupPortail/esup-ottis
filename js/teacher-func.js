@@ -494,12 +494,12 @@ function TraductionSub(ch) {
         // if (liveon) {
             if (readytotalk) {
                 notready();
-                Ecrire('Input : ' + ch);
+                // Ecrire('Input : ' + ch);
                 if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
                     Translate(ch, builtin_voice.lang.substr(0, 2), builtin_language.substr(0, 2));
                 else {
-                    Parle(ch);
-                    Ecrire("Output : " + ch);
+                    // Parle(ch);
+                    // Ecrire("Output : " + ch);
                 }
             }
         // }
