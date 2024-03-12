@@ -3073,6 +3073,9 @@ function applyConfigSub() {
     ChangeOpacity('titreSub', _('selectopacity').value)
     ChangeOpacity('partialtitreSub', _('selectopacity').value)
 
+    console.log(_('subtitlelanguage').value.substr(0, 2));
+    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");
     // _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
