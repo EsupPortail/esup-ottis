@@ -3036,12 +3036,14 @@ function applyConfigSub() {
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     setLanguageInput(_('classroomlanguage').value);
-    console.log(_('classroomlanguage').value)
+    console.log(_('classroomlanguage').value);
+    console.log(_('classroomlanguage').innerHTML);
+    console.log(_('classroomlanguage').text);
 
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
-    console.log(_('subtitlelanguage').value)
+    console.log(_('subtitlelanguage').value);
 
     // subtitlebaron
     if (config.charAt(2) == "Y") {
