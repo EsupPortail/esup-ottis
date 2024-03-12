@@ -22,7 +22,9 @@ if ($external) $uid="external";
 //if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 $fake=false;
 
-AuthenticateNotStudent($uid);
+//AuthenticateNotStudent($uid);
+$filenameids = "tables/authorizedStudents.txt";
+AuthenticateNotStudentorReader($uid,$filenameids);
 
 // Mettre en place une liste de privilégiés
 // =1 peut inviter et fixer la durée de l'invitation
