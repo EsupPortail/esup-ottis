@@ -236,6 +236,7 @@ fclose($fd);
   <input type="checkbox" id="liveon" style="display : none"/>
   <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
   <button id="bready" style="display : none">Ready to listen ?</button>
+  <div id="output"> </div>
 </body>
 
 </html>
