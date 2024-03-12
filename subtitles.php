@@ -232,7 +232,7 @@ fclose($fd);
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
   <div id="partialtitre" style="display : none"></div>
-  <input type="text" name="classroomid" id="classroomid" value="<?php md5(gmdate("Y-m-d\TH:i:s\Z")); ?>"/>
+  <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" style="display : none"/>
   <input type="checkbox" id="liveon" style="display : none"/>
   <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
   <button id="bready" style="display : none">Ready to listen ?</button>
