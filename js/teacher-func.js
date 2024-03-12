@@ -3038,7 +3038,7 @@ function applyConfigSub() {
     setLanguageInput(_('classroomlanguage').value);
     console.log(_('classroomlanguage').value);
     console.log(_('classroomlanguage').innerHTML);
-    console.log(_('classroomlanguage').text);
+    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
 
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
