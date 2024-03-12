@@ -561,7 +561,7 @@ function TranslateSub(ch, l, linput) {
                 // Parle(response["data"]["translations"][0]["translatedText"]);
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
                 console.log("" + response["data"]["translations"][0]["translatedText"]);
-                _("titre").innerHTML = "" + response["data"]["translations"][0]["translatedText"];
+                _("titreSub").innerHTML = "" + response["data"]["translations"][0]["translatedText"];
             } else {
                 Ecrire("---- Translation ERROR ----")
             }
