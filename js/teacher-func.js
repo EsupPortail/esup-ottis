@@ -495,9 +495,12 @@ function TraductionSub(ch) {
             if (readytotalk) {
                 notready();
                 // Ecrire('Input : ' + ch);
-                if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
-                    Translate(ch, builtin_voice.lang.substr(0, 2), builtin_language.substr(0, 2));
-                else {
+                // if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
+                if (_('subtitlelanguage').value.substr(0, 2) != _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2)){
+                    console.log(_('subtitlelanguage').value.substr(0, 2));
+                    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+                    Translate(ch, _('subtitlelanguage').value.substr(0, 2), _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+                } else {
                     // Parle(ch);
                     // Ecrire("Output : " + ch);
                 }
@@ -3036,8 +3039,6 @@ function applyConfigSub() {
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     setLanguageInput(_('classroomlanguage').value);
-    console.log(_('classroomlanguage').value);
-    console.log(_('classroomlanguage').innerHTML);
     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
 
     // subtitlelanguage
