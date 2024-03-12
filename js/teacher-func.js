@@ -485,6 +485,7 @@ function Traduction(ch) {
 
 function TraductionSub(ch) {
     ch = RemoveVerbalTics(ch);
+    console.log(ch);
     var recognitionon = _('recognitionon').checked;
     if (recognitionon) {
         //EcrireNB(ch);
