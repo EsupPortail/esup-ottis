@@ -500,7 +500,7 @@ function TraductionSub(ch) {
                 if (_('subtitlelanguage').value.substr(0, 2) != _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2)){
                     console.log(_('subtitlelanguage').value.substr(0, 2));
                     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
-                    Translate(ch, _('subtitlelanguage').value.substr(0, 2), _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+                    TranslateSub(ch, _('subtitlelanguage').value.substr(0, 2), _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
                 } else {
                     // Parle(ch);
                     // Ecrire("Output : " + ch);
@@ -528,6 +528,37 @@ function Translate(ch, l, linput) {
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 Parle(response["data"]["translations"][0]["translatedText"]);
+                Ecrire("" + response["data"]["translations"][0]["translatedText"]);
+            } else {
+                Ecrire("---- Translation ERROR ----")
+            }
+
+        }
+    };
+    var d_begin = Date.now();
+    console.log(d_begin + " : Sending for translation " + ch + " from " + linput + " to " + l)
+    xhr.send();
+    AbortTimeout(xhr,"Translate");
+}
+
+/**
+ * @summary A function that translates a given text from a language to another.
+ * 
+ * @param {string} ch A given sentence
+ * @param {string} l The output language.
+ * @param {string} linput The input language.
+ */
+
+function TranslateSub(ch, l, linput) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
+
+    xhr.onreadystatechange = function() { // Call a function when the state changes.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // console.log(this.responseText);
+            var response = JSON.parse(this.responseText);
+            if ((!response["error"]) && response["data"]["translations"]) {
+                // Parle(response["data"]["translations"][0]["translatedText"]);
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
             } else {
                 Ecrire("---- Translation ERROR ----")
