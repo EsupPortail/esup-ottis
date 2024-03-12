@@ -232,7 +232,8 @@ fclose($fd);
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
   <div id="partialtitre" style="display : none"></div>
-  <input type="checkbox" id="liveon" />
+  <input type="checkbox" id="liveon" style="display : none"/>
+  <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
   <button id="bready" style="display : none">Ready to listen ?</button>
 </body>
 
