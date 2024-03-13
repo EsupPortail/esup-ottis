@@ -485,7 +485,7 @@ function Traduction(ch) {
 
 function TraductionSub(ch) {
     ch = RemoveVerbalTics(ch);
-    console.log(ch);
+    // console.log(ch);
     var recognitionon = _('recognitionon').checked;
     if (recognitionon) {
         //EcrireNB(ch);
@@ -1932,12 +1932,12 @@ function StartSpeechRecognitionSub(callback) {
             }
             if (partial.trim() != '') {
                 if (_('recognitionon').checked) EcrirePartialSub(RemoveVerbalTics(partial));
-                console.log("TEST");
             }
             //builtin_recognition.stop();
         }
     };
     builtin_recognition.onend = function(event) {
+        console.log("test builtin : "+builtin_recognitionon);
         if (builtin_recognitionon) {
             StartSpeechRecognitionSub(callback);
         }
