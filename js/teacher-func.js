@@ -1909,6 +1909,45 @@ function StartSpeechRecognition(callback) {
 }
 
 /**
+ * @summary StartSpeechRecognition is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
+ * 
+ * @param {function} callback function that is called each time a new text is recognized.
+ * @returns
+ */
+
+function StartSpeechRecognitionSub(callback) {
+    builtin_recognition.lang = builtin_language;
+    builtin_recognition.onresult = function(event) {
+        if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
+            //console.log(event.results);
+            var partial = '';
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                if (event.results[i].isFinal) {
+                    partial = event.results[i][0].transcript; //+" > ";
+                    FreeResources();
+                    callback(event.results[i][0].transcript);
+                } else {
+                    partial += ' ' + event.results[i][0].transcript;
+                }
+            }
+            if (partial.trim() != '') {
+                if (_('recognitionon').checked) EcrirePartialSub(RemoveVerbalTics(partial));
+            }
+            //builtin_recognition.stop();
+        }
+    };
+    builtin_recognition.onend = function(event) {
+        if (builtin_recognitionon) {
+            StartSpeechRecognitionSub(callback);
+        }
+    };
+    builtin_recognitionon = true;
+    try {
+        builtin_recognition.start();
+    } catch {}
+}
+
+/**
  * @summary StopSpeechRecognition is used to stop a running speech recognition service
  * 
  */
@@ -1993,6 +2032,16 @@ function EcrireTitle(ch) {
 
 function EcrirePartial(ch) {
     if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
+}
+
+/**
+ * @summary Function that update the "partial title" div.
+ * 
+ * @param {string} ch the text that is adding to the title.
+ */
+
+function EcrirePartialSub(ch) {
+    if (ch != 'undefined' && ch != undefined) _('partialtitreSub').innerHTML = ch;
 }
 
 /**
@@ -2743,7 +2792,7 @@ function MicroSub() {
         }
     }
     if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
-        StartSpeechRecognition(TraductionSub);
+        StartSpeechRecognitionSub(TraductionSub);
     }
     /* else {
           builtin_recognition.abort();
