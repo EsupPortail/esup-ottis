@@ -168,7 +168,7 @@ fclose($fd);
 	?>
 </head>
 <!-- <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig();"> -->
-<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ InitVoices(); /*PopulateVoicesIn();*/ PopulateSubtitlesLang(); /*setLanguageInput(0); setLanguageOutput(0);*/ applyConfigSub(); ready(); ">
+<body onload="/*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ /*applyConfigSub();*/ InitVoices(); /*PopulateVoicesIn();*/ PopulateSubtitlesLang(); /*setLanguageInput(0); setLanguageOutput(0);*/ applyConfigSub(); ready(); setInterval(ScrollBar, scrollinterval);">
 	<div id="Allbuttons">
     <div id="icondiv">
       <div id="micon" onclick="MicroSub();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
@@ -237,6 +237,7 @@ fclose($fd);
   <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
   <button id="bready" style="display : none">Ready to listen ?</button>
   <div id="output"> </div>
+  <div id="scrollbar"></div>
 </body>
 
 </html>
