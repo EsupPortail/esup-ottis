@@ -2778,6 +2778,7 @@ function MicroSub() {
     }
     var mybox = _('micon');
     _('recognitionon').checked = !_('recognitionon').checked;
+    console.log(_('recognitionon').checked);
     builtin_recognitionon = _('recognitionon').checked;
     if (_('recognitionon').checked) {
         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
