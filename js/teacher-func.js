@@ -1919,7 +1919,7 @@ function StartSpeechRecognitionSub(callback) {
     builtin_recognition.lang = builtin_language;
     builtin_recognition.onresult = function(event) {
         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
-            //console.log(event.results);
+            console.log(event.results);
             var partial = '';
             for (var i = event.resultIndex; i < event.results.length; i++) {
                 if (event.results[i].isFinal) {
