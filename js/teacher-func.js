@@ -1898,6 +1898,7 @@ function StartSpeechRecognition(callback) {
         }
     };
     builtin_recognition.onend = function(event) {
+        console.log("test builtin : "+builtin_recognitionon);
         if (builtin_recognitionon) {
             StartSpeechRecognition(callback);
         }
