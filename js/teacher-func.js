@@ -1932,6 +1932,7 @@ function StartSpeechRecognitionSub(callback) {
             }
             if (partial.trim() != '') {
                 if (_('recognitionon').checked) EcrirePartialSub(RemoveVerbalTics(partial));
+                console.log("TEST");
             }
             //builtin_recognition.stop();
         }
