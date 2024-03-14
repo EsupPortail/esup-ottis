@@ -1240,6 +1240,12 @@ function updateNotes(){
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
+function AddEnter(event){
+    if (event.code === 'Enter'){
+        console.log('enterTEXTAREA');
+    }
+}
+
 /**
  * @summary The function that is executed for adding a keyword to the displayed notes with the animation editor.
  * 

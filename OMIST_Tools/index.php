@@ -976,7 +976,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <textarea onkeyup="function(event) {if (event.code === 'Enter') {console.log('enterTEXTAREA');}}" onchange="updateNotes();" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
+        <textarea onkeyup="AddEnter(event)" onchange="updateNotes();" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
       </td>
       </tr>
     </table>
