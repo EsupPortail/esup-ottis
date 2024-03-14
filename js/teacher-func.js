@@ -2278,7 +2278,7 @@ function Init() {
         }
     };
 
-    $("speechArea").onkeyup = function(event) {
+    $("speechArea").keyup = function(event) {
         if (event.code === 'Enter') {
             console.log("test réussi");
         }
