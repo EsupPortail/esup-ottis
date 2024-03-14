@@ -1240,9 +1240,32 @@ function updateNotes(){
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
-function AddEnter(event){
+function addEnter(event){
     if (event.code === 'Enter'){
         console.log('enterTEXTAREA');
+        var tab_lang = [];
+        var languages = document.getElementById("myLanguage");
+        var idImage = document.getElementById("imageArea").firstElementChild.id;
+        var numSlide = idImage.charAt(idImage.length - 1);
+        for (num_lang = 0; num_lang < languages.length; num_lang++) {
+            tab_lang[num_lang] = languages.options[num_lang].value;
+        }
+        for (let key in tab_lang){
+            var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+            let line = document.getElementById('cursor-position').innerHTML;
+            var lines_tot = notes.split('\n');
+            if (lines_tot[line-1] === ""){
+                line = line-1;
+                console.log("Ligne précédente all lang");
+            }else{
+                console.log(lines_tot[line-1]);
+            }
+            let val_notes = notes.split('\n');
+            val_notes.splice(line, 0, '\n');
+            var new_notes = val_notes.join('\n');
+            $('speechArea').val(val_notes.join('\n'));
+            document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+        }
     }
 }
 
