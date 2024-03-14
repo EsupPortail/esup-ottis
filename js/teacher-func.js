@@ -1243,6 +1243,10 @@ function updateNotes(){
 function addEnter(event){
     if (event.code === 'Enter'){
         console.log('enterTEXTAREA');
+        let textarea = document.getElementById('speechArea');
+        var cursorPos = $('#speechArea').prop('selectionStart');
+        var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
+        document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
         var tab_lang = [];
         var languages = document.getElementById("myLanguage");
         var idImage = document.getElementById("imageArea").firstElementChild.id;
