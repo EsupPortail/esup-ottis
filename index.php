@@ -554,7 +554,7 @@ fclose($fd);
 							<?php 
         if (! $external  && $userprivileges < 3) echo "&nbsp;<button class=\"tooltip\" title=\"Create a valid link allowing a non Nantes University user to access the teachers application. The created link expires 24 hours after its creation.\" onclick=\"InviteExternal();\">Invite an external guest</button>";
         if (! $external && $userprivileges < 2) {
-          echo "<label for=\"for\">&nbsp;for&nbsp;</label><select id=\"duration\" class=\"jqueryselect\">";
+          echo "<label for=\"duration\">&nbsp;for&nbsp;</label><select id=\"duration\" class=\"jqueryselect\">";
           echo "<option value=\"600\">10 minutes</option>";
           echo "<option value=\"3600\">1 hour</option>";
           echo "<option value=\"86400\" selected>24 hours</option>";
@@ -634,7 +634,7 @@ for($i=0; $i<$nbcircles; $i++) {
 				<label for="dialog_MailTo">Mail to : </label>
 				<input type="text" id="dialog_MailTo" />
 				<br/>
-				<label for="dialog_MailTo" style="display:none;">Mail from : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
+				<label for="dialog_MailFrom" style="display:none;">Mail from : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
 				<label for="dialog_MailSubject">Subject : </label>
 				<input type="text" id="dialog_MailSubject" readonly/>
 				<br/>
