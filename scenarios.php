@@ -184,6 +184,11 @@ img {
   width: 100%;
 }
 
+.card__input::placeholder {
+  color: #505050;
+  opacity: 1;
+}
+
 .details {
   font-size: 0.9em;
   height: 200px;
