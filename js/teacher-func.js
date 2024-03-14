@@ -1254,18 +1254,18 @@ function addEnter(event){
         for (num_lang = 0; num_lang < languages.length; num_lang++) {
             tab_lang[num_lang] = languages.options[num_lang].value;
         }
+        let line = document.getElementById('cursor-position').innerHTML;
+            console.log(line);
         for (let key in tab_lang){
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-            let line = document.getElementById('cursor-position').innerHTML;
-            console.log(line);
             var lines_tot = notes.split('\n');
-            if (lines_tot[line-1] === ""){
-                line = line-1;
-            }else{
-                // console.log(lines_tot[line-1]);
-            }
+            // if (lines_tot[line-1] === ""){
+            //     line = line-1;
+            // }else{
+            //     // console.log(lines_tot[line-1]);
+            // }
             let val_notes = notes.split('\n');
-            val_notes.splice(line+1, 0, '');
+            val_notes.splice(line, 0, 'test');
             var new_notes = val_notes.join('\n');
             $('speechArea').val(val_notes.join('\n'));
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
