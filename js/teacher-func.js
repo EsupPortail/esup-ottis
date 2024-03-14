@@ -1231,7 +1231,7 @@ function initializeEditAnim(){
  * 
  */
 
-function updateNotes(lang){
+function updateNotes(){
     var lang = _("myLanguage").value.trim();
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
@@ -1323,7 +1323,7 @@ function addAllLanguages(keyword){
             No: function() {
                 var lang = _("myLanguage").value.trim();
                 addKeyword(keyword);
-                updateNotes(lang);
+                updateNotes();
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
