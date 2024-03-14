@@ -176,7 +176,7 @@ img {
 .card__input {
   font-family: Fjalla One;
   background-color: rgb(150,255,150);
-  border: 1px solid rgb(150,255,150);
+  border: 1px solid #505050;
   border-radius: 1rem;
   color: @gray-dark;
   padding: 0.5rem;
