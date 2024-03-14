@@ -1241,7 +1241,7 @@ function updateNotes(){
     if (new_txt.includes("[wait ")){
         console.log(new_txt.indexOf("[wait "));
         var pos_key = new_txt.indexOf("[wait ");
-        var txt_before = new_txt.value.substring(0,pos_key).split("\n");
+        var txt_before = new_txt.substring(0,pos_key).split("\n");
         console.log(txt_before);
         var nb_line = txt_before.length;
         console.log(nb_line);
