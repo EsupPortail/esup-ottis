@@ -1253,15 +1253,15 @@ function addEnter(event){
         for (let key in tab_lang){
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
             let line = document.getElementById('cursor-position').innerHTML;
+            console.log(line);
             var lines_tot = notes.split('\n');
             if (lines_tot[line-1] === ""){
                 line = line-1;
-                console.log("Ligne précédente all lang");
             }else{
-                console.log(lines_tot[line-1]);
+                // console.log(lines_tot[line-1]);
             }
             let val_notes = notes.split('\n');
-            val_notes.splice(line, 0, '\n');
+            val_notes.splice(line+1, 0, '');
             var new_notes = val_notes.join('\n');
             $('speechArea').val(val_notes.join('\n'));
             document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
