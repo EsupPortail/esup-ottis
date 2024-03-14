@@ -1294,22 +1294,26 @@ function addKeyword(keyword){
     console.log(cursorPositionLine);
 
     var lines_tot = textarea.value.split('\n');
+    var notes = document.getElementById('speechArea').value;
+    let val_notes = notes.split('\n');
     if (lines_tot[line-1] === ""){
-        line = line-1;
+        // line = line-1;
+        val_notes.splice(line, 1, keyword);
         // console.log("Ligne précédente");
     }else if (cursorPositionLine === 0){
         document.getElementById('cursor-position').innerHTML = document.getElementById('cursor-position').innerHTML - 1;
         line = line-1;
+        val_notes.splice(line, 0, keyword);
         // console.log("Début de phrase");
     }else{
+        val_notes.splice(line, 0, keyword);
         // console.log("OK");
         // console.log(lines_tot[line-1]);
     }
 
-
-    var notes = document.getElementById('speechArea').value;
-    let val_notes = notes.split('\n');
-    val_notes.splice(line, 0, keyword);
+    // var notes = document.getElementById('speechArea').value;
+    // let val_notes = notes.split('\n');
+    // val_notes.splice(line, 0, keyword);
     var new_notes = val_notes.join('\n');
     document.getElementById("speechArea").value = new_notes;
 }
