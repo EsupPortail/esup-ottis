@@ -1342,15 +1342,17 @@ function addAllLanguages(keyword){
                 for (let key in tab_lang){
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     let line = document.getElementById('cursor-position').innerHTML;
-                    var lines_tot = notes.split('\n');
-                    if (lines_tot[line-1] === ""){
+                    // var lines_tot = notes.split('\n');
+                    let val_notes = notes.split('\n');
+                    if (val_tot[line-1] === ""){
                         line = line-1;
-                        console.log("Ligne précédente all lang");
+                        val_notes.splice(line, 1, keyword);
                     }else{
                         console.log(lines_tot[line-1]);
+                        val_notes.splice(line, 0, keyword);
                     }
-                    let val_notes = notes.split('\n');
-                    val_notes.splice(line, 0, keyword);
+                    // let val_notes = notes.split('\n');
+                    // val_notes.splice(line, 0, keyword);
                     var new_notes = val_notes.join('\n');
                     $('speechArea').val(val_notes.join('\n'));
                     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
