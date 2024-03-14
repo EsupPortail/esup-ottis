@@ -422,10 +422,10 @@ fclose($fd);
 							</dd>
 							<dd>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></dd>
 							<dd>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
-							<dd>Universal document viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></dd>
+							<dd>Universal document viewer : <a id="link6" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></dd>
 							<dd>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://3dviewer.net/">https://3dviewer.net/</a></dd>
-							<dd>Nantes University Zoom session [Experimental]: <a id="link5" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" src="">Enter your zoom link</a></dd>
-							<dd>Youtube video [Experimental]: <a id="link6" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" src="">Enter your Youtube video ID</a></dd>
+							<dd>Nantes University Zoom session [Experimental]: <a id="link8" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" src="">Enter your zoom link</a></dd>
+							<dd>Youtube video [Experimental]: <a id="link9" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" src="">Enter your Youtube video ID</a></dd>
 						</dl>
 						<br/>
 						<br/> </div>
@@ -632,6 +632,7 @@ for($i=0; $i<$nbcircles; $i++) {
 	<div id="dialog-mail">
 		<form>
 			<fieldset>
+				<caption style="display:none;">Send a mail form</caption>
 				<label for="dialog_MailTo">Mail to : </label>
 				<input type="text" id="dialog_MailTo" />
 				<br/>
@@ -639,7 +640,7 @@ for($i=0; $i<$nbcircles; $i++) {
 				<label for="dialog_MailSubject">Subject : </label>
 				<input type="text" id="dialog_MailSubject" readonly/>
 				<br/>
-				<label for="dialog_MailBody">Body : </label>
+				Body : 
 				<br/>
 				<div id="dialog_MailBody"> </div>
 			</fieldset>
