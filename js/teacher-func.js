@@ -1238,8 +1238,14 @@ function updateNotes(){
     var idImage = document.getElementById("imageArea").firstElementChild.id;
     var numSlide = idImage.charAt(idImage.length - 1);
     var new_txt = document.getElementById("speechArea").value;
-    console.log(new_txt.includes("[wait "));
-    console.log(new_txt.indexOf("[wait "));
+    if (new_txt.includes("[wait ")){
+        console.log(new_txt.indexOf("[wait "));
+        var pos_key = new_txt.indexOf("[wait ");
+        var txt_before = new_txt.value.substring(0,pos_key).split("\n");
+        console.log(txt_before);
+        var nb_line = txt_before.length;
+        console.log(nb_line);
+    }
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
     console.log("\n Slide Text : \n");
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
