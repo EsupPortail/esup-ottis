@@ -229,6 +229,11 @@ function Init() {
   allselects.map(PopulateLanguages);
   PopulateVoicesMicrosoft(_('inputlanguage13'));
   showList("all");
+  document.onkeyup = function(event) {
+    if (event.code === 'Enter') {
+        console.log("enter");
+    }
+  }
 }
 
 function displayLanguage(){
