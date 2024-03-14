@@ -632,7 +632,7 @@ for($i=0; $i<$nbcircles; $i++) {
 	<div id="dialog-mail">
 		<form>
 			<fieldset>
-				<caption style="display:none;">Send a mail form</caption>
+				<legend style="display:none;">Send a mail form</legend>
 				<label for="dialog_MailTo">Mail to : </label>
 				<input type="text" id="dialog_MailTo" />
 				<br/>
