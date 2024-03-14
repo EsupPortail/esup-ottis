@@ -263,6 +263,7 @@ var root = window.location.href.replace("/scenarios.php","");
 </head>
 <body onload="document.cookie=''; " lang="fr">
 <main>
+<h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
