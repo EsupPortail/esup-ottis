@@ -1239,6 +1239,7 @@ function updateNotes(){
     var numSlide = idImage.charAt(idImage.length - 1);
     var new_txt = document.getElementById("speechArea").value;
     console.log(new_txt.includes("[wait "));
+    console.log(new_txt.indexOf("[wait "));
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
     console.log("\n Slide Text : \n");
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
