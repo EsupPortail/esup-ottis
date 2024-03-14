@@ -1104,6 +1104,7 @@ function showMouse() {
 /**
  * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the animation editor.
  * 
+ * @param {event} e a mouse event.
  */
 
 function followmouse(e) {
@@ -1197,6 +1198,7 @@ function toolInformation(){
 /**
  * @summary The function that is executed to warn when a file is missing from the animation editor.
  * 
+ * @param {string} warning_type a text value contained the missing file type.
  */
 function warningEmpty(warning_type){
     if (warning_type === "file"){
@@ -1240,13 +1242,19 @@ function updateNotes(){
     console.log(document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent);
 }
 
+/**
+ * @summary The function that is executed for adding a line break in all languages in the animation editor.
+ * 
+ * @param {event} event a keyboard event.
+ */
+
 function addEnter(event){
     if (event.code === 'Enter'){
-        console.log('enterTEXTAREA');
-        let textarea = document.getElementById('speechArea');
+        var textarea = document.getElementById('speechArea');
         var cursorPos = $('#speechArea').prop('selectionStart');
         var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
         document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
+
         var tab_lang = [];
         var languages = document.getElementById("myLanguage");
         var idImage = document.getElementById("imageArea").firstElementChild.id;
@@ -1258,13 +1266,7 @@ function addEnter(event){
             console.log(line);
         for (let key in tab_lang){
             var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-            var lines_tot = notes.split('\n');
-            // if (lines_tot[line-1] === ""){
-            //     line = line-1;
-            // }else{
-            //     // console.log(lines_tot[line-1]);
-            // }
-            let val_notes = notes.split('\n');
+            var val_notes = notes.split('\n');
             val_notes.splice(line-1, 0, '');
             var new_notes = val_notes.join('\n');
             $('speechArea').val(val_notes.join('\n'));
@@ -1276,44 +1278,34 @@ function addEnter(event){
 /**
  * @summary The function that is executed for adding a keyword to the displayed notes with the animation editor.
  * 
+ * * @param {string} keyword the selected keyword and its parameter.
  */
 
 function addKeyword(keyword){
-    let textarea = document.getElementById('speechArea');
+    var textarea = document.getElementById('speechArea');
     var cursorPos = $('#speechArea').prop('selectionStart');
-
     var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
     document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
-    console.log("\n cursor position : \n");
-    console.log(document.getElementById('cursor-position').innerHTML);
-
-    let line = document.getElementById('cursor-position').innerHTML;
-
+    // console.log("\n cursor position : \n");
+    // console.log(document.getElementById('cursor-position').innerHTML);
+    var line = document.getElementById('cursor-position').innerHTML;
     var cursorPositionLine = textBeforeCursor[line-1].length;
-    console.log("\n cursor position in the line : \n");
-    console.log(cursorPositionLine);
+    // console.log("\n cursor position in the line : \n");
+    // console.log(cursorPositionLine);
 
-    var lines_tot = textarea.value.split('\n');
-    var notes = document.getElementById('speechArea').value;
-    let val_notes = notes.split('\n');
-    if (lines_tot[line-1] === ""){
+    var notes = textarea.value;
+    var val_notes = notes.split('\n');
+    if (val_notes[line-1] === ""){
         line = line-1;
         val_notes.splice(line, 1, keyword);
-        // console.log("Ligne précédente");
     }else if (cursorPositionLine === 0){
         document.getElementById('cursor-position').innerHTML = document.getElementById('cursor-position').innerHTML - 1;
         line = line-1;
         val_notes.splice(line, 0, keyword);
-        // console.log("Début de phrase");
     }else{
         val_notes.splice(line, 0, keyword);
-        // console.log("OK");
-        // console.log(lines_tot[line-1]);
     }
 
-    // var notes = document.getElementById('speechArea').value;
-    // let val_notes = notes.split('\n');
-    // val_notes.splice(line, 0, keyword);
     var new_notes = val_notes.join('\n');
     document.getElementById("speechArea").value = new_notes;
 }
@@ -1321,6 +1313,7 @@ function addKeyword(keyword){
 /**
  * @summary The function that is executed for adding a keyword to notes for one or all languages with the animation editor.
  * 
+ * @param {string} keyword the selected keyword and its parameter.
  */
 
 function addAllLanguages(keyword){
@@ -1341,9 +1334,8 @@ function addAllLanguages(keyword){
                 }
                 for (let key in tab_lang){
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-                    let line = document.getElementById('cursor-position').innerHTML;
-                    // var lines_tot = notes.split('\n');
-                    let val_notes = notes.split('\n');
+                    var line = document.getElementById('cursor-position').innerHTML;
+                    var val_notes = notes.split('\n');
                     if (val_notes[line-1] === ""){
                         line = line-1;
                         val_notes.splice(line, 1, keyword);
@@ -1351,8 +1343,6 @@ function addAllLanguages(keyword){
                         console.log(val_notes[line-1]);
                         val_notes.splice(line, 0, keyword);
                     }
-                    // let val_notes = notes.split('\n');
-                    // val_notes.splice(line, 0, keyword);
                     var new_notes = val_notes.join('\n');
                     $('speechArea').val(val_notes.join('\n'));
                     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
@@ -1375,6 +1365,8 @@ function addAllLanguages(keyword){
 /**
  * @summary The function that is executed for creating the command with the keyword and its parameters with the animation editor.
  * 
+ * @param {string} keyword the keyword selected.
+ * @param {string} param the new parameter value.
  */
 
 function updateCommand(keyword, param){
@@ -1434,15 +1426,10 @@ function addParameters(keywordToAdd){
         document.getElementById("commandKeyword").innerHTML = "[mouse size 1]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseSize" name="param">Mouse size : <input onchange="updateCommand(\'[mouse size toReplace]\', document.getElementById(\'mouseSize\').value);" type="range" style="width:100px" value="1" min="1" max="10" step="1" oninput="sizeOutputId.value = mouseSize.value; displayMouseSize(mouseSize.value);" name="mouseSize" id="mouseSize"/><output id="sizeOutputId">1</output></div>'+
         '<br><div id="showMouseSize">+</div></div>';
-        // document.getElementById("showMouseSize").innerHTML = document.getElementById("mouse-shape").innerHTML;
     }else if(keywordToAdd=="[mouse shape toReplace]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse shape 0]"
         document.getElementById("keywordParameter").innerHTML ='<div id="paramMouseShape" name="param">Mouse shape : <select onchange="updateCommand(\'[mouse shape toReplace]\', document.getElementById(\'mouseShape\').value);" id="mouseShape">'+
         '<option value="0">+</option><option value="1">X</option><option value="2">☝</option><option value="3">○</option><option value="4">⚫</option><option value="5">↖</option></select></div>';
-        // var selectElement = document.querySelector('#mouseShape');
-        // document.getElementById("commandKeyword").innerHTML = "[mouse shape "+selectElement.value+"]\n";
-        // console.log("[mouse shape "+selectElement.value+"]\n");
-        // getValue();
     }else if(keywordToAdd=="[mouse go px py]"){
         document.getElementById("commandKeyword").innerHTML = "[mouse go 0 0]"
         document.getElementById("keywordParameter").innerHTML ='<div><input type="radio" id="paramMouseGo" name="param" min="0" value="[mouse go px py]"/>Mouse size : <input onchange="updateCommand(document.getElementById(\'paramMouseSize\').value);" type="number" style="width:2em" value="0" name="mouseGo" id="mouseGo"/></div>';
@@ -1473,6 +1460,7 @@ function addParameters(keywordToAdd){
 /**
  * @summary The function that is executed for displaying the dialog box corresponding to the option the user wishes to modify with the animation editor.
  * 
+ * @param {string} keywordToAdd the option selected.
  */
 
 function addOptions(keywordToAdd){
@@ -1845,6 +1833,11 @@ function CreateNewPresentation() {
     });
 }
 
+/**
+ * @summary The function that is executed for opening a new window with subtitles only.
+ * 
+ */
+
 function SubWindow(){
     var window_width = window.screen.width;
     var windowFeatures = "status=no,location=no,toolbar=no,menubar=no,width=1200,height=110";
@@ -1948,7 +1941,7 @@ function StartSpeechRecognition(callback) {
 }
 
 /**
- * @summary StartSpeechRecognition is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
+ * @summary StartSpeechRecognitionSub is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
  * 
  * @param {function} callback function that is called each time a new text is recognized.
  * @returns
