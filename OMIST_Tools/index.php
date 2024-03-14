@@ -971,7 +971,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <textarea onchange="if (event.code===13){console.log('Event : Enter');} else {updateNotes();}" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
+        <textarea onchange="if (event.code===13){console.log('Event : Enter');} else {updateNotes();console.log('Event : autre');}" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
       </td>
       </tr>
     </table>
