@@ -234,6 +234,7 @@ fclose($fd);
 	<div id="studentfeedback"></div>
 	<div id="scrollbar"></div>
 	<form id="myform" onchange="updateConfig();">
+  		<input type="submit" style="display: none;" value="Envoyer"/>
 		<div id="tabs">
 			<ul id="bar">
 				<li title="Settings tab (language configuration, appearance,...)"><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
@@ -554,7 +555,7 @@ fclose($fd);
 							<?php 
         if (! $external  && $userprivileges < 3) echo "&nbsp;<button class=\"tooltip\" title=\"Create a valid link allowing a non Nantes University user to access the teachers application. The created link expires 24 hours after its creation.\" onclick=\"InviteExternal();\">Invite an external guest</button>";
         if (! $external && $userprivileges < 2) {
-          echo "<label for=\"duration\">&nbsp;for&nbsp;</label><select id=\"duration\" class=\"jqueryselect\">";
+          echo '<label for="duration">&nbsp;for&nbsp;</label><select id="duration" class="jqueryselect">';
           echo "<option value=\"600\">10 minutes</option>";
           echo "<option value=\"3600\">1 hour</option>";
           echo "<option value=\"86400\" selected>24 hours</option>";
