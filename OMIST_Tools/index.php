@@ -229,12 +229,6 @@ function Init() {
   allselects.map(PopulateLanguages);
   PopulateVoicesMicrosoft(_('inputlanguage13'));
   showList("all");
-
-  $("speechArea").keyup = function(event) {
-    if (event.code === 'Enter') {
-        console.log("test réussi");
-    }
-  }
 }
 
 function displayLanguage(){
