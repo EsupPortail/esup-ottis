@@ -1297,7 +1297,7 @@ function addKeyword(keyword){
     var notes = document.getElementById('speechArea').value;
     let val_notes = notes.split('\n');
     if (lines_tot[line-1] === ""){
-        // line = line-1;
+        line = line-1;
         val_notes.splice(line, 1, keyword);
         // console.log("Ligne précédente");
     }else if (cursorPositionLine === 0){
