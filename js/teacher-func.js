@@ -1344,11 +1344,11 @@ function addAllLanguages(keyword){
                     let line = document.getElementById('cursor-position').innerHTML;
                     // var lines_tot = notes.split('\n');
                     let val_notes = notes.split('\n');
-                    if (val_tot[line-1] === ""){
+                    if (val_notes[line-1] === ""){
                         line = line-1;
                         val_notes.splice(line, 1, keyword);
                     }else{
-                        console.log(lines_tot[line-1]);
+                        console.log(val_notes[line-1]);
                         val_notes.splice(line, 0, keyword);
                     }
                     // let val_notes = notes.split('\n');
