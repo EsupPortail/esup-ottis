@@ -1228,6 +1228,25 @@ function initializeEditAnim(){
     // displayLanguage();
 }
 
+
+// Exemple pour avoir toutes les occurences : 
+function getIndicesOf(searchStr, str, caseSensitive) {
+    var searchStrLen = searchStr.length;
+    if (searchStrLen == 0) {
+        return [];
+    }
+    var startIndex = 0, index, indices = [];
+    if (!caseSensitive) {
+        str = str.toLowerCase();
+        searchStr = searchStr.toLowerCase();
+    }
+    while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+        indices.push(index);
+        startIndex = index + searchStrLen;
+    }
+    return indices;
+}
+
 /**
  * @summary The function that is executed for updating the speech in a particular language when the user changes it in the animation editor.
  * 
@@ -1245,6 +1264,8 @@ function updateNotes(){
         console.log(txt_before);
         var nb_line = txt_before.length;
         console.log(nb_line);
+        var indices = getIndicesOf("[wait ", new_txt);
+        console.log(indices);
     }
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
     console.log("\n Slide Text : \n");
