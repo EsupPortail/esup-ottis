@@ -2277,13 +2277,6 @@ function Init() {
             event.stopPropagation();
         }
     };
-
-    $("speechArea").keyup = function(event) {
-        if (event.code === 'Enter') {
-            console.log("test réussi");
-        }
-    }
-
     ChangeColor('titre', _('ColorTitre').value);
     ChangeColor('titreleft', _('ColorTitre').value);
     ChangeColor('titrerightbis', _('ColorTitre').value);
