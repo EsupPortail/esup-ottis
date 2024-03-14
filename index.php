@@ -265,7 +265,7 @@ fclose($fd);
 							<label for="recognitionon">Speech recognition active ? </label>
 							<input type="checkbox" id="recognitionon" />
 						</li>
-						<li <?php if (true) echo "style=\"display:none;\""; ?> Pin code :
+						<li <?php if (true) echo "style=\"display:none;\""; ?> <label for="pincode">Pin code :</label>
 							<input type="text" id="pincode" style="width: 50px;" disabled/> &nbsp;
 							<input type="button" value="Change pin" onclick="_('pincode').value=prompt('Enter a PIN code'); Synchronize_save();" />
 							<input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));" /> </li>
@@ -464,7 +464,7 @@ fclose($fd);
               <h3>Configuration code</h3>
               <div>
               <ul>
-              <li>Current configuration code :
+              <li><label for="myConfig">Current configuration code :</label>
 							  <input type="text" id="myConfig" value="0" style="width: 250px;" disabled/>
 						  </li>
 							<li>Copy this link to always access the teachers application with this configuration :
@@ -554,7 +554,7 @@ fclose($fd);
 							<?php 
         if (! $external  && $userprivileges < 3) echo "&nbsp;<button class=\"tooltip\" title=\"Create a valid link allowing a non Nantes University user to access the teachers application. The created link expires 24 hours after its creation.\" onclick=\"InviteExternal();\">Invite an external guest</button>";
         if (! $external && $userprivileges < 2) {
-          echo "&nbsp;for&nbsp;<select id=\"duration\" class=\"jqueryselect\">";
+          echo "<label for=\"for\">&nbsp;for&nbsp;</label><select id=\"duration\" class=\"jqueryselect\">";
           echo "<option value=\"600\">10 minutes</option>";
           echo "<option value=\"3600\">1 hour</option>";
           echo "<option value=\"86400\" selected>24 hours</option>";
@@ -572,7 +572,7 @@ fclose($fd);
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Chat only link : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
-						<li>Chat only embed code :
+						<li><label for="embedcontent">Chat only embed code :</label>
 							<input type="text" id="embedcontent" value="" /> </li>
 					</ul>
 				</div>
@@ -634,7 +634,7 @@ for($i=0; $i<$nbcircles; $i++) {
 				<label for="dialog_MailTo">Mail to : </label>
 				<input type="text" id="dialog_MailTo" />
 				<br/>
-				<input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
+				<label for="dialog_MailTo" style="display:none;">Mail from : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
 				<label for="dialog_MailSubject">Subject : </label>
 				<input type="text" id="dialog_MailSubject" readonly/>
 				<br/>
