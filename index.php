@@ -563,7 +563,7 @@ fclose($fd);
           echo "<option value=\"2678400\" >1 month</option>";
           echo "</select>";
         } else {
-          echo "<input type=\"text\" value=\"604800\" id=\"duration\" style=\"display:none;\"/>";
+          echo '<label for="duration" style="display:none;">&nbsp;for&nbsp;</label><input type="text" value="604800" id="duration" style="display:none;"/>';
         }
         ?>
 						</li>
