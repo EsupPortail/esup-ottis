@@ -1258,23 +1258,20 @@ function updateNotes(){
     var numSlide = idImage.charAt(idImage.length - 1);
     var new_txt = document.getElementById("speechArea").value;
     if (new_txt.includes("[wait ")){
-        // console.log(new_txt.indexOf("[wait "));
-        // var pos_key = new_txt.indexOf("[wait ");
-        // var txt_before = new_txt.substring(0,pos_key).split("\n");
-        // console.log(txt_before);
-        // var nb_line = txt_before.length;
-        // console.log(nb_line);
         var indices = getIndicesOf("[wait ", new_txt, true);
         for (var i = 0; i < indices.length; i++) {
-            new_txt_before = new_txt.substring(0,indices[i]).split("\n");
-            var txt1_compare = new_txt.substring(0).split("\n");
+            var new_txt_before = new_txt.substring(0,indices[i]).split("\n");
+            var new_txt_compare = new_txt.substring(0).split("\n");
             var old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
-            var txt2_compare = old_txt.substring(0).split("\n");
+            var old_txt_compare = old_txt.substring(0).split("\n");
             // console.log(txt_before);
             nb_line = new_txt_before.length;
-            console.log(nb_line);
-            console.log("New text line : \n" + txt1_compare[nb_line-1]);
-            console.log("Old text line : \n" + txt2_compare[nb_line-1]);
+            // console.log(nb_line);
+            console.log("New text line : \n" + new_txt_compare[nb_line-1]);
+            console.log("Old text line : \n" + old_txt_compare[nb_line-1]);
+            if (txt1_compare[nb_line-1] != txt2_compare[nb_line-1]){
+                console.log("différent");
+            }
         }
         // console.log(indices);
     }
