@@ -1265,6 +1265,7 @@ function updateNotes(){
     }
     var list_keywords = ["[wait ","[mouse go ","[mouse size ","[mouse shape ","[resource ","[notification "];
     for (let keyword in list_keywords){
+        console.log(keyword);
         //On regarde si le mot-clé est présent
         if (new_txt.includes(keyword)){
             var indices = getIndicesOf(keyword, new_txt, true);
