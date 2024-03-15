@@ -451,12 +451,16 @@ Ceci est un test...
 
 <div style="float: left">
   <p><label>Spiral:</label>
+    <fieldset><legend>spiral</legend>
     <label for="archimedean"><input type="radio" name="spiral" id="archimedean" value="archimedean" checked="checked"> Archimedean</label>
     <label for="rectangular"><input type="radio" name="spiral" id="rectangular" value="rectangular"> Rectangular</label>
+</fieldset>
   <p>Scale:
+  <fieldset><legend>spiral</legend>
     <label for="scale-log"><input type="radio" name="scale" id="scale-log" value="log" checked="checked"> log n</label>
     <label for="scale-sqrt"><input type="radio" name="scale" id="scale-sqrt" value="sqrt"> √n</label>
     <label for="scale-linear"><input type="radio" name="scale" id="scale-linear" value="linear"> n</label>
+    </fieldset>
   <p><label for="font">Font:</label> <input type="text" id="font" value="Impact">
 </div>
 
