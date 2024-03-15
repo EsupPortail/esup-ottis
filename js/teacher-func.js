@@ -1264,17 +1264,17 @@ function updateNotes(){
         // console.log(txt_before);
         // var nb_line = txt_before.length;
         // console.log(nb_line);
-        var indices = getIndicesOf("[wait ", new_txt);
+        var indices = getIndicesOf("[wait ", new_txt, true);
         for (var i = 0; i < indices.length; i++) {
             new_txt_before = new_txt.substring(0,indices[i]).split("\n");
             var txt1_compare = new_txt.substring(0).split("\n");
-            old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
-            old_txt_before = old_txt.substring(0,indices[i]).split("\n");
+            var old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
+            var txt2_compare = old_txt.substring(0).split("\n");
             // console.log(txt_before);
             nb_line = new_txt_before.length;
             console.log(nb_line);
-            console.log("New text line : \n" + txt1_compare[nb_line]);
-            console.log("Old text line : \n" + old_txt_before[nb_line]);
+            console.log("New text line : \n" + txt1_compare[nb_line-1]);
+            console.log("Old text line : \n" + txt2_compare[nb_line-1]);
         }
         // console.log(indices);
     }
