@@ -1267,12 +1267,13 @@ function updateNotes(){
         var indices = getIndicesOf("[wait ", new_txt);
         for (var i = 0; i < indices.length; i++) {
             new_txt_before = new_txt.substring(0,indices[i]).split("\n");
+            var txt1_compare = new_txt.substring(0).split("\n");
             old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
             old_txt_before = old_txt.substring(0,indices[i]).split("\n");
             // console.log(txt_before);
             nb_line = new_txt_before.length;
             console.log(nb_line);
-            console.log("New text line : \n" + new_txt_before[nb_line]);
+            console.log("New text line : \n" + txt1_compare[nb_line]);
             console.log("Old text line : \n" + old_txt_before[nb_line]);
         }
         // console.log(indices);
