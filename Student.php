@@ -382,7 +382,7 @@ Show the original version banner</label>
 <!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
 <span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></span><br/>
   <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
-  <span><label for="slider_speed">Voice speed : </label><br/><div id="slider_speed"></div></span>
+  <span>Voice speed : <br/><div id="slider_speed"></div></span>
 </div>
 	</div>
 	<div id="tabs-1">
@@ -575,7 +575,7 @@ Ceci est un test...
 	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" /><br/>
 	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
 	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly/><br/>
-	<label for="dialog_MailBody">Body : </label><br/>
+	Body : <br/>
 	<div id="dialog_MailBody">
 	</div>
     </fieldset>
