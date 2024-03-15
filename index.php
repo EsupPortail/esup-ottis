@@ -206,6 +206,8 @@ fclose($fd);
 	?>
 </head>
 <body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig();">
+<main>
+<h1 style="display:none;">Outils de traduction : application enseignante</h1>
 	<div id="Allbuttons">
 		<div id="pincodediv" title="Pincode that can be communicated to the students. It allows to synchronize the student app with the presented lesson. Alternatives (QRcode, direct link) can be found in the share tab." onclick="/*if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';*/">
 		<div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'I-Site NExT" style="width: 109px; height: 50px;" /></div>

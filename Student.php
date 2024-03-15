@@ -223,6 +223,8 @@ if ($synchronize) {
 
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
+<main>
+<h1 style="display:none;">Outils de traduction : application étudiante</h1>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"/></div>
 <div id="showmenu" onclick="ShowMenu();" ><img src="" alt="Icone du Menu ☰" id="iconeMenu"/></div>
 <div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(255,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(255,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
@@ -378,7 +380,7 @@ Show the original version banner</label>
 <h3>Advanced options</h3>
 <div>
 <!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
-<span><label>WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></span><br/>
+<span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></span><br/>
   <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
   <span><label for="slider_speed">Voice speed : </label><br/><div id="slider_speed"></div></span>
 </div>
@@ -571,7 +573,7 @@ Ceci est un test...
   <form>
     <fieldset>
 	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" /><br/>
-	<input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
+	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
 	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly/><br/>
 	<label for="dialog_MailBody">Body : </label><br/>
 	<div id="dialog_MailBody">
