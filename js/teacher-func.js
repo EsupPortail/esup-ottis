@@ -1263,12 +1263,12 @@ function updateNotes(){
     for (num_lang = 0; num_lang < languages.length; num_lang++) {
         tab_lang[num_lang] = languages.options[num_lang].value;
     }
-    var list_keywords = ["[wait ","[mouse go ","[mouse size ","[mouse shape ","[resource ","[notification "];
+    var list_keywords = ["[wait ","[mouse go ","[mouse size ","[mouse shape ","[resource "];
     for (let keyword in list_keywords){
-        console.log(keyword);
+        console.log(list_keywords[keyword]);
         //On regarde si le mot-clé est présent
-        if (new_txt.includes(keyword)){
-            var indices = getIndicesOf(keyword, new_txt, true);
+        if (new_txt.includes(list_keywords[keyword])){
+            var indices = getIndicesOf(list_keywords[keyword], new_txt, true);
             for (var i = 0; i < indices.length; i++) {
                 var new_txt_before = new_txt.substring(0,indices[i]).split("\n");
                 var new_txt_compare = new_txt.substring(0).split("\n");
