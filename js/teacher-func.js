@@ -1265,6 +1265,12 @@ function updateNotes(){
         var nb_line = txt_before.length;
         console.log(nb_line);
         var indices = getIndicesOf("[wait ", new_txt);
+        for (var i = 0; i < indices.length; i++) {
+            txt_before = new_txt.substring(0,indices[i]).split("\n");
+            console.log(txt_before);
+            nb_line = txt_before.length;
+            console.log(nb_line);
+        }
         console.log(indices);
     }
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
