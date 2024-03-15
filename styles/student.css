@@ -428,7 +428,7 @@ input[type=text] {
 	transition: 1s ease;
 	transform: scale(1);
 	transform-origin: top left;
-	background-color: rgb(150,150,255);
+	background-color: #2C3F50;
 	border-radius: 5px;
 	color: white;
 	position: absolute;
