@@ -1263,29 +1263,31 @@ function updateNotes(){
     for (num_lang = 0; num_lang < languages.length; num_lang++) {
         tab_lang[num_lang] = languages.options[num_lang].value;
     }
-
-    //On regarde si le mot-clé est présent
-    if (new_txt.includes("[wait ")){
-        var indices = getIndicesOf("[wait ", new_txt, true);
-        for (var i = 0; i < indices.length; i++) {
-            var new_txt_before = new_txt.substring(0,indices[i]).split("\n");
-            var new_txt_compare = new_txt.substring(0).split("\n");
-            var old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
-            var old_txt_compare = old_txt.substring(0).split("\n");
-            var nb_line = new_txt_before.length;
-            console.log("New text line : \n" + new_txt_compare[nb_line-1]);
-            console.log("Old text line : \n" + old_txt_compare[nb_line-1]);
-            //On regarde s'il y a eu une modification dans les paramètres des mots-clés
-            if (new_txt_compare[nb_line-1] != old_txt_compare[nb_line-1]){
-                console.log("différent");
-                //S'il y a une différence, on modifie le paramètre dans toutes les langues
-                for (let key in tab_lang){
-                    var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-                    var val_notes = notes.split('\n');
-                    val_notes.splice(nb_line-1, 1, new_txt_compare[nb_line-1]);
-                    var new_notes = val_notes.join('\n');
-                    // $('speechArea').val(val_notes.join('\n'));
-                    document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+    var list_keywords = ["[wait ","[mouse go ","[mouse size ","[mouse shape ","[resource ","[notification "];
+    for (let keyword in list_keywords){
+        //On regarde si le mot-clé est présent
+        if (new_txt.includes(keyword)){
+            var indices = getIndicesOf(keyword, new_txt, true);
+            for (var i = 0; i < indices.length; i++) {
+                var new_txt_before = new_txt.substring(0,indices[i]).split("\n");
+                var new_txt_compare = new_txt.substring(0).split("\n");
+                var old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
+                var old_txt_compare = old_txt.substring(0).split("\n");
+                var nb_line = new_txt_before.length;
+                console.log("New text line : \n" + new_txt_compare[nb_line-1]);
+                console.log("Old text line : \n" + old_txt_compare[nb_line-1]);
+                //On regarde s'il y a eu une modification dans les paramètres des mots-clés
+                if (new_txt_compare[nb_line-1] != old_txt_compare[nb_line-1]){
+                    console.log("différent");
+                    //S'il y a une différence, on modifie le paramètre dans toutes les langues
+                    for (let key in tab_lang){
+                        var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+                        var val_notes = notes.split('\n');
+                        val_notes.splice(nb_line-1, 1, new_txt_compare[nb_line-1]);
+                        var new_notes = val_notes.join('\n');
+                        // $('speechArea').val(val_notes.join('\n'));
+                        document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+                    }
                 }
             }
         }
