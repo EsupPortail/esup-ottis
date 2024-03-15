@@ -342,8 +342,8 @@ if ($synchronize) {
 <option value="1" >100% opaque</option>
   </select></span><br/>
 <span>
-<label>Show the translated version banner ?</label>
-<input type="checkbox" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/></span><br/>
+<label for="checktranlatedbanner">Show the translated version banner ?</label>
+<input type="checkbox" id="checktranlatedbanner" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/></span><br/>
 <span>
 <label for="ColorTitre">Translated version banner color : </label><select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
@@ -359,9 +359,9 @@ if ($synchronize) {
 <option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select></span><br/>
-<span><label>
+<span><label for="checkoriginalbanner">
 Show the original version banner</label>
-<input type="checkbox" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
+<input type="checkbox"  id="checkoriginalbanner" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
   </select></span><br/>
 <span><label for="ColorTitreVO">original version banner color : </label><select id="ColorTitreVO" onchange="ChangeColor('VOBanner',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
@@ -391,6 +391,7 @@ Show the original version banner</label>
     <div id="classroom" style="border: solid 1px;"></div>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
+    <label for="question" style="display:none">Your question here</label>
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
      <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question"/>
     <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();"/>

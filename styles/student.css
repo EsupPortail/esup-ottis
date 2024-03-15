@@ -450,7 +450,7 @@ input[type=text] {
 	left: 0.5em;
 	border: .75rem solid transparent;
 	border-top: none;
-	border-bottom-color: rgb(150,150,255);
+	border-bottom-color: #2C3F50;
 	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
 }
 
