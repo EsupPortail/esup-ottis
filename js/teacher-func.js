@@ -1258,20 +1258,24 @@ function updateNotes(){
     var numSlide = idImage.charAt(idImage.length - 1);
     var new_txt = document.getElementById("speechArea").value;
     if (new_txt.includes("[wait ")){
-        console.log(new_txt.indexOf("[wait "));
-        var pos_key = new_txt.indexOf("[wait ");
-        var txt_before = new_txt.substring(0,pos_key).split("\n");
-        console.log(txt_before);
-        var nb_line = txt_before.length;
-        console.log(nb_line);
+        // console.log(new_txt.indexOf("[wait "));
+        // var pos_key = new_txt.indexOf("[wait ");
+        // var txt_before = new_txt.substring(0,pos_key).split("\n");
+        // console.log(txt_before);
+        // var nb_line = txt_before.length;
+        // console.log(nb_line);
         var indices = getIndicesOf("[wait ", new_txt);
         for (var i = 0; i < indices.length; i++) {
-            txt_before = new_txt.substring(0,indices[i]).split("\n");
-            console.log(txt_before);
-            nb_line = txt_before.length;
+            new_txt_before = new_txt.substring(0,indices[i]).split("\n");
+            old_txt = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
+            old_txt_before = old_txt.substring(0,indices[i]).split("\n");
+            // console.log(txt_before);
+            nb_line = new_txt_before.length;
             console.log(nb_line);
+            console.log("New text line : \n" + new_txt_before[nb_line]);
+            console.log("Old text line : \n" + old_txt_before[nb_line]);
         }
-        console.log(indices);
+        // console.log(indices);
     }
     document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent = document.getElementById("speechArea").value;
     console.log("\n Slide Text : \n");
