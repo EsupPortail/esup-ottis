@@ -311,7 +311,7 @@ if ($synchronize) {
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
 </span><br/>
 <span><label for="StudentName">My surname :</label>
-  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
+  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name"/>
 </span><br/>
 <span id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
 <!--<div class="checkbox-example">
@@ -453,7 +453,7 @@ Ceci est un test...
   <p><label>Spiral:</label>
     <label for="archimedean"><input type="radio" name="spiral" id="archimedean" value="archimedean" checked="checked"> Archimedean</label>
     <label for="rectangular"><input type="radio" name="spiral" id="rectangular" value="rectangular"> Rectangular</label>
-  <p><label for="scale">Scale:</label>
+  <p>Scale:
     <label for="scale-log"><input type="radio" name="scale" id="scale-log" value="log" checked="checked"> log n</label>
     <label for="scale-sqrt"><input type="radio" name="scale" id="scale-sqrt" value="sqrt"> √n</label>
     <label for="scale-linear"><input type="radio" name="scale" id="scale-linear" value="linear"> n</label>
@@ -572,6 +572,7 @@ Ceci est un test...
 <div id="dialog-mail" title="Mail"> 
   <form>
     <fieldset>
+      <legend style="display: none;">Send a mail</legend>
 	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" /><br/>
 	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
 	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly/><br/>
