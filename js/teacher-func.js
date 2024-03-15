@@ -1269,7 +1269,7 @@ function updateNotes(){
             // console.log(nb_line);
             console.log("New text line : \n" + new_txt_compare[nb_line-1]);
             console.log("Old text line : \n" + old_txt_compare[nb_line-1]);
-            if (txt1_compare[nb_line-1] != txt2_compare[nb_line-1]){
+            if (new_txt_compare[nb_line-1] != old_txt_compare[nb_line-1]){
                 console.log("différent");
             }
         }
