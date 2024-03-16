@@ -8,17 +8,16 @@
 ?>
 <!DOCTYPE html>
 <html lang="fr-FR"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title>Automatic translation for teaching purposes: Scenarios</title>
-	<meta charset="utf-8">
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/png" href="favicon.png" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="jquery/jquery-ui.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
+    <link href="jquery/jquery-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
     <script src="jquery/jquery.js"></script>
     <script src="jquery/jquery-ui.min.js"></script>
     <script src="js/common-func.js"></script>
-    <style type="text/css">
+    <style>
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400&display=swap');
@@ -255,7 +254,7 @@ var root = window.location.href.replace("/scenarios.php","");
  */
 
  function myalert(ch,title="Message") {
-    ch = ch.replaceAll("\n", "<br/>");
+    ch = ch.replaceAll("\n", "<br>");
     $("#dialog-invite").dialog( "option", "title", title );
     _('dialog-invite-p').innerHTML = ch;
     $("#dialog-invite").dialog("open");
@@ -270,9 +269,9 @@ var root = window.location.href.replace("/scenarios.php","");
 <body onload="document.cookie=''; " lang="fr">
 <main>
 <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<script type="text/javascript">
+<script>
 var gt;
 function googleTranslateElementInit() {
   document.cookie='';
@@ -362,16 +361,16 @@ body {
         <div class="card__title">
         <span class="needbrowser"></span>Transcription instantanée</div>
         <p class="card__text">Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
-        <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
-            &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
-            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
-            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
-            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
-              <br/>
-          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes :<br/>
-          &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement.<br/>
-          &nbsp;&nbsp;2. Allumer le micro (icone rouge) qui se mettra à clignoter.<br/>
-          &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+        <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br>
+            &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br>
+            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br>
+            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br>
+            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
+              <br>
+          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes :<br>
+          &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement.<br>
+          &nbsp;&nbsp;2. Allumer le micro (icone rouge) qui se mettra à clignoter.<br>
+          &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
         </p>
       </div>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=AANAYKCYNCNNNYNY');">Y aller</button>
@@ -382,16 +381,16 @@ body {
       <div class="card__content">
         <div class="card__title"><span class="needbrowser"></span>Sous-titrage anglais (projection)</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
-        <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br/>
-            &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br/>
-            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
-            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
-            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
-              <br/>
-          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes :<br/>
-          &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement.<br/>
-          &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
-          &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+        <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes :<br>
+            &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation.<br>
+            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br>
+            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br>
+            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
+              <br>
+          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes :<br>
+          &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement.<br>
+          &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br>
+          &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
         </p>
       </div>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNY');">Y aller</button>
@@ -402,14 +401,14 @@ body {
       <div class="card__content">
         <div class="card__title"><span class="needbrowser"></span>Sous-titrage anglais avec présentation .PPTX sur uncloud</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
-        <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br/>
-            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX).<br/>
-            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
-            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
-            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+        <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br>
+            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX).<br>
+            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br>
+            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br>
+            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
         </p>
       </div>
-      <p><input type="text" id="SC31" placeholder="lien public uncloud." class="card__input" /></p>
+      <p><input type="text" id="SC31" placeholder="lien public uncloud." class="card__input" ></p>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
     </div>
   </li>
@@ -418,14 +417,14 @@ body {
       <div class="card__content">
         <div class="card__title"><span class="needbrowser"></span>Sous-titrage anglais avec présentation .html sur uncloud</div>
         <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>.</p>
-        <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br/>
-            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .html).<br/>
-            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br/>
-            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br/>
-            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br/>
+        <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes :<br>
+            &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .html).<br>
+            &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent.<br>
+            &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter.<br>
+            &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
         </p>
       </div>
-      <p><input type="text" id="SC41" placeholder="lien public uncloud." class="card__input" /></p>
+      <p><input type="text" id="SC41" placeholder="lien public uncloud." class="card__input" ></p>
       <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
     </div>
   </li>
@@ -434,14 +433,14 @@ body {
       <div class="card__content">
         <div class="card__title">Outils de manipulation de slides</div>
         <p class="card__text">Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos.</p>
-        <p class="card__text details">Parmi les outils proposés, il est possible de :<br/>
+        <p class="card__text details">Parmi les outils proposés, il est possible de :<br>
             &nbsp;&nbsp;- Préparer en amont une présentation/animation au format .html utilisable dans l'outil de traduction en direct. 
-            Cette animation peut-être produite à partir de fichiers .PPTX (commentés ou non) ou de .PDF, accompagnés ou non du discours. Ces discours peuvent alors être incorporés à la demande lors de la séance en direct.<br/>
-            &nbsp;&nbsp;- Générer des animations multilingues pour les temps asynchrones. Comme précédemment, ces animations peuvent-être produite à partir de fichiers .PPTX commentés ou de .PDF, accompagnés du discours. Ce discours sera alors traduit dans diverses langues et lu lors de la diffusion de l'animation.<br/>
-            &nbsp;&nbsp;- Extraire les sous-titres d'une vidéo <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br/>
-            &nbsp;&nbsp;- Transcrire un entretien audio <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br/>
-            &nbsp;&nbsp;- Traduire les sous-titres d'une vidéo.<br/>
-            &nbsp;&nbsp;- Traduire des cours scénarisés au format XLIFF ou au format SCORM.<br/>
+            Cette animation peut-être produite à partir de fichiers .PPTX (commentés ou non) ou de .PDF, accompagnés ou non du discours. Ces discours peuvent alors être incorporés à la demande lors de la séance en direct.<br>
+            &nbsp;&nbsp;- Générer des animations multilingues pour les temps asynchrones. Comme précédemment, ces animations peuvent-être produite à partir de fichiers .PPTX commentés ou de .PDF, accompagnés du discours. Ce discours sera alors traduit dans diverses langues et lu lors de la diffusion de l'animation.<br>
+            &nbsp;&nbsp;- Extraire les sous-titres d'une vidéo <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br>
+            &nbsp;&nbsp;- Transcrire un entretien audio <span title="L'outil utilisé est différent et plus performant lorsqu'on est connecté par VPN sur le réseau de Nantes Université. Cliquez pour obtenir de l'aide." onclick="window.open('https://wiki.univ-nantes.fr/doku.php?id=nomade:client_lourd');">(*)</span>.<br>
+            &nbsp;&nbsp;- Traduire les sous-titres d'une vidéo.<br>
+            &nbsp;&nbsp;- Traduire des cours scénarisés au format XLIFF ou au format SCORM.<br>
             &nbsp;&nbsp;Faire bien plus, la liste ici n'est pas exhaustive....
         </p>
       </div>
@@ -453,14 +452,14 @@ body {
       <div class="card__content">
         <div class="card__title">Préparation de séance</div>
         <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
-        <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br/>
-        Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br/>
-        <br/>
-            <input type="text" title="Définissez ici l'identifiant de connexion au cours. Il peut s'agir de n'importe quel mot, sans espace." class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  />
-            <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""  />
-            <input type="text" id="persolink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input" />
-            <input type="text" id="persohtmllink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation html que vous souhaitez utiiser" placeholder="lien public uncloud (HTML)." class="card__input" />
-            <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" />
+        <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br>
+        Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br>
+        <br>
+            <input type="text" title="Définissez ici l'identifiant de connexion au cours. Il peut s'agir de n'importe quel mot, sans espace." class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value=""  >
+            <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value=""  >
+            <input type="text" id="persolink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input" >
+            <input type="text" id="persohtmllink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation html que vous souhaitez utiiser" placeholder="lien public uncloud (HTML)." class="card__input" >
+            <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input" >
             <select id="persotab" class="card__input" title="Choix de la fenêtre qui sera ouverte par défaut.">
                 <option value="0" selected disabled>Quel onglet ouvert par défaut ?</option>
                 <option value="0">Onglet "Settings"</option>
@@ -472,8 +471,8 @@ body {
                 <option value="8">Onglet "WOOCLAP"</option>
                 <option value="9">Onglet "Slide Tools"</option>
             </select>
-            <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" />
-            <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" />
+            <input type="text" title="Pour utiliser les fonctionnalités de transcription et traduction de Microsoft, il faut disposer d'une clé de connexion, dont la création se fait sur Azure." id="persomicrosoftkey" placeholder="Clé de connexion (pour utiliser la transcription de) Microsoft" class="card__input" >
+            <input type="text" title="Valeur conseillée = francecentral" id="persomicrosoftregion" placeholder="Région de connexion Microsoft" class="card__input" >
             <select id="persotheme" class="card__input" title="Choix du thème de l'application. Pour le moment, il n'y a que trois thèmes disponibles">
                 <option value="" selected disabled>Quel thème ?</option>
                 <option value="">Thème clair</option>
@@ -492,7 +491,7 @@ body {
         <div class="card__title">
         <span class="needbrowser"></span>Conversation à deux</div>
         <p class="card__text">Scénario pour une conversation multi-lingue en duo.</p>
-        <p class="card__text details">Dans ce scénario, il est possible de configurer les deux langues qui seront utilisées par défaut. Il faudra alors conserver le lien créé.<br/>
+        <p class="card__text details">Dans ce scénario, il est possible de configurer les deux langues qui seront utilisées par défaut. Il faudra alors conserver le lien créé.<br>
         <select id="defaultIn" class="card__input" title="Choix de la langue/voix d'entrée de l'application.">
         <option value="" selected disabled>Quelle langue d'entrée ?</option>
         <?php
@@ -507,13 +506,13 @@ body {
         echo $allLanguages;
         ?>
 
-            </select><br/>
+            </select><br>
         <select id="defaultOut" class="card__input" title="Choix de la langue/voix de sortie de l'application.">
         <option value="" selected disabled>Quelle langue de sortie ?</option>
         <?php
         echo $allLanguages;
         ?>
-            </select><br/>
+            </select><br>
        
         </p>
       </div>
@@ -527,10 +526,10 @@ body {
         <div class="card__title">
         <span class="needbrowser"></span>Documentation et démonstrations de l'outil</div>
         <p class="card__text">Accès à la documentation et aux démonstrations disponibles sur Madoc.</p>
-        <p class="card__text details">Vous trouverez des tutoriels pour : <br/>
-            &nbsp;&nbsp;- l'utilisation de l'outil de traduction en direct.<br/>
-            &nbsp;&nbsp;- créer des animations.<br/>
-            &nbsp;&nbsp;- traduire les sous-titres d'une vidéo.<br/>
+        <p class="card__text details">Vous trouverez des tutoriels pour : <br>
+            &nbsp;&nbsp;- l'utilisation de l'outil de traduction en direct.<br>
+            &nbsp;&nbsp;- créer des animations.<br>
+            &nbsp;&nbsp;- traduire les sous-titres d'une vidéo.<br>
             &nbsp;&nbsp;Mais également des guides d'utilisations des applications enseignantes et étudiantes, ainsi que les liens vers ces dernières.
         </p>
       </div>
