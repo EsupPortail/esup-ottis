@@ -263,12 +263,6 @@ var root = window.location.href.replace("/scenarios.php","");
 </script>
 
 
-
-
-</head>
-<body onload="document.cookie=''; " lang="fr">
-<main>
-<h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
@@ -352,6 +346,11 @@ body {
 }
 
 </style>
+
+</head>
+<body onload="document.cookie=''; " lang="fr">
+<main>
+<h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
 <div id="google_translate_element"></div>
 
 <ul class="cards">
@@ -451,7 +450,7 @@ body {
     <div class="card">
       <div class="card__content">
         <div class="card__title">Préparation de séance</div>
-        <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance</a>.</p>
+        <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance.</p>
         <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion.<br>
         Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées.<br>
         <br>
