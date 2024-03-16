@@ -211,7 +211,7 @@ fclose($fd);
 	<div id="Allbuttons">
 		<div id="pincodediv" title="Pincode that can be communicated to the students. It allows to synchronize the student app with the presented lesson. Alternatives (QRcode, direct link) can be found in the share tab." onclick="/*if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';*/">
 		<div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'I-Site NExT" style="width: 109px; height: 50px;" ></div>
-			<!--<span style="font-size: 0.5em;">Pin code</span><br>--><span title="" id="sharedpin" style="padding: auto;"></span></div>
+			<!--<span style="font-size: 0.5em;">Pin code</span><br>--><span title="" id="sharedpin"></span></div>
     <div id="icondiv">
       <div id="connexion"><i class='material-icons big'>signal_wifi_off</i></div>
       <div id="micon" onclick="Micro();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
@@ -242,7 +242,7 @@ fclose($fd);
 				<li title="Settings tab (language configuration, appearance,...)"><a href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
 				<li title="Multilingual Tchat tab"><a href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
 				<li title="Speech transcription tab. From here, it is possible to export a transcription of the speech."><a href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;"><i class="fa fa-cc"></i><!--<i class="fa fa-arrow-right"></i>-->
-                 <span class="hidesmallscreens">&nbsp;Speech</span></a></a></li>
+                 <span class="hidesmallscreens">&nbsp;Speech</span></a></li>
 				<li title="Upload your PPTX or HTML complete lesson from this tab"><a href="#tabs-5" id="ttab-3" onclick="inSlideTab=false;"><!--<i class="fa fa-arrow-right"></i>--><i class="fa fa-upload"></i>
                  <span class="hidesmallscreens">&nbsp;Complete lesson</span></a></li>
 				<li title="The slides are shown in this tab" id="titleSlides"><a href="#tabs-7" id="ttab-4" onclick="inSlideTab=true; this.blur(); _('img_slides').focus(); _('img_slides').click(); this.blur();"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Slides</span></a></li>
