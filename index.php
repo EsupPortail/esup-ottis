@@ -417,12 +417,12 @@ fclose($fd);
 								<a id="link1" class="tooltip" onload="this.src='';" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"></a>
 							</li>
 							<li>WBO whiteboard :
-								<a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a>
+								<a id="link2" class="tooltip" onclick="opentab(this)" onload="this.src='';" title="Click to add to extra tabs" href="javascript:void(0)"></a>
 							</li>
 							<li>Jitsi visioconference :
-								<a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a>
+								<a id="link3" class="tooltip" onclick="opentab(this)" onload="this.src='';" title="Click to add to extra tabs" href="javascript:void(0)"></a>
 							</li>
-							<li>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></li>
+							<li>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" onload="this.src='https://algoscript.info/xcas';"  title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></li>
 							<li>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></li>
 							<li>Universal document viewer : <a id="link6" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></li>
 							<li>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://3dviewer.net/">https://3dviewer.net/</a></li>
