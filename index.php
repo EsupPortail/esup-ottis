@@ -249,7 +249,7 @@ fclose($fd);
 				<li title="Jitsi visioconference tab" id="titlevisio"><a href="#tabs-6" id="ttab-5" onclick="if (!visioactive) _('visio').src='https://meet.jit.si/Translator_'+_('classroomid').value; visioactive=true; inSlideTab=false;">Visio</a></li>
 				<li title="Live translation tab" id="titlelive"><a href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
 				<li title="This tab contains links allowing to share the lesson with students or other teachers. A link for using a smartphone remote is also available." id="titleshare"><a href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;"><i class="fa fa-qrcode"></i><span class="hidesmallscreens">&nbsp;Share</span></a></li>
-				<li title="A tab allowing to interact with WOOCLAP(c)" id="titlewooclap"><a href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;"><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="18px" style="vertical-align: middle;"><span class="hidesmallscreens">&nbsp;WOOCLAP</span></a></li>
+				<li title="A tab allowing to interact with WOOCLAP(c)" id="titlewooclap"><a href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;"><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="18" style="vertical-align: middle;"><span class="hidesmallscreens">&nbsp;WOOCLAP</span></a></li>
 				<li title="All the slide manipulation tools can be found here" id="titletools"><a href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Slide tools</span></a></li>
 				<li title="Extra tab for interacting with external tools" id="titleextratab1"><a href="#tabs-9" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 1</span></a></li>
 				<li title="Extra tab for interacting with external tools" id="titleextratab2"><a href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
@@ -322,7 +322,7 @@ fclose($fd);
 						</li>
 						<li style="display:none;">Show student feedback ?
 							<input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {_('spansubtitlestudenton').innerHTML='Yes !'; _('studentfeedback').style.visibility='visible'; } else {_('spansubtitlestudenton').innerHTML='No.'; _('studentfeedback').style.visibility='hidden'; }" >&nbsp;<span class="yesno" id="spansubtitlestudenton">No.</span>&nbsp; Color :
-							<select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect" class="jqueryselect">
+							<select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255">blue</option>
 								<option value="0,255,0|0,100,0">green</option>
 								<option value="255,0,0|100,0,0">red</option>
@@ -363,7 +363,7 @@ fclose($fd);
 						<li id="eachicon" style="display:none">Pin code ?
 							<input title="Hide or show the pincode information. If 'Yes !' or checked, the pincode is visible." type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; Micro ?
 							<input title="Hide or show the microphone icon. If 'Yes !' or checked, the microphone icon is visible." type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" >&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; Question ?
-							<input title="Hide or show the question icon. If 'Yes !' or checked, the question icon is visible." type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" >&nbsp;<span class="yesno" class="yesno" id="spanquestionon">No.</span> &nbsp; Full screen ?
+							<input title="Hide or show the question icon. If 'Yes !' or checked, the question icon is visible." type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" >&nbsp;<span class="yesno" id="spanquestionon">No.</span> &nbsp; Full screen ?
 							<input title="Hide or show the fullscreen icon. If 'Yes !' or checked, the fullscreen icon is visible." type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" >&nbsp;<span class="yesno" id="spanfson">No.</span></li>
 						<li>&nbsp;</li>
 						<li><b>Pin code appearance</b></li>
@@ -412,23 +412,23 @@ fclose($fd);
 						<li></li>
 					</ul>
 					<p>The following links to open source online tools can be useful for the extra tabs feature.
-						<dl>
-							<dd>Tableau noir blackboard :
-								<a id="link1" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a>
-							</dd>
-							<dd>WBO whiteboard :
+						<ul>
+							<li>Tableau noir blackboard :
+								<a id="link1" class="tooltip" onload="this.src='';" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"></a>
+							</li>
+							<li>WBO whiteboard :
 								<a id="link2" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a>
-							</dd>
-							<dd>Jitsi visioconference :
+							</li>
+							<li>Jitsi visioconference :
 								<a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a>
-							</dd>
-							<dd>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></dd>
-							<dd>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></dd>
-							<dd>Universal document viewer : <a id="link6" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></dd>
-							<dd>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://3dviewer.net/">https://3dviewer.net/</a></dd>
-							<dd>Nantes University Zoom session [Experimental]: <a id="link8" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" src="">Enter your zoom link</a></dd>
-							<dd>Youtube video [Experimental]: <a id="link9" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" src="">Enter your Youtube video ID</a></dd>
-						</dl>
+							</li>
+							<li>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a><li>
+							<li>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></li>
+							<li>Universal document viewer : <a id="link6" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></li>
+							<li>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://3dviewer.net/">https://3dviewer.net/</a></li>
+							<li>Nantes University Zoom session [Experimental]: <a id="link8" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" src="">Enter your zoom link</a></li>
+							<li>Youtube video [Experimental]: <a id="link9" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" src="">Enter your Youtube video ID</a></li>
+						</ul>
 						<br>
 						<br> </div>
 				<h3>Extra functionalities</h3>
