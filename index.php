@@ -412,7 +412,7 @@ fclose($fd);
 						<li></li>
 					</ul>
 					<p>The following links to open source online tools can be useful for the extra tabs feature.
-						<ul>
+						<ul style="list-style-type: none; margin: 10px; padding:0;">
 							<li>Tableau noir blackboard :
 								<a id="link1" class="tooltip" onload="this.src='';" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"></a>
 							</li>
@@ -422,7 +422,7 @@ fclose($fd);
 							<li>Jitsi visioconference :
 								<a id="link3" class="tooltip" onclick="opentab(this)" src="" title="Click to add to extra tabs" href="javascript:void(0)"></a>
 							</li>
-							<li>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a><li>
+							<li>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" src="https://algoscript.info/xcas" title="Click to add to extra tabs" href="javascript:void(0)">https://algoscript.info/xcas</a></li>
 							<li>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/pptx">https://products.groupdocs.app/fr/viewer/pptx</a></li>
 							<li>Universal document viewer : <a id="link6" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://products.groupdocs.app/fr/viewer/total">https://products.groupdocs.app/fr/viewer/total</a></li>
 							<li>3D viewer : <a id="link7" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)" src="https://3dviewer.net/">https://3dviewer.net/</a></li>
