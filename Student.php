@@ -243,7 +243,7 @@ if ($synchronize) {
                <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
                <li id="lltabs-8" style="opacity: 0.5" onclick="if (this.style.opacity 
-               ==1) activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="40px" style="vertical-align: middle;"></div><div>WOOCLAP</div></li>
+               ==1) activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="40" style="vertical-align: middle;"></div><div>WOOCLAP</div></li>
                <li id="lltabs-9" style="opacity: 0.5" onclick="if (this.style.opacity 
                ==1) activetab('tabs-9');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
                <li id="lltabs-10" style="opacity: 0.5" onclick="if (this.style.opacity 
@@ -308,7 +308,7 @@ if ($synchronize) {
 </span>
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
-  </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
+  </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="StudentName">My surname :</label>
   <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
@@ -318,7 +318,7 @@ if ($synchronize) {
         <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();">
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
 </div>
 <h3>Appearance settings</h3>
@@ -361,7 +361,7 @@ if ($synchronize) {
 <span><label for="checkoriginalbanner">
 Show the original version banner</label>
 <input type="checkbox"  id="checkoriginalbanner" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');">
-  </select></span><br>
+  </span><br>
 <span><label for="ColorTitreVO">original version banner color : </label><select id="ColorTitreVO" onchange="ChangeColor('VOBanner',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
@@ -382,7 +382,7 @@ Show the original version banner</label>
 <!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
 <span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"></span><br>
   <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
-  <span>Voice speed : <br><div id="slider_speed"></div></span>
+  <span>Voice speed : <br><span id="slider_speed"></span></span>
 </div>
 	</div>
 	<div id="tabs-1">
