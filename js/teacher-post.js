@@ -323,6 +323,4 @@ document.addEventListener('submit', event => {
     //alert('Form submission cancelled.');
 });
 
-$("li").each(function(index, elm) {
-    $($(elm).find('a')).attr('tabindex', 0);
-  });
+$("a").attr('tabindex', 0);
