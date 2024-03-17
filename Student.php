@@ -660,7 +660,5 @@ function activetab(tab) {
 }
 
   </script>
-  <style>
-  </style>
 </body>
 </html>
