@@ -392,18 +392,18 @@ Show the original version banner</label>
     <!-- <input type="text" id="questionold" placeholder="Your question here">-->
     <label for="question" style="display:none">Your question here</label>
     <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br>
-     <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question">
-    <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
+     <input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question">
+    <input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
   	</div>
 
 	<div id="tabs-2">
     <!--<input type="button" value="Restart" onclick="inputnumber=-1;">-->
-    <input style="margin-left: 64px;" type="button" value="Download the speech" class="button-3 tooltip" role="button" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
+    <input style="margin-left: 64px;" type="button" value="Download the speech" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
 	<div id="tabs-3">
-  <input style="margin-left: 64px;" type="button" value="Download the translated speech" class="button-3 tooltip" role="button" title="Download the output in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
+  <input style="margin-left: 64px;" type="button" value="Download the translated speech" class="button-3 tooltip" title="Download the output in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
     <div id="output">
     </div>
   </div>
@@ -423,7 +423,7 @@ for($i=0; $i<$nbcircles; $i++) {
 	$teinteR=$TeinteFrom[0]*(1-$i/$nbcircles)+$TeinteTo[0]*$i/$nbcircles;
 	$teinteV=$TeinteFrom[1]*(1-$i/$nbcircles)+$TeinteTo[1]*$i/$nbcircles;
 	$teinteB=$TeinteFrom[2]*(1-$i/$nbcircles)+$TeinteTo[2]*$i/$nbcircles;
-	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\">\n";
+	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\"/>\n";
 }
 ?>
 </svg></div>
@@ -436,7 +436,7 @@ for($i=0; $i<$nbcircles; $i++) {
 
 
 	<div id="tabs-13" class="wordcloud" style="display:none;">
-    <form id="form">
+    <div id="form">
     <div id="vis"></div>
     <div id="configwc" style="display: none">
     <p><textarea id="text">
@@ -470,7 +470,7 @@ Ceci est un test...
     <label for="angle-from">from</label> <input type="number" id="angle-from" value="-60" min="-90" max="90"> °
     <label for="angle-to">to</label> <input type="number" id="angle-to" value="60" min="-90" max="90"> °
 </div>
-  </form>
+</div>
 </div>
 
   </div>
