@@ -323,6 +323,12 @@ document.addEventListener('submit', event => {
     //alert('Form submission cancelled.');
 });
 
-(function() {
-    $("a").attr('tabIndex', 0);
-});
+function FixTabOrderIssue() {
+	var l = document.getElementsByClassName("tabbed");
+    res="";
+    for (var i in l) {
+    	l[i].tabIndex=0;
+        res+=i+"\n";
+    }
+    document.getElementById("link").tabIndex=0;
+}
