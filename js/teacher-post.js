@@ -323,4 +323,6 @@ document.addEventListener('submit', event => {
     //alert('Form submission cancelled.');
 });
 
-$("a").attr('tabIndex', 0);
+(function() {
+    $("a").attr('tabIndex', 0);
+});
