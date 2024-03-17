@@ -53,18 +53,18 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 <head>
 	<title>Automatic translation for teaching purposes</title>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
-    <link href="styles/student.css" rel="stylesheet"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no" >
+    <link href="styles/student.css" rel="stylesheet">
     <?php if ($theme != "") {
-    echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet"/>';
-    echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet"/>';
+    echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">';
+    echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet">';
   } else {
-    echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet"/>';
+    echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet">';
   }
 	?>
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-<script type="text/javascript">
+  <link rel="icon" type="image/png" href="favicon.png" >
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script>
 
 <?php
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
@@ -82,7 +82,7 @@ if ($synchronize) {
 <script src="js/student-func.js"></script>
 <script src="jquery/jquery.js"></script>
 <script src="jquery/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
 <script src="libs/quickmenu/src/jquery.popmenu.js"></script>
 
 <style>
@@ -220,16 +220,15 @@ if ($synchronize) {
 
   .ui-dialog { z-index: 40000 !important ;}
 </style>
-</fieldset>
 
 </head>
 <body onload="Init(); /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ setTimeout(loadVoicesWhenAvailable,100); /*loadVoicesWhenAvailable();*/">
 <main>
 <h1 style="display:none;">Outils de traduction : application étudiante</h1>
-<div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"/></div>
-<div id="showmenu" onclick="ShowMenu();" ><img src="" alt="Icone du Menu ☰" id="iconeMenu"/></div>
-<div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br/>LIVE</span></div>
-<div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br/>REPEAT</span></div>
+<div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
+<div id="showmenu" onclick="ShowMenu();" ><img src="images/blank.png" alt="Icone du Menu ☰" id="iconeMenu"></div>
+<div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br>LIVE</span></div>
+<div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
 <div id="bar2" style="border:none; position: fixed; top: 1px; left: 1px; z-index: 100000;">
            <div class="pop_ctrl" title="Open the menu dialog"><!--<i class="fa fa-bars fa-border"></i>-->
                <span class="fa-stack fa-lg">
@@ -244,7 +243,7 @@ if ($synchronize) {
                <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
                <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
                <li id="lltabs-8" style="opacity: 0.5" onclick="if (this.style.opacity 
-               ==1) activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="40px" style="vertical-align: middle;"/></div><div>WOOCLAP</div></li>
+               ==1) activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><!--<i class="fa fa-television"></i>--><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="40px" style="vertical-align: middle;"></div><div>WOOCLAP</div></li>
                <li id="lltabs-9" style="opacity: 0.5" onclick="if (this.style.opacity 
                ==1) activetab('tabs-9');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li>
                <li id="lltabs-10" style="opacity: 0.5" onclick="if (this.style.opacity 
@@ -302,7 +301,7 @@ if ($synchronize) {
 	<div id="tabs-0">
     <h3 >Language and basic settings</h3>
     <div>
-    <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" /></span>
+    <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" ></span>
 <span style="display:none"><label for="classroomlanguage">Classroom language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
   </select>
@@ -310,21 +309,21 @@ if ($synchronize) {
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
   <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
   </select><div id="arrowlanguage">&nbsp;Choose your language first</div>
-</span><br/>
+</span><br>
 <span><label for="StudentName">My surname :</label>
-  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name"/>
-</span><br/>
+  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
+</span><br>
 <span id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
 <!--<div class="checkbox-example">
-        <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();"/>
+        <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();">
         <label for="synthesison"></label>
       </div>-->
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"/><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
+<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><div id="arrowsynthesis">&nbsp; Then launch the speech synthesis</div>
 </span>
 </div>
 <h3>Appearance settings</h3>
 <div>
-<span style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));"/>
+<span style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));">
 </span>
 <span><label>Subtitles font size ? </label><select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
 <option value="12px">Small</option>
@@ -333,17 +332,17 @@ if ($synchronize) {
 <option value="32px" >Huge</option>
 <option value="48px" >Enormous</option>
   </select>
-</span><br/>
+</span><br>
   <span><label>Subtitles opacity : </label><select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
 <option value="0">0% opaque</option>
 <option value="0.25" >25% opaque</option>
 <option value="0.5" selected>50% opaque</option>
 <option value="0.75" >75% opaque</option>
 <option value="1" >100% opaque</option>
-  </select></span><br/>
+  </select></span><br>
 <span>
 <label for="checktranlatedbanner">Show the translated version banner ?</label>
-<input type="checkbox" id="checktranlatedbanner" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"/></span><br/>
+<input type="checkbox" id="checktranlatedbanner" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"></span><br>
 <span>
 <label for="ColorTitre">Translated version banner color : </label><select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
@@ -358,11 +357,11 @@ if ($synchronize) {
 <option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
 <option value="0,0,0|0,0,0">black</option>
 <option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></span><br/>
+  </select></span><br>
 <span><label for="checkoriginalbanner">
 Show the original version banner</label>
-<input type="checkbox"  id="checkoriginalbanner" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');"/>
-  </select></span><br/>
+<input type="checkbox"  id="checkoriginalbanner" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');">
+  </select></span><br>
 <span><label for="ColorTitreVO">original version banner color : </label><select id="ColorTitreVO" onchange="ChangeColor('VOBanner',this.value);">
 <option value="0,0,255|0,0,255" selected>blue</option>
 <option value="0,255,0|0,100,0">green</option>
@@ -381,30 +380,30 @@ Show the original version banner</label>
 <h3>Advanced options</h3>
 <div>
 <!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
-<span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"/></span><br/>
+<span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"></span><br>
   <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
-  <span>Voice speed : <br/><div id="slider_speed"></div></span>
+  <span>Voice speed : <br><div id="slider_speed"></div></span>
 </div>
 	</div>
 	<div id="tabs-1">
     <div style="height: 50px;"></div>
     <div id="classroom" style="border: solid 1px;"></div>
 
-    <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
+    <!-- <input type="text" id="questionold" placeholder="Your question here">-->
     <label for="question" style="display:none">Your question here</label>
-    <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
-     <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question"/>
-    <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();"/>
+    <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br>
+     <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question">
+    <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
   	</div>
 
 	<div id="tabs-2">
-    <!--<input type="button" value="Restart" onclick="inputnumber=-1;"/>-->
-    <input style="margin-left: 64px;" type="button" value="Download the speech" class="button-3 tooltip" role="button" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"/><br/>
+    <!--<input type="button" value="Restart" onclick="inputnumber=-1;">-->
+    <input style="margin-left: 64px;" type="button" value="Download the speech" class="button-3 tooltip" role="button" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
 	<div id="tabs-3">
-  <input style="margin-left: 64px;" type="button" value="Download the translated speech" class="button-3 tooltip" role="button" title="Download the output in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"/><br/>
+  <input style="margin-left: 64px;" type="button" value="Download the translated speech" class="button-3 tooltip" role="button" title="Download the output in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
     <div id="output">
     </div>
   </div>
@@ -424,14 +423,14 @@ for($i=0; $i<$nbcircles; $i++) {
 	$teinteR=$TeinteFrom[0]*(1-$i/$nbcircles)+$TeinteTo[0]*$i/$nbcircles;
 	$teinteV=$TeinteFrom[1]*(1-$i/$nbcircles)+$TeinteTo[1]*$i/$nbcircles;
 	$teinteB=$TeinteFrom[2]*(1-$i/$nbcircles)+$TeinteTo[2]*$i/$nbcircles;
-	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\"/>\n";
+	echo "<circle cx=\"".(24+20*cos($i*6.283/$nbcircles))."\" cy=\"".(24+20*sin($i*6.283/$nbcircles))."\" r=\"".($minsize*(1-$i/$nbcircles)+$maxsize*$i/$nbcircles)."\" fill=\"rgb(".$teinteR.",".$teinteV.",".$teinteB.")\">\n";
 }
 ?>
 </svg></div>
 					<p id="spinnertxt">No presentation yet...</p>
 </div>
-			<img src=""
-				 id="img_slides" style="border: none; width: 1280px; height: 800px" alt="Emplacement des slides diffusés" /> 
+			<img src="images/blank.png"
+				 id="img_slides" style="border: none; width: 1280px; height: 800px" alt="Emplacement des slides diffusés" > 
 
 	</div>
 
@@ -484,12 +483,12 @@ Ceci est un test...
 
 <!--
   <div id="tabs-4">
-    <input type="button" value="Start Scanning" onclick="StartScan();"/>
-    <input type="button" value="Stop Scanning" onclick="if (scanner) scanner.stop();"/>
+    <input type="button" value="Start Scanning" onclick="StartScan();">
+    <input type="button" value="Stop Scanning" onclick="if (scanner) scanner.stop();">
     <select id="AllCameras" style="display:none" onchange="if (scanner) scanner.stop(); StartScan();"></select>
     <script src="html5-qrcode.min.js"></script>
     <div id="reader"></div>
-    <script type="text/javascript">
+    <script>
       const scanner = new Html5Qrcode("reader");
       function StartScan() {
         document.getElementById('AllCameras').style.display='block';
@@ -559,13 +558,13 @@ Ceci est un test...
   <div id="tabs-8"><iframe title="Fenêtre qui contient WOOCLAP" id="wooclap" src="<?php echo $wooclapaddress; ?>" width="100%" height="100%" style="width: 95%; height: 90%; bottom:0px; left:0px; z-index:1000;" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write"></iframe>
   </div>
 
-  <div id="tabs-9"><iframe title="Première fenêtre pour inclure un outil externe" id="extratab1" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" ></iframe>
+  <div id="tabs-9"><iframe title="Première fenêtre pour inclure un outil externe" id="extratab1" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100%" height="100%" ></iframe>
   </div>
-  <div id="tabs-10"><iframe title="Deuxième fenêtre pour inclure un outil externe" id="extratab2" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" ></iframe>
+  <div id="tabs-10"><iframe title="Deuxième fenêtre pour inclure un outil externe" id="extratab2" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100%" height="100%" ></iframe>
   </div>
-  <div id="tabs-11"><iframe title="Troisième fenêtre pour inclure un outil externe" id="extratab3" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" ></iframe>
+  <div id="tabs-11"><iframe title="Troisième fenêtre pour inclure un outil externe" id="extratab3" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100%" height="100%" ></iframe>
   </div>
-  <div id="tabs-12"><iframe title="Quatrième fenêtre pour inclure un outil externe" id="extratab4" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="" width="100%" height="100%" ></iframe>
+  <div id="tabs-12"><iframe title="Quatrième fenêtre pour inclure un outil externe" id="extratab4" allowfullscreen webkitallowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100%" height="100%" ></iframe>
   </div>
 
 </div>
@@ -579,10 +578,10 @@ Ceci est un test...
   <form>
     <fieldset>
       <legend style="display: none;">Send a mail</legend>
-	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" /><br/>
-	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly/>
-	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly/><br/>
-	Body : <br/>
+	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" ><br>
+	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly>
+	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly><br>
+	Body : <br>
 	<div id="dialog_MailBody">
 	</div>
     </fieldset>
@@ -591,7 +590,7 @@ Ceci est un test...
 
 <div id="dialog-choose" title="Choose your language"> 
   <form>
-  <span><label for="VoiceOutputchoose">You first have to choose your language</label><br/>
+  <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
   <select id="VoiceOutputchoose">
   </select>
   </span>
