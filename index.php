@@ -277,8 +277,8 @@ fclose($fd);
 						<li>&nbsp;</li>
 						<li style="display: none;">Translate subtitles ?
 							<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
-						<li>Language for subtitles :
-							<select id="subtitlelanguage" name="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect"> </select>
+						<li><label for="subtitlelanguage">Language for subtitles :</label>
+							<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect"> </select>
 						</li>
 					</ul>
 				</div>
@@ -431,7 +431,6 @@ fclose($fd);
 							<li>Nantes University Zoom session [Experimental]: <a id="link8" class="tooltip" onclick="var lnk=prompt('Copy your Zoom link here'); if (lnk.indexOf('univ-nantes-fr') != false) {this.innerHTML=lnk.replace('https://univ-nantes-fr.zoom.us/j/','https://univ-nantes-fr.zoom.us/wc/join/'); opentab(this);}" title="Click to add your zoom link session" href="javascript:void(0)" onload="this.src='';">Enter your zoom link</a></li>
 							<li>Youtube video [Experimental]: <a id="link9" class="tooltip" onclick="var lnk=prompt('Copy your Youtube ID here'); {this.innerHTML='https://www.youtube.com/embed/'+lnk+'?origin=https://misc-sciences.univ-nantes.fr'; opentab(this);}" title="Click to add your Youtube video" href="javascript:void(0)" onload="this.src='';">Enter your Youtube video ID</a></li>
 						</ul>
-						<br>&nbsp;
 						<br> </div>
 				<h3 class="tabbed">Extra functionalities</h3>
 				<div>
@@ -461,7 +460,6 @@ fclose($fd);
 							<li><span id="connectedusers"></span></li>
 							<li></li>
               </ul>
-              <br>&nbsp;
 					<br>
 					<p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo " javascript:void(window.open( 'OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."')) "; else echo "javascript:void(window.open( 'OMIST_Tools')) ";?>">here</a>.</p>
 
