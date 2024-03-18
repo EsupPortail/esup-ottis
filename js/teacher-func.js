@@ -1404,6 +1404,7 @@ function addAllLanguages(keyword){
             Yes: function() {
                 var lang = _("myLanguage").value.trim();
                 [delete_ligne, line] = addKeyword(keyword);
+                var concat_line = "";
                 updateNotes();
                 var tab_lang = [];
                 var languages = document.getElementById("myLanguage");
@@ -1438,7 +1439,7 @@ function addAllLanguages(keyword){
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
                         if (val_notes[line] != ""){
-                            var concat_line = val_notes[line] +" "+keyword;
+                            concat_line = val_notes[line] +" "+keyword;
                             val_notes.splice(line, 1, concat_line);
                             console.log(tab_lang[key]);
                             // $( this ).dialog( "close" );
@@ -1456,7 +1457,7 @@ function addAllLanguages(keyword){
                     $('speechArea').val(val_notes.join('\n'));
                     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
                 }
-                if (delete_ligne){
+                if (concat_line != ""){
                     $( this ).dialog( "close" );
                     warningDelete("language", "sentence", "keyword", "val_notes");
                 }else{
