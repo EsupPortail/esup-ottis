@@ -1438,7 +1438,7 @@ function addAllLanguages(keyword){
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
                         if (val_notes[line] != ""){
-                            $( this ).dialog( "close" );
+                            // $( this ).dialog( "close" );
                             warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
                         }
                         console.log("Ligne vide ?");
