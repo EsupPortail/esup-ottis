@@ -229,17 +229,6 @@ input[type=text] {
 }
 
 #FS {
-	transition: 0.5s ease;
-	/* font-size: 36px;
-	z-index: 1000; */
-	border-radius: 10px;
-	width: 40px;
-	height: 40px;
-	margin: 5px auto 5px auto;
-	color: white;
-	text-align: center;
-	vertical-align: middle;
-	padding: auto;
 	background-color: #2191c0 ;
 	position: fixed;
 	top: 0px;
