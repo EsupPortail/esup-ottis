@@ -1376,15 +1376,15 @@ function warningDelete(language, sentence, keyword, val_notes){
     $( "#dialog-warning" ).dialog({
         modal: true,
         appendTo: "#DesiredDivID",
-        buttons: {
-            Yes : function(){
-                val_notes.splice(line, 1, keyword);
-                $( this ).dialog( "close" );
-            },
-            No : function(){
-                $( this ).dialog( "close" );
-            }     
-        }
+        // buttons: {
+        //     Yes : function(){
+        //         val_notes.splice(line, 1, keyword);
+        //         $( this ).dialog( "close" );
+        //     },
+        //     No : function(){
+        //         $( this ).dialog( "close" );
+        //     }     
+        // }
     })
 }
 
@@ -1438,12 +1438,15 @@ function addAllLanguages(keyword){
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
                         if (val_notes[line] != ""){
+                            var concat_line = val_notes[line] +" "+keyword;
+                            val_notes.splice(line, 1, concat_line);
+                            console.log(tab_lang[key]);
                             // $( this ).dialog( "close" );
-                            alert("Problem");
+                            // alert("Problem");
                             // warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
                         }
-                        console.log("Ligne vide ?");
-                        console.log(val_notes[line]);
+                        // console.log("Ligne vide ?");
+                        // console.log(val_notes[line]);
                         
                         // val_notes.splice(line, 1, keyword);
                     }else{
@@ -1453,7 +1456,12 @@ function addAllLanguages(keyword){
                     $('speechArea').val(val_notes.join('\n'));
                     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
                 }
-                $( this ).dialog( "close" );
+                if (delete_ligne){
+                    $( this ).dialog( "close" );
+                    warningDelete("language", "sentence", "keyword", "val_notes");
+                }else{
+                    $( this ).dialog( "close" );
+                }
             },
             No: function() {
                 var lang = _("myLanguage").value.trim();
