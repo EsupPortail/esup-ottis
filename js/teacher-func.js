@@ -1371,6 +1371,23 @@ function addKeyword(keyword){
     return([delete_ligne, line]);
 }
 
+function warningDelete(){
+    document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+tab_lang[key]+" version. <br/> The sentence to be deleted is : \""+val_notes[line]+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
+    $( "#dialog-warning" ).dialog({
+        modal: true,
+        appendTo: "#DesiredDivID",
+        buttons: {
+            Yes : function(){
+                val_notes.splice(line, 1, keyword);
+                $( this ).dialog( "close" );
+            },
+            No : function(){
+                $( this ).dialog( "close" );
+            }     
+        }
+    })
+}
+
 /**
  * @summary The function that is executed for adding a keyword to notes for one or all languages with the animation editor.
  * 
@@ -1421,20 +1438,8 @@ function addAllLanguages(keyword){
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
                         if (val_notes[line] != ""){
-                            document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+tab_lang[key]+" version. <br/> The sentence to be deleted is : \""+val_notes[line]+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
-                            $( "#dialog-warning" ).dialog({
-                                modal: true,
-                                appendTo: "#DesiredDivID",
-                                buttons: {
-                                    Yes : function(){
-                                        val_notes.splice(line, 1, keyword);
-                                        $( this ).dialog( "close" );
-                                    },
-                                    No : function(){
-                                        $( this ).dialog( "close" );
-                                    }     
-                                }
-                            })
+                            $( this ).dialog( "close" );
+                            warningDelete();
                         }
                         console.log("Ligne vide ?");
                         console.log(val_notes[line]);
