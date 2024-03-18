@@ -1418,9 +1418,9 @@ function addAllLanguages(keyword){
                     tab_lang[num_lang] = languages.options[num_lang].value;
                 }
                 console.log(tab_lang);
-                var index = array.indexOf(lang);
+                var index = tab_lang.indexOf(lang);
                 if (index > -1) { // only splice array when item is found
-                    array.splice(index, 1); // 2nd parameter means remove one item only
+                    tab_lang.splice(index, 1); // 2nd parameter means remove one item only
                 }
                 console.log(tab_lang); 
                 for (let key in tab_lang){
