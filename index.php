@@ -278,7 +278,7 @@ fclose($fd);
 						<li style="display: none;">Translate subtitles ?
 							<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
 						<li>Language for subtitles :
-							<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect"> </select>
+							<select id="subtitlelanguage" name="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect"> </select>
 						</li>
 					</ul>
 				</div>
