@@ -1410,6 +1410,34 @@ function addAllLanguages(keyword){
                 var lang = _("myLanguage").value.trim();
                 addKeyword(keyword);
                 updateNotes();
+                var tab_lang = [];
+                var languages = document.getElementById("myLanguage");
+                var idImage = document.getElementById("imageArea").firstElementChild.id;
+                var numSlide = idImage.charAt(idImage.length - 1);
+                for (num_lang = 0; num_lang < languages.length; num_lang++) {
+                    tab_lang[num_lang] = languages.options[num_lang].value;
+                }
+                console.log(tab_lang);
+                var index = array.indexOf(lang);
+                if (index > -1) { // only splice array when item is found
+                    array.splice(index, 1); // 2nd parameter means remove one item only
+                }
+                console.log(tab_lang); 
+                for (let key in tab_lang){
+                    var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+                    var line = document.getElementById('cursor-position').innerHTML;
+                    var val_notes = notes.split('\n');
+                    if (val_notes[line-1] === ""){
+                        line = line-1;
+                        val_notes.splice(line, 1, "");
+                    }else{
+                        console.log(val_notes[line-1]);
+                        val_notes.splice(line, 0, "");
+                    }
+                    var new_notes = val_notes.join('\n');
+                    $('speechArea').val(val_notes.join('\n'));
+                    document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+                }
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
