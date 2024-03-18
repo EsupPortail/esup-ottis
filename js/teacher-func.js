@@ -1421,12 +1421,13 @@ function addAllLanguages(keyword){
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
                         if (val_notes[line] != ""){
-                            document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+tab_lang[key]+" version. \n The sentence to be deleted is : \""+val_notes[line]+"\". \n Do you want to replace it with \""+keyword+"\" ?";
+                            document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+tab_lang[key]+" version. <br/> The sentence to be deleted is : \""+val_notes[line]+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
                             $( "#dialog-warning" ).dialog({
                                 modal: true,
                                 appendTo: "#DesiredDivID",
                                 buttons: {
                                     Yes : function(){
+                                        val_notes.splice(line, 1, keyword);
                                         $( this ).dialog( "close" );
                                     },
                                     No : function(){
@@ -1438,7 +1439,7 @@ function addAllLanguages(keyword){
                         console.log("Ligne vide ?");
                         console.log(val_notes[line]);
                         
-                        val_notes.splice(line, 1, keyword);
+                        // val_notes.splice(line, 1, keyword);
                     }else{
                         val_notes.splice(line, 0, keyword);
                     }
