@@ -286,8 +286,9 @@ fclose($fd);
 				<div>
 					<ul style="list-style-type: none;">
 						<li><b>Subtitles appearance</b></li>
-						<li>Show subtitles bar ?
+						<li><label for="subtitlebaron">Show subtitles bar ?</label>
 							<input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {_('spansubtitlebaron').innerHTML='Yes !'; _('titre').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spansubtitlebaron').innerHTML='No.'; _('titre').style.visibility='hidden'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden'; _('titreright').style.visibility='hidden'; _('arrowson').checked=false;}" >&nbsp;<span class="yesno" id="spansubtitlebaron">Yes !</span>&nbsp;Color :
+							<label style="display:none;" for="ColorTitre">ColorTitre</label>
 							<select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255" selected>blue</option>
 								<option value="0,255,0|0,100,0">green</option>
@@ -303,10 +304,11 @@ fclose($fd);
 								<option value="255,255,255|255,255,255|0,0,0">white</option>
 							</select>
 						</li>
-						<li>Show arrows around subtitles ?
+						<li><label for="arrowson">Show arrows around subtitles ?</label>
 							<input type="checkbox" checked id="arrowson" onclick="if (this.checked) {_('spanarrowson').innerHTML='Yes !';_('titreleft').style.visibility='visible'; _('titrerightbis').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spanarrowson').innerHTML='No.'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanarrowson">Yes !</span></li>
-						<li>Show instant transcription ?
+						<li><label for="subtitlepartialon">Show instant transcription ?</label>
 							<input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {_('spansubtitlepartialon').innerHTML='Yes !'; _('partialtitre').style.visibility='visible'; } else {_('spansubtitlepartialon').innerHTML='No.'; _('partialtitre').style.visibility='hidden'; }" >&nbsp;<span class="yesno" id="spansubtitlepartialon">No.</span>&nbsp; Color :
+							<label style="display:none;" for="ColorPartialTitre">ColorPartialTitre</label>
 							<select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255">blue</option>
 								<option value="0,255,0|0,100,0">green</option>
@@ -322,8 +324,9 @@ fclose($fd);
 								<option value="255,255,255|255,255,255|0,0,0">white</option>
 							</select>
 						</li>
-						<li style="display:none;">Show student feedback ?
+						<li style="display:none;"><label for="subtitlestudenton">Show student feedback ?</label>
 							<input type="checkbox" id="subtitlestudenton" onclick="if (this.checked) {_('spansubtitlestudenton').innerHTML='Yes !'; _('studentfeedback').style.visibility='visible'; } else {_('spansubtitlestudenton').innerHTML='No.'; _('studentfeedback').style.visibility='hidden'; }" >&nbsp;<span class="yesno" id="spansubtitlestudenton">No.</span>&nbsp; Color :
+							<label style="display:none;" for="Colorstudentfeedback">Colorstudentfeedback</label>
 							<select id="Colorstudentfeedback" onchange="ChangeColor('studentfeedback',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255">blue</option>
 								<option value="0,255,0|0,100,0">green</option>
@@ -339,7 +342,7 @@ fclose($fd);
 								<option value="255,255,255|255,255,255|0,0,0">white</option>
 							</select>
 						</li>
-						<li>Subtitles font size :
+						<li><label for="selectfontsize">Subtitles font size :</label>
 							<select id="selectfontsize" onchange="_('titre').style.fontSize = this.value; _('partialtitre').style.fontSize = this.value; _('studentfeedback').style.fontSize = this.value;" class="jqueryselect">
 								<option value="12px">Small</option>
 								<option value="18px" selected>Normal</option>
@@ -348,7 +351,7 @@ fclose($fd);
 								<option value="48px">Enormous</option>
 							</select>
 						</li>
-						<li>Subtitles opacity :
+						<li><label for="selectopacity">Subtitles opacity :</label>
 							<select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('partialtitre', this.value); ChangeOpacity('studentfeedback', this.value);ChangeOpacity('titreleft', this.value); ChangeOpacity('titrerightbis', this.value);" class="jqueryselect">
 								<option value="0">0% opaque</option>
 								<option value="0.25">25% opaque</option>
@@ -359,17 +362,21 @@ fclose($fd);
 						</li>
 						<li>&nbsp;</li>
 						<li><b>Icons</b></li>
-						<li>Show icons
+						<li><label for="iconon">Show icons</label>
 							<input type="checkbox" checked id="iconon" onclick="showEachIcon(); if (this.checked) {
     {_('spaniconon').innerHTML='Yes !';} else {_('spaniconon').innerHTML='No.';}" > &nbsp;<span class="yesno" id="spaniconon">Yes !</span></li>
-						<li id="eachicon" style="display:none">Pin code ?
-							<input title="Hide or show the pincode information. If 'Yes !' or checked, the pincode is visible." type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; Micro ?
-							<input title="Hide or show the microphone icon. If 'Yes !' or checked, the microphone icon is visible." type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" >&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; Question ?
-							<input title="Hide or show the question icon. If 'Yes !' or checked, the question icon is visible." type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" >&nbsp;<span class="yesno" id="spanquestionon">No.</span> &nbsp; Full screen ?
+						<li id="eachicon" style="display:none">
+							<label for="pincodeon">Pin code ?</label>
+							<input title="Hide or show the pincode information. If 'Yes !' or checked, the pincode is visible." type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; 
+							<label for="microon">Micro ?</label>
+							<input title="Hide or show the microphone icon. If 'Yes !' or checked, the microphone icon is visible." type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" >&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; 
+							<label for="questionon">Question ?</label>
+							<input title="Hide or show the question icon. If 'Yes !' or checked, the question icon is visible." type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" >&nbsp;<span class="yesno" id="spanquestionon">No.</span> &nbsp; 
+							<label for="fson">Full screen ?</label>
 							<input title="Hide or show the fullscreen icon. If 'Yes !' or checked, the fullscreen icon is visible." type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" >&nbsp;<span class="yesno" id="spanfson">No.</span></li>
 						<li>&nbsp;</li>
 						<li><b>Pin code appearance</b></li>
-						<li>Pin code size
+						<li><label for="selecticonsize">Pin code size</label>
 							<select id="selecticonsize" onchange="ChangeSizeIcons(this.value);" class="jqueryselect">
 								<option value=30>Small</option>
 								<option value=50 selected>Normal</option>
