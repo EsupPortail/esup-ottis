@@ -1371,7 +1371,7 @@ function addKeyword(keyword){
     return([delete_ligne, line]);
 }
 
-function warningDelete(language, sentence, keyword){
+function warningDelete(language, sentence, keyword, val_notes){
     document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+language+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
     $( "#dialog-warning" ).dialog({
         modal: true,
@@ -1439,7 +1439,7 @@ function addAllLanguages(keyword){
                     if (delete_ligne){
                         if (val_notes[line] != ""){
                             $( this ).dialog( "close" );
-                            warningDelete(tab_lang[key], val_notes[line], keyword);
+                            warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
                         }
                         console.log("Ligne vide ?");
                         console.log(val_notes[line]);
