@@ -1420,8 +1420,24 @@ function addAllLanguages(keyword){
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
+                        if (val_notes[line] != ""){
+                            document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+tab_lang[key]+" version. \n The sentence to be deleted is : \""+val_notes[line]+"\". \n Do you want to replace it with \""+keyword+"\" ?";
+                            $( "#dialog-warning" ).dialog({
+                                modal: true,
+                                appendTo: "#DesiredDivID",
+                                buttons: {
+                                    Yes : function(){
+                                        $( this ).dialog( "close" );
+                                    },
+                                    No : function(){
+                                        $( this ).dialog( "close" );
+                                    }     
+                                }
+                            })
+                        }
                         console.log("Ligne vide ?");
                         console.log(val_notes[line]);
+                        
                         val_notes.splice(line, 1, keyword);
                     }else{
                         val_notes.splice(line, 0, keyword);
