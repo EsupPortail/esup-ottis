@@ -288,7 +288,7 @@ fclose($fd);
 						<li><b>Subtitles appearance</b></li>
 						<li><label for="subtitlebaron">Show subtitles bar ?</label>
 							<input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {_('spansubtitlebaron').innerHTML='Yes !'; _('titre').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spansubtitlebaron').innerHTML='No.'; _('titre').style.visibility='hidden'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden'; _('titreright').style.visibility='hidden'; _('arrowson').checked=false;}" >&nbsp;<span class="yesno" id="spansubtitlebaron">Yes !</span>&nbsp;Color :
-							<label style="display:none;" for="ColorTitre">ColorTitre</label>
+							<label for="ColorTitre"></label>
 							<select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255" selected>blue</option>
 								<option value="0,255,0|0,100,0">green</option>
