@@ -1385,6 +1385,7 @@ function addAllLanguages(keyword){
         appendTo: "#DesiredDivID",
         buttons: {
             Yes: function() {
+                var lang = _("myLanguage").value.trim();
                 [delete_ligne, line] = addKeyword(keyword);
                 updateNotes();
                 var tab_lang = [];
