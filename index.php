@@ -259,7 +259,7 @@ fclose($fd);
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab4"><a class="tabbed" href="#tabs-12" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 4</span></a></li>
 			</ul>
 			<div id="tabs-0">
-				<h3>Language configuration</h3>
+				<h3 class="tabbed">Language configuration</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li>
@@ -282,7 +282,7 @@ fclose($fd);
 						</li>
 					</ul>
 				</div>
-				<h3>Subtitles configuration and Icons</h3>
+				<h3 class="tabbed">Subtitles configuration and Icons</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li><b>Subtitles appearance</b></li>
@@ -378,7 +378,7 @@ fclose($fd);
 						</li>
 					</ul>
 				</div>
-				<h3>Tabs configuration and external tools</h3>
+				<h3 class="tabbed">Tabs configuration and external tools</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li><b>Extra tabs</b></li>
@@ -433,7 +433,7 @@ fclose($fd);
 						</ul>
 						<br>
 						<br> </div>
-				<h3>Extra functionalities</h3>
+				<h3 class="tabbed">Extra functionalities</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li>&nbsp;</li>
@@ -466,7 +466,7 @@ fclose($fd);
 					<p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo " javascript:void(window.open( 'OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."')) "; else echo "javascript:void(window.open( 'OMIST_Tools')) ";?>">here</a>.</p>
 
               </div>
-              <h3>Configuration code</h3>
+              <h3 class="tabbed">Configuration code</h3>
               <div>
               <ul>
               <li><label for="myConfig">Current configuration code :</label>
@@ -536,7 +536,7 @@ fclose($fd);
 				<div id="output"> </div>
 			</div>
 			<div id="tabs-4">
-				<h3>For students</h3>
+				<h3 class="tabbed">For students</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; if ($theme != "") echo "&theme=".$theme; ?>">Student.php?ROOMID=<?php echo $classroomid; if ($theme != "") echo "&theme=".$theme; ?></a></li>
@@ -546,7 +546,7 @@ fclose($fd);
 						</li>
 					</ul>
 				</div>
-				<h3>For teachers</h3>
+				<h3 class="tabbed">For teachers</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Teacher's remote : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid; ?>&LANG=fr,en&APPID=<?php echo $appid; ?>">remote.php?ROOMID=<?php echo $classroomid; ?></a>&nbsp;
@@ -573,7 +573,7 @@ fclose($fd);
 						</li>
 					</ul>
 				</div>
-				<h3>Chat only</h3>
+				<h3 class="tabbed">Chat only</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Chat only link : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
@@ -581,7 +581,7 @@ fclose($fd);
 							<input type="text" id="embedcontent" value="" > </li>
 					</ul>
 				</div>
-				<h3>Subtitles only</h3>
+				<h3 class="tabbed">Subtitles only</h3>
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Subtitles only link : (IN PROGRESS) <a id="sublink" target="popup" href="" onclick="SubWindow()" aria-label="Open a window with subtitles only"></a></li>
