@@ -1420,6 +1420,8 @@ function addAllLanguages(keyword){
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
+                        console.log("Ligne vide ?");
+                        console.log(val_notes[line]);
                         val_notes.splice(line, 1, keyword);
                     }else{
                         val_notes.splice(line, 0, keyword);
