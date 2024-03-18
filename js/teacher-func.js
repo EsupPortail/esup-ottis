@@ -1418,40 +1418,41 @@ function addAllLanguages(keyword){
                     tab_lang.splice(index, 1); // 2nd parameter means remove one item only
                 }
                 console.log(tab_lang);
-                for (let key in tab_lang){
-                    var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-                    var line = document.getElementById('cursor-position').innerHTML;
-                    var val_notes = notes.split('\n');
-                    if (val_notes[line-1] === ""){
-                        line = line-1;
-                        val_notes.splice(line, 1, keyword);
-                    }else{
-                        console.log(val_notes[line-1]);
-                        val_notes.splice(line, 0, keyword);
-                    }
-                    var new_notes = val_notes.join('\n');
-                    $('speechArea').val(val_notes.join('\n'));
-                    document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
-                }
                 // for (let key in tab_lang){
                 //     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+                //     var line = document.getElementById('cursor-position').innerHTML;
                 //     var val_notes = notes.split('\n');
-                //     if (delete_ligne){
-                //         if (val_notes[line] != ""){
-                //             // $( this ).dialog( "close" );
-                //             warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
-                //         }
-                //         console.log("Ligne vide ?");
-                //         console.log(val_notes[line]);
-                        
-                //         // val_notes.splice(line, 1, keyword);
+                //     if (val_notes[line-1] === ""){
+                //         line = line-1;
+                //         val_notes.splice(line, 1, keyword);
                 //     }else{
+                //         console.log(val_notes[line-1]);
                 //         val_notes.splice(line, 0, keyword);
                 //     }
                 //     var new_notes = val_notes.join('\n');
                 //     $('speechArea').val(val_notes.join('\n'));
                 //     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
                 // }
+                for (let key in tab_lang){
+                    var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+                    var val_notes = notes.split('\n');
+                    if (delete_ligne){
+                        if (val_notes[line] != ""){
+                            // $( this ).dialog( "close" );
+                            alert("Problem");
+                            // warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
+                        }
+                        console.log("Ligne vide ?");
+                        console.log(val_notes[line]);
+                        
+                        // val_notes.splice(line, 1, keyword);
+                    }else{
+                        val_notes.splice(line, 0, keyword);
+                    }
+                    var new_notes = val_notes.join('\n');
+                    $('speechArea').val(val_notes.join('\n'));
+                    document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+                }
                 $( this ).dialog( "close" );
             },
             No: function() {
