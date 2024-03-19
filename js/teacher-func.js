@@ -1364,46 +1364,46 @@ function addKeyword(keyword){
     document.getElementById("speechArea").value = new_notes;
 }
 
-function warningDelete(languages, sentence, keyword, line){
-    // var text = "Warning ! There is a line conflict on the ";
-    // console.log("length : "+languages.length);
-    // console.log(languages);
-    // for (var i=1; i<languages.length; i++){
-    //     text = text+languages[i]+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> You must edit the line by hand to decide whether to keep it or not \""+keyword+"\".";
-    // }
+// function warningDelete(languages, sentence, keyword, line){
+//     // var text = "Warning ! There is a line conflict on the ";
+//     // console.log("length : "+languages.length);
+//     // console.log(languages);
+//     // for (var i=1; i<languages.length; i++){
+//     //     text = text+languages[i]+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> You must edit the line by hand to decide whether to keep it or not \""+keyword+"\".";
+//     // }
     
-    var tab_lang = [];
-    var languages = document.getElementById("myLanguage");
-    var idImage = document.getElementById("imageArea").firstElementChild.id;
-    var numSlide = idImage.charAt(idImage.length - 1);
-    for (num_lang = 0; num_lang < languages.length; num_lang++) {
-        tab_lang[num_lang] = languages.options[num_lang].value;
-    }
-    for (let key in tab_lang){
-        var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
-        var val_notes = notes.split('\n');
-        val_notes.splice(line, 0, '');
-        var new_notes = val_notes.join('\n');
-        $('speechArea').val(val_notes.join('\n'));
-        document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
-    }
+//     var tab_lang = [];
+//     var languages = document.getElementById("myLanguage");
+//     var idImage = document.getElementById("imageArea").firstElementChild.id;
+//     var numSlide = idImage.charAt(idImage.length - 1);
+//     for (num_lang = 0; num_lang < languages.length; num_lang++) {
+//         tab_lang[num_lang] = languages.options[num_lang].value;
+//     }
+//     for (let key in tab_lang){
+//         var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
+//         var val_notes = notes.split('\n');
+//         val_notes.splice(line, 0, '');
+//         var new_notes = val_notes.join('\n');
+//         $('speechArea').val(val_notes.join('\n'));
+//         document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
+//     }
 
-    // document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+language+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
-    // document.getElementById("dialog-warning").innerHTML = text;
-    // $( "#dialog-warning" ).dialog({
-    //     modal: true,
-    //     appendTo: "#DesiredDivID",
-        // buttons: {
-        //     Yes : function(){
-        //         val_notes.splice(line, 1, keyword);
-        //         $( this ).dialog( "close" );
-        //     },
-        //     No : function(){
-        //         $( this ).dialog( "close" );
-        //     }     
-        // }
-    // })
-}
+//     // document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+language+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
+//     // document.getElementById("dialog-warning").innerHTML = text;
+//     // $( "#dialog-warning" ).dialog({
+//     //     modal: true,
+//     //     appendTo: "#DesiredDivID",
+//         // buttons: {
+//         //     Yes : function(){
+//         //         val_notes.splice(line, 1, keyword);
+//         //         $( this ).dialog( "close" );
+//         //     },
+//         //     No : function(){
+//         //         $( this ).dialog( "close" );
+//         //     }     
+//         // }
+//     // })
+// }
 
 /**
  * @summary The function that is executed for adding a keyword to notes for one or all languages with the animation editor.
