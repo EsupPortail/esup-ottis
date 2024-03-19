@@ -1430,9 +1430,9 @@ function addAllLanguages(keyword){
                     tab_lang[num_lang] = languages.options[num_lang].value;
                 }
                 var index = tab_lang.indexOf(lang);
-                if (index > -1) {
-                    tab_lang.splice(index, 1);
-                }
+                // if (index > -1) {
+                //     tab_lang.splice(index, 1);
+                // }
 
                 for (let key in tab_lang){
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
