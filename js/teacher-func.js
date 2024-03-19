@@ -1446,6 +1446,8 @@ function addAllLanguages(keyword){
                             // $( this ).dialog( "close" );
                             // alert("Problem");
                             // warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
+                        }else{
+                            val_notes.splice(line, 0, keyword);
                         }
                         // console.log("Ligne vide ?");
                         // console.log(val_notes[line]);
