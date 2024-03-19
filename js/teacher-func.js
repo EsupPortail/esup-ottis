@@ -1371,8 +1371,13 @@ function addKeyword(keyword){
     return([delete_ligne, line]);
 }
 
-function warningDelete(language, sentence, keyword, val_notes){
-    document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+language+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
+function warningDelete(languages, sentence, keyword){
+    var text = "Warning ! There is a line conflict on the ";
+    for (var i=1; i<=languages.length; i++){
+        text = text+languages[i]+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> You must edit the line by hand to decide whether to keep it or not \""+keyword+"\" ?";
+    }
+    // document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+language+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
+    document.getElementById("dialog-warning").innerHTML = text;
     $( "#dialog-warning" ).dialog({
         modal: true,
         appendTo: "#DesiredDivID",
@@ -1434,12 +1439,16 @@ function addAllLanguages(keyword){
                 //     $('speechArea').val(val_notes.join('\n'));
                 //     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
                 // }
+                var nb_del = 0;
+                var lang_del = [];
                 for (let key in tab_lang){
                     console.log("LANG : \n"+tab_lang[key]);
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
                         if (val_notes[line] != ""){
+                            nb_del = nb_del+1;
+                            lang_del[nb_del] = tab_lang[key];
                             concat_line = val_notes[line] +" "+keyword;
                             val_notes.splice(line, 1, concat_line);
                             console.log(tab_lang[key]);
@@ -1447,7 +1456,7 @@ function addAllLanguages(keyword){
                             // alert("Problem");
                             // warningDelete(tab_lang[key], val_notes[line], keyword, val_notes);
                         }else{
-                            val_notes.splice(line, 0, keyword);
+                            val_notes.splice(line, 1, keyword);
                         }
                         // console.log("Ligne vide ?");
                         // console.log(val_notes[line]);
@@ -1460,9 +1469,9 @@ function addAllLanguages(keyword){
                     $('speechArea').val(val_notes.join('\n'));
                     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
                 }
-                if (concat_line != ""){
+                if (nb_del != 0){
                     $( this ).dialog( "close" );
-                    warningDelete("language", "sentence", "keyword", "val_notes");
+                    warningDelete(lang_del, "sentence", keyword, "val_notes");
                 }else{
                     $( this ).dialog( "close" );
                 }
