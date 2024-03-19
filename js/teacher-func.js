@@ -1373,6 +1373,8 @@ function addKeyword(keyword){
 
 function warningDelete(languages, sentence, keyword){
     var text = "Warning ! There is a line conflict on the ";
+    console.log("length : "+languages.length);
+    console.log(languages);
     for (var i=1; i<=languages.length; i++){
         text = text+languages[i]+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> You must edit the line by hand to decide whether to keep it or not \""+keyword+"\" ?";
     }
