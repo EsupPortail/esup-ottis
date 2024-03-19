@@ -1421,7 +1421,7 @@ function addAllLanguages(keyword){
             Yes: function() {
                 var lang = _("myLanguage").value.trim();
                 addKeyword(keyword);
-                updateNotes();
+                // updateNotes();
                 var tab_lang = [];
                 var languages = document.getElementById("myLanguage");
                 var idImage = document.getElementById("imageArea").firstElementChild.id;
