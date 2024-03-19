@@ -1,0 +1,4 @@
+<Files "config.py">  
+  Order Allow,Deny
+  Deny from all
+</Files>
