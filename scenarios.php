@@ -255,9 +255,10 @@ var root = window.location.href.replace("/scenarios.php","");
 
  function myalert(ch,title="Message") {
     ch = ch.replaceAll("\n", "<br>");
-    $("#dialog-invite").dialog( "option", "title", title );
+    // $("#dialog-invite").dialog( "option", "title", title );
     _('dialog-invite-p').innerHTML = ch;
-    $("#dialog-invite").dialog("open");
+    $("#dialog-invite").dialog( "option", "title", title ).dialog("open");
+    // $("#dialog-invite").dialog("open");
 }
 
 </script>
