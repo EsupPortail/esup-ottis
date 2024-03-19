@@ -1435,6 +1435,7 @@ function addAllLanguages(keyword){
                 //     document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent = new_notes;
                 // }
                 for (let key in tab_lang){
+                    console.log("LANG : \n"+tab_lang[key]);
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     var val_notes = notes.split('\n');
                     if (delete_ligne){
