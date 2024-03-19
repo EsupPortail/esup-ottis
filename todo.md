@@ -56,6 +56,7 @@ Pour moi.
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
 - [ ] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs
 - [ ] Revoir l'interface de l'animation dans AppTemplate.txt
+- [ ] Quand on convertit on un pptx en animation -> décalage des images (à tester si ça fait pareil quand c'est un pdf)
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
