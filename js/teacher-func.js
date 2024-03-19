@@ -1305,8 +1305,8 @@ function updateNotes(){
  * @param {event} event a keyboard event.
  */
 
-function addEnter(event){
-    if (event.code === 'Enter'){
+function addEnter(event, keyword_del){
+    if ((event.code === 'Enter')||(keyword_del===true)){
         var textarea = document.getElementById('speechArea');
         var cursorPos = $('#speechArea').prop('selectionStart');
         var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
@@ -1375,8 +1375,8 @@ function warningDelete(languages, sentence, keyword){
     var text = "Warning ! There is a line conflict on the ";
     console.log("length : "+languages.length);
     console.log(languages);
-    for (var i=1; i<=languages.length; i++){
-        text = text+languages[i]+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> You must edit the line by hand to decide whether to keep it or not \""+keyword+"\" ?";
+    for (var i=1; i<languages.length; i++){
+        text = text+languages[i]+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> You must edit the line by hand to decide whether to keep it or not \""+keyword+"\".";
     }
     // document.getElementById("dialog-warning").innerHTML = "Warning! You'll delete a line in the "+language+" version. <br/> The sentence to be deleted is : \""+sentence+"\". <br/> Do you want to replace it with \""+keyword+"\" ?";
     document.getElementById("dialog-warning").innerHTML = text;
@@ -1473,7 +1473,8 @@ function addAllLanguages(keyword){
                 }
                 if (nb_del != 0){
                     $( this ).dialog( "close" );
-                    warningDelete(lang_del, "sentence", keyword, "val_notes");
+                    // warningDelete(lang_del, "sentence", keyword, "val_notes");
+                    addEnter(e,true);
                 }else{
                     $( this ).dialog( "close" );
                 }
