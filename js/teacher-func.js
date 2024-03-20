@@ -2968,10 +2968,13 @@ function updateLinks() {
     var roomid = _('classroomid').value;
     _("link1").src = "https://tableaunoir.github.io/?id=" + roomid;
     _("link1").innerHTML = _("link1").src;
+    _("link1").title = 'Click here to add a link for ' + _("link1").src;
     _("link2").src = "https://wbo.ophir.dev/boards/" + roomid;
     _("link2").innerHTML = _("link2").src;
+    _("link2").title = 'Click here to add a link for ' + _("link2").src;
     _("link3").src = "https://meet.jit.si/" + roomid;
     _("link3").innerHTML = _("link3").src;
+    _("link3").title = 'Click here to add a link for ' + _("link3").src;
 }
 
 
