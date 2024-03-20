@@ -7044,7 +7044,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		}
 
 		if ( toFocus ) {
-			$( event.target ).attr( "tabIndex", -1 );
+			//$( event.target ).attr( "tabIndex", -1 );
 			$( toFocus ).attr( "tabIndex", 0 );
 			$( toFocus ).trigger( "focus" );
 			event.preventDefault();
@@ -7148,7 +7148,8 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 				.attr( {
 					"aria-selected": "false",
 					"aria-expanded": "false",
-					tabIndex: -1
+//					tabIndex: -1
+					tabIndex: 0
 				} )
 				.next()
 					.attr( {
@@ -7340,15 +7341,17 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		// if we're collapsing, then keep the collapsing header in the tab order
 		if ( toShow.length && toHide.length ) {
 			toHide.prev().attr( {
-				"tabIndex": -1,
+//				"tabIndex": -1,
+				"tabIndex": 0,
 				"aria-expanded": "false"
 			} );
 		} else if ( toShow.length ) {
 			this.headers.filter( function() {
 				return parseInt( $( this ).attr( "tabIndex" ), 10 ) === 0;
 			} )
-				.attr( "tabIndex", -1 );
-		}
+//				.attr( "tabIndex", -1 );
+				.attr( "tabIndex", 0 );
+}
 
 		toShow
 			.attr( "aria-hidden", "false" )
@@ -7776,7 +7779,8 @@ var widgetsMenu = $.widget( "ui.menu", {
 			.not( ".ui-menu" )
 				.uniqueId()
 				.attr( {
-					tabIndex: -1,
+//					tabIndex: -1,
+					tabIndex: 0,
 					role: this._itemRole()
 				} );
 		this._addClass( newItems, "ui-menu-item" )
@@ -12312,8 +12316,9 @@ $.widget( "ui.dialog", {
 			.attr( {
 
 				// Setting tabIndex makes the div focusable
-				tabIndex: -1,
-				role: "dialog"
+//				tabIndex: -1,
+				tabIndex: 0,
+role: "dialog"
 			} )
 			.appendTo( this._appendTo() );
 
@@ -14712,7 +14717,8 @@ $.widget( "ui.spinner", {
 
 		// Button bindings
 		this.buttons = this.uiSpinner.children( "a" )
-			.attr( "tabIndex", -1 )
+//			.attr( "tabIndex", -1 )
+			.attr( "tabIndex", 0 )
 			.attr( "aria-hidden", true )
 			.button( {
 				classes: {
@@ -15385,7 +15391,8 @@ $.widget( "ui.tabs", {
 		this.tabs.not( this.active ).attr( {
 			"aria-selected": "false",
 			"aria-expanded": "false",
-			tabIndex: -1
+			tabIndex: 0
+//			tabIndex: -1
 		} );
 		this.panels.not( this._getPanelForTab( this.active ) )
 			.hide()
@@ -15445,15 +15452,17 @@ $.widget( "ui.tabs", {
 		this.tabs = this.tablist.find( "> li:has(a[href])" )
 			.attr( {
 				role: "tab",
-				tabIndex: -1
-			} );
+//				tabIndex: -1
+				tabIndex: 0
+} );
 		this._addClass( this.tabs, "ui-tabs-tab", "ui-state-default" );
 
 		this.anchors = this.tabs.map( function() {
 			return $( "a", this )[ 0 ];
 		} )
 			.attr( {
-				tabIndex: -1
+				tabIndex: 0
+//				tabIndex: -1
 			} );
 		this._addClass( this.anchors, "ui-tabs-anchor" );
 
@@ -15708,12 +15717,14 @@ $.widget( "ui.tabs", {
 		// If we're opening from collapsed state, remove the previous tab from the tab order.
 		// If we're collapsing, then keep the collapsing tab in the tab order.
 		if ( toShow.length && toHide.length ) {
-			eventData.oldTab.attr( "tabIndex", -1 );
+//			eventData.oldTab.attr( "tabIndex", -1 );
+			eventData.oldTab.attr( "tabIndex", 0 );
 		} else if ( toShow.length ) {
 			this.tabs.filter( function() {
 				return $( this ).attr( "tabIndex" ) === 0;
 			} )
-				.attr( "tabIndex", -1 );
+//				.attr( "tabIndex", -1 );
+				.attr( "tabIndex", 0 );
 		}
 
 		toShow.attr( "aria-hidden", "false" );
