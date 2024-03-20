@@ -65,7 +65,6 @@ Pour moi.
     - [X] Bug : curseur apparait si on clique sur l'image mais on n'a pas sélectionné "mouse go"
 - [X] Léger décalage des coordonnées dans "mouse go" sur l'animation finale  _**(UPDATE : à vérifier sur d'autres résolutions d'écran.)**_
 - [X] Image des slides rognée en bas quand on est en plein écran ou page à la taille de l'écran
-- [ ] Les images et les textes bougent quand on fait une animation ? (même avec l'outil de création d'animation à partir d'un pptx)
 - [X] "Mouse go" qui affiche par moment le font style au lieu de juste les coordonnées de la souris _**(UPDATE : à vérifier avec Claire qu'elle n'a plus l'erreur.)**_
 - [X] Supprimer les retours à la ligne automatiques quand on ajoute un keyword
 - [X] Réduire les bordures (border-collapse)
@@ -81,6 +80,7 @@ Pour moi.
 - [X] Quand on ajoute une nouvelle ligne (vide ou non), il faut qu'une nouvelle ligne (vide) soit ajoutée dans les autres langues
 - [X] Voir si c'est faisable quand on modifie à la main un keyword, qu'il soit modifié dans toutes les langues
 - [ ] Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la tradution dans les autres langues ?
+- [ ] Changer le message addAllLanguages()
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
