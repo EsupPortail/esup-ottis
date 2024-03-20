@@ -199,7 +199,7 @@ fclose($fd);
   <script src="js/teacher-func.js"></script>
   <?php if ($theme != "") {
     echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
-    echo '<script src="jquery/'.$theme.'/jquery-ui.min.js"></script>';
+    echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';
   } else {
     echo '<script src="jquery/jquery.js"></script>';
     echo '<script src="jquery/jquery-ui.min.js"></script>';
