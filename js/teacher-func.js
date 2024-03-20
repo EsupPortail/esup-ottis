@@ -1421,8 +1421,12 @@ function addAllLanguages(keyword){
         appendTo: "#DesiredDivID",
         buttons: {
             Ok: function() {
+                var notif_translated = false;
                 if (keyword.includes("[notification ")){
-                    console.log(keyword.substring('[notification '.length));
+                    notif_translated = true;
+                    var message = keyword.substring('[notification '.length);
+                    message = message.slice(0, -1);
+                    console.log(message);
                 }
                 var lang = _("myLanguage").value.trim();
                 addKeyword(keyword);
@@ -1440,6 +1444,14 @@ function addAllLanguages(keyword){
                 // }
 
                 for (let key in tab_lang){
+                    if (notif_translated){
+                        // var xhr = new XMLHttpRequest();
+                        // xhr.open("POST", "Translate.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
+                        // xhr.send();
+                        // AbortTimeout(xhr,"Translate");
+                        console.log("Langue origine : "+lang);
+                        console.log("Langue de traduction : "+ tab_lang[key]);
+                    }
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     var line = document.getElementById('cursor-position').innerHTML;
                     var val_notes = notes.split('\n');
