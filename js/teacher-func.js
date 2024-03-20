@@ -1414,8 +1414,9 @@ function addKeyword(keyword){
 function addAllLanguages(keyword){
     _('dialog-all-lang').innerHTML = "Would you like to add the keyword "+keyword+" to your animation ? </br> Please note that this keyword will be added to all languages."
     $( "#dialog-all-lang" ).dialog({
-        height: 160,
-        width: 508,
+        // height: 160,
+        height: 'auto',
+        width: 520,
         modal: true,
         appendTo: "#DesiredDivID",
         buttons: {
