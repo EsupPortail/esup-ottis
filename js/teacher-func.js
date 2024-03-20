@@ -1421,7 +1421,9 @@ function addAllLanguages(keyword){
         appendTo: "#DesiredDivID",
         buttons: {
             Ok: function() {
-                console.log(keyword);
+                if (keyword.includes("[notification ")){
+                    console.log(keyword.substring('[notification '.length));
+                }
                 var lang = _("myLanguage").value.trim();
                 addKeyword(keyword);
                 // updateNotes();
