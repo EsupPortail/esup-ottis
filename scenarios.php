@@ -529,7 +529,7 @@ body {
       var elements = document.getElementsByClassName("needbrowser");
       for (var i = 0; i < elements.length; i++) {
         elements[i].title = "We detect that your browser (" + whichBrowser() + ") has not a built-in Speech-to-Text functionality. Use Google Chrome of Microsoft Edge instead or create a Microsoft Azure key and use the external transcription capabilities.";
-        elements[i].innerHTML = ' < i class = "fa fa-exclamation-triangle" style = "color: red;" aria - hidden = "true" > < /i>';
+        elements[i].innerHTML = ' <i class = "fa fa-exclamation-triangle" style = "color: red;" aria - hidden = "true" > < /i>';
       }
       if (!["Chrome", "Edge"].includes(whichBrowser())) $(".needbrowser").css("display", "inline");
     });
