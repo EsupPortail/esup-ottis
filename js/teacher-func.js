@@ -1451,6 +1451,9 @@ function addAllLanguages(keyword){
                         // AbortTimeout(xhr,"Translate");
                         console.log("Langue origine : "+lang);
                         console.log("Langue de traduction : "+ tab_lang[key]);
+                        if (lang.toLowerCase() != tab_lang[key].toLowerCase()){
+                            keyword = "[notification "+"traduction"+"]";
+                        }
                     }
                     var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
                     var line = document.getElementById('cursor-position').innerHTML;
