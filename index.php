@@ -288,8 +288,8 @@ fclose($fd);
 						<li><b>Subtitles appearance</b></li>
 						<li><label for="subtitlebaron">Show subtitles bar ?</label>
 							<input type="checkbox" checked id="subtitlebaron" onclick="if (this.checked) {_('spansubtitlebaron').innerHTML='Yes !'; _('titre').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spansubtitlebaron').innerHTML='No.'; _('titre').style.visibility='hidden'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden'; _('titreright').style.visibility='hidden'; _('arrowson').checked=false;}" >&nbsp;<span class="yesno" id="spansubtitlebaron">Yes !</span>&nbsp;Color :
-							<label for="ColorTitre"></label>
-							<select id="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
+							<label style="display: none;" for="ColorTitre">ColorTitre</label>
+							<select id="ColorTitre" name="ColorTitre" onchange="ChangeColor('titre',this.value); ChangeColor('titreleft',this.value);ChangeColor('titrerightbis',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255" selected>blue</option>
 								<option value="0,255,0|0,100,0">green</option>
 								<option value="255,0,0|100,0,0">red</option>
@@ -309,7 +309,7 @@ fclose($fd);
 						<li><label for="subtitlepartialon">Show instant transcription ?</label>
 							<input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {_('spansubtitlepartialon').innerHTML='Yes !'; _('partialtitre').style.visibility='visible'; } else {_('spansubtitlepartialon').innerHTML='No.'; _('partialtitre').style.visibility='hidden'; }" >&nbsp;<span class="yesno" id="spansubtitlepartialon">No.</span>&nbsp; Color :
 							<label style="display:none;" for="ColorPartialTitre">ColorPartialTitre</label>
-							<select id="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
+							<select id="ColorPartialTitre" name="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect">
 								<option value="0,0,255|0,0,255">blue</option>
 								<option value="0,255,0|0,100,0">green</option>
 								<option value="255,0,0|100,0,0">red</option>
