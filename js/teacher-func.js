@@ -1456,7 +1456,7 @@ function addAllLanguages(keyword){
                             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                                 // console.log(this.responseText);
                                 var response = JSON.parse(this.responseText);
-                                console.log(response);
+                                console.log("REPONSE : "+response);
                                 // if ((!response["error"]) && response["data"]["translations"]) {
                                 //     Parle(response["data"]["translations"][0]["translatedText"]);
                                 //     Ecrire("" + response["data"]["translations"][0]["translatedText"]);
@@ -1468,7 +1468,7 @@ function addAllLanguages(keyword){
                         };
                         console.log(" : Sending for translation " + message + " from " + lang + " to " + tab_lang[key])
                         xhr.send();
-                        AbortTimeout(xhr,"Translate");
+                        // AbortTimeout(xhr,"Translate");
 
                         console.log("Langue origine : "+lang);
                         console.log("Langue de traduction : "+ tab_lang[key]);
