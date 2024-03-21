@@ -491,8 +491,7 @@ fclose($fd);
 			</div>
 			<div id="tabs-1">
 				<div id="classroom" style="border: solid 1px;"></div>
-				<label for="question" style="transform: scaleX(0);">Your question here...</label><br>
-				<textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea>
+				<textarea id="question" aria-label="Your question here" placeholder="Your question here" rows="2" cols="50"></textarea>
 				<br>
 				<input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question" >
 				<input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();" > </div>
@@ -603,7 +602,7 @@ fclose($fd);
 			<div id="tabs-7"><a style="display:none;" href="javascript:void(0)" id="linkslides"></a>
 			<div id="stillwaiting">
 <!--					<div id="stillwaitingspinner"></div>-->
-					<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" alt="" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
+					<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" aria-label="Spinner image" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
 <?php
 $nbcircles=15;
 $minsize=1.3;
