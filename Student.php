@@ -80,8 +80,14 @@ if ($synchronize) {
 <script src="js/student-def.js"></script>
 <script src="js/common-func.js"></script>
 <script src="js/student-func.js"></script>
-<script src="jquery/jquery.js"></script>
-<script src="jquery/jquery-ui.min.js"></script>
+<?php if ($theme != "") {
+    echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
+    echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';
+  } else {
+    echo '<script src="jquery/jquery.js"></script>';
+    echo '<script src="jquery/jquery-ui.min.js"></script>';
+  }
+  ?>
 <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
 <script src="libs/quickmenu/src/jquery.popmenu.js"></script>
 
