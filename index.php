@@ -524,7 +524,7 @@ fclose($fd);
 			</div>
 			<div id="tabs-20">
 				<div id="tools" style="border: none; height: 1000px; overflow: auto;">
-					<iframe id="toolbox" src="OMIST_Tools/indexNOCAS.php<?php if ($theme != "") echo "?theme=".$theme; ?>" allowfullscreen allow="camera;microphone;display-capture" style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+					<iframe id="toolbox" title="Slides Toolbox" src="OMIST_Tools/indexNOCAS.php<?php if ($theme != "") echo "?theme=".$theme; ?>" allowfullscreen allow="camera;microphone;display-capture" style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 				</div>
 			</div>
 			<div id="tabs-3">
