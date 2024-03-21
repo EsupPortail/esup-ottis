@@ -627,19 +627,19 @@ for($i=0; $i<$nbcircles; $i++) {
 	-->
 			</div>
 			<div id="tabs-8">
-				<iframe id="wooclap" title="Wooclap tab" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="<?php echo $wooclapaddress; ?>" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="wooclap" aria-label="Wooclap tab" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="<?php echo $wooclapaddress; ?>" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-9">
-				<iframe id="extratab1" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="extratab1" title="Extra tab 1" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-10">
-				<iframe id="extratab2" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="extratab2" title="Extra tab 2" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-11">
-				<iframe id="extratab3" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="extratab3" title="Extra tab 3" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-12">
-				<iframe id="extratab4" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="extratab4" title="Extra tab 4" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 		</div>
 	</form>
