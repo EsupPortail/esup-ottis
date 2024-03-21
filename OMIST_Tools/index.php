@@ -72,8 +72,14 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   }
 	?>
     <link rel="icon" type="image/png" href="../favicon.png" />
-    <script src="../jquery/jquery.js"></script>
-    <script src="../jquery/jquery-ui.min.js"></script>
+    <?php if ($theme != "") {
+    echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
+    echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';
+  } else {
+    echo '<script src="jquery/jquery.js"></script>';
+    echo '<script src="jquery/jquery-ui.min.js"></script>';
+  }
+  ?>
     <script src="../js/teacher-func.js"></script>
     <link href="../styles/edit-anim.css" rel="stylesheet">
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
