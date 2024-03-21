@@ -1466,7 +1466,7 @@ function addAllLanguages(keyword){
 
                             }
                         };
-                        console.log(d_begin + " : Sending for translation " + message + " from " + lang + " to " + tab_lang[key])
+                        console.log(" : Sending for translation " + message + " from " + lang + " to " + tab_lang[key])
                         xhr.send();
                         AbortTimeout(xhr,"Translate");
 
