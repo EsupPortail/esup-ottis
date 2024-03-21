@@ -517,9 +517,8 @@ body {
 </style>
 <div id="google_translate_element"></div>
   <main>
+  <div id="opentranslator" style="z-index: 10000; position: absolute; top: 0px; left: 0px; width: 44px; height: 44px; font-size: 2em; background-color: blue;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i></div>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">
-  <span id="opentranslator" style="z-index: 10000; position: absolute; top: 0px; left: 0px;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i>
-</span>
   Slide Manipulation Tools</h1>
   </main>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""/></div>
