@@ -368,7 +368,7 @@ body {
 </head>
 <body onload="document.cookie=''; " lang="fr">
     <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
- <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" style="z-index: 10000;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
+ <button id="opentranslator" aria-hidden="true" tabindex="-1" aria-label="Translate this page" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
  <div id="google_translate_element"></div>
   <ul class="cards">
     <li class="cards__item">
