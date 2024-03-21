@@ -389,32 +389,37 @@ fclose($fd);
 				<div>
 					<ul style="list-style-type: none;">
 						<li><b>Extra tabs</b></li>
-						<li title="Hide or show the WOOCLAP tab. If 'Yes !' or checked, the WOOCLAP tab is visible in the toolbar.">Embed WOOCLAP ?
+						<li title="Hide or show the WOOCLAP tab. If 'Yes !' or checked, the WOOCLAP tab is visible in the toolbar."><label for="embedwooclapon">Embed WOOCLAP ?</label>
 							<input type="checkbox" id="embedwooclapon" onclick="if (this.checked) {_('spanembedwooclapon').innerHTML='Yes !'; show('titlewooclap');} else {_('spanembedwooclapon').innerHTML='No.';  hide('titlewooclap');}" >&nbsp;<span class="yesno" id="spanembedwooclapon">No.</span>
 							<button style="display:none;" onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button>
 							<button style="display:none;" onclick="_('wooclap').src='https://app.wooclap.com';">Update the wooclap tab</button>
 						</li>
 						<!-- <li>Show Live translation tab ?  <input type="checkbox" id="embedliveon" onclick="if (this.checked) {_('spanembedliveon').innerHTML='Yes !'; show('titlelive');} else {_('spanembedliveon').innerHTML='No.';  hide('titlelive');}">&nbsp;<span class="yesno" id="spanembedliveon">No.</span></li> -->
 						<!--  <li>Show Visio tab ?  <input type="checkbox" id="embedvisioon" onclick="if (this.checked) {_('spanembedvisioon').innerHTML='Yes !'; show('titlevisio');} else {_('spanembedvisioon').innerHTML='No.';  hide('titlevisio');}">&nbsp;<span class="yesno" id="spanembedvisioon">No.</span></li> -->
-						<li title="Hide or show the share tab. If 'Yes !' or checked, the share tab is visible in the toolbar.">Show Share tab ?
+						<li title="Hide or show the share tab. If 'Yes !' or checked, the share tab is visible in the toolbar.">
+							<label for="embedshareon">Show Share tab ?</label>
 							<input type="checkbox" checked id="embedshareon" onclick="if (this.checked) {_('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {_('spanembedshareon').innerHTML='No.';  hide('titleshare');}" >&nbsp;<span class="yesno" id="spanembedshareon">Yes !</span></li>
-						<li>Extra tab 1 URL :
-							<input type="text" id="extraurl1" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+						<li><label for="extraurl1">Extra tab 1 URL : </label>
+							<input type="text" id="extraurl1" value="" placeholder="Copy your application url here" >&nbsp;
+							<label for="embedET1"> Show ?</label>
 							<input type="checkbox" id="embedET1" onclick="showET(this,1);" >&nbsp;<span class="yesno" id="spanembedET1">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab1|'+_('extraurl1').value+']');">Send to students</button>
 						</li>
-						<li>Extra tab 2 URL :
+						<li><label for="extraurl2">Extra tab 2 URL : </label>
 							<input type="text" id="extraurl2" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<label for="embedET2"> Show ?</label>
 							<input type="checkbox" id="embedET2" onclick="showET(this,2);" >&nbsp;<span class="yesno" id="spanembedET2">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab2|'+_('extraurl2').value+']');">Send to students</button>
 						</li>
-						<li>Extra tab 3 URL :
+						<li><label for="extraurl3">Extra tab 3 URL : </label>
 							<input type="text" id="extraurl3" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<label for="embedET3"> Show ?</label>
 							<input type="checkbox" id="embedET3" onclick="showET(this,3);" >&nbsp;<span class="yesno" id="spanembedET3">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab3|'+_('extraurl3').value+']');">Send to students</button>
 						</li>
-						<li>Extra tab 4 URL :
+						<li><label for="extraurl4">Extra tab 4 URL : </label>
 							<input type="text" id="extraurl4" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<label for="embedET4"> Show ?</label>
 							<input type="checkbox" id="embedET4" onclick="showET(this,4);" >&nbsp;<span class="yesno" id="spanembedET4">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab4|'+_('extraurl4').value+']');">Send to students</button>
 						</li>
@@ -451,17 +456,18 @@ fclose($fd);
 							<label for="appid">Application identifier :</label>
 							<input type="text" name="appid" id="appid" value="<?php echo $appid; ?>" >
 						</li>
-						<li title="Do not change unless you know what you are doing !">External transcription service ?
+						<li title="Do not change unless you know what you are doing !">
+							<label for="externaltranscritionon">External transcription service ?</label>
 							<input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) _('spanexternaltranscritionon').innerHTML='Yes !'; else _('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanexternaltranscritionon">No.</span></li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">Microsoft transcription service ?
+						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="microsofttranscritionon">Microsoft transcription service ?</label>
 							<input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) _('spanmicrosofttranscritionon').innerHTML='Yes !'; else _('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanmicrosofttranscritionon">No.</span></li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">Microsoft live translation ?
+						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="directMicrosoftTranslation">Microsoft live translation ?</label>
 							<input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionon">No.</span></li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">Boosted words or expressions (one per line)
+						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="BoostedWords">Boosted words or expressions (one per line)</label>
 							<br>
 							<textarea id="BoostedWords" rows="3" cols="20"></textarea>
 						</li>
-						<li>Remove verbal tics (one per line in lowercase)
+						<li><label for="verbaltics">Remove verbal tics (one per line in lowercase)</label>
 							<br>
 							<textarea id="verbaltics" rows="3" cols="20"></textarea>
 							<li><span id="connectedusers"></span></li>
