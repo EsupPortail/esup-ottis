@@ -504,7 +504,7 @@ fclose($fd);
 			<div id="tabs-5">
 				<div>
 					<label for="ppt_presentation" title="Select your presentation file. Light weight PPTX are allowed. For bigger files, it is recommended (and sometimes mandatory) to convert first the PPTX file to an HTML animation by using the Slide Tools.">Powerpoint/HTML presentation : </label>
-					<input type="file" id="ppt_presentation" name="ppt_presentationn" onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" ><br>
+					<input type="file" id="ppt_presentation" name="ppt_presentation" aria-label="Presentation file" title="Select your presentation file." onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" ><br>
 					<label for="speechlanguage" title="If the speech prepared in the slides is of a different language than the speaker language one, it can be adjusted by using this field.">Speech language : </label>
 					<select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
 						<option value="same" selected>Same as speaker</option>
