@@ -515,7 +515,7 @@ body {
 }
 
 </style>
-<div id="opentranslator" onclick="this.style.display='none'; var glink=new document.createElement('a'); a.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.appendChild(glink);">Translate</div>
+<div id="opentranslator" style="z-index: 10000;" onclick="this.style.display='none'; var glink=new document.createElement('a'); a.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.appendChild(glink);">Translate</div>
 <div id="google_translate_element"></div>
   <main>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">Slide Manipulation Tools</h1>
