@@ -73,11 +73,11 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	?>
     <link rel="icon" type="image/png" href="../favicon.png" />
     <?php if ($theme != "") {
-    echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
-    echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';
+    echo '<script src="../jquery/'.$theme.'/external/jquery/jquery.js"></script>';
+    echo '<script src="../jquery/'.$theme.'/jquery-ui.js"></script>';
   } else {
-    echo '<script src="jquery/jquery.js"></script>';
-    echo '<script src="jquery/jquery-ui.min.js"></script>';
+    echo '<script src="../jquery/jquery.js"></script>';
+    echo '<script src="../jquery/jquery-ui.min.js"></script>';
   }
   ?>
     <script src="../js/teacher-func.js"></script>
