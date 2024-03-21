@@ -603,7 +603,7 @@ fclose($fd);
 			<div id="tabs-7"><a style="display:none;" href="javascript:void(0)" id="linkslides"></a>
 			<div id="stillwaiting">
 <!--					<div id="stillwaitingspinner"></div>-->
-					<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
+					<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" alt="" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
 <?php
 $nbcircles=15;
 $minsize=1.3;
