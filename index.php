@@ -491,7 +491,7 @@ fclose($fd);
 			</div>
 			<div id="tabs-1">
 				<div id="classroom" style="border: solid 1px;"></div>
-				<label>Question ?</label>
+				<label for="question" style="display:none;">Question ?</label>
 				<textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea>
 				<br>
 				<input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question" >
