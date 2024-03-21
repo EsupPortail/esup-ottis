@@ -1453,6 +1453,8 @@ function addAllLanguages(keyword){
                         xhr.open("POST", "EditAnim/TranslateEditAnim.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
 
                         xhr.onreadystatechange = function() { // Call a function when the state changes.
+                            console.log("State : "+this.readyState);
+                            console.log("Status : "+this.status);
                             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                                 // console.log(this.responseText);
                                 var response = JSON.parse(this.responseText);
