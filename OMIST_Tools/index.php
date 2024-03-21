@@ -540,8 +540,8 @@ body {
 </style>
 <div id="google_translate_element"></div>
   <main>
-  <button id="opentranslator" class="button-10" role="button" style="z-index: 10000; position: absolute; top: 10px; left: 0px;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"> Translate this page</i></button>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">
+  <button id="opentranslator" class="button-10" role="button" style="z-index: 10000;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"> Translate this page</i></button>
   Slide Manipulation Tools</h1>
   </main>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""/></div>
