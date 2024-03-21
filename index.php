@@ -491,14 +491,14 @@ fclose($fd);
 			</div>
 			<div id="tabs-1">
 				<div id="classroom" style="border: solid 1px;"></div>
-				<textarea id="question" aria-label="Your question here" title="Please use this field to rite your question." placeholder="Your question here" rows="2" cols="50"></textarea>
+				<textarea id="question" aria-label="Your question here" title="Please use this field to send your question." placeholder="Your question here" rows="2" cols="50"></textarea>
 				<br>
 				<input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question" >
 				<input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();" > </div>
 			<div id="tabs-2">
 				<input type="button" id="buttondownloadspeech" value="Download the speech" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" >
 				<br>
-				<div id="notebook" style="border: solid 1px;" contenteditable="false"> </div>
+				<div id="notebook" style="border: solid 1px;" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."> </div>
 				<!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(_('notebook').innerHTML);"> -->
 			</div>
 			<div id="tabs-5">
@@ -513,7 +513,7 @@ fclose($fd);
     <input type="text" id="tobesaid" value="">
     </span>
 					<br>
-					<label for="progressBar">Progress : </label><progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+					<progress title="Progress bar" id="progressBar" value="0" max="100" style="width:300px;"></progress>
 				</div>
 				<div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
 			</div>
