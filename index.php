@@ -627,7 +627,7 @@ for($i=0; $i<$nbcircles; $i++) {
 	-->
 			</div>
 			<div id="tabs-8">
-				<iframe id="wooclap" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="<?php echo $wooclapaddress; ?>" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="wooclap" title="Wooclap tab" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="<?php echo $wooclapaddress; ?>" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-9">
 				<iframe id="extratab1" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
