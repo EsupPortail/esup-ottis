@@ -499,8 +499,7 @@ fclose($fd);
 			<div id="tabs-2">
 				<input type="button" id="buttondownloadspeech" value="Download the speech" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" >
 				<br>
-				<label for="notebook">Complete speech</label><br>
-				<div id="notebook" style="border: solid 1px;" contenteditable="true"> </div>
+				<div id="notebook" style="border: solid 1px;" contenteditable="false"> </div>
 				<!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(_('notebook').innerHTML);"> -->
 			</div>
 			<div id="tabs-5">
