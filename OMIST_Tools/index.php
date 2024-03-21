@@ -431,9 +431,7 @@ function showList(ch) {
 </script>
 </head>
 <body onload="Init();" lang="en">
-<!--
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
--->
 <script>
 var gt;
 function googleTranslateElementInit() {
@@ -517,7 +515,9 @@ body {
 </style>
 <div id="google_translate_element"></div>
   <main>
-	<h1 class="hidesmallscreens" style="filter: invert(0.5);"><span id="opentranslator" style="z-index: 10000;" onclick="this.style.display='none'; var glink=new document.createElement('a'); a.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.appendChild(glink);">Translate</span> Slide Manipulation Tools</h1>
+	<h1 class="hidesmallscreens" style="filter: invert(0.5);">
+  <!--<span id="opentranslator" style="z-index: 10000;" onclick="this.style.display='none'; var glink=new document.createElement('a'); a.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.appendChild(glink);">Translate</span> -->
+  Slide Manipulation Tools</h1>
   </main>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""/></div>
   <datalist id="listaspectratio">
