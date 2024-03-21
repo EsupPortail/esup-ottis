@@ -431,6 +431,7 @@ function showList(ch) {
 </script>
 </head>
 <body onload="Init();" lang="en">
+<!--
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script type="text/javascript">
@@ -515,8 +516,11 @@ body {
 
 </style>
 <div id="google_translate_element"></div>
+-->
+  <main>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">Slide Manipulation Tools</h1>
-  <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80"/></div>
+  </main>
+  <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""/></div>
   <datalist id="listaspectratio">
     <option value="16/10"/>
     <option value="16/9"/>
