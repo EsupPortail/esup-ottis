@@ -491,13 +491,14 @@ fclose($fd);
 			</div>
 			<div id="tabs-1">
 				<div id="classroom" style="border: solid 1px;"></div>
-				<label for="question" style="transform: scaleX(0);">Question ?</label>
+				<label for="question" style="transform: scaleX(0);">Question ?</label><br>
 				<textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea>
 				<br>
 				<input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question" >
 				<input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();" > </div>
 			<div id="tabs-2">
-				<input type="button" value="Download the speech" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" >
+				<label for="buttondownloadspeech" style="transform: scaleX(0);">Download the speech</label>
+				<input type="button" id="buttondownloadspeech" value="Download the speech" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" >
 				<br>
 				<div id="notebook" style="border: solid 1px;" contenteditable="true"> </div>
 				<!-- <input type="button" id="savenb" value="Save notebook" onclick="saveTextNB(_('notebook').innerHTML);"> -->
