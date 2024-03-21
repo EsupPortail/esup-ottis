@@ -38,7 +38,8 @@
 }
 
 html {
-  background-color: #f0f0f0;
+  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
+  background-size: 200% 300%;
 }
 
 body {
@@ -194,13 +195,6 @@ img {
   height: 200px;
   overflow: auto;
   font-style: normal;
-}
-
-
-
-html {
-  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
-  background-size: 200% 300%;
 }
 
 .needbrowser {
