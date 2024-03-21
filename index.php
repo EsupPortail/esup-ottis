@@ -630,7 +630,7 @@ for($i=0; $i<$nbcircles; $i++) {
 				<iframe id="wooclap" aria-label="Wooclap tab" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="<?php echo $wooclapaddress; ?>" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-9">
-				<iframe id="extratab1" title="Extra tab 1" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
+				<iframe id="extratab1" title="Extra tab 1" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html"  style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 			</div>
 			<div id="tabs-10">
 				<iframe id="extratab2" title="Extra tab 2" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" width="100" height="100" style="position: absolute; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
