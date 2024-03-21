@@ -263,9 +263,9 @@ var root = window.location.href.replace("/scenarios.php","");
 
 </script>
 
-
+<!--
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+-->
 <script>
 var gt;
 function googleTranslateElementInit() {
@@ -345,6 +345,29 @@ body {
 .goog-te-gadget-simple {
   border-radius: 8px;
 }
+/* CSS */
+.button-10 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+
+  color: #fff;
+  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+   background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-10:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
 
 </style>
 
@@ -353,6 +376,7 @@ body {
   <main>
     <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
   </main>
+  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" style="z-index: 10000;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
   <div id="google_translate_element"></div>
   <ul class="cards">
     <li class="cards__item">
