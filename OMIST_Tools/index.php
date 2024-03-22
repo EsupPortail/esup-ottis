@@ -543,9 +543,7 @@ body {
   top: 0px;
   left: 0px;
 }
-#menu {
-  width: 100%;
-}
+
 </style>
 <div id="google_translate_element"></div>
   <main>
