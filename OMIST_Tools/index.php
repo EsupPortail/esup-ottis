@@ -550,7 +550,7 @@ body {
 	<h1 class="hidesmallscreens" style="filter: invert(0.5); margin-left: 150px;">
   Slide Manipulation Tools</h1>
   </main>
-  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
+  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""></div>
   <datalist id="listaspectratio">
     <option value="16/10">
@@ -589,7 +589,7 @@ body {
   <div>
   <form id="Form1" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value="">
     <input type="hidden" id="Extension1" name="Extension" value="html">
@@ -606,12 +606,12 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload2">Select PDF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
     <input type="hidden" id="Random2" name="randompath" value="">
     <input type="hidden" id="Extension2" name="Extension" value="html">
     <label for="fileToUpload2">Select SPEECH file (.txt): </label>
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt"  class="inputsmallscreens"><br>
     <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message2"></p>
     </form>
@@ -622,7 +622,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" name="ProgramName" value="CreateApp/CreateAppFromPPTX_complete.php">
 
     <label for="inputlanguage1">Input language : </label>
@@ -670,8 +670,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   
-    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf" max-size="50000" class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
+    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
     <input type="hidden" id="Random4" name="randompath" value="">
     <input type="hidden" id="Extension4" name="Extension" value="html">
@@ -768,7 +768,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName5" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
     <input type="hidden" id="Random5" name="randompath" value="">
     <input type="hidden" id="Extension5" name="Extension" value="zip">
@@ -862,8 +862,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3 title="Imagine that you have a PPTX file without comments and your notes in a separate text file. This simple tool allows to combine both files. The result is a complete PPTX file.">Convert pptx+txt to pptx</h3>
   <div>
   <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
+    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="hidden" id="Random8" name="randompath" value="">
     <input type="hidden" id="Extension8" name="Extension" value="zip">
@@ -876,8 +876,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3>Convert pdf+txt to pptx</h3>
   <div>
   <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
+    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
     <input type="hidden" id="Random7" name="randompath" value="">
     <input type="hidden" id="Extension7" name="Extension" value="zip">
@@ -891,7 +891,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload9">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName9" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
     <input type="hidden" id="Random9" name="randompath" value="">
     <input type="hidden" id="Extension9" name="Extension" value="txt">
@@ -905,7 +905,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName10" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
     <input type="hidden" id="Random10" name="randompath" value="">
     <input type="hidden" id="Extension10" name="Extension" value="zip">
