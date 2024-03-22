@@ -684,7 +684,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 
     <p><b>Advanced options</b></p>
     <label for="aspectratio2">Aspect ratio : </label>
-    <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"><br>
+    <input class="jqueryselect inputsmallscreens" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"><br>
     <label for="keepaspectratio2">Keep Aspect ratio ? </label>
     <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext2">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
@@ -814,7 +814,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form6" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   <label for="fileToUpload6">Select SRT file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
     <input type="hidden" id="Random6" name="randompath" value="">
     <input type="hidden" id="Extension6" name="Extension" value="zip">
@@ -925,7 +925,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form11" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload11">Select ZIP file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip"><br>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
     <input type="hidden" id="Random11" name="randompath" value="">
     <input type="hidden" id="Extension11" name="Extension" value="zip">
@@ -946,7 +946,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form12" style="height : 94%" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
-      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="500000" >   
+      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html">   
       </li>
       <li class="dropdown">
         <a title="Add a pause in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
@@ -1138,7 +1138,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div class="internalserveronly">
   <form id="Form13" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     Select SRT file : 
-    <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt"><br>
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value="">
     <input type="hidden" id="Extension13" name="Extension" value="mp3">
