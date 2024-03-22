@@ -632,11 +632,11 @@ It's important to note that the resulting animation can serve as comprehensive i
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
-    <select id="translatelanguage1" name="translatelanguage" value="" class="inputsmallscreens">
+    <select id="translatelanguage1" name="translatelanguage" class="inputsmallscreens">
       <option value="">No translation</option>
     </select><br>
     <label for="aspectratio1">Aspect ratio : </label>
-    <input class="jqueryselect" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"><br>
+    <input class="jqueryselect inputsmallscreens" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"><br>
     <label for="keepaspectratio1">Keep Aspect ratio ? </label>
     <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext1">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
