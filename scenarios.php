@@ -61,6 +61,11 @@
   outline: 0;
 }
 
+#opentranslator {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
 
 body {
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
@@ -394,7 +399,7 @@ body {
 
 </head>
 <body onload="document.cookie=''; " lang="fr">
-<button id="opentranslator" aria-hidden="true" tabindex="-1" aria-label="Translate this page" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
+<button id="opentranslator" aria-hidden="true" aria-label="Translate this page" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
  <main>
     <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
 </main>
