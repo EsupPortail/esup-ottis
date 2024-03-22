@@ -81,6 +81,8 @@ body {
   -moz-font-feature-settings: "liga" on;
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
   background-size: 200% 300%;
+  position: absolute;
+  top: 0px !important;
 }
 
 img {
@@ -357,11 +359,6 @@ body+.skiptranslate {
 
 #goog-gt-tt, #goog-gt-vt {
   display: none !important;
-}
-
-body {
-  position: absolute;
-  top: 0px !important;
 }
 
 .goog-te-gadget-simple {
