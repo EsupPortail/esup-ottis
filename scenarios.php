@@ -69,11 +69,6 @@
 }
 
 body {
-  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
-  background-size: 200% 300%;
-}
-
-body {
   color: @gray;
   font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif;
   font-style: normal;
@@ -84,6 +79,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
+  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
+  background-size: 200% 300%;
 }
 
 img {
