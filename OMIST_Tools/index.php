@@ -989,6 +989,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       </li>
       <li class="dropdown">
         <a title="Help with the animation editor." class="dropbtn" onclick="toolInformation()" ><i class="fa fa-info"></i> Help</a>
+      </li>
     </ul>
     <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode" style="float: right;"><i class="fa fa-expand" style="float: right;"></i></div>
 
