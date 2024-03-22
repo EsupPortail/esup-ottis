@@ -387,7 +387,7 @@ body+.skiptranslate {
             <br> &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation. 
             <br> &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent. 
             <br> &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. 
-            <br> &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.
+            <br> &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.<br>
             &nbsp;<br> Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement. <br> &nbsp;&nbsp;2. Allumer le micro (icone rouge) qui se mettra à clignoter. <br> &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.
           </p>
         </div>
@@ -402,7 +402,7 @@ body+.skiptranslate {
           </div>
           <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
           <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation. <br> &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent. <br> &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. <br>
-            <br> Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement. <br> &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. <br>
+          &nbsp;<br> Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement. <br> &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. <br>
           </p>
         </div>
         <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNY');">Y aller</button>
