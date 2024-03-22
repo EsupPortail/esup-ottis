@@ -68,10 +68,6 @@
   left: 0px;
 }
 
-html {
-  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
-  background-size: 200% 300%;
-}
 
 body {
   color: @gray;
@@ -85,7 +81,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
-  background-size: 200% 300%;
+  background-size:3000px 3000px;
   position: absolute;
   top: 0px !important;
 }
