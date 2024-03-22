@@ -537,9 +537,16 @@ body {
   box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   outline: 0;
 }
+
+#opentranslator {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
 </style>
 <div id="google_translate_element"></div>
-  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" style="z-index: 10000;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
+  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
   <main>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">
   Slide Manipulation Tools</h1>
