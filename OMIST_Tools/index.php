@@ -825,7 +825,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <select id="outputlanguage4"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
     <label for="wraplength">Maximum subtitle length : </label>
     <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10" class="inputsmallscreens"><br>
-    <label for="nopunct">My subtitles do not have any punctuation : </td>
+    <label for="nopunct">My subtitles do not have any punctuation : </label>
     <input type="checkbox" id="nopunct" name="nopunct" value="Yes" ><br>
     <!--
     <table>
