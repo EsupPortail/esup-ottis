@@ -402,7 +402,7 @@ body+.skiptranslate {
           </div>
           <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais.</p>
           <p class="card__text details">Pour utiliser ce scénario avec une présentation au format .PPTX ou animation .html, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "Complete Lesson" pour y charger la présentation. <br> &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent. <br> &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. <br>
-          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement. <br> &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. <br>
+          Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement. <br> &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.
           </p>
         </div>
         <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNY');">Y aller</button>
@@ -415,7 +415,7 @@ body+.skiptranslate {
             <span class="needbrowser"></span>Sous-titrage anglais avec présentation .PPTX sur uncloud
           </div>
           <p class="card__text">Scenario d'un cours donné en Français sous-titré en Anglais. Les slides sont fournis via un lien public sur <a href="https://uncloud.univ-nantes.fr">uncloud</a>. </p>
-          <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX). <br> &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent. <br> &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. <br>
+          <p class="card__text details">Pour utiliser ce scénario, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Copier ci-dessous le lien public UNCLOUD de la présentation (au format .PPTX). <br> &nbsp;&nbsp;2. Aller à l'onglet "Slides" pour diffuser les transparents et cliquer sur le transparent. <br> &nbsp;&nbsp;3. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;4. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents. 
           </p>
         </div>
         <p>
@@ -455,7 +455,7 @@ body+.skiptranslate {
         <div class="card__content">
           <div class="card__title">Préparation de séance</div>
           <p class="card__text">Création d'un lien permettant de préparer à l'avance une séance.</p>
-          <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion. <br> Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées. <br>
+          <p class="card__text details">Ici, il est possible de personnaliser le lien de connexion. <br> Tous ces champs peuvent rester vides, dans ce cas, ce sont les valeurs par défaut qui seront utilisées. 
             <br>
             <input type="text" title="Définissez ici l'identifiant de connexion au cours. Il peut s'agir de n'importe quel mot, sans espace." class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value="">
             <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value="">
