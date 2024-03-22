@@ -1000,7 +1000,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </div> -->
     <table id="tableEdit" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
     <tr>
-      <th scope="col">Slide thumbnails</th>
+      <th height="19" scope="col">Slide thumbnails</th>
       <th scope="col">Slide</th>
     </tr>
       <tr>
