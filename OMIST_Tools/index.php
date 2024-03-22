@@ -1088,7 +1088,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="licence-select" style="display: none;"></div>
     <div id="dialog-ratio" class="dialog-window">
       <label for="aspectratioEditAnim">Aspect ratio : </label>
-      <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';" class="inputsmallscreens"><br>
+      <input class="jqueryselect inputsmallscreens" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';"><br>
       <label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>
       <input type="checkbox" id="check-keep-ratio" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtextEditAnim">Yes !</span>
       <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
@@ -1118,13 +1118,13 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool13">
     <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and the AI model are downloaded and exectuted by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily changed.">Audio/video file transcription</h3>
         <div>
-            <iframe width="80%" height="500" style="border: none;" src="MyWhisper/index.html"></iframe>
+            <iframe width="80" height="500" style="width:80%; height: 500px; border: none;" src="MyWhisper/index.html"></iframe>
         </div>
 </div>
 <div id="tool14">
     <h3 title="Link to the Ceméa (Centres d’Entraînement aux Méthodes d’Education Active) Scribe transcripton tool. Here, your file is sent and handled by the CEMEA servers. The transcription is based on the VOSK open model.">Audio/video file transcription with Scribe-CEMEA free tool</h3>
         <div>
-            <iframe width="80%" height="500" style="border: none;" src="https://scribe.cemea.org/"></iframe>
+            <iframe width="80" height="500" style="width:80%; height: 500px; border: none;" src="https://scribe.cemea.org/"></iframe>
         </div>
 </div>
 <!--
