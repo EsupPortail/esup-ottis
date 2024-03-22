@@ -405,12 +405,12 @@ Show the original version banner</label>
 
 	<div id="tabs-2">
     <!--<input type="button" value="Restart" onclick="inputnumber=-1;">-->
-    <input style="margin-left: 64px;" type="button" value="Download the speech" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
+    <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the original speech in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
 	<div id="tabs-3">
-  <input style="margin-left: 64px;" type="button" value="Download the translated speech" class="button-3 tooltip" title="Download the output in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
+  <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the translated speech in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
     <div id="output">
     </div>
   </div>
