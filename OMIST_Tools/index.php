@@ -1038,6 +1038,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
       </ul>
     </p>
+    </div>
     <div id="menuHelp"> <h4>More help : </h4>
       <div id=helpPause>
         <h4>Pause</h4>
