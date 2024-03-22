@@ -1451,7 +1451,6 @@ function addAllLanguages(keyword){
                         // AbortTimeout(xhr,"Translate");
                         if (lang.toLowerCase() != tab_lang[key].toLowerCase()){
                             var xhr = new XMLHttpRequest();
-                            xhr.open("POST", "EditAnim/TranslateEditAnim.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
                             
                             xhr.onreadystatechange = function() { // Call a function when the state changes.
                                 console.log("State : "+this.readyState);
@@ -1470,6 +1469,8 @@ function addAllLanguages(keyword){
                                 }
                             };
                             console.log(" : Sending for translation " + message + " from " + lang + " to " + tab_lang[key])
+                            xhr.open("POST", "EditAnim/TranslateEditAnim.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
+
                             xhr.send();
                             // AbortTimeout(xhr,"Translate");
 
