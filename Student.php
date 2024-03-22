@@ -332,7 +332,7 @@ if ($synchronize) {
 <div>
 <span style="display:none;">    <input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter the session pincode'));">
 </span>
-<span><label>Subtitles font size ? </label><select onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
+<span><label for="subtitlesfontsize">Subtitles font size : </label><select id="subtitlesfontsize" onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
 <option value="12px">Small</option>
 <option value="18px" selected>Normal</option>
 <option value="24px" >Big</option>
@@ -340,7 +340,7 @@ if ($synchronize) {
 <option value="48px" >Enormous</option>
   </select>
 </span><br>
-  <span><label>Subtitles opacity : </label><select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
+  <span><label for="selectopacity">Subtitles opacity : </label><select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
 <option value="0">0% opaque</option>
 <option value="0.25" >25% opaque</option>
 <option value="0.5" selected>50% opaque</option>
@@ -398,7 +398,7 @@ Show the original version banner</label>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here">-->
     <label for="question" style="display:none">Your question here</label>
-    <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br>
+    <textarea id="question" aria-label="Your question here" title="Your question here" placeholder="Your question here" rows="2" cols="50"></textarea><br>
      <input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question">
     <input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
   	</div>
@@ -418,7 +418,7 @@ Show the original version banner</label>
 
   <div id="tabs-7" style="text-align: center;">
     <div id="stillwaiting">
-			<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
+			<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" alt="" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
 <?php
 $nbcircles=15;
 $minsize=1.3;
