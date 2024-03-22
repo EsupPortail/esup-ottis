@@ -68,6 +68,11 @@
   left: 0px;
 }
 
+html {
+  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
+  background-size: 200% 300%;
+}
+
 body {
   color: @gray;
   font-family: 'Roboto','Helvetica Neue', Helvetica, Arial, sans-serif;
