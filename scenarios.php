@@ -414,7 +414,7 @@ body+.skiptranslate {
           </p>
         </div>
         <p>
-          <input type="text" id="SC31" placeholder="lien public uncloud." class="card__input">
+          <input type="text" id="SC31" aria-label="Lien public uncloud" title="Lien public uncloud" placeholder="lien public uncloud." class="card__input">
         </p>
         <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
       </div>
@@ -430,7 +430,7 @@ body+.skiptranslate {
           </p>
         </div>
         <p>
-          <input type="text" id="SC41" placeholder="lien public uncloud." class="card__input">
+          <input type="text" id="SC41" aria-label="Lien public uncloud" title="Lien public uncloud" placeholder="lien public uncloud." class="card__input">
         </p>
         <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
       </div>
