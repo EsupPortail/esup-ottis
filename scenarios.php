@@ -456,7 +456,7 @@ body+.skiptranslate {
             <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value="">
             <input type="text" id="persolink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input">
             <input type="text" id="persohtmllink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation html que vous souhaitez utiiser" placeholder="lien public uncloud (HTML)." class="card__input">
-            <input type="text" id="persoconfig" placeholder="code de configuration (à récupérer sur l'application)" class="card__input">
+            <input type="text" id="persoconfig" aria-label="Code de configuration" title="Code de configuration" placeholder="code de configuration (à récupérer sur l'application)" class="card__input">
             <select id="persotab" class="card__input" title="Choix de la fenêtre qui sera ouverte par défaut.">
               <option value="0" selected disabled>Quel onglet ouvert par défaut ?</option>
               <option value="0">Onglet "Settings"</option>
