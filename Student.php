@@ -418,7 +418,7 @@ Show the original version banner</label>
 
   <div id="tabs-7" style="text-align: center;">
     <div id="stillwaiting">
-			<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" alt="" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
+			<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" alt="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
 <?php
 $nbcircles=15;
 $minsize=1.3;
