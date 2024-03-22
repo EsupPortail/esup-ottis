@@ -48,7 +48,8 @@
   border: none;
 
   color: #fff;
-  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+/*  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);*/
+  background-color: #4B91F7;
   background-origin: border-box;
   box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
   user-select: none;
@@ -70,7 +71,6 @@
 body {
   background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
   background-size: 200% 300%;
-  background-position: -100% -100%;
 }
 
 body {
