@@ -546,11 +546,11 @@ body {
 
 </style>
 <div id="google_translate_element"></div>
-  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
   <main>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5);">
   Slide Manipulation Tools</h1>
   </main>
+  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""/></div>
   <datalist id="listaspectratio">
     <option value="16/10"/>
