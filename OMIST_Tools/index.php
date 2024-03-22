@@ -65,13 +65,13 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php if ($theme != "") {
-    echo '<link href="../jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet"/>';
-    echo '<link href="../jquery/'.$theme.'/extras.css" rel="stylesheet"/>';
+    echo '<link href="../jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">';
+    echo '<link href="../jquery/'.$theme.'/extras.css" rel="stylesheet">';
   } else {
-    echo '<link href="../jquery/jquery-ui.min.css" rel="stylesheet"/>';
+    echo '<link href="../jquery/jquery-ui.min.css" rel="stylesheet">';
   }
 	?>
-    <link rel="icon" type="image/png" href="../favicon.png" />
+    <link rel="icon" type="image/png" href="../favicon.png" >
     <?php if ($theme != "") {
     echo '<script src="../jquery/'.$theme.'/external/jquery/jquery.js"></script>';
     echo '<script src="../jquery/'.$theme.'/jquery-ui.js"></script>';
@@ -82,8 +82,8 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   ?>
     <script src="../js/teacher-func.js"></script>
     <link href="../styles/edit-anim.css" rel="stylesheet">
-    <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css"/>
-<style type="text/css">
+    <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
+<style>
 
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 
@@ -114,7 +114,7 @@ label {
 }
 
 label input[type="file"] {
-//  display: none;
+/*  display: none; */
 }
 
 
@@ -211,7 +211,7 @@ h1 {
 
 
 </style>
-<script type="text/javascript">
+<script>
 
 <?php
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
@@ -429,8 +429,6 @@ function showList(ch) {
 }
 
 </script>
-</head>
-<body onload="Init();" lang="en">
 <!--
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 -->
@@ -545,34 +543,36 @@ body {
 }
 
 </style>
+</head>
+<body onload="Init();" lang="en">
 <div id="google_translate_element"></div>
   <main>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5); margin-left: 150px;">
   Slide Manipulation Tools</h1>
   </main>
   <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" role="button" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
-  <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""/></div>
+  <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""></div>
   <datalist id="listaspectratio">
-    <option value="16/10"/>
-    <option value="16/9"/>
-    <option value="4/3"/>
-    <option value="1/1"/>
+    <option value="16/10">
+    <option value="16/9">
+    <option value="4/3">
+    <option value="1/1">
   </datalist>
   <datalist id="listdelays">
-    <option value="0"/>
-    <option value="5"/>
-    <option value="10"/>
-    <option value="300"/>
-    <option value="600"/>
-    <option value="1200"/>
+    <option value="0">
+    <option value="5">
+    <option value="10">
+    <option value="300">
+    <option value="600">
+    <option value="1200">
   </datalist>
   <datalist id="listlength">
-    <option value="80"/>
-    <option value="100"/>
-    <option value="120"/>
-    <option value="150"/>
-    <option value="175"/>
-    <option value="200"/>
+    <option value="80">
+    <option value="100">
+    <option value="120">
+    <option value="150">
+    <option value="175">
+    <option value="200">
   </datalist>
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="tabs">
@@ -587,13 +587,13 @@ body {
 <div id="tool1">
   <h3 title="Minimal version of the HTML animation creation tool (from PPTX). With this tool, you can create a self-contained HTML animation. Taking a PPTX file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file to synchronize the synthesized speech with the images. Note that the generated animation can be used as input (a complete lesson) for the OMIST live translation tool.">Create web animation from pptx (minimal App without translations)</h3>
   <div>
-  <form id="Form1" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
+  <form id="Form1" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
-    <input type="hidden" id="Random1" name="randompath" value=""/>
-    <input type="hidden" id="Extension1" name="Extension" value="html"/>
-    <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
+    <input type="hidden" id="Random1" name="randompath" value="">
+    <input type="hidden" id="Extension1" name="Extension" value="html">
+    <!--<input id="App1" type="submit" value="Create" name="submit">-->
     <button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message1"></p>
     </form>
@@ -606,12 +606,12 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload2">Select PDF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
-    <input type="hidden" id="Random2" name="randompath" value=""/>
-    <input type="hidden" id="Extension2" name="Extension" value="html"/>
+    <input type="hidden" id="Random2" name="randompath" value="">
+    <input type="hidden" id="Extension2" name="Extension" value="html">
     <label for="fileToUpload2">Select SPEECH file (.txt): </label>
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
     <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message2"></p>
     </form>
@@ -622,26 +622,26 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000" class="inputsmallscreens"/><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" name="ProgramName" value="CreateApp/CreateAppFromPPTX_complete.php">
 
     <label for="inputlanguage1">Input language : </label>
-    <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage1"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <select multiple id="outputlanguage1"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
     <select id="translatelanguage1" name="translatelanguage" value="" class="inputsmallscreens">
       <option value="">No translation</option>
-    </select><br/>
+    </select><br>
     <label for="aspectratio1">Aspect ratio : </label>
-    <input class="jqueryselect" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"/><br/>
+    <input class="jqueryselect" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"><br>
     <label for="keepaspectratio1">Keep Aspect ratio ? </label>
-    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext1">Yes !</span>
-    <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext1">Yes !</span>
+    <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay1">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
-    <input id="extradelay1" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"/><br/>
+    <input id="extradelay1" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"><br>
   <p><b>Licence options</b></p>
   <label for="licence">Would you like to add a licence ? </label>
   <select id="licence" name="Licence"  class="inputsmallscreens">
@@ -653,13 +653,13 @@ It's important to note that the resulting animation can serve as comprehensive i
   <option value="CCBYND">CC BY-NC 4.0</option>
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
-  </select><br/>
-  <br/>
+  </select><br>
+  <br>
   
   
-    <input type="hidden" id="Random3" name="randompath" value=""/>
-    <input type="hidden" id="Extension3"  name="Extension" value="html"/>
-    <!--<input id="App1" type="submit" value="Create" name="submit"/>-->
+    <input type="hidden" id="Random3" name="randompath" value="">
+    <input type="hidden" id="Extension3"  name="Extension" value="html">
+    <!--<input id="App1" type="submit" value="Create" name="submit">-->
     <button id="App3" value="Create" onclick="if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file and choose a delay first !');}" class="mybutton">Create</button>
     <p id="Message3"></p>
     </form>
@@ -670,26 +670,26 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   
-    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf" max-size="50000" class="inputsmallscreens"><br/>
-    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt" max-size="50000" class="inputsmallscreens"><br/>
+    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf" max-size="50000" class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
-    <input type="hidden" id="Random4" name="randompath" value=""/>
-    <input type="hidden" id="Extension4" name="Extension" value="html"/>
+    <input type="hidden" id="Random4" name="randompath" value="">
+    <input type="hidden" id="Extension4" name="Extension" value="html">
 
 
     <label for="inputlanguage2">Input language : </label>
-    <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage2" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage2"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <select multiple id="outputlanguage2"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="aspectratio2">Aspect ratio : </label>
-    <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"/><br/>
+    <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10" class="inputsmallscreens"><br>
     <label for="keepaspectratio2">Keep Aspect ratio ? </label>
-    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext2">Yes !</span>
-    <input class="jqueryselect" id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext2">Yes !</span>
+    <input class="jqueryselect" id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay2">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
-    <input id="extradelay2" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"/><br/>
+    <input id="extradelay2" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"><br>
   <p><b>Licence options</b></p>
   <label for="licence2">Would you like to add a licence ? </label>
   <select id="licence2" name="Licence"  class="inputsmallscreens">
@@ -701,8 +701,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <option value="CCBYND">CC BY-NC 4.0</option>
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
-  </select><br/>
-  <br/>
+  </select><br>
+  <br>
 
   <!--
 <table>
@@ -722,21 +722,21 @@ It's important to note that the resulting animation can serve as comprehensive i
   <td style="vertical-align: top;">
     Aspect ratio : </td>
   <td>
-  <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"/>
+  <input class="jqueryselect" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10">
  </td></tr>
  <tr>
     <td style="vertical-align: top;">
     Keep Aspect ratio ? </td>
   <td>
   
-    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext2">Yes !</span>
-    <input id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext2">Yes !</span>
+    <input id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';">
   </td></tr>
   <tr>
     <td style="vertical-align: top;">
     Extra delay between slides (in tenth of seconds): </td>
   <td>
-    <input class="jqueryselect" id="extradelay2" name="extradelay" list="listdelays" value="0"/>
+    <input class="jqueryselect" id="extradelay2" name="extradelay" list="listdelays" value="0">
 
   </td></tr>
   <tr><td colspan="2"><b>Licence options</b></td></tr>
@@ -768,20 +768,20 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName5" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
-    <input type="hidden" id="Random5" name="randompath" value=""/>
-    <input type="hidden" id="Extension5" name="Extension" value="zip"/>
+    <input type="hidden" id="Random5" name="randompath" value="">
+    <input type="hidden" id="Extension5" name="Extension" value="zip">
     
     <label for="inputlanguage3">Input language : </label>
-    <select id="inputlanguage3" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <select id="inputlanguage3" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage3" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage3"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <select multiple id="outputlanguage3"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <label for="slidenotes3">Translate slide notes too ? </label>
-    <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext3">No.</span>
-    <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
-  <br/>
+    <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
+    <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
+  <br>
 <!--    <table>
   <tr>
   <td style="vertical-align: top;">
@@ -798,8 +798,8 @@ It's important to note that the resulting animation can serve as comprehensive i
     <td style="vertical-align: top;">
     Translate slide notes too ? </td>
   <td>
-  <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtext3">No.</span>
-  <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/>
+  <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
+  <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';">
   </td></tr>
  </table>
     -->
@@ -814,19 +814,19 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form6" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
   <label for="fileToUpload6">Select SRT file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000" class="inputsmallscreens"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
-    <input type="hidden" id="Random6" name="randompath" value=""/>
-    <input type="hidden" id="Extension6" name="Extension" value="zip"/>
+    <input type="hidden" id="Random6" name="randompath" value="">
+    <input type="hidden" id="Extension6" name="Extension" value="zip">
 
     <label for="inputlanguage4">Input language : </label>
-    <select id="inputlanguage4" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <select id="inputlanguage4" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage4" style="vertical-align: top;">Output language : </label>
-    <select id="outputlanguage4"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
+    <select id="outputlanguage4"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
     <label for="wraplength">Maximum subtitle length : </label>
-    <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10" class="inputsmallscreens"/><br/>
+    <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10" class="inputsmallscreens"><br>
     <label for="nopunct">My subtitles do not have any punctuation : </td>
-    <input type="checkbox" id="nopunct" name="nopunct" value="Yes" /><br/>
+    <input type="checkbox" id="nopunct" name="nopunct" value="Yes" ><br>
     <!--
     <table>
   <tr>
@@ -844,12 +844,12 @@ It's important to note that the resulting animation can serve as comprehensive i
   <td style="vertical-align: top;">
     Maximum subtitle length : </td>
   <td>
-  <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10"/>
+  <input type="number" name="wraplength" id="wraplength" min="50" max="200" value="80" step="10">
   </td></tr>
   <tr>
   <td style="vertical-align: top;">
   My subtitles do not have any punctuation : </td>
-  <td><input type="checkbox" name="nopunct" value="Yes" />
+  <td><input type="checkbox" name="nopunct" value="Yes" >
   </td></tr>
  </table>
     -->
@@ -862,11 +862,11 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3 title="Imagine that you have a PPTX file without comments and your notes in a separate text file. This simple tool allows to combine both files. The result is a complete PPTX file.">Convert pptx+txt to pptx</h3>
   <div>
   <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
-    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt" max-size="50000" class="inputsmallscreens"><br/>
+    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
-    <input type="hidden" id="Random8" name="randompath" value=""/>
-    <input type="hidden" id="Extension8" name="Extension" value="zip"/>
+    <input type="hidden" id="Random8" name="randompath" value="">
+    <input type="hidden" id="Extension8" name="Extension" value="zip">
     <button id="App8" value="Create" onclick="if (_('fileToUpload8').value!='') {this.innerHTML=''; SubmitJob(8,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message8"></p>
     </form>
@@ -876,11 +876,11 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3>Convert pdf+txt to pptx</h3>
   <div>
   <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"/><br/>
-    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"/><br/>
+    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf" max-size="50000" class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
-    <input type="hidden" id="Random7" name="randompath" value=""/>
-    <input type="hidden" id="Extension7" name="Extension" value="zip"/>
+    <input type="hidden" id="Random7" name="randompath" value="">
+    <input type="hidden" id="Extension7" name="Extension" value="zip">
     <button id="App7" value="Create" onclick="if (_('fileToUpload7').value!='') {this.innerHTML=''; SubmitJob(7,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message7"></p>
     </form>
@@ -891,10 +891,10 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload9">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx" max-size="50000" class="inputsmallscreens"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName9" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
-    <input type="hidden" id="Random9" name="randompath" value=""/>
-    <input type="hidden" id="Extension9" name="Extension" value="txt"/>
+    <input type="hidden" id="Random9" name="randompath" value="">
+    <input type="hidden" id="Extension9" name="Extension" value="txt">
     <button id="App9" value="Create" onclick="if (_('fileToUpload9').value!='') {this.innerHTML=''; SubmitJob(9,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message9"></p>
     </form>
@@ -905,16 +905,16 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000" class="inputsmallscreens"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf" max-size="50000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName10" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
-    <input type="hidden" id="Random10" name="randompath" value=""/>
-    <input type="hidden" id="Extension10" name="Extension" value="zip"/>
+    <input type="hidden" id="Random10" name="randompath" value="">
+    <input type="hidden" id="Extension10" name="Extension" value="zip">
 
     <label for="inputlanguage5">Input language : </label>
-    <select id="inputlanguage5" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <select id="inputlanguage5" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage5" style="vertical-align: top;">Output language : </label>
-    <select id="outputlanguage5"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
-    <br/>
+    <select id="outputlanguage5"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <br>
     <button id="App10" value="Create" onclick="if (_('fileToUpload10').value!='') {this.innerHTML=''; SubmitJob(10,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message10"></p>
     </form>
@@ -925,16 +925,16 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <label for="fileToUpload11">Select ZIP file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
-    <input type="hidden" id="Random11" name="randompath" value=""/>
-    <input type="hidden" id="Extension11" name="Extension" value="zip"/>
+    <input type="hidden" id="Random11" name="randompath" value="">
+    <input type="hidden" id="Extension11" name="Extension" value="zip">
     
     <label for="inputlanguage6">Input language : </label>
-    <select id="inputlanguage6" name="inputlanguage" class="inputsmallscreens"></select><br/>
+    <select id="inputlanguage6" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage6" style="vertical-align: top;">Output language : </label>
-    <select id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br/>
-    <br/>
+    <select id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <br>
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
     </form>
@@ -946,7 +946,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form12" style="height : 94%" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
-      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="500000" />   
+      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="500000" >   
       </li>
       <li class="dropdown">
         <a title="Add a pause in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
@@ -992,11 +992,11 @@ It's important to note that the resulting animation can serve as comprehensive i
     </ul>
     <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode" style="float: right;"><i class="fa fa-expand" style="float: right;"></i></div>
 
-    <br/>
-    <br/>
+    <br>
+    <br>
     <!-- <div style="display: none;">
     <label for="fullscreenon">Fullscreen ? </label>
-    <input type="checkbox" id="fullscreenon" />
+    <input type="checkbox" id="fullscreenon" >
     </div> -->
     <table id="tableEdit" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
     <tr>
@@ -1086,14 +1086,14 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="licence-select" style="display: none;"></div>
     <div id="dialog-ratio" class="dialog-window">
       <label for="aspectratioEditAnim">Aspect ratio : </label>
-      <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';" class="inputsmallscreens"/><br/>
+      <input class="jqueryselect" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';" class="inputsmallscreens"><br>
       <label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>
-      <input type="checkbox" id="check-keep-ratio" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;"/>&nbsp;<span id="cbtextEditAnim">Yes !</span>
-      <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"/><br/>
+      <input type="checkbox" id="check-keep-ratio" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtextEditAnim">Yes !</span>
+      <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     </div>
     <div id="dialog-delay" class="dialog-window">
       <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelayEditAnim">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
-      <input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0';"  class="inputsmallscreens"/><br/>
+      <input id="extradelayEditAnim" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0';"  class="inputsmallscreens"><br>
     </div>
     <div id="dialog-licence" class="dialog-window">
       <label for="licence">Would you like to add a licence ? </label>
@@ -1138,14 +1138,14 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div class="internalserveronly">
   <form id="Form13" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
     Select SRT file : 
-    <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br/>
+    <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br>
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
-    <input type="hidden" id="Random13" name="randompath" value=""/>
-    <input type="hidden" id="Extension13" name="Extension" value="mp3"/>
+    <input type="hidden" id="Random13" name="randompath" value="">
+    <input type="hidden" id="Extension13" name="Extension" value="mp3">
     <label for="inputlanguage13" >Select your voice</label>
     <select id="inputlanguage13" name="inputlanguage">
-    </select><br/>
-    <input type="text" id="speed13" name="wraplength" value="-1" title="Real number. -1 means that the speed is adapted to the video."/><br/>
+    </select><br>
+    <input type="text" id="speed13" name="wraplength" value="-1" title="Real number. -1 means that the speed is adapted to the video."><br>
     <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>    
     <p id="Message13"></p>
     </form>
