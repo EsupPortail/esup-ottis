@@ -1450,28 +1450,28 @@ function addAllLanguages(keyword){
                         // xhr.send();
                         // AbortTimeout(xhr,"Translate");
                         if (lang.toLowerCase() != tab_lang[key].toLowerCase()){
-                            var xhr = new XMLHttpRequest();
+                            // var xhr = new XMLHttpRequest();
                             
-                            xhr.onreadystatechange = function() { // Call a function when the state changes.
-                                console.log("State : "+this.readyState);
-                                console.log("Status : "+this.status);
-                                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                                    // console.log(this.responseText);
-                                    var response = JSON.parse(this.responseText);
-                                    console.log("REPONSE : "+response);
-                                    // if ((!response["error"]) && response["data"]["translations"]) {
-                                    //     Parle(response["data"]["translations"][0]["translatedText"]);
-                                    //     Ecrire("" + response["data"]["translations"][0]["translatedText"]);
-                                    // } else {
-                                    //     Ecrire("---- Translation ERROR ----")
-                                    // }
+                            // xhr.onreadystatechange = function() { // Call a function when the state changes.
+                            //     console.log("State : "+this.readyState);
+                            //     console.log("Status : "+this.status);
+                            //     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                            //         // console.log(this.responseText);
+                            //         var response = JSON.parse(this.responseText);
+                            //         console.log("REPONSE : "+response);
+                            //         // if ((!response["error"]) && response["data"]["translations"]) {
+                            //         //     Parle(response["data"]["translations"][0]["translatedText"]);
+                            //         //     Ecrire("" + response["data"]["translations"][0]["translatedText"]);
+                            //         // } else {
+                            //         //     Ecrire("---- Translation ERROR ----")
+                            //         // }
 
-                                }
-                            };
-                            console.log(" : Sending for translation " + message + " from " + lang + " to " + tab_lang[key])
-                            xhr.open("POST", "EditAnim/TranslateEditAnim.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
+                            //     }
+                            // };
+                            // console.log(" : Sending for translation " + message + " from " + lang + " to " + tab_lang[key])
+                            // xhr.open("POST", "EditAnim/TranslateEditAnim.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
 
-                            xhr.send();
+                            // xhr.send();
                             // AbortTimeout(xhr,"Translate");
 
                             console.log("Langue origine : "+lang);
