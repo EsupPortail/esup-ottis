@@ -604,7 +604,7 @@ body {
 
 It's important to note that the resulting animation can serve as comprehensive input (a complete lesson) for the OMIST live translation tool. Elevate your content creation with this innovative tool, bridging the gap between dynamic presentations and effective live translation on the OMIST platform.">Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
-  <form id="Form2" action="" onsubmit="return false;" method="post" enctype="multipart/form-data">
+  <form id="Form2" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload2">Select PDF file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
@@ -620,7 +620,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool3">
   <h3 title="Complete version of the HTML animation creation tool (from PPTX). With this tool, you will be able to create a self-contained HTML animation. Taking a PPTx file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to translate the slides before converting them to images or adding a licence for instance.">Create web animation from pptx (Complete)</h3>
   <div>
-  <form id="Form3" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form3" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" name="ProgramName" value="CreateApp/CreateAppFromPPTX_complete.php">
@@ -628,7 +628,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage1">Input language : </label>
     <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage1"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage1"  name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
@@ -668,7 +668,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool4">
   <h3 title="Minimal version of the HTML animation creation tool (from PDF and TXT). With this tool, you will be able to create a self-contained HTML animation. Taking a PDF file as input for the images and a text file as input for the presenter notes, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to add a licence for instance."">Create web animation from pdf+txt (Complete)</h3>
   <div>
-  <form id="Form4" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form4" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   
     <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt"  class="inputsmallscreens"><br>
@@ -680,7 +680,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage2">Input language : </label>
     <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage2" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage2"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage2"  name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="aspectratio2">Aspect ratio : </label>
@@ -715,7 +715,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage2"  name="outputlanguage[]" multiple rows="5"></select>
+  <td><select id="outputlanguage2"  name="outputlanguage[]" multiple size="5"></select>
   </td></tr>
   <tr><td colspan="2"><b>Advanced options</b></td></tr>
      <tr>
@@ -766,7 +766,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool5">
     <h3 title="This tool allows to translate the text elements included in a pptx file. The result is a PPTx file. Notice that several translations can be performed in parallel.">Translate pptx</h3>
   <div>
-  <form id="Form5" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form5" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName5" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
@@ -776,7 +776,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage3">Input language : </label>
     <select id="inputlanguage3" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage3" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage3"  name="outputlanguage[]" rows="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage3"  name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <label for="slidenotes3">Translate slide notes too ? </label>
     <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
@@ -792,7 +792,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <tr>
   <td style="vertical-align: top;">
   Output languages : </td>
-  <td><select id="outputlanguage3"  name="outputlanguage[]" multiple rows="5"></select>
+  <td><select id="outputlanguage3"  name="outputlanguage[]" multiple size="5"></select>
   </td></tr>
   <tr>
     <td style="vertical-align: top;">
@@ -812,7 +812,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool6">
   <h3 title="This tool allows to translate subtitle files. It can handle both SRT and VTT files.">Translate subtitles SRT file</h3>
   <div>
-  <form id="Form6" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form6" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   <label for="fileToUpload6">Select SRT file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" max-size="5000" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
@@ -838,7 +838,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <tr>
   <td style="vertical-align: top;">
   Output language : </td>
-  <td><select id="outputlanguage4"  name="outputlanguage[]" rows="5"></select>
+  <td><select id="outputlanguage4"  name="outputlanguage[]" size="5"></select>
   </td></tr>
   <tr>
   <td style="vertical-align: top;">
@@ -861,7 +861,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool8">
   <h3 title="Imagine that you have a PPTX file without comments and your notes in a separate text file. This simple tool allows to combine both files. The result is a complete PPTX file.">Convert pptx+txt to pptx</h3>
   <div>
-  <form id="Form8" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form8" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
@@ -875,7 +875,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool7">
   <h3>Convert pdf+txt to pptx</h3>
   <div>
-  <form id="Form7" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form7" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
@@ -889,7 +889,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool9">
   <h3 title="This simple tool allows to extract the comments of a PPTX file. The result is a text file.">Extract speech from pptx</h3>
   <div>
-  <form id="Form9" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form9" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload9">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName9" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
@@ -903,7 +903,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool10">
   <h3 title="This tool allows to translate XLIFF files. XLIFF (XML Localisation Interchange File Format) files are used by softwares, such as Rise Articulate, dedicated to the creation of e-learning contents. Consequently, our tool permits to translate a complete and scenarized e-leaning course.">Translate XLIFF</h3>
   <div>
-  <form id="Form10" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form10" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName10" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
@@ -923,7 +923,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool11">
   <h3 title="This tool allows to translate SCORM files. SCORM (Sharable Content Object Reference Model) files are used by softwares, such as Rise Articulate, dedicated to the creation of e-learning contents. SCORM files can be directly integrated to Moodle. Consequently, our tool permits to translate a complete and scenarized e-leaning course.">Translate SCORM</h3>
   <div>
-  <form id="Form11" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form11" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload11">Select ZIP file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip" max-size="50000000"><br>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
@@ -943,7 +943,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool12">
   <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div id="block12" style="height : 94%" translate="no">
-  <form id="Form12" style="height : 94%" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form12" style="height : 94%" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html" max-size="500000" >   
@@ -1136,7 +1136,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool16">
   <h3 class="internalserveronly" title="This tool allows to obtain a MP3 file that corresponds to synchronized speech synthesis of a given SRT file. The produced file can be re-combined with the original video to obtain a soundtrack translation of the video.">Subtitle reader</h3>
   <div class="internalserveronly">
-  <form id="Form13" onsubmit="return false;" action="" method="post" enctype="multipart/form-data">
+  <form id="Form13" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     Select SRT file : 
     <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt" max-size="50000000"><br>
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
