@@ -941,7 +941,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 <div id="tool12">
   <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div id="block12" style="height : 94%" translate="no">
-  <form id="Form12" style="height : 94%" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
+    <form id="Form12" style="height : 94%" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
       <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html">   
@@ -1110,15 +1110,15 @@ It's important to note that the resulting animation can serve as comprehensive i
       </select>
     </div>
 
-  </form>
+    </form>
   </div>
 </div>
 
 <div id="tool13">
     <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and the AI model are downloaded and exectuted by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily changed.">Audio/video file transcription</h3>
-        <div>
-            <iframe title="Cadre pour myWhisper" style="width:80%; height: 500px; border: none;" src="MyWhisper/index.html"></iframe>
-        </div>
+    <div>
+        <iframe title="Cadre pour myWhisper" style="width:80%; height: 500px; border: none;" src="MyWhisper/index.html"></iframe>
+    </div>
 </div>
 <div id="tool14">
     <h3 title="Link to the Ceméa (Centres d’Entraînement aux Méthodes d’Education Active) Scribe transcripton tool. Here, your file is sent and handled by the CEMEA servers. The transcription is based on the VOSK open model.">Audio/video file transcription with Scribe-CEMEA free tool</h3>
