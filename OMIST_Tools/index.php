@@ -776,7 +776,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form5" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx"  aria-label="Select PPTX file" title="Select a PPTX file"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName5" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
     <input type="hidden" id="Random5" name="randompath" value="">
     <input type="hidden" id="Extension5" name="Extension" value="zip">
@@ -822,7 +822,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form6" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   <label for="fileToUpload6">Select SRT file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload6" accept=".srt,.vtt" class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload6"  aria-label="Select SRT file" title="Select a SRT file" accept=".srt,.vtt" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
     <input type="hidden" id="Random6" name="randompath" value="">
     <input type="hidden" id="Extension6" name="Extension" value="zip">
@@ -870,7 +870,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3 title="Imagine that you have a PPTX file without comments and your notes in a separate text file. This simple tool allows to combine both files. The result is a complete PPTX file.">Convert pptx+txt to pptx</h3>
   <div>
   <form id="Form8" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8" accept=".pptx"  class="inputsmallscreens"><br>
+    <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8"  aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="hidden" id="Random8" name="randompath" value="">
@@ -884,8 +884,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3>Convert pdf+txt to pptx</h3>
   <div>
   <form id="Form7" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7" accept=".pdf"  class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" accept=".txt"  class="inputsmallscreens"><br>
+    <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7"  aria-label="Select PDF file" title="Select a PDF file" accept=".pdf"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" aria-label="Select SPEECH file (.txt)" title="Select SPEECH file (.txt)" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
     <input type="hidden" id="Random7" name="randompath" value="">
     <input type="hidden" id="Extension7" name="Extension" value="zip">
@@ -899,7 +899,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form9" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload9">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx"  aria-label="Select PPTX file" title="Select a PPTX file" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName9" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
     <input type="hidden" id="Random9" name="randompath" value="">
     <input type="hidden" id="Extension9" name="Extension" value="txt">
@@ -913,7 +913,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form10" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload10">Select XLF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload10" accept=".xlf"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload10" aria-label="Select XLF file" title="Select a XLF file" accept=".xlf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName10" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
     <input type="hidden" id="Random10" name="randompath" value="">
     <input type="hidden" id="Extension10" name="Extension" value="zip">
@@ -932,7 +932,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form11" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload11">Select ZIP file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload11" accept=".zip"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload11" aria-label="Select ZIP file" title="Select a ZIP file" accept=".zip"><br>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
     <input type="hidden" id="Random11" name="randompath" value="">
     <input type="hidden" id="Extension11" name="Extension" value="zip">
@@ -1040,7 +1040,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </ul>
     <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode" style="float: right;"><i class="fa fa-expand" style="float: right;"></i></div>
 
-    <br><!-- A modifier pour validation RGAA : pas deux "br" à la suite -->
+    <!-- <br> A modifier pour validation RGAA : pas deux "br" à la suite -->
     <br>
     <!-- <div style="display: none;">
     <label for="fullscreenon">Fullscreen ? </label>
