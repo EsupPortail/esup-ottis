@@ -1138,8 +1138,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <h3 class="internalserveronly" title="This tool allows to obtain a MP3 file that corresponds to synchronized speech synthesis of a given SRT file. The produced file can be re-combined with the original video to obtain a soundtrack translation of the video.">Subtitle reader</h3>
   <div class="internalserveronly">
   <form id="Form13" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
-    Select SRT file : 
-    <input type="file" name="fileToUpload" id="fileToUpload13" accept=".srt"><br>
+    <label for="fileToUpload13">Select SRT file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload13" aria-label="Select SRT file" title="Select a SRT file" accept=".srt"><br>
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value="">
     <input type="hidden" id="Extension13" name="Extension" value="mp3">
