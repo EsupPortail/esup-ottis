@@ -688,7 +688,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext2">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay2">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
-    <input id="extradelay2" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"><br>
+    <input id="extradelay2" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens">
   <p><b>Licence options</b></p>
   <label for="licence2">Would you like to add a licence ? </label>
   <select id="licence2" name="Licence"  class="inputsmallscreens">
@@ -913,7 +913,6 @@ It's important to note that the resulting animation can serve as comprehensive i
     <select id="inputlanguage5" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage5" style="vertical-align: top;">Output language : </label>
     <select id="outputlanguage5"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
-    <br>
     <button id="App10" value="Create" onclick="if (_('fileToUpload10').value!='') {this.innerHTML=''; SubmitJob(10,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message10"></p>
     </form>
@@ -933,7 +932,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <select id="inputlanguage6" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage6" style="vertical-align: top;">Output language : </label>
     <select id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
-    <br>
+    
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
     </form>
