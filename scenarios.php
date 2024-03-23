@@ -369,7 +369,7 @@ body+.skiptranslate {
 
 </head>
 <body onload="document.cookie=''; " lang="fr">
-<button id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);">Translate this page</button>
+<input type="button" id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);" value="Translate this page">
  <main>
     <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
 </main>
