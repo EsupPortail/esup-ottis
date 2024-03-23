@@ -679,7 +679,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <form id="Form4" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   
     <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" aria-label="Select PDF file" title="Select a PDF file"  accept=".pdf"  class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" aria-label="Select SPEECH file" title="Select SPEECH file"  accept=".txt"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" aria-label="Select SPEECH file (.txt):" title="Select SPEECH file (.txt):"  accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
     <input type="hidden" id="Random4" name="randompath" value="">
     <input type="hidden" id="Extension4" name="Extension" value="html">
