@@ -550,7 +550,7 @@ body {
 	<h1 class="hidesmallscreens" style="filter: invert(0.5); margin-left: 150px;">
   Slide Manipulation Tools</h1>
   </main>
-  <button id="opentranslator" aria-hidden="true" tabindex="-1" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);"><i class="fa fa-language" aria-hidden="true"></i> Translate this page</button>
+  <input type="button" id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);" value="Translate this page">
   <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""></div>
   <datalist id="listaspectratio">
     <option value="16/10">
@@ -654,7 +654,6 @@ It's important to note that the resulting animation can serve as comprehensive i
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
   </select><br>
-  <br>
   
   
     <input type="hidden" id="Random3" name="randompath" value="">
@@ -702,7 +701,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
   </select><br>
-  <br>
+  
 
   <!--
 <table>
@@ -781,7 +780,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="slidenotes3">Translate slide notes too ? </label>
     <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
     <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
-  <br>
+  
 <!--    <table>
   <tr>
   <td style="vertical-align: top;">
