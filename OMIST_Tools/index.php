@@ -549,7 +549,7 @@ body {
 </head>
 <body onload="Init();" lang="en">
 <div id="google_translate_element"></div>
-<input type="button" id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" style="z-index: 10000; padding-top: 10px; padding-bottom: 20px; padding-left: 10px;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);" value="Translate this page">
+<input type="button" id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" style="z-index: 10000; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; padding-right: 10px;" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);" value="Translate this page">
   <main>
 	<h1 class="hidesmallscreens" style="filter: invert(0.5); margin-left: 150px;">
   Slide Manipulation Tools</h1>
