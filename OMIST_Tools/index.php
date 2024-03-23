@@ -589,7 +589,7 @@ body {
   <div>
   <form id="Form1" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload1">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload1" accept=".pptx"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload1" aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value="">
     <input type="hidden" id="Extension1" name="Extension" value="html">
@@ -606,12 +606,12 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form2" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <label for="fileToUpload2">Select PDF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload2" accept=".pdf"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload2"  aria-label="Select PDF file" title="Select a PDF file" accept=".pdf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
     <input type="hidden" id="Random2" name="randompath" value="">
     <input type="hidden" id="Extension2" name="Extension" value="html">
-    <label for="fileToUpload2">Select SPEECH file (.txt): </label>
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2" accept=".txt"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT2">Select SPEECH file (.txt): </label>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"  aria-label="Select TXT file" title="Select a TXT file" accept=".txt"  class="inputsmallscreens"><br>
     <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message2"></p>
     </form>
@@ -622,7 +622,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form3" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload3" accept=".pptx"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload3" aria-label="Select PPTX file" title="Select a PPTX file"  accept=".pptx"  class="inputsmallscreens"><br>
     <input type="hidden" name="ProgramName" value="CreateApp/CreateAppFromPPTX_complete.php">
 
     <label for="inputlanguage1">Input language : </label>
@@ -669,8 +669,8 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form4" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   
-    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" accept=".pdf"  class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" accept=".txt"  class="inputsmallscreens"><br>
+    <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" aria-label="Select PDF file" title="Select a PDF file"  accept=".pdf"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" aria-label="Select TXT file" title="Select a TXT file"  accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
     <input type="hidden" id="Random4" name="randompath" value="">
     <input type="hidden" id="Extension4" name="Extension" value="html">
