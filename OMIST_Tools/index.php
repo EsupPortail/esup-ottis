@@ -637,7 +637,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage1">Input language : </label>
     <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage1"  name="outputlanguage[]" aria-hidden="true" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage1"  name="outputlanguage[]" aria-hidden="true" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
@@ -688,7 +688,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage2">Input language : </label>
     <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage2" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage2"  aria-hidden="true" name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage2"  aria-hidden="true" name="outputlanguage[]" aria-hidden="true" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="aspectratio2">Aspect ratio : </label>
@@ -784,7 +784,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage3">Input language : </label>
     <select id="inputlanguage3" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage3" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage3"  name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage3"  name="outputlanguage[]" aria-hidden="true" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <label for="slidenotes3">Translate slide notes too ? </label>
     <input type="checkbox" aria-label="Translate slide notes too ?" title="Translate slide notes too ?" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
@@ -871,7 +871,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   <div>
   <form id="Form8" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8"  aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens"><br>
-    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" accept=".txt"  class="inputsmallscreens"><br>
+    <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" aria-label="Select SPEECH file (.txt)" title="Select SPEECH file (.txt)" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="hidden" id="Random8" name="randompath" value="">
     <input type="hidden" id="Extension8" name="Extension" value="zip">
