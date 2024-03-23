@@ -694,7 +694,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="aspectratio2">Aspect ratio : </label>
     <input class="jqueryselect inputsmallscreens" id="aspectratio2" name="aspectratio" list="listaspectratio" value="16/10"><br>
     <label for="keepaspectratio2">Keep Aspect ratio ? </label>
-    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext2">Yes !</span>
+    <input type="checkbox" aria-label="Keep Aspect ratio ?" title="Keep Aspect ratio ?" checked onclick="if (this.checked) {document.getElementById('keepaspectratio2').value ='X'; document.getElementById('cbtext2').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio2').value =''; document.getElementById('cbtext2').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext2">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio2" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay2">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
     <input id="extradelay2" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens">
@@ -787,7 +787,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <select multiple id="outputlanguage3"  name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <label for="slidenotes3">Translate slide notes too ? </label>
-    <input type="checkbox" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
+    <input type="checkbox" aria-label="Translate slide notes too ?" title="Translate slide notes too ?" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
     <input id="slidenotes3" name="slidenotes"  style="width: 10px; display: none;" value="" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
   
 <!--    <table>
@@ -1137,7 +1137,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <label for="aspectratioEditAnim">Aspect ratio : </label>
       <input class="jqueryselect inputsmallscreens" id="aspectratioEditAnim" name="aspectratio" list="listaspectratio" value="16/10" onchange="if (this.value.trim()=='') this.value='16/10';"><br>
       <label for="keepaspectratioEditAnim">Keep Aspect ratio ? </label>
-      <input type="checkbox" id="check-keep-ratio" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtextEditAnim">Yes !</span>
+      <input type="checkbox" aria-label="Keep Aspect ratio ?" title="Keep Aspect ratio ?"  id="check-keep-ratio" checked onclick="if (this.checked) {document.getElementById('keepaspectratioEditAnim').value ='X'; document.getElementById('cbtextEditAnim').innerHTML ='Yes !';} else {document.getElementById('keepaspectratioEditAnim').value =''; document.getElementById('cbtextEditAnim').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtextEditAnim">Yes !</span>
       <input class="jqueryselect" id="keepaspectratioEditAnim" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     </div>
     <div id="dialog-delay" class="dialog-window">
