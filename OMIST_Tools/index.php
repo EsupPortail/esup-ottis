@@ -637,7 +637,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage1">Input language : </label>
     <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage1"  name="outputlanguage[]" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage1"  name="outputlanguage[]" aria-hidden="true" size="5" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
