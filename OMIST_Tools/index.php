@@ -209,7 +209,7 @@ h1 {
     font-size: 18px;
 }
 
-ul {
+#menu ul {
   list-style: none;
 }
 
