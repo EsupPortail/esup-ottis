@@ -209,6 +209,9 @@ h1 {
     font-size: 18px;
 }
 
+ul {
+  list-style: none;
+}
 
 </style>
 <script>
@@ -588,13 +591,15 @@ body {
   <h3 title="Minimal version of the HTML animation creation tool (from PPTX). With this tool, you can create a self-contained HTML animation. Taking a PPTX file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file to synchronize the synthesized speech with the images. Note that the generated animation can be used as input (a complete lesson) for the OMIST live translation tool.">Create web animation from pptx (minimal App without translations)</h3>
   <div>
   <form id="Form1" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload1">Select PPTX file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload1" aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens"><br>
+    <ul>
+      <li><label for="fileToUpload1">Select PPTX file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload1" aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens">
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value="">
-    <input type="hidden" id="Extension1" name="Extension" value="html">
+    <input type="hidden" id="Extension1" name="Extension" value="html"></li>
     <!--<input id="App1" type="submit" value="Create" name="submit">-->
-    <button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <li><button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button></li>
+    </ul>
     <p id="Message1"></p>
     </form>
   </div>
@@ -605,14 +610,18 @@ body {
 It's important to note that the resulting animation can serve as comprehensive input (a complete lesson) for the OMIST live translation tool. Elevate your content creation with this innovative tool, bridging the gap between dynamic presentations and effective live translation on the OMIST platform.">Create web animation from pdf+txt (minimal App without translations)</h3>
   <div>
   <form id="Form2" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
+    <ul>
+    <li>
     <label for="fileToUpload2">Select PDF file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload2"  aria-label="Select PDF file" title="Select a PDF file" accept=".pdf"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUpload" id="fileToUpload2"  aria-label="Select PDF file" title="Select a PDF file" accept=".pdf"  class="inputsmallscreens">
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
     <input type="hidden" id="Random2" name="randompath" value="">
-    <input type="hidden" id="Extension2" name="Extension" value="html">
-    <label for="fileToUploadTXT2">Select SPEECH file (.txt): </label>
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"  aria-label="Select SPEECH file" title="Select SPEECH file" accept=".txt"  class="inputsmallscreens"><br>
-    <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
+    <input type="hidden" id="Extension2" name="Extension" value="html"></li>
+    <li>
+      <label for="fileToUploadTXT2">Select SPEECH file (.txt): </label>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"  aria-label="Select SPEECH file (.txt)" title="Select SPEECH file" accept=".txt"  class="inputsmallscreens"></li>
+    <li><button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button></ul>
+</ul>
     <p id="Message2"></p>
     </form>
   </div>
@@ -1031,7 +1040,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     </ul>
     <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode" style="float: right;"><i class="fa fa-expand" style="float: right;"></i></div>
 
-    <br>
+    <br><!-- A modifier pour validation RGAA : pas deux "br" à la suite -->
     <br>
     <!-- <div style="display: none;">
     <label for="fullscreenon">Fullscreen ? </label>
