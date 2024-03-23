@@ -611,7 +611,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="hidden" id="Random2" name="randompath" value="">
     <input type="hidden" id="Extension2" name="Extension" value="html">
     <label for="fileToUploadTXT2">Select SPEECH file (.txt): </label>
-    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"  aria-label="Select TXT file" title="Select a TXT file" accept=".txt"  class="inputsmallscreens"><br>
+    <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"  aria-label="Select SPEECH file" title="Select SPEECH file" accept=".txt"  class="inputsmallscreens"><br>
     <button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message2"></p>
     </form>
