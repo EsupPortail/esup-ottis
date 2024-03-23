@@ -987,12 +987,12 @@ It's important to note that the resulting animation can serve as comprehensive i
 </div>
 
 <div id="tool12">
-  <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
+  <h3 id="tabledesc" title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div id="block12" style="height : 94%" translate="no">
     <form id="Form12" style="height : 94%" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
-      <input type="file" name="fileToUpload" id="fileToUpload12" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html">   
+      <input type="file" name="fileToUpload" id="fileToUpload12" aria-label="Select HTML file" title="Select HTML file" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html">   
       </li>
       <li class="dropdown">
         <a title="Add a pause in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
@@ -1046,7 +1046,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="fullscreenon">Fullscreen ? </label>
     <input type="checkbox" id="fullscreenon" >
     </div> -->
-    <table id="tableEdit" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
+    <table id="tableEdit" aria-describedby="tabledesc" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
     <tr>
       <th height="19" scope="col">Slide thumbnails</th>
       <th scope="col">Slide</th>
