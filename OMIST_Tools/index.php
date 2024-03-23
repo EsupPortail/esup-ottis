@@ -637,7 +637,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage1">Input language : </label>
     <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage1"  name="outputlanguage[]" aria-hidden="true" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage1"  name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
@@ -688,7 +688,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage2">Input language : </label>
     <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage2" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage2"  aria-hidden="true" name="outputlanguage[]" aria-hidden="true" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage2" name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="aspectratio2">Aspect ratio : </label>
@@ -784,7 +784,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="inputlanguage3">Input language : </label>
     <select id="inputlanguage3" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage3" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage3"  name="outputlanguage[]" aria-hidden="true" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select multiple id="outputlanguage3"  name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <label for="slidenotes3">Translate slide notes too ? </label>
     <input type="checkbox" aria-label="Translate slide notes too ?" title="Translate slide notes too ?" onclick="if (this.checked) {document.getElementById('slidenotes3').value ='X'; document.getElementById('cbtext3').innerHTML ='Yes !';} else {document.getElementById('slidenotes3').value =''; document.getElementById('cbtext3').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext3">No.</span>
