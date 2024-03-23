@@ -944,6 +944,38 @@ It's important to note that the resulting animation can serve as comprehensive i
     <iframe title="Cadre pour myWhisper" style="width:80%; height: 500px; border: none;" src="MyWhisper/index.html"></iframe>
   </div>
 </div>
+<div id="tool14">
+    <h3 title="Link to the Ceméa (Centres d’Entraînement aux Méthodes d’Education Active) Scribe transcripton tool. Here, your file is sent and handled by the CEMEA servers. The transcription is based on the VOSK open model.">Audio/video file transcription with Scribe-CEMEA free tool</h3>
+        <div>
+            <iframe title="Cadre pour Ceméa Transcription" style="width:80%; height: 500px; border: none;" src="https://scribe.cemea.org/"></iframe>
+        </div>
+</div>
+<!--
+<div id="tool15">
+  <h3>External vidéo subtitle editor (Nikse.dk)</h3>
+  <div>
+  <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
+  </div>
+  </div>
+  -->
+<div id="tool16">
+  <h3 class="internalserveronly" title="This tool allows to obtain a MP3 file that corresponds to synchronized speech synthesis of a given SRT file. The produced file can be re-combined with the original video to obtain a soundtrack translation of the video.">Subtitle reader</h3>
+  <div class="internalserveronly">
+  <form id="Form13" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
+    <label for="fileToUpload13">Select SRT file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload13" aria-label="Select SRT file" title="Select a SRT file" accept=".srt"><br>
+    <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
+    <input type="hidden" id="Random13" name="randompath" value="">
+    <input type="hidden" id="Extension13" name="Extension" value="mp3">
+    <label for="inputlanguage13" >Select your voice</label>
+    <select id="inputlanguage13" name="inputlanguage">
+    </select><br>
+    <input type="text" id="speed13" name="wraplength" value="-1" title="Real number. -1 means that the speed is adapted to the video."><br>
+    <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>    
+    <p id="Message13"></p>
+    </form>
+  </div>
+</div>
 
 <div id="tool12">
   <h3 title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
@@ -1121,38 +1153,6 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 
-<div id="tool14">
-    <h3 title="Link to the Ceméa (Centres d’Entraînement aux Méthodes d’Education Active) Scribe transcripton tool. Here, your file is sent and handled by the CEMEA servers. The transcription is based on the VOSK open model.">Audio/video file transcription with Scribe-CEMEA free tool</h3>
-        <div>
-            <iframe title="Cadre pour Ceméa Transcription" style="width:80%; height: 500px; border: none;" src="https://scribe.cemea.org/"></iframe>
-        </div>
-</div>
-<!--
-<div id="tool15">
-  <h3>External vidéo subtitle editor (Nikse.dk)</h3>
-  <div>
-  <iframe width="100%" height="800px" style="border: none;" src="https://www.nikse.dk/subtitleedit/online"></iframe>
-  </div>
-  </div>
-  -->
-<div id="tool16">
-  <h3 class="internalserveronly" title="This tool allows to obtain a MP3 file that corresponds to synchronized speech synthesis of a given SRT file. The produced file can be re-combined with the original video to obtain a soundtrack translation of the video.">Subtitle reader</h3>
-  <div class="internalserveronly">
-  <form id="Form13" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
-    <label for="fileToUpload13">Select SRT file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload13" aria-label="Select SRT file" title="Select a SRT file" accept=".srt"><br>
-    <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
-    <input type="hidden" id="Random13" name="randompath" value="">
-    <input type="hidden" id="Extension13" name="Extension" value="mp3">
-    <label for="inputlanguage13" >Select your voice</label>
-    <select id="inputlanguage13" name="inputlanguage">
-    </select><br>
-    <input type="text" id="speed13" name="wraplength" value="-1" title="Real number. -1 means that the speed is adapted to the video."><br>
-    <button id="App13" value="Create" onclick="if (_('fileToUpload13').value!='') {this.innerHTML=''; SubmitJob(13,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>    
-    <p id="Message13"></p>
-    </form>
-  </div>
-</div>
 </div>
 </body>
 <script>
