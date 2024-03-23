@@ -647,7 +647,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="aspectratio1">Aspect ratio : </label>
     <input class="jqueryselect inputsmallscreens" id="aspectratio1" name="aspectratio" list="listaspectratio" value="16/10"><br>
     <label for="keepaspectratio1">Keep Aspect ratio ? </label>
-    <input type="checkbox" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext1">Yes !</span>
+    <input type="checkbox" aria-label="Keep Aspect ratio ?" title="Keep Aspect ratio ?" checked onclick="if (this.checked) {document.getElementById('keepaspectratio1').value ='X'; document.getElementById('cbtext1').innerHTML ='Yes !';} else {document.getElementById('keepaspectratio1').value =''; document.getElementById('cbtext1').innerHTML ='No.'; }" style="font-size:2em;">&nbsp;<span id="cbtext1">Yes !</span>
     <input class="jqueryselect" id="keepaspectratio1" name="keepaspectratio"  style="width: 10px; display: none;" value="X" onclick="if (this.value == 'X') this.value =''; else this.value ='X';"><br>
     <label title="Extra delay between two slides in tenth of seconds (hence, a value of 10 means 1 second)." for="extradelay1">Extra delay <span class="hidesmallscreens"> between slides (in tenth of seconds): </span></label>
     <input id="extradelay1" name="extradelay" list="listdelays" value="0" onchange="if (this.value.trim()=='') this.value='0'"  class="inputsmallscreens"><br>
