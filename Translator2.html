@@ -434,11 +434,13 @@ function Traitement(T) {
 </head>
 <body onload="loadVoicesWhenAvailable(); /*StartWebcam(Traitement); */">
 <!--<h1>Conversation</h1>-->
+<main>
 <div id="buttons">
 <button id="bready">Ready to listen ?</button>
 <!-- <button onclick="StopSpeechRecognition();">Stop</button> -->
 </div>
 <table id="tb">
+  <caption>One to one conversation</caption>
 <tr>
 <th><label for="VoiceInput">Input</label></th>
 <td>
@@ -469,5 +471,6 @@ swap_vert
 </div>
 <div id="output">
 </div>
+</main>
 </body>
 </html>
