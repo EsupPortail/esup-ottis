@@ -488,6 +488,7 @@ function TraductionSub(ch) {
     // console.log(ch);
     var recognitionon = _('recognitionon').checked;
     if (recognitionon) {
+        console.log("Reconnaissance activée");
         //EcrireNB(ch);
         //EcrireTitle(ch);
         // saveText(ch);
@@ -498,6 +499,7 @@ function TraductionSub(ch) {
                 // Ecrire('Input : ' + ch);
                 // if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
                 if (_('subtitlelanguage').value.substr(0, 2) != _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2)){
+                    console.log("Prêt à traduire");
                     console.log(_('subtitlelanguage').value.substr(0, 2));
                     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
                     TranslateSub(ch, _('subtitlelanguage').value.substr(0, 2), _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
@@ -2091,6 +2093,7 @@ function StartSpeechRecognitionSub(callback) {
     builtin_recognition.lang = builtin_language;
     builtin_recognition.onresult = function(event) {
         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
+            console.log("Start speech recognition");
             console.log(event.results);
             var partial = '';
             for (var i = event.resultIndex; i < event.results.length; i++) {
@@ -2103,6 +2106,7 @@ function StartSpeechRecognitionSub(callback) {
                 }
             }
             if (partial.trim() != '') {
+                console.log("Ecrire la transcription");
                 if (_('recognitionon').checked) EcrirePartialSub(RemoveVerbalTics(partial));
             }
             //builtin_recognition.stop();
@@ -2111,6 +2115,7 @@ function StartSpeechRecognitionSub(callback) {
     builtin_recognition.onend = function(event) {
         console.log("test builtin : "+builtin_recognitionon);
         if (builtin_recognitionon) {
+            console.log("Continue la transcription");
             StartSpeechRecognitionSub(callback);
         }
     };
@@ -2966,6 +2971,7 @@ function MicroSub() {
         }
     }
     if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+        console.log("MicroSub activé");
         StartSpeechRecognitionSub(TraductionSub);
     }
     /* else {
