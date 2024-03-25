@@ -12,13 +12,15 @@ Ses fonctionnalités principales sont :
 
 Des outils compagnons, les OMIST_Tools permettent de travailler à partir de divers types de présentations (Powerpoint et LaTeX/Beamer par exemple).
 
-# Contributeur unique
+# Contributeurs
 
 Jérémie Bourdon
-
 Faculté des Sciences et Techniques
+Nantes Université
 
-Université de Nantes
+Jeanne Dionisi
+Projet OMIST
+Nantes Université
 
 Version 2.0
 
