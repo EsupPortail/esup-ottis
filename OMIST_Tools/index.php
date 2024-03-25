@@ -1071,53 +1071,53 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="DesiredDivID" style="height: auto; width: auto"></div>
     <div id="dialog-message" class="dialog-window" title="Information">
       <p>
-      It's a tool for editing your animations. 
-      For each slide and language, you can edit and add notes. 
-      You can also add actions (pause, move mouse, add a notification, etc.) to slides, and you can change animation options (delay between slides, image ratio, add license). 
-      All you have to do is choose the action or the option you want. 
-    </p>
-    <p>
-      Once you've finished modifying your presentation, you can :
-      <ul>
-        <li> Download the complete animation, giving you a ready-to-use HTML file. </li>
-        <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
-      </ul>
-    </p>
-    </div>
-    <div id="menuHelp"> <h4>More help : </h4>
-      <div id=helpPause>
-        <h4>Pause</h4>
-        <div>
-          <b>Pause animation :</b> pause the animation as if you were pressing a pause button.
-          <br><b>Pause for n milliseconds :</b> incorporate a pause of a certain duration.
+        It's a tool for editing your animations. 
+        For each slide and language, you can edit and add notes. 
+        You can also add actions (pause, move mouse, add a notification, etc.) to slides, and you can change animation options (delay between slides, image ratio, add license). 
+        All you have to do is choose the action or the option you want. 
+      </p>
+      <p>
+        Once you've finished modifying your presentation, you can :
+        <ul>
+          <li> Download the complete animation, giving you a ready-to-use HTML file. </li>
+          <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
+        </ul>
+      </p>
+      
+      <div id="menuHelp"> <h4>More help : </h4>
+        <div id=helpPause>
+          <h4>Pause</h4>
+          <div>
+            <b>Pause animation :</b> pause the animation as if you were pressing a pause button.
+            <br><b>Pause for n milliseconds :</b> incorporate a pause of a certain duration.
+          </div>
+        </div>
+        <div id=helpMouse>
+          <h4>Mouse</h4>
+          <div>
+            <b>Show the mouse :</b> display mouse pointer.
+            <br><b>Hide the mouse :</b> hide mouse pointer.
+            <br><b>Move the mouse :</b> move the mouse pointer to position (X, Y). X and X are expressed as percentages of the image. (0,0) is top left and (100,100) is bottom right of the slide image.
+            <br><b>Change the mouse size :</b> change mouse pointer size (default 1).
+            <br><b>Change the mouse shape :</b> modifie the shape of the mouse pointer with predefined shapes.
+          </div>
+        </div>
+        <div id=helpNotification>
+          <h4>Notification</h4>
+          <div>
+            <b>Open a window with the url :</b> open a notification window (red on the left) with a link to the resource.
+            <br><b>Open a window with the text :</b> open a notification window (orange on the right) displaying the message.
+          </div>
+        </div>
+        <div id=helpOptions>
+          <h4>Options</h4>
+          <div>
+            <b>Aspect Ratio :</b> change slide image format (default 16/10).
+            <br><b>Delay :</b> add a delay between slides in tenth of seconds (hence, a value of 10 means 1 second).
+            <br><b>Licence :</b> add a licence.
+          </div>
         </div>
       </div>
-      <div id=helpMouse>
-        <h4>Mouse</h4>
-        <div>
-          <b>Show the mouse :</b> display mouse pointer.
-          <br><b>Hide the mouse :</b> hide mouse pointer.
-          <br><b>Move the mouse :</b> move the mouse pointer to position (X, Y). X and X are expressed as percentages of the image. (0,0) is top left and (100,100) is bottom right of the slide image.
-          <br><b>Change the mouse size :</b> change mouse pointer size (default 1).
-          <br><b>Change the mouse shape :</b> modifie the shape of the mouse pointer with predefined shapes.
-        </div>
-      </div>
-      <div id=helpNotification>
-        <h4>Notification</h4>
-        <div>
-          <b>Open a window with the url :</b> open a notification window (red on the left) with a link to the resource.
-          <br><b>Open a window with the text :</b> open a notification window (orange on the right) displaying the message.
-        </div>
-      </div>
-      <div id=helpOptions>
-        <h4>Options</h4>
-        <div>
-          <b>Aspect Ratio :</b> change slide image format (default 16/10).
-          <br><b>Delay :</b> add a delay between slides in tenth of seconds (hence, a value of 10 means 1 second).
-          <br><b>Licence :</b> add a licence.
-        </div>
-      </div>
-    </div>
     </div>
     <div id="dialog-warning" class="dialog-window" title="Warning"></div>
     <div id="dialog-all-lang" class="dialog-window" title="Add to all languages ?"></div>
