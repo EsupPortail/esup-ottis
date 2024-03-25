@@ -1453,7 +1453,7 @@ function addAllLanguages(keyword){
                         var xhr = new XMLHttpRequest();
                         xhr.open("POST", "Translate.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
                         xhr.send();
-                        AbortTimeout(xhr,"Translate");
+                        // AbortTimeout(xhr,"Translate");
                         if (lang.toLowerCase() != tab_lang[key].toLowerCase()){
                             var xhr = new XMLHttpRequest();
                             
