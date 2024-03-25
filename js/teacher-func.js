@@ -1477,7 +1477,7 @@ function addAllLanguages(keyword){
                             xhr.open("POST", "EditAnim/TranslateEditAnim.php?texte=" + message + "&lang=" + tab_lang[key] + "&langinput=" + lang, true);
 
                             xhr.send();
-                            AbortTimeout(xhr,"Translate");
+                            //AbortTimeout(xhr,"Translate");
 
                             console.log("Langue origine : "+lang);
                             console.log("Langue de traduction : "+ tab_lang[key]);
