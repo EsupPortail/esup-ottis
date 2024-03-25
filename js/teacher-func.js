@@ -495,6 +495,7 @@ function TraductionSub(ch) {
         // var liveon = _('liveon').checked;
         // if (liveon) {
             if (readytotalk) {
+                console.log("Ready to talk ?");
                 notready();
                 // Ecrire('Input : ' + ch);
                 // if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
