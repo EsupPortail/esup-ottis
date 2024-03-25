@@ -499,6 +499,8 @@ function TraductionSub(ch) {
                 notready();
                 // Ecrire('Input : ' + ch);
                 // if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
+                console.log(_('subtitlelanguage').value.substr(0, 2));
+                console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
                 if (_('subtitlelanguage').value.substr(0, 2) != _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2)){
                     console.log("Prêt à traduire");
                     console.log(_('subtitlelanguage').value.substr(0, 2));
@@ -2220,6 +2222,7 @@ function EcrirePartial(ch) {
  */
 
 function EcrirePartialSub(ch) {
+    console.log("EcrirePartialSub");
     if (ch != 'undefined' && ch != undefined) _('partialtitreSub').innerHTML = ch;
 }
 
