@@ -507,7 +507,6 @@ body+.skiptranslate {
 }
 
 body {
-  position: absolute;
   top: 0px !important;
 }
 
