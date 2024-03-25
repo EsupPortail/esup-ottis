@@ -405,7 +405,7 @@ body+.skiptranslate {
           Pour utiliser ce scénario avec WOOCLAP, il faut suivre les étapes suivantes : <br> &nbsp;&nbsp;1. Aller à l'onglet "WOOCLAP", se connecter sur son compte WOOCLAP et lancer sa présentation comme habituellement. <br> &nbsp;&nbsp;2. Allumer le micro (icone rouge ou touche "Espace" ou une touche d'un pointeur laser) qui se mettra à clignoter. <br> &nbsp;&nbsp;3. Les touches "Flèche gauche" ou "Flèche droite", ainsi que les touches d'un pointeur laser permettent de faire défiler les transparents.
           </p>
         </div>
-        <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNNCNNNYNY');">Y aller</button>
+        <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANKCNYCNNNYNY');">Y aller</button>
       </div>
     </li>
     <li class="cards__item">
@@ -421,7 +421,7 @@ body+.skiptranslate {
         <p>
           <input type="text" id="SC31" aria-label="Lien public uncloud" title="Lien public uncloud" placeholder="lien public uncloud." class="card__input">
         </p>
-        <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
+        <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNYCNNNYYY&tab=4'+'&link='+document.getElementById('SC31').value);">Y aller</button>
       </div>
     </li>
     <li class="cards__item">
@@ -437,7 +437,7 @@ body+.skiptranslate {
         <p>
           <input type="text" id="SC41" aria-label="Lien public uncloud" title="Lien public uncloud" placeholder="lien public uncloud." class="card__input">
         </p>
-        <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNNCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
+        <button class="btn btn--block card__btn" onclick="window.open(root+'/index.php?myconfig=ABYANACNYCNNNYYY&tab=4'+'&htmllink='+document.getElementById('SC41').value);">Y aller</button>
       </div>
     </li>
     <li class="cards__item">
