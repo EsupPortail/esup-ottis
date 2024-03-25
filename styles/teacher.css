@@ -530,6 +530,10 @@ input[type=text] {
 	visibility: visible;
 }
 
+iframe{
+	border: none;
+}
+
 
 
 @media ((min-width:650px) and (max-width:800px)) {
