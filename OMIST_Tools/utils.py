@@ -266,5 +266,8 @@ def AspectRatio(filename):
     str
         le ratio largeur/hauteur.
     """
-    prs = Presentation(filename)
-    return str(prs.slide_width)+"/"+str(prs.slide_height)
+    if filename.split(".")[-1] == "pptx":
+        prs = Presentation(filename)
+        return str(prs.slide_width)+"/"+str(prs.slide_height)
+    else:
+        return "16/9"
