@@ -3151,9 +3151,10 @@ function updateConfig() {
         // _("sublink").href = "subtitles.php?myconfig=" + _("myConfig").value;
         var link = "subtitles.php?myconfig=" + _("myConfig").value;
     }
+    var room_id = _("sharedlink").innerHTML.replace("Student.php?", "&");
     _("LinkConfig").innerHTML = _("LinkConfig").href;
-    _("sublink").innerHTML = link;
-    _("sublink").href = link;
+    _("sublink").innerHTML = link+room_id;
+    _("sublink").href = link+room_id;
 }
 
 /**
