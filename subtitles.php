@@ -250,12 +250,61 @@ if ($synchronize) {
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
-
-
-</div>
-</div>
-
-  </div>
+	<div id="partialtitreSub"></div>
+	<div id="scrollbarSub"></div>
+  <select id="selectopacity" class="jqueryselect" style="display : none">
+    <option value="0">0% opaque</option>
+    <option value="0.25">25% opaque</option>
+    <option value="0.5" selected>50% opaque</option>
+    <option value="0.75">75% opaque</option>
+    <option value="1">100% opaque</option>
+  </select>
+  <select id="ColorTitre" class="jqueryselect" style="display : none">
+    <option value="0,0,255|0,0,255" selected>blue</option>
+    <option value="0,255,0|0,100,0">green</option>
+    <option value="255,0,0|100,0,0">red</option>
+    <option value="255,0,255|100,0,255">purple</option>
+    <option value="255,255,0|100,100,0">yellow</option>
+    <option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+    <option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+    <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+    <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+    <option value="255,255,0|200,200,0|50,50,0">yellow inverted</option>
+    <option value="0,0,0|0,0,0">black</option>
+    <option value="255,255,255|255,255,255|0,0,0">white</option>
+  </select>
+  <select id="ColorPartialTitre" class="jqueryselect" style="display : none">
+    <option value="0,0,255|0,0,255">blue</option>
+    <option value="0,255,0|0,100,0">green</option>
+    <option value="255,0,0|100,0,0">red</option>
+    <option value="255,0,255|100,0,255">purple</option>
+    <option value="255,255,0|100,100,0">yellow</option>
+    <option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
+    <option value="0,255,0|0,255,0|0,50,0">green inverted</option>
+    <option value="255,0,0|255,0,0|20,0,0">red inverted</option>
+    <option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
+    <option value="255,255,0|200,200,0|50,50,0">yellow inverted</option>
+    <option value="0,0,0|0,0,0" selected>black</option>
+    <option value="255,255,255|255,255,255|0,0,0">white</option>
+  </select>
+  <select id="selectfontsize" class="jqueryselect" style="display : none">
+    <option value="12px">Small</option>
+    <option value="18px" selected>Normal</option>
+    <option value="24px">Big</option>
+    <option value="32px">Huge</option>
+    <option value="48px">Enormous</option>
+  </select>
+  <select id="classroomlanguage" class="jqueryselect" style="display : none"> </select>
+  <select id="subtitlelanguage" class="jqueryselect" style="display : none"> </select>
+  <input type="checkbox" id="recognitionon" style="display : none"/>
+  <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
+  <!-- <div id="partialtitre" style="display : none"></div> -->
+  <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" style="display : none"/>
+  <input type="checkbox" id="liveon" style="display : none"/>
+  <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
+  <button id="bready" style="display : none">Ready to listen ?</button>
+  <div id="output"> </div>
+  <div id="scrollbar"></div>
 
 
 
