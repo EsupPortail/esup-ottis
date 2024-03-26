@@ -40,6 +40,7 @@ sys.path.append("./")
 import config
 from utils import translate
 from utils import ExtractNotes
+from utils import AspectRatio
 import Licences
 
 ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -67,7 +68,7 @@ def main():
     lfrom="fr-FR"
     lto="en,de"
     imgdir='.'
-    C_ASPECTRATIO = "16/10"
+    C_ASPECTRATIO = "auto" # "16/9"
     C_KEEPASPECTRATIO = "Y"
     C_FILENAME = "Traduction"
     C_TITRE = "Automatic Translation"
@@ -144,7 +145,7 @@ def readbase64(filename):
         encoded_string = base64.b64encode(image_file.read())
     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/10",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="Templates/AppTemplate.txt",delay=0,complementfile="Templates/Complements.txt",licence=""):
+def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/9",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="Templates/AppTemplate.txt",delay=0,complementfile="Templates/Complements.txt",licence=""):
     """Création d'une animation web sous forme de diaporama.
     
     Parameters
@@ -217,6 +218,9 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     for f in AllFilenames:
         print("    converting ",f)
         AllImages.append(readbase64(imagesdir+"/"+f))
+
+    if ASPECTRATIO == "auto":
+        ASPECTRATIO=AspectRatio(filename)
     LANGUEORIGINE = source
     LANGUETRADUCTION = source
     NBSLIDES = len(AllImages)

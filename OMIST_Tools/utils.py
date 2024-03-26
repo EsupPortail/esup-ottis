@@ -206,7 +206,7 @@ def faketranslate(txt, lfrom, lto):
     return lfrom +" to " + lto + " : "+ txt + ""
 
 
-# Extaction des notes d'un fichier
+# Extraction des notes d'un fichier
 def ExtractNotes(filename):
     """Extraction des notes pour chaque slide.
     
@@ -251,3 +251,20 @@ def ExtractNotes(filename):
             else:
                 notesslide.append(txt)
     return notes
+
+# Extaction des notes d'un fichier
+def AspectRatio(filename):
+    """Extraction du ratio des slides
+    
+    Parameters
+    ----------
+    filename : str
+        Fichier PPTX.
+
+    Returns
+    -------
+    str
+        le ratio largeur/hauteur.
+    """
+    prs = Presentation(filename)
+    return str(prs.slide_width)+"/"+str(prs.slide_height)
