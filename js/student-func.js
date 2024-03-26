@@ -243,24 +243,24 @@ function applyConfigSub() {
     }
     // subtitlepartialbaron
     if ((config.charAt(4) == "Y")) {
-        _('partialtitre').style.visibility = 'visible';
+        _('VOBanner').style.visibility = 'visible';
     } else {
-        _('partialtitre').style.visibility = 'hidden';
+        _('VOBanner').style.visibility = 'hidden';
     }
     // ColorTitre
     _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
     ChangeColor('titre', _('ColorTitre').value);
     // ColorPartialTitre
     _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
-    ChangeColor('partialtitre', _('ColorPartialTitre').value);
+    ChangeColor('VOBanner', _('ColorPartialTitre').value);
     // selectfontsize
     _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
     _('titre').style.fontSize = _('selectfontsize').value;
-    _('partialtitre').style.fontSize = _('selectfontsize').value;
+    _('VOBanner').style.fontSize = _('selectfontsize').value;
     //selectopacity
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
     ChangeOpacity('titre', _('selectopacity').value)
-    ChangeOpacity('partialtitre', _('selectopacity').value)
+    ChangeOpacity('VOBanner', _('selectopacity').value)
 
     console.log(_('VoiceOutput').value.substr(0, 2));
     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
