@@ -264,6 +264,7 @@ function applyConfigSub() {
     ChangeOpacity('titre', _('selectopacity').value)
     ChangeOpacity('VOBanner', _('selectopacity').value)
 
+    document.getElementById('synthesison').checked=true;
     console.log(_('VoiceOutput').value.substr(0, 2));
     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
 

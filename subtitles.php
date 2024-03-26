@@ -304,6 +304,13 @@ if ($synchronize) {
   <!-- <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}"> -->
   <!-- </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br> -->
+<span id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
+<!--<div class="checkbox-example">
+        <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();">
+        <label for="synthesison"></label>
+      </div>-->
+<input type="checkbox" id="synthesison"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
+</span>
   <!-- <button id="bready" style="display : none">Ready to listen ?</button> -->
   <div id="output"> </div>
   <div id="scrollbar"></div>
