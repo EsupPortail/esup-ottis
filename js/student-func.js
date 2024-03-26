@@ -197,14 +197,14 @@ function applyConfigSub() {
     console.log(config);
     if (config.length != "ABYANACNNCNNNYYY".length) return;
     // classroomlanguage
-    _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-    setLanguageInput(_('VoiceOutput').value);
-    console.log(_('VoiceOutput').options[_('VoiceOutput').value].text);
+    // _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    // setLanguageInput(_('VoiceOutput').value);
+    // console.log(_('VoiceOutput').options[_('VoiceOutput').value].text);
 
     // subtitlelanguage
-    _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-    setLanguageOutput(_('subtitlelanguage').value);
-    console.log(_('subtitlelanguage').value);
+    _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(1) - 65);
+    setLanguageOutput(_('VoiceOutput').value);
+    console.log(_('VoiceOutput').value);
 
     // subtitlebaron
     if (config.charAt(2) == "Y") {
@@ -233,8 +233,8 @@ function applyConfigSub() {
     ChangeOpacity('titre', _('selectopacity').value)
     ChangeOpacity('partialtitre', _('selectopacity').value)
 
-    console.log(_('subtitlelanguage').value.substr(0, 2));
-    console.log(_('VoiceOutput').options[_('VoiceOutput').value].text.substr(0, 2));
+    console.log(_('VoiceOutput').value.substr(0, 2));
+    // console.log(_('VoiceOutput').options[_('VoiceOutput').value].text.substr(0, 2));
 
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");
