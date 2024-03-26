@@ -244,8 +244,10 @@ function applyConfigSub() {
     // subtitlepartialbaron
     if ((config.charAt(4) == "Y")) {
         _('VOBanner').style.visibility = 'visible';
+        showBanner('VOBanner');
     } else {
         _('VOBanner').style.visibility = 'hidden';
+        hideBanner('VOBanner');
     }
     // ColorTitre
     _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
