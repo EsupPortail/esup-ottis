@@ -245,7 +245,7 @@ if ($synchronize) {
 <h1 style="display:none;">Sous-titres</h1>
 </main>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
-<div id="micon" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>voice_over_off</i></div>
+<div id="micon" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 	<div id="VOBanner">Transcription</div>
