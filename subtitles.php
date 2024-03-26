@@ -301,7 +301,11 @@ if ($synchronize) {
   <!-- <div id="partialtitre" style="display : none"></div> -->
   <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" style="display : none"/>
   <input type="checkbox" id="liveon" style="display : none"/>
-  <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
+  <!-- <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select> -->
+  <span id="lilanguage"><label for="VoiceOutput">My language :</label>
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
+  </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
+</span><br>
   <button id="bready" style="display : none">Ready to listen ?</button>
   <div id="output"> </div>
   <div id="scrollbar"></div>
