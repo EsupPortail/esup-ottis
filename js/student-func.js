@@ -226,7 +226,7 @@ function applyConfigSub() {
     ChangeColor('partialtitre', _('ColorPartialTitre').value);
     // selectfontsize
     _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
-    _('titreSub').style.fontSize = _('selectfontsize').value;
+    _('titre').style.fontSize = _('selectfontsize').value;
     _('partialtitre').style.fontSize = _('selectfontsize').value;
     //selectopacity
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
