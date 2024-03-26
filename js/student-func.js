@@ -203,7 +203,7 @@ function applyConfigSub() {
 
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-    setLanguageSubtitle(_('subtitlelanguage').value);
+    setLanguageOutput(_('subtitlelanguage').value);
     console.log(_('subtitlelanguage').value);
 
     // subtitlebaron
