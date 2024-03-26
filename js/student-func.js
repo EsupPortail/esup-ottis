@@ -188,6 +188,67 @@ function ParleThen(txt, f) {
 }
 
 /**
+ * @summary Apply a configuration (at startup) for subtitles.php
+ * 
+ */
+
+function applyConfigSub() {
+    var config = currentconfig;
+    console.log(config);
+    if (config.length != "ABYANACNNCNNNYYY".length) return;
+    // classroomlanguage
+    _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    setLanguageInput(_('classroomlanguage').value);
+    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
+
+    // subtitlelanguage
+    _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
+    setLanguageSubtitle(_('subtitlelanguage').value);
+    console.log(_('subtitlelanguage').value);
+
+    // subtitlebaron
+    if (config.charAt(2) == "Y") {
+        _('titre').style.visibility = 'visible';
+    } else {
+        _('titre').style.visibility = 'hidden';
+    }
+    // subtitlepartialbaron
+    if ((config.charAt(4) == "Y")) {
+        _('partialtitre').style.visibility = 'visible';
+    } else {
+        _('partialtitre').style.visibility = 'hidden';
+    }
+    // ColorTitre
+    _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
+    ChangeColor('titre', _('ColorTitre').value);
+    // ColorPartialTitre
+    _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
+    ChangeColor('partialtitre', _('ColorPartialTitre').value);
+    // selectfontsize
+    _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
+    _('titreSub').style.fontSize = _('selectfontsize').value;
+    _('partialtitre').style.fontSize = _('selectfontsize').value;
+    //selectopacity
+    _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
+    ChangeOpacity('titre', _('selectopacity').value)
+    ChangeOpacity('partialtitre', _('selectopacity').value)
+
+    console.log(_('subtitlelanguage').value.substr(0, 2));
+    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+
+    // Micro
+    // _('microon').checked = (config.charAt(13) == "Y");
+    // _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
+    // if (_('microon').checked) {
+    //     show('micon');
+    // } else {
+    //     hide('micon');
+    // }
+   
+    // updateConfig();
+}
+
+/**
  * @summary Debug function for counting the number of pending requests
  * 
  */

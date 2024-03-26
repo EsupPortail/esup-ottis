@@ -240,7 +240,7 @@ if ($synchronize) {
 </style>
 
 </head>
-<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesOutSub(selectname='VoiceOutput'); /*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
+<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); /*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
 <main>
 <h1 style="display:none;">Sous-titres</h1>
 </main>
@@ -250,7 +250,7 @@ if ($synchronize) {
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
-	<div id="partialtitreSub"></div>
+	<div id="partialtitre"></div>
 	<div id="scrollbarSub"></div>
   <select id="selectopacity" class="jqueryselect" style="display : none">
     <option value="0">0% opaque</option>
@@ -302,7 +302,7 @@ if ($synchronize) {
   <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" style="display : none"/>
   <input type="checkbox" id="liveon" style="display : none"/>
   <select id="VoiceOutput" class="jqueryselect"> </select>
-  <span id="lilanguage"><label for="VoiceOutput">My language :</label>
+  <!-- <span id="lilanguage"><label for="VoiceOutput">My language :</label> -->
   <!-- <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}"> -->
   <!-- </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br> -->
