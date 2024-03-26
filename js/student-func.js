@@ -148,6 +148,35 @@ function PopulateVoicesIn() {
 }
 
 /**
+ * @summary Fill the select VoiceInput field
+ * 
+ */
+
+function PopulateVoicesInSub() {
+    if (TLangInput.length == 0) {
+        // var select = _('VoiceInput');
+        var select = _('classroomlanguage');
+        //var voices = window.speechSynthesis.getVoices();
+        TLangInput = [];
+
+        for (var i = 0; i < supportedlanguages.length; i++) {
+            var lang = supportedlanguages[i].code; //.substr(0,5);
+            if (TLangInput.indexOf(lang) < 0) {
+                var opt = document.createElement("option");
+                opt.value = TLangInput.length;
+                TLangInput.push(lang);
+                opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+                select.appendChild(opt);
+                // var opt2 = document.createElement("option");
+                // opt2.value = TLangInput.length;
+                // opt2.innerHTML = lang;
+                // select2.appendChild(opt2);
+            }
+        }
+    }
+}
+
+/**
  * @summary Speech synthesis of a given text
  * 
  * @param {string} txt a given text.
@@ -197,9 +226,9 @@ function applyConfigSub() {
     console.log(config);
     if (config.length != "ABYANACNNCNNNYYY".length) return;
     // classroomlanguage
-    // _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-    // setLanguageInput(_('VoiceOutput').value);
-    // console.log(_('VoiceOutput').options[_('VoiceOutput').value].text);
+    _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    setLanguageInput(_('classroomlanguage').value);
+    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
 
     // subtitlelanguage
     _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(1) - 65);
@@ -234,7 +263,7 @@ function applyConfigSub() {
     ChangeOpacity('partialtitre', _('selectopacity').value)
 
     console.log(_('VoiceOutput').value.substr(0, 2));
-    // console.log(_('VoiceOutput').options[_('VoiceOutput').value].text.substr(0, 2));
+    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
 
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");

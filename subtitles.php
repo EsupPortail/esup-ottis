@@ -240,14 +240,12 @@ if ($synchronize) {
 </style>
 
 </head>
-<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); /*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
+<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); /*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
 <main>
 <h1 style="display:none;">Sous-titres</h1>
 </main>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
-<div id="showmenu" onclick="ShowMenu();" ><img src="images/blank.png" alt="Icone du Menu ☰" id="iconeMenu"></div>
 <div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br>LIVE</span></div>
-<div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 	<div id="partialtitre"></div>
@@ -301,7 +299,7 @@ if ($synchronize) {
   <!-- <div id="partialtitre" style="display : none"></div> -->
   <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" style="display : none"/>
   <input type="checkbox" id="liveon" style="display : none"/>
-  <select id="VoiceOutput" class="jqueryselect"> </select>
+  <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
   <!-- <span id="lilanguage"><label for="VoiceOutput">My language :</label> -->
   <!-- <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}"> -->
   <!-- </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
