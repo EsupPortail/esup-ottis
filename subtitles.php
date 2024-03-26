@@ -248,7 +248,7 @@ if ($synchronize) {
 <div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br>LIVE</span></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
-	<div id="VOBanner"></div>
+	<div id="VOBanner">Transcription</div>
 	<div id="scrollbarSub"></div>
   <select id="selectopacity" class="jqueryselect" style="display : none">
     <option value="0">0% opaque</option>
