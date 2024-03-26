@@ -311,6 +311,7 @@ if ($synchronize) {
       </div>-->
 <input type="checkbox" id="synthesison"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
+<span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
   <!-- <button id="bready" style="display : none">Ready to listen ?</button> -->
   <div id="output"> </div>
   <div id="scrollbar"></div>
