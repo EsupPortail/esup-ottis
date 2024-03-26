@@ -59,6 +59,36 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
 }
 
 /**
+ * @summary Fill the select VoiceOutput field
+ * 
+ */
+
+function PopulateVoicesOutSub(selectname='VoiceOutput') {
+    var select = _(selectname);
+    AllOutputVoices = [];
+    // while (select.firstChild) {
+    //     select.removeChild(select.firstChild);
+    // }
+    
+    var optgroup2 = document.createElement("optgroup");
+    optgroup2.label = "Text translation only";
+    for (var i = 0; i < supportedlanguages.length; i++) {
+        var lang = supportedlanguages[i].code; //.substr(0,5);
+        var opt = document.createElement("option");
+        opt.value = maxvoices + i;
+        AllOutputVoices.push({
+            "lang": lang,
+            "textonly": true
+        });
+
+        opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+        optgroup2.appendChild(opt);
+    }
+    select.appendChild(optgroup2);
+}
+
+
+/**
  * @summary Fill the select VoiceInput field
  * 
  * @deprecated
