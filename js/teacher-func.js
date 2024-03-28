@@ -1987,8 +1987,6 @@ function SubWindow(){
     var window_width = window.screen.width;
     var windowFeatures = "status=no,location=no,toolbar=no,menubar=no,width=1200,height=110";
     var link = _("sublink").innerHTML.replaceAll("&amp;","&");
-    // var link = link.replaceAll("&amp;","&");
-    console.log("SubWindow : \n" + link);
     window.open(link,'_blank',windowFeatures);
 }
 
@@ -3146,21 +3144,15 @@ function updateConfig() {
     _("myConfig").value = currentconfig;
     if (window.location.href.indexOf('?') > 0) {
         _("LinkConfig").href = window_location_href + '&myconfig=' + _("myConfig").value;
-        // _("sublink").href = "subtitles.php&myconfig=" + _("myConfig").value;
         var link = "subtitles.php&myconfig=" + _("myConfig").value;
     } else {
         _("LinkConfig").href = window_location_href + '?myconfig=' + _("myConfig").value;
-        // _("sublink").href = "subtitles.php?myconfig=" + _("myConfig").value;
         var link = "subtitles.php?myconfig=" + _("myConfig").value;
     }
-    var room_id_brut = _("sharedlink").innerHTML.replace("Student.php?","&");
-    var room_id = room_id_brut.replaceAll("&amp;","&");
-    console.log("updateConfig : \n" + link);
-    console.log("Room ID \n"+room_id);
+    var room_id = _("sharedlink").innerHTML.replace("Student.php?","&");
     _("LinkConfig").innerHTML = _("LinkConfig").href;
     _("sublink").innerHTML = link+room_id;
     _("sublink").href = link+room_id;
-    console.log("href : \n" + _("sublink").href);
 }
 
 /**
