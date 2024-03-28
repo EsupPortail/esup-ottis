@@ -63,11 +63,12 @@
 
   th{
     border: 1px solid;
-  }
-
-  #slide-thumbnails{
     height: 19px;
   }
+
+  /* #slide-thumbnails{
+    height: 19px;
+  } */
 
   .container-img img {
     width: 80%;
