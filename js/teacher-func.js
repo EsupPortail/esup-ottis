@@ -3144,11 +3144,12 @@ function updateConfig() {
     _("myConfig").value = currentconfig;
     if (window.location.href.indexOf('?') > 0) {
         _("LinkConfig").href = window_location_href + '&myconfig=' + _("myConfig").value;
-        var link = "subtitles.php&myconfig=" + _("myConfig").value;
+        // var link = "subtitles.php&myconfig=" + _("myConfig").value;
     } else {
         _("LinkConfig").href = window_location_href + '?myconfig=' + _("myConfig").value;
-        var link = "subtitles.php?myconfig=" + _("myConfig").value;
+        // var link = "subtitles.php?myconfig=" + _("myConfig").value;
     }
+    var link = _("LinkConfig").href.replace("index.php","subtitles.php");
     var room_id = _("sharedlink").innerHTML.replace("Student.php?","&");
     _("LinkConfig").innerHTML = _("LinkConfig").href;
     _("sublink").innerHTML = link+room_id;
