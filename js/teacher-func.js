@@ -3152,7 +3152,8 @@ function updateConfig() {
         // _("sublink").href = "subtitles.php?myconfig=" + _("myConfig").value;
         var link = "subtitles.php?myconfig=" + _("myConfig").value;
     }
-    var room_id = _("sharedlink").innerHTML.replace("Student.php?", "&");
+    var room_id = _("sharedlink").innerHTML.replace("Student.php?","&");
+    var room_id_correct = room_id.replaceAll("&amp;","&");
     console.log("updateConfig : \n" + link);
     console.log("Room ID \n"+room_id);
     _("LinkConfig").innerHTML = _("LinkConfig").href;
