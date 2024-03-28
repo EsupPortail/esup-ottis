@@ -59,7 +59,7 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
 }
 
 /**
- * @summary Fill the select VoiceOutput field
+ * @summary Fill the select VoiceOutput field for the subtitle application
  * 
  */
 
@@ -148,7 +148,7 @@ function PopulateVoicesIn() {
 }
 
 /**
- * @summary Fill the select VoiceInput field
+ * @summary Fill the select VoiceInput field for the subtitle application
  * 
  */
 
@@ -217,7 +217,7 @@ function ParleThen(txt, f) {
 }
 
 /**
- * @summary Apply a configuration (at startup) for subtitles.php
+ * @summary Apply a configuration (at startup) for the subtitle application
  * 
  */
 
