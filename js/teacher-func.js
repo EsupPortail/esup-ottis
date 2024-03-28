@@ -1987,6 +1987,7 @@ function SubWindow(){
     var window_width = window.screen.width;
     var windowFeatures = "status=no,location=no,toolbar=no,menubar=no,width=1200,height=110";
     var link = _("sublink").innerHTML;
+    console.log("SubWindow : \n" + link);
     window.open(link,'_blank',windowFeatures);
 }
 
@@ -3152,9 +3153,12 @@ function updateConfig() {
         var link = "subtitles.php?myconfig=" + _("myConfig").value;
     }
     var room_id = _("sharedlink").innerHTML.replace("Student.php?", "&");
+    console.log("updateConfig : \n" + link);
+    console.log("Room ID \n"+room_id);
     _("LinkConfig").innerHTML = _("LinkConfig").href;
     _("sublink").innerHTML = link+room_id;
     _("sublink").href = link+room_id;
+    console.log("href : \n" + _("sublink").href);
 }
 
 /**
