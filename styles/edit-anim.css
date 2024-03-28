@@ -53,12 +53,16 @@
     height: 83%;
   }
 
-  #tableEdit, tr, td{
+  #tableEdit, tr, td, th{
     margin: 0 auto;
     width: 100%; 
     height:100%; 
     border-collapse: collapse; 
     border: 1px solid;
+  }
+
+  #slide-thumbnails{
+    height: 19;
   }
 
   .container-img img {
