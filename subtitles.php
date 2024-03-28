@@ -248,7 +248,7 @@ if ($synchronize) {
 <!-- <div id="micon" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div> -->
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
-	<div id="VOBanner">Transcription</div>
+	<div id="VOBanner"></div>
 	<div id="scrollbarSub"></div>
   <select id="selectopacity" class="jqueryselect" style="display : none">
     <option value="0">0% opaque</option>
