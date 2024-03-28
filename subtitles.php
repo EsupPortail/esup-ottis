@@ -297,7 +297,10 @@ if ($synchronize) {
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
   <!-- <div id="partialtitre" style="display : none"></div> -->
-  <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" style="display : none"/>
+  <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+    <label for="classroomid">Classroom identifier :</label>
+    <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" >
+  </li>
   <input type="checkbox" id="liveon" style="display : none"/>
   <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
   <!-- <span id="lilanguage"><label for="VoiceOutput">My language :</label> -->
