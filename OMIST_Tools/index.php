@@ -1047,7 +1047,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="fullscreenon">Fullscreen ? </label>
     <input type="checkbox" id="fullscreenon" >
     </div> -->
-    <table id="tableEdit" aria-describedby="tabledesc" align="center" style="width: 100%; height:100%; border-collapse: collapse;" border="1">
+    <table id="tableEdit" aria-describedby="tabledesc">
     <tr>
       <th height="19" scope="col">Slide thumbnails</th>
       <th scope="col">Slide</th>

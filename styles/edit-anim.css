@@ -53,6 +53,14 @@
     height: 83%;
   }
 
+  #tableEdit{
+    margin: 0 auto;
+    width: 100%; 
+    height:100%; 
+    border-collapse: collapse; 
+    border: 1px solid;
+  }
+
   .container-img img {
     width: 80%;
   } 
