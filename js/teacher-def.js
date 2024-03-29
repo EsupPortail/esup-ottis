@@ -49,17 +49,17 @@ var currentPresentation = [];
 var currentDiscours = -1;
 var inSlideTab = false;
 
-var fakeSpeechRecognition = {
-    lang: "",
-    onresult:function(e) {},
-    onend:function(e){},
-    start:function() {console.log('Starting fake SpeechRecognition service')},
-    stop:function() {console.log('Stoping fake SpeechRecognition service')},
-    abort:function() {console.log('Aborting fake SpeechRecognition service')},
-    continuous: true,
-    interimResults:true,
-    enableAutomaticPunctuation:true,
-    maxAlternatives:1
+function fakeSpeechRecognition() {
+    this.lang="";
+    this.onresult = function(e) {};
+    this.onend=function(e){};
+    this.start=function() {console.log('Starting fake SpeechRecognition service')};
+    this.stop=function() {console.log('Stoping fake SpeechRecognition service')};
+    this.abort=function() {console.log('Aborting fake SpeechRecognition service')};
+    this.continuous= true;
+    this.interimResults=true;
+    this.enableAutomaticPunctuation=true;
+    this.maxAlternatives=1
 }
 
 var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || fakeSpeechRecognition;
