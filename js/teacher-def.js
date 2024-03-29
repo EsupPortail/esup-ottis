@@ -49,8 +49,20 @@ var currentPresentation = [];
 var currentDiscours = -1;
 var inSlideTab = false;
 
+var fakeSpeechRecognition = {
+    lang: "",
+    onresult:function(e) {},
+    onend:function(e){},
+    start:function() {console.log('Starting fake SpeechRecognition service')},
+    stop:function() {console.log('Stoping fake SpeechRecognition service')},
+    abort:function() {console.log('Aborting fake SpeechRecognition service')},
+    continuous: true,
+    interimResults:true,
+    enableAutomaticPunctuation:true,
+    maxAlternatives:1
+}
 
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition || fakeSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
 builtin_recognition.continuous = true;
