@@ -62,7 +62,7 @@ var fakeSpeechRecognition = {
     maxAlternatives:1
 }
 
-var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition || fakeSpeechRecognition;
+var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || fakeSpeechRecognition;
 var builtin_recognition = new SpeechRecognition();
 builtin_recognition.continuous = false;
 builtin_recognition.continuous = true;
