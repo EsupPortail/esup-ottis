@@ -1326,7 +1326,8 @@ function addEnter(event){
         for (num_lang = 0; num_lang < languages.length; num_lang++) {
             tab_lang[num_lang] = languages.options[num_lang].value;
         }
-        var line = document.getElementById('cursor-position').innerHTML;
+        // var line = document.getElementById('cursor-position').innerHTML;
+        console.log("cursor : \n"+cursorPositionLine);
         if (cursorPositionLine === 0){
             line = line-1;
         }
