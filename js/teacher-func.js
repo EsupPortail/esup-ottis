@@ -1311,6 +1311,7 @@ function updateNotes(){
  */
 
 function addEnter(event){
+    console.log(event.code);
     if (event.code === 'Enter'){
         var textarea = document.getElementById('speechArea');
         var cursorPos = $('#speechArea').prop('selectionStart');
