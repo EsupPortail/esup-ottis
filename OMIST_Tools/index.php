@@ -121,9 +121,9 @@ label input[type="file"] {
 
 input[type="submit"], .mybutton {
   padding: 10px;
-  background-color: rgb(25,190,40);
+  background-color: rgb(16, 138, 18);
   color: white;
-  border-color: rgb(25,190,40);
+  border-color: rgb(16, 138, 18);
   font-size: 1.1em;
 }
 
@@ -131,8 +131,8 @@ input[type="submit"], .mybutton {
 
 
 input[type="submit"]:hover, .mybutton:hover {
-  background-color: rgb(16, 138, 18);
-  border-color: rgb(16, 138, 18);
+  background-color: rgba(25,190,40,0.7);
+  border-color: rgba(25,190,40,0.7);
 }
 
 .mybuttonanimation {
