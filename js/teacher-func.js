@@ -1284,7 +1284,7 @@ function updateNotes(){
                 console.log("Old text line : \n" + old_txt_compare[nb_line-1]);
                 //On regarde s'il y a eu une modification dans les paramètres des mots-clés
                 if (new_txt_compare[nb_line-1] != old_txt_compare[nb_line-1]){
-                    console.log("différent");
+                    // console.log("différent");
                     //S'il y a une différence, on modifie le paramètre dans toutes les langues
                     for (let key in tab_lang){
                         var notes = document.getElementById('SlideText_'+tab_lang[key]+'_img_'+numSlide).textContent;
@@ -1311,20 +1311,28 @@ function updateNotes(){
  */
 
 function addEnter(event){
-    console.log(event.code);
-    if (event.code === 'Backspace'){
-        var textarea = document.getElementById('speechArea');
-        var cursorPos = $('#speechArea').prop('selectionStart');
-        var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
-        document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
-        var line = document.getElementById('cursor-position').innerHTML;
-        var notes_input = textarea.value;
-        var val_notes_input = notes_input.split('\n');
-        if (val_notes_input[line-1] != ""){
-            console.log(val_notes_input[line-1]);
-        }
-        // console.log(line);
-    }
+    const objtext = document.getElementById("speechArea");
+
+    objtext.addEventListener("keyup", (event) => {
+        // const output = document.getElementById("output");
+        const lines = event.target.value.split('\n').length;
+        // output.textContent = `The textarea has ${lines} line breaks`;
+        console.log('The textarea has '+lines+' line breaks');
+    });
+    // console.log(event.code);
+    // if (event.code === 'Backspace'){
+    //     var textarea = document.getElementById('speechArea');
+    //     var cursorPos = $('#speechArea').prop('selectionStart');
+    //     var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
+    //     document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
+    //     var line = document.getElementById('cursor-position').innerHTML;
+    //     var notes_input = textarea.value;
+    //     var val_notes_input = notes_input.split('\n');
+    //     if (val_notes_input[line-1] != ""){
+    //         console.log(val_notes_input[line-1]);
+    //     }
+    //     // console.log(line);
+    // }
     if (event.code === 'Enter'){
         var textarea = document.getElementById('speechArea');
         var cursorPos = $('#speechArea').prop('selectionStart');
