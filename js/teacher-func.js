@@ -1317,7 +1317,6 @@ function addEnter(event){
         var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
         document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
         var line = document.getElementById('cursor-position').innerHTML;
-        // var cursorPositionLine = textBeforeCursor[line-1].length;
 
         var tab_lang = [];
         var languages = document.getElementById("myLanguage");
@@ -1326,12 +1325,9 @@ function addEnter(event){
         for (num_lang = 0; num_lang < languages.length; num_lang++) {
             tab_lang[num_lang] = languages.options[num_lang].value;
         }
-        // var line = document.getElementById('cursor-position').innerHTML;
         var notes_input = textarea.value;
         var val_notes_input = notes_input.split('\n');
-        // console.log("cursor : \n"+cursorPositionLine);
         if (val_notes_input[line-1] != ""){
-            console.log("Début de ligne : " +val_notes_input[line-1]);
             line = line-1;            
         }
         console.log(line);
