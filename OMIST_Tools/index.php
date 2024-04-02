@@ -989,8 +989,8 @@ It's important to note that the resulting animation can serve as comprehensive i
 
 <div id="tool12">
   <h3 id="tabledesc" title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
-  <div id="block12" style="height : 94%" translate="no">
-    <form id="Form12" style="height : 94%" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
+  <div id="block12" class="styleEditAnim" translate="no">
+    <form id="Form12" class="styleEditAnim" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
       <li class="dropdown">
       <input type="file" name="fileToUpload" id="fileToUpload12" aria-label="Select HTML file" title="Select HTML file" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html">   

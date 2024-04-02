@@ -136,6 +136,10 @@ li a, .dropbtn {
     
 }
 
+.styleEditAnim{
+  height : 94%;
+}
+
 .dropbtn{
   /* border: 1px solid; */
   border-radius: 10px;
