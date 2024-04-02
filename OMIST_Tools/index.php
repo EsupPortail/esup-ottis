@@ -131,8 +131,8 @@ input[type="submit"], .mybutton {
 
 
 input[type="submit"]:hover, .mybutton:hover {
-  background-color: rgba(25,190,40,0.7);
-  border-color: rgba(25,190,40,0.7);
+  background-color: rgb(16, 138, 18);
+  border-color: rgb(16, 138, 18);
 }
 
 .mybuttonanimation {
