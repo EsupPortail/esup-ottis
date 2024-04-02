@@ -1312,6 +1312,19 @@ function updateNotes(){
 
 function addEnter(event){
     console.log(event.code);
+    if (event.code === 'Backspace'){
+        var textarea = document.getElementById('speechArea');
+        var cursorPos = $('#speechArea').prop('selectionStart');
+        var textBeforeCursor = textarea.value.substr(0, textarea.selectionStart).split("\n");
+        document.getElementById('cursor-position').innerHTML = textBeforeCursor.length;
+        var line = document.getElementById('cursor-position').innerHTML;
+        var notes_input = textarea.value;
+        var val_notes_input = notes_input.split('\n');
+        if (val_notes_input[line-1] != ""){
+            console.log(val_notes_input[line-1]);
+        }
+        // console.log(line);
+    }
     if (event.code === 'Enter'){
         var textarea = document.getElementById('speechArea');
         var cursorPos = $('#speechArea').prop('selectionStart');
