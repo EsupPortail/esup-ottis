@@ -1067,7 +1067,7 @@ It's important to note that the resulting animation can serve as comprehensive i
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <textarea aria-label="Slide notes" onkeyup="addEnter(event)" onchange="updateNotes();" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
+        <textarea aria-label="Slide notes" title="Slide notes" onkeyup="addEnter(event)" onchange="updateNotes();" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
       </td>
       </tr>
     </table>
