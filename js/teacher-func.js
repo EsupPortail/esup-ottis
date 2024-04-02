@@ -1332,7 +1332,7 @@ function addEnter(event){
         // console.log("cursor : \n"+cursorPositionLine);
         if (val_notes_input[line-1] != ""){
             line = line-1;
-            console.log("test");
+            console.log(val_notes_input[line-1]);
         }
         console.log(line);
         
