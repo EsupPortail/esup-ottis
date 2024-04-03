@@ -54,7 +54,7 @@ Pour moi.
 
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
-- [ ] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs
+- [ ] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs : télécharger une image svg, l'ouvrir avec l'éditeur de texte pour récupérer le code, insérer le code dans le HTML avec des balises <svg
 - [ ] Revoir l'interface de l'animation dans AppTemplate.txt
 - [X] ~~Quand on convertit on un pptx en animation -> décalage des images (à tester si ça fait pareil quand c'est un pdf)~~ _**(UPDATE : lié à LibreOffice, préférable de passer par un PDF avant si on éviter un potentiel décalage.)**_
 
