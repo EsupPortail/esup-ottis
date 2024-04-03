@@ -1,6 +1,62 @@
 /*SlideText_
 Main stylesheet for Teacher application
 */
+
+
+
+
+.jqueryselect, input[type="text"], textarea, button, input[type="file"] {
+	border-radius: 7px;
+	margin: 1px;
+	padding: 2px;
+}
+
+.yesno {
+  display: inline;
+}
+
+#iconon,#spaniconon {
+  display: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+button {
+	background-color: rgb(220,220,220);
+	border-color: rgb(200,200,200);
+	color: rgb(50,50,50);
+	padding: 4px;
+}
+
+button:hover {
+	background-color: rgba(220,220,220,0.7);
+	border-color: rgba(200,200,200,0.7);
+	color: rgb(50,50,50);
+	padding: 4px;
+}
+
+/*
+input[type=checkbox] {
+	position: relative;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	padding: 3px;
+	font: 1.5em;
+	border-color: rgb(10,10,10);
+	color: rgb(100,100,255);
+	background-color: rgb(100,100,255);
+}
+
+input[type=checkbox]:hover {
+	border-color: rgba(10,10,10,0.5);
+	color: rgba(100,100,255,0.5);
+	background-color: rgba(100,100,255,0.5);
+}
+*/
+
 input[type=checkbox] {
 	appearance: none;
 	background-color: #dfe1e4;
@@ -65,57 +121,6 @@ input[type=checkbox] {
   }
 
 
-
-
-.jqueryselect, input[type="text"], textarea, button, input[type="file"] {
-	border-radius: 7px;
-	margin: 1px;
-	padding: 2px;
-}
-
-.yesno {
-  display: inline;
-}
-
-#iconon,#spaniconon {
-  display: none;
-}
-
-button {
-	cursor: pointer;
-}
-
-button {
-	background-color: rgb(220,220,220);
-	border-color: rgb(200,200,200);
-	color: rgb(50,50,50);
-	padding: 4px;
-}
-
-button:hover {
-	background-color: rgba(220,220,220,0.7);
-	border-color: rgba(200,200,200,0.7);
-	color: rgb(50,50,50);
-	padding: 4px;
-}
-
-input[type=checkbox] {
-	position: relative;
-	cursor: pointer;
-	width: 16px;
-	height: 16px;
-	padding: 3px;
-	font: 1.5em;
-	border-color: rgb(10,10,10);
-	color: rgb(100,100,255);
-	background-color: rgb(100,100,255);
-}
-
-input[type=checkbox]:hover {
-	border-color: rgba(10,10,10,0.5);
-	color: rgba(100,100,255,0.5);
-	background-color: rgba(100,100,255,0.5);
-}
 
 .classselect {
 	width: 300px;
