@@ -79,8 +79,8 @@ Pour moi.
 - [X] Pour addOptions : même si on close la fenêtre pour annuler notre action, le chanegement est quand même pris en compte
 - [X] Quand on ajoute une nouvelle ligne (vide ou non), il faut qu'une nouvelle ligne (vide) soit ajoutée dans les autres langues
 - [X] Voir si c'est faisable quand on modifie à la main un keyword, qu'il soit modifié dans toutes les langues
-- [ ] Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la tradution dans les autres langues ?
-- [ ] Changer le message addAllLanguages()
+- [ ] ~~Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la tradution dans les autres langues ?~~
+- [X] Changer le message addAllLanguages()
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
