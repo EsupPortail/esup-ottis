@@ -12,7 +12,8 @@ Main stylesheet for Teacher application
 }
 
 .yesno {
-  display: inline;
+/*  display: inline;*/
+display:none;
 }
 
 #iconon,#spaniconon {
