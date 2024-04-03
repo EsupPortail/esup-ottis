@@ -38,7 +38,7 @@ button:hover {
 	padding: 4px;
 }
 
-/*
+
 input[type=checkbox] {
 	position: relative;
 	cursor: pointer;
@@ -56,8 +56,8 @@ input[type=checkbox]:hover {
 	color: rgba(100,100,255,0.5);
 	background-color: rgba(100,100,255,0.5);
 }
-*/
 
+/*
 input[type=checkbox] {
 	appearance: none;
 	background-color: #dfe1e4;
@@ -121,7 +121,7 @@ input[type=checkbox] {
 	background-color: #535db3;
   }
 
-
+*/
 
 .classselect {
 	width: 300px;
