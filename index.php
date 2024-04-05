@@ -486,7 +486,7 @@ fclose($fd);
 							<li>Copy this link to always access the teachers application with this configuration :
 								<a href="" id="LinkConfig"></a>
 							</li>
-							<li><span id="debugspan"></span></li>
+							<li style="display:none;"><span id="debugspan"></span></li>
 					</ul>
 				</div>
 			</div>
