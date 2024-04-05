@@ -2402,6 +2402,7 @@ function Lancer() {
     LaunchRemote();
     LaunchReadTextQ();
     LaunchStudentReadText();
+    LaunchFeedbackReady();
     setInterval(ScrollBar, scrollinterval);
     applyConfig();
 }
