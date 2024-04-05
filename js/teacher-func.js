@@ -2269,7 +2269,7 @@ function EcrireFeedback(ch) {
         _('titre').innerHTML = ch;
         _('studentfeedback').innerHTML = ch;
     }
-    FeedbackQueue += ch.length*80; // Estimation of 1 character every 80ms;
+    FeedbackQueue += ch.length*40; // Estimation of 1 character every 40ms (~ mean reading time 200 words/min of approx. 7 characters)
 }
 
 /**
@@ -2372,7 +2372,7 @@ function LaunchStudentReadText() {
  */
 
 function LaunchFeedbackReady() {
-    _('debug').innerHTML=FeedbackQueue;
+    _('debugspan').innerHTML='Time remaining = '+FeedbackQueue+'ms';
     if (FeedbackQueue > 0) FeedbackQueue-=delayFeedback; else FeedbackQueue=0;
     setTimeout(LaunchFeedbackReady, delayFeedback);
 }
