@@ -2262,8 +2262,14 @@ function EcrirePartialSub(ch) {
 
 function EcrireFeedback(ch) {
     EcrireNBonly(ch);
-    _('titre').innerHTML = ch;
-    _('studentfeedback').innerHTML = ch;
+    if (FeedbackQueue>0) {
+        _('titre').innerHTML = _('titre').innerHTML+"<br>"+ch;
+        _('studentfeedback').innerHTML = _('studentfeedback').innerHTML+"<br>"+ch;
+    } else {
+        _('titre').innerHTML = ch;
+        _('studentfeedback').innerHTML = ch;
+    }
+    FeedbackQueue += ch.length*80; // Estimation of 1 character every 80ms;
 }
 
 /**
@@ -2359,6 +2365,17 @@ function LaunchStudentReadText() {
     StudentreadText();
     setTimeout(LaunchStudentReadText, delayStudentReadtext);
 }
+
+/**
+ * @summary Launch the looping function that indicates when the Feedback bar is ready 
+ * 
+ */
+
+function LaunchFeedbackReady() {
+    if (FeedbackQueue > 0) FeedbackQueue-=delayFeedback; else FeedbackQueue=0;
+    setTimeout(LaunchFeedbackReady, delayFeedback);
+}
+
 
 /**
  * @summary A function that allows to stop all the loops and hence that free the ressources

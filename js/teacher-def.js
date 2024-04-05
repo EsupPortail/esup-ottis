@@ -100,3 +100,6 @@ var scrollinterval = 50;
 
 var delayRemote = 200;
 var delayStudentReadtext = 500;
+
+var delayFeedback = 50;
+var FeedbackQueue = 0;
