@@ -2075,6 +2075,30 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
 
 
 /**
+ * @summary Function that update the "Partial" div wit translation is required.
+ * 
+ * @param {string} ch the text that is adding to the partial div.
+ */
+
+function EcrireTranslatePartial(ch) {
+    var linput = builtin_language.substr(0, 2).toLowerCase();
+    if (ch.indexOf(':|:') >= 0) { // If there are a language indication
+        var Tch = ch.split(':|:');
+        linput = Tch[0].substr(0, 2).toLowerCase();
+        ch = Tch[1];
+    }
+    var loutput = subtitle_language.substr(0, 2).toLowerCase();
+    if (linput == loutput) {
+        EcrirePartial(ch);
+    } else {
+        TranslateThen(ch, loutput, linput, function(ch) {
+            EcrirePartial(ch);
+        });
+    }
+}
+
+
+/**
  * @summary StartSpeechRecognition is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
  * 
  * @param {function} callback function that is called each time a new text is recognized.
@@ -2097,7 +2121,13 @@ function StartSpeechRecognition(callback) {
                 }
             }
             if (partial.trim() != '') {
-                if (_('recognitionon').checked) EcrirePartial(RemoveVerbalTics(partial));
+                if (_('recognitionon').checked) {
+                    if (! _('directMicrosoftTranslation').checked) {
+                        EcrirePartial(RemoveVerbalTics(partial));
+                    } else {
+                        EcrireTranslatePartial(RemoveVerbalTics(partial));
+                    }
+                }
             }
             //builtin_recognition.stop();
         }
