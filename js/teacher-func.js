@@ -2372,6 +2372,7 @@ function LaunchStudentReadText() {
  */
 
 function LaunchFeedbackReady() {
+    _('debug').innerHTML=FeedbackQueue;
     if (FeedbackQueue > 0) FeedbackQueue-=delayFeedback; else FeedbackQueue=0;
     setTimeout(LaunchFeedbackReady, delayFeedback);
 }
