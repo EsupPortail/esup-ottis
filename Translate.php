@@ -79,7 +79,7 @@ if (isset($_GET["ROOMID"])) {
         // Launch the free LibreTranslate API at https://translate.mentality.rip
 
         $output=array(); $retval=0;
-        exec($proxy."curl https://trans.zillyhuhn.com/ -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
+        exec($proxy."curl https://libretranslate.eownerdead.dedyn.io/ -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
         $resultsinjson = json_decode($resultjson);
         $resultjson = '{   "data": { "translations": ['.str_replace("\n"," ",$resultjson).'] } }';
