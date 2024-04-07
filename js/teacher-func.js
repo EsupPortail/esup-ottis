@@ -2261,7 +2261,7 @@ function EcrireTitle(ch) {
         TranslateThen(ch, loutput, linput, function(ch) {
             _('titre').innerHTML = ch;
             setScrollvalues(ch.length);
-        },forcelibre=false);
+        },forcelibre=true);
     }
 }
 
