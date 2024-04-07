@@ -7,10 +7,19 @@ $texte = html_entity_decode(strip_tags($_GET["texte"]));
 $lang = $_GET["lang"];
 $langinput = $_GET["langinput"];
 if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
+if (isset($_GET["forcelibre"])) $WhichTranslator="LIBRETRANSLATE";
 
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
-if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
-if (! in_array(strtolower(substr($langinput,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
+if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
+  if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
+  if (! in_array(strtolower(substr($langinput,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
+}
+
+// Automatically switch to Google Translate if it cannot be translated by LIBRETRANSLATE
+if ($WhichTranslator == "LIBRETRANSLATE") {
+  if (! in_array(strtolower(substr($lang,0,2)),$LIBRETRANSLATEKNOWNLANG)) $WhichTranslator = "GOOGLE";
+  if (! in_array(strtolower(substr($langinput,0,2)),$LIBRETRANSLATEKNOWNLANG)) $WhichTranslator = "GOOGLE";
+}
 
 
 function removeAccents($str) {
@@ -75,11 +84,8 @@ if (isset($_GET["ROOMID"])) {
         }
 
         if ($WhichTranslator == "LIBRETRANSLATE") {
-
-        // Launch the free LibreTranslate API at https://translate.mentality.rip
-
         $output=array(); $retval=0;
-        exec($proxy."curl https://libretranslate.eownerdead.dedyn.io/ -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
+        exec($proxy."curl ".$LIBRETRANSLATESERVER." -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
         $resultsinjson = json_decode($resultjson);
         $resultjson = '{   "data": { "translations": ['.str_replace("\n"," ",$resultjson).'] } }';
