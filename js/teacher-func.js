@@ -2095,7 +2095,7 @@ function EcrireTranslatePartial(ch) {
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
             EcrirePartial(ch);
-        },forcelibre=false);
+        },forcelibre=true);
     }
 }
 
