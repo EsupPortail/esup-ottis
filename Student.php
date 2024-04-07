@@ -77,9 +77,11 @@ if ($synchronize) {
 
 </script>
 
-<script src="js/student-def.js"></script>
-<script src="js/common-func.js"></script>
-<script src="js/student-func.js"></script>
+<?php
+  echo "<script src=\"js/student-def.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/common-func.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/student-func.js?v=".$classroomid."\"></script>\n";
+  ?>
 <?php if ($theme != "") {
     echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
     echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';

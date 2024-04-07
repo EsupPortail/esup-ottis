@@ -194,9 +194,11 @@ fclose($fd);
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
   ?>
   </script>
-  <script src="js/teacher-def.js"></script>
-  <script src="js/common-func.js"></script>
-  <script src="js/teacher-func.js"></script>
+  <?php
+  echo "<script src=\"js/teacher-def.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/common-func.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/teacher-func.js?v=".$classroomid."\"></script>\n";
+  ?>
   <?php if ($theme != "") {
     echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
     echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';
