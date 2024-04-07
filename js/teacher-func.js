@@ -589,9 +589,11 @@ function TranslateSub(ch, l, linput) {
  * @param {function} f the function that is fired when the translation has ended.
   */
 
-function TranslateThen(ch, l, linput, f) {
+function TranslateThen(ch, l, linput, f, forcelibre=false) {
+    var force="";
+    if (forcelibre) force="&forcelibre=true";
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+force, true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -2093,7 +2095,7 @@ function EcrireTranslatePartial(ch) {
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
             EcrirePartial(ch);
-        });
+        },forcelibre=true);
     }
 }
 
@@ -2259,7 +2261,7 @@ function EcrireTitle(ch) {
         TranslateThen(ch, loutput, linput, function(ch) {
             _('titre').innerHTML = ch;
             setScrollvalues(ch.length);
-        });
+        },forcelibre=false);
     }
 }
 
