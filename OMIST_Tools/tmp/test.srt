@@ -1,0 +1,244 @@
+1
+00:00:01,550 --> 00:00:05,540
+Dans cette vidéo, je vais vous présenter
+les différentes étapes de conception
+
+2
+00:00:05,740 --> 00:00:09,500
+d'un circuit électronique utilisant
+une description matérielle VHDL.
+
+3
+00:00:11,850 --> 00:00:15,300
+La première étape est la spécification
+de l'architecture.
+
+4
+00:00:15,570 --> 00:00:17,250
+C'est l'étape la plus importante.
+
+5
+00:00:17,670 --> 00:00:20,910
+Elle consiste à écrire les
+spécifications du composant ou,
+
+6
+00:00:21,110 --> 00:00:24,780
+en d'autres termes, écrire l'ensemble
+des fonctions que le composant devra
+
+7
+00:00:24,980 --> 00:00:25,860
+être capable de réaliser.
+
+8
+00:00:26,910 --> 00:00:30,870
+Cette spécification sera très utile
+pour la simulation et les tests
+
+9
+00:00:31,070 --> 00:00:34,410
+car elle permet au final de créer
+un ensemble de scénarios de tests
+
+10
+00:00:34,920 --> 00:00:37,890
+que le composant devra pouvoir effectuer
+sans encombre.
+
+11
+00:00:40,350 --> 00:00:44,520
+La seconde étape est l'étape d'écriture
+de la description du composant en
+
+12
+00:00:44,720 --> 00:00:46,950
+respectant la syntaxe du langage VHDL.
+
+13
+00:00:47,430 --> 00:00:51,300
+Il convient de suivre scrupuleusement
+l'architecture que vous avez définie
+
+14
+00:00:51,500 --> 00:00:55,650
+dans l'étape précédente afin de
+ne pas utiliser des ressources inutiles.
+
+15
+00:00:56,310 --> 00:00:59,490
+Le logiciel utilisé pour cette étape
+est Notepad++.
+
+16
+00:01:04,560 --> 00:01:06,750
+L'étape suivante est la simulation.
+
+17
+00:01:07,200 --> 00:01:11,310
+Cette étape, bien que facultative,
+vous permet de faire subir des scénarios
+
+18
+00:01:11,510 --> 00:01:15,210
+de tests à votre description afin
+d'éliminer les erreurs de conception.
+
+19
+00:01:15,990 --> 00:01:18,660
+Le logiciel utilisé pour cette étape
+est Modelsim.
+
+20
+00:01:22,780 --> 00:01:24,520
+L'étape suivante est la synthèse.
+
+21
+00:01:25,330 --> 00:01:27,350
+Votre description créée et simulée.
+
+22
+00:01:27,550 --> 00:01:29,260
+Il vous reste à l'implémenter
+physiquement.
+
+23
+00:01:30,070 --> 00:01:34,390
+La première étape de ce processus
+est la synthèse, c'est à dire la
+
+24
+00:01:34,590 --> 00:01:38,620
+traduction de votre code VHDL en
+équations booléennes implémentables
+
+25
+00:01:39,310 --> 00:01:40,090
+dans le composant.
+
+26
+00:01:41,200 --> 00:01:45,850
+Grâce à Quartus II il vous est possible
+de réaliser cette étape en un clic.
+
+27
+00:01:46,630 --> 00:01:50,380
+A l'issue du processus,un rapport
+vous sera présenté avec,
+
+28
+00:01:50,580 --> 00:01:54,010
+entre autres, les ressources nécessaires
+à l'implémentation de la description.
+
+29
+00:01:54,820 --> 00:01:58,360
+Si ces ressources sont trop importantes
+pour votre composant,
+
+30
+00:01:58,560 --> 00:02:02,110
+il conviendra d'optimiser votre
+code pour diminuer la consommation,
+
+31
+00:02:02,310 --> 00:02:04,060
+voire diminuer les spécifications.
+
+32
+00:02:09,370 --> 00:02:11,410
+L'étape suivante est le placement
+routage.
+
+33
+00:02:11,770 --> 00:02:15,340
+Votre description a été traduite
+en équations, mais il n'est pas
+
+34
+00:02:15,540 --> 00:02:18,130
+encore mis sous une forme programmable
+dans le composant.
+
+35
+00:02:18,400 --> 00:02:22,030
+Il faut en effet encore décider
+de l'utilisation des différentes
+
+36
+00:02:22,230 --> 00:02:25,690
+ressources du composant programmable
+à utiliser pour réaliser les fonctions
+
+37
+00:02:25,890 --> 00:02:26,650
+synthétisées.
+
+38
+00:02:27,520 --> 00:02:30,680
+Ceci est réalisé toujours par le
+logiciel Quartus II.
+
+39
+00:02:30,880 --> 00:02:35,590
+Durant cette étape, l'analyse est
+généralement relativement précise
+
+40
+00:02:35,790 --> 00:02:39,460
+et il est rare qu'une description
+qui est synthétisée ne soit pas
+
+41
+00:02:39,660 --> 00:02:40,420
+implantable.
+
+42
+00:02:40,620 --> 00:02:42,700
+Toutefois, il est possible que cela
+arrive.
+
+43
+00:02:43,090 --> 00:02:47,920
+Il convient alors de réaliser encore
+quelques optimisations si tel est le cas.
+
+44
+00:02:50,150 --> 00:02:52,730
+L'étape suivante peut être l'analyse
+temporelle.
+
+45
+00:02:52,930 --> 00:02:56,060
+Pour les composants dont la rapidité
+est un élément essentiel,
+
+46
+00:02:56,260 --> 00:02:59,300
+il faut également analyser les
+différents temps de réponse afin
+
+47
+00:02:59,500 --> 00:03:01,790
+de vérifier que la montée en fréquence
+est possible.
+
+48
+00:03:02,390 --> 00:03:04,340
+Cette étape ne sera pas étudiée
+dans ce cours.
+
+49
+00:03:08,330 --> 00:03:12,830
+Puis nous pouvons programmer le
+composant à l'aide du logiciel Quartus
+
+50
+00:03:13,030 --> 00:03:13,790
+II.
+
+51
+00:03:16,390 --> 00:03:21,070
+Enfin, maintenant que votre composant
+est créé, vous pouvez le tester.
+

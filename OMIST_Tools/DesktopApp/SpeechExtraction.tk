@@ -1,0 +1,69 @@
+#!/bin/sh
+#exec wish "$0" "$1" & exit 0
+
+
+wm title . "OMIST Tools : Speech Extraction from PPTX"
+wm geometry . 570x110+100+100
+
+
+# Global variables
+
+set filename ""
+
+# Functions and procedures
+
+
+proc speechExtract {} {
+    global filename
+    if {$filename eq ""} {
+      tk_dialog .myDialog "File missing" "Presentation file is missing" questhead 0 "OK"
+      return
+    }
+    exec open tmp
+    exec ./SpeechExtraction.sh "$filename"
+}
+
+
+# Widget creation
+
+label .labelwhite -text " " -font {helvetica -20 bold} -width 1
+
+image create photo imgobj -file "logo-next-omist.png" -width 75 -height 35
+label .labeltitre -text "NExT OMIST : Speech Extraction from PPTX Tool" -font {helvetica -18 bold}
+label .labeltitreimg -image imgobj
+
+label .lf -text "Choose your (.pptx) file for slides"
+entry .filename -textvariable filename
+
+set typesSlides {
+    {{pptx Files}       {.pptx}        }
+}
+
+button .b1 -text "Browse" -command {set filename [tk_getOpenFile -filetypes $typesSlides]}
+
+button .bcreate -text "Extract" -command "speechExtract" -width 15 -font {"Helvetica" -18 bold}
+button .quit -text "Quit" -command {exit 0} -width 15 -font {helvetica -18 bold}
+
+
+# Bindings
+
+# Widget placement layout
+
+grid .labelwhite -row 0 -column 0
+
+grid .labeltitre -row 0 -column 1 -columnspan 3
+grid .labeltitreimg -row 0 -column 4
+
+grid .lf -row 4 -column 1
+grid .filename -row 4 -column 2
+grid .b1 -row 4 -column 3
+
+
+grid .bcreate -row 15 -column 4
+grid .quit -row 16 -column 4
+
+proc resize {} {
+  wm geometry . [expr [winfo reqwidth .]+20]x[expr [winfo reqheight .]+20]+100+100
+}
+
+after 500 resize

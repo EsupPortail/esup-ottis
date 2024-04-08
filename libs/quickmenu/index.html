@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Demo Page</title>
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css"/>
+    <style>
+        .fa{
+            font-size: 40px;
+            line-height: 70px;
+        }
+        .fa-bars{
+            color: white;
+        }
+    </style>
+</head>
+<body">
+        <div id="bar2" style="position: fixed; top: 1px; left: 1px;">
+           
+            <div class="pop_ctrl"><!--<i class="fa fa-bars fa-border"></i>-->
+                <span class="fa-stack fa-lg">
+                    <i class="fa fa-square fa-stack-2x"></i>
+                    <i class="fa fa-bars fa-stack-1x fa-inverse" style="font-size: 0.8em;"></i>
+                  </span>
+            </div>
+            <ul id="demo_ul">
+                <li class="demo_li"><a href="#"><div><i class="fa fa-cog fa-spin fa-1x fa-fw"></i></div><div>Settings</div></a></li>
+                <li class="demo_li"><a href="#"><div><i class="fa fa-comments fa-2x fa-fw"></i></div><div>Tchat</div></a></li>
+                <li class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
+                <li class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
+                <li class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
+                <li class="demo_li" id="ltab-5"><div><i class="fa fa-comments"></i></div><div>Clock</div></li>
+
+                
+            </ul>
+        </div>
+   <script src="lib/jquery/jquery.min.js"></script>
+    <script src="src/jquery.popmenu.js"></script>
+    <script>
+        $(function(){
+            $('#bar2').popmenu();
+        })
+    </script>
+</body>
+</html>
