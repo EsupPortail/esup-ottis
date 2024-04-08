@@ -22,6 +22,6 @@ Jeanne Dionisi
 Projet OMIST
 Nantes Université
 
-Version 2.0
+Version 3.0.0
 
 
