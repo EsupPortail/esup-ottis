@@ -640,8 +640,10 @@ function play() {
   if (!started) {
     started=true;
     document.getElementById('Play').style.display = "none";
+    document.getElementById('launchbutton').style.display = "none";
     document.getElementById('notes').style.display = "flex";
     document.getElementById('bar').style.display = "block";
+    document.getElementById('FS').style.visibility="visible";
   }
   if (paused) {
     document.getElementById('button1').value = '||';
