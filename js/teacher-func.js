@@ -2097,7 +2097,7 @@ function EcrireTranslatePartial(ch) {
             if (LiveTranslationNum++ % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
-                _('debugspan').innerHTML='Total translated = '+totalTranslated+'ms';
+                _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
                 TranslateThen(ch, loutput, linput, function(ch) {
                     lastSentenceTranslated = ch;
                     EcrirePartial(ch);
