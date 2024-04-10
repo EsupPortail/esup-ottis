@@ -2094,7 +2094,8 @@ function EcrireTranslatePartial(ch) {
         EcrirePartial(ch);
     } else {
         if (ch != lastSentenceVO) {
-            if (LiveTranslationNum++ % LiveTranslationFreq == 0) {
+            LiveTranslationNum++;
+            if (LiveTranslationNum % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
