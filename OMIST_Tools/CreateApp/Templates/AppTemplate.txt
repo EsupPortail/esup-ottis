@@ -88,7 +88,6 @@
   display:none;
   padding: 10px;
   box-shadow: 2px 2px 5px rgba(0,0,255,0.5);
-  padding:auto;
   justify-content: center;
   align-items: center;
 	z-index: 15000;
