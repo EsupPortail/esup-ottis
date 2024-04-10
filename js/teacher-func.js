@@ -2094,8 +2094,8 @@ function EcrireTranslatePartial(ch) {
         EcrirePartial(ch);
     } else {
         if (LiveTranslationNum++ % LiveTranslationFreq == 0) {
-            //if (ch != lastSentenceVO) {
-            if (true) {
+            if (ch != lastSentenceVO) {
+  //          if (true) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+'ms';
@@ -2103,6 +2103,8 @@ function EcrireTranslatePartial(ch) {
                     lastSentenceTranslated = ch;
                     EcrirePartial(ch);
                 },forcelibre=false);
+            } else {
+                EcrirePartial(lastSentenceTranslated);
             }
         } else {
             EcrirePartial(lastSentenceTranslated);
