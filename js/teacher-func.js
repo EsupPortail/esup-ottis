@@ -2131,6 +2131,7 @@ function StartSpeechRecognition(callback) {
                     partial = event.results[i][0].transcript; //+" > ";
                     FreeResources();
                     LiveTranslationNum = 0;
+                    lastSentenceVO = '';
                     callback(event.results[i][0].transcript);
                 } else {
                     partial += ' ' + event.results[i][0].transcript;
