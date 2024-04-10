@@ -2093,8 +2093,8 @@ function EcrireTranslatePartial(ch) {
     if (linput == loutput) {
         EcrirePartial(ch);
     } else {
-        if (LiveTranslationNum++ % LiveTranslationFreq == 0) {
-            if (ch != lastSentenceVO) {
+        if (ch != lastSentenceVO) {
+            if (LiveTranslationNum++ % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+'ms';
