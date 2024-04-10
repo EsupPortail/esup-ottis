@@ -2101,13 +2101,13 @@ function EcrireTranslatePartial(ch) {
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
                 TranslateThen(ch, loutput, linput, function(ch) {
                     lastSentenceTranslated = ch;
-                    EcrirePartial(ch);
+                    EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+lastSentenceVO+"</span>");
                 },forcelibre=false);
             } else {
-                EcrirePartial(lastSentenceTranslated);
+                EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
             }
         } else {
-            EcrirePartial(lastSentenceTranslated);
+            EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
         }
     }
 }
@@ -2273,7 +2273,7 @@ function EcrireTitle(ch) {
         setScrollvalues(ch.length);
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
-            _('titre').innerHTML = 'test '+ch;
+            _('titre').innerHTML = ch;
             EcrirePartial(ch);
             setScrollvalues(ch.length);
         },forcelibre=false);
