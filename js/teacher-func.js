@@ -2273,7 +2273,7 @@ function EcrireTitle(ch) {
         setScrollvalues(ch.length);
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
-            _('titre').innerHTML = ch;
+            _('titre').innerHTML = 'test '+ch;
             EcrirePartial(ch);
             setScrollvalues(ch.length);
         },forcelibre=false);
