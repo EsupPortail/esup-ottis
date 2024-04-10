@@ -2094,7 +2094,6 @@ function EcrireTranslatePartial(ch) {
         EcrirePartial(ch);
     } else {
         if (ch != lastSentenceVO) {
-            LiveTranslationNum++;
             if (LiveTranslationNum % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
@@ -2106,6 +2105,7 @@ function EcrireTranslatePartial(ch) {
             } else {
                 EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
             }
+            LiveTranslationNum++;
         } else {
             EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
         }
