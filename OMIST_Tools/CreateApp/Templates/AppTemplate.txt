@@ -781,8 +781,8 @@ function followmouse(e) {
     </div>
 
     <div id="Play" >
-      Choose your language
       <br>
+      <label for="classroomlanguage">Choose your language :</label>
 			<select id="classroomlanguage" onchange="setLanguage(this.value); updateSlideNotes(this.value);"></select>
       <br>
     </div>
