@@ -2130,6 +2130,7 @@ function StartSpeechRecognition(callback) {
                 if (event.results[i].isFinal) {
                     partial = event.results[i][0].transcript; //+" > ";
                     FreeResources();
+                    LiveTranslationNum = 0;
                     callback(event.results[i][0].transcript);
                 } else {
                     partial += ' ' + event.results[i][0].transcript;
@@ -2273,6 +2274,7 @@ function EcrireTitle(ch) {
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
             _('titre').innerHTML = ch;
+            EcrirePartial(ch);
             setScrollvalues(ch.length);
         },forcelibre=false);
     }
