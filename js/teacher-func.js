@@ -2093,9 +2093,19 @@ function EcrireTranslatePartial(ch) {
     if (linput == loutput) {
         EcrirePartial(ch);
     } else {
-        TranslateThen(ch, loutput, linput, function(ch) {
-            EcrirePartial(ch);
-        },forcelibre=false);
+        if (LiveTranslationNum++ % LiveTranslationFreq == 0) {
+            if (ch != lastSentenceVO) {
+                lastSentenceVO = ch;
+                totalTranslated += ch.length;
+                _('debugspan').innerHTML='Total translated = '+totalTranslated+'ms';
+                TranslateThen(ch, loutput, linput, function(ch) {
+                    lastSentenceTranslated = ch;
+                    EcrirePartial(ch);
+                },forcelibre=false);
+            }
+        } else {
+            EcrirePartial(lastSentenceTranslated);
+        }
     }
 }
 
@@ -2404,7 +2414,7 @@ function LaunchStudentReadText() {
  */
 
 function LaunchFeedbackReady() {
-    _('debugspan').innerHTML='Time remaining = '+FeedbackQueue+'ms';
+    //_('debugspan').innerHTML='Time remaining = '+FeedbackQueue+'ms';
     if (FeedbackQueue > 0) FeedbackQueue-=delayFeedback; else FeedbackQueue=0;
     setTimeout(LaunchFeedbackReady, delayFeedback);
 }

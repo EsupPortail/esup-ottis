@@ -12,7 +12,11 @@ var Studentgotolive = false;
 var Studentcurrentorder_readtext = 0;
 var Studentmaxorder_readtext = -1;
 var StudentAllPhrases = [];
-
+var lastSentenceVO = '';
+var lastSentenceTranslated = '';
+var LiveTranslationFreq = 1;
+var LiveTranslationNum = 0;
+var totalTranslated = 0;
 
 // Parameters and URL parsing
 var base = new URL(window.location.toLocaleString()).searchParams;
