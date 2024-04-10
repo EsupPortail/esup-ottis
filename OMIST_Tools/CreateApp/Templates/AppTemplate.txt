@@ -71,6 +71,11 @@
   position: absolute;
 }
 
+#svgRectPlay{
+  width: 100px;
+  height: 100px;
+}
+
 #notes {
   border-radius: 25px;
   position: relative;
@@ -747,6 +752,9 @@ function followmouse(e) {
 </script>
 </head>
 <body onload="resizeslides(); loadVoicesWhenAvailable(); Init();">
+  <main>
+    <h1 style="display:none;">Animation</h1>
+  </main>
   <div id="header">
     <div id="bar" style="margin-left: auto; margin-right: auto; width:80%; display:none;">
       <input type="button" id="button1" onclick="play();" value="||" style="display:none;">
@@ -777,7 +785,6 @@ function followmouse(e) {
       <br>
 			<select id="classroomlanguage" onchange="setLanguage(this.value); updateSlideNotes(this.value);"></select>
       <br>
-      <br>
     </div>
     <div id="notes">
     </div>
@@ -787,7 +794,7 @@ function followmouse(e) {
         <img src="dO8Dvz4AAAApdEVYdENyZWF0aW9uIFRpbWUAbWVyLiAxMCBhdnJpbCAyMDI0IDE0OjA2OjMydLGEcQAABKhJREFUeJzt1TEBACAMwDDAv+fhgh4kCvp1z8wsAOCpUwcAwI8MGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAAEDBoCAAQNAwIABIGDAABAwYAAIGDAABAwYAAIGDAABAwaAgAEDQMCAASBgwAAQMGAACBgwAAQMGAACBgwAAQMGgIABA0DAgAEgYMAAEDBgAAgYMAAEDBgAAgYMAIELBOMGVBuPgCMAAAAASUVORK5CYII=" id="slide" alt="Slide" style="position:relative; bottom:0; margin-left: auto; margin-right: auto; height: 80%;">
           <svg id="launchbutton" width="130px" height="130px" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" onclick="play();" style="top:45%; left:45%">
             <g>
-              <rect id="svgRectPlay" class="svg-rect" width="100px" height="100px" rx="15" style="fill:#78cc78;opacity:1"/>
+              <rect id="svgRectPlay" class="svg-rect" rx="15" style="fill:#78cc78;opacity:1"/>
               <path class="svg-icon" d="M26.78,13.45,11.58,4A3,3,0,0,0,7,6.59V25.41a3,3,0,0,0,3,3A3,3,0,0,0,11.58,28l15.2-9.41a3,3,0,0,0,0-5.1Z"/>
             </g>
           </svg>
