@@ -30,6 +30,20 @@ function removeAccents($str) {
 
 if (isset($_GET["ROOMID"])) {
       $result = "";
+      if (lineid == "NONE") {
+        if (file_exists("tmp/Verylast_".$_GET["ROOMID"])) {
+          $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"r");
+          while($T=fgetcsv($fd,4096,";")) {
+            if (count($T)>2) {
+              if ($lineid == $T[0] && $lang == $T[1]) {
+                $result = "".$T[2];//"{ \"data\": { \"translations\": [ { \"translatedText\": \"".$T[2]."\" } ] } }";
+                if ($lang == "en") $result=removeAccents($result);
+              }
+            }
+          }
+          fclose($fd);
+        }
+      } else {
       if (file_exists("tmp/Translated_".$_GET["ROOMID"])) {
       $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"r");
       if ($lineid != "NONE" && $lineid !="") {
@@ -46,6 +60,7 @@ if (isset($_GET["ROOMID"])) {
       }
       }
       fclose($fd);
+      }
       }
       if ($result == "") {
         if ($DEBUG) $texte=$WhichTranslator." --- ".$texte;
@@ -114,6 +129,11 @@ if (isset($_GET["ROOMID"])) {
           fputs($fd,$lineid.";".$lang.";".$result."\n");
         }
         fclose($fd);
+        if ($lineid == "NONE") {
+          $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"w");
+          fputs($fd,$lineid.";".$lang.";".$result."\n");
+          fclose($fd);
+        }
       } else {
         echo str_replace('"translatedText":"','"translatedText":"BUFFERED_',$result);
       }
