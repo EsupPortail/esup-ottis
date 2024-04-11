@@ -795,7 +795,7 @@ function followmouse(e) {
           <svg id="launchbutton" role="img" aria-label="Play" width="130px" height="130px" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" onclick="play();" style="top:45%; left:45%">
             <title>Play</title>
             <g>
-              <rect id="svgRectPlay" class="svg-rect" rx="15" style="fill:#78cc78;opacity:1"/>
+              <rect id="svgRectPlay" width="100px" height="100px" class="svg-rect" rx="15" style="fill:#78cc78;opacity:1"/>
               <path class="svg-icon" d="M26.78,13.45,11.58,4A3,3,0,0,0,7,6.59V25.41a3,3,0,0,0,3,3A3,3,0,0,0,11.58,28l15.2-9.41a3,3,0,0,0,0-5.1Z"/>
             </g>
           </svg>
