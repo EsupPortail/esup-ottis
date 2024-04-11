@@ -45,7 +45,7 @@ function BufferOrNot(ch, l, linput, lineid) {
     } else {
         res= ("TranslateBuffer.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+"&output=BUFFER_"+lastSentenceTranslated, true);
     }
-    
+    return res;
 }
 
 function StudentTranslate(ch, l, linput, lineid) {
