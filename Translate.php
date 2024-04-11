@@ -135,7 +135,7 @@ if (isset($_GET["ROOMID"])) {
           fclose($fd);
         }
       } else {
-        echo str_replace('"translatedText":"','"translatedText":"BUFFERED_',$result);
+        echo str_replace('"translatedText":"','"translatedText":"',$result);
       }
 
 
