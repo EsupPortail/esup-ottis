@@ -44,6 +44,7 @@ function BufferOrNot(ch, l, linput, lineid) {
         res=( "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid);
         lastSentenceVO=ch;
     } else {
+        console.log("Choosing buffer");
         res= ("TranslateBuffer.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+"&output=BUFFER_"+lastSentenceTranslated);
 
     }
