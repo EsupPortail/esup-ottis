@@ -41,7 +41,8 @@ function StudentParleThen(txt, f) {
 function BufferOrNot(ch, l, linput, lineid) {
     var res="";
     console.log("Buffer or not. ch="+ch+' , last='+lastSentenceVO);
-    if (ch != lastSentenceVO) {
+    //if (ch != lastSentenceVO) {
+    if (true) {
         res=( "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid);
     } else {
         console.log("Choosing buffer");

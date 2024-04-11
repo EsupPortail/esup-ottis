@@ -115,7 +115,7 @@ if (isset($_GET["ROOMID"])) {
         }
         fclose($fd);
       } else {
-        echo $result;
+        echo "BUFFERED_".$result;
       }
 
 
