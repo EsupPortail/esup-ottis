@@ -2104,10 +2104,10 @@ function EcrireTranslatePartial(ch) {
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
                 TranslateThen(ch, loutput, linput, function(ch) {
                     lastSentenceTranslated = ch;
-                    EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+lastSentenceVO+"</span>");
+                    EcrirePartial(lastSentenceTranslated+"<br><span>"+lastSentenceVO+"</span>");
                 },forcelibre=false);
             } else {
-                EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
+                EcrirePartial(lastSentenceTranslated+"<br><span>"+ch+"</span>");
             }
             LiveTranslationNum++;
     }

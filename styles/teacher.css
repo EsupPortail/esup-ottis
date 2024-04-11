@@ -2,7 +2,10 @@
 Main stylesheet for Teacher application
 */
 
-
+#partialtitre span {
+	font-size: 0.7em;
+	font-style: italic;
+}
 
 
 .jqueryselect, input[type="text"], textarea, button, input[type="file"] {
