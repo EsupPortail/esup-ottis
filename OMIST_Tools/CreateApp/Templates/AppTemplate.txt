@@ -758,26 +758,29 @@ function followmouse(e) {
   <div id="header">
     <div id="bar" style="margin-left: auto; margin-right: auto; width:80%; display:none;">
       <input type="button" id="button1" onclick="play();" value="||" style="display:none;">
-      <svg id="button2" class="svg-button" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="window.location.reload();">
+      <svg id="button2" role="img" aria-label="Stop" class="svg-button" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="window.location.reload();">
+        <title>Stop</title>
         <g id="stop">
           <rect width="100%" height="100%" rx="15" style="fill:red;opacity:1"/>
           <rect class="svg-icon" height="23" rx="2" width="23" x="5" y="5"/>
         </g>
       </svg>
-      <svg id="button3" class="svg-button" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="window.speechSynthesis.pause();">
+      <svg id="button3" role="img" aria-label="Pause" class="svg-button" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="window.speechSynthesis.pause();">
+        <title>Pause</title>
         <g id="pause">
           <rect width="100%" height="100%" rx="15" style="fill:#34495e;opacity:1"/>
           <rect class="svg-icon" height="25" rx="1" width="7" x="7" y="4"/>
           <rect class="svg-icon" height="25" rx="1" width="7" x="18" y="4"/>
         </g>
       </svg>
-      <svg id="button4" class="svg-button" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" onclick="window.speechSynthesis.resume();">
+      <svg id="button4" role="img" aria-label="Play" class="svg-button" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" onclick="window.speechSynthesis.resume();">
+        <title>Play</title>
         <g>
           <rect width="100%" height="100%" rx="15" style="fill:#78cc78;opacity:1"/>
           <path class="svg-icon" d="M26.78,13.45,11.58,4A3,3,0,0,0,7,6.59V25.41a3,3,0,0,0,3,3A3,3,0,0,0,11.58,28l15.2-9.41a3,3,0,0,0,0-5.1Z"/>
         </g>
       </svg>
-      <progress id="slidesprogress" max="100" value="0" style="margin-left: auto; margin-right: auto; height: 30px; width:60%;"> 0% </progress>
+      <progress id="slidesprogress" title="Progress bar" max="100" value="0" style="margin-left: auto; margin-right: auto; height: 30px; width:60%;"> 0% </progress>
     </div>
 
     <div id="Play" >
@@ -802,7 +805,8 @@ function followmouse(e) {
       </div>
     </div>
 
-    <svg id="FS" onclick="if (!document.fullscreenElement) {document.documentElement.requestFullscreen();} else {document.exitFullscreen();}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" enable-background="new 0 0 24 24" xml:space="preserve"   style="position: fixed; top:0px; right: 0px; padding: 3px;" viewBox="0 0 100 100">
+    <svg id="FS" role="img" aria-label="Full Screen" onclick="if (!document.fullscreenElement) {document.documentElement.requestFullscreen();} else {document.exitFullscreen();}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" enable-background="new 0 0 24 24" xml:space="preserve"   style="position: fixed; top:0px; right: 0px; padding: 3px;" viewBox="0 0 100 100">
+      <title>Full Screen</title>
       <g>
         <rect width="100px" height="100px" rx="15" style="fill:rgba(0, 0, 255, 0.5)"/>
         <g class="svg-icon" style="transform-origin: -7px -6px;">
