@@ -44,7 +44,7 @@ function StudentTranslate(ch, l, linput, lineid) {
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            //console.log(this.responseText);
+            console.log(this.responseText);
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 StudentToSay['' + lineid] = (response["data"]["translations"][0]["translatedText"]);
@@ -2093,7 +2093,6 @@ function EcrireTranslatePartial(ch) {
     if (linput == loutput) {
         EcrirePartial(ch);
     } else {
-        if (ch != lastSentenceVO) {
             if (LiveTranslationNum % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
@@ -2106,9 +2105,6 @@ function EcrireTranslatePartial(ch) {
                 EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
             }
             LiveTranslationNum++;
-        } else {
-            EcrirePartial(lastSentenceTranslated+"<br><span style=\"font-size: 0.5em;\">"+ch+"</span>");
-        }
     }
 }
 
