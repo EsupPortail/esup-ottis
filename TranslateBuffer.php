@@ -9,6 +9,6 @@ $lang = $_GET["lang"];
 $langinput = $_GET["langinput"];
 if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
 
-$resultjson = '{   "data": { "translations": [ {"translatedText":"'.$output.'"] } }';
+$resultjson = '{   "data": { "translations": [ {"translatedText":"'.$output.'"}] } }';
 echo $resultjson;
 ?>
