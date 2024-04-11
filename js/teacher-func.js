@@ -40,8 +40,7 @@ function StudentParleThen(txt, f) {
 
 function BufferOrNot(ch, l, linput, lineid) {
     var res="";
-//    if (ch != lastSentenceVO) {
-    if (false) {
+    if (ch != lastSentenceVO) {
         res=( "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid);
         lastSentenceVO=ch;
     } else {
