@@ -43,7 +43,6 @@ function BufferOrNot(ch, l, linput, lineid) {
     console.log("Buffer or not. ch="+ch+' , last='+lastSentenceVO);
     if (ch != lastSentenceVO) {
         res=( "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid);
-        lastSentenceVO=ch;
     } else {
         console.log("Choosing buffer");
         res= ("TranslateBuffer.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+"&output=BUFFER_"+lastSentenceTranslated);
@@ -62,6 +61,7 @@ function StudentTranslate(ch, l, linput, lineid) {
             if ((!response["error"]) && response["data"]["translations"]) {
                 StudentToSay['' + lineid] = (response["data"]["translations"][0]["translatedText"]);
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
+                lastSentenceVO=ch;
                 lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
             } else {
