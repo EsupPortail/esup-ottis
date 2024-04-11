@@ -42,6 +42,7 @@ function BufferOrNot(ch, l, linput, lineid) {
     var res="";
     if (ch != lastSentenceVO) {
         res=( "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
+        lastSentenceVO=ch;
     } else {
         res= ("TranslateBuffer.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+"&output=BUFFER_"+lastSentenceTranslated, true);
     }
@@ -58,6 +59,7 @@ function StudentTranslate(ch, l, linput, lineid) {
             if ((!response["error"]) && response["data"]["translations"]) {
                 StudentToSay['' + lineid] = (response["data"]["translations"][0]["translatedText"]);
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
+                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
             } else {
                 EcrireFeedback("---- Translation ERROR ----")
@@ -546,6 +548,7 @@ function Translate(ch, l, linput) {
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 Parle(response["data"]["translations"][0]["translatedText"]);
+                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
             } else {
                 Ecrire("---- Translation ERROR ----")
@@ -580,7 +583,8 @@ function TranslateSub(ch, l, linput) {
             if ((!response["error"]) && response["data"]["translations"]) {
                 // Parle(response["data"]["translations"][0]["translatedText"]);
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
-                console.log("" + response["data"]["translations"][0]["translatedText"]);
+                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
+                // console.log("" + response["data"]["translations"][0]["translatedText"]);
                 _("titreSub").innerHTML = "" + response["data"]["translations"][0]["translatedText"];
             } else {
                 Ecrire("---- Translation ERROR ----")
@@ -615,10 +619,11 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             var d_end = Date.now();
-            console.log("Receiving translation in " + (d_end - d_begin) + "ms for " + ch + " from " + linput + " to " + l);
+            //console.log("Receiving translation in " + (d_end - d_begin) + "ms for " + ch + " from " + linput + " to " + l);
             //console.log(this.responseText);
             //T_durations[ch]=undefined;
             var response = JSON.parse(this.responseText);
+            lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
             if ((!response["error"]) && response["data"]["translations"]) {
                 f(response["data"]["translations"][0]["translatedText"]);
             } else {
