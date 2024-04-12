@@ -2290,6 +2290,11 @@ function EcrireTitle(ch) {
 
 function EcrirePartial(ch) {
     if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
+    console.log(d_begin + " : Sending for transcription " + ch)
+    xhr.send();
+    AbortTimeout(xhr,"Transcription");
 }
 
 /**
