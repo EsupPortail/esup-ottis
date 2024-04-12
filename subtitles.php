@@ -76,7 +76,7 @@ if ($synchronize) {
 ?>
 
 </script>
-<script type="text/javascript">
+<script>
   <?php
   echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 
