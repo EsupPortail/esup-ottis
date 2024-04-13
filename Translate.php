@@ -8,7 +8,21 @@ $lang = $_GET["lang"];
 $langinput = $_GET["langinput"];
 if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
 if (isset($_GET["forcelibre"])) $WhichTranslator="LIBRETRANSLATE";
-
+if (isset($_GET["whichtranslator"])) $WhichTranslator=$_GET["whichtranslator"];
+if (isset($_GET["apikey"])) {
+  $apikey=$_GET["apikey"];
+  switch ($WhichTranslator) {
+    case "GOOGLE":
+      $GOOGLEAPITOKEN=$apikey;
+      break;
+    case "DEEPL":
+      $DEEPLAPITOKEN=$apikey;
+      break;
+    case "DEEPLPRO":
+      $DEEPLAPITOKEN=$apikey;
+      break;
+  }
+}
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
 if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
   if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";

@@ -40,7 +40,7 @@ function StudentParleThen(txt, f) {
 
 function StudentTranslate(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+TranslatorInfo(), true);
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             console.log("StudentTranslate = " + this.responseText);
@@ -75,7 +75,7 @@ function StudentTranslate(ch, l, linput, lineid) {
 
 function StudentTranslate2(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+TranslatorInfo(), true);
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
     };
@@ -516,6 +516,20 @@ function TraductionSub(ch) {
 }
 
 /**
+ * @summary A function that adds url arguments related to the choosen translator service.
+ * 
+ * @returns {string} the arguments that have tot be added to Translate.php url
+ */
+
+function TranslatorInfo() {
+    var res="";
+    var whichtranslator=_('whichtranslator').value;
+    var apikey=_('whichtranslator').value;
+    if (whichtranslator != '') res+='&whichtranslator='+whichtranslator;
+    if (apikey != '') res+='&apikey='+apikey;
+}
+
+/**
  * @summary A function that translates a given text from a language to another.
  * 
  * @param {string} ch A given sentence
@@ -525,7 +539,7 @@ function TraductionSub(ch) {
 
 function Translate(ch, l, linput) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -558,7 +572,7 @@ function Translate(ch, l, linput) {
 function TranslateSub(ch, l, linput) {
     var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -597,7 +611,7 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
     if (forcelibre) force="&forcelibre=true";
     var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+force, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+force+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -2846,7 +2860,7 @@ function saveTextQ(ch) {
 
 function TranslateQ(ch, l, linput, name, order) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
