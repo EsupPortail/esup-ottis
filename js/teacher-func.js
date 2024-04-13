@@ -524,7 +524,7 @@ function TraductionSub(ch) {
 function TranslatorInfo() {
     var res="";
     var whichtranslator=_('whichtranslator').value;
-    var apikey=_('whichtranslator').value;
+    var apikey=_('apikey').value;
     if (whichtranslator != '') res+='&whichtranslator='+whichtranslator;
     if (apikey != '') res+='&apikey='+apikey;
     return res;
