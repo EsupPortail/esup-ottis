@@ -527,6 +527,7 @@ function TranslatorInfo() {
     var apikey=_('whichtranslator').value;
     if (whichtranslator != '') res+='&whichtranslator='+whichtranslator;
     if (apikey != '') res+='&apikey='+apikey;
+    return res;
 }
 
 /**
