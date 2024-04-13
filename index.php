@@ -475,7 +475,7 @@ fclose($fd);
 							<li><span id="connectedusers"></span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
 							<label for="whichtranslator">Translator choice</label>
-							<select id="whictranslator">
+							<select id="whichtranslator">
 								<option value="" selected>Default</option>
 								<option value="DEEPL">DeepL Pro API</option>
 								<option value="DEEPLFREE">DeepL Pro API</option>
