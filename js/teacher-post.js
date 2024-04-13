@@ -327,8 +327,7 @@ function FixTabOrderIssue() {
 	var l = document.getElementsByClassName("tabbed");
     res="";
     for (var i in l) {
-    	l[i].tabIndex=0;
+        if (l[i]) l[i].tabIndex=0;
         res+=i+"\n";
     }
-    document.getElementById("link").tabIndex=0;
 }
