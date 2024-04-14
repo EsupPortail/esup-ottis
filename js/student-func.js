@@ -641,6 +641,7 @@ function Init() {
 
     // Keyboard navigation
     document.onkeyup = function(event) {
+        if (["StudentName","wooclapkey", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)===false) {
         if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
         }
         if (event.code === 'KeyS') { // Show slides tab
@@ -667,7 +668,7 @@ function Init() {
         if (event.code === 'ArrowDown') { // Move the subtitles Down
             document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1+5)+"px";
         }
-
+    }
     };
 }
 
