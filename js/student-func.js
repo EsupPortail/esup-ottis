@@ -642,7 +642,15 @@ function Init() {
     // Keyboard navigation
     document.onkeyup = function(event) {
         if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
-            ShowMenu();
+        }
+        if (event.code === 'KeyS') { // Show slides tab
+            activetab('tabs-7');
+        }
+        if (event.code === 'KeyC') { // Show configuration tab
+            activetab('tabs-0');
+        }
+        if (event.code === 'KeyT') { // Show Tchat tab
+            activetab('tabs-1');
         }
         if (event.code === 'KeyL') { // go to live
             gotolive=true; CompleteSpeech();
