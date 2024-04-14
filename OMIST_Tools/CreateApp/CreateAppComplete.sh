@@ -11,10 +11,10 @@ RANDOMPATH=$1
 PARAMETERFILE=$TMPDIR/$RANDOMPATH/parameters.json
 
 if [ -f "$PARAMETERFILE" ]; then
-  Filename=`/usr/bin/php ../fromJSON.php "$PARAMETERFILE" path_file`
-  From=`/usr/bin/php ../fromJSON.php "$PARAMETERFILE" lang_from`
-  To=`/usr/bin/php ../fromJSON.php "$PARAMETERFILE" lang_to`
-  LICENCE=`/usr/bin/php ../fromJSON.php "$PARAMETERFILE" licence`
+  Filename=`/usr/bin/php fromJSON.php "$PARAMETERFILE" path_file`
+  From=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_from`
+  To=`/usr/bin/php fromJSON.php "$PARAMETERFILE" lang_to`
+  LICENCE=`/usr/bin/php fromJSON.php "$PARAMETERFILE" licence`
 else 
   Filename=$2
   From=$3
