@@ -8,7 +8,21 @@ $lang = $_GET["lang"];
 $langinput = $_GET["langinput"];
 if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
 if (isset($_GET["forcelibre"])) $WhichTranslator="LIBRETRANSLATE";
-
+if (isset($_GET["whichtranslator"])) $WhichTranslator=$_GET["whichtranslator"];
+if (isset($_GET["apikey"])) {
+  $apikey=$_GET["apikey"];
+  switch ($WhichTranslator) {
+    case "GOOGLE":
+      $GOOGLEAPITOKEN=$apikey;
+      break;
+    case "DEEPL":
+      $DEEPLAPITOKEN=$apikey;
+      break;
+    case "DEEPLFREE":
+      $DEEPLFREEAPITOKEN=$apikey;
+      break;
+  }
+}
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
 if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
   if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
@@ -30,6 +44,20 @@ function removeAccents($str) {
 
 if (isset($_GET["ROOMID"])) {
       $result = "";
+      if (lineid == "NONE") {
+        if (file_exists("tmp/Verylast_".$_GET["ROOMID"])) {
+          $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"r");
+          while($T=fgetcsv($fd,4096,";")) {
+            if (count($T)>2) {
+              if ($lineid == $T[0] && $lang == $T[1]) {
+                $result = "".$T[2];//"{ \"data\": { \"translations\": [ { \"translatedText\": \"".$T[2]."\" } ] } }";
+                if ($lang == "en") $result=removeAccents($result);
+              }
+            }
+          }
+          fclose($fd);
+        }
+      } else {
       if (file_exists("tmp/Translated_".$_GET["ROOMID"])) {
       $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"r");
       if ($lineid != "NONE" && $lineid !="") {
@@ -46,6 +74,7 @@ if (isset($_GET["ROOMID"])) {
       }
       }
       fclose($fd);
+      }
       }
       if ($result == "") {
         if ($DEBUG) $texte=$WhichTranslator." --- ".$texte;
@@ -74,7 +103,7 @@ if (isset($_GET["ROOMID"])) {
         // Launch DeepL Translation API
         if ($WhichTranslator == "DEEPLFREE") {
         $output=array(); $retval=0;
-        exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
+        exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLFREEAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
         $resultsinjson = json_decode($resultjson);
         $resultjson = '{   "data": '.str_replace("\n"," ",str_replace('"text"','"translatedText"',$resultjson)).' }';
@@ -114,8 +143,13 @@ if (isset($_GET["ROOMID"])) {
           fputs($fd,$lineid.";".$lang.";".$result."\n");
         }
         fclose($fd);
+        if ($lineid == "NONE") {
+          $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"w");
+          fputs($fd,$lineid.";".$lang.";".$result."\n");
+          fclose($fd);
+        }
       } else {
-        echo $result;
+        echo str_replace('"translatedText":"','"translatedText":"',$result);
       }
 
 

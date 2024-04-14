@@ -3,8 +3,6 @@ Main stylesheet for Teacher application
 */
 
 
-
-
 .jqueryselect, input[type="text"], textarea, button, input[type="file"] {
 	border-radius: 7px;
 	margin: 1px;
@@ -377,6 +375,12 @@ input[type=text] {
 	text-shadow: 2px 0 0 rgb(0,100,0), -2px 0 0 rgb(0,100,0), 0 2px 0 rgb(0,100,0), 0 -2px 0 rgb(0,100,0), 1px 1px rgb(0,100,0), -1px -1px 0 rgb(0,100,0), 1px -1px 0 rgb(0,100,0), -1px 1px 0 rgb(0,100,0);
 	visibility: hidden;
 }
+
+#partialtitre>span {
+	font-size: 0.7em;
+	font-style: italic;
+}
+
 
 #titreleft {
 	display: flex;

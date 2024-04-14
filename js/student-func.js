@@ -638,6 +638,38 @@ function Init() {
     }, 3000);
     _('iconeMenu').src = MenuOnIMG;
     ChangeColor('titre', _('ColorTitre').value);
+
+    // Keyboard navigation
+    document.onkeyup = function(event) {
+        if (["StudentName","wooclapkey", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)<0) {
+        if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
+        }
+        if (event.code === 'KeyS') { // Show slides tab
+            activetab('tabs-7');
+        }
+        if (event.code === 'KeyC') { // Show configuration tab
+            activetab('tabs-0');
+        }
+        if (event.code === 'KeyT') { // Show Tchat tab
+            activetab('tabs-1');
+        }
+        if (event.code === 'KeyL') { // go to live
+            gotolive=true; CompleteSpeech();
+        }
+        if (event.code === 'KeyF') { // go fullscreen
+            GoFS();
+        }
+        if (event.code === 'KeyR') { // repeat
+            Parle(document.getElementById('titre').innerHTML);
+        }
+        if (event.code === 'ArrowUp') { // Move the subtitles UP
+            document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1-5)+"px";
+        }
+        if (event.code === 'ArrowDown') { // Move the subtitles Down
+            document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1+5)+"px";
+        }
+    }
+    };
 }
 
 

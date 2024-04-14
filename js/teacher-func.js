@@ -40,15 +40,15 @@ function StudentParleThen(txt, f) {
 
 function StudentTranslate(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
-
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+TranslatorInfo(), true);
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            //console.log(this.responseText);
+            console.log("StudentTranslate = " + this.responseText);
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 StudentToSay['' + lineid] = (response["data"]["translations"][0]["translatedText"]);
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
+                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
             } else {
                 EcrireFeedback("---- Translation ERROR ----")
@@ -75,7 +75,7 @@ function StudentTranslate(ch, l, linput, lineid) {
 
 function StudentTranslate2(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+TranslatorInfo(), true);
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
     };
@@ -516,6 +516,21 @@ function TraductionSub(ch) {
 }
 
 /**
+ * @summary A function that adds url arguments related to the choosen translator service.
+ * 
+ * @returns {string} the arguments that have tot be added to Translate.php url
+ */
+
+function TranslatorInfo() {
+    var res="";
+    var whichtranslator=_('whichtranslator').value;
+    var apikey=_('apikey').value;
+    if (whichtranslator != '') res+='&whichtranslator='+whichtranslator;
+    if (apikey != '') res+='&apikey='+apikey;
+    return res;
+}
+
+/**
  * @summary A function that translates a given text from a language to another.
  * 
  * @param {string} ch A given sentence
@@ -525,7 +540,7 @@ function TraductionSub(ch) {
 
 function Translate(ch, l, linput) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -533,6 +548,7 @@ function Translate(ch, l, linput) {
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 Parle(response["data"]["translations"][0]["translatedText"]);
+                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
             } else {
                 Ecrire("---- Translation ERROR ----")
@@ -556,7 +572,8 @@ function Translate(ch, l, linput) {
 
 function TranslateSub(ch, l, linput) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value, true);
+    
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -565,7 +582,8 @@ function TranslateSub(ch, l, linput) {
             if ((!response["error"]) && response["data"]["translations"]) {
                 // Parle(response["data"]["translations"][0]["translatedText"]);
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
-                console.log("" + response["data"]["translations"][0]["translatedText"]);
+                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
+                // console.log("" + response["data"]["translations"][0]["translatedText"]);
                 _("titreSub").innerHTML = "" + response["data"]["translations"][0]["translatedText"];
             } else {
                 Ecrire("---- Translation ERROR ----")
@@ -593,15 +611,17 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
     var force="";
     if (forcelibre) force="&forcelibre=true";
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+force, true);
+    
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+force+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             var d_end = Date.now();
-            console.log("Receiving translation in " + (d_end - d_begin) + "ms for " + ch + " from " + linput + " to " + l);
+            //console.log("Receiving translation in " + (d_end - d_begin) + "ms for " + ch + " from " + linput + " to " + l);
             //console.log(this.responseText);
             //T_durations[ch]=undefined;
             var response = JSON.parse(this.responseText);
+            lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
             if ((!response["error"]) && response["data"]["translations"]) {
                 f(response["data"]["translations"][0]["translatedText"]);
             } else {
@@ -2093,9 +2113,18 @@ function EcrireTranslatePartial(ch) {
     if (linput == loutput) {
         EcrirePartial(ch);
     } else {
-        TranslateThen(ch, loutput, linput, function(ch) {
-            EcrirePartial(ch);
-        },forcelibre=false);
+            if (LiveTranslationNum % LiveTranslationFreq == 0) {
+                lastSentenceVO = ch;
+                totalTranslated += ch.length;
+                _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
+                TranslateThen(ch, loutput, linput, function(ch) {
+                    lastSentenceTranslated = ch;
+                    EcrirePartial(lastSentenceTranslated+"<br><span>"+lastSentenceVO+"</span>");
+                },forcelibre=false);
+            } else {
+                EcrirePartial(lastSentenceTranslated+"<br><span>"+ch+"</span>");
+            }
+            LiveTranslationNum++;
     }
 }
 
@@ -2117,6 +2146,8 @@ function StartSpeechRecognition(callback) {
                 if (event.results[i].isFinal) {
                     partial = event.results[i][0].transcript; //+" > ";
                     FreeResources();
+                    LiveTranslationNum = 0;
+                    lastSentenceVO = '';
                     callback(event.results[i][0].transcript);
                 } else {
                     partial += ' ' + event.results[i][0].transcript;
@@ -2260,6 +2291,7 @@ function EcrireTitle(ch) {
     } else {
         TranslateThen(ch, loutput, linput, function(ch) {
             _('titre').innerHTML = ch;
+            EcrirePartial(ch);
             setScrollvalues(ch.length);
         },forcelibre=false);
     }
@@ -2273,6 +2305,11 @@ function EcrireTitle(ch) {
 
 function EcrirePartial(ch) {
     if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
+    console.log("Sending for transcription " + ch)
+    xhr.send();
+    AbortTimeout(xhr,"Transcription");
 }
 
 /**
@@ -2404,7 +2441,7 @@ function LaunchStudentReadText() {
  */
 
 function LaunchFeedbackReady() {
-    _('debugspan').innerHTML='Time remaining = '+FeedbackQueue+'ms';
+    //_('debugspan').innerHTML='Time remaining = '+FeedbackQueue+'ms';
     if (FeedbackQueue > 0) FeedbackQueue-=delayFeedback; else FeedbackQueue=0;
     setTimeout(LaunchFeedbackReady, delayFeedback);
 }
@@ -2572,6 +2609,14 @@ function Init() {
     if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
     if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
     if (targettab > 0) _('ttab-' + targettab).click();
+
+    // Adjust a few parameters according to the url arguments
+    var base = new URL(window.location.toLocaleString()).searchParams;
+    if (base.has('WhichTranslator')) _('whichtranslator').value = base.get('WhichTranslator');
+    if (base.has('ApiKey')) _('apikey').value = base.get('ApiKey');
+    if (base.has('Direct')) _('directMicrosoftTranslation').checked = true;
+
+
 }
 
 // Special ZOOM session
@@ -2824,7 +2869,7 @@ function saveTextQ(ch) {
 
 function TranslateQ(ch, l, linput, name, order) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {

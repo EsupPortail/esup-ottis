@@ -54,8 +54,8 @@ $MicrosoftKey="";
 $MicrosoftRegion="";
 if ($userprivileges<2) {
   // default values for privileged users (JB account...)
-  $MicrosoftKey='bae361b8f5ef4337bebc416ab9d44cf8';
-  $MicrosoftRegion='francecentral';
+  $MicrosoftKey=$MicrosoftKey_default;
+  $MicrosoftRegion=$MicrosoftRegion_default;
 }
 if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
 if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
@@ -473,8 +473,21 @@ fclose($fd);
 							<br>
 							<textarea id="verbaltics" rows="3" cols="20"></textarea>
 							<li><span id="connectedusers"></span></li>
-							<li></li>
-              </ul>
+						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+							<label for="whichtranslator">Translator choice</label>
+							<select id="whichtranslator">
+								<option value="" selected>Default</option>
+								<option value="DEEPL">DeepL Pro API</option>
+								<option value="DEEPLFREE">DeepL Free API</option>
+								<option value="LIBRETRANSLATE">Libre Translate</option>
+								<option value="GOOGLE">Google Translate API</option>
+							</select>
+						</li>
+						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+						<label for="apikey">API key (for DeepL or Google)</label>
+						<input type="text" id="apikey" value="">
+						</li>
+             </ul>
 					<br>
 					<p>The Slide Manipulation Toolkit is accessible <a href="<?php if ($external) echo " javascript:void(window.open( 'OMIST_Tools/indexExternal.php?ROOMID=".$classroomid."')) "; else echo "javascript:void(window.open( 'OMIST_Tools')) ";?>">here</a>.</p>
 
@@ -488,7 +501,7 @@ fclose($fd);
 							<li>Copy this link to always access the teachers application with this configuration :
 								<a href="" id="LinkConfig"></a>
 							</li>
-							<li style="display:none;"><span id="debugspan"></span></li>
+							<li><span id="debugspan"></span></li>
 					</ul>
 				</div>
 			</div>
