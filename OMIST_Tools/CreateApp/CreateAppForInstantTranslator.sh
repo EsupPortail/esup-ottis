@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-source ./config.py
+source ./config_sh
 
 TMPDIR=./tmp
 
