@@ -2609,6 +2609,14 @@ function Init() {
     if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
     if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
     if (targettab > 0) _('ttab-' + targettab).click();
+
+    // Adjust a few parameters according to the url arguments
+    var base = new URL(window.location.toLocaleString()).searchParams;
+    if (base.has('WhichTranslator')) _('whichtranslator').value = base.get('WhichTranslator');
+    if (base.has('ApiKey')) _('apikey').value = base.get('ApiKey');
+    if (base.has('Direct')) _('directMicrosoftTranslation').checked = true;
+
+
 }
 
 // Special ZOOM session
