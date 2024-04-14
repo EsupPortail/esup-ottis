@@ -9,6 +9,7 @@
 <?php
 
 include("Security/Authentification.php");
+include("config.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
