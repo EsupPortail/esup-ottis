@@ -4,5 +4,5 @@
     $tab=json_decode(file_get_contents($filename),true);
     $value="";
     if (isset($tab[$paramname])) $value=$tab[$paramname];
-    echo $value;
+    echo $value; 
 ?>
