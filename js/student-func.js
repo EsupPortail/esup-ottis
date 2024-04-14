@@ -638,6 +638,29 @@ function Init() {
     }, 3000);
     _('iconeMenu').src = MenuOnIMG;
     ChangeColor('titre', _('ColorTitre').value);
+
+    // Keyboard navigation
+    document.onkeyup = function(event) {
+        if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
+            ShowMenu();
+        }
+        if (event.code === 'KeyL') { // go to live
+            gotolive=true; CompleteSpeech();
+        }
+        if (event.code === 'KeyF') { // go fullscreen
+            GoFS();
+        }
+        if (event.code === 'KeyR') { // repeat
+            Parle(document.getElementById('titre').innerHTML);
+        }
+        if (event.code === 'ArrowUp') { // Move the subtitles UP
+            document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1-5)+"px";
+        }
+        if (event.code === 'ArrowDown') { // Move the subtitles Down
+            document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1+5)+"px";
+        }
+
+    };
 }
 
 
