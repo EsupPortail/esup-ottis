@@ -20,7 +20,7 @@ if (isset($argc)) {
         $TranslateLang="";
     }
     if ($TranslateLang == "") {
-        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence; //.' >/dev/null 2>/dev/null';
+        $command = 'bash '.dirname(__FILE__).'/CreateAppComplete.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$KeepAspectRatio.' '.$AspectRatio.' '.$Delay.' '.$licence.' >/dev/null 2>/dev/null';
         
         echo $command;
         system($command);
