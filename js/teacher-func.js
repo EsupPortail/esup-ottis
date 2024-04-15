@@ -2310,6 +2310,7 @@ function EcrirePartial(ch) {
     console.log("Sending for transcription " + ch)
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         console.log("REPONSE : "+xhr.responseText);
+    }
     xhr.send();
     AbortTimeout(xhr,"Transcription");
 }
