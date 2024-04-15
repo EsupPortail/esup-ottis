@@ -2308,9 +2308,9 @@ function EcrirePartial(ch) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
     console.log("Sending for transcription " + ch)
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    // if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         console.log("REPONSE : "+xhr.responseText);
-    }
+    // }
     xhr.send();
     AbortTimeout(xhr,"Transcription");
 }
