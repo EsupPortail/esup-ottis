@@ -559,6 +559,7 @@ function readText() {
  */
 
 function readTextSub() {
+    console.log("readTextSub OK");
     var synthesison = _('synthesison').checked;
     if (synthesison) {
         if (_('classroomid').value != "") {
