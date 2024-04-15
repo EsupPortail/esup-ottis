@@ -387,7 +387,7 @@ function EcrireNB(ch) {
 }
 
 /**
- * @summary Function that update the "notebook" div for the subtitles page.
+ * @summary Function that update the "notebook" div for the subtitle page.
  * 
  * @param {string} ch the text that is adding to the notebook.
  */
@@ -554,7 +554,7 @@ function readText() {
 }
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for the subtitles page.
+ * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for.
  * 
  */
 
@@ -564,7 +564,8 @@ function readTextSub() {
         if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "readtext.php");
-            requestTranscript.open("POST", "readtextTranscriptSub.php");
+            var requestTranscriptSub = new XMLHttpRequest();
+            requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
             increasependingrequests();
             currentorder_readtext++;
             var f = new FormData();
@@ -572,7 +573,7 @@ function readTextSub() {
             f.append('ORDER', currentorder_readtext);
             f.append('ROOMID', _('classroomid').value);
             request.send(f);
-            AbortTimeout(request,"readTextSub");
+            AbortTimeout(request,"readText");
             request.onload = function(event) {
                 decreasependingrequests();
                 var T = request.responseText.split('\n');
@@ -606,11 +607,11 @@ function readTextSub() {
                 CompleteTranslation2();
             };
 
-            requestTranscript.send(f);
-            AbortTimeout(requestTranscript,"readTextSub");
-            requestTranscript.onload = function(event) {
+            requestTranscriptSub.send(f);
+            AbortTimeout(request,"readTextSub");
+            requestTranscriptSub.onload = function(event) {
                 decreasependingrequests();
-                var T = request.responseText.split('\n');
+                var T = requestTranscriptSub.responseText.split('\n');
                 //console.log('Readtext get : '+request.responseText);
                 var maxi = -1;
                 var readedorder = ('0' + T[0]).split(';')[0] * 1;
@@ -622,9 +623,7 @@ function readTextSub() {
                             if (1 * L[1] > maxi) maxi = 1 * L[1];
                             if (AllPhrases[1 * L[1]] == undefined) {
                                 AllPhrases[1 * L[1]] = true;
-                                EcrireNBSub(L[3]);
-                                // ToTranslate.push([L[1], L[2], L[3]]);
-                                // ToTranslate2.push([L[1], L[2], L[3]]);
+                                _("VOBanner").innerHTML = L[3];
                             }
                             /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
         Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
@@ -638,13 +637,10 @@ function readTextSub() {
                 //alert(maxi);
                 if (maxi > inputnumber) inputnumber = maxi;
 
-                // CompleteTranslation2();
             };
         }
     }
 }
-
-
 
 /**
  * @summary Verify if there is something new in the IMAGE queue and if so, load the image.
