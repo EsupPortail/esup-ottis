@@ -5,17 +5,17 @@ include "config.php";
 
 $texte = html_entity_decode(strip_tags($_GET["texte"]));
 
-echo "test"
+echo json_encode("test");
 
 if (isset($_GET["ROOMID"])) {
   $fd=fopen("tmp/VerylastSub_".$_GET["ROOMID"],"w");
   fwrite($fd,$texte);
   
-  echo $texte;
+  echo json_encode($texte);
 
   fclose($fd);
 }else{
-  echo "ERREUR";
+  echo json_encode("ERREUR");
 }
 
 ?>
