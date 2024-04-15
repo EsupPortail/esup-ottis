@@ -636,6 +636,8 @@ function readTextSub() {
         Parle(L[2]);
         Ecrire(""+L[2]);
       }*/
+                        }else{
+                            _("VOBanner").innerHTML = L[1];
                         }
                     }
                 }
