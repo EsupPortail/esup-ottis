@@ -2308,7 +2308,7 @@ function EcrirePartial(ch) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
     console.log("Sending for transcription " + ch)
-    xhr.addEventListener("load", function (e) {var data= JSON.parse(e.target.responseText); console.log("REPONSE : "+data);}, false);
+    xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText); console.log("REPONSE : "+data);}, false);
     // if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
     //     console.log("REPONSE : "+xhr.responseText);
     // }
