@@ -2309,6 +2309,7 @@ function EcrirePartial(ch) {
     xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
     console.log("Sending for transcription " + ch)
     xhr.send();
+    console.log("REPONSE : "+xhr.responseText);
     AbortTimeout(xhr,"Transcription");
 }
 
