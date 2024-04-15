@@ -617,10 +617,12 @@ function readTextSub() {
                 //console.log('Readtext get : '+request.responseText);
                 var maxi = -1;
                 var readedorder = ('0' + T[0]).split(';')[0] * 1;
+                console.log("READEDORDER : "+readedorder);
                 if (readedorder > maxorder_readtext) {
                     maxorder_readtext = readedorder;
                     for (var i = 0; i < T.length; i++) {
                         var L = T[i].split(';');
+                        console.log(L);
                         if (L.length > 3) {
                             if (1 * L[1] > maxi) maxi = 1 * L[1];
                             if (AllPhrases[1 * L[1]] == undefined) {
