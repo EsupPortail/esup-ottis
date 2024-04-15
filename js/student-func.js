@@ -625,6 +625,7 @@ function readTextSub() {
                             if (1 * L[1] > maxi) maxi = 1 * L[1];
                             if (AllPhrases[1 * L[1]] == undefined) {
                                 AllPhrases[1 * L[1]] = true;
+                                console.log(L[3]);
                                 _("VOBanner").innerHTML = L[3];
                             }
                             /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
