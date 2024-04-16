@@ -23,6 +23,8 @@ if (! isset($_POST["filename"])) {
 }
 
 $filename=$_POST["filename"];
-
+$fd=fopen($filename,"w");
+fputs($fd,$_POST["filecontent"]);
+fclose($fd);
 
 ?>
