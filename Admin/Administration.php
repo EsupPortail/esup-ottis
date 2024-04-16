@@ -113,7 +113,9 @@ $( function() {
     Filename : <span id="dialog-filename"></span>
   </p>
   <p>
+    <form method="POST">
     <textarea id="dialog-content" style="width: 500px; height: 300px"></textarea>
+    </form>
   </p>
 </div>
  
