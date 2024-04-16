@@ -69,9 +69,7 @@ function Edit(filename) {
     document.getElementById('dialog-filename').innerHTML=filename;
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
-    var response=await fetch(filename);
-    var content=await response.text();
-    document.getElementById('dialog-content').value=content;
+    var response=fetch(filename).then((p)=> p.text().then((content)=>document.getElementById('dialog-content').value=content;));
 }
 
 
