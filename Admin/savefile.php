@@ -22,8 +22,11 @@ if (! isset($_POST["filename"])) {
     exit;
 }
 */
-$filename=$_POST["filename"];
-$content=$_POST["filecontent"];
+
+$data = json_decode(trim(file_get_contents("php://input")));
+
+$filename=$data["filename"];
+$content=$data["filecontent"];
 
 
 $content="Filename=".$filename."\n\nContent : ".$content;
