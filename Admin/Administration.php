@@ -116,7 +116,9 @@ $( function() {
         <h1>OMIST : Administration</h1>
     </main>
     <button onclick="Edit('../tables/tokens.json');">Edit tokens</button>
-    <button onclick="Edit('../tables/test.txt');">Edit test</button>
+    <button onclick="Edit('../tables/authorizedStudents.txt');">Edit Authorized students</button>
+    <button onclick="Edit('../tables/listAdminID.txt');">Edit privileged users</button>
+ <!--   <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
 
 <div id="dialog-edit" title="Edit a file" style="width: 550px">
   <p>
