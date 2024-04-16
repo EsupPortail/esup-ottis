@@ -29,9 +29,9 @@ $filename=$data["filename"];
 $content=$data["filecontent"];
 
 
-$content="Filename=".$filename."\n\nContent : ".$content;
+//$content="Filename=".$filename."\n\nContent : ".$content;
 
-$filename="../tables/test.txt";
+//$filename="../tables/test.txt";
 
 $fd=fopen($filename,"w");
 fputs($fd,$content);
