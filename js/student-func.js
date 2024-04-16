@@ -633,7 +633,7 @@ function readTextSubTranscript() {
             requestTranscriptSub.onload = function(event) {
                 decreasependingrequests();
                 var T = requestTranscriptSub.responseText.split('\n');
-                console.log(T);
+                console.log("responseText : " +T);
                 //console.log('Readtext get : '+request.responseText);
                 var maxi = -1;
                 var readedorder = ('0' + T[0]).split(';')[0] * 1;
