@@ -116,7 +116,7 @@ $( function() {
     <main>
         <h1>OMIST : Administration</h1>
     </main>
-    <button onclick="Edit('../tables/tokens.json');">Edit tokens</button>
+    <button onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i> Edit tokens</button>
     <button onclick="Edit('../tables/authorizedStudents.txt');">Edit Authorized students</button>
     <button onclick="Edit('../tables/listAdminID.txt');">Edit privileged users</button>
  <!--   <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
