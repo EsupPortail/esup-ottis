@@ -32,7 +32,7 @@ AuthenticateNotStudentorReader($uid,$filenameids);
 // sinon ne peut pas inviter
 
 $userprivileges=getPrivilege($uid,"../tables/listAdminID.txt",2);
-if ($userprivileges>1) {
+if ($userprivileges>2) {
     echo "Access forbidden !";
     exit;
 }
