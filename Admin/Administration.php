@@ -65,12 +65,21 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   ?>
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
 <script>
-function Edit(filename) {
+function Edit(readfilename) {
     document.getElementById('dialog-filename').innerHTML=filename;
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
-    var response=fetch(filename,{cache: "reload"}).then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
+    fetch("readfile.php", {
+        method: "post",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            filename: readfilename,
+        })
+    }).then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
 }
 
 function Save(savetofilename,content) {
@@ -81,7 +90,6 @@ function Save(savetofilename,content) {
     'Content-Type': 'application/json'
   },
 
-  //make sure to serialize your JSON body
   body: JSON.stringify({
     filename: savetofilename,
     filecontent: content
