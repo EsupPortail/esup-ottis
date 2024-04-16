@@ -117,8 +117,8 @@ $( function() {
         <h1>OMIST : Administration</h1>
     </main>
     <button onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i> Edit tokens</button>
-    <button onclick="Edit('../tables/authorizedStudents.txt');">Edit Authorized students</button>
-    <button onclick="Edit('../tables/listAdminID.txt');">Edit privileged users</button>
+    <button onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Edit Authorized students</button>
+    <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>Edit privileged users</button>
  <!--   <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
 
 <div id="dialog-edit" title="Edit a file" style="width: 550px">
