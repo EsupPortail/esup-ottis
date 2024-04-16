@@ -138,7 +138,7 @@ h1 {
     <button onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i>&nbsp; Edit tokens</button>
     <button onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;Edit Authorized students</button>
     <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Edit privileged users</button>
-    <button onclick="Edit('../tables/test.txt');">Edit test</button>
+    <!-- <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
 
 <div id="dialog-edit" title="Edit a file" style="width: 95%;">
   <p>
