@@ -23,8 +23,13 @@ if (! isset($_POST["filename"])) {
 }
 
 $filename=$_POST["filename"];
+$content=$_POST["filecontent"];
+
+$filename="../tables/test.txt";
+$content="Test\n\nEncore\n";
+
 $fd=fopen($filename,"w");
-fputs($fd,$_POST["filecontent"]);
+fputs($fd,$content);
 fclose($fd);
 
 ?>
