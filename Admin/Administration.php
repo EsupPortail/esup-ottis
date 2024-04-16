@@ -95,7 +95,7 @@ $( function() {
     </main>
     <button onclick="Edit('../tables/tokens.json');">Edit tokens</button>
 
-<div id="dialog-edit" title="Edit a file" style="width: 520px">
+<div id="dialog-edit" title="Edit a file" style="width: 550px">
   <p>
     Filename : <span id="dialog-filename"></span>
   </p>
