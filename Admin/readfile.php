@@ -1,5 +1,5 @@
 <?php
-
+/*
 include("../Security/Authentification.php");
 include("../Security/referer.php");
 
@@ -17,15 +17,21 @@ if ($userprivileges>1) {
     exit;
 }
 
-
-if (false) {//  (! isset($_POST["filename"])) {
+if (! isset($_POST["filename"])) {
     echo "Access forbidden !";
     exit;
-} else {
-    $filename="../tables/tokens.json";
+}
+*/
 
-    if (file_exists($filename))
-        echo file_get_contents($filename);
+$data = json_decode(trim(file_get_contents("php://input")),true);
+
+$filename=$data["filename"];
+
+$Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt"];
+if (in_array($filename, $Authorized_files)) {
+    echo file_get_contents($filename);
+} else {
+    echo "Access forbidden !";
 }
 
 ?>
