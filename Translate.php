@@ -44,7 +44,7 @@ function removeAccents($str) {
 
 if (isset($_GET["ROOMID"])) {
       $result = "";
-      if ($lineid == "NONE") {
+      if (false) { //($lineid == "NONE") { // Problème ici à revoir
         if (file_exists("tmp/Verylast_".$_GET["ROOMID"])) {
           $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"r");
           while($T=fgetcsv($fd,4096,";")) {
