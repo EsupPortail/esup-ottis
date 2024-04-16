@@ -72,7 +72,24 @@ function Edit(filename) {
     var response=fetch(filename).then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
 }
 
+function Save(savetofilename,content) {
+  fetch("savefile.php", {
+  method: "post",
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
 
+  //make sure to serialize your JSON body
+  body: JSON.stringify({
+    filename: savetofilename,
+    filecontent: content
+  })
+})
+.then( (response) => { 
+   alert("File Saved...");
+});
+}
 
 $( function() {
     $( "#dialog-edit" ).dialog({
@@ -81,8 +98,8 @@ $( function() {
       width: 550,
       buttons: {
         "Save": function() {
+          Save(document.getElementById('dialog-filename').innerHTML, document.getElementById('dialog-content').value);
           $( this ).dialog( "close" );
-          alert('Saving '+document.getElementById('dialog-filename').innerHTML+' ...');
         },
         "Cancel": function() {
           $( this ).dialog( "close" );
@@ -98,6 +115,7 @@ $( function() {
         <h1>OMIST : Administration</h1>
     </main>
     <button onclick="Edit('../tables/tokens.json');">Edit tokens</button>
+    <button onclick="Edit('../tables/test.txt');">Edit test</button>
 
 <div id="dialog-edit" title="Edit a file" style="width: 550px">
   <p>

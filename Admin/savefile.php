@@ -17,6 +17,12 @@ if ($userprivileges>1) {
     exit;
 }
 
-//if (! isset($_POST[]))
+if (! isset($_POST["filename"])) {
+    echo "Access forbidden !";
+    exit;
+}
+
+$filename=$_POST["filename"];
+
 
 ?>
