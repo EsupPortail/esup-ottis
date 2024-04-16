@@ -94,12 +94,12 @@ $( function() {
     </main>
     <button onclick="Edit('../tables/tokens.json');">Edit tokens</button>
 
-<div id="dialog-edit" title="Edit a file">
+<div id="dialog-edit" title="Edit a file" style="width: 520px">
   <p>
     Filename : <span id="dialog-filename"></span>
   </p>
   <p>
-    <textarea id="dialog-content" style="width: 500px; height: 500px"></textarea>
+    <textarea id="dialog-content" style="width: 500px; height: 300px"></textarea>
   </p>
 </div>
  
