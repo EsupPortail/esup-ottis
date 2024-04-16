@@ -107,6 +107,7 @@ $( function() {
         }
       }
     });
+    $("button").button();
   } );
 </script>
 
