@@ -1,7 +1,7 @@
 <?php
-
+/*
 include("../Security/Authentification.php");
-//include("../Security/referer.php");
+include("../Security/referer.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
@@ -16,6 +16,7 @@ if ($userprivileges>1) {
     echo "Access forbidden !";
     exit;
 }
+*/
 
 if (! isset($_GET["filename"])) {
     echo "Access forbidden !";
