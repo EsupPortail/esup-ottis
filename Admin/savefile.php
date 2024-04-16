@@ -26,7 +26,7 @@ $filename=$_POST["filename"];
 $content=$_POST["filecontent"];
 
 $filename="../tables/test.txt";
-$content="Test\n\nEncore\n";
+$content="Test\n\nEncore\nEncore";
 
 $fd=fopen($filename,"w");
 fputs($fd,$content);
