@@ -554,19 +554,17 @@ function readText() {
 }
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for.
+ * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for subtitles page.
  * 
  */
 
 function readTextSub() {
-    console.log("readTextSub OK");
+    // console.log("readTextSub OK");
     var synthesison = _('synthesison').checked;
     if (synthesison) {
         if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "readtext.php");
-            var requestTranscriptSub = new XMLHttpRequest();
-            requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
             increasependingrequests();
             currentorder_readtext++;
             var f = new FormData();
@@ -574,7 +572,7 @@ function readTextSub() {
             f.append('ORDER', currentorder_readtext);
             f.append('ROOMID', _('classroomid').value);
             request.send(f);
-            AbortTimeout(request,"readText");
+            AbortTimeout(request,"readTextSub");
             request.onload = function(event) {
                 decreasependingrequests();
                 var T = request.responseText.split('\n');
@@ -607,9 +605,31 @@ function readTextSub() {
 
                 CompleteTranslation2();
             };
+        }
+    }
+}
+
+/**
+ * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for subtitles page.
+ * 
+ */
+
+function readTextSubTranscript() {
+    console.log("readTextSub OK");
+    var synthesison = _('synthesison').checked;
+    if (synthesison) {
+        if (_('classroomid').value != "") {
+            var requestTranscriptSub = new XMLHttpRequest();
+            requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
+            increasependingrequests();
+            currentorder_readtext++;
+            var f = new FormData();
+            f.append('lineid', inputnumber);
+            f.append('ORDER', currentorder_readtext);
+            f.append('ROOMID', _('classroomid').value);
 
             requestTranscriptSub.send(f);
-            AbortTimeout(request,"readTextSub");
+            AbortTimeout(requestTranscriptSub,"readTextSubTranscript");
             requestTranscriptSub.onload = function(event) {
                 decreasependingrequests();
                 var T = requestTranscriptSub.responseText.split('\n');
