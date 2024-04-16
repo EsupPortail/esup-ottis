@@ -137,7 +137,7 @@ h1 {
   </p>
   <p>
     <form method="POST">
-    <textarea id="dialog-content" style="width: 90%; height: 400px"></textarea>
+    <textarea id="dialog-content" style="width: 100%; height: 400px"></textarea>
     </form>
   </p>
 </div>
