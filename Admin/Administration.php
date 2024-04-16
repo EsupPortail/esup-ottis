@@ -70,14 +70,15 @@ function Edit(readfilename) {
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
-    fetch("readfile.php", {
+    fetch("savefile.php", {
         method: "post",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            filename: readfilename
+            filename: readfilename,
+            content: 'TEST'
         })
     })
     .then( (response) => { 
