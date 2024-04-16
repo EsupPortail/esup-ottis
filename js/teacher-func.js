@@ -476,44 +476,44 @@ function Traduction(ch) {
     }
 }
 
-/**
- * @summary Main function for translating a given text, handles the synchronisation of different translations.
- * 
- * @param {string} ch a given sentence.
- * @returns
- */
+// /**
+//  * @summary Main function for translating a given text, handles the synchronisation of different translations.
+//  * 
+//  * @param {string} ch a given sentence.
+//  * @returns
+//  */
 
-function TraductionSub(ch) {
-    ch = RemoveVerbalTics(ch);
-    // console.log(ch);
-    var recognitionon = _('recognitionon').checked;
-    if (recognitionon) {
-        console.log("Reconnaissance activée");
-        //EcrireNB(ch);
-        //EcrireTitle(ch);
-        // saveText(ch);
-        // var liveon = _('liveon').checked;
-        // if (liveon) {
-            if (readytotalk) {
-                console.log("Ready to talk ?");
-                notready();
-                // Ecrire('Input : ' + ch);
-                // if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
-                console.log(_('subtitlelanguage').value.substr(0, 2));
-                console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
-                if (_('subtitlelanguage').value.substr(0, 2) != _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2)){
-                    console.log("Prêt à traduire");
-                    console.log(_('subtitlelanguage').value.substr(0, 2));
-                    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
-                    TranslateSub(ch, _('subtitlelanguage').value.substr(0, 2), _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
-                } else {
-                    // Parle(ch);
-                    // Ecrire("Output : " + ch);
-                }
-            }
-        // }
-    }
-}
+// function TraductionSub(ch) {
+//     ch = RemoveVerbalTics(ch);
+//     // console.log(ch);
+//     var recognitionon = _('recognitionon').checked;
+//     if (recognitionon) {
+//         console.log("Reconnaissance activée");
+//         //EcrireNB(ch);
+//         //EcrireTitle(ch);
+//         // saveText(ch);
+//         // var liveon = _('liveon').checked;
+//         // if (liveon) {
+//             if (readytotalk) {
+//                 console.log("Ready to talk ?");
+//                 notready();
+//                 // Ecrire('Input : ' + ch);
+//                 // if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
+//                 console.log(_('subtitlelanguage').value.substr(0, 2));
+//                 console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+//                 if (_('subtitlelanguage').value.substr(0, 2) != _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2)){
+//                     console.log("Prêt à traduire");
+//                     console.log(_('subtitlelanguage').value.substr(0, 2));
+//                     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+//                     TranslateSub(ch, _('subtitlelanguage').value.substr(0, 2), _('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+//                 } else {
+//                     // Parle(ch);
+//                     // Ecrire("Output : " + ch);
+//                 }
+//             }
+//         // }
+//     }
+// }
 
 /**
  * @summary A function that adds url arguments related to the choosen translator service.
@@ -562,40 +562,40 @@ function Translate(ch, l, linput) {
     AbortTimeout(xhr,"Translate");
 }
 
-/**
- * @summary A function that translates a given text from a language to another.
- * 
- * @param {string} ch A given sentence
- * @param {string} l The output language.
- * @param {string} linput The input language.
- */
+// /**
+//  * @summary A function that translates a given text from a language to another.
+//  * 
+//  * @param {string} ch A given sentence
+//  * @param {string} l The output language.
+//  * @param {string} linput The input language.
+//  */
 
-function TranslateSub(ch, l, linput) {
-    var xhr = new XMLHttpRequest();
+// function TranslateSub(ch, l, linput) {
+//     var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
+//     xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
 
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // console.log(this.responseText);
-            var response = JSON.parse(this.responseText);
-            if ((!response["error"]) && response["data"]["translations"]) {
-                // Parle(response["data"]["translations"][0]["translatedText"]);
-                Ecrire("" + response["data"]["translations"][0]["translatedText"]);
-                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
-                // console.log("" + response["data"]["translations"][0]["translatedText"]);
-                _("titreSub").innerHTML = "" + response["data"]["translations"][0]["translatedText"];
-            } else {
-                Ecrire("---- Translation ERROR ----")
-            }
+//     xhr.onreadystatechange = function() { // Call a function when the state changes.
+//         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+//             // console.log(this.responseText);
+//             var response = JSON.parse(this.responseText);
+//             if ((!response["error"]) && response["data"]["translations"]) {
+//                 // Parle(response["data"]["translations"][0]["translatedText"]);
+//                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
+//                 lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
+//                 // console.log("" + response["data"]["translations"][0]["translatedText"]);
+//                 _("titreSub").innerHTML = "" + response["data"]["translations"][0]["translatedText"];
+//             } else {
+//                 Ecrire("---- Translation ERROR ----")
+//             }
 
-        }
-    };
-    var d_begin = Date.now();
-    console.log(d_begin + " : Sending for translation " + ch + " from " + linput + " to " + l)
-    xhr.send();
-    AbortTimeout(xhr,"Translate");
-}
+//         }
+//     };
+//     var d_begin = Date.now();
+//     console.log(d_begin + " : Sending for translation " + ch + " from " + linput + " to " + l)
+//     xhr.send();
+//     AbortTimeout(xhr,"Translate");
+// }
 
 
 /**
@@ -2176,48 +2176,48 @@ function StartSpeechRecognition(callback) {
     } catch {}
 }
 
-/**
- * @summary StartSpeechRecognitionSub is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
- * 
- * @param {function} callback function that is called each time a new text is recognized.
- * @returns
- */
+// /**
+//  * @summary StartSpeechRecognitionSub is executed each time a speech recognition is required. The callback function, typically a translation function is fired each time a new text is recognized.
+//  * 
+//  * @param {function} callback function that is called each time a new text is recognized.
+//  * @returns
+//  */
 
-function StartSpeechRecognitionSub(callback) {
-    builtin_recognition.lang = builtin_language;
-    builtin_recognition.onresult = function(event) {
-        if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
-            console.log("Start speech recognition");
-            console.log(event.results);
-            var partial = '';
-            for (var i = event.resultIndex; i < event.results.length; i++) {
-                if (event.results[i].isFinal) {
-                    partial = event.results[i][0].transcript; //+" > ";
-                    FreeResources();
-                    callback(event.results[i][0].transcript);
-                } else {
-                    partial += ' ' + event.results[i][0].transcript;
-                }
-            }
-            if (partial.trim() != '') {
-                console.log("Ecrire la transcription");
-                if (_('recognitionon').checked) EcrirePartialSub(RemoveVerbalTics(partial));
-            }
-            //builtin_recognition.stop();
-        }
-    };
-    builtin_recognition.onend = function(event) {
-        console.log("test builtin : "+builtin_recognitionon);
-        if (builtin_recognitionon) {
-            console.log("Continue la transcription");
-            StartSpeechRecognitionSub(callback);
-        }
-    };
-    builtin_recognitionon = true;
-    try {
-        builtin_recognition.start();
-    } catch {}
-}
+// function StartSpeechRecognitionSub(callback) {
+//     builtin_recognition.lang = builtin_language;
+//     builtin_recognition.onresult = function(event) {
+//         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
+//             console.log("Start speech recognition");
+//             console.log(event.results);
+//             var partial = '';
+//             for (var i = event.resultIndex; i < event.results.length; i++) {
+//                 if (event.results[i].isFinal) {
+//                     partial = event.results[i][0].transcript; //+" > ";
+//                     FreeResources();
+//                     callback(event.results[i][0].transcript);
+//                 } else {
+//                     partial += ' ' + event.results[i][0].transcript;
+//                 }
+//             }
+//             if (partial.trim() != '') {
+//                 console.log("Ecrire la transcription");
+//                 if (_('recognitionon').checked) EcrirePartialSub(RemoveVerbalTics(partial));
+//             }
+//             //builtin_recognition.stop();
+//         }
+//     };
+//     builtin_recognition.onend = function(event) {
+//         console.log("test builtin : "+builtin_recognitionon);
+//         if (builtin_recognitionon) {
+//             console.log("Continue la transcription");
+//             StartSpeechRecognitionSub(callback);
+//         }
+//     };
+//     builtin_recognitionon = true;
+//     try {
+//         builtin_recognition.start();
+//     } catch {}
+// }
 
 /**
  * @summary StopSpeechRecognition is used to stop a running speech recognition service
@@ -2308,24 +2308,21 @@ function EcrirePartial(ch) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
     console.log("Sending for transcription " + ch)
-    xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText); console.log("REPONSE : "+data);}, false);
-    // if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-    //     console.log("REPONSE : "+xhr.responseText);
-    // }
+    xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText);}, false);
     xhr.send();
     AbortTimeout(xhr,"Transcription");
 }
 
-/**
- * @summary Function that update the "partial title" div.
- * 
- * @param {string} ch the text that is adding to the title.
- */
+// /**
+//  * @summary Function that update the "partial title" div.
+//  * 
+//  * @param {string} ch the text that is adding to the title.
+//  */
 
-function EcrirePartialSub(ch) {
-    console.log("EcrirePartialSub");
-    if (ch != 'undefined' && ch != undefined) _('partialtitreSub').innerHTML = ch;
-}
+// function EcrirePartialSub(ch) {
+//     console.log("EcrirePartialSub");
+//     if (ch != 'undefined' && ch != undefined) _('partialtitreSub').innerHTML = ch;
+// }
 
 /**
  * @summary Function that update the "studentfeedback" div.
@@ -3077,40 +3074,40 @@ function Micro() {
 
 }
 
-/**
- * @summary Switch the Microphone/Speechrecognition on and off
- * 
- */
+// /**
+//  * @summary Switch the Microphone/Speechrecognition on and off
+//  * 
+//  */
 
-function MicroSub() {
-    if (!builtin_microsofttranscritionon) {
-        builtin_recognition.abort();
-    }
-    var mybox = _('micon');
-    _('recognitionon').checked = !_('recognitionon').checked;
-    console.log(_('recognitionon').checked);
-    builtin_recognitionon = _('recognitionon').checked;
-    if (_('recognitionon').checked) {
-        mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
-    } else {
-        mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
-    }
-    if (builtin_microsofttranscritionon) {
-        if (builtin_recognitionon) {
-            doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
-        } else {
-            stopRecognizer();
-        }
-    }
-    if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
-        console.log("MicroSub activé");
-        StartSpeechRecognitionSub(TraductionSub);
-    }
-    /* else {
-          builtin_recognition.abort();
-        }*/
+// function MicroSub() {
+//     if (!builtin_microsofttranscritionon) {
+//         builtin_recognition.abort();
+//     }
+//     var mybox = _('micon');
+//     _('recognitionon').checked = !_('recognitionon').checked;
+//     console.log(_('recognitionon').checked);
+//     builtin_recognitionon = _('recognitionon').checked;
+//     if (_('recognitionon').checked) {
+//         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
+//     } else {
+//         mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
+//     }
+//     if (builtin_microsofttranscritionon) {
+//         if (builtin_recognitionon) {
+//             doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
+//         } else {
+//             stopRecognizer();
+//         }
+//     }
+//     if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+//         console.log("MicroSub activé");
+//         StartSpeechRecognitionSub(TraductionSub);
+//     }
+//     /* else {
+//           builtin_recognition.abort();
+//         }*/
 
-}
+// }
 
 
 /**
@@ -3425,66 +3422,66 @@ function applyConfig() {
     updateConfig();
 }
 
-/**
- * @summary Apply a configuration (at startup) for subtitles.php
- * 
- */
+// /**
+//  * @summary Apply a configuration (at startup) for subtitles.php
+//  * 
+//  */
 
-function applyConfigSub() {
-    var config = currentconfig;
-    console.log(config);
-    if (config.length != "ABYANACNNCNNNYYY".length) return;
-    // classroomlanguage
-    _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-    setLanguageInput(_('classroomlanguage').value);
-    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
+// function applyConfigSub() {
+//     var config = currentconfig;
+//     console.log(config);
+//     if (config.length != "ABYANACNNCNNNYYY".length) return;
+//     // classroomlanguage
+//     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+//     setLanguageInput(_('classroomlanguage').value);
+//     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
 
-    // subtitlelanguage
-    _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-    setLanguageSubtitle(_('subtitlelanguage').value);
-    console.log(_('subtitlelanguage').value);
+//     // subtitlelanguage
+//     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
+//     setLanguageSubtitle(_('subtitlelanguage').value);
+//     console.log(_('subtitlelanguage').value);
 
-    // subtitlebaron
-    if (config.charAt(2) == "Y") {
-        _('titreSub').style.visibility = 'visible';
-    } else {
-        _('titreSub').style.visibility = 'hidden';
-    }
-    // subtitlepartialbaron
-    if ((config.charAt(4) == "Y")) {
-        _('partialtitreSub').style.visibility = 'visible';
-    } else {
-        _('partialtitreSub').style.visibility = 'hidden';
-    }
-    // ColorTitre
-    _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
-    ChangeColor('titreSub', _('ColorTitre').value);
-    // ColorPartialTitre
-    _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
-    ChangeColor('partialtitreSub', _('ColorPartialTitre').value);
-    // selectfontsize
-    _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
-    _('titreSub').style.fontSize = _('selectfontsize').value;
-    _('partialtitreSub').style.fontSize = _('selectfontsize').value;
-    //selectopacity
-    _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    ChangeOpacity('titreSub', _('selectopacity').value)
-    ChangeOpacity('partialtitreSub', _('selectopacity').value)
+//     // subtitlebaron
+//     if (config.charAt(2) == "Y") {
+//         _('titreSub').style.visibility = 'visible';
+//     } else {
+//         _('titreSub').style.visibility = 'hidden';
+//     }
+//     // subtitlepartialbaron
+//     if ((config.charAt(4) == "Y")) {
+//         _('partialtitreSub').style.visibility = 'visible';
+//     } else {
+//         _('partialtitreSub').style.visibility = 'hidden';
+//     }
+//     // ColorTitre
+//     _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
+//     ChangeColor('titreSub', _('ColorTitre').value);
+//     // ColorPartialTitre
+//     _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
+//     ChangeColor('partialtitreSub', _('ColorPartialTitre').value);
+//     // selectfontsize
+//     _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
+//     _('titreSub').style.fontSize = _('selectfontsize').value;
+//     _('partialtitreSub').style.fontSize = _('selectfontsize').value;
+//     //selectopacity
+//     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
+//     ChangeOpacity('titreSub', _('selectopacity').value)
+//     ChangeOpacity('partialtitreSub', _('selectopacity').value)
 
-    console.log(_('subtitlelanguage').value.substr(0, 2));
-    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+//     console.log(_('subtitlelanguage').value.substr(0, 2));
+//     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
 
-    // Micro
-    // _('microon').checked = (config.charAt(13) == "Y");
-    // _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
-    // if (_('microon').checked) {
-    //     show('micon');
-    // } else {
-    //     hide('micon');
-    // }
+//     // Micro
+//     // _('microon').checked = (config.charAt(13) == "Y");
+//     // _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
+//     // if (_('microon').checked) {
+//     //     show('micon');
+//     // } else {
+//     //     hide('micon');
+//     // }
    
-    // updateConfig();
-}
+//     // updateConfig();
+// }
 
 
 

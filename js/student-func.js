@@ -387,7 +387,7 @@ function EcrireNB(ch) {
 }
 
 /**
- * @summary Function that update the "notebook" div for the subtitle page.
+ * @summary Function that update the "notebook" div for the subtitle application.
  * 
  * @param {string} ch the text that is adding to the notebook.
  */
@@ -396,9 +396,6 @@ function EcrireNBSub(ch) {
     if (_('notebook').innerHTML == "")
         _('notebook').innerHTML = ch;
     else _('notebook').innerHTML = _('notebook').innerHTML + "<br/>" + ch;
-
-    // // VOBanner
-    // _('VOBanner').innerHTML = ch;
 }
 
 /**
@@ -554,12 +551,11 @@ function readText() {
 }
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for subtitles page.
+ * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for subtitles application.
  * 
  */
 
 function readTextSub() {
-    // console.log("readTextSub OK");
     var synthesison = _('synthesison').checked;
     if (synthesison) {
         if (_('classroomid').value != "") {
@@ -610,12 +606,11 @@ function readTextSub() {
 }
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for subtitles page.
+ * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for transcribed subtitles application.
  * 
  */
 
 function readTextSubTranscript() {
-    console.log("readTextSub OK");
     var synthesison = _('synthesison').checked;
     if (synthesison) {
         if (_('classroomid').value != "") {
@@ -633,7 +628,6 @@ function readTextSubTranscript() {
             requestTranscriptSub.onload = function(event) {
                 decreasependingrequests();
                 var T = requestTranscriptSub.responseText.split('\n');
-                console.log("responseText : " +T);
                 _("VOBanner").innerHTML = T;
                 //console.log('Readtext get : '+request.responseText);
     //             var maxi = -1;
