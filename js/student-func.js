@@ -634,38 +634,39 @@ function readTextSubTranscript() {
                 decreasependingrequests();
                 var T = requestTranscriptSub.responseText.split('\n');
                 console.log("responseText : " +T);
+                _("VOBanner").innerHTML = T;
                 //console.log('Readtext get : '+request.responseText);
-                var maxi = -1;
-                var readedorder = ('0' + T[0]).split(';')[0] * 1;
-                console.log("READEDORDER : "+readedorder);
-                if (readedorder > maxorder_readtext) {
-                    maxorder_readtext = readedorder;
-                    for (var i = 0; i < T.length; i++) {
-                        var L = T[i].split(';');
-                        console.log(L);
-                        if (L.length > 3) {
-                            if (1 * L[1] > maxi) maxi = 1 * L[1];
-                            if (AllPhrases[1 * L[1]] == undefined) {
-                                AllPhrases[1 * L[1]] = true;
-                                console.log(L[3]);
-                                console.log("Nouvelle phrase test 1: ");
-                                _("VOBanner").innerHTML = L[3];
-                            }
-                            /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-        Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
-      else {
-        Parle(L[2]);
-        Ecrire(""+L[2]);
-      }*/
-                        }else{
-                            console.log("Nouvelle phrase : ");
-                            console.log(L);
-                            _("VOBanner").innerHTML = L[1];
-                        }
-                    }
-                }
-                //alert(maxi);
-                if (maxi > inputnumber) inputnumber = maxi;
+    //             var maxi = -1;
+    //             var readedorder = ('0' + T[0]).split(';')[0] * 1;
+    //             console.log("READEDORDER : "+readedorder);
+    //             if (readedorder > maxorder_readtext) {
+    //                 maxorder_readtext = readedorder;
+    //                 for (var i = 0; i < T.length; i++) {
+    //                     var L = T[i].split(';');
+    //                     console.log(L);
+    //                     if (L.length > 3) {
+    //                         if (1 * L[1] > maxi) maxi = 1 * L[1];
+    //                         if (AllPhrases[1 * L[1]] == undefined) {
+    //                             AllPhrases[1 * L[1]] = true;
+    //                             console.log(L[3]);
+    //                             console.log("Nouvelle phrase test 1: ");
+    //                             _("VOBanner").innerHTML = L[3];
+    //                         }
+    //                         /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+    //     Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+    //   else {
+    //     Parle(L[2]);
+    //     Ecrire(""+L[2]);
+    //   }*/
+    //                     }else{
+    //                         console.log("Nouvelle phrase : ");
+    //                         console.log(L);
+    //                         _("VOBanner").innerHTML = L[1];
+    //                     }
+    //                 }
+    //             }
+    //             //alert(maxi);
+    //             if (maxi > inputnumber) inputnumber = maxi;
 
             };
         }
