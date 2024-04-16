@@ -75,6 +75,7 @@ $( function() {
     $( "#dialog-edit" ).dialog({
       autoOpen: false,
       modal: true,
+      width: 550,
       buttons: {
         "Save": function() {
           $( this ).dialog( "close" );
