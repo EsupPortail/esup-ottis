@@ -81,12 +81,7 @@ function Edit(readfilename) {
             content: 'TEST'
         })
     })
-    .then( (response) => { 
-        var res='';
-        for (var p in response) res+=p+'='+response[p]+'\n';
-        alert("File readed...\n"+res);
-    });
-    //.then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
+    .then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
 }
 
 function Save(savetofilename,content) {
