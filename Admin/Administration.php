@@ -66,7 +66,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
 <script>
 function Edit(readfilename) {
-    document.getElementById('dialog-filename').innerHTML=filename;
+    document.getElementById('dialog-filename').innerHTML=readfilename;
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
