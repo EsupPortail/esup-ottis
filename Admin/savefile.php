@@ -23,7 +23,7 @@ if (! isset($_POST["filename"])) {
 }
 */
 
-$data = json_decode(trim(file_get_contents("php://input")));
+$data = (array) json_decode(trim(file_get_contents("php://input")));
 
 $filename=$data["filename"];
 $content=$data["filecontent"];
