@@ -110,15 +110,25 @@ $( function() {
     $("button").button();
   } );
 </script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+
+h1 {
+  font-family: "Concert One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+</style>
 
 </head>
 <body>
     <main>
         <h1>OMIST : Administration</h1>
     </main>
-    <button onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i> Edit tokens</button>
-    <button onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>Edit Authorized students</button>
-    <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>Edit privileged users</button>
+    <button onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i>&nbsp; Edit tokens</button>
+    <button onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;Edit Authorized students</button>
+    <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Edit privileged users</button>
  <!--   <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
 
 <div id="dialog-edit" title="Edit a file" style="width: 550px">
