@@ -69,15 +69,11 @@ function Edit(filename) {
     document.getElementById('dialog-filename').innerHTML=filename;
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "readfile.php");
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            document.getElementById('dialog-content').value=this.responseText;
-        }
-    };
-    xhr.send({'filename': filename});
+    var response=await fetch(filename);
+    var content=await response.text();
+    document.getElementById('dialog-content').value=content;
 }
+
 
 
 $( function() {
