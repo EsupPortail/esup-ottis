@@ -80,7 +80,13 @@ function Edit(readfilename) {
         body: JSON.stringify({
             filename: readfilename,
         })
-    }).then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
+    })
+    .then( (response) => { 
+        var res='';
+        for (var p in response) res+=p+'\n';
+        alert("File readed..."+response);
+    });
+    //.then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
 }
 
 function Save(savetofilename,content) {
