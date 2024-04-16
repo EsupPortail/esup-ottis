@@ -29,11 +29,13 @@ $filename=$data["filename"];
 
 $Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt"];
 if (in_array($filename, $Authorized_files)) {
-    $res="";
+/*    $res="";
     $fd=fopen($filename,"r");
     while($ligne=fgets($fd,4096)) $res.=$ligne."\n";
     fclose($fd);
     echo $res;
+    */
+    echo file_get_contents($filename);
 } else {
     echo "Access forbidden !";
 }
