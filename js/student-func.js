@@ -659,6 +659,7 @@ function readTextSubTranscript() {
       }*/
                         }else{
                             console.log("Nouvelle phrase : ");
+                            console.log(L);
                             _("VOBanner").innerHTML = L[1];
                         }
                     }
