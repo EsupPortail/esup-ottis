@@ -17,12 +17,15 @@ if ($userprivileges>1) {
     exit;
 }
 
-if (! isset($_POST["filename"])) {
+
+if (false) {//  (! isset($_POST["filename"])) {
     echo "Access forbidden !";
     exit;
 } else {
-    if (file_exists($_POST["filename"]))
-        echo file_get_contents($_POST["filename"]);
+    $filename="../tables/tokens.json";
+
+    if (file_exists($filename))
+        echo file_get_contents($filename);
 }
 
 ?>
