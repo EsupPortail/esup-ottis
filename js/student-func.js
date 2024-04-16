@@ -637,6 +637,7 @@ function readTextSub() {
         Ecrire(""+L[2]);
       }*/
                         }else{
+                            console.log("Nouvelle phrase : ");
                             _("VOBanner").innerHTML = L[1];
                         }
                     }
