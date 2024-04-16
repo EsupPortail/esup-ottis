@@ -96,7 +96,7 @@ $( function() {
     $( "#dialog-edit" ).dialog({
       autoOpen: false,
       modal: true,
-      width: 550,
+      width: '95%',
       buttons: {
         "Save": function() {
           Save(document.getElementById('dialog-filename').innerHTML, document.getElementById('dialog-content').value);
@@ -131,13 +131,13 @@ h1 {
     <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Edit privileged users</button>
  <!--   <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
 
-<div id="dialog-edit" title="Edit a file" style="width: 550px">
+<div id="dialog-edit" title="Edit a file" style="width: 95%;">
   <p>
     Filename : <span id="dialog-filename"></span>
   </p>
   <p>
     <form method="POST">
-    <textarea id="dialog-content" style="width: 500px; height: 300px"></textarea>
+    <textarea id="dialog-content" style="width: 90%; height: 400px"></textarea>
     </form>
   </p>
 </div>
