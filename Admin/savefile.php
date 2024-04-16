@@ -25,8 +25,10 @@ if (! isset($_POST["filename"])) {
 $filename=$_POST["filename"];
 $content=$_POST["filecontent"];
 
+
+$content="Filename=".$filename."\n\nContent : ".$content;
+
 $filename="../tables/test.txt";
-$content="Test\n\nEncore\nEncore";
 
 $fd=fopen($filename,"w");
 fputs($fd,$content);
