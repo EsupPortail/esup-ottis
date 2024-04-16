@@ -72,7 +72,6 @@ function Edit(readfilename) {
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
     fetch("readfile.php", {
         method: "post",
-        mode: 'no-cors',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -83,8 +82,8 @@ function Edit(readfilename) {
     })
     .then( (response) => { 
         var res='';
-        for (var p in response) res+=p+'\n';
-        alert("File readed..."+response);
+        for (var p in response) res+=p+'='+response[p]+'\n';
+        alert("File readed...\n"+res);
     });
     //.then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
 }

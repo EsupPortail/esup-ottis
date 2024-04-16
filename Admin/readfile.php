@@ -33,7 +33,7 @@ if (in_array($filename, $Authorized_files)) {
     $fd=fopen($filename,"r");
     while($ligne=fgets($fd,4096)) $res.=$ligne."\n";
     fclose($fd);
-    echo $res;
+    //echo $res;
 } else {
     echo "Access forbidden !";
 }
