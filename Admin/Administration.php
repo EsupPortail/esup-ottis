@@ -72,6 +72,7 @@ function Edit(readfilename) {
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
     fetch("readfile.php", {
         method: "post",
+        mode: 'cors',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
