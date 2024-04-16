@@ -1,5 +1,5 @@
 <?php
-/*
+
 include("../Security/Authentification.php");
 include("../Security/referer.php");
 
@@ -16,14 +16,13 @@ if ($userprivileges>1) {
     echo "Access forbidden !";
     exit;
 }
-*/
 
-if (! isset($_GET["filename"])) {
+if (! isset($_POST["filename"])) {
     echo "Access forbidden !";
     exit;
 } else {
-    if (file_exists($_GET["filename"]))
-        echo file_get_contents($_GET["filename"]);
+    if (file_exists($_POST["filename"]))
+        echo file_get_contents($_POST["filename"]);
 }
 
 ?>
