@@ -70,7 +70,7 @@ function Edit(filename) {
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", filename, true);
+    xhr.open("GET", "readfile.php?filename="+filename, true);
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             document.getElementById('dialog-content').value=this.responseText;
