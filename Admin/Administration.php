@@ -70,7 +70,7 @@ function Edit(readfilename) {
     $( "#dialog-edit" ).dialog("open");
     // Read the file content
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
-    fetch("savefile2.php", {
+    fetch("savefile2.php", { // Ce fichier s'appelle savefile2.php uniquement parce que le proxy n'accepte pas readfile.php
         method: "post",
         headers: {
             'Accept': 'application/json',
@@ -78,7 +78,6 @@ function Edit(readfilename) {
         },
         body: JSON.stringify({
             filename: readfilename,
-            content: 'TEST'
         })
     })
     .then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
