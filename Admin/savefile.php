@@ -1,5 +1,5 @@
 <?php
-
+/*
 include("../Security/Authentification.php");
 include("../Security/referer.php");
 
@@ -21,7 +21,7 @@ if (! isset($_POST["filename"])) {
     echo "Access forbidden !";
     exit;
 }
-
+*/
 $filename=$_POST["filename"];
 $content=$_POST["filecontent"];
 
