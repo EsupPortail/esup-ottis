@@ -3,7 +3,7 @@
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # Ajout JB (pour être sûr)
 SCRIPT_DIR=/var/www/html/AutomaticTranslator-test/OMIST_Tools
-source $SCRIPT_DIR/config.py
+source $SCRIPT_DIR/config_sh
 
 RANDOMPATH=$1
 Filename=$2

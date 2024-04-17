@@ -43,7 +43,7 @@ include("configOT.php");
 
 $res=array();
 if ($WhichTranslator == "DEEPLFREE") {
-  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPIFREETOKEN,$res);
 } else {
   exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
 }

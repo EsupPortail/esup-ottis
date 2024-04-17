@@ -240,7 +240,7 @@ if ($synchronize) {
 </style>
 
 </head>
-<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); setInterval(readText, 500);/*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
+<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); setInterval(readTextSub, 500); setInterval(readTextSubTranscript, 300);/*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
 <main>
 <h1 style="display:none;">Sous-titres</h1>
 </main>
