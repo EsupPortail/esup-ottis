@@ -87,8 +87,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on;
-  background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
-  background-size:3000px 3000px;
+  /* background: linear-gradient(45deg, #243949, #2cacd1, #35eb93);
+  background-size:3000px 3000px; */
   top: 0px !important;
   background-image: url('images/background-nantes-univ.png');
 }
