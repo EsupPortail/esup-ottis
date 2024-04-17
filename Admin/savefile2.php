@@ -17,12 +17,6 @@ if ($userprivileges>1) {
     exit;
 }
 
-if (! isset($_POST["filename"])) {
-    echo "Access forbidden !";
-    exit;
-}
-
-
 $data = json_decode(trim(file_get_contents("php://input")),true);
 
 $filename=$data["filename"];
