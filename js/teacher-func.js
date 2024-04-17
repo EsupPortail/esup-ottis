@@ -2689,7 +2689,7 @@ function draw() {
         setTimeout(draw, 1000);
     } else {
         var tab = _('questionicon');
-        tab.innerHTML = '<i class=\'material-icons big\'>thumb_up</i>';
+        tab.innerHTML = '<i class=\'material-icons\'>thumb_up</i>';
         tab.style.backgroundColor = 'green';
     }
 }
