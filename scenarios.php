@@ -247,6 +247,8 @@ img {
   background-color: black;
   color: white;
   position : fixed;
+  bottom: 0;
+  left: 0;
 }
 
 </style>
