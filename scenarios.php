@@ -372,8 +372,6 @@ body+.skiptranslate {
 #google_translate_element .skiptranslate {
     display: block;
     /*display: none !important;*/
-    right: 0px;
-    margin: 18px;
 }
 
 .goog-te-banner-frame.skiptranslate {
@@ -384,7 +382,13 @@ body+.skiptranslate {
   #google_translate_element {display: none;}
 }
 
-#google_translate_element {position: fixed; top: 0px; z-index: 500000;}
+#google_translate_element {
+  position: fixed; 
+  top: 0px; 
+  z-index: 500000;
+  right: 0px;
+  margin: 18px;
+}
 
 #google_translate_element .goog-te-gadget-icon {
   display: none;
