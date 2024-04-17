@@ -254,6 +254,7 @@ img {
 #logoNU {
   width : 231px;
   height : auto;
+  margin : 20px;
 }
 
 </style>
