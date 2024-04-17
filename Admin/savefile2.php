@@ -1,5 +1,5 @@
 <?php
-/*
+
 include("../Security/Authentification.php");
 include("../Security/referer.php");
 
@@ -21,7 +21,7 @@ if (! isset($_POST["filename"])) {
     echo "Access forbidden !";
     exit;
 }
-*/
+
 
 $data = json_decode(trim(file_get_contents("php://input")),true);
 

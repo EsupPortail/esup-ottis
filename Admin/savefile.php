@@ -1,5 +1,5 @@
 <?php
-/*
+
 include("../Security/Authentification.php");
 include("../Security/referer.php");
 
@@ -21,7 +21,7 @@ if (! isset($_POST["filename"])) {
     echo "Access forbidden !";
     exit;
 }
-*/
+
 
 $data = json_decode(trim(file_get_contents("php://input")),true);
 
@@ -32,9 +32,13 @@ $content=$data["filecontent"];
 //$content="Filename=".$filename."\n\nContent : ".$content;
 
 //$filename="../tables/test.txt";
-
-$fd=fopen($filename,"w");
-fputs($fd,$content);
-fclose($fd);
+$Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt"];
+if (in_array($filename, $Authorized_files)) {
+    $fd=fopen($filename,"w");
+    fputs($fd,$content);
+    fclose($fd);
+} else {
+    echo "Access forbidden !";
+}
 
 ?>
