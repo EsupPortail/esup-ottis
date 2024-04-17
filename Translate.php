@@ -44,7 +44,7 @@ function removeAccents($str) {
 
 if (isset($_GET["ROOMID"])) {
       $result = "";
-      if (false) { //($lineid == "NONE") { // Problème ici à revoir
+      if ($lineid == "DIRECT") { //($lineid == "NONE") { // Problème ici à revoir
         if (file_exists("tmp/Verylast_".$_GET["ROOMID"])) {
           $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"r");
           while($T=fgetcsv($fd,4096,";")) {
@@ -60,7 +60,7 @@ if (isset($_GET["ROOMID"])) {
       } else {
       if (file_exists("tmp/Translated_".$_GET["ROOMID"])) {
       $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"r");
-      if ($lineid != "NONE" && $lineid !="") {
+      if ($lineid != "DIRECT" && $lineid != "NONE" && $lineid !="") {
       while($T=fgetcsv($fd,4096,";")) {
         //print_r($T);
         //echo implode(" ",$T)." --- ".$lineid." = ".$T[0]." , ".$lang." = ".$T[1]."\n";
