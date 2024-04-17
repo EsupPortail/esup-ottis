@@ -47,7 +47,7 @@ Pour moi.
 
 ## Partie dédiée à l'outil principal
 - [X] Mettre le fullscreen en icône (c'est une image pour le moment)
-- [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester pour mettre la transcription en instantané.)**_
+- [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
 - [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
@@ -55,7 +55,7 @@ Pour moi.
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
 - [X] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs : télécharger une image svg, l'ouvrir avec l'éditeur de texte pour récupérer le code, insérer le code dans le HTML avec des balises svg
-- [ ] Revoir l'interface de l'animation dans AppTemplate.txt
+- [X] Revoir l'interface de l'animation dans AppTemplate.txt
 - [X] ~~Quand on convertit on un pptx en animation -> décalage des images (à tester si ça fait pareil quand c'est un pdf)~~ _**(UPDATE : lié à LibreOffice, préférable de passer par un PDF avant si on éviter un potentiel décalage.)**_
 - [ ] BUG : quand on ouvre une animation avec "click here" et pas les téléchagements : on ne peut pas faire pause, les animations défilent
 
