@@ -88,7 +88,7 @@ if (isset($_GET["ROOMID"])) {
         }
 
         // Launch DeepL Translation API
-        if ($WhichTranslator == "DEEPL") {
+        if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
         $output=array(); $retval=0;
         //exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
         exec($proxy."curl https://api.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
