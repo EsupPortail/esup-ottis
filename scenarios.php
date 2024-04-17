@@ -231,6 +231,24 @@ img {
   display: none;
 }
 
+#nav-top {
+  background-color: black;
+  color: white;
+  position: fixed;
+  top: 0px;
+  left : 0px;
+  width : 100%;
+  height : 63px;
+}
+
+#nav-bottom {
+  width : 100%;
+  height : 200px;
+  background-color: black;
+  color: white;
+  position : fixed;
+}
+
 </style>
 
 <script>
@@ -369,6 +387,7 @@ body+.skiptranslate {
 
 </head>
 <body onload="document.cookie=''; " lang="fr">
+<div id="nav-top"></div>
 <input type="button" id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);" value="Translate this page">
  <main>
     <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
@@ -559,5 +578,6 @@ body+.skiptranslate {
       if (!["Chrome", "Edge"].includes(whichBrowser())) $(".needbrowser").css("display", "inline");
     });
   </script>
+  <footer id="nav-bottom"></footer>
 </body>
 </html>
