@@ -69,10 +69,10 @@
   top: 0px;
   /* left: 0px; */
   right: 0px;
-  margin: 17px;
+  margin: 15px;
   background-color: white;
   color: #666666;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 
@@ -372,6 +372,8 @@ body+.skiptranslate {
 #google_translate_element .skiptranslate {
     display: block;
     /*display: none !important;*/
+    right: 0px;
+    margin: 18px;
 }
 
 .goog-te-banner-frame.skiptranslate {
