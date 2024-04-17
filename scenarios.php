@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="jquery/jquery-ui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <script src="jquery/jquery.js"></script>
     <script src="jquery/jquery-ui.min.js"></script>
     <script src="js/common-func.js"></script>
@@ -43,7 +44,8 @@
   flex-direction: column;
   align-items: center;
   padding: 6px 14px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif; */
+  font-family: Source Sans Pro;
   border-radius: 6px;
   border: none;
 
@@ -65,7 +67,12 @@
 #opentranslator {
   position: fixed;
   top: 0px;
-  left: 0px;
+  /* left: 0px; */
+  right: 0px;
+  margin: 17px;
+  background-color: white;
+  color: #666666;
+  font-size: 14px;
 }
 
 
@@ -403,9 +410,9 @@ body+.skiptranslate {
 <body onload="document.cookie=''; " lang="fr">
 <div id="nav-top">
   <img id="logoOMIST" alt="Logo OMIST" src="images/omist-top-logo-nav_ssfd.png">
-</div>
 <input type="button" id="opentranslator" aria-label="Translate this page" title="Translate this page" class="button-10" onclick="this.style.display='none'; var glink=document.createElement('script'); glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit'; document.body.appendChild(glink);" value="Translate this page">
- <main>
+</div>
+<main>
     <h1 style="display:none;">Divers scenarios d'utilisation pour les Outils de traduction</h1>
 </main>
 <div id="google_translate_element"></div>
