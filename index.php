@@ -478,7 +478,7 @@ fclose($fd);
 							<label for="whichtranslator">Translator choice</label>
 							<select id="whichtranslator">
 								<option value="" selected>Default</option>
-								<option value="DEEPL">DeepL Pro API</option>
+								<option value="DEEPLPRO">DeepL Pro API</option>
 								<option value="DEEPLFREE">DeepL Free API</option>
 								<option value="LIBRETRANSLATE">Libre Translate</option>
 								<option value="GOOGLE">Google Translate API</option>
