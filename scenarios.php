@@ -91,6 +91,7 @@ body {
   background-size:3000px 3000px; */
   top: 0px !important;
   background-image: url('images/background-nantes-univ.png');
+  background-size: contain;
 }
 
 img {
