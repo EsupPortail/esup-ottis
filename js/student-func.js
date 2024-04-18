@@ -185,7 +185,7 @@ function countLines(elm) {
 }
 
 
-function auto_size_text(elm, max_lines) {
+function auto_size_text(elm="titre", max_lines=3) {
     console.log("CHANGE");
     var el = document.getElementById(elm);
     var lines = countLines(elm);
