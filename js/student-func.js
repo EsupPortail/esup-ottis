@@ -186,6 +186,7 @@ function countLines(elm) {
 
 
 function auto_size_text(elm, max_lines) {
+    console.log("CHANGE");
     var el = document.getElementById(elm);
     var lines = countLines(elm);
     var size = parseInt(el.style.fontSize.replace("px", ""));
