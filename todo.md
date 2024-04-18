@@ -48,9 +48,12 @@ Pour moi.
 ## Partie dédiée à l'outil principal
 - [X] Mettre le fullscreen en icône (c'est une image pour le moment)
 - [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
+    - [ ] Mettre en forme quand on utilise la traduction live (cf feuille de style)
+    - [ ] Police des sous-titres qui réduit quand il n'y a plus de place ?
 - [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
+- [ ] Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)
 
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
@@ -58,6 +61,8 @@ Pour moi.
 - [X] Revoir l'interface de l'animation dans AppTemplate.txt
 - [X] ~~Quand on convertit on un pptx en animation -> décalage des images (à tester si ça fait pareil quand c'est un pdf)~~ _**(UPDATE : lié à LibreOffice, préférable de passer par un PDF avant si on éviter un potentiel décalage.)**_
 - [ ] BUG : quand on ouvre une animation avec "click here" et pas les téléchagements : on ne peut pas faire pause, les animations défilent
+- [ ] Faire une application qui permet, à partir d'une vidéo, d'en extraire le discours, de le traduire, de le faire lire par une voix de synthèse et de remettre le discours traduit dans la vidéo.
+    - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
@@ -98,5 +103,18 @@ Pour moi.
     - OMIST_Tools/ConvertPDF/PDF_TXT_to_PPTX.py
 
 - [ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
+
+## Partie dédiée à la page Admin
+- [ ] quoi mettre dedans ?
+- [ ] quels niveaux privilèges différents ?
+- [ ] comment faire l'authentification externe ? Intégrer dans la page admin la génération de mdp pour htaccess, ou utiliser une autre méthode ?
+
+## Partie dédiée à la télécommande
+- [ ] revoir l'appli
+
+## Partie dédiée Libretranslate
+- [ ] installer en local
+- [ ] tester et voir si faisable
+- [ ] si faisable : voir avec la DSIN s'ils peuvent fournir un serveur qui hébergerait
 
 
