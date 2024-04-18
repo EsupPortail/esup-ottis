@@ -1964,7 +1964,7 @@ function CreateNewPresentation() {
 
 function SubWindow(){
     var window_width = window.screen.width;
-    var windowFeatures = "status=no,location=no,toolbar=no,menubar=no,width=1200,min-height=110";
+    var windowFeatures = "popup=yes,status=no,location=no,toolbar=no,menubar=no,width=1200,height=auto";
     var link = _("sublink").innerHTML.replaceAll("&amp;","&");
     window.open(link,'_blank',windowFeatures);
 }
