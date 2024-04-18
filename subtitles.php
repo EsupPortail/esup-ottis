@@ -247,7 +247,7 @@ if ($synchronize) {
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
 <!-- <div id="micon" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div> -->
 
-<div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
+<div id="titre" onchange="auto_size_text(this.id, 3)" style="line-height: 28px;"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 	<div id="VOBanner"></div>
 	<div id="scrollbarSub"></div>
   <select id="selectopacity" class="jqueryselect" style="display : none">

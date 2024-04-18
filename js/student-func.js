@@ -176,6 +176,27 @@ function PopulateVoicesInSub() {
     }
 }
 
+function countLines(elm) {
+    var el = document.getElementById(elm);
+    var divHeight = el.offsetHeight;
+    var lineHeight = parseInt(el.style.lineHeight);
+    var lines = divHeight / lineHeight;
+    return lines;
+}
+
+
+function auto_size_text(elm, max_lines) {
+    var el = document.getElementById(elm);
+    var lines = countLines(elm);
+    var size = parseInt(el.style.fontSize.replace("px", ""));
+    if(lines > max_lines) {
+        size--;
+        el.style.fontSize = size + "px";
+        el.style.lineHeight = size + "px";
+        auto_size_text(elm);
+    }
+}
+
 /**
  * @summary Speech synthesis of a given text
  * 
