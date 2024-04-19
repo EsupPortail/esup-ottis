@@ -6,7 +6,7 @@ include "config.php";
 // $texte = html_entity_decode(strip_tags($_GET["texte"]));
 $texte = $_GET["texte"];
 
-if (str_contains($texte, "<span>")) {
+if (strpos($texte, "<span>") !== false){
   // $texte_new = str_replace("<span>","<span style='font-size: 0.7em;	font-style: italic;'>",$texte);
   // echo json_encode($texte_new);
   echo json_encode("span");
