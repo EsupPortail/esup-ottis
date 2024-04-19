@@ -5,11 +5,10 @@ include "config.php";
 
 // $texte = html_entity_decode(strip_tags($_GET["texte"]));
 $texte = $_GET["texte"];
-$pos = strpos($texte, "<span>");
 
-if (str_contains($texte, "<span>")) {
-  $texte = str_replace("<span>","<span style='font-size: 0.7em;	font-style: italic;'>",$texte);
-}
+// if (str_contains($texte, "<span>")) {
+//   $texte = str_replace("<span>","<span style='font-size: 0.7em;	font-style: italic;'>",$texte);
+// }
 
 if (isset($_GET["ROOMID"])) {
   $fd=fopen("tmp/VerylastSub_".$_GET["ROOMID"],"w");
