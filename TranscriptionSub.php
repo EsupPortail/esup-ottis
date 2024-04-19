@@ -3,7 +3,8 @@ include("Security/referer.php");
 
 include "config.php";
 
-$texte = html_entity_decode(strip_tags($_GET["texte"]));
+// $texte = html_entity_decode(strip_tags($_GET["texte"]));
+$texte = $_GET["texte"];
 
 if (isset($_GET["ROOMID"])) {
   $fd=fopen("tmp/VerylastSub_".$_GET["ROOMID"],"w");
