@@ -2191,11 +2191,11 @@ function EcrireTitle(ch) {
 
 function EcrirePartial(ch) {
     if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
-    console.log("CH : "+ch);
+    // console.log("CH : "+ch);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
     // console.log("Sending for transcription " + ch)
-    xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText);console.log("REPONSE : "+data);}, false);
+    xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText);}, false);
     xhr.send();
     AbortTimeout(xhr,"Transcription");
 }
