@@ -7,9 +7,8 @@ include "config.php";
 $texte = $_GET["texte"];
 
 if (strpos($texte, "<span>") !== false){
-  // $texte_new = str_replace("<span>","<span style='font-size: 0.7em;	font-style: italic;'>",$texte);
-  // echo json_encode($texte_new);
-  echo json_encode("span");
+  $texte = str_replace("<span>","<span style='font-size: 0.7em;	font-style: italic;'>",$texte);
+  echo json_encode($texte);
 }else{
   echo json_encode("pas span");
 }
