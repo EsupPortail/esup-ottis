@@ -54,6 +54,7 @@ Pour moi.
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
 - [ ] Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)
+- [ ] la navigation au clavier ne fonctionne pas très bien. Ex : on peut naviguer dans le menu avec les flèches sauf quand on arrive dans l’onglet „Slides“ car les flèches servent ici à passer les slides. Il y a aussi des problèmes avec la navigation par tabulation. Imaginer de ne plus du tout naviguer avec les flèches dans le menu principal (et réserver les flèches pour faire passer les slides), utiliser la tabulation pour voyager dans toute l’application et avoir un ordre cohérent et ajouter quelques raccourcis (il y en a déjà dans l’application étudiante, par exemple la touche [s] amène directement vers les slides) ?
 
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
