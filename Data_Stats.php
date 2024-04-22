@@ -8,7 +8,9 @@
     // $fd = fopen("tmp/StatsLogs.txt","r");
     // echo "test";
     // echo fread($fd, filesize("tmp/StatsLogs.txt"));
-    print_r(file("tmp/StatsLogs.txt"));
+    $array_users_teacher=file("tmp/StatsLogs.txt");
+    $nb_users_teach=sizeof($array_users_teacher);
+    echo $array_users_teacher;
     // fclose($fd);
 ?>
 <html lang="fr">
@@ -23,6 +25,8 @@
   <main>
     <h1>OMIST : Statistics</h1>
   </main>
+
+  <div id="nb-users-teacher"> Number of users on teacher application : <?php echo "$nb_users_teach"; ?> 
 
 
 
