@@ -2796,7 +2796,7 @@ function playlesson() {}
 function GoFS() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
-        _('bar').style.transform = "scaleY(1)";
+        _('bar').style.transform = "scaleY(0.1)";
         //_('bar').style.bottom="10px";
         //resizeSlides();
     } else {
@@ -2806,6 +2806,18 @@ function GoFS() {
     }
 }
 
+/**
+ * @summary Minimize toolbar when in full screen mode
+ * 
+ */
+
+function reduceToolbar() {
+    if (document.fullscreenElement) {
+        _('bar').style.transform = "scaleY(0.1)";
+    } else {
+        _('bar').style.transform = "scaleY(1)";
+    }
+}
 
 /**
  * @summary Resize the slides window
