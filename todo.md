@@ -48,7 +48,7 @@ Pour moi.
 ## Partie dédiée à l'outil principal
 - [X] Mettre le fullscreen en icône (c'est une image pour le moment)
 - [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
-    - [ ] Mettre en forme quand on utilise la traduction live (cf feuille de style)
+    - [X] Mettre en forme quand on utilise la traduction live (cf feuille de style)
     - [ ] Police des sous-titres qui réduit quand il n'y a plus de place ?
 - [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
@@ -117,5 +117,9 @@ Pour moi.
 - [ ] installer en local
 - [ ] tester et voir si faisable
 - [ ] si faisable : voir avec la DSIN s'ils peuvent fournir un serveur qui hébergerait
+
+## Partie dédiée à la mesure de l'utilisation de l'outil
+- [ ] objectif : avoir le nombre d'utilisateurs, leur utilisation, l'utilisation des quotas de traduction (éventuellement par système voire clé utilisée) pour avoir un „modèle économique“, avec une interface de visualisation (avec des courbes qu’on peut directement copier dans des rapports)
+    - [ ] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
 
 
