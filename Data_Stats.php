@@ -9,7 +9,7 @@
     // echo "test";
     // echo fread($fd, filesize("tmp/StatsLogs.txt"));
     $array_uses_teacher=file("tmp/StatsLogs.txt");
-    $nb_uses_teach=sizeof($array_users_teacher);
+    $nb_uses_teach=sizeof($array_uses_teacher);
     // echo $array_uses_teacher;
     // fclose($fd);
 ?>
