@@ -5,10 +5,11 @@
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-cache, must-revalidate');
 
-    $fd = fopen("tmp/StatsLogs.txt","r");
-    echo "test";
-    echo fread($fd, filesize("tmp/StatsLogs.txt"));
-    fclose($fd);
+    // $fd = fopen("tmp/StatsLogs.txt","r");
+    // echo "test";
+    // echo fread($fd, filesize("tmp/StatsLogs.txt"));
+    print_r(file("tmp/StatsLogs.txt"));
+    // fclose($fd);
 ?>
 <html lang="fr">
 <head>
