@@ -43,6 +43,7 @@ while($ligne=fgets($fd,4096)) {
   $value=json_decode(substr($ligne,25));
   $allvalues[]=$values;
 }
+echo fread($fd, filesize("./Stats.txt"));
 fclose($fd);
 print_r($allvalues);
 echo "</pre>";
