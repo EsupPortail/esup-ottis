@@ -3,7 +3,7 @@
 ```
 php CreateDatabase_stats.php
 ```
-Si le programme ne fonctionne pas, il est possible de créer la base de données à la main, selon les étapes 1 à 3 suivantes.
+Si le programme ne fonctionne pas, il est possible de créer la base de données à la main, selon les étapes 1 à 4 suivantes.
 
 #### *1. Connexion à MySQL*
 ```
