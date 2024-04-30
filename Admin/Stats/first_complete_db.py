@@ -46,8 +46,8 @@ mydb = mysql.connector.connect(
 mycursor = mydb.cursor()
 
 for index, row in statslogs_tot_df.iterrows():
-    sql_query = "INSERT INTO statslog (date_complete, date_year, user_id, room_id, origin) VALUES (%s, %s, %s, %s, %s);"
-    val = (row['date_complete'], row['date_year'], row['user_id'], row['room_id'], row['origin'])
+    sql_query = "INSERT INTO statslog (date_complete, date_year, user_id, room_id, origin) VALUES (%s, %s, %s, %s, %s, %s);"
+    val = (row['date_raw'], row['date_complete'], row['date_year'], row['user_id'], row['room_id'], row['origin'])
     mycursor.execute(sql_query, val)
 
 sql_update = "UPDATE statslog SET date_month = DATE_FORMAT(date_complete, '%M');"
