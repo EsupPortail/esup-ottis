@@ -93,7 +93,7 @@ fclose($fd);
 // $date_year = gmdate("Y");
 // $user_id = $uid;
 // $room_id = $classroomid;
-// $tool = $_POST['ProgramName'];
+// $tool = "teacher";
 // $origin = dirname(__FILE__);
 
 // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_month, date_year, user_id, room_id, tool, origin) VALUES (:date_raw, :date_complete, :date_month, :date_year, :user_id, :room_id, :tool, :origin)';
