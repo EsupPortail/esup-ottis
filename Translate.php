@@ -18,6 +18,9 @@ if (isset($_GET["apikey"])) {
     case "DEEPL":
       $DEEPLAPITOKEN=$apikey;
       break;
+    case "DEEPLPRO":
+      $DEEPLAPITOKEN=$apikey;
+      break;
     case "DEEPLFREE":
       $DEEPLFREEAPITOKEN=$apikey;
       break;
