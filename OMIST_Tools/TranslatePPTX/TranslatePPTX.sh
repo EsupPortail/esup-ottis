@@ -22,7 +22,7 @@ for lang in $To; do
   echo "Translating in $lang"
   $PYTHON $SCRIPT_DIR/TranslatePPTX.py --input=$INSTALLDIR/$RANDOMPATH/original_file.pptx --output=$INSTALLDIR/$RANDOMPATH/translated_$lang.pptx --from="$From" --to="$lang" $5 #2>/dev/null
 done
-export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to ppt $INSTALLDIR/$RANDOMPATH/translated_-outdir $INSTALLDIR/$RANDOMPATH
+export HOME=$INSTALLDIR/ && $SOFFICE --headless --convert-to ppt $INSTALLDIR/$RANDOMPATH/translated_*.pptx --outdir $INSTALLDIR/$RANDOMPATH
 
 cd $INSTALLDIR/$RANDOMPATH
 zip -9 $INSTALLDIR/output_$RANDOMPATH.zip translated*.pptx translated*.ppt
