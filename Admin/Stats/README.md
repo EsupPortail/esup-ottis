@@ -1,6 +1,6 @@
 # Pré-requis
 
-Il faut le programme **cron**, **mysql** avec une base de données avec le format donné ci-dessous, la librairie python **plotly**.
+Il faut le programme **cron**, **mysql** avec une base de données avec le format donné ci-dessous, la librairie python **plotly** et **kaleido**.
 Il faudra ensuite éditer le fichier de configuration config.py.
 
 ## Installation sous Linux (Ubuntu)
@@ -8,6 +8,7 @@ Il faudra ensuite éditer le fichier de configuration config.py.
   sudo apt install cron
   sudo apt install mysql-server
   pip3 install plotly
+  pip3 install -U kaleido
 ```
 
 ### Mise en place de la base de données
