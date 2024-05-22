@@ -64,6 +64,8 @@ Pour moi.
 - [ ] BUG : quand on ouvre une animation avec "click here" et pas les téléchagements : on ne peut pas faire pause, les animations défilent
 - [ ] Faire une application qui permet, à partir d'une vidéo, d'en extraire le discours, de le traduire, de le faire lire par une voix de synthèse et de remettre le discours traduit dans la vidéo.
     - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
+- [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
+- [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier ?
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
