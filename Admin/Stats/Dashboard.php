@@ -49,20 +49,8 @@ if (! function_exists('str_ends_with')) {
       return ($needle_len === 0 || 0 === substr_compare($haystack, $needle, - $needle_len));
   }
 }
-// fin
-
-// $data_file = file_get_contents("data_connexion_tot.txt");
-// $lines = explode("\n",$data_file);
-// // while(!feof($myfile)) {
-// //   echo fgets($myfile) . "<br>";
-// // }
-// // fclose($data_file);
-
-// $var_test = "test d'affichage PHP";
-
-
-
 ?>
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -70,83 +58,52 @@ if (! function_exists('str_ends_with')) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <link href="../../styles/dashboard.css" rel="stylesheet"> 
+    <link href="dashboard.css" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body onload="openPage('tab-dashboard', 'li-dashboard')">
-  <!-- <header>
-  <div id="nav-top">
-    <img id="logoOMIST" alt="Logo OMIST" src="omist-top-logo-nav_ssfd.png">
-    <div id="opentranslator" >STATISTICS</div>
-  </div>
-    </header> -->
+      <section id="sidebar">
+        <div id="sidebar-nav">
+          <img id="logoOMIST" alt="Logo OMIST" src="omist-top-logo-nav_ssfd.png">
+          <ul>
+            <li id="li-dashboard" class="tablink" onclick="openPage('tab-dashboard', this.id)"><i class="fa fa-dashboard"></i> Dashboard</li>
+            <li id="li-users" class="tablink" onclick="openPage('tab-users', this.id)"><i class="fa fa-user"></i>Users</li>
+            <li id="li-uses" class="tablink" onclick="openPage('tab-uses', this.id)"><i class="fa fa-desktop"></i>Uses</li>
+            <li id="li-translation" class="tablink" onclick="openPage('tab-translation', this.id)"><i class="fa fa-language"></i>Translation</li>
+            <li id="li-tools" class="tablink" onclick="openPage('tab-tools', this.id)"><i class="fa fa-cogs"></i>Tools</li>
+          </ul>
+        </div>
+      </section>
 
-    <section id="sidebar">
-      <div id="sidebar-nav">
-        <img id="logoOMIST" alt="Logo OMIST" src="omist-top-logo-nav_ssfd.png">
-        <ul>
-          <li id="li-dashboard" class="tablink" onclick="openPage('tab-dashboard', this.id)"><i class="fa fa-dashboard"></i> Dashboard</li>
-          <li id="li-users" class="tablink" onclick="openPage('tab-users', this.id)"><i class="fa fa-user"></i>Users</li>
-          <li id="li-uses" class="tablink" onclick="openPage('tab-uses', this.id)"><i class="fa fa-desktop"></i>Uses</li>
-          <li id="li-translation" class="tablink" onclick="openPage('tab-translation', this.id)"><i class="fa fa-globe"></i>Translation</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="content">
-      <div class="tab-content">
-          <!-- <div class="content-header">
-            <div id="nav-top">
-              <img id="logoOMIST" alt="Logo OMIST" src="omist-top-logo-nav_ssfd.png">
-              <div id="opentranslator" >STATISTICS</div>
+      <section id="content">
+        <div class="tab-content">
+            <div id="tab-dashboard" class="tabcontent">
+            <a href='./table_tot.csv' download='table_tot.csv'><button class="button-3 tooltip">Download all connection data in CSV format</button></a>
+              <img src="./indicators/indicator_month.png"/>
+              <img src="./indicators/indicator_tot.png"/>
             </div>
-          </div> -->
-          <div id="tab-dashboard" class="tabcontent">
-            <iframe title="Nombre d'utilisateurs et d'utilisations totaux" style="width:50%; height: 335px; border: none;" src="uses_users_origin.html" align="left"></iframe>
-            <iframe title="Outils utilisés" style="width:50%; height: 335px; border: none;" src="tools_used.html" align="right"></iframe>
-            <div class="widget-box sample-widget">
-                <div class="widget-header">
-                    <h2>Widget Header</h2>
-                    <i class="fa fa-cog"></i>
-                </div>
-                <div class="widget-content">
-                    <img
-                        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/87118/sample-data-1.png"
-                    />
-                </div>
+            <div id="tab-users" class="tabcontent">
+              <a href='./users/new_users_per_months_tab.csv' download='new_users_per_months_tab.csv'><button class="button-3 tooltip">Download data on the number of new users monthly in CSV format</button></a>
+              <embed class="graph-tot" title="Nombre d'utilisateurs par mois" src="./users/new_users_per_months_graph.html" />
+              <a href='./users/users_per_months_tab.csv' download='users_per_months_tab.csv'><button class="button-3 tooltip">Download data on number of users monthly in CSV format</button></a>
+              <embed class="graph-tot" title="Nombre d'utilisateurs par mois" src="./users/users_per_months_graph.html" />
             </div>
-          </div>
-          <div id="tab-users" class="tabcontent">
-            <iframe class="graph-tot" title="Nombre d'utilisateurs par mois" src="users_per_months.html"></iframe>
-          </div>
-          <div id="tab-uses" class="tabcontent">
-            <iframe class="graph-tot" title="Nombre d'utilisations par mois" src="uses_per_months.html"></iframe>
-          </div>
-          <div id="tab-translation" class="tabcontent">
-            <iframe class="graph-tot" title="Utilisation de Deepl par jour" src="deepl_usage_per_day.html"></iframe>
-            <iframe class="graph-tot" title="Utilisation de Deepl" src="deepl_usage_per_month.html"></iframe>
-          </div>
-      </div>
+            <div id="tab-uses" class="tabcontent">
+              <a href='./uses/uses_per_months_tab.csv' download='uses_per_months_tab.csv'><button class="button-3 tooltip">Download monthly usage data in CSV format</button></a>
+              <embed class="graph-tot" title="Nombre d'utilisations par mois" src="./uses/uses_per_months_graph.html" />
+            </div>
+            <div id="tab-translation" class="tabcontent">
+              <a href='./translation/deepl_usage_per_day_tab.csv' download='deepl_usage_per_day_tab.csv'><button class="button-3 tooltip">Download daily Deepl Pro use data in CSV format</button></a>
+              <embed class="graph-tot" title="Utilisation de Deepl par jour" src="./translation/deepl_usage_per_day_graph.html" />
+              <a href='./translation/deepl_usage_per_month_tab.csv' download='deepl_usage_per_month_tab.csv'><button class="button-3 tooltip">Download Deepl Pro monthly usage data in CSV format</button></a>
+              <embed class="graph-tot" title="Utilisation de Deepl" src="./translation/deepl_usage_per_month_graph.html" />
+            </div>
+            <div id="tab-tools" class="tabcontent">
+              <a href='./tools/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
+              <embed class="graph-tot" title="Outils utilisés" src="./tools/tools_used_tab.html" />
+            </div>
+        </div>
     </section>
-
-
-    <!-- <main>
-      <h1>OMIST : Statistics</h1>
-    </main>
-
-    <div id="db-update">
-    Last update : 
-    </div>
-
-      <iframe title="Nombre d'utilisateurs et d'utilisations totaux" style="width:50%; height: 335px; border: none;" src="uses_users_origin.html" align="left"></iframe>
-      <iframe title="Outils utilisés" style="width:50%; height: 335px; border: none;" src="tools_used.html" align="right"></iframe>
-
-    <iframe title="Nombre d'utilisateurs par mois" style="width:90%; height: 500px; border: none;" src="users_per_months.html"></iframe>
-
-    <iframe title="Nombre d'utilisations par mois" style="width:90%; height: 500px; border: none;" src="uses_per_months.html"></iframe>
-
-  
-  -->
 
     <script>
       function openPage(pageName, elmnt) {
@@ -164,7 +121,14 @@ if (! function_exists('str_ends_with')) {
         document.getElementById(elmnt).style.backgroundColor = 'white';
         document.getElementById(elmnt).style.color = "black";
       }
-    </script>
 
+      function DownloadTable(filename, elText, mimeType) {
+        var link = document.createElement('a');
+        mimeType = mimeType || 'text/plain';
+        link.setAttribute('download', filename);
+        link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));
+        link.click();
+      }
+    </script>
   </body>
 </html>
