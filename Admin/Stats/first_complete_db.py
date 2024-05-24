@@ -56,5 +56,8 @@ mycursor.execute(sql_update)
 sql_update2 = "UPDATE statslog SET tool = 'teacher';"
 mycursor.execute(sql_update2)
 
+sql_update3 = "UPDATE statslog SET date_day = DATE_FORMAT(date_complete, '%d');"
+mycursor.execute(sql_update3)
+
 mydb.commit()
 mydb.close()

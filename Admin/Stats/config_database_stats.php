@@ -2,9 +2,9 @@
 
 //Connexion base de données
 
-$dbname = "db_stats";
-$dbuser = "root";
-$dbpass = "root";
-$dbhost = "localhost";
+$dbname_stats = "db_stats";
+$dbuser_stats = "root";
+$dbpass_stats = "root";
+$dbhost_stats = "localhost";
 
 ?>

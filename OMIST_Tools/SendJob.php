@@ -1,5 +1,6 @@
 <?php
 include(dirname(__FILE__)."/config_database.php");
+include("../Admin/Stats/config_database_stats.php")
 
 if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
@@ -160,20 +161,22 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
     // $date_raw = gmdate("Y-m-d\TH:i:s\Z");
     // $date_complete = gmdate("Y-m-d");
+    // $date_day = gmdate("d");
     // $date_month = gmdate("F");
     // $date_year = gmdate("Y");
     // $user_id = ;
     // $room_id = ;
-    // $tool = $_POST['ProgramName'];
+    // $tool = "teacher";
     // $origin = dirname(__FILE__);
 
-    // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_month, date_year, user_id, room_id, tool, origin) VALUES (:date_raw, :date_complete, :date_month, :date_year, :user_id, :room_id, :tool, :origin)';
+    // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin)';
     // $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
-    
-    
+
+
     // $insertCommande_stats->execute([
     //     'date_raw' => $date_raw, 
     //     'date_complete' => $date_complete, 
+    //     'date_day' => $date_day,
     //     'date_month' => $date_month, 
     //     'date_year' => $date_year, 
     //     'user_id' => $user_id, 

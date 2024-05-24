@@ -20,6 +20,7 @@ $requete_createTable= 'CREATE TABLE statslog
   id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   date_raw text, #gmdate("Y-m-d\TH:i:s\Z")
   date_complete datetime, #gmdate("Y-m-d")
+  date_day int, #DATE_FORMAT(date_complete, "%d");
   date_month text, #filled with an SQL query, e.g April for 2024-04-02
   date_year text, 
   user_id text,

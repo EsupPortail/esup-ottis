@@ -81,3 +81,37 @@ Ajouter à la fin du fichier :
 ```
 * * * * * python /chemin/absolu/du/fichier/omist_automatictranslator/Admin/generateStatsGraph.py
 ```
+
+### Ecriture des nouvelles connexions dans la base
+
+Décommenter le code suivant :
+- Dans index.php la partie "Connexion avec la base de données pour les statistiques" (lignes 84 à 114) :
+  ```
+  try{
+      $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
+  }catch(PDOException $err){
+      echo "Database connection problem: " . $err->getMessage();
+  }
+
+  [...]
+
+      'room_id' => $room_id, 
+      'tool' => $tool, 
+      'origin' => $origin
+  ]);
+  ```
+- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 156 à 186) :
+  ```
+  try{
+      $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
+  }catch(PDOException $err){
+      echo "Database connection problem: " . $err->getMessage();
+  }
+
+  [...]
+
+      'room_id' => $room_id, 
+      'tool' => $tool, 
+      'origin' => $origin
+  ]);
+  ```
