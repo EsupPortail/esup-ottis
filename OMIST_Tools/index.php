@@ -379,6 +379,7 @@ function SubmitJob(num,apptype) {
         _("App"+num).innerHTML = "Create";
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
         _("Message"+num).innerHTML="Your file has just been created, you can download it <a href=\""+"tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value+"\">here</a>."
+        // echo "request.open(\"POST\", \"TranslateLogs.php\");\n"
       } else {
         if (rep == "-1") {
           _("Message"+num).innerHTML="Your file will arrive soon."

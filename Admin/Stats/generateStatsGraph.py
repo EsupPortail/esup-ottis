@@ -36,8 +36,8 @@ if not os.path.exists("./uses"):
     os.makedirs("./uses")
 
 months_in_order = ['January','February','March','April','May','June','July','August','September','October','November','December']
-mycursor.execute("UPDATE translatelog SET percentage_char = 100*characters/char_max;")
-mydb.commit()
+# mycursor.execute("UPDATE translatelog SET percentage_char = 100*characters/char_max;")
+# mydb.commit()
 
 table_tot = []
 mycursor.execute("SELECT * FROM statslog;")

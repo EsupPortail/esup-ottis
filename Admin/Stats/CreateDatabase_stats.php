@@ -45,7 +45,7 @@ $requete_createTableTranslate= 'CREATE TABLE translatelog
   date_day int, #SELECT DATE_FORMAT(date_complete, "%d");
   date_month text, #SELECT DATE_FORMAT(date_complete, "%M");
   date_year text, #SELECT DATE_FORMAT(date_complete, "%Y");
-  origin text, #Deepl Pro, Deepl Free, ...
+  origin_translate text, #Deepl Pro, Deepl Free, ...
   percentage_char int, #$percentage_DEEPL."% -> plutôt le calculer au moment du graphique pour si changement de limite de charactères ? 
   characters int, #$Stats_DEEPL["character_count"]
   char_max int #$Stats_DEEPL["character_limit"]
