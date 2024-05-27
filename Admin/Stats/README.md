@@ -43,7 +43,8 @@ CREATE TABLE tasks_queue
   user_id text,
   room_id text,
   tool text,
-  origin text
+  origin text,
+  ip_address
 );
 ```
 
@@ -57,7 +58,8 @@ CREATE TABLE db_translatelog
   date_year text, 
   origin text,
   percentage_char int,
-  characters int
+  characters int,
+  ip_address text
 );
 ```
 
@@ -85,7 +87,7 @@ Ajouter à la fin du fichier :
 ### Ecriture des nouvelles connexions dans la base
 
 Décommenter le code suivant :
-- Dans index.php la partie "Connexion avec la base de données pour les statistiques" (lignes 84 à 114) :
+- Dans index.php la partie "Connexion avec la base de données pour les statistiques" (lignes 85 à 128) :
   ```
   try{
       $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -100,7 +102,7 @@ Décommenter le code suivant :
       'origin' => $origin
   ]);
   ```
-- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 156 à 186) :
+- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 156 à 199) :
   ```
   try{
       $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -112,7 +114,8 @@ Décommenter le code suivant :
 
       'room_id' => $room_id, 
       'tool' => $tool, 
-      'origin' => $origin
+      'origin' => $origin,
+      'ip_address' => $ip_address
   ]);
   ```
 

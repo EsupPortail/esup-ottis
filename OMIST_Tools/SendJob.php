@@ -159,6 +159,17 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     //     echo "Database connection problem: " . $err->getMessage();
     // }
 
+    //Get IP adress
+    // if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    // 	//ip from share internet
+    // 	$ip = $_SERVER['HTTP_CLIENT_IP'];
+    // }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    // 	//ip pass from proxy
+    // 	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    // }else{
+    // 	$ip = $_SERVER['REMOTE_ADDR'];
+    // }
+
     // $date_raw = gmdate("Y-m-d\TH:i:s\Z");
     // $date_complete = gmdate("Y-m-d");
     // $date_day = gmdate("d");
@@ -168,8 +179,9 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     // $room_id = $_POST['randompath'];
     // $tool = $_POST['ProgramName'];
     // $origin = dirname(__FILE__);
+    // $ip_address = $ip
 
-    // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin)';
+    // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :ip_address)';
     // $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
 
@@ -182,7 +194,8 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     //     'user_id' => $user_id, 
     //     'room_id' => $room_id, 
     //     'tool' => $tool, 
-    //     'origin' => $origin
+    //     'origin' => $origin,
+    //     'ip_address' => $ip_address
     // ]);
 
  }
