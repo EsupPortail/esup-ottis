@@ -164,9 +164,9 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     // $date_day = gmdate("d");
     // $date_month = gmdate("F");
     // $date_year = gmdate("Y");
-    // $user_id = ;
-    // $room_id = ;
-    // $tool = "teacher";
+    // $user_id = $_POST['userid'];
+    // $room_id = $_POST['randompath'];
+    // $tool = $_POST['ProgramName'];
     // $origin = dirname(__FILE__);
 
     // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin)';

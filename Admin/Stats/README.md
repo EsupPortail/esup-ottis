@@ -115,3 +115,16 @@ Décommenter le code suivant :
       'origin' => $origin
   ]);
   ```
+
+- Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" (lignes 152 à 176) :
+  ```
+    $date_raw = gmdate("Y-m-d\TH:i:s\Z");
+    $date_complete = gmdate("Y-m-d");
+    $date_day = gmdate("d");
+
+  [...]
+
+    $fd_stats=fopen("fakeDB/db_stats.json","a");
+    fputs($fd_stats,$json_stats."|||\n");
+    fclose($fd_stats);
+  ```
