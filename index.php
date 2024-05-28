@@ -100,9 +100,9 @@ if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 }
 echo "IP : ".$ip;
 $url = "https://freeipapi.com/api/json/$ip";
-$response = file_get_contents($url);
-$data = json_decode($response, true);
-var_dump($data);
+// $response = file_get_contents($url);
+// $data = json_decode($response, true);
+// var_dump($data);
 
 // $date_raw = gmdate("Y-m-d\TH:i:s\Z");
 // $date_complete = gmdate("Y-m-d");
