@@ -44,7 +44,8 @@ CREATE TABLE tasks_queue
   room_id text,
   tool text,
   origin text,
-  ip_address
+  ip_address text,
+  config_teacher text
 );
 ```
 
@@ -58,8 +59,7 @@ CREATE TABLE db_translatelog
   date_year text, 
   origin text,
   percentage_char int,
-  characters int,
-  ip_address text
+  characters int
 );
 ```
 

@@ -28,9 +28,7 @@ $requete_createTable= 'CREATE TABLE statslog
   tool text,
   origin text,
   ip_address text,
-  city text,
-  latitude float,
-  longitude float
+  config_teacher text
 )';
 $insertCommande3 = $pdo->prepare($requete_createTable);
 $insertCommande3->execute();

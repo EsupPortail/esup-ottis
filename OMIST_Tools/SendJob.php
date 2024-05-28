@@ -179,11 +179,10 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     // $room_id = $_POST['randompath'];
     // $tool = $_POST['ProgramName'];
     // $origin = dirname(__FILE__);
-    // $ip_address = $ip
+    // $ip_address = $ip;
 
     // $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :ip_address)';
     // $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
-
 
     // $insertCommande_stats->execute([
     //     'date_raw' => $date_raw, 
