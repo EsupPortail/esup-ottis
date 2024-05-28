@@ -88,20 +88,16 @@ fclose($fd);
 //     echo "Database connection problem: " . $err->getMessage();
 // }
 
-
-if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-	//ip from share internet
-	$ip = $_SERVER['HTTP_CLIENT_IP'];
-}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-	//ip pass from proxy
-	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}else{
-	$ip = $_SERVER['REMOTE_ADDR'];
-}
-
-$url = "https://freeipapi.com/api/json/$ip";
-echo "TEST";
-echo $url;
+//Get IP address
+// if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+// 	//ip from share internet
+// 	$ip = $_SERVER['HTTP_CLIENT_IP'];
+// }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+// 	//ip pass from proxy
+// 	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+// }else{
+// 	$ip = $_SERVER['REMOTE_ADDR'];
+// }
 
 // $date_raw = gmdate("Y-m-d\TH:i:s\Z");
 // $date_complete = gmdate("Y-m-d");
