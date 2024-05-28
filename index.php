@@ -100,6 +100,9 @@ if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 }
 // $ip = $_SERVER['REMOTE_ADDR'];
 echo "IP : ".$ip;
+$loc = file_get_contents('https://ipapi.co/'.$ip.'/json/');
+echo $loc;
+
 // $url = "https://freeipapi.com/api/json/$ip";
 // $response = file_get_contents($url);
 // $data = json_decode($response, true);
