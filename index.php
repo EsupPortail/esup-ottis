@@ -98,6 +98,7 @@ if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 }else{
 	$ip = $_SERVER['REMOTE_ADDR'];
 }
+$ip = $_SERVER['REMOTE_ADDR'];
 echo "IP : ".$ip;
 $url = "https://freeipapi.com/api/json/$ip";
 // $response = file_get_contents($url);
