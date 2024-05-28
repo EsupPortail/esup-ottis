@@ -43,7 +43,7 @@ table_tot = []
 mycursor.execute("SELECT * FROM statslog;")
 for x in mycursor:
   table_tot.append(x)
-table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_month","date_year","user_id","room_id","tool","origin"))
+table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_month","date_year","user_id","room_id","tool","origin","ip_adress","config_teacher"))
 table_tot_df.to_csv('table_tot.csv')  
 
 #################################### Number uses per month ####################################
@@ -87,8 +87,9 @@ fig.update_layout(
       color="Black"
   )
 )
-fig.write_html("uses/uses_per_months_graph.html")
+
 os.makedirs('uses', exist_ok=True)  
+fig.write_html("uses/uses_per_months_graph.html")
 nb_uses_df.to_csv('uses/uses_per_months_tab.csv')  
 
 # mycursor.execute("SELECT * INTO OUTFILE '/tables/uses.csv' FIELDS TERMINATED BY ';' ENCLOSED BY '\"' LINES TERMINATED BY '\n' FROM statslog;")
@@ -132,8 +133,9 @@ fig.update_layout(
       color="Black"
   )
 )
-fig.write_html("users/users_per_months_graph.html")
+
 os.makedirs('users', exist_ok=True)  
+fig.write_html("users/users_per_months_graph.html")
 nb_users_df.to_csv('users/users_per_months_tab.csv')  
 
 
@@ -176,8 +178,9 @@ fig.update_layout(
       color="Black"
   )
 )
-fig.write_html("users/new_users_per_months_graph.html")
-os.makedirs('users', exist_ok=True)  
+
+os.makedirs('users', exist_ok=True) 
+fig.write_html("users/new_users_per_months_graph.html") 
 first_use_df.to_csv('users/new_users_per_months_tab.csv')  
 
 
@@ -274,9 +277,54 @@ fig.update_layout(
       color="Black"
   )
 )
-fig.write_html("tools/tools_used_tab.html")
-os.makedirs('tools', exist_ok=True)  
-tools_used_df.to_csv('tools/tools_used_tab.csv')  
+
+os.makedirs('uses', exist_ok=True)  
+fig.write_html("uses/tools_used_tab.html")
+tools_used_df.to_csv('uses/tools_used_tab.csv') 
+
+
+#################################### Configuration used ####################################
+
+config_used = []
+mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
+for x in mycursor:
+  config_used.append(x)
+config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
+config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
+
+fig = go.Figure(data=[go.Table(
+  header=dict(values=['Configuration', 'Number of uses'],
+              line_color='black',
+              fill_color='rgb(52,82,255)',
+              align='center',
+              font=dict(color='white'),
+              height=30),
+  cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
+              line_color='black',
+              fill=dict(color=['white']),
+              font=dict(color=['black']),
+              align='center',
+              height=30))
+])
+
+fig.update_layout(
+  title={
+      'text':"Configuration used for teacher application", 
+      'font':{
+      'size':30, 
+      'color':'black'}
+    },
+  width=700, 
+  font=dict(
+      family="Source sans pro",
+      size=18,
+      color="Black"
+  )
+)
+
+os.makedirs('uses', exist_ok=True) 
+fig.write_html("uses/config_used_tab.html")
+config_used_df.to_csv('uses/config_used_tab.csv')
 
 
 #################################### Deepl usage ####################################
@@ -339,8 +387,8 @@ fig.update_layout(
   )
 )
 
-fig.write_html("translation/deepl_usage_per_month_graph.html")
 os.makedirs('translation', exist_ok=True)  
+fig.write_html("translation/deepl_usage_per_month_graph.html")
 deepl_per_month_df.to_csv('translation/deepl_usage_per_month_tab.csv')  
 
 
@@ -405,8 +453,8 @@ fig.update_layout(
   )
 )
 
-fig.write_html("translation/deepl_usage_per_day_graph.html")
 os.makedirs('translation', exist_ok=True)  
+fig.write_html("translation/deepl_usage_per_day_graph.html")
 deepl_per_day_df.to_csv('translation/deepl_usage_per_day_tab.csv') 
 
 
@@ -505,6 +553,7 @@ fig.update_layout(
    width = 1600, 
    font = {'family': "Source sans pro"})
 
+os.makedirs('indicators', exist_ok=True)
 fig.write_image("indicators/indicator_month.png")
 
 
@@ -547,4 +596,5 @@ fig.update_layout(
    width = 1600, 
    font = {'family': "Source sans pro"})
 
+os.makedirs('indicators', exist_ok=True)
 fig.write_image("indicators/indicator_tot.png")

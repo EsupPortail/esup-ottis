@@ -70,7 +70,6 @@ if (! function_exists('str_ends_with')) {
             <li id="li-users" class="tablink" onclick="openPage('tab-users', this.id)"><i class="fa fa-user"></i>Users</li>
             <li id="li-uses" class="tablink" onclick="openPage('tab-uses', this.id)"><i class="fa fa-desktop"></i>Uses</li>
             <li id="li-translation" class="tablink" onclick="openPage('tab-translation', this.id)"><i class="fa fa-language"></i>Translation</li>
-            <li id="li-tools" class="tablink" onclick="openPage('tab-tools', this.id)"><i class="fa fa-cogs"></i>Tools</li>
           </ul>
         </div>
       </section>
@@ -91,16 +90,16 @@ if (! function_exists('str_ends_with')) {
             <div id="tab-uses" class="tabcontent">
               <a href='./uses/uses_per_months_tab.csv' download='uses_per_months_tab.csv'><button class="button-3 tooltip">Download monthly usage data in CSV format</button></a>
               <embed class="graph-tot" title="Nombre d'utilisations par mois" src="./uses/uses_per_months_graph.html" />
+              <a href='./tools/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
+              <embed class="graph-tot" title="Outils utilisés" src="tools/tools_used_tab.html" />
+              <a href='./tools/config_used_tab.csv' download='config_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per configuration in CSV format</button></a>
+              <embed class="graph-tot" title="Configuration utilisées" src="tools/config_used_tab.html" />
             </div>
             <div id="tab-translation" class="tabcontent">
               <a href='./translation/deepl_usage_per_day_tab.csv' download='deepl_usage_per_day_tab.csv'><button class="button-3 tooltip">Download daily Deepl Pro use data in CSV format</button></a>
               <embed class="graph-tot" title="Utilisation de Deepl par jour" src="./translation/deepl_usage_per_day_graph.html" />
               <a href='./translation/deepl_usage_per_month_tab.csv' download='deepl_usage_per_month_tab.csv'><button class="button-3 tooltip">Download Deepl Pro monthly usage data in CSV format</button></a>
               <embed class="graph-tot" title="Utilisation de Deepl" src="./translation/deepl_usage_per_month_graph.html" />
-            </div>
-            <div id="tab-tools" class="tabcontent">
-              <a href='./tools/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
-              <embed class="graph-tot" title="Outils utilisés" src="./tools/tools_used_tab.html" />
             </div>
         </div>
     </section>
