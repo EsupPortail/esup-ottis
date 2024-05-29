@@ -150,24 +150,22 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     // $pdo = null;
     echo 'Your request will be processed soon...';
 
-
+    //Get IP adress
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    	//ip from share internet
+    	$ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    	//ip pass from proxy
+    	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+    	$ip = $_SERVER['REMOTE_ADDR'];
+    }
 
     //Connexion avec la base de données pour les statistiques
     // try{
     //     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
     // }catch(PDOException $err){
     //     echo "Database connection problem: " . $err->getMessage();
-    // }
-
-    //Get IP adress
-    // if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-    // 	//ip from share internet
-    // 	$ip = $_SERVER['HTTP_CLIENT_IP'];
-    // }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-    // 	//ip pass from proxy
-    // 	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-    // }else{
-    // 	$ip = $_SERVER['REMOTE_ADDR'];
     // }
 
     // $date_raw = gmdate("Y-m-d\TH:i:s\Z");

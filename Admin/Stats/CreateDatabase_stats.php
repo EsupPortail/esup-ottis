@@ -27,9 +27,14 @@ $requete_createTable= 'CREATE TABLE statslog
   room_id text,
   tool text,
   origin text,
+  config_teacher text,
   ip_address text,
-  config_teacher text
+  city text,
+  country text,
+  latitude float,
+  longitude float
 )';
+
 $insertCommande3 = $pdo->prepare($requete_createTable);
 $insertCommande3->execute();
 
@@ -56,5 +61,18 @@ $insertCommande4 = $pdo->prepare($requete_createTableTranslate);
 $insertCommande4->execute();
 
 echo ("The database has been created successfully \n");
+
+$requete_createTable_IP= 'CREATE TABLE iplog
+(
+  id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  ip_address text,
+  city text,
+  country text,
+  latitude float,
+  longitude float
+)';
+
+$insertCommande5 = $pdo->prepare($requete_createTable_IP);
+$insertCommande5->execute();
 
 ?>

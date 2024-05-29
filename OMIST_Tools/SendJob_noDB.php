@@ -148,6 +148,17 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     
     echo 'Your request will be processed soon...';
 
+    //Get IP adress
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    	//ip from share internet
+    	$ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    	//ip pass from proxy
+    	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+    	$ip = $_SERVER['REMOTE_ADDR'];
+    }
+
     //Connexion avec la base de données pour les statistiques
     // $date_raw = gmdate("Y-m-d\TH:i:s\Z");
     // $date_complete = gmdate("Y-m-d");

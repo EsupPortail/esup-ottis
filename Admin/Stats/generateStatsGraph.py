@@ -14,8 +14,10 @@ import pandas as pd
 import mysql.connector
 import plotly.graph_objects as go
 import plotly.express as px
-import plotly.figure_factory as ff
 import os
+from  geopy.geocoders import Nominatim
+from ip2geotools.databases.noncommercial import DbIpCity
+import time
 
 mydb = mysql.connector.connect(
 user = "root",
@@ -26,8 +28,6 @@ mycursor = mydb.cursor()
 
 if not os.path.exists("./indicators"):
     os.mkdir("./indicators")
-if not os.path.exists("./tools"):
-    os.makedirs("./tools")
 if not os.path.exists("./translation"):
     os.makedirs("./translation")
 if not os.path.exists("./users"):
@@ -43,7 +43,7 @@ table_tot = []
 mycursor.execute("SELECT * FROM statslog;")
 for x in mycursor:
   table_tot.append(x)
-table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_month","date_year","user_id","room_id","tool","origin","ip_adress","config_teacher"))
+table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country" "latitude", "longitude"))
 table_tot_df.to_csv('table_tot.csv')  
 
 #################################### Number uses per month ####################################
@@ -88,7 +88,6 @@ fig.update_layout(
   )
 )
 
-os.makedirs('uses', exist_ok=True)  
 fig.write_html("uses/uses_per_months_graph.html")
 nb_uses_df.to_csv('uses/uses_per_months_tab.csv')  
 
@@ -134,7 +133,6 @@ fig.update_layout(
   )
 )
 
-os.makedirs('users', exist_ok=True)  
 fig.write_html("users/users_per_months_graph.html")
 nb_users_df.to_csv('users/users_per_months_tab.csv')  
 
@@ -179,7 +177,6 @@ fig.update_layout(
   )
 )
 
-os.makedirs('users', exist_ok=True) 
 fig.write_html("users/new_users_per_months_graph.html") 
 first_use_df.to_csv('users/new_users_per_months_tab.csv')  
 
@@ -277,8 +274,7 @@ fig.update_layout(
       color="Black"
   )
 )
-
-os.makedirs('uses', exist_ok=True)  
+ 
 fig.write_html("uses/tools_used_tab.html")
 tools_used_df.to_csv('uses/tools_used_tab.csv') 
 
@@ -322,7 +318,6 @@ fig.update_layout(
   )
 )
 
-os.makedirs('uses', exist_ok=True) 
 fig.write_html("uses/config_used_tab.html")
 config_used_df.to_csv('uses/config_used_tab.csv')
 
@@ -387,7 +382,6 @@ fig.update_layout(
   )
 )
 
-os.makedirs('translation', exist_ok=True)  
 fig.write_html("translation/deepl_usage_per_month_graph.html")
 deepl_per_month_df.to_csv('translation/deepl_usage_per_month_tab.csv')  
 
@@ -452,8 +446,7 @@ fig.update_layout(
       color="Black"
   )
 )
-
-os.makedirs('translation', exist_ok=True)  
+ 
 fig.write_html("translation/deepl_usage_per_day_graph.html")
 deepl_per_day_df.to_csv('translation/deepl_usage_per_day_tab.csv') 
 
@@ -553,7 +546,6 @@ fig.update_layout(
    width = 1600, 
    font = {'family': "Source sans pro"})
 
-os.makedirs('indicators', exist_ok=True)
 fig.write_image("indicators/indicator_month.png")
 
 
@@ -596,5 +588,94 @@ fig.update_layout(
    width = 1600, 
    font = {'family': "Source sans pro"})
 
-os.makedirs('indicators', exist_ok=True)
 fig.write_image("indicators/indicator_tot.png")
+
+#################################### Geolocalisation ####################################
+
+ip_to_translate = []
+ip_translated_df = pd.DataFrame(columns=['IP_address', 'City', 'Country', 'Latitude', 'Longitude'])
+mycursor.execute("SELECT ip_address FROM statslog WHERE (ip_address IS NOT NULL and city IS NULL and latitude IS NULL) GROUP BY ip_address;")
+for x in mycursor:
+  ip_to_translate.append(x)
+ip_to_translate_df = pd.DataFrame(data=ip_to_translate, columns=["IP_address"])
+
+i = 0
+for ind in ip_to_translate_df.index:
+  ip = ip_to_translate_df['IP_address'][ind]
+  res = DbIpCity.get(ip, api_key="free")
+  ip_translated_df.loc[i,'IP_address'] = res.ip_address
+  ip_translated_df.loc[i,'City'] = res.city
+  ip_translated_df.loc[i,'Country'] = res.country
+  if (res.latitude != None):
+    ip_translated_df.loc[i,'Latitude'] = res.latitude
+  if (res.latitude != None):
+    ip_translated_df.loc[i,'Longitude'] = res.longitude
+  i = i+1
+  time.sleep(5)
+
+for j in ip_translated_df.index:
+  mycursor = mydb.cursor()
+  sql = "INSERT INTO iplog (IP_address, city, country, latitude, longitude) VALUES (%s, %s, %s, %s, %s)"
+  val = ip_translated_df.loc[j].values.flatten().tolist()
+  mycursor.execute(sql, val)
+  mydb.commit()
+
+mycursor = mydb.cursor()
+mycursor.execute("UPDATE statslog a JOIN iplog b on a.ip_address = b.IP_address set a.city=b.city, a.country=b.country, a.latitude=b.latitude, a.longitude=b.longitude WHERE (a.city IS NULL and a.latitude IS NULL)")
+mydb.commit()
+
+#################################### City with no coordinates ####################################
+
+geolocator = Nominatim(user_agent="MyApp")
+
+city_to_coordinates = []
+mycursor.execute("SELECT city, country, latitude, longitude FROM statslog WHERE (ip_address IS NOT NULL and latitude IS NULL and longitude IS NULL and city IS NOT NULL and country IS NOT NULL) GROUP BY city, country;")
+for x in mycursor:
+  city_to_coordinates.append(x)
+city_to_coordinates_df = pd.DataFrame(data=city_to_coordinates, columns=["City", "Country", "Latitude", "Longitude"])
+
+for ind in city_to_coordinates_df.index:
+  city = city_to_coordinates_df['City'][ind]
+  country = city_to_coordinates_df['Country'][ind]
+  loc = geolocator.geocode(city+','+ country)
+  city_to_coordinates_df.loc[ind,'Latitude'] = loc.latitude
+  city_to_coordinates_df.loc[ind,'Longitude'] = loc.longitude
+  time.sleep(5)
+
+mycursor = mydb.cursor()
+for index, row in city_to_coordinates_df.iterrows():
+    sql = 'UPDATE iplog SET latitude = %s, longitude = %s where (city = %s and country= %s)'
+    mycursor.execute(sql, (row['Latitude'], row['Longitude'], row['City'], row['Country'],))
+mydb.commit()
+
+mycursor = mydb.cursor()
+mycursor.execute("UPDATE statslog a JOIN iplog b on a.ip_address = b.IP_address set a.latitude=b.latitude, a.longitude=b.longitude WHERE (a.latitude IS NULL and a.longitude IS NULL)")
+mydb.commit()
+
+#################################### Map users and uses ####################################
+
+coordinates = []
+mycursor.execute("SELECT city, latitude, longitude, COUNT(DISTINCT user_id), COUNT(id) FROM statslog GROUP BY latitude, longitude, city;")
+for x in mycursor:
+  coordinates.append(x)
+coordinates_df = pd.DataFrame(data=coordinates, columns=["City", "Latitude", "Longitude", "Users", "Uses"])
+
+fig = go.Figure()
+fig = px.scatter_geo(coordinates_df,
+                    lat="Latitude",
+                    lon="Longitude",
+                    size="Users",
+                    hover_name="City")
+
+fig.write_html("users/map_ipaddress.html")
+
+fig = go.Figure()
+fig = px.scatter_geo(coordinates_df,
+                    lat="Latitude",
+                    lon="Longitude",
+                    size="Uses",
+                    hover_name="City")
+
+fig.write_html("uses/map_ipaddress.html")
+
+coordinates_df.to_csv('users/map_ipaddress_tab.csv') 

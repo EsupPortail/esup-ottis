@@ -81,13 +81,6 @@ $fd = fopen("tmp/StatsLogs.txt","a");
 fwrite($fd,gmdate("Y-m-d\TH:i:s\Z")."|".$uid."|".$classroomid."\n");
 fclose($fd);
 
-//Connexion avec la base de données pour les statistiques
-// try{
-//     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
-// }catch(PDOException $err){
-//     echo "Database connection problem: " . $err->getMessage();
-// }
-
 //Get IP address
 if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 	//ip from share internet
@@ -98,15 +91,13 @@ if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 }else{
 	$ip = $_SERVER['REMOTE_ADDR'];
 }
-// $ip = $_SERVER['REMOTE_ADDR'];
-echo "IP : ".$ip;
-// $loc = file_get_contents('https://ipapi.co/'.$ip.'/json/');
-// echo $loc;
 
-// $url = "https://freeipapi.com/api/json/$ip";
-// $response = file_get_contents($url);
-// $data = json_decode($response, true);
-// var_dump($data);
+//Connexion avec la base de données pour les statistiques
+// try{
+//     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
+// }catch(PDOException $err){
+//     echo "Database connection problem: " . $err->getMessage();
+// }
 
 // $date_raw = gmdate("Y-m-d\TH:i:s\Z");
 // $date_complete = gmdate("Y-m-d");
@@ -124,7 +115,7 @@ echo "IP : ".$ip;
 //     $config_teacher = "direct link";
 //   }
 
-// $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, ip_address, config_teacher) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :ip_address, :config_teacher)';
+// $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address)';
 // $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
 // $insertCommande_stats->execute([
@@ -137,8 +128,8 @@ echo "IP : ".$ip;
 //     'room_id' => $room_id, 
 //     'tool' => $tool, 
 //     'origin' => $origin,
-//     'ip_address' => $ip_address,
-//     'config_teacher' => $config_teacher
+//     'config_teacher' => $config_teacher,
+//     'ip_address' => $ip_address
 // ]);
 
 //print_r($T_lang);

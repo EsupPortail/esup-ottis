@@ -1,0 +1,7 @@
+mysql-connector-python
+pandas
+plotly
+geopy
+ip2geotools
+time
+nominatim

@@ -1,15 +1,28 @@
 # Pré-requis
 
-Il faut le programme **cron**, **mysql** avec une base de données avec le format donné ci-dessous, la librairie python **plotly** et **kaleido**.
+Il faut le programme **cron**, **mysql** avec une base de données avec le format donné ci-dessous, les librairies python **pandas**, **plotly**, **geopy**, **ip2geotools**, **mysql-connector-python**, **time**, **nominatim**, et **kaleido**.
 Il faudra ensuite éditer le fichier de configuration config.py.
 
 ## Installation sous Linux (Ubuntu)
+```
+  pip3 install -r requirements.txt
+```
+**OU**
+
 ```
   sudo apt install cron
   sudo apt install mysql-server
   pip3 install plotly
   pip3 install -U kaleido
+  pip3 install mysql-connector-python
+  pip3 install pandas
+  pip3 install plotly
+  pip3 install geopy
+  pip3 install ip2geotools
+  pip3 install time
+  pip3 install nominatim
 ```
+
 
 ### Mise en place de la base de données
 
@@ -33,33 +46,52 @@ USE db_stats;
 #### *3. Création des tables*
 
 ```
-CREATE TABLE tasks_queue
+CREATE TABLE statslog
 (
   id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   date_raw text,
   date_complete datetime,
+  date_day int, 
   date_month text,
   date_year text, 
   user_id text,
   room_id text,
   tool text,
   origin text,
+  config_teacher text,
   ip_address text,
-  config_teacher text
+  city text,
+  country text,
+  latitude float,
+  longitude float
 );
 ```
 
 ```
-CREATE TABLE db_translatelog
+CREATE TABLE translatelog
 (
   id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   date_raw text,
   date_complete datetime,
+  date_day int,
   date_month text,
-  date_year text, 
-  origin text,
+  date_year text,
+  origin_translate text,
   percentage_char int,
-  characters int
+  characters int,
+  char_max int
+);
+```
+
+```
+CREATE TABLE iplog
+(
+  id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  ip_address text,
+  city text,
+  country text,
+  latitude float,
+  longitude float
 );
 ```
 
@@ -87,7 +119,7 @@ Ajouter à la fin du fichier :
 ### Ecriture des nouvelles connexions dans la base
 
 Décommenter le code suivant :
-- Dans index.php la partie "Connexion avec la base de données pour les statistiques" (lignes 85 à 128) :
+- Dans index.php la partie "Connexion avec la base de données pour les statistiques" (lignes 96 à 133) :
   ```
   try{
       $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -97,12 +129,11 @@ Décommenter le code suivant :
 
   [...]
 
-      'room_id' => $room_id, 
-      'tool' => $tool, 
-      'origin' => $origin
+     'config_teacher' => $config_teacher,
+     'ip_address' => $ip_address
   ]);
   ```
-- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 156 à 199) :
+- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 165 à 196) :
   ```
   try{
       $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -119,7 +150,7 @@ Décommenter le code suivant :
   ]);
   ```
 
-- Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" (lignes 152 à 176) :
+- Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" (lignes 163 à 189) :
   ```
     $date_raw = gmdate("Y-m-d\TH:i:s\Z");
     $date_complete = gmdate("Y-m-d");
