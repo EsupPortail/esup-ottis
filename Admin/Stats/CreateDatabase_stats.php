@@ -1,5 +1,5 @@
 <?php
-include(dirname(__FILE__)."/config_database_stats.php");
+include("./config_database_stats.php");
 
 try{
     $pdo = new PDO("mysql:host=" . $dbhost, $dbuser, $dbpass);
@@ -40,7 +40,7 @@ $insertCommande3->execute();
 
 echo ("The database has been created successfully \n");
 
-$command = escapeshellcmd(dirname(__FILE__).'/first_complete_db.py');
+$command = escapeshellcmd('./first_complete_db.py');
 $output = shell_exec($command);
 echo $output;
 
