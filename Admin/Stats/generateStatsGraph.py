@@ -23,7 +23,7 @@ mydb = mysql.connector.connect(
 user = "root",
 password = "root",
 host = "localhost",
-database = "connexion_data")
+database = "db_stats")
 mycursor = mydb.cursor()
 
 if not os.path.exists("./indicators"):
