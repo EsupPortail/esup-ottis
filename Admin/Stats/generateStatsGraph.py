@@ -518,9 +518,14 @@ fig.add_trace(go.Indicator(
       },
     domain = {'x': [0.4, 0.6], 'y': [0, 0.5]}))
 
+if (len(deepl_per_day_df.index)==0):
+   value_percentage = 0
+else:
+   value_percentage = deepl_per_day_df.iloc[-1]["Percentage"]*100
+
 fig.add_trace(go.Indicator(
     mode = "gauge+number",
-    value = deepl_per_day_df.iloc[-1]["Percentage"]*100,
+    value = value_percentage,
     title= {
        'text':'Deepl Pro usage<br><span style="font-size:20;color:gray">Reset on the 17th</span><br>',
        'font':{
