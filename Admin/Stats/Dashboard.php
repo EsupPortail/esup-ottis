@@ -94,12 +94,12 @@ if (! function_exists('str_ends_with')) {
               <embed class="graph-tot" title="Nombre d'utilisations par mois" src="./uses/uses_per_months_graph.html" />
               <section class="container">
                 <section class="col1">
-                  <a href='./tools/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
-                  <embed class="graph-tot" title="Outils utilisés" src="./tools/tools_used_tab.html" />
+                  <a href='./uses/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
+                  <embed class="graph-tot" title="Outils utilisés" src="./uses/tools_used_tab.html" />
                 </section>
                 <section class="col2">
-                  <a href='./tools/config_used_tab.csv' download='config_used_tab.csv' ><button class="button-3 tooltip">Download data on the number of uses per configuration in CSV format</button></a>
-                  <embed class="graph-tot" title="Configuration utilisées" src="./tools/config_used_tab.html" />
+                  <a href='./uses/config_used_tab.csv' download='config_used_tab.csv' ><button class="button-3 tooltip">Download data on the number of uses per configuration in CSV format</button></a>
+                  <embed class="graph-tot" title="Configuration utilisées" src="./uses/config_used_tab.html" />
                 </section>
             </section>
               <a href='./users/map_ipaddress_tab.csv' download='map_ipaddress_tab.csv'><button class="button-3 tooltip">Download data on the location of uses</button></a>
