@@ -33,7 +33,7 @@ $theme="flat";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 try{
-  $pdo = new PDO("mysql:host=localhost;dbname=connexion_data", "root", "root");
+  $pdo = new PDO("mysql:host=localhost;dbname=db_stats", "root", "root");
 }catch(PDOException $err){
   echo "Database connection problem: " . $err->getMessage();
   // Ajout JB
