@@ -64,7 +64,7 @@ if (! function_exists('str_ends_with')) {
   <body onload="openPage('tab-dashboard', 'li-dashboard')">
       <section id="sidebar">
         <div id="sidebar-nav">
-          <img id="logoOMIST" alt="Logo OMIST" src="omist-top-logo-nav_ssfd.png">
+          <img id="logoOMIST" alt="Logo OMIST" src="../../images/omist-top-logo-nav_ssfd.png">
           <ul>
             <li id="li-dashboard" class="tablink" onclick="openPage('tab-dashboard', this.id)"><i class="fa fa-dashboard"></i> Dashboard</li>
             <li id="li-users" class="tablink" onclick="openPage('tab-users', this.id)"><i class="fa fa-user"></i>Users</li>
