@@ -40,7 +40,7 @@ $insertCommande3->execute();
 
 echo ("The database has been created successfully \n");
 
-$command = escapeshellcmd('python3 ./first_complete_db.py');
+$command = escapeshellcmd('/usr/bin/python3 ./first_complete_db.py');
 $output = shell_exec($command);
 echo $output;
 
