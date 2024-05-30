@@ -2,7 +2,7 @@
 include("./config_database_stats.php");
 
 try{
-    $pdo = new PDO("mysql:host=" . $dbhost, $dbuser, $dbpass);
+    $pdo = new PDO("mysql:host=" . $dbhost_stats, $dbuser_stats, $dbpass_stats);
 }catch(PDOException $err){
     echo "Database connection problem: " . $err->getMessage();
 }
@@ -40,7 +40,7 @@ $insertCommande3->execute();
 
 echo ("The database has been created successfully \n");
 
-$command = escapeshellcmd('./first_complete_db.py');
+$command = escapeshellcmd('python3 ./first_complete_db.py');
 $output = shell_exec($command);
 echo $output;
 
