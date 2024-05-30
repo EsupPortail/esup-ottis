@@ -1,6 +1,6 @@
 <?php
 include(dirname(__FILE__)."/config_database.php");
-include("../Admin/Stats/config_database_stats.php")
+// include("../Admin/Stats/config_database_stats.php")
 
 if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 

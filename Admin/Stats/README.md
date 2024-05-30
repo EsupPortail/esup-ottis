@@ -130,6 +130,10 @@ Décommenter le code suivant :
      'ip_address' => $ip_address
   ]);
   ```
+- Dans index.php (ligne 13) : 
+```
+include("./Admin/Stats/config_database_stats.php")
+```
 - Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 165 à 196) :
   ```
   try{
@@ -146,7 +150,10 @@ Décommenter le code suivant :
       'ip_address' => $ip_address
   ]);
   ```
-
+- Dans SendJob.php (ligne 3) : 
+```
+include("../Admin/Stats/config_database_stats.php")
+```
 - Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" (lignes 163 à 189) :
   ```
     $date_raw = gmdate("Y-m-d\TH:i:s\Z");
@@ -158,4 +165,9 @@ Décommenter le code suivant :
     $fd_stats=fopen("fakeDB/db_stats.json","a");
     fputs($fd_stats,$json_stats."|||\n");
     fclose($fd_stats);
+  ```
+- Dans OMIST_Tools/index.php, dans la fonction SubmitJob (lignes 382 et 383) :
+  ```
+    var requestLog = new XMLHttpRequest();
+    echo "requestLog.open(\"POST\", \"TranslateLogs.php\");\n"
   ```
