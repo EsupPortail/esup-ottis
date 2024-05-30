@@ -20,16 +20,16 @@ dirname = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.pat
 statslogs_tot_df = pd.DataFrame(columns=["stats_raw", "origin"])
 
 #Open stats test
-file_test = open(dirname + '/tmp/StatsLogs_test.txt', 'r')
+file_test = open(dirname + '/tmp/StatsLogs.txt', 'r')
 for line in file_test:
     statslogs_tot_df = statslogs_tot_df._append({"stats_raw":line, "origin" : "VM test"}, ignore_index=True)
 file_test.close()
 
-#Open stats master
-file_master = open(dirname + '/tmp/StatsLogs_master.txt', 'r')
-for line in file_master:
-    statslogs_tot_df = statslogs_tot_df._append({"stats_raw":line, "origin" : "VM master"}, ignore_index=True)
-file_master.close()
+# #Open stats master
+# file_master = open(dirname + '/tmp/StatsLogs.txt', 'r')
+# for line in file_master:
+#     statslogs_tot_df = statslogs_tot_df._append({"stats_raw":line, "origin" : "VM master"}, ignore_index=True)
+# file_master.close()
 
 #Dataframe formatting
 statslogs_tot_df[['date_raw', 'user_id', 'room_id']] = statslogs_tot_df['stats_raw'].str.split('|', expand=True)
