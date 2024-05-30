@@ -5,3 +5,4 @@ geopy
 ip2geotools
 time
 nominatim
+kaleido

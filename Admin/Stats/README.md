@@ -16,7 +16,6 @@ Il faudra ensuite éditer le fichier de configuration config.py.
   pip3 install -U kaleido
   pip3 install mysql-connector-python
   pip3 install pandas
-  pip3 install plotly
   pip3 install geopy
   pip3 install ip2geotools
   pip3 install time
@@ -105,15 +104,13 @@ python first_complete_db.py
 
 ### Mise en place de CRON
 
-**Voir quelle fréquence de mise à jour des graphiques.**
-
 ```
 crontab -e
 ```
-
+**Voir quelle fréquence de mise à jour des graphiques. Ici : tous les jours à 22h**
 Ajouter à la fin du fichier : 
 ```
-* * * * * python /chemin/absolu/du/fichier/omist_automatictranslator/Admin/generateStatsGraph.py
+00 22 * * * python /chemin/absolu/du/fichier/omist_automatictranslator/Admin/generateStatsGraph.py
 ```
 
 ### Ecriture des nouvelles connexions dans la base
