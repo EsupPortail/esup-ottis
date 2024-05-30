@@ -556,11 +556,16 @@ fig.write_image("indicators/indicator_month.png")
 
 #################################### Indicators total ####################################
 
+if (len(by_origin_df.loc[by_origin_df['Origin'] == 'VM master', 'Number of users']) == 0):
+   value_master = 0
+else:
+   value_master = by_origin_df.loc[by_origin_df['Origin'] == 'VM master', 'Number of users'].iloc[0]
+
 fig = go.Figure()
 
 fig.add_trace(go.Indicator(
     mode = "number",
-    value = by_origin_df.loc[by_origin_df['Origin'] == 'VM master', 'Number of users'].iloc[0],
+    value = value_master,
     title= {
        'text':'Users',
        'font':{
