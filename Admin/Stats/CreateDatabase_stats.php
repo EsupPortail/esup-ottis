@@ -38,7 +38,7 @@ $requete_createTable= 'CREATE TABLE statslog
 $insertCommande3 = $pdo->prepare($requete_createTable);
 $insertCommande3->execute();
 
-echo ("The database has been created successfully \n")
+echo ("The database has been created successfully \n");
 
 $command = escapeshellcmd(dirname(__FILE__).'/first_complete_db.py');
 $output = shell_exec($command);
