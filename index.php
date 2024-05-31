@@ -10,7 +10,7 @@
 
 include("Security/Authentification.php");
 include("config.php");
-include("Admin/Stats/config_database_stats.php")
+include("Admin/Stats/config_database_stats.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
