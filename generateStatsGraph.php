@@ -1,7 +1,7 @@
 <?php
-include("config_database_stats.php");
-include("../../config.php");
-include("../../OMIST_Tools/configOT.php");
+include("./Admin/Stats/config_database_stats.php");
+include("./config.php");
+include("./OMIST_Tools/configOT.php");
 
 try{
     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -48,7 +48,7 @@ $insertCommande_stats->execute([
     'char_max' => $char_max
 ]);
 
-$command = 'bash'.dirname(__FILE__).'/generateStatsGraph.sh >/dev/null 2>/dev/null';
+$command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh >/dev/null 2>/dev/null';
 system($command);
 
 ?>
