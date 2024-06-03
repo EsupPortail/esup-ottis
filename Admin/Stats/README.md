@@ -110,7 +110,7 @@ crontab -e
 **Voir quelle fréquence de mise à jour des graphiques. Ici : tous les jours à 22h**
 Ajouter à la fin du fichier : 
 ```
-00 22 * * * python /chemin/absolu/du/fichier/omist_automatictranslator/Admin/generateStatsGraph.py
+00 22 * * * python /chemin/absolu/du/fichier/omist_automatictranslator/Admin/Stats/generateStatsGraph.php
 ```
 
 ### Ecriture des nouvelles connexions dans la base
@@ -132,7 +132,7 @@ Décommenter le code suivant :
   ```
 - Dans index.php (ligne 13) : 
 ```
-include("./Admin/Stats/config_database_stats.php")
+include("./Admin/Stats/config_database_stats.php");
 ```
 - Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 165 à 196) :
   ```
@@ -152,7 +152,7 @@ include("./Admin/Stats/config_database_stats.php")
   ```
 - Dans SendJob.php (ligne 3) : 
 ```
-include("../Admin/Stats/config_database_stats.php")
+include("../Admin/Stats/config_database_stats.php");
 ```
 - Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" (lignes 163 à 189) :
   ```
@@ -165,9 +165,4 @@ include("../Admin/Stats/config_database_stats.php")
     $fd_stats=fopen("fakeDB/db_stats.json","a");
     fputs($fd_stats,$json_stats."|||\n");
     fclose($fd_stats);
-  ```
-- Dans OMIST_Tools/index.php, dans la fonction SubmitJob (lignes 382 et 383) :
-  ```
-    var requestLog = new XMLHttpRequest();
-    echo "requestLog.open(\"POST\", \"TranslateLogs.php\");\n"
   ```
