@@ -639,7 +639,7 @@ mydb.commit()
 geolocator = Nominatim(user_agent="MyApp")
 
 city_to_coordinates = []
-mycursor.execute("SELECT city, country, latitude, longitude FROM statslog WHERE (ip_address IS NOT NULL and latitude IS NULL and longitude IS NULL and city IS NOT NULL and country IS NOT NULL) GROUP BY city, country;")
+mycursor.execute("SELECT city, country, latitude, longitude FROM statslog WHERE (ip_address IS NOT NULL and latitude IS NULL and longitude IS NULL and city IS NOT NULL and country IS NOT NULL) GROUP BY city, country, latitude, longitude;")
 for x in mycursor:
   city_to_coordinates.append(x)
 city_to_coordinates_df = pd.DataFrame(data=city_to_coordinates, columns=["City", "Country", "Latitude", "Longitude"])
