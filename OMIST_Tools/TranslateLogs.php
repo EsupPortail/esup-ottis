@@ -1,5 +1,5 @@
 <?php
-include("../Admin/Stats/config_database_stats.php")
+include("../Admin/Stats/config_database_stats.php");
 
 try{
     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -32,7 +32,7 @@ $percentage_char = $percentage_DEEPL;
 $characters = $Stats_DEEPL["character_count"];
 $char_max = $Stats_DEEPL["character_limit"];
 
-$requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, origin, percentage_char, characters, char_max) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :origin, :percentage_char, :characters, :char_max)';
+$requete_SQL_stats = 'INSERT INTO translatelog (date_raw, date_complete, date_day, date_month, date_year, origin, percentage_char, characters, char_max) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :origin, :percentage_char, :characters, :char_max)';
 $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
 $insertCommande_stats->execute([
