@@ -11,9 +11,9 @@ try{
 
 $res=array();
 if ($WhichTranslator == "DEEPLFREE") {
-  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPIFREETOKEN,$res);
+  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPIFREETOKEN." >/dev/null 2>/dev/null",$res);
 } else {
-  exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+  exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN." >/dev/null 2>/dev/null",$res);
 }
 
 $Stats_DEEPL = json_decode($res[0],true);
