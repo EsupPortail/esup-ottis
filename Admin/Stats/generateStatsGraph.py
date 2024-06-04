@@ -53,6 +53,9 @@ mycursor.execute("SELECT date_year, date_month, COUNT(id) FROM statslog GROUP BY
 for x in mycursor:
   nb_uses.append(x)
 nb_uses_df = pd.DataFrame(data=nb_uses, columns=("Year","Month","Number of uses"))
+
+nb_uses_df.Month = pd.Categorical(nb_uses_df.Month,categories=months_in_order,ordered=True)
+nb_uses_df = nb_uses_df.sort_values('Month')
 # print(nb_uses_df)
 # nb_uses_html = nb_uses_df.to_html(classes='table table-stripped')
  
