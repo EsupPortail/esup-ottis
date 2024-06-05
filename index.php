@@ -461,19 +461,19 @@ $insertCommande_stats->execute([
 							<button onclick="saveTextQ('[extratab1|'+_('extraurl1').value+']');">Send to students</button>
 						</li>
 						<li><label for="extraurl2">Extra tab 2 URL : </label>
-							<input type="text" id="extraurl2" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<input type="text" id="extraurl2" value="" placeholder="Copy your application url here" >&nbsp;
 							<label for="embedET2"> Show ?</label>
 							<input type="checkbox" id="embedET2" onclick="showET(this,2);" >&nbsp;<span class="yesno" id="spanembedET2">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab2|'+_('extraurl2').value+']');">Send to students</button>
 						</li>
 						<li><label for="extraurl3">Extra tab 3 URL : </label>
-							<input type="text" id="extraurl3" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<input type="text" id="extraurl3" value="" placeholder="Copy your application url here" >&nbsp;
 							<label for="embedET3"> Show ?</label>
 							<input type="checkbox" id="embedET3" onclick="showET(this,3);" >&nbsp;<span class="yesno" id="spanembedET3">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab3|'+_('extraurl3').value+']');">Send to students</button>
 						</li>
 						<li><label for="extraurl4">Extra tab 4 URL : </label>
-							<input type="text" id="extraurl4" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<input type="text" id="extraurl4" value="" placeholder="Copy your application url here" >&nbsp;
 							<label for="embedET4"> Show ?</label>
 							<input type="checkbox" id="embedET4" onclick="showET(this,4);" >&nbsp;<span class="yesno" id="spanembedET4">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab4|'+_('extraurl4').value+']');">Send to students</button>
