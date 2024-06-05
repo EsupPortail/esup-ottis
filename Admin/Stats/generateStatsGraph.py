@@ -640,7 +640,7 @@ mydb.commit()
 
 #################################### City with no coordinates ####################################
 
-geolocator = Nominatim(user_agent="MyApp")
+geolocator = Nominatim(user_agent="MyApp",proxies={'http':'http://cache.univ-nantes.fr:3128', 'https':'http://cache.univ-nantes.fr:3128'})
 
 city_to_coordinates = []
 mycursor.execute("SELECT city, country, latitude, longitude FROM statslog WHERE (ip_address IS NOT NULL and latitude IS NULL and longitude IS NULL and city IS NOT NULL and country IS NOT NULL) GROUP BY city, country, latitude, longitude;")
