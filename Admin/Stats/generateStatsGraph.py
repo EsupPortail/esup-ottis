@@ -18,6 +18,7 @@ import os
 from  geopy.geocoders import Nominatim
 from ip2geotools.databases.noncommercial import DbIpCity
 import time
+import requests
 
 mydb = mysql.connector.connect(
 user = "root",
@@ -613,17 +614,35 @@ for x in mycursor:
   ip_to_translate.append(x)
 ip_to_translate_df = pd.DataFrame(data=ip_to_translate, columns=["IP_address"])
 
+####ip2geotools
+# i = 0
+# for ind in ip_to_translate_df.index:
+#   ip = ip_to_translate_df['IP_address'][ind]
+#   res = DbIpCity.get(ip, api_key="free")
+#   ip_translated_df.loc[i,'IP_address'] = res.ip_address
+#   ip_translated_df.loc[i,'City'] = res.city
+#   ip_translated_df.loc[i,'Country'] = res.country
+#   if (res.latitude != None):
+#     ip_translated_df.loc[i,'Latitude'] = res.latitude
+#   if (res.latitude != None):
+#     ip_translated_df.loc[i,'Longitude'] = res.longitude
+#   i = i+1
+#   time.sleep(5)
+
+####ipapi
 i = 0
 for ind in ip_to_translate_df.index:
   ip = ip_to_translate_df['IP_address'][ind]
-  res = DbIpCity.get(ip, api_key="free")
-  ip_translated_df.loc[i,'IP_address'] = res.ip_address
-  ip_translated_df.loc[i,'City'] = res.city
-  ip_translated_df.loc[i,'Country'] = res.country
-  if (res.latitude != None):
-    ip_translated_df.loc[i,'Latitude'] = res.latitude
-  if (res.latitude != None):
-    ip_translated_df.loc[i,'Longitude'] = res.longitude
+  response = requests.get(f'https://ipapi.co/{ip}/json/').json()
+  ip_translated_df.loc[i,'IP_address'] = ip
+  if (response.get("city") != None):
+    ip_translated_df.loc[i,'City'] = response.get("city")
+  if (response.get("country_name") != None):
+    ip_translated_df.loc[i,'Country'] = response.get("country_name")
+  if (response.get("latitude") != None):
+    ip_translated_df.loc[i,'Latitude'] = response.get("latitude")
+  if (response.get("longitude") != None):
+    ip_translated_df.loc[i,'Longitude'] = response.get("longitude")
   i = i+1
   time.sleep(5)
 
@@ -640,31 +659,31 @@ mydb.commit()
 
 #################################### City with no coordinates ####################################
 
-geolocator = Nominatim(user_agent="MyApp",proxies={'http':'http://cache.univ-nantes.fr:3128', 'https':'http://cache.univ-nantes.fr:3128'})
+# geolocator = Nominatim(user_agent="MyApp",proxies={'http':'http://cache.univ-nantes.fr:3128', 'https':'http://cache.univ-nantes.fr:3128'})
 
-city_to_coordinates = []
-mycursor.execute("SELECT city, country, latitude, longitude FROM statslog WHERE (ip_address IS NOT NULL and latitude IS NULL and longitude IS NULL and city IS NOT NULL and country IS NOT NULL) GROUP BY city, country, latitude, longitude;")
-for x in mycursor:
-  city_to_coordinates.append(x)
-city_to_coordinates_df = pd.DataFrame(data=city_to_coordinates, columns=["City", "Country", "Latitude", "Longitude"])
+# city_to_coordinates = []
+# mycursor.execute("SELECT city, country, latitude, longitude FROM statslog WHERE (ip_address IS NOT NULL and latitude IS NULL and longitude IS NULL and city IS NOT NULL and country IS NOT NULL) GROUP BY city, country, latitude, longitude;")
+# for x in mycursor:
+#   city_to_coordinates.append(x)
+# city_to_coordinates_df = pd.DataFrame(data=city_to_coordinates, columns=["City", "Country", "Latitude", "Longitude"])
 
-for ind in city_to_coordinates_df.index:
-  city = city_to_coordinates_df['City'][ind]
-  country = city_to_coordinates_df['Country'][ind]
-  loc = geolocator.geocode(city+','+ country)
-  city_to_coordinates_df.loc[ind,'Latitude'] = loc.latitude
-  city_to_coordinates_df.loc[ind,'Longitude'] = loc.longitude
-  time.sleep(5)
+# for ind in city_to_coordinates_df.index:
+#   city = city_to_coordinates_df['City'][ind]
+#   country = city_to_coordinates_df['Country'][ind]
+#   loc = geolocator.geocode(city+','+ country)
+#   city_to_coordinates_df.loc[ind,'Latitude'] = loc.latitude
+#   city_to_coordinates_df.loc[ind,'Longitude'] = loc.longitude
+#   time.sleep(5)
 
-mycursor = mydb.cursor()
-for index, row in city_to_coordinates_df.iterrows():
-    sql = 'UPDATE iplog SET latitude = %s, longitude = %s where (city = %s and country= %s)'
-    mycursor.execute(sql, (row['Latitude'], row['Longitude'], row['City'], row['Country'],))
-mydb.commit()
+# mycursor = mydb.cursor()
+# for index, row in city_to_coordinates_df.iterrows():
+#     sql = 'UPDATE iplog SET latitude = %s, longitude = %s where (city = %s and country= %s)'
+#     mycursor.execute(sql, (row['Latitude'], row['Longitude'], row['City'], row['Country'],))
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog a JOIN iplog b on a.ip_address = b.IP_address set a.latitude=b.latitude, a.longitude=b.longitude WHERE (a.latitude IS NULL and a.longitude IS NULL)")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog a JOIN iplog b on a.ip_address = b.IP_address set a.latitude=b.latitude, a.longitude=b.longitude WHERE (a.latitude IS NULL and a.longitude IS NULL)")
+# mydb.commit()
 
 #################################### Map users and uses ####################################
 
