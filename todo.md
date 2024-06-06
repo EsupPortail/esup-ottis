@@ -56,6 +56,10 @@ Pour moi.
 - [ ] Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)
 - [ ] la navigation au clavier ne fonctionne pas très bien. Ex : on peut naviguer dans le menu avec les flèches sauf quand on arrive dans l’onglet „Slides“ car les flèches servent ici à passer les slides. Il y a aussi des problèmes avec la navigation par tabulation. Imaginer de ne plus du tout naviguer avec les flèches dans le menu principal (et réserver les flèches pour faire passer les slides), utiliser la tabulation pour voyager dans toute l’application et avoir un ordre cohérent et ajouter quelques raccourcis (il y en a déjà dans l’application étudiante, par exemple la touche [s] amène directement vers les slides) ?
 
+## Partie dédiée à l'outil étudiant
+- [ ] Voice speed : indiquer des valeurs et celle par défaut
+
+
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
 - [X] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs : télécharger une image svg, l'ouvrir avec l'éditeur de texte pour récupérer le code, insérer le code dans le HTML avec des balises svg
