@@ -18,8 +18,8 @@ Il faudra ensuite éditer le fichier de configuration config.py.
   pip3 install pandas
   pip3 install geopy
   pip3 install ip2geotools
-  pip3 install time
   pip3 install nominatim
+  pip3 install requests
 ```
 
 

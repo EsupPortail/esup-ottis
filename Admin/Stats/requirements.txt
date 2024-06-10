@@ -2,7 +2,7 @@ pandas
 plotly
 geopy
 ip2geotools
-time
 nominatim
 kaleido
 matplotlib
+requests
