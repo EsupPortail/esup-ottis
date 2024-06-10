@@ -54,7 +54,7 @@ if (! function_exists('str_ends_with')) {
 <!doctype html>
 <html lang="fr">
   <head>
-    <title>Automatic translation for teaching purposes: data and statistics</title>
+    <title>OMIST - Dashboard</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../../images/favicon.svg" >
