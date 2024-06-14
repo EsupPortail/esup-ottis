@@ -70,6 +70,7 @@ Pour moi.
     - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
 - [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
 - [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier ?
+- [ ] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999, sinon -> 99.999
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
