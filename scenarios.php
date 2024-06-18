@@ -20,8 +20,8 @@
       <nav>
         <a href="https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
         <menu>
-          <li><a href="mailto:omist-dev@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"alt="Contact"></i><span class="icone-menu">Contact</span></a></li>
-          <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc" alt="Aide sur Madoc"></i><span class="icone-menu">Aide sur Madoc</span></a></li>
+          <li><a href="mailto:omist-dev@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
+          <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu">Aide sur Madoc</span></a></li>
           <li id="google_translate_element"><button id="translateButton" onclick="this.style.display='none';" type="button"><b>Translate this page</b><i class="fa fa-angle-down"></i></button></li>
         </menu>
       </nav>
