@@ -176,7 +176,7 @@ menu #google_translate_element {
 menu button {
     height : fit-content; width : fit-content;
 
-    padding : 2.5% 10%;
+    /* padding : 2.5% 10%; */
 
     display : flex; flex-direction : row; gap : 2.5%;
 
