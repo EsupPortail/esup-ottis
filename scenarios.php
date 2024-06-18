@@ -22,7 +22,7 @@
         <menu>
           <li><a href="mailto:omist-dev@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
           <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu">Aide sur Madoc</span></a></li>
-          <li id="google_translate_element"><button id="translateButton" type="button"><b>Translate this page</b><i class="fa fa-angle-down"></i></button></li>
+          <li id="google_translate_element"><button id="translateButton" type="button"><b>Translate this page</b></button></li>
         </menu>
       </nav>
     </header>
