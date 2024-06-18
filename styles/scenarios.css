@@ -160,11 +160,13 @@ menu {
     position : absolute; right : 1%;
 
     justify-content : flex-end; align-items : center;
+
+    gap: 25px;
 }
 menu li {
     height : 100%; 
     /* width : 15%; */
-    margin: 10px;
+    /* margin: 10px; */
 }
 menu #google_translate_element {
     height : 100%; width : fit-content;
