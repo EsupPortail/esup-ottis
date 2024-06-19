@@ -327,7 +327,7 @@ ul.scenarios li                  button:not(button.favorite-button)          {
     margin-bottom: 10px;
   }
 
-ul#direct-links {
+  ul#direct-links {
     height : 50%; width : 60%;
 
     margin : 0.25%;
@@ -336,21 +336,22 @@ ul#direct-links {
     gap : 100px;
     left: 50px;
     position: relative;
-    align-self: center;
+    /* align-self: center; */
 }
 ul#direct-links li {
     height : 100%; width : 100%;
-    left: 50px;
+    /* left: 50px; */
     position: relative;
     gap: 30px;
     flex-direction: column;
 }
 ul#direct-links button {
-    height : fit-content; width : fit-content;
+    /* height : fit-content;  */
+    width : auto;
 
     align-self : center;
 
-    padding : 0.5% 1%;
+    padding : 2.5% 5%;
 
     border : none; border-radius : 5px;
 
@@ -358,6 +359,13 @@ ul#direct-links button {
     
     white-space : nowrap;
     align-self: center;
+}
+
+ul#direct-links p {
+    padding: 0 5%;
+    width: 90%;
+    align-items: center;
+    white-space: nowrap;
 }
 
 img {
