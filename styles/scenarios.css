@@ -400,6 +400,18 @@ ul#direct-links p {
       height: 30px;
       width: 36px;
     }
+
+    .footer-left p {
+        font-size: 10px;
+    }
+
+    footer div.footer-left p a  {
+        font-size: 10px;
+    }
+
+    .footer-right {
+        font-size: 10px;
+    }
   
 }
 
