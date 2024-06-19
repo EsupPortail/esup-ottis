@@ -122,7 +122,7 @@
               <h5>Préparation de séance</h5>
               <button type="button" class="favorite-button" id="scenario-5-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
-              <p>Création d'un lien permettant de préparer une séance. Ici, il est possible de personnaliser le lien de connexion.</p>
+              <p>Création d'un lien permettant de préparer une séance.</p>
               <input type="text" title="Définissez ici l'identifiant de connexion au cours. Il peut s'agir de n'importe quel mot, sans espace." class="card__input" id="persroomid" placeholder="Identifiant de séance (libre)" value="">
               <input type="text" title="Nombre de lignes maximal qui seront stockées dans le buffer. La valeur conseillée est 2" class="card__input" id="persmaxlines" placeholder="Nombre maximum de lignes dans le buffer" value="">
               <input type="text" id="persolink" title="Coller ici le lien uncloud public de l'endroit où se trouve l'animation pptx que vous souhaitez utiiser" placeholder="lien public uncloud (PPTX)." class="card__input">

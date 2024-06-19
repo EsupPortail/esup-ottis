@@ -352,7 +352,7 @@ ul#direct-links button {
 
     align-self : center;
 
-    padding : 2.5% 5%;
+    padding : 15px 10px;
 
     border : none; border-radius : 5px;
 
@@ -366,7 +366,7 @@ ul#direct-links p {
     padding: 0 5%;
     width: 90%;
     align-items: center;
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 @media screen and (max-width: 1045px) {
