@@ -375,6 +375,35 @@ ul#direct-links p {
     }
 }
 
+@media screen and (max-width: 925px) {
+    #logoNEXT{
+        height: 35px;
+        width: 156px;
+    }
+  
+    #logoFrance2030{
+      height: 30px;
+      width: 31px;
+    }
+  
+    #logoPaysDeLaLoire{
+      height: 30px;
+      width: 51px;
+    }
+  
+    #logoNantesMetropole{
+      height: 40px;
+      width: 94px;
+    }
+  
+    #logoEUniWell{
+      height: 30px;
+      width: 36px;
+    }
+  
+}
+
+
 img {
     height : auto; max-width : 100%;
     
