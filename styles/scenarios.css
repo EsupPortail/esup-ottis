@@ -50,6 +50,7 @@ main {
 
     overflow : auto;
     /* scrollbar-width: none; */
+    overflow-x: hidden;
 }
 main * {
     display : flex; flex-direction : inherit;
@@ -333,7 +334,7 @@ ul.scenarios li                  button:not(button.favorite-button)          {
     margin : 0.25%;
 
     display : flex; flex-direction : row;
-    gap : 100px;
+    gap : 65px;
     left: 50px;
     position: relative;
     /* align-self: center; */
@@ -366,6 +367,12 @@ ul#direct-links p {
     width: 90%;
     align-items: center;
     white-space: nowrap;
+}
+
+@media screen and (max-width: 1045px) {
+    ul#direct-links {
+      flex-direction: column;
+    }
 }
 
 img {

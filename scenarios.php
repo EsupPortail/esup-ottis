@@ -172,7 +172,7 @@
           <button type="button" id="direct-access-tools">Outils de manipulation de slides</button>
         </li>
         <li>
-          <p> Outil de traduction pour une conversation multi-lingue en duo. <p>
+          <p> Outil de traduction pour une conversation multilingue en duo. <p>
           <button type="button" id="direct-access-conv">Conversation à deux</button>
         </li>
       </ul>
