@@ -764,6 +764,16 @@ ul.image-list li.image-item.scenario-parameter:not(:has(h6))    p:first-of-type 
     padding          : 0.5% 5% 0;
 }
 
+ul.image-list li                  select           {
+    height           : 10%;
+    width            : auto;
+    margin           : 0 2.5%;
+    padding          : 1.5%; 
+    /* border           : none; */
+    background-color : var(--grey);
+    color            : var(--dark-grey);
+}
+
 .container .slider-scrollbar {
     display: none;
 }
