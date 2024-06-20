@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
  * @summary Initialise l'ordre par défaut des scénarios tel qu'ils apparaissent dans le carrousel (seulement si l'ordre n'est pas renseigné).
  */
 function setupDefaultOrder() {
-    const listOfScenarios = document.querySelectorAll('ul[class="scenarios"] > li');
+    const listOfScenarios = document.querySelectorAll('ul[class="image-list"] > li');
     let order = localStorage.getItem('order');
 
     if (!(order)) {
