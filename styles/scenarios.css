@@ -329,7 +329,7 @@ ul.scenarios li                  button:not(button.favorite-button)          {
   }
 
   ul#direct-links {
-    height : 25%; width : 60%;
+    height : 15%; width : 60%;
 
     margin : 0.25%;
 
@@ -750,6 +750,10 @@ ul.image-list li                  input           {
     border           : none;
     background-color : var(--grey);
     color            : var(--black);
+}
+
+ul.image-list li.image-item.scenario-parameter {
+    gap: 1.5%;
 }
 
 ul.image-list li.image-item.scenario-parameter                 input           {
