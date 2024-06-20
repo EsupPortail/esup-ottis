@@ -329,7 +329,7 @@ ul.scenarios li                  button:not(button.favorite-button)          {
   }
 
   ul#direct-links {
-    height : 50%; width : 60%;
+    height : 25%; width : 60%;
 
     margin : 0.25%;
 
@@ -352,7 +352,7 @@ ul#direct-links button {
 
     align-self : center;
 
-    padding : 15px 10px;
+    padding : 10px 20px;
 
     border : none; border-radius : 5px;
 
@@ -752,6 +752,13 @@ ul.image-list li                  input           {
     color            : var(--black);
 }
 
+ul.image-list li.image-item.scenario-parameter                 input           {
+    padding: 5px;
+}
+
+ul.image-list li.image-item.scenario-parameter:not(:has(h6))    p:first-of-type {
+    padding          : 0.5% 5% 0;
+}
 
 .container .slider-scrollbar {
     display: none;

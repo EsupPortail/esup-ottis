@@ -118,7 +118,7 @@
               <input type="text" id="scenario-4-input" placeholder="https://">
               <button type="button" class="scenario-button" id="scenario-4-button">Accéder au scénario</button>
             </li>
-            <li class="image-item">
+            <li class="image-item scenario-parameter">
               <h5>Préparation de séance</h5>
               <button type="button" class="favorite-button" id="scenario-5-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
