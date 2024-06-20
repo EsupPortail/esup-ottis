@@ -181,7 +181,7 @@ menu button {
 
     display : flex; flex-direction : row; gap : 2.5%;
 
-    border : none; border-radius : 10px; border-color : var(--black);
+    border : none; border-radius : 5px; border-color : var(--black);
 
     background-color : var(--white); color : var(--dark-grey);
 
@@ -354,12 +354,20 @@ ul#direct-links button {
 
     padding : 10px 20px;
 
-    border : none; border-radius : 5px;
+    border : 2px solid; 
+    border-radius : 5px;
 
     background-color : var(--blue); color : var(--white);
     
     white-space : nowrap;
     align-self: center;
+}
+
+ul#direct-links button:hover          {
+    color: var(--blue);
+    background-color: var(--white);
+    border-color: var(--blue);
+    border: 2px solid;
 }
 
 ul#direct-links p {
