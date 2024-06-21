@@ -1180,12 +1180,6 @@ It's important to note that the resulting animation can serve as comprehensive i
 </div>
 
 </div>
-
-<script>
-  var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 
-  var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/';
-</script>
-<script type="text/javascript" src="https://example.com/myconfortplus/js/toolbar.min.js"></script>
 </body>
 <script>
 $( function() {
