@@ -48,7 +48,7 @@ $insertCommande_stats->execute([
     'char_max' => $char_max
 ]);
 
-$command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh >/dev/null 2>/dev/null';
+$command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh';// >/dev/null 2>/dev/null';
 system($command);
 
 ?>
