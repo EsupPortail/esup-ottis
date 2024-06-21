@@ -295,6 +295,7 @@ $insertCommande_stats->execute([
 	<form id="myform" onchange="updateConfig();">
   		<input type="submit" style="display: none;" value="Envoyer">
 		<div id="tabs">
+			<span>NU</span>
 			<ul id="bar" onmouseover="this.style.transform='scaleY(1)'" onmouseout="reduceToolbar()">
 				<li class="tabbed" title="Settings tab (language configuration, appearance,...)"><a class="tabbed" href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
 				<li class="tabbed" title="Multilingual Tchat tab"><a class="tabbed" href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
