@@ -745,8 +745,8 @@ for($i=0; $i<$nbcircles; $i++) {
   var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 
   var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/serveur/';
 </script>
-<script type="text/javascript" src="libs/confortplus/serveur/js/toolbar.min.js"></script>
-<script type="text/javascript">
+<script src="libs/confortplus/serveur/js/toolbar.min.js"></script>
+<script>
 	accessibilitytoolbar_custom = {
 		idLinkModeContainer : "confortplus"
 	};
