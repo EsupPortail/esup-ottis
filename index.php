@@ -294,7 +294,7 @@ $insertCommande_stats->execute([
 	<div id="scrollbar"></div>
 	<form id="myform" onchange="updateConfig();">
   		<input type="submit" style="display: none;" value="Envoyer">
-		<div id="tabs">
+		<div id="tabs" style="border: 0px;">
 			<ul id="bar" onmouseover="this.style.transform='scaleY(1)'" onmouseout="reduceToolbar()">
   				<li style="background-color: #000; color: white"><img src="images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
 				<li class="tabbed" title="Settings tab (language configuration, appearance,...)"><a class="tabbed" href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
