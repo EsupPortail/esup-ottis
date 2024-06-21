@@ -774,7 +774,7 @@ ul.image-list li.image-item.scenario-parameter:not(:has(h6))    p:first-of-type 
 }
 
 ul.image-list li                  select           {
-    height           : 10%;
+    height           : 30px;
     width            : auto;
     margin           : 0 2.5%;
     padding          : 5px; 
