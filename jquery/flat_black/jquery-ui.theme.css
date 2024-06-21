@@ -41,7 +41,7 @@
 }
 .ui-widget-header {
 	border: 1px solid #2c3e50;
-	background: #2c3e50 url("images/ui-bg_spotlight_0_2c3e50_600x600.png") 50% 50% repeat-x;
+	background: #2c3e50 ; /*url("images/ui-bg_spotlight_0_2c3e50_600x600.png") 50% 50% repeat-x;*/
 	color: #ffffff;
 	font-weight: bold;
 }
@@ -61,7 +61,7 @@ works properly when clicked or hovered */
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
 	border: 1px solid #2c3e50;
-	background: #2c3e50 url("images/ui-bg_fine-grain_0_2c3e50_60x60.png") 50% 50% repeat;
+	background: #2c3e50 ; /*url("images/ui-bg_fine-grain_0_2c3e50_60x60.png") 50% 50% repeat;*/
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -84,7 +84,7 @@ a:visited.ui-button,
 .ui-button:hover,
 .ui-button:focus {
 	border: 1px solid #34495e;
-	background: #34495e url("images/ui-bg_fine-grain_0_34495e_60x60.png") 50% 50% repeat;
+	background: #34495e ; /*url("images/ui-bg_fine-grain_0_34495e_60x60.png") 50% 50% repeat;*/
 	font-weight: normal;
 	color: #ffffff;
 }
@@ -111,8 +111,8 @@ a.ui-button:focus {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
-	border: 1px solid #1ABC9C;
-	background: #1ABC9C url("images/ui-bg_fine-grain_0_1ABC9C_60x60.png") 50% 50% repeat;
+	border: 1px solid #146aff; /*#1ABC9C;*/
+	background: #146aff; /* url("images/ui-bg_fine-grain_0_1ABC9C_60x60.png") 50% 50% repeat;*/
 	font-weight: normal;
 	color: #ffffff;
 }
