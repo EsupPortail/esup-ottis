@@ -614,6 +614,7 @@ body+.skiptranslate {
     object-fit: cover;
     /* max-width: fit-content; */
     margin: 10px;
+    overflow: auto;
   }
   
   ul.image-list li                                  {
