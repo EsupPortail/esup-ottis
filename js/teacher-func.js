@@ -2813,7 +2813,7 @@ function GoFS() {
 
 function reduceToolbar() {
     if (document.fullscreenElement) {
-        _('bar').style.transform = "scaleY(0.1)";
+        //_('bar').style.transform = "scaleY(0.1)";
     } else {
         _('bar').style.transform = "scaleY(1)";
     }
