@@ -747,6 +747,7 @@ for($i=0; $i<$nbcircles; $i++) {
 	<!--    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> -->
 	<script src="libs/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
 	<script src="js/teacher-ms.js"></script>
+	<!--
 	<script>
   var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 
   var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/serveur/';
@@ -758,6 +759,7 @@ for($i=0; $i<$nbcircles; $i++) {
 		cssLinkModeClassName : "bw"
 	};
 </script>
+-->
 </body>
 
 </html>
