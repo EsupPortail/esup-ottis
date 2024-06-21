@@ -248,6 +248,10 @@ function setupRedirections() {
         window.open(root + "/index.php?" + CreateLink());
     });
 
+    document.querySelector('[id="direct-access-teacher"]').addEventListener('click', () => {
+        window.open(root + "/index.php")
+    });
+
     document.querySelector('[id="direct-access-tools"]').addEventListener('click', () => {
         window.open(root + "/OMIST_Tools/index.php")
     });

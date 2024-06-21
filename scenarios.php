@@ -168,6 +168,10 @@
       </div>
       <ul id="direct-links">
         <li>
+          <p> Accès à la plateforme enseignante sans pré-configuration. <p>
+          <button type="button" id="direct-access-teacher">Plateforme enseignante</button>
+        </li>
+        <li>
           <p> Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos. </p>
           <button type="button" id="direct-access-tools">Outils de manipulation de slides</button>
         </li>

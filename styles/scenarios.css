@@ -329,7 +329,7 @@ ul.scenarios li                  button:not(button.favorite-button)          {
   }
 
   ul#direct-links {
-    height : 15%; width : 60%;
+    height : 15%; width : 90%;
 
     margin : 0.25%;
 
