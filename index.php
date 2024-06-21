@@ -156,6 +156,12 @@ $insertCommande_stats->execute([
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
   <style>
+
+.bw {
+	color: white;
+	background-color: black;
+	content: '<i class="fa fa-low-vision fa-2x" aria-hidden="true"></i>';
+}
 .tabbed {}
 
 /* Spinner */
@@ -313,7 +319,7 @@ $insertCommande_stats->execute([
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab2"><a class="tabbed" href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab3"><a class="tabbed" href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab4"><a class="tabbed" href="#tabs-12" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 4</span></a></li>
-				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"><i class="fa fa-low-vision fa-2x" aria-hidden="true"></i></li>
+				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"></li>
 			</ul>
 			<div id="tabs-0">
 				<h3 class="tabbed">Language configuration</h3>
