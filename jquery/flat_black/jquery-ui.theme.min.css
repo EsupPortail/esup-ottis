@@ -118,7 +118,7 @@ a.ui-button:active,
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
-	border: #1ABC9C;
+	border: #146aff; /*#1ABC9C;*/
 	background-color: #ffffff;
 }
 .ui-state-active a,
