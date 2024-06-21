@@ -297,6 +297,7 @@ $insertCommande_stats->execute([
 		<div id="tabs" style="border: 0px;">
 			<ul id="bar" onmouseover="this.style.transform='scaleY(1)'" onmouseout="reduceToolbar()">
   				<li style="background-color: #000; color: white"><img src="images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
+				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"><i class="fa fa-low-vision" aria-hidden="true"></i></li>
 				<li class="tabbed" title="Settings tab (language configuration, appearance,...)"><a class="tabbed" href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
 				<li class="tabbed" title="Multilingual Tchat tab"><a class="tabbed" href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
 				<li class="tabbed" title="Speech transcription tab. From here, it is possible to export a transcription of the speech."><a class="tabbed" href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;"><i class="fa fa-cc"></i><!--<i class="fa fa-arrow-right"></i>-->
@@ -745,6 +746,11 @@ for($i=0; $i<$nbcircles; $i++) {
   var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/serveur/';
 </script>
 <script type="text/javascript" src="libs/confortplus/serveur/js/toolbar.min.js"></script>
+<script type="text/javascript">
+	accessibilitytoolbar_custom = {
+		idLinkModeContainer : "confortplus"
+	};
+</script>
 </body>
 
 </html>
