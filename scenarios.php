@@ -168,7 +168,7 @@
       </div>
       <ul id="direct-links">
         <li>
-          <p> Accès à la plateforme enseignante sans pré-configuration. <p>
+          <p> Accès à la plateforme enseignante sans pré-configuration. </p>
           <button type="button" id="direct-access-teacher">Plateforme enseignante</button>
         </li>
         <li>
@@ -176,7 +176,7 @@
           <button type="button" id="direct-access-tools">Outils de manipulation de slides</button>
         </li>
         <li>
-          <p> Outil de traduction pour une conversation multilingue en duo. <p>
+          <p> Outil de traduction pour une conversation multilingue en duo. </p>
           <button type="button" id="direct-access-conv">Conversation à deux</button>
         </li>
       </ul>
