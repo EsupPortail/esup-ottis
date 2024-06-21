@@ -79,8 +79,8 @@ if (! function_exists('str_ends_with')) {
         <div class="tab-content">
             <div id="tab-dashboard" class="tabcontent">
             <a href='./table_tot.csv' download='table_tot.csv'><button class="button-3 tooltip">Download all connection data in CSV format</button></a>
-              <img src="./indicators/indicator_month.png"/>
-              <img src="./indicators/indicator_tot.png"/>
+              <img src="./indicators/indicator_month.png?v=<?php mt_rand();?>"/>
+              <img src="./indicators/indicator_tot.png?v=<?php mt_rand();?>"/>
             </div>
             <div id="tab-users" class="tabcontent">
               <a href='./users/new_users_per_months_tab.csv' download='new_users_per_months_tab.csv'><button class="button-3 tooltip">Download data on the number of new users monthly in CSV format</button></a>
