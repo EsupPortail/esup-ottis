@@ -754,7 +754,8 @@ for($i=0; $i<$nbcircles; $i++) {
 <script src="libs/confortplus/serveur/js/toolbar.min.js"></script>
 <script>
 	accessibilitytoolbar_custom = {
-		idLinkModeContainer : "confortplus"
+		idLinkModeContainer : "confortplus",
+		cssLinkModeClassName : "bw"
 	};
 </script>
 </body>
