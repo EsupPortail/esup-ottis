@@ -54,7 +54,7 @@ if (isset($Stats_DEEPL["character_count"])) {
 } else $percentage_DEEPL = 0;
 
 
-$theme="flat";
+$theme="flat_black";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 ?>
@@ -581,6 +581,7 @@ body {
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
+    <li style="background-color: #000; color: white"><img src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
     <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-cogs"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
     <li title="These tools allow to create and edit HTML animations"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Animations only</span></a></li>
     <li title="These tools allow to transcript a video file or an audio file"><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
