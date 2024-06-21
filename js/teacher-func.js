@@ -2796,7 +2796,7 @@ function playlesson() {}
 function GoFS() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
-        _('bar').style.transform = "scaleY(0.1)";
+        //_('bar').style.transform = "scaleY(0.1)";
         //_('bar').style.bottom="10px";
         //resizeSlides();
     } else {
