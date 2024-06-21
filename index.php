@@ -742,9 +742,9 @@ for($i=0; $i<$nbcircles; $i++) {
 	<script src="js/teacher-ms.js"></script>
 	<script>
   var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 
-  var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/';
+  var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/serveur/';
 </script>
-<script type="text/javascript" src="libs/confortplus/js/toolbar.min.js"></script>
+<script type="text/javascript" src="libs/confortplus/serveur/js/toolbar.min.js"></script>
 </body>
 
 </html>
