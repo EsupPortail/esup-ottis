@@ -297,7 +297,6 @@ $insertCommande_stats->execute([
 		<div id="tabs" style="border: 0px;">
 			<ul id="bar" onmouseover="this.style.transform='scaleY(1)'" onmouseout="reduceToolbar()">
   				<li style="background-color: #000; color: white"><img src="images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
-				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"><i class="fa fa-low-vision" aria-hidden="true"></i></li>
 				<li class="tabbed" title="Settings tab (language configuration, appearance,...)"><a class="tabbed" href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
 				<li class="tabbed" title="Multilingual Tchat tab"><a class="tabbed" href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
 				<li class="tabbed" title="Speech transcription tab. From here, it is possible to export a transcription of the speech."><a class="tabbed" href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;"><i class="fa fa-cc"></i><!--<i class="fa fa-arrow-right"></i>-->
@@ -314,6 +313,7 @@ $insertCommande_stats->execute([
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab2"><a class="tabbed" href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab3"><a class="tabbed" href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab4"><a class="tabbed" href="#tabs-12" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 4</span></a></li>
+				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"><i class="fa fa-low-vision fa-2x" aria-hidden="true"></i></li>
 			</ul>
 			<div id="tabs-0">
 				<h3 class="tabbed">Language configuration</h3>
