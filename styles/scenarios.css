@@ -102,6 +102,11 @@ footer div.footer-left p a {
 
     font-size : 12pt;
 }
+
+footer .footer-left li.footer-mentions {
+    display : inline;
+}
+
 footer .footer-right {
     position : absolute; right : 1%;
 
