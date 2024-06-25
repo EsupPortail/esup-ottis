@@ -881,11 +881,37 @@ ul.image-list li                  button:not(button.favorite-button):hover      
  
 .modal-content {
     margin: 20px auto;
-    max-width: 210px;
+    max-width: 490px;
     width: 100%;
+    padding-bottom: 20px;
+}
+
+.modal-content h3 {
+    margin-bottom: 1rem;
+    color: var(--dark-grey);
+}
+
+.modal-content hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: var(--grey);
+}
+
+.modal-content li {
+    text-indent: 4%;
+    list-style: inside;
+}
+
+.modal-content p, .modal-content li {
+    margin : 0 0 10px;
 }
  
 .hide {
     display: none;
+}
+ 
+#mention-title {
+    position: relative;
+    left: 30px;
 }
  
