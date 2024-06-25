@@ -186,7 +186,7 @@
       <div class="footer-left">
         <ul>
           <li><a href="https://next-isite.fr/" target="_blank"><img id="logoNEXT" src="./images/logo-next-NU.png" alt="Logo NEXT"></a></li>
-          <li>
+          <li class="footer-mentions">
             <p>Copyright 2024 - <a href="https://www.univ-nantes.fr/" target="_blank">Nantes Université</a>. Tous droits réservés </p>
             <p><a href=""> Accessibilité </a></p>
             <p><a href=""> Cookies</a></p>
