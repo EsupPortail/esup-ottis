@@ -837,15 +837,15 @@ ul.image-list li                  button:not(button.favorite-button):hover      
 }
  
 .modal-wrapper {
-    width: 300px;
+    width: 600px;
     /* height: 300px; */
+    margin: 30px auto;
     background: var(--white);
     position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
 }
- 
  
 .open-modal-btn-wrapper {
     position: fixed;
@@ -867,8 +867,8 @@ ul.image-list li                  button:not(button.favorite-button):hover      
     background-color: var(--blue);
     color: var(--white);
     align-self: center;
-    position: fixed;
-    right: 0px;
+    position: relative;
+    left: 95%;
     top: 0px;
     /* float: right; */
     font-size: 20px;
