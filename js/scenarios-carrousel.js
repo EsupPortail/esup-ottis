@@ -271,8 +271,7 @@ function openModal(modal_key) {
         "<p>L'article 47 de la loi n° 2005-102 du 11 février 2005 pour l'égalité des droits et des chances, la participation et la citoyenneté des personnes handicapées, fait de l'accessibilité une exigence pour tous les services de communication publique en ligne de l'État, des collectivités territoriales et des établissements publics qui en dépendent. Il stipule que les informations diffusées par ces services doivent être accessibles à tous.</p>"+
         "<p>Nantes Université s'efforce de respecter les principaux critères permettant de rendre son site accessible (recommandation du Référentiel Général d'Accessibilité pour les Administrations- RGAA 2.2.1).</p>"+
         "<hr><h3>Modification de la taille d'affichage</h3>"+
-        "<p>Vous pouvez rétrécir ou agrandir soit l'affichage du site, soit uniquement la taille des textes des articles.</p>"+
-        "<p>Modifier la taille d'affichage du site</p><ul>"+
+        "<p>Vous pouvez rétrécir ou agrandir l'affichage du site.<ul>"+
         "<li>pour agrandir la taille d'affichage du site, dans le navigateur Mozilla Firefox, Google Chrome et Microsoft Edge, dérouler le menu en haut à droite du navigateur (3 points ou 3 barres) &gt; Zoom, puis choisir la taille avec le - (moins) et le + (plus). Vous pouvez aussi appuyer simultanément sur la touche Ctrl et bouger la molette de la souris.</li>"+
         "<li>pour revenir à la taille normal d'affichage, dans le navigateur Mozilla Firefox, cliquer sur le pourcentage indiqué dans la barre d'URL en haut. Pour les navigateurs Google Chrome et Microsoft Edge, cliquer sur la loupe dans la barre d'URL en haut, puis sur \"réinitialiser\". </li>"+
         "</ul><p></p><hr>"+
