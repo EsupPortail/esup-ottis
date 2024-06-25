@@ -263,7 +263,7 @@ function setupRedirections() {
 
 
 function openModal(modal_key) {
-    const title_to_fill = document.querySelector('h3[id="mention-title"]');
+    const title_to_fill = document.querySelector('h2[id="mention-title"]');
     const content_to_fill = document.querySelector('div[id="mention-content"]');
     if (modal_key == 'access') {
         title_to_fill.innerHTML = "Accessibilité";

@@ -210,7 +210,7 @@
                 ×
                 </button>
             </div>
-            <h3 id="mention-title"></h3>
+            <h2 id="mention-title"></h2>
             <div class="modal-content" id="mention-content"></div>
         </div>
     </div>
