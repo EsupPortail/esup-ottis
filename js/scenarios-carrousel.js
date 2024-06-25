@@ -262,7 +262,17 @@ function setupRedirections() {
 }
 
 
-function openModal() {
+function openModal(modal_key) {
+    const title_to_fill = document.querySelector('h3[id="mention-title"]');
+    const content_to_fill = document.querySelector('div[id="mention-content"]');
+    if (modal_key == 'access') {
+        title_to_fill.innerHTML = "Accessibilité";
+        content_to_fill.innerHTML = "Access";
+    } else if (modal_key == 'cookies') {
+        title_to_fill.innerHTML = "Cookies";
+        content_to_fill.innerHTML = "Ce site utilise des cookies internes nécessaires pour fonctionner. Ils permettent aux services principaux du site de fonctionner de manière optimale. Vous pouvez techniquement les bloquer en utilisant les paramètres de votre navigateur mais votre expérience sur le site risque d'être dégradée.";
+    }
+
     document.querySelector(".modal-overlay").classList.remove("hide");
 }
  

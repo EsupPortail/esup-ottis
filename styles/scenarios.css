@@ -428,7 +428,7 @@ ul#direct-links p {
         font-size: 10px;
     }
 
-    footer div.footer-left p a  {
+    footer div.footer-left p *  {
         font-size: 10px;
     }
 
@@ -852,20 +852,25 @@ ul.image-list li                  button:not(button.favorite-button):hover      
     transform: translate(-50%, -50%);
 }
  
-.close-modal-btn,
 .open-modal-btn {
-    /* padding: 8px; */
-    /* background: var(--white-); */
-    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
-    /* font-size: 15px;
-    color: ghostwhite;
-    font-weight: 5px;
-    margin-left: auto;
-    margin-top: 10px;
-    margin-right: 10px; */
-    /* cursor: pointer; */
     font-family: Source Sans Pro;
     border: none;
+}
+
+.close-modal-btn {
+    font-family: Source Sans Pro;
+    padding: 0px 8px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: var(--blue);
+    color: var(--white);
+    align-self: center;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    /* float: right; */
+    font-size: 20px;
+    font-weight: bold;
 }
  
 .close-btn-wrapper {
