@@ -188,8 +188,8 @@
           <li><a href="https://next-isite.fr/" target="_blank"><img id="logoNEXT" src="./images/logo-next-NU.png" alt="Logo NEXT"></a></li>
           <li class="footer-mentions">
             <p>Copyright 2024 - <a href="https://www.univ-nantes.fr/" target="_blank">Nantes Université</a>. Tous droits réservés </p>
-            <p><a href=""> Accessibilité </a></p>
-            <p><a href=""> Cookies</a></p>
+            <p><button class="open-modal-btn" onclick="openModal()">Accessibilité</button></p>
+            <p><button class="open-modal-btn" onclick="openModal()">Cookies</button></p>
           </li>
         </ul>
       </div>
@@ -203,5 +203,18 @@
         </ul>
       </div>
     </footer>
+    <div class="modal-overlay hide" onclick="closeModal(event, true)">
+        <div class="modal-wrapper">
+            <div class="close-btn-wrapper">
+                <button class="close-modal-btn" onclick="closeModal()">
+                    X
+                </button>
+            </div>
+            <h1>GeeksforGeeks</h1>
+            <div class="modal-content">
+                Greetings from GeeksforGeeks
+            </div>
+        </div>
+    </div>
   </body>
 </html>

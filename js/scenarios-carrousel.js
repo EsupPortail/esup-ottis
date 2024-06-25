@@ -262,11 +262,17 @@ function setupRedirections() {
 }
 
 
-
-
-
-
-
+function openModal() {
+    document.querySelector(".modal-overlay").classList.remove("hide");
+}
+ 
+function closeModal(e, clickedOutside) {
+    if (clickedOutside) {
+        if (e.target.classList.contains("modal-overlay"))
+            document.querySelector(".modal-overlay").classList.add("hide");
+    } else document.querySelector(".modal-overlay").classList.add("hide");
+}
+ 
 
 const initSlider = () => {
     const imageList = document.querySelector(".slider-wrapper .image-list");
