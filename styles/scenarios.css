@@ -103,6 +103,10 @@ footer div.footer-left p a {
     font-size : 12pt;
 }
 
+footer div.footer-left p {
+    padding-right: 1.5rem;
+}
+
 footer .footer-left li.footer-mentions {
     display : inline;
 }
