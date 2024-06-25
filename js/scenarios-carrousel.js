@@ -279,7 +279,7 @@ function openModal(modal_key) {
         "<h3>Traductions</h3>"+
         "<p>Le site peut être consulté sous différentes langues. Il suffit de sélectionner la langue désirée dans le menu en haut à droite.</p>"+
         "<hr><h3>Comptatibilité navigateurs Internet</h3>"+
-        "<p>Nantilus a été testé et est compatible avec :</p><ul><li>Mozilla Firefox : version 17.0 et supérieures</li><li>Google Chrome : version 31 et supérieures</li><li>Internet Explorer : version 10 et supérieures</li></ul>";
+        "<p>OMIST a été testé et est compatible avec :</p><ul><li>Mozilla Firefox : version 17.0 et supérieures</li><li>Google Chrome : version 31 et supérieures</li><li>Internet Explorer : version 10 et supérieures</li></ul>";
     } else if (modal_key == 'cookies') {
         title_to_fill.innerHTML = "Cookies";
         content_to_fill.innerHTML = "Ce site utilise des cookies internes nécessaires pour fonctionner. Ils permettent aux services principaux du site de fonctionner de manière optimale. Vous pouvez techniquement les bloquer en utilisant les paramètres de votre navigateur mais votre expérience sur le site risque d'être dégradée.";
