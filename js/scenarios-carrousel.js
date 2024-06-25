@@ -273,8 +273,8 @@ function openModal(modal_key) {
         "<hr><h3>Modification de la taille d'affichage</h3>"+
         "<p>Vous pouvez rétrécir ou agrandir soit l'affichage du site, soit uniquement la taille des textes des articles.</p>"+
         "<p>Modifier la taille d'affichage du site</p><ul>"+
-        "<li>pour agrandir la taille d'affichage du site, dans le navigateur Mozilla Firefox, dérouler le menu Affichage &gt; Zoom, puis choisir l'option Agrandir (vous pouvez aussi appuyer simultanément sur la touche Ctrl et bouger la molette de la souris).</li>"+
-        "<li>pour revenir à la taille normal d'affichage, dans le navigateur Mozilla Firefox, dérouler le menu Affichage &gt; Zoom, puis choisir l'option Normal</li>"+
+        "<li>pour agrandir la taille d'affichage du site, dans le navigateur Mozilla Firefox, Google Chrome et Microsoft Edge, dérouler le menu en haut à droite du navigateur (3 points ou 3 barres) &gt; Zoom, puis choisir la taille avec le - (moins) et le + (plus). Vous pouvez aussi appuyer simultanément sur la touche Ctrl et bouger la molette de la souris.</li>"+
+        "<li>pour revenir à la taille normal d'affichage, dans le navigateur Mozilla Firefox, cliquer sur le pourcentage indiqué dans la barre d'URL en haut. Pour les navigateurs Google Chrome et Microsoft Edge, cliquer sur la loupe dans la barre d'URL en haut, puis sur \"réinitialiser\". </li>"+
         "</ul><p></p><hr>"+
         "<h3>Traductions</h3>"+
         "<p>Le site peut être consulté sous différentes langues. Il suffit de sélectionner la langue désirée dans le menu en haut à droite.</p>"+
