@@ -166,21 +166,26 @@
             <h2> Accès directs </h2>
             <p> Vous pouvez accéder directement à d'autres outils OMIST </p>
       </div>
-      <ul id="direct-links">
+      <div class="container-direct-links">
+        <div class="direct-links-title">
+              <h2> Accès directs </h2>
+              <p> Vous pouvez accéder directement à d'autres outils OMIST </p>
+        </div>
+        <ul id="direct-links">
         <li>
-          <p> Accès à la plateforme enseignante sans pré-configuration. </p>
-          <button type="button" id="direct-access-teacher">Plateforme enseignante</button>
-        </li>
-        <li>
-          <p> Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos. </p>
-          <button type="button" id="direct-access-tools">Outils de manipulation de slides</button>
-        </li>
-        <li>
-          <p> Outil de traduction pour une conversation multilingue en duo. </p>
-          <button type="button" id="direct-access-conv">Conversation à deux</button>
-        </li>
-      </ul>
-
+            <p> Accès à la plateforme enseignante sans pré-configuration. </p>
+            <button type="button" id="direct-access-teacher">Plateforme enseignante</button>
+          </li>
+          <li>
+            <p> Accès à l'ensemble des outils OMIST de manipulation de slides et de vidéos. </p>
+            <button type="button" id="direct-access-tools">Outils de manipulation de slides</button>
+          </li>
+          <li>
+            <p> Outil de traduction pour une conversation multilingue en duo. </p>
+            <button type="button" id="direct-access-conv">Conversation à deux</button>
+          </li>
+        </ul>
+      </div>
     </main>
     <footer>
       <div class="footer-left">

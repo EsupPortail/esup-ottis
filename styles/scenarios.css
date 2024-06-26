@@ -37,6 +37,7 @@ header {
     align-items: center;
 
     background-color : var(--black); color : var(--white);
+    height: 50px;
 }
 header * {
     display : flex; flex-direction : inherit;
@@ -66,13 +67,24 @@ footer {
     box-shadow : 0 0 0.25rem 0 var(--black);
 
     background-color : var(--white); color : var(--black);
+    height: 90px;
 }
 footer * {
     display : flex; flex-direction : inherit;
 }
+
+footer .footer-left {
+    height : -webkit-fill-available;
+}
+
 footer .footer-left ul {
     display : flex; flex-direction : column;
 }
+
+footer .footer-left li:not(li.footer-mentions){
+    height: 70%;
+}
+
 footer .footer-left li :has(img) {
     height : 60%; width : 70%;
     
@@ -84,7 +96,7 @@ footer .footer-left li a {
     align-items : flex-start;
 }
 #logoNEXT {
-    height : 65px; 
+    height : 20%; 
     /* width : 300px; */
 }
 footer p {
@@ -117,6 +129,7 @@ footer .footer-right {
     position : absolute; right : 1%;
 
     align-items : center;
+    height : -webkit-fill-available;
 }
 footer .footer-right ul {
     gap : 2.5%;
@@ -331,6 +344,10 @@ ul.scenarios li                  button:not(button.favorite-button)          {
     white-space      : nowrap;
 }
 
+.container-direct-links{
+    height: 25%;
+}
+
 .direct-links-title {
     position: relative;
     left: 50px;
@@ -340,7 +357,8 @@ ul.scenarios li                  button:not(button.favorite-button)          {
   }
 
   ul#direct-links {
-    height : 15%; width : 90%;
+    /* height : 15%;  */
+    width : 90%;
 
     margin : 0.25%;
 
