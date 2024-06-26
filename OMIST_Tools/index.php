@@ -827,11 +827,11 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool6">
-  <h3 title="This tool allows to translate subtitle files. It can handle both SRT and VTT files.">Translate subtitles SRT file</h3>
+  <h3 title="This tool allows to translate subtitle files. It can handle both SRT and VTT files.">Translate subtitles SRT or VTT file</h3>
   <div>
   <form id="Form6" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
-  <label for="fileToUpload6">Select SRT file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload6"  aria-label="Select SRT file" title="Select a SRT file" accept=".srt,.vtt" class="inputsmallscreens"><br>
+  <label for="fileToUpload6">Select SRT or VTT file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload6"  aria-label="Select SRT file" title="Select a SRT or VTT file" accept=".srt,.vtt" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
     <input type="hidden" id="Random6" name="randompath" value="">
     <input type="hidden" id="UserID6" name="userid" value=<?php $uid ?> >

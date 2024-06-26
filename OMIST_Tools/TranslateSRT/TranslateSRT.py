@@ -212,7 +212,10 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
             begin=s.get("begin")
         currenttxt+=" "+s.get("VO")
         end=s.get("end")
-        futureend="99:99:99.999"
+        if (filename.endswith('srt')):
+            futureend="99:99:99,999"
+        else:
+            futureend="99:99:99.999"
         if i<len(Subtitles)-1:
             futureend=Subtitles[i+1].get("end")
         if nopunct or isphrase(currenttxt) or ( not(currenttxt == "") and duration(futureend,end)>sentencesThreshold):
