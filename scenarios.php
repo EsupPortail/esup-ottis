@@ -162,10 +162,6 @@
           </div>
         </div>
       </div>
-      <div class="direct-links-title">
-            <h2> Accès directs </h2>
-            <p> Vous pouvez accéder directement à d'autres outils OMIST </p>
-      </div>
       <div class="container-direct-links">
         <div class="direct-links-title">
               <h2> Accès directs </h2>
