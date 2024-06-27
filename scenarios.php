@@ -27,50 +27,6 @@
       </nav>
     </header>
     <main>
-      <!-- <ul class="scenarios">
-        <li>
-          <h5>Transcription Instantanée</h5>
-          <button type="button" class="favorite-button" id="scenario-1-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
-          <hr>
-          <p>Scenario d'un cours sous-titré en Français de manière instantanée, par exemple pour un public mal-entendant.</p>
-          <button type="button" class="scenario-button" id="scenario-1-button">Accéder au scénario</button>
-        </li>
-        <li>
-          <h5>Sous-titrage Anglais</h5>
-          <button type="button" class="favorite-button" id="scenario-2-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
-          <hr>
-          <h6>Projection</h6>
-          <p>Pour un cours donné en Français sous-titré en Anglais.</p>
-          <button type="button" class="scenario-button" id="scenario-2-button">Accéder au scénario</button>
-        </li>
-        <li>
-          <h5>Sous-titrage Anglais</h5>
-          <button type="button" class="favorite-button" id="scenario-3-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
-          <hr>
-          <h6>Présentation .PPTX sur UNCloud</h6>
-          <p>Pour un cours donné en Français sous-titré en Anglais avec une présentation partagée par lien public sur UNCloud.</p>
-          <p>Saisissez le lien de votre fichier ci-dessous puis cliquez sur "Accéder au scénario" :</p>
-          <input type="text" id="scenario-3-input" placeholder="https://">
-          <button type="button" class="scenario-button" id="scenario-3-button">Accéder au scénario</button>
-        </li>
-        <li>
-          <h5>Sous-titrage Anglais</h5>
-          <button type="button" class="favorite-button" id="scenario-4-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
-          <hr>
-          <h6>Présentation .HTML sur UNCloud</h6>
-          <p>Pour un cours donné en Français sous-titré en Anglais avec une présentation partagée par lien public sur UNCloud.</p>
-          <p>Saisissez le lien de votre fichier ci-dessous puis cliquez sur "Accéder au scénario" :</p>
-          <input type="text" id="scenario-4-input" placeholder="https://">
-          <button type="button" class="scenario-button" id="scenario-4-button">Accéder au scénario</button>
-        </li>
-        <li>
-          <h5>Préparation de séance</h5>
-          <button type="button" class="favorite-button" id="scenario-5-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
-          <hr>
-          <p>Création d'un lien permettant de préparer une séance. Ici, il est possible de personnaliser le lien de connexion.</p>
-          <button type="button" class="scenario-button" id="scenario-5-button">Accéder au scénario</button>
-        </li>
-      </ul> -->
       <div class="container">
         <div class="slider-wrapper">
           <div id="prev" class="slide-div">
@@ -192,12 +148,14 @@
           </li>
         </ul>
       </div>
-      <div class="footer-right">
-        <div class="footer-mentions">
-          <p><button class="open-modal-btn" onclick="openModal('access')">Accessibilité</button></p>
-          <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p>
+      <div class="footer-mentions">
+        <p><button class="open-modal-btn" onclick="openModal('access')">Accessibilité</button></p>
+        <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p>
         </div>
+      <div class="footer-right">
         <div class="footer-support">
+          <!-- <p><button class="open-modal-btn" onclick="openModal('access')">Accessibilité</button></p>
+          <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p> -->
           <p>Avec le soutien de :&emsp; </p>
           <ul>
             <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030"></a></li>
@@ -211,7 +169,7 @@
     <div class="modal-overlay hide" onclick="closeModal(event, true)">
         <div class="modal-wrapper">
             <div class="close-btn-wrapper">
-            <button class="close-modal-btn" onclick="closeModal()">
+                <button class="close-modal-btn" onclick="closeModal()">
                 ×
                 </button>
             </div>
