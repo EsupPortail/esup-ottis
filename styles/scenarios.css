@@ -14,7 +14,7 @@
 *::after  { margin : unset; padding : unset; }
 
 header { height :   5%; width :  98%; padding : 0    1%; }
-main   { height :  85%; width : 100%; }
+main   { height :  88%; width : 100%; }
 footer { height :  10%; width :  98%; padding : 0    1%; }
 
 html {
@@ -37,7 +37,8 @@ header {
     align-items: center;
 
     background-color : var(--black); color : var(--white);
-    height: 50px;
+    /* height: 50px; */
+    height: 6%;
 }
 header * {
     display : flex; flex-direction : inherit;
@@ -67,7 +68,9 @@ footer {
     box-shadow : 0 0 0.25rem 0 var(--black);
 
     background-color : var(--white); color : var(--black);
-    height: 90px;
+    /* height: 75px; */
+    height: 6%;
+    z-index: 10;
 }
 footer * {
     display : flex; flex-direction : inherit;
@@ -76,7 +79,7 @@ footer * {
 
 footer .footer-left {
     height : -webkit-fill-available;
-    width: 30%;
+    width: 40%;
 }
 
 footer .footer-left ul {
@@ -93,12 +96,12 @@ footer .footer-left li :has(img) {
     justify-content : flex-start;
 }
 footer .footer-left li a {
-    height : fit-content; width : fit-content;
+    /* height : fit-content; width : fit-content; */
 
     align-items : flex-start;
 }
 #logoNEXT {
-    height : 20%; 
+    height : 160%; 
     /* width : 300px; */
 }
 footer p {
@@ -111,7 +114,7 @@ footer p {
 footer div.footer-left p * {
     display : inline;
     color : var(--black);
-    font-size : 10pt;
+    font-size : 7pt;
 }
 /* footer div.footer-left p a {
     color : var(--black);
@@ -121,38 +124,63 @@ footer div.footer-left p * {
 
 footer div.footer-left p {
     padding-right: 1.5rem;
+    font-size : 7pt;
 }
 
 /* footer .footer-left li.footer-mentions {
     display : inline;
 } */
 
+footer .footer-mentions{
+    width: 20%;
+}
+
+footer .footer-mentions p{
+   margin: auto;
+}
+
 footer .footer-right {
     position : absolute; right : 1%;
 
     align-items : center;
     height : -webkit-fill-available;
-    width: 70%;
+    width: 40%;
 }
+
+footer .footer-right .footer-support {
+    position: absolute;
+    right: 0px;
+    align-items: center;
+    height: -webkit-fill-available;
+}
+
 footer .footer-right ul {
     gap : 2.5%;
+    height: -webkit-fill-available;
 }
+
+footer .footer-right li {
+    height: -webkit-fill-available;
+}
+
 footer .footer-right a {
-    height : 60px; width : fit-content;
+    height : -webkit-fill-available; 
+    width : fit-content;
 
     padding : 5px;
 }
 #logoFrance2030 {
-    height : 60px; width : 70px;
+    height : 85%;
 }
 #logoPaysDeLaLoire {
-    height : 50px; width : 100px;
+    height : 68%;
 }
 #logoNantesMetropole {
-    height : 60px; width : 180px;
+    height : 84%;
 }
 #logoEUniWell {
-    height : 50px; width : 70px;
+    height : 66%; 
+
 }
 footer a {
     height : 100%; width : 7.5%;
@@ -419,8 +447,8 @@ ul#direct-links p {
     }
 }
 
-@media screen and (max-width: 925px) {
-    #logoNEXT{
+@media screen and (max-width: 780px) {
+    /* #logoNEXT{
         height: 35px;
         width: 156px;
     }
@@ -443,7 +471,7 @@ ul#direct-links p {
     #logoEUniWell{
       height: 30px;
       width: 36px;
-    }
+    } */
 
     footer * {
         font-size: 7pt;
@@ -461,6 +489,12 @@ ul#direct-links p {
         font-size: 10px;
     } */
   
+}
+
+@media screen and (max-width: 710px) {
+    .footer-support p {
+        display: none;
+    }
 }
 
 
@@ -857,7 +891,7 @@ ul.image-list li                  button:not(button.favorite-button):hover      
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 6;
+    z-index: 10;
     overflow-y: auto;
 }
  
@@ -939,4 +973,5 @@ ul.image-list li                  button:not(button.favorite-button):hover      
     position: relative;
     left: 30px;
 }
+ 
  

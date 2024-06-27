@@ -198,7 +198,7 @@
           <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p>
         </div>
         <div class="footer-support">
-          Avec le soutien de :&emsp;
+          <p>Avec le soutien de :&emsp; </p>
           <ul>
             <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030"></a></li>
             <li><a href="https://www.paysdelaloire.fr/" target="_blank"><img id="logoPaysDeLaLoire" src="./images/logo-region-pays-loire_bleu-court.png" alt="Logo Pays de la Loire"></a></li>
