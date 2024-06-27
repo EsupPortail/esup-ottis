@@ -497,6 +497,28 @@ ul#direct-links p {
     }
 }
 
+@media screen and (max-height: 590px) {
+    /* footer{
+        display: none;
+    } */
+
+    .footer-mentions *{
+        font-size: 7pt;
+    }
+
+    .footer-right *{
+        font-size: 7pt;
+    }
+
+    footer .footer-left ul{
+        flex-direction: row;
+    }
+
+    footer div.footer-left p{
+        align-self: end;
+    }
+}
+
 
 img {
     height : auto; max-width : 100%;
@@ -973,5 +995,4 @@ ul.image-list li                  button:not(button.favorite-button):hover      
     position: relative;
     left: 30px;
 }
- 
  
