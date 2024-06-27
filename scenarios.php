@@ -187,21 +187,25 @@
       <div class="footer-left">
         <ul>
           <li><a href="https://next-isite.fr/" target="_blank"><img id="logoNEXT" src="./images/logo-next-NU.png" alt="Logo NEXT"></a></li>
-          <li class="footer-mentions">
+          <li>
             <p>Copyright 2024 - <a href="https://www.univ-nantes.fr/" target="_blank">Nantes Université</a>. Tous droits réservés </p>
-            <p><button class="open-modal-btn" onclick="openModal('access')">Accessibilité</button></p>
-            <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p>
           </li>
         </ul>
       </div>
       <div class="footer-right">
-        Avec le soutien de :&emsp;
-        <ul>
-          <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030"></a></li>
-          <li><a href="https://www.paysdelaloire.fr/" target="_blank"><img id="logoPaysDeLaLoire" src="./images/logo-region-pays-loire_bleu-court.png" alt="Logo Pays de la Loire"></a></li>
-          <li><a href="https://metropole.nantes.fr/" target="_blank"><img id="logoNantesMetropole" src="./images/logo-nantes-metropole_quadri.jpg" alt="Logo Nantes Métropole"></a></li>
-          <li><a href="https://www.euniwell.eu/" target="_blank"><img id="logoEUniWell" src="./images/logo-euniwell-brand-4.png" alt="Logo EUniWell"></a></li>
-        </ul>
+        <div class="footer-mentions">
+          <p><button class="open-modal-btn" onclick="openModal('access')">Accessibilité</button></p>
+          <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p>
+        </div>
+        <div class="footer-support">
+          Avec le soutien de :&emsp;
+          <ul>
+            <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030"></a></li>
+            <li><a href="https://www.paysdelaloire.fr/" target="_blank"><img id="logoPaysDeLaLoire" src="./images/logo-region-pays-loire_bleu-court.png" alt="Logo Pays de la Loire"></a></li>
+            <li><a href="https://metropole.nantes.fr/" target="_blank"><img id="logoNantesMetropole" src="./images/logo-nantes-metropole_quadri.jpg" alt="Logo Nantes Métropole"></a></li>
+            <li><a href="https://www.euniwell.eu/" target="_blank"><img id="logoEUniWell" src="./images/logo-euniwell-brand-4.png" alt="Logo EUniWell"></a></li>
+          </ul>
+        </div>
       </div>
     </footer>
     <div class="modal-overlay hide" onclick="closeModal(event, true)">
