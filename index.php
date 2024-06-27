@@ -476,7 +476,7 @@ fclose($fd);
 							<br>
 							<textarea id="verbaltics" rows="3" cols="20"></textarea>
 							<li><span id="connectedusers"></span></li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+						<li title="Do not change unless you know what you are doing !">
 							<label for="whichtranslator">Translator choice</label>
 							<select id="whichtranslator">
 								<option value="" selected>Default</option>
@@ -486,7 +486,7 @@ fclose($fd);
 								<option value="GOOGLE">Google Translate API</option>
 							</select>
 						</li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+						<li title="Do not change unless you know what you are doing !">
 						<label for="apikey">API key (for DeepL or Google)</label>
 						<input type="text" id="apikey" value="">
 						</li>
