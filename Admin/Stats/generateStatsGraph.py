@@ -334,7 +334,7 @@ mycursor.execute("SELECT date_year, date_month, MAX(percentage_char), MAX(charac
 for x in mycursor:
   deepl_per_month.append(x)
 deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Year", "Month","Percentage", "Characters"))
-deepl_per_month_df["Percentage"] = deepl_per_month_df["Percentage"]/100
+deepl_per_month_df["Percentage"] = 0.33+deepl_per_month_df["Percentage"]/100
 
 fig = go.Figure()
 
