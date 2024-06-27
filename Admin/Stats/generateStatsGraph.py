@@ -650,9 +650,9 @@ for j in ip_translated_df.index:
   mycursor = mydb.cursor()
   sql = "INSERT INTO iplog (IP_address, city, country, latitude, longitude) VALUES (%s, %s, %s, %s, %s)"
   val = ip_translated_df.loc[j].values.flatten().tolist()
-  print(j," --- ",ip_translated_df.loc[j].values.flatten().tolist())
-  mycursor.execute(sql, val)
-  mydb.commit()
+  if not pd.isna(val[1]):
+    mycursor.execute(sql, val)
+    mydb.commit()
 
 mycursor = mydb.cursor()
 mycursor.execute("UPDATE statslog a JOIN iplog b on a.ip_address = b.IP_address set a.city=b.city, a.country=b.country, a.latitude=b.latitude, a.longitude=b.longitude WHERE (a.city IS NULL and a.latitude IS NULL)")
