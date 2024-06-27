@@ -2048,10 +2048,18 @@ function EcrireTranslatePartial(ch) {
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
                 TranslateThen(ch, loutput, linput, function(ch) {
                     lastSentenceTranslated = ch;
-                    EcrirePartial(lastSentenceTranslated+"<br><span>"+lastSentenceVO+"</span>");
+                    if (_('directMicrosoftTranslationBoth').checked) {
+                        EcrirePartial(lastSentenceTranslated+"<br><span>"+lastSentenceVO+"</span>");
+                    } else {
+                        EcrirePartial(lastSentenceTranslated+"");
+                    }
                 },forcelibre=false);
             } else {
-                EcrirePartial(lastSentenceTranslated+"<br><span>"+ch+"</span>");
+                if (_('directMicrosoftTranslationBoth').checked) {
+                    EcrirePartial(lastSentenceTranslated+"<br><span>"+ch+"</span>");
+                } else {
+                    EcrirePartial(lastSentenceTranslated+"");
+                }
             }
             LiveTranslationNum++;
     }

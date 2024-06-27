@@ -466,6 +466,8 @@ fclose($fd);
 							<input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) _('spanmicrosofttranscritionon').innerHTML='Yes !'; else _('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanmicrosofttranscritionon">No.</span></li>
 						<li title="Do not change unless you know what you are doing ! This functionnality imply a huge increase of the translation cost !"><label for="directMicrosoftTranslation">Enable the direct translation functionnality ?</label>
 							<input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionon">No.</span></li>
+						<li title="Do not change unless you know what you are doing !"><label for="directMicrosoftTranslationBoth">Show both the direct transcription and its translation ?</label>
+							<input type="checkbox" id="directMicrosoftTranslationBoth" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionBothon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionBothon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionBothon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="BoostedWords">Boosted words or expressions (one per line)</label>
 							<br>
 							<textarea id="BoostedWords" rows="3" cols="20"></textarea>
