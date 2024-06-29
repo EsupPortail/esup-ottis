@@ -27,7 +27,7 @@ $content=$data["filecontent"];
 //$content="Filename=".$filename."\n\nContent : ".$content;
 
 //$filename="../tables/test.txt";
-$Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt"];
+$Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt","../tables/.htpasswd"];
 if (in_array($filename, $Authorized_files)) {
     $fd=fopen($filename,"w");
     fputs($fd,$content);
