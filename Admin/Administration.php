@@ -67,11 +67,11 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 <script>
 function Edit(readfilename,pw=false) {
     document.getElementById('dialog-filename').innerHTML=readfilename;
-    var dialog='#dialog-edit';
-    if (pw) dialog='#dialog-edit-pw';
-    $( dialog ).dialog("open");
+    var dialogsuffix='';
+    if (pw) dialogsuffix='-pw';
+    $( '#dialog-edit'+dialogsuffix ).dialog("open");
     // Read the file content
-    document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
+    document.getElementById('dialog-content'+dialogsuffix).value="Reading, wait a few seconds.....";
     fetch("savefile2.php", { // Ce fichier s'appelle savefile2.php uniquement parce que le proxy n'accepte pas readfile.php
         method: "post",
         headers: {
@@ -82,7 +82,7 @@ function Edit(readfilename,pw=false) {
             filename: readfilename,
         })
     })
-    .then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content').value=content;})});
+    .then(function(p) {p.text().then(function (content) {document.getElementById('dialog-content'+dialogsuffix).value=content;})});
 }
 
 function Save(savetofilename,content) {
@@ -173,7 +173,7 @@ $( function() {
       width: '95%',
       buttons: {
         "Save": function() {
-          Save(document.getElementById('dialog-filename').innerHTML, document.getElementById('dialog-content').value);
+          Save(document.getElementById('dialog-filename-pw').innerHTML, document.getElementById('dialog-content-pw').value);
           $( this ).dialog( "close" );
         },
         "Cancel": function() {
@@ -225,11 +225,11 @@ h1 {
 
 <div id="dialog-edit-pw" title="Edit a password file" style="width: 95%;">
   <p>
-    Filename : <span id="dialog-filename"></span>
+    Filename : <span id="dialog-filename-pw"></span>
   </p>
   <p>
     <form method="POST">
-    <textarea id="dialog-content" style="width: 100%; height: 400px"></textarea>
+    <textarea id="dialog-content-pw" style="width: 100%; height: 400px"></textarea>
     <div class="password">
         Random passwords : <p id="passwordBox"></p>
     </div> 
