@@ -138,7 +138,7 @@ function _(b) {return document.getElementById(b);}
 function severalExamples(n) {
   _('passwordBox').innerHTML="Random passwords : ";
   while (n-->0) {
-    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="background-color: #aaa;"'+createPassword(12)+'</span>';
+    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="background-color: #aaa;">'+createPassword(12)+'</span>';
   }
 }
 
