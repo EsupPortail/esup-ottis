@@ -136,18 +136,7 @@ function createPassword() {
     let keyToAdd = getKey[Math.floor(Math.random() * getKey.length)];
     password += keyToAdd();
   }
-  passwordBox.innerHTML = password;
-}
-function copyPassword() {
-  const textarea = document.createElement("textarea");
-  const password = document.getElementById("passwordBox").innerText;
-  if (!password) { return; }
-  textarea.value = password;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  textarea.remove();
-  alert("Password copied to clipboard");
+  return password;
 }
 
 $( function() {
@@ -210,7 +199,7 @@ h1 {
     <button onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
 <?php
   if (strpos($_SERVER['REQUEST_URI'],"-external")>0) {
-    echo "<button onclick=\"createPassword(); Edit('../tables/.htpasswd',true);\">Edit Passwords file</button>\n";
+    echo "<button onclick=\"alert('Password example : '+createPassword()); Edit('../tables/.htpasswd',true);\">Edit Passwords file</button>\n";
   }
 ?>
 <div id="dialog-edit" title="Edit a file" style="width: 95%;">
