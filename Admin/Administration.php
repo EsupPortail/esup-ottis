@@ -139,6 +139,8 @@ function createPassword() {
   return password;
 }
 
+function _(b) {return document.getElementById(b);}
+
 function severalExamples(n) {
   _('passwordBox').innerHTML="";
   while (n-->0) {
