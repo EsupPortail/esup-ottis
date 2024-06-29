@@ -65,9 +65,11 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   ?>
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
 <script>
-function Edit(readfilename) {
+function Edit(readfilename,pw=false) {
     document.getElementById('dialog-filename').innerHTML=readfilename;
-    $( "#dialog-edit" ).dialog("open");
+    var dialog='#dialog-edit';
+    if (pw) dialog='#dialog-edit-pw';
+    $( dialog ).dialog("open");
     // Read the file content
     document.getElementById('dialog-content').value="Reading, wait a few seconds.....";
     fetch("savefile2.php", { // Ce fichier s'appelle savefile2.php uniquement parce que le proxy n'accepte pas readfile.php
@@ -101,8 +103,73 @@ function Save(savetofilename,content) {
 });
 }
 
+const keys = {
+  upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  lowerCase: "abcdefghijklmnopqrstuvwxyz",
+  number: "0123456789",
+  symbol: "!@#$%^&*()_+~\\`|}{[]:;?><,./-="
+};
+const getKey = [
+  function upperCase() {
+    return keys.upperCase[Math.floor(Math.random() * keys.upperCase.length)];
+  },
+  function lowerCase() {
+    return keys.lowerCase[Math.floor(Math.random() * keys.lowerCase.length)];
+  },
+  function number() {
+    return keys.number[Math.floor(Math.random() * keys.number.length)];
+  },
+  function symbol() {
+    return keys.symbol[Math.floor(Math.random() * keys.symbol.length)];
+  }
+];
+
+function createPassword() {
+  const upper = true;
+  const lower = true;
+  const number = true;
+  const symbol = true;
+  const passwordBox = document.getElementById("passwordBox");
+  const length = 12;
+  let password = "";
+  while (length.value > password.length) {
+    let keyToAdd = getKey[Math.floor(Math.random() * getKey.length)];
+    password += keyToAdd();
+  }
+  passwordBox.innerHTML = password;
+}
+function copyPassword() {
+  const textarea = document.createElement("textarea");
+  const password = document.getElementById("passwordBox").innerText;
+  if (!password) { return; }
+  textarea.value = password;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+  alert("Password copied to clipboard");
+}
+
 $( function() {
     $( "#dialog-edit" ).dialog({
+      autoOpen: false,
+      modal: true,
+      width: '95%',
+      buttons: {
+        "Save": function() {
+          Save(document.getElementById('dialog-filename').innerHTML, document.getElementById('dialog-content').value);
+          $( this ).dialog( "close" );
+        },
+        "Cancel": function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+    $("button").button();
+  } );
+
+  $( function() {
+    $( "#dialog-edit-pw" ).dialog({
       autoOpen: false,
       modal: true,
       width: '95%',
@@ -128,6 +195,8 @@ h1 {
   font-style: normal;
 }
 
+
+
 </style>
 
 </head>
@@ -138,8 +207,12 @@ h1 {
     <button onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i>&nbsp; Edit tokens</button>
     <button onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;Edit Authorized students</button>
     <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Edit privileged users</button>
-    <!-- <button onclick="Edit('../tables/test.txt');">Edit test</button> -->
-
+    <button onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
+<?php
+  if (strpos($_SERVER['REQUEST_URI'],"-external")>0) {
+    echo "<button onclick=\"Edit('../tables/.htpasswd',true);\">E dit Passwords file</button>\n";
+  }
+?>
 <div id="dialog-edit" title="Edit a file" style="width: 95%;">
   <p>
     Filename : <span id="dialog-filename"></span>
@@ -147,6 +220,22 @@ h1 {
   <p>
     <form method="POST">
     <textarea id="dialog-content" style="width: 100%; height: 400px"></textarea>
+
+    </form>
+  </p>
+</div>
+
+<div id="dialog-edit-pw" title="Edit a password file" style="width: 95%;">
+  <p>
+    Filename : <span id="dialog-filename"></span>
+  </p>
+  <p>
+    <form method="POST">
+    <textarea id="dialog-content" style="width: 100%; height: 400px"></textarea>
+    <div class="password">
+        <p id="passwordBox"></p><i class="fa fa-clipboard" onclick="copyPassword()"></i>
+    </div>
+    <button onclick="createPassword()">Generate Random Password</button>
     </form>
   </p>
 </div>
