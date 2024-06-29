@@ -140,7 +140,7 @@ function severalExamples(n) {
   while (n-->0) {
     var pw=createPassword(12);
     var sha=sha1(pw);
-    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="background-color: #aaa;">'+pw+'</span>'+'<span style="background-color: #ccc;">{SHA1}'+sha+'</span>'+'<br>'';
+    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="background-color: #aaa;">'+pw+'</span>'+'<span style="background-color: #ccc;">{SHA1}'+sha+'</span>'+'<br>';
   }
 }
 
