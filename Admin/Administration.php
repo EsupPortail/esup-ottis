@@ -208,7 +208,7 @@ h1 {
     <button onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
 <?php
   if (strpos($_SERVER['REQUEST_URI'],"-external")>0) { 
-    echo "<button onclick=\"severalExamples(5); Edit('../tables/.htpasswd',true);\">Edit Passwords file</button>\n";
+    echo "<button onclick=\"severalExamples(5); Edit('../tables/htpasswd',true);\">Edit Passwords file</button>\n";
   }
 ?>
 <div id="dialog-edit" title="Edit a file" style="width: 95%;">
