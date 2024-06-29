@@ -107,7 +107,7 @@ const keys = {
   upperCase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   lowerCase: "abcdefghijklmnopqrstuvwxyz",
   number: "0123456789",
-  symbol: "!@#$%^&*()_+~\\`|}{[]:;?><,./-="
+  symbol: "!@#$%^&*()_+~|}{[]:;?,./-="
 };
 const getKey = [
   function upperCase() {
@@ -124,13 +124,7 @@ const getKey = [
   }
 ];
 
-function createPassword() {
-  const upper = true;
-  const lower = true;
-  const number = true;
-  const symbol = true;
-  const passwordBox = document.getElementById("passwordBox");
-  const length = 12;
+function createPassword(length) {
   let password = "";
   while (length > password.length) {
     let keyToAdd = getKey[Math.floor(Math.random() * getKey.length)];
@@ -144,7 +138,7 @@ function _(b) {return document.getElementById(b);}
 function severalExamples(n) {
   _('passwordBox').innerHTML="Random passwords : ";
   while (n-->0) {
-    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="border: 1 solid;"'+createPassword()+'</span>';
+    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="border: 1 solid;"'+createPassword(12)+'</span>';
   }
 }
 
