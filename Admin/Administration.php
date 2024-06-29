@@ -142,9 +142,9 @@ function createPassword() {
 function _(b) {return document.getElementById(b);}
 
 function severalExamples(n) {
-  _('passwordBox').innerHTML="";
+  _('passwordBox').innerHTML="Random passwords : ";
   while (n-->0) {
-    _('passwordBox').innerHTML+=" "+createPassword();
+    _('passwordBox').innerHTML+="&nbsp;&nbsp;&nbsp;"+'<span style="border: 1 solid;"'+createPassword()+'</span>';
   }
 }
 
@@ -230,9 +230,7 @@ h1 {
   <p>
     <form method="POST">
     <textarea id="dialog-content-pw" style="width: 100%; height: 400px"></textarea>
-    <div class="password">
-        Random passwords : <p id="passwordBox"></p>
-    </div> 
+    <p id="passwordBox"></p>
     <!--<button onclick="createPassword()">Generate Random Password</button>-->
     </form>
   </p>
