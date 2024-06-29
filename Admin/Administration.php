@@ -234,7 +234,7 @@ h1 {
     <textarea id="dialog-content" style="width: 100%; height: 400px"></textarea>
     <div class="password">
         Random password : <p id="passwordBox"></p>
-    </div>
+    </div> 
     <!--<button onclick="createPassword()">Generate Random Password</button>-->
     </form>
   </p>
