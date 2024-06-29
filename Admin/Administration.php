@@ -139,6 +139,13 @@ function createPassword() {
   return password;
 }
 
+function severalExamples(n) {
+  _('passwordBox').innerHTML="";
+  while (n-->0) {
+    _('passwordBox').innerHTML+=" "+createPassword();
+  }
+}
+
 $( function() {
     $( "#dialog-edit" ).dialog({
       autoOpen: false,
@@ -199,7 +206,7 @@ h1 {
     <button onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
 <?php
   if (strpos($_SERVER['REQUEST_URI'],"-external")>0) {
-    echo "<button onclick=\"alert('Password example : '+createPassword()); Edit('../tables/.htpasswd',true);\">Edit Passwords file</button>\n";
+    echo "<button onclick=\"severalExamples(5); Edit('../tables/.htpasswd',true);\">Edit Passwords file</button>\n";
   }
 ?>
 <div id="dialog-edit" title="Edit a file" style="width: 95%;">
@@ -222,7 +229,7 @@ h1 {
     <form method="POST">
     <textarea id="dialog-content" style="width: 100%; height: 400px"></textarea>
     <div class="password">
-        Random password : <p id="passwordBox"></p>
+        Random passwords : <p id="passwordBox"></p>
     </div> 
     <!--<button onclick="createPassword()">Generate Random Password</button>-->
     </form>
