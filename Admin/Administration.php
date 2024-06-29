@@ -132,7 +132,7 @@ function createPassword() {
   const passwordBox = document.getElementById("passwordBox");
   const length = 12;
   let password = "";
-  while (length.value > password.length) {
+  while (length > password.length) {
     let keyToAdd = getKey[Math.floor(Math.random() * getKey.length)];
     password += keyToAdd();
   }
