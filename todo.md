@@ -1,4 +1,4 @@
-- [X] Enlever automatiquement les tics de parole ("en fait" par exemple)
+- [X] Enlever automatiquement les tics de parole ("en fait" par exemple) 
 - [X] Bug import pptx dans Complete Lesson, manque le dernier slide
 - [X] Ajouter un outil pour intégrer des notes (.txt) dans un .pptx dans les OMIST tools
 - [X] Utiliser DeepL Translate dans les OMIST tools

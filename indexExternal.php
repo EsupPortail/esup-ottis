@@ -1,4 +1,4 @@
-<?php 
+<?php  
 
 $external=true;
 $roomid="unknown";

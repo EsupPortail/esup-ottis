@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Empêche la mise en cache
     header('Pragma: no-cache');
     header('Expires: 0');
