@@ -522,6 +522,10 @@ ul#direct-links p {
     menu button b {
         font-size: 7pt;
     }
+
+    .icone-menu {
+        display: none;
+    }
 }
 
 
