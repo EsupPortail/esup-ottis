@@ -273,13 +273,13 @@ function openModal(modal_key, linkteacher="", linkstudent="") {
         "<p>Nantes Université s'efforce de respecter les principaux critères permettant de rendre son site accessible (recommandation du Référentiel Général d'Accessibilité pour les Administrations- RGAA 2.2.1).</p>"+
         "<hr><h3>Modification de la taille d'affichage</h3>"+
         "<p>Vous pouvez rétrécir ou agrandir l'affichage du site.<ul>"+
-        "<li>pour agrandir la taille d'affichage du site, dans le navigateur Mozilla Firefox, Google Chrome et Microsoft Edge, dérouler le menu en haut à droite du navigateur (3 points ou 3 barres) &gt; Zoom, puis choisir la taille avec le - (moins) et le + (plus). Vous pouvez aussi appuyer simultanément sur la touche Ctrl et bouger la molette de la souris.</li>"+
-        "<li>pour revenir à la taille normal d'affichage, dans le navigateur Mozilla Firefox, cliquer sur le pourcentage indiqué dans la barre d'URL en haut. Pour les navigateurs Google Chrome et Microsoft Edge, cliquer sur la loupe dans la barre d'URL en haut, puis sur \"réinitialiser\". </li>"+
+        "<li>pour agrandir la taille d'affichage du site, dans les navigateurs Google Chrome et Microsoft Edge, dérouler le menu en haut à droite du navigateur (3 points ou 3 barres) &gt; Zoom, puis choisir la taille avec le - (moins) et le + (plus). Vous pouvez aussi appuyer simultanément sur la touche Ctrl et bouger la molette de la souris.</li>"+
+        "<li>pour revenir à la taille normal d'affichage, dans les navigateurs Google Chrome et Microsoft Edge, cliquer sur la loupe dans la barre d'URL en haut, puis sur \"réinitialiser\". </li>"+
         "</ul><p></p><hr>"+
         "<h3>Traductions</h3>"+
         "<p>Le site peut être consulté sous différentes langues. Il suffit de sélectionner la langue désirée dans le menu en haut à droite.</p>"+
         "<hr><h3>Comptatibilité navigateurs Internet</h3>"+
-        "<p>OMIST a été testé et est compatible avec :</p><ul><li>Mozilla Firefox : version 127 et supérieures</li><li>Google Chrome : version 126 et supérieures</li><li>Microsoft Edge : version 126 et supérieures</li></ul>";
+        "<p>OMIST a été testé et est compatible avec :</p><ul><li>Google Chrome : version 126 et supérieures</li><li>Microsoft Edge : version 126 et supérieures</li></ul>";
     } else if (modal_key == 'cookies') {
         title_to_fill.innerHTML = "Cookies";
         content_to_fill.innerHTML = "Ce site utilise des cookies internes nécessaires pour fonctionner. Ils permettent aux services principaux du site de fonctionner de manière optimale. Vous pouvez techniquement les bloquer en utilisant les paramètres de votre navigateur mais votre expérience sur le site risque d'être dégradée.";
