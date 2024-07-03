@@ -50,8 +50,8 @@ $insertCommande_stats->execute([
 
 $sql = 'SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<17 GROUP BY date_year, date_month';
 foreach ($pdo_stats->query($sql) as $row) {
-    print $row['date_year'] . "\t";
-    print $row['date_month'] . "\t";
+    print_r($row['date_year'] . "\t");
+    print_r($row['date_month'] . "\t");
 };
 
 
