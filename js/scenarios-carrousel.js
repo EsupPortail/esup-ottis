@@ -2,12 +2,12 @@
  * ---EN---
  * @fileoverview Manager of favorites and weight (per point) systems for the carousel of scenarios.
  * 
- * @requires list element (<ul> HTML tag) class attribute to be set to "scenarios".
+ * @requires list element (<ul> HTML tag) class attribute to be set to "image-list".
  * @requires scenarios elements (<li> HTML tags).
  * ---FR---
  * @fileoverview Gestionnaire du système de favoris et du système par points du carrousel des scénarios.
  * 
- * @requires list (tag HTML <ul>) dont la classe doit être "scenarios".
+ * @requires list (tag HTML <ul>) dont la classe doit être "image-list".
  * @requires scenarios (tags HTML <li>).
  */
 
