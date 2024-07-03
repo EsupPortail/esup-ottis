@@ -518,6 +518,10 @@ ul#direct-links p {
     footer div.footer-left p{
         align-self: end;
     }
+
+    menu button b {
+        font-size: 7pt;
+    }
 }
 
 
