@@ -245,7 +245,8 @@ function setupRedirections() {
     });
 
     document.querySelector('[id="scenario-5-button"]').addEventListener('click', () => {
-        window.open(root + "/index.php?" + CreateLink());
+        // window.open(root + "/index.php?" + CreateLink());
+        GenereLinkAlert();
     });
 
     document.querySelector('[id="direct-access-teacher"]').addEventListener('click', () => {
@@ -282,6 +283,9 @@ function openModal(modal_key) {
     } else if (modal_key == 'cookies') {
         title_to_fill.innerHTML = "Cookies";
         content_to_fill.innerHTML = "Ce site utilise des cookies internes nécessaires pour fonctionner. Ils permettent aux services principaux du site de fonctionner de manière optimale. Vous pouvez techniquement les bloquer en utilisant les paramètres de votre navigateur mais votre expérience sur le site risque d'être dégradée.";
+    }else if (modal_key == 'generate_link'){
+        title_to_fill.innerHTML = "Lien de connexion";
+        content_to_fill.innerHTML = 'Voici le lien de connexion, à utiliser n\'importe quand : \n'+linkteacher+'\n \n'+linkstudent;
     }
 
     document.querySelector(".modal-overlay").classList.remove("hide");

@@ -28,14 +28,15 @@ window.addEventListener('DOMContentLoaded', () => {
   
   function GenereLinkAlert() {
       var linkteacher = root+'/index.php?'+CreateLink(); 
-      linkteacher="<a href=\""+linkteacher+"\">"+linkteacher+"</a>"; 
+      linkteacher="<a href=\""+linkteacher+"\" target='_blank'>"+linkteacher+"</a>"; 
       var linkstudent=CreateLinkStudent(); 
       if (linkstudent != '') {
           linkstudent=root+'/Student.php?'+linkstudent; 
-          linkstudent="<a href=\""+linkstudent+"\">"+linkstudent+"</a>"; 
-          linkstudent='\n\nEt voici le lien étudiant : \n '+linkstudent;
-      } 
-      myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+linkteacher+linkstudent,'Lien de connexion');
+          linkstudent="<a href=\""+linkstudent+"\" target='_blank'>"+linkstudent+"</a>"; 
+          linkstudent='Et voici le lien étudiant : \n '+linkstudent;
+      }
+      openModal('generate_link', linkteacher, linkstudent); 
+    //   myalert('Voici le lien de connexion, à utiliser n\'importe quand\n'+linkteacher+linkstudent,'Lien de connexion');
   }
   var root = window.location.href.replace("/scenarios.php","");
   

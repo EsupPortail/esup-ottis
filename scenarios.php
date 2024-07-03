@@ -103,7 +103,7 @@
                 <option value="theme2">Thème sombre</option>
                 <option value="flat">Thème applati/flat (thème par défaut)</option>
               </select>
-              <button type="button" class="scenario-button" id="scenario-5-button">Accéder au scénario</button>
+              <button type="button" class="scenario-button" id="scenario-5-button">Générer le lien</button>
             </li>
           </ul>
           <div id="next" class="slide-div">
