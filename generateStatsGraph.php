@@ -52,6 +52,8 @@ $insertCommande_stats->execute([
     'char_max' => $char_max
 ]);
 
+echo ("The database has been created successfully \n");
+
 $command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh';// >/dev/null 2>/dev/null';
 system($command);
 
