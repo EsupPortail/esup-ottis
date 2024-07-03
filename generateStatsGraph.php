@@ -55,6 +55,7 @@ try{
   $insertCommande_sql->execute();
   $recipes = $insertCommande_sql->fetchAll();
   echo 'test2';
+  print_r($recipes);
   foreach ($recipes as $recipe) {
     echo 'test3';
     echo $recipe;
