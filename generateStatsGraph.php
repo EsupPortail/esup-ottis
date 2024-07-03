@@ -48,13 +48,17 @@ $insertCommande_stats->execute([
     'char_max' => $char_max
 ]);
 
-$sql = 'SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<17 GROUP BY date_year, date_month';
-$insertCommande_sql = $pdo_stats->prepare($sql);
-$insertCommande_sql->execute();
-$recipes = $insertCommande_sql->fetchAll();
+try{
+  $sql = 'SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<17 GROUP BY date_year, date_month';
+  $insertCommande_sql = $pdo_stats->prepare($sql);
+  $insertCommande_sql->execute();
+  $recipes = $insertCommande_sql->fetchAll();
 
-foreach ($recipes as $recipe) {
-  echo $recipe['date_month'];
+  foreach ($recipes as $recipe) {
+    echo $recipe['date_month'];
+  }
+} catch(Exception $e){
+	print_r($e);
 }
 
 $command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh';// >/dev/null 2>/dev/null';
