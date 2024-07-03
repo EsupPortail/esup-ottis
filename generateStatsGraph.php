@@ -23,10 +23,6 @@ if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 } else $percentage_DEEPL = 0;
 
-print_r($Stats_DEEPL["character_count"]);
-print_r($Stats_DEEPL["character_limit"]);
-print_r($percentage_DEEPL);
-
 $date_raw = gmdate("Y-m-d\TH:i:s\Z");
 $date_complete = gmdate("Y-m-d");
 $date_day = gmdate("d");
@@ -37,26 +33,29 @@ $percentage_char = $percentage_DEEPL;
 $characters = $Stats_DEEPL["character_count"];
 $char_max = $Stats_DEEPL["character_limit"];
 
-try{
-  $requete_SQL_stats = 'INSERT INTO translatelog (date_raw, date_complete, date_day, date_month, date_year, origin, percentage_char, characters, char_max) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :origin, :percentage_char, :characters, :char_max)';
-  $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
+$requete_SQL_stats = 'INSERT INTO translatelog (date_raw, date_complete, date_day, date_month, date_year, origin, percentage_char, characters, char_max) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :origin, :percentage_char, :characters, :char_max)';
+$insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
-  $insertCommande_stats->execute([
-      'date_raw' => $date_raw, 
-      'date_complete' => $date_complete, 
-      'date_day' => $date_day,
-      'date_month' => $date_month, 
-      'date_year' => $date_year, 
-      'origin' => $origin,
-      'percentage_char' => $percentage_char, 
-      'characters' => $characters, 
-      'char_max' => $char_max
-  ]);
+$insertCommande_stats->execute([
+    'date_raw' => $date_raw, 
+    'date_complete' => $date_complete, 
+    'date_day' => $date_day,
+    'date_month' => $date_month, 
+    'date_year' => $date_year, 
+    'origin' => $origin,
+    'percentage_char' => $percentage_char, 
+    'characters' => $characters, 
+    'char_max' => $char_max
+]);
 
-  echo ("The database has been created successfully \n");
-} catch(Exception $e){
-	print_r($e);
-}
+$sql = 'SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<17 GROUP BY date_year, date_month';
+foreach ($pdo_stats->query($sql) as $row) {
+    print $row['date_year'] . "\t";
+    print $row['date_month'] . "\t";
+};
+
+
+
 
 $command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh';// >/dev/null 2>/dev/null';
 system($command);
