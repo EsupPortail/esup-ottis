@@ -263,7 +263,7 @@ function setupRedirections() {
 }
 
 
-function openModal(modal_key) {
+function openModal(modal_key, linkteacher="", linkstudent="") {
     const title_to_fill = document.querySelector('h2[id="mention-title"]');
     const content_to_fill = document.querySelector('div[id="mention-content"]');
     if (modal_key == 'access') {
