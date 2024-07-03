@@ -93,7 +93,7 @@ if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 }
 
 // get location from ip
-
+/*
 echo "<!--\n";
 $aContext = array(
     'http' => array(
@@ -104,6 +104,7 @@ $aContext = array(
 $cxContext = stream_context_create($aContext);
 echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip, False, $cxContext)));
 echo "-->\n";
+*/
 
 //Connexion avec la base de données pour les statistiques
 try{
