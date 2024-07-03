@@ -23,6 +23,10 @@ if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 } else $percentage_DEEPL = 0;
 
+print_r($Stats_DEEPL["character_count"]);
+print_r($Stats_DEEPL["character_limit"]);
+print_r($percentage_DEEPL);
+
 $date_raw = gmdate("Y-m-d\TH:i:s\Z");
 $date_complete = gmdate("Y-m-d");
 $date_day = gmdate("d");
