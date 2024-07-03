@@ -92,6 +92,12 @@ if(!empty($_SERVER['HTTP_CLIENT_IP'])){
 	$ip = $_SERVER['REMOTE_ADDR'];
 }
 
+// get location from ip
+exec($proxy." curl -q "."http://www.geoplugin.net/php.gp?ip=".$ip,$loc);
+echo "<!--\n";
+print_r($loc);
+echo "-->\n";
+
 //Connexion avec la base de données pour les statistiques
 try{
     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
