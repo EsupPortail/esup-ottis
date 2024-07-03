@@ -55,7 +55,8 @@ try{
   $recipes = $insertCommande_sql->fetchAll();
 
   foreach ($recipes as $recipe) {
-    echo $recipe['date_month'];
+    echo 'test';
+    echo $recipe;
   }
 } catch(Exception $e){
 	print_r($e);
