@@ -49,13 +49,14 @@ $insertCommande_stats->execute([
 ]);
 
 try{
+  echo 'test1';
   $sql = 'SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<17 GROUP BY date_year, date_month';
   $insertCommande_sql = $pdo_stats->prepare($sql);
   $insertCommande_sql->execute();
   $recipes = $insertCommande_sql->fetchAll();
-
+  echo 'test2';
   foreach ($recipes as $recipe) {
-    echo 'test';
+    echo 'test3';
     echo $recipe;
   }
 } catch(Exception $e){
