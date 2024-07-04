@@ -3118,7 +3118,7 @@ function updateConfig() {
     newConfig[14] = (_('questionon').checked ? "Y" : "N");
     newConfig[15] = (_('fson').checked ? "Y" : "N");
     newConfig[16] = (_('directMicrosoftTranslation').checked ? "Y" : "N");
-    // newConfig[17] = (_('directMicrosoftTranslationBoth').checked ? "Y" : "N");
+    newConfig[17] = (_('directMicrosoftTranslationBoth').checked ? "Y" : "N");
     // newConfig[10]=(_('pincodeon').checked?"Y":"N");
     currentconfig = newConfig.join('');
     _("myConfig").value = currentconfig;
@@ -3290,8 +3290,8 @@ function applyConfig() {
         _('titreright').style.visibility = 'hidden';
     }
 
-    // _('directMicrosoftTranslationBoth').checked = (config.charAt(17) == "Y");
-    // _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(17) == "Y") ? "Yes !" : "No.";
+    _('directMicrosoftTranslationBoth').checked = (config.charAt(17) == "Y");
+    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(17) == "Y") ? "Yes !" : "No.";
    
     updateConfig();
 }
