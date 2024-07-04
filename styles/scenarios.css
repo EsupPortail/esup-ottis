@@ -378,14 +378,20 @@ ul.image-list li {
 
 ul.image-list li h5 {
     height           : 8.5%;
-    width            : 100%;
-    padding          : 4.5% 0 1.5%;
+    width            : 70%;
+    padding          : 4.5% 15% 1.5%;
     align-items      : center;
     color            : var(--black);
     font-size        : 1rem;
     letter-spacing   : 2px;
     text-transform   : uppercase;
     white-space      : nowrap;
+    flex-direction   : row;
+}
+
+ul.image-list li h5 .fa {
+    font-size        : 20pt;
+    margin-right     : 5%;
 }
 
 ul.image-list li button.favorite-button {
