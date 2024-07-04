@@ -443,15 +443,15 @@ ul.image-list li input {
     color            : var(--black);
 }
 
-ul.image-list li.image-item.scenario-parameter {
+ul.image-list li.image-item#scenario-parameter {
     gap              : 1.5%;
 }
 
-ul.image-list li.image-item.scenario-parameter input {
+ul.image-list li.image-item#scenario-parameter input {
     padding          : 5px;
 }
 
-ul.image-list li.image-item.scenario-parameter:not(:has(h6)) p:first-of-type {
+ul.image-list li.image-item#scenario-parameter:not(:has(h6)) p:first-of-type {
     padding          : 0.5% 5% 0;
 }
 
