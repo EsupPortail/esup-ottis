@@ -7,6 +7,7 @@
     <title>Automatic translation for teaching purposes: Scenarios</title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/scenarios.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="./jquery/jquery.js"></script>
     <script src="./jquery/jquery-ui.min.js"></script>
     <script src="./js/google-translate-script.js"></script>
@@ -65,7 +66,7 @@
               <button type="button" class="scenario-button" id="scenario-3-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
-              <h5><i class="fa fa-code" aria-hidden="true"></i>Sous-titrage Anglais</h5>
+              <h5><span class="material-symbols-outlined">html</span>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-4-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Présentation .HTML sur UNCloud</h6>
@@ -106,7 +107,7 @@
               <button type="button" class="scenario-button" id="scenario-5-button">Générer le lien</button>
             </li>
             <li class="image-item">
-              <h5>Sous-titrage Anglais</h5>
+              <h5><span class="material-symbols-outlined">live_tv</span>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-6-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Traduction directe</h6>
