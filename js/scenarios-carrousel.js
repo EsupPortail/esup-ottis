@@ -225,28 +225,32 @@ function reorderFavorites() {
  */
 function setupRedirections() {
     document.querySelector('[id="scenario-1-button"]').addEventListener('click', () => {
-        window.open(root + "/index.php?myconfig=AANAYKCYNCNNNYNY");
+        window.open(root + "/index.php?myconfig=AANAYKCYNCNNNYNYNN");
     });
 
     document.querySelector('[id="scenario-2-button"]').addEventListener('click', () => {
-        window.open(root + "/index.php?myconfig=ABYANKCNYCNNNYNY");
+        window.open(root + "/index.php?myconfig=ABYANKCNYCNNNYNYNN");
     });
     
     document.querySelector('[id="scenario-3-button"]').addEventListener('click', () => {
         let inputValue = document.querySelector('[id="scenario-3-input"]').value;
 
-        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4" + (inputValue) ? "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4&link=" + inputValue : "");
+        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYYNN&tab=4" + (inputValue) ? "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4&link=" + inputValue : "");
     });
 
     document.querySelector('[id="scenario-4-button"]').addEventListener('click', () => {
         let inputValue = document.querySelector('[id="scenario-4-input"]').value;
 
-        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4" + (inputValue) ? "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4&htmllink=" + inputValue : "");
+        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYYNN&tab=4" + (inputValue) ? "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4&htmllink=" + inputValue : "");
     });
 
     document.querySelector('[id="scenario-5-button"]').addEventListener('click', () => {
         // window.open(root + "/index.php?" + CreateLink());
         GenereLinkAlert();
+    });
+
+    document.querySelector('[id="scenario-6-button"]').addEventListener('click', () => {
+        window.open(root + "/index.php?myconfig=ABYANKCNYCNNNYNYYN");
     });
 
     document.querySelector('[id="direct-access-teacher"]').addEventListener('click', () => {

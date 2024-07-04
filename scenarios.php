@@ -105,6 +105,14 @@
               </select>
               <button type="button" class="scenario-button" id="scenario-5-button">Générer le lien</button>
             </li>
+            <li class="image-item">
+              <h5>Sous-titrage Anglais</h5>
+              <button type="button" class="favorite-button" id="scenario-6-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
+              <hr>
+              <h6>Traduction directe</h6>
+              <p>Pour un cours donné en français sous-titré en anglais. La traduction se fait directement, la phrase se consolide au fur et à mesure.</p>
+              <button type="button" class="scenario-button" id="scenario-6-button">Accéder au scénario</button>
+            </li>
           </ul>
           <div id="next" class="slide-div">
             <button id="next-slide" class="slide-button material-symbols-rounded">

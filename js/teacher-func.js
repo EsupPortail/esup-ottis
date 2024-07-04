@@ -3117,6 +3117,8 @@ function updateConfig() {
     newConfig[13] = (_('microon').checked ? "Y" : "N");
     newConfig[14] = (_('questionon').checked ? "Y" : "N");
     newConfig[15] = (_('fson').checked ? "Y" : "N");
+    newConfig[16] = (_('directMicrosoftTranslation').checked ? "Y" : "N");
+    newConfig[17] = (_('directMicrosoftTranslationBoth').checked ? "Y" : "N");
     // newConfig[10]=(_('pincodeon').checked?"Y":"N");
     currentconfig = newConfig.join('');
     _("myConfig").value = currentconfig;
@@ -3141,7 +3143,7 @@ function updateConfig() {
 
 function applyConfig() {
     var config = currentconfig;
-    if (config.length != "ABYANACNNCNNNYYY".length) return;
+    if (config.length != "ABYANACNNCNNNYYYYN".length) return;
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     setLanguageInput(_('classroomlanguage').value);
@@ -3271,6 +3273,25 @@ function applyConfig() {
     } else {
         hide('FS');
     }
+
+    _('directMicrosoftTranslation').checked = (config.charAt(16) == "Y");
+    _('spanmicrosoftdirecttranscritionon').innerHTML = (config.charAt(16) == "Y") ? "Yes !" : "No.";
+    //_('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
+    if (_('directMicrosoftTranslation').checked) {
+        _('subtitlepartialon').checked = true;
+        _('spansubtitlepartialon').innerHTML = 'Yes !';
+        _('partialtitre').style.visibility = 'visible';
+        
+        _('subtitlebaron').checked = false;
+        _('spansubtitlebaron').innerHTML = 'No.';
+        _('titre').style.visibility = 'hidden';
+        _('titreleft').style.visibility = 'hidden';
+        _('titrerightbis').style.visibility = 'hidden';
+        _('titreright').style.visibility = 'hidden';
+    }
+
+    _('directMicrosoftTranslationBoth').checked = (config.charAt(17) == "Y");
+    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(17) == "Y") ? "Yes !" : "No.";
    
     updateConfig();
 }
