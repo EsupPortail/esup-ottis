@@ -39,7 +39,7 @@ $characters = $Stats_DEEPL["character_count"];
 $char_max = $Stats_DEEPL["character_limit"];
 
 
-$requete_SQL_stats = "INSERT INTO `translatelog` (`date_raw`, `date_complete`, `date_day`, `date_month`, `date_year`, `origin`, `percentage_char`, `characters`, `char_max`) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :origin, :percentage_char, :characters, :char_max);";
+$requete_SQL_stats = "INSERT INTO `translatelog` (`date_raw`, `date_complete`, `date_day`, `date_month`, `date_year`, `origin_translate`, `percentage_char`, `characters`, `char_max`) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :origin_translate, :percentage_char, :characters, :char_max);";
 $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
 $insertCommande_stats->execute(array(
@@ -48,7 +48,7 @@ $insertCommande_stats->execute(array(
     ':date_day' => $date_day,
     ':date_month' => $date_month, 
     ':date_year' => $date_year, 
-    ':origin' => $origin,
+    ':origin_translate' => $origin,
     ':percentage_char' => $percentage_char, 
     ':characters' => $characters, 
     ':char_max' => $char_max
