@@ -48,7 +48,7 @@
               <button type="button" class="scenario-button" id="scenario-1-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
-              <h5><i class="fa-solid fa-chalkboard-user"></i>Sous-titrage Anglais</h5>
+              <h5><span class="material-symbols-outlined">cast</span>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-2-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Projection</h6>
@@ -56,7 +56,7 @@
               <button type="button" class="scenario-button" id="scenario-2-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
-              <h5><i class="fa fa-pie-chart" aria-hidden="true"></i>Sous-titrage Anglais</h5>
+              <h5><i class="fa fa-file-powerpoint-o" aria-hidden="true"></i>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-3-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Présentation .PPTX sur UNCloud</h6>
