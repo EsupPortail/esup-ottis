@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 include("./Admin/Stats/config_database_stats.php");
 include("./config.php");
 include("./OMIST_Tools/configOT.php");
@@ -23,8 +26,6 @@ $Stats_DEEPL = json_decode($res[0],true);
 if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 } else $percentage_DEEPL = 0;
-
-echo "Pourcentage = ".$percentage_DEEPL;
 
 
 $date_raw = gmdate("Y-m-d\TH:i:s\Z");
