@@ -40,14 +40,14 @@
           </div>
           <ul class="image-list">
             <li class="image-item">
-              <h5>Transcription Instantanée</h5>
+              <h5><i class="fa fa-deaf" aria-hidden="true"></i>Transcription Instantanée</h5>
               <button type="button" class="favorite-button" id="scenario-1-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <p>Scénario d'un cours sous-titré en français de manière instantanée, par exemple pour un public mal-entendant.</p>
               <button type="button" class="scenario-button" id="scenario-1-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
-              <h5>Sous-titrage Anglais</h5>
+              <h5><i class="fa-solid fa-chalkboard-user"></i>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-2-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Projection</h6>
@@ -55,7 +55,7 @@
               <button type="button" class="scenario-button" id="scenario-2-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
-              <h5>Sous-titrage Anglais</h5>
+              <h5><i class="fa fa-pie-chart" aria-hidden="true"></i>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-3-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Présentation .PPTX sur UNCloud</h6>
@@ -65,7 +65,7 @@
               <button type="button" class="scenario-button" id="scenario-3-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
-              <h5>Sous-titrage Anglais</h5>
+              <h5><i class="fa fa-code" aria-hidden="true"></i>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-4-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <h6>Présentation .HTML sur UNCloud</h6>
@@ -75,7 +75,7 @@
               <button type="button" class="scenario-button" id="scenario-4-button">Accéder au scénario</button>
             </li>
             <li class="image-item scenario-parameter">
-              <h5>Préparation de séance</h5>
+              <h5><i class="fa fa-wrench" aria-hidden="true"></i>Préparation de séance</h5>
               <button type="button" class="favorite-button" id="scenario-5-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
               <p>Création d'un lien permettant de préparer une séance.</p>
