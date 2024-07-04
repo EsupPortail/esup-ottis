@@ -199,8 +199,10 @@ function reorderScenarios() {
 function reorderFavorites() {
     let order = localStorage.getItem('order').split(',');
     let favorites = document.querySelectorAll('li[class^="image-item favorite"]');
+    console.log("FAVORITES : ", favorites);
 
     for (element of favorites) {
+        console.log("ELEMENT OF FAV : ", element);
         let button = element.querySelector('button[class^="favorite-button"]');
         let index;
 
