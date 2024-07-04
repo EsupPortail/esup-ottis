@@ -16,6 +16,7 @@ if ($WhichTranslator == "DEEPLFREE") {
   exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN." 2>/dev/null",$res);
 }
 
+echo "Test Deepl count \n";
 print_r($res);
 
 $Stats_DEEPL = json_decode($res[0],true);
