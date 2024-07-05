@@ -266,7 +266,10 @@ function setupRedirections() {
     });
 }
 
-
+/**
+ * @summary Opens a pop-up window and adjusts the text according to the button clicked.
+ * 
+ */
 function openModal(modal_key, linkteacher="", linkstudent="") {
     const title_to_fill = document.querySelector('h2[id="mention-title"]');
     const content_to_fill = document.querySelector('div[id="mention-content"]');
@@ -294,7 +297,11 @@ function openModal(modal_key, linkteacher="", linkstudent="") {
 
     document.querySelector(".modal-overlay").classList.remove("hide");
 }
- 
+
+/**
+ * @summary Close pop-up window.
+ * 
+ */
 function closeModal(e, clickedOutside) {
     if (clickedOutside) {
         if (e.target.classList.contains("modal-overlay"))
@@ -302,7 +309,10 @@ function closeModal(e, clickedOutside) {
     } else document.querySelector(".modal-overlay").classList.add("hide");
 }
  
-
+/**
+ * @summary Manages the carousel and navigation between scenarios.
+ * 
+ */
 const initSlider = () => {
     const imageList = document.querySelector(".slider-wrapper .image-list");
     const imageItem = document.querySelector(".slider-wrapper .image-list .image-item");
@@ -310,36 +320,6 @@ const initSlider = () => {
     const sliderScrollbar = document.querySelector(".container .slider-scrollbar");
     const scrollbarThumb = sliderScrollbar.querySelector(".scrollbar-thumb");
     const maxScrollLeft = imageList.scrollWidth - imageList.clientWidth;
-    
-    // // Handle scrollbar thumb drag
-    // scrollbarThumb.addEventListener("mousedown", (e) => {
-    //     const startX = e.clientX;
-    //     const thumbPosition = scrollbarThumb.offsetLeft;
-    //     const maxThumbPosition = sliderScrollbar.getBoundingClientRect().width - scrollbarThumb.offsetWidth;
-        
-    //     // Update thumb position on mouse move
-    //     const handleMouseMove = (e) => {
-    //         const deltaX = e.clientX - startX;
-    //         const newThumbPosition = thumbPosition + deltaX;
-
-    //         // Ensure the scrollbar thumb stays within bounds
-    //         const boundedPosition = Math.max(0, Math.min(maxThumbPosition, newThumbPosition));
-    //         const scrollPosition = (boundedPosition / maxThumbPosition) * maxScrollLeft;
-            
-    //         scrollbarThumb.style.left = `${boundedPosition}px`;
-    //         imageList.scrollLeft = scrollPosition;
-    //     }
-
-    //     // Remove event listeners on mouse up
-    //     const handleMouseUp = () => {
-    //         document.removeEventListener("mousemove", handleMouseMove);
-    //         document.removeEventListener("mouseup", handleMouseUp);
-    //     }
-
-    //     // Add event listeners for drag interaction
-    //     document.addEventListener("mousemove", handleMouseMove);
-    //     document.addEventListener("mouseup", handleMouseUp);
-    // });
 
     // Slide images according to the slide button clicks
     slideButtons.forEach(button => {
