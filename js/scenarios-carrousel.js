@@ -357,77 +357,77 @@ window.addEventListener("load", initSlider);
 
 
 
-(function ($) {
-	$.fn.scrollList = function (numVisibleItems) {
-		var visibleItems = numVisibleItems.visibleItems;
-    var $carousel = $(this);
-    var $slideItems = $("li", this);
-    var $firstItem;
-    var $width = $('ul').width();
+// (function ($) {
+// 	$.fn.scrollList = function (numVisibleItems) {
+// 		var visibleItems = numVisibleItems.visibleItems;
+//     var $carousel = $(this);
+//     var $slideItems = $("li", this);
+//     var $firstItem;
+//     var $width = $('ul').width();
 
-    var setCurrentItems = function () {
+//     var setCurrentItems = function () {
       
          
       
-    }
+//     }
     
     
 
-    var nextItem = function () {
+//     var nextItem = function () {
     	 
-       $('ul').animate({
-         left: $('ul').position().left - $('ul').width() + "px"
-       }, 200, function() {
-         $('ul').css({
-         		"left": "auto",
-          	"right": "auto"
-         });
-       });
+//        $('ul').animate({
+//          left: $('ul').position().left - $('ul').width() + "px"
+//        }, 200, function() {
+//          $('ul').css({
+//          		"left": "auto",
+//           	"right": "auto"
+//          });
+//        });
 
-      $firstItem = $("li:nth-child(-n+" + visibleItems + ")", $carousel);
-      $carousel.append($firstItem);
+//       $firstItem = $("li:nth-child(-n+" + visibleItems + ")", $carousel);
+//       $carousel.append($firstItem);
             
-    }
+//     }
 
-    var previousItem = function () {
+//     var previousItem = function () {
     	
-      $('ul').animate({
-        right: $('ul').position().left - $('ul').width() + "px"
-      }, 200, function() {
-        $('ul').css({
-        	"left": "auto",
-          "right": "auto"
-        });
-      });
+//       $('ul').animate({
+//         right: $('ul').position().left - $('ul').width() + "px"
+//       }, 200, function() {
+//         $('ul').css({
+//         	"left": "auto",
+//           "right": "auto"
+//         });
+//       });
             
-			$lastItem = $("li:nth-last-child(-n+" + visibleItems + ")", $carousel);
-      $carousel.prepend($lastItem);
-      setCurrentItems();
-    }
+// 			$lastItem = $("li:nth-last-child(-n+" + visibleItems + ")", $carousel);
+//       $carousel.prepend($lastItem);
+//       setCurrentItems();
+//     }
 		
-		function addArrows(){
-			if ($slideItems.length > visibleItems) {
-      	if($($carousel).parent().find(".next").length == 0 && 				
+// 		function addArrows(){
+// 			if ($slideItems.length > visibleItems) {
+//       	if($($carousel).parent().find(".next").length == 0 && 				
         
-        	$($carousel).parent().find(".previous").length == 0){
-						$carousel.parent().append('<span class="carousel-btn previous">&#10148;</span>');
-         		$carousel.parent().append('<span class="carousel-btn next">&#10148;</span>');
-        	}
+//         	$($carousel).parent().find(".previous").length == 0){
+// 						$carousel.parent().append('<span class="carousel-btn previous">&#10148;</span>');
+//          		$carousel.parent().append('<span class="carousel-btn next">&#10148;</span>');
+//         	}
           
-					$($carousel).siblings(".next").click(nextItem);
+// 					$($carousel).siblings(".next").click(nextItem);
           
           
-					$($carousel).siblings(".previous").click(previousItem);
-        }
-		}
+// 					$($carousel).siblings(".previous").click(previousItem);
+//         }
+// 		}
 
-    setCurrentItems();
-		addArrows();
-	};
-})(jQuery);
+//     setCurrentItems();
+// 		addArrows();
+// 	};
+// })(jQuery);
 
-$(document).ready(function () {
-	$(".num-list").scrollList({
-		visibleItems: $(".num-list").data("numitems")
-	});
-});
+// $(document).ready(function () {
+// 	$(".num-list").scrollList({
+// 		visibleItems: $(".num-list").data("numitems")
+// 	});
+// });
