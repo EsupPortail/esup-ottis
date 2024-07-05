@@ -389,7 +389,7 @@ ul.image-list li h5 {
     flex-direction   : row;
 }
 
-ul.image-list li h5 .fa {
+ul.image-list li h5 .icon-scenario {
     font-size        : 20pt;
     margin-right     : 5%;
 }
