@@ -269,6 +269,9 @@ function setupRedirections() {
 /**
  * @summary Opens a pop-up window and adjusts the text according to the button clicked.
  * 
+ * @param {string} modal_key string to identify the text to be placed in the pop-up.
+ * @param {string} linkteacher the link created for the teacher application.
+ * @param {string} linkstudent the link created for the student application.
  */
 function openModal(modal_key, linkteacher="", linkstudent="") {
     const title_to_fill = document.querySelector('h2[id="mention-title"]');
@@ -301,6 +304,8 @@ function openModal(modal_key, linkteacher="", linkstudent="") {
 /**
  * @summary Close pop-up window.
  * 
+ * @param {event} e an event.
+ * @param {boolean} clickedOutside true if clicked outside the pop-up window.
  */
 function closeModal(e, clickedOutside) {
     if (clickedOutside) {
