@@ -378,7 +378,8 @@ ul.image-list li {
 
 ul.image-list li h5 {
     height           : 8.5%;
-    width            : 70%;
+    width            : fit-content;
+    margin           : 0 auto;
     padding          : 4.5% 15% 1.5%;
     align-items      : center;
     color            : var(--black);
