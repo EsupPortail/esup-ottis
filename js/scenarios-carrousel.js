@@ -235,7 +235,7 @@ function setupRedirections() {
     document.querySelector('[id="scenario-3-button"]').addEventListener('click', () => {
         let inputValue = document.querySelector('[id="scenario-3-input"]').value;
 
-        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYYNN&tab=4" + (inputValue) ? "/index.php?myconfig=ABYANACNYCNNNYYY&tab=4&link=" + inputValue : "");
+        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYYNN&tab=4&link=" + (inputValue));
     });
 
     document.querySelector('[id="scenario-4-button"]').addEventListener('click', () => {
