@@ -1,4 +1,4 @@
-# Evaluation conformité norme RGAA
+# Evaluation conformité norme RGAA 
 ## 1. Images 
 - [X] 1.1 Chaque image porteuse d’information a-t-elle une alternative textuelle ?
 - [X] 1.2 Chaque image de décoration est-elle correctement ignorée par les technologies d’assistance ?

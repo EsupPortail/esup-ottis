@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Empêche la mise en cache
     header('Pragma: no-cache');
     header('Expires: 0');
@@ -538,7 +538,7 @@ $insertCommande_stats->execute([
 							<input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) _('spanexternaltranscritionon').innerHTML='Yes !'; else _('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanexternaltranscritionon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="microsofttranscritionon">Microsoft transcription service ?</label>
 							<input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) _('spanmicrosofttranscritionon').innerHTML='Yes !'; else _('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanmicrosofttranscritionon">No.</span></li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing ! This functionnality imply a huge increase of the translation cost !"><label for="directMicrosoftTranslation">Enable the direct translation functionnality ?</label>
+						<li title="Do not change unless you know what you are doing ! This functionnality imply a huge increase of the translation cost !"><label for="directMicrosoftTranslation">Enable the direct translation functionnality ?</label>
 							<input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionon">No.</span></li>
 						<li title="Do not change unless you know what you are doing !"><label for="directMicrosoftTranslationBoth">Show both the direct transcription and its translation ?</label>
 							<input type="checkbox" id="directMicrosoftTranslationBoth" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionBothon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionBothon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionBothon">No.</span></li>
@@ -550,7 +550,7 @@ $insertCommande_stats->execute([
 							<br>
 							<textarea id="verbaltics" rows="3" cols="20"></textarea>
 							<li><span id="connectedusers"></span></li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+						<li title="Do not change unless you know what you are doing !">
 							<label for="whichtranslator">Translator choice</label>
 							<select id="whichtranslator">
 								<option value="" selected>Default</option>
@@ -560,7 +560,7 @@ $insertCommande_stats->execute([
 								<option value="GOOGLE">Google Translate API</option>
 							</select>
 						</li>
-						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+						<li title="Do not change unless you know what you are doing !">
 						<label for="apikey">API key (for DeepL or Google)</label>
 						<input type="text" id="apikey" value="">
 						</li>

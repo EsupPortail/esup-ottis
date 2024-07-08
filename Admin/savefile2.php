@@ -21,7 +21,7 @@ $data = json_decode(trim(file_get_contents("php://input")),true);
 
 $filename=$data["filename"];
 
-$Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt","../tables/comments.txt"];
+$Authorized_files=["../tables/tokens.json","../tables/authorizedStudents.txt","../tables/listAdminID.txt","../tables/test.txt","../tables/.htpasswd","../tables/mymdp.txt"];
 if (in_array($filename, $Authorized_files)) {
 /*    $res="";
     $fd=fopen($filename,"r");

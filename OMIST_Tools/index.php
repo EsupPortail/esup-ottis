@@ -42,13 +42,18 @@ include("../config.php");
 include("configOT.php");
 
 $res=array();
-if ($WhichTranslator == "DEEPLFREE") {
+if ($DEEPLAPIFREETOKEN != "") {
   exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPIFREETOKEN,$res);
+  $Stats_DEEPL = json_decode($res[0],true);
 } else {
-  exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+  if ($DEEPLAPITOKEN != "") {
+    exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+    $Stats_DEEPL = json_decode($res[0],true);
+  } else {
+    $Stats_DEEPL=array();
+  }
 }
 
-$Stats_DEEPL = json_decode($res[0],true);
 if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 } else $percentage_DEEPL = 0;
@@ -578,7 +583,7 @@ body {
     <option value="175">
     <option value="200">
   </datalist>
-  <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de DeepL = <?php echo "$percentage_DEEPL"; ?>%</div>
+  <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de <?php echo "$WhichTranslator = $percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
     <li style="background-color: #000; color: white"><img src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>

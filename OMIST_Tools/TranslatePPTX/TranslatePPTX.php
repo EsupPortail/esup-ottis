@@ -12,7 +12,7 @@ if (isset($argc)) {
         $SlideNotes = "";
     }
 
-    $command = 'bash '.dirname(__FILE__).'/TranslatePPTX.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$SlideNotes.'  >/dev/null 2>/dev/null';
+    $command = 'bash '.dirname(__FILE__).'/TranslatePPTX.sh '.$randompath.' "'.$filename.'" "'.$From.'" "'.$To.'" '.$SlideNotes.'';//'  >/dev/null 2>/dev/null';
     system($command);
 }
 

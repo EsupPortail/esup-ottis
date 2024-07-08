@@ -1,4 +1,4 @@
-<?php 
+<?php  
 include("Security/referer.php");
 $external=true;
 $roomid="unknown";
