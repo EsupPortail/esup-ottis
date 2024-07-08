@@ -40,6 +40,32 @@ months_in_order = ['January','February','March','April','May','June','July','Aug
 # mycursor.execute("UPDATE translatelog SET percentage_char = 100*characters/char_max;")
 # mydb.commit()
 
+def month_number(value):
+    if value == 'January':
+        return 1
+    elif value == 'February':
+        return 2
+    elif value == 'March':
+        return 3
+    elif value == 'April':
+        return 4
+    elif value == 'May':
+        return 5
+    elif value == 'June':
+        return 6
+    elif value == 'July':
+        return 7
+    elif value == 'August':
+        return 8
+    elif value == 'September':
+        return 9
+    elif value == 'October':
+        return 10
+    elif value == 'November':
+        return 11
+    elif value == 'December':
+        return 12
+
 mycursor = mydb.cursor()
 mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
 mydb.commit()
@@ -171,14 +197,16 @@ first_use_df = first_use_df.groupby(['Month','Year', 'Origin'])['user_id'].agg('
 first_use_df = first_use_df.rename(columns={"user_id": "New users"})
 first_use_df.Month = pd.Categorical(first_use_df.Month,categories=months_in_order,ordered=True)
 first_use_df = first_use_df.sort_values('Month')
+first_use_df['Month_number']= first_use_df['Month'].map(month_number)
+first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
 
 fig = go.Figure()
-for year, group in first_use_df.groupby("Origin"):
+for origin, group in first_use_df.groupby("Origin"):
     fig.add_trace(go.Bar(
-       x=group["Month"], 
+       x=group["Date"], 
        y=group["New users"], 
-       name=year,
-       hovertemplate="Year = %s<br>Month = %%{x}<br>New users = %%{y}<extra></extra>"% year, 
+       name=origin,
+       hovertemplate="Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
       )
     )
 
@@ -191,6 +219,7 @@ fig.update_layout(
     },
   xaxis_title="Month",
   yaxis_title="Number of new users",
+  barmode='stack',
   height=450,
   font=dict(
       family="Source sans pro",
