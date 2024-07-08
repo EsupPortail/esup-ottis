@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # Ajout JB (pour être sûr)
-SCRIPT_DIR=/var/www/html/AutomaticTranslator-test/OMIST_Tools
+SCRIPT_DIR=/var/www/html/AutomaticTranslator/OMIST_Tools
 source $SCRIPT_DIR/config_sh
 
 RANDOMPATH=$1
