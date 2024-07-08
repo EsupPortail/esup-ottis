@@ -40,13 +40,6 @@ months_in_order = ['January','February','March','April','May','June','July','Aug
 # mycursor.execute("UPDATE translatelog SET percentage_char = 100*characters/char_max;")
 # mydb.commit()
 
-table_tot = []
-mycursor.execute("SELECT * FROM statslog;")
-for x in mycursor:
-  table_tot.append(x)
-table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude"))
-table_tot_df.to_csv('table_tot.csv')  
-
 #################################### Number uses per month ####################################
 
 nb_uses = []
@@ -712,4 +705,11 @@ fig = px.scatter_geo(coordinates_df,
 
 fig.write_html("uses/map_ipaddress.html")
 
-coordinates_df.to_csv('users/map_ipaddress_tab.csv') 
+coordinates_df.to_csv('users/map_ipaddress_tab.csv')
+
+table_tot = []
+mycursor.execute("SELECT * FROM statslog;")
+for x in mycursor:
+  table_tot.append(x)
+table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude"))
+table_tot_df.to_csv('table_tot.csv')  
