@@ -47,17 +47,30 @@ Pour moi.
 
 ## Partie dédiée à l'outil principal
 - [X] Mettre le fullscreen en icône (c'est une image pour le moment)
-- [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester pour mettre la transcription en instantané.)**_
+- [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
+    - [X] Mettre en forme quand on utilise la traduction live (cf feuille de style)
+    - [ ] Police des sous-titres qui réduit quand il n'y a plus de place ?
 - [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
+- [ ] Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)
+- [ ] la navigation au clavier ne fonctionne pas très bien. Ex : on peut naviguer dans le menu avec les flèches sauf quand on arrive dans l’onglet „Slides“ car les flèches servent ici à passer les slides. Il y a aussi des problèmes avec la navigation par tabulation. Imaginer de ne plus du tout naviguer avec les flèches dans le menu principal (et réserver les flèches pour faire passer les slides), utiliser la tabulation pour voyager dans toute l’application et avoir un ordre cohérent et ajouter quelques raccourcis (il y en a déjà dans l’application étudiante, par exemple la touche [s] amène directement vers les slides) ?
+
+## Partie dédiée à l'outil étudiant
+- [ ] Voice speed : indiquer des valeurs et celle par défaut
+
 
 ## Partie dédiée aux OMIST Tools
 - [X] Changer l'ordre de "convert pdf" et "convert pptx" pour avoir le même que pour la création d'animation
 - [X] Dans AppTemplate.txt, mettre les images play/fullscreen/stop/pause au format SVG et harmoniser les couleurs : télécharger une image svg, l'ouvrir avec l'éditeur de texte pour récupérer le code, insérer le code dans le HTML avec des balises svg
-- [ ] Revoir l'interface de l'animation dans AppTemplate.txt
+- [X] Revoir l'interface de l'animation dans AppTemplate.txt
 - [X] ~~Quand on convertit on un pptx en animation -> décalage des images (à tester si ça fait pareil quand c'est un pdf)~~ _**(UPDATE : lié à LibreOffice, préférable de passer par un PDF avant si on éviter un potentiel décalage.)**_
 - [ ] BUG : quand on ouvre une animation avec "click here" et pas les téléchagements : on ne peut pas faire pause, les animations défilent
+- [ ] Faire une application qui permet, à partir d'une vidéo, d'en extraire le discours, de le traduire, de le faire lire par une voix de synthèse et de remettre le discours traduit dans la vidéo.
+    - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
+- [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
+- [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier ?
+- [ ] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999 sinon -> 99.999
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
@@ -98,5 +111,22 @@ Pour moi.
     - OMIST_Tools/ConvertPDF/PDF_TXT_to_PPTX.py
 
 - [ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
+
+## Partie dédiée à la page Admin
+- [ ] quoi mettre dedans ?
+- [ ] quels niveaux privilèges différents ?
+- [ ] comment faire l'authentification externe ? Intégrer dans la page admin la génération de mdp pour htaccess, ou utiliser une autre méthode ?
+
+## Partie dédiée à la télécommande
+- [ ] revoir l'appli
+
+## Partie dédiée Libretranslate
+- [ ] installer en local
+- [ ] tester et voir si faisable
+- [ ] si faisable : voir avec la DSIN s'ils peuvent fournir un serveur qui hébergerait
+
+## Partie dédiée à la mesure de l'utilisation de l'outil
+- [ ] objectif : avoir le nombre d'utilisateurs, leur utilisation, l'utilisation des quotas de traduction (éventuellement par système voire clé utilisée) pour avoir un „modèle économique“, avec une interface de visualisation (avec des courbes qu’on peut directement copier dans des rapports)
+    - [ ] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
 
 

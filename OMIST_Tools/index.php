@@ -59,7 +59,7 @@ if (isset($Stats_DEEPL["character_count"])) {
 } else $percentage_DEEPL = 0;
 
 
-$theme="flat";
+$theme="flat_black";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 ?>
@@ -384,6 +384,8 @@ function SubmitJob(num,apptype) {
         _("App"+num).innerHTML = "Create";
         downloadFile("tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value);
         _("Message"+num).innerHTML="Your file has just been created, you can download it <a href=\""+"tmp/output_"+_("Random"+num).value+"."+_("Extension"+num).value+"\">here</a>."
+        //var requestLog = new XMLHttpRequest();
+        //echo "requestLog.open(\"POST\", \"TranslateLogs.php\");\n"
       } else {
         if (rep == "-1") {
           _("Message"+num).innerHTML="Your file will arrive soon."
@@ -584,6 +586,7 @@ body {
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de <?php echo "$WhichTranslator = $percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
+    <li style="background-color: #000; color: white"><img src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
     <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-cogs"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
     <li title="These tools allow to create and edit HTML animations"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Animations only</span></a></li>
     <li title="These tools allow to transcript a video file or an audio file"><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
@@ -600,6 +603,7 @@ body {
     <input type="file" name="fileToUpload" id="fileToUpload1" aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens">
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value="">
+    <input type="hidden" id="UserID1" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension1" name="Extension" value="html"></li>
     <!--<input id="App1" type="submit" value="Create" name="submit">-->
     <li><button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button></li>
@@ -620,6 +624,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload2"  aria-label="Select PDF file" title="Select a PDF file" accept=".pdf"  class="inputsmallscreens">
     <input type="hidden" id="ProgName2" name="ProgramName" value="CreateApp/CreateAppFromPDF.php"> 
     <input type="hidden" id="Random2" name="randompath" value="">
+    <input type="hidden" id="UserID2" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension2" name="Extension" value="html"></li>
     <li>
       <label for="fileToUploadTXT2">Select SPEECH file (.txt): </label>
@@ -672,6 +677,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   
   
     <input type="hidden" id="Random3" name="randompath" value="">
+    <input type="hidden" id="UserID3" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension3"  name="Extension" value="html">
     <!--<input id="App1" type="submit" value="Create" name="submit">-->
     <button id="App3" value="Create" onclick="if (_('fileToUpload3').value!='') {this.innerHTML=''; SubmitJob(3,'Create');} else {alert('You must provide a file and choose a delay first !');}" class="mybutton">Create</button>
@@ -688,6 +694,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" aria-label="Select SPEECH file (.txt):" title="Select SPEECH file (.txt):"  accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
     <input type="hidden" id="Random4" name="randompath" value="">
+    <input type="hidden" id="UserID4" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension4" name="Extension" value="html">
 
 
@@ -785,6 +792,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx"  aria-label="Select PPTX file" title="Select a PPTX file"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName5" name="ProgramName" value="TranslatePPTX/TranslatePPTX.php">
     <input type="hidden" id="Random5" name="randompath" value="">
+    <input type="hidden" id="UserID5" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension5" name="Extension" value="zip">
     
     <label for="inputlanguage3">Input language : </label>
@@ -824,13 +832,14 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool6">
-  <h3 title="This tool allows to translate subtitle files. It can handle both SRT and VTT files.">Translate subtitles SRT file</h3>
+  <h3 title="This tool allows to translate subtitle files. It can handle both SRT and VTT files.">Translate subtitles SRT or VTT file</h3>
   <div>
   <form id="Form6" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
-  <label for="fileToUpload6">Select SRT file : </label>
-    <input type="file" name="fileToUpload" id="fileToUpload6"  aria-label="Select SRT file" title="Select a SRT file" accept=".srt,.vtt" class="inputsmallscreens"><br>
+  <label for="fileToUpload6">Select SRT or VTT file : </label>
+    <input type="file" name="fileToUpload" id="fileToUpload6"  aria-label="Select SRT file" title="Select a SRT or VTT file" accept=".srt,.vtt" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName6" name="ProgramName" value="TranslateSRT/TranslateSRT.php">
     <input type="hidden" id="Random6" name="randompath" value="">
+    <input type="hidden" id="UserID6" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension6" name="Extension" value="zip">
 
     <label for="inputlanguage4">Input language : </label>
@@ -880,6 +889,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" aria-label="Select SPEECH file (.txt)" title="Select SPEECH file (.txt)" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="hidden" id="Random8" name="randompath" value="">
+    <input type="hidden" id="UserID8" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension8" name="Extension" value="zip">
     <button id="App8" value="Create" onclick="if (_('fileToUpload8').value!='') {this.innerHTML=''; SubmitJob(8,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message8"></p>
@@ -894,6 +904,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" aria-label="Select SPEECH file (.txt)" title="Select SPEECH file (.txt)" accept=".txt"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
     <input type="hidden" id="Random7" name="randompath" value="">
+    <input type="hidden" id="UserID7" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension7" name="Extension" value="zip">
     <button id="App7" value="Create" onclick="if (_('fileToUpload7').value!='') {this.innerHTML=''; SubmitJob(7,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message7"></p>
@@ -908,6 +919,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload9" accept=".pptx"  aria-label="Select PPTX file" title="Select a PPTX file" class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName9" name="ProgramName" value="ExtractSpeech/ExtractSpeechFromPPTX.php">
     <input type="hidden" id="Random9" name="randompath" value="">
+    <input type="hidden" id="UserID9" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension9" name="Extension" value="txt">
     <button id="App9" value="Create" onclick="if (_('fileToUpload9').value!='') {this.innerHTML=''; SubmitJob(9,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message9"></p>
@@ -922,6 +934,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload10" aria-label="Select XLF file" title="Select a XLF file" accept=".xlf"  class="inputsmallscreens"><br>
     <input type="hidden" id="ProgName10" name="ProgramName" value="TranslateXLIFF/TranslateXLIFF.php">
     <input type="hidden" id="Random10" name="randompath" value="">
+    <input type="hidden" id="UserID10" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension10" name="Extension" value="zip">
 
     <label for="inputlanguage5">Input language : </label>
@@ -941,6 +954,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload11" aria-label="Select ZIP file" title="Select a ZIP file" accept=".zip"><br>
     <input type="hidden" id="ProgName11" name="ProgramName" value="TranslateSCORM/TranslateSCORM.php">
     <input type="hidden" id="Random11" name="randompath" value="">
+    <input type="hidden" id="UserID11" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension11" name="Extension" value="zip">
     
     <label for="inputlanguage6">Input language : </label>
@@ -981,6 +995,7 @@ It's important to note that the resulting animation can serve as comprehensive i
     <input type="file" name="fileToUpload" id="fileToUpload13" aria-label="Select SRT file" title="Select a SRT file" accept=".srt"><br>
     <input type="hidden" id="ProgName13" name="ProgramName" value="SRTtoMP3/CreateMP3fromSRT.php">
     <input type="hidden" id="Random13" name="randompath" value="">
+    <input type="hidden" id="UserID13" name="userid" value=<?php $uid ?> >
     <input type="hidden" id="Extension13" name="Extension" value="mp3">
     <label for="inputlanguage13" >Select your voice</label>
     <select id="inputlanguage13" name="inputlanguage">

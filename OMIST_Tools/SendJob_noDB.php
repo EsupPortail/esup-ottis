@@ -147,6 +147,47 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     fclose($fd);
     
     echo 'Your request will be processed soon...';
+
+    //Get IP adress
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    	//ip from share internet
+    	$ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    	//ip pass from proxy
+    	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+    	$ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    //Connexion avec la base de données pour les statistiques
+    $date_raw = gmdate("Y-m-d\TH:i:s\Z");
+    $date_complete = gmdate("Y-m-d");
+    $date_day = gmdate("d");
+    $date_month = gmdate("F");
+    $date_year = gmdate("Y");
+    $user_id = $_POST['userid'];
+    $room_id = $_POST['randompath'];
+    $tool = $_POST['ProgramName'];
+    $origin = dirname(__FILE__);
+    $ip_address = $ip;
+
+    $json_stats=json_encode([
+        'date_raw' => $date_raw, 
+        'date_complete' => $date_complete, 
+        'date_day' => $date_day,
+        'date_month' => $date_month, 
+        'date_year' => $date_year, 
+        'user_id' => $user_id, 
+        'room_id' => $room_id, 
+        'tool' => $tool, 
+        'origin' => $origin, 
+        'ip_address' => $ip_address 
+    ]);
+
+    $fd_stats=fopen("fakeDB/db_stats.json","a");
+    fputs($fd_stats,$json_stats."|||\n");
+    fclose($fd_stats);
+
  }
 
 else{

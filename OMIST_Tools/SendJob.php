@@ -1,5 +1,6 @@
 <?php
 include(dirname(__FILE__)."/config_database.php");
+include("../Admin/Stats/config_database_stats.php");
 
 if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
@@ -148,6 +149,52 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     
     // $pdo = null;
     echo 'Your request will be processed soon...';
+
+    //Get IP adress
+    if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    	//ip from share internet
+    	$ip = $_SERVER['HTTP_CLIENT_IP'];
+    }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    	//ip pass from proxy
+    	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    }else{
+    	$ip = $_SERVER['REMOTE_ADDR'];
+    }
+
+    //Connexion avec la base de données pour les statistiques
+    try{
+        $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
+    }catch(PDOException $err){
+        echo "Database connection problem: " . $err->getMessage();
+    }
+
+    $date_raw = gmdate("Y-m-d\TH:i:s\Z");
+    $date_complete = gmdate("Y-m-d");
+    $date_day = gmdate("d");
+    $date_month = gmdate("F");
+    $date_year = gmdate("Y");
+    $user_id = $_POST['userid'];
+    $room_id = $_POST['randompath'];
+    $tool = $_POST['ProgramName'];
+    $origin = dirname(__FILE__);
+    $ip_address = $ip;
+
+    $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :ip_address)';
+    $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
+
+    $insertCommande_stats->execute([
+        'date_raw' => $date_raw, 
+        'date_complete' => $date_complete, 
+        'date_day' => $date_day,
+        'date_month' => $date_month, 
+        'date_year' => $date_year, 
+        'user_id' => $user_id, 
+        'room_id' => $room_id, 
+        'tool' => $tool, 
+        'origin' => $origin,
+        'ip_address' => $ip_address
+    ]);
+
  }
 
 else{

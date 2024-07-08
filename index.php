@@ -10,6 +10,7 @@
 
 include("Security/Authentification.php");
 include("config.php");
+include("Admin/Stats/config_database_stats.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
@@ -62,7 +63,7 @@ if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
 if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
 $Microsofton=(($userprivileges<2)||($MicrosoftKey !=""));
 
-$theme="flat";
+$theme="flat_black";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 $T_lang=array();
@@ -79,6 +80,71 @@ fclose($fd);
 $fd = fopen("tmp/StatsLogs.txt","a");
 fwrite($fd,gmdate("Y-m-d\TH:i:s\Z")."|".$uid."|".$classroomid."\n");
 fclose($fd);
+
+//Get IP address
+if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+	//ip from share internet
+	$ip = $_SERVER['HTTP_CLIENT_IP'];
+}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+	//ip pass from proxy
+	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}else{
+	$ip = $_SERVER['REMOTE_ADDR'];
+}
+
+// get location from ip
+/*
+echo "<!--\n";
+$aContext = array(
+    'http' => array(
+        'proxy'           => 'http://cache.univ-nantes.fr:3128',
+        'request_fulluri' => true,
+    ),
+);
+$cxContext = stream_context_create($aContext);
+echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip, False, $cxContext)));
+echo "-->\n";
+*/
+
+//Connexion avec la base de données pour les statistiques
+try{
+    $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
+}catch(PDOException $err){
+    echo "Database connection problem: " . $err->getMessage();
+}
+
+$date_raw = gmdate("Y-m-d\TH:i:s\Z");
+$date_complete = gmdate("Y-m-d");
+$date_day = gmdate("d");
+$date_month = gmdate("F");
+$date_year = gmdate("Y");
+$user_id = $uid;
+$room_id = $classroomid;
+$tool = "teacher";
+$origin = dirname(__FILE__);
+$ip_address = $ip;
+if (isset($_GET["myconfig"])) {
+    $config_teacher = $_GET["myconfig"];
+  } else {
+    $config_teacher = "direct link";
+  }
+
+$requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address)';
+$insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
+
+$insertCommande_stats->execute([
+    'date_raw' => $date_raw, 
+    'date_complete' => $date_complete, 
+    'date_day' => $date_day,
+    'date_month' => $date_month, 
+    'date_year' => $date_year, 
+    'user_id' => $user_id, 
+    'room_id' => $room_id, 
+    'tool' => $tool, 
+    'origin' => $origin,
+    'config_teacher' => $config_teacher,
+    'ip_address' => $ip_address
+]);
 
 //print_r($T_lang);
 ?>
@@ -104,6 +170,12 @@ fclose($fd);
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
   <style>
+
+.bw {
+	color: white;
+	background-color: black;
+	content: '<i class="fa fa-low-vision fa-2x" aria-hidden="true"></i>';
+}
 .tabbed {}
 
 /* Spinner */
@@ -189,7 +261,7 @@ fclose($fd);
   if (isset($_GET["myconfig"])) {
     echo "var currentconfig='".$_GET["myconfig"]."';\n";
   } else {
-    echo "var currentconfig='AAYANKCNYCYNYYYY';\n";
+    echo "var currentconfig='AAYANKCNYCYNYYYYYN';\n";
   }
   echo "var MicrosoftKey='".$MicrosoftKey."';\n";
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
@@ -242,8 +314,9 @@ fclose($fd);
 	<div id="scrollbar"></div>
 	<form id="myform" onchange="updateConfig();">
   		<input type="submit" style="display: none;" value="Envoyer">
-		<div id="tabs">
-			<ul id="bar">
+		<div id="tabs" style="border: 0px;">
+			<ul id="bar" onmouseover="this.style.transform='scaleY(1)'" onmouseout="reduceToolbar()">
+  				<li style="background-color: #000; color: white"><img src="images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
 				<li class="tabbed" title="Settings tab (language configuration, appearance,...)"><a class="tabbed" href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
 				<li class="tabbed" title="Multilingual Tchat tab"><a class="tabbed" href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
 				<li class="tabbed" title="Speech transcription tab. From here, it is possible to export a transcription of the speech."><a class="tabbed" href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;"><i class="fa fa-cc"></i><!--<i class="fa fa-arrow-right"></i>-->
@@ -260,6 +333,7 @@ fclose($fd);
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab2"><a class="tabbed" href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab3"><a class="tabbed" href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab4"><a class="tabbed" href="#tabs-12" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 4</span></a></li>
+				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"></li>
 			</ul>
 			<div id="tabs-0">
 				<h3 class="tabbed">Language configuration</h3>
@@ -409,19 +483,19 @@ fclose($fd);
 							<button onclick="saveTextQ('[extratab1|'+_('extraurl1').value+']');">Send to students</button>
 						</li>
 						<li><label for="extraurl2">Extra tab 2 URL : </label>
-							<input type="text" id="extraurl2" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<input type="text" id="extraurl2" value="" placeholder="Copy your application url here" >&nbsp;
 							<label for="embedET2"> Show ?</label>
 							<input type="checkbox" id="embedET2" onclick="showET(this,2);" >&nbsp;<span class="yesno" id="spanembedET2">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab2|'+_('extraurl2').value+']');">Send to students</button>
 						</li>
 						<li><label for="extraurl3">Extra tab 3 URL : </label>
-							<input type="text" id="extraurl3" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<input type="text" id="extraurl3" value="" placeholder="Copy your application url here" >&nbsp;
 							<label for="embedET3"> Show ?</label>
 							<input type="checkbox" id="embedET3" onclick="showET(this,3);" >&nbsp;<span class="yesno" id="spanembedET3">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab3|'+_('extraurl3').value+']');">Send to students</button>
 						</li>
 						<li><label for="extraurl4">Extra tab 4 URL : </label>
-							<input type="text" id="extraurl4" value="" placeholder="Copy your application url here" >&nbsp; Show ?
+							<input type="text" id="extraurl4" value="" placeholder="Copy your application url here" >&nbsp;
 							<label for="embedET4"> Show ?</label>
 							<input type="checkbox" id="embedET4" onclick="showET(this,4);" >&nbsp;<span class="yesno" id="spanembedET4">No.</span>&nbsp;
 							<button onclick="saveTextQ('[extratab4|'+_('extraurl4').value+']');">Send to students</button>
@@ -480,7 +554,7 @@ fclose($fd);
 							<label for="whichtranslator">Translator choice</label>
 							<select id="whichtranslator">
 								<option value="" selected>Default</option>
-								<option value="DEEPL">DeepL Pro API</option>
+								<option value="DEEPLPRO">DeepL Pro API</option>
 								<option value="DEEPLFREE">DeepL Free API</option>
 								<option value="LIBRETRANSLATE">Libre Translate</option>
 								<option value="GOOGLE">Google Translate API</option>
@@ -689,6 +763,19 @@ for($i=0; $i<$nbcircles; $i++) {
 	<!--    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> -->
 	<script src="libs/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
 	<script src="js/teacher-ms.js"></script>
+	<!--
+	<script>
+  var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 
+  var hebergementFullPath = hebergementDomaine + '/AutomaticTranslator-test/libs/confortplus/serveur/';
+</script>
+<script src="libs/confortplus/serveur/js/toolbar.min.js"></script>
+<script>
+	accessibilitytoolbar_custom = {
+		idLinkModeContainer : "confortplus",
+		cssLinkModeClassName : "bw"
+	};
+</script>
+-->
 </body>
 
 </html>
