@@ -162,7 +162,7 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 #################################### Nb new users per month ####################################
 
 first_use = []
-mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
+mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
 for x in mycursor:
   first_use.append(x)
 first_use_df = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year", "Origin"))
