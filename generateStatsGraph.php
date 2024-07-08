@@ -19,8 +19,6 @@ if ($WhichTranslator == "DEEPLFREE") {
   exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN." 2>/dev/null",$res);
 }
 
-echo "Test Deepl count \n";
-print_r($res);
 
 $Stats_DEEPL = json_decode($res[0],true);
 if (isset($Stats_DEEPL["character_count"])) {
@@ -53,22 +51,6 @@ $insertCommande_stats->execute(array(
     ':characters' => $characters, 
     ':char_max' => $char_max
 ));
-
-try{
-  echo 'test1';
-  $sql = 'SELECT * FROM translatelog';
-  $insertCommande_sql = $pdo_stats->prepare($sql);
-  $insertCommande_sql->execute();
-  $recipes = $insertCommande_sql->fetchAll();
-  echo 'test2';
-  print_r($recipes);
-  foreach ($recipes as $recipe) {
-    echo 'test3';
-    echo $recipe;
-  }
-} catch(Exception $e){
-	print_r($e);
-}
 
 $command = 'bash '.dirname(__FILE__).'/Admin/Stats/generateStatsGraph.sh';// >/dev/null 2>/dev/null';
 system($command);
