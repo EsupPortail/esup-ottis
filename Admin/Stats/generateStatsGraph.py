@@ -41,7 +41,7 @@ months_in_order = ['January','February','March','April','May','June','July','Aug
 # mydb.commit()
 
 mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master';")
+mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
 mydb.commit()
 
 #################################### Number uses per month ####################################
