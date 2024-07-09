@@ -1008,7 +1008,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 </div>
 
 <div id="tool12">
-  <h3 id="tabledesc" title="This tool allows to modify a HTML animation created by our tools.">TEST Edit Animation</h3>
+  <h3 id="tabledesc" title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
   <div id="block12" class="styleEditAnim" translate="no">
     <form id="Form12" class="styleEditAnim" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
