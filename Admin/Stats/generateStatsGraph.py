@@ -111,10 +111,10 @@ for ind in nb_uses_graph.index:
 nb_uses_graph = nb_uses_graph.drop(columns = ['Origin'])
 nb_uses_graph['Month_number']= nb_uses_graph['Month'].map(month_number)
 nb_uses_graph['Date'] = pd.to_datetime(dict(year=nb_uses_graph['Year'], month=nb_uses_graph['Month_number'], day=1))
-nb_uses_graph = nb_uses_graph.groupby(['Date', 'Origin global'])['Number of users'].sum().reset_index()
+nb_uses_graph = nb_uses_graph.groupby(['Date', 'Origin global'])['Number of uses'].sum().reset_index()
 
 fig = go.Figure()
-for origin, group in nb_uses_graph.groupby("Origin"):
+for origin, group in nb_uses_graph.groupby("Origin global"):
     fig.add_trace(go.Bar(
       x=group["Date"], 
       y=group["Number of uses"], 
