@@ -191,24 +191,30 @@ first_use = []
 mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
 for x in mycursor:
   first_use.append(x)
-first_use_df = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year", "Origin"))
+first_use_raw = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year", "Origin"))
 
-first_use_df = first_use_df.groupby(['Month','Year', 'Origin'])['user_id'].agg('count').reset_index()
+first_use_df = first_use_raw.groupby(['Month','Year', 'Origin'])['user_id'].agg('count').reset_index()
 first_use_df = first_use_df.rename(columns={"user_id": "New users"})
-first_use_df['Origin global'] = first_use_df['Origin']
-for ind in first_use_df.index:
-  if "/OMIST_Tools" in first_use_df['Origin'][ind] : 
-    first_use_df['Origin global'][ind] = first_use_df['Origin'][ind][:-12]
-first_use_df.Month = pd.Categorical(first_use_df.Month,categories=months_in_order,ordered=True)
-first_use_df = first_use_df.sort_values('Month')
+
+first_use_graph = first_use_raw
+first_use_graph['Origin global'] = first_use_graph['Origin']
+for ind in first_use_graph.index:
+  if "/OMIST_Tools" in first_use_graph['Origin'][ind] : 
+    first_use_graph.loc[ind, 'Origin global'] = first_use_graph['Origin'][ind][:-12]
+# first_use_df.Month = pd.Categorical(first_use_df.Month,categories=months_in_order,ordered=True)
+# first_use_df = first_use_df.sort_values('Month')
+first_use_graph = first_use_graph.drop(columns = ['Origin'])
+first_use_graph = first_use_graph.groupby(['Month','Year', 'Origin global'])['user_id'].agg('count').reset_index()
+first_use_graph = first_use_graph.rename(columns={"user_id": "New users origin"})
 first_use_df['Month_number']= first_use_df['Month'].map(month_number)
 first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
 
+
 fig = go.Figure()
-for origin, group in first_use_df.groupby("Origin global"):
+for origin, group in first_use_graph.groupby("Origin global"):
     fig.add_trace(go.Bar(
        x=group["Date"], 
-       y=group["New users"], 
+       y=group["New users origin"], 
        name=origin,
        hovertemplate="Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
       )
