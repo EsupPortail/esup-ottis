@@ -146,21 +146,33 @@ nb_uses_df.to_csv('uses/uses_per_months_tab.csv')
 #################################### Nb users per month ####################################
 
 nb_users = []
-mycursor.execute("SELECT COUNT(DISTINCT user_id), date_month, date_year FROM statslog GROUP BY date_month, date_year;")
+mycursor.execute("SELECT COUNT(DISTINCT user_id), date_month, date_year, origin FROM statslog GROUP BY date_month, date_year, origin;")
 for x in mycursor:
   nb_users.append(x)
-nb_users_df = pd.DataFrame(data=nb_users, columns=("Number of users", "Month", "Year"))
+nb_users_raw = pd.DataFrame(data=nb_users, columns=("Number of users", "Month", "Year", "Origin"))
 
+nb_users_df = nb_users_raw
 nb_users_df.Month = pd.Categorical(nb_users_df.Month,categories=months_in_order,ordered=True)
 nb_users_df = nb_users_df.sort_values('Month')
+nb_users_df = nb_users_df.sort_values('Year')
+
+nb_users_graph = nb_users_raw
+nb_users_graph['Origin global'] = nb_users_graph['Origin']
+for ind in nb_users_graph.index:
+  if "/OMIST_Tools" in nb_users_graph['Origin'][ind] : 
+    nb_users_graph.loc[ind, 'Origin global'] = nb_users_graph['Origin'][ind][:-12]
+nb_users_graph = nb_users_graph.drop(columns = ['Origin'])
+nb_users_graph['Month_number']= nb_users_graph['Month'].map(month_number)
+nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=nb_users_graph['Month_number'], day=1))
+nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global'])['Number of users'].sum().reset_index()
 
 fig = go.Figure()
-for year, group in nb_users_df.groupby("Year"):
-    fig.add_trace(go.Scatter(
-       x=group["Month"], 
+for origin, group in nb_users_graph.groupby("Year"):
+    fig.add_trace(go.Bar(
+       x=group["Date"], 
        y=group["Number of users"], 
        name=year,
-       hovertemplate="Year = %s<br>Month = %%{x}<br>Number of users = %%{y}<extra></extra>"% year
+       hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
       )
     )
 
@@ -173,6 +185,7 @@ fig.update_layout(
     },
   xaxis_title="Month",
   yaxis_title="Number of users",
+  barmode='stack',
   height=450,
   font=dict(
       family="Source sans pro",
