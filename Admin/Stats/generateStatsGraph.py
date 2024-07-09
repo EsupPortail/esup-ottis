@@ -206,8 +206,8 @@ for ind in first_use_graph.index:
 first_use_graph = first_use_graph.drop(columns = ['Origin'])
 first_use_graph = first_use_graph.groupby(['Month','Year', 'Origin global'])['user_id'].agg('count').reset_index()
 first_use_graph = first_use_graph.rename(columns={"user_id": "New users origin"})
-first_use_df['Month_number']= first_use_df['Month'].map(month_number)
-first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
+first_use_graph['Month_number']= first_use_graph['Month'].map(month_number)
+first_use_graph['Date'] = pd.to_datetime(dict(year=first_use_graph['Year'], month=first_use_graph['Month_number'], day=1))
 
 
 fig = go.Figure()
