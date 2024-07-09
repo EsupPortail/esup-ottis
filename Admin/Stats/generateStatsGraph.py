@@ -93,29 +93,33 @@ mydb.commit()
 #################################### Number uses per month ####################################
 
 nb_uses = []
-mycursor.execute("SELECT date_year, date_month, COUNT(id) FROM statslog GROUP BY date_month, date_year;")
+mycursor.execute("SELECT date_year, date_month, origin, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin;")
 for x in mycursor:
   nb_uses.append(x)
-nb_uses_df = pd.DataFrame(data=nb_uses, columns=("Year","Month","Number of uses"))
+nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Year","Month","Origin", "Number of uses"))
 
+nb_uses_df = nb_uses_raw
 nb_uses_df.Month = pd.Categorical(nb_uses_df.Month,categories=months_in_order,ordered=True)
 nb_uses_df = nb_uses_df.sort_values('Month')
 nb_uses_df = nb_uses_df.sort_values('Year')
-# print(nb_uses_df)
-# nb_uses_html = nb_uses_df.to_html(classes='table table-stripped')
- 
-# # write html to file
-# text_file = open("uses/uses_per_months_tab.html", "w")
-# text_file.write(nb_uses_html)
-# text_file.close()
+
+nb_uses_graph = nb_uses_raw
+nb_uses_graph['Origin global'] = nb_uses_graph['Origin']
+for ind in nb_uses_graph.index:
+  if "/OMIST_Tools" in nb_uses_graph['Origin'][ind] : 
+    nb_uses_graph.loc[ind, 'Origin global'] = nb_uses_graph['Origin'][ind][:-12]
+nb_uses_graph = nb_uses_graph.drop(columns = ['Origin'])
+nb_uses_graph['Month_number']= nb_uses_graph['Month'].map(month_number)
+nb_uses_graph['Date'] = pd.to_datetime(dict(year=nb_uses_graph['Year'], month=nb_uses_graph['Month_number'], day=1))
+nb_uses_graph = nb_uses_graph.groupby(['Date', 'Origin global'])['Number of users'].sum().reset_index()
 
 fig = go.Figure()
-for year, group in nb_uses_df.groupby("Year"):
-    fig.add_trace(go.Scatter(
-      x=group["Month"], 
+for origin, group in nb_uses_graph.groupby("Origin"):
+    fig.add_trace(go.Bar(
+      x=group["Date"], 
       y=group["Number of uses"], 
-      name=year,
-      hovertemplate="Year = %s<br>Month = %%{x}<br>Number of uses = %%{y}<extra></extra>"% year
+      name=origin,
+      hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of uses = %%{y}<extra></extra>"% origin
       )
     )
 
@@ -128,6 +132,7 @@ fig.update_layout(
     },
   xaxis_title="Month",
   yaxis_title="Number of uses",
+  barmode='stack',
   height=450,
   font=dict(
       family="Source sans pro",
