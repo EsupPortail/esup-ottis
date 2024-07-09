@@ -261,7 +261,7 @@ $insertCommande_stats->execute([
   if (isset($_GET["myconfig"])) {
     echo "var currentconfig='".$_GET["myconfig"]."';\n";
   } else {
-    echo "var currentconfig='AAYANKCNYCNNYYYYYN';\n";
+    echo "var currentconfig='AANAYKCNYCNNYYYYYN';\n";
   }
   echo "var MicrosoftKey='".$MicrosoftKey."';\n";
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
@@ -382,7 +382,7 @@ $insertCommande_stats->execute([
 							</select>
 						</li>
 						<li><label for="arrowson">Show arrows around subtitles ?</label>
-							<input type="checkbox" checked id="arrowson" onclick="if (this.checked) {_('spanarrowson').innerHTML='Yes !';_('titreleft').style.visibility='visible'; _('titrerightbis').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spanarrowson').innerHTML='No.'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanarrowson">Yes !</span></li>
+							<input type="checkbox" id="arrowson" onclick="if (this.checked) {_('spanarrowson').innerHTML='Yes !';_('titreleft').style.visibility='visible'; _('titrerightbis').style.visibility='visible'; _('titreright').style.visibility='visible'; } else {_('spanarrowson').innerHTML='No.'; _('titreleft').style.visibility='hidden'; _('titrerightbis').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanarrowson">Yes !</span></li>
 						<li><label for="subtitlepartialon">Show instant transcription ?</label>
 							<input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {_('spansubtitlepartialon').innerHTML='Yes !'; _('partialtitre').style.visibility='visible'; } else {_('spansubtitlepartialon').innerHTML='No.'; _('partialtitre').style.visibility='hidden'; }" >&nbsp;<span class="yesno" id="spansubtitlepartialon">No.</span>&nbsp; 
 							<label for="ColorPartialTitre">Color :</label>
