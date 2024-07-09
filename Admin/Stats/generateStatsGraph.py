@@ -171,7 +171,7 @@ for origin, group in nb_users_graph.groupby("Origin global"):
     fig.add_trace(go.Bar(
        x=group["Date"], 
        y=group["Number of users"], 
-       name=year,
+       name=origin,
        hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
       )
     )
