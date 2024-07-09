@@ -262,7 +262,6 @@ $insertCommande_stats->execute([
     echo "var currentconfig='".$_GET["myconfig"]."';\n";
   } else {
     echo "var currentconfig='AAYANKCNYCNNYYYYYN';\n";
-							 AANAYKCNYCNNYYYYYN
   }
   echo "var MicrosoftKey='".$MicrosoftKey."';\n";
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
