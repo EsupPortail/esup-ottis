@@ -167,7 +167,7 @@ nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=
 nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global'])['Number of users'].sum().reset_index()
 
 fig = go.Figure()
-for origin, group in nb_users_graph.groupby("Year"):
+for origin, group in nb_users_graph.groupby("Origin global"):
     fig.add_trace(go.Bar(
        x=group["Date"], 
        y=group["Number of users"], 
