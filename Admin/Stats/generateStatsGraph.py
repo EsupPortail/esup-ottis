@@ -376,6 +376,10 @@ mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='tea
 for x in mycursor:
   config_used.append(x)
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
+indexNull = config_used_df[(config_used_df['Configuration'] == 'null')].index
+config_used_df.drop(indexAge, inplace=True)
+indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & len(config_used_df['Configuration'] < 18)].index
+config_used_df.drop(indexAge, inplace=True)
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
@@ -400,7 +404,7 @@ fig.update_layout(
       'size':30, 
       'color':'black'}
     },
-  width=700, 
+  # width=700, 
   font=dict(
       family="Source sans pro",
       size=18,
