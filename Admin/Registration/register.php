@@ -27,11 +27,11 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
              <p>Cliquez ici pour vous <a href='login.php'>connecter</a></p>
        </div>";
       $mess="Compte à activer : ".$username.", ".$email."\n";
-      mail("[OMIST ACCOUNT] ".$username, "bourdon-j@univ-nantes.fr",$mess);
+      mail("bourdon-j@univ-nantes.fr", "[OMIST ACCOUNT] ".$username, $mess);
 
       $mess="Bonjour ".$username.",\n\n Votre demande de création de compte a été transmise au gestionnaire.\n\nIl est maintenant en attente d'activation.\n\n Merci d'utiliser nos services.\n\nCordialement,\n\nJérémie Bourdon.";
       
-      mail("[OMIST ACCOUNT VALIDATION] ".$username, $email,$mess);
+      mail($email,"[OMIST ACCOUNT VALIDATION] ".$username, $mess);
       
     }
 }else{
