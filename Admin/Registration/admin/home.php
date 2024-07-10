@@ -28,24 +28,69 @@
 			xhr.send(data);
 		}
 	</script>
+	<style>
+	#userlist {
+		width: 100%;
+		background-color: white;
+		text-align: center;
+	}
+
+	#userlist table {
+    	border-collapse: collapse;
+    	margin: 25px 0;
+    	font-size: 0.9em;
+    	font-family: sans-serif;
+    	min-width: 400px;
+    	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+	}
+	#userlist table thead tr {
+    	background-color: #009879;
+    	color: #ffffff;
+    	text-align: left;
+	}
+	#userlist table th,
+	#userlist table td {
+    	padding: 12px 15px;
+	}
+	#userlist table tbody tr {
+    	border-bottom: 1px solid #dddddd;
+	}
+
+	#userlist table tbody tr:nth-of-type(even) {
+    	background-color: #f3f3f3;
+	}
+
+	#userlist table tbody tr:last-of-type {
+    	border-bottom: 2px solid #009879;
+	}
+	#userlist table tbody tr:hover {
+    	font-weight: bold;
+    	color: #009879;
+	}
+
+
+	</style>
+
 	</head>
 	<body>
 		<div class="sucess">
 		<h1>Bienvenue <?php echo $_SESSION['username']; ?>!</h1>
-		<p>C'est votre espace admin.</p>
 		<a href="add_user.php">Add user</a> | 
-		<a href="#">Update user</a> | 
-		<a href="#">Delete user</a> | 
+		<!--<a href="#">Update user</a> | 
+		<a href="#">Delete user</a> | -->
 		<a href="../logout.php">Déconnexion</a>
 		</ul>
 		</div>
 
 
-<div style="width: 90%; background-color: white;"><h1>All users</h1>
-<table border="1" style="width: 90%; border: 1 solid; border-collapse: collapsed;">
+<div id="userlist" style="width: 90%; background-color: white;">
+<table>
+	<thead>
 	<tr>
 		<th>Id</th><th>username</th><th>email</th><th>type</th><th>active</th><th>Action</th>
 	</tr>
+</thead>
+<tbody>
 <?php
 include("../config.php");
 
@@ -64,6 +109,7 @@ while ($user=mysqli_fetch_assoc($result)) {
 	echo "<tr>".$res."</tr>\n";
 }
 ?>
+</tbody>
 </table>
 </div>
 	</body>
