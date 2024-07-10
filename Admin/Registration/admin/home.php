@@ -34,8 +34,9 @@ include("../config.php");
 
 $query = "SELECT * FROM `users`";
 $result = mysqli_query($conn,$query) or die(mysql_error());
-for ($i=0; $i<mysqli_num_rows($result); $i++) {
-	$user=mysqli_fetch_assoc($result);
+
+while ($user=mysqli_fetch_assoc($result)) {
+	print_r($user);
 	$res="<td>".$user["username"]."</td>";
 	$res="<td>".$user["email"]."</td>";
 	$res="<td>".$user["type"]."</td>";
