@@ -26,12 +26,42 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
              <h3>Cependant, votre compte doit encore être activé pour être utilisable.</h3>
              <p>Cliquez ici pour vous <a href='login.php'>connecter</a></p>
        </div>";
-      $mess="Compte à activer : ".$username.", ".$email."\n";
-      mail("bourdon-j@univ-nantes.fr", "[OMIST ACCOUNT] ".$username, $mess);
 
-      $mess="Bonjour ".$username.",\n\n Votre demande de création de compte a été transmise au gestionnaire.\n\nIl est maintenant en attente d'activation.\n\n Merci d'utiliser nos services.\n\nCordialement,\n\nJérémie Bourdon.";
+
+
+       
+       //$mail     = 'no-reply@'.str_replace('www.', '', $_SERVER['SERVER_NAME']);
+       $mail     = "omist-dev@univ-nantes.fr";
+       $uniqid   = md5(uniqid(time()));
+       $headers  = 'From: '.$mail."\n";
+       $headers .= 'Reply-to: '.$mail."\n";
+       $headers .= 'Return-Path: '.$mail."\n";
+       $headers .= 'Message-ID: <'.$uniqid.'@'.$_SERVER['SERVER_NAME'].">\n";
+       $headers .= 'MIME-Version: 1.0'."\n";
+       $headers .= 'Date: '.gmdate('D, d M Y H:i:s', time())."\n";
+       $headers .= 'X-Priority: 3'."\n";
+       $headers .= 'X-MSMail-Priority: Normal'."\n";
+       $headers .= 'Content-Type: multipart/mixed;boundary="----------'.$uniqid.'"'."\n";
+       $headers .= '------------'.$uniqid."\n";
+       $headers .= 'Content-type: text/'.$type.';charset='.$charset.''."\n";
+       $headers .= 'Content-transfer-encoding: 7bit';
+
+       $subject = "[OMIST ACCOUNT] ".$username;
+       $to = "bourdon-j@univ-nantes.fr";
+       $type = 'plain'; // or HTML
+       $charset = 'utf-8';
+       $message = "Compte à activer : ".$username.", ".$email."\n";
+
+       mail($to, $subject, $message, $headers);
+
+       $subject = "[OMIST ACCOUNT VALIDATION] ".$username;
+       $to = $email;
+       $type = 'plain'; // or HTML
+       $charset = 'utf-8';
+       $message = "Bonjour ".$username.",\n\n Votre demande de création de compte a été transmise au gestionnaire.\n\nIl est maintenant en attente d'activation.\n\n Merci d'utiliser nos services.\n\nCordialement,\n\nJérémie Bourdon.";
+
+       mail($to, $subject, $message, $headers);
       
-      mail($email,"[OMIST ACCOUNT VALIDATION] ".$username, $mess);
       
     }
 }else{
