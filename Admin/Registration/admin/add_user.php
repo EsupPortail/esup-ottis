@@ -34,7 +34,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['type'], $_REQUES
 }else{
 ?>
 <form class="box" action="" method="post">
-	<h1 class="box-logo box-title"><a href="https://waytolearnx.com/">WayToLearnX.com</a></h1>
+	<h1 class="box-logo box-title">OMIST Tools Add a user</h1>
     <h1 class="box-title">Add user</h1>
 	<input type="text" class="box-input" name="username" placeholder="Nom d'utilisateur" required />
     <input type="text" class="box-input" name="email" placeholder="Email" required />

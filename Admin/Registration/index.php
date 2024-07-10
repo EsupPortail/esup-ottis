@@ -6,5 +6,6 @@
 		header("Location: login.php");
 		exit(); 
 	}
-	include("../../index.php");
+	header("Location: ../../index.php");
+	exit();
 ?>
