@@ -78,10 +78,10 @@
 	<body>
 		<div class="sucess">
 		<h1>Bienvenue <?php echo $_SESSION['username']; ?>!</h1>
-		<a href="add_user.php">Add user</a> | 
+		<a href="add_user.php"><span class="material-symbols-outlined">person_add</span>Add user</a> | 
 		<!--<a href="#">Update user</a> | 
 		<a href="#">Delete user</a> | -->
-		<a href="../logout.php">Déconnexion</a>
+		<a href="../logout.php"><span class="material-symbols-outlined">logout</span>Déconnexion</a>
 		</ul>
 		</div>
 
@@ -106,12 +106,13 @@ while ($user=mysqli_fetch_assoc($result)) {
 	$res.="<td>".$user["id"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'username','".$user["username"]."')\">".$user["username"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'email','".$user["email"]."')\">".$user["email"]."</td>";
-	$res.="<td onclick=\"Edit(".$user["id"].",'type','".($user["type"]!="admin"?"user":"admin")."','".($user["type"]!="admin"?"admin":"user")."')\">".$user["type"]."</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'type','".($user["type"]!="admin"?"user":"admin")."','".($user["type"]!="admin"?"admin":"user")."')\">".($user["type"]!="admin"?"<span class=\"material-symbols-outlined\">manage_accounts</span>Admin":"<span class=\"material-symbols-outlined\">person</span>User")."</td>";
 //	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"NO":"YES")."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"<span style=\"color: red;\" class=\"material-symbols-outlined\">toggle_off</span>":"<span style=\"color: green;\" class=\"material-symbols-outlined\">toggle_on</span>")."</td>";
-	$res.="<td onclick=\"Edit(".$user["id"].",'DELETE','X','X')\">🗑</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'DELETE','X','X')\"><span class=\"material-symbols-outlined\">delete_forever</span></td>";
 	echo "<tr>".$res."</tr>\n";
 }
+
 ?>
 </tbody>
 </table>
