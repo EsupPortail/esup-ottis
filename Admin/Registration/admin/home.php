@@ -24,8 +24,8 @@
 		</div>
 
 
-<div><h1>All users</h1>
-<table>
+<div style="width: 90%; background-color: white;"><h1>All users</h1>
+<table style="width: 90%; border: 1 solid;">
 	<tr>
 		<th>Id</th><th>username</th><th>email</th><th>type</th><th>active</th>
 	</tr>
