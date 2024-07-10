@@ -25,7 +25,7 @@
 
 
 <div style="width: 90%; background-color: white;"><h1>All users</h1>
-<table style="width: 90%; border: 1 solid;">
+<table border="1" style="width: 90%; border: 1 solid; border-collapse: collapsed;">
 	<tr>
 		<th>Id</th><th>username</th><th>email</th><th>type</th><th>active</th>
 	</tr>
