@@ -27,7 +27,7 @@
 <div><h1>All users</h1>
 <table>
 	<tr>
-		<th>username</th><th>email</th><th>type</th><th>active</th>
+		<th>Id</th><th>username</th><th>email</th><th>type</th><th>active</th>
 	</tr>
 <?php
 include("../config.php");
@@ -36,11 +36,12 @@ $query = "SELECT * FROM `users`";
 $result = mysqli_query($conn,$query) or die(mysql_error());
 
 while ($user=mysqli_fetch_assoc($result)) {
-	print_r($user);
-	$res="<td>".$user["username"]."</td>";
-	$res="<td>".$user["email"]."</td>";
-	$res="<td>".$user["type"]."</td>";
-	$res="<td>".$user["active"]."</td>";
+//	print_r($user);
+	$res="";
+	$res.="<td>".$user["username"]."</td>";
+	$res.="<td>".$user["email"]."</td>";
+	$res.="<td>".$user["type"]."</td>";
+	$res.="<td>".$user["active"]."</td>";
 	echo "<tr>".$res."</tr>\n";
 }
 ?>
