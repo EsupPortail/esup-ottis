@@ -52,13 +52,13 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
 
         for($i=0;$i<count($new_file);$i++) {
             $line_body=$new_file[$i];
-            if (strpos("_".$line_body,"</body>")>0) {
-                $line_licence = $new_file[$i-1];
+            if (strpos("_".$line_body,"function myalert(msg)")>0) {
+                $line_licence = $new_file[$i-3];
                 if ($line_licence != ""){
                     $licence_to_replace = $line_licence;
                 }else{
-                    $licence_to_replace = $new_file[$i];
-                    $licence_to_insert = $licence_to_insert. "\n </body>";
+                    $licence_to_replace = $new_file[$i-2];
+                    $licence_to_insert = $licence_to_insert. "\n  <script>";
                 }
             }
         }
@@ -67,8 +67,8 @@ if (($_FILES["fileToUpload"]["tmp_name"] != "") && isset($_POST['newText']) && i
         $licence_to_insert = "";
         for($i=0;$i<count($new_file);$i++) {
             $line_body=$new_file[$i];
-            if (strpos("_".$line_body,"</body>")>0) {
-                $line_licence = $new_file[$i-1];
+            if (strpos("_".$line_body,"function myalert(msg)")>0) {
+                $line_licence = $new_file[$i-3];
                 if ($line_licence != ""){
                     $licence_to_replace = $line_licence;
                 }
