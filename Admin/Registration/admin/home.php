@@ -52,6 +52,7 @@
 	#userlist table th,
 	#userlist table td {
     	padding: 12px 15px;
+		text-align: left;
 	}
 	#userlist table tbody tr {
     	border-bottom: 1px solid #dddddd;
@@ -65,8 +66,7 @@
     	border-bottom: 2px solid #009879;
 	}
 	#userlist table tbody tr:hover {
-    	font-weight: bold;
-    	color: #009879;
+    	background-color: #e3e3e3;
 	}
 
 
