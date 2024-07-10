@@ -22,6 +22,7 @@ if (isset($_POST['username'])){
     $user = mysqli_fetch_assoc($result);
     // vérifier si l'utilisateur est un administrateur ou un utilisateur    
     if ($user['type'] == 'admin') {
+      $_SESSION['type']="admin";
       header('location: admin/home.php');      
     }else{
       if ($user['active']=='YES') {
