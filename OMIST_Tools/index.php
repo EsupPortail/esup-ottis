@@ -42,8 +42,8 @@ include("../config.php");
 include("configOT.php");
 
 $res=array();
-if ($DEEPLAPIFREETOKEN != "") {
-  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPIFREETOKEN,$res);
+if ($DEEPLFREEAPITOKEN != "") {
+  exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLFREEAPITOKEN,$res);
   $Stats_DEEPL = json_decode($res[0],true);
 } else {
   if ($DEEPLAPITOKEN != "") {
