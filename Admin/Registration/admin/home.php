@@ -14,7 +14,18 @@
 	<script>
 		function Edit(id,field,value,newval="") {
 			if (newval=="") newval=prompt("Edition de la valeur "+field+" pour l'utilisateur "+id,value);
-			alert("Mise à jour de "+id+"\n"+field+"="+newval);
+			var data = new FormData();
+			data.append('field', field);
+			data.append('value', newval);
+			data.append('id', id);
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST', 'setvalue.php', true);
+			xhr.onload = function () {
+			    alert("Mise à jour de "+id+"\n"+field+"="+newval);
+				window.reload();
+			};
+			xhr.send(data);
 		}
 	</script>
 	</head>
