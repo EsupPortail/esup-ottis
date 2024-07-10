@@ -330,7 +330,7 @@ tools_used_df['Tool used'] = tools_used_df['Tool']
 for ind in tools_used_df.index:
   if "/" in tools_used_df['Tool'][ind] : 
     position = tools_used_df['Tool'][ind].find('/')
-    tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:]
+    tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
 tools_used_df = tools_used_df.drop(columns = ['Tool'])
 
 tools_used_df = tools_used_df.sort_values('Origin')
@@ -357,7 +357,7 @@ fig.update_layout(
       'size':30, 
       'color':'black'}
     },
-  width=700, 
+  # width=700, 
   font=dict(
       family="Source sans pro",
       size=18,
