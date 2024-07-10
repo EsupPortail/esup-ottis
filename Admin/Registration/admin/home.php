@@ -11,6 +11,12 @@
 <html>
 	<head>
 	<link rel="stylesheet" href="../style.css" />
+	<script>
+		function Edit(id,field,value,newval="") {
+			if (newval=="") newval=prompt("Edition de la valeur "+field+" pour l'utilisateur "+id,value);
+			alert("Mise à jour de "+id+"\n"+field+"="+newval);
+		}
+	</script>
 	</head>
 	<body>
 		<div class="sucess">
@@ -42,7 +48,7 @@ while ($user=mysqli_fetch_assoc($result)) {
 	$res.="<td>".$user["username"]."</td>";
 	$res.="<td>".$user["email"]."</td>";
 	$res.="<td>".$user["type"]."</td>";
-	$res.="<td>".$user["active"]."</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."')\">".($user["active"]!="YES"?"NO":"YES")."</td>";
 	echo "<tr>".$res."</tr>\n";
 }
 ?>
