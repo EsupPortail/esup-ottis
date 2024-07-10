@@ -378,8 +378,8 @@ for x in mycursor:
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
 indexNull = config_used_df[(config_used_df['Configuration'] == 'null')].index
 config_used_df.drop(indexNull, inplace=True)
-indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & len(config_used_df['Configuration'] < 18)].index
-config_used_df.drop(indexOldConfig, inplace=True)
+# indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & len(config_used_df['Configuration'] < 18)].index
+# config_used_df.drop(indexOldConfig, inplace=True)
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
