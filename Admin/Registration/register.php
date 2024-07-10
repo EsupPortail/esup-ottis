@@ -31,6 +31,8 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
 
        
        //$mail     = 'no-reply@'.str_replace('www.', '', $_SERVER['SERVER_NAME']);
+       $type = 'plain'; // or HTML
+       $charset = 'utf-8';
        $mail     = "omist-dev@univ-nantes.fr";
        $uniqid   = md5(uniqid(time()));
        $headers  = 'From: '.$mail."\n";
@@ -48,8 +50,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
 
        $subject = "[OMIST ACCOUNT] ".$username;
        $to = "bourdon-j@univ-nantes.fr";
-       $type = 'plain'; // or HTML
-       $charset = 'utf-8';
+
        $message = "Compte à activer : ".$username.", ".$email."\n";
 
        mail($to, $subject, $message, $headers);
