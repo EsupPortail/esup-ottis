@@ -1007,7 +1007,7 @@ function FullScreen() {
 }
 
 /**
- * @summary Switch the fullscreen mode on and off for the animation editor.
+ * @summary Switch the fullscreen mode on and off for the capsule editor.
  * 
  */
 
@@ -1021,7 +1021,7 @@ function GoFSEditAnim() {
 }
 
 /**
- * @summary The function that is executed for getting the device pixel ratio with the animation editor.
+ * @summary The function that is executed for getting the device pixel ratio with the capsule editor.
  * 
  */
 
@@ -1036,7 +1036,7 @@ function getDevicePixelRatio() {
 }
 
 /**
- * @summary The function that is executed for a preview of the mouse size in the animation editor.
+ * @summary The function that is executed for a preview of the mouse size in the capsule editor.
  * 
  * @param {int} mousesize the size of the mouse.
  */
@@ -1046,7 +1046,7 @@ function displayMouseSize(mousesize){
 }
 
 /**
- * @summary The function that is executed for displaying  a cursor that follows the mouse in the animation editor.
+ * @summary The function that is executed for displaying  a cursor that follows the mouse in the capsule editor.
  * 
  */
 
@@ -1058,7 +1058,7 @@ function showMouse() {
 }
 
 /**
- * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the animation editor.
+ * @summary The function that is executed for getting the mouse position relative to the image (in percent) with the capsule editor.
  * 
  * @param {event} e a mouse event.
  */
@@ -1102,7 +1102,7 @@ function followmouse(e) {
 }
 
 /**
- * @summary The function that is executed for getting the mouse position for the keyword "mouse go" with the animation editor.
+ * @summary The function that is executed for getting the mouse position for the keyword "mouse go" with the capsule editor.
  * 
  */
 
@@ -1138,7 +1138,7 @@ function getMousePosition(){
 }
 
 /**
- * @summary The function that is executed for displaying help for the animation editor.
+ * @summary The function that is executed for displaying help for the capsule editor.
  * 
  */
 
@@ -1152,7 +1152,7 @@ function toolInformation(){
 }
 
 /**
- * @summary The function that is executed to warn when a file is missing from the animation editor.
+ * @summary The function that is executed to warn when a file is missing from the capsule editor.
  * 
  * @param {string} warning_type a text value contained the missing file type.
  */
@@ -1172,7 +1172,7 @@ function warningEmpty(warning_type){
 }
 
 /**
- * @summary The function that is executed for initializing the animation editor when the user loads a file.
+ * @summary The function that is executed for initializing the capsule editor when the user loads a file.
  * 
  */
 
@@ -1204,7 +1204,7 @@ function getIndicesOf(searchStr, str, caseSensitive) {
 }
 
 /**
- * @summary The function that is executed for updating the speech in a particular language when the user changes it in the animation editor.
+ * @summary The function that is executed for updating the speech in a particular language when the user changes it in the capsule editor.
  * 
  */
 
@@ -1256,7 +1256,7 @@ function updateNotes(){
 }
 
 /**
- * @summary The function that is executed for adding a line break in all languages in the animation editor.
+ * @summary The function that is executed for adding a line break in all languages in the capsule editor.
  * 
  * @param {event} event a keyboard event.
  */
@@ -1317,7 +1317,7 @@ function addEnter(event){
 }
 
 /**
- * @summary The function that is executed for adding a keyword to the displayed notes with the animation editor.
+ * @summary The function that is executed for adding a keyword to the displayed notes with the capsule editor.
  * 
  * @param {string} keyword the selected keyword and its parameter.
  */
@@ -1390,13 +1390,13 @@ function addKeyword(keyword){
 // }
 
 /**
- * @summary The function that is executed for adding a keyword to notes for one or all languages with the animation editor.
+ * @summary The function that is executed for adding a keyword to notes for one or all languages with the capsule editor.
  * 
  * @param {string} keyword the selected keyword and its parameter.
  */
 
 function addAllLanguages(keyword){
-    _('dialog-all-lang').innerHTML = "Would you like to add the keyword "+keyword+" to your animation ? </br> Please note that this keyword will be added to all languages."
+    _('dialog-all-lang').innerHTML = "Would you like to add the keyword "+keyword+" to your capsule ? </br> Please note that this keyword will be added to all languages."
     $( "#dialog-all-lang" ).dialog({
         // height: 160,
         height: 'auto',
@@ -1487,7 +1487,7 @@ function addAllLanguages(keyword){
 }
 
 /**
- * @summary The function that is executed for creating the command with the keyword and its parameters with the animation editor.
+ * @summary The function that is executed for creating the command with the keyword and its parameters with the capsule editor.
  * 
  * @param {string} keyword the keyword selected.
  * @param {string} param the new parameter value.
@@ -1521,7 +1521,7 @@ window.onclick = function(e) {
 
 
 /**
- * @summary The function that is executed for for closing open dropdowns that do not match the selected dropdown in the animation editor.
+ * @summary The function that is executed for for closing open dropdowns that do not match the selected dropdown in the capsule editor.
  * 
  * @param {string} id_select the dropdown selected.
  */
@@ -1537,7 +1537,7 @@ function closeDropdown(id_select){
 }
 
 /**
- * @summary The function that is executed for adding parameters to an animation's keyword with the animation editor.
+ * @summary The function that is executed for adding parameters to an animation's keyword with the capsule editor.
  * 
  * @param {string} keywordToAdd the keyword selected.
  */
@@ -1582,7 +1582,7 @@ function addParameters(keywordToAdd){
 }
 
 /**
- * @summary The function that is executed for displaying the dialog box corresponding to the option the user wishes to modify with the animation editor.
+ * @summary The function that is executed for displaying the dialog box corresponding to the option the user wishes to modify with the capsule editor.
  * 
  * @param {string} keywordToAdd the option selected.
  */
@@ -1651,7 +1651,7 @@ function addOptions(keywordToAdd){
 }
 
 /**
- * @summary The function that is executed for displaying notes for slides in a specific language with the animation editor.
+ * @summary The function that is executed for displaying notes for slides in a specific language with the capsule editor.
  * 
  */
 
@@ -1663,7 +1663,7 @@ function notesSlideLang(){
 }
 
 /**
- * @summary The function that is executed for displaying a larger image with the animation editor.
+ * @summary The function that is executed for displaying a larger image with the capsule editor.
  * 
  * @param {object} img an image to be displayed in larger size.
  */
@@ -1679,7 +1679,7 @@ function showSlideImage(img){
 }
 
 /**
- * @summary a function that is fired when a new lesson is loaded to prepare all the data structures with the animation editor..
+ * @summary a function that is fired when a new lesson is loaded to prepare all the data structures with the capsule editor..
  * 
  * @param {string} datatxt a text value contained the text of the speech and a b64 version of the images.
  * @param {boolean} editable a boolean to edit note content.
@@ -1738,7 +1738,7 @@ function formateresponseTools(datatxt,editable=true) {
 }
 
 /**
- * @summary A function that is fired when a complete lesson is loaded with the animation editor.
+ * @summary A function that is fired when a complete lesson is loaded with the capsule editor.
  * 
  * @param {event} event an event.
  * @param {boolean} editable a boolean to edit note content.
@@ -1750,7 +1750,7 @@ function completeHandlerTools(event,editable=false) {
 }
 
 /**
- * @summary The function that is executed for editing a new presentation with the animation editor.
+ * @summary The function that is executed for editing a new presentation with the capsule editor.
  * 
  * @param {boolean} editable a boolean to edit note content.
  */
@@ -1778,7 +1778,7 @@ function SlideNotesTools(editable=false) {
 }
 
 /**
- * @summary The function that is executed for downloading a file with the animation editor.
+ * @summary The function that is executed for downloading a file with the capsule editor.
  * 
  * @param {string} filename a text value contained the file name.
  * @param {string} elText a text value contained the text to download.
@@ -1794,7 +1794,7 @@ function DownloadFile(filename, elText, mimeType) {
 }
 
 /**
- * @summary The function that is executed for getting the new presentation with the animation editor.
+ * @summary The function that is executed for getting the new presentation with the capsule editor.
  * 
  * @param {event} event an event.
  */
@@ -1808,7 +1808,7 @@ function GetNewPresentation(event){
 }
 
 /**
- * @summary The function that is executed for creating the new speech with the animation editor.
+ * @summary The function that is executed for creating the new speech with the capsule editor.
  * 
  */
 
@@ -1858,12 +1858,12 @@ function CreateNewSpeech() {
 }
 
 /**
- * @summary The function that is executed for creating the new presentation with the animation editor.
+ * @summary The function that is executed for creating the new presentation with the capsule editor.
  * 
  */
 
 function CreateNewPresentation() {    
-    document.getElementById("dialog-download").innerHTML = "Please note that if you have the same language twice (if your first language in the animation editor starts with [INPUT LANGUAGE]), changes made only on [INPUT LANGUAGE] will not be taken into account in the new animation.";
+    document.getElementById("dialog-download").innerHTML = "Please note that if you have the same language twice (if your first language in the capsule editor starts with [INPUT LANGUAGE]), changes made only on [INPUT LANGUAGE] will not be taken into account in the new capsule.";
     $( "#dialog-download" ).dialog({
         height: 174,
         width: 791,
@@ -1999,7 +1999,7 @@ function SlideNotesUncloud(uncloudlink) {
 /**
  * @summary The function that is executed for reading a new HTML presentation stored on UNCloud
  * 
- * @param {string} uncloudlink A public link on Nantes University cloud (UNCloud) that points to a HTML Animation file created with the OMIST Tools.
+ * @param {string} uncloudlink A public link on Nantes University cloud (UNCloud) that points to a HTML capsule file created with the OMIST Tools.
  */
 
 function SlideNotesUncloudHtml(uncloudhtmllink) {
