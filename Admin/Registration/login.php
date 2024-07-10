@@ -24,7 +24,7 @@ if (isset($_POST['username'])){
     if ($user['type'] == 'admin') {
       header('location: admin/home.php');      
     }else{
-      header('location: index.php');
+      header('location: ../../indexNOCAS.php');
     }
   }else{
     $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
