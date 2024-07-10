@@ -20,11 +20,16 @@ if (isset($_POST['username'])){
   
   if (mysqli_num_rows($result) == 1) {
     $user = mysqli_fetch_assoc($result);
-    // vérifier si l'utilisateur est un administrateur ou un utilisateur
+    // vérifier si l'utilisateur est un administrateur ou un utilisateur    
     if ($user['type'] == 'admin') {
       header('location: admin/home.php');      
     }else{
-      header('location: ../../indexNOCAS.php');
+      if ($user['active']=='YES') {
+        $_SESSION['active']="YES";
+        header('location: ../../indexNOCAS.php');
+      } else {
+        $message = "Ce compte n'a pas encore été activé."
+      }
     }
   }else{
     $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
