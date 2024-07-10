@@ -326,6 +326,15 @@ for x in mycursor:
   tools_used.append(x)
 tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
 
+tools_used_df['Tool used'] = tools_used_df['Tool']
+for ind in tools_used_df.index:
+  if "/" in tools_used_df['Tool'][ind] : 
+    position = tools_used_df['Tool'][ind].find('/')
+    tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:]
+tools_used_df = tools_used_df.drop(columns = ['Tool'])
+
+tools_used_df = tools_used_df.sort_values('Origin')
+
 fig = go.Figure(data=[go.Table(
   header=dict(values=['Origin', 'Tool','Number of uses'],
               line_color='black',
@@ -333,7 +342,7 @@ fig = go.Figure(data=[go.Table(
               align='center',
               font=dict(color='white'),
               height=30),
-  cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool'],tools_used_df['Number of uses'],],
+  cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool used'],tools_used_df['Number of uses'],],
               line_color='black',
               fill=dict(color=['white']),
               font=dict(color=['black']),
