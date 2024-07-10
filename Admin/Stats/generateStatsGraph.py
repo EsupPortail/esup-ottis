@@ -376,7 +376,7 @@ mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='tea
 for x in mycursor:
   config_used.append(x)
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
-indexNull = config_used_df[(config_used_df['Configuration'] == 'null')].index
+indexNull = config_used_df[(config_used_df['Configuration'] == "")].index
 config_used_df.drop(indexNull, inplace=True)
 # indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & len(config_used_df['Configuration'] < 18)].index
 # config_used_df.drop(indexOldConfig, inplace=True)
