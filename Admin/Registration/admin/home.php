@@ -31,17 +31,18 @@
 	<style>
 	#userlist {
 		width: 100%;
-		background-color: white;
 		text-align: center;
 	}
 
 	#userlist table {
+		width: 100%;
     	border-collapse: collapse;
     	margin: 25px 0;
     	font-size: 0.9em;
     	font-family: sans-serif;
     	min-width: 400px;
     	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+		background-color: white;
 	}
 	#userlist table thead tr {
     	background-color: #009879;
@@ -83,11 +84,11 @@
 		</div>
 
 
-<div id="userlist" style="width: 90%; background-color: white;">
+<div id="userlist">
 <table>
 	<thead>
 	<tr>
-		<th>Id</th><th>username</th><th>email</th><th>type</th><th>active</th><th>Action</th>
+		<th width="10%">Id</th><th width="20%">username</th><th width="30%">email</th><th width="15%">type</th><th width="15%">active</th><th width="10%">Action</th>
 	</tr>
 </thead>
 <tbody>
