@@ -102,7 +102,7 @@ nb_uses_df = nb_uses_raw
 nb_uses_df.Month = pd.Categorical(nb_uses_df.Month,categories=months_in_order,ordered=True)
 # nb_uses_df = nb_uses_df.sort_values('Month')
 # nb_uses_df = nb_uses_df.sort_values('Year')
-nb_uses_df.sort_values(['Month','Year'])
+# nb_uses_df.sort_values(['Month','Year'])
 
 nb_uses_graph = nb_uses_raw
 nb_uses_graph['Origin global'] = nb_uses_graph['Origin']
