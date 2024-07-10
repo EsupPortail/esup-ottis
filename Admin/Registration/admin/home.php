@@ -56,8 +56,8 @@ while ($user=mysqli_fetch_assoc($result)) {
 //	print_r($user);
 	$res="";
 	$res.="<td>".$user["id"]."</td>";
-	$res.="<td onclick=\"Edit(".$user["id"].",'username','".($user["username"].")\">".$user["username"]."</td>";
-	$res.="<td onclick=\"Edit(".$user["id"].",'email','".($user["email"].")\">".$user["email"]."</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'username','".$user["username"]."')\">".$user["username"]."</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'email','".$user["email"]."')\">".$user["email"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'type','".($user["type"]!="admin"?"user":"admin")."','".($user["type"]!="admin"?"admin":"user")."')\">".$user["type"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"NO":"YES")."</td>";
 	echo "<tr>".$res."</tr>\n";
