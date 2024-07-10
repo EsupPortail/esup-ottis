@@ -28,7 +28,7 @@ if (isset($_POST['username'])){
         $_SESSION['active']="YES";
         header('location: ../../indexNOCAS.php');
       } else {
-        $message = "Ce compte n'a pas encore été activé."
+        $message = "Ce compte n'a pas encore été activé.";
       }
     }
   }else{
