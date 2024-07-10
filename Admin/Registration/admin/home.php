@@ -38,6 +38,7 @@ $result = mysqli_query($conn,$query) or die(mysql_error());
 while ($user=mysqli_fetch_assoc($result)) {
 //	print_r($user);
 	$res="";
+	$res.="<td>".$user["id"]."</td>";
 	$res.="<td>".$user["username"]."</td>";
 	$res.="<td>".$user["email"]."</td>";
 	$res.="<td>".$user["type"]."</td>";
