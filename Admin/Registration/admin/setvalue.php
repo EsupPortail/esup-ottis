@@ -17,7 +17,12 @@ $id="";
 if(isset($_POST["id"])) $id=$_POST["id"];
 
 if ($field !="" && $id!="") {
-    $query = "update users set ".$field."='".$value."' where id=".$id.";";
+    if ($field == "DELETE") {
+        $query = "delete from users where id=".$id.";";
+
+    } else {
+        $query = "update users set ".$field."='".$value."' where id=".$id.";";
+    }
     $result = mysqli_query($conn,$query) or die(mysql_error());
 }
 
