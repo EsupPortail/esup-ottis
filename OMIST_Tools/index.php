@@ -588,14 +588,14 @@ body {
   <ul>
     <li style="background-color: #000; color: white"><img src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
     <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-cogs"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
-    <li title="These tools allow to create and edit HTML animations"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Animations only</span></a></li>
+    <li title="These tools allow to create and edit HTML capsule"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Capsule only</span></a></li>
     <li title="These tools allow to transcript a video file or an audio file"><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
     <li title="These tools allow to translate diverse types of files including PPTX, subtitles files or SCORM and XLIFF course scenarios"><a href="#menu" onclick="showList('5,6,10,11')"><i class="fa fa-language"></i><span class="hidesmallscreens">&nbsp;Translations only</span></a></li>
     <li title="These tools allow diverse manipulations, mainly for PPTX files"><a href="#menu" onclick="showList('7,8,9')"><i class="fa fa-refresh"></i><span class="hidesmallscreens">&nbsp;Conversions only</span></a></li>
   </ul>
 <div id="menu">
 <div id="tool1">
-  <h3 title="Minimal version of the HTML animation creation tool (from PPTX). With this tool, you can create a self-contained HTML animation. Taking a PPTX file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file to synchronize the synthesized speech with the images. Note that the generated animation can be used as input (a complete lesson) for the OMIST live translation tool.">Create web animation from pptx (minimal App without translations)</h3>
+  <h3 title="Minimal version of the HTML capsule creation tool (from PPTX). With this tool, you can create a self-contained HTML capsule. Taking a PPTX file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file to synchronize the synthesized speech with the images. Note that the generated capsule can be used as input (a complete lesson) for the OMIST live translation tool.">Create web capsule from pptx (minimal App without translations)</h3>
   <div>
   <form id="Form1" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <ul>
@@ -613,9 +613,9 @@ body {
   </div>
 </div>
 <div id="tool2">
-  <h3 title="Minimal version of the HTML animation creation tool (from PDF and TXT). With this tool, you can effortlessly create a self-contained HTML animation. Utilizing a PDF file for images and a text file for presenter notes, the tool seamlessly converts all slides into images and extracts corresponding presenter notes. Subsequently, an animation player is incorporated into the file to synchronize the synthesized speech with the images.
+  <h3 title="Minimal version of the HTML capsule creation tool (from PDF and TXT). With this tool, you can effortlessly create a self-contained HTML capsule. Utilizing a PDF file for images and a text file for presenter notes, the tool seamlessly converts all slides into images and extracts corresponding presenter notes. Subsequently, an animation player is incorporated into the file to synchronize the synthesized speech with the images.
 
-It's important to note that the resulting animation can serve as comprehensive input (a complete lesson) for the OMIST live translation tool. Elevate your content creation with this innovative tool, bridging the gap between dynamic presentations and effective live translation on the OMIST platform.">Create web animation from pdf+txt (minimal App without translations)</h3>
+It's important to note that the resulting capsule can serve as comprehensive input (a complete lesson) for the OMIST live translation tool. Elevate your content creation with this innovative tool, bridging the gap between dynamic presentations and effective live translation on the OMIST platform.">Create web capsule from pdf+txt (minimal App without translations)</h3>
   <div>
   <form id="Form2" action="../blank.html" onsubmit="return false;" method="post" enctype="multipart/form-data">
     <ul>
@@ -636,7 +636,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool3">
-  <h3 title="Complete version of the HTML animation creation tool (from PPTX). With this tool, you will be able to create a self-contained HTML animation. Taking a PPTx file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to translate the slides before converting them to images or adding a licence for instance.">Create web animation from pptx (Complete)</h3>
+  <h3 title="Complete version of the HTML capsule creation tool (from PPTX). With this tool, you will be able to create a self-contained HTML capsule. Taking a PPTx file as input, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated capsule can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to translate the slides before converting them to images or adding a licence for instance.">Create web capsule from pptx (Complete)</h3>
   <div>
   <form id="Form3" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload3">Select PPTX file : </label>
@@ -686,7 +686,7 @@ It's important to note that the resulting animation can serve as comprehensive i
   </div>
 </div>
 <div id="tool4">
-  <h3 title="Minimal version of the HTML animation creation tool (from PDF and TXT). With this tool, you will be able to create a self-contained HTML animation. Taking a PDF file as input for the images and a text file as input for the presenter notes, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated animation can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to add a licence for instance.">Create web animation from pdf+txt (Complete)</h3>
+  <h3 title="Minimal version of the HTML capsule creation tool (from PDF and TXT). With this tool, you will be able to create a self-contained HTML capsule. Taking a PDF file as input for the images and a text file as input for the presenter notes, the tool first converts all the slides to images and extracts the presenter notes. An animation player is added to the file for synchronizing the synthesized speech (translated in several languages) with the images. Notice that the generated capsule can be used as an input (complete lesson) for the OMIST live translation tool. Several options are available such as the possibility to add a licence for instance.">Create web capsule from pdf+txt (Complete)</h3>
   <div>
   <form id="Form4" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   
@@ -1008,7 +1008,7 @@ It's important to note that the resulting animation can serve as comprehensive i
 </div>
 
 <div id="tool12">
-  <h3 id="tabledesc" title="This tool allows to modify a HTML animation created by our tools.">Edit Animation</h3>
+  <h3 id="tabledesc" title="This tool allows to modify a HTML capsule created by our tools.">Edit capsule</h3>
   <div id="block12" class="styleEditAnim" translate="no">
     <form id="Form12" class="styleEditAnim" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <ul class="ui-menu ui-widget highlight">
@@ -1016,14 +1016,14 @@ It's important to note that the resulting animation can serve as comprehensive i
       <input type="file" name="fileToUpload" id="fileToUpload12" aria-label="Select HTML file" title="Select HTML file" onchange="SlideNotesTools(true); initializeEditAnim();" accept=".html">   
       </li>
       <li class="dropdown">
-        <a title="Add a pause in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
+        <a title="Add a pause in your capsule." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
         <div class="dropdown-content" id="dropPause">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {warningEmpty('slide');}">Pause animation</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {warningEmpty('slide');}">Pause for n milliseconds</a>
         </div>
       </li>
       <li class="dropdown">
-        <a title="Add a mouse element in your animation." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropMouse").classList.toggle("show"); closeDropdown("dropMouse");} else {warningEmpty("file");}'><i class="fa fa-mouse-pointer"></i> Mouse</a>
+        <a title="Add a mouse element in your capsule." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropMouse").classList.toggle("show"); closeDropdown("dropMouse");} else {warningEmpty("file");}'><i class="fa fa-mouse-pointer"></i> Mouse</a>
         <div class="dropdown-content" id="dropMouse">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse show]');} else {warningEmpty('slide');}">Show the mouse</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[mouse hide]');} else {warningEmpty('slide');}">Hide the mouse</a>
@@ -1033,14 +1033,14 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a title="Add a notification in your animation (URL or text)." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropNotification").classList.toggle("show"); closeDropdown("dropNotification");} else {warningEmpty("file");}'><i class="fa fa-comment"></i> Notification</a>
+        <a title="Add a notification in your capsule (URL or text)." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropNotification").classList.toggle("show"); closeDropdown("dropNotification");} else {warningEmpty("file");}'><i class="fa fa-comment"></i> Notification</a>
         <div class="dropdown-content" id="dropNotification">
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[resource toReplace]');} else {warningEmpty('slide');}">Open a window with the url</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[notification toReplace]');} else {warningEmpty('slide');}">Open a window with the text</a>
         </div>
       </li>
       <li class="dropdown">
-        <a title="Global options for animation (aspect ratio, delay between each slides, licence)." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropOptions").classList.toggle("show"); closeDropdown("dropOptions");} else {warningEmpty("file");}'><i class="fa fa-cogs"></i> Options</a>
+        <a title="Global options for capsule (aspect ratio, delay between each slides, licence)." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropOptions").classList.toggle("show"); closeDropdown("dropOptions");} else {warningEmpty("file");}'><i class="fa fa-cogs"></i> Options</a>
         <div class="dropdown-content" id="dropOptions">
           <a href="javascript:addOptions('[ratio]')">Aspect Ratio</a>
           <a href="javascript:addOptions('[delay]')">Delay</a>
@@ -1048,15 +1048,15 @@ It's important to note that the resulting animation can serve as comprehensive i
         </div>
       </li>
       <li class="dropdown">
-        <a title="Download your new animation or just the speech." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropDownload").classList.toggle("show"); closeDropdown("dropDownload");} else {warningEmpty("file");}'><i class="fa fa-download"></i> Download</a>
+        <a title="Download your new capsule or just the speech." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropDownload").classList.toggle("show"); closeDropdown("dropDownload");} else {warningEmpty("file");}'><i class="fa fa-download"></i> Download</a>
         <div class="dropdown-content" id="dropDownload">
-          <a href="javascript:CreateNewPresentation()">Download complete animation</a>
+          <a href="javascript:CreateNewPresentation()">Download complete capsule</a>
           <a href="javascript:CreateNewSpeech()">Download speech</a>
           <!-- <a href="javascript:CreateNewPPTX()">Download PPTX presentation</a> -->
         </div>
       </li>
       <li class="dropdown">
-        <a title="Help with the animation editor." class="dropbtn" onclick="toolInformation()" ><i class="fa fa-info"></i> Help</a>
+        <a title="Help with the capsule editor." class="dropbtn" onclick="toolInformation()" ><i class="fa fa-info"></i> Help</a>
       </li>
     </ul>
     <div id="FS-editanim" onclick="GoFSEditAnim();" title="Toggle fullscreen mode"><i class="fa fa-expand" style="float: right;"></i></div>
@@ -1094,15 +1094,15 @@ It's important to note that the resulting animation can serve as comprehensive i
     <div id="DesiredDivID" style="height: auto; width: auto"></div>
     <div id="dialog-message" class="dialog-window" title="Information">
       <p>
-        It's a tool for editing your animations. 
+        It's a tool for editing your capsule. 
         For each slide and language, you can edit and add notes. 
-        You can also add actions (pause, move mouse, add a notification, etc.) to slides, and you can change animation options (delay between slides, image ratio, add license). 
+        You can also add actions (pause, move mouse, add a notification, etc.) to slides, and you can change capsule options (delay between slides, image ratio, add license). 
         All you have to do is choose the action or the option you want. 
       </p>
       <p>
         Once you've finished modifying your presentation, you can :
         <ul>
-          <li> Download the complete animation, giving you a ready-to-use HTML file. </li>
+          <li> Download the complete capsule, giving you a ready-to-use HTML file. </li>
           <li> Download the speech: you'll get a TXT file with notes in the original language only (so only modifications made to this language will be taken into account). You can then re-inject this TXT into a PPTX or PDF using our conversion tools. </li>
         </ul>
       </p>
@@ -1111,7 +1111,7 @@ It's important to note that the resulting animation can serve as comprehensive i
         <div id=helpPause>
           <h4>Pause</h4>
           <div>
-            <b>Pause animation :</b> pause the animation as if you were pressing a pause button.
+            <b>Pause animation :</b> pause the capsule as if you were pressing a pause button.
             <br><b>Pause for n milliseconds :</b> incorporate a pause of a certain duration.
           </div>
         </div>
