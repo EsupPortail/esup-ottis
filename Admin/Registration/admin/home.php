@@ -22,8 +22,8 @@
 			var xhr = new XMLHttpRequest();
 			xhr.open('POST', 'setvalue.php', true);
 			xhr.onload = function () {
-			    alert("Mise à jour de "+id+"\n"+field+"="+newval);
-				window.reload();
+			    //alert("Mise à jour de "+id+"\n"+field+"="+newval);
+				location.reload();
 			};
 			xhr.send(data);
 		}
