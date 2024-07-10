@@ -11,6 +11,7 @@
 <html>
 	<head>
 	<link rel="stylesheet" href="../style.css" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 	<script>
 		function Edit(id,field,value,newval="") {
 			if (newval=="") newval=prompt("Edition de la valeur "+field+" pour l'utilisateur "+id,value);
@@ -106,7 +107,8 @@ while ($user=mysqli_fetch_assoc($result)) {
 	$res.="<td onclick=\"Edit(".$user["id"].",'username','".$user["username"]."')\">".$user["username"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'email','".$user["email"]."')\">".$user["email"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'type','".($user["type"]!="admin"?"user":"admin")."','".($user["type"]!="admin"?"admin":"user")."')\">".$user["type"]."</td>";
-	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"NO":"YES")."</td>";
+//	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"NO":"YES")."</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"<span style=\"color: red;\" class=\"material-symbols-outlined\">toggle_off</span>":"<span style=\"color: green;\" class=\"material-symbols-outlined\">toggle_on</span>")."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'DELETE','X','X')\">🗑</td>";
 	echo "<tr>".$res."</tr>\n";
 }
