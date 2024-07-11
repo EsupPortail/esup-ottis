@@ -377,7 +377,7 @@ for x in mycursor:
   config_used.append(x)
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
 config_used_df=config_used_df.dropna(axis=0, how='any')
-indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & (len(config_used_df['Configuration']) < 18)].index
+indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & (len(config_used_df['Configuration']) < 17)].index
 config_used_df.drop(indexOldConfig, inplace=True)
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
