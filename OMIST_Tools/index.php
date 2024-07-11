@@ -968,7 +968,7 @@ It's important to note that the resulting capsule can serve as comprehensive inp
     </div>
 </div>
 <div id="tool13">
-  <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and the AI model are downloaded and exectuted by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily changed.">Audio/video file transcription</h3>
+  <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI whisper tool. Basically, the transcription tool and the AI model are downloaded and executed by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the whisper medium model but this can be easily modified.">Audio/video file transcription</h3>
   <div>
     <iframe title="Cadre pour myWhisper" style="width:80%; height: 500px; border: none;" src="MyWhisper/index.html"></iframe>
   </div>
