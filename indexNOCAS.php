@@ -12,5 +12,5 @@
 ?>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
 <script>
-	document.getElementById('logonextbar').innerHTML+='<a href="Admin/Registration/logout.php"><i class="fa fa-sign-out" aria-hidden="true" title="Logout"></i></a>';
+	document.getElementById('logonextbar').innerHTML+='<a id="logout-button" href="Admin/Registration/logout.php" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span class="hidesmallscreens">&nbsp;Logout</span></a>';
 </script>
