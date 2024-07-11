@@ -53,7 +53,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
 
        $message = "Compte à activer : ".$username.", ".$email."\n";
 
-       mail($to, $subject, $message, $headers);
+       //mail($to, $subject, $message, $headers);
 
        $subject = "[OMIST ACCOUNT VALIDATION] ".$username;
        $to = $email;
@@ -61,7 +61,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
        $charset = 'utf-8';
        $message = "Bonjour ".$username.",\n\n Votre demande de création de compte a été transmise au gestionnaire.\n\nIl est maintenant en attente d'activation.\n\n Merci d'utiliser nos services.\n\nCordialement,\n\nJérémie Bourdon.";
 
-       mail($to, $subject, $message, $headers);
+       //mail($to, $subject, $message, $headers);
       
       
     }
