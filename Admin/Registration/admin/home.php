@@ -97,7 +97,7 @@
 <?php
 include("../config.php");
 
-$query = "SELECT * FROM `users` ORDER BY 'id' DESC";
+$query = "SELECT * FROM `users` ORDER BY id DESC";
 $result = mysqli_query($conn,$query) or die(mysql_error());
 
 while ($user=mysqli_fetch_assoc($result)) {
