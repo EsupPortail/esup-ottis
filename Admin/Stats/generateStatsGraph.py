@@ -621,7 +621,7 @@ fig.add_trace(go.Indicator(
     mode = "gauge+number",
     value = value_percentage,
     title= {
-       'text':'Deepl Pro usage<br><span style="font-size:20;color:gray">Reset on the 17th</span><br>',
+       'text':'Deepl Pro usage<br><span style="font-size:20;color:gray">Reset on the 7th</span><br>',
        'font':{
          'size':40}
       },
@@ -650,18 +650,21 @@ fig.write_image("indicators/indicator_month.png")
 
 #################################### Indicators total ####################################
 
-if (len(by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users']) == 0):
-   value_master = 0
-else:
-   value_master = by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users'].iloc[0]
+# if (len(by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users']) == 0):
+#    new_user_tot = 0
+# else:
+#    new_user_tot = by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users'].iloc[0]
+
+first_use_df.loc['Total'] = pd.Series(first_use_df['New users'].sum(), index=['New users'])
+new_user_tot = first_use_df['New users']['Total']
 
 fig = go.Figure()
 
 fig.add_trace(go.Indicator(
     mode = "number",
-    value = value_master,
+    value = new_user_tot,
     title= {
-       'text':'Users',
+       'text':'Number of distinct users, all instances combined',
        'font':{
          'size':40}
       },
