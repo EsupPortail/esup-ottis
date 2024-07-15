@@ -664,7 +664,7 @@ fig.add_trace(go.Indicator(
     mode = "number",
     value = new_user_tot,
     title= {
-       'text':'User<br><span style="font-size:20;color:gray>Distinct users, all instances combined</span>',
+       'text':'User<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
        'font':{
          'size':40}
       },
