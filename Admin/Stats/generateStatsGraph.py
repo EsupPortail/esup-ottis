@@ -639,7 +639,7 @@ fig.update_layout(
    title= {
       'text':nb_uses_df.iloc[-1]["Month"] + " " + nb_uses_df.iloc[-1]["Year"], 
       'font':{
-         'size':40, 
+         'size':45, 
          'color':'black'}
       },
    width = 1600, 
@@ -664,7 +664,7 @@ fig.add_trace(go.Indicator(
     mode = "number",
     value = new_user_tot,
     title= {
-       'text':'Number of distinct users, all instances combined',
+       'text':'User<br><span style="font-size:20;color:gray>Distinct users, all instances combined</span>',
        'font':{
          'size':40}
       },
@@ -689,7 +689,7 @@ fig.update_layout(
    title= {
       'text':"Since "+first_date[0] +" "+str(first_date[1]), 
       'font':{
-         'size':40, 
+         'size':45, 
          'color':'black'}
       },
    width = 1600, 
