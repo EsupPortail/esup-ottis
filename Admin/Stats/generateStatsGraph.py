@@ -377,8 +377,9 @@ for x in mycursor:
   config_used.append(x)
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
 config_used_df=config_used_df.dropna(axis=0, how='any')
-indexOldConfig = config_used_df[(config_used_df['Configuration'] != 'direct link') & (len(config_used_df['Configuration']) == 16)].index
-config_used_df.drop(indexOldConfig, inplace=True)
+for i in config_used_df.index:
+  if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
+    config_used_df = config_used_df.drop([i])
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
