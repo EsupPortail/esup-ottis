@@ -655,8 +655,8 @@ fig.write_image("indicators/indicator_month.png")
 # else:
 #    new_user_tot = by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users'].iloc[0]
 
-first_use_df.loc['Total'] = pd.Series(first_use_df['New users'].sum(), index=['New users'])
-new_user_tot = first_use_df['New users']['Total']
+# first_use_df.loc['Total'] = pd.Series(first_use_df['New users'].sum(), index=['New users'])
+# new_user_tot = first_use_df['New users']['Total']
 
 fig = go.Figure()
 
@@ -664,7 +664,7 @@ fig.add_trace(go.Indicator(
     mode = "number",
     value = new_user_tot,
     title= {
-       'text':'User<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
+       'text':'Users<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
        'font':{
          'size':40}
       },
@@ -677,9 +677,9 @@ fig.add_trace(go.Indicator(
 
 fig.add_trace(go.Indicator(
     mode = "number",
-    value = by_origin_df.loc[by_origin_df['Origin'] == 'Total distinct', 'Number of uses'].iloc[0],
+    value = nb_uses_df['Number of uses'].sum(),
     title= {
-       'text':'Uses',
+      'text':'Uses<br><span style="font-size:20;color:gray">All instances combined</span>',
        'font':{
          'size':40}
       },
