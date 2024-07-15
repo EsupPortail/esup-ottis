@@ -778,7 +778,7 @@ mydb.commit()
 #################################### Map users and uses ####################################
 
 coordinates = []
-mycursor.execute("SELECT city, latitude, longitude, COUNT(DISTINCT user_id), COUNT(id) FROM statslog WHERE (latitude IS NOT NULL)GROUP BY latitude, longitude, city;")
+mycursor.execute("SELECT city, latitude, longitude, COUNT(DISTINCT user_id), COUNT(id) FROM statslog GROUP BY latitude, longitude, city;")
 for x in mycursor:
   coordinates.append(x)
 coordinates_df = pd.DataFrame(data=coordinates, columns=["City", "Latitude", "Longitude", "Users", "Uses"])
