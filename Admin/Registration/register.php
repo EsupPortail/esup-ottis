@@ -23,7 +23,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
     if($res){
        echo "<div class='sucess'>
              <h3>Vous êtes inscrit avec succès.</h3>
-             <h3>Cependant, votre compte doit encore être activé pour être utilisable.</h3>
+             <h3>Cependant, votre compte doit encore être activé pour être utilisable, ceci peut prendre plusieurs heures. Si vous avez besoin qu'il soit activé plus rapidement, veuillez envoyer un message à <a href=\"mailto:omist-dev@univ-nantes.fr?subject=[OMIST Activation]%20".$username."\">omist-dev@univ-nantes.fr</a>.</h3>
              <p>Cliquez ici pour vous <a href='login.php'>connecter</a></p>
        </div>";
 
