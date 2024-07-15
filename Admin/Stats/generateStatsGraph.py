@@ -419,7 +419,7 @@ config_used_df.to_csv('uses/config_used_tab.csv')
 #################################### Deepl usage ####################################
 
 deepl_per_month = []
-mycursor.execute("SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<17 GROUP BY date_year, date_month;")
+mycursor.execute("SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<7 GROUP BY date_year, date_month;")
 for x in mycursor:
   deepl_per_month.append(x)
 deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Year", "Month","Percentage", "Characters"))
@@ -446,7 +446,7 @@ for year, group in deepl_per_month_df.groupby("Year"):
       name=year, 
       yaxis='y',
       customdata=deepl_per_month_df[["Characters"]],  
-      hovertemplate="Year = %s<br>17th of %%{x}<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"% year
+      hovertemplate="Year = %s<br>7th of %%{x}<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"% year
       )
     )
  
@@ -461,7 +461,7 @@ fig.update_layout(
     #     title="Number of characters translated",
     #     range = [0,1000000]
     #   ),
-    xaxis_title="17th of the month",
+    xaxis_title="7th of the month",
     title={
       'text':"Deepl Pro usage", 
       'font':{
