@@ -446,7 +446,7 @@ for year, group in deepl_per_month_df.groupby("Year"):
       name=year, 
       yaxis='y',
       customdata=deepl_per_month_df[["Characters"]],  
-      hovertemplate="Year = %s<br>7th of %%{x}<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"% year
+      hovertemplate="Year = %s<br>From 7 of the previous month to 7 %%{x}<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"% year
       )
     )
  
