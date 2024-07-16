@@ -651,7 +651,7 @@ fig.add_trace(go.Indicator(
 
 fig.update_layout(
    title= {
-      'text':nb_uses_df.iloc[-1]["Month"] + " " + nb_uses_df.iloc[-1]["Year"], 
+      'text':nb_uses_graph.iloc[-1]["Date"].strftime('%B %Y'), 
       'font':{
          'size':45, 
          'color':'black'}
