@@ -549,19 +549,29 @@ deepl_per_day_df.to_csv('translation/deepl_usage_per_day_tab.csv')
 
 fig = go.Figure()
 
-first_use_df_month = first_use_df.sort_values('Year')
-if first_use_df_month.iloc[-1]["Month"] == nb_uses_df.iloc[-1]["Month"]:
-   new_users_value = first_use_df_month.iloc[-1]["New users"]
-   previous_users_value = first_use_df_month.iloc[-2]["New users"]
+# first_use_df_month = first_use_df.sort_values('Year')
+# if first_use_df_month.iloc[-1]["Month"] == nb_uses_df.iloc[-1]["Month"]:
+#    new_users_value = first_use_df_month.iloc[-1]["New users"]
+#    previous_users_value = first_use_df_month.iloc[-2]["New users"]
+# else:
+#    new_users_value = 0
+#    previous_users_value = first_use_df_month.iloc[-1]["New users"]
+
+first_use_df_month = first_use_graph.groupby(['Date'])['New users origin'].sum()
+first_use_df_month = first_use_df_month.sort_index(ascending=True)
+
+if first_use_df_month.index[-1] == nb_uses_graph.iloc[-1]["Date"]:
+   new_users_value = first_use_df_month.iloc[-1]
+   previous_users_value = first_use_df_month.iloc[-2]
 else:
    new_users_value = 0
-   previous_users_value = first_use_df_month.iloc[-1]["New users"]
+   previous_users_value = first_use_df_month.iloc[-1]
 
 fig.add_trace(go.Indicator(
     mode = "number",
     value = new_users_value,
     title= {
-       'text':'New users TEST',
+       'text':'New users<br><span style="font-size:20;color:gray">All instances combined</span>',
        'font':{
          'size':40}
       },
