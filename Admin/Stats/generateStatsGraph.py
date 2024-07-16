@@ -662,7 +662,7 @@ fig = go.Figure()
 
 fig.add_trace(go.Indicator(
     mode = "number",
-    value = new_user_tot,
+    value = first_use_df['New users'].sum(),
     title= {
        'text':'Users<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
        'font':{
