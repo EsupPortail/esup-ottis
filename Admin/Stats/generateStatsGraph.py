@@ -561,7 +561,7 @@ fig.add_trace(go.Indicator(
     mode = "number",
     value = new_users_value,
     title= {
-       'text':'New users',
+       'text':'New users TEST',
        'font':{
          'size':40}
       },
@@ -649,14 +649,6 @@ fig.write_image("indicators/indicator_month.png")
 
 
 #################################### Indicators total ####################################
-
-# if (len(by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users']) == 0):
-#    new_user_tot = 0
-# else:
-#    new_user_tot = by_origin_df.loc[by_origin_df['Origin'].str.contains("master"), 'Number of users'].iloc[0]
-
-# first_use_df.loc['Total'] = pd.Series(first_use_df['New users'].sum(), index=['New users'])
-# new_user_tot = first_use_df['New users']['Total']
 
 fig = go.Figure()
 
