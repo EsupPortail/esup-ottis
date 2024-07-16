@@ -571,7 +571,7 @@ fig.add_trace(go.Indicator(
     mode = "number",
     value = new_users_value,
     title= {
-       'text':'New users<br><span style="font-size:20;color:gray">All instances combined</span>',
+       'text':'New users',
        'font':{
          'size':40}
       },
@@ -594,20 +594,23 @@ fig.add_trace(go.Indicator(
     domain = {'x': [0, 0.2], 'y': [0, 0.5]}))
 
 
+nb_uses_month = nb_uses_graph.groupby(['Date'])['Number of uses'].sum()
+nb_uses_month = nb_uses_month.sort_index(ascending=True)
+
 fig.add_trace(go.Indicator(
     mode = "number",
-    value = nb_uses_df.iloc[-1]["Number of uses"],
+    value = nb_uses_month.iloc[-1],
     title= {
        'text':'Uses',
        'font':{
          'size':40}
       },
-    delta = {'reference': nb_uses_df.iloc[-2]["Number of uses"], 'relative': True, 'valueformat':'.0%'},
+    delta = {'reference': nb_uses_month.iloc[-2], 'relative': True, 'valueformat':'.0%'},
     domain = {'x': [0.4, 0.6], 'y': [0.2, 1]}))
 
 fig.add_trace(go.Indicator(
     mode = "delta",
-    value = nb_uses_df.iloc[-1]["Number of uses"],
+    value = nb_uses_month.iloc[-1],
     title= {
        'text':'Compared to the previous month',
        'font':{
@@ -615,12 +618,13 @@ fig.add_trace(go.Indicator(
          'color':'grey'}
       },
     delta = {
-       'reference': nb_uses_df.iloc[-2]["Number of uses"], 
+       'reference': nb_uses_month.iloc[-2], 
        'relative': True, 
        'valueformat':'.0%',
        'font_size' : 50,
       },
     domain = {'x': [0.4, 0.6], 'y': [0, 0.5]}))
+
 
 if (len(deepl_per_day_df.index)==0):
    value_percentage = 0
