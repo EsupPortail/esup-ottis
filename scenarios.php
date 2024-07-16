@@ -7,7 +7,7 @@
     <title>Automatic translation for teaching purposes: Scenarios</title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/scenarios.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <script src="./jquery/jquery.js"></script>
     <script src="./jquery/jquery-ui.min.js"></script>
     <script src="./js/google-translate-script.js"></script>
@@ -15,8 +15,17 @@
     <script src="./js/common-func.js"></script>
     <script src="./js/scenarios-script.js"></script>
     <script src="./js/scenarios-carrousel.js"></script>
+    <script>
+    <?php
+      if (isset($_GET["external"])) {
+        echo "var isExternal='yes';\n";
+      } else {
+        echo "var isExternal='no';\n";
+      }
+    ?>
+    </script>
   </head>
-  <body>
+  <body onload="applyConfig();">
     <header>
       <nav>
         <a href="https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
@@ -37,7 +46,7 @@
           </div>
           <div class="carousel-title">
             <h2> Choisissez votre scénario </h2>
-            <p> Vous avez à votre disposition plusieurs options de scénarios pré-configurés </p>
+            <p id="toogle-text"> Êtes-vous externe à Nantes Université ? <input id="toggle-external" class="toggle" type="checkbox" onclick="updateExternal()" title="External to Nantes Université"></p>
           </div>
           <ul class="image-list">
             <li class="image-item">
@@ -62,7 +71,7 @@
               <h6>Présentation .PPTX sur UNCloud</h6>
               <p>Pour un cours donné en français sous-titré en anglais avec une présentation partagée par lien public sur UNCloud.</p>
               <p>Saisissez le lien de votre fichier ci-dessous puis cliquez sur "Accéder au scénario" :</p>
-              <input type="text" id="scenario-3-input" placeholder="https://">
+              <input type="text" id="scenario-3-input" title="Presentation link" placeholder="https://">
               <button type="button" class="scenario-button" id="scenario-3-button">Accéder au scénario</button>
             </li>
             <li class="image-item">
@@ -72,7 +81,7 @@
               <h6>Présentation .HTML sur UNCloud</h6>
               <p>Pour un cours donné en français sous-titré en anglais avec une présentation partagée par lien public sur UNCloud.</p>
               <p>Saisissez le lien de votre fichier ci-dessous puis cliquez sur "Accéder au scénario" :</p>
-              <input type="text" id="scenario-4-input" placeholder="https://">
+              <input type="text" id="scenario-4-input" title="Presentation link" placeholder="https://">
               <button type="button" class="scenario-button" id="scenario-4-button">Accéder au scénario</button>
             </li>
             <li class="image-item" id="scenario-parameter">
@@ -163,8 +172,6 @@
         </div>
       <div class="footer-right">
         <div class="footer-support">
-          <!-- <p><button class="open-modal-btn" onclick="openModal('access')">Accessibilité</button></p>
-          <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p> -->
           <p>Avec le soutien de :&emsp; </p>
           <ul>
             <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030"></a></li>
