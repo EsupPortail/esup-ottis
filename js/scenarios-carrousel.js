@@ -218,6 +218,55 @@ function reorderFavorites() {
 }
 
 /**
+ * ---EN---
+ * @summary Set up all redirections (per scenario).
+ * ---FR---
+ * @summary Configuration des redirections (par scénario).
+ */
+function setupRedirections() {
+    document.querySelector('[id="scenario-1-button"]').addEventListener('click', () => {
+        window.open(root + "/index.php?myconfig=AANAYKCYNCNNNYNYNN");
+    });
+
+    document.querySelector('[id="scenario-2-button"]').addEventListener('click', () => {
+        window.open(root + "/index.php?myconfig=ABYANKCNYCNNNYNYNN");
+    });
+    
+    document.querySelector('[id="scenario-3-button"]').addEventListener('click', () => {
+        let inputValue = document.querySelector('[id="scenario-3-input"]').value;
+
+        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYYNN&tab=4&link=" + (inputValue));
+    });
+
+    document.querySelector('[id="scenario-4-button"]').addEventListener('click', () => {
+        let inputValue = document.querySelector('[id="scenario-4-input"]').value;
+
+        window.open(root + "/index.php?myconfig=ABYANACNYCNNNYYYNN&tab=4&htmllink=" + (inputValue));
+    });
+
+    document.querySelector('[id="scenario-5-button"]').addEventListener('click', () => {
+        // window.open(root + "/index.php?" + CreateLink());
+        GenereLinkAlert();
+    });
+
+    document.querySelector('[id="scenario-6-button"]').addEventListener('click', () => {
+        window.open(root + "/index.php?myconfig=ABYANKCNYCNNNYNYYN");
+    });
+
+    document.querySelector('[id="direct-access-teacher"]').addEventListener('click', () => {
+        window.open(root + "/index.php")
+    });
+
+    document.querySelector('[id="direct-access-tools"]').addEventListener('click', () => {
+        window.open(root + "/OMIST_Tools/index.php")
+    });
+
+    document.querySelector('[id="direct-access-conv"]').addEventListener('click', () => {
+        window.open(root + "/Translator2.html");
+    });
+}
+
+/**
  * @summary Opens a pop-up window and adjusts the text according to the button clicked.
  * 
  * @param {string} modal_key string to identify the text to be placed in the pop-up.
@@ -308,3 +357,82 @@ const initSlider = () => {
 
 window.addEventListener("resize", initSlider);
 window.addEventListener("load", initSlider);
+
+
+
+
+
+// (function ($) {
+// 	$.fn.scrollList = function (numVisibleItems) {
+// 		var visibleItems = numVisibleItems.visibleItems;
+//     var $carousel = $(this);
+//     var $slideItems = $("li", this);
+//     var $firstItem;
+//     var $width = $('ul').width();
+
+//     var setCurrentItems = function () {
+      
+         
+      
+//     }
+    
+    
+
+//     var nextItem = function () {
+    	 
+//        $('ul').animate({
+//          left: $('ul').position().left - $('ul').width() + "px"
+//        }, 200, function() {
+//          $('ul').css({
+//          		"left": "auto",
+//           	"right": "auto"
+//          });
+//        });
+
+//       $firstItem = $("li:nth-child(-n+" + visibleItems + ")", $carousel);
+//       $carousel.append($firstItem);
+            
+//     }
+
+//     var previousItem = function () {
+    	
+//       $('ul').animate({
+//         right: $('ul').position().left - $('ul').width() + "px"
+//       }, 200, function() {
+//         $('ul').css({
+//         	"left": "auto",
+//           "right": "auto"
+//         });
+//       });
+            
+// 			$lastItem = $("li:nth-last-child(-n+" + visibleItems + ")", $carousel);
+//       $carousel.prepend($lastItem);
+//       setCurrentItems();
+//     }
+		
+// 		function addArrows(){
+// 			if ($slideItems.length > visibleItems) {
+//       	if($($carousel).parent().find(".next").length == 0 && 				
+        
+//         	$($carousel).parent().find(".previous").length == 0){
+// 						$carousel.parent().append('<span class="carousel-btn previous">&#10148;</span>');
+//          		$carousel.parent().append('<span class="carousel-btn next">&#10148;</span>');
+//         	}
+          
+// 					$($carousel).siblings(".next").click(nextItem);
+          
+          
+// 					$($carousel).siblings(".previous").click(previousItem);
+//         }
+// 		}
+
+//     setCurrentItems();
+// 		addArrows();
+// 	};
+// })(jQuery);
+
+// $(document).ready(function () {
+// 	$(".num-list").scrollList({
+// 		visibleItems: $(".num-list").data("numitems")
+// 	});
+// });
