@@ -23,8 +23,8 @@ $fake=false;
 
 $userprivileges=getPrivilege($uid,"../../tables/listAdminID.txt",2);
 
-if ($userprivileges<2) {
-  echo "<p>".$id.", vous n'êtes pas autorisé à consulter cette page</p>";
+if ($userprivileges>1) {
+  echo "<p>".$uid.", vous n'êtes pas autorisé à consulter cette page</p>";
   exit;
 }
 
