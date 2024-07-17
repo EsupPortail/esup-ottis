@@ -810,7 +810,7 @@ fig = px.scatter_geo(coordinates_map,
                     lat="Latitude",
                     lon="Longitude",
                     color="Users",
-                    color_continuous_scale = px.colors.sequential.Turbo, 
+                    color_continuous_scale = px.colors.sequential.matter, 
                     hover_name="City")
 
 fig.update_traces(marker=dict(size=10))
@@ -822,7 +822,7 @@ fig = px.scatter_geo(coordinates_map,
                     lat="Latitude",
                     lon="Longitude",
                     color="Uses",
-                    color_continuous_scale = px.colors.sequential.Turbo, 
+                    color_continuous_scale = px.colors.sequential.matter, 
                     hover_name="City")
 
 fig.update_traces(marker=dict(size=10))
