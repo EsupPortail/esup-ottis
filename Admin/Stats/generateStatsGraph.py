@@ -214,9 +214,11 @@ first_use_raw = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year"
 
 first_use_df = first_use_raw.groupby(['Month','Year', 'Origin'])['user_id'].agg('count').reset_index()
 first_use_df = first_use_df.rename(columns={"user_id": "New users"})
-first_use_df.Month = pd.Categorical(first_use_df.Month,categories=months_in_order,ordered=True)
-first_use_df = first_use_df.sort_values('Month')
-first_use_df = first_use_df.sort_values('Year')
+first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
+first_use_df = first_use_df.sort_values('Date')
+# first_use_df.Month = pd.Categorical(first_use_df.Month,categories=months_in_order,ordered=True)
+# first_use_df = first_use_df.sort_values('Month')
+# first_use_df = first_use_df.sort_values('Year')
 
 first_use_graph = first_use_raw
 first_use_graph['Origin global'] = first_use_graph['Origin']
@@ -262,7 +264,7 @@ fig.write_html("users/new_users_per_months_graph.html")
 first_use_df.to_csv('users/new_users_per_months_tab.csv')  
 
 
-#################################### Nb uses and users since the beginning group by origin ####################################
+#################################### [DEPRECATED ?] Nb uses and users since the beginning group by origin ####################################
 
 mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
 for x in mycursor:
