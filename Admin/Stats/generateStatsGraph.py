@@ -99,7 +99,11 @@ for x in mycursor:
 nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Year","Month","Origin", "Number of uses"))
 
 nb_uses_df = nb_uses_raw
-nb_uses_df.Month = pd.Categorical(nb_uses_df.Month,categories=months_in_order,ordered=True)
+nb_uses_df['Month_number']= nb_uses_df['Month'].map(month_number)
+nb_uses_df['Date'] = pd.to_datetime(dict(year=nb_uses_df['Year'], month=nb_uses_df['Month_number'], day=1))
+nb_uses_df = nb_uses_df.drop('Month_number', axis=1)
+nb_uses_df = nb_uses_df.sort_values('Date')
+# nb_uses_df.Month = pd.Categorical(nb_uses_df.Month,categories=months_in_order,ordered=True)
 # nb_uses_df = nb_uses_df.sort_values('Month')
 # nb_uses_df = nb_uses_df.sort_values('Year')
 # nb_uses_df.sort_values(['Month','Year'])
@@ -158,9 +162,13 @@ for x in mycursor:
 nb_users_raw = pd.DataFrame(data=nb_users, columns=("Number of users", "Month", "Year", "Origin"))
 
 nb_users_df = nb_users_raw
-nb_users_df.Month = pd.Categorical(nb_users_df.Month,categories=months_in_order,ordered=True)
-nb_users_df = nb_users_df.sort_values('Month')
-nb_users_df = nb_users_df.sort_values('Year')
+nb_users_df['Month_number']= nb_users_df['Month'].map(month_number)
+nb_users_df['Date'] = pd.to_datetime(dict(year=nb_users_df['Year'], month=nb_users_df['Month_number'], day=1))
+nb_users_df = nb_users_df.drop('Month_number', axis=1)
+nb_users_df = nb_users_df.sort_values('Date')
+# nb_users_df.Month = pd.Categorical(nb_users_df.Month,categories=months_in_order,ordered=True)
+# nb_users_df = nb_users_df.sort_values('Month')
+# nb_users_df = nb_users_df.sort_values('Year')
 
 nb_users_graph = nb_users_raw
 nb_users_graph['Origin global'] = nb_users_graph['Origin']
