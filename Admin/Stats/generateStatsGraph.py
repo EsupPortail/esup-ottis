@@ -214,7 +214,7 @@ first_use_raw = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year"
 
 first_use_df = first_use_raw.groupby(['Month','Year', 'Origin'])['user_id'].agg('count').reset_index()
 first_use_df = first_use_df.rename(columns={"user_id": "New users"})
-first_use_df['month_number']= first_use_df['Month'].map(month_number)
+first_use_df['Month_number']= first_use_df['Month'].map(month_number)
 first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
 first_use_df = first_use_df.drop('Month_number', axis=1)
 first_use_df = first_use_df.sort_values('Date')
