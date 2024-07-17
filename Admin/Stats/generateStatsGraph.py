@@ -93,10 +93,10 @@ mydb.commit()
 #################################### Number uses per month ####################################
 
 nb_uses = []
-mycursor.execute("SELECT date_year, date_month, origin, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin;")
+mycursor.execute("SELECT date_month, date_year, origin, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin;")
 for x in mycursor:
   nb_uses.append(x)
-nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Year","Month","Origin", "Number of uses"))
+nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Month", "Year","Origin", "Number of uses"))
 
 nb_uses_df = nb_uses_raw
 nb_uses_df['Month_number']= nb_uses_df['Month'].map(month_number)
@@ -156,10 +156,10 @@ nb_uses_df.to_csv('uses/uses_per_months_tab.csv')
 #################################### Nb users per month ####################################
 
 nb_users = []
-mycursor.execute("SELECT COUNT(DISTINCT user_id), date_month, date_year, origin FROM statslog GROUP BY date_month, date_year, origin;")
+mycursor.execute("SELECT date_month, date_year, origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin;")
 for x in mycursor:
   nb_users.append(x)
-nb_users_raw = pd.DataFrame(data=nb_users, columns=("Number of users", "Month", "Year", "Origin"))
+nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "Number of users"))
 
 nb_users_df = nb_users_raw
 nb_users_df['Month_number']= nb_users_df['Month'].map(month_number)
@@ -431,10 +431,10 @@ config_used_df.to_csv('uses/config_used_tab.csv')
 #################################### Deepl usage ####################################
 
 deepl_per_month = []
-mycursor.execute("SELECT date_year, date_month, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<7 GROUP BY date_year, date_month;")
+mycursor.execute("SELECT date_month, date_year, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<7 GROUP BY date_year, date_month;")
 for x in mycursor:
   deepl_per_month.append(x)
-deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Year", "Month","Percentage", "Characters"))
+deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Month", "Year", "Percentage", "Characters"))
 deepl_per_month_df["Percentage"] = deepl_per_month_df["Percentage"]/100
 
 fig = go.Figure()
