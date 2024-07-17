@@ -814,7 +814,7 @@ fig = px.scatter_geo(coordinates_map,
                     hover_name="City")
 
 fig.update_traces(marker=dict(size=10))
-fig.update_geos(fitbounds="locations")
+# fig.update_geos(fitbounds="locations")
 
 fig.write_html("users/map_ipaddress.html")
 
@@ -827,7 +827,7 @@ fig = px.scatter_geo(coordinates_map,
                     hover_name="City")
 
 fig.update_traces(marker=dict(size=10))
-fig.update_geos(fitbounds="locations")
+# fig.update_geos(fitbounds="locations")
 
 fig.write_html("uses/map_ipaddress.html")
 
