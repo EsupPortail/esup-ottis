@@ -796,8 +796,11 @@ fig = go.Figure()
 fig = px.scatter_geo(coordinates_df,
                     lat="Latitude",
                     lon="Longitude",
-                    size="Users",
+                    color="Users",
+                    color_continuous_scale = px.colors.sequential.Turbo, 
                     hover_name="City")
+
+fig.update_traces(marker=dict(size=10))
 
 fig.write_html("users/map_ipaddress.html")
 
@@ -805,8 +808,11 @@ fig = go.Figure()
 fig = px.scatter_geo(coordinates_df,
                     lat="Latitude",
                     lon="Longitude",
-                    size="Uses",
+                    color="Uses",
+                    color_continuous_scale = px.colors.sequential.Turbo, 
                     hover_name="City")
+
+fig.update_traces(marker=dict(size=10))
 
 fig.write_html("uses/map_ipaddress.html")
 
