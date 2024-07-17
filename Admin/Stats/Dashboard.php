@@ -7,6 +7,7 @@
 
 ?>
 <?php
+include("../../Security/Authentification.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
@@ -20,13 +21,12 @@ if ($external) $uid="external";
 //if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 $fake=false;
 
-//AuthenticateNotStudent($uid);
+$userprivileges=getPrivilege($uid,"../../tables/listAdminID.txt",2);
 
-
-// Mettre en place une liste de privilégiés
-// =1 peut inviter et fixer la durée de l'invitation
-// =2 peut inviter pour 24h
-// sinon ne peut pas inviter
+if ($userprivileges<2) {
+  echo "<p>".$id.", vous n'êtes pas autorisé à consulter cette page</p>";
+  exit;
+}
 
 
 $theme="flat";
