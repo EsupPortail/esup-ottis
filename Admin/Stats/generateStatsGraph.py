@@ -803,9 +803,10 @@ mycursor.execute("SELECT city, latitude, longitude, COUNT(DISTINCT user_id), COU
 for x in mycursor:
   coordinates.append(x)
 coordinates_df = pd.DataFrame(data=coordinates, columns=["City", "Latitude", "Longitude", "Users", "Uses"])
+coordinates_map = coordinates_df.dropna(how='any',axis=0)
 
 fig = go.Figure()
-fig = px.scatter_geo(coordinates_df,
+fig = px.scatter_geo(coordinates_map,
                     lat="Latitude",
                     lon="Longitude",
                     color="Users",
@@ -817,7 +818,7 @@ fig.update_traces(marker=dict(size=10))
 fig.write_html("users/map_ipaddress.html")
 
 fig = go.Figure()
-fig = px.scatter_geo(coordinates_df,
+fig = px.scatter_geo(coordinates_map,
                     lat="Latitude",
                     lon="Longitude",
                     color="Uses",
@@ -829,6 +830,9 @@ fig.update_traces(marker=dict(size=10))
 fig.write_html("uses/map_ipaddress.html")
 
 coordinates_df.to_csv('users/map_ipaddress_tab.csv')
+
+
+#################################### Database total ####################################
 
 table_tot = []
 mycursor.execute("SELECT * FROM statslog;")
