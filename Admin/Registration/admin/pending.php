@@ -6,7 +6,7 @@ $result = mysqli_query($conn,$query) or die(mysql_error());
 
 $nbpending=0;
 while ($user=mysqli_fetch_assoc($result)) {
-    if ($user["pending"]!="NO") $nbpending++;
+    if ($user["pending"]!="NO" && $user["active"]!="YES") $nbpending++;
 
 }
 
