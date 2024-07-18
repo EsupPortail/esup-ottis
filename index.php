@@ -7,6 +7,7 @@
 
 ?>
 <?php
+session_start();
 
 include("Security/Authentification.php");
 include("config.php");
@@ -14,7 +15,13 @@ include("Admin/Stats/config_database_stats.php");
 
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
-if ($uid == "") $uid="anonymous"; //$uid="e18XXX"; // en attendant de rétablir le CAS....
+if ($uid == "") {
+	$uid="anonymous"; 
+} else {
+	$_SESSION["username"]=$uid;
+}
+
+//$uid="e18XXX"; // en attendant de rétablir le CAS....
 if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous";
 
 if (! isset($external)) $external=false;
