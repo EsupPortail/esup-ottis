@@ -334,6 +334,7 @@ $insertCommande_stats->execute([
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab3"><a class="tabbed" href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab4"><a class="tabbed" href="#tabs-12" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 4</span></a></li>
 				<li style="background-color: #000; color: white" id="confortplus" title="Accessibilité"></li>
+				<li style="display:none;" id="logout"><a id="logout-button" href="Admin/Registration/logout.php" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span class="hidesmallscreens">&nbsp;Logout</span></a></li>
 			</ul>
 			<div id="tabs-0">
 				<h3 class="tabbed">Language configuration</h3>
