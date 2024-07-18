@@ -7,9 +7,9 @@
 
 ?>
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-	session_start();
-}
+//if (session_status() === PHP_SESSION_NONE) {
+//	session_start();
+//}
 		
 
 include("Security/Authentification.php");
@@ -20,9 +20,10 @@ $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
 if ($uid == "") {
 	$uid="anonymous"; 
-} else {
-	$_SESSION["username"]=$uid;
-}
+} 
+//else {
+//	$_SESSION["username"]=$uid;
+//}
 
 //$uid="e18XXX"; // en attendant de rétablir le CAS....
 if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous";

@@ -8,16 +8,16 @@
     
     $external=true;
 	// Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
-	if(!isset($_SESSION["username"])){
-		header("Location: ../Admin/Registration/login.php?ref=OMT");
-		exit(); 
-	}
+	//if(!isset($_SESSION["username"])){
+	//	header("Location: ../Admin/Registration/login.php?ref=OMT");
+	//	exit(); 
+	//}
 
 
-    if (! isset($_SERVER['HTTP_REFERER'])) {
-        header("Location: https://automatictranslator.sciences.univ-nantes.fr");
-        exit();
-    }
+//    if (! isset($_SERVER['HTTP_REFERER'])) {
+//        header("Location: https://automatictranslator.sciences.univ-nantes.fr");
+//        exit();
+//    }
 
 	include("index.php");
 ?>
