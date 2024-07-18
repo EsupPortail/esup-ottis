@@ -20,11 +20,11 @@
             }
                 
             if($domain['host'] != $mysite) {
-                header("Location: https://automatictranslator.sciences.univ-nantes.fr");
-                exit();
+                header("Location: ../Admin/Registration/login.php?ref=OMT");
+                exit(); 
+                //header("Location: https://automatictranslator.sciences.univ-nantes.fr");
+                //exit();
             } 
-        	header("Location: ../Admin/Registration/login.php?ref=OMT");
-        	exit(); 
         }
     
     
