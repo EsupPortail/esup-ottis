@@ -27,7 +27,11 @@ if (isset($_POST['username'])){
     }else{
       if ($user['active']=='YES') {
         $_SESSION['active']="YES";
-        header('location: ../../indexNOCAS.php');
+        if (isset($_GET["ref"])) {
+          if ($_GET["ref"] == "OMT") 
+            header('location: ../../OMIST_Tools/indexNOCAS.php');
+          else header('location: ../../indexNOCAS.php');
+        } else header('location: ../../indexNOCAS.php');
       } else {
         $message = "Ce compte n'a pas encore été activé.";
       }
