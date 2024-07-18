@@ -2,9 +2,9 @@
     // include("index.php");
 	// Initialiser la session
 
-   if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
+//   if (session_status() === PHP_SESSION_NONE) {
+//        session_start();
+//    }
     
     $external=true;
 	// Vérifiez si l'utilisateur est connecté, sinon redirigez-le vers la page de connexion
