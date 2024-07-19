@@ -33,9 +33,7 @@
     }
 
     if ($_SESSION["from"] != "scenarios")  {
-        echo "<!--";
-        print_r($_SESSION);
-        echo "-->";
+
         include("index.php");
        if ($_SESSION["from"] == "login") echo "\n<script>document.getElementById('logout').style.display='inline';</script>\n";
     } else {
