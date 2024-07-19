@@ -27,6 +27,7 @@ if (isset($_POST['username'])){
     }else{
       if ($user['active']=='YES') {
         $_SESSION['active']="YES";
+        $_SESSION["from"]= "login";
         if (isset($_GET["ref"])) {
           if ($_GET["ref"] == "OMT") 
             header('location: ../../OMIST_Tools/indexNOCAS.php');
