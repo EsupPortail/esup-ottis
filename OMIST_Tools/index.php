@@ -592,6 +592,7 @@ body {
     <li title="These tools allow to transcript a video file or an audio file"><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
     <li title="These tools allow to translate diverse types of files including PPTX, subtitles files or SCORM and XLIFF course scenarios"><a href="#menu" onclick="showList('5,6,10,11')"><i class="fa fa-language"></i><span class="hidesmallscreens">&nbsp;Translations only</span></a></li>
     <li title="These tools allow diverse manipulations, mainly for PPTX files"><a href="#menu" onclick="showList('7,8,9')"><i class="fa fa-refresh"></i><span class="hidesmallscreens">&nbsp;Conversions only</span></a></li>
+    <li style="display:none;" id="logout" onclick="window.location.href='Admin/Registration/logout.php';"><span id="logout-button" title="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i><span class="hidesmallscreens">&nbsp;Logout</span></span></li>
   </ul>
 <div id="menu">
 <div id="tool1">
