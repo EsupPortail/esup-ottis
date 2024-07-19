@@ -28,7 +28,7 @@
         }
     
     
-    if ($_SESSION["from"] != "scenarios") {
+    if ($_SESSION["from"] != "scenarios" && $_SESSION["from"] != "logout") {
         include("index.php");
        if ($_SESSION["from"] == "login") echo "\n<script>document.getElementById('logout').style.display='inline';</script>\n";
     } else {
