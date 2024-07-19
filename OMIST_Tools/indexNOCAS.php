@@ -20,7 +20,7 @@
             }
                 
             if($domain['host'] != $mysite) {
-                header("Location: ../Admin/Registration/login2.php?ref=OMT");
+                header("Location: ../Admin/Registration/login.php?ref=OMT");
                 exit(); 
                 //header("Location: https://automatictranslator.sciences.univ-nantes.fr");
                 //exit();
@@ -31,11 +31,11 @@
     if ($_SESSION["from"] != "scenarios") 
         include("index.php");
     else {
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";
-//        header("Location: ../Admin/Registration/login.php?ref=OMT");
-//        exit(); 
+        //echo "<pre>";
+        //print_r($_SESSION);
+        //echo "</pre>";
+        header("Location: ../Admin/Registration/login.php?ref=OMT");
+        exit(); 
     }
     ?>
     <!--
