@@ -27,7 +27,7 @@
             } 
         }
     
-    if ($_SESSION["from"] == "logout") {
+    if (! isset($_SESSION["from"]) || $_SESSION["from"] == "logout") {
         header("Location: ../Admin/Registration/login.php?ref=OMT");
         exit(); 
     }
