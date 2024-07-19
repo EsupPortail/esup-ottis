@@ -20,7 +20,7 @@
             }
                 
             if($domain['host'] != $mysite) {
-                header("Location: ../Admin/Registration/login.php?ref=OMT");
+                header("Location: ../Admin/Registration/login2.php?ref=OMT");
                 exit(); 
                 //header("Location: https://automatictranslator.sciences.univ-nantes.fr");
                 //exit();
