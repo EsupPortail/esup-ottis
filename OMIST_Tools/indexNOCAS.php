@@ -27,8 +27,12 @@
             } 
         }
     
-    
-    if ($_SESSION["from"] != "scenarios" && $_SESSION["from"] != "logout") {
+    if ($_SESSION["from"] == "logout") {
+        header("Location: ../Admin/Registration/login.php?ref=OMT");
+        exit(); 
+    }
+
+    if ($_SESSION["from"] != "scenarios")  {
         include("index.php");
        if ($_SESSION["from"] == "login") echo "\n<script>document.getElementById('logout').style.display='inline';</script>\n";
     } else {
