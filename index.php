@@ -12,6 +12,12 @@ include("Security/Authentification.php");
 include("config.php");
 include("Admin/Stats/config_database_stats.php");
 
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+$_SESSION["from"]="teacher";
+  
+
 $uid="";
 if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
 if ($uid == "") $uid="anonymous"; //$uid="e18XXX"; // en attendant de rétablir le CAS....
@@ -21,7 +27,6 @@ if (! isset($external)) $external=false;
 
 if ($external) $uid="external";
 
-//if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 $fake=false;
 
 //AuthenticateNotStudent($uid);

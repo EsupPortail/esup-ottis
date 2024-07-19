@@ -1,4 +1,10 @@
 <?php require("./NoCache.php"); ?>
+<?php 
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+$_SESSION["from"]="scenarios";
+?>
 <!DOCTYPE html>
 <html lang="fr-FR">
   <head>

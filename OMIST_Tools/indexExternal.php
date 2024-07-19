@@ -1,4 +1,5 @@
 <?php 
+exit();
 
 $external=true;
 $roomid="unknown";

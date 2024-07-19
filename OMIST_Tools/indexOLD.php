@@ -1,4 +1,6 @@
 <?php
+
+exit();
 session_start();
 // Empêche la mise en cache
     header('Pragma: no-cache');
