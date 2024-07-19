@@ -31,11 +31,11 @@
     if ($_SESSION["from"] != "scenarios") 
         include("index.php");
     else {
-//        echo "<pre>";
-//        print_r($_SESSION);
-//        echo "</pre>";
-        header("Location: ../Admin/Registration/login.php?ref=OMT");
-        exit(); 
+        echo "<pre>";
+        print_r($_SESSION);
+        echo "</pre>";
+//        header("Location: ../Admin/Registration/login.php?ref=OMT");
+//        exit(); 
     }
     ?>
     <!--
