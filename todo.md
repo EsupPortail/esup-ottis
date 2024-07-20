@@ -129,7 +129,6 @@ Pour moi.
 - [ ] objectif : avoir le nombre d'utilisateurs, leur utilisation, l'utilisation des quotas de traduction (éventuellement par système voire clé utilisée) pour avoir un „modèle économique“, avec une interface de visualisation (avec des courbes qu’on peut directement copier dans des rapports)
 - [ ] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
 
-
 ## Priorisation ? Mais ça n'est pas forcément à suivre
 
 ### Partie dédiée à l'éditeur d'animation
@@ -139,5 +138,9 @@ Pour moi.
 Notre premier compte "client" a été créé ce week-end (sans que ça soit fait par nous) pour quelqu'un d'Avignon (cyrielle.garson@univ-avignon.fr). En outre, actuellement on n'a pas trop d'informations sur la personne qui demande un compte. Là c'était facile car on savait d'où venait la demande. A FAIRE : 
 - Peut-être lui écrire pour savoir si ça s'est bien passé, en indiquant que ces comptes externes sont une nouveauté et qu'on aimerait un retour si possible.
 - réfléchir au champs qu'on pourrait ajouter au formulaire de demande de compte, ensuite ça sera assez facile d'adapter le formulaire et la BDD.
+
+### Partie dédiée à la télécommande
+- revoir l'appli
+J'ai un peu oublié ce dont il s'agit mais c'est vrai que ça aurait vraiment besoin d'un bon relooking. Pas prioritaire mais si tu te sens de le faire...
 
 
