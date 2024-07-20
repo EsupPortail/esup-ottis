@@ -50,7 +50,7 @@ Pour moi.
 - [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
     - [X] Mettre en forme quand on utilise la traduction live (cf feuille de style)
     - [ ] Police des sous-titres qui réduit quand il n'y a plus de place ?
-- [ ] Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
+- [X] OBSOLETE : Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
 - [ ] Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)
@@ -67,10 +67,10 @@ Pour moi.
 - [X] ~~Quand on convertit on un pptx en animation -> décalage des images (à tester si ça fait pareil quand c'est un pdf)~~ _**(UPDATE : lié à LibreOffice, préférable de passer par un PDF avant si on éviter un potentiel décalage.)**_
 - [ ] BUG : quand on ouvre une animation avec "click here" et pas les téléchagements : on ne peut pas faire pause, les animations défilent
 - [ ] Faire une application qui permet, à partir d'une vidéo, d'en extraire le discours, de le traduire, de le faire lire par une voix de synthèse et de remettre le discours traduit dans la vidéo.
-    - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
+- [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
 - [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
 - [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier ?
-- [ ] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999 sinon -> 99.999
+- [X] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999 sinon -> 99.999
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
@@ -93,13 +93,13 @@ Pour moi.
 - [X] Pour addOptions : même si on close la fenêtre pour annuler notre action, le chanegement est quand même pris en compte
 - [X] Quand on ajoute une nouvelle ligne (vide ou non), il faut qu'une nouvelle ligne (vide) soit ajoutée dans les autres langues
 - [X] Voir si c'est faisable quand on modifie à la main un keyword, qu'il soit modifié dans toutes les langues
-- [ ] ~~Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la tradution dans les autres langues ?~~
+- [ ] ~~Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la traduction dans les autres langues ?~~
 - [X] Changer le message addAllLanguages()
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
-- [ ] Placer tous les scripts php qui ne sont qu'inclus dans des sous-répertoires adaptés (comme Security par exemple). ça concerne principalement config.php. Fermer les accès à ces répertoires (.htaccess ou via ssl-default.conf)
-- [ ] Faire la même chose que précédemment dans les OMIST_Tools si on déplace config.py, les fichiers impactés sont : 
+- [X] Placer tous les scripts php qui ne sont qu'inclus dans des sous-répertoires adaptés (comme Security par exemple). ça concerne principalement config.php. Fermer les accès à ces répertoires (.htaccess ou via ssl-default.conf)
+- [X] Faire la même chose que précédemment dans les OMIST_Tools si on déplace config.py, les fichiers impactés sont : 
     - OMIST_Tools/ExtractSpeech/SpeechExtractionFromPPTX.py
     - OMIST_Tools/ConvertPPTX/PPTX_TXT_to_PPTX.py
     - OMIST_Tools/TranslatePPTX/TranslatePPTX.py
@@ -110,12 +110,12 @@ Pour moi.
     - OMIST_Tools/TranslateSRT/TranslateSRT.py
     - OMIST_Tools/ConvertPDF/PDF_TXT_to_PPTX.py
 
-- [ ] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
+- [X] Dans les OMIST_Tools, il faut s'assurer que le "referer" est bien le site automatictranslator. ça revient à ajouter "include('Security/referer.php');" aux scripts concernés.
 
 ## Partie dédiée à la page Admin
 - [ ] quoi mettre dedans ?
 - [ ] quels niveaux privilèges différents ?
-- [ ] comment faire l'authentification externe ? Intégrer dans la page admin la génération de mdp pour htaccess, ou utiliser une autre méthode ?
+- [X] OBSOLETE : comment faire l'authentification externe ? Intégrer dans la page admin la génération de mdp pour htaccess, ou utiliser une autre méthode ?
 
 ## Partie dédiée à la télécommande
 - [ ] revoir l'appli
@@ -127,6 +127,17 @@ Pour moi.
 
 ## Partie dédiée à la mesure de l'utilisation de l'outil
 - [ ] objectif : avoir le nombre d'utilisateurs, leur utilisation, l'utilisation des quotas de traduction (éventuellement par système voire clé utilisée) pour avoir un „modèle économique“, avec une interface de visualisation (avec des courbes qu’on peut directement copier dans des rapports)
-    - [ ] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
+- [ ] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
+
+
+## Priorisation ? Mais ça n'est pas forcément à suivre
+
+### Partie dédiée à l'éditeur d'animation
+- ~~Voir pour le keyword notification...~~ ça me semble une très bonne idée.
+
+### Partie "nouvelle authentification externe"
+Notre premier compte "client" a été créé ce week-end (sans que ça soit fait par nous) pour quelqu'un d'Avignon (cyrielle.garson@univ-avignon.fr). En outre, actuellement on n'a pas trop d'informations sur la personne qui demande un compte. Là c'était facile car on savait d'où venait la demande. A FAIRE : 
+- Peut-être lui écrire pour savoir si ça s'est bien passé, en indiquant que ces comptes externes sont une nouveauté et qu'on aimerait un retour si possible.
+- réfléchir au champs qu'on pourrait ajouter au formulaire de demande de compte, ensuite ça sera assez facile d'adapter le formulaire et la BDD.
 
 
