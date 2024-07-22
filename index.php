@@ -26,8 +26,8 @@ if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous"
 if (! isset($external)) $external=false;
 
 if ($external){
-	if (isset($_SERVER['PHP_AUTH_USER'])) {
-		$uid_connexion = $_SERVER['PHP_AUTH_USER'];
+	if (isset($_SESSION["username"])) {
+		$uid_connexion = $_SESSION["username"];
 	}else{
 		$uid_connexion = "test-external";
 	}	
