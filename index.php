@@ -25,6 +25,16 @@ if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous"
 
 if (! isset($external)) $external=false;
 
+if ($external){
+	if (isset($_SERVER['PHP_AUTH_USER'])) {
+		$uid_connexion = $_SERVER['PHP_AUTH_USER'];
+	}else{
+		$uid_connexion = "test-external";
+	}	
+}else{
+	$uid_connexion = $uid;
+}
+
 if ($external) $uid="external";
 
 $fake=false;
@@ -123,7 +133,7 @@ $date_complete = gmdate("Y-m-d");
 $date_day = gmdate("d");
 $date_month = gmdate("F");
 $date_year = gmdate("Y");
-$user_id = $uid;
+$user_id = $uid_connexion;
 $room_id = $classroomid;
 $tool = "teacher";
 $origin = dirname(__FILE__);
