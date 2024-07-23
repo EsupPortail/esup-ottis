@@ -626,7 +626,7 @@ body {
     <input type="file" name="fileToUpload" id="fileToUpload1" aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens">
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value="">
-    <input type="hidden" id="UserID1" name="userid" value=<?php $uid_connexion ?> >
+    <input type="hidden" id="UserID1" name="userid" value="<?php $uid_connexion ?>" >
     <input type="hidden" id="Extension1" name="Extension" value="html"></li>
     <!--<input id="App1" type="submit" value="Create" name="submit">-->
     <li><button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button></li>
