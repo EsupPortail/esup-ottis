@@ -66,13 +66,13 @@ def month_number(value):
     elif value == 'December':
         return 12
 
-mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE statslog DROP external;")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("ALTER TABLE statslog DROP external;")
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE statslog ADD is_external BOOLEAN DEFAULT 0;")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("ALTER TABLE statslog ADD is_external BOOLEAN DEFAULT 0;")
+# mydb.commit()
 
 mycursor = mydb.cursor()
 mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
