@@ -22,7 +22,7 @@ if ($external){
 		$uid_connexion = "test-external";
 	}	
 }else{
-	$uid_connexion = $uid;
+	$uid_connexion = $_SESSION["username"];
 }
 
 if ($external) $uid="external";
