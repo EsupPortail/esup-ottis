@@ -67,6 +67,10 @@ def month_number(value):
         return 12
 
 mycursor = mydb.cursor()
+mycursor.execute("ALTER TABLE db_statslog ADD external BOOLEAN DEFAULT 0;")
+mydb.commit()
+
+mycursor = mydb.cursor()
 mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
 mydb.commit()
 
@@ -840,5 +844,5 @@ table_tot = []
 mycursor.execute("SELECT * FROM statslog;")
 for x in mycursor:
   table_tot.append(x)
-table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude"))
+table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude", "external"))
 table_tot_df.to_csv('table_tot.csv')  
