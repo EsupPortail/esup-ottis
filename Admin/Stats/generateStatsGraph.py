@@ -197,7 +197,7 @@ for origin, group in nb_users_graph.groupby("Origin global"):
        y=group["Number of users"], 
        name=origin,
        customdata=nb_users_graph[["External"]],
-       hovertemplate="%%{customdata[0]}<br>Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
+       hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
       )
     )
 
