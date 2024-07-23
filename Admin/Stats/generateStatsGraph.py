@@ -66,29 +66,29 @@ def month_number(value):
     elif value == 'December':
         return 12
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='master/OMIST_Tools' WHERE origin='/var/www/html/AutomaticTranslator-master/OMIST_Tools';")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog SET origin='master/OMIST_Tools' WHERE origin='/var/www/html/AutomaticTranslator-master/OMIST_Tools';")
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='test' WHERE (origin='VM test' or origin='/var/www/html/AutomaticTranslator-test');")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog SET origin='test' WHERE (origin='VM test' or origin='/var/www/html/AutomaticTranslator-test');")
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='test/OMIST_Tools' WHERE origin='/var/www/html/AutomaticTranslator-test/OMIST_Tools';")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog SET origin='test/OMIST_Tools' WHERE origin='/var/www/html/AutomaticTranslator-test/OMIST_Tools';")
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='external' WHERE origin='/var/www/html/AutomaticTranslator-external';")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog SET origin='external' WHERE origin='/var/www/html/AutomaticTranslator-external';")
+# mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("UPDATE statslog SET origin='external/OMIST_Tools' WHERE origin='/var/www/html/AutomaticTranslator-external/OMIST_Tools';")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("UPDATE statslog SET origin='external/OMIST_Tools' WHERE origin='/var/www/html/AutomaticTranslator-external/OMIST_Tools';")
+# mydb.commit()
 
 #################################### Number uses per month ####################################
 
