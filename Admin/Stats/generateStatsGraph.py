@@ -67,7 +67,7 @@ def month_number(value):
         return 12
 
 mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE db_statslog ADD external BOOLEAN DEFAULT 0;")
+mycursor.execute("ALTER TABLE statslog ADD external BOOLEAN DEFAULT 0;")
 mydb.commit()
 
 mycursor = mydb.cursor()
