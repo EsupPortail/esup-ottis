@@ -164,10 +164,10 @@ nb_uses_df.to_csv('uses/uses_per_months_tab.csv')
 #################################### Nb users per month ####################################
 
 nb_users = []
-mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
+mycursor.execute("SELECT date_month, date_year, origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin;")
 for x in mycursor:
   nb_users.append(x)
-nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "External" "Number of users"))
+nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "Number of users"))
 
 nb_users_df = nb_users_raw
 nb_users_df['Month_number']= nb_users_df['Month'].map(month_number)
