@@ -164,10 +164,12 @@ nb_uses_df.to_csv('uses/uses_per_months_tab.csv')
 #################################### Nb users per month ####################################
 
 nb_users = []
-mycursor.execute("SELECT date_month, date_year, origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin;")
+mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
 for x in mycursor:
   nb_users.append(x)
-nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "Number of users"))
+nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "External", "Number of users"))
+nb_users_raw.loc[nb_users_raw["External"] == 1, "External"] = "External to NU"
+nb_users_raw.loc[nb_users_raw["External"] == 0, "External"] = "Internal to NU"
 
 nb_users_df = nb_users_raw
 nb_users_df['Month_number']= nb_users_df['Month'].map(month_number)
@@ -186,7 +188,7 @@ for ind in nb_users_graph.index:
 nb_users_graph = nb_users_graph.drop(columns = ['Origin'])
 nb_users_graph['Month_number']= nb_users_graph['Month'].map(month_number)
 nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=nb_users_graph['Month_number'], day=1))
-nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global'])['Number of users'].sum().reset_index()
+nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global', 'External'])['Number of users'].sum().reset_index()
 
 fig = go.Figure()
 for origin, group in nb_users_graph.groupby("Origin global"):
@@ -194,7 +196,8 @@ for origin, group in nb_users_graph.groupby("Origin global"):
        x=group["Date"], 
        y=group["Number of users"], 
        name=origin,
-       hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
+       customdata=nb_users_graph[["External"]],
+       hovertemplate="%%{customdata[0]}<br>Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
       )
     )
 
