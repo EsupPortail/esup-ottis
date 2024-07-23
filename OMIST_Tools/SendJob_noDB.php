@@ -170,6 +170,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     $tool = $_POST['ProgramName'];
     $origin = dirname(__FILE__);
     $ip_address = $ip;
+    $is_external = $_POST['external'];
 
     $json_stats=json_encode([
         'date_raw' => $date_raw, 
@@ -181,7 +182,8 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
         'room_id' => $room_id, 
         'tool' => $tool, 
         'origin' => $origin, 
-        'ip_address' => $ip_address 
+        'ip_address' => $ip_address,
+        'is_external' => $is_external
     ]);
 
     $fd_stats=fopen("fakeDB/db_stats.json","a");

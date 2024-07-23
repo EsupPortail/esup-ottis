@@ -178,8 +178,9 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     $tool = $_POST['ProgramName'];
     $origin = dirname(__FILE__);
     $ip_address = $ip;
+    $is_external = $_POST['external'];
 
-    $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :ip_address)';
+    $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, ip_address, is_external) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :ip_address, :is_external)';
     $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
     $insertCommande_stats->execute([
@@ -192,7 +193,8 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
         'room_id' => $room_id, 
         'tool' => $tool, 
         'origin' => $origin,
-        'ip_address' => $ip_address
+        'ip_address' => $ip_address,
+        'is_external' => $is_external
     ]);
 
  }

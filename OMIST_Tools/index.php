@@ -24,6 +24,11 @@ if ($external){
 }else{
 	$uid_connexion = $uid;
 }
+if ($external){
+	$is_external = True;
+}else{
+	$is_external = False;
+}
 
 if ($external) $uid="external";
 
@@ -625,6 +630,7 @@ body {
     <input type="hidden" id="ProgName1" name="ProgramName" value="CreateApp/CreateAppFromPPTX.php">
     <input type="hidden" id="Random1" name="randompath" value="">
     <input type="hidden" id="UserID1" name="userid" value="<?php echo $uid_connexion; ?>" >
+    <input type="hidden" id="External1" name="external" value="<?php echo $is_external; ?>" >
     <input type="hidden" id="Extension1" name="Extension" value="html"></li>
     <!--<input id="App1" type="submit" value="Create" name="submit">-->
     <li><button id="App1" value="Create" onclick="if (_('fileToUpload1').value!='') {this.innerHTML=''; SubmitJob(1,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button></li>
