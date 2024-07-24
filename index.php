@@ -149,6 +149,9 @@ if ($external){
 	$is_external = False;
 }
 
+echo '<script>' . 'console.log(' . json_encode($is_external, JSON_HEX_TAG) .');' . '</script>';
+
+
 $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address)';
 $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
