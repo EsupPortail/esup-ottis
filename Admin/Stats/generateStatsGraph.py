@@ -40,6 +40,8 @@ months_in_order = ['January','February','March','April','May','June','July','Aug
 # mycursor.execute("UPDATE translatelog SET percentage_char = 100*characters/char_max;")
 # mydb.commit()
 
+reference_date = '2024-07-01'
+
 def month_number(value):
     if value == 'January':
         return 1
@@ -102,6 +104,8 @@ mydb.commit()
 
 nb_uses = []
 mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
+# mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY date_month, date_year, origin, is_external", (reference_date,))
+
 for x in mycursor:
   nb_uses.append(x)
 nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Month", "Year", "Origin", "External", "Number of uses"))
@@ -162,14 +166,14 @@ fig.update_layout(
 fig.write_html("uses/uses_per_months_graph.html")
 nb_uses_df.to_csv('uses/uses_per_months_tab.csv')  
 
-# mycursor.execute("SELECT * INTO OUTFILE '/tables/uses.csv' FIELDS TERMINATED BY ';' ENCLOSED BY '\"' LINES TERMINATED BY '\n' FROM statslog;")
-
-
 
 #################################### Nb users per month ####################################
 
 nb_users = []
 mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
+# mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog WHERE date_complete >=%s GROUP BY date_month, date_year, origin, is_external", (reference_date,))
+
+
 for x in mycursor:
   nb_users.append(x)
 nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "External", "Number of users"))
@@ -235,6 +239,8 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 
 first_use = []
 mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
+# mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND date_complete >=%s)", (reference_date,))
+
 for x in mycursor:
   first_use.append(x)
 first_use_raw = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year", "Origin", "External"))
@@ -358,6 +364,8 @@ fig.write_html("uses_users_origin.html")
 
 tools_used = []
 mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
+# mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY origin, tool ", (reference_date,))
+
 for x in mycursor:
   tools_used.append(x)
 tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
@@ -409,6 +417,8 @@ tools_used_df.to_csv('uses/tools_used_tab.csv')
 
 config_used = []
 mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
+# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+
 for x in mycursor:
   config_used.append(x)
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
@@ -456,6 +466,8 @@ config_used_df.to_csv('uses/config_used_tab.csv')
 
 deepl_per_month = []
 mycursor.execute("SELECT date_month, date_year, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<7 GROUP BY date_year, date_month;")
+# mycursor.execute("SELECT date_month, date_year, MAX(percentage_char), MAX(characters) FROM translatelog WHERE (date_day<7 AND date_complete >=%s) GROUP BY date_year, date_month", (reference_date,))
+
 for x in mycursor:
   deepl_per_month.append(x)
 deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Month", "Year", "Percentage", "Characters"))
@@ -520,6 +532,8 @@ deepl_per_month_df.to_csv('translation/deepl_usage_per_month_tab.csv')
 
 deepl_per_day = []
 mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters) FROM translatelog GROUP BY DATE(date_complete);")
+# mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_complete >=%s GROUP BY DATE(date_complete)", (reference_date,))
+
 for x in mycursor:
   deepl_per_day.append(x)
 
@@ -744,6 +758,8 @@ fig.write_image("indicators/indicator_tot.png")
 ip_to_translate = []
 ip_translated_df = pd.DataFrame(columns=['IP_address', 'City', 'Country', 'Latitude', 'Longitude'])
 mycursor.execute("SELECT ip_address FROM statslog WHERE (ip_address IS NOT NULL and city IS NULL and latitude IS NULL) GROUP BY ip_address;")
+# mycursor.execute("SELECT ip_address FROM statslog WHERE (ip_address IS NOT NULL and city IS NULL and latitude IS NULL) WHERE date_complete >=%s GROUP BY ip_address", (reference_date,))
+
 for x in mycursor:
   ip_to_translate.append(x)
 ip_to_translate_df = pd.DataFrame(data=ip_to_translate, columns=["IP_address"])
@@ -824,6 +840,8 @@ mydb.commit()
 
 coordinates = []
 mycursor.execute("SELECT city, latitude, longitude, COUNT(DISTINCT user_id), COUNT(id) FROM statslog GROUP BY latitude, longitude, city;")
+# mycursor.execute("SELECT city, latitude, longitude, COUNT(DISTINCT user_id), COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY latitude, longitude, city", (reference_date,))
+
 for x in mycursor:
   coordinates.append(x)
 coordinates_df = pd.DataFrame(data=coordinates, columns=["City", "Latitude", "Longitude", "Users", "Uses"])
@@ -861,9 +879,9 @@ coordinates_df.to_csv('users/map_ipaddress_tab.csv')
 #################################### Database total ####################################
 
 table_tot = []
-mycursor.execute("SELECT * FROM statslog WHERE date_complete >= '2024-07-01';")
-# num_fields = len(mycursor.description)
-# field_names = [i[0] for i in mycursor.description]
+mycursor.execute("SELECT * FROM statslog WHERE date_complete;")
+# mycursor.execute("SELECT * FROM statslog WHERE date_complete >=%s", (reference_date,))
+
 for x in mycursor:
   table_tot.append(x)
 table_tot_df = pd.DataFrame(data=table_tot, columns=(mycursor.column_names))
