@@ -149,7 +149,7 @@ if ($external){
 	$is_external = False;
 }
 
-$requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address, is_external) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address, :is_external)';
+$requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address)';
 $insertCommande_stats = $pdo_stats->prepare($requete_SQL_stats);
 
 $insertCommande_stats->execute([
@@ -163,8 +163,7 @@ $insertCommande_stats->execute([
     'tool' => $tool, 
     'origin' => $origin,
     'config_teacher' => $config_teacher,
-    'ip_address' => $ip_address,
-	'is_external' => $is_external
+    'ip_address' => $ip_address
 ]);
 
 //print_r($T_lang);
