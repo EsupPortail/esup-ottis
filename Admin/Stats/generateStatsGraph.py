@@ -31,7 +31,7 @@ table_tot = []
 mycursor.execute("SELECT * FROM statslog;")
 for x in mycursor:
   table_tot.append(x)
-table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude", "external"))
+table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude"))
 table_tot_df.to_csv('table_tot.csv')  
 
 if not os.path.exists("./indicators"):
