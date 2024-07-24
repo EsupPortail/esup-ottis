@@ -149,7 +149,14 @@ if ($external){
 	$is_external = False;
 }
 
-echo '<script>' . 'console.log(' . json_encode($is_external, JSON_HEX_TAG) .');' . '</script>';
+$sql = 'DESCRIBE statslog';
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$columns = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+foreach($columns as $col) {
+	echo $col . '<br/>';
+}
 
 
 $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address)';
