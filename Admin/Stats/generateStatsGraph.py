@@ -105,10 +105,10 @@ mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) F
 for x in mycursor:
   nb_uses.append(x)
 nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Month", "Year", "Origin", "External", "Number of uses"))
-nb_uses_raw .loc[nb_uses_raw ["External"].isna(), "External"] = 0.0
+nb_uses_raw.loc[nb_uses_raw["External"].isna(), "External"] = 0.0
 nb_uses_raw["External"] = nb_uses_raw["External"].astype(str)
-nb_uses_raw .loc[nb_uses_raw ["External"] == "1.0", "External"] = "External to NU"
-nb_uses_raw .loc[nb_uses_raw ["External"] == "0.0", "External"] = "Internal to NU"
+nb_uses_raw.loc[nb_uses_raw["External"] == "1.0", "External"] = "External to NU"
+nb_uses_raw.loc[nb_uses_raw["External"] == "0.0", "External"] = "Internal to NU"
 
 nb_uses_df = nb_uses_raw
 nb_uses_df['Month_number']= nb_uses_df['Month'].map(month_number)
@@ -173,10 +173,10 @@ mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTI
 for x in mycursor:
   nb_users.append(x)
 nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "External", "Number of users"))
-nb_users_raw .loc[nb_users_raw ["External"].isna(), "External"] = 0.0
+nb_users_raw.loc[nb_users_raw["External"].isna(), "External"] = 0.0
 nb_users_raw["External"] = nb_users_raw["External"].astype(str)
-nb_users_raw .loc[nb_users_raw ["External"] == "1.0", "External"] = "External to NU"
-nb_users_raw .loc[nb_users_raw ["External"] == "0.0", "External"] = "Internal to NU"
+nb_users_raw.loc[nb_users_raw["External"] == "1.0", "External"] = "External to NU"
+nb_users_raw.loc[nb_users_raw["External"] == "0.0", "External"] = "Internal to NU"
 
 
 nb_users_df = nb_users_raw
@@ -197,9 +197,6 @@ nb_users_graph = nb_users_graph.drop(columns = ['Origin'])
 nb_users_graph['Month_number']= nb_users_graph['Month'].map(month_number)
 nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=nb_users_graph['Month_number'], day=1))
 nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global', 'External'])['Number of users'].sum().reset_index()
-# nb_users_graph["External"] = nb_users_graph["External"].astype(str)
-# nb_users_graph.loc[nb_users_graph["External"] == "1.0", "External"] = "External to NU"
-# nb_users_graph.loc[nb_users_graph["External"] == "0.0", "External"] = "Internal to NU"
 
 fig = go.Figure()
 for origin, group in nb_users_graph.groupby("Origin global"):
@@ -237,12 +234,16 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 #################################### Nb new users per month ####################################
 
 first_use = []
-mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
+mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
 for x in mycursor:
   first_use.append(x)
-first_use_raw = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year", "Origin"))
+first_use_raw = pd.DataFrame(data=first_use, columns=("user_id", "Month", "Year", "Origin", "External"))
+first_use_raw.loc[first_use_raw["External"].isna(), "External"] = 0.0
+first_use_raw["External"] = first_use_raw["External"].astype(str)
+first_use_raw.loc[first_use_raw["External"] == "1.0", "External"] = "External to NU"
+first_use_raw.loc[first_use_raw["External"] == "0.0", "External"] = "Internal to NU"
 
-first_use_df = first_use_raw.groupby(['Month','Year', 'Origin'])['user_id'].agg('count').reset_index()
+first_use_df = first_use_raw.groupby(['Month','Year', 'Origin', 'External'])['user_id'].agg('count').reset_index()
 first_use_df = first_use_df.rename(columns={"user_id": "New users"})
 first_use_df['Month_number']= first_use_df['Month'].map(month_number)
 first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
@@ -270,7 +271,8 @@ for origin, group in first_use_graph.groupby("Origin global"):
        x=group["Date"], 
        y=group["New users origin"], 
        name=origin,
-       hovertemplate="Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
+       customdata=group[["External"]],
+       hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
       )
     )
 
