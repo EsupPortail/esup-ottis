@@ -101,10 +101,14 @@ mydb.commit()
 #################################### Number uses per month ####################################
 
 nb_uses = []
-mycursor.execute("SELECT date_month, date_year, origin, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin;")
+mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
 for x in mycursor:
   nb_uses.append(x)
-nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Month", "Year","Origin", "Number of uses"))
+nb_uses_raw = pd.DataFrame(data=nb_uses, columns=("Month", "Year", "Origin", "External", "Number of uses"))
+nb_uses_raw .loc[nb_uses_raw ["External"].isna(), "External"] = 0.0
+nb_uses_raw["External"] = nb_uses_raw["External"].astype(str)
+nb_uses_raw .loc[nb_uses_raw ["External"] == "1.0", "External"] = "External to NU"
+nb_uses_raw .loc[nb_uses_raw ["External"] == "0.0", "External"] = "Internal to NU"
 
 nb_uses_df = nb_uses_raw
 nb_uses_df['Month_number']= nb_uses_df['Month'].map(month_number)
@@ -124,7 +128,7 @@ for ind in nb_uses_graph.index:
 nb_uses_graph = nb_uses_graph.drop(columns = ['Origin'])
 nb_uses_graph['Month_number']= nb_uses_graph['Month'].map(month_number)
 nb_uses_graph['Date'] = pd.to_datetime(dict(year=nb_uses_graph['Year'], month=nb_uses_graph['Month_number'], day=1))
-nb_uses_graph = nb_uses_graph.groupby(['Date', 'Origin global'])['Number of uses'].sum().reset_index()
+nb_uses_graph = nb_uses_graph.groupby(['Date', 'Origin global', 'External'])['Number of uses'].sum().reset_index()
 
 fig = go.Figure()
 for origin, group in nb_uses_graph.groupby("Origin global"):
@@ -132,7 +136,8 @@ for origin, group in nb_uses_graph.groupby("Origin global"):
       x=group["Date"], 
       y=group["Number of uses"], 
       name=origin,
-      hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of uses = %%{y}<extra></extra>"% origin
+      customdata=group[["External"]],
+      hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>Number of uses = %%{y}<extra></extra>"% origin
       )
     )
 
