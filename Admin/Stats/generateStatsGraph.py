@@ -861,7 +861,7 @@ coordinates_df.to_csv('users/map_ipaddress_tab.csv')
 #################################### Database total ####################################
 
 table_tot = []
-mycursor.execute("SELECT * FROM statslog;")
+mycursor.execute("SELECT * FROM statslog WHERE date_complete >= '2024-07-01';")
 # num_fields = len(mycursor.description)
 # field_names = [i[0] for i in mycursor.description]
 for x in mycursor:
