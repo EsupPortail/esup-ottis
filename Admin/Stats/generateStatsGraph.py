@@ -846,7 +846,10 @@ mycursor = mydb.cursor()
 
 table_tot = []
 mycursor.execute("SELECT * FROM statslog;")
+# num_fields = len(mycursor.description)
+# field_names = [i[0] for i in mycursor.description]
 for x in mycursor:
   table_tot.append(x)
-table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude", "external"))
+table_tot_df = pd.DataFrame(data=table_tot, columns=(mycursor.column_names))
+# table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude", "external"))
 table_tot_df.to_csv('table_tot.csv')  
