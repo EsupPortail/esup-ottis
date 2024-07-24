@@ -188,8 +188,8 @@ nb_users_graph['Month_number']= nb_users_graph['Month'].map(month_number)
 nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=nb_users_graph['Month_number'], day=1))
 nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global', 'External'])['Number of users'].sum().reset_index()
 nb_users_graph["External"] = nb_users_graph["External"].astype(str)
-nb_users_graph.loc[nb_users_graph["External"] == "1", "External"] = "External to NU"
-nb_users_graph.loc[nb_users_graph["External"] == "0", "External"] = "Internal to NU"
+nb_users_graph.loc[nb_users_graph["External"] == 1, "External"] = "External to NU"
+nb_users_graph.loc[nb_users_graph["External"] == 0, "External"] = "Internal to NU"
 
 fig = go.Figure()
 for origin, group in nb_users_graph.groupby("Origin global"):
