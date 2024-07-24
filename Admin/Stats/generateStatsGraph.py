@@ -197,9 +197,6 @@ nb_users_graph = nb_users_graph.drop(columns = ['Origin'])
 nb_users_graph['Month_number']= nb_users_graph['Month'].map(month_number)
 nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=nb_users_graph['Month_number'], day=1))
 nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global', 'External'])['Number of users'].sum().reset_index()
-# nb_users_graph["External"] = nb_users_graph["External"].astype(str)
-# nb_users_graph.loc[nb_users_graph["External"] == "1.0", "External"] = "External to NU"
-# nb_users_graph.loc[nb_users_graph["External"] == "0.0", "External"] = "Internal to NU"
 
 fig = go.Figure()
 for origin, group in nb_users_graph.groupby("Origin global"):
@@ -262,7 +259,7 @@ for ind in first_use_graph.index:
   if "/OMIST_Tools" in first_use_graph['Origin'][ind] : 
     first_use_graph.loc[ind, 'Origin global'] = first_use_graph['Origin'][ind][:-12]
 first_use_graph = first_use_graph.drop(columns = ['Origin'])
-first_use_graph = first_use_graph.groupby(['Month','Year', 'Origin global'])['user_id'].agg('count').reset_index()
+first_use_graph = first_use_graph.groupby(['Month','Year', 'Origin global', 'External'])['user_id'].agg('count').reset_index()
 first_use_graph = first_use_graph.rename(columns={"user_id": "New users origin"})
 first_use_graph['Month_number']= first_use_graph['Month'].map(month_number)
 first_use_graph['Date'] = pd.to_datetime(dict(year=first_use_graph['Year'], month=first_use_graph['Month_number'], day=1))
@@ -274,7 +271,8 @@ for origin, group in first_use_graph.groupby("Origin global"):
        x=group["Date"], 
        y=group["New users origin"], 
        name=origin,
-       hovertemplate="Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
+       customdata=group[["External"]],
+       hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
       )
     )
 
