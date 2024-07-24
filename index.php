@@ -149,14 +149,18 @@ if ($external){
 	$is_external = False;
 }
 
-// $sql = 'DESCRIBE statslog';
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute();
-// $columns = $stmt->fetchAll(PDO::FETCH_COLUMN);
+try {
+	$sql = 'DESCRIBE statslog';
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute();
+	$columns = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-// foreach($columns as $col) {
-// 	echo $col . '<br/>';
-// }
+	foreach($columns as $col) {
+		echo $col . '<br/>';
+	}
+} catch(PDOExcepetion $e) {
+	echo $e->getMessage();
+}
 
 
 $requete_SQL_stats = 'INSERT INTO statslog (date_raw, date_complete, date_day, date_month, date_year, user_id, room_id, tool, origin, config_teacher, ip_address) VALUES (:date_raw, :date_complete, :date_day, :date_month, :date_year, :user_id, :room_id, :tool, :origin, :config_teacher, :ip_address)';
