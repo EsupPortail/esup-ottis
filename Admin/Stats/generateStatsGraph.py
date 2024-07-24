@@ -168,9 +168,11 @@ mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTI
 for x in mycursor:
   nb_users.append(x)
 nb_users_raw = pd.DataFrame(data=nb_users, columns=("Month", "Year", "Origin", "External", "Number of users"))
+nb_users_raw .loc[nb_users_raw ["External"].isna(), "External"] = 0.0
 nb_users_raw["External"] = nb_users_raw["External"].astype(str)
 nb_users_raw .loc[nb_users_raw ["External"] == "1.0", "External"] = "External to NU"
 nb_users_raw .loc[nb_users_raw ["External"] == "0.0", "External"] = "Internal to NU"
+
 
 nb_users_df = nb_users_raw
 nb_users_df['Month_number']= nb_users_df['Month'].map(month_number)
