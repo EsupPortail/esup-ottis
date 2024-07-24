@@ -144,9 +144,9 @@ if (isset($_GET["myconfig"])) {
     $config_teacher = "direct link";
   }
 if ($external){
-	$is_external = True;
+	$is_external = 1;
 }else{
-	$is_external = False;
+	$is_external = 0;
 }
 
 // try {
