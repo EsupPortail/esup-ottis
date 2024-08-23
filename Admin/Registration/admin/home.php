@@ -112,7 +112,7 @@ while ($user=mysqli_fetch_assoc($result)) {
 //	$res.="<td onclick=\"Edit(".$user["id"].",'pending','".($user["pending"]!="YES"?"NO":"YES")."','".($user["pending"]!="YES"?"YES":"NO")."')\">".($user["pending"]!="YES"?"<span style=\"color: red;\" class=\"material-symbols-outlined\">toggle_off</span>":"<span style=\"color: green;\" class=\"material-symbols-outlined\">toggle_on</span>")."</td>";
 	$res.="<td>";
 	$res.="<span onclick=\"Edit(".$user["id"].",'DELETE','X','X')\" class=\"material-symbols-outlined\">delete_forever</span>";
-	$res.="<a style=\"text-decoration: none;\" href=\"mailto:".$user["email"]."?subject=[omist-dev] Compte OMIST activé&body=Bonjour,%0D%0A%0D%0AVotre compte a bien été activé.%0D%0A%0D%0AVous pouvez dès à présent utiliser l'outil en vous connectant sur ce lien : https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php?external%0D%0A%0D%0AN'hésitez pas à contacter omist-dev@univ-nantes.fr si vous rencontrez le moindre problème.%0D%0A%0D%0ABonne journée,%0D%0A%0D%0AL'équipe OMIST.%0D%0A\" class=\"material-symbols-outlined\">contact_mail</a>";
+	$res.="<a style=\"text-decoration: none;\" href=\"mailto:".$user["email"]."?subject=[omist-dev] Compte OMIST activé&body=Bonjour ".$user["username"]."%0D%0A%0D%0AVotre compte a bien été activé.%0D%0A%0D%0AVous pouvez dès à présent utiliser l'outil en vous connectant sur ce lien : https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php?external%0D%0A%0D%0AN'hésitez pas à contacter omist-dev@univ-nantes.fr si vous rencontrez le moindre problème.%0D%0A%0D%0ABonne journée,%0D%0A%0D%0AL'équipe OMIST.%0D%0A\" class=\"material-symbols-outlined\">contact_mail</a>";
 	$res.="</td>";
 	
 	echo "<tr>".$res."</tr>\n";
