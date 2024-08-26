@@ -22,7 +22,7 @@ if ($external){
 		$uid_connexion = $_SESSION["username"];
 	}else if (isset($_SERVER['PHP_AUTH_USER'])){
     $uid_connexion = $_SERVER['PHP_AUTH_USER'];
-  }  else{
+  }else{
 		$uid_connexion = $url;
 	}	
 }else{
