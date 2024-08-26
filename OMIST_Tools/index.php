@@ -31,7 +31,7 @@ $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
 
 if (strpos($url,'NOCAS') !== false) {
-  $uid_connexion = 'external';
+  $uid_connexion = $url;
 } else {
   $uid_connexion = 'internal';
 }
