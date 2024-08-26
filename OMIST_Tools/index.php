@@ -27,7 +27,7 @@ if (! isset($external)) $external=false;
 // 	$uid_connexion = $uid;
 // }
 
-$uid_connexion = $_SERVER['PHP_AUTH_USER'];
+$uid_connexion = $_SERVER["REMOTE_USER"];
 
 if ($external){
 	$is_external = 1;
