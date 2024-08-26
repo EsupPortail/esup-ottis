@@ -18,7 +18,9 @@ if (! isset($external)) $external=false;
 if ($external){
 	if (isset($_SESSION["username"])) {
 		$uid_connexion = $_SESSION["username"];
-	}else{
+	}else if (isset($_SERVER['PHP_AUTH_USER'])){
+    $uid_connexion = $_SERVER['PHP_AUTH_USER'];
+  }  else{
 		$uid_connexion = "test-external";
 	}	
 }else{
