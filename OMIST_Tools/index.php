@@ -27,6 +27,15 @@ if (! isset($external)) $external=false;
 // 	$uid_connexion = $uid;
 // }
 
+$url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+
+if (strpos($url,'NOCAS') !== false) {
+    echo 'external';
+} else {
+    echo 'internal';
+}
+
 $uid_connexion = $_SERVER["REMOTE_USER"];
 
 if ($external){
