@@ -33,7 +33,7 @@ $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 if (strpos($url,'NOCAS') !== false) {
   $uid_connexion = 'external';
 } else {
-  $uid_connexion = $_SERVER['PHP_AUTH_USER'];
+  $uid_connexion = 'internal';
 }
 
 $uid_connexion = $_SERVER["REMOTE_USER"];
