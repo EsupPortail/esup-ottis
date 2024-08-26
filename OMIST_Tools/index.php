@@ -15,17 +15,20 @@ if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous"
 
 if (! isset($external)) $external=false;
 
-if ($external){
-	if (isset($_SESSION["username"])) {
-		$uid_connexion = $_SESSION["username"];
-	}else if (isset($_SERVER['PHP_AUTH_USER'])){
-    $uid_connexion = $_SERVER['PHP_AUTH_USER'];
-  }  else{
-		$uid_connexion = "test-external";
-	}	
-}else{
-	$uid_connexion = $uid;
-}
+// if ($external){
+// 	if (isset($_SESSION["username"])) {
+// 		$uid_connexion = $_SESSION["username"];
+// 	}else if (isset($_SERVER['PHP_AUTH_USER'])){
+//     $uid_connexion = $_SERVER['PHP_AUTH_USER'];
+//   }  else{
+// 		$uid_connexion = "test-external";
+// 	}	
+// }else{
+// 	$uid_connexion = $uid;
+// }
+
+$uid_connexion = $_SESSION["username"];
+
 if ($external){
 	$is_external = 1;
 }else{
