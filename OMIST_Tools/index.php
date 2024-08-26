@@ -36,7 +36,7 @@ if (strpos($url,'NOCAS') !== false) {
   $uid_connexion = 'internal';
 }
 
-$uid_connexion = $_SERVER["REMOTE_USER"];
+// $uid_connexion = $_SERVER["REMOTE_USER"];
 
 if ($external){
 	$is_external = 1;
