@@ -605,6 +605,7 @@ ul#direct-links p {
     padding          : 0 5%;
     width            : 90%;
     align-items      : center;
+    height           : 100%;
 }
 
 footer {
