@@ -103,7 +103,8 @@ mydb.commit()
 #################################### Number uses per month ####################################
 
 nb_uses = []
-mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
+mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external WHERE (origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+# mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
 # mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY date_month, date_year, origin, is_external", (reference_date,))
 
 for x in mycursor:
@@ -135,13 +136,22 @@ nb_uses_graph['Date'] = pd.to_datetime(dict(year=nb_uses_graph['Year'], month=nb
 nb_uses_graph = nb_uses_graph.groupby(['Date', 'Origin global', 'External'])['Number of uses'].sum().reset_index()
 
 fig = go.Figure()
-for origin, group in nb_uses_graph.groupby("Origin global"):
+# for origin, group in nb_uses_graph.groupby("Origin global"):
+#     fig.add_trace(go.Bar(
+#       x=group["Date"], 
+#       y=group["Number of uses"], 
+#       name=origin,
+#       customdata=group[["External"]],
+#       hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>Number of uses = %%{y}<extra></extra>"% origin
+#       )
+#     )
+
+for origin, group in nb_uses_graph.groupby("External"):
     fig.add_trace(go.Bar(
       x=group["Date"], 
       y=group["Number of uses"], 
       name=origin,
-      customdata=group[["External"]],
-      hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>Number of uses = %%{y}<extra></extra>"% origin
+      hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of uses = %%{y}<extra></extra>"% origin
       )
     )
 
@@ -170,7 +180,8 @@ nb_uses_df.to_csv('uses/uses_per_months_tab.csv')
 #################################### Nb users per month ####################################
 
 nb_users = []
-mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
+mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external WHERE AND origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+# mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
 # mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog WHERE date_complete >=%s GROUP BY date_month, date_year, origin, is_external", (reference_date,))
 
 
@@ -203,13 +214,22 @@ nb_users_graph['Date'] = pd.to_datetime(dict(year=nb_users_graph['Year'], month=
 nb_users_graph = nb_users_graph.groupby(['Date', 'Origin global', 'External'])['Number of users'].sum().reset_index()
 
 fig = go.Figure()
-for origin, group in nb_users_graph.groupby("Origin global"):
+# for origin, group in nb_users_graph.groupby("Origin global"):
+#     fig.add_trace(go.Bar(
+#        x=group["Date"], 
+#        y=group["Number of users"], 
+#        name=origin,
+#        customdata=group[["External"]],
+#        hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
+#       )
+#     )
+
+for origin, group in nb_users_graph.groupby("External"):
     fig.add_trace(go.Bar(
        x=group["Date"], 
        y=group["Number of users"], 
        name=origin,
-       customdata=group[["External"]],
-       hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
+       hovertemplate="Origin = %s<br>Date = %%{x}<br>Number of users = %%{y}<extra></extra>"% origin
       )
     )
 
@@ -316,64 +336,65 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### [DEPRECATED ?] Nb uses and users since the beginning group by origin ####################################
 
-mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
-for x in mycursor:
-  first_date =  x
+# mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
+# for x in mycursor:
+#   first_date =  x
 
-users_by_origin = []
-mycursor.execute("SELECT origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY origin;")
-for x in mycursor:
-  users_by_origin.append(x)
-users_by_origin_df = pd.DataFrame(data=users_by_origin, columns=("Origin", "Number of users"))
+# users_by_origin = []
+# mycursor.execute("SELECT origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY origin;")
+# for x in mycursor:
+#   users_by_origin.append(x)
+# users_by_origin_df = pd.DataFrame(data=users_by_origin, columns=("Origin", "Number of users"))
 
-uses_by_origin = []
-mycursor.execute("SELECT origin, COUNT(id) FROM statslog GROUP BY origin;")
-for x in mycursor:
-  uses_by_origin.append(x)
-uses_by_origin_df = pd.DataFrame(data=uses_by_origin, columns=("Origin", "Number of uses"))
-by_origin_df = pd.merge(users_by_origin_df, uses_by_origin_df, how='right', on='Origin')
+# uses_by_origin = []
+# mycursor.execute("SELECT origin, COUNT(id) FROM statslog GROUP BY origin;")
+# for x in mycursor:
+#   uses_by_origin.append(x)
+# uses_by_origin_df = pd.DataFrame(data=uses_by_origin, columns=("Origin", "Number of uses"))
+# by_origin_df = pd.merge(users_by_origin_df, uses_by_origin_df, how='right', on='Origin')
 
-tot_distinct = ["Total distinct"]
-mycursor.execute("SELECT COUNT(DISTINCT user_id) FROM statslog;")
-for x in mycursor:
-  tot_distinct.append(x[0])
-mycursor.execute("SELECT COUNT(id) FROM statslog;")
-for x in mycursor:
-  tot_distinct.append(x[0])
-by_origin_df.loc[len(by_origin_df.index)] = tot_distinct
+# tot_distinct = ["Total distinct"]
+# mycursor.execute("SELECT COUNT(DISTINCT user_id) FROM statslog;")
+# for x in mycursor:
+#   tot_distinct.append(x[0])
+# mycursor.execute("SELECT COUNT(id) FROM statslog;")
+# for x in mycursor:
+#   tot_distinct.append(x[0])
+# by_origin_df.loc[len(by_origin_df.index)] = tot_distinct
 
-fig = go.Figure(data=[go.Table(
-  header=dict(values=list(by_origin_df.columns),
-              line_color='black',
-              fill_color='rgb(52,82,255)',
-              align='center',
-              font=dict(color='white'),
-              height=30),
-  cells=dict(values=[by_origin_df['Origin'], by_origin_df['Number of users'], by_origin_df['Number of uses']],
-              line_color='black',
-              fill=dict(color=['white']),
-              font=dict(color=['black']),
-              align='center',
-              height=30))
-])
+# fig = go.Figure(data=[go.Table(
+#   header=dict(values=list(by_origin_df.columns),
+#               line_color='black',
+#               fill_color='rgb(52,82,255)',
+#               align='center',
+#               font=dict(color='white'),
+#               height=30),
+#   cells=dict(values=[by_origin_df['Origin'], by_origin_df['Number of users'], by_origin_df['Number of uses']],
+#               line_color='black',
+#               fill=dict(color=['white']),
+#               font=dict(color=['black']),
+#               align='center',
+#               height=30))
+# ])
 
-fig.update_layout(
-  title="Number of users and uses since "+first_date[0] +" "+str(first_date[1]),
-  width=700, 
-  font=dict(
-      family="Source sans pro",
-      size=18,
-      color="Black"
-  )
-)
-fig.write_html("uses_users_origin.html")
+# fig.update_layout(
+#   title="Number of users and uses since "+first_date[0] +" "+str(first_date[1]),
+#   width=700, 
+#   font=dict(
+#       family="Source sans pro",
+#       size=18,
+#       color="Black"
+#   )
+# )
+# fig.write_html("uses_users_origin.html")
 
 
 
 #################################### Tools used ####################################
 
 tools_used = []
-mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
+mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool WHERE origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+# mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY origin, tool ", (reference_date,))
 
 for x in mycursor:
@@ -426,7 +447,8 @@ tools_used_df.to_csv('uses/tools_used_tab.csv')
 #################################### Configuration used ####################################
 
 config_used = []
-mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
+mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher WHERE AND origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 
 for x in mycursor:
