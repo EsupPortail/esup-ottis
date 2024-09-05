@@ -392,106 +392,106 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### Tools used ####################################
 
-tools_used = []
-# mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool;")
-mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
-# mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY origin, tool ", (reference_date,))
+# tools_used = []
+# # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool;")
+# mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
+# # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY origin, tool ", (reference_date,))
 
-for x in mycursor:
-  tools_used.append(x)
-tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
+# for x in mycursor:
+#   tools_used.append(x)
+# tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
 
-tools_used_df['Tool used'] = tools_used_df['Tool']
-for ind in tools_used_df.index:
-  if "/" in tools_used_df['Tool'][ind] : 
-    position = tools_used_df['Tool'][ind].find('/')
-    tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
-tools_used_df = tools_used_df.drop(columns = ['Tool'])
+# tools_used_df['Tool used'] = tools_used_df['Tool']
+# for ind in tools_used_df.index:
+#   if "/" in tools_used_df['Tool'][ind] : 
+#     position = tools_used_df['Tool'][ind].find('/')
+#     tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
+# tools_used_df = tools_used_df.drop(columns = ['Tool'])
 
-tools_used_df = tools_used_df.sort_values('Origin')
+# tools_used_df = tools_used_df.sort_values('Origin')
 
-fig = go.Figure(data=[go.Table(
-  header=dict(values=['Origin', 'Tool','Number of uses'],
-              line_color='black',
-              fill_color='rgb(52,82,255)',
-              align='center',
-              font=dict(color='white'),
-              height=30),
-  cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool used'],tools_used_df['Number of uses'],],
-              line_color='black',
-              fill=dict(color=['white']),
-              font=dict(color=['black']),
-              align='center',
-              height=30))
-])
+# fig = go.Figure(data=[go.Table(
+#   header=dict(values=['Origin', 'Tool','Number of uses'],
+#               line_color='black',
+#               fill_color='rgb(52,82,255)',
+#               align='center',
+#               font=dict(color='white'),
+#               height=30),
+#   cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool used'],tools_used_df['Number of uses'],],
+#               line_color='black',
+#               fill=dict(color=['white']),
+#               font=dict(color=['black']),
+#               align='center',
+#               height=30))
+# ])
 
-fig.update_layout(
-  title={
-      'text':"Tools used since TEST "+first_date[0] +" "+str(first_date[1]), 
-      'font':{
-      'size':30, 
-      'color':'black'}
-    },
-  # width=700, 
-  font=dict(
-      family="Source sans pro",
-      size=18,
-      color="Black"
-  )
-)
+# fig.update_layout(
+#   title={
+#       'text':"Tools used since TEST "+first_date[0] +" "+str(first_date[1]), 
+#       'font':{
+#       'size':30, 
+#       'color':'black'}
+#     },
+#   # width=700, 
+#   font=dict(
+#       family="Source sans pro",
+#       size=18,
+#       color="Black"
+#   )
+# )
  
-fig.write_html("uses/tools_used_tab.html")
-tools_used_df.to_csv('uses/tools_used_tab.csv') 
+# fig.write_html("uses/tools_used_tab.html")
+# tools_used_df.to_csv('uses/tools_used_tab.csv') 
 
 
-#################################### Configuration used ####################################
+# #################################### Configuration used ####################################
 
-config_used = []
-mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
-# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
-# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+# config_used = []
+# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+# # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
+# # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 
-for x in mycursor:
-  config_used.append(x)
-config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
-config_used_df=config_used_df.dropna(axis=0, how='any')
-for i in config_used_df.index:
-  if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
-    config_used_df = config_used_df.drop([i])
-config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
+# for x in mycursor:
+#   config_used.append(x)
+# config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
+# config_used_df=config_used_df.dropna(axis=0, how='any')
+# for i in config_used_df.index:
+#   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
+#     config_used_df = config_used_df.drop([i])
+# config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
-fig = go.Figure(data=[go.Table(
-  header=dict(values=['Configuration', 'Number of uses'],
-              line_color='black',
-              fill_color='rgb(52,82,255)',
-              align='center',
-              font=dict(color='white'),
-              height=30),
-  cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
-              line_color='black',
-              fill=dict(color=['white']),
-              font=dict(color=['black']),
-              align='center',
-              height=30))
-])
+# fig = go.Figure(data=[go.Table(
+#   header=dict(values=['Configuration', 'Number of uses'],
+#               line_color='black',
+#               fill_color='rgb(52,82,255)',
+#               align='center',
+#               font=dict(color='white'),
+#               height=30),
+#   cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
+#               line_color='black',
+#               fill=dict(color=['white']),
+#               font=dict(color=['black']),
+#               align='center',
+#               height=30))
+# ])
 
-fig.update_layout(
-  title={
-      'text':"Configuration used for teacher application", 
-      'font':{
-      'size':30, 
-      'color':'black'}
-    },
-  # width=700, 
-  font=dict(
-      family="Source sans pro",
-      size=18,
-      color="Black"
-  )
-)
+# fig.update_layout(
+#   title={
+#       'text':"Configuration used for teacher application", 
+#       'font':{
+#       'size':30, 
+#       'color':'black'}
+#     },
+#   # width=700, 
+#   font=dict(
+#       family="Source sans pro",
+#       size=18,
+#       color="Black"
+#   )
+# )
 
-fig.write_html("uses/config_used_tab.html")
-config_used_df.to_csv('uses/config_used_tab.csv')
+# fig.write_html("uses/config_used_tab.html")
+# config_used_df.to_csv('uses/config_used_tab.csv')
 
 
 #################################### Deepl usage ####################################
