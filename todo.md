@@ -47,13 +47,13 @@ Pour moi.
 
 ## Partie dédiée à l'outil principal
 - [X] Mettre le fullscreen en icône (c'est une image pour le moment)
-- [ ] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
+- [X] Ajouter possibilité dans l'onglet Share : avoir seulement les sous-titres -> ouvre une fenêtre de la taille des sous-titres, avec la barre des sous-titres en haut _**(UPDATE : tester la traduction instantanée.)**_
     - [X] Mettre en forme quand on utilise la traduction live (cf feuille de style)
     - [ ] Police des sous-titres qui réduit quand il n'y a plus de place ?
 - [X] OBSOLETE : Ajouter une barre d'avancement dans l'onglet Slide qui calcule le temps de lecture du sous-titre affiché. L'idée serait que l'orateur ne recommence à parler que lorsque la barre est à la moitié, pour permettre le temps de lecture. (censé déjà exister, à retrouver dans le code)
 - [X] Changer send by mail dans l'onglet speech par Download (idem côté Student x2).
 - [X] Changer le timeout de SlideNotes(). Si pptx : 30000, si HTML : 300000.
-- [ ] Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)
+- [ ] ~~Réduire la barre d'outils quand on est en plein écran (scaleY à 10/20%, et à 1 quand onmouseover)~~
 - [ ] la navigation au clavier ne fonctionne pas très bien. Ex : on peut naviguer dans le menu avec les flèches sauf quand on arrive dans l’onglet „Slides“ car les flèches servent ici à passer les slides. Il y a aussi des problèmes avec la navigation par tabulation. Imaginer de ne plus du tout naviguer avec les flèches dans le menu principal (et réserver les flèches pour faire passer les slides), utiliser la tabulation pour voyager dans toute l’application et avoir un ordre cohérent et ajouter quelques raccourcis (il y en a déjà dans l’application étudiante, par exemple la touche [s] amène directement vers les slides) ?
 
 ## Partie dédiée à l'outil étudiant
@@ -89,11 +89,12 @@ Pour moi.
 - [X] Si on utilise mouse go mais qu'on ne va pas jusqu'au bout (on ferme la pop-up avec la croix), le curseur reste sur l'image.
 - [X] Insérer les keywords avant la phrase si le curseur est à 0, après la phrase sinon (pour le moment ça insère à la ligne n+1)  _**(UPDATE : voir avec Claire ses manipulations.)**_
 - [X] Modifier toutes les boîtes d'alert (fait quitter le plein écran quand elles se déclenchent)
-- [ ] Pas intuitif de passer par toutes les langues (si on fait une modif à la main sur une langue, elle ne se répercute pas sur les autres). Limiter à juste la langue d'origine, puis l'utilisateur doit télécharger le speech et le remettre dans sa présentation avec le convert ? A voir si possible de télécharger direct un pptx en sortie ?
+- [ ] ~~Pas intuitif de passer par toutes les langues (si on fait une modif à la main sur une langue, elle ne se répercute pas sur les autres). Limiter à juste la langue d'origine, puis l'utilisateur doit télécharger le speech et le remettre dans sa présentation avec le convert ? A voir si possible de télécharger direct un pptx en sortie ?~~
 - [X] Pour addOptions : même si on close la fenêtre pour annuler notre action, le chanegement est quand même pris en compte
 - [X] Quand on ajoute une nouvelle ligne (vide ou non), il faut qu'une nouvelle ligne (vide) soit ajoutée dans les autres langues
 - [X] Voir si c'est faisable quand on modifie à la main un keyword, qu'il soit modifié dans toutes les langues
 - [ ] Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la traduction dans les autres langues ?
+- [ ] Ne pas autoriser les cut & paste (car si on le fait sur des mots clés -> pas de répercussion sur les autres langues)
 - [X] Changer le message addAllLanguages()
 - [ ] Faire un tutoriel
 
@@ -129,7 +130,8 @@ Pour moi.
 ## Partie dédiée à la mesure de l'utilisation de l'outil
 - [X] objectif : avoir le nombre d'utilisateurs, leur utilisation, l'utilisation des quotas de traduction (éventuellement par système voire clé utilisée) pour avoir un „modèle économique“, avec une interface de visualisation (avec des courbes qu’on peut directement copier dans des rapports)
 - [X] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
-- [ ] Bug : l'URL des OMIST Tools dans l'application enseignante est .../indexNOCAS.php, ce qui fausse l'user id dans la BD. Faire une condition sur le src pour mettre index.php ou indexNOCAS.php dans les bons cas ?
+- [ ] Bug : l'URL des OMIST Tools dans l'application enseignante est .../indexNOCAS.php, ce qui fausse l'user id dans la BD -> création d'un bouton dans Complete lesson
+- [ ] Ne prendre les données que pour la VM master
 
 ## Priorisation ? Mais ça n'est pas forcément à suivre
 
