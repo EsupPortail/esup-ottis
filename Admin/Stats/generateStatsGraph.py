@@ -238,8 +238,9 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 #################################### Nb new users per month ####################################
 
 first_use = []
-mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin in ('master', 'master/OMIST_Tools'));")
+mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
 # mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
+# mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND date_complete >=%s)", (reference_date,))
 
 for x in mycursor:
   first_use.append(x)
