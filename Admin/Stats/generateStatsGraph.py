@@ -314,7 +314,7 @@ for origin, group in first_use_graph.groupby("External"):
 
 fig.update_layout(
   title={
-      'text':"Number of new users per month", 
+      'text':"Number of new users per month TEST", 
       'font':{
       'size':30, 
       'color':'black'}
@@ -427,7 +427,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Tools USED since "+first_date[0] +" "+str(first_date[1]), 
+      'text':"Tools used since "+first_date[0] +" "+str(first_date[1]), 
       'font':{
       'size':30, 
       'color':'black'}
