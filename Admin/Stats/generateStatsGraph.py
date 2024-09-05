@@ -239,7 +239,7 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 
 first_use = []
 mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin in ('master', 'master/OMIST_Tools'));")
-# mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND date_complete >=%s)", (reference_date,))
+# mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
 
 for x in mycursor:
   first_use.append(x)
@@ -272,13 +272,22 @@ first_use_graph['Date'] = pd.to_datetime(dict(year=first_use_graph['Year'], mont
 
 
 fig = go.Figure()
-for origin, group in first_use_graph.groupby("Origin global"):
+# for origin, group in first_use_graph.groupby("Origin global"):
+#     fig.add_trace(go.Bar(
+#        x=group["Date"], 
+#        y=group["New users origin"], 
+#        name=origin,
+#        customdata=group[["External"]],
+#        hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
+#       )
+#     )
+
+for origin, group in first_use_graph.groupby("External"):
     fig.add_trace(go.Bar(
        x=group["Date"], 
        y=group["New users origin"], 
        name=origin,
-       customdata=group[["External"]],
-       hovertemplate="%%{customdata}<br>Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
+       hovertemplate="Origin = %s<br>Date = %%{x}<br>New users = %%{y}<extra></extra>"% origin,
       )
     )
 
