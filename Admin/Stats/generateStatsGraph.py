@@ -103,7 +103,7 @@ mydb.commit()
 #################################### Number uses per month ####################################
 
 nb_uses = []
-mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external WHERE (origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY date_month, date_year, origin, is_external", (reference_date,))
 # mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
 # mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY date_month, date_year, origin, is_external", (reference_date,))
 
@@ -180,7 +180,7 @@ nb_uses_df.to_csv('uses/uses_per_months_tab.csv')
 #################################### Nb users per month ####################################
 
 nb_users = []
-mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external WHERE AND origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY date_month, date_year, origin, is_external", (reference_date,))
 # mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog GROUP BY date_month, date_year, origin, is_external;")
 # mycursor.execute("SELECT date_month, date_year, origin, is_external, COUNT(DISTINCT user_id) FROM statslog WHERE date_complete >=%s GROUP BY date_month, date_year, origin, is_external", (reference_date,))
 
@@ -258,7 +258,7 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 #################################### Nb new users per month ####################################
 
 first_use = []
-mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
 # mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
 # mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND date_complete >=%s)", (reference_date,))
 
@@ -393,7 +393,7 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 #################################### Tools used ####################################
 
 tools_used = []
-mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool WHERE origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY origin, tool", (reference_date,))
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY origin, tool ", (reference_date,))
 
@@ -447,7 +447,7 @@ tools_used_df.to_csv('uses/tools_used_tab.csv')
 #################################### Configuration used ####################################
 
 config_used = []
-mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher WHERE AND origin in ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
+mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 
