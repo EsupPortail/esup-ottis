@@ -392,56 +392,56 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### Tools used ####################################
 
-# tools_used = []
-# # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool;")
+tools_used = []
+# mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
-# # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE date_complete >=%s GROUP BY origin, tool ", (reference_date,))
+mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s)) GROUP BY origin, tool ", (reference_date,))
 
-# for x in mycursor:
-#   tools_used.append(x)
-# tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
+for x in mycursor:
+  tools_used.append(x)
+tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
 
-# tools_used_df['Tool used'] = tools_used_df['Tool']
-# for ind in tools_used_df.index:
-#   if "/" in tools_used_df['Tool'][ind] : 
-#     position = tools_used_df['Tool'][ind].find('/')
-#     tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
-# tools_used_df = tools_used_df.drop(columns = ['Tool'])
+tools_used_df['Tool used'] = tools_used_df['Tool']
+for ind in tools_used_df.index:
+  if "/" in tools_used_df['Tool'][ind] : 
+    position = tools_used_df['Tool'][ind].find('/')
+    tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
+tools_used_df = tools_used_df.drop(columns = ['Tool'])
 
-# tools_used_df = tools_used_df.sort_values('Origin')
+tools_used_df = tools_used_df.sort_values('Origin')
 
-# fig = go.Figure(data=[go.Table(
-#   header=dict(values=['Origin', 'Tool','Number of uses'],
-#               line_color='black',
-#               fill_color='rgb(52,82,255)',
-#               align='center',
-#               font=dict(color='white'),
-#               height=30),
-#   cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool used'],tools_used_df['Number of uses'],],
-#               line_color='black',
-#               fill=dict(color=['white']),
-#               font=dict(color=['black']),
-#               align='center',
-#               height=30))
-# ])
+fig = go.Figure(data=[go.Table(
+  header=dict(values=['Origin', 'Tool','Number of uses'],
+              line_color='black',
+              fill_color='rgb(52,82,255)',
+              align='center',
+              font=dict(color='white'),
+              height=30),
+  cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool used'],tools_used_df['Number of uses'],],
+              line_color='black',
+              fill=dict(color=['white']),
+              font=dict(color=['black']),
+              align='center',
+              height=30))
+])
 
-# fig.update_layout(
-#   title={
-#       'text':"Tools used since TEST "+first_date[0] +" "+str(first_date[1]), 
-#       'font':{
-#       'size':30, 
-#       'color':'black'}
-#     },
-#   # width=700, 
-#   font=dict(
-#       family="Source sans pro",
-#       size=18,
-#       color="Black"
-#   )
-# )
+fig.update_layout(
+  title={
+      'text':"Tools used since TEST "+first_date[0] +" "+str(first_date[1]), 
+      'font':{
+      'size':30, 
+      'color':'black'}
+    },
+  # width=700, 
+  font=dict(
+      family="Source sans pro",
+      size=18,
+      color="Black"
+  )
+)
  
-# fig.write_html("uses/tools_used_tab.html")
-# tools_used_df.to_csv('uses/tools_used_tab.csv') 
+fig.write_html("uses/tools_used_tab.html")
+tools_used_df.to_csv('uses/tools_used_tab.csv') 
 
 
 # #################################### Configuration used ####################################
@@ -477,7 +477,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Configuration used for teacher application TEST2", 
+      'text':"Configuration used for teacher application", 
       'font':{
       'size':30, 
       'color':'black'}
