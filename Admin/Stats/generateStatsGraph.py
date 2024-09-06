@@ -448,7 +448,7 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 config_used = []
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
-mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
+mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools')) GROUP BY config_teacher;")
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 
 for x in mycursor:
@@ -477,7 +477,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Configuration used for teacher application TEST", 
+      'text':"Configuration used for teacher application TEST2", 
       'font':{
       'size':30, 
       'color':'black'}
