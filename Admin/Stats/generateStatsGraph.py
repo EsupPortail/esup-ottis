@@ -258,7 +258,7 @@ nb_users_df.to_csv('users/users_per_months_tab.csv')
 #################################### Nb new users per month ####################################
 
 first_use = []
-mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin IN ('master', 'master/OMIST_Tools'))")
+mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s)", (reference_date,))
 # mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE a.id = b.id;")
 # mycursor.execute("SELECT a.user_id, a.date_month, a.date_year, a.origin, a.is_external FROM statslog AS a JOIN (SELECT user_id, min(id) AS id FROM statslog GROUP BY user_id, origin) AS b ON a.user_id = b.user_id WHERE (a.id = b.id AND date_complete >=%s)", (reference_date,))
 
@@ -446,52 +446,52 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 # #################################### Configuration used ####################################
 
-# config_used = []
-# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
-# # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
-# # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+config_used = []
+mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE tool='teacher' GROUP BY config_teacher;")
+# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 
-# for x in mycursor:
-#   config_used.append(x)
-# config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
-# config_used_df=config_used_df.dropna(axis=0, how='any')
-# for i in config_used_df.index:
-#   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
-#     config_used_df = config_used_df.drop([i])
-# config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
+for x in mycursor:
+  config_used.append(x)
+config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
+config_used_df=config_used_df.dropna(axis=0, how='any')
+for i in config_used_df.index:
+  if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
+    config_used_df = config_used_df.drop([i])
+config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
-# fig = go.Figure(data=[go.Table(
-#   header=dict(values=['Configuration', 'Number of uses'],
-#               line_color='black',
-#               fill_color='rgb(52,82,255)',
-#               align='center',
-#               font=dict(color='white'),
-#               height=30),
-#   cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
-#               line_color='black',
-#               fill=dict(color=['white']),
-#               font=dict(color=['black']),
-#               align='center',
-#               height=30))
-# ])
+fig = go.Figure(data=[go.Table(
+  header=dict(values=['Configuration', 'Number of uses'],
+              line_color='black',
+              fill_color='rgb(52,82,255)',
+              align='center',
+              font=dict(color='white'),
+              height=30),
+  cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
+              line_color='black',
+              fill=dict(color=['white']),
+              font=dict(color=['black']),
+              align='center',
+              height=30))
+])
 
-# fig.update_layout(
-#   title={
-#       'text':"Configuration used for teacher application", 
-#       'font':{
-#       'size':30, 
-#       'color':'black'}
-#     },
-#   # width=700, 
-#   font=dict(
-#       family="Source sans pro",
-#       size=18,
-#       color="Black"
-#   )
-# )
+fig.update_layout(
+  title={
+      'text':"Configuration used for teacher application TEST", 
+      'font':{
+      'size':30, 
+      'color':'black'}
+    },
+  # width=700, 
+  font=dict(
+      family="Source sans pro",
+      size=18,
+      color="Black"
+  )
+)
 
-# fig.write_html("uses/config_used_tab.html")
-# config_used_df.to_csv('uses/config_used_tab.csv')
+fig.write_html("uses/config_used_tab.html")
+config_used_df.to_csv('uses/config_used_tab.csv')
 
 
 #################################### Deepl usage ####################################
