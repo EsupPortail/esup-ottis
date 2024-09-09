@@ -665,7 +665,7 @@ fig.add_trace(go.Indicator(
     mode = "delta",
     value = new_users_value,
     title= {
-       'text':'Compared to the previous month',
+       'text':'Compared to the previous month TEST',
        'font':{
          'size':20, 
          'color':'grey'}
