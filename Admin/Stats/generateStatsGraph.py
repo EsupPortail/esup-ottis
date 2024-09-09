@@ -40,7 +40,7 @@ months_in_order = ['January','February','March','April','May','June','July','Aug
 # mycursor.execute("UPDATE translatelog SET percentage_char = 100*characters/char_max;")
 # mydb.commit()
 
-reference_date = '2024-07-01'
+reference_date = '2024-01-01'
 
 def month_number(value):
     if value == 'January':
