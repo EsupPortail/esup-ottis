@@ -665,7 +665,7 @@ fig.add_trace(go.Indicator(
     mode = "delta",
     value = new_users_value,
     title= {
-       'text':'Compared to the previous month TEST',
+       'text':'Compared to the previous month',
        'font':{
          'size':20, 
          'color':'grey'}
@@ -912,8 +912,8 @@ coordinates_df.to_csv('users/map_ipaddress_tab.csv')
 #################################### Database total ####################################
 
 table_tot = []
-mycursor.execute("SELECT * FROM statslog WHERE date_complete;")
-# mycursor.execute("SELECT * FROM statslog WHERE date_complete >=%s", (reference_date,))
+# mycursor.execute("SELECT * FROM statslog WHERE date_complete;")
+mycursor.execute("SELECT * FROM statslog WHERE date_complete >=%s", (reference_date,))
 
 for x in mycursor:
   table_tot.append(x)
