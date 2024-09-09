@@ -6,7 +6,7 @@
 <body>
 <?php
 require('config.php');
-if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
+if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password']), $_REQUEST['host'], $_REQUEST['needs']){
   // récupérer le nom d'utilisateur 
   $username = stripslashes($_REQUEST['username']);
   $username = mysqli_real_escape_string($conn, $username); 
@@ -16,9 +16,12 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
   // récupérer le mot de passe 
   $password = stripslashes($_REQUEST['password']);
   $password = mysqli_real_escape_string($conn, $password);
-  
-  $query = "INSERT into `users` (username, email, type, password)
-        VALUES ('$username', '$email', 'user', '".hash('sha256', $password)."')";
+  $host = stripslashes($_REQUEST['host']);
+  $host = mysqli_real_escape_string($conn, $host);
+  $needs = stripslashes($_REQUEST['needs']);
+  $needs = mysqli_real_escape_string($conn, $needs);
+  $query = "INSERT into `users` (username, email, type, password, host, needs)
+        VALUES ('$username', '$email', 'user', '".hash('sha256', $password)."','$host','$needs')";
   $res = mysqli_query($conn, $query);
     if($res){
        echo "<div class='sucess'>
@@ -75,6 +78,13 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
   <input type="text" class="box-input" name="username" 
   placeholder="Nom d'utilisateur" required />
   
+  <input type="text" class="box-input" name="host" 
+  placeholder="Etablissement" required />
+
+  <input type="text" class="box-input" name="needs" 
+  placeholder="Décrivez votre besoin (en moins de 200 caractères)" required />
+
+
     <input type="text" class="box-input" name="email" 
   placeholder="Email" required />
   

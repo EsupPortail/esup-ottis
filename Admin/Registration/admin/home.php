@@ -90,7 +90,7 @@
 <table>
 	<thead>
 	<tr>
-		<th width="10%">Id</th><th width="20%">username</th><th width="30%">email</th><th width="15%">type</th><th width="15%">active</th><!--<th width="7%">Pending</th>--><th width="10%">Action</th>
+		<th width="10%">Id</th><th width="20%">username</th><th width="20%">Host</th><th width="30%">email</th><th width="15%">type</th><th width="15%">active</th><!--<th width="7%">Pending</th>--><th width="10%">Action</th>
 	</tr>
 </thead>
 <tbody>
@@ -105,6 +105,7 @@ while ($user=mysqli_fetch_assoc($result)) {
 	$res="";
 	$res.="<td>".$user["id"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'username','".$user["username"]."')\">".$user["username"]."</td>";
+	$res.="<td onclick=\"Edit(".$user["id"].",'host','".$user["host"]."')\">".$user["host"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'email','".$user["email"]."')\">".$user["email"]."</td>";
 	$res.="<td onclick=\"Edit(".$user["id"].",'type','".($user["type"]!="admin"?"user":"admin")."','".($user["type"]!="admin"?"admin":"user")."')\">".($user["type"]!="admin"?"<span class=\"material-symbols-outlined\">person</span>User":"<span class=\"material-symbols-outlined\">manage_accounts</span>Admin")."</td>";
 //	$res.="<td onclick=\"Edit(".$user["id"].",'active','".($user["active"]!="YES"?"NO":"YES")."','".($user["active"]!="YES"?"YES":"NO")."')\">".($user["active"]!="YES"?"NO":"YES")."</td>";
@@ -113,6 +114,7 @@ while ($user=mysqli_fetch_assoc($result)) {
 	$res.="<td>";
 	$res.="<span onclick=\"Edit(".$user["id"].",'DELETE','X','X')\" class=\"material-symbols-outlined\">delete_forever</span>";
 	$res.="<a style=\"text-decoration: none;\" href=\"mailto:".$user["email"]."?subject=[omist-dev] Compte OMIST activé&body=Bonjour ".$user["username"]."%0D%0A%0D%0AVotre compte a bien été activé.%0D%0A%0D%0AVous pouvez dès à présent utiliser l'outil en vous connectant sur ce lien : https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php?external%0D%0A%0D%0AN'hésitez pas à contacter omist-dev@univ-nantes.fr si vous rencontrez le moindre problème.%0D%0A%0D%0ABonne journée%0D%0A%0D%0AL'équipe OMIST.%0D%0A\" class=\"material-symbols-outlined\">contact_mail</a>";
+	$res.="<span title=\"".$user["needs"]."\" class=\"material-symbols-outlined\">info</span>";
 	$res.="</td>";
 	
 	echo "<tr>".$res."</tr>\n";
