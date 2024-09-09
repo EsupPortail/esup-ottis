@@ -270,7 +270,7 @@ first_use_raw["External"] = first_use_raw["External"].astype(str)
 first_use_raw.loc[first_use_raw["External"] == "1.0", "External"] = "External to NU"
 first_use_raw.loc[first_use_raw["External"] == "0.0", "External"] = "Internal to NU"
 
-first_use_df = first_use_raw.groupby(['Month','Year', 'Origin', 'External'])['user_id'].agg('count').reset_index()
+first_use_df = first_use_raw.groupby(['Month','Year', 'Origin', 'ExternalTEST'])['user_id'].agg('count').reset_index()
 first_use_df = first_use_df.rename(columns={"user_id": "New users"})
 first_use_df['Month_number']= first_use_df['Month'].map(month_number)
 first_use_df['Date'] = pd.to_datetime(dict(year=first_use_df['Year'], month=first_use_df['Month_number'], day=1))
@@ -393,7 +393,7 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 #################################### Tools used ####################################
 
 tools_used = []
-mycursor.execute("SELECT * FROM statslog GROUP BY origin, tool;")
+mycursor.execute("SELECT * FROM statslog;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s)) GROUP BY origin, tool ", (reference_date,))
 
