@@ -6,7 +6,7 @@
 <body>
 <?php
 require('config.php');
-if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password']), $_REQUEST['host'], $_REQUEST['needs']){
+if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_REQUEST['host'], $_REQUEST['needs']){
   // récupérer le nom d'utilisateur 
   $username = stripslashes($_REQUEST['username']);
   $username = mysqli_real_escape_string($conn, $username); 
