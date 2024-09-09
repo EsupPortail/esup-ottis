@@ -392,9 +392,9 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### Tools used ####################################
 
-tools_used = []
+# tools_used = []
 # mycursor.execute("SELECT * FROM statslog;")
-mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+# mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s)) GROUP BY origin, tool ", (reference_date,))
 
