@@ -885,7 +885,8 @@ fig = px.scatter_geo(coordinates_map,
                     lat="Latitude",
                     lon="Longitude",
                     color="Users",
-                    color_continuous_scale = px.colors.sequential.matter)
+                    color_continuous_scale = px.colors.sequential.Viridis, 
+                    hover_name="City")
 
 fig.update_traces(marker=dict(size=10))
 # fig.update_geos(fitbounds="locations")
