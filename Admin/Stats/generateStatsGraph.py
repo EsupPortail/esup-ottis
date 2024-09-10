@@ -919,7 +919,7 @@ coordinates_df.to_csv('users/map_ipaddress_tab.csv')
 
 table_tot = []
 # mycursor.execute("SELECT * FROM statslog WHERE date_complete;")
-mycursor.execute("SELECT * FROM statslog;")
+mycursor.execute("SELECT * FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s);", (reference_date,))
 # mycursor.execute("SELECT * FROM statslog WHERE date_complete >=%s", (reference_date,))
 
 for x in mycursor:
