@@ -82,7 +82,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_RE
   placeholder="Etablissement" required />
 
   <input type="text" class="box-input" name="needs" 
-  placeholder="Décrivez votre besoin (en moins de 200 caractères)" required />
+  placeholder="Décrivez votre besoin (en moins de 200 caractères)" required maxlength="200"/>
 
 
     <input type="text" class="box-input" name="email" 
