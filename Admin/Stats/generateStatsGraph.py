@@ -413,6 +413,7 @@ for ind in tools_used_df.index:
     position = tools_used_df['Tool'][ind].find('/')
     tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
 tools_used_df = tools_used_df.drop(columns = ['Tool'])
+tools_used_df = tools_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
   header=dict(values=['Tool','Number of uses'],
