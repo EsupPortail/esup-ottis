@@ -399,13 +399,13 @@ for x in mycursor:
 
 tools_used = []
 # mycursor.execute("SELECT * FROM statslog;")
-mycursor.execute("SELECT config_teacher, tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY tool", (reference_date,))
+mycursor.execute("SELECT tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY tool", (reference_date,))
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog GROUP BY origin, tool ;")
 # mycursor.execute("SELECT origin, tool, COUNT(id) FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s)) GROUP BY origin, tool ", (reference_date,))
 
 for x in mycursor:
   tools_used.append(x)
-tools_used_df = pd.DataFrame(data=tools_used, columns=("Origin","Tool","Number of uses"))
+tools_used_df = pd.DataFrame(data=tools_used, columns=("Tool","Number of uses"))
 
 tools_used_df['Tool used'] = tools_used_df['Tool']
 for ind in tools_used_df.index:
@@ -414,16 +414,14 @@ for ind in tools_used_df.index:
     tools_used_df.loc[ind, 'Tool used'] = tools_used_df['Tool'][ind][position+1:-4]
 tools_used_df = tools_used_df.drop(columns = ['Tool'])
 
-tools_used_df = tools_used_df.sort_values('Origin')
-
 fig = go.Figure(data=[go.Table(
-  header=dict(values=['Origin', 'Tool','Number of uses'],
+  header=dict(values=['Tool','Number of uses'],
               line_color='black',
               fill_color='rgb(52,82,255)',
               align='center',
               font=dict(color='white'),
               height=30),
-  cells=dict(values=[tools_used_df['Origin'],tools_used_df['Tool used'],tools_used_df['Number of uses'],],
+  cells=dict(values=[tools_used_df['Tool used'],tools_used_df['Number of uses'],],
               line_color='black',
               fill=dict(color=['white']),
               font=dict(color=['black']),
