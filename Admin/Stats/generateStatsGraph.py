@@ -336,9 +336,9 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### [DEPRECATED ?] Nb uses and users since the beginning group by origin ####################################
 
-mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
-for x in mycursor:
-  first_date =  x
+# mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
+# for x in mycursor:
+#   first_date =  x
 
 # users_by_origin = []
 # mycursor.execute("SELECT origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY origin;")
@@ -392,6 +392,10 @@ for x in mycursor:
 
 #################################### Tools used ####################################
 
+mycursor.execute("SELECT date_month, date_year WHERE origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) FROM statslog limit 1;", (reference_date,))
+for x in mycursor:
+  first_date =  x
+
 tools_used = []
 # mycursor.execute("SELECT * FROM statslog;")
 mycursor.execute("SELECT config_teacher, tool, COUNT(id) FROM statslog WHERE (tool='teacher' AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
@@ -428,7 +432,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Tools used since TEST "+first_date[0] +" "+str(first_date[1]), 
+      'text':"Tools used since "+first_date[0] +" "+str(first_date[1]), 
       'font':{
       'size':30, 
       'color':'black'}
@@ -885,9 +889,9 @@ fig = px.scatter_geo(coordinates_map,
                     lat="Latitude",
                     lon="Longitude",
                     color="Users",
-                    color_continuous_scale = px.colors.sequential.Viridis, 
+                    color_continuous_scale = px.colors.sequential.matter, 
                     hover_name="City",
-                    title="Test de titre")
+                    title="Users location")
 
 fig.update_traces(marker=dict(size=10))
 # fig.update_geos(fitbounds="locations")
@@ -900,7 +904,8 @@ fig = px.scatter_geo(coordinates_map,
                     lon="Longitude",
                     color="Uses",
                     color_continuous_scale = px.colors.sequential.matter, 
-                    hover_name="City")
+                    hover_name="City",
+                    title="Uses location")
 
 fig.update_traces(marker=dict(size=10))
 # fig.update_geos(fitbounds="locations")
