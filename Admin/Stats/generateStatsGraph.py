@@ -925,5 +925,6 @@ mycursor.execute("SELECT * FROM statslog WHERE (origin IN ('master', 'master/OMI
 for x in mycursor:
   table_tot.append(x)
 table_tot_df = pd.DataFrame(data=table_tot, columns=(mycursor.column_names))
+table_tot_df = table_tot_df.sort_values('date_complete')
 # table_tot_df = pd.DataFrame(data=table_tot, columns=("id","date_raw","date_complete","date_day","date_month","date_year","user_id","room_id","tool","origin","config_teacher","ip_address", "city", "country", "latitude", "longitude", "external"))
 table_tot_df.to_csv('table_tot.csv')  
