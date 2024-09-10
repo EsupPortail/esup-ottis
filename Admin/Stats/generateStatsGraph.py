@@ -544,7 +544,7 @@ fig.update_layout(
     #   ),
     xaxis_title="7th of the month",
     title={
-      'text':"Deepl Pro usage", 
+      'text':"Deepl Pro usage TEST", 
       'font':{
       'size':30, 
       'color':'black'}
