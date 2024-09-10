@@ -393,9 +393,9 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 #################################### Tools used ####################################
 
 # mycursor.execute("SELECT date_month, date_year FROM statslog limit 1;")
-mycursor.execute("SELECT date_month, date_year FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) LIMIT 1;", (reference_date,))
-for x in mycursor:
-  first_date =  x
+# mycursor.execute("SELECT date_month, date_year FROM statslog WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) LIMIT 1;", (reference_date,))
+# for x in mycursor:
+#   first_date =  x
 
 tools_used = []
 # mycursor.execute("SELECT * FROM statslog;")
@@ -432,7 +432,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Tools used since "+first_date[0] +" "+str(first_date[1]), 
+      'text':"Tools used since "+reference_date), 
       'font':{
       'size':30, 
       'color':'black'}
@@ -780,7 +780,7 @@ fig.add_trace(go.Indicator(
 
 fig.update_layout(
    title= {
-      'text':"Since "+first_date[0] +" "+str(first_date[1]), 
+      'text':"Since "+reference_date, 
       'font':{
          'size':45, 
          'color':'black'}
