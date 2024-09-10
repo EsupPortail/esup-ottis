@@ -16,6 +16,7 @@
 		function Edit(id,field,value,newval="") {
 			if (newval=="") newval=prompt("Edition de la valeur "+field+" pour l'utilisateur "+id,value);
 			if (newval === null) newval=value;
+			newval=newval.substr(0,249);
 			var data = new FormData();
 			data.append('field', field);
 			data.append('value', newval);
