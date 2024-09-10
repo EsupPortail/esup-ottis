@@ -432,7 +432,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Tools used since "+reference_date), 
+      'text':"Tools used since "+str(reference_date), 
       'font':{
       'size':30, 
       'color':'black'}
@@ -780,7 +780,7 @@ fig.add_trace(go.Indicator(
 
 fig.update_layout(
    title= {
-      'text':"Since "+reference_date, 
+      'text':"Since "+str(reference_date), 
       'font':{
          'size':45, 
          'color':'black'}
