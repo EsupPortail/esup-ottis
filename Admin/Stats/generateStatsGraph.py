@@ -392,7 +392,7 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### Tools used ####################################
 
-mycursor.execute("SELECT date_month, date_year WHERE origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) FROM statslog limit 1;", (reference_date,))
+mycursor.execute("SELECT date_month, date_year WHERE (origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) FROM statslog limit 1;", (reference_date,))
 for x in mycursor:
   first_date =  x
 
