@@ -337,7 +337,7 @@ $insertCommande_stats->execute([
   		<input type="submit" style="display: none;" value="Envoyer">
 		<div id="tabs" style="border: 0px;">
 			<ul id="bar" onmouseover="this.style.transform='scaleY(1)'" onmouseout="reduceToolbar()">
-  				<li id="logonextbar" style="background-color: #000; color: white"><img src="images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
+				<li style="background-color: #000; color: white"><img onclick="<?php if ($external) echo "javascript:void(window.open('scenarios.php?external', '_self'))"; else echo "javascript:void(window.open('scenarios.php', '_self'))"; ?>" src="images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
 				<li class="tabbed" title="Settings tab (language configuration, appearance,...)"><a class="tabbed" href="#tabs-0" id="ttab-0" onclick="inSlideTab=false;"><i class="fa fa-cog"></i><span class="hidesmallscreens">&nbsp;Settings</span></a></li>
 				<li class="tabbed" title="Multilingual Tchat tab"><a class="tabbed" href="#tabs-1" id="ttab-1" onclick="timenew_question=0; inSlideTab=false;"><i class="fa fa-comments"></i><span class="hidesmallscreens">&nbsp;Tchat</span></a></li>
 				<li class="tabbed" title="Speech transcription tab. From here, it is possible to export a transcription of the speech."><a class="tabbed" href="#tabs-2" id="ttab-2" onclick="inSlideTab=false;"><i class="fa fa-cc"></i><!--<i class="fa fa-arrow-right"></i>-->
@@ -349,7 +349,7 @@ $insertCommande_stats->execute([
 				<li class="tabbed" title="Live translation tab" id="titlelive"><a class="tabbed" href="#tabs-3" id="ttab-6" onclick="inSlideTab=false;">Live translation</a></li>
 				<li class="tabbed" title="This tab contains links allowing to share the lesson with students or other teachers. A link for using a smartphone remote is also available." id="titleshare"><a class="tabbed" href="#tabs-4" id="ttab-7" onclick="inSlideTab=false;"><i class="fa fa-qrcode"></i><span class="hidesmallscreens">&nbsp;Share</span></a></li>
 				<li class="tabbed" title="A tab allowing to interact with WOOCLAP(c)" id="titlewooclap"><a class="tabbed" href="#tabs-8" id="ttab-8" onclick="inSlideTab=false;"><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="18" style="vertical-align: middle;"><span class="hidesmallscreens">&nbsp;WOOCLAP</span></a></li>
-				<li class="tabbed" title="All the slide manipulation tools can be found here" id="titletools"><a class="tabbed" href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Slide tools</span></a></li>
+				<!-- <li class="tabbed" title="All the slide manipulation tools can be found here" id="titletools"><a class="tabbed" href="#tabs-20" id="ttab-9" onclick="inSlideTab=false;"><i class="fa fa-wrench"></i><span class="hidesmallscreens">&nbsp;Slide tools</span></a></li> -->
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab1"><a class="tabbed" href="#tabs-9" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 1</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab2"><a class="tabbed" href="#tabs-10" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 2</span></a></li>
 				<li class="tabbed" title="Extra tab for interacting with external tools" id="titleextratab3"><a class="tabbed" href="#tabs-11" onclick="inSlideTab=false;"><i class="fa fa-desktop"></i><span class="hidesmallscreens">&nbsp;Tab 3</span></a></li>
@@ -618,8 +618,12 @@ $insertCommande_stats->execute([
 			</div>
 			<div id="tabs-5">
 				<div>
+					<label for="link-tools">If your PPTX is too big, you can convert it into HTML using the OMIST tools : </label>
+					<input type="button" id="link-tools" onclick="<?php if ($external) echo "javascript:void(window.open('OMIST_Tools/indexNOCAS.php'))"; else echo "javascript:void(window.open('OMIST_Tools'))"; ?>" value="Slide Tools">
+					<br>
 					<label for="ppt_presentation">Powerpoint/HTML presentation : </label>
-					<input type="file" id="ppt_presentation" name="ppt_presentation" aria-label="Powerpoint/HTML presentation" title="Select your presentation file. Light weight PPTX are allowed. For bigger files, it is recommended (and sometimes mandatory) to convert first the PPTX file to an HTML animation by using the Slide Tools." onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" ><br>
+					<input type="file" id="ppt_presentation" name="ppt_presentation" aria-label="Powerpoint/HTML presentation" title="Select your presentation file. Light weight PPTX are allowed. For bigger files, it is recommended (and sometimes mandatory) to convert first the PPTX file to an HTML animation by using the Slide Tools." onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" >
+					<br>
 					<label for="speechlanguage" title="If the speech prepared in the slides is of a different language than the speaker language one, it can be adjusted by using this field.">Speech language : </label>
 					<select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
 						<option value="same" selected>Same as speaker</option>
@@ -637,11 +641,7 @@ $insertCommande_stats->execute([
 					<iframe id="visio" src="blank.html" allowfullscreen  allow="camera;microphone;display-capture" style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
 				</div>
 			</div>
-			<div id="tabs-20">
-				<div id="tools" style="border: none; height: 1000px; overflow: auto;">
-					<iframe id="toolbox" title="Slides Toolbox" src="OMIST_Tools/indexNOCAS.php<?php if ($theme != "") echo "?theme=".$theme; ?>" allowfullscreen allow="camera;microphone;display-capture" style="position: relative; width: 95%; height: 90%; bottom:0px; left:0px"></iframe>
-				</div>
-			</div>
+			
 			<div id="tabs-3">
 				<ul style="list-style-type: none;">
 					<li>
