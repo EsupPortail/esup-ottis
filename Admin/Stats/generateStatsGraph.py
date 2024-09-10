@@ -336,9 +336,9 @@ first_use_df.to_csv('users/new_users_per_months_tab.csv')
 
 #################################### [DEPRECATED ?] Nb uses and users since the beginning group by origin ####################################
 
-# mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
-# for x in mycursor:
-#   first_date =  x
+mycursor.execute("SELECT date_month, date_year  FROM statslog limit 1;")
+for x in mycursor:
+  first_date =  x
 
 # users_by_origin = []
 # mycursor.execute("SELECT origin, COUNT(DISTINCT user_id) FROM statslog GROUP BY origin;")
