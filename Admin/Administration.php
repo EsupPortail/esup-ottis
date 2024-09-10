@@ -219,6 +219,8 @@ h1 {
     <button onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;Edit Authorized students</button>
     <button onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Edit privileged users</button>
     <button onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
+    <button onclick="<?php echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/Admin/Registration/admin/home.php'))" ?>"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Login table</button>
+    <button onclick="<?php echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/Admin/Stats/Dashboard.php'))" ?>"><i class="fa ffa-tachometer" aria-hidden="true"></i>&nbsp;Login table</button>
 <?php
   if (strpos($_SERVER['REQUEST_URI'],"-external")>0) { 
     echo "<button onclick=\"severalExamples(5); Edit('../tables/.htpasswd',true);\">Edit Passwords file</button>\n";
