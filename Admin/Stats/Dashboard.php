@@ -84,33 +84,33 @@ if (! function_exists('str_ends_with')) {
             </div>
             <div id="tab-users" class="tabcontent">
               <a href='./users/new_users_per_months_tab.csv' download='new_users_per_months_tab.csv'><button class="button-3 tooltip">Download data on the number of new users monthly in CSV format</button></a>
-              <embed class="graph-tot" title="Nombre d'utilisateurs par mois" src="./users/new_users_per_months_graph.html" />
+              <embed class="graph-tot" title="Nombre d'utilisateurs par mois" src="./users/new_users_per_months_graph.html?v=<?php mt_rand();?>" />
               <a href='./users/users_per_months_tab.csv' download='users_per_months_tab.csv'><button class="button-3 tooltip">Download data on number of users monthly in CSV format</button></a>
-              <embed class="graph-tot" title="Nombre d'utilisateurs par mois" src="./users/users_per_months_graph.html" />
+              <embed class="graph-tot" title="Nombre d'utilisateurs par mois" src="./users/users_per_months_graph.html?v=<?php mt_rand();?>" />
               <a href='./users/map_ipaddress_tab.csv' download='map_ipaddress_tab.csv'><button class="button-3 tooltip">Download user location data in CSV format</button></a>
-              <embed class="graph-tot" title="Utilisateurs dans le monde" src="./users/map_ipaddress.html" />
+              <embed class="graph-tot" title="Utilisateurs dans le monde" src="./users/map_ipaddress.html?v=<?php mt_rand();?>" />
             </div>
             <div id="tab-uses" class="tabcontent">
               <a href='./uses/uses_per_months_tab.csv' download='uses_per_months_tab.csv'><button class="button-3 tooltip">Download monthly usage data in CSV format</button></a>
-              <embed class="graph-tot" title="Nombre d'utilisations par mois" src="./uses/uses_per_months_graph.html" />
+              <embed class="graph-tot" title="Nombre d'utilisations par mois" src="./uses/uses_per_months_graph.html?v=<?php mt_rand();?>" />
               <!-- <section class="container">
                 <section class="col1"> -->
                   <a href='./uses/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
-                  <embed class="graph-tot" title="Outils utilisés" src="./uses/tools_used_tab.html" />
+                  <embed class="graph-tot" title="Outils utilisés" src="./uses/tools_used_tab.html?v=<?php mt_rand();?>" />
                 <!-- </section>
                 <section class="col2"> -->
                   <a href='./uses/config_used_tab.csv' download='config_used_tab.csv' ><button class="button-3 tooltip">Download data on the number of uses per configuration in CSV format</button></a>
-                  <embed class="graph-tot" title="Configuration utilisées" src="./uses/config_used_tab.html" />
+                  <embed class="graph-tot" title="Configuration utilisées" src="./uses/config_used_tab.html?v=<?php mt_rand();?>" />
                 <!-- </section>
             </section> -->
               <a href='./users/map_ipaddress_tab.csv' download='map_ipaddress_tab.csv'><button class="button-3 tooltip">Download data on the location of uses</button></a>
-              <embed class="graph-tot" title="Utilisations dans le monde" src="./uses/map_ipaddress.html" />
+              <embed class="graph-tot" title="Utilisations dans le monde" src="./uses/map_ipaddress.html?v=<?php mt_rand();?>" />
             </div>
             <div id="tab-translation" class="tabcontent">
               <a href='./translation/deepl_usage_per_day_tab.csv' download='deepl_usage_per_day_tab.csv'><button class="button-3 tooltip">Download daily Deepl Pro use data in CSV format</button></a>
-              <embed class="graph-tot" title="Utilisation de Deepl par jour" src="./translation/deepl_usage_per_day_graph.html" />
+              <embed class="graph-tot" title="Utilisation de Deepl par jour" src="./translation/deepl_usage_per_day_graph.html?v=<?php mt_rand();?>" />
               <a href='./translation/deepl_usage_per_month_tab.csv' download='deepl_usage_per_month_tab.csv'><button class="button-3 tooltip">Download Deepl Pro monthly usage data in CSV format</button></a>
-              <embed class="graph-tot" title="Utilisation de Deepl" src="./translation/deepl_usage_per_month_graph.html" />
+              <embed class="graph-tot" title="Utilisation de Deepl" src="./translation/deepl_usage_per_month_graph.html?v=<?php mt_rand();?>" />
             </div>
         </div>
     </section>
