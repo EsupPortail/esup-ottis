@@ -544,7 +544,7 @@ fig.update_layout(
     #   ),
     xaxis_title="7th of the month",
     title={
-      'text':"Deepl Pro usage TEST", 
+      'text':"Deepl Pro usage", 
       'font':{
       'size':30, 
       'color':'black'}
@@ -886,7 +886,8 @@ fig = px.scatter_geo(coordinates_map,
                     lon="Longitude",
                     color="Users",
                     color_continuous_scale = px.colors.sequential.Viridis, 
-                    hover_name="City")
+                    hover_name="City",
+                    title="Test de titre")
 
 fig.update_traces(marker=dict(size=10))
 # fig.update_geos(fitbounds="locations")
