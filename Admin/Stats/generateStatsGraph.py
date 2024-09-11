@@ -474,7 +474,7 @@ for i in config_used_df.index:
 #   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
 #     config_used_df = config_used_df.drop([i])
   if (config_used_df['Configuration'][i] != 'direct link'):
-    config_used_df['Classroom language'][i] = config_used_df['Configuration'][i]
+    config_used_df['Classroom language'][i] = config_used_df['Configuration'][i][0]
     config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
     config_used_df['Translation bar'][i] = config_used_df['Configuration'][i][2]
     config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i][4]
