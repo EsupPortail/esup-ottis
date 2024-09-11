@@ -471,8 +471,6 @@ config_used_df['Microsoft translation'] = config_used_df['Configuration']
 config_used_df['Microsoft translation both'] = config_used_df['Configuration']
 
 for i in config_used_df.index:
-#   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
-#     config_used_df = config_used_df.drop([i])
   if (config_used_df['Configuration'][i] != 'direct link'):
     config_used_df['Classroom language'][i] = config_used_df['Configuration'][i][0]
     config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
@@ -503,21 +501,6 @@ fig = go.Figure(data=[go.Table(
               height=30))
 ])
 
-# fig = go.Figure(data=[go.Table(
-#  header=dict(values=['Configuration', 'Number of uses'],
-#               line_color='black',
-#               fill_color='rgb(52,82,255)',
-#               align='center',
-#               font=dict(color='white'),
-#               height=30),
-#   cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
-#               line_color='black',
-#               fill=dict(color=['white']),
-#               font=dict(color=['black']),
-#               align='center',
-#               height=30))
-# ])
-
 fig.update_layout(
   title={
       'text':"Configuration used for teacher application", 
@@ -547,6 +530,10 @@ for x in mycursor:
   deepl_per_month.append(x)
 deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Month", "Year", "Percentage", "Characters"))
 deepl_per_month_df["Percentage"] = deepl_per_month_df["Percentage"]/100
+
+deepl_per_month_df.Month = pd.Categorical(deepl_per_month_df.Month,categories=months_in_order,ordered=True)
+deepl_per_month_df = deepl_per_month_df.sort_values('Month')
+deepl_per_month_df = deepl_per_month_df.sort_values('Year')
 
 fig = go.Figure()
 
