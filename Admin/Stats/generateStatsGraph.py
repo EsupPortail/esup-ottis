@@ -462,7 +462,13 @@ config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number
 config_used_df=config_used_df.dropna(axis=0, how='any')
 
 config_used_df['Classroom language'] = config_used_df['Configuration']
-# config_used_df['Wooclap'],config_used_df['Share tab'],config_used_df['Microsoft translation'],config_used_df['Microsoft translation both'] = config_used_df['Configuration']
+config_used_df['Subtitle language'] = config_used_df['Configuration']
+config_used_df['Translation bar'] = config_used_df['Configuration']
+config_used_df['Transcription bar'] = config_used_df['Configuration']
+config_used_df['Wooclap'] = config_used_df['Configuration']
+config_used_df['Share tab'] = config_used_df['Configuration']
+config_used_df['Microsoft translation'] = config_used_df['Configuration']
+config_used_df['Microsoft translation both'] = config_used_df['Configuration']
 
 for i in config_used_df.index:
   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
@@ -517,7 +523,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Configuration used for teacher application TEST", 
+      'text':"Configuration used for teacher application TEST2", 
       'font':{
       'size':30, 
       'color':'black'}
