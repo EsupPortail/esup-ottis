@@ -463,16 +463,42 @@ config_used_df=config_used_df.dropna(axis=0, how='any')
 for i in config_used_df.index:
   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
     config_used_df = config_used_df.drop([i])
+  if (config_used_df['Configuration'][i] != 'direct link'):
+    config_used_df['Classroom language'] = config_used_df['Configuration'].str[0]
+    config_used_df['Subtitle language'] = config_used_df['Configuration'].str[1]
+    config_used_df['Translation bar'] = config_used_df['Configuration'].str[2]
+    config_used_df['Color translation'] = config_used_df['Configuration'].str[3]
+    config_used_df['Transcription bar'] = config_used_df['Configuration'].str[4]
+    config_used_df['Color transcription'] = config_used_df['Configuration'].str[5]
+    config_used_df['Font size'] = config_used_df['Configuration'].str[6]
+    config_used_df['Wooclap'] = config_used_df['Configuration'].str[7]
+    config_used_df['Share tab'] = config_used_df['Configuration'].str[8]
+    config_used_df['Opacity subtitle'] = config_used_df['Configuration'].str[9]
+    config_used_df['Arrows'] = config_used_df['Configuration'].str[10]
+    config_used_df['Show icons'] = config_used_df['Configuration'].str[11]
+    config_used_df['Pin code icon'] = config_used_df['Configuration'].str[12]
+    config_used_df['Micro icon'] = config_used_df['Configuration'].str[13]
+    config_used_df['Question icon'] = config_used_df['Configuration'].str[14]
+    config_used_df['Full screen icon'] = config_used_df['Configuration'].str[15]
+    config_used_df['Microsoft translation'] = config_used_df['Configuration'].str[16]
+    config_used_df['Microsoft translation both'] = config_used_df['Configuration'].str[17]
+    
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
-  header=dict(values=['Configuration', 'Number of uses'],
+  header=dict(values=['Configuration', 'Classroom language','Subtitle language','Translation bar','Color translation','Transcription bar',
+              'Color transcription','Font size','Wooclap','Share tab','Opacity subtitle','Arrows','Show icons','Pin code icon','Micro icon',
+              'Question icon','Full screen icon','Microsoft translation','Microsoft translation both', 'Number of uses'],
               line_color='black',
               fill_color='rgb(52,82,255)',
               align='center',
               font=dict(color='white'),
               height=30),
-  cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
+  cells=dict(values=[config_used_df['Configuration'],config_used_df['Classroom language'],config_used_df['Subtitle language'],
+              config_used_df['Translation bar'],config_used_df['Color translation'],config_used_df['Transcription bar'],config_used_df['Color transcription'],
+              config_used_df['Font size'],config_used_df['Wooclap'],config_used_df['Share tab'],config_used_df['Opacity subtitle'],
+              config_used_df['Arrows'],config_used_df['Show icons'],config_used_df['Pin code icon'],config_used_df['Micro icon'],config_used_df['Question icon'],
+              config_used_df['Full screen icon'],config_used_df['Microsoft translation'],config_used_df['Microsoft translation both'], config_used_df['Number of uses'],],
               line_color='black',
               fill=dict(color=['white']),
               font=dict(color=['black']),
