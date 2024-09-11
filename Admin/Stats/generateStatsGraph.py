@@ -460,28 +460,22 @@ for x in mycursor:
   config_used.append(x)
 config_used_df = pd.DataFrame(data=config_used, columns=("Configuration","Number of uses"))
 config_used_df=config_used_df.dropna(axis=0, how='any')
+
+config_used_df['Classroom language'],config_used_df['Subtitle language'],config_used_df['Translation bar'],config_used_df['Transcription bar'] = config_used_df['Configuration']
+config_used_df['Wooclap'],config_used_df['Share tab'],config_used_df['Microsoft translation'],config_used_df['Microsoft translation both'] = config_used_df['Configuration']
+
 for i in config_used_df.index:
   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
     config_used_df = config_used_df.drop([i])
-  # if (config_used_df['Configuration'][i] != 'direct link'):
-  #   config_used_df['Classroom language'][i] = config_used_df['Configuration'][i].str[0]
-  #   config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i].str[1]
-  #   config_used_df['Translation bar'][i] = config_used_df['Configuration'][i].str[2]
-  #   config_used_df['Color translation'][i] = config_used_df['Configuration'][i].str[3]
-  #   config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i].str[4]
-  #   config_used_df['Color transcription'][i] = config_used_df['Configuration'][i].str[5]
-  #   config_used_df['Font size'][i] = config_used_df['Configuration'][i].str[6]
-  #   config_used_df['Wooclap'][i] = config_used_df['Configuration'][i].str[7]
-  #   config_used_df['Share tab'][i] = config_used_df['Configuration'][i].str[8]
-  #   config_used_df['Opacity subtitle'][i] = config_used_df['Configuration'][i].str[9]
-  #   config_used_df['Arrows'][i] = config_used_df['Configuration'][i].str[10]
-  #   config_used_df['Show icons'][i] = config_used_df['Configuration'][i].str[11]
-  #   config_used_df['Pin code icon'][i] = config_used_df['Configuration'][i].str[12]
-  #   config_used_df['Micro icon'][i] = config_used_df['Configuration'][i].str[13]
-  #   config_used_df['Question icon'][i] = config_used_df['Configuration'][i].str[14]
-  #   config_used_df['Full screen icon'][i] = config_used_df['Configuration'][i].str[15]
-  #   config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i].str[16]
-  #   config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i].str[17]
+  if (config_used_df['Configuration'][i] != 'direct link'):
+    config_used_df['Classroom language'][i] = config_used_df['Configuration'][i].str[0]
+    config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i].str[1]
+    config_used_df['Translation bar'][i] = config_used_df['Configuration'][i].str[2]
+    config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i].str[4]
+    config_used_df['Wooclap'][i] = config_used_df['Configuration'][i].str[7]
+    config_used_df['Share tab'][i] = config_used_df['Configuration'][i].str[8]
+    config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i].str[16]
+    config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i].str[17]
     
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
@@ -797,11 +791,11 @@ fig = go.Figure()
 fig.add_trace(go.Indicator(
     mode = "number",
     value = first_use_df['New users'].sum(),
-    # title= {
-    #    'text':'Users<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
-    #    'font':{
-    #      'size':40}
-    #   },
+    title= {
+       'text':'Users',
+       'font':{
+         'size':40}
+      },
     number = {
        'prefix': '+',
        'font':{'color':'green'}
@@ -812,11 +806,11 @@ fig.add_trace(go.Indicator(
 fig.add_trace(go.Indicator(
     mode = "number",
     value = nb_uses_df['Number of uses'].sum(),
-    # title= {
-    #   'text':'Uses<br><span style="font-size:20;color:gray">All instances combined</span>',
-    #    'font':{
-    #      'size':40}
-    #   },
+    title= {
+      'text':'Uses',
+       'font':{
+         'size':40}
+      },
     domain = {'x': [0.4, 0.6], 'y': [0, 1]}))
 
 fig.update_layout(
