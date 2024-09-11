@@ -782,11 +782,11 @@ fig = go.Figure()
 fig.add_trace(go.Indicator(
     mode = "number",
     value = first_use_df['New users'].sum(),
-    title= {
-       'text':'Users<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
-       'font':{
-         'size':40}
-      },
+    # title= {
+    #    'text':'Users<br><span style="font-size:20;color:gray">Distinct users, all instances combined</span>',
+    #    'font':{
+    #      'size':40}
+    #   },
     number = {
        'prefix': '+',
        'font':{'color':'green'}
@@ -797,11 +797,11 @@ fig.add_trace(go.Indicator(
 fig.add_trace(go.Indicator(
     mode = "number",
     value = nb_uses_df['Number of uses'].sum(),
-    title= {
-      'text':'Uses<br><span style="font-size:20;color:gray">All instances combined</span>',
-       'font':{
-         'size':40}
-      },
+    # title= {
+    #   'text':'Uses<br><span style="font-size:20;color:gray">All instances combined</span>',
+    #    'font':{
+    #      'size':40}
+    #   },
     domain = {'x': [0.4, 0.6], 'y': [0, 1]}))
 
 fig.update_layout(
