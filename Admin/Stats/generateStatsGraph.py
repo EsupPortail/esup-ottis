@@ -452,7 +452,7 @@ tools_used_df.to_csv('uses/tools_used_tab.csv')
 # #################################### Configuration used ####################################
 
 config_used = []
-mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
+mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND origin IN ('master', 'master/OMIST_Tools') AND date_complete >=%s AND ((config_teacher = 'direct link') OR (LENGTH(config_teacher) = 18))) GROUP BY config_teacher", (reference_date,))
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND origin IN ('master', 'master/OMIST_Tools')) GROUP BY config_teacher;")
 # mycursor.execute("SELECT config_teacher, COUNT(id) FROM statslog WHERE (tool='teacher' AND date_complete >=%s) GROUP BY config_teacher", (reference_date,))
 
@@ -470,11 +470,11 @@ config_used_df['Share tab'] = config_used_df['Configuration']
 config_used_df['Microsoft translation'] = config_used_df['Configuration']
 config_used_df['Microsoft translation both'] = config_used_df['Configuration']
 
-for i in config_used_df.index:
-  if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
-    config_used_df = config_used_df.drop([i])
-  if (config_used_df['Configuration'][i] != 'direct link'):
-    config_used_df['Classroom language'][i] = config_used_df['Configuration'][i]
+# for i in config_used_df.index:
+#   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
+#     config_used_df = config_used_df.drop([i])
+  # if (config_used_df['Configuration'][i] != 'direct link'):
+  #   config_used_df['Classroom language'][i] = config_used_df['Configuration'][i]
     # config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
     # config_used_df['Translation bar'][i] = config_used_df['Configuration'][i][2]
     # config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i][4]
