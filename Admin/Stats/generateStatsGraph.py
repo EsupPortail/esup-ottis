@@ -485,26 +485,23 @@ for i in config_used_df.index:
     
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
-# fig = go.Figure(data=[go.Table(
-#   header=dict(values=['Configuration', 'Classroom language','Subtitle language','Translation bar','Color translation','Transcription bar',
-#               'Color transcription','Font size','Wooclap','Share tab','Opacity subtitle','Arrows','Show icons','Pin code icon','Micro icon',
-#               'Question icon','Full screen icon','Microsoft translation','Microsoft translation both', 'Number of uses'],
-#               line_color='black',
-#               fill_color='rgb(52,82,255)',
-#               align='center',
-#               font=dict(color='white'),
-#               height=30),
-#   cells=dict(values=[config_used_df['Configuration'],config_used_df['Classroom language'],config_used_df['Subtitle language'],
-#               config_used_df['Translation bar'],config_used_df['Color translation'],config_used_df['Transcription bar'],config_used_df['Color transcription'],
-#               config_used_df['Font size'],config_used_df['Wooclap'],config_used_df['Share tab'],config_used_df['Opacity subtitle'],
-#               config_used_df['Arrows'],config_used_df['Show icons'],config_used_df['Pin code icon'],config_used_df['Micro icon'],config_used_df['Question icon'],
-#               config_used_df['Full screen icon'],config_used_df['Microsoft translation'],config_used_df['Microsoft translation both'], config_used_df['Number of uses'],],
-#               line_color='black',
-#               fill=dict(color=['white']),
-#               font=dict(color=['black']),
-#               align='center',
-#               height=30))
-# ])
+fig = go.Figure(data=[go.Table(
+  header=dict(values=['Configuration', 'Classroom language','Subtitle language','Translation bar','Transcription bar',
+              'Wooclap','Share tab','Microsoft translation','Microsoft translation both', 'Number of uses'],
+              line_color='black',
+              fill_color='rgb(52,82,255)',
+              align='center',
+              font=dict(color='white'),
+              height=30),
+  cells=dict(values=[config_used_df['Configuration'],config_used_df['Classroom language'],config_used_df['Subtitle language'],
+              config_used_df['Translation bar'],config_used_df['Transcription bar'],config_used_df['Wooclap'],config_used_df['Share tab'],
+              config_used_df['Microsoft translation'],config_used_df['Microsoft translation both'], config_used_df['Number of uses'],],
+              line_color='black',
+              fill=dict(color=['white']),
+              font=dict(color=['black']),
+              align='center',
+              height=30))
+])
 
 fig = go.Figure(data=[go.Table(
  header=dict(values=['Configuration', 'Number of uses'],
@@ -523,7 +520,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Configuration used for teacher application TestTEST", 
+      'text':"Configuration used for teacher application", 
       'font':{
       'size':30, 
       'color':'black'}
