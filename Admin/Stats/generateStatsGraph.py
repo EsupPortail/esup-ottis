@@ -503,20 +503,20 @@ fig = go.Figure(data=[go.Table(
               height=30))
 ])
 
-fig = go.Figure(data=[go.Table(
- header=dict(values=['Configuration', 'Number of uses'],
-              line_color='black',
-              fill_color='rgb(52,82,255)',
-              align='center',
-              font=dict(color='white'),
-              height=30),
-  cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
-              line_color='black',
-              fill=dict(color=['white']),
-              font=dict(color=['black']),
-              align='center',
-              height=30))
-])
+# fig = go.Figure(data=[go.Table(
+#  header=dict(values=['Configuration', 'Number of uses'],
+#               line_color='black',
+#               fill_color='rgb(52,82,255)',
+#               align='center',
+#               font=dict(color='white'),
+#               height=30),
+#   cells=dict(values=[config_used_df['Configuration'],config_used_df['Number of uses'],],
+#               line_color='black',
+#               fill=dict(color=['white']),
+#               font=dict(color=['black']),
+#               align='center',
+#               height=30))
+# ])
 
 fig.update_layout(
   title={
