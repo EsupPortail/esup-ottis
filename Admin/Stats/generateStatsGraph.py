@@ -486,7 +486,7 @@ for i in config_used_df.index:
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
-  header=dict(values=['Configuration', 'Classroom language','Subtitle language','Translation bar','Transcription bar',
+  header=dict(values=['Configuration', 'Classroom language','Subtitle language',
               'Direct translation','Direct translation & transcription', 'Number of uses'],
               line_color='black',
               fill_color='rgb(52,82,255)',
@@ -494,7 +494,6 @@ fig = go.Figure(data=[go.Table(
               font=dict(color='white'),
               height=30),
   cells=dict(values=[config_used_df['Configuration'],config_used_df['Classroom language'],config_used_df['Subtitle language'],
-              config_used_df['Translation bar'],config_used_df['Transcription bar'],
               config_used_df['Microsoft translation'],config_used_df['Microsoft translation both'], config_used_df['Number of uses'],],
               line_color='black',
               fill=dict(color=['white']),
