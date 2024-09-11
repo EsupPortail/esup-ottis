@@ -69,7 +69,7 @@ Pour moi.
 - [ ] Faire une application qui permet, à partir d'une vidéo, d'en extraire le discours, de le traduire, de le faire lire par une voix de synthèse et de remettre le discours traduit dans la vidéo.
     - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
 - [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
-- [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier ?
+- [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier
 - [X] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999 sinon -> 99.999
 
 ## Partie dédiée à l'éditeur d'animation
@@ -130,8 +130,8 @@ Pour moi.
 ## Partie dédiée à la mesure de l'utilisation de l'outil
 - [X] objectif : avoir le nombre d'utilisateurs, leur utilisation, l'utilisation des quotas de traduction (éventuellement par système voire clé utilisée) pour avoir un „modèle économique“, avec une interface de visualisation (avec des courbes qu’on peut directement copier dans des rapports)
 - [X] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
-- [ ] Bug : l'URL des OMIST Tools dans l'application enseignante est .../indexNOCAS.php, ce qui fausse l'user id dans la BD -> création d'un bouton dans Complete lesson
-- [ ] Ne prendre les données que pour la VM master
+- [X] Bug : l'URL des OMIST Tools dans l'application enseignante est .../indexNOCAS.php, ce qui fausse l'user id dans la BD -> création d'un bouton dans Complete lesson
+- [X] Ne prendre les données que pour la VM master
 
 ## Priorisation ? Mais ça n'est pas forcément à suivre
 
