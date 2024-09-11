@@ -470,18 +470,18 @@ config_used_df['Share tab'] = config_used_df['Configuration']
 config_used_df['Microsoft translation'] = config_used_df['Configuration']
 config_used_df['Microsoft translation both'] = config_used_df['Configuration']
 
-# for i in config_used_df.index:
+for i in config_used_df.index:
 #   if (config_used_df['Configuration'][i] != 'direct link') & (len(config_used_df['Configuration'][i]) < 18):
 #     config_used_df = config_used_df.drop([i])
-  # if (config_used_df['Configuration'][i] != 'direct link'):
-  #   config_used_df['Classroom language'][i] = config_used_df['Configuration'][i]
-    # config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
-    # config_used_df['Translation bar'][i] = config_used_df['Configuration'][i][2]
-    # config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i][4]
-    # config_used_df['Wooclap'][i] = config_used_df['Configuration'][i][7]
-    # config_used_df['Share tab'][i] = config_used_df['Configuration'][i][8]
-    # config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i][16]
-    # config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i][17]
+  if (config_used_df['Configuration'][i] != 'direct link'):
+    config_used_df['Classroom language'][i] = config_used_df['Configuration'][i]
+    config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
+    config_used_df['Translation bar'][i] = config_used_df['Configuration'][i][2]
+    config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i][4]
+    config_used_df['Wooclap'][i] = config_used_df['Configuration'][i][7]
+    config_used_df['Share tab'][i] = config_used_df['Configuration'][i][8]
+    config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i][16]
+    config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i][17]
     
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
@@ -523,7 +523,7 @@ fig = go.Figure(data=[go.Table(
 
 fig.update_layout(
   title={
-      'text':"Configuration used for teacher application", 
+      'text':"Configuration used for teacher application TestTEST", 
       'font':{
       'size':30, 
       'color':'black'}
