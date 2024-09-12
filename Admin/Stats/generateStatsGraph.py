@@ -498,12 +498,13 @@ fig = go.Figure(data=[go.Table(
               fill=dict(color=['white']),
               font=dict(color=['black']),
               align='center',
-              height=30))
+              height=30,
+              width=auto))
 ])
 
 fig.update_layout(
   title={
-      'text':"Configuration used for teacher application", 
+      'text':"Configuration used for teacher application TEST", 
       'font':{
       'size':30, 
       'color':'black'}
