@@ -485,6 +485,7 @@ config_used_df.replace({'A':'fr', 'B':'en', 'Y':'yes', 'N':'no'}, inplace=True)
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
+  columnwidth=[5, 1, 1, 1, 1, 1],
   header=dict(values=['Configuration', 'Classroom language','Subtitle language',
               'Direct translation','Direct translation & transcription', 'Number of uses'],
               line_color='black',
@@ -498,8 +499,7 @@ fig = go.Figure(data=[go.Table(
               fill=dict(color=['white']),
               font=dict(color=['black']),
               align='center',
-              height=30,
-              width=auto))
+              height=30))
 ])
 
 fig.update_layout(
