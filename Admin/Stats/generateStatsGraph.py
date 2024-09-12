@@ -481,7 +481,7 @@ for i in config_used_df.index:
     config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i][16]
     config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i][17]
     
-config_used_df.replace({'A':'fr', 'B':'en', 'Y':'yes', 'N':'no'}, inplace=True)
+config_used_df.replace({'A':'french', 'B':'english', 'Y':'yes', 'N':'no'}, inplace=True)
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
 fig = go.Figure(data=[go.Table(
