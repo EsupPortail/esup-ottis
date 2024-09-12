@@ -128,8 +128,8 @@ if (! function_exists('str_ends_with')) {
           tablinks[i].style.color = "";
         }
         document.getElementById(pageName).style.display = "block";
-        document.getElementById(elmnt).style.backgroundColor = 'white';
-        document.getElementById(elmnt).style.color = "black";
+        document.getElementById(elmnt).style.backgroundColor = 'var(--blue)';
+        document.getElementById(elmnt).style.color = "var(--white)";
       }
 
       function DownloadTable(filename, elText, mimeType) {
