@@ -10,6 +10,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+	<title>OMIST - Login table</title>
+  	<link rel="icon" type="image/png" href="../../../images/favicon.svg" >
 	<link rel="stylesheet" href="../style.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 	<script>

@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>OMIST - Login table</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMIST - Login</title>
   <link rel="icon" type="image/png" href="../../images/favicon.svg" >
   <link rel="stylesheet" href="style.css" />
 </head>

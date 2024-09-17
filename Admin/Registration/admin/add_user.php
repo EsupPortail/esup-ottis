@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+<title>OMIST - Add user</title>
+<link rel="icon" type="image/png" href="../../../images/favicon.svg" >
 <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
