@@ -183,7 +183,7 @@ $insertCommande_stats->execute([
   }
 	?>
 
-  <link rel="icon" type="image/png" href="favicon.png" >
+  <link rel="icon" type="image/png" href="./images/favicon.svg" >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 

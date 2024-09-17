@@ -54,7 +54,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     echo '<link href="../jquery/jquery-ui.min.css" rel="stylesheet">';
   }
 	?>
-    <link rel="icon" type="image/png" href="../favicon.png" >
+    <link rel="icon" type="image/png" href="../images/favicon.svg" >
     <?php if ($theme != "") {
     echo '<script src="../jquery/'.$theme.'/external/jquery/jquery.js"></script>';
     echo '<script src="../jquery/'.$theme.'/jquery-ui.js"></script>';

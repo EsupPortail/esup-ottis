@@ -62,7 +62,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet">';
   }
 	?>
-  <link rel="icon" type="image/png" href="favicon.png" >
+  <link rel="icon" type="image/png" href="./images/favicon.svg" >
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script>
 
