@@ -44,7 +44,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Slide Manipulation Tools</title>
+	<title>OMIST - Administration</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php if ($theme != "") {
@@ -64,6 +64,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   }
   ?>
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
+    <link href="../../styles/administration.css" rel="stylesheet">
 <script>
 function Edit(readfilename,pw=false) {
     document.getElementById('dialog-filename').innerHTML=readfilename;
