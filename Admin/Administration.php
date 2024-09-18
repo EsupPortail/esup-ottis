@@ -207,6 +207,7 @@ $( function() {
   <header>
     <nav>
       <img id="logoNU" src="../images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université">
+      <h1> Administration </h1>
     </nav>
 </header>
     <main>
