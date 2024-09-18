@@ -45,10 +45,12 @@ nav {
 }
 
 .button-admin {
-    background-color: var(--dark-grey);
+    background: var(--dark-grey);
+    border: var(--dark-grey);
     color: var(--white);
 }
 
 .button-admin:hover{
-    background-color: var(--blue);
+    background: var(--blue);
+    border: var(--blue);
 }
