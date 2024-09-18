@@ -34,11 +34,6 @@ header * {
     flex-direction   : inherit;
 }
 
-header a {
-    justify-content  : center;
-    align-items      : center;
-}
-
 #logoNU {
     height           : 80%; 
 }
@@ -49,7 +44,11 @@ nav {
     align-items      : center;
 }
 
-nav > a {
-    height           : -webkit-fill-available; 
-    width            : fit-content;
+button {
+    background-color: var(--dark-grey);
+    color: var(--white);
+}
+
+button:hover{
+    background-color: var(--blue);
 }
