@@ -44,11 +44,11 @@ nav {
     align-items      : center;
 }
 
-button {
+.button-admin {
     background-color: var(--dark-grey);
     color: var(--white);
 }
 
-button:hover{
+.button-admin:hover{
     background-color: var(--blue);
 }
