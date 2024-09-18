@@ -51,7 +51,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 <!doctype html>
 <html lang="fr">
 <head>
-	<title>Automatic translation for teaching purposes</title>
+	<title>OMIST - Subtitles</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link href="styles/student.css" rel="stylesheet">
