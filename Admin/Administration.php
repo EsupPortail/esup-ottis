@@ -212,10 +212,13 @@ $( function() {
   <main>
       <h1>Administration</h1>
   </main>
+  <h3> Edit <h3>
   <button class="button-admin" onclick="Edit('../tables/tokens.json');"><i class="fa fa-key" aria-hidden="true"></i>&nbsp; Edit tokens</button>
   <button class="button-admin" onclick="Edit('../tables/authorizedStudents.txt');"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;Edit Authorized students</button>
   <button class="button-admin" onclick="Edit('../tables/listAdminID.txt');"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Edit privileged users</button>
   <button class="button-admin" onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
+  
+  <h3> Links <h3>
   <button class="button-admin" onclick="<?php echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/Admin/Registration/admin/home.php'))" ?>"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Login table</button>
   <button class="button-admin" onclick="<?php echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/Admin/Stats/Dashboard.php'))" ?>"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</button>
 <?php

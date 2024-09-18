@@ -16,7 +16,7 @@ h1 {
     /* font-family: "Concert One", sans-serif; */
     font-weight: 400;
     font-style: normal;
-  }
+}
 
 header {
     height           : 6%; 
@@ -48,9 +48,15 @@ nav {
     background: var(--dark-grey);
     border: var(--dark-grey);
     color: var(--white);
+    font-family: "Open Sans", sans-serif;
 }
 
 .button-admin:hover{
+    background: var(--blue);
+    border: var(--blue);
+}
+
+.button-admin:focus{
     background: var(--blue);
     border: var(--blue);
 }
