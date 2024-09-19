@@ -257,6 +257,14 @@ h1 {
 	top: 9px;
 }
 
+input[name="downloadTemplateSpeech"]{
+	padding-left: 6px;
+	padding-right: 6px;
+	border-width: thin;
+	border-radius: 2px;
+	border-color: grey;
+}
+
 </style>
 <script>
 
@@ -366,6 +374,25 @@ function downloadFile(filePath){
     var link=document.createElement('a');
     link.href = filePath;
     link.download = filePath.substr(filePath.lastIndexOf('/') + 1);
+    link.click();
+}
+
+/**
+ * @summary The function that is executed for downloading a template speech.
+ * 
+ * @param {string} filename a text value contained the file name.
+ * @param {string} elText a text value contained the text to download.
+ * @param {string} mimeType a text value contained the MIME type.
+ */
+
+ function DownloadTemplateSpeech(mimeType) {
+    var link = document.createElement('a');
+    mimeType = mimeType || 'text/plain';
+    elText = "---------- Slide 1 ---------- \nEntrez votre texte ici \n---------- Slide 2 ---------- \nTexte \n---------- Slide 3 ---------- \n"+
+    "Texte \n---------- Slide 4 ---------- \nTexte \n---------- Slide 5 ---------- \nTexte \n---------- Slide 6 ---------- \nTexte \n"+
+    "---------- Slide 7 ---------- \n---------- Slide 8 ---------- \n---------- Slide 9 ---------- \n---------- Slide 10 ---------- \n---------- Slide 11 ---------- \n\n\+ ajouter le nombre de slide nécessaire";
+    link.setAttribute('download', 'template_speech.txt');
+    link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));
     link.click();
 }
 
@@ -625,7 +652,7 @@ body {
   <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de <?php echo "$WhichTranslator = $percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
-    <li style="background-color: #000; color: white"><img src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
+    <li style="background-color: #000; color: white"><img onclick="<?php if ($external) echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php?external', '_self'))"; else echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php', '_self'))"; ?>" src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
     <li title="Display the complete tool list"><a href="#menu" onclick="showList('all')"><i class="fa fa-cogs"></i><span class="hidesmallscreens">&nbsp;All tools</span></a></li>
     <li title="These tools allow to create and edit HTML capsule"><a href="#menu" onclick="showList('1,2,3,4,12')"><i class="fa fa-picture-o"></i><span class="hidesmallscreens">&nbsp;Capsule only</span></a></li>
     <li title="These tools allow to transcript a video file or an audio file"><a href="#menu" onclick="showList('13,14,16')"><i class="fa fa-file-video-o"></i><span class="hidesmallscreens">&nbsp;Audio/video only</span></a></li>
@@ -671,6 +698,8 @@ It's important to note that the resulting capsule can serve as comprehensive inp
     <li>
       <label for="fileToUploadTXT2">Select SPEECH file (.txt): </label>
     <input type="file" name="fileToUploadTXT" id="fileToUploadTXT2"  aria-label="Select SPEECH file (.txt)" title="Select SPEECH file" accept=".txt"  class="inputsmallscreens"></li>
+    <li><label for="downloadTemplateSpeech2">You can download a template speech here : </label>
+    <input type="button" value="Download"  name="downloadTemplateSpeech" id="downloadTemplateSpeech2"  aria-label="Download a template speech" title="Download a template speech"  class="inputsmallscreens" onclick="DownloadTemplateSpeech()"></li><br>
     <li><button id="App2" value="Create" onclick="if (_('fileToUpload2').value!='') {this.innerHTML=''; SubmitJob(2,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button></ul>
 </ul>
     <p id="Message2"></p>
@@ -735,6 +764,8 @@ It's important to note that the resulting capsule can serve as comprehensive inp
   
     <label for="fileToUpload4">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload4" aria-label="Select PDF file" title="Select a PDF file"  accept=".pdf"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT4">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT4" aria-label="Select SPEECH file (.txt):" title="Select SPEECH file (.txt):"  accept=".txt"  class="inputsmallscreens"><br>
+    <label for="downloadTemplateSpeech4">You can download a template speech here : </label>
+    <input type="button" value="Download"  name="downloadTemplateSpeech" id="downloadTemplateSpeech4"  aria-label="Download a template speech" title="Download a template speech"  class="inputsmallscreens" onclick="DownloadTemplateSpeech()"></li><br>
     <input type="hidden" id="ProgName4" name="ProgramName" value="CreateApp/CreateAppFromPDF_complete.php">
     <input type="hidden" id="Random4" name="randompath" value="">
     <input type="hidden" id="UserID4" name="userid" value="<?php echo $uid_connexion; ?>" >
@@ -933,6 +964,8 @@ It's important to note that the resulting capsule can serve as comprehensive inp
   <form id="Form8" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload8">Select PPTx file :   </label><input type="file" name="fileToUpload" id="fileToUpload8"  aria-label="Select PPTX file" title="Select a PPTX file" accept=".pptx"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT8">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT8" aria-label="Select SPEECH file (.txt)" title="Select SPEECH file (.txt)" accept=".txt"  class="inputsmallscreens"><br>
+    <label for="downloadTemplateSpeech8">You can download a template speech here : </label>
+    <input type="button" value="Download"  name="downloadTemplateSpeech" id="downloadTemplateSpeech8"  aria-label="Download a template speech" title="Download a template speech"  class="inputsmallscreens" onclick="DownloadTemplateSpeech()"></li><br>
     <input type="hidden" id="ProgName8" name="ProgramName" value="ConvertPPTX/ConvertPPTX_TXT_toPPTX.php">
     <input type="hidden" id="Random8" name="randompath" value="">
     <input type="hidden" id="UserID8" name="userid" value="<?php echo $uid_connexion; ?>" >
@@ -949,6 +982,8 @@ It's important to note that the resulting capsule can serve as comprehensive inp
   <form id="Form7" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
     <label for="fileToUpload7">Select PDF file :   </label><input type="file" name="fileToUpload" id="fileToUpload7"  aria-label="Select PDF file" title="Select a PDF file" accept=".pdf"  class="inputsmallscreens"><br>
     <label for="fileToUploadTXT7">Select SPEECH file (.txt): </label><input type="file" name="fileToUploadTXT" id="fileToUploadTXT7" aria-label="Select SPEECH file (.txt)" title="Select SPEECH file (.txt)" accept=".txt"  class="inputsmallscreens"><br>
+    <label for="downloadTemplateSpeech7">You can download a template speech here : </label>
+    <input type="button" value="Download"  name="downloadTemplateSpeech" id="downloadTemplateSpeech7"  aria-label="Download a template speech" title="Download a template speech"  class="inputsmallscreens" onclick="DownloadTemplateSpeech()"></li><br>
     <input type="hidden" id="ProgName7" name="ProgramName" value="ConvertPDF/ConvertPDFtoPPTX.php">
     <input type="hidden" id="Random7" name="randompath" value="">
     <input type="hidden" id="UserID7" name="userid" value="<?php echo $uid_connexion; ?>" >
