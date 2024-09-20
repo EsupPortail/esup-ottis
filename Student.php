@@ -391,7 +391,7 @@ Show the original version banner</label>
 <!--  <li title="Sometimes, for security issues, you must be logged to WOOCLAP by an external application. Click here to fix this issue.">External login to WOOCLAP : <button onclick="window.open('https://app.wooclap.com/auth/login?lang=en&redirectTo=/home')">Login to wooclap first</button></li>-->
 <span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"></span><br>
   <span style="display:none;">Pending requests : <span id="nbrequests">0</span></span>
-  <span>Voice speed : <br><span id="slider_speed"></span></span>
+  <span>Voice speed (reference value 100): <br><span id="slider_speed"><div id="custom-handle" class="ui-slider-handle"></div></span></span>
 </div>
 	</div>
 	<div id="tabs-1">

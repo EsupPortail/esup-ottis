@@ -494,4 +494,7 @@ input[type=text] {
 	margin: 15px;
 }
 
-
+#custom-handle {
+	width: 30px;
+	text-align: center;
+}

@@ -348,4 +348,14 @@ $(function() {
         change: refreshSpeed
     });
     $("#slider_speed").slider("value", 100);
+
+    var handle = $( "#custom-handle" );
+    $( "#slider_speed" ).slider({
+        create: function() {
+          handle.text( $( this ).slider( "value" ) );
+        },
+        slide: function( event, ui ) {
+          handle.text( ui.value );
+        }
+      });
 });
