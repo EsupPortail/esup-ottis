@@ -69,7 +69,7 @@ Pour moi.
 - [ ] Faire une application qui permet, à partir d'une vidéo, d'en extraire le discours, de le traduire, de le faire lire par une voix de synthèse et de remettre le discours traduit dans la vidéo.
     - [ ] Enchaîner les tools "Audio/video file transcription" et "Subtitle reader" en un seul tool
 - [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
-- [ ] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier
+- [X] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier
 - [X] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999 sinon -> 99.999
 
 ## Partie dédiée à l'éditeur d'animation
@@ -93,10 +93,10 @@ Pour moi.
 - [X] Pour addOptions : même si on close la fenêtre pour annuler notre action, le chanegement est quand même pris en compte
 - [X] Quand on ajoute une nouvelle ligne (vide ou non), il faut qu'une nouvelle ligne (vide) soit ajoutée dans les autres langues
 - [X] Voir si c'est faisable quand on modifie à la main un keyword, qu'il soit modifié dans toutes les langues
-- [ ] Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la traduction dans les autres langues ?
-- [ ] Ne pas autoriser les cut & paste (car si on le fait sur des mots clés -> pas de répercussion sur les autres langues)
+- [X] Voir pour le keyword notification : pour l'instant le même message est ajouté dans toutes les langues, on peut le modifier à la main dans chaque langue. Voir si quand on ajoute une notification, on ne peut pas ajouter la traduction dans les autres langues ?
+- [X] Ne pas autoriser les cut & paste (car si on le fait sur des mots clés -> pas de répercussion sur les autres langues)
 - [X] Changer le message addAllLanguages()
-- [ ] Faire un tutoriel
+- [X] Faire un tutoriel
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
@@ -141,7 +141,7 @@ Pour moi.
 ### Partie "nouvelle authentification externe"
 Notre premier compte "client" a été créé ce week-end (sans que ça soit fait par nous) pour quelqu'un d'Avignon (cyrielle.garson@univ-avignon.fr). En outre, actuellement on n'a pas trop d'informations sur la personne qui demande un compte. Là c'était facile car on savait d'où venait la demande. A FAIRE : 
 - [X] Peut-être lui écrire pour savoir si ça s'est bien passé, en indiquant que ces comptes externes sont une nouveauté et qu'on aimerait un retour si possible.
-- [ ] réfléchir au champs qu'on pourrait ajouter au formulaire de demande de compte, ensuite ça sera assez facile d'adapter le formulaire et la BDD. **-> Université, l'utilisation (cours/conférence, traduction/transcription), comment la personne a connu OMIST ?**
+- [X] réfléchir au champs qu'on pourrait ajouter au formulaire de demande de compte, ensuite ça sera assez facile d'adapter le formulaire et la BDD. **-> Université, l'utilisation (cours/conférence, traduction/transcription), comment la personne a connu OMIST ?**
 
 ### Partie dédiée à la télécommande
 - revoir l'appli
