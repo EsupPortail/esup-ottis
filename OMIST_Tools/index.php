@@ -116,6 +116,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   }
   ?>
     <script src="../js/teacher-func.js"></script>
+    <script src="../js/edit-anim.js"></script>
     <link href="../styles/edit-anim.css" rel="stylesheet">
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
 <style>
@@ -246,6 +247,10 @@ h1 {
 
 #menu ul {
   list-style: none;
+}
+
+#dialog-message ul{
+  list-style-type: disc;
 }
 
 #logout-button {
@@ -1105,7 +1110,7 @@ It's important to note that the resulting capsule can serve as comprehensive inp
       <li class="dropdown">
         <a title="Add a pause in your capsule." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropPause").classList.toggle("show"); closeDropdown("dropPause");} else {warningEmpty("file");}'><i class="fa fa-pause"></i> Pause</a>
         <div class="dropdown-content" id="dropPause">
-          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {warningEmpty('slide');}">Pause animation</a>
+          <a href="javascript:if (_('imageArea').innerHTML!='') {addAllLanguages('[pause]');} else {warningEmpty('slide');}">Pause capsule</a>
           <a href="javascript:if (_('imageArea').innerHTML!='') {addParameters('[wait toReplace]');} else {warningEmpty('slide');}">Pause for n milliseconds</a>
         </div>
       </li>
@@ -1138,7 +1143,7 @@ It's important to note that the resulting capsule can serve as comprehensive inp
         <a title="Download your new capsule or just the speech." class="dropbtn" onclick='if (_("fileToUpload12").value!="") {document.getElementById("dropDownload").classList.toggle("show"); closeDropdown("dropDownload");} else {warningEmpty("file");}'><i class="fa fa-download"></i> Download</a>
         <div class="dropdown-content" id="dropDownload">
           <a href="javascript:CreateNewPresentation()">Download complete capsule</a>
-          <a href="javascript:CreateNewSpeech()">Download speech</a>
+          <a href="javascript:DownloadNewSpeech()">Download speech</a>
           <!-- <a href="javascript:CreateNewPPTX()">Download PPTX presentation</a> -->
         </div>
       </li>
@@ -1174,7 +1179,10 @@ It's important to note that the resulting capsule can serve as comprehensive inp
       <tr>
       <td style="width: 85%; height:200px; text-align:center">
         <div style="text-align:center" id="speechLanguage"></div>
-        <textarea aria-label="Slide notes" title="Slide notes" onkeyup="addEnter(event)" onchange="updateNotes();" id="speechArea" style="overflow-y: scroll; resize: none;"></textarea>
+        <div id="container" class="container">
+          <!-- <div id="line-numbers" class="container__lines"></div> -->
+          <textarea aria-label="Slide notes" title="Slide notes" onkeyup="getEvent(event)" onchange="updateNotes();" id="speechArea" class="container__textarea" style="overflow-y: scroll; resize: none;"></textarea>
+        </div>
       </td>
       </tr>
     </table>
@@ -1195,21 +1203,42 @@ It's important to note that the resulting capsule can serve as comprehensive inp
       </p>
       
       <div id="menuHelp"> <h4>More help : </h4>
+        <ul>
+          <li> Note that if you modify the parameters of a keyword by hand, this will be reflected in all languages, except for the [notification] keyword.</li>
+          <li> If you add a keyword by hand, it will not be reflected in the other languages. We recommend that you always use the menu to add them.</li>
+          <li> Pay attention to the position of the cursor when adding a keyword, because if you add it in the wrong place then you will have to make the change for each language. The keyword is placed on the cursor line.</li>
+        </ul>
+        <ul>
+          <li> It is not possible to cut or paste text.</li>
+          <li> It is not possible to delete a line, only the text and leave a blank line. If you delete text, remember to do so for each language.</li>
+          <li> When you add text, it is not added in the other languages. It's up to you to do this manually.</li>
+          <li> When you add text to an empty line, make sure that it is also empty for all languages. If this is not the case, the lines may be displaced and future keywords may not be inserted where you want them.</li>
+        </ul>
         <div id=helpPause>
           <h4>Pause</h4>
           <div>
-            <b>Pause animation :</b> pause the capsule as if you were pressing a pause button.
+            <b>Pause capsule :</b> pause the capsule as if you were pressing a pause button.
             <br><b>Pause for n milliseconds :</b> incorporate a pause of a certain duration.
           </div>
         </div>
         <div id=helpMouse>
           <h4>Mouse</h4>
           <div>
+            <p>
+              There's no need to set the size and shape of the mouse on each slide if you don't want to change these settings compared with the previous slides.
+            </p>
             <b>Show the mouse :</b> display mouse pointer.
             <br><b>Hide the mouse :</b> hide mouse pointer.
-            <br><b>Move the mouse :</b> move the mouse pointer to position (X, Y). X and X are expressed as percentages of the image. (0,0) is top left and (100,100) is bottom right of the slide image.
+            <br><b>Move the mouse :</b> move the mouse pointer to position (X, Y). X and X are expressed as percentages of the image. (0,0) is top left and (100,100) is bottom right of the slide image. There may be a gap between the cursor and the click in the capsule editor. This is due to the size of the different screens. The cursor is only there as an indication, it is the position of the click that is taken into account.
             <br><b>Change the mouse size :</b> change mouse pointer size (default 1).
-            <br><b>Change the mouse shape :</b> modifie the shape of the mouse pointer with predefined shapes.
+            <br><b>Change the mouse shape :</b> modify the shape of the mouse pointer with predefined shapes.
+          </div>
+        </div>
+        <div id=helpNotification>
+          <h4>Notification</h4>
+          <div>
+            <b>Open a window with the url :</b> open a notification window (on the left) with a link to the resource.
+            <br><b>Open a window with the text :</b> open a notification window (on the right) displaying the message. The text in this pop-up is added and translated into all languages.
           </div>
         </div>
         <div id=helpNotification>
