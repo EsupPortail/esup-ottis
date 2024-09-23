@@ -57,7 +57,7 @@ Pour moi.
 - [ ] la navigation au clavier ne fonctionne pas très bien. Ex : on peut naviguer dans le menu avec les flèches sauf quand on arrive dans l’onglet „Slides“ car les flèches servent ici à passer les slides. Il y a aussi des problèmes avec la navigation par tabulation. Imaginer de ne plus du tout naviguer avec les flèches dans le menu principal (et réserver les flèches pour faire passer les slides), utiliser la tabulation pour voyager dans toute l’application et avoir un ordre cohérent et ajouter quelques raccourcis (il y en a déjà dans l’application étudiante, par exemple la touche [s] amène directement vers les slides) ?
 
 ## Partie dédiée à l'outil étudiant
-- [ ] Voice speed : indiquer des valeurs et celle par défaut
+- [X] Voice speed : indiquer des valeurs et celle par défaut
 
 
 ## Partie dédiée aux OMIST Tools
