@@ -246,7 +246,7 @@ function ParleThen(txt, f) {
 function applyConfigSub() {
     var config = currentconfig;
     console.log(config);
-    if (config.length != "ABYANACNNCNNNYYY".length) return;
+    if (config.length != "ABYANACNNCNNNYYYYN".length) return;
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     setLanguageInput(_('classroomlanguage').value);

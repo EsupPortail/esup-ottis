@@ -1012,6 +1012,7 @@ function FullScreen() {
  */
 
 function SubWindow(){
+    event.preventDefault();
     var window_width = window.screen.width;
     var windowFeatures = "status=no,location=no,toolbar=no,menubar=no,width=1200,height=110";
     var link = _("sublink").innerHTML.replaceAll("&amp;","&");
@@ -2190,7 +2191,9 @@ function updateConfig() {
     var room_id = _("sharedlink").innerHTML.replace("Student.php?","&");
     _("LinkConfig").innerHTML = _("LinkConfig").href;
     _("sublink").innerHTML = link+room_id;
-    _("sublink").href = link+room_id;
+    var link_tot = link+room_id;
+    link_tot = link_tot.replaceAll("&amp;","&");
+    _("sublink").href = link_tot;
 }
 
 /**
