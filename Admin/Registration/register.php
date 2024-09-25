@@ -27,9 +27,9 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_RE
   $res = mysqli_query($conn, $query);
     if($res){
        echo "<div class='sucess'>
-             <h3>Vous êtes inscrit avec succès.</h3>
-             <p>Cependant, votre compte doit encore être activé pour être utilisable, ceci peut prendre plusieurs heures. Si vous avez besoin qu'il soit activé plus rapidement, veuillez envoyer un message à <a href=\"mailto:omist-dev@univ-nantes.fr?subject=[OMIST Activation]%20".$username."\">omist-dev@univ-nantes.fr</a>.</p>
-             <p>Lorsque votre compte sera activé, cliquez ici pour vous <a href='login.php'>connecter</a></p>
+             <h3>You have been successfully registered.</h3>
+             <p>However, your account still needs to be activated before it can be used, and this may take several hours. If you need it activated more quickly, please send a message to <a href=\"mailto:omist-dev@univ-nantes.fr?subject=[OMIST Activation]%20".$username."\">omist-dev@univ-nantes.fr</a>.</p>
+             <p>Once your account has been activated, click here to  <a href='login.php'>log in</a></p>
        </div>";
 
 
@@ -81,7 +81,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_RE
   placeholder="User name" required />
   
   <input type="text" class="box-input" name="host" 
-  placeholder="Institutiont" required />
+  placeholder="Institution" required />
 
   <input type="text" class="box-input" name="needs" 
   placeholder="Describe your requirements (less than 200 characters)" required maxlength="200"/>
@@ -96,8 +96,8 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_RE
     <input type="submit" name="submit" 
   value="Sign up" class="box-button" />
   
-    <p class="box-register">Déjà inscrit? 
-  <a href="login.php">Connectez-vous ici</a></p>
+    <p class="box-register">Already registered ?
+  <a href="login.php">Log in here</a></p>
 </form>
 <?php } ?>
 </body>
