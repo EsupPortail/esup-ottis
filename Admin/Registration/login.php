@@ -48,12 +48,12 @@ if (isset($_POST['username'])){
 <h1 class="box-logo box-title">
   OMIST Tools (External user)
 </h1>
-<h1 class="box-title">Connexion</h1>
+<h1 class="box-title">Connection</h1>
 <input type="text" class="box-input" name="username" placeholder="Nom d'utilisateur">
 <input type="password" class="box-input" name="password" placeholder="Mot de passe">
-<input type="submit" value="Connexion " name="submit" class="box-button">
-<p class="box-register">Vous êtes nouveau ici? 
-  <a href="register.php">S'inscrire</a>
+<input type="submit" value="Connection " name="submit" class="box-button">
+<p class="box-register">New here ?
+  <a href="register.php">Sign up</a>
 </p>
 <?php if (! empty($message)) { ?>
     <p class="errorMessage"><?php echo $message; ?></p>

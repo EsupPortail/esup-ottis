@@ -64,7 +64,7 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_RE
        $to = $email;
        $type = 'plain'; // or HTML
        $charset = 'utf-8';
-       $message = "Bonjour ".$username.",\n\n Votre demande de création de compte a été transmise au gestionnaire.\n\nIl est maintenant en attente d'activation.\n\n Merci d'utiliser nos services.\n\nCordialement,\n\nJérémie Bourdon.";
+       $message = "Bonjour ".$username." \n\n Votre demande de création de compte a été transmise au gestionnaire.\n\nIl est maintenant en attente d'activation.\n\n Merci d'utiliser nos services.\n\nCordialement \n\nJérémie Bourdon.\n\n\n\n---\n\n\n\n Hello ".$username." \n\n Your request to create an account has been sent to the administrator. \n\n It is now awaiting activation. \n\n Thank you for using our services.\n\n Sincerely \n\n Jérémie Bourdon.";
 
        //mail($to, $subject, $message, $headers);
       
@@ -76,25 +76,25 @@ if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'], $_RE
   <h1 class="box-logo box-title">
     OMIST Tools (external use)
   </h1>
-    <h1 class="box-title">S'inscrire</h1>
+    <h1 class="box-title">Sign up</h1>
   <input type="text" class="box-input" name="username" 
-  placeholder="Nom d'utilisateur" required />
+  placeholder="User name" required />
   
   <input type="text" class="box-input" name="host" 
-  placeholder="Etablissement" required />
+  placeholder="Institutiont" required />
 
   <input type="text" class="box-input" name="needs" 
-  placeholder="Décrivez votre besoin (en moins de 200 caractères)" required maxlength="200"/>
+  placeholder="Describe your requirements (less than 200 characters)" required maxlength="200"/>
 
 
     <input type="text" class="box-input" name="email" 
   placeholder="Email" required />
   
     <input type="password" class="box-input" name="password" 
-  placeholder="Mot de passe" required />
+  placeholder="Password" required />
   
     <input type="submit" name="submit" 
-  value="S'inscrire" class="box-button" />
+  value="Sign up" class="box-button" />
   
     <p class="box-register">Déjà inscrit? 
   <a href="login.php">Connectez-vous ici</a></p>
