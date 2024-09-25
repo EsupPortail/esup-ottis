@@ -36,11 +36,11 @@ if (isset($_POST['username'])){
           else header('location: ../../indexNOCAS.php');
         } else header('location: ../../indexNOCAS.php');
       } else {
-        $message = "Ce compte n'a pas encore été activé.";
+        $message = "This account has not yet been activated.";
       }
     }
   }else{
-    $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
+    $message = "Incorrect user name or password.";
   }
 }
 ?>
@@ -49,8 +49,8 @@ if (isset($_POST['username'])){
   OMIST Tools (External user)
 </h1>
 <h1 class="box-title">Connection</h1>
-<input type="text" class="box-input" name="username" placeholder="Nom d'utilisateur">
-<input type="password" class="box-input" name="password" placeholder="Mot de passe">
+<input type="text" class="box-input" name="username" placeholder="User name">
+<input type="password" class="box-input" name="password" placeholder="Password">
 <input type="submit" value="Connection " name="submit" class="box-button">
 <p class="box-register">New here ?
   <a href="register.php">Sign up</a>
