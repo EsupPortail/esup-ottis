@@ -93,16 +93,10 @@ if (! function_exists('str_ends_with')) {
             <div id="tab-uses" class="tabcontent">
               <a href='./uses/uses_per_months_tab.csv' download='uses_per_months_tab.csv'><button class="button-3 tooltip">Download monthly usage data in CSV format</button></a>
               <embed class="graph-tot" title="Nombre d'utilisations par mois" src="./uses/uses_per_months_graph.html?v=<?php mt_rand();?>" />
-              <!-- <section class="container">
-                <section class="col1"> -->
                   <a href='./uses/tools_used_tab.csv' download='tools_used_tab.csv'><button class="button-3 tooltip">Download data on the number of uses per tool in CSV format</button></a>
                   <embed class="graph-tot" title="Outils utilisés" src="./uses/tools_used_tab.html?v=<?php mt_rand();?>" />
-                <!-- </section>
-                <section class="col2"> -->
                   <a href='./uses/config_used_tab.csv' download='config_used_tab.csv' ><button class="button-3 tooltip">Download data on the number of uses per configuration in CSV format</button></a>
                   <embed class="graph-tot" title="Configuration utilisées" src="./uses/config_used_tab.html?v=<?php mt_rand();?>" />
-                <!-- </section>
-            </section> -->
               <a href='./users/map_ipaddress_tab.csv' download='map_ipaddress_tab.csv'><button class="button-3 tooltip">Download data on the location of uses</button></a>
               <embed class="graph-tot" title="Utilisations dans le monde" src="./uses/map_ipaddress.html?v=<?php mt_rand();?>" />
             </div>
