@@ -154,3 +154,11 @@ a {
 .tab i {
     color            : var(--white);
 }
+
+#sidebar-nav i {
+    padding-right    : 8px;
+    font-size        : 1.3em;
+    width            : 25px;
+    text-align       : center;
+}
+
