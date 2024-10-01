@@ -600,7 +600,7 @@ mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characte
 for x in mycursor:
   deepl_per_day.append(x)
 
-deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters", "Origin"))
+deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters", "OriginTEST"))
 deepl_per_day_df["Percentage"] = deepl_per_day_df["Percentage"]/100
 
 fig = go.Figure()
@@ -609,7 +609,7 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(
     x=deepl_per_day_df["Date"], 
     y=deepl_per_day_df["Percentage"], 
-    name=deepl_per_day_df["Origin"], 
+    name=deepl_per_day_df["OriginTEST"], 
     yaxis="y", 
     # showlegend=False, 
     customdata=deepl_per_day_df[["Characters"]],  
