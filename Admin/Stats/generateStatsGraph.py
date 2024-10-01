@@ -594,7 +594,7 @@ deepl_per_month_df.to_csv('translation/deepl_usage_per_month_tab.csv')
 #################################### Deepl usage per day ####################################
 
 deepl_per_day = []
-mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters), origin_translate FROM translatelog GROUP BY DATE(date_complete);")
+mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters), origin_translate FROM translatelog GROUP BY DATE(date_complete), origin_translate;")
 # mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_complete >=%s GROUP BY DATE(date_complete)", (reference_date,))
 
 for x in mycursor:
@@ -606,16 +606,17 @@ deepl_per_day_df["Percentage"] = deepl_per_day_df["Percentage"]/100
 fig = go.Figure()
 
 #Percentage
-fig.add_trace(go.Scatter(
-    x=deepl_per_day_df["Date"], 
-    y=deepl_per_day_df["Percentage"], 
-    name=deepl_per_day_df["OriginTEST"], 
-    yaxis="y", 
-    # showlegend=False, 
-    customdata=deepl_per_day_df[["Characters"]],  
-    hovertemplate="Date = %{x}<br>Cumulative percentage = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
+for origin, group in deepl_per_day_df["OriginTEST"]:
+  fig.add_trace(go.Scatter(
+      x=group["Date"], 
+      y=group["Percentage"], 
+      name=origin, 
+      yaxis="y", 
+      # showlegend=False, 
+      customdata=deepl_per_day_df[["Characters"]],  
+      hovertemplate="Date = %{x}<br>Cumulative percentage = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
+      )
     )
-  )
 
 #Number characters
 # fig.add_trace(go.Scatter(
