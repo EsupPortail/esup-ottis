@@ -609,7 +609,7 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(
     x=deepl_per_day_df["Date"], 
     y=deepl_per_day_df["Percentage"], 
-    name="Percentage", 
+    name=deepl_per_day_df["Origin"], 
     yaxis="y", 
     # showlegend=False, 
     customdata=deepl_per_day_df[["Characters"]],  
@@ -640,6 +640,7 @@ fig.update_layout(
     #     title="Number of characters translated",
     #     range = [0,1000000]
     # ),
+    xaxis_title="Percentage",
     title={
       'text':"Deepl Pro usage per day", 
       'font':{
