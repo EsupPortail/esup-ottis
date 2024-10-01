@@ -594,13 +594,13 @@ deepl_per_month_df.to_csv('translation/deepl_usage_per_month_tab.csv')
 #################################### Deepl usage per day ####################################
 
 deepl_per_day = []
-mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters) FROM translatelog GROUP BY DATE(date_complete);")
+mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters), origin_translate FROM translatelog GROUP BY DATE(date_complete);")
 # mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_complete >=%s GROUP BY DATE(date_complete)", (reference_date,))
 
 for x in mycursor:
   deepl_per_day.append(x)
 
-deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters"))
+deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters", "Origin"))
 deepl_per_day_df["Percentage"] = deepl_per_day_df["Percentage"]/100
 
 fig = go.Figure()
