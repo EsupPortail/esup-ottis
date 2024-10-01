@@ -63,6 +63,7 @@ if (! function_exists('str_ends_with')) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body onload="openPage('tab-dashboard', 'li-dashboard')">
+    <main>
       <section id="sidebar">
         <div id="sidebar-nav">
           <img id="logoOMIST" alt="Logo OMIST" src="../../images/omist-top-logo-nav_ssfd.png">
@@ -107,7 +108,8 @@ if (! function_exists('str_ends_with')) {
               <embed class="graph-tot" title="Utilisation de Deepl" src="./translation/deepl_usage_per_month_graph.html?v=<?php mt_rand();?>" />
             </div>
         </div>
-    </section>
+      </section>
+    </main>
 
     <script>
       function openPage(pageName, elmnt) {
