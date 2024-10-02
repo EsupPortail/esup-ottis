@@ -610,7 +610,7 @@ for origin, group in deepl_per_day_df.groupby("Origin"):
   fig.add_trace(go.Scatter(
       x=group["Date"], 
       y=group["Percentage"], 
-      # name="Percentage", 
+      name=origin, 
       # yaxis="y", 
       # showlegend=False, 
       customdata=deepl_per_day_df[["Characters"]],  
