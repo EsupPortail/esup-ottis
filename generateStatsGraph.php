@@ -30,6 +30,10 @@ if (isset($Stats_DEEPL["character_count"])) {
   $Stats_DEEPL["character_limit"] = 0;
 }
 
+$message = "Line 1\r\nLine 2\r\nLine 3";
+$message = wordwrap($message, 70, "\r\n");
+mail('jeanne.dionisi@univ-nantes.fr', 'My Subject', $message);
+
 
 $date_raw = gmdate("Y-m-d\TH:i:s\Z");
 $date_complete = gmdate("Y-m-d");
