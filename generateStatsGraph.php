@@ -15,15 +15,20 @@ try{
 $res=array();
 if ($WhichTranslator == "DEEPLFREE") {
   exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLAPIFREETOKEN." 2>/dev/null",$res);
-} else {
+  $Stats_DEEPL = json_decode($res[0],true);
+} else if ($WhichTranslator == "DEEPLPRO"){
   exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN." 2>/dev/null",$res);
+  $Stats_DEEPL = json_decode($res[0],true);
 }
 
-
-$Stats_DEEPL = json_decode($res[0],true);
+// $Stats_DEEPL = json_decode($res[0],true);
 if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
-} else $percentage_DEEPL = 0;
+} else {
+  $percentage_DEEPL = 0;
+  $Stats_DEEPL["character_count"] = 0;
+  $Stats_DEEPL["character_limit"] = 0;
+}
 
 
 $date_raw = gmdate("Y-m-d\TH:i:s\Z");
