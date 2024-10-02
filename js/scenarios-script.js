@@ -44,19 +44,19 @@ document.querySelector('[id="scenario-1-button"]').addEventListener('click', () 
 });
 
 document.querySelector('[id="scenario-2-button"]').addEventListener('click', () => {
-    window.open(root + updateExternal() + "?myconfig=ABYANKCNYCNNNYNYNN");
+    window.open(root + updateExternal() + "?myconfig=ABNAYKCNYCNNNYNYYN");
 });
 
 document.querySelector('[id="scenario-3-button"]').addEventListener('click', () => {
     let inputValue = document.querySelector('[id="scenario-3-input"]').value;
 
-    window.open(root + updateExternal() + "?myconfig=ABYANACNYCNNNYYYNN&tab=4&link=" + (inputValue));
+    window.open(root + updateExternal() + "?myconfig=ABNAYKCNYCNNNYYYYN&tab=4&link=" + (inputValue));
 });
 
 document.querySelector('[id="scenario-4-button"]').addEventListener('click', () => {
     let inputValue = document.querySelector('[id="scenario-4-input"]').value;
 
-    window.open(root + updateExternal() + "?myconfig=ABYANACNYCNNNYYYNN&tab=4&htmllink=" + (inputValue));
+    window.open(root + updateExternal() + "?myconfig=ABNAYKCNYCNNNYYYYN&tab=4&htmllink=" + (inputValue));
 });
 
 document.querySelector('[id="scenario-5-button"]').addEventListener('click', () => {

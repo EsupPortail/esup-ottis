@@ -121,7 +121,7 @@ $_SESSION["from"]="scenarios";
               </select>
               <button type="button" class="scenario-button" id="scenario-5-button">Générer le lien</button>
             </li>
-            <li class="image-item">
+            <li class="image-item" style="display: none">
               <h5><span class="material-symbols-outlined icon-scenario">live_tv</span>Sous-titrage Anglais</h5>
               <button type="button" class="favorite-button" id="scenario-6-fav-opt" title="favorite"><i class="fa fa-star-o"></i></button>
               <hr>
