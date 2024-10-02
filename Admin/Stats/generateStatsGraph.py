@@ -600,22 +600,23 @@ mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characte
 for x in mycursor:
   deepl_per_day.append(x)
 
-deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters", "OriginTEST"))
+deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters", "Origin"))
 deepl_per_day_df["Percentage"] = deepl_per_day_df["Percentage"]/100
 
 fig = go.Figure()
 
 #Percentage
-fig.add_trace(go.Scatter(
-    x=deepl_per_day_df["Date"], 
-    y=deepl_per_day_df["Percentage"], 
-    name="Percentage", 
-    yaxis="y", 
-    # showlegend=False, 
-    customdata=deepl_per_day_df[["Characters"]],  
-    hovertemplate="Date = %{x}<br>Cumulative percentage = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
+for origin, group in deepl_per_day_df.groupby("Origin"):
+  fig.add_trace(go.Scatter(
+      x=group["Date"], 
+      y=group["Percentage"], 
+      # name="Percentage", 
+      # yaxis="y", 
+      # showlegend=False, 
+      customdata=deepl_per_day_df[["Characters"]],  
+      hovertemplate="Date = %{x}<br>Cumulative percentage = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
+      )
     )
-  )
 
 #Number characters
 # fig.add_trace(go.Scatter(
@@ -641,7 +642,7 @@ fig.update_layout(
     #     range = [0,1000000]
     # ),
     title={
-      'text':"Deepl Pro usage per day", 
+      'text':"Deepl Pro usage per dayTEST", 
       'font':{
         'size':30, 
         'color':'black'}
