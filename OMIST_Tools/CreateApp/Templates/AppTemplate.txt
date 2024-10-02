@@ -335,7 +335,7 @@ function HideNotification(flag) {
 
 function ShowResource(resource) {
   resource[1]=resource[1].replaceAll(" :",":");
-	document.getElementById('dialog').innerHTML = 'Have a look on this resource<br/><a href="'+resource[1]+'">'+resource[0]+'</a>';
+	document.getElementById('dialog').innerHTML = 'Have a look on this resource<br/><a target="_blank" href="'+resource[1]+'">'+resource[0]+'</a>';
 	document.getElementById('dialog').style.transform='scaleX(1)';
 	flagresource++;
 	setTimeout("HideResource("+flagresource+");",10000);
