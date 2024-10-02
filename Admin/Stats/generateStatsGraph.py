@@ -642,7 +642,7 @@ fig.update_layout(
     #     range = [0,1000000]
     # ),
     title={
-      'text':"Deepl Pro usage per dayTEST", 
+      'text':"Deepl Pro usage per day", 
       'font':{
         'size':30, 
         'color':'black'}
