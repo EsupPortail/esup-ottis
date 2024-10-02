@@ -606,17 +606,16 @@ deepl_per_day_df["Percentage"] = deepl_per_day_df["Percentage"]/100
 fig = go.Figure()
 
 #Percentage
-for origin, group in deepl_per_day_df.groupby("OriginTEST"):
-  fig.add_trace(go.Scatter(
-      x=group["Date"], 
-      y=group["Percentage"], 
-      name=origin, 
-      # yaxis="y", 
-      # showlegend=False, 
-      customdata=deepl_per_day_df[["Characters"]],  
-      hovertemplate="Date = %{x}<br>Cumulative percentage = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
-      )
+fig.add_trace(go.Scatter(
+    x=deepl_per_day_df["Date"], 
+    y=deepl_per_day_df["Percentage"], 
+    name="Percentage", 
+    yaxis="y", 
+    # showlegend=False, 
+    customdata=deepl_per_day_df[["Characters"]],  
+    hovertemplate="Date = %{x}<br>Cumulative percentage = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
     )
+  )
 
 #Number characters
 # fig.add_trace(go.Scatter(
@@ -642,7 +641,7 @@ fig.update_layout(
     #     range = [0,1000000]
     # ),
     title={
-      'text':"Deepl Pro usage per day TEST", 
+      'text':"Deepl Pro usage per day", 
       'font':{
         'size':30, 
         'color':'black'}
