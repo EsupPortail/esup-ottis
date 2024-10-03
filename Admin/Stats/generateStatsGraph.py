@@ -574,7 +574,7 @@ fig.update_layout(
     #   ),
     xaxis_title="7th of the month",
     title={
-      'text':"Deepl Pro usage", 
+      'text':"Translator usage", 
       'font':{
       'size':30, 
       'color':'black'}
@@ -602,6 +602,9 @@ for x in mycursor:
 
 deepl_per_day_df = pd.DataFrame(data=deepl_per_day, columns=("Date","Percentage", "Characters", "Origin"))
 deepl_per_day_df["Percentage"] = deepl_per_day_df["Percentage"]/100
+
+last_row = deepl_per_day_df.iloc[[-1]]
+last_origin = last_row['Origin'].to_string(index=False)
 
 fig = go.Figure()
 
@@ -642,7 +645,7 @@ fig.update_layout(
     #     range = [0,1000000]
     # ),
     title={
-      'text':"Deepl Pro usage per day", 
+      'text':"Translator usage per day", 
       'font':{
         'size':30, 
         'color':'black'}
@@ -749,7 +752,7 @@ fig.add_trace(go.Indicator(
     mode = "gauge+number",
     value = value_percentage,
     title= {
-       'text':'Deepl Pro usage<br><span style="font-size:20;color:gray">Reset on the 7th</span><br>',
+       'text':last_row + ' usage<br><span style="font-size:20;color:gray">Reset on the 7th</span><br>',
        'font':{
          'size':40}
       },
