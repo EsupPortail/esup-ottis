@@ -524,17 +524,25 @@ config_used_df.to_csv('uses/config_used_tab.csv')
 #################################### Deepl usage ####################################
 
 deepl_per_month = []
-mycursor.execute("SELECT date_month, date_year, MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_day<7 GROUP BY date_year, date_month;")
+mycursor.execute("SELECT date_month, date_year, MAX(percentage_char), MAX(characters), origin_translate FROM translatelog WHERE date_day<7 GROUP BY date_year, date_month, origin_translate;")
 # mycursor.execute("SELECT date_month, date_year, MAX(percentage_char), MAX(characters) FROM translatelog WHERE (date_day<7 AND date_complete >=%s) GROUP BY date_year, date_month", (reference_date,))
 
 for x in mycursor:
   deepl_per_month.append(x)
-deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Month", "Year", "Percentage", "Characters"))
+deepl_per_month_df = pd.DataFrame(data=deepl_per_month, columns=("Month", "Year", "Percentage", "Characters", "Origin"))
 deepl_per_month_df["Percentage"] = deepl_per_month_df["Percentage"]/100
 
 deepl_per_month_df.Month = pd.Categorical(deepl_per_month_df.Month,categories=months_in_order,ordered=True)
 deepl_per_month_df = deepl_per_month_df.sort_values('Month')
 deepl_per_month_df = deepl_per_month_df.sort_values('Year')
+
+deepl_per_month_df['Month_number']= deepl_per_month_df['Month'].map(month_number)
+deepl_per_month_df['Date'] = pd.to_datetime(dict(year=deepl_per_month_df['Year'], month=deepl_per_month_df['Month_number'], day=1))
+deepl_per_month_df = deepl_per_month_df.drop('Month_number', axis=1)
+deepl_per_month_df = deepl_per_month_df.sort_values('Date')
+
+deepl_per_month_df['Month_number']= deepl_per_month_df['Month'].map(month_number)
+deepl_per_month_df['Date'] = pd.to_datetime(dict(year=deepl_per_month_df['Year'], month=deepl_per_month_df['Month_number'], day=1))
 
 fig = go.Figure()
 
@@ -550,7 +558,7 @@ fig = go.Figure()
 #     )
 
 #Percentage
-for year, group in deepl_per_month_df.groupby("Year"):
+for origin, group in deepl_per_month_df.groupby("Origin"):
     fig.add_trace(go.Scatter(
       x=group["Month"], 
       y=group["Percentage"], 
