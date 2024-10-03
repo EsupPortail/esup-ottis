@@ -560,12 +560,12 @@ fig = go.Figure()
 #Percentage
 for origin, group in deepl_per_month_df.groupby("Origin"):
     fig.add_trace(go.Scatter(
-      x=group["Month"], 
+      x=group["Date"], 
       y=group["Percentage"], 
-      name=year, 
+      name=origin, 
       yaxis='y',
       customdata=deepl_per_month_df[["Characters"]],  
-      hovertemplate="From 7 of the previous month to 7 %%{x} %s<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"% year
+      hovertemplate="From 7 of the previous month to 7 %%{x} %s<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"
       )
     )
  
