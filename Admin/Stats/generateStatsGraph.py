@@ -752,7 +752,7 @@ fig.add_trace(go.Indicator(
     mode = "gauge+number",
     value = value_percentage,
     title= {
-       'text':last_row + ' usage<br><span style="font-size:20;color:gray">Reset on the 7th</span><br>',
+       'text':last_origin + ' usage<br><span style="font-size:20;color:gray">Reset on the 7th</span><br>',
        'font':{
          'size':40}
       },
