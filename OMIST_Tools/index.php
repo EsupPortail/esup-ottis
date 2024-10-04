@@ -866,7 +866,8 @@ It's important to note that the resulting capsule can serve as comprehensive inp
 </div>
 <div id="tool5">
     <h3 title="This tool allows to translate the text elements included in a pptx file. The result is a PPTx file. Notice that several translations can be performed in parallel.">Translate pptx</h3>
-  <div>
+  <p>Cette fonctionnalité, très consommatrice de données de traduction a dû être fermée temporairement, le quota de traduction disponible étant atteint ou en passe de l'être. Il est possible de traduire ce type de document via d'autres services comme DeepL ou Google Traduction. Nous mettons tout en oeuvre pour rétablir ce service prochainement.</p>
+  <div style="display:none;">
   <form id="Form5" onsubmit="return false;" action="../blank.html" method="post" enctype="multipart/form-data">
   <label for="fileToUpload5">Select PPTX file : </label>
     <input type="file" name="fileToUpload" id="fileToUpload5" accept=".pptx"  aria-label="Select PPTX file" title="Select a PPTX file"  class="inputsmallscreens"><br>
