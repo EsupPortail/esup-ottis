@@ -6,4 +6,5 @@ NBJOURS="+10"
 PATHFILES=$SCRIPT_DIR/tmp
 REGEXNAME="*.zip"
 cd /
-find $PATHFILES -name $REGEXNAME -mtime $NBJOURS -exec rm -rf {} \;
+echo "Répertoire = " $PATHFILES
+#find $PATHFILES -name $REGEXNAME -mtime $NBJOURS -exec rm -rf {} \;
