@@ -627,6 +627,7 @@ function addAllLanguages(keyword){
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             var message_translated = xhr.responseText;
+                            console.log(message_translated);
                             notificationAllLanguages(langToTranslate, message_translated, numSlide, lang);
                             } else {
                             console.log(`Error: ${xhr.status}`);
