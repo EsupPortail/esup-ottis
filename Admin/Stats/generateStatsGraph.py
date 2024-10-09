@@ -565,7 +565,7 @@ for origin, group in deepl_per_month_df.groupby("Origin"):
       name=origin, 
       yaxis='y',
       customdata=deepl_per_month_df[["Characters"]],  
-      hovertemplate="From 7 of the previous month to 7 %%{x} %s<br>Percentage used = %%{y}<br>Number of characters used = %%{customdata[0]}<extra></extra>"
+      hovertemplate="From 7 of the previous month to 7 %{x} %s<br>Percentage used = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
       )
     )
  
