@@ -214,6 +214,8 @@ function getListLanguages(){
  */
 
 function getNotesLanguages(target_language, numSlide){
+    console.log("TARGET LANG : "+target_language);
+    console.log("NUM SLIDE : "+numSlide);
     var notes = document.getElementById('SlideText_'+target_language+'_img_'+numSlide).textContent;
     var val_notes = notes.split('\n');
     return val_notes;
