@@ -582,7 +582,7 @@ fig.update_layout(
     #   ),
     xaxis_title="7th of the month",
     title={
-      'text':"Translator usage", 
+      'text':"Translator usage TEST", 
       'font':{
       'size':30, 
       'color':'black'}
