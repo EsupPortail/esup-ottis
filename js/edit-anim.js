@@ -604,6 +604,7 @@ function addAllLanguages(keyword){
                 var lang = _("myLanguage").value.trim();
                 var idImage = document.getElementById("imageArea").firstElementChild.id;
                 var numSlide = idImage.replace('slide_img_', '');
+                console.log("SLIDE ::"+numSlide);
                 var tab_lang = getListLanguages();
                 var index = tab_lang.indexOf(lang);
 
