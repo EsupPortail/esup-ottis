@@ -41,6 +41,7 @@ def TranslateMessage(message, lfrom, lto):
     i = 0
     for lang in tab_lang:
         translated = translate(message, lfrom, lang[:2])
+        translated = translated.replace(",", " ")
         tab_translated.append(translated)
     print(tab_translated)
 
