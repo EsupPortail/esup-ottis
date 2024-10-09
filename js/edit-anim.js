@@ -379,7 +379,7 @@ function getIndicesOf(searchStr, str, caseSensitive) {
 function updateNotes(){
     var lang = _("myLanguage").value.trim();
     var idImage = document.getElementById("imageArea").firstElementChild.id;
-    var numSlide = idImage.charAt(idImage.length - 1);
+    var numSlide = idImage.replace('slide_img_', '');
     var new_txt = document.getElementById("speechArea").value;
     var tab_lang = getListLanguages();
 
@@ -418,7 +418,7 @@ function updateNotes(){
 function getEvent(event){
     const objtext = document.getElementById("speechArea");
     var idImage = document.getElementById("imageArea").firstElementChild.id;
-    var numSlide = idImage.charAt(idImage.length - 1);
+    var numSlide = idImage.replace('slide_img_', '');
     var tab_lang = getListLanguages();
 
 
@@ -455,7 +455,7 @@ function getEvent(event){
         var [line, textBeforeCursor] = getCursorPosition(textarea);
 
         var idImage = document.getElementById("imageArea").firstElementChild.id;
-        var numSlide = idImage.charAt(idImage.length - 1);
+        var numSlide = idImage.replace('slide_img_', '');
         var tab_lang = getListLanguages();
         var notes_input = textarea.value;
         var val_notes_input = notes_input.split('\n');
@@ -518,7 +518,7 @@ function addKeyword(keyword){
     if (val_notes[line-1] === ""){
         var tab_lang = getListLanguages();
         var idImage = document.getElementById("imageArea").firstElementChild.id;
-        var numSlide = idImage.charAt(idImage.length - 1);
+        var numSlide = idImage.replace('slide_img_', '');
         var count_empty = 0;
         for (let key in tab_lang){
             var val_notes_lang = getNotesLanguages(tab_lang[key], numSlide);
@@ -603,7 +603,7 @@ function addAllLanguages(keyword){
             Ok: function() {
                 var lang = _("myLanguage").value.trim();
                 var idImage = document.getElementById("imageArea").firstElementChild.id;
-                var numSlide = idImage.charAt(idImage.length - 1);
+                var numSlide = idImage.replace('slide_img_', '');
                 var tab_lang = getListLanguages();
                 var index = tab_lang.indexOf(lang);
 
@@ -814,7 +814,7 @@ function addOptions(keywordToAdd){
 
 function notesSlideLang(){
     var idImage = document.getElementById("imageArea").firstElementChild.id;
-    var numSlide = idImage.charAt(idImage.length - 1);
+    var numSlide = idImage.replace('slide_img_', '');
     var lang = _("myLanguage").value.trim();
     document.getElementById("speechArea").value = document.getElementById('SlideText_'+lang+'_img_'+numSlide).textContent;
 }
