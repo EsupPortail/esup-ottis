@@ -582,7 +582,7 @@ fig.update_layout(
     #   ),
     xaxis_title="7th of the month",
     title={
-      'text':"Translator usage", 
+      'text':"Translator usage TEST", 
       'font':{
       'size':30, 
       'color':'black'}
@@ -602,7 +602,7 @@ deepl_per_month_df.to_csv('translation/deepl_usage_per_month_tab.csv')
 #################################### Deepl usage per day ####################################
 
 deepl_per_day = []
-mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters), origin_translate FROM translatelog GROUP BY DATE(date_complete), origin_translate;")
+mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters), origin_translate FROM translatelog WHERE origin = 'DEEPLPRO' GROUP BY DATE(date_complete), origin_translate;")
 # mycursor.execute("SELECT DATE(date_complete), MAX(percentage_char), MAX(characters) FROM translatelog WHERE date_complete >=%s GROUP BY DATE(date_complete)", (reference_date,))
 
 for x in mycursor:
