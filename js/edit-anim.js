@@ -214,8 +214,6 @@ function getListLanguages(){
  */
 
 function getNotesLanguages(target_language, numSlide){
-    console.log("TARGET LANG : "+target_language);
-    console.log("NUM SLIDE : "+numSlide);
     var notes = document.getElementById('SlideText_'+target_language+'_img_'+numSlide).textContent;
     var val_notes = notes.split('\n');
     return val_notes;
@@ -606,7 +604,6 @@ function addAllLanguages(keyword){
                 var lang = _("myLanguage").value.trim();
                 var idImage = document.getElementById("imageArea").firstElementChild.id;
                 var numSlide = idImage.replace('slide_img_', '');
-                console.log("SLIDE ::"+numSlide);
                 var tab_lang = getListLanguages();
                 var index = tab_lang.indexOf(lang);
 
@@ -630,7 +627,6 @@ function addAllLanguages(keyword){
                     xhr.onreadystatechange = function () {
                         if (xhr.readyState == 4 && xhr.status == 200) {
                             var message_translated = xhr.responseText;
-                            console.log(message_translated);
                             notificationAllLanguages(langToTranslate, message_translated, numSlide, lang);
                             } else {
                             console.log(`Error: ${xhr.status}`);
