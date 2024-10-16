@@ -65,7 +65,8 @@ nav > a {
 }
 
 #logoNU {
-    height           : 80%; 
+/*    height           : 80%; */
+    height           : 27px; 
 }
 
 menu {
