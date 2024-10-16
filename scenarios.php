@@ -34,7 +34,7 @@ $_SESSION["from"]="scenarios";
   <body onload="applyConfig();">
     <header>
       <nav>
-        <a href="https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université" height="27"></a>
+        <a href="https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
         <menu>
           <li><a href="mailto:omist-dev@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
           <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu">Aide sur Madoc</span></a></li>
@@ -166,7 +166,7 @@ $_SESSION["from"]="scenarios";
     <footer>
       <div class="footer-left">
         <ul>
-          <li><a href="https://next-isite.fr/" target="_blank"><img id="logoNEXT" src="./images/logo-next-NU.png" alt="Logo NEXT" height="30"></a></li>
+          <li><a href="https://next-isite.fr/" target="_blank"><img id="logoNEXT" src="./images/logo-next-NU.png" alt="Logo NEXT"></a></li>
         </ul>
       </div>
       <div class="footer-mentions">
@@ -179,10 +179,10 @@ $_SESSION["from"]="scenarios";
           <p><button class="open-modal-btn" onclick="openModal('cookies')">Cookies</button></p> -->
           <p>Avec le soutien de :&emsp; </p>
           <ul>
-            <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030" height="20"></a></li>
-            <li><a href="https://www.paysdelaloire.fr/" target="_blank"><img id="logoPaysDeLaLoire" src="./images/logo-region-pays-loire_bleu-court.png" alt="Logo Pays de la Loire" height="20"></a></li>
-            <li><a href="https://metropole.nantes.fr/" target="_blank"><img id="logoNantesMetropole" src="./images/logo-nantes-metropole_quadri.jpg" alt="Logo Nantes Métropole" height="20"></a></li>
-            <li><a href="https://www.euniwell.eu/" target="_blank"><img id="logoEUniWell" src="./images/logo-euniwell-brand-4.png" alt="Logo EUniWell" height="20"></a></li>
+            <li><a href="https://www.economie.gouv.fr/france-2030" target="_blank"><img id="logoFrance2030" src="./images/logo-france2020_rouge.png" alt="Logo France 2030"></a></li>
+            <li><a href="https://www.paysdelaloire.fr/" target="_blank"><img id="logoPaysDeLaLoire" src="./images/logo-region-pays-loire_bleu-court.png" alt="Logo Pays de la Loire"></a></li>
+            <li><a href="https://metropole.nantes.fr/" target="_blank"><img id="logoNantesMetropole" src="./images/logo-nantes-metropole_quadri.jpg" alt="Logo Nantes Métropole"></a></li>
+            <li><a href="https://www.euniwell.eu/" target="_blank"><img id="logoEUniWell" src="./images/logo-euniwell-brand-4.png" alt="Logo EUniWell"></a></li>
           </ul>
         </div>
       </div>
