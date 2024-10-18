@@ -745,8 +745,8 @@ It's important to note that the resulting capsule can serve as comprehensive inp
   <option value="CC0">CC0 1.0 Universal</option>
   <option value="CCBY">CC BY 4.0</option>
   <option value="CCBYSA">CC BY-SA 4.0</option>
-  <option value="CCBYNC">CC BY-ND 4.0</option>
-  <option value="CCBYND">CC BY-NC 4.0</option>
+  <option value="CCBYND">CC BY-ND 4.0</option>
+  <option value="CCBYNC">CC BY-NC 4.0</option>
   <option value="CCBYNCSA">CC BY-NC-SA 4.0</option>
   <option value="CCBYNCND">CC BY-NC-ND 4.0</option>
   </select><br>
