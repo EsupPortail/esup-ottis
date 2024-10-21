@@ -564,8 +564,7 @@ for origin, group in deepl_per_month_df.groupby("Origin"):
       y=group["Percentage"], 
       name=origin, 
       yaxis='y',
-      customdata=deepl_per_month_df[["Characters"]],  
-      hovertemplate="From 7 of the previous month to 7 %{x} <br>Percentage used = %{y}<br>Number of characters used = %{customdata[0]}<extra></extra>"
+      hovertemplate="From 7 of the previous month to 7 %{x} <br>Percentage used = %{y}<extra></extra>"
       )
     )
  
@@ -654,7 +653,7 @@ fig.update_layout(
     #     range = [0,1000000]
     # ),
     title={
-      'text':"Translator usage per day TEST", 
+      'text':"Translator usage per day", 
       'font':{
         'size':30, 
         'color':'black'}
