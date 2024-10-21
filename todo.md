@@ -120,7 +120,7 @@ Pour moi.
 - [X] OBSOLETE : comment faire l'authentification externe ? Intégrer dans la page admin la génération de mdp pour htaccess, ou utiliser une autre méthode ?
 
 ## Partie dédiée à la télécommande
-- [ ] revoir l'appli
+- [X] revoir l'appli
 
 ## Partie dédiée Libretranslate
 - [ ] installer en local
@@ -132,6 +132,7 @@ Pour moi.
 - [X] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
 - [X] Bug : l'URL des OMIST Tools dans l'application enseignante est .../indexNOCAS.php, ce qui fausse l'user id dans la BD -> création d'un bouton dans Complete lesson
 - [X] Ne prendre les données que pour la VM master
+- [ ] Mettre en place un basculement et un mail automatique quand le quota de Deepl est dépassé
 
 ## Priorisation ? Mais ça n'est pas forcément à suivre
 
