@@ -183,8 +183,10 @@ def translate(txt,lfrom,lto):
         return translate_deeplpro(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "LIBRETRANSLATE":
         return translate_libretranslate(txt,lfrom,lto)
-    else:
+    elif config.WHICHTRANSLATOR == "GOOGLE":
         return translate_google(txt,lfrom,lto)
+    else:
+        return "ERROR TRANSLATOR ("+config.WHICHTRANSLATOR+","+lfrom+","+lto+") : "+txt
 
 def faketranslate(txt, lfrom, lto):
     """Fausse traduction pour tester le programme.
