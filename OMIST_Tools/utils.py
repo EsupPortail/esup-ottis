@@ -184,7 +184,7 @@ def translate(txt,lfrom,lto):
     elif config.WHICHTRANSLATOR == "LIBRETRANSLATE":
         return translate_libretranslate(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "GOOGLE":
-        return "GOOGLE TRANSLATOR ("+config.WHICHTRANSLATOR+","+lfrom+","+lto+") : "+txt
+        #return "GOOGLE TRANSLATOR ("+config.WHICHTRANSLATOR+","+lfrom+","+lto+") : "+txt
         return translate_google(txt,lfrom,lto)
     else:
         return "ERROR TRANSLATOR ("+config.WHICHTRANSLATOR+","+lfrom+","+lto+") : "+txt
