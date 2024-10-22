@@ -51,6 +51,7 @@ function StudentTranslate(ch, l, linput, lineid) {
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
                 lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
+                EcrireNBonlyVO(ch);
             } else {
                 EcrireFeedback("---- Translation ERROR ----")
             }
@@ -683,6 +684,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 function ShowImage(n) {
     if (n != previousimage) {
         EcrireNBonly('---------- Slide ' + n + ' ----------');
+        EcrireNBonlyVO('---------- Slide ' + n + ' ----------');
         previousimage = n;
         //console.log('IMG OBJ = '+_("img_"+n));
         //console.log('IMG URL = "'+_("img_"+n).src+'"');
@@ -1211,6 +1213,16 @@ function EcrireNBonly(ch) {
     //  if (_('notebook').innerHTML == "")
     //    _('notebook').innerHTML=ch;
     //  else _('notebook').innerHTML=_('notebook').innerHTML+"<br/>"+ch;
+}
+
+/**
+ * @summary Function that update the "notebook VO" div.
+ * 
+ * @param {string} ch the text that is adding to the notebook.
+ */
+
+function EcrireNBonlyVO(ch) {
+    _('notebookVO').innerHTML = _('notebookVO').innerHTML + ch + "<br/>";
 }
 
 
