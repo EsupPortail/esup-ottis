@@ -24,4 +24,17 @@ Nantes Université
 
 Version 3.2.0
 
+# Installation
 
+#### 1. Copier le dépôt Git en local ou sur une machine distante
+
+`git clone https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator.git`
+
+ou
+
+`git clone git@gitlab.univ-nantes.fr:bourdon-j/omist_automatictranslator.git`
+
+#### 2. Mettre en place les bases de données
+[Pour les OMIST Tools](https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator/-/blob/master/OMIST_Tools/README.md?ref_type=heads)
+
+[Pour le tableau de bord](https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator/-/blob/master/Admin/Stats/README.md?ref_type=heads)
