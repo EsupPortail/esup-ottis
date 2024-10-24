@@ -58,11 +58,12 @@ CREATE TABLE tasks_queue
   aspect_ratio TEXT,
   keep_aspect_ratio TEXT,
   delay_slides TEXT,
-  long_run TEXT
+  long_run TEXT,
+  licence TEXT
 );
 ```
 
-**Ne pas oublier d'adapter le fichier config_database.php selon sa configuration.**
+**Ne pas oublier d'adapter le fichier OMIST_Tools/config_database.php selon sa configuration.**
 
 ### Mise en place de CRON
 
