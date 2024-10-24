@@ -121,6 +121,29 @@ echo var_export(unserialize(file_get_contents('http://www.geoplugin.net/php.gp?i
 echo "-->\n";
 */
 
+$res=array();
+if ($DEEPLAPITOKEN != "") {
+	exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+	$Stats_DEEPL = json_decode($res[0],true);
+} else {
+	$Stats_DEEPL=array();
+}
+
+if (isset($Stats_DEEPL["character_count"])) {
+  $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
+} else $percentage_DEEPL = 0;
+
+
+$myfile = fopen("locks/DeeplPro_quota_exceeded.txt", "w") or die("Unable to open file!");
+if ($percentage_DEEPL > 99){
+  $txt = "false";
+} else {
+  $txt = "true";
+}
+fwrite($myfile, $txt);
+fclose($myfile);
+
+
 //Connexion avec la base de données pour les statistiques
 try{
     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
