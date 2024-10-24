@@ -62,7 +62,8 @@ CREATE TABLE statslog
   city text,
   country text,
   latitude float,
-  longitude float
+  longitude float,
+  is_external boolean
 );
 ```
 
@@ -100,7 +101,7 @@ CREATE TABLE iplog
 python first_complete_db.py
 ```
 
-**Ne pas oublier d'adapter le fichier config_database_stats.php selon sa configuration.**
+**Ne pas oublier d'adapter le fichier Admin/Stats/config_database_stats.php selon sa configuration.**
 
 ### Mise en place de CRON
 
@@ -110,13 +111,12 @@ crontab -e
 **Voir quelle fréquence de mise à jour des graphiques. Ici : tous les jours à 22h**
 Ajouter à la fin du fichier : 
 ```
-00 22 * * * python /chemin/absolu/du/fichier/omist_automatictranslator/Admin/Stats/generateStatsGraph.php
+00 22 * * * python /chemin/absolu/du/fichier/omist_automatictranslator/generateStatsGraph.php
 ```
 
 ### Ecriture des nouvelles connexions dans la base
 
-Décommenter le code suivant :
-- Dans index.php la partie "Connexion avec la base de données pour les statistiques" (lignes 96 à 133) :
+- Dans index.php la partie "Connexion avec la base de données pour les statistiques" :
   ```
   try{
       $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -130,11 +130,11 @@ Décommenter le code suivant :
      'ip_address' => $ip_address
   ]);
   ```
-- Dans index.php (ligne 13) : 
+- Dans index.php : 
 ```
 include("./Admin/Stats/config_database_stats.php");
 ```
-- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" (lignes 165 à 196) :
+- Dans SendJob.php la partie "Connexion avec la base de données pour les statistiques" :
   ```
   try{
       $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -150,11 +150,11 @@ include("./Admin/Stats/config_database_stats.php");
       'ip_address' => $ip_address
   ]);
   ```
-- Dans SendJob.php (ligne 3) : 
+- Dans SendJob.php : 
 ```
 include("../Admin/Stats/config_database_stats.php");
 ```
-- Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" (lignes 163 à 189) :
+- Dans SendJob_noDB.php la partie "Connexion avec la base de données pour les statistiques" :
   ```
     $date_raw = gmdate("Y-m-d\TH:i:s\Z");
     $date_complete = gmdate("Y-m-d");
