@@ -32,7 +32,8 @@ $requete_createTable= 'CREATE TABLE statslog
   city text,
   country text,
   latitude float,
-  longitude float
+  longitude float,
+  is_external boolean
 )';
 
 $insertCommande3 = $pdo->prepare($requete_createTable);
