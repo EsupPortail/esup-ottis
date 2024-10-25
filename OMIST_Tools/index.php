@@ -88,6 +88,14 @@ if (isset($Stats_DEEPL["character_count"])) {
   $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
 } else $percentage_DEEPL = 0;
 
+$myfile = fopen("../locks/DeeplPro_quota_exceeded.txt", "w") or die("Unable to open file!");
+if ($percentage_DEEPL > 99){
+  $txt = "false";
+} else {
+  $txt = "true";
+}
+fwrite($myfile, $txt);
+fclose($myfile);
 
 $theme="flat_black";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];

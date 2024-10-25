@@ -180,7 +180,13 @@ def translate(txt,lfrom,lto):
     if config.WHICHTRANSLATOR == "FAKE":
         return faketranslate(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "DEEPLPRO":
-        return translate_deeplpro(txt,lfrom,lto)
+        deepl_usable = open("../locks/DeeplPro_quota_exceeded.txt", "r")
+        deepl_bool = deepl_usable.read()
+        deepl_usable.close()
+        if deepl_bool == "false":
+            return translate_libretranslate(txt,lfrom,lto)
+        else:
+            return translate_deeplpro(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "LIBRETRANSLATE":
         return translate_libretranslate(txt,lfrom,lto)
     elif config.WHICHTRANSLATOR == "GOOGLE":
