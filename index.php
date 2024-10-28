@@ -122,11 +122,27 @@ echo "-->\n";
 */
 
 $res=array();
-if ($DEEPLAPITOKEN != "") {
-	exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
-	$Stats_DEEPL = json_decode($res[0],true);
-} else {
-	$Stats_DEEPL=array();
+// if ($DEEPLAPITOKEN != "") {
+// 	exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+// 	$Stats_DEEPL = json_decode($res[0],true);
+// } else {
+// 	$Stats_DEEPL=array();
+// }
+
+if ($WhichTranslator == "DEEPLPRO"){
+	if ($DEEPLAPITOKEN != "") {
+		exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
+		$Stats_DEEPL = json_decode($res[0],true);
+	} else {
+		$Stats_DEEPL=array();
+	}
+} else if ($WhichTranslator == "DEEPLFREE"){
+	if ($DEEPLFREEAPITOKEN != "") {
+		exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLFREEAPITOKEN,$res);
+		$Stats_DEEPL = json_decode($res[0],true);
+	} else {
+		$Stats_DEEPL=array();
+	}
 }
 
 if (isset($Stats_DEEPL["character_count"])) {

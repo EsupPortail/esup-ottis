@@ -655,7 +655,7 @@ body {
 	<h1 class="hidesmallscreens" style="filter: invert(0.5); margin-left: 150px;">
   Slide Manipulation Tools</h1>
   </main>
-  <div id="logo" class="hidesmallscreens"><img onclick="<?php echo $Stats_DEEPL["character_count"] ?>" src="logo-ufr-sciences.jpg" height="80" alt=""></div>
+  <div id="logo" class="hidesmallscreens"><img src="logo-ufr-sciences.jpg" height="80" alt=""></div>
   <datalist id="listaspectratio">
     <option value="16/10">
     <option value="16/9">
