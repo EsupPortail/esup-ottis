@@ -662,7 +662,7 @@ body {
     <option value="175">
     <option value="200">
   </datalist>
-  <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de <?php echo "$WhichTranslator = $Stats_DEEPL['character_count']"; ?>%</div>
+  <div style="position: absolute; top: 0px; right: 250px;" class="hidesmallscreens">utilisation mensuelle de <?php echo "$WhichTranslator = $percentage_DEEPL"; ?>%</div>
 <div id="tabs">
   <ul>
     <li style="background-color: #000; color: white"><img onclick="<?php if ($external) echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php?external', '_self'))"; else echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php', '_self'))"; ?>" src="../images/omist-top-logo-nav_ssfd.png" height="32" alt="Logo OMIST"></li>
