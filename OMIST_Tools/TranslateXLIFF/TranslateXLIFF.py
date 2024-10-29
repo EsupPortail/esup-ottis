@@ -87,12 +87,12 @@ def main():
     if Translate and input != "":
         if output == "":
             output=input.replace(".xlf","_"+lto+".xlf")
-        TranslateXLIFF(input,output,lfrom,lto, rdmpath)
+        TranslateXLIFF(input,output,lfrom,lto)
     else:
         usage()
 
 
-def TranslateXLIFF(filename,output_filename,lfrom,lto, rdmpath):
+def TranslateXLIFF(filename,output_filename,lfrom,lto):
     """Traduction d'un fichier XLIFF.
     
     Parameters
