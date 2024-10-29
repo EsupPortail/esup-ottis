@@ -76,8 +76,12 @@ def month_number(value):
 # mycursor.execute("ALTER TABLE statslog ADD is_external BOOLEAN DEFAULT 0;")
 # mydb.commit()
 
+# mycursor = mydb.cursor()
+# mycursor.execute("ALTER TABLE statslog ADD random_path TEXT;")
+# mydb.commit()
+
 mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE statslog ADD random_path TEXT;")
+mycursor.execute("ALTER TABLE statslog ADD char_translated INT DEFAULT 0;")
 mydb.commit()
 
 mycursor = mydb.cursor()
@@ -161,7 +165,7 @@ for origin, group in nb_uses_graph.groupby("External"):
 
 fig.update_layout(
   title={
-      'text':"Number of uses per month TEST", 
+      'text':"Number of uses per month", 
       'font':{
       'size':30, 
       'color':'black'}
