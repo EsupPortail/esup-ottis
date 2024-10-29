@@ -239,6 +239,11 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
             fd.write(Subtitles[i].get("phrase")+"\n\n")
     fd.close()
 
+    output_filename_txt = filename_out.replace(".srt", "TEST_verbatim.txt")
+
+    with open(output_filename_txt,"w", encoding="utf-8") as fd_txt:
+        fd_txt.write("Number of input characters : "+str(count))
+
 def Verbatim(filename):
     """Conversion d'un fichier SRT en fichier TXT sans les timecodes.
     
