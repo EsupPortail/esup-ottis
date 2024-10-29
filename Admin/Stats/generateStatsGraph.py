@@ -77,6 +77,10 @@ def month_number(value):
 # mydb.commit()
 
 mycursor = mydb.cursor()
+mycursor.execute("ALTER TABLE statslog ADD random_path TEXT;")
+mydb.commit()
+
+mycursor = mydb.cursor()
 mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
 mydb.commit()
 
@@ -157,7 +161,7 @@ for origin, group in nb_uses_graph.groupby("External"):
 
 fig.update_layout(
   title={
-      'text':"Number of uses per month", 
+      'text':"Number of uses per month TEST", 
       'font':{
       'size':30, 
       'color':'black'}
