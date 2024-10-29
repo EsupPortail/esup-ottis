@@ -171,7 +171,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto, rdmpath):
     #     for key, value in dictionary.items(): 
     #         f.write('%s:%s\n' % (key, value))
 
-    ConnexionDB(rdmpath, count)
+    # ConnexionDB(rdmpath, count)
 
     with open(output_filename,"w", encoding="utf-8") as fd:
         fd.write(str(soup.find_all("xliff")[0]))
