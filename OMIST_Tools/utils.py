@@ -12,6 +12,7 @@ import time
 import collections
 import collections.abc
 from pptx import Presentation
+import mysql.connector
 
 # Programmes de traductions
 
