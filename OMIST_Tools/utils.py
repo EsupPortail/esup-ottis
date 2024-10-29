@@ -280,3 +280,15 @@ def AspectRatio(filename):
         return str(prs.slide_width)+"/"+str(prs.slide_height)
     else:
         return "16/9"
+
+def ConnexionDB(randompath, char_translated):
+    mydb = mysql.connector.connect(
+    user = "root",
+    password = "root",
+    host = "localhost",
+    database = "db_stats")
+    mycursor = mydb.cursor()
+
+    mycursor = mydb.cursor()
+    mycursor.execute("UPDATE statslog SET char_translated=%s WHERE room_id=%s;", (char_translated, random_path, ))
+    mydb.commit()

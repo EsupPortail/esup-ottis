@@ -30,6 +30,7 @@ import time
 
 # importation de la fonction de traduction
 from utils import translate
+from utils import ConnexionDB
 
 COST_DEEPL = 0.00002 # Cout = 20€ pour 1000000 caractères + forfait de 4.99€
 # Modif JB (les deux lignes suivantes ont été commentées, il y a besoin du proxy sur le serveur)
@@ -50,7 +51,7 @@ def usage():
 def main():
     
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:v",["help","input=","output=","from=","to="])
+        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:r:v",["help","input=","output=","from=","to=", "randompath="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -78,18 +79,20 @@ def main():
             lfrom = arg
         elif opt in ("-t", "--to"):
             lto = arg
+        elif opt in ("-r", "--randompath"):
+            rdmpath = arg
         else:
             assert False, "unhandled option"
     
     if Translate and input != "":
         if output == "":
             output=input.replace(".xlf","_"+lto+".xlf")
-        TranslateXLIFF(input,output,lfrom,lto)
+        TranslateXLIFF(input,output,lfrom,lto, rdmpath)
     else:
         usage()
 
 
-def TranslateXLIFF(filename,output_filename,lfrom,lto):
+def TranslateXLIFF(filename,output_filename,lfrom,lto, rdmpath):
     """Traduction d'un fichier XLIFF.
     
     Parameters
@@ -167,6 +170,8 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
     # with open("dictionary_XLIFF.txt", 'w',encoding="utf-8") as f: 
     #     for key, value in dictionary.items(): 
     #         f.write('%s:%s\n' % (key, value))
+
+    ConnexionDB(rdmpath, count)
 
     with open(output_filename,"w", encoding="utf-8") as fd:
         fd.write(str(soup.find_all("xliff")[0]))
