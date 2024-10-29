@@ -80,9 +80,9 @@ def month_number(value):
 # mycursor.execute("ALTER TABLE statslog ADD random_path TEXT;")
 # mydb.commit()
 
-mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE statslog DROP random_path;")
-mydb.commit()
+# mycursor = mydb.cursor()
+# mycursor.execute("ALTER TABLE statslog DROP random_path;")
+# mydb.commit()
 
 # mycursor = mydb.cursor()
 # mycursor.execute("ALTER TABLE statslog ADD char_translated INT DEFAULT 0;")
