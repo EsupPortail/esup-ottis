@@ -229,7 +229,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
             begin=""
             end=""
     Subtitles=NewSubtitles
-    ConnexionDB(rdmpath, count)
+    # ConnexionDB(rdmpath, count)
     #print(Subtitles)
     fd=open(filename_out,"w", encoding="utf-8")
     for i in range(len(Subtitles)):
