@@ -42,7 +42,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoiftps:vw", ["help", "output=", "input=","from=","to=","wraplength=","sentencesthreshold=","nopunct"])
+        opts, args = getopt.getopt(sys.argv[1:], "hoiftpsr:vw", ["help", "output=", "input=","from=","to=","wraplength=","sentencesthreshold=","randompath=","nopunct"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -75,7 +75,9 @@ def main():
         elif o in ("-p", "--nopunct"):
             nopun = True
         elif o in ("-s", "--sentencesthreshold"):
-            sentencesThreshold = int(a)          
+            sentencesThreshold = int(a)  
+        elif o in ("-r", "--randompath"):
+            rdmpath = arg        
         else:
             assert False, "unhandled option"
     if inputfile != "":
