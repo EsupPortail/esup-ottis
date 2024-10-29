@@ -229,19 +229,19 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
             begin=""
             end=""
     Subtitles=NewSubtitles
-    # ConnexionDB(rdmpath, count)
+    ConnexionDB(rdmpath, count)
     #print(Subtitles)
-    # fd=open(filename_out,"w", encoding="utf-8")
-    # for i in range(len(Subtitles)):
-    #     if (Subtitles[i].get("phrase")):
-    #         fd.write(str(i+1)+"\n")
-    #         fd.write(Subtitles[i].get("begin")+" --> "+Subtitles[i].get("end")+"\n")
-    #         fd.write(Subtitles[i].get("phrase")+"\n\n")
-    # fd.close()
+    fd=open(filename_out,"w", encoding="utf-8")
+    for i in range(len(Subtitles)):
+        if (Subtitles[i].get("phrase")):
+            fd.write(str(i+1)+"\n")
+            fd.write(Subtitles[i].get("begin")+" --> "+Subtitles[i].get("end")+"\n")
+            fd.write(Subtitles[i].get("phrase")+"\n\n")
+    fd.close()
 
-    output_filename_txt = filename_out.replace(".srt", ".txt")
+    output_filename_txt = filename_out.replace(".srt", "TEST_verbatim.txt")
 
-    with open(filename_out,"w", encoding="utf-8") as fd_txt:
+    with open(output_filename_txt,"w", encoding="utf-8") as fd_txt:
         fd_txt.write("Number of input characters : "+str(count))
     fd_txt.close()
 

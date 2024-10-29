@@ -27,7 +27,7 @@ for lang in $To; do
 done
 
 cd $INSTALLDIR/$RANDOMPATH
-zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.srt *_verbatim.txt *.txt
+zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.srt *_verbatim.txt
 cd ..
 rm -rf $INSTALLDIR/$RANDOMPATH
 
