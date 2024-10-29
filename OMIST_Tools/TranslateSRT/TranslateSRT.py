@@ -30,6 +30,7 @@ import config
 import requests
 import math
 from utils import translate
+from utils import ConnexionDB
 
 def usage():
     """Explication de l'utilisation du programme.
@@ -183,7 +184,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
 
     
     """
-
+    count = 0
     fd=open(filename,"r", encoding="utf-8")
     content = fd.readlines()
     fd.close()
@@ -220,6 +221,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language,nopunct=False, s
             futureend=Subtitles[i+1].get("end")
         if nopunct or isphrase(currenttxt) or ( not(currenttxt == "") and duration(futureend,end)>sentencesThreshold):
             translatedtext = translate(currenttxt,in_language,out_language)
+            count =count + len(currenttxt)
             NewSubtitles.append({"begin":begin, "end":end, "phrase": translatedtext, "VO":currenttxt})
             currenttxt=""
             begin=""
