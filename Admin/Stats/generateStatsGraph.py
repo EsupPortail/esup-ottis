@@ -81,8 +81,12 @@ def month_number(value):
 # mydb.commit()
 
 mycursor = mydb.cursor()
-mycursor.execute("ALTER TABLE statslog ADD char_translated INT DEFAULT 0;")
+mycursor.execute("ALTER TABLE statslog DROP random_path;")
 mydb.commit()
+
+# mycursor = mydb.cursor()
+# mycursor.execute("ALTER TABLE statslog ADD char_translated INT DEFAULT 0;")
+# mydb.commit()
 
 mycursor = mydb.cursor()
 mycursor.execute("UPDATE statslog SET origin='master' WHERE (origin='VM master' or origin='/var/www/html/AutomaticTranslator-master');")
