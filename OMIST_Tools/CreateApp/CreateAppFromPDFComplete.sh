@@ -39,7 +39,7 @@ cp "$Filename" $TMPDIR/$RANDOMPATH/input.pdf
 cp "$Speech" $TMPDIR/$RANDOMPATH/speech.txt
 mkdir $TMPDIR/$RANDOMPATH/images
 $CAIRO -jpeg $TMPDIR/$RANDOMPATH/input.pdf $TMPDIR/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$TMPDIR/$RANDOMPATH/speech.txt --ImagesDir="$TMPDIR/$RANDOMPATH/images" --output=$TMPDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8 --Licence="$LICENCE"
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$TMPDIR/$RANDOMPATH/speech.txt --ImagesDir="$TMPDIR/$RANDOMPATH/images" --output=$TMPDIR/output_$RANDOMPATH.html --from="$From" --to="$To" --randompath="$RANDOMPATH" $6 $7 $8 --Licence="$LICENCE"
 
 #cd $TMPDIR/$RANDOMPATH
 #zip -9 $TMPDIR/output_$RANDOMPATH.zip *.html

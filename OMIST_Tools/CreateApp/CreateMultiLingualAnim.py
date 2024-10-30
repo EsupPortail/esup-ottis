@@ -41,6 +41,7 @@ import config
 from utils import translate
 from utils import ExtractNotes
 from utils import AspectRatio
+from utils import ConnexionDB
 import Licences
 
 ABSOLUTE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -55,7 +56,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "phoiftd:v", ["help", "output=", "input=","from=","to=","ImagesDir=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template=","Licence="])
+        opts, args = getopt.getopt(sys.argv[1:], "phoiftdr:v", ["help", "output=", "input=","from=","to=","ImagesDir=","randompath=","AspectRatio=","KeepAspectRatio=","Delay=","Title=","Name=","Template=","Licence="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -77,6 +78,7 @@ def main():
     verbose = False
     C_LICENCE = ""
     C_PARAMETERS = ""
+    rdmpath = ""
     for o, a in opts:
         if o == "-v":
             verbose = True
@@ -95,6 +97,8 @@ def main():
             lto = a
         elif o in ("-d","--ImagesDir"):
             imgdir = a
+        elif o in ("-r", "--randompath"):
+            rdmpath = a 
         elif o in ("--AspectRatio"):
             C_ASPECTRATIO = a
         elif o in ("--KeepAspectRatio"):
@@ -123,7 +127,7 @@ def main():
         print("Input = ",input)
         print("Output = ",output)
         print("Licence = ",C_LICENCE)
-        CreateMultilingualApp(input,output,imagesdir=imgdir,source=lfrom,TargetLanguages=lto.lower().split(","),ASPECTRATIO=C_ASPECTRATIO,KEEPASPECTRATIO=C_KEEPASPECTRATIO,TITRE=C_TITRE,FILENAME=C_FILENAME,templatefile=C_templatefile,delay=C_DELAY,licence=C_LICENCE)
+        CreateMultilingualApp(input,output,imagesdir=imgdir,source=lfrom,TargetLanguages=lto.lower().split(","),ASPECTRATIO=C_ASPECTRATIO,KEEPASPECTRATIO=C_KEEPASPECTRATIO,TITRE=C_TITRE,FILENAME=C_FILENAME,templatefile=C_templatefile,delay=C_DELAY,licence=C_LICENCE, rdm_path=rdmpath)
     else:
         usage()
 
@@ -145,7 +149,7 @@ def readbase64(filename):
         encoded_string = base64.b64encode(image_file.read())
     return "data:image/jpeg;base64,"+str(encoded_string)[1:].replace("'","")
 
-def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/9",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="Templates/AppTemplate.txt",delay=0,complementfile="Templates/Complements.txt",licence=""):
+def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-US','de-DE','es-ES'],imagesdir='.',ASPECTRATIO = "16/9",KEEPASPECTRATIO = "Y",FILENAME = "Traduction",TITRE = "Traduction automatique",templatefile="Templates/AppTemplate.txt",delay=0,complementfile="Templates/Complements.txt",licence="", rdm_path=""):
     """Création d'une animation web sous forme de diaporama.
     
     Parameters
@@ -178,6 +182,7 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
         Type de licence sur le contenu
     """
 
+    count = 0
     # Gestion des notes
     print("Extracting and translating notes")
     AllNotes=dict()
@@ -193,9 +198,11 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
                 translation = txt
                 if translation != "":
                     translation =translate(txt,source[0:2].upper(),l[0:2].upper())
+                    count =count + len(txt)
                 notes.append(translation)
             translatedNotes.append({'Slide': s.get('Slide'), 'Notes': notes})
         AllNotes[l]=translatedNotes
+    ConnexionDB(rdm_path, count)
     # Gestion des images
     print("Converting all images in base64")
     AllFilenames=[]

@@ -77,7 +77,7 @@ $PYTHON $SCRIPT_DIR/../TranslatePPTX/TranslatePPTX.py --input=$TMPDIR/$RANDOMPAT
 mkdir $TMPDIR/$RANDOMPATH/images
 export HOME=$TMPDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $TMPDIR/$RANDOMPATH/input.pptx --outdir $TMPDIR/$RANDOMPATH
 $CAIRO -jpeg $TMPDIR/$RANDOMPATH/input.pdf $TMPDIR/$RANDOMPATH/images/images
-$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$TMPDIR/$RANDOMPATH/input.pptx --ImagesDir="$TMPDIR/$RANDOMPATH/images" --output=$TMPDIR/output_$RANDOMPATH.html --from="$From" --to="$To" $6 $7 $8 --Licence="$LICENCE"
+$PYTHON $SCRIPT_DIR/CreateMultiLingualAnim.py --input=$TMPDIR/$RANDOMPATH/input.pptx --ImagesDir="$TMPDIR/$RANDOMPATH/images" --output=$TMPDIR/output_$RANDOMPATH.html --from="$From" --to="$To" --randompath="$RANDOMPATH" $6 $7 $8 --Licence="$LICENCE"
 
 #cd $INSTALLDIR/$RANDOMPATH
 #zip -9 $INSTALLDIR/output_$RANDOMPATH.zip *.html
