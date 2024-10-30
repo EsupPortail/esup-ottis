@@ -73,7 +73,7 @@ cd ..
 mkdir -p $TMPDIR/$RANDOMPATH
 
 cp "$Filename" $TMPDIR/$RANDOMPATH/original_file.pptx
-$PYTHON $SCRIPT_DIR/../TranslatePPTX/TranslatePPTX.py --input=$TMPDIR/$RANDOMPATH/original_file.pptx --output=$TMPDIR/$RANDOMPATH/input.pptx --from="$From" --to="$Translated" --randompath="$RANDOMPATH"
+$PYTHON $SCRIPT_DIR/../TranslatePPTX/TranslatePPTX.py --input=$TMPDIR/$RANDOMPATH/original_file.pptx --output=$TMPDIR/$RANDOMPATH/input.pptx --from="$From" --to="$Translated"
 mkdir $TMPDIR/$RANDOMPATH/images
 export HOME=$TMPDIR/ && $SOFFICE --headless --convert-to pdf:impress_pdf_Export $TMPDIR/$RANDOMPATH/input.pptx --outdir $TMPDIR/$RANDOMPATH
 $CAIRO -jpeg $TMPDIR/$RANDOMPATH/input.pdf $TMPDIR/$RANDOMPATH/images/images
