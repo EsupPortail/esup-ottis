@@ -52,7 +52,7 @@ def usage():
 
     print("Usage:")
     print("Minimal : ./CreateMultiLingualAnim.py --input test.pptx")
-    print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\" --ImagesDir /tmp/images --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template")
+    print("Complete : ./CreateMultiLingualAnim.py --input test.pptx --output out.html --to \"EN,DE,IT,HK\" --randompath \"abc\" --ImagesDir /tmp/images --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template")
 
 def main():
     try:
@@ -180,6 +180,8 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
         Compléments pour la page web de l'animation.
     licence : str
         Type de licence sur le contenu
+    rdm_path : str
+        Nom aléatoire associé à l'action
     """
 
     count = 0

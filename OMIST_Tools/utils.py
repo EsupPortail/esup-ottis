@@ -283,6 +283,15 @@ def AspectRatio(filename):
         return "16/9"
 
 def ConnexionDB(randompath, char_translated):
+    """Ajout du nombre de caracrtères traduits dans la base de données de statistiques
+    
+    Parameters
+    ----------
+    randompath : str
+        Nom aléatoire associé à l'action.
+    char_translated : int
+        Nombre de caractères traduits.
+    """
     if randompath !="" :
         mydb = mysql.connector.connect(
         user = "root",

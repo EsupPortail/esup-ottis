@@ -38,7 +38,7 @@ def usage():
     
     print("Usage:")
     print("Minimal : ./TranslateSRT.py --input test.srt")
-    print("Complete : ./TranslateSRT.py --input test.srt --output testEN.srt --from fr --to en --wraplength 80 --sentencesthreshold --nopunct")
+    print("Complete : ./TranslateSRT.py --input test.srt --output testEN.srt --from fr --to en --wraplength 80 --sentencesthreshold --randompath \"abc\" --nopunct")
 
 def main():
     try:
@@ -181,6 +181,8 @@ def TranslateSRT(filename,filename_out,in_language,out_language,rdm_path, nopunc
         Langue d'origine.
     out_language : str
         Langue de traduction.
+    rdm_path : str
+        Nom aléatoire associé à l'action
     nopunct : boolean
         Pas de ponctuation dans les sous-titres.
     sentencesThreshold : int

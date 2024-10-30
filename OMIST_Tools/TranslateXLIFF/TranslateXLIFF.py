@@ -43,7 +43,7 @@ def usage():
 
     print("Usage:")
     print("Minimal : ./XLIFF_translator.py --input test.xlf")
-    print("Complete : ./XLIFF_translator.py --input test.xlf --output testEN.xlf --from FR --to EN")
+    print("Complete : ./XLIFF_translator.py --input test.xlf --output testEN.xlf --from FR --to EN --randompath \"abc\" ")
 
 
 # Programme principal XLIFF
@@ -105,6 +105,8 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto,rdm_path):
         Langue d'origine.
     lto : str
         Langue de traduction.
+    rdm_path : str
+        Nom aléatoire associé à l'action.
     
     """
 
