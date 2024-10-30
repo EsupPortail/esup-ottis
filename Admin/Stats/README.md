@@ -63,7 +63,8 @@ CREATE TABLE statslog
   country text,
   latitude float,
   longitude float,
-  is_external boolean
+  is_external boolean,
+  char_translated int
 );
 ```
 
