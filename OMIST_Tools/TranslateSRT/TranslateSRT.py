@@ -84,7 +84,7 @@ def main():
         if output == "":
             output=inputfile.replace(".srt","_"+lto+".srt")
 
-        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopun,sentencesThreshold=sentencesThreshold, rdmpath)
+        TranslateSRT(inputfile,output,lfrom[0:2],lto[0:2],nopunct=nopun,sentencesThreshold=sentencesThreshold, rdmpath=rdmpath)
         Verbatim(inputfile)
         Verbatim(output)
         WrapSubtitle(output, wraplength)
