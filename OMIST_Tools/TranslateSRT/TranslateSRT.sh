@@ -23,7 +23,7 @@ mkdir -p $INSTALLDIR/$RANDOMPATH
 cp "$Filename" $INSTALLDIR/$RANDOMPATH/original_file.srt
 for lang in $To; do
   echo "Translating in $lang"
-  $PYTHON $SCRIPT_DIR/TranslateSRT.py --input=$INSTALLDIR/$RANDOMPATH/original_file.srt --output=$INSTALLDIR/$RANDOMPATH/translated_$lang.srt --from="$From" --to="$lang" --randompath=$RANDOMPATH $Wraplength $NOPUNC 2>/dev/null
+  $PYTHON $SCRIPT_DIR/TranslateSRT.py --input=$INSTALLDIR/$RANDOMPATH/original_file.srt --output=$INSTALLDIR/$RANDOMPATH/translated_$lang.srt --from="$From" --to="$lang" --randompath="$RANDOMPATH" $Wraplength $NOPUNC 2>/dev/null
 done
 
 cd $INSTALLDIR/$RANDOMPATH
