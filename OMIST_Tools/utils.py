@@ -283,11 +283,11 @@ def AspectRatio(filename):
         return "16/9"
 
 def ConnexionDB(randompath, char_translated):
-    # mydb = mysql.connector.connect(
-    # user = "root",
-    # password = "root",
-    # host = "localhost",
-    # database = "db_stats")
+    mydb = mysql.connector.connect(
+    user = "root",
+    password = "root",
+    host = "localhost",
+    database = "db_stats")
     # mycursor = mydb.cursor()
 
     # mycursor = mydb.cursor()
