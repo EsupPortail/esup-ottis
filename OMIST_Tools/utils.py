@@ -290,8 +290,8 @@ def ConnexionDB(randompath, char_translated):
     database = "db_stats")
 
     mycursor = mydb.cursor()
-    # mycursor.execute("UPDATE statslog SET char_translated=%s WHERE room_id=%s;", (char_translated, random_path, ))
-    # mydb.commit()
+    mycursor.execute("UPDATE statslog SET char_translated=%s WHERE room_id=%s;", (char_translated, randompath, ))
+    mydb.commit()
 
-    test = ""
-    test = char_translated
+    # test = ""
+    # test = char_translated
