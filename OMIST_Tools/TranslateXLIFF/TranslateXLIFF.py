@@ -87,12 +87,12 @@ def main():
     if Translate and input != "":
         if output == "":
             output=input.replace(".xlf","_"+lto+".xlf")
-        TranslateXLIFF(input,output,lfrom,lto)
+        TranslateXLIFF(input,output,lfrom,lto,rdm_path=rdmpath)
     else:
         usage()
 
 
-def TranslateXLIFF(filename,output_filename,lfrom,lto):
+def TranslateXLIFF(filename,output_filename,lfrom,lto,rdm_path):
     """Traduction d'un fichier XLIFF.
     
     Parameters
@@ -171,7 +171,7 @@ def TranslateXLIFF(filename,output_filename,lfrom,lto):
     #     for key, value in dictionary.items(): 
     #         f.write('%s:%s\n' % (key, value))
 
-    # ConnexionDB(rdmpath, count)
+    ConnexionDB(rdm_path, count)
 
     with open(output_filename,"w", encoding="utf-8") as fd:
         fd.write(str(soup.find_all("xliff")[0]))
