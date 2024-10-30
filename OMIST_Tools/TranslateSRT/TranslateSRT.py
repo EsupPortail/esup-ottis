@@ -77,7 +77,7 @@ def main():
         elif o in ("-s", "--sentencesthreshold"):
             sentencesThreshold = int(a)  
         elif o in ("-r", "--randompath"):
-            rdmpath = arg        
+            rdmpath = a        
         else:
             assert False, "unhandled option"
     if inputfile != "":
