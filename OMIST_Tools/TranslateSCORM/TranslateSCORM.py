@@ -31,7 +31,6 @@ import base64
 import logging
 import time
 from utils import translate
-from utils import ConnexionDB
 
 COST_DEEPL = 0.00002
 config.PROXYHTTP=""
@@ -48,7 +47,7 @@ def usage():
 def main():
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:r:u:v",["help","input=","output=","from=","to=","randompath=", "unzip_path="])
+        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:u:v",["help","input=","output=","from=","to=","unzip_path="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -61,7 +60,6 @@ def main():
     lfrom="FR"
     lto="EN"
     verbose = False
-    rdmpath = ""
 
     for opt, arg in opts:
         if opt == "-v":
@@ -77,8 +75,6 @@ def main():
             lfrom = arg
         elif opt in ("-t", "--to"):
             lto = arg
-        elif opt in ("-r", "--randompath"):
-            rdmpath = arg  
         elif opt in ("-u", "--unzip_path"):
             unzip_dest = arg
         else:
@@ -272,8 +268,6 @@ def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
     logging.info("Nombre de caractères traduits : " + str(count_tot))
     logging.info("Nombre de caractères économisés : " + str(count_tot_saved))
     logging.info("Coût de traduction Deepl : " + str(count_tot * COST_DEEPL)+" €")
-
-    # ConnexionDB(rdm_path, count_tot)
 
 
     json_object_terms=json.dumps(content_terms, indent=4)
