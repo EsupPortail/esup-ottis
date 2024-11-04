@@ -21,7 +21,7 @@ mkdir -p $INSTALLDIR/$RANDOMPATH
 cp "$Filename" $INSTALLDIR/$RANDOMPATH/original_file.zip
 
 for lang in $To; do
-  $PYTHON $SCRIPT_DIR/TranslateSCORM.py --input=$INSTALLDIR/$RANDOMPATH/original_file.zip --output=$INSTALLDIR/$RANDOMPATH/scormcontent/index.html --from="$From" --to="$lang" z--unzip_path=$INSTALLDIR/$RANDOMPATH/ 2>/dev/null
+  $PYTHON $SCRIPT_DIR/TranslateSCORM.py --input=$INSTALLDIR/$RANDOMPATH/original_file.zip --output=$INSTALLDIR/$RANDOMPATH/scormcontent/index.html --from="$From" --to="$lang" --unzip_path=$INSTALLDIR/$RANDOMPATH/ 2>/dev/null
 done
 
 cd $INSTALLDIR/$RANDOMPATH
