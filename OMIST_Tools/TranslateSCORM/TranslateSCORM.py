@@ -30,7 +30,7 @@ import zipfile
 import base64
 import logging
 import time
-from utils import faketranslate
+from utils import translate
 
 COST_DEEPL = 0.00002
 config.PROXYHTTP=""
@@ -109,7 +109,7 @@ def TranslateHtmlText(content,lfrom="fr",lto="en"):
 
     soup = BeautifulSoup(content, 'html.parser')
     count_tmp = len(soup.text)
-    return faketranslate(soup.text,lfrom,lto), count_tmp
+    return translate(soup.text,lfrom,lto), count_tmp
 
 def Recursive(root, dictionary, count=0, count_saved = 0, where="/",lfrom="fr",lto="en"):
     """Fonction récursive pour traduire un texte HTML.
@@ -255,7 +255,7 @@ def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
             content_terms["labels"][l]=dictionary.get(ltext_from)
             count_saved_label = count_saved_label + len(ltext_from)
         else:    
-            content_terms["labels"][l]=faketranslate(content_terms["labels"][l],lfrom,lto)
+            content_terms["labels"][l]=translate(content_terms["labels"][l],lfrom,lto)
             dictionary[ltext_from] = content_terms["labels"][l]
             count_label = count_label + len(ltext_from) # ici les caractères spéciaux (ex : é) comptent comme 2 caractères
 
