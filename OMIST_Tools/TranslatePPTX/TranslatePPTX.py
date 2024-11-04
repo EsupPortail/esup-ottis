@@ -117,7 +117,7 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",rdm_path="",transla
                     if (translated_characters<config.TRANSLATION_LIMIT):
                         translated_characters+=len(run.text)
                         run.text = " "+translate(run.text,langsrc,langdst)+" "
-    # ConnexionDB(rdm_path, translated_characters)
+    ConnexionDB(rdm_path, translated_characters)
     prs.save(fileout)
 
 if __name__ == "__main__":
