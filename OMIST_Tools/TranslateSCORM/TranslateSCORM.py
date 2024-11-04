@@ -170,7 +170,7 @@ def Recursive(root, dictionary, count=0, count_saved = 0, where="/",lfrom="fr",l
     return count, count_saved, dictionary
 
 
-def TranslateSCORM(filename,output_filename,lfrom,lto,rdm_path, unzip_dest):
+def TranslateSCORM(filename,output_filename,lfrom,lto,rdm_path="", unzip_dest):
     """Programme pour traduire un fichier SCORM 1.2.
     
     Parameters
@@ -273,7 +273,7 @@ def TranslateSCORM(filename,output_filename,lfrom,lto,rdm_path, unzip_dest):
     logging.info("Nombre de caractères économisés : " + str(count_tot_saved))
     logging.info("Coût de traduction Deepl : " + str(count_tot * COST_DEEPL)+" €")
 
-    ConnexionDB(rdm_path, count_tot)
+    # ConnexionDB(rdm_path, count_tot)
 
 
     json_object_terms=json.dumps(content_terms, indent=4)
