@@ -61,6 +61,7 @@ def main():
     lfrom="FR"
     lto="EN"
     verbose = False
+    rdmpath = ""
 
     for opt, arg in opts:
         if opt == "-v":
