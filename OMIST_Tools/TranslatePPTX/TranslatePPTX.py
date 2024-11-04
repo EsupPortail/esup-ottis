@@ -41,7 +41,7 @@ def usage():
 
 def main():
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hoiftr:vW", ["help", "output=", "input=","from=","to=","randompath","WithNotes"])
+        opts, args = getopt.getopt(sys.argv[1:], "hoiftr:vW", ["help", "output=", "input=","from=","to=","randompath=","WithNotes"])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
