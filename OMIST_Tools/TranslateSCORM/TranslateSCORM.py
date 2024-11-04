@@ -31,6 +31,7 @@ import base64
 import logging
 import time
 from utils import translate
+from utils import ConnexionDB
 
 COST_DEEPL = 0.00002
 config.PROXYHTTP=""
@@ -47,7 +48,7 @@ def usage():
 def main():
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:u:v",["help","input=","output=","from=","to=","unzip_path="])
+        opts, args = getopt.getopt(sys.argv[1:],"h:i:o:f:t:u:r:v",["help","input=","output=","from=","to=","randompath=", "unzip_path="])
     except getopt.GetoptError as err:
         # print help information and exit:
         print(err)  # will print something like "option -a not recognized"
@@ -75,6 +76,8 @@ def main():
             lfrom = arg
         elif opt in ("-t", "--to"):
             lto = arg
+        elif opt in ("-r", "--randompath"):
+            rdmpath = arg  
         elif opt in ("-u", "--unzip_path"):
             unzip_dest = arg
         else:
@@ -83,7 +86,7 @@ def main():
     if Translate and input != "":
         if output == "":
             output=input.replace(".zip","_"+lto+".html")
-        TranslateSCORM(input,output,lfrom,lto, unzip_dest)
+        TranslateSCORM(input,output,lfrom,lto,rdm_path=rdmpath, unzip_dest)
     else:
         usage()
 
@@ -166,7 +169,7 @@ def Recursive(root, dictionary, count=0, count_saved = 0, where="/",lfrom="fr",l
     return count, count_saved, dictionary
 
 
-def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
+def TranslateSCORM(filename,output_filename,lfrom,lto,rdm_path, unzip_dest):
     """Programme pour traduire un fichier SCORM 1.2.
     
     Parameters
@@ -268,6 +271,8 @@ def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
     logging.info("Nombre de caractères traduits : " + str(count_tot))
     logging.info("Nombre de caractères économisés : " + str(count_tot_saved))
     logging.info("Coût de traduction Deepl : " + str(count_tot * COST_DEEPL)+" €")
+
+    ConnexionDB(rdm_path, count_tot)
 
 
     json_object_terms=json.dumps(content_terms, indent=4)
