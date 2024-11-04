@@ -87,7 +87,7 @@ def main():
     if Translate and input != "":
         if output == "":
             output=input.replace(".zip","_"+lto+".html")
-        TranslateSCORM(input,output,lfrom,lto,rdm_path=rdmpath, unzip_dest)
+        TranslateSCORM(input,output,lfrom,lto, unzip_dest)
     else:
         usage()
 
@@ -170,7 +170,7 @@ def Recursive(root, dictionary, count=0, count_saved = 0, where="/",lfrom="fr",l
     return count, count_saved, dictionary
 
 
-def TranslateSCORM(filename,output_filename,lfrom,lto,rdm_path="", unzip_dest):
+def TranslateSCORM(filename,output_filename,lfrom,lto, unzip_dest):
     """Programme pour traduire un fichier SCORM 1.2.
     
     Parameters
