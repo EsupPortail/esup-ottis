@@ -71,6 +71,8 @@ Pour moi.
 - [ ] Translate PPTX : le texte dans les diagrammes/formes ne sont pas traduits
 - [X] Create web animation PDF + txt : ajouter un txt type à télécharger pour avoir le bon format dans le fichier
 - [X] Pour la traduction de fichier SRT : ajouter une condition dans le code pour le dernier timecode : si .srt -> 99,999 sinon -> 99.999
+- [ ] **BUG : lorsqu'on créé une caspule à partir d'un PDF et d'un speech donné, la dernière slide n'est pas affichée. Pour contourner ce bug, il faut ajouter une slide de plus dans speech.txt que le nombre de slides réel.**
+- [ ] **BUG : la traduction d'un fichier SCORM ne fonctionne pas, il renvoit le fichier initial. Tout fonctionne quand on utilise faketranslate.**
 
 ## Partie dédiée à l'éditeur d'animation
 - [X] Supprimer les vertical tab (VT) des speechs;
@@ -97,6 +99,7 @@ Pour moi.
 - [X] Ne pas autoriser les cut & paste (car si on le fait sur des mots clés -> pas de répercussion sur les autres langues)
 - [X] Changer le message addAllLanguages()
 - [X] Faire un tutoriel
+- [ ] Ajouter un nouveau mot-clé qui permet d'afficher des images (dans le même principe que pour notification et resources)
 
 ## Partie dédiée à la sécurisation de l'application
 - [ ] Sur le serveur. Créer un user/group spécifique "apache". Modifier la configuration d'apache pour qu'il soit exécuté avec cet utilisateur (dans envvars). Modifier les droits des répertoires /var/www/html. /!\ : il faudra voir comment les tâches CRON, exécutées actuellement en root, se comportent (faire un crontab spécifique pour l'utilisateur apache ? "crontab -u apache -e").
@@ -132,7 +135,8 @@ Pour moi.
 - [X] un bout dans Stats.php, une écriture depuis index.php dans "tpm/Statslog.txt"
 - [X] Bug : l'URL des OMIST Tools dans l'application enseignante est .../indexNOCAS.php, ce qui fausse l'user id dans la BD -> création d'un bouton dans Complete lesson
 - [X] Ne prendre les données que pour la VM master
-- [ ] Mettre en place un basculement et un mail automatique quand le quota de Deepl est dépassé
+- [X] Mettre en place un basculement sur LibreTranslate quand le quota de Deepl est dépassé
+- [ ] Mettre en place un mail automatique quand le quota de Deepl est dépassé
 
 ## Priorisation ? Mais ça n'est pas forcément à suivre
 
