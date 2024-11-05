@@ -7,12 +7,13 @@ On obtient en sortie le fichier original et le fichier traduit.
 
 Usage : 
 =======
-    py TranslateXLIFF.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>
+    py TranslateXLIFF.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to> -r <randompath>
 
     <input_file> : chemin du fichier XLF à traduire
     <output_file> : nom du fichier XLF traduit
     <lang_from> : langue d'origine
     <lang_to> : langue de traduction
+    <randompath> : nom aléatoire associé à l'action
 """
 
 import sys

@@ -8,7 +8,7 @@ traduction sans les timecodes, et la traduction avec les sous-titres d'une longu
 
 Usage : 
 =======
-    py TranslateSRT.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to>
+    py TranslateSRT.py -i <input_file> -o <output_file> -f <lang_from> -t <lang_to> -w <wraplength> -s <sentencesthreshold> -p <nopunct> -r <randompath>
 
     <input_file> : chemin du fichier SRT à traduire
     <output_file> : nom fichier SRT traduit
@@ -17,6 +17,7 @@ Usage :
     <wraplength> : longueur maximale des sous-titres voulue (en nombre de caractères)
     <sentencesthreshold> : 
     <nopunct> : True si pas de ponctuation dans les sous-titres
+    <randompath> : nom aléatoire associé à l'action
 """
 
 import getopt, sys
@@ -182,7 +183,7 @@ def TranslateSRT(filename,filename_out,in_language,out_language,rdm_path, nopunc
     out_language : str
         Langue de traduction.
     rdm_path : str
-        Nom aléatoire associé à l'action
+        Nom aléatoire associé à l'action.
     nopunct : boolean
         Pas de ponctuation dans les sous-titres.
     sentencesThreshold : int

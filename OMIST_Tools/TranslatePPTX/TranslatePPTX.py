@@ -7,12 +7,13 @@ On obtient en sortie le fichier traduit au format PPT et PPTX.
 
 Usage : 
 =======
-    py TranslatePPTX.py -i <input> -o <output> -f <from> -t <to> --WithNotes
+    py TranslatePPTX.py -i <input> -o <output> -f <from> -t <to> -r <randompath> --WithNotes
 
     <input> : chemin du fichier PPTX à traduire
     <output> : nom du fichier PowerPoint traduit
     <from> : langue d'origine
     <to> : langue de traduction
+    <randompath> : nom aléatoire associé à l'action
     WithNotes : Traduction des notes des slides
 """
 
@@ -37,7 +38,7 @@ def usage():
 
     print("Usage:")
     print("Minimal : ./TranslatePPTX.py --input test.pptx")
-    print("Complete : ./TranslatePPTX.py --input test.pptx --output testEN.pptx --from FR --to EN --WithNotes")
+    print("Complete : ./TranslatePPTX.py --input test.pptx --output testEN.pptx --from FR --to EN --randompath \"abc\" --WithNotes")
 
 def main():
     try:
@@ -95,6 +96,8 @@ def TranslatePPTX(filename,fileout,langsrc="FR",langdst="EN",rdm_path="",transla
         Langue d'origine.
     langdst : str
         Langue de traduction.
+    rdm_path : str
+        Nom aléatoire associé à l'action.
     translate_notes : boolean
         True si traduction des notes des slides.
     """

@@ -7,13 +7,14 @@ On obtient en sortie le fichier html de l'animation.
 
 Usage : 
 =======
-    py CreateMultiLingualAnim.py -p <parameters.json> -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template --Licence
+    py CreateMultiLingualAnim.py -p <parameters.json> -i <input> -o <output> -f <from> -t <to> -d <ImagesDir> -r <randompath> --AspectRatio --KeepAspectRatio --Delay --Title --Name --Template --Licence
 
     <input> : chemin du fichier contenant la présentation à animer
     <output> : nom du fichier html de l'animation
     <from> : langue d'origine
     <to> : langue de traduction
     <ImagesDir> : chemin du dossier contenant les images extraites de la présentation
+    <randompath> : nom aléatoire associé à l'action
     --AspectRatio : ratio de l'animation
     --KeepAspectRatio : le ratio est gardé
     --Delay : ajout d'un délai entre chaque slide
@@ -179,9 +180,9 @@ def CreateMultilingualApp(filename,fileout,source="fr-FR",TargetLanguages=['en-U
     complementfile : str
         Compléments pour la page web de l'animation.
     licence : str
-        Type de licence sur le contenu
+        Type de licence sur le contenu.
     rdm_path : str
-        Nom aléatoire associé à l'action
+        Nom aléatoire associé à l'action.
     """
 
     count = 0
