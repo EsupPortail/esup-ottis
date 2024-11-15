@@ -14,6 +14,11 @@ import collections.abc
 from pptx import Presentation
 import mysql.connector
 
+
+def Add_to_log(txt,translator):
+    with open("../tmp/translations.log", "a") as myfile:
+    myfile.write(translator+" : "+txt)
+
 # Programmes de traductions
 
 def translate_deeplpro(txt,lfrom,lto):
@@ -55,6 +60,7 @@ def translate_deeplpro(txt,lfrom,lto):
         result = requests.post(url,data=datapost)
     result=json.loads(result.text)
     #print(result)
+    Add_to_log(txt,"Deeplpro"):
     if (not result.get('translations')):
         return ""
     else:
@@ -105,6 +111,7 @@ def translate_libretranslate(txt,lfrom,lto):
     #result=json.loads(result.read())
 
     #print(result)
+    Add_to_log(txt,"LibreTranslate"):
     if (not result.get('translatedText')):
         return ""
     else:
@@ -145,7 +152,8 @@ def translate_google(txt,lfrom,lto):
     else:
         result = requests.post(url,data=datapost)
     result=json.loads(result.text)
-    
+    Add_to_log(txt,"Google"):
+
     if (not result.get('data')) or (not result.get('data').get('translations')[0]) or (not result.get('data').get('translations')[0].get('translatedText')):
         return ""
     else:
