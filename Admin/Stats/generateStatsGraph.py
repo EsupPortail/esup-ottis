@@ -877,18 +877,22 @@ ip_to_translate_df = pd.DataFrame(data=ip_to_translate, columns=["IP_address"])
 
 ####ipapi
 i = 0
+#fields_correspondance={'City':'city', 'Country': 'country_name', 'Latitude': 'latitude', 'Longitude':'longitude'}
+fields_correspondance={'City':'city', 'Country': 'country', 'Latitude': 'lat', 'Longitude':'lon'}
+
 for ind in ip_to_translate_df.index:
   ip = ip_to_translate_df['IP_address'][ind]
-  response = requests.get(f'https://ipapi.co/{ip}/json/').json()
+  #response = requests.get(f'https://ipapi.co/{ip}/json/').json()
+  response = requests.get(f'http://ip-api.com/json/{ip}').json()
   ip_translated_df.loc[i,'IP_address'] = ip
-  if (response.get("city") != None):
-    ip_translated_df.loc[i,'City'] = response.get("city")
-  if (response.get("country_name") != None):
-    ip_translated_df.loc[i,'Country'] = response.get("country_name")
-  if (response.get("latitude") != None):
-    ip_translated_df.loc[i,'Latitude'] = response.get("latitude")
-  if (response.get("longitude") != None):
-    ip_translated_df.loc[i,'Longitude'] = response.get("longitude")
+  if (response.get(fields_correspondance["City"]) != None):
+    ip_translated_df.loc[i,'City'] = response.get(fields_correspondance["City"])
+  if (response.get(fields_correspondance["Country"]) != None):
+    ip_translated_df.loc[i,'Country'] = response.get(fields_correspondance["Country"])
+  if (response.get(fields_correspondance["Latitude"]) != None):
+    ip_translated_df.loc[i,'Latitude'] = response.get(fields_correspondance["Latitude"])
+  if (response.get(fields_correspondance["Longitude"]) != None):
+    ip_translated_df.loc[i,'Longitude'] = response.get(fields_correspondance["Longitude"])
   i = i+1
   time.sleep(5)
 
