@@ -16,7 +16,7 @@ import mysql.connector
 
 
 def Add_to_log(txt,translator):
-    with open("../tmp/translations.log", "a") as myfile:
+    with open("/AutomaticTranslator/tmp/translations.log", "a") as myfile:
     myfile.write(translator+" : "+txt)
 
 # Programmes de traductions
