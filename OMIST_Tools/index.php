@@ -113,6 +113,8 @@ if ($percentage_DEEPL > 99){
 fwrite($myfile, $txt);
 fclose($myfile);
 
+
+
 $theme="flat_black";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
@@ -298,8 +300,36 @@ input[name="downloadTemplateSpeech"]{
 <script>
 
 <?php
+
+if ($percentage_DEEPL > 70){
+  echo "var critical_percentage_reached = true;";
+} else {
+  echo "var critical_percentage_reached = false;";
+}
+
 echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
 ?>
+
+function MultipleSelectionLimitation(s,m) {
+  // Multiple selection limitation to m languages max
+  var optionCount = 0;
+  for (var i = 0; i < s.length; i++) {
+    if (s[i].selected) {
+      optionCount++;
+    }
+  }
+  if (optionCount > m) {
+    alert("When the translation quota exceeds 70%, it is possible to select only "+m+" values.");
+    optionCount = 0;
+    for (var i = 0; i < s.length; i++) {
+      if (s[i].selected) {
+        optionCount++;
+        if (optionCount>2) s[i].selected = false;
+      }
+    }
+  }
+}
+
 supportedlanguages.sort(function(a,b) {if (a["code"] == 'fr-FR') return false; else  return a["code"]>b["code"];});
 
 function PopulateLanguages(selectelement) {
@@ -746,7 +776,7 @@ It's important to note that the resulting capsule can serve as comprehensive inp
     <label for="inputlanguage1">Input language : </label>
     <select id="inputlanguage1" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage1" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage1"  name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select onchange="if (critical_percentage_reached) MultipleSelectionLimitation(this,2);" multiple id="outputlanguage1"  name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="translatelanguage1">Translate slides in ? </label>
@@ -805,7 +835,11 @@ It's important to note that the resulting capsule can serve as comprehensive inp
     <label for="inputlanguage2">Input language : </label>
     <select id="inputlanguage2" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage2" style="vertical-align: top;">Output languages : </label>
-    <select multiple id="outputlanguage2" name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <script>
+      MultipleSelectionLimitation
+  </script>
+
+    <select onchange="if (critical_percentage_reached) MultipleSelectionLimitation(this,2);" multiple id="outputlanguage2" name="outputlanguage[]" style="height: 125px;" class="inputsmallscreens" style="vertical-align: top;"></select><br>
 
     <p><b>Advanced options</b></p>
     <label for="aspectratio2">Aspect ratio : </label>
@@ -1076,7 +1110,7 @@ It's important to note that the resulting capsule can serve as comprehensive inp
     <label for="inputlanguage6">Input language : </label>
     <select id="inputlanguage6" name="inputlanguage" class="inputsmallscreens"></select><br>
     <label for="outputlanguage6" style="vertical-align: top;">Output language : </label>
-    <select id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
+    <select onchange="if (critical_percentage_reached) MultipleSelectionLimitation(this,2);" id="outputlanguage6"  name="outputlanguage[]" class="inputsmallscreens" style="vertical-align: top;"></select><br>
     
     <button id="App11" value="Create" onclick="if (_('fileToUpload11').value!='') {this.innerHTML=''; SubmitJob(11,'Create');} else {alert('You must provide a file first !');}" class="mybutton">Create</button>
     <p id="Message11"></p>
