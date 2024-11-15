@@ -484,15 +484,24 @@ config_used_df['Microsoft translation both'] = config_used_df['Configuration']
 
 for i in config_used_df.index:
   if (config_used_df['Configuration'][i] != 'direct link'):
-    config_used_df['Classroom language'][i] = config_used_df['Configuration'][i][0]
-    config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
-    config_used_df['Translation bar'][i] = config_used_df['Configuration'][i][2]
-    config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i][4]
-    config_used_df['Wooclap'][i] = config_used_df['Configuration'][i][7]
-    config_used_df['Share tab'][i] = config_used_df['Configuration'][i][8]
-    config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i][16]
-    config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i][17]
-    
+    # Issue for pandas 3.0
+    #config_used_df['Classroom language'][i] = config_used_df['Configuration'][i][0]
+    #config_used_df['Subtitle language'][i] = config_used_df['Configuration'][i][1]
+    #config_used_df['Translation bar'][i] = config_used_df['Configuration'][i][2]
+    #config_used_df['Transcription bar'][i] = config_used_df['Configuration'][i][4]
+    #config_used_df['Wooclap'][i] = config_used_df['Configuration'][i][7]
+    #config_used_df['Share tab'][i] = config_used_df['Configuration'][i][8]
+    #config_used_df['Microsoft translation'][i] = config_used_df['Configuration'][i][16]
+    #config_used_df['Microsoft translation both'][i] = config_used_df['Configuration'][i][17]
+    config_used_df.loc[i,'Classroom language'] = config_used_df['Configuration'][i][0]
+    config_used_df.loc[i,'Subtitle language'] = config_used_df['Configuration'][i][1]
+    config_used_df.loc[i,'Translation bar'] = config_used_df['Configuration'][i][2]
+    config_used_df.loc[i,'Transcription bar'] = config_used_df['Configuration'][i][4]
+    config_used_df.loc[i,'Wooclap'] = config_used_df['Configuration'][i][7]
+    config_used_df.loc[i,'Share tab'] = config_used_df['Configuration'][i][8]
+    config_used_df.loc[i,'Microsoft translation'] = config_used_df['Configuration'][i][16]
+    config_used_df.loc[i,'Microsoft translation both'] = config_used_df['Configuration'][i][17]
+
 config_used_df.replace({'A':'french', 'B':'english', 'Y':'yes', 'N':'no'}, inplace=True)
 config_used_df = config_used_df.sort_values('Number of uses', ascending=False)
 
