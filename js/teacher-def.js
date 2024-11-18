@@ -14,7 +14,7 @@ var Studentmaxorder_readtext = -1;
 var StudentAllPhrases = [];
 var lastSentenceVO = '';
 var lastSentenceTranslated = '';
-var LiveTranslationFreq = 100;
+var LiveTranslationFreq = 2;
 var LiveTranslationNum = 0;
 var totalTranslated = 0;
 
