@@ -105,7 +105,7 @@ if (isset($Stats_DEEPL["character_count"])) {
 } else $percentage_DEEPL = 0;
 
 $myfile = fopen("../locks/DeeplPro_quota_exceeded.txt", "w") or die("Unable to open file!");
-if ($percentage_DEEPL > 99){
+if ($percentage_DEEPL > 199){ // On bloque cette fonctionnalité pour le moment revenir à 99% si besoin
   $txt = "false";
 } else {
   $txt = "true";
