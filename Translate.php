@@ -59,6 +59,7 @@ function removeAccents($str) {
 
 echo "Translator = ".$WhichTranslator."\n";
 echo "RoomID = ".$_GET["ROOMID"]."\n";
+echo "Key = ".$apikey."\n";
 
 
 if (isset($_GET["ROOMID"])) {
