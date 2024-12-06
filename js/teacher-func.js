@@ -548,7 +548,7 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             var d_end = Date.now();
             //console.log("Receiving translation in " + (d_end - d_begin) + "ms for " + ch + " from " + linput + " to " + l);
-            //console.log(this.responseText);
+            console.log(this.responseText);
             //T_durations[ch]=undefined;
             var response = JSON.parse(this.responseText);
             lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
