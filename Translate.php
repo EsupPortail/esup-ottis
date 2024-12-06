@@ -34,8 +34,6 @@ fclose($myfile);
 */
 if (! isset($_GET["ROOMID"])) $_GET["ROOMID"]="UNKNOWN";
 
-$WhichTranslator."\n";
-
 $deepl_usable="true";
 $proxy="";
 
