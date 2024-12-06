@@ -33,6 +33,8 @@ $deepl_usable = fgets($myfile);
 fclose($myfile);
 */
 
+$deepl_usable=true;
+
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
 if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
   if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
