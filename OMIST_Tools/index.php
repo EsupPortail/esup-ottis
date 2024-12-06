@@ -46,7 +46,6 @@ if ($external){
 
 if ($external) $uid="external";
 
-//if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 $fake=false;
 
 AuthenticateNotStudent($uid);
@@ -1116,12 +1115,6 @@ It's important to note that the resulting capsule can serve as comprehensive inp
     <p id="Message11"></p>
     </form>
     </div>
-</div>
-<div id="tool13">
-  <h3 title="Our audio and video file transcription is an in-browser implementation of the open AI Whisper tool. Basically, the transcription tool and the AI model are downloaded and executed by your own computer, your file will never leave your computer. So it is a safe way to transcript files. There is no limitations on the duration of the file, except the one imposed by your computer capabilities. By default, the tool is configured to handle french speeches with the Whisper medium model but this can be easily modified.">Audio/video file transcription</h3>
-  <div>
-    <iframe title="Cadre pour myWhisper" style="width:80%; height: 500px; border: none;" src="MyWhisper/index.html"></iframe>
-  </div>
 </div>
 <div id="tool14">
     <h3 title="Link to the Ceméa (Centres d’Entraînement aux Méthodes d’Education Active) Scribe transcripton tool. Here, your file is sent and handled by the CEMEA servers. The transcription is based on the VOSK open model.">Audio/video file transcription with Scribe-CEMEA free tool</h3>

@@ -21,7 +21,6 @@ if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous"
 if (! isset($external)) $external=false;
 if ($external) $uid="external";
 
-//if ($_SERVER['PHP_AUTH_USER'] == "bourdon-j" && isset($_GET["fakeuser"])) {$fake=true; $uid=$_GET["fakeuser"];} else {$fake=false;}
 $fake=false;
 
 AuthenticateNotStudent($uid);

@@ -69,6 +69,7 @@ if (isset($_GET["WOOCLAPKEY"])) {
 // Utilisation de Microsoft Cognitive Services si MicrosoftKey et MicrosoftRegion en paramètres
 $MicrosoftKey="";
 $MicrosoftRegion="";
+/*
 if ($userprivileges<2) {
   // default values for privileged users (JB account...)
   $MicrosoftKey=$MicrosoftKey_default;
@@ -77,6 +78,8 @@ if ($userprivileges<2) {
 if (isset($_GET["MicrosoftKey"])) $MicrosoftKey=$_GET["MicrosoftKey"];
 if (isset($_GET["MicrosoftRegion"])) $MicrosoftRegion=$_GET["MicrosoftRegion"];
 $Microsofton=(($userprivileges<2)||($MicrosoftKey !=""));
+*/
+$Microsofton=false;
 
 $theme="flat_black";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];
@@ -832,8 +835,8 @@ for($i=0; $i<$nbcircles; $i++) {
 	<script src="js/teacher-post.js"></script>
 	<!-- Microsoft Azure Cognitive Services -->
 	<!--    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> -->
-	<script src="libs/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
-	<script src="js/teacher-ms.js"></script>
+	<!-- <script src="libs/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>-->
+	<!-- <script src="js/teacher-ms.js"></script> -->
 	<!--
 	<script>
   var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 
