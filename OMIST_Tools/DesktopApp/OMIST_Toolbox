@@ -1,3 +1,0 @@
-#!/bin/sh
-cd /Users/bourdon-j/Documents/Developpements/TraductionTestPython/applescripts
-wish ./Main.tk &
