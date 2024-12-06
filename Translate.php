@@ -1,5 +1,5 @@
 <?php 
-include("Security/referer.php");
+//include("Security/referer.php");
 
 include "config.php";
 
@@ -27,9 +27,11 @@ if (isset($_GET["apikey"])) {
   }
 }
 
+/*
 $myfile = fopen("locks/DeeplPro_quota_exceeded.txt", "r") or die("Unable to open file!");
 $deepl_usable = fgets($myfile);
 fclose($myfile);
+*/
 
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
 if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
