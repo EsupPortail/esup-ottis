@@ -34,6 +34,7 @@ fclose($myfile);
 */
 
 $deepl_usable="true";
+$proxy="";
 
 // Automatically switch to Google Translate if it cannot be translated by DEEPL
 if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
