@@ -57,6 +57,10 @@ function removeAccents($str) {
   return str_replace($a, $b, $str);
 }
 
+echo "Translator = ".$WhichTranslator."\n";
+echo "RoomID = ".$_GET["ROOMID"])."\n";
+
+
 if (isset($_GET["ROOMID"])) {
       $result = "";
       if ($lineid == "DIRECT") { //($lineid == "NONE") { // Problème ici à revoir
@@ -116,9 +120,7 @@ if (isset($_GET["ROOMID"])) {
         }
 
         // Launch DeepL Translation API
-        if ($WhichTranslator == "DEEPLFREE") {
-        echo $WhichTranslator."\n";
-        
+        if ($WhichTranslator == "DEEPLFREE") {        
         $output=array(); $retval=0;
         exec($proxy."curl -q https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLFREEAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
