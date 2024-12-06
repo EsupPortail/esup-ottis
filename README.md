@@ -34,13 +34,13 @@ Version 3.2.0
 
 #### 1. Copier le dépôt Git en local ou sur une machine distante
 
-`git clone https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator.git`
+
+`git clone https://gitlab.univ-nantes.fr/bourdon-j/omist-automatic-translator-public.git`
 
 ou
 
-`git clone git@gitlab.univ-nantes.fr:bourdon-j/omist_automatictranslator.git`
+`git@gitlab.univ-nantes.fr:bourdon-j/omist-automatic-translator-public.git`
 
 #### 2. Mettre en place les bases de données
 [Pour les OMIST Tools](https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator/-/blob/master/OMIST_Tools/README.md?ref_type=heads)
 
-[Pour le tableau de bord](https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator/-/blob/master/Admin/Stats/README.md?ref_type=heads)

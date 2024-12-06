@@ -219,7 +219,6 @@ $( function() {
   <button class="button-admin" onclick="Edit('../tables/comments.txt');"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Comments</button>
   
   <h3> Links <h3>
-  <button class="button-admin" onclick="<?php echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/Admin/Registration/admin/home.php'))" ?>"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Login table</button>
   <button class="button-admin" onclick="<?php echo "javascript:void(window.open('https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/Admin/Stats/Dashboard.php'))" ?>"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</button>
 <?php
   if (strpos($_SERVER['REQUEST_URI'],"-external")>0) { 
