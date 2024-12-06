@@ -117,6 +117,8 @@ if (isset($_GET["ROOMID"])) {
 
         // Launch DeepL Translation API
         if ($WhichTranslator == "DEEPLFREE") {
+        echo $WhichTranslator."\n";
+        
         $output=array(); $retval=0;
         exec($proxy."curl -q https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLFREEAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
         $resultjson = (implode(" ",$output));
