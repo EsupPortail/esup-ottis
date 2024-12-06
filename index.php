@@ -94,10 +94,6 @@ while($line=fgets($fd,4096)) {
 }
 fclose($fd);
 
-// Stats and log
-$fd = fopen("tmp/StatsLogs.txt","a");
-fwrite($fd,gmdate("Y-m-d\TH:i:s\Z")."|".$uid."|".$classroomid."\n");
-fclose($fd);
 
 //Get IP address
 if(!empty($_SERVER['HTTP_CLIENT_IP'])){
@@ -163,6 +159,7 @@ fwrite($myfile, $txt);
 fclose($myfile);
 */
 
+if ($SAVESTATS) {
 //Connexion avec la base de données pour les statistiques
 try{
     $pdo_stats = new PDO("mysql:host=" . $dbhost_stats . ";dbname=" . $dbname_stats, $dbuser_stats, $dbpass_stats);
@@ -208,7 +205,7 @@ $insertCommande_stats->execute([
     'ip_address' => $ip_address,
 	'is_external' => $is_external
 ]);
-
+}
 //print_r($T_lang);
 ?>
 <!doctype html>
