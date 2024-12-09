@@ -44,3 +44,6 @@ ou
 #### 2. Mettre en place les bases de données
 [Pour les OMIST Tools](https://gitlab.univ-nantes.fr/bourdon-j/omist_automatictranslator/-/blob/master/OMIST_Tools/README.md?ref_type=heads)
 
+#### 3. La version actuelle vient sans clés de traduction
+
+Pour activer les options de traduction, il convient d'éditer le fichier tables/tokens.json pour y ajouter vos propres identifiants.
