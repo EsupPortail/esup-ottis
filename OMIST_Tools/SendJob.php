@@ -1,6 +1,7 @@
 <?php
 include(dirname(__FILE__)."/config_database.php");
 include("../Admin/Stats/config_database_stats.php");
+include("../config.php");
 
 if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
@@ -151,6 +152,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     echo 'Your request will be processed soon...';
 
     
+    if ($SAVESTATS) {
     //Get IP adress
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
     	//ip from share internet
@@ -161,6 +163,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     }else{
     	$ip = $_SERVER['REMOTE_ADDR'];
     }
+
 
     //Connexion avec la base de données pour les statistiques
     try{
@@ -197,7 +200,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
         'ip_address' => $ip_address,
         'is_external' => $is_external
     ]);
-
+    }
  }
 
 else{

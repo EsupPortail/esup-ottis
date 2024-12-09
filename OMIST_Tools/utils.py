@@ -300,6 +300,7 @@ def ConnexionDB(randompath, char_translated):
     char_translated : int
         Nombre de caractères traduits.
     """
+    return None
     if randompath !="" :
         mydb = mysql.connector.connect(
         user = "root",

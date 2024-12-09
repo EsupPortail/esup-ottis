@@ -1,5 +1,6 @@
 <?php
 include(dirname(__FILE__)."/config_database.php");
+include("../config.php");
 
 if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
 
@@ -148,6 +149,8 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     
     echo 'Your request will be processed soon...';
 
+
+    if ($SAVESTATS) {
     //Get IP adress
     if(!empty($_SERVER['HTTP_CLIENT_IP'])){
     	//ip from share internet
@@ -189,7 +192,7 @@ if (isset($_POST['ProgramName']) && $_FILES["fileToUpload"]["tmp_name"] != "") {
     $fd_stats=fopen("fakeDB/db_stats.json","a");
     fputs($fd_stats,$json_stats."|||\n");
     fclose($fd_stats);
-
+    }
  }
 
 else{
