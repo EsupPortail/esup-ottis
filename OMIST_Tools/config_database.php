@@ -4,7 +4,7 @@
 
 $dbname = "db_tasks";
 $dbuser = "root";
-$dbpass = "root";
+$dbpass = "omist";
 $dbhost = "localhost";
 
 ?>
