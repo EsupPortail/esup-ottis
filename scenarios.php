@@ -51,7 +51,7 @@ $_SESSION["from"]="scenarios";
             </button>
           </div>
           <div class="carousel-title">
-            <h2> Choisissez votre angle scénario </h2>
+            <h2> Choisissez votre scénario </h2>
             <p id="toogle-text"> Êtes-vous externe à Nantes Université ? <input id="toggle-external" class="toggle" type="checkbox" onclick="updateExternal()" title="External to Nantes Université"></p>
           </div>
           <ul class="image-list">
