@@ -6,9 +6,15 @@ OMIST_Tools/configOT.php
 OMIST_Tools/config_database.php
 OMIST_Tools/config_sh
 tables/tokens.json
-# Local environment files
+# Ignore environment and local files
 .env
 .env.*
-# Temporary and generated files
+# Ignore generated and temporary files
 OMIST_Tools/__pycache__/
+node_modules/
 tmp/
+# Ignore editor files
+*.swp
+*~
+
+tables/tokens_OLD.json

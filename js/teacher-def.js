@@ -40,7 +40,7 @@ var visioactive = false;
 var AllOutputVoices = [];
 var TLangInput = [];
 var builtin_voice;
-var builtin_language;
+let builtin_language;
 var subtitle_language;
 var speech_language = 'same';
 

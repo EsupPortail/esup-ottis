@@ -241,10 +241,11 @@ $(function() {
 });
 
 
-// Word Cloud
+// Word Cloud (DISABLED - tabs commented out)
 
 
 
+/*
 var bufferWC = [];
 var sizebufferWC = 15;
 var placebufferWC = 0;
@@ -280,6 +281,7 @@ function LaunchWC() {
     //setInterval(updateWC, 1000);
 }
 //setTimeout(LaunchWC, 3000);
+*/
 
 
 

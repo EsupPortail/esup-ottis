@@ -1,55 +1,145 @@
-<?php 
-//include("Security/referer.php");
+<?php
+// Désactiver l'affichage des erreurs et activer les logs
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+// Chemin vers ton fichier de log (à adapter)
+$DEBUG = true; // Mettre à false en production !!!!
+$logFile = __DIR__ . '/tmp/translate_deepl_debug.log';
+
+function safe_log($message) {
+    global $DEBUG, $logFile;
+    if (!$DEBUG) {
+        return;
+    }
+    $dir = dirname($logFile);
+    if (!is_dir($dir) || !is_writable($dir)) {
+        return;
+    }
+    file_put_contents($logFile, $message, FILE_APPEND);
+}
+
+function http_post($url, $payload, $headers, &$httpCode, &$errorMsg) {
+    $errorMsg = '';
+    $httpCode = null;
+
+    if (function_exists('curl_init')) {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+        curl_setopt($curl, CURLOPT_FAILONERROR, false);
+
+        $result = curl_exec($curl);
+        $errorMsg = curl_error($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        if ($result === false) {
+            return false;
+        }
+        return $result;
+    }
+
+    if (!ini_get('allow_url_fopen')) {
+        $errorMsg = 'Neither cURL nor allow_url_fopen is available.';
+        return false;
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'method' => 'POST',
+            'header' => implode("\r\n", $headers),
+            'content' => $payload,
+            'timeout' => 15,
+            'ignore_errors' => true,
+        ]
+    ]);
+
+    $result = @file_get_contents($url, false, $context);
+    if ($result === false) {
+        $errorMsg = 'file_get_contents failed';
+        return false;
+    }
+
+    if (isset($http_response_header) && is_array($http_response_header)) {
+        foreach ($http_response_header as $headerLine) {
+            if (preg_match('#HTTP/[0-9\.]+\s+(\d+)#', $headerLine, $matches)) {
+                $httpCode = intval($matches[1]);
+                break;
+            }
+        }
+    }
+
+    return $result;
+}
+
+function respond_json(array $response, int $statusCode = 200) {
+    http_response_code($statusCode);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+// Récupérer les paramètres
+$texte = html_entity_decode(strip_tags($_GET["texte"] ?? ''));
+$lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['lang'] ?? '');
+$langinput = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['langinput'] ?? '');
+$roomId = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['ROOMID'] ?? 'UNKNOWN');
+$lineid = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['lineid'] ?? 'NONE');
+$forcelibre = isset($_GET['forcelibre']);
+$WhichTranslator = $_GET['whichtranslator'] ?? null; // may be set later
+if ($forcelibre) {
+    $WhichTranslator = "LIBRETRANSLATE";
+}
+$apikey = $_GET["apikey"] ?? '';
+
+// Log des paramètres reçus
+safe_log("Paramètres reçus:\n" .
+    "texte: $texte\n" .
+    "lang: $lang\n" .
+    "langinput: $langinput\n" .
+    "ROOMID: $roomId\n" .
+    "lineid: $lineid\n" .
+    "forcelibre: " . ($forcelibre ? 'true' : 'false') . "\n" .
+    "WhichTranslator: $WhichTranslator\n");
+
+// Définir l'en-tête JSON
+header('Content-Type: application/json');
 
 include "config.php";
 
-$texte = html_entity_decode(strip_tags($_GET["texte"]));
-$lang = $_GET["lang"];
-$langinput = $_GET["langinput"];
-if (isset($_GET["lineid"])) $lineid=$_GET["lineid"]; else $lineid="NONE";
-if (isset($_GET["forcelibre"])) $WhichTranslator="LIBRETRANSLATE";
-if (isset($_GET["whichtranslator"])) $WhichTranslator=$_GET["whichtranslator"];
-if (isset($_GET["apikey"])) {
-  $apikey=$_GET["apikey"];
-  switch ($WhichTranslator) {
-    case "GOOGLE":
-      $GOOGLEAPITOKEN=$apikey;
-      break;
-    case "DEEPL":
-      $DEEPLAPITOKEN=$apikey;
-      break;
-    case "DEEPLPRO":
-      $DEEPLAPITOKEN=$apikey;
-      break;
-    case "DEEPLFREE":
-      $DEEPLFREEAPITOKEN=$apikey;
-      break;
-  }
+// Si l'utilisateur n'a pas forcé un traducteur via GET, utiliser DEEPLPRO
+if (empty($WhichTranslator)) {
+    $WhichTranslator = 'DEEPLPRO';
 }
 
-/*
-$myfile = fopen("locks/DeeplPro_quota_exceeded.txt", "r") or die("Unable to open file!");
-$deepl_usable = fgets($myfile);
-fclose($myfile);
-*/
-if (! isset($_GET["ROOMID"])) $_GET["ROOMID"]="UNKNOWN";
+safe_log("Clé DeepL Pro: " . (isset($DEEPLAPITOKEN) ? "*** (masquée) ***" : "NON DÉFINIE") . "\n");
 
-$deepl_usable="true";
-$proxy="";
+if ($apikey != "") {
+    switch ($WhichTranslator) {
+        case "DEEPL":
+        case "DEEPLPRO":
+            $DEEPLAPITOKEN = $apikey;
+            break;
+        case "DEEPLFREE":
+            $DEEPLFREEAPITOKEN = $apikey;
+            break;
+    }
+}
 
-// Automatically switch to Google Translate if it cannot be translated by DEEPL
+$deepl_usable = "true";
+$proxy = "";
+
 if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
-  if (! in_array(strtolower(substr($lang,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
-  if (! in_array(strtolower(substr($langinput,0,2)),$DEEPLKNOWNLANG)) $WhichTranslator = "GOOGLE";
-  if ($deepl_usable == "false") $WhichTranslator = "LIBRETRANSLATE";
+    if ($deepl_usable == "false") {
+        $WhichTranslator = "LIBRETRANSLATE";
+    }
 }
-
-// Automatically switch to Google Translate if it cannot be translated by LIBRETRANSLATE
-if ($WhichTranslator == "LIBRETRANSLATE") {
-  if (! in_array(strtolower(substr($lang,0,2)),$LIBRETRANSLATEKNOWNLANG)) $WhichTranslator = "GOOGLE";
-  if (! in_array(strtolower(substr($langinput,0,2)),$LIBRETRANSLATEKNOWNLANG)) $WhichTranslator = "GOOGLE";
-}
-
 
 function removeAccents($str) {
   $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ', 'Ά', 'ά', 'Έ', 'έ', 'Ό', 'ό', 'Ώ', 'ώ', 'Ί', 'ί', 'ϊ', 'ΐ', 'Ύ', 'ύ', 'ϋ', 'ΰ', 'Ή', 'ή');
@@ -57,124 +147,178 @@ function removeAccents($str) {
   return str_replace($a, $b, $str);
 }
 
-echo "Translator = ".$WhichTranslator."\n";
-echo "RoomID = ".$_GET["ROOMID"]."\n";
-echo "Key = ".$apikey."\n";
+// Préparer la réponse JSON
+$response = [
+    'translator' => $WhichTranslator,
+    'roomId' => $roomId,
+    'key' => $apikey ?? '',
+    'data' => []
+];
 
-
-if (isset($_GET["ROOMID"])) {
-      $result = "";
-      if ($lineid == "DIRECT") { //($lineid == "NONE") { // Problème ici à revoir
-        if (file_exists("tmp/Verylast_".$_GET["ROOMID"])) {
-          $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"r");
-          while($T=fgetcsv($fd,4096,";")) {
-            if (count($T)>2) {
-              if ($lineid == $T[0] && $lang == $T[1]) {
-                $result = "".$T[2];//"{ \"data\": { \"translations\": [ { \"translatedText\": \"".$T[2]."\" } ] } }";
-                if ($lang == "en") $result=removeAccents($result);
-              }
+$result = "";
+if ($roomId != "UNKNOWN") {
+    if ($lineid == "DIRECT") {
+        if (file_exists("tmp/Verylast_" . $roomId)) {
+            $fd = fopen("tmp/Verylast_" . $roomId, "r");
+            while ($T = fgetcsv($fd, 4096, ";")) {
+                if (count($T) > 2) {
+                    if ($lineid == $T[0] && $lang == $T[1]) {
+                        $result = $T[2];
+                        if ($lang == "en") $result = removeAccents($result);
+                    }
+                }
             }
-          }
-          fclose($fd);
+            fclose($fd);
         }
-      } else {
-      if (file_exists("tmp/Translated_".$_GET["ROOMID"])) {
-      $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"r");
-      if ($lineid != "DIRECT" && $lineid != "NONE" && $lineid !="") {
-      while($T=fgetcsv($fd,4096,";")) {
-        //print_r($T);
-        //echo implode(" ",$T)." --- ".$lineid." = ".$T[0]." , ".$lang." = ".$T[1]."\n";
-        if (count($T)>2) {
-          //$T=explode(";",$L);
-          if ($lineid == $T[0] && $lang == $T[1]) {
-            $result = "".$T[2];//"{ \"data\": { \"translations\": [ { \"translatedText\": \"".$T[2]."\" } ] } }";
-            if ($lang == "en") $result=removeAccents($result);
-          }
+    } else {
+        if (file_exists("tmp/Translated_" . $roomId)) {
+            $fd = fopen("tmp/Translated_" . $roomId, "r");
+            if ($lineid != "DIRECT" && $lineid != "NONE" && $lineid != "") {
+                while ($T = fgetcsv($fd, 4096, ";")) {
+                    if (count($T) > 2) {
+                        if ($lineid == $T[0] && $lang == $T[1]) {
+                            $result = $T[2];
+                            if ($lang == "en") $result = removeAccents($result);
+                        }
+                    }
+                }
+            }
+            fclose($fd);
         }
-      }
-      }
-      fclose($fd);
-      }
-      }
-      if ($result == "") {
-        if ($DEBUG) $texte=$WhichTranslator." --- ".$texte;
-        // Launch Google Traduction API
-        if ($WhichTranslator == "GOOGLE") {
-        $output=array(); $retval=0;
-        exec($proxy."curl -q -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte."")."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"",$output,$retval);
-        $resultjson = (implode(" ",$output));
-        $result=$resultjson;
-        //$result=$resultjson->data->translations[0]->translatedText;
-        }
+    }
 
-        // Launch DeepL Translation API
+    if ($result == "") {
+        // Appels aux APIs de traduction (inchangé)
+        $data = [
+            'text' => [$texte],  // $texte n'a pas besoin d'être modifié manuellement
+            'source_lang' => strtoupper($langinput),
+            'target_lang' => strtoupper($lang)
+        ];
+        $payload = json_encode($data);
+
+        // Utiliser cURL natif PHP pour DeepL Pro
         if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
-        $output=array(); $retval=0;
-        //exec($proxy."curl https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
-        exec($proxy."curl -q https://api.deepl.com/v2/translate -d auth_key=".$DEEPLAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
-        $resultjson = (implode(" ",$output));
-        $resultsinjson = json_decode($resultjson);
-        $resultjson = '{   "data": '.str_replace("\n"," ",str_replace('"text"','"translatedText"',$resultjson)).' }';
+            safe_log("Appel DeepL payload: " . $payload . "\n");
 
-        $result=$resultjson;
+            $headers = [
+                'Authorization: DeepL-Auth-Key ' . $DEEPLAPITOKEN,
+                'Content-Type: application/json'
+            ];
+            $resultjson = http_post('https://api.deepl.com/v2/translate', $payload, $headers, $httpcode, $curlerr);
 
+            safe_log("DeepL HTTP code: $httpcode, error: $curlerr\nResponse: $resultjson\n");
+            if ($resultjson === false || $httpcode === null || $httpcode < 200 || $httpcode >= 300) {
+                $resultjson = json_encode(['error' => true, 'message' => 'DeepL request failed', 'http_code' => $httpcode, 'error' => $curlerr]);
+            }
+            $result = $resultjson;
         }
 
-        // Launch DeepL Translation API
-        if ($WhichTranslator == "DEEPLFREE") {        
-        $output=array(); $retval=0;
-        exec($proxy."curl -q https://api-free.deepl.com/v2/translate -d auth_key=".$DEEPLFREEAPITOKEN." -d \"text=".str_replace('"','\"',$texte."")."\" -d \"source_lang=".strtoupper($langinput)."\" -d \"target_lang=".strtoupper($lang)."\"",$output,$retval);
-        $resultjson = (implode(" ",$output));
-        $resultsinjson = json_decode($resultjson);
-        $resultjson = '{   "data": '.str_replace("\n"," ",str_replace('"text"','"translatedText"',$resultjson)).' }';
+        if ($WhichTranslator == "DEEPLFREE") {
+            $url = 'https://api-free.deepl.com/v2/translate';
+            $payload = http_build_query([
+                'auth_key' => $DEEPLFREEAPITOKEN,
+                'text' => $texte,
+                'source_lang' => strtoupper($langinput),
+                'target_lang' => strtoupper($lang)
+            ]);
+            $headers = ['Content-Type: application/x-www-form-urlencoded'];
 
-        $result=$resultjson;
-
+            $resultjson = http_post($url, $payload, $headers, $httpCode, $errorMsg);
+            safe_log("DeepL Free HTTP code: $httpCode, error: $errorMsg\nResponse: $resultjson\n");
+            if ($resultjson === false || $httpCode === null || $httpCode < 200 || $httpCode >= 300) {
+                $resultjson = json_encode(['error' => true, 'message' => 'DeepL Free request failed', 'http_code' => $httpCode, 'error' => $errorMsg]);
+            } else {
+                $decoded = json_decode($resultjson, true);
+                if (json_last_error() === JSON_ERROR_NONE && isset($decoded['translations'])) {
+                    $resultjson = json_encode(['data' => ['translations' => $decoded['translations']]]);
+                } else {
+                    $resultjson = json_encode(['error' => true, 'message' => 'Invalid DeepL Free response', 'raw' => $resultjson]);
+                }
+            }
+            $result = $resultjson;
         }
 
         if ($WhichTranslator == "LIBRETRANSLATE") {
-        $output=array(); $retval=0;
-        exec($proxy."curl -q ".$LIBRETRANSLATESERVER." -d \"q=".str_replace('"','\"',$texte."")."\" -d \"format=text\" -d \"source=".strtolower($langinput)."\" -d \"target=".strtolower($lang)."\"",$output,$retval);
-        $resultjson = (implode(" ",$output));
-        $resultsinjson = json_decode($resultjson);
-        $resultjson = '{   "data": { "translations": ['.str_replace("\n"," ",$resultjson).'] } }';
+            $url = $LIBRETRANSLATESERVER;
+            $payload = http_build_query([
+                'q' => $texte,
+                'format' => 'text',
+                'source' => strtolower($langinput),
+                'target' => strtolower($lang)
+            ]);
+            $headers = ['Content-Type: application/x-www-form-urlencoded'];
 
-        $result=$resultjson;
-
-
-        
-
+            $resultjson = http_post($url, $payload, $headers, $httpCode, $errorMsg);
+            safe_log("LibreTranslate HTTP code: $httpCode, error: $errorMsg\nResponse: $resultjson\n");
+            if ($resultjson === false || $httpCode === null || $httpCode < 200 || $httpCode >= 300) {
+                $resultjson = json_encode(['error' => true, 'message' => 'LibreTranslate request failed', 'http_code' => $httpCode, 'error' => $errorMsg]);
+            } else {
+                $decoded = json_decode($resultjson, true);
+                if (json_last_error() === JSON_ERROR_NONE && isset($decoded['translatedText'])) {
+                    $resultjson = json_encode(['data' => ['translations' => [['translatedText' => $decoded['translatedText']]]]]);
+                } elseif (json_last_error() === JSON_ERROR_NONE && isset($decoded[0]['translation'])) {
+                    $resultjson = json_encode(['data' => ['translations' => [['translatedText' => $decoded[0]['translation']]]]]);
+                } else {
+                    $resultjson = json_encode(['error' => true, 'message' => 'Invalid LibreTranslate response', 'raw' => $resultjson]);
+                }
+            }
+            $result = $resultjson;
         }
-/*
-{   "data": {     "translations": [       {         "translatedText": "For a lattice mode P, all the values h, k, l are possible. Consequently, the first reflection has the index 1 0 0. The series of the ratios of the squared distances is therefore 1, 2, 3, 4, 5, 6, 8, 9"       }     ]   } }
-*/
-/*
-{
-	"translations": [{
-		"detected_source_language":"EN",
-		"text":"Hallo, Welt!"
-	}]
-}
-*/      
 
-        echo $resultjson;
-        $fd=fopen("tmp/Translated_".$_GET["ROOMID"],"a");
-        if ($lineid != "NONE" && $lineid !="") {
-          fputs($fd,$lineid.";".$lang.";".$result."\n");
+        // Sauvegarder le résultat dans un fichier
+        $translatedFile = "tmp/Translated_" . $roomId;
+        $fd = @fopen($translatedFile, "a");
+        if ($fd !== false) {
+            if ($lineid != "NONE" && $lineid != "") {
+                fputcsv($fd, [$lineid, $lang, $result], ';');
+            }
+            fclose($fd);
+        } else {
+            safe_log("Impossible d'ouvrir '$translatedFile' en écriture\n");
         }
-        fclose($fd);
+
         if ($lineid == "NONE") {
-          $fd=fopen("tmp/Verylast_".$_GET["ROOMID"],"w");
-          fputs($fd,$lineid.";".$lang.";".$result."\n");
-          fclose($fd);
+            $verylastFile = "tmp/Verylast_" . $roomId;
+            $fd = @fopen($verylastFile, "w");
+            if ($fd !== false) {
+                fputcsv($fd, [$lineid, $lang, $result], ';');
+                fclose($fd);
+            } else {
+                safe_log("Impossible d'ouvrir '$verylastFile' en écriture\n");
+            }
         }
-      } else {
-        echo str_replace('"translatedText":"','"translatedText":"',$result);
-      }
-
-
+    } else {
+        $result = str_replace('"translatedText":"', '"translatedText":"', $result);
+    }
 } else {
-//  system($proxy."curl -q -s -X POST -H \"Content-Type: application/json\" --data \"{ 'q': '".str_replace("'","\'",$texte."")."',  'source': '".$langinput."',  'target': '".$lang."',  'format': 'text'}\" \"https://translation.googleapis.com/language/translate/v2?key=".$GOOGLEAPITOKEN."\"");
+    // Cas où ROOMID n'est pas défini (ne devrait pas arriver)
+    $response['error'] = true;
+    $response['message'] = 'ROOMID non défini';
 }
 
+// Ajouter le résultat à la réponse
+if (!empty($result)) {
+    try {
+        $resultData = json_decode($result, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $response['data'] = $resultData;
+        } else {
+            // Si $result n'est pas un JSON valide, le mettre dans translatedText
+            $response['data'] = [
+                'translations' => [
+                    ['translatedText' => $result]
+                ]
+            ];
+        }
+    } catch (Exception $e) {
+        $response['data'] = [
+            'translations' => [
+                ['translatedText' => $result]
+            ]
+        ];
+    }
+}
+
+// Retourner la réponse JSON
+echo json_encode($response);
 ?>

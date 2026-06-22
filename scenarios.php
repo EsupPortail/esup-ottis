@@ -4,16 +4,22 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 $_SESSION["from"]="scenarios";
+$language = $_GET['lang'] ?? 'fr'; // Langue par défaut
+$translations = json_decode(file_get_contents("lang/{$language}.json"), true);
+$pageDestination = "accueil.php";
 ?>
 <!DOCTYPE html>
-<html lang="fr-FR">
+<html lang="<?= htmlspecialchars($language) ?>">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="lang" content="<?= htmlspecialchars($language) ?>">
     <title>OMIST - Scenarios</title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/scenarios.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    
+    <script src="./js/translatepage.js"></script>
     <script src="./jquery/jquery.js"></script>
     <script src="./jquery/jquery-ui.min.js"></script>
     <script src="./js/google-translate-script.js"></script>
@@ -30,15 +36,23 @@ $_SESSION["from"]="scenarios";
       }
     ?>
     </script>
+    <script src="./js/matomo.js"></script>
+
   </head>
   <body onload="applyConfig();">
     <header>
       <nav>
-        <a href="https://automatictranslator.sciences.univ-nantes.fr/AutomaticTranslator/scenarios.php"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
+        <!-- <a href="https://omist-preprod.intra.univ-nantes.fr/"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a> -->
+        <a href="<?php echo $pageDestination; ?>"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
         <menu>
           <li><a href="mailto:omist-dev@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
-          <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu">Aide sur Madoc</span></a></li>
-          <li id="google_translate_element"><button id="translateButton" type="button"><b>Translate this page</b></button></li>
+          <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu translate" data-key="scenarios.aide">Aide sur Madoc</span></a></li>
+          <li id="google_translate_element">
+            <select id="language-select" onchange="changeLanguage(this.value)">
+              <option value="fr" <?= $language === 'fr' ? 'selected' : '' ?>>Français</option>
+              <option value="en" <?= $language === 'en' ? 'selected' : '' ?>>English</option>
+            </select>
+          </li>
         </menu>
       </nav>
     </header>
@@ -51,7 +65,7 @@ $_SESSION["from"]="scenarios";
             </button>
           </div>
           <div class="carousel-title">
-            <h2> Choisissez votre angle scénario </h2>
+            <h2 class="translate" data-key="scenarios.choix"></h2>
             <p id="toogle-text"> Êtes-vous externe à Nantes Université ? <input id="toggle-external" class="toggle" type="checkbox" onclick="updateExternal()" title="External to Nantes Université"></p>
           </div>
           <ul class="image-list">

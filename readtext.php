@@ -1,6 +1,6 @@
 <?php
 
-include("Security/referer.php");
+//include("Security/referer.php");
 
 $ligneID = $_POST["lineid"];
 $roomid = $_POST["ROOMID"];

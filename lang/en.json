@@ -1,0 +1,11 @@
+{
+    "accueil": {
+        "alertBrowser": "⚠️ ",
+        "test": "Aide sur Madoc"
+    },
+    "scenarios":{
+        "aide": "Help on madoc",
+        "choix": "Choose your scenario",
+        "externe": "Are you extern to Nantes Université ?"
+    }
+}

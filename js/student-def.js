@@ -1,5 +1,15 @@
 // Global variables for the student app
 
+// Extract variables from window.pageData (injected from PHP)
+var supportedlanguages = window.pageData ? window.pageData.supportedlanguages : [];
+var needSynchronize = window.pageData ? window.pageData.needSynchronize : false;
+var classroomid = window.pageData ? window.pageData.classroomid : '';
+// Wooclap disabled - tabs commented out
+// var wooclapkey = window.pageData ? window.pageData.wooclapkey : '';
+// var wooclapaddress = window.pageData ? window.pageData.wooclapaddress : 'https://app.wooclap.com';
+var theme = window.pageData ? window.pageData.theme : 'flat';
+var randomname = window.pageData ? window.pageData.randomname : '';
+
 var visioactive=false;
 var AllOutputVoices=[];
 var TLangInput=[];

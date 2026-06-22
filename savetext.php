@@ -1,5 +1,5 @@
 <?php
-include("Security/referer.php");
+//include("Security/referer.php");
 
 $ligneID = $_POST["lineid"];
 $text = $_POST["text"];

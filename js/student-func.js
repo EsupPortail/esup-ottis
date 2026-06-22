@@ -308,7 +308,9 @@ function applyConfigSub() {
  */
 
 function increasependingrequests() {
-    _('nbrequests').innerHTML = _('nbrequests').innerHTML * 1 + 1;
+    var nb = _('nbrequests');
+    if (!nb) return;
+    nb.innerHTML = nb.innerHTML * 1 + 1;
 }
 
 /**
@@ -317,7 +319,9 @@ function increasependingrequests() {
  */
 
 function decreasependingrequests() {
-    _('nbrequests').innerHTML = _('nbrequests').innerHTML * 1 - 1;
+    var nb = _('nbrequests');
+    if (!nb) return;
+    nb.innerHTML = nb.innerHTML * 1 - 1;
 }
 
 /**
@@ -332,7 +336,12 @@ function decreasependingrequests() {
 
 function Translate(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
+    var url = "Translate.php?texte=" + encodeURIComponent(ch)
+        + "&lang=" + encodeURIComponent(l)
+        + "&langinput=" + encodeURIComponent(linput)
+        + "&ROOMID=" + encodeURIComponent(_('classroomid').value)
+        + "&lineid=" + encodeURIComponent(lineid);
+    xhr.open("POST", url, true);
     increasependingrequests();
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
@@ -340,9 +349,9 @@ function Translate(ch, l, linput, lineid) {
             console.log(this.responseText);
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
-                ToSay['' + lineid] = (response["data"]["translations"][0]["translatedText"]);
+                ToSay['' + lineid] = (response["data"]["translations"][0]["text"]);
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
-                Ecrire(response["data"]["translations"][0]["translatedText"]);
+                Ecrire(response["data"]["translations"][0]["text"]);
             } else {
                 Ecrire("---- Translation ERROR ----")
             }
@@ -372,7 +381,12 @@ function Translate(ch, l, linput, lineid) {
 
 function Translate2(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid, true);
+    var url = "Translate.php?texte=" + encodeURIComponent(ch)
+        + "&lang=" + encodeURIComponent(l)
+        + "&langinput=" + encodeURIComponent(linput)
+        + "&ROOMID=" + encodeURIComponent(_('classroomid').value)
+        + "&lineid=" + encodeURIComponent(lineid);
+    xhr.open("POST", url, true);
     increasependingrequests();
     xhr.onloadend = function() {
         decreasependingrequests();
@@ -427,10 +441,11 @@ function EcrireNBSub(ch) {
  */
 
 function Ecrire(ch) {
+    console.log(ch);
     if (_('output').innerHTML == "")
         _('output').innerHTML = ch;
     else _('output').innerHTML = _('output').innerHTML + "<br/>" + ch;
-    //_('titre').innerHTML=ch;
+    _('titre').innerHTML=ch;
     //_('subtitles').innerHTML=ch;
 
     //bufferWC[placebufferWC] = ch;
@@ -709,11 +724,14 @@ function readImage() {
             if (request.responseText != "") {
                 var Trep = request.responseText.split('|||');
                 currentrandom = Trep[0];
-                _('img_slides').src = Trep[1];
-                _('img_slides').width=1280;
-                _('img_slides').height=800;
-                _('img_slides').onload = resizeSlides;
-                _('stillwaiting').style.display="none";
+                var imgSlides = _('img_slides');
+                if (imgSlides && Trep[1]) {
+                    imgSlides.src = Trep[1];
+                    imgSlides.width = 1280;
+                    imgSlides.height = 800;
+                    imgSlides.onload = resizeSlides;
+                }
+                if (_('stillwaiting')) _('stillwaiting').style.display="none";
                 console.log('Got a new image');
             }
 
@@ -778,48 +796,54 @@ function Init() {
     activetab('tabs-0');
 
     if (needSynchronize) Synchronize(prompt('Enter the session pincode'));
+    // Wooclap disabled - tabs commented out
+    /*
     setTimeout(function() {
-        _('wooclap').src = 'https://app.wooclap.com/';
+        var wooclapEl = _('wooclap');
+        if (wooclapEl) {
+            wooclapEl.src = 'https://app.wooclap.com/';
+        }
     }, 1000);
+    */
     setTimeout(function() {
         saveTextQ("[newstudentarrived]");
     }, 1000);
     setTimeout(function() {
         showMessageMenu()
     }, 3000);
-    _('iconeMenu').src = MenuOnIMG;
+    if (_('iconeMenu')) _('iconeMenu').src = MenuOnIMG;
     ChangeColor('titre', _('ColorTitre').value);
 
     // Keyboard navigation
     document.onkeyup = function(event) {
-        if (["StudentName","wooclapkey", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)<0) {
-        if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
+        if (["StudentName", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)<0) {
+            if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
+            }
+            if (event.code === 'KeyS') { // Show slides tab
+                activetab('tabs-7');
+            }
+            if (event.code === 'KeyC') { // Show configuration tab
+                activetab('tabs-0');
+            }
+            if (event.code === 'KeyT') { // Show Tchat tab
+                activetab('tabs-1');
+            }
+            if (event.code === 'KeyL') { // go to live
+                gotolive=true; CompleteSpeech();
+            }
+            if (event.code === 'KeyF') { // go fullscreen
+                GoFS();
+            }
+            if (event.code === 'KeyR') { // repeat
+                Parle(document.getElementById('titre').innerHTML);
+            }
+            if (event.code === 'ArrowUp') { // Move the subtitles UP
+                document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1-5)+"px";
+            }
+            if (event.code === 'ArrowDown') { // Move the subtitles Down
+                document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1+5)+"px";
+            }
         }
-        if (event.code === 'KeyS') { // Show slides tab
-            activetab('tabs-7');
-        }
-        if (event.code === 'KeyC') { // Show configuration tab
-            activetab('tabs-0');
-        }
-        if (event.code === 'KeyT') { // Show Tchat tab
-            activetab('tabs-1');
-        }
-        if (event.code === 'KeyL') { // go to live
-            gotolive=true; CompleteSpeech();
-        }
-        if (event.code === 'KeyF') { // go fullscreen
-            GoFS();
-        }
-        if (event.code === 'KeyR') { // repeat
-            Parle(document.getElementById('titre').innerHTML);
-        }
-        if (event.code === 'ArrowUp') { // Move the subtitles UP
-            document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1-5)+"px";
-        }
-        if (event.code === 'ArrowDown') { // Move the subtitles Down
-            document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1+5)+"px";
-        }
-    }
     };
 }
 
@@ -851,26 +875,23 @@ function readTextQ() {
             //console.log('Debug : '+inputnumberQ+T.length);
             for (var i = inputnumberQ; i < T.length; i++) {
                 var L = T[i].split(';');
+                // Extratab disabled - tabs commented out
                 if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
-                    // Add an extratab
-                    var resource = L[2].replace("[extratab", "").replace("]", "").split("|");
-                    var tabnumber = resource[0];
-                    var url = resource[1];
-                    showET(url, tabnumber);
-                } else {
-                    if (L[0] != 'ROBOT' && L[2].indexOf("[newstudent") < 0) {
-                        //console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
-                        if (builtin_voice.lang.substr(0, 2) != L[1].substr(0, 2))
-                            TranslateQ(L[2], builtin_voice.lang.substr(0, 2), L[1].substr(0, 2), L[0], i);
-                        else {
-                            EcrireCR(L[0], L[2], i);
-                        }
+                    // Skip extratab messages - tabs commented out
+                    continue;
+                }
+                if (L[0] != 'ROBOT' && L[2].indexOf("[newstudent") < 0) {
+                    //console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
+                    if (builtin_voice.lang.substr(0, 2) != L[1].substr(0, 2))
+                        TranslateQ(L[2], builtin_voice.lang.substr(0, 2), L[1].substr(0, 2), L[0], i);
+                    else {
+                        EcrireCR(L[0], L[2], i);
                     }
                 }
             }
             inputnumberQ = T.length;
-        };
-    }
+        }
+    };
 }
 
 /**
@@ -921,7 +942,7 @@ function TranslateQ(ch, l, linput, name, order) {
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 // Parle(response["data"]["translations"][0]["translatedText"]);
-                EcrireCR(name, response["data"]["translations"][0]["translatedText"], order);
+                EcrireCR(name, response["data"]["translations"][0]["text"], order);
             } else {
                 EcrireCR("----", "---- Translation ERROR ----", order)
             }
@@ -962,10 +983,15 @@ function GoFS() {
 
 function resizeSlides() {
     var slide = _('img_slides');
+    
+    // Guard: if slide doesn't exist or has no valid dimensions, skip
+    if (!slide || slide.width <= 0 || slide.height <= 0) {
+        return;
+    }
+    
     var ratio = slide.width / slide.height;
     var aggrandissmentX = (window.innerWidth - 30) / slide.width;
     var aggrandissmentY = (window.innerHeight - 80) / slide.height;
-    console.log("W="+slide.width+", H="+slide.height+', WW='+window.innerWidth+', WH='+window.innerHeight+', AX='+aggrandissmentX+', AY='+aggrandissmentY);
     if (aggrandissmentX > aggrandissmentY) {
         /*
         slide.width=aggrandissmentY*slide.width;
@@ -987,20 +1013,22 @@ function resizeSlides() {
 
     //var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
     //TTabs.map(function (name) {_(name).style.top=(48*scalemenu)+'px';})
-    // For wooclap and others
-    ['tabs-0',"tabs-7","wooclap", "extratab1", "extratab2", "extratab3", "extratab4"].map(resizeWindow)
+    // For wooclap and others (DISABLED - tabs commented out)
+    // ['tabs-0',"tabs-7","wooclap", "extratab1", "extratab2", "extratab3", "extratab4"].map(resizeWindow)
+    ['tabs-7'].map(resizeWindow)
     MinTitlePos();
 }
 
 
 /**
- * @summary Switch a given extratab visible or invisible
+ * @summary Switch a given extratab visible or invisible (DISABLED - tabs commented out)
  * 
  * @param {HTMLInput checkbox} obj a checkbox.
  * @param {number} num the tab number.
  * @returns
  */
 
+/*
 function showET(url, num) {
     //alert('url='+url+'    num='+num+'     tabs='+'ltabs-'+(8+1*num))
     if (url != "") {
@@ -1010,6 +1038,7 @@ function showET(url, num) {
         hide('ltabs-' + (8 + 1 * num));
     }
 }
+*/
 
 /**
  * @summary Wait for the SpeechSynthesis Voices to be available 
@@ -1047,12 +1076,12 @@ function LoadVoices() {
 function ShowMenu() {
     scalemenu = 1 - scalemenu;
     if (scalemenu < 0.05) {
-        _('iconeMenu').src = MenuOnIMG;
+        if (_('iconeMenu')) _('iconeMenu').src = MenuOnIMG;
     } else {
-        _('iconeMenu').src = MenuOffIMG;
+        if (_('iconeMenu')) _('iconeMenu').src = MenuOffIMG;
     }
     _('bar').style.transform = "scaleX(" + scalemenu + ")";
-    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7', 'tabs-8', 'tabs-9', 'tabs-10', 'tabs-11', 'tabs-12', 'tabs-13'];
+    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7'];
     for (var i = 0; i < TTabs.length; i++) {
         _(TTabs[i]).style.transform = "translateX(" + (160 * scalemenu) + "px)";
     }
@@ -1067,7 +1096,7 @@ function ShowMenu() {
  */
 
 function activetab(tab) {
-    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7', 'tabs-8', 'tabs-9', 'tabs-10', 'tabs-11', 'tabs-12', 'tabs-13'];
+    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7'];
     for (var i = 0; i < TTabs.length; i++) {
         _(TTabs[i]).style.display = "none";
         _("l" + TTabs[i]).style.color = "black";

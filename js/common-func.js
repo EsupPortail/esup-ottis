@@ -176,6 +176,7 @@ function TailleCR() {
 
 function resizeWindow(wname) {
     var wc = _(wname);
+    if (!wc) return;
     wc.style.width = (window.innerWidth - 20) + "px";
     wc.style.height = (window.innerHeight - 48) + "px";
     wc.style.top = "48px";
