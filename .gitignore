@@ -1,0 +1,14 @@
+# Ignore configuration and secret files
+config.php
+config OLD.php
+OMIST_Tools/config.py
+OMIST_Tools/configOT.php
+OMIST_Tools/config_database.php
+OMIST_Tools/config_sh
+tables/tokens.json
+# Local environment files
+.env
+.env.*
+# Temporary and generated files
+OMIST_Tools/__pycache__/
+tmp/
