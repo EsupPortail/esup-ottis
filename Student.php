@@ -54,7 +54,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	<title>Automatic translation for teaching purposes</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link href="styles/student.css" rel="stylesheet">
+    <link href="styles/auditeur.css" rel="stylesheet">
     <?php if ($theme != "") {
     echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">';
     echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet">';
@@ -78,9 +78,10 @@ if ($synchronize) {
 </script>
 
 <?php
-  echo "<script src=\"js/student-def.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/auditeur-def.js?v=".$classroomid."\"></script>\n";
   echo "<script src=\"js/common-func.js?v=".$classroomid."\"></script>\n";
-  echo "<script src=\"js/student-func.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/chat-common.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/auditeur-func.js?v=".$classroomid."\"></script>\n";
   ?>
 <?php if ($theme != "") {
     echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
@@ -307,7 +308,7 @@ if ($synchronize) {
 		<li id="ltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li>
 
 	</ul>
-	<div id="tabs-0">
+	<div id="tabs-0" style="display: block;">
     <h3 >Language and basic settings</h3>
     <div>
     <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" ></span>
@@ -316,19 +317,18 @@ if ($synchronize) {
   </select>
 </span>
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
+  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; firstclick=true; showMessageMenu();}">
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="StudentName">My surname :</label>
-  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
+  <input type="text" id="StudentName" onchange="if (this.value == 'Intervenant') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
 </span><br>
-<span id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
-<!--<div class="checkbox-example">
-        <input type="checkbox" value="1" id="synthesison" onclick="resizeSlides();">
-        <label for="synthesison"></label>
-      </div>-->
+<!--<span><label for="synthesison">Speech synthesis active ? </label><input type="checkbox" id="synthesison"></span><br>
+
+<span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
+-->
 </div>
 <h3>Appearance settings</h3>
 <div>
@@ -396,7 +396,7 @@ Show the original version banner</label>
 	</div>
 	<div id="tabs-1">
     <div style="height: 50px;"></div>
-    <div id="classroom" style="border: solid 1px;"></div>
+    <div id="classroom" style="border: solid 1px;" aria-live="polite" aria-atomic="true"></div>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here">-->
     <label for="question" style="display:none">Your question here</label>
@@ -614,7 +614,7 @@ Ceci est un test...
   </script>
   -->
 
-<script src="js/student-post.js"></script>
+<script src="js/auditeur-post.js"></script>
 <script>
   $( function() {
     $("#tabs-0").accordion({
@@ -622,7 +622,6 @@ Ceci est un test...
     });
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-    $("body").tooltip();
   } );
 
   /**

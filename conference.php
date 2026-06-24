@@ -25,8 +25,9 @@ $pageStyles = ["jquery/flat_black/jquery-ui.min.css",
                 //"styles/teacher.css",
                 "styles/conference.css"
 ];
-$pageScripts = ["/js/teacher-def.js",
+$pageScripts = ["/js/conference-def.js",
                 "/js/common-func.js",
+                "/js/chat-common.js",
                 "/js/conf-func.js",
                 "/js/qrcode.min.js",
                 "/js/conf-post.js",
@@ -141,8 +142,8 @@ include_once __DIR__ . '/includes/header.php';
 
 <div id="conference-main" class="conference-grid">
 
-<section id="teacher-session" class="conference-card" aria-labelledby="teacher-session-title">
-    <h2 id="teacher-session-title">Session et code PIN</h2>
+<section id="conference-session" class="conference-card" aria-labelledby="conference-session-title">
+    <h2 id="conference-session-title">Session et code PIN</h2>
     <div id="PinCode">
     <label>PINCODE</label>
                 <input type="text" id="pincode" style="width: 50px;" disabled> &nbsp;
@@ -251,6 +252,16 @@ include_once __DIR__ . '/includes/header.php';
 		</li>
 	</ul>
 </div>
+</section>
+
+<section id="chat-section" class="conference-card" aria-labelledby="chat-section-title">
+    <h2 id="chat-section-title">Classroom Chat</h2>
+    <div>
+        <label>CHAT</label>
+        <div id="classroom" style="border: solid 1px; height: 300px; overflow-y: auto; margin-bottom: 5px;" aria-live="polite" aria-atomic="true"></div>
+        <textarea id="question" aria-label="Your message here" title="Your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
+        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your message">
+    </div>
 </section>
 
 <h3 class="tabbed">Subtitles configuration and Icons</h3>

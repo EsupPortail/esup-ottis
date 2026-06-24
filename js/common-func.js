@@ -42,6 +42,86 @@ function rgb(T) {
     return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")";
 }
 
+// Global color mapping for chat participants
+var ColorsForCR = [];
+ColorsForCR["----"] = [[255,0,0],[255,255,255],5];
+ColorsForCR["Intervenant"] = [[0,0,255],[255,255,255],0];
+
+/**
+ * Escape HTML special characters to prevent XSS
+ * 
+ * @param {string} text The text to escape
+ * @returns {string} The escaped text
+ */
+function escapeHtml(text) {
+    if (typeof text !== 'string') return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+/**
+ * Generate a deterministic color for a user based on their name
+ * Prevents the same user from having different colors across sessions
+ * Uses localStorage to persist colors between page reloads
+ * Returns [backgroundColor, textColor] with proper contrast
+ */
+function getUserColor(username) {
+    // Try to get from localStorage first
+    const storageKey = 'chatUserColor_' + username;
+    const stored = localStorage.getItem(storageKey);
+    if (stored) {
+        try {
+            return JSON.parse(stored);
+        } catch (e) {
+            // If parsing fails, regenerate
+        }
+    }
+
+    // Simple hash function
+    let hash = 0;
+    for (let i = 0; i < username.length; i++) {
+        hash = username.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    // Generate RGB values from hash
+    let r = (hash & 0xFF0000) >> 16;
+    let g = (hash & 0x00FF00) >> 8;
+    let b = hash & 0x0000FF;
+
+    // Ensure values are in 55-255 range (to avoid too dark colors)
+    r = Math.max(55, Math.min(255, r));
+    g = Math.max(55, Math.min(255, g));
+    b = Math.max(55, Math.min(255, b));
+
+    // Prevent using intervenant's color (RGB 0,0,255)
+    if (r === 0 && g === 0 && b === 255) {
+        r = (r + 50) % 256;
+        g = (g + 100) % 256;
+        b = (b + 150) % 256;
+    }
+
+    // Calculate brightness to determine text color (black or white)
+    // Using relative luminance formula (simplified)
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    const textColor = brightness > 130 ? [0, 0, 0] : [255, 255, 255];
+
+    const colors = [[r, g, b], textColor];
+    
+    // Store in localStorage for persistence
+    try {
+        localStorage.setItem(storageKey, JSON.stringify(colors));
+    } catch (e) {
+        // localStorage might not be available (private browsing, etc.)
+    }
+
+    return colors;
+}
+
 /**
  * @summary Abort a given timeout. Utility function
  * 
@@ -84,10 +164,21 @@ function setLanguageInput(i) {
 
 function setLanguageOutput(i) {
     builtin_voice = AllOutputVoices[i];
+    builtin_language = (builtin_voice && builtin_voice.lang) ? builtin_voice.lang : '';
 }
 
-
-
+/**
+ * @summary Set the output language and retranslate the chat
+ *
+ * @param {number} i Language index.
+ */
+function setLanguageOutputAndRetranslate(i) {
+    setLanguageOutput(i);
+    // Reload and retranslate all messages with the new language
+    if (typeof recharger === 'function') {
+        recharger();
+    }
+}
 
 /**
  * @summary Clear the classroom div
@@ -117,16 +208,14 @@ function recharger() {
  */
 
 function RefreshCR() {
-    _('classroom').innerHTML = "";
+    var html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
     for (var i = 0; i < ScreenCR.length; i++) {
         if (ScreenCR[i] != undefined) {
-            if (_('classroom').innerHTML == "") {
-                _('classroom').innerHTML = ScreenCR[i] + '\n';
-            } else {
-                _('classroom').innerHTML = _('classroom').innerHTML + "<br/><br/>" + ScreenCR[i] + '\n';
-            }
+            html += ScreenCR[i];
         }
     }
+    html += '</ul>';
+    _('classroom').innerHTML = html;
 }
 
 /**
@@ -139,20 +228,13 @@ function RefreshCR() {
 
 function EcrireCR(who, ch, order) {
     if (!ColorsForCR[who]) {
-        var r = Math.floor(Math.random() * 200 + 55);
-        var g = Math.floor(Math.random() * 200 + 55);
-        var b = Math.floor(Math.random() * 200 + 55);
-        var bg = [r, g, b];
-        var fg = [0, 0, 0];
+        var colors = getUserColor(who);
+        var bg = colors[0];
+        var fg = colors[1];
         ColorsForCR[who] = [bg, fg, 20];
     }
 
-    /*
-      if (_('classroom').innerHTML == "")
-        _('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
-      else _('classroom').innerHTML=_('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
-      */
-    ScreenCR[order] = '<span style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; margin-left: ' + ColorsForCR[who][2] + 'px; ">' + (who + ' : ' + ch) + '<span>';
+    ScreenCR[order] = '<li role="listitem" style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; margin-left: ' + ColorsForCR[who][2] + 'px; margin: 0 0 2px 0; padding: 5px; border-radius: 5px; display: block;">' + escapeHtml(who + ' : ' + ch) + '</li>';
     RefreshCR();
 }
 

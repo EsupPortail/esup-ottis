@@ -26,21 +26,28 @@ button {
 }
 
 input[type=checkbox] {
-	position	 : relative;
-	cursor		 : pointer;
-	width		 : 16px;
-	height		 : 16px;
-	padding		 : 3px;
-	font		 : 1.5em;
-	border-color : rgb(10,10,10);
-	color		 : rgb(100,100,255);
-	background-color : rgb(100,100,255);
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+    border: 2px solid rgb(100,100,255);
+    border-radius: 3px;
+    background-color: white;
+    vertical-align: middle;
+    z-index: 21000;
+}
+
+input[type=checkbox]:checked {
+    background-color: rgb(100,100,255);
+    border-color: rgb(10,10,10);
 }
 
 input[type=checkbox]:hover {
-	border-color : rgba(10,10,10,0.5);
-	color		 : rgba(100,100,255,0.5);
-	background-color : rgba(100,100,255,0.5);
+    border-color: rgba(100,100,255, 0.7);
+    background-color: rgba(100,100,255, 0.1);
 }
 
 .classselect {
@@ -180,8 +187,8 @@ input[type=text] {
 	margin-left	 : 5px;
 	margin-top	 : 0px;
 	margin-right : 0px;
-	margin-bottom : 15px;
 	border-radius : 5px;
+	display		 : block;
 }
 
 #classroom {
@@ -271,7 +278,6 @@ input[type=text] {
 	left		 : 0px;
 	color		 : white;
 	text-align	 : center;
-	vertical-align : middle;
 	font-size	 : 24px;
 	z-index		 : 12000;
 	display		 : block;
@@ -332,7 +338,7 @@ input[type=text] {
 }
 
 #tabs-0, #tabs-1, #tabs-2, #tabs-3, #tabs-4, #tabs-6, #tabs-7, #tabs-8,#tabs-8,#tabs-9,#tabs-10,#tabs-11,#tabs-12,#tabs-13,#img_slides {
-	z-index		 : 1000;
+	z-index		 : 25000;
 	position	 : absolute;
 	top			 : 0px;
 	left		 : 0px;
@@ -451,6 +457,7 @@ input[type=text] {
 
 #lisynthese {
 	animation	 : none;
+	display	 : inline;
 }
 
 #arrowlanguage, #arrowsynthesis {

@@ -41,7 +41,7 @@ function StudentParleThen(txt, f) {
 function StudentTranslate(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
     lineid='DIRECT';
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+TranslatorInfo(), true);
+    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=" + encodeURIComponent(lineid) + TranslatorInfo(), true);
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             console.log("StudentTranslate = " + this.responseText);
@@ -53,7 +53,10 @@ function StudentTranslate(ch, l, linput, lineid) {
                 EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
                 EcrireNBonlyVO(ch);
             } else {
-                EcrireFeedback("---- Translation ERROR ----")
+                console.error('teacher-func.js:56 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
+                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
+                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
+                EcrireFeedback("---- Translation ERROR ---- (see console)")
             }
 
         }
@@ -78,7 +81,7 @@ function StudentTranslate(ch, l, linput, lineid) {
 function StudentTranslate2(ch, l, linput, lineid) {
     var xhr = new XMLHttpRequest();
     lineid='DIRECT';
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value + "&lineid=" + lineid+TranslatorInfo(), true);
+    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=" + encodeURIComponent(lineid) + TranslatorInfo(), true);
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
     };
@@ -505,7 +508,7 @@ function TranslatorInfo() {
 
 function Translate(ch, l, linput) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+TranslatorInfo(), true);
+    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -516,7 +519,10 @@ function Translate(ch, l, linput) {
                 lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
                 Ecrire("" + response["data"]["translations"][0]["translatedText"]);
             } else {
-                Ecrire("---- Translation ERROR ----")
+                console.error('teacher-func.js:519 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
+                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
+                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
+                Ecrire("---- Translation ERROR ---- (see console)")
             }
 
         }
@@ -542,7 +548,7 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
     if (forcelibre) force="&forcelibre=true";
     var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+"&lineid=DIRECT"+force+TranslatorInfo(), true);
+    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=DIRECT" + force + TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -555,7 +561,10 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
             if ((!response["error"]) && response["data"]["translations"]) {
                 f(response["data"]["translations"][0]["translatedText"]);
             } else {
-                f("---- Translation ERROR ----");
+                console.error('teacher-func.js:558 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
+                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
+                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
+                f("---- Translation ERROR ---- (see console)");
             }
 
         }
@@ -1687,7 +1696,7 @@ function readTextQ() {
         f.append('lineid', 0);
         f.append('ROOMID', _('classroomid').value);
         request.send(f);
-        AbortTimeout(request,"readTeextQ");
+        AbortTimeout(request,"readTextQ");
         request.onload = function(event) {
             var Told = request.responseText.split('\n');
             var k = 0;
@@ -1700,7 +1709,7 @@ function readTextQ() {
             var nbnewQ = 0;
             for (var i = inputnumberQ; i < T.length; i++) {
                 var L = T[i].split(';');
-                if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
+                if (L[0] == 'Intervenant' && L[2].indexOf("[extratab") >= 0) {
                     console.log('Opening an extra tab');
                     // feedback
                     var resource = L[2].replace("[extratab", "").replace("]", "").split("|");
@@ -1788,21 +1797,6 @@ function EventNewQuestion() {
  * @returns
  */
 
-function saveTextQ(ch) {
-    var request = new XMLHttpRequest();
-    request.open("POST", "savetextQ.php");
-    var f = new FormData();
-    f.append('lineid', 'Teacher');
-    //inputnumberQ++;
-    f.append('text', ch);
-    f.append('inputlanguage', builtin_language);
-    f.append('ROOMID', _('classroomid').value);
-    request.send(f);
-    AbortTimeout(request,"saveTextQ");
-    request.onload = function(event) {
-        readTextQ();
-    };
-}
 
 /**
  * @summary Translate the text of a question from a language to another
@@ -1813,35 +1807,6 @@ function saveTextQ(ch) {
  * @param {string} name Person who ask the question
  * @param {string} order order of the question
  * @returns
- */
-
-function TranslateQ(ch, l, linput, name, order) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput+TranslatorInfo(), true);
-
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // console.log(this.responseText);
-            var response = JSON.parse(this.responseText);
-            if ((!response["error"]) && response["data"]["translations"]) {
-                // Parle(response["data"]["translations"][0]["translatedText"]);
-                EcrireCR(name, response["data"]["translations"][0]["translatedText"], order);
-            } else {
-                //EcrireCR("----","---- Translation ERROR ----")
-                console.log("---- Translation ERROR ----");
-            }
-
-        }
-    };
-    xhr.send();
-    AbortTimeout(xhr,"TranslateQ");
-}
-
-/**
- * @summary unused and obsolete function
- * 
- * @deprecated
- * @unused
  */
 
 function FromCompleteLessonToTable() {
@@ -2410,10 +2375,3 @@ function MinTitlePos() {
  * @summary Callback function when the question field (Classroom tab) has changed
  * 
  */
-
-function sendclick() {
-    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
-    //alert("Will send : ("+tosend+")");
-    if (tosend != "") saveTextQ(tosend);
-    document.getElementById('question').value = '';
-}

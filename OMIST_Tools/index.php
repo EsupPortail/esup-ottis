@@ -141,7 +141,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     echo '<script src="../jquery/jquery-ui.min.js"></script>';
   }
   ?>
-    <script src="../js/teacher-func.js"></script>
+    <script src="../js/conference-func.js"></script>
     <script src="../js/edit-anim.js"></script>
     <link href="../styles/edit-anim.css" rel="stylesheet">
     <link rel="stylesheet" href="../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">

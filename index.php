@@ -226,7 +226,7 @@ $insertCommande_stats->execute([
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet"> 
-  <link href="styles/teacher.css" rel="stylesheet"> 
+  <link href="styles/conference.css" rel="stylesheet"> 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
   <style>
@@ -328,9 +328,10 @@ $insertCommande_stats->execute([
   ?>
   </script>
   <?php
-  echo "<script src=\"js/teacher-def.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/conference-def.js?v=".$classroomid."\"></script>\n";
   echo "<script src=\"js/common-func.js?v=".$classroomid."\"></script>\n";
-  echo "<script src=\"js/teacher-func.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/chat-common.js?v=".$classroomid."\"></script>\n";
+  echo "<script src=\"js/conference-func.js?v=".$classroomid."\"></script>\n";
   ?>
   <?php if ($theme != "") {
     echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
@@ -829,11 +830,11 @@ for($i=0; $i<$nbcircles; $i++) {
 		<p id="dialog-invite-p"> </p>
 	</div>
 	<script src="qrcode.min.js"></script>
-	<script src="js/teacher-post.js"></script>
+	<script src="js/conference-post.js"></script>
 	<!-- Microsoft Azure Cognitive Services -->
 	<!--    <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script> -->
 	<!-- <script src="libs/microsoft.cognitiveservices.speech.sdk.bundle.js"></script>-->
-	<!-- <script src="js/teacher-ms.js"></script> -->
+	<!-- <script src="js/conference-ms.js"></script> -->
 	<!--
 	<script>
   var hebergementDomaine = 'https://automatictranslator.sciences.univ-nantes.fr'; 

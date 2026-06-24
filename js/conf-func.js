@@ -66,7 +66,7 @@ function StudentTranslate2(ch, l, linput, lineid) {
     console.log('StudentTranslate2');
     var xhr = new XMLHttpRequest();
     lineid='DIRECT';
-    xhr.open('POST', 'Translate.php?texte=' + ch + '&lang=' + l + '&langinput=' + linput + '&ROOMID=' + _('classroomid').value + '&lineid=' + lineid+TranslatorInfo(), true);
+    xhr.open('POST', 'Translate.php?texte=' + encodeURIComponent(ch) + '&lang=' + encodeURIComponent(l) + '&langinput=' + encodeURIComponent(linput) + '&ROOMID=' + encodeURIComponent(_('classroomid').value) + '&lineid=' + encodeURIComponent(lineid) + TranslatorInfo(), true);
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
     };
@@ -580,6 +580,13 @@ function Translate(ch, l, linput) {
   */
 
 function TranslateThen(ch, l, linput, f, forcelibre = false) {
+    // Vérification des paramètres de langue
+    if (!l || !linput) {
+        console.error('TranslateThen: paramètres de langue manquants', {l, linput});
+        f('---- Missing language parameters ----');
+        return;
+    }
+
     console.log('TranslateThen - Texte :', ch, ', Langue cible :', l, ", Langue d'entrée :", linput);
 
     // Préparer les paramètres encodés pour l'URL
@@ -617,11 +624,19 @@ function TranslateThen(ch, l, linput, f, forcelibre = false) {
                 try {
                     var response = JSON.parse(this.responseText);
 
-                    if (response && !response.error && response.data && response.data.translations) {
-                        lastSentenceTranslated = response.data.translations[0].text;
-                        f(response.data.translations[0].text);
+                    if (response && !response.error && response.data && response.data.translations && response.data.translations[0]) {
+                        var translation = response.data.translations[0].translatedText || response.data.translations[0].text;
+                        if (translation) {
+                            lastSentenceTranslated = translation;
+                            f(translation);
+                        } else {
+                            console.error('TranslateThen: Empty translation. Response:', response, 'Raw:', this.responseText);
+                            myalert('Translation returned empty result for: "' + ch.substr(0, 50) + '..."');
+                            f('---- Translation ERROR (empty result) ----');
+                        }
                     } else {
-                        console.error('Erreur de traduction. Réponse :', response);
+                        console.error('TranslateThen: Invalid response structure. Response:', response, 'Raw:', this.responseText);
+                        myalert('Translation API error. Check console for details.');
                         f('---- Translation ERROR ----');
                     }
                 } catch (error) {
@@ -650,7 +665,7 @@ function TranslateThen(ch, l, linput, f, forcelibre = false) {
     if (forcelibre) force="&forcelibre=true";
     var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+"&lineid=DIRECT"+force+TranslatorInfo(), true);
+    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=DIRECT" + force + TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -1265,6 +1280,14 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
  */
 
 function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
+    // Vérification des variables de langue
+    if (!builtin_language || !subtitle_language) {
+        console.warn('Langues non initialisées, affichage direct');
+        EcrirePartial(ch);
+        if (callback) callback(ch);
+        return;
+    }
+
     var linput = builtin_language.substr(0, 2).toLowerCase();
     if (ch.indexOf(':|:') >= 0) { // If there are a language indication
         var Tch = ch.split(':|:');
@@ -1385,6 +1408,10 @@ function InitVoices() {
     PopulateVoicesOut();
     //setLanguageInput(0);
     //setLanguageOutput(0);
+    // Initialiser builtin_voice avec la première voix si pas déjà initialisé
+    if (!builtin_voice && AllOutputVoices && AllOutputVoices.length > 0) {
+        builtin_voice = AllOutputVoices[0];
+    }
 }
 
 /**
@@ -1686,9 +1713,8 @@ function FreeResources() {
  */
 
 function Lancer() {
-    console.log('Lancer');
     LaunchRemote();
-    //LaunchReadTextQ();
+    LaunchReadTextQ();
     //LaunchStudentReadText();
     //LaunchFeedbackReady();
     //setInterval(ScrollBar, scrollinterval);
@@ -1705,15 +1731,23 @@ function Lancer() {
 function Init() {
     PopulateSubtitlesLang();
     PopulateSpeechLang();
+    PopulateVoicesIn();  // <-- AJOUT CRITIQUE
+    // Initialiser builtin_language avec la première langue disponible
+    if (window.pageData && window.pageData.supportedlanguages && Object.keys(window.pageData.supportedlanguages).length > 0) {
+        builtin_language = Object.keys(window.pageData.supportedlanguages)[0];
+    }
 
-    /*  _('question').addEventListener('keyup', function (event) {
+    _('question').addEventListener('keyup', function (event) {
         if (event.code === 'Enter') {
-            saveTextQ(_('question').value);
-          event.preventDefault();
-          event.stopPropagation();
+            var tosend = _('question').value.replaceAll('\n', '').trim();
+            if (tosend != '') {
+                saveTextQ(tosend);
+                _('question').value = '';
+            }
+            event.preventDefault();
+            event.stopPropagation();
         }
-      },false);
-    */
+    },false);
     //resizeSlides();
 
     _('pincode').value = ('' + Math.floor(100000 + Math.random() * 100000)).substr(1);
@@ -1957,7 +1991,7 @@ function readTextQ() {
         f.append('lineid', 0);
         f.append('ROOMID', _('classroomid').value);
         request.send(f);
-        AbortTimeout(request,'readTeextQ');
+        AbortTimeout(request,'readTextQ');
         request.onload = function(event) {
             var Told = request.responseText.split('\n');
             var k = 0;
@@ -1970,7 +2004,7 @@ function readTextQ() {
             var nbnewQ = 0;
             for (var i = inputnumberQ; i < T.length; i++) {
                 var L = T[i].split(';');
-                if (L[0] == 'Teacher' && L[2].indexOf('[extratab') >= 0) {
+                if (L[0] == 'Intervenant' && L[2].indexOf('[extratab') >= 0) {
                     console.log('Opening an extra tab');
                     // feedback
                     var resource = L[2].replace('[extratab', '').replace(']', '').split('|');
@@ -1998,8 +2032,7 @@ function readTextQ() {
                                 if (builtin_externaltranscritionon) Traduction(L[2]);
                             } else {
                                 nbnewQ++;
-                                console.log('Debug -- ' + T[i] + '     ' + L[2] + '  :  ' + L[1].substr(0, 2) + '   --> ' + builtin_language.substr(0, 2) + ' voice=' + builtin_voice.lang.substr(0, 2));
-                                if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
+                                if (builtin_language && L[1] && builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
                                     TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
 
                                     // TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0],i);
@@ -2058,110 +2091,8 @@ function EventNewQuestion() {
  * @returns
  */
 
-function saveTextQ(ch) {
-    var request = new XMLHttpRequest();
-    request.open('POST', 'savetextQ.php');
-    var f = new FormData();
-    f.append('lineid', 'Teacher');
-    //inputnumberQ++;
-    f.append('text', ch);
-    f.append('inputlanguage', builtin_language);
-    f.append('ROOMID', _('classroomid').value);
-    request.send(f);
-    AbortTimeout(request,'saveTextQ');
-    request.onload = function(event) {
-        readTextQ();
-    };
-}
 
-/**
- * @summary Translate the text of a question from a language to another
- * 
- * @param {string} ch Text of the question
- * @param {string} l output language
- * @param {string} linput input language
- * @param {string} name Person who ask the question
- * @param {string} order order of the question
- * @returns
- */
 
-function TranslateQ(ch, l, linput, name, order) {
-    console.log('TranslateQ - Texte :', ch, ', Langue cible :', l, ", Langue d'entrée :", linput);
-
-    // Préparer les paramètres encodés pour l'URL
-    var params = [
-        `texte=${encodeURIComponent(ch)}`,
-        `lang=${encodeURIComponent(l)}`,
-        `langinput=${encodeURIComponent(linput)}`
-    ];
-
-    // Si TranslatorInfo() retourne des paramètres supplémentaires, les ajouter
-    var translatorInfo = TranslatorInfo();
-    if (translatorInfo) {
-        params.push(translatorInfo);
-    }
-
-    // Construire l'URL complète
-    var url = 'Translate.php?' + params.join('&');
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-
-    xhr.onreadystatechange = function() {
-        if (this.readyState === XMLHttpRequest.DONE) {
-
-            if (this.status === 200) {
-                try {
-                    var response = JSON.parse(this.responseText);
-
-                    if (response && !response.error && response.data && response.data.translations) {
-                        var translatedText = response.data.translations[0].translatedText;
-                        EcrireCR(name, translatedText, order);
-                    } else {
-                        console.error('Erreur de traduction. Réponse :', response);
-                        EcrireCR(name, '---- Translation ERROR ----', order);
-                    }
-                } catch (error) {
-                    console.error('Erreur de parsing JSON :', error, 'Réponse brute :', this.responseText);
-                    EcrireCR(name, '---- JSON Parse ERROR ----', order);
-                }
-            } else {
-                console.error('Erreur HTTP :', this.status, this.statusText);
-                EcrireCR(name, `---- HTTP ERROR ${this.status} ----`, order);
-            }
-        }
-    };
-
-    xhr.onerror = function() {
-        console.error('Erreur réseau dans TranslateQ.');
-        EcrireCR(name, '---- Network ERROR ----', order);
-    };
-
-    xhr.send(); // Pas de paramètres dans send() pour une requête GET
-    AbortTimeout(xhr, 'TranslateQ');
-}
-/*function TranslateQ(ch, l, linput, name, order) {
-    console.log("TranslateQ");
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput+TranslatorInfo(), true);
-
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // console.log(this.responseText);
-            var response = JSON.parse(this.responseText);
-            if ((!response["error"]) && response["data"]["translations"]) {
-                // Parle(response["data"]["translations"][0]["translatedText"]);
-                EcrireCR(name, response["data"]["translations"][0]["translatedText"], order);
-            } else {
-                //EcrireCR("----","---- Translation ERROR ----")
-                console.log("---- Translation ERROR ----");
-            }
-
-        }
-    };
-    xhr.send();
-    AbortTimeout(xhr,"TranslateQ");
-}*/
 
 /**
  * @summary unused and obsolete function
@@ -2734,9 +2665,3 @@ function MinTitlePos() {
  * 
  */
 
-function sendclick() {
-    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
-    //alert("Will send : ("+tosend+")");
-    if (tosend != '') saveTextQ(tosend);
-    document.getElementById('question').value = '';
-}

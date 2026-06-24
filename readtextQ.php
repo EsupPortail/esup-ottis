@@ -1,24 +1,31 @@
 <?php 
 
-include("Security/referer.php");
+//include("Security/referer.php");
 
-//$ligneID = $_POST["lineid"];
-$roomid = $_POST["ROOMID"];
-//echo $ligneID."   ".$roomid."\n";
-/*
-$fd=fopen("tmp/LinkQuestions_".$roomid,"r");
-while($ligne=fgets($fd,4096)){
-//  $T=explode(";",$ligne);
-//  if ($T[0]*1>$ligneID*1) {
-  $ligne=trim($ligne);
-  if ($ligne != "")
-    echo $ligne;
-//  }
+// Security Phase 1: Input validation and XSS prevention
+// Validate ROOMID parameter using regex (alphanumeric, underscore, hyphen only)
+if (!isset($_POST["ROOMID"]) || !preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $_POST["ROOMID"])) {
+    header('HTTP/1.1 400 Bad Request');
+    echo "Access denied";
+    exit;
 }
-fclose($fd);
-*/
-if (file_exists("tmp/LinkQuestions_".$roomid)) {
-  echo file_get_contents("tmp/LinkQuestions_".$roomid);
-} else echo "";
+
+$roomid = $_POST["ROOMID"];
+
+// Security: Ensure the file exists and is readable before accessing
+$filePath = "tmp/LinkQuestions_" . $roomid;
+
+if (file_exists($filePath) && is_file($filePath) && is_readable($filePath)) {
+    // Security: Limit file size to prevent DoS (10MB max)
+    $fileSize = filesize($filePath);
+    if ($fileSize > 10 * 1024 * 1024) {
+        header('HTTP/1.1 413 Payload Too Large');
+        echo "File too large";
+        exit;
+    }
+    echo file_get_contents($filePath);
+} else {
+    echo "";
+}
 
 ?>

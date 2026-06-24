@@ -153,9 +153,8 @@ input[type=text] {
   margin-left: 5px;
   margin-top: 0px;
   margin-right: 0px;
-  margin-bottom: 15px;
   border-radius: 5px;
-
+  display: block;
 }
 
 #classroom {
@@ -578,7 +577,7 @@ var inputnumber=-1;
 
 function Translate(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+  xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(document.getElementById('classroomid').value) +"&lineid=" + encodeURIComponent(lineid), true);
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -589,7 +588,10 @@ function Translate(ch, l, linput, lineid) {
 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
         Ecrire(response["data"]["translations"][0]["translatedText"]);
       } else {
-        Ecrire("---- Translation ERROR ----")
+        console.error('Translate ERROR in chat.php - Response:', response, 'Raw:', this.responseText);
+        console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
+        alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
+        Ecrire("---- Translation ERROR ---- (see console)")
       }
 
     }
@@ -600,7 +602,7 @@ function Translate(ch, l, linput, lineid) {
 
 function Translate2(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + document.getElementById('classroomid').value +"&lineid=" + lineid, true);
+  xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(document.getElementById('classroomid').value) +"&lineid=" + encodeURIComponent(lineid), true);
   xhr.onloadend = CompleteTranslation2;
   xhr.send();
 }
@@ -851,61 +853,21 @@ if ($synchronize) {
   //ChangeColor('titre',document.getElementById('ColorTitre').value);
 }
 
-function ClearCR() {
-  document.getElementById('classroom').innerHTML='';
-  ScreenCR=[];
+// Initialize ColorsForCR defaults (Intervenant and error messages)
+// These are already defined in common-func.js but we ensure they're set before use
+if (typeof ColorsForCR === 'undefined') {
+    var ColorsForCR = [];
 }
+ColorsForCR["----"] = [[255,0,0],[255,255,255],5];
+ColorsForCR["Intervenant"] = [[0,0,255],[255,255,255],0];
 
-function rgb(T) {
-  return "rgb("+T[0]+","+T[1]+","+T[2]+")";
-}
-var ColorsForCR=[];
-ColorsForCR["----"]=[[255,0,0],[255,255,255],5];
-ColorsForCR["Teacher"]=[[0,0,255],[255,255,255],5];
-
-var ScreenCR=[];
-
-function RefreshCR() {
-  document.getElementById('classroom').innerHTML = "";
-  for(var i=0; i<ScreenCR.length; i++) {
-    if (ScreenCR[i] != undefined) {
-      if (document.getElementById('classroom').innerHTML == "") {
-    document.getElementById('classroom').innerHTML=ScreenCR[i]+'\n';
-      } else {document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+ScreenCR[i]+'\n';}
-    }
-  }
-}
-
-function EcrireCR(who,ch,order) {
-  if (! ColorsForCR[who]) {
-    var r=Math.floor(Math.random()*200+55);
-    var g=Math.floor(Math.random()*200+55);
-    var b=Math.floor(Math.random()*200+55);
-    var bg=[r,g,b];
-    var fg=[0,0,0];
-    ColorsForCR[who]=[bg,fg,20];
-  }
-
-/*
-  if (document.getElementById('classroom').innerHTML == "")
-    document.getElementById('classroom').innerHTML='<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>\n';
-  else document.getElementById('classroom').innerHTML=document.getElementById('classroom').innerHTML+"<br/><br/>"+'<span style="display:inline;">'+order+'</span>\t<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px;">'+(who+' : '+ch)+'<span>\n';
-  */
-  ScreenCR[order] = '<span style="color:'+rgb(ColorsForCR[who][1])+'; background-color:'+rgb(ColorsForCR[who][0])+'; margin-left: '+ColorsForCR[who][2]+'px; ">'+(who+' : '+ch)+'<span>';
-  RefreshCR();
-}
+var inputnumberQ=0;
 
 document.addEventListener('submit', event => {
   event.preventDefault();
   // actual logic, e.g. validate the form
   //alert('Form submission cancelled.');
 });
-
-var inputnumberQ=0;
-
-function TailleCR() {
-  return document.getElementById('classroom').innerHTML.split('<br/>').length;
-}
 
 function readTextQ() {
   if (document.getElementById('classroomid').value != "") {
@@ -926,7 +888,7 @@ function readTextQ() {
     //console.log('Debug : '+inputnumberQ+T.length);
     for(var i=inputnumberQ; i<T.length; i++) {
       var L=T[i].split(';');
-      if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
+      if (L[0] == 'Intervenant' && L[2].indexOf("[extratab") >= 0) {
         // Add an extratab
         var resource = L[2].replace("[extratab","").replace("]","").split("|");
         var tabnumber=resource[0];
@@ -967,7 +929,7 @@ function saveTextQ(ch) {
 
 function TranslateQ(ch, l, linput,name,order) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
+  xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(document.getElementById('classroomid').value), true);
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -977,7 +939,10 @@ function TranslateQ(ch, l, linput,name,order) {
         // Parle(response["data"]["translations"][0]["translatedText"]);
         EcrireCR(name,response["data"]["translations"][0]["translatedText"],order);
       } else {
-        EcrireCR("----","---- Translation ERROR ----",order)
+        console.error('TranslateQ ERROR in chat.php - Response:', response, 'Raw:', this.responseText);
+        console.error('Text being translated:', ch, 'From:', linput, 'To:', l, 'Name:', name);
+        alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
+        EcrireCR(name,"---- Translation ERROR ---- (see console)",order)
       }
 
     }
@@ -1122,6 +1087,7 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
 
 
+<script src="/js/common-func.js"></script>
 </head>
 <body onload="Init(); setTimeout(loadVoicesWhenAvailable,100);">
 <div id="logonext" style="display:none"><img src="images/logo-next-omist.png" alt="NExT" style="width: 109px; height: 50px;"/></div>
@@ -1146,15 +1112,15 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
   </select>
 </li>
 <li><label for="StudentName">Student surname :</label>
-  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>"/>
+  <input type="text" id="StudentName" onchange="if (this.value == 'Intervenant') this.value='Student';" value="<?php echo $randomname; ?>"/>
 </li>
 <!-- <li><i class='material-icons' onclick="recharger();" class="tooltip" class="highlight" title="Refresh">refresh</i></li> -->
 <li>
     <!-- <div style="height: 50px;"></div> -->
-    <div id="classroom" style="border: solid 1px;"></div>
+    <div id="classroom" style="border: solid 1px;" aria-live="polite" aria-atomic="true"></div>
 
     <!-- <input type="text" id="questionold" placeholder="Your question here"/>-->
-    <textarea id="question" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
+    <textarea id="question" aria-label="Your question here" placeholder="Your question here" rows="2" cols="50"></textarea><br/>
     <input type="button" value="send" class="button-3 tooltip" role="button" id="questionsend" onclick="sendclick();" title="Send your question"/>
     <input type="button" value="refresh" class="button-3 tooltip" role="button" title="Reload all the conversation and translate it if necessary." onclick="recharger();"/>
     </li>
@@ -1181,7 +1147,6 @@ var MenuOffIMG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAMAAAANIi
 
 <script>
 
-
 function retourOK(e) {
   var res='';
   for(var p in e) res+=p+'='+e[p]+'\n';
@@ -1207,12 +1172,6 @@ $("#question").keyup(function(event) {
     }
 });
 
-  $( function() {
-    $( "#showmenu" ).tooltip();
-  } );
-  $( function() {
-    $( ".tooltip" ).tooltip();
-  } );
   
 </script>
 

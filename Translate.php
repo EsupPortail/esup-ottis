@@ -85,12 +85,48 @@ function respond_json(array $response, int $statusCode = 200) {
     exit;
 }
 
-// Récupérer les paramètres
-$texte = html_entity_decode(strip_tags($_GET["texte"] ?? ''));
+// Security Phase 1: Input validation and XSS prevention
+
+// Récupérer les paramètres avec validation et limites de sécurité
+$texte = $_GET["texte"] ?? '';
+
+// Security: Limit text length to prevent DoS (10KB max)
+if (strlen($texte) > 10240) {
+    $texte = substr($texte, 0, 10240);
+}
+
+// Security: Sanitize text to prevent XSS - strip all HTML tags and encode
+$texte = strip_tags($texte);
+$texte = htmlspecialchars($texte, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
+$texte = html_entity_decode($texte, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+// Validate and sanitize language codes
 $lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['lang'] ?? '');
+if (strlen($lang) > 16) {
+    $lang = substr($lang, 0, 16);
+}
+
 $langinput = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['langinput'] ?? '');
-$roomId = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['ROOMID'] ?? 'UNKNOWN');
-$lineid = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['lineid'] ?? 'NONE');
+if (strlen($langinput) > 16) {
+    $langinput = substr($langinput, 0, 16);
+}
+
+// Validate ROOMID using regex (alphanumeric, underscore, hyphen only)
+$roomId = $_GET['ROOMID'] ?? 'UNKNOWN';
+if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomId)) {
+    $roomId = 'UNKNOWN';
+} else {
+    $roomId = preg_replace('/[^a-zA-Z0-9_-]/', '', $roomId);
+}
+
+// Validate lineid
+$lineid = $_GET['lineid'] ?? 'NONE';
+if (!preg_match('/^[a-zA-Z0-9_-]{0,64}$/', $lineid)) {
+    $lineid = 'NONE';
+} else {
+    $lineid = preg_replace('/[^a-zA-Z0-9_-]/', '', $lineid);
+}
+
 $forcelibre = isset($_GET['forcelibre']);
 $WhichTranslator = $_GET['whichtranslator'] ?? null; // may be set later
 if ($forcelibre) {
