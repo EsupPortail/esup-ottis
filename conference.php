@@ -42,11 +42,10 @@ $onloadFunctions = [
     "InitVoices()",
     //"setTimeout(InitVoices,1000)",
     //"setTimeout(InitVoices,2000)",
-    //"setTimeout(Lancer,3000)",
+    //"setTimeout(Lancer,3003)",
 	"Lancer()",
     //"ready()",
     "updateLinks()",
-    "Embedcode()",
     "applyConfig()",
 ];
 $onloadScripts = implode(";\n    ", $onloadFunctions);
