@@ -203,14 +203,15 @@ include_once __DIR__ . '/includes/header.php';
 
 <div id="output"> </div>
                         
-<h3 class="tabbed">Chat only</h3>
-<div>
-	<ul style="list-style-type: none;">
-		<li>Chat only link : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
-		<li><label for="embedcontent">Chat only embed code :</label>
-			<input type="text" id="embedcontent" value="" > </li>
-	</ul>
-</div>
+<section id="chat-section" class="conference-card" aria-labelledby="chat-section-title">
+    <h2 id="chat-section-title">Classroom Chat</h2>
+    <div>
+        <label for="question">Classroom Chat</label>
+        <div id="classroom" style="border: solid 1px; height: 300px; overflow-y: auto; margin-bottom: 5px;" aria-live="polite" aria-atomic="true"></div>
+        <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
+        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send">
+    </div>
+</section>
 </section>
 
 <section id="notebook-section" class="conference-card" aria-labelledby="notebook-section-title">

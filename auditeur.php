@@ -243,13 +243,13 @@ Show the original version banner</label>
 	</div>
 	<div id="tabs-1">
     <div style="height: 50px;"></div>
-    <div id="classroom" style="border: solid 1px;"></div>
-
-    
-    <label for="question" style="display:none">Your question here</label>
-    <textarea id="question" aria-label="Your question here" title="Your question here" placeholder="Your question here" rows="2" cols="50"></textarea><br>
-     <input type="button" value="send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your question">
-    <input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
+    <div>
+        <label for="question">Classroom Chat</label>
+        <div id="classroom" style="border: solid 1px; height: 300px; overflow-y: auto; margin-bottom: 5px;" aria-live="polite" aria-atomic="true"></div>
+        <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
+        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send">
+        <input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
+    </div>
   	</div>
 
 	<div id="tabs-2">
