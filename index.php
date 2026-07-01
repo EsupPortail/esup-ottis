@@ -1,9 +1,21 @@
 <?php 
+// Security includes
+require_once __DIR__ . '/Security/validate.php';
+
+// Disable error display
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
 // Empêche la mise en cache
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-    header('Cache-Control: no-cache, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+header('Cache-Control: no-cache, must-revalidate');
+
+// Start session for CSRF if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 ?>
 <?php
@@ -214,6 +226,7 @@ $insertCommande_stats->execute([
 	<title>Automatic translation for teaching purposes: Teacher</title>
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSRF removed - using room-token only -->
   <?php if ($theme != "") {
     echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">';
     echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet">';

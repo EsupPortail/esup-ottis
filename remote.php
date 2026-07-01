@@ -1,9 +1,19 @@
 <?php
+// Security includes
+require_once __DIR__ . '/Security/validate.php';
+
+// Disable error display
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
 // Empêche la mise en cache
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-    header('Cache-Control: no-cache, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+header('Cache-Control: no-cache, must-revalidate');
+
+// Start session for CSRF
+ensureSessionStarted();
 ?>
 <?php
 if (isset($_GET["ROOMID"])) {
@@ -92,8 +102,9 @@ function Lancer() {
 function Synchronize(pin) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "synchronize.php");
-  var f=new FormData();
-  f.append('pincode',pin);
+  var f = new FormData();
+  f.append('pincode', pin);
+  f.append('csrf_token', CSRF_TOKEN);
 	request.send(f);
 	request.onload = function(event) {
     if (request.responseText != "") {

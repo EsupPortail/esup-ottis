@@ -329,16 +329,3 @@ input[type="checkbox"] {
 	white-space: nowrap;
 	border: 0;
 }
-
-#classroom span {
-	display		 : block;
-	padding		 : 5px;
-	margin-left	 : 5px;
-	margin-top	 : 0px;
-	margin-right	 : 0px;
-	border-radius : 5px;
-}
-
-#classroom {
-	padding		 : 15px;
-}

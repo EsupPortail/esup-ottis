@@ -8,11 +8,12 @@
  */
 
 function myalert(ch) {
-    ch = ch.replaceAll("\n", "<br/>");
+    ch = ch.replaceAll('\n', '<br/>');
     _('dialog-invite-p').innerHTML = ch;
-    $("#dialog-invite").dialog("open");
+    $('#dialog-invite').dialog('open');
 }
 
+var lastPartialTranslation = '';
 
 // Student feedback
 
@@ -37,37 +38,20 @@ function StudentParleThen(txt, f) {
  * @param {string} linput input language.
  * @param {number} lineid unique identifier for the translation.
  */
-
+/*
 function StudentTranslate(ch, l, linput, lineid) {
-    var xhr = new XMLHttpRequest();
-    lineid='DIRECT';
-    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=" + encodeURIComponent(lineid) + TranslatorInfo(), true);
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            console.log("StudentTranslate = " + this.responseText);
-            var response = JSON.parse(this.responseText);
-            if ((!response["error"]) && response["data"]["translations"]) {
-                StudentToSay['' + lineid] = (response["data"]["translations"][0]["translatedText"]);
-                //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
-                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
-                EcrireFeedback(response["data"]["translations"][0]["translatedText"]);
-                EcrireNBonlyVO(ch);
-            } else {
-                console.error('teacher-func.js:56 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
-                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
-                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
-                EcrireFeedback("---- Translation ERROR ---- (see console)")
-            }
-
-        }
-    };
-    xhr.onloadend = function() {
-        StudentCompleteTranslation();
-    };
-    xhr.send();
-    AbortTimeout(xhr,"StudentTranslate");
-
+    // Deprecated: disabled. Use TranslateThen or StudentTranslate2.
+    console.warn('StudentTranslate() is deprecated and has been disabled.');
+    return;
 }
+*/
+
+/* Deprecated: StudentTranslate is kept for reference but disabled.
+function StudentTranslate(ch, l, linput, lineid) {
+    console.log("StudentTranslate (disabled)");
+    return; // Use TranslateThen or StudentTranslate2 instead.
+}
+*/
 
 /**
  * @summary Translate a given string from a language to another
@@ -79,40 +63,45 @@ function StudentTranslate(ch, l, linput, lineid) {
  */
 
 function StudentTranslate2(ch, l, linput, lineid) {
+    console.log('StudentTranslate2');
     var xhr = new XMLHttpRequest();
     lineid='DIRECT';
-    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=" + encodeURIComponent(lineid) + TranslatorInfo(), true);
+    xhr.open('POST', 'Translate.php', true);
+    
+    var formData = new FormData();
+    formData.append('texte', ch);
+    formData.append('lang', l);
+    formData.append('langinput', linput);
+    formData.append('ROOMID', _('classroomid').value || '');
+    formData.append('lineid', lineid);
+    
+    // Ajouter whichtranslator et apikey directement
+    var whichtranslator = _('whichtranslator').value;
+    var apikey = _('apikey').value;
+    if (whichtranslator) formData.append('whichtranslator', whichtranslator);
+    if (apikey) formData.append('apikey', apikey);
+    
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
     };
-    xhr.send();
-    AbortTimeout(xhr,"StudentTranslate2");
+    xhr.send(formData);
+    AbortTimeout(xhr,'StudentTranslate2');
 }
 
-/**
- * @summary Orchestrates the sequence of translations
- * 
- * @deprecated
- */
-
+/*
 function StudentCompleteTranslation() {
-    if (StudentToTranslate.length > 0) {
-        var L = StudentToTranslate[0];
-        StudentToTranslate.splice(0, 1);
-        if (subtitle_language.substr(0, 2).toLowerCase() != L[1].substr(0, 2)) {
-            StudentTranslate(L[2], subtitle_language.substr(0, 2).toLowerCase(), L[1].substr(0, 2), L[0]);
-        } else {
-            StudentToSay['' + L[0]] = L[2]; //,CompleteTranslation);
-            EcrireFeedback("" + L[2]);
-            StudentCompleteTranslation();
-        }
-    } else {
-        if (!Studentcompletespeechactive) {
-            Studentcompletespeechactive = true;
-            StudentCompleteSpeech();
-        }
-    }
+    // Deprecated orchestration: replaced by newer StudentCompleteTranslation2 flow.
+    console.warn('StudentCompleteTranslation() is deprecated and has been disabled.');
+    return;
 }
+*/
+
+/* Deprecated: StudentCompleteTranslation orchestration is disabled.
+function StudentCompleteTranslation() {
+    console.log("StudentCompleteTranslation (disabled)");
+    return; // Use StudentCompleteTranslation2 and newer flows.
+}
+*/
 
 /**
  * @summary Orchestrates the sequence of translations
@@ -121,6 +110,7 @@ function StudentCompleteTranslation() {
  */
 
 function StudentCompleteTranslation2() {
+    console.log('StudentCompleteTranslation2');
     if (StudentToTranslate2.length > 0) {
         var L = StudentToTranslate2[0];
         StudentToTranslate2.splice(0, 1);
@@ -159,7 +149,7 @@ function StudentCompleteSpeech() {
     //Ecrire(currentdiscours+'   '+nextdiscours);
     if (nextdiscours > Studentcurrentdiscours) {
         var L = StudentToSay['' + nextdiscours];
-        L = L.replace("&nbsp;", " ");
+        L = L.replace('&nbsp;', ' ');
         StudentParleThen(L, StudentCompleteSpeech);
         Studentcurrentdiscours = nextdiscours;
     } else Studentcompletespeechactive = false;
@@ -172,8 +162,67 @@ function StudentCompleteSpeech() {
  */
 
 function StudentreadText() {
+    console.log('StudentreadText');
     var synthesison = true;
     if (synthesison) {
+        if (_('classroomid').value != '') {
+            var request = new XMLHttpRequest();
+            request.open('POST', 'readtext.php');
+            AbortTimeout(request, 'StudentreadText');
+            Studentcurrentorder_readtext++;
+            var f = new FormData();
+            f.append('lineid', Studentinputnumber); // Non utilisé dans readtextTranscriptSub.php, mais conservé pour compatibilité
+            f.append('ORDER', Studentcurrentorder_readtext);
+            f.append('ROOMID', _('classroomid').value);
+            f.append('room_token', window.pageData.roomToken);
+            request.send(f);
+            request.onload = function(event) {
+                if (request.status !== 200) {
+                    console.error('Erreur HTTP:', request.status, request.statusText);
+                    return;
+                }
+                if (!request.responseText.trim()) {
+                    console.warn('Réponse vide ou erreur côté serveur.');
+                    return;
+                }
+                // Traiter la réponse
+                var T = request.responseText.split('\n');
+                var maxi = -1;
+                for (var i = 0; i < T.length; i++) {
+                    if (T[i].trim() === '') continue;
+                    var parts = T[i].split(';');
+                    if (parts.length < 2) continue; // Ignorer les lignes mal formatées
+                    var readedorder = parts[0] * 1; // Premier élément = ORDER
+                    var lineData = parts.slice(1).join(';'); // Le reste = données de la ligne
+                    var L = lineData.split(';');
+                    if (L.length > 3) {
+                        // Afficher le texte dans notebookVO
+                        EcrireNBonlyVO(L[3]);
+                        if (1 * L[1] > maxi) maxi = 1 * L[1];
+                        if (StudentAllPhrases[1 * L[1]] == undefined) {
+                            StudentAllPhrases[1 * L[1]] = true;
+                            StudentToTranslate.push([L[1], L[2], L[3]]);
+                            StudentToTranslate2.push([L[1], L[2], L[3]]);
+                        }
+                    }
+                }
+                if (maxi > Studentinputnumber) Studentinputnumber = maxi;
+                StudentCompleteTranslation2();
+            };
+            request.onerror = function() {
+                console.error('Erreur réseau ou CORS.');
+            };
+        } else {
+            console.warn('classroomid est vide !');
+        }
+    }
+}
+
+/*function StudentreadText() {
+    console.log("StudentreadText");
+    var synthesison = true;
+    if (synthesison) {
+        console.log(_('classroomid').value);
         if (_('classroomid').value != "") {
             var request = new XMLHttpRequest();
             request.open("POST", "readtext.php");
@@ -183,8 +232,10 @@ function StudentreadText() {
             f.append('lineid', Studentinputnumber);
             f.append('ORDER', Studentcurrentorder_readtext);
             f.append('ROOMID', _('classroomid').value);
+            f.append('room_token', window.pageData.roomToken);
             request.send(f);
             request.onload = function(event) {
+                console.log(request.responseText)
                 var T = request.responseText.split('\n');
                 var maxi = -1;
                 var readedorder = ('0' + T[0]).split(';')[0] * 1;
@@ -205,7 +256,7 @@ function StudentreadText() {
         else {
           Parle(L[2]);
           Ecrire(""+L[2]);
-        }*/
+        }*//*
                         }
                     }
                 }
@@ -216,8 +267,7 @@ function StudentreadText() {
             };
         }
     }
-}
-
+}*/
 // End Student Feedback
 
 
@@ -228,22 +278,23 @@ function StudentreadText() {
  */
 
 function InviteExternal() {
-    if (_('classroomid').value != "") {
+    if (_('classroomid').value != '') {
         var request = new XMLHttpRequest();
-        request.open("POST", "createExternal.php");
-        AbortTimeout(request,"InviteExternal");
+        request.open('POST', 'createExternal.php');
+        AbortTimeout(request,'InviteExternal');
         var f = new FormData();
         f.append('ROOMID', _('classroomid').value);
         f.append('DURATION', _('duration').value);
+        f.append('room_token', window.pageData.roomToken);
         request.send(f);
         request.onload = function(event) {
             var T = request.responseText.trim();
             if (T == 'ok') {
-                var link = _('teacherlink').href.replace("index.php", "indexExternal.php");
+                var link = _('teacherlink').href.replace('index.php', 'indexExternal.php');
                 navigator.clipboard.writeText(link);
                 myalert('External guest created !\nThe following link has been copied. It must be used in the next 7 days.\n<a href="' + link + '">' + link + '</a>');
             }
-        }
+        };
     }
 }
 
@@ -262,11 +313,11 @@ function PopulateVoicesOut() {
     var voices = window.speechSynthesis.getVoices();
     for (var i = 0; i < voices.length; i++) {
         if (true) { //(voices[i].localService) {
-            var opt = document.createElement("option");
+            var opt = document.createElement('option');
             opt.value = AllOutputVoices.length;
             if (voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
             AllOutputVoices.push(voices[i]);
-            opt.innerHTML = voices[i].lang + " " + voices[i].name;
+            opt.innerHTML = voices[i].lang + ' ' + voices[i].name;
             select.appendChild(opt);
         }
     }
@@ -278,7 +329,7 @@ function PopulateVoicesOut() {
  * @deprecated
  */
 
-function PopulateVoicesIn() {
+/*function PopulateVoicesIn() {
     var select = _('classroomlanguage');
     var voices = window.speechSynthesis.getVoices();
     TLangInput = [];
@@ -296,7 +347,7 @@ function PopulateVoicesIn() {
             }
         }
     }
-}
+}*/
 
 /**
  * @summary Fill the select classroomlanguage field
@@ -306,23 +357,25 @@ function PopulateVoicesIn() {
 function PopulateVoicesIn() {
     if (TLangInput.length == 0) {
         var select = _('classroomlanguage');
-        //var voices = window.speechSynthesis.getVoices();
         TLangInput = [];
+        //console.log(Object.keys(window.pageData.supportedlanguages).length)
+        Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
+            if (TLangInput.indexOf(code) === -1) {
+                var opt = document.createElement('option');
+                opt.value = code; // Utilise le code de la langue comme valeur
 
-        for (var i = 0; i < supportedlanguages.length; i++) {
-            var lang = supportedlanguages[i].code; //.substr(0,5);
-            if (TLangInput.indexOf(lang) < 0) {
-                var opt = document.createElement("option");
-                opt.value = TLangInput.length;
-                if (i == 0) {
+                // Sélectionne la première langue par défaut
+                if (index === 0) {
                     opt.selected = true;
-                    builtin_language = TLangInput[i];
+                    builtin_language = code;
+                    console.log(builtin_language);
                 }
-                TLangInput.push(lang);
-                opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+
+                TLangInput.push(code);
+                opt.textContent = `${code} ${lang.name_fr} ${lang.name_vo}`;
                 select.appendChild(opt);
             }
-        }
+        });
     }
 }
 
@@ -333,18 +386,24 @@ function PopulateVoicesIn() {
 
 
 function PopulateSubtitlesLang() {
+    console.log('sous-titre');
     var select = _('subtitlelanguage');
-    for (var i = 0; i < supportedlanguages.length; i++) {
-        var lang = supportedlanguages[i].code; //.substr(0,5);
-        var opt = document.createElement("option");
-        opt.value = lang;
-        if (i == 0) {
-            opt.selected = true;
-            subtitle_language = lang;
-        }
-        opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
-        select.appendChild(opt);
-    }
+    Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
+            if (TLangInput.indexOf(code) === -1) {
+                var opt = document.createElement('option');
+                opt.value = code; // Utilise le code de la langue comme valeur
+
+                // Sélectionne la première langue par défaut
+                if (index === 0) {
+                    opt.selected = true;
+                    subtitle_language = code;
+                }
+
+                //TLangInput.push(code);
+                opt.textContent = `${code} ${lang.name_fr} ${lang.name_vo}`;
+                select.appendChild(opt);
+            }
+        });
 }
 
 /**
@@ -354,11 +413,11 @@ function PopulateSubtitlesLang() {
 
 function PopulateSpeechLang() {
     var select = _('speechlanguage');
-    for (var i = 0; i < supportedlanguages.length; i++) {
-        var lang = supportedlanguages[i].code; //.substr(0,5);
-        var opt = document.createElement("option");
+    for (var i = 0; i < window.pageData.supportedlanguages.length; i++) {
+        var lang = window.pageData.supportedlanguages[i].code; //.substr(0,5);
+        var opt = document.createElement('option');
         opt.value = lang;
-        opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+        opt.innerHTML = lang + ' ' + window.pageData.supportedlanguages[i].name_fr + ' ' + window.pageData.supportedlanguages[i].name_vo;
         select.appendChild(opt);
     }
 }
@@ -373,6 +432,7 @@ function PopulateSpeechLang() {
 
 function setLanguageSubtitle(i) {
     subtitle_language = i;
+    console.log('Subtitles set to '+subtitle_language+ ' builtin_language is '+builtin_language);
 }
 
 /**
@@ -383,8 +443,8 @@ function setLanguageSubtitle(i) {
 
 
 function setLanguageSpeech(i) {
-    speech_language = i;
-    //console.log("Subtitles set to "+subtitle_language+ " builtin_language is "+builtin_language);
+    builtin_language = i;
+    console.log('Speech set to builtin language is '+builtin_language);
 }
 
 /**
@@ -432,19 +492,19 @@ function notready() {
  */
 
 function RemoveVerbalTics(ch) {
-    var T_verbaltics = _('verbaltics').value.trim().split("\n");
+    var T_verbaltics = _('verbaltics').value.trim().split('\n');
     var ch2 = ch;
     for (var i = 0; i < T_verbaltics.length; i++) {
         var fromword = T_verbaltics[i].trim();
-        if (fromword.trim() != "") {
-            if (fromword.indexOf("|") <= 0) {
-                ch2 = (ch2 + " ").replaceAll(fromword + " ", "").trim();
-                ch2 = ch2.replaceAll(fromword + ",", "");
+        if (fromword.trim() != '') {
+            if (fromword.indexOf('|') <= 0) {
+                ch2 = (ch2 + ' ').replaceAll(fromword + ' ', '').trim();
+                ch2 = ch2.replaceAll(fromword + ',', '');
             } else {
-                var [fromword, toword] = fromword.split("|");
-                ch2 = (ch2 + " ").replaceAll(fromword + " ", toword + " ").trim();
-                ch2 = ch2.replaceAll(fromword + ",", toword + ",");
-                ch2 = ch2.replaceAll(fromword + ".", toword + ".");
+                var [fromword, toword] = fromword.split('|');
+                ch2 = (ch2 + ' ').replaceAll(fromword + ' ', toword + ' ').trim();
+                ch2 = ch2.replaceAll(fromword + ',', toword + ',');
+                ch2 = ch2.replaceAll(fromword + '.', toword + '.');
             }
         }
     }
@@ -460,25 +520,30 @@ function RemoveVerbalTics(ch) {
  */
 
 function Traduction(ch) {
-    ch = RemoveVerbalTics(ch);
+    console.log('Traduction appelée avec :', ch); // Log de diagnostic
+    console.log('Élément recognitionon :', _('recognitionon')); // Log de diagnostic
     var recognitionon = _('recognitionon').checked;
+    console.log('recognitionon :', recognitionon); // Log de diagnostic
+
+    ch = RemoveVerbalTics(ch);
     if (recognitionon) {
-        //EcrireNB(ch);
+        console.log('Traduction - Texte original :', ch); // Log original
+        EcrireNBonlyVO(ch);
         //EcrireTitle(ch);
         saveText(ch);
-        var liveon = _('liveon').checked;
+/*        var liveon = _('liveon').checked;
         if (liveon) {
             if (readytotalk) {
                 notready();
                 Ecrire('Input : ' + ch);
-                if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2))
+                if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2)){
                     Translate(ch, builtin_voice.lang.substr(0, 2), builtin_language.substr(0, 2));
-                else {
+                }else {
                     Parle(ch);
                     Ecrire("Output : " + ch);
                 }
             }
-        }
+        }*/
     }
 }
 
@@ -490,7 +555,7 @@ function Traduction(ch) {
  */
 
 function TranslatorInfo() {
-    var res="";
+    var res='';
     var whichtranslator=_('whichtranslator').value;
     var apikey=_('apikey').value;
     if (whichtranslator != '') res+='&whichtranslator='+whichtranslator;
@@ -507,30 +572,18 @@ function TranslatorInfo() {
  */
 
 function Translate(ch, l, linput) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + TranslatorInfo(), true);
-
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // console.log(this.responseText);
-            var response = JSON.parse(this.responseText);
-            if ((!response["error"]) && response["data"]["translations"]) {
-                Parle(response["data"]["translations"][0]["translatedText"]);
-                lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
-                Ecrire("" + response["data"]["translations"][0]["translatedText"]);
-            } else {
-                console.error('teacher-func.js:519 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
-                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
-                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
-                Ecrire("---- Translation ERROR ---- (see console)")
-            }
-
+    // Use TranslateThen which handles encoding and callbacks
+    console.log('Translate (via TranslateThen)');
+    TranslateThen(ch, l, linput, function(translatedText) {
+        if (typeof translatedText === 'string') {
+            Parle(translatedText);
+            lastSentenceTranslated = translatedText;
+            EcrireNBonly(translatedText);
+            Ecrire('' + translatedText);
+        } else {
+            console.error('Translate: invalid translatedText', translatedText);
         }
-    };
-    var d_begin = Date.now();
-    console.log(d_begin + " : Sending for translation " + ch + " from " + linput + " to " + l)
-    xhr.send();
-    AbortTimeout(xhr,"Translate");
+    }, false);
 }
 
 
@@ -543,12 +596,72 @@ function Translate(ch, l, linput) {
  * @param {function} f the function that is fired when the translation has ended.
   */
 
-function TranslateThen(ch, l, linput, f, forcelibre=false) {
+function TranslateThen(ch, l, linput, f, forcelibre = false) {
+    console.log('TranslateThen - Texte :', ch, ', Langue cible :', l, ", Langue d'entrée :", linput);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'Translate.php', true);
+
+    var formData = new FormData();
+    formData.append('texte', ch);
+    formData.append('lang', l);
+    formData.append('langinput', linput);
+    formData.append('ROOMID', _('classroomid').value || '');
+    formData.append('lineid', 'DIRECT');
+
+    if (forcelibre) {
+        formData.append('forcelibre', 'true');
+    }
+
+    // Ajouter whichtranslator et apikey directement
+    var whichtranslator = _('whichtranslator').value;
+    var apikey = _('apikey').value;
+    if (whichtranslator) formData.append('whichtranslator', whichtranslator);
+    if (apikey) formData.append('apikey', apikey);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE) {
+            var d_end = Date.now();
+            //console.log("Réponse reçue en " + (d_end - d_begin) + "ms");
+
+            if (this.status === 200) {
+                try {
+                    var response = JSON.parse(this.responseText);
+
+                    if (response && !response.error && response.data && response.data.translations) {
+                        lastSentenceTranslated = response.data.translations[0].text;
+                        f(response.data.translations[0].text);
+                    } else {
+                        console.error('Erreur de traduction. Réponse :', response);
+                        f('---- Translation ERROR ----');
+                    }
+                } catch (error) {
+                    console.error('Erreur de parsing JSON :', error, 'Réponse brute :', this.responseText);
+                    f('---- JSON Parse ERROR ----');
+                }
+            } else {
+                console.error('Erreur HTTP :', this.status, this.statusText);
+                f(`---- HTTP ERROR ${this.status} ----`);
+            }
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Erreur réseau dans TranslateThen.');
+        f('---- Network ERROR ----');
+    };
+
+    var d_begin = Date.now();
+    xhr.send(formData);
+    AbortTimeout(xhr, 'TranslateThen');
+}
+/*function TranslateThen(ch, l, linput, f, forcelibre=false) {
+    console.log("TranslateThen");
     var force="";
     if (forcelibre) force="&forcelibre=true";
     var xhr = new XMLHttpRequest();
     
-    xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(_('classroomid').value) + "&lineid=DIRECT" + force + TranslatorInfo(), true);
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + _('classroomid').value+"&lineid=DIRECT"+force+TranslatorInfo(), true);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -561,10 +674,7 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
             if ((!response["error"]) && response["data"]["translations"]) {
                 f(response["data"]["translations"][0]["translatedText"]);
             } else {
-                console.error('teacher-func.js:558 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
-                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
-                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
-                f("---- Translation ERROR ---- (see console)");
+                f("---- Translation ERROR ----");
             }
 
         }
@@ -574,7 +684,7 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
     //T_durations[ch]=d;
     xhr.send();
     AbortTimeout(xhr,"TranslateThen");
-}
+}*/
 
 
 /**
@@ -585,7 +695,7 @@ function TranslateThen(ch, l, linput, f, forcelibre=false) {
 
 function progressHandler(event) {
     var percent = (event.loaded / event.total) * 100;
-    _("progressBar").value = Math.round(percent);
+    _('progressBar').value = Math.round(percent);
     //  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
 }
 
@@ -640,7 +750,7 @@ function addToNB(ch, before) {
 
 function saveTextTable(T, i) {
     if (i < T.length) {
-        saveText(T[i].replace(/<br\/>/gi, "").replace(/<br>/gi, ""));
+        saveText(T[i].replace(/<br\/>/gi, '').replace(/<br>/gi, ''));
         setTimeout(function() {
             saveTextTable(T, i + 1);
         }, 100);
@@ -691,6 +801,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
  */
 
 function ShowImage(n) {
+    console.log('ShowImage ' + n);
     if (n != previousimage) {
         EcrireNBonly('---------- Slide ' + n + ' ----------');
         EcrireNBonlyVO('---------- Slide ' + n + ' ----------');
@@ -698,16 +809,16 @@ function ShowImage(n) {
         //console.log('IMG OBJ = '+_("img_"+n));
         //console.log('IMG URL = "'+_("img_"+n).src+'"');
         _('titreright').innerHTML = n;
-        if (_("img_" + n) && _("img_" + n).src.length > 200) {
-            _("img_slides").src = _("img_" + n).src;
+        if (_('img_' + n) && _('img_' + n).src.length > 200) {
+            _('img_slides').src = _('img_' + n).src;
             resizeSlides();
 
             // Diffusion Image
             var request = new XMLHttpRequest();
-            request.open("POST", "saveimage.php");
+            request.open('POST', 'saveimage.php');
             var f = new FormData();
             f.append('random', Math.floor(Math.random() * 10000));
-            var imageurl = _("img_" + n).src;
+            var imageurl = _('img_' + n).src;
             /*
             var nimages=0;
             var maxcar=10000;
@@ -717,14 +828,15 @@ function ShowImage(n) {
             }
             f.append('nbimages',nimages);
             */
-            var block = imageurl.split(";");
-            var contentType = block[0].split(":")[1];
-            var realData = block[1].split(",")[1];
+            var block = imageurl.split(';');
+            var contentType = block[0].split(':')[1];
+            var realData = block[1].split(',')[1];
             var blob = b64toBlob(realData, contentType);
-            f.append("image", blob);
+            f.append('image', blob);
             f.append('ROOMID', _('classroomid').value);
+            f.append('room_token', window.pageData.roomToken);
             request.send(f);
-            AbortTimeout(request,"ShowImage");
+            AbortTimeout(request,'ShowImage');
             //	request.onload = function(event) {};
         }
     }
@@ -739,58 +851,73 @@ function ShowImage(n) {
  */
 
 function formateresponse(datatxt,editable=true) {
-    //console.log(datatxt);
+    console.log('formateresponse');
+    console.log(datatxt);
+    console.log('Raw response:', datatxt);
+    try {
+        var data = JSON.parse(datatxt);
+    } catch (e) {
+        console.error('Failed to parse JSON:', e, datatxt);
+        return '<pre>Error: Invalid JSON response. Check server output.</pre>';
+    }
+    if (data && typeof data === 'object' && !Array.isArray(data) && data.error) {
+        console.error('Server returned error object:', data);
+        return '<pre>Error: ' + (data.error || 'Unknown error') + (data.details ? '\nDetails: ' + data.details : '') + '</pre>';
+    }
+    if (!Array.isArray(data)) {
+        console.error('Unexpected response format:', data);
+        return '<pre>Error: Unexpected response format from server.</pre>';
+    }
     currentPresentation = [];
     //alert(datatxt);
     var res = '';
-    var data = JSON.parse(datatxt);
     // console.log(data);
     for (var i = 0; i < data.length; i++) {
         slide = data[i];
         var txtnotes = '';
-        for (var j = 0; j < slide["Notes"].length; j++) {
-            if (slide["Notes"][j].indexOf("[forward]") >= 0 || slide["Notes"][j].indexOf("[backward]") >= 0 || slide["Notes"][j].indexOf("[pause") >= 0 || slide["Notes"][j].indexOf("[resource") >= 0 || slide["Notes"][j].indexOf("[mouse") >= 0 || slide["Notes"][j].indexOf("[notification") >= 0 || slide["Notes"][j].indexOf("[wait") >= 0) {
-                slide["Notes"][j] = '';
+        for (var j = 0; j < slide['Notes'].length; j++) {
+            if (slide['Notes'][j].indexOf('[forward]') >= 0 || slide['Notes'][j].indexOf('[backward]') >= 0 || slide['Notes'][j].indexOf('[pause') >= 0 || slide['Notes'][j].indexOf('[resource') >= 0 || slide['Notes'][j].indexOf('[mouse') >= 0 || slide['Notes'][j].indexOf('[notification') >= 0 || slide['Notes'][j].indexOf('[wait') >= 0) {
+                slide['Notes'][j] = '';
             } else {
-                txtnotes = txtnotes + slide["Notes"][j] + ' <br/>';
+                txtnotes = txtnotes + slide['Notes'][j] + ' <br/>';
             }
         }
         res += '<dl>';
-        if (slide["Images"]) {
+        if (slide['Images']) {
             //alert("The presentation contains "+slide["Images"].length+" images");
-            var toexec = "";
-            for (var j = 1; j <= slide["Images"].length; j++) {
-                toexec += "_('img_" + j + "').src='" + slide["Images"][j - 1] + "'; ";
+            var toexec = '';
+            for (var j = 1; j <= slide['Images'].length; j++) {
+                toexec += "_('img_" + j + "').src='" + slide['Images'][j - 1] + "'; ";
             }
             setTimeout(toexec, 10);
         } else {
             //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
             //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
-            res = res + '<dt>&nbsp;Slide #' + slide["Slide"] + '<img id="img_' + slide["Slide"] + '" width="50" src=""/></dt>\n';
+            res = res + '<dt>&nbsp;Slide #' + slide['Slide'] + '<img id="img_' + slide['Slide'] + '" width="50" src=""/></dt>\n';
             var flag = false;
-            for (var j = 0; j < slide["Notes"].length; j++) {
-                if (slide["Notes"][j].trim() != '') {
+            for (var j = 0; j < slide['Notes'].length; j++) {
+                if (slide['Notes'][j].trim() != '') {
                     if (editable) {
-                        res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide["Notes"][j] + '</span>'+'</dd>\n';
+                        res = res + '<dd>&nbsp;' + '<span id="SlideText'+i+'_'+j+'" contenteditable="true">'+slide['Notes'][j] + '</span>'+'</dd>\n';
                     } else {
-                        res = res + '<dd><span onclick="addToNB(\'' + slide["Notes"][j] + '\',0); ShowImage(' + slide["Slide"] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide["Notes"][j]+'</dd>\n';
+                        res = res + '<dd><span onclick="addToNB(\'' + slide['Notes'][j] + '\',0); ShowImage(' + slide['Slide'] + '); currentDiscours=' + currentPresentation.length + '; saveremotespeech();">▶️</span>&nbsp;' + slide['Notes'][j]+'</dd>\n';
                     }
                     currentPresentation.push({
-                        'Slide': slide["Slide"],
-                        'Discours': slide["Notes"][j]
+                        'Slide': slide['Slide'],
+                        'Discours': slide['Notes'][j]
                     });
                     flag = true;
                 }
             }
             if (!flag) currentPresentation.push({
-                'Slide': slide["Slide"],
+                'Slide': slide['Slide'],
                 'Discours': ''
             });
         }
         res += '</dl>';
     }
     //  alert(res);
-    console.log("DEBUG : " + res);
+    console.log('DEBUG : ' + res);
     return res;
 }
 
@@ -804,14 +931,15 @@ function saveremotespeech() {
         var currentDiscoursB = (currentDiscours - 1 + currentPresentation.length) % currentPresentation.length;
         var currentDiscoursA = (currentDiscours + 1) % currentPresentation.length;
         var txt = currentPresentation[currentDiscoursB]['Discours'] + ':|:' + currentPresentation[currentDiscours]['Discours'] + ':|:' + currentPresentation[currentDiscoursA]['Discours'];
-        if (_('classroomid').value != "") {
+        if (_('classroomid').value != '') {
             var request = new XMLHttpRequest();
-            request.open("POST", "savespeechforremote.php");
+            request.open('POST', 'savespeechforremote.php');
             var f = new FormData();
             f.append('ROOMID', _('classroomid').value);
             f.append('SPEECH', txt);
+            f.append('room_token', window.pageData.roomToken);
             request.send(f);
-            AbortTimeout(request,"saveremotespeech");
+            AbortTimeout(request,'saveremotespeech');
             request.onload = function(event) {
                 var data = request.responseText;
             };
@@ -882,7 +1010,7 @@ function Backward() {
  */
 
 function SlideForward() {
-    if (slide["Images"].length > 1) {
+    if (slide['Images'].length > 1) {
         var currentSlide = currentPresentation[currentDiscours]['Slide'];
         while (currentDiscours < currentPresentation.length - 1 && currentPresentation[currentDiscours]['Slide'] == currentSlide) {
             currentDiscours++;
@@ -899,7 +1027,7 @@ function SlideForward() {
  */
 
 function SlideBackward() {
-    if (slide["Images"].length > 1) {
+    if (slide['Images'].length > 1) {
         var currentSlide = currentPresentation[currentDiscours]['Slide'];
         while (currentDiscours > 0 && currentPresentation[currentDiscours]['Slide'] == currentSlide) {
             currentDiscours--;
@@ -917,15 +1045,16 @@ function SlideBackward() {
  */
 
 function completeHandler(event,editable=false) {
-    _("notebookcompleteformatted").innerHTML = formateresponse(event.target.responseText,editable);
-    _("progressBar").value = 0;
+    console.log('completeHandler');
+    _('notebookcompleteformatted').innerHTML = formateresponse(event.target.responseText,editable);
+    _('progressBar').value = 0;
 
     // Re-initialize the presentation
     previousimage = -1;
     currentDiscours = 0;
     if (currentPresentation.length > 0) {
         setTimeout(function() {
-            _('stillwaiting').style.display="none";
+            _('stillwaiting').style.display='none';
             ShowImage(currentPresentation[0]['Slide']);
         }, 1000);
     }
@@ -935,9 +1064,64 @@ function completeHandler(event,editable=false) {
  * @summary The function that is executed for reading a new presentation
  * 
  */
-
 function SlideNotes() {
-    var file = _("ppt_presentation").files[0];
+    console.log('SlideNotes');
+    var fileInput = _('ppt_presentation');
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+        alert('Please select a file first!');
+        return;
+    }
+    var file = fileInput.files[0];
+    var scriptfile = '';
+    var time = 30000;
+
+    // Determine the script based on file extension
+    if (file.name.endsWith('pptx')) {
+        scriptfile = typeof LoadPPTX !== 'undefined' && LoadPPTX
+            ? 'ExtractSlidesNotes_PPTX_images.php'
+            : 'ExtractSlidesNotes.php';
+    } else if (file.name.endsWith('odp')) {
+        scriptfile = 'ExtractSlidesNotes.php';
+    } else if (file.name.endsWith('txt')) {
+        scriptfile = 'ExtractSlidesNotesTxt.php';
+    } else if (file.name.endsWith('html')) {
+        scriptfile = 'ExtractSlidesNotesAppHTML.php';
+        time = 300000;
+    }
+
+    if (scriptfile === '') {
+        alert('Only pptx, odp, html, and txt files are allowed!');
+        return;
+    }
+
+    _('stillwaiting').style.display = 'block';
+    _('spinnertxt').innerHTML = 'Your presentation is not ready yet....<br/>Still working on it...';
+
+    var formdata = new FormData();
+    formdata.append('ppt_presentation', file);
+    formdata.append('ACCESS', _('classroomid').value);
+    console.log('FormData contents:', [...formdata.entries()]); // Debug
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', scriptfile);
+    xhr.upload.addEventListener('progress', progressHandler, false);
+    xhr.addEventListener('load', completeHandler, false);
+    xhr.timeout = time;
+    xhr.ontimeout = (e) => {
+        console.log('Timeout error!');
+        _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
+        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
+    };
+    xhr.send(formdata);
+}
+/*function SlideNotes() {
+    console.log("SlideNotes");
+    var fileInput = _("ppt_presentation");
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+        alert("Please select a file first!");
+        return;
+    }
+    var file = fileInput.files[0];
     var scriptfile = "";
     var time = 30000;
     //  if (file.name.endsWith('pptx')) scriptfile = "ExtractSlidesNotes.php";
@@ -960,6 +1144,7 @@ function SlideNotes() {
     var formdata = new FormData();
     formdata.append("ppt_presentation", file);
     formdata.append("ACCESS", _('classroomid').value);
+    console.log("FormData contents:", [...formdata.entries()]); // Log all entries
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", scriptfile);
@@ -973,7 +1158,7 @@ function SlideNotes() {
           alert(response);
         }
       };
-      */
+      *//*
     xhr.timeout = time;
     xhr.ontimeout = (e) => {
         console.log("Erreur Timeout !");
@@ -982,7 +1167,7 @@ function SlideNotes() {
     };
     xhr.send(formdata);
     //AbortTimeout(xhr,"SlideNotes");
-}
+}*/
 
 /**
  * @summary Switch the Microphone/Speechrecognition on and off
@@ -1025,8 +1210,8 @@ function FullScreen() {
 function SubWindow(){
     event.preventDefault();
     var window_width = window.screen.width;
-    var windowFeatures = "status=no,location=no,toolbar=no,menubar=no,width=1200,height=110";
-    var link = _("sublink").innerHTML.replaceAll("&amp;","&");
+    var windowFeatures = 'status=no,location=no,toolbar=no,menubar=no,width=1200,height=110';
+    var link = _('sublink').innerHTML.replaceAll('&amp;','&');
     window.open(link,'_blank',windowFeatures);
 }
 
@@ -1038,20 +1223,20 @@ function SubWindow(){
 
 function SlideNotesUncloud(uncloudlink) {
     _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
-    var scriptfile = "ExtractSlidesNotes_PPTX_images.php";
+    var scriptfile = 'ExtractSlidesNotes_PPTX_images.php';
     var formdata = new FormData();
-    formdata.append("ACCESS", _('classroomid').value);
-    formdata.append("uncloudlink", uncloudlink);
+    formdata.append('ACCESS', _('classroomid').value);
+    formdata.append('uncloudlink', uncloudlink);
     var xhr = new XMLHttpRequest();
 
-    xhr.open("POST", scriptfile);
-    xhr.upload.addEventListener("progress", progressHandler, false);
-    xhr.addEventListener("load", completeHandler, false);
+    xhr.open('POST', scriptfile);
+    xhr.upload.addEventListener('progress', progressHandler, false);
+    xhr.addEventListener('load', completeHandler, false);
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
-        console.log("Erreur Timeout !");
+        console.log('Erreur Timeout !');
         _('spinnertxt').innerHTML='Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
-        alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
+        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
     };
     xhr.send(formdata);
     //AbortTimeout(xhr,"SlideNotesUNCloud");
@@ -1066,20 +1251,20 @@ function SlideNotesUncloud(uncloudlink) {
 function SlideNotesUncloudHtml(uncloudhtmllink) {
     _('spinnertxt').innerHTML='Your presentation is not ready yet....<br/>Still working on it...';
 
-    var scriptfile = "ExtractSlidesNotesAppHTML.php";
+    var scriptfile = 'ExtractSlidesNotesAppHTML.php';
     var formdata = new FormData();
-    formdata.append("ACCESS", _('classroomid').value);
-    formdata.append("uncloudlink", uncloudhtmllink);
+    formdata.append('ACCESS', _('classroomid').value);
+    formdata.append('uncloudlink', uncloudhtmllink);
     var xhr = new XMLHttpRequest();
 
-    xhr.open("POST", scriptfile);
-    xhr.upload.addEventListener("progress", progressHandler, false);
-    xhr.addEventListener("load", completeHandler, false);
+    xhr.open('POST', scriptfile);
+    xhr.upload.addEventListener('progress', progressHandler, false);
+    xhr.addEventListener('load', completeHandler, false);
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
-        console.log("Erreur Timeout !");
+        console.log('Erreur Timeout !');
         _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
-        alert("Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
+        alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
     };
     xhr.send(formdata);
     //AbortTimeout(xhr,"SlideNotesUncloudHtml");
@@ -1092,7 +1277,7 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
  * @param {string} ch the text that is adding to the partial div.
  */
 
-function EcrireTranslatePartial(ch) {
+function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
     var linput = builtin_language.substr(0, 2).toLowerCase();
     if (ch.indexOf(':|:') >= 0) { // If there are a language indication
         var Tch = ch.split(':|:');
@@ -1102,25 +1287,28 @@ function EcrireTranslatePartial(ch) {
     var loutput = subtitle_language.substr(0, 2).toLowerCase();
     if (linput == loutput) {
         EcrirePartial(ch);
+        if (callback) callback(ch);
     } else {
-            if (LiveTranslationNum % LiveTranslationFreq == 0) {
+            if (forceTranslate || LiveTranslationNum % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
                 _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
-                TranslateThen(ch, loutput, linput, function(ch) {
-                    lastSentenceTranslated = ch;
+                TranslateThen(ch, loutput, linput, function(translatedText) {
+                    lastSentenceTranslated = translatedText;
                     if (_('directMicrosoftTranslationBoth').checked) {
-                        EcrirePartial(lastSentenceTranslated+"<br><span>"+lastSentenceVO+"</span>");
+                        EcrirePartial(lastSentenceTranslated+'<br><span>'+lastSentenceVO+'</span>');
                     } else {
-                        EcrirePartial(lastSentenceTranslated+"");
+                        EcrirePartial(lastSentenceTranslated);
                     }
+                    if (callback) callback(lastPartialTranslation);
                 },forcelibre=false);
             } else {
                 if (_('directMicrosoftTranslationBoth').checked) {
-                    EcrirePartial(lastSentenceTranslated+"<br><span>"+ch+"</span>");
+                    EcrirePartial(lastSentenceTranslated+'<br><span>'+ch+'</span>');
                 } else {
-                    EcrirePartial(lastSentenceTranslated+"");
+                    EcrirePartial(lastSentenceTranslated);
                 }
+                if (callback) callback(lastPartialTranslation);
             }
             LiveTranslationNum++;
     }
@@ -1135,28 +1323,43 @@ function EcrireTranslatePartial(ch) {
  */
 
 function StartSpeechRecognition(callback) {
+    console.log('StartSpeechRecognition '+builtin_language);
     builtin_recognition.lang = builtin_language;
     builtin_recognition.onresult = function(event) {
         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
             //console.log(event.results);
             var partial = '';
+            var isFinalResult = false;
             for (var i = event.resultIndex; i < event.results.length; i++) {
                 if (event.results[i].isFinal) {
                     partial = event.results[i][0].transcript; //+" > ";
+                    isFinalResult = true;
                     FreeResources();
                     LiveTranslationNum = 0;
                     lastSentenceVO = '';
-                    callback(event.results[i][0].transcript);
                 } else {
                     partial += ' ' + event.results[i][0].transcript;
                 }
             }
             if (partial.trim() != '') {
                 if (_('recognitionon').checked) {
-                    if (! _('directMicrosoftTranslation').checked) {
-                        EcrirePartial(RemoveVerbalTics(partial));
+                    var cleanedText = RemoveVerbalTics(partial);
+                    if (isFinalResult) {
+                        if (! _('directMicrosoftTranslation').checked) {
+                            EcrirePartial(cleanedText);
+                            EcrireNBonly(cleanedText);
+                        } else {
+                            EcrireTranslatePartial(cleanedText, function(translatedText) {
+                                EcrireNBonly(translatedText);
+                            }, true);
+                        }
+                        callback(partial);
                     } else {
-                        EcrireTranslatePartial(RemoveVerbalTics(partial));
+                        if (! _('directMicrosoftTranslation').checked) {
+                            EcrirePartial(cleanedText);
+                        } else {
+                            EcrireTranslatePartial(cleanedText);
+                        }
                     }
                 }
             }
@@ -1193,8 +1396,8 @@ function StopSpeechRecognition() {
 function InitVoices() {
     PopulateVoicesIn();
     PopulateVoicesOut();
-    setLanguageInput(0);
-    setLanguageOutput(0);
+    //setLanguageInput(0);
+    //setLanguageOutput(0);
 }
 
 /**
@@ -1204,10 +1407,11 @@ function InitVoices() {
  */
 
 function EcrireNB(ch) {
+    console.log('EcrireNB : '+ch);
     // if (_('notebook').innerHTML == "")
     //  _('notebook').innerHTML=ch;
     //else 
-    _('notebook').innerHTML = _('notebook').innerHTML + ch + "<br/>";
+    _('notebook').innerHTML = _('notebook').innerHTML + ch + '<br/>';
     //EcrireTitle(ch);
 }
 
@@ -1218,10 +1422,7 @@ function EcrireNB(ch) {
  */
 
 function EcrireNBonly(ch) {
-    _('notebook').innerHTML = _('notebook').innerHTML + ch + "<br/>";
-    //  if (_('notebook').innerHTML == "")
-    //    _('notebook').innerHTML=ch;
-    //  else _('notebook').innerHTML=_('notebook').innerHTML+"<br/>"+ch;
+    _('notebook').innerHTML = _('notebook').innerHTML + ch + '<br/>';
 }
 
 /**
@@ -1231,7 +1432,8 @@ function EcrireNBonly(ch) {
  */
 
 function EcrireNBonlyVO(ch) {
-    _('notebookVO').innerHTML = _('notebookVO').innerHTML + ch + "<br/>";
+    console.log('EcrireNBonlyVO'+ch);
+    _('notebookVO').innerHTML = _('notebookVO').innerHTML + ch + '<br/>';
 }
 
 
@@ -1242,6 +1444,7 @@ function EcrireNBonlyVO(ch) {
  */
 
 function EcrireTitle(ch) {
+    console.log('EcrireTitle : '+ch);
     var linput = builtin_language.substr(0, 2).toLowerCase();
     if (ch.indexOf(':|:') >= 0) { // If there are a language indication
         var Tch = ch.split(':|:');
@@ -1269,14 +1472,90 @@ function EcrireTitle(ch) {
  */
 
 function EcrirePartial(ch) {
-    if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
-    // console.log("CH : "+ch);
+    console.log('EcrirePartial');
+    // Vérifier que ch est défini et non vide
+    if (ch === undefined || ch === null || ch === 'undefined') {
+        console.error('Texte non défini ou vide.');
+        return;
+    }
+
+    // Mémoriser la dernière traduction affichée dans la zone partielle
+    lastPartialTranslation = ch;
+
+    // Mettre à jour l'interface
+    if (ch != 'undefined' && ch != undefined) {
+        _('partialtitre').innerHTML = ch;
+    }
+
+    // Vérifier que ROOMID est défini et non vide
+    var roomId = _('classroomid').value;
+    if (!roomId) {
+        console.error('ROOMID est vide ou non défini.');
+        return;
+    }
+
+    // Créer la requête GET avec les paramètres encodés
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);
-    // console.log("Sending for transcription " + ch)
+    var url = 'TranscriptionSub.php?texte=' + encodeURIComponent(ch) + '&ROOMID=' + encodeURIComponent(roomId);
+    xhr.open('GET', url, true);
+
+    // Gestion de la réponse
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                if (xhr.responseText.trim() !== '') {
+                    try {
+                        var data = JSON.parse(xhr.responseText);
+                        if (data.status === 'error') {
+                            console.error('Erreur serveur :', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Erreur de parsing JSON. Réponse brute :', xhr.responseText);
+                    }
+                } else {
+                    console.error('Réponse vide du serveur.');
+                }
+            } else {
+                console.error('Erreur HTTP :', xhr.status, xhr.responseText);
+            }
+        }
+    };
+    /*if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
+    console.log("CH : "+ch);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true);*/
+
+    /*xhr.open("POST", "TranscriptionSub.php", true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    
+    console.log(_('classroomid').value);
+    var params = `texte=${encodeURIComponent(ch)}&ROOMID=${encodeURIComponent(_('classroomid').value)}`;
+    console.log("Paramètres envoyés :", params); // Pour débogage
+    console.log("Sending for transcription " + ch)
     xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText);}, false);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var data = JSON.parse(xhr.responseText);
+                    console.log("Réponse du serveur :", data);
+                    if (data.status === 'error') {
+                        console.error("Erreur serveur :", data.message);
+                    }
+                } catch (error) {
+                    console.error("Erreur de parsing JSON. Réponse brute :", xhr.responseText);
+                }
+            } else {
+                console.error("Erreur HTTP :", xhr.status, xhr.responseText);
+            }
+        }
+    };*/
+
+    xhr.onerror = function() {
+        console.error('Erreur de requête.');
+    };
     xhr.send();
-    AbortTimeout(xhr,"Transcription");
+    AbortTimeout(xhr,'Transcription');
 }
 
 
@@ -1289,8 +1568,8 @@ function EcrirePartial(ch) {
 function EcrireFeedback(ch) {
     EcrireNBonly(ch);
     if (FeedbackQueue>0) {
-        _('titre').innerHTML = _('titre').innerHTML+"<br>"+ch;
-        _('studentfeedback').innerHTML = _('studentfeedback').innerHTML+"<br>"+ch;
+        _('titre').innerHTML = _('titre').innerHTML+'<br>'+ch;
+        _('studentfeedback').innerHTML = _('studentfeedback').innerHTML+'<br>'+ch;
     } else {
         _('titre').innerHTML = ch;
         _('studentfeedback').innerHTML = ch;
@@ -1305,9 +1584,9 @@ function EcrireFeedback(ch) {
  */
 
 function Ecrire(ch) {
-    if (_('output').innerHTML == "")
+    if (_('output').innerHTML == '')
         _('output').innerHTML = ch;
-    else _('output').innerHTML = ch + "<br/>" + _('output').innerHTML;
+    else _('output').innerHTML = ch + '<br/>' + _('output').innerHTML;
 }
 
 /**
@@ -1317,6 +1596,7 @@ function Ecrire(ch) {
  */
 
 function saveText(ch) {
+    console.log('saveText '+ch);
     var inputlanguage = builtin_language;
     if (ch.indexOf(':|:') >= 0) { // If there are a language indication
         var Tch = ch.split(':|:');
@@ -1324,7 +1604,7 @@ function saveText(ch) {
         ch = Tch[1];
     }
     var request = new XMLHttpRequest();
-    request.open("POST", "savetext.php");
+    request.open('POST', 'savetext.php');
     var f = new FormData();
     f.append('lineid', inputnumber);
     inputnumber++;
@@ -1332,8 +1612,9 @@ function saveText(ch) {
     f.append('inputlanguage', inputlanguage);
     f.append('ROOMID', _('classroomid').value);
     f.append('LastLines', MaxSavedLines);
+    f.append('room_token', window.pageData.roomToken);
     request.send(f);
-    AbortTimeout(request,"saveText");
+    AbortTimeout(request,'saveText');
 
     //	request.onload = function(event) {};
 }
@@ -1345,20 +1626,13 @@ function saveText(ch) {
  * @param {string} ch a <br/> separated list of lines.
  */
 
+/*
 function saveTextNB(ch) {
-    var request = new XMLHttpRequest();
-    request.open("POST", "savetextNB.php");
-    var f = new FormData();
-    //f.append('lineid',inputnumber);
-    inputnumber = ch.split('<br/>').length;
-    f.append('text', ch);
-    f.append('inputlanguage', builtin_language);
-    f.append('ROOMID', _('classroomid').value);
-    request.send(f);
-    AbortTimeout(request,"saveTextNB");
-
-    //	request.onload = function(event) {};
+    // Deprecated: batch-save of notebook is not used in current flows.
+    console.warn('saveTextNB() is deprecated and has been disabled.');
+    return;
 }
+*/
 
 /**
  * @summary Launch the looping function for reading the CHAT queue
@@ -1426,12 +1700,13 @@ function FreeResources() {
  */
 
 function Lancer() {
+    console.log('Lancer');
     LaunchRemote();
-    LaunchReadTextQ();
-    LaunchStudentReadText();
-    LaunchFeedbackReady();
-    setInterval(ScrollBar, scrollinterval);
-    applyConfig();
+    //LaunchReadTextQ();
+    //LaunchStudentReadText();
+    //LaunchFeedbackReady();
+    //setInterval(ScrollBar, scrollinterval);
+    //applyConfig();
 }
 
 
@@ -1453,9 +1728,9 @@ function Init() {
         }
       },false);
     */
-    resizeSlides();
+    //resizeSlides();
 
-    _('pincode').value = ("" + Math.floor(100000 + Math.random() * 100000)).substr(1);
+    _('pincode').value = ('' + Math.floor(100000 + Math.random() * 100000)).substr(1);
     _('sharedpin').innerHTML = _('pincode').value;
     _('sharedpin2').innerHTML = _('pincode').value;
     Synchronize_save();
@@ -1531,37 +1806,37 @@ function Init() {
             event.stopPropagation();
         }
     };
-    ChangeColor('titre', _('ColorTitre').value);
+    /*ChangeColor('titre', _('ColorTitre').value);
     ChangeColor('titreleft', _('ColorTitre').value);
     ChangeColor('titrerightbis', _('ColorTitre').value);
     ChangeColor('partialtitre', _('ColorPartialTitre').value);
-    ChangeColor('studentfeedback', _('Colorstudentfeedback').value);
+    ChangeColor('studentfeedback', _('Colorstudentfeedback').value);*/
 
     //setTimeout(Micro,1000);
     //setTimeout(Micro,1500);
     //version addEventListener
     window.addEventListener('offline', (event) => {
-        console.log("La connexion au réseau est perdue.");
+        console.log('La connexion au réseau est perdue.');
         _('connexion').style.visibility = 'visible';
         delayStudentReadtext = 100000;
         delayReadtextQ = 100000;
         delayRemote = 100000;
     });
     window.addEventListener('online', (event) => {
-        console.log("La connexion au réseau est rétablie.");
+        console.log('La connexion au réseau est rétablie.');
         _('connexion').style.visibility = 'hidden';
         delayStudentReadtext = 500;
         delayReadtextQ = 100;
         delayRemote = 200;
     });
 
-    if (_('embedwooclapon').checked) {
+    /*if (_('embedwooclapon').checked) {
         _('spanembedwooclapon').innerHTML = 'Yes !';
         show('titlewooclap');
     } else {
         _('spanembedwooclapon').innerHTML = 'No.';
         hide('titlewooclap');
-    }
+    }*/
     if (zoomid != '') startZoom(zoomid);
     if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
     if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
@@ -1600,7 +1875,7 @@ function opentab_url(url) {
 function startZoom(zoomid) {
     var lnk = 'https://univ-nantes-fr.zoom.us/wc/join/' + zoomid;
     opentab_url(lnk);
-    if (window.confirm("Are you the host for this zoom session ?")) {
+    if (window.confirm('Are you the host for this zoom session ?')) {
         window.open('https://univ-nantes-fr.zoom.us/wc/' + zoomid + '/start');
     }
 }
@@ -1614,10 +1889,10 @@ function startZoom(zoomid) {
  */
 
 function setLanguageStr(l) {
-    console.log("Remote says set language to (" + l + ")");
+    console.log('Remote says set language to (' + l + ')');
     // Try to find the language in the language list
     var s = _('classroomlanguage');
-    var finded = -1
+    var finded = -1;
     for (var i = 0; i < s.options.length && finded == -1; i++) {
         if (l.substr(0, 2).toLowerCase() == s.options[i].innerHTML.substr(0, 2).toLowerCase()) finded = i;
     }
@@ -1635,15 +1910,16 @@ function setLanguageStr(l) {
  */
 
 function remote() {
-    if (_('classroomid').value != "") {
+    if (_('classroomid').value != '') {
         var request = new XMLHttpRequest();
-        request.open("POST", "saveremoteorder.php");
+        request.open('POST', 'saveremoteorder.php');
         var f = new FormData();
         f.append('ROOMID', _('classroomid').value);
         f.append('APPID', _('appid').value);
+        f.append('room_token', window.pageData.roomToken);
         f.append('ORDER', '');
         request.send(f);
-        AbortTimeout(request,"remote");
+        AbortTimeout(request,'remote');
 
         request.onload = function(event) {
             var order = request.responseText;
@@ -1657,12 +1933,12 @@ function remote() {
                     SkipBackward();
                     Forward();
                 }
-                if (order.substr(0, "micro".length) == "micro") {
-                    var fromremote = order.substr("micro".length).trim();
+                if (order.substr(0, 'micro'.length) == 'micro') {
+                    var fromremote = order.substr('micro'.length).trim();
                     if (fromremote == _('appid').value || fromremote == '') Micro();
                 }
-                if (order.substr(0, "language".length) == "language") {
-                    var options = order.substr("language".length).trim().split("|");
+                if (order.substr(0, 'language'.length) == 'language') {
+                    var options = order.substr('language'.length).trim().split('|');
                     var to_lang = options[0].trim();
                     var fromremote = options[1].trim();
                     console.log('Order for (' + _('appid').value + ') from (' + fromremote + ') for language (' + to_lang + ')');
@@ -1679,8 +1955,8 @@ function remote() {
  */
 
 function updateUsers() {
-    _('connectedusers').innerHTML = (NBconnectedusers) + " connected users";
-    _('connectedusers').title = Tconnectedusers.join(", ");
+    _('connectedusers').innerHTML = (NBconnectedusers) + ' connected users';
+    _('connectedusers').title = Tconnectedusers.join(', ');
 }
 
 /**
@@ -1689,14 +1965,14 @@ function updateUsers() {
  */
 
 function readTextQ() {
-    if (_('classroomid').value != "") {
+    if (_('classroomid').value != '') {
         var request = new XMLHttpRequest();
-        request.open("POST", "readtextQ.php");
+        request.open('POST', 'readtextQ.php');
         var f = new FormData();
         f.append('lineid', 0);
         f.append('ROOMID', _('classroomid').value);
         request.send(f);
-        AbortTimeout(request,"readTextQ");
+        AbortTimeout(request,'readTeextQ');
         request.onload = function(event) {
             var Told = request.responseText.split('\n');
             var k = 0;
@@ -1709,10 +1985,10 @@ function readTextQ() {
             var nbnewQ = 0;
             for (var i = inputnumberQ; i < T.length; i++) {
                 var L = T[i].split(';');
-                if (L[0] == 'Intervenant' && L[2].indexOf("[extratab") >= 0) {
+                if (L[0] == 'Teacher' && L[2].indexOf('[extratab') >= 0) {
                     console.log('Opening an extra tab');
                     // feedback
-                    var resource = L[2].replace("[extratab", "").replace("]", "").split("|");
+                    var resource = L[2].replace('[extratab', '').replace(']', '').split('|');
                     var tabnumber = resource[0];
                     var url = resource[1];
                     if (_('extraurl' + tabnumber).value != url) {
@@ -1722,12 +1998,12 @@ function readTextQ() {
                     }
 
                 } else {
-                    if (L[2].indexOf("[newstudentarrived]") >= 0) {
+                    if (L[2].indexOf('[newstudentarrived]') >= 0) {
                         NBconnectedusers++;
                         Tconnectedusers.push(L[0]);
                         updateUsers();
                     } else {
-                        if (L[2].indexOf("[newstudentlived]") >= 0) {
+                        if (L[2].indexOf('[newstudentlived]') >= 0) {
                             NBconnectedusers--;
                             Tconnectedusers.filter(student => student != L[0]);
                             updateUsers();
@@ -1797,6 +2073,21 @@ function EventNewQuestion() {
  * @returns
  */
 
+function saveTextQ(ch) {
+    var request = new XMLHttpRequest();
+    request.open('POST', 'savetextQ.php');
+    var f = new FormData();
+    f.append('lineid', 'Teacher');
+    //inputnumberQ++;
+    f.append('text', ch);
+    f.append('inputlanguage', builtin_language);
+    f.append('ROOMID', _('classroomid').value);
+    request.send(f);
+    AbortTimeout(request,'saveTextQ');
+    request.onload = function(event) {
+        readTextQ();
+    };
+}
 
 /**
  * @summary Translate the text of a question from a language to another
@@ -1809,10 +2100,94 @@ function EventNewQuestion() {
  * @returns
  */
 
-function FromCompleteLessonToTable() {
-    var txt = _('notebookcompleteraw').innerHTML;
-    _('notebookcompleteformatted').innerHTML = txt;
+function TranslateQ(ch, l, linput, name, order) {
+    console.log('TranslateQ - Texte :', ch, ', Langue cible :', l, ", Langue d'entrée :", linput);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'Translate.php', true);
+
+    var formData = new FormData();
+    formData.append('texte', ch);
+    formData.append('lang', l);
+    formData.append('langinput', linput);
+    formData.append('ROOMID', _('classroomid').value || '');
+
+    // Ajouter whichtranslator et apikey directement
+    var whichtranslator = _('whichtranslator').value;
+    var apikey = _('apikey').value;
+    if (whichtranslator) formData.append('whichtranslator', whichtranslator);
+    if (apikey) formData.append('apikey', apikey);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE) {
+
+            if (this.status === 200) {
+                try {
+                    var response = JSON.parse(this.responseText);
+
+                    if (response && !response.error && response.data && response.data.translations) {
+                        var translatedText = response.data.translations[0].text;
+                        EcrireCR(name, translatedText, order);
+                    } else {
+                        console.error('Erreur de traduction. Réponse :', response);
+                        EcrireCR(name, '---- Translation ERROR ----', order);
+                    }
+                } catch (error) {
+                    console.error('Erreur de parsing JSON :', error);
+                    EcrireCR(name, '---- JSON Parse ERROR ----', order);
+                }
+            } else {
+                console.error('Erreur HTTP :', this.status);
+                EcrireCR(name, `---- HTTP ERROR ${this.status} ----`, order);
+            }
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Erreur réseau dans TranslateQ.');
+        EcrireCR(name, '---- Network ERROR ----', order);
+    };
+
+    xhr.send(formData);
+    AbortTimeout(xhr, 'TranslateQ');
 }
+/*function TranslateQ(ch, l, linput, name, order) {
+    console.log("TranslateQ");
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput+TranslatorInfo(), true);
+
+    xhr.onreadystatechange = function() { // Call a function when the state changes.
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // console.log(this.responseText);
+            var response = JSON.parse(this.responseText);
+            if ((!response["error"]) && response["data"]["translations"]) {
+                // Parle(response["data"]["translations"][0]["translatedText"]);
+                EcrireCR(name, response["data"]["translations"][0]["translatedText"], order);
+            } else {
+                //EcrireCR("----","---- Translation ERROR ----")
+                console.log("---- Translation ERROR ----");
+            }
+
+        }
+    };
+    xhr.send();
+    AbortTimeout(xhr,"TranslateQ");
+}*/
+
+/**
+ * @summary unused and obsolete function
+ * 
+ * @deprecated
+ * @unused
+ */
+
+/*
+function FromCompleteLessonToTable() {
+    // Deprecated helper - not used. Kept for reference.
+    console.warn('FromCompleteLessonToTable() is deprecated and has been disabled.');
+    return;
+}
+*/
 
 /**
  * @summary Do nothing useless ? probably unused
@@ -1821,7 +2196,9 @@ function FromCompleteLessonToTable() {
  * @unused
  */
 
+/*
 function playlesson() {}
+*/
 
 /**
  * @summary Switch the fullscreen mode on and off
@@ -1836,7 +2213,7 @@ function GoFS() {
         //resizeSlides();
     } else {
         document.exitFullscreen();
-        _('bar').style.transform = "scaleY(1)";
+        _('bar').style.transform = 'scaleY(1)';
         //resizeSlides();
     }
 }
@@ -1850,7 +2227,7 @@ function reduceToolbar() {
     if (document.fullscreenElement) {
         //_('bar').style.transform = "scaleY(0.1)";
     } else {
-        _('bar').style.transform = "scaleY(1)";
+        _('bar').style.transform = 'scaleY(1)';
     }
 }
 
@@ -1860,6 +2237,7 @@ function reduceToolbar() {
  */
 
 function resizeSlides() {
+    console.log('resizeSlides');
     var slide = _('img_slides');
     var ratio = slide.width / slide.height;
     var aggrandissmentX = (window.innerWidth - 30) / slide.width;
@@ -1886,7 +2264,7 @@ function resizeSlides() {
     }
 
     // For wooclap and others
-    ["wooclap", "extratab1", "extratab2", "extratab3", "extratab4", "visio"].map(resizeWindow)
+    //["wooclap", "extratab1", "extratab2", "extratab3", "extratab4", "visio"].map(resizeWindow)
 }
 
 /**
@@ -1897,25 +2275,13 @@ function resizeSlides() {
  * @param {number} pin a 5 digits pin code
  */
 
+/*
 function Synchronize(pin) {
-    var request = new XMLHttpRequest();
-    request.open("POST", "synchronize.php");
-    var f = new FormData();
-    f.append('pincode', pin);
-    request.send(f);
-    AbortTimeout(request,"Synchronize");
-    request.onload = function(event) {
-        if (request.responseText != "") {
-            _('classroomid').value = request.responseText;
-            _('pincode').value = pin;
-            _('sharedpin').innerHTML = pin;
-            _('sharedpin2').innerHTML = pin;
-            updateLinks();
-        } else {
-            alert("ERROR : unknown pin code");
-        }
-    };
+    // Deprecated synchronization via PIN - disabled.
+    console.warn('Synchronize() is deprecated and has been disabled.');
+    return;
 }
+*/
 
 /**
  * @summary Create a new PIN 5 digit code associated to a course channel
@@ -1923,15 +2289,16 @@ function Synchronize(pin) {
  */
 
 function Synchronize_save() {
-    if (_('pincode').value != "") {
-        if (_('classroomid').value != "") {
+    if (_('pincode').value != '') {
+        if (_('classroomid').value != '') {
             var request = new XMLHttpRequest();
-            request.open("POST", "synchronize_savepin.php");
+            request.open('POST', 'synchronize_savepin.php');
             var f = new FormData();
             f.append('pincode', _('pincode').value);
             f.append('roomid', _('classroomid').value);
+            f.append('room_token', window.pageData.roomToken);
             request.send(f);
-            AbortTimeout(request,"Synchronize_save");
+            AbortTimeout(request,'Synchronize_save');
             request.onload = function(event) {};
         }
     }
@@ -1949,7 +2316,7 @@ function Synchronize_save() {
 function showET(obj, num) {
     if (obj.checked) {
         var url = _('extraurl' + num).value;
-        if (url != "") {
+        if (url != '') {
             _('spanembedET' + num).innerHTML = 'Yes !';
             show('titleextratab' + num);
             _('extratab' + num).src = url;
@@ -1987,13 +2354,15 @@ function Micro() {
             doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
         } else {
             stopRecognizer();
+            
         }
     }
     if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+        //LaunchStudentReadText();
         StartSpeechRecognition(Traduction);
     }
-    /* else {
-          builtin_recognition.abort();
+    /*else {
+            StopStudentReadText();
         }*/
 
 }
@@ -2032,15 +2401,15 @@ function setScrollvalues(l) {
 
 function updateLinks() {
     var roomid = _('classroomid').value;
-    _("link1").src = "https://tableaunoir.github.io/?id=" + roomid;
-    _("link1").innerHTML = _("link1").src;
-    _("link1").title = 'Click here to add a link for ' + _("link1").src;
-    _("link2").src = "https://wbo.ophir.dev/boards/" + roomid;
-    _("link2").innerHTML = _("link2").src;
-    _("link2").title = 'Click here to add a link for ' + _("link2").src;
-    _("link3").src = "https://meet.jit.si/" + roomid;
-    _("link3").innerHTML = _("link3").src;
-    _("link3").title = 'Click here to add a link for ' + _("link3").src;
+    _('link1').src = 'https://tableaunoir.github.io/?id=' + roomid;
+    _('link1').innerHTML = _('link1').src;
+    _('link1').title = 'Click here to add a link for ' + _('link1').src;
+    _('link2').src = 'https://wbo.ophir.dev/boards/' + roomid;
+    _('link2').innerHTML = _('link2').src;
+    _('link2').title = 'Click here to add a link for ' + _('link2').src;
+    _('link3').src = 'https://meet.jit.si/' + roomid;
+    _('link3').innerHTML = _('link3').src;
+    _('link3').title = 'Click here to add a link for ' + _('link3').src;
 }
 
 
@@ -2075,13 +2444,13 @@ function ChangeSizeIcons(size) {
  */
 
 function showEachIcon() {
-    var checkBox = _("iconon");
-    var text = _("eachicon");
+    var checkBox = _('iconon');
+    var text = _('eachicon');
     if (!checkBox.checked) {
-        text.style.display = "block";
-        text.style.padding = "0px 0px 0px 20px"
+        text.style.display = 'block';
+        text.style.padding = '0px 0px 0px 20px';
     } else {
-        text.style.display = "none";
+        text.style.display = 'none';
     }
 }
 
@@ -2107,7 +2476,7 @@ function sendnotebook() {
     _('dialog_MailTo').value = 'your.mail@univ-nantes.fr';
     _('dialog_MailSubject').value = 'Content of the lesson ' + _('classroomid').value;
     _('dialog_MailBody').innerHTML = _('notebook').innerHTML;
-    $("#dialog-mail").dialog("open");
+    $('#dialog-mail').dialog('open');
 }
 
 
@@ -2138,39 +2507,39 @@ function updateConfig() {
     var newConfig = [];
     newConfig[0] = String.fromCharCode(65 + _('classroomlanguage').selectedIndex);
     newConfig[1] = String.fromCharCode(65 + _('subtitlelanguage').selectedIndex);
-    newConfig[2] = (_('subtitlebaron').checked ? "Y" : "N");
+    newConfig[2] = (_('subtitlebaron').checked ? 'Y' : 'N');
     newConfig[3] = String.fromCharCode(65 + _('ColorTitre').selectedIndex);
-    newConfig[4] = (_('subtitlepartialon').checked ? "Y" : "N");
+    newConfig[4] = (_('subtitlepartialon').checked ? 'Y' : 'N');
     newConfig[5] = String.fromCharCode(65 + _('ColorPartialTitre').selectedIndex);
     newConfig[6] = String.fromCharCode(65 + _('selectfontsize').selectedIndex);
-    newConfig[7] = (_('embedwooclapon').checked ? "Y" : "N");
-    newConfig[8] = (_('embedshareon').checked ? "Y" : "N");
+    //newConfig[7] = (_('embedwooclapon').checked ? 'Y' : 'N');
+    newConfig[8] = (_('embedshareon').checked ? 'Y' : 'N');
     newConfig[9] = String.fromCharCode(65 + _('selectopacity').selectedIndex);
-    newConfig[10] = (_('arrowson').checked ? "Y" : "N");
-    newConfig[11] = (_('iconon').checked ? "Y" : "N");
-    newConfig[12] = (_('pincodeon').checked ? "Y" : "N");
-    newConfig[13] = (_('microon').checked ? "Y" : "N");
-    newConfig[14] = (_('questionon').checked ? "Y" : "N");
-    newConfig[15] = (_('fson').checked ? "Y" : "N");
-    newConfig[16] = (_('directMicrosoftTranslation').checked ? "Y" : "N");
-    newConfig[17] = (_('directMicrosoftTranslationBoth').checked ? "Y" : "N");
+    newConfig[10] = (_('arrowson').checked ? 'Y' : 'N');
+    newConfig[11] = (_('iconon').checked ? 'Y' : 'N');
+    newConfig[12] = (_('pincodeon').checked ? 'Y' : 'N');
+    newConfig[13] = (_('microon').checked ? 'Y' : 'N');
+    newConfig[14] = (_('questionon').checked ? 'Y' : 'N');
+    newConfig[15] = (_('fson').checked ? 'Y' : 'N');
+    newConfig[16] = (_('directMicrosoftTranslation').checked ? 'Y' : 'N');
+    newConfig[17] = (_('directMicrosoftTranslationBoth').checked ? 'Y' : 'N');
     // newConfig[10]=(_('pincodeon').checked?"Y":"N");
     currentconfig = newConfig.join('');
-    _("myConfig").value = currentconfig;
+    _('myConfig').value = currentconfig;
     if (window.location.href.indexOf('?') > 0) {
-        _("LinkConfig").href = window_location_href + '&myconfig=' + _("myConfig").value;
+        _('LinkConfig').href = window_location_href + '&myconfig=' + _('myConfig').value;
         // var link = "subtitles.php&myconfig=" + _("myConfig").value;
     } else {
-        _("LinkConfig").href = window_location_href + '?myconfig=' + _("myConfig").value;
+        _('LinkConfig').href = window_location_href + '?myconfig=' + _('myConfig').value;
         // var link = "subtitles.php?myconfig=" + _("myConfig").value;
     }
-    var link = _("LinkConfig").href.replace("index.php","subtitles.php");
-    var room_id = _("sharedlink").innerHTML.replace("Student.php?","&");
-    _("LinkConfig").innerHTML = _("LinkConfig").href;
-    _("sublink").innerHTML = link+room_id;
+    var link = _('LinkConfig').href.replace('index.php','subtitles.php');
+    var room_id = _('sharedlink').innerHTML.replace('Student.php?','&');
+    _('LinkConfig').innerHTML = _('LinkConfig').href;
+    _('sublink').innerHTML = link+room_id;
     var link_tot = link+room_id;
-    link_tot = link_tot.replaceAll("&amp;","&");
-    _("sublink").href = link_tot;
+    link_tot = link_tot.replaceAll('&amp;','&');
+    _('sublink').href = link_tot;
 }
 
 /**
@@ -2179,16 +2548,17 @@ function updateConfig() {
  */
 
 function applyConfig() {
-    var config = currentconfig;
-    if (config.length != "ABYANACNNCNNNYYYYN".length) return;
+    console.log('Apply config ');
+    var config = window.pageData.currentconfig;
+    if (config.length != 'ABYANACNNCNNNYYYYN'.length) return;
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-    setLanguageInput(_('classroomlanguage').value);
+    //setLanguageInput(_('classroomlanguage').value);
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
     // subtitlebaron
-    _('subtitlebaron').checked = (config.charAt(2) == "Y");
+    _('subtitlebaron').checked = (config.charAt(2) == 'Y');
     if (_('subtitlebaron').checked) {
         _('spansubtitlebaron').innerHTML = 'Yes !';
         _('titre').style.visibility = 'visible';
@@ -2218,7 +2588,7 @@ function applyConfig() {
     ChangeColor('titreleft', _('ColorTitre').value);
     ChangeColor('titrerightbis', _('ColorTitre').value);
     // subtitlepartialbaron
-    _('subtitlepartialon').checked = (config.charAt(4) == "Y");
+    _('subtitlepartialon').checked = (config.charAt(4) == 'Y');
     if (_('subtitlepartialon').checked) {
         _('spansubtitlepartialon').innerHTML = 'Yes !';
         _('partialtitre').style.visibility = 'visible';
@@ -2235,23 +2605,23 @@ function applyConfig() {
     _('partialtitre').style.fontSize = _('selectfontsize').value;
     _('studentfeedback').style.fontSize = _('selectfontsize').value;
     // Wooclap tab
-    _('embedwooclapon').checked = (config.charAt(7) == "Y");
+    /*_('embedwooclapon').checked = (config.charAt(7) == "Y");
     if (_('embedwooclapon').checked) {
         _('spanembedwooclapon').innerHTML = 'Yes !';
         show('titlewooclap');
     } else {
         _('spanembedwooclapon').innerHTML = 'No.';
         hide('titlewooclap');
-    }
+    }*/
     // Share tab
-    _('embedshareon').checked = (config.charAt(8) == "Y");
+    /*_('embedshareon').checked = (config.charAt(8) == "Y");
     if (_('embedshareon').checked) {
         _('spanembedshareon').innerHTML = 'Yes !';
         show('titleshare');
     } else {
         _('spanembedshareon').innerHTML = 'No.';
         hide('titleshare');
-    }
+    }*/
     //selectopacity
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
     _('titre').style.backgroundColor = _('selectopacity').value;
@@ -2259,7 +2629,7 @@ function applyConfig() {
     _('studentfeedback').style.backgroundColor = _('selectopacity').value;
 
     // Arrows
-    _('arrowson').checked = (config.charAt(10) == "Y");
+    _('arrowson').checked = (config.charAt(10) == 'Y');
     if (_('arrowson').checked) {
         _('titreleft').style.visibility = 'visible';
         _('titrerightbis').style.visibility = 'visible';
@@ -2272,18 +2642,18 @@ function applyConfig() {
         _('titreright').style.visibility = 'hidden';
     }
     // Icons
-    _('iconon').checked = (config.charAt(11) == "Y");
-    _('spaniconon').innerHTML = (config.charAt(11) == "Y") ? "Yes !" : "No.";
+    _('iconon').checked = (config.charAt(11) == 'Y');
+    _('spaniconon').innerHTML = (config.charAt(11) == 'Y') ? 'Yes !' : 'No.';
     showEachIcon();
 
     // Pin code
-    _('pincodeon').checked = (config.charAt(12) == "Y");
-    _('spanpincodeon').innerHTML = (config.charAt(12) == "Y") ? "Yes !" : "No.";
-    _('pincodediv').style.visibility = (config.charAt(12) == "Y") ? "visible" : "hidden";
+    _('pincodeon').checked = (config.charAt(12) == 'Y');
+    _('spanpincodeon').innerHTML = (config.charAt(12) == 'Y') ? 'Yes !' : 'No.';
+    _('pincodediv').style.visibility = (config.charAt(12) == 'Y') ? 'visible' : 'hidden';
 
     // Micro
-    _('microon').checked = (config.charAt(13) == "Y");
-    _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
+    _('microon').checked = (config.charAt(13) == 'Y');
+    _('spanmicroon').innerHTML = (config.charAt(13) == 'Y') ? 'Yes !' : 'No.';
     if (_('microon').checked) {
         show('micon');
     } else {
@@ -2292,8 +2662,8 @@ function applyConfig() {
     //_('micon').style.visibility = (config.charAt(13) == "Y") ? "visible" : "hidden";
 
     // Question
-    _('questionon').checked = (config.charAt(14) == "Y");
-    _('spanquestionon').innerHTML = (config.charAt(14) == "Y") ? "Yes !" : "No.";
+    _('questionon').checked = (config.charAt(14) == 'Y');
+    _('spanquestionon').innerHTML = (config.charAt(14) == 'Y') ? 'Yes !' : 'No.';
     if (_('questionon').checked) {
         show('questionicon');
     } else {
@@ -2302,8 +2672,8 @@ function applyConfig() {
     //_('questionicon').style.visibility = (config.charAt(14) == "Y") ? "visible" : "hidden";
 
     // FS
-    _('fson').checked = (config.charAt(15) == "Y");
-    _('spanfson').innerHTML = (config.charAt(15) == "Y") ? "Yes !" : "No.";
+    _('fson').checked = (config.charAt(15) == 'Y');
+    _('spanfson').innerHTML = (config.charAt(15) == 'Y') ? 'Yes !' : 'No.';
     //_('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
     if (_('fson').checked) {
         show('FS');
@@ -2311,8 +2681,8 @@ function applyConfig() {
         hide('FS');
     }
 
-    _('directMicrosoftTranslation').checked = (config.charAt(16) == "Y");
-    _('spanmicrosoftdirecttranscritionon').innerHTML = (config.charAt(16) == "Y") ? "Yes !" : "No.";
+    _('directMicrosoftTranslation').checked = (config.charAt(16) == 'Y');
+    _('spanmicrosoftdirecttranscritionon').innerHTML = (config.charAt(16) == 'Y') ? 'Yes !' : 'No.';
     //_('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
     if (_('directMicrosoftTranslation').checked) {
         _('subtitlepartialon').checked = true;
@@ -2327,8 +2697,8 @@ function applyConfig() {
         _('titreright').style.visibility = 'hidden';
     }
 
-    _('directMicrosoftTranslationBoth').checked = (config.charAt(17) == "Y");
-    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(17) == "Y") ? "Yes !" : "No.";
+    _('directMicrosoftTranslationBoth').checked = (config.charAt(17) == 'Y');
+    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(17) == 'Y') ? 'Yes !' : 'No.';
    
     updateConfig();
 }
@@ -2341,14 +2711,14 @@ function applyConfig() {
 
 function fixTitle() {
     for (var f in {
-            "partialtitre": 1,
-            "studentfeedback": 1
+            'partialtitre': 1,
+            'studentfeedback': 1
         }) {
         var e = document.getElementById(f);
         e.style.top = (window.innerHeight - e.style.height - 200 - 10) + 'px';
     }
 
-    var e = document.getElementById("titre");
+    var e = document.getElementById('titre');
     e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
 }
 
@@ -2360,8 +2730,8 @@ function fixTitle() {
 
 function MinTitlePos() {
     for (var f in {
-            "partialtitre": 1,
-            "studentfeedback": 1
+            'partialtitre': 1,
+            'studentfeedback': 1
         }) {
         var e = document.getElementById(f);
         var postop = 1 * (e.style.top.replace('px', ''));
@@ -2375,3 +2745,10 @@ function MinTitlePos() {
  * @summary Callback function when the question field (Classroom tab) has changed
  * 
  */
+
+function sendclick() {
+    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
+    //alert("Will send : ("+tosend+")");
+    if (tosend != '') saveTextQ(tosend);
+    document.getElementById('question').value = '';
+}

@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/Security/room_tokens.php';
+require_once __DIR__ . '/Security/validate_room_token.php';
+
+// Vérifier le room_token
+requireRoomToken();
 
 // Écriture directe dans un fichier de log minimaliste
 file_put_contents('/tmp/test_execution.log', "Script readtextTranscriptSub.php exécuté à " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
@@ -21,9 +26,7 @@ writeLog("readtextTranscriptSub.php - Début de la requête");
 writeLog("Paramètres reçus - ROOMID: " . (isset($_POST["ROOMID"]) ? $_POST["ROOMID"] : "non défini") .
          ", ORDER: " . (isset($_POST["ORDER"]) ? $_POST["ORDER"] : "non défini"));
 
-//include("Security/referer.php");
-
-$roomid = isset($_POST["ROOMID"]) ? $_POST["ROOMID"] : "";
+// $roomid et $order sont déjà définis par la vérification ci-dessus
 $order = isset($_POST["ORDER"]) ? $_POST["ORDER"] : 0;
 
 if (empty($roomid)) {

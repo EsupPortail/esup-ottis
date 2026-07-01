@@ -221,6 +221,13 @@ $(function() {
 
 });
 
+function sendclick() {
+    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
+    //alert("Will send : ("+tosend+")");
+    if (tosend != "") saveTextQ(tosend);
+    document.getElementById('question').value = '';
+}
+
 $("#question").keyup(function(event) {
     if (event.keyCode === 13) {
         sendclick();
@@ -228,15 +235,8 @@ $("#question").keyup(function(event) {
 });
 
 $(function() {
-    // When language changes, force a refresh of the chat to re-translate with new language
-    $("#classroomlanguage").on("change", function() {
-        // Wait a bit for the language to be set, then refresh the chat
-        setTimeout(function() {
-            if (typeof readTextQ !== 'undefined') {
-                readTextQ();
-            }
-        }, 500);
-    });
+    $("#showmenu").tooltip();
+    $(".tooltip").tooltip();
 
 });
 
@@ -308,7 +308,7 @@ $(function() {
         closeText: "hide",
         closeOnEscape: false,
         hide: { effect: "puff", duration: 1000 },
-        autoOpen: false,
+        autoOpen: true,
         //height: 800,
         //width: 600,
         modal: true,
@@ -322,14 +322,14 @@ $(function() {
             firstclick=false;
             resizeSlides();
             _('VoiceOutput').value=_('VoiceOutputchoose').value;
-            setLanguageOutputAndRetranslate(_('VoiceOutput').value);
-            _('synthesison').checked=false;
+            setLanguageOutput(_('VoiceOutput').value);
+            _('synthesison').checked=true;
             _('arrowlanguage').style.visibility='hidden';
             _('arrowlanguage').style.display='none';
-            // _('arrowsynthesis').style.visibility='visible';
-            // _('arrowsynthesis').style.display='none';
+            _('arrowsynthesis').style.visibility='visible';
+            _('arrowsynthesis').style.display='none';
             _('lilanguage').style.animation='none';
-            // _('lisynthese').style.animation='none'; 
+            _('lisynthese').style.animation='none'; 
             firstclick=true; 
             showMessageMenu();       
         }
@@ -338,14 +338,6 @@ $(function() {
     //      event.preventDefault();
     //      EnvoiMail();
     //    });
-
-    // Fonction pour ouvrir le dialog de choix de langue
-    window.openLanguageDialog = function() {
-        if ($("#dialog-choose").dialog("instance")) {
-            $("#dialog-choose").dialog("open");
-        }
-    };
-
     function refreshSpeed() {
         builtin_discoursrate = $("#slider_speed").slider("value") / 100;
     }

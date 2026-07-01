@@ -1,0 +1,24 @@
+#!/bin/bash
+# vibe-safe - Wrapper sécurisé pour Mistral Vibe
+# Exige une confirmation explicite pour les opérations sensibles
+
+# Liste des mots-clés dangereux
+DANGER_KEYWORDS=("edit" "write_file" "rm " "mv " "git push" "git reset" "git rebase" ">" ">>" ":>")
+
+# Vérifie si la commande contient des opérations à risque
+for keyword in "${DANGER_KEYWORDS[@]}"; do
+  if [[ "$*" == *"$keyword"* ]]; then
+    echo -e "\n\033[31m⚠️  OPÉRATION À RISQUE DÉTECTÉE\033[0m"
+    echo "Commande : $*"
+    echo -e "\n\033[33mCette opération peut modifier des fichiers.\033[0m"
+    read -p "Confirmez-vous explicitement avec 'OUI' pour continuer ? (OUI/NON) : " confirm
+    if [[ "$confirm" != "OUI" && "$confirm" != "oui" && "$confirm" != "YES" && "$confirm" != "yes" ]]; then
+      echo -e "\033[31m❌ Opération annulée.\033[0m"
+      exit 1
+    fi
+    break
+  fi
+done
+
+# Exécute Mistral Vibe normalement
+vibe "$@"

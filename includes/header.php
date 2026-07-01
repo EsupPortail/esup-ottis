@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?= htmlspecialchars($language) ?>">
     <title><?php echo $pageTitle ?? 'OMIST'; ?></title>
+    <!-- Room token is now handled at the page level -->
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
 

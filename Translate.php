@@ -88,7 +88,7 @@ function respond_json(array $response, int $statusCode = 200) {
 // Security Phase 1: Input validation and XSS prevention
 
 // Récupérer les paramètres avec validation et limites de sécurité
-$texte = $_GET["texte"] ?? '';
+$texte = $_POST["texte"] ?? '';
 
 // Security: Limit text length to prevent DoS (10KB max)
 if (strlen($texte) > 10240) {
@@ -101,18 +101,18 @@ $texte = htmlspecialchars($texte, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
 $texte = html_entity_decode($texte, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 
 // Validate and sanitize language codes
-$lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['lang'] ?? '');
+$lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $_POST['lang'] ?? '');
 if (strlen($lang) > 16) {
     $lang = substr($lang, 0, 16);
 }
 
-$langinput = preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['langinput'] ?? '');
+$langinput = preg_replace('/[^a-zA-Z0-9_-]/', '', $_POST['langinput'] ?? '');
 if (strlen($langinput) > 16) {
     $langinput = substr($langinput, 0, 16);
 }
 
 // Validate ROOMID using regex (alphanumeric, underscore, hyphen only)
-$roomId = $_GET['ROOMID'] ?? 'UNKNOWN';
+$roomId = $_POST['ROOMID'] ?? 'UNKNOWN';
 if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomId)) {
     $roomId = 'UNKNOWN';
 } else {
@@ -120,19 +120,19 @@ if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomId)) {
 }
 
 // Validate lineid
-$lineid = $_GET['lineid'] ?? 'NONE';
+$lineid = $_POST['lineid'] ?? 'NONE';
 if (!preg_match('/^[a-zA-Z0-9_-]{0,64}$/', $lineid)) {
     $lineid = 'NONE';
 } else {
     $lineid = preg_replace('/[^a-zA-Z0-9_-]/', '', $lineid);
 }
 
-$forcelibre = isset($_GET['forcelibre']);
-$WhichTranslator = $_GET['whichtranslator'] ?? null; // may be set later
+$forcelibre = isset($_POST['forcelibre']);
+$WhichTranslator = $_POST['whichtranslator'] ?? null; // may be set later
 if ($forcelibre) {
     $WhichTranslator = "LIBRETRANSLATE";
 }
-$apikey = $_GET["apikey"] ?? '';
+$apikey = $_POST["apikey"] ?? '';
 
 // Log des paramètres reçus
 safe_log("Paramètres reçus:\n" .
@@ -230,7 +230,7 @@ if ($roomId != "UNKNOWN") {
             'source_lang' => strtoupper($langinput),
             'target_lang' => strtoupper($lang)
         ];
-        $payload = json_encode($data);
+        $payload = json_encode($data, JSON_UNESCAPED_UNICODE);
 
         // Utiliser cURL natif PHP pour DeepL Pro
         if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
@@ -244,7 +244,7 @@ if ($roomId != "UNKNOWN") {
 
             safe_log("DeepL HTTP code: $httpcode, error: $curlerr\nResponse: $resultjson\n");
             if ($resultjson === false || $httpcode === null || $httpcode < 200 || $httpcode >= 300) {
-                $resultjson = json_encode(['error' => true, 'message' => 'DeepL request failed', 'http_code' => $httpcode, 'error' => $curlerr]);
+                $resultjson = json_encode(['error' => true, 'message' => 'DeepL request failed', 'http_code' => $httpcode, 'error' => $curlerr], JSON_UNESCAPED_UNICODE);
             }
             $result = $resultjson;
         }
@@ -262,13 +262,13 @@ if ($roomId != "UNKNOWN") {
             $resultjson = http_post($url, $payload, $headers, $httpCode, $errorMsg);
             safe_log("DeepL Free HTTP code: $httpCode, error: $errorMsg\nResponse: $resultjson\n");
             if ($resultjson === false || $httpCode === null || $httpCode < 200 || $httpCode >= 300) {
-                $resultjson = json_encode(['error' => true, 'message' => 'DeepL Free request failed', 'http_code' => $httpCode, 'error' => $errorMsg]);
+                $resultjson = json_encode(['error' => true, 'message' => 'DeepL Free request failed', 'http_code' => $httpCode, 'error' => $errorMsg], JSON_UNESCAPED_UNICODE);
             } else {
                 $decoded = json_decode($resultjson, true);
                 if (json_last_error() === JSON_ERROR_NONE && isset($decoded['translations'])) {
-                    $resultjson = json_encode(['data' => ['translations' => $decoded['translations']]]);
+                    $resultjson = json_encode(['data' => ['translations' => $decoded['translations']]], JSON_UNESCAPED_UNICODE);
                 } else {
-                    $resultjson = json_encode(['error' => true, 'message' => 'Invalid DeepL Free response', 'raw' => $resultjson]);
+                    $resultjson = json_encode(['error' => true, 'message' => 'Invalid DeepL Free response', 'raw' => $resultjson], JSON_UNESCAPED_UNICODE);
                 }
             }
             $result = $resultjson;
@@ -287,15 +287,15 @@ if ($roomId != "UNKNOWN") {
             $resultjson = http_post($url, $payload, $headers, $httpCode, $errorMsg);
             safe_log("LibreTranslate HTTP code: $httpCode, error: $errorMsg\nResponse: $resultjson\n");
             if ($resultjson === false || $httpCode === null || $httpCode < 200 || $httpCode >= 300) {
-                $resultjson = json_encode(['error' => true, 'message' => 'LibreTranslate request failed', 'http_code' => $httpCode, 'error' => $errorMsg]);
+                $resultjson = json_encode(['error' => true, 'message' => 'LibreTranslate request failed', 'http_code' => $httpCode, 'error' => $errorMsg], JSON_UNESCAPED_UNICODE);
             } else {
                 $decoded = json_decode($resultjson, true);
                 if (json_last_error() === JSON_ERROR_NONE && isset($decoded['translatedText'])) {
-                    $resultjson = json_encode(['data' => ['translations' => [['translatedText' => $decoded['translatedText']]]]]);
+                    $resultjson = json_encode(['data' => ['translations' => [['translatedText' => $decoded['translatedText']]]]], JSON_UNESCAPED_UNICODE);
                 } elseif (json_last_error() === JSON_ERROR_NONE && isset($decoded[0]['translation'])) {
-                    $resultjson = json_encode(['data' => ['translations' => [['translatedText' => $decoded[0]['translation']]]]]);
+                    $resultjson = json_encode(['data' => ['translations' => [['translatedText' => $decoded[0]['translation']]]]], JSON_UNESCAPED_UNICODE);
                 } else {
-                    $resultjson = json_encode(['error' => true, 'message' => 'Invalid LibreTranslate response', 'raw' => $resultjson]);
+                    $resultjson = json_encode(['error' => true, 'message' => 'Invalid LibreTranslate response', 'raw' => $resultjson], JSON_UNESCAPED_UNICODE);
                 }
             }
             $result = $resultjson;
@@ -356,5 +356,5 @@ if (!empty($result)) {
 }
 
 // Retourner la réponse JSON
-echo json_encode($response);
+echo json_encode($response, JSON_UNESCAPED_UNICODE);
 ?>

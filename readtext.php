@@ -1,21 +1,47 @@
 <?php
+require_once __DIR__ . '/Security/validate.php';
+require_once __DIR__ . '/Security/room_tokens.php';
+require_once __DIR__ . '/Security/validate_room_token.php';
 
-//include("Security/referer.php");
+// Vérifier le room_token
+requireRoomToken();
 
-$ligneID = $_POST["lineid"];
-$roomid = $_POST["ROOMID"];
-$order=0;
-if (isset($_POST["ORDER"])) $order=$_POST["ORDER"];
-//echo $ligneID."   ".$roomid."\n";
-if (file_exists("tmp/Link_".$roomid)) {
-  $fd=fopen("tmp/Link_".$roomid,"r");
-  while($ligne=fgets($fd,4096)){
+// Input validation
+$ligneID = validateLineId($_POST["lineid"] ?? 0);
+$roomid = $_POST["ROOMID"] ?? '';
+$order = validateLineId($_POST["ORDER"] ?? 0);
+
+// Validate ROOMID
+if (!validateRoomId($roomid)) {
+    http_response_code(400);
+    die("Invalid ROOMID");
+}
+
+$filePath = validateTmpFilePath($roomid, 'Link');
+if ($filePath === false) {
+    http_response_code(400);
+    die("Invalid file path");
+}
+
+// Check if file exists
+if (!file_exists($filePath)) {
+    echo "";
+    exit;
+}
+
+// Open file for reading
+$fd = secureOpenTmpFile($roomid, 'Link', 'r');
+if ($fd === false) {
+    http_response_code(403);
+    die("Access denied");
+}
+
+while($ligne=fgets($fd,4096)){
     $T=explode(";",$ligne);
     if ($T[0]*1>$ligneID*1) {
-      echo $order.";".$ligne;
+        echo $order.";".$ligne;
     }
-  }
-  fclose($fd);
 }
+fclose($fd);
 
 ?>

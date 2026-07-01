@@ -18,7 +18,8 @@ function _(el) {
  */
 
 function hide(e) {
-    _(e).style.display = 'none';
+    var el = _(e);
+    if (el) el.style.display = 'none';
 }
 
 /**
@@ -28,7 +29,8 @@ function hide(e) {
  */
 
 function show(e) {
-    _(e).style.display = 'block';
+    var el = _(e);
+    if (el) el.style.display = 'block';
 }
 
 /**
@@ -234,7 +236,11 @@ function EcrireCR(who, ch, order) {
         ColorsForCR[who] = [bg, fg, 20];
     }
 
-    ScreenCR[order] = '<li role="listitem" style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; margin-left: ' + ColorsForCR[who][2] + 'px; margin: 0 0 2px 0; padding: 5px; border-radius: 5px; display: block;">' + escapeHtml(who + ' : ' + ch) + '</li>';
+    // Déterminer le style d'alignement : gauche pour Intervenant, droite pour les auditeurs
+    var floatStyle = (who === 'Intervenant') ? 'left' : 'right';
+    var marginLeft = (who === 'Intervenant') ? '0px' : '20px';
+
+    ScreenCR[order] = '<li role="listitem" style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; float: ' + floatStyle + '; margin-left: ' + marginLeft + '; margin-top: 0; margin-bottom: 2px; margin-right: 0; padding: 5px; border-radius: 5px; display: block; clear: both;">' + escapeHtml(who + ' : ' + ch) + '</li>';
     RefreshCR();
 }
 
@@ -276,7 +282,9 @@ function resizeWindow(wname) {
 function ChangeColor(boxname, color) {
     var [bgcolor, bordercolor, textcolor] = color.split('|');
     var e = _(boxname);
-    var opacity = _("selectopacity").value
+    if (!e) return;
+    var opacityEl = _("selectopacity");
+    var opacity = opacityEl ? opacityEl.value : '0.5';
     if (textcolor) e.style.color = 'rgb(' + textcolor + ')';
     else e.style.color = 'rgb(255,255,255)';
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
@@ -293,6 +301,7 @@ function ChangeColor(boxname, color) {
 
 function ChangeOpacity(boxname, opacity) {
     var e = _(boxname);
+    if (!e) return;
     var color = e.style.backgroundColor;
     var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
     var bgcolor = [red, green, blue];

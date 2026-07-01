@@ -1,5 +1,6 @@
 <?php
-//include("Security/referer.php");
+require_once __DIR__ . '/Security/validate.php';
+require_once __DIR__ . '/Security/room_tokens.php';
 
 // Security Phase 1: Input validation and XSS prevention
 
@@ -11,6 +12,18 @@ if (!isset($_POST["ROOMID"]) || !preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $_POST["R
 }
 
 $roomid = $_POST["ROOMID"];
+
+// Vérifier le room_token pour l'auditeur (multi-onglets)
+$roomToken = $_POST["room_token"] ?? '';
+error_log("[CHAT-SAVE] room_token received: " . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
+error_log("[CHAT-SAVE] Token file exists: " . (file_exists(__DIR__ . '/tmp/room_token_' . basename($roomid)) ? "YES" : "NO"));
+if (!empty($roomToken)) {
+    if (!validateRoomToken($roomid, $roomToken)) {
+        header('HTTP/1.1 403 Forbidden');
+        echo "Invalid room token";
+        exit;
+    }
+}
 
 // Validate and sanitize lineid (limit length and allow only safe characters)
 if (!isset($_POST["lineid"])) {

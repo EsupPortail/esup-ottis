@@ -1,9 +1,20 @@
 <?php
+// Security includes
+require_once __DIR__ . '/Security/validate.php';
+require_once __DIR__ . '/Security/room_tokens.php';
+
+// Disable error display
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
 // Empêche la mise en cache 
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-    header('Cache-Control: no-cache, must-revalidate');
+header('Pragma: no-cache');
+header('Expires: 0');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+header('Cache-Control: no-cache, must-revalidate');
+
+// Start session for CSRF
+ensureSessionStarted();
 ?>
 <?php
 
@@ -15,6 +26,9 @@ if (isset($_GET["ROOMID"])) {
 } else {
   $classroomid = 'TEST_CHAT';
 }
+
+// Generer un token unique pour ce ROOMID
+$roomToken = generateRoomToken($classroomid);
 
 $Tcolors=array("Red","Blue","Orange","Purple","Black","White","Green");
 $Tobjects=array("Alpaca","Alligator","Dragoon", "Elephant","Lion", "Panther", "Tiger","Zebra");
@@ -37,6 +51,10 @@ fclose($fd);
 <head>
 	<title>Automatic translation for teaching purposes : CHAT</title>
 	<meta charset="utf-8">
+	<script>
+	// Room token for multi-tab synchronization
+	var ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
+	</script>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
 	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -577,7 +595,15 @@ var inputnumber=-1;
 
 function Translate(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(document.getElementById('classroomid').value) +"&lineid=" + encodeURIComponent(lineid), true);
+  xhr.open("POST", "Translate.php", true);
+  
+  var f = new FormData();
+  f.append('texte', ch);
+  f.append('lang', l);
+  f.append('langinput', linput);
+  f.append('ROOMID', document.getElementById('classroomid').value);
+  f.append('lineid', lineid);
+  f.append('room_token', ROOM_TOKEN);
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -597,14 +623,23 @@ function Translate(ch, l, linput, lineid) {
     }
   };
   xhr.onloadend = CompleteTranslation;
-  xhr.send();
+  xhr.send(f);
 }
 
 function Translate2(ch, l, linput, lineid) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(document.getElementById('classroomid').value) +"&lineid=" + encodeURIComponent(lineid), true);
+  xhr.open("POST", "Translate.php", true);
+  
+  var f = new FormData();
+  f.append('texte', ch);
+  f.append('lang', l);
+  f.append('langinput', linput);
+  f.append('ROOMID', document.getElementById('classroomid').value);
+  f.append('lineid', lineid);
+  f.append('room_token', ROOM_TOKEN);
+  
   xhr.onloadend = CompleteTranslation2;
-  xhr.send();
+  xhr.send(f);
 }
 
 function recharger() {
@@ -804,8 +839,9 @@ function readImage() {
 function Synchronize(pin) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "synchronize.php");
-  var f=new FormData();
-  f.append('pincode',pin);
+  var f = new FormData();
+  f.append('pincode', pin);
+  f.append('room_token', ROOM_TOKEN);
 	request.send(f);
 	request.onload = function(event) {
     if (request.responseText != "") {
@@ -821,7 +857,7 @@ function Synchronize(pin) {
 
 function Lancer() {
   //setInterval(readText,500);
-  setInterval(readTextQ,500);
+  startChatPolling();
   //setInterval(readImage,500);
   setLanguageInput(0);
   //resizeSlides();
@@ -929,7 +965,14 @@ function saveTextQ(ch) {
 
 function TranslateQ(ch, l, linput,name,order) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "Translate.php?texte=" + encodeURIComponent(ch) + "&lang=" + encodeURIComponent(l) + "&langinput=" + encodeURIComponent(linput) + "&ROOMID=" + encodeURIComponent(document.getElementById('classroomid').value), true);
+  xhr.open("POST", "Translate.php", true);
+  
+  var f = new FormData();
+  f.append('texte', ch);
+  f.append('lang', l);
+  f.append('langinput', linput);
+  f.append('ROOMID', document.getElementById('classroomid').value);
+  f.append('room_token', ROOM_TOKEN);
 
   xhr.onreadystatechange = function() { // Call a function when the state changes.
     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -947,7 +990,7 @@ function TranslateQ(ch, l, linput,name,order) {
 
     }
   };
-  xhr.send();
+  xhr.send(f);
 }
 
 function GoFS() {

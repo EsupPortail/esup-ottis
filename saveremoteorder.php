@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/Security/validate.php';
+require_once __DIR__ . '/Security/validate_room_token.php';
+
+requireRoomToken();
 include("Security/referer.php");
 
 $order = $_POST["ORDER"];

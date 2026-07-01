@@ -35,7 +35,7 @@ if (!ColorsForCR["Intervenant"]) {
 function saveTextQCommon(ch, senderName, roomId, language) {
     var request = new XMLHttpRequest();
     request.open("POST", "savetextQ.php");
-    
+
     // Use increasependingrequests if available
     if (typeof increasependingrequests === 'function') {
         increasependingrequests();
@@ -46,6 +46,11 @@ function saveTextQCommon(ch, senderName, roomId, language) {
     f.append('text', ch);
     f.append('inputlanguage', language || '');
     f.append('ROOMID', roomId || '');
+    
+    // Ajouter le token pour l'auditeur (multi-onglets)
+    if (typeof window.ROOM_TOKEN !== 'undefined') {
+        f.append('room_token', window.ROOM_TOKEN);
+    }
     
     request.send(f);
     
@@ -78,7 +83,7 @@ function readTextQCommon(roomId, messageHandler) {
     
     var request = new XMLHttpRequest();
     request.open("POST", "readtextQ.php");
-    
+
     // Use increasependingrequests if available
     if (typeof increasependingrequests === 'function') {
         increasependingrequests();
@@ -87,6 +92,11 @@ function readTextQCommon(roomId, messageHandler) {
     var f = new FormData();
     f.append('lineid', 0);
     f.append('ROOMID', roomId);
+    
+    // Ajouter le token pour l'auditeur (multi-onglets)
+    if (typeof window.ROOM_TOKEN !== 'undefined') {
+        f.append('room_token', window.ROOM_TOKEN);
+    }
     
     request.send(f);
     
@@ -269,10 +279,16 @@ function saveTextQ(ch) {
  */
 function TranslateQ(ch, targetLang, sourceLang, name, order) {
     var xhr = new XMLHttpRequest();
-    var url = "Translate.php?texte=" + encodeURIComponent(ch) +
-              "&lang=" + encodeURIComponent(targetLang) +
-              "&langinput=" + encodeURIComponent(sourceLang) +
-              "&ROOMID=" + encodeURIComponent((typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? document.getElementById('classroomid').value : '')));
+    xhr.open("POST", "Translate.php", true);
+    
+    var roomid = (typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? document.getElementById('classroomid').value : ''));
+    
+    var f = new FormData();
+    f.append('texte', ch);
+    f.append('lang', targetLang);
+    f.append('langinput', sourceLang);
+    f.append('ROOMID', roomid);
+    f.append('room_token', window.ROOM_TOKEN);
     
     // Use increasependingrequests if available
     if (typeof increasependingrequests === 'function') {
@@ -288,9 +304,7 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
             try {
                 var response = JSON.parse(this.responseText);
                 if (!response["error"] && response["data"] && response["data"]["translations"] && response["data"]["translations"][0]) {
-                    // Try both possible keys
-                    var translation = response["data"]["translations"][0]["translatedText"] || 
-                                     response["data"]["translations"][0]["text"];
+                    var translation = response["data"]["translations"][0]["text"];
                     if (translation) {
                         if (typeof EcrireCR === 'function') {
                             EcrireCR(name, translation, order);
@@ -317,7 +331,7 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
         }
     };
     
-    xhr.send();
+    xhr.send(f);
     
     // Use AbortTimeout if available
     if (typeof AbortTimeout === 'function') {

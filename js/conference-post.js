@@ -1,17 +1,17 @@
 window.onresize = resizeSlides;
 
-$("body").tooltip();
+/*$("body").tooltip();
 $("#tabs").tabs();
 $("#tabs-0").accordion({
     heightStyle: "panel"
 });
 $("#tabs-4").accordion({
     heightStyle: "panel"
-});
+});*/
 
 
 //$( "#savenb" ).button();
-
+document.addEventListener('DOMContentLoaded', function() {
 new QRCode(document.getElementById("sharedqr"), {
     text: document.getElementById("sharedlink").href,
     width: 256,
@@ -331,3 +331,4 @@ function FixTabOrderIssue() {
         res+=i+"\n";
     }
 }
+});
