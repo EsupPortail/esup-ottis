@@ -39,7 +39,7 @@ var firstclick = false;
 
 var ColorsForCR=[];
 ColorsForCR["----"]=[[255,0,0],[255,255,255],5];
-ColorsForCR["Teacher"]=[[0,0,255],[255,255,255],5];
+ColorsForCR["Intervenant"]=[[0,0,255],[255,255,255],0];
 
 var ScreenCR=[];
 

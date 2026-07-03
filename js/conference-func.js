@@ -174,7 +174,7 @@ function StudentreadText() {
             f.append('lineid', Studentinputnumber); // Non utilisé dans readtextTranscriptSub.php, mais conservé pour compatibilité
             f.append('ORDER', Studentcurrentorder_readtext);
             f.append('ROOMID', _('classroomid').value);
-            f.append('room_token', window.pageData.roomToken);
+            f.append('room_token', window.ROOM_TOKEN);
             request.send(f);
             request.onload = function(event) {
                 if (request.status !== 200) {
@@ -232,7 +232,7 @@ function StudentreadText() {
             f.append('lineid', Studentinputnumber);
             f.append('ORDER', Studentcurrentorder_readtext);
             f.append('ROOMID', _('classroomid').value);
-            f.append('room_token', window.pageData.roomToken);
+            f.append('room_token', window.ROOM_TOKEN);
             request.send(f);
             request.onload = function(event) {
                 console.log(request.responseText)
@@ -285,7 +285,7 @@ function InviteExternal() {
         var f = new FormData();
         f.append('ROOMID', _('classroomid').value);
         f.append('DURATION', _('duration').value);
-        f.append('room_token', window.pageData.roomToken);
+        f.append('room_token', window.ROOM_TOKEN);
         request.send(f);
         request.onload = function(event) {
             var T = request.responseText.trim();
@@ -530,7 +530,27 @@ function Traduction(ch) {
         console.log('Traduction - Texte original :', ch); // Log original
         EcrireNBonlyVO(ch);
         //EcrireTitle(ch);
-        saveText(ch);
+        
+        // Check if subtitle language is set and different from source
+        if (typeof subtitle_language !== 'undefined' && subtitle_language && 
+            builtin_language && builtin_language !== subtitle_language) {
+            // Translate to subtitle language and save both versions
+            Translate(ch, subtitle_language.substr(0, 2), builtin_language.substr(0, 2), 
+                function(translatedText) {
+                    if (translatedText && translatedText !== '') {
+                        // Save both source and translated text
+                        // Note: Translate() already writes to notebook via EcrireNBonly()
+                        saveTextWithTranslation(ch, translatedText);
+                    } else {
+                        // Fallback: save only source text
+                        saveText(ch);
+                    }
+                }
+            );
+        } else {
+            // No subtitle language set or same as source, save only source text
+            saveText(ch);
+        }
 /*        var liveon = _('liveon').checked;
         if (liveon) {
             if (readytotalk) {
@@ -569,19 +589,24 @@ function TranslatorInfo() {
  * @param {string} ch A given sentence
  * @param {string} l The output language.
  * @param {string} linput The input language.
+ * @param {function} callback Optional callback function to receive translated text
  */
 
-function Translate(ch, l, linput) {
+function Translate(ch, l, linput, callback) {
     // Use TranslateThen which handles encoding and callbacks
     console.log('Translate (via TranslateThen)');
     TranslateThen(ch, l, linput, function(translatedText) {
         if (typeof translatedText === 'string') {
-            Parle(translatedText);
+            // Only speak if voice is available
+            if (typeof builtin_voice !== 'undefined' && builtin_voice) {
+                Parle(translatedText);
+            }
             lastSentenceTranslated = translatedText;
-            EcrireNBonly(translatedText);
             Ecrire('' + translatedText);
+            if (callback) callback(translatedText);
         } else {
             console.error('Translate: invalid translatedText', translatedText);
+            if (callback) callback('');
         }
     }, false);
 }
@@ -628,7 +653,8 @@ function TranslateThen(ch, l, linput, f, forcelibre = false) {
                 try {
                     var response = JSON.parse(this.responseText);
 
-                    if (response && !response.error && response.data && response.data.translations) {
+                    if (response && !response.error && response.data && response.data.translations && 
+                        response.data.translations[0] && response.data.translations[0].text) {
                         lastSentenceTranslated = response.data.translations[0].text;
                         f(response.data.translations[0].text);
                     } else {
@@ -834,7 +860,7 @@ function ShowImage(n) {
             var blob = b64toBlob(realData, contentType);
             f.append('image', blob);
             f.append('ROOMID', _('classroomid').value);
-            f.append('room_token', window.pageData.roomToken);
+            f.append('room_token', window.ROOM_TOKEN);
             request.send(f);
             AbortTimeout(request,'ShowImage');
             //	request.onload = function(event) {};
@@ -937,7 +963,7 @@ function saveremotespeech() {
             var f = new FormData();
             f.append('ROOMID', _('classroomid').value);
             f.append('SPEECH', txt);
-            f.append('room_token', window.pageData.roomToken);
+            f.append('room_token', window.ROOM_TOKEN);
             request.send(f);
             AbortTimeout(request,'saveremotespeech');
             request.onload = function(event) {
@@ -1422,6 +1448,7 @@ function EcrireNB(ch) {
  */
 
 function EcrireNBonly(ch) {
+    console.log('EcrireNBonly'+ch);
     _('notebook').innerHTML = _('notebook').innerHTML + ch + '<br/>';
 }
 
@@ -1612,11 +1639,42 @@ function saveText(ch) {
     f.append('inputlanguage', inputlanguage);
     f.append('ROOMID', _('classroomid').value);
     f.append('LastLines', MaxSavedLines);
-    f.append('room_token', window.pageData.roomToken);
+    f.append('room_token', window.ROOM_TOKEN);
     request.send(f);
     AbortTimeout(request,'saveText');
 
     //	request.onload = function(event) {};
+}
+
+/**
+ * @summary Save text with source and translated versions
+ * @param {string} sourceText - Text in source language
+ * @param {string} translatedText - Text in target language
+ */
+function saveTextWithTranslation(sourceText, translatedText) {
+    var inputlanguage = builtin_language || '';
+    var targetLanguage = subtitle_language || '';
+    
+    // Ensure we have valid data before sending
+    if (!inputlanguage || !targetLanguage || !sourceText) {
+        console.error('saveTextWithTranslation: missing required parameters');
+        return;
+    }
+
+    var request = new XMLHttpRequest();
+    request.open('POST', 'savetext.php');
+    var f = new FormData();
+    f.append('lineid', inputnumber);
+    inputnumber++;
+    f.append('text', sourceText);
+    f.append('inputlanguage', inputlanguage);
+    f.append('targetlanguage', targetLanguage);
+    f.append('translatedtext', translatedText);
+    f.append('ROOMID', _('classroomid').value);
+    f.append('LastLines', MaxSavedLines);
+    f.append('room_token', window.ROOM_TOKEN);
+    request.send(f);
+    AbortTimeout(request, 'saveTextWithTranslation');
 }
 
 /**
@@ -1911,17 +1969,29 @@ function setLanguageStr(l) {
 
 function remote() {
     if (_('classroomid').value != '') {
+        // Check if ROOM_TOKEN exists and is not empty
+        if (typeof window.ROOM_TOKEN === 'undefined' || window.ROOM_TOKEN === '') {
+            console.log('remote() - No room token available, stopping remote polling');
+            return;
+        }
+
         var request = new XMLHttpRequest();
         request.open('POST', 'saveremoteorder.php');
         var f = new FormData();
         f.append('ROOMID', _('classroomid').value);
         f.append('APPID', _('appid').value);
-        f.append('room_token', window.pageData.roomToken);
+        f.append('room_token', window.ROOM_TOKEN);
         f.append('ORDER', '');
         request.send(f);
         AbortTimeout(request,'remote');
 
         request.onload = function(event) {
+            // Check for HTTP errors
+            if (request.status !== 200) {
+                console.log('remote() - HTTP error: ' + request.status + ' - ' + request.responseText);
+                return;
+            }
+
             var order = request.responseText;
             if (order != '') {
                 console.log('Get order ' + order);
@@ -1945,6 +2015,11 @@ function remote() {
                     if (fromremote == _('appid').value || fromremote == '') setLanguageStr(to_lang);
                 }
             }
+        };
+
+        // Add error handler for network errors
+        request.onerror = function(event) {
+            console.log('remote() - Network error');
         };
     }
 }
@@ -2296,7 +2371,7 @@ function Synchronize_save() {
             var f = new FormData();
             f.append('pincode', _('pincode').value);
             f.append('roomid', _('classroomid').value);
-            f.append('room_token', window.pageData.roomToken);
+            f.append('room_token', window.ROOM_TOKEN);
             request.send(f);
             AbortTimeout(request,'Synchronize_save');
             request.onload = function(event) {};

@@ -19,6 +19,7 @@
    <!-- Injection des variables PHP dans JavaScript -->
     <script>
         window.pageData = <?php echo json_encode($jsVars ?? []); ?>;
+        var ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
     </script>
 
     <script src="./js/translatepage.js"></script>

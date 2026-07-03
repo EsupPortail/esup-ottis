@@ -5,9 +5,11 @@ requireRoomToken();
 
 // Input validation and sanitization
 $ligneID = validateLineId($_POST["lineid"] ?? 0);
-$text = sanitizeText($_POST["text"] ?? '');
+$text = $_POST["text"];
 $lang = validateLanguage($_POST["inputlanguage"] ?? 'fr');
 $roomid = $_POST["ROOMID"] ?? '';
+$targetlanguage = $_POST["targetlanguage"] ?? '';
+$translatedtext = $_POST["translatedtext"] ?? '';
 $lastlines = 100000;
 if (isset($_POST["LastLines"])) $lastlines = (int)$_POST["LastLines"];
 
@@ -30,12 +32,22 @@ if (file_exists("tmp/Link_".$roomid)) {
   }
   fclose($fd);
   $ligneID=explode(";",$TLines[count($TLines)-1])[0]+1;
-  $TLines[]=$ligneID.";".$lang.";".$text;
+  // Always use extended format (5 fields): id;source_lang;source_text;target_lang;translated_text
+  // If targetlanguage or translatedtext are empty, use source values as defaults
+  if (empty($targetlanguage)) $targetlanguage = $lang;
+  if (empty($translatedtext)) $translatedtext = $text;
+
+  $TLines[]=$ligneID.";".$lang.";".$text.";".$targetlanguage.";".$translatedtext;
   if (count($TLines)>$lastlines) {
     $TLines=array_slice($TLines,count($TLines)-$lastlines);
   }
 } else {
-  $TLines[]=$ligneID.";".$lang.";".$text;
+  // Always use extended format (5 fields): id;source_lang;source_text;target_lang;translated_text
+  // If targetlanguage or translatedtext are empty, use source values as defaults
+  if (empty($targetlanguage)) $targetlanguage = $lang;
+  if (empty($translatedtext)) $translatedtext = $text;
+
+  $TLines[]=$ligneID.";".$lang.";".$text.";".$targetlanguage.";".$translatedtext;
 }
 
 // Use file_lock to prevent race conditions

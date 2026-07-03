@@ -11,7 +11,6 @@
  * @return string Le token généré
  */
 function generateRoomToken($roomid) {
-    $token = bin2hex(random_bytes(16));
     $tokenDir = __DIR__ . '/tmp';
     $tokenFile = $tokenDir . '/room_token_' . basename($roomid);
     
@@ -20,11 +19,23 @@ function generateRoomToken($roomid) {
         mkdir($tokenDir, 0755, true);
     }
     
+    // Si un token existe déjà pour ce ROOMID, le retourner
+    if (file_exists($tokenFile)) {
+        $content = explode('\n', trim(file_get_contents($tokenFile)));
+        $existingToken = $content[0] ?? '';
+        if (!empty($existingToken)) {
+            error_log("room_tokens.php: Reusing existing token for ROOMID=$roomid");
+            return $existingToken;
+        }
+    }
+    
+    // Sinon créer et sauvegarder un nouveau token
+    $token = bin2hex(random_bytes(16));
     $result = file_put_contents($tokenFile, $token . '\n' . time()); // Stocker le token + timestamp
     if ($result === false) {
         error_log("room_tokens.php: Failed to write token file for ROOMID=$roomid");
     }
-    error_log("room_tokens.php: Generated token for ROOMID=$roomid");
+    error_log("room_tokens.php: Generated new token for ROOMID=$roomid");
     return $token;
 }
 

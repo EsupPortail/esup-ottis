@@ -1,5 +1,15 @@
 // Basic functions
 
+/**
+ * @summary Decode HTML entities in a string
+ * @param {string} text - Text containing HTML entities
+ * @returns {string} Decoded text
+ */
+function decodeHtmlEntities(text) {
+    var textarea = document.createElement("textarea");
+    textarea.innerHTML = text;
+    return textarea.value;
+}
 
 /**
  * @summary Fill the select VoiceOutput field
@@ -205,7 +215,7 @@ function auto_size_text(elm="titre", max_lines=3) {
  */
 
 function Parle(txt) {
-    if (!builtin_voice.textonly) {
+    if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly) {
         var discours = new SpeechSynthesisUtterance(txt);
         discours.voice = builtin_voice;
         discours.rate = builtin_discoursrate;
@@ -224,7 +234,7 @@ function Parle(txt) {
 
 function ParleThen(txt, f) {
     _('titre').innerHTML = txt;
-    if (!builtin_voice.textonly) {
+    if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly) {
         var discours = new SpeechSynthesisUtterance(txt);
         discours.voice = builtin_voice;
         discours.rate = builtin_discoursrate;
@@ -286,7 +296,7 @@ function applyConfigSub() {
     ChangeOpacity('titre', _('selectopacity').value)
     ChangeOpacity('VOBanner', _('selectopacity').value)
 
-    document.getElementById('synthesison').checked=true;
+    //document.getElementById('synthesison').checked=true;
     console.log(_('VoiceOutput').value.substr(0, 2));
     console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
 
@@ -335,14 +345,25 @@ function decreasependingrequests() {
  */
 
 function Translate(ch, l, linput, lineid) {
+    // Ne pas traduire si classroomid est vide ou inconnu
+    if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
+        console.log('Translate() - Skipping: classroomid is empty or UNKNOWN');
+        decreasependingrequests();
+        CompleteTranslation();
+        return;
+    }
+
     var xhr = new XMLHttpRequest();
-    var url = "Translate.php?texte=" + encodeURIComponent(ch)
-        + "&lang=" + encodeURIComponent(l)
-        + "&langinput=" + encodeURIComponent(linput)
-        + "&ROOMID=" + encodeURIComponent(_('classroomid').value)
-        + "&lineid=" + encodeURIComponent(lineid);
-    xhr.open("POST", url, true);
+    xhr.open("POST", "Translate.php", true);
     increasependingrequests();
+
+    var f = new FormData();
+    console.log('Translate() - ch parameter:', ch);
+    f.append('texte', ch);
+    f.append('lang', l);
+    f.append('langinput', linput);
+    f.append('ROOMID', _('classroomid').value);
+    f.append('lineid', lineid);
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -353,7 +374,10 @@ function Translate(ch, l, linput, lineid) {
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
                 Ecrire(response["data"]["translations"][0]["text"]);
             } else {
-                Ecrire("---- Translation ERROR ----")
+                console.error('auditeur-func.js:356 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
+                console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
+                alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
+                Ecrire("---- Translation ERROR ---- (see console)")
             }
 
         }
@@ -366,7 +390,7 @@ function Translate(ch, l, linput, lineid) {
         decreasependingrequests();
         CompleteTranslation();
     };
-    xhr.send();
+    xhr.send(f);
     AbortTimeout(xhr,"Translate");
 }
 
@@ -377,9 +401,19 @@ function Translate(ch, l, linput, lineid) {
  * @param {string} l output language.
  * @param {string} linput input language.
  * @param {number} lineid unique identifier for the translation.
+ * @deprecated Use Translate() instead
  */
 
+/*
 function Translate2(ch, l, linput, lineid) {
+    // Ne pas traduire si classroomid est vide ou inconnu
+    if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
+        console.log('Translate2() - Skipping: classroomid is empty or UNKNOWN');
+        decreasependingrequests();
+        CompleteTranslation2();
+        return;
+    }
+
     var xhr = new XMLHttpRequest();
     var url = "Translate.php?texte=" + encodeURIComponent(ch)
         + "&lang=" + encodeURIComponent(l)
@@ -395,6 +429,7 @@ function Translate2(ch, l, linput, lineid) {
     xhr.send();
     AbortTimeout(xhr,"Translate2");
 }
+*/
 
 /**
  * @summary InitVoices is executed when the HTML page is loaded.
@@ -404,7 +439,12 @@ function Translate2(ch, l, linput, lineid) {
 function InitVoices() {
     PopulateVoicesOut();
     PopulateVoicesOut('VoiceOutputchoose');
-    setLanguageOutput(_("VoiceOutput").value);
+    // Ouvrir le pop-up de sélection de langue maintenant que les voix sont chargées
+    if (typeof openLanguageDialog === 'function') {
+        openLanguageDialog();
+    }
+    //setLanguageOutput(_("VoiceOutput").value);
+    setLanguageOutputAndRetranslate(_("VoiceOutput").value);
 }
 
 /**
@@ -460,20 +500,48 @@ function Ecrire(ch) {
  */
 
 function CompleteTranslation() {
+    // Vérification précoce : ne pas traduire si classroomid est invalide
+    if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
+        ToTranslate = [];
+        if (document.getElementById('synthesison').checked) {
+            CompleteSpeech();
+        }
+        return;
+    }
+
     if (ToTranslate.length > 0) {
         var L = ToTranslate[0];
         ToTranslate.splice(0, 1);
-        if (builtin_voice.lang.substr(0, 2) != L[1].substr(0, 2)) {
-            // Ecrire("Push : "+L[2]);
-            Translate(L[2], builtin_voice.lang.substr(0, 2), L[1].substr(0, 2), L[0]);
-        } else {
-            ToSay['' + L[0]] = L[2]; //,CompleteTranslation);
-            Ecrire("" + L[2]);
+        
+
+        var id = L[0];
+        var sourceLang = L[1];
+        var sourceText = L[2];
+        var targetLang = L[3];
+        var targetText = L[4];
+        
+        var currentLang = '';
+        if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
+            currentLang = builtin_voice.lang.substr(0, 2);
+        } else if (typeof builtin_language !== 'undefined' && builtin_language) {
+            currentLang = builtin_language.substr(0, 2);
+        }
+        
+        // If listener's language matches source or target language -> direct display
+        if (currentLang === sourceLang.substr(0, 2)) {
+            ToSay['' + id] = sourceText;
+            Ecrire(sourceText);
             CompleteTranslation();
+        } else if (currentLang === targetLang.substr(0, 2)) {
+            ToSay['' + id] = targetText;
+            Ecrire(targetText);
+            CompleteTranslation();
+        } else {
+            // Translation needed (target language is different)
+            Translate(sourceText, currentLang, sourceLang.substr(0, 2), id);
         }
     } else {
-        if (!completespeechactive) {
-            completespeechactive = true;
+        if (document.getElementById('synthesison').checked) {
             CompleteSpeech();
         }
     }
@@ -481,20 +549,29 @@ function CompleteTranslation() {
 
 /**
  * @summary Orchestrates the sequence of translations
+ * @deprecated Use CompleteTranslation() instead
  * 
  * @todo Comprendre pourquoi on appelle StudentCompleteTranslation dans le sinon et pas StudentCompleteTranslation2
  */
 
+/*
 function CompleteTranslation2() {
     if (ToTranslate2.length > 0) {
         var L = ToTranslate2[0];
         ToTranslate2.splice(0, 1);
-        if (builtin_voice.lang.substr(0, 2) != L[1].substr(0, 2)) {
+        var currentLang = '';
+        if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
+            currentLang = builtin_voice.lang;
+        } else if (typeof builtin_language !== 'undefined' && builtin_language) {
+            currentLang = builtin_language;
+        }
+        if (currentLang && currentLang.substr(0, 2) != L[1].substr(0, 2)) {
             // Ecrire("Push : "+L[2]);
-            Translate2(L[2], builtin_voice.lang.substr(0, 2), L[1].substr(0, 2), L[0]);
+            Translate2(L[2], currentLang.substr(0, 2), L[1].substr(0, 2), L[0]);
         } else CompleteTranslation2();
     } else setTimeout(CompleteTranslation, 10);
 }
+*/
 
 /**
  * @summary Orchestrates the sequence of speeches
@@ -502,34 +579,19 @@ function CompleteTranslation2() {
  */
 
 function CompleteSpeech() {
-    var nextdiscours = currentdiscours;
-    for (var i = 1; i < 1000; i++) {
-        if (ToSay['' + (currentdiscours + i)]) {
-            nextdiscours = currentdiscours + i;
-            break;
-        }
+    var maxId = -1;
+    // Last ID in ToSay
+    for (var key in ToSay) {
+        var id = parseInt(key);
+        if (id > maxId) maxId = id;
     }
-    if (gotolive) {
-        //console.log('Restart Speech');
-        //console.log('Discours : '+currentdiscours+'   '+nextdiscours)
-        for (var i = 1000; i > 0; i--) {
-            if (ToSay['' + (currentdiscours + i)]) {
-                nextdiscours = currentdiscours + i;
-                break;
-            }
-            //console.log('Discours next : '+currentdiscours+'   '+nextdiscours)
-            gotolive = false;
-        }
-    }
-    //Ecrire(currentdiscours+'   '+nextdiscours);
-    if (nextdiscours > currentdiscours) {
-        var L = ToSay['' + nextdiscours];
-        L = L.replace("&nbsp;", " ");
-        ParleThen(L, CompleteSpeech);
-        currentdiscours = nextdiscours;
-        completespeechactive = false; // Doute ici
-    } else completespeechactive = false;
 
+    // ONLY read the last one, if there is something new
+    if (maxId > currentdiscours) {
+        var L = ToSay['' + maxId].replace("&nbsp;", " ");
+        ParleThen(L, CompleteSpeech);
+        currentdiscours = maxId;
+    }
 }
 
 /**
@@ -538,52 +600,76 @@ function CompleteSpeech() {
  */
 
 function readText() {
-    var synthesison = _('synthesison').checked;
-    if (synthesison) {
-        if (_('classroomid').value != "") {
-            var request = new XMLHttpRequest();
-            request.open("POST", "readtext.php");
-            increasependingrequests();
-            currentorder_readtext++;
-            var f = new FormData();
-            f.append('lineid', inputnumber);
-            f.append('ORDER', currentorder_readtext);
-            f.append('ROOMID', _('classroomid').value);
-            request.send(f);
-            AbortTimeout(request,"readText");
-            request.onload = function(event) {
-                decreasependingrequests();
-                var T = request.responseText.split('\n');
-                //console.log('Readtext get : '+request.responseText);
-                var maxi = -1;
-                var readedorder = ('0' + T[0]).split(';')[0] * 1;
-                if (readedorder > maxorder_readtext) {
-                    maxorder_readtext = readedorder;
-                    for (var i = 0; i < T.length; i++) {
-                        var L = T[i].split(';');
-                        if (L.length > 3) {
-                            if (1 * L[1] > maxi) maxi = 1 * L[1];
-                            if (AllPhrases[1 * L[1]] == undefined) {
+    if (_('classroomid').value != "") {
+        var request = new XMLHttpRequest();
+        request.open("POST", "readtext.php");
+        increasependingrequests();
+        currentorder_readtext++;
+        var f = new FormData();
+        f.append('lineid', inputnumber);
+        f.append('ORDER', currentorder_readtext);
+        f.append('ROOMID', _('classroomid').value);
+        f.append('room_token', window.ROOM_TOKEN);
+        request.send(f);
+        AbortTimeout(request,"readText");
+        request.onload = function(event) {
+            decreasependingrequests();
+            var T = request.responseText.split('\n');
+            //console.log('Readtext get : '+request.responseText);
+            var maxi = -1;
+            var readedorder = ('0' + T[0]).split(';')[0] * 1;
+            if (readedorder > maxorder_readtext) {
+                maxorder_readtext = readedorder;
+                for (var i = 0; i < T.length; i++) {
+                    var L = T[i].split(';');
+                    if (L.length > 3) {
+                        if (1 * L[1] > maxi) maxi = 1 * L[1];
+                        if (AllPhrases[1 * L[1]] == undefined) {
+                            // Skip if classroomid is invalid
+                            if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
                                 AllPhrases[1 * L[1]] = true;
-                                EcrireNB(L[3]);
-                                ToTranslate.push([L[1], L[2], L[3]]);
-                                ToTranslate2.push([L[1], L[2], L[3]]);
+                                
+                                // Decode HTML entities from source text
+                                var sourceLang = L[2];
+                                var sourceText = decodeHtmlEntities(L[3]);
+                                var targetLang = L[4];
+                                var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
+                                
+                                // Get listener's current language
+                                var currentLang = builtin_voice.lang;
+                               /* console.log('readText() - builtin_voice.lang:', builtin_voice.lang);
+                                if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
+                                    currentLang = builtin_voice.lang.substr(0, 2);
+                                } else if (typeof builtin_language !== 'undefined' && builtin_language) {
+                                    currentLang = builtin_language.substr(0, 2);
+                                }*/
+                                
+                                // If listener's language matches source or target language -> direct display
+                                if (currentLang === L[2].substr(0, 2)) {
+                                    EcrireNB(sourceText);
+                                    ToSay['' + L[0]] = sourceText;
+                                } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
+                                    EcrireNB(targetText);
+                                    ToSay['' + L[0]] = targetText;
+                                } else {
+                                    // Translation needed
+                                    ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);                                }
                             }
-                            /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-        Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
-      else {
-        Parle(L[2]);
-        Ecrire(""+L[2]);
-      }*/
                         }
+                        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+    Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+    else {
+    Parle(L[2]);
+    Ecrire(""+L[2]);
+    }*/
                     }
                 }
-                //alert(maxi);
-                if (maxi > inputnumber) inputnumber = maxi;
+            }
+            //alert(maxi);
+            if (maxi > inputnumber) inputnumber = maxi;
 
-                CompleteTranslation2();
-            };
-        }
+            CompleteTranslation();
+        };
     }
 }
 
@@ -593,52 +679,74 @@ function readText() {
  */
 
 function readTextSub() {
-    var synthesison = _('synthesison').checked;
-    if (synthesison) {
-        if (_('classroomid').value != "") {
-            var request = new XMLHttpRequest();
-            request.open("POST", "readtext.php");
-            increasependingrequests();
-            currentorder_readtext++;
-            var f = new FormData();
-            f.append('lineid', inputnumber);
-            f.append('ORDER', currentorder_readtext);
-            f.append('ROOMID', _('classroomid').value);
-            request.send(f);
-            AbortTimeout(request,"readTextSub");
-            request.onload = function(event) {
-                decreasependingrequests();
-                var T = request.responseText.split('\n');
-                //console.log('Readtext get : '+request.responseText);
-                var maxi = -1;
-                var readedorder = ('0' + T[0]).split(';')[0] * 1;
-                if (readedorder > maxorder_readtext) {
-                    maxorder_readtext = readedorder;
-                    for (var i = 0; i < T.length; i++) {
-                        var L = T[i].split(';');
-                        if (L.length > 3) {
-                            if (1 * L[1] > maxi) maxi = 1 * L[1];
-                            if (AllPhrases[1 * L[1]] == undefined) {
+    if (_('classroomid').value != "") {
+        var request = new XMLHttpRequest();
+        request.open("POST", "readtext.php");
+        increasependingrequests();
+        currentorder_readtext++;
+        var f = new FormData();
+        f.append('lineid', inputnumber);
+        f.append('ORDER', currentorder_readtext);
+        f.append('ROOMID', _('classroomid').value);
+        f.append('room_token', window.ROOM_TOKEN);
+        request.send(f);
+        AbortTimeout(request,"readTextSub");
+        request.onload = function(event) {
+            decreasependingrequests();
+            var T = request.responseText.split('\n');
+            var maxi = -1;
+            var readedorder = ('0' + T[0]).split(';')[0] * 1;
+            if (readedorder > maxorder_readtext) {
+                maxorder_readtext = readedorder;
+                for (var i = 0; i < T.length; i++) {
+                    var L = T[i].split(';');
+                    if (L.length > 3) {
+                        if (1 * L[1] > maxi) maxi = 1 * L[1];
+                        if (AllPhrases[1 * L[1]] == undefined) {
+                            // Skip if classroomid is invalid
+                            if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
                                 AllPhrases[1 * L[1]] = true;
-                                EcrireNBSub(L[3]);
-                                ToTranslate.push([L[1], L[2], L[3]]);
-                                ToTranslate2.push([L[1], L[2], L[3]]);
+                                
+                                // Decode HTML entities from source text
+                                var sourceLang = L[2];                      // L[2] = langue_source
+                                var sourceText = decodeHtmlEntities(L[3]);  // L[3] = texte_source
+                                var targetLang = L[4];                      // L[4] = langue_cible
+                                var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;  // L[5] = texte_traduit
+                                
+                                // Get listener's current language
+                                var currentLang = '';
+                                if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
+                                    currentLang = builtin_voice.lang.substr(0, 2);
+                                } else if (typeof builtin_language !== 'undefined' && builtin_language) {
+                                    currentLang = builtin_language.substr(0, 2);
+                                }
+                                
+                                // If listener's language matches source or target language -> direct display
+                                if (currentLang === L[2].substr(0, 2)) {
+                                    EcrireNBSub(sourceText);
+                                    ToSay['' + L[0]] = sourceText;
+                                } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
+                                    EcrireNBSub(targetText);
+                                    ToSay['' + L[0]] = targetText;
+                                } else {
+                                    // Translation needed
+                                    ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);                           }
                             }
-                            /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-        Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
-      else {
-        Parle(L[2]);
-        Ecrire(""+L[2]);
-      }*/
                         }
+                        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+    Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+    else {
+    Parle(L[2]);
+    Ecrire(""+L[2]);
+    }*/
                     }
                 }
-                //alert(maxi);
-                if (maxi > inputnumber) inputnumber = maxi;
+            }
+            //alert(maxi);
+            if (maxi > inputnumber) inputnumber = maxi;
 
-                CompleteTranslation2();
-            };
-        }
+            CompleteTranslation();
+        };
     }
 }
 
@@ -648,59 +756,57 @@ function readTextSub() {
  */
 
 function readTextSubTranscript() {
-    var synthesison = _('synthesison').checked;
-    if (synthesison) {
-        if (_('classroomid').value != "") {
-            var requestTranscriptSub = new XMLHttpRequest();
-            requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
-            increasependingrequests();
-            currentorder_readtext++;
-            var f = new FormData();
-            f.append('lineid', inputnumber);
-            f.append('ORDER', currentorder_readtext);
-            f.append('ROOMID', _('classroomid').value);
+    if (_('classroomid').value != "") {
+        var requestTranscriptSub = new XMLHttpRequest();
+        requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
+        increasependingrequests();
+        currentorder_readtext++;
+        var f = new FormData();
+        f.append('lineid', inputnumber);
+        f.append('ORDER', currentorder_readtext);
+        f.append('ROOMID', _('classroomid').value);
+        f.append('room_token', window.ROOM_TOKEN);
 
-            requestTranscriptSub.send(f);
-            AbortTimeout(requestTranscriptSub,"readTextSubTranscript");
-            requestTranscriptSub.onload = function(event) {
-                decreasependingrequests();
-                var T = requestTranscriptSub.responseText.split('\n');
-                _("VOBanner").innerHTML = T;
-                //console.log('Readtext get : '+request.responseText);
-    //             var maxi = -1;
-    //             var readedorder = ('0' + T[0]).split(';')[0] * 1;
-    //             console.log("READEDORDER : "+readedorder);
-    //             if (readedorder > maxorder_readtext) {
-    //                 maxorder_readtext = readedorder;
-    //                 for (var i = 0; i < T.length; i++) {
-    //                     var L = T[i].split(';');
-    //                     console.log(L);
-    //                     if (L.length > 3) {
-    //                         if (1 * L[1] > maxi) maxi = 1 * L[1];
-    //                         if (AllPhrases[1 * L[1]] == undefined) {
-    //                             AllPhrases[1 * L[1]] = true;
-    //                             console.log(L[3]);
-    //                             console.log("Nouvelle phrase test 1: ");
-    //                             _("VOBanner").innerHTML = L[3];
-    //                         }
-    //                         /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-    //     Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
-    //   else {
-    //     Parle(L[2]);
-    //     Ecrire(""+L[2]);
-    //   }*/
-    //                     }else{
-    //                         console.log("Nouvelle phrase : ");
-    //                         console.log(L);
-    //                         _("VOBanner").innerHTML = L[1];
-    //                     }
-    //                 }
-    //             }
-    //             //alert(maxi);
-    //             if (maxi > inputnumber) inputnumber = maxi;
+        requestTranscriptSub.send(f);
+        AbortTimeout(requestTranscriptSub,"readTextSubTranscript");
+        requestTranscriptSub.onload = function(event) {
+            decreasependingrequests();
+            var T = requestTranscriptSub.responseText.split('\n');
+            _("VOBanner").innerHTML = T;
+            //console.log('Readtext get : '+request.responseText);
+//             var maxi = -1;
+//             var readedorder = ('0' + T[0]).split(';')[0] * 1;
+//             console.log("READEDORDER : "+readedorder);
+//             if (readedorder > maxorder_readtext) {
+//                 maxorder_readtext = readedorder;
+//                 for (var i = 0; i < T.length; i++) {
+//                     var L = T[i].split(';');
+//                     console.log(L);
+//                     if (L.length > 3) {
+//                         if (1 * L[1] > maxi) maxi = 1 * L[1];
+//                         if (AllPhrases[1 * L[1]] == undefined) {
+//                             AllPhrases[1 * L[1]] = true;
+//                             console.log(L[3]);
+//                             console.log("Nouvelle phrase test 1: ");
+//                             _("VOBanner").innerHTML = L[3];
+//                         }
+//                         /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
+//     Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
+//   else {
+//     Parle(L[2]);
+//     Ecrire(""+L[2]);
+//   }*/
+//                     }else{
+//                         console.log("Nouvelle phrase : ");
+//                         console.log(L);
+//                         _("VOBanner").innerHTML = L[1];
+//                     }
+//                 }
+//             }
+//             //alert(maxi);
+//             if (maxi > inputnumber) inputnumber = maxi;
 
-            };
-        }
+        };
     }
 }
 
@@ -717,6 +823,7 @@ function readImage() {
         var f = new FormData();
         f.append('random', currentrandom);
         f.append('ROOMID', _('classroomid').value);
+        f.append('room_token', window.ROOM_TOKEN);
         request.send(f);
         AbortTimeout(request,"readImage");
         request.onload = function(event) {
@@ -751,6 +858,7 @@ function Synchronize(pin) {
     increasependingrequests();
     var f = new FormData();
     f.append('pincode', pin);
+    f.append('room_token', window.ROOM_TOKEN);
     request.send(f);
     AbortTimeout(request,"Synchronize");
     request.onload = function(event) {
@@ -853,118 +961,6 @@ function Init() {
  * 
  */
 
-function readTextQ() {
-    if (_('classroomid').value != "") {
-        var request = new XMLHttpRequest();
-        request.open("POST", "readtextQ.php");
-        increasependingrequests();
-        var f = new FormData();
-        f.append('lineid', 0);
-        f.append('ROOMID', _('classroomid').value);
-        request.send(f);
-        AbortTimeout(request,"readTextQ");
-        request.onload = function(event) {
-            decreasependingrequests();
-            var Told = request.responseText.split('\n');
-            var k = 0;
-            var T = [];
-            for (var i = 0; i < Told.length; i++) {
-                if (Told[i].split(';').length > 2) T.push(Told[i]);
-            }
-            //alert(inputnumberQ+'\n\n'+T);
-            //console.log('Debug : '+inputnumberQ+T.length);
-            for (var i = inputnumberQ; i < T.length; i++) {
-                var L = T[i].split(';');
-                // Extratab disabled - tabs commented out
-                if (L[0] == 'Teacher' && L[2].indexOf("[extratab") >= 0) {
-                    // Skip extratab messages - tabs commented out
-                    continue;
-                }
-                if (L[0] != 'ROBOT' && L[2].indexOf("[newstudent") < 0) {
-                    //console.log('Debug -- '+T[i]+'     '+L[2]+'   '+builtin_voice.lang.substr(0,2));
-                    if (builtin_voice.lang.substr(0, 2) != L[1].substr(0, 2))
-                        TranslateQ(L[2], builtin_voice.lang.substr(0, 2), L[1].substr(0, 2), L[0], i);
-                    else {
-                        EcrireCR(L[0], L[2], i);
-                    }
-                }
-            }
-            inputnumberQ = T.length;
-        }
-    };
-}
-
-/**
- * @summary Save a new question in the classroom queue
- * 
- * @param {string} ch Text of the question
- * @returns
- */
-
-function saveTextQ(ch) {
-    var request = new XMLHttpRequest();
-    request.open("POST", "savetextQ.php");
-    increasependingrequests();
-    var f = new FormData();
-    f.append('lineid', 'User ' + _('StudentName').value);
-    //inputnumberQ++;
-    f.append('text', ch);
-    f.append('inputlanguage', builtin_voice.lang);
-    f.append('ROOMID', _('classroomid').value);
-    request.send(f);
-    AbortTimeout(request,"saveTextQ");
-    request.onload = function(event) {
-        decreasependingrequests();
-        readTextQ();
-    };
-
-}
-
-/**
- * @summary Translate the text of a question from a language to another
- * 
- * @param {string} ch Text of the question
- * @param {string} l output language
- * @param {string} linput input language
- * @param {string} name Person who ask the question
- * @param {string} order order of the question
- * @returns
- */
-
-function TranslateQ(ch, l, linput, name, order) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php", true);
-    
-    var formData = new FormData();
-    formData.append('texte', ch);
-    formData.append('lang', l);
-    formData.append('langinput', linput);
-    formData.append('ROOMID', document.getElementById('classroomid') ? document.getElementById('classroomid').value : '');
-    
-    // Ajouter whichtranslator et apikey
-    var whichtranslator = document.getElementById('whichtranslator') ? document.getElementById('whichtranslator').value : '';
-    var apikey = document.getElementById('apikey') ? document.getElementById('apikey').value : '';
-    if (whichtranslator) formData.append('whichtranslator', whichtranslator);
-    if (apikey) formData.append('apikey', apikey);
-    
-    increasependingrequests();
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        decreasependingrequests();
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            // console.log(this.responseText);
-            var response = JSON.parse(this.responseText);
-            if ((!response["error"]) && response["data"]["translations"]) {
-                // Parle(response["data"]["translations"][0]["translatedText"]);
-                EcrireCR(name, response["data"]["translations"][0]["text"], order);
-            } else {
-                EcrireCR("----", "---- Translation ERROR ----", order)
-            }
-
-        }
-    };
-    xhr.send(formData);
-    AbortTimeout(xhr,"TranslateQ");
-}
 
 /**
  * @summary Switch the fullscreen mode on and off

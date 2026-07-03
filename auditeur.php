@@ -5,6 +5,10 @@
 $synchronize = isset($_GET["SYNC"]) && !isset($_GET["ROOMID"]);
 $classroomid = $_GET["ROOMID"] ?? '';
 
+// Generer un token unique pour ce ROOMID
+require_once __DIR__ . '/Security/room_tokens.php';
+$roomToken = generateRoomToken($classroomid);
+
 /*
 $wooclapkey = "";
 $wooclapaddress = "https://app.wooclap.com";
@@ -63,7 +67,7 @@ $jsVars = [
     <?php
     // Centralized styles
     $pageStyles = [
-        "styles/student.css"
+        "styles/auditeur.css"
     ];
     
     // Add theme-specific styles
@@ -99,14 +103,16 @@ $jsVars = [
     $pageScripts[] = "libs/quickmenu/src/jquery.popmenu.js";
     $pageScripts[] = "/js/auditeur-def.js";
     $pageScripts[] = "/js/common-func.js";
+    $pageScripts[] = "/js/chat-common.js";
     $pageScripts[] = "/js/auditeur-func.js";
     $pageScripts[] = "/js/auditeur-post.js";
     
     // Inject pageData for JavaScript
     echo "<script>window.pageData = " . json_encode($jsVars) . ";</script>\n";
+    echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "';</script>\n";
     ?>
     
-    <link href="styles/student-specific.css" rel="stylesheet">
+    <link href="styles/auditeur-specific.css" rel="stylesheet">
 
 </head>
 <body onload="Init(); setTimeout(loadVoicesWhenAvailable,100);">
@@ -171,13 +177,13 @@ $jsVars = [
   </select>
 </span>
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
+  <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="StudentName">My surname :</label>
-  <input type="text" id="StudentName" onchange="if (this.value == 'Teacher') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
+  <input type="text" id="StudentName" onchange="if (this.value == 'Intervenant') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
 </span><br>
-<span id="lisynthese" style="display:none;"><label for="synthesison">Speech synthesis active ? </label>
+<span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
 </div>
@@ -241,16 +247,15 @@ Show the original version banner</label>
   <span>Voice speed (reference value 100): <br><span id="slider_speed"><div id="custom-handle" class="ui-slider-handle"></div></span></span>
 </div>
 	</div>
-	<div id="tabs-1">
-    <div style="height: 50px;"></div>
+	<section id="tabs-1" role="region" aria-labelledby="chat-section-title">
+    <h2 id="chat-section-title" style="display: none;">Classroom Chat</h2>
     <div>
         <label for="question">Classroom Chat</label>
         <div id="classroom" style="border: solid 1px; height: 300px; overflow-y: auto; margin-bottom: 5px;" aria-live="polite" aria-atomic="true"></div>
         <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
-        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send">
-        <input type="button" value="refresh" class="button-3 tooltip" title="Reload all the conversation and translate it if necessary." onclick="recharger();">
+        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your message">
     </div>
-  	</div>
+</section>
 
 	<div id="tabs-2">
     
@@ -367,7 +372,6 @@ Show the original version banner</label>
     });
     $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-    $("body").tooltip();
   } );
   $(function(){
       $('#bar2').popmenu({
