@@ -902,6 +902,7 @@ function Init() {
     */
     resizeSlides();
     activetab('tabs-0');
+    startChatPolling();
 
     if (needSynchronize) Synchronize(prompt('Enter the session pincode'));
     // Wooclap disabled - tabs commented out

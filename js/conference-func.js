@@ -1,4 +1,6 @@
 // Basic functions
+// NOTE: EcrireCR function is imported from chat-common.js
+// All calls to EcrireCR() in this file use the version from chat-common.js
 
 /**
  * @summary A prettier alert function
@@ -1760,7 +1762,7 @@ function FreeResources() {
 function Lancer() {
     console.log('Lancer');
     LaunchRemote();
-    //LaunchReadTextQ();
+    startChatPolling();
     //LaunchStudentReadText();
     //LaunchFeedbackReady();
     //setInterval(ScrollBar, scrollinterval);
@@ -2040,14 +2042,16 @@ function updateUsers() {
  */
 
 function readTextQ() {
-    if (_('classroomid').value != '') {
+    var classroomidEl = _('classroomid');
+    if (classroomidEl && classroomidEl.value != '') {
         var request = new XMLHttpRequest();
         request.open('POST', 'readtextQ.php');
         var f = new FormData();
         f.append('lineid', 0);
-        f.append('ROOMID', _('classroomid').value);
+        f.append('ROOMID', classroomidEl.value);
+        f.append('room_token', window.ROOM_TOKEN);
         request.send(f);
-        AbortTimeout(request,'readTeextQ');
+        AbortTimeout(request,'readTextQ');
         request.onload = function(event) {
             var Told = request.responseText.split('\n');
             var k = 0;
@@ -2055,51 +2059,30 @@ function readTextQ() {
             for (var i = 0; i < Told.length; i++) {
                 if (Told[i].split(';').length > 2) T.push(Told[i]);
             }
-            //alert(inputnumberQ+'\n\n'+T);
-            //console.log('Debug : '+inputnumberQ+T.length);
             var nbnewQ = 0;
             for (var i = inputnumberQ; i < T.length; i++) {
                 var L = T[i].split(';');
-                if (L[0] == 'Teacher' && L[2].indexOf('[extratab') >= 0) {
-                    console.log('Opening an extra tab');
-                    // feedback
-                    var resource = L[2].replace('[extratab', '').replace(']', '').split('|');
-                    var tabnumber = resource[0];
-                    var url = resource[1];
-                    if (_('extraurl' + tabnumber).value != url) {
-                        _('extraurl' + tabnumber).value = url;
-                        _('embedET' + tabnumber).checked = true;
-                        showET(_('embedET' + tabnumber), tabnumber);
-                    }
-
+                if (L[2].indexOf('[newstudentarrived]') >= 0) {
+                    NBconnectedusers++;
+                    Tconnectedusers.push(L[0]);
+                    updateUsers();
                 } else {
-                    if (L[2].indexOf('[newstudentarrived]') >= 0) {
-                        NBconnectedusers++;
-                        Tconnectedusers.push(L[0]);
+                    if (L[2].indexOf('[newstudentlived]') >= 0) {
+                        NBconnectedusers--;
+                        Tconnectedusers.filter(student => student != L[0]);
                         updateUsers();
                     } else {
-                        if (L[2].indexOf('[newstudentlived]') >= 0) {
-                            NBconnectedusers--;
-                            Tconnectedusers.filter(student => student != L[0]);
-                            updateUsers();
+
+                        nbnewQ++;
+                        if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
+                            TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
+
+                            // TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0],i);
                         } else {
-
-                            if (L[0] == 'ROBOT') {
-                                if (builtin_externaltranscritionon) Traduction(L[2]);
-                            } else {
-                                nbnewQ++;
-                                console.log('Debug -- ' + T[i] + '     ' + L[2] + '  :  ' + L[1].substr(0, 2) + '   --> ' + builtin_language.substr(0, 2) + ' voice=' + builtin_voice.lang.substr(0, 2));
-                                if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
-                                    TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
-
-                                    // TranslateQ(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2), L[0],i);
-                                } else {
-                                    EcrireCR(L[0], L[2], i);
-                                }
-                            }
+                            EcrireCR(L[0], L[2], i);
                         }
                     }
-                }
+                    }
             }
             // Is there a new question there ?
             if (nbnewQ > 0) EventNewQuestion();
@@ -2152,11 +2135,13 @@ function saveTextQ(ch) {
     var request = new XMLHttpRequest();
     request.open('POST', 'savetextQ.php');
     var f = new FormData();
-    f.append('lineid', 'Teacher');
+    f.append('lineid', 'Intervenant');
     //inputnumberQ++;
     f.append('text', ch);
     f.append('inputlanguage', builtin_language);
-    f.append('ROOMID', _('classroomid').value);
+    var classroomidEl = _('classroomid');
+    f.append('ROOMID', classroomidEl ? classroomidEl.value : '');
+    f.append('room_token', window.ROOM_TOKEN);
     request.send(f);
     AbortTimeout(request,'saveTextQ');
     request.onload = function(event) {
@@ -2185,11 +2170,15 @@ function TranslateQ(ch, l, linput, name, order) {
     formData.append('texte', ch);
     formData.append('lang', l);
     formData.append('langinput', linput);
-    formData.append('ROOMID', _('classroomid').value || '');
+    var classroomidEl = _('classroomid');
+    formData.append('ROOMID', (classroomidEl && classroomidEl.value) ? classroomidEl.value : '');
+    formData.append('room_token', window.ROOM_TOKEN);
 
     // Ajouter whichtranslator et apikey directement
-    var whichtranslator = _('whichtranslator').value;
-    var apikey = _('apikey').value;
+    var whichtranslatorEl = _('whichtranslator');
+    var apikeyEl = _('apikey');
+    var whichtranslator = (whichtranslatorEl && whichtranslatorEl.value) ? whichtranslatorEl.value : '';
+    var apikey = (apikeyEl && apikeyEl.value) ? apikeyEl.value : '';
     if (whichtranslator) formData.append('whichtranslator', whichtranslator);
     if (apikey) formData.append('apikey', apikey);
 

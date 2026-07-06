@@ -84,9 +84,9 @@ ColorsForCR["----"] = [
     [255, 0, 0],
     [255, 255, 255], 5
 ];
-ColorsForCR["Teacher"] = [
+ColorsForCR["Intervenant"] = [
     [0, 0, 255],
-    [255, 255, 255], 5
+    [255, 255, 255], 0
 ];
 
 var ScreenCR = [];

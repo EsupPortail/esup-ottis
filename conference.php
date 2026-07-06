@@ -24,10 +24,12 @@ $pageTitle = "Omist - Conference";
 $pageStyles = ["jquery/flat_black/jquery-ui.min.css",
                 "jquery/flat_black/extras.css",
                 //"styles/teacher.css",
-                "styles/conference.css"
+                "styles/conference.css",
+                "styles/chat.css"
 ];
 $pageScripts = ["/js/conference-def.js",
                 "/js/common-func.js",
+                "/js/chat-common.js",
                 "/js/conference-func.js",
                 "/js/qrcode.min.js",
                 "/js/conference-post.js",
@@ -206,7 +208,7 @@ include_once __DIR__ . '/includes/header.php';
     <h2 id="chat-section-title">Classroom Chat</h2>
     <div>
         <label for="question">Classroom Chat</label>
-        <div id="classroom" style="border: solid 1px; height: 300px; overflow-y: auto; margin-bottom: 5px;" aria-live="polite" aria-atomic="true"></div>
+        <div id="classroom" class="chat-container" aria-live="polite" aria-atomic="true"></div>
         <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
         <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send">
     </div>

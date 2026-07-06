@@ -367,11 +367,8 @@ function sendclick() {
  * @returns {void}
  */
 function ClearCR() {
-    if (typeof _ !== 'undefined') {
-        _('classroom').innerHTML = '';
-    } else if (document.getElementById) {
-        document.getElementById('classroom').innerHTML = '';
-    }
+    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : document.getElementById('classroom');
+    if (classroomEl) classroomEl.innerHTML = '<ul role="list" aria-live="polite" class="chat-message-list"></ul>';
     if (typeof ScreenCR !== 'undefined') {
         ScreenCR = [];
     }
@@ -383,7 +380,7 @@ function ClearCR() {
  * @returns {void}
  */
 function RefreshCR() {
-    var html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
+    var html = '<ul role="list" aria-live="polite" class="chat-message-list">';
     if (typeof ScreenCR !== 'undefined') {
         for (var i = 0; i < ScreenCR.length; i++) {
             if (ScreenCR[i] !== undefined) {
@@ -393,11 +390,8 @@ function RefreshCR() {
     }
     html += '</ul>';
     
-    if (typeof _ !== 'undefined') {
-        _('classroom').innerHTML = html;
-    } else if (document.getElementById) {
-        document.getElementById('classroom').innerHTML = html;
-    }
+    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : document.getElementById('classroom');
+    if (classroomEl) classroomEl.innerHTML = html;
 }
 
 /**
@@ -422,7 +416,9 @@ function EcrireCR(who, ch, order) {
             ScreenCR = [];
         }
         
-        var rgbFunc = typeof rgb === 'function' ? rgb : function(T) { return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")"; };
+        var rgbFunc = typeof rgb === 'function' ? rgb : function(T) {
+            return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")";
+        };
         var escapeHtmlFunc = typeof escapeHtml === 'function' ? escapeHtml : function(text) { 
             if (typeof text !== 'string') return '';
             const div = document.createElement('div');
@@ -435,7 +431,23 @@ function EcrireCR(who, ch, order) {
                 .replace(/'/g, '&#39;');
         };
         
-        ScreenCR[order] = '<li role="listitem" style="color:' + rgbFunc(ColorsForCR[who][1]) + '; background-color:' + rgbFunc(ColorsForCR[who][0]) + '; margin-left: ' + ColorsForCR[who][2] + 'px; margin: 0 0 2px 0; padding: 5px; border-radius: 5px; display: block;">' + escapeHtmlFunc(who + ' : ' + ch) + '</li>';
+        // Determine CSS class based on sender
+        var messageClass = 'chat-message';
+        var styleAttr = '';
+
+        if (who === '----') {
+            messageClass += ' chat-message--system';
+        } else if (who === 'Intervenant') {
+            messageClass += ' chat-message--intervenant';
+        } else {
+            messageClass += ' chat-message--user';
+            styleAttr = ' style="background-color: ' + rgbFunc(ColorsForCR[who][0]) +
+                      '; color: ' + rgbFunc(ColorsForCR[who][1]) +
+                      '; margin-left: 20px;"';
+        }
+
+        ScreenCR[order] = '<li role="listitem" class="' + messageClass + '"' + styleAttr + '>' +
+                         escapeHtmlFunc(who + ' : ' + ch) + '</li>';
         RefreshCR();
     }
 }

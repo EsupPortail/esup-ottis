@@ -166,20 +166,6 @@ input[type=text] {
   font-weight: bold;
 }
 
-#classroom span {
-  padding: 5px;
-  margin-left: 5px;
-  margin-top: 0px;
-  margin-right: 0px;
-  border-radius: 5px;
-  display: block;
-}
-
-#classroom {
-  padding: 15px;
-
-
-}
 #bar {
   list-style: none;
   margin: 0px;

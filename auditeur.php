@@ -113,7 +113,7 @@ $jsVars = [
     ?>
     
     <link href="styles/auditeur-specific.css" rel="stylesheet">
-
+    <link href="styles/chat.css" rel="stylesheet">
 </head>
 <body onload="Init(); setTimeout(loadVoicesWhenAvailable,100);">
 <main>
@@ -251,7 +251,7 @@ Show the original version banner</label>
     <h2 id="chat-section-title" style="display: none;">Classroom Chat</h2>
     <div>
         <label for="question">Classroom Chat</label>
-        <div id="classroom" style="border: solid 1px; height: 300px; overflow-y: auto; margin-bottom: 5px;" aria-live="polite" aria-atomic="true"></div>
+        <div id="classroom" class="chat-container" aria-live="polite" aria-atomic="true"></div>
         <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
         <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your message">
     </div>

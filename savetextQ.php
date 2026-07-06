@@ -58,7 +58,7 @@ if (strlen($text) > 10240) {
 
 // Security: Remove HTML tags and encode special characters to prevent XSS
 $text = strip_tags($text);
-$text = htmlspecialchars($text, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
+//$text = htmlspecialchars($text, ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
 
 // Security: Ensure the directory exists and is writable
 $tmpDir = "tmp";

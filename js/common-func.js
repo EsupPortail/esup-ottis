@@ -220,14 +220,13 @@ function RefreshCR() {
     _('classroom').innerHTML = html;
 }
 
-/**
- * @summary Write something to the classroom queue
+/*
+ * @summary Write something to the classroom queue - NOW DEPRECATED, use chat-common.js version
  * 
  * @param {string} who surname of the person who writes.
  * @param {string} ch text that is to be written.
  * @param {number} order synchronisation parameter.
- */
-
+ *
 function EcrireCR(who, ch, order) {
     if (!ColorsForCR[who]) {
         var colors = getUserColor(who);
@@ -243,6 +242,7 @@ function EcrireCR(who, ch, order) {
     ScreenCR[order] = '<li role="listitem" style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; float: ' + floatStyle + '; margin-left: ' + marginLeft + '; margin-top: 0; margin-bottom: 2px; margin-right: 0; padding: 5px; border-radius: 5px; display: block; clear: both;">' + escapeHtml(who + ' : ' + ch) + '</li>';
     RefreshCR();
 }
+*/
 
 /**
  * @summary Computes the number of questions in the classroom queue
