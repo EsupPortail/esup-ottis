@@ -2816,3 +2816,425 @@ function sendclick() {
     if (tosend != '') saveTextQ(tosend);
     document.getElementById('question').value = '';
 }
+
+
+// ============================================================================
+// PRESENTATION DISPLAY SYSTEM
+// Handles file upload and PDF display using PDF.js
+// All file types are converted to PDF server-side for consistent display
+// ============================================================================
+
+// PDF.js configuration - set worker path and CMap support for better font rendering
+if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    
+    // Add CMap support for proper character encoding in PDFs
+    // This resolves "TT: undefined function" warnings
+    pdfjsLib.GlobalWorkerOptions.cMapUrl = 
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
+    pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
+}
+
+// Keyboard navigation for PDF viewer
+// Allows Left/Right arrows, Home, End for navigation
+// Only active when PDF viewer is visible
+// Note: Space and Backspace are intentionally not used as they are reserved for other functions
+document.addEventListener('keydown', function(event) {
+    const pdfViewer = document.getElementById('pdf-viewer');
+    
+    // Only handle keyboard events when PDF viewer is active and visible
+    if (!pdfDoc || !pdfViewer || pdfViewer.style.display !== 'block') {
+        return;
+    }
+
+    switch(event.key) {
+        case 'ArrowLeft':
+            prevPage();
+            event.preventDefault();
+            break;
+        case 'ArrowRight':
+            nextPage();
+            event.preventDefault();
+            break;
+        case 'Home':
+            goToPage(1);
+            event.preventDefault();
+            break;
+        case 'End':
+            if (pdfDoc) goToPage(pdfDoc.numPages);
+            event.preventDefault();
+            break;
+    }
+});
+
+// Global variables for PDF viewer
+let pdfDoc = null;
+let pageNum = 1;
+let pageRendering = false;
+let pageNumPending = null;
+let scale = 1.5;
+let canvas = null;
+let ctx = null;
+let currentRenderTask = null;
+
+/**
+ * Initialize PDF.js viewer elements
+ */
+function initPdfViewer() {
+    canvas = document.getElementById('pdf-canvas');
+    if (!canvas) return;
+    
+    ctx = canvas.getContext('2d');
+}
+
+/**
+ * Render a specific PDF page
+ * @param {number} num - Page number to render
+ */
+function renderPage(num) {
+    pageRendering = true;
+
+    // Cancel any previous render task to avoid canvas conflicts
+    if (currentRenderTask) {
+        currentRenderTask.cancel();
+        currentRenderTask = null;
+    }
+
+    pdfDoc.getPage(num).then(function(page) {
+        const viewport = page.getViewport({ scale: scale });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+
+        const renderTask = page.render(renderContext);
+        
+        // Store the current render task so it can be cancelled
+        currentRenderTask = renderTask;
+
+        renderTask.promise.then(function() {
+            currentRenderTask = null;
+            pageRendering = false;
+            if (pageNumPending !== null) {
+                renderPage(pageNumPending);
+                pageNumPending = null;
+            }
+        }).catch(function(error) {
+            // Handle render errors (e.g., cancelled)
+            if (error.name !== 'RenderingCancelledException') {
+                console.error('Render error:', error);
+            }
+            currentRenderTask = null;
+            pageRendering = false;
+            if (pageNumPending !== null) {
+                renderPage(pageNumPending);
+                pageNumPending = null;
+            }
+        });
+
+        // Update navigation UI
+        updatePdfNavigation();
+    });
+}
+
+/**
+ * Update PDF navigation controls
+ */
+function updatePdfNavigation() {
+    if (!pdfDoc) return;
+
+    document.getElementById('pdf-page-indicator').textContent = 
+        `Page ${pageNum} of ${pdfDoc.numPages}`;
+    document.getElementById('pdf-page-input').value = pageNum;
+    document.getElementById('pdf-prev').disabled = pageNum <= 1;
+    document.getElementById('pdf-next').disabled = pageNum >= pdfDoc.numPages;
+}
+
+/**
+ * Navigate to previous page
+ */
+function prevPage() {
+    if (pageNum <= 1) return;
+    pageNum--;
+    queueRenderPage(pageNum);
+}
+
+/**
+ * Navigate to next page
+ */
+function nextPage() {
+    if (pageNum >= pdfDoc.numPages) return;
+    pageNum++;
+    queueRenderPage(pageNum);
+}
+
+/**
+ * Go to specific page number
+ * @param {number} num - Page number
+ */
+function goToPage(num) {
+    const pageInput = document.getElementById('pdf-page-input');
+    num = parseInt(num);
+    if (num >= 1 && num <= pdfDoc.numPages) {
+        pageNum = num;
+        queueRenderPage(pageNum);
+    } else {
+        pageInput.value = pageNum;
+    }
+}
+
+/**
+ * Queue a page for rendering
+ * @param {number} num - Page number
+ */
+function queueRenderPage(num) {
+    if (pageRendering) {
+        pageNumPending = num;
+    } else {
+        renderPage(num);
+    }
+}
+
+/**
+ * Load and display PDF
+ * @param {string} url - Path to the PDF file
+ */
+function displayPDF(url) {
+    // Hide text viewer, show PDF viewer
+    const pdfViewer = document.getElementById('pdf-viewer');
+    const textViewer = document.getElementById('text-content-viewer');
+    
+    if (pdfViewer) pdfViewer.style.display = 'block';
+    if (textViewer) textViewer.style.display = 'none';
+
+    pdfjsLib.getDocument(url).promise.then(function(pdf) {
+        pdfDoc = pdf;
+        pageNum = 1;
+        renderPage(1);
+    }).catch(function(error) {
+        console.error('Error loading PDF:', error);
+        showPresentationError('Failed to load PDF: ' + error.message);
+    });
+}
+
+/**
+ * Display text content (fallback for non-PDF files)
+ * @param {string} content - Text content to display
+ */
+function displayTextContent(content) {
+    const viewer = document.getElementById('text-content-viewer');
+    const pdfViewer = document.getElementById('pdf-viewer');
+    
+    if (viewer) {
+        viewer.style.display = 'block';
+        viewer.style.whiteSpace = 'pre-wrap';
+        viewer.style.wordWrap = 'break-word';
+        viewer.textContent = content;
+    }
+    if (pdfViewer) pdfViewer.style.display = 'none';
+}
+
+/**
+ * Toggle fullscreen mode for PDF viewer
+ * Uses Fullscreen API with browser prefixes support
+ */
+function togglePdfFullscreen() {
+    const pdfViewer = document.getElementById('pdf-viewer');
+    
+    if (!pdfViewer) {
+        return;
+    }
+
+    // Check if already in fullscreen
+    if (document.fullscreenElement || document.webkitFullscreenElement || 
+        document.mozFullScreenElement || document.msFullscreenElement) {
+        // Exit fullscreen with browser prefixes
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    } else {
+        // Enter fullscreen with browser prefixes
+        if (pdfViewer.requestFullscreen) {
+            pdfViewer.requestFullscreen();
+        } else if (pdfViewer.webkitRequestFullscreen) {
+            pdfViewer.webkitRequestFullscreen();
+        } else if (pdfViewer.mozRequestFullScreen) {
+            pdfViewer.mozRequestFullScreen();
+        } else if (pdfViewer.msRequestFullscreen) {
+            pdfViewer.msRequestFullscreen();
+        }
+    }
+}
+
+// Add ESC key handler for fullscreen exit
+// Only active when in fullscreen mode
+document.addEventListener('keydown', function(event) {
+    // Only handle ESC key when in fullscreen
+    if (event.key === 'Escape' || event.keyCode === 27) {
+        const isFullscreen = document.fullscreenElement || 
+                            document.webkitFullscreenElement || 
+                            document.mozFullScreenElement || 
+                            document.msFullscreenElement;
+        
+        if (isFullscreen) {
+            event.preventDefault();
+            // Exit fullscreen with browser prefixes
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    }
+});
+
+/**
+ * Display error message in notebook
+ * @param {string} message - Error message
+ */
+function showPresentationError(message) {
+    const notebook = document.getElementById('notebookcompleteformatted');
+    if (notebook) {
+        notebook.innerHTML = `<div style="padding: 20px; color: red; text-align: center;">${message}</div>`;
+    }
+}
+
+/**
+ * Handle file selection for auto-upload
+ * Triggers upload immediately when a file is selected
+ * @param {Event} event - Change event from file input
+ */
+function handleFileSelect(event) {
+    const fileInput = event.target;
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        return;
+    }
+
+    // Get elements
+    const progressBar = document.getElementById('presentation-progress');
+    const progressStatus = document.getElementById('progress-status');
+    
+    // Initialize progress
+    if (progressBar) {
+        progressBar.value = 0;
+    }
+    if (progressStatus) {
+        progressStatus.textContent = 'Preparing upload...';
+    }
+
+    // Hide viewers
+    const pdfViewer = document.getElementById('pdf-viewer');
+    const textViewer = document.getElementById('text-content-viewer');
+    if (pdfViewer) pdfViewer.style.display = 'none';
+    if (textViewer) textViewer.style.display = 'none';
+
+    // Create FormData and upload
+    const formData = new FormData();
+    formData.append('presentation_file', file);
+
+    // Simulate progress during upload (0-50%)
+    const uploadProgress = setInterval(function() {
+        if (progressBar && progressBar.value < 50) {
+            progressBar.value = Math.min(progressBar.value + 10, 50);
+            if (progressStatus) {
+                progressStatus.textContent = 'Uploading... ' + progressBar.value + '%';
+            }
+        }
+    }, 300);
+
+    // Send to server
+    fetch('/upload_handler.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        clearInterval(uploadProgress);
+        
+        // Update progress to indicate server processing has started
+        if (progressBar) {
+            progressBar.value = 75;
+        }
+        if (progressStatus) {
+            progressStatus.textContent = 'Converting...';
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        // Update progress to 100% when conversion is complete
+        if (progressBar) {
+            progressBar.value = 100;
+        }
+        if (progressStatus) {
+            progressStatus.textContent = 'Processing...';
+        }
+
+        if (data.status === 'error') {
+            throw new Error(data.message);
+        }
+
+        // Display based on file type
+        if (data.display_method === 'pdf') {
+            if (progressStatus) {
+                progressStatus.textContent = 'Displaying...';
+            }
+            displayPDF(data.url);
+        } else {
+            showPresentationError('Unexpected file type: ' + data.file_type);
+        }
+    })
+    .catch(error => {
+        clearInterval(uploadProgress);
+        if (progressBar) {
+            progressBar.value = 0;
+        }
+        if (progressStatus) {
+            progressStatus.textContent = 'Error: ' + error.message;
+        }
+        showPresentationError('Upload failed: ' + error.message);
+    })
+    .finally(() => {
+        // Reset progress after a delay
+        setTimeout(() => {
+            if (progressBar) {
+                progressBar.value = 0;
+            }
+            if (progressStatus) {
+                progressStatus.textContent = '';
+            }
+        }, 2000);
+    });
+}
+
+// Initialize presentation system when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        initPdfViewer();
+        const fileInput = document.getElementById('presentation_file');
+        if (fileInput) {
+            fileInput.addEventListener('change', handleFileSelect);
+        }
+    });
+} else {
+    initPdfViewer();
+    const fileInput = document.getElementById('presentation_file');
+    if (fileInput) {
+        fileInput.addEventListener('change', handleFileSelect);
+    }
+}

@@ -30,6 +30,7 @@ $pageStyles = ["jquery/flat_black/jquery-ui.min.css",
 $pageScripts = ["/js/conference-def.js",
                 "/js/common-func.js",
                 "/js/chat-common.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
                 "/js/conference-func.js",
                 "/js/qrcode.min.js",
                 "/js/conference-post.js",
@@ -556,23 +557,47 @@ include_once __DIR__ . '/includes/header.php';
 	<img src="images/blank.png" id="img_slides" style="cursor: url(images/pointer.png), zoom-in;" alt="Emplacement des slides diffusés"> 
 </div>
 
+<!-- NEW PRESENTATION UPLOAD INTERFACE -->
 <div>
-	<label for="link-tools">If your PPTX is too big, you can convert it into HTML using the OMIST tools : </label>
-	<input type="button" id="link-tools" onclick="<?php if ($external) echo "javascript:void(window.open('OMIST_Tools/indexNOCAS.php'))"; else echo "javascript:void(window.open('OMIST_Tools'))"; ?>" value="Slide Tools">
-	<br>
-	<label for="ppt_presentation">Powerpoint/HTML presentation : </label>
-	<input type="file" id="ppt_presentation" name="ppt_presentation" aria-label="Powerpoint/HTML presentation" title="Select your presentation file. Light weight PPTX are allowed. For bigger files, it is recommended (and sometimes mandatory) to convert first the PPTX file to an HTML animation by using the Slide Tools." onchange="SlideNotes('')" accept=".pptx,.odp,.txt,.html" >
-	<br>
-	<label for="speechlanguage" title="If the speech prepared in the slides is of a different language than the speaker language one, it can be adjusted by using this field.">Speech language : </label>
-	<select id="speechlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect">
-		<option value="same" selected>Same as speaker</option>
-	</select>
-	<span style="display:none">
-		<label for="tobesaid" title="Portion of text inserted between each slides (eq. Next slide...)">Slide transition : </label>
-		<input type="text" id="tobesaid" value="">
-	</span>
-	<br>
-	<progress title="Progress bar" id="progressBar" value="0" max="100" style="width:300px;"></progress>
+    <!-- File input with auto-upload on change -->
+    <label for="presentation_file">Upload Presentation:</label>
+    <input type="file" id="presentation_file" name="presentation_file"
+           accept=".pptx,.odp,.pdf,.txt,.html,.htm"
+           aria-label="Upload presentation file"
+           title="Upload PPTX, ODP, PDF, TXT, or HTML file"
+           onchange="handleFileSelect(event)">
+
+    <!-- Progress indicator -->
+    <progress id="presentation-progress" value="0" max="100"
+             style="width: 300px; margin-top: 5px;"
+             aria-label="Upload and conversion progress"></progress>
+    <span id="progress-status" style="margin-left: 10px;" aria-live="polite"></span>
+
+    <!-- PDF.js viewer container (hidden by default) -->
+    <div id="pdf-viewer" style="display: none; margin-top: 10px; position: relative;">
+        <canvas id="pdf-canvas" style="border: 1px solid #ccc; max-width: 100%;"></canvas>
+        <div style="display: flex; justify-content: center; gap: 20px; margin: 10px 0;">
+            <button id="pdf-prev" onclick="prevPage()" disabled
+                    aria-label="Previous page"
+                    title="Go to previous page">← Previous</button>
+            <span id="pdf-page-indicator" style="align-self: center;">Page 1 of 1</span>
+            <button id="pdf-next" onclick="nextPage()" disabled
+                    aria-label="Next page"
+                    title="Go to next page">Next →</button>
+            <input type="number" id="pdf-page-input" min="1" style="width: 60px;"
+                   onchange="goToPage(this.value)" aria-label="Go to page number">
+        </div>
+        <!-- Fullscreen button (bottom right) -->
+        <button id="pdf-fullscreen-btn" onclick="togglePdfFullscreen()"
+                style="position: absolute; bottom: 10px; right: 10px;"
+                aria-label="Toggle fullscreen mode"
+                title="Press ESC to exit fullscreen">
+            Fullscreen
+        </button>
+    </div>
+
+    <!-- Text content viewer (fallback) -->
+    <div id="text-content-viewer" style="display: none; border: 1px solid #ccc; padding: 15px; margin-top: 10px; max-height: 500px; overflow: auto;"></div>
 </div>
 <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
 </div>
