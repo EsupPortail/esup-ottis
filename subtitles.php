@@ -7,19 +7,6 @@
 ?>
 <?php
 
-if (isset($_GET["SYNC"])) {
-  $synchronize = true;
-} else {
-  $synchronize = false;
-}
-
-if (isset($_GET["ROOMID"])) {
-  $classroomid = $_GET["ROOMID"];
-  $synchronize = false;
-} else {
-  $classroomid = '';
-  $synchronize = true;
-}
 
 
 $wooclapkey="";
@@ -66,13 +53,6 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script>
 
-<?php
-echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
-if ($synchronize) {
-  echo "var needSynchronize=true;\n";
-} else {
-  echo "var needSynchronize=false;\n";
-}
 ?>
 
 </script>

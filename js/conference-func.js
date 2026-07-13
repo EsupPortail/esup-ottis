@@ -17,6 +17,35 @@ function myalert(ch) {
 
 var lastPartialTranslation = '';
 
+// =============================================================================
+// LOGGING POUR DÉBOGAGE DES NOTEBOOKS - DÉSACTIVÉ
+// =============================================================================
+/*
+function logNotebookEvent(source, elementId, text, currentContent) {
+    console.log(
+        `%c[NOTEBOOK LOG] ${source} → ${elementId}`,
+        'background: #ffcc00; color: #000; font-weight: bold;',
+        {
+            text: text,
+            currentContentBefore: currentContent,
+            timestamp: new Date().toLocaleTimeString()
+        }
+    );
+}
+
+// Fonction pour obtenir le contenu actuel d'un élément
+function getNotebookContent(elementId) {
+    var el = document.getElementById(elementId);
+    return el ? el.innerHTML.replace(/<br\/?>$/, '').substring(0, 100) + '...' : 'N/A';
+}
+
+// Initialisation pour le monitoring
+window.lastNotebookContent = '';
+window.lastNotebookVOContent = '';
+*/
+
+// =============================================================================
+
 // Student feedback
 
 /**
@@ -522,29 +551,20 @@ function RemoveVerbalTics(ch) {
  */
 
 function Traduction(ch) {
-    console.log('Traduction appelée avec :', ch); // Log de diagnostic
-    console.log('Élément recognitionon :', _('recognitionon')); // Log de diagnostic
     var recognitionon = _('recognitionon').checked;
-    console.log('recognitionon :', recognitionon); // Log de diagnostic
-
     ch = RemoveVerbalTics(ch);
     if (recognitionon) {
-        console.log('Traduction - Texte original :', ch); // Log original
         EcrireNBonlyVO(ch);
-        //EcrireTitle(ch);
-        
+
         // Check if subtitle language is set and different from source
         if (typeof subtitle_language !== 'undefined' && subtitle_language && 
             builtin_language && builtin_language !== subtitle_language) {
-            // Translate to subtitle language and save both versions
             Translate(ch, subtitle_language.substr(0, 2), builtin_language.substr(0, 2), 
                 function(translatedText) {
                     if (translatedText && translatedText !== '') {
-                        // Save both source and translated text
-                        // Note: Translate() already writes to notebook via EcrireNBonly()
+                        EcrireNBonly(translatedText);
                         saveTextWithTranslation(ch, translatedText);
                     } else {
-                        // Fallback: save only source text
                         saveText(ch);
                     }
                 }
@@ -836,7 +856,6 @@ function ShowImage(n) {
         previousimage = n;
         //console.log('IMG OBJ = '+_("img_"+n));
         //console.log('IMG URL = "'+_("img_"+n).src+'"');
-        _('titreright').innerHTML = n;
         if (_('img_' + n) && _('img_' + n).src.length > 200) {
             _('img_slides').src = _('img_' + n).src;
             resizeSlides();
@@ -1373,21 +1392,16 @@ function StartSpeechRecognition(callback) {
                 if (_('recognitionon').checked) {
                     var cleanedText = RemoveVerbalTics(partial);
                     if (isFinalResult) {
-                        if (! _('directMicrosoftTranslation').checked) {
-                            EcrirePartial(cleanedText);
-                            EcrireNBonly(cleanedText);
-                        } else {
-                            EcrireTranslatePartial(cleanedText, function(translatedText) {
-                                EcrireNBonly(translatedText);
-                            }, true);
-                        }
+                        EcrireTranslatePartial(cleanedText, function(translatedText) {
+                            // Écrire le texte original uniquement si pas de traduction nécessaire
+                            if (builtin_language === subtitle_language) {
+                                EcrireNBonly(cleanedText);
+                            }
+                            // Sinon: la traduction sera gérée par Traduction() via callback(partial)
+                        });
                         callback(partial);
                     } else {
-                        if (! _('directMicrosoftTranslation').checked) {
-                            EcrirePartial(cleanedText);
-                        } else {
-                            EcrireTranslatePartial(cleanedText);
-                        }
+                        EcrireTranslatePartial(cleanedText);
                     }
                 }
             }
@@ -1435,7 +1449,6 @@ function InitVoices() {
  */
 
 function EcrireNB(ch) {
-    console.log('EcrireNB : '+ch);
     // if (_('notebook').innerHTML == "")
     //  _('notebook').innerHTML=ch;
     //else 
@@ -1450,7 +1463,8 @@ function EcrireNB(ch) {
  */
 
 function EcrireNBonly(ch) {
-    console.log('EcrireNBonly'+ch);
+    // var currentContent = getNotebookContent('notebook');
+    // logNotebookEvent('EcrireNBonly', 'notebook', ch, currentContent);
     _('notebook').innerHTML = _('notebook').innerHTML + ch + '<br/>';
 }
 
@@ -1461,39 +1475,17 @@ function EcrireNBonly(ch) {
  */
 
 function EcrireNBonlyVO(ch) {
-    console.log('EcrireNBonlyVO'+ch);
+    // var currentContent = getNotebookContent('notebookVO');
+    // logNotebookEvent('EcrireNBonlyVO', 'notebookVO', ch, currentContent);
     _('notebookVO').innerHTML = _('notebookVO').innerHTML + ch + '<br/>';
 }
 
 
 /**
- * @summary Function that update the "title" div.
- * 
- * @param {string} ch the text that is adding to the title.
+ * @summary Function that update the "title" div - REMOVED: unused dead code
+ * This function was used to update #titre element which is no longer used.
+ * All calls to this function are commented out in the codebase.
  */
-
-function EcrireTitle(ch) {
-    console.log('EcrireTitle : '+ch);
-    var linput = builtin_language.substr(0, 2).toLowerCase();
-    if (ch.indexOf(':|:') >= 0) { // If there are a language indication
-        var Tch = ch.split(':|:');
-        linput = Tch[0].substr(0, 2).toLowerCase();
-        ch = Tch[1];
-    }
-    var loutput = subtitle_language.substr(0, 2).toLowerCase();
-    if ((!_('subtitleon').checked) || (linput == loutput)) {
-        _('titre').innerHTML = ch;
-        // for scrollbar
-        setScrollvalues(ch.length);
-    } else {
-        TranslateThen(ch, loutput, linput, function(ch) {
-            _('titre').innerHTML = ch;
-            EcrirePartial(ch);
-            setScrollvalues(ch.length);
-        },forcelibre=false);
-    }
-}
-
 /**
  * @summary Function that update the "partial title" div.
  * 
@@ -1501,7 +1493,9 @@ function EcrireTitle(ch) {
  */
 
 function EcrirePartial(ch) {
-    console.log('EcrirePartial');
+    // console.log('EcrirePartial');
+    // var currentContent = getNotebookContent('partialtitre');
+    // logNotebookEvent('EcrirePartial', 'partialtitre', ch, currentContent);
     // Vérifier que ch est défini et non vide
     if (ch === undefined || ch === null || ch === 'undefined') {
         console.error('Texte non défini ou vide.');
@@ -1587,24 +1581,6 @@ function EcrirePartial(ch) {
     AbortTimeout(xhr,'Transcription');
 }
 
-
-/**
- * @summary Function that update the "studentfeedback" div.
- * 
- * @param {string} ch the text that is adding to the title.
- */
-
-function EcrireFeedback(ch) {
-    EcrireNBonly(ch);
-    if (FeedbackQueue>0) {
-        _('titre').innerHTML = _('titre').innerHTML+'<br>'+ch;
-        _('studentfeedback').innerHTML = _('studentfeedback').innerHTML+'<br>'+ch;
-    } else {
-        _('titre').innerHTML = ch;
-        _('studentfeedback').innerHTML = ch;
-    }
-    FeedbackQueue += ch.length*40; // Estimation of 1 character every 40ms (~ mean reading time 200 words/min of approx. 7 characters)
-}
 
 /**
  * @summary Function that update the "output" div.
@@ -1765,7 +1741,6 @@ function Lancer() {
     startChatPolling();
     //LaunchStudentReadText();
     //LaunchFeedbackReady();
-    //setInterval(ScrollBar, scrollinterval);
     //applyConfig();
 }
 
@@ -1789,11 +1764,6 @@ function Init() {
       },false);
     */
     //resizeSlides();
-
-    _('pincode').value = ('' + Math.floor(100000 + Math.random() * 100000)).substr(1);
-    _('sharedpin').innerHTML = _('pincode').value;
-    _('sharedpin2').innerHTML = _('pincode').value;
-    Synchronize_save();
 
     document.onkeyup = function(event) {
         if (inSlideTab) {
@@ -1866,11 +1836,7 @@ function Init() {
             event.stopPropagation();
         }
     };
-    /*ChangeColor('titre', _('ColorTitre').value);
-    ChangeColor('titreleft', _('ColorTitre').value);
-    ChangeColor('titrerightbis', _('ColorTitre').value);
-    ChangeColor('partialtitre', _('ColorPartialTitre').value);
-    ChangeColor('studentfeedback', _('Colorstudentfeedback').value);*/
+
 
     //setTimeout(Micro,1000);
     //setTimeout(Micro,1500);
@@ -1906,7 +1872,6 @@ function Init() {
     var base = new URL(window.location.toLocaleString()).searchParams;
     if (base.has('WhichTranslator')) _('whichtranslator').value = base.get('WhichTranslator');
     if (base.has('ApiKey')) _('apikey').value = base.get('ApiKey');
-    if (base.has('Direct')) _('directMicrosoftTranslation').checked = true;
 
 
 }
@@ -2330,43 +2295,12 @@ function resizeSlides() {
     // For wooclap and others
     //["wooclap", "extratab1", "extratab2", "extratab3", "extratab4", "visio"].map(resizeWindow)
 }
+window.onresize = resizeSlides;
 
 /**
- * @summary Synchronize the teacher App with a given PIN number
- * 
- * @deprecated
- * @unused
- * @param {number} pin a 5 digits pin code
- */
-
-/*
-function Synchronize(pin) {
-    // Deprecated synchronization via PIN - disabled.
-    console.warn('Synchronize() is deprecated and has been disabled.');
-    return;
-}
-*/
-
-/**
- * @summary Create a new PIN 5 digit code associated to a course channel
+ * @summary (Pincode system removed - using QR code/direct link instead)
  * 
  */
-
-function Synchronize_save() {
-    if (_('pincode').value != '') {
-        if (_('classroomid').value != '') {
-            var request = new XMLHttpRequest();
-            request.open('POST', 'synchronize_savepin.php');
-            var f = new FormData();
-            f.append('pincode', _('pincode').value);
-            f.append('roomid', _('classroomid').value);
-            f.append('room_token', window.ROOM_TOKEN);
-            request.send(f);
-            AbortTimeout(request,'Synchronize_save');
-            request.onload = function(event) {};
-        }
-    }
-}
 
 
 /**
@@ -2431,16 +2365,7 @@ function Micro() {
 
 }
 
-/**
- * @summary Display a Scroll bar below the title bar and synchronized with the speech duration
- * 
- */
 
-function ScrollBar() {
-    currentscroll = currentscroll - currentindent;
-    if (currentscroll < 0) currentscroll = 0;
-    _('scrollbar').style.transform = 'scaleX(' + currentscroll + ')';
-}
 
 /**
  * @summary Update the scroll bar value
@@ -2457,47 +2382,7 @@ function setScrollvalues(l) {
     currentindent = scrollinterval / duration;
 }
 
-
 /**
- * @summary Update the external tools links
- * 
- */
-
-function updateLinks() {
-    var roomid = _('classroomid').value;
-    _('link1').src = 'https://tableaunoir.github.io/?id=' + roomid;
-    _('link1').innerHTML = _('link1').src;
-    _('link1').title = 'Click here to add a link for ' + _('link1').src;
-    _('link2').src = 'https://wbo.ophir.dev/boards/' + roomid;
-    _('link2').innerHTML = _('link2').src;
-    _('link2').title = 'Click here to add a link for ' + _('link2').src;
-    _('link3').src = 'https://meet.jit.si/' + roomid;
-    _('link3').innerHTML = _('link3').src;
-    _('link3').title = 'Click here to add a link for ' + _('link3').src;
-}
-
-
-/**
- * @summary Change the icon size
- * 
- * @param {number} size the expected size.
- * @returns
- */
-
-function ChangeSizeIcons(size) {
-    _('pincodediv').style.fontSize = size * 0.72 + 'px';
-    _('pincodediv').style.width = size * 3 + 'px';
-    _('pincodediv').style.height = size + 'px';
-
-    // _('micon').style.fontSize = size*0.72+'px';
-    // _('micon').style.width = size+'px';
-    // _('micon').style.height = size+'px';
-
-    // _('questionicon').style.fontSize = size*0.72+'px';
-    // _('questionicon').style.width = size+'px';
-    // _('questionicon').style.height = size+'px';
-
-    // _('FSimage').style.width = size+'px';
     // _('FSimage').style.height = size+'px';
 }
 
@@ -2571,22 +2456,20 @@ function updateConfig() {
     var newConfig = [];
     newConfig[0] = String.fromCharCode(65 + _('classroomlanguage').selectedIndex);
     newConfig[1] = String.fromCharCode(65 + _('subtitlelanguage').selectedIndex);
-    newConfig[2] = (_('subtitlebaron').checked ? 'Y' : 'N');
-    newConfig[3] = String.fromCharCode(65 + _('ColorTitre').selectedIndex);
+    newConfig[2] = 'N'; // subtitlebaron removed - was controlling #titre element
+    newConfig[3] = 'A'; // ColorTitre removed - was controlling #titre element color
     newConfig[4] = (_('subtitlepartialon').checked ? 'Y' : 'N');
     newConfig[5] = String.fromCharCode(65 + _('ColorPartialTitre').selectedIndex);
     newConfig[6] = String.fromCharCode(65 + _('selectfontsize').selectedIndex);
     //newConfig[7] = (_('embedwooclapon').checked ? 'Y' : 'N');
-    newConfig[8] = (_('embedshareon').checked ? 'Y' : 'N');
+    newConfig[8] = (_('embedshareon') ? (_('embedshareon').checked ? 'Y' : 'N') : 'N');
     newConfig[9] = String.fromCharCode(65 + _('selectopacity').selectedIndex);
-    newConfig[10] = (_('arrowson').checked ? 'Y' : 'N');
+    newConfig[10] = 'N'; // arrowson removed
     newConfig[11] = (_('iconon').checked ? 'Y' : 'N');
-    newConfig[12] = (_('pincodeon').checked ? 'Y' : 'N');
     newConfig[13] = (_('microon').checked ? 'Y' : 'N');
     newConfig[14] = (_('questionon').checked ? 'Y' : 'N');
     newConfig[15] = (_('fson').checked ? 'Y' : 'N');
-    newConfig[16] = (_('directMicrosoftTranslation').checked ? 'Y' : 'N');
-    newConfig[17] = (_('directMicrosoftTranslationBoth').checked ? 'Y' : 'N');
+    newConfig[16] = (_('directMicrosoftTranslationBoth').checked ? 'Y' : 'N');
     // newConfig[10]=(_('pincodeon').checked?"Y":"N");
     currentconfig = newConfig.join('');
     _('myConfig').value = currentconfig;
@@ -2621,36 +2504,6 @@ function applyConfig() {
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
-    // subtitlebaron
-    _('subtitlebaron').checked = (config.charAt(2) == 'Y');
-    if (_('subtitlebaron').checked) {
-        _('spansubtitlebaron').innerHTML = 'Yes !';
-        _('titre').style.visibility = 'visible';
-        _('titreleft').style.visibility = 'visible';
-        _('titrerightbis').style.visibility = 'visible';
-        _('titreright').style.visibility = 'visible';
-    } else {
-        _('spansubtitlebaron').innerHTML = 'No.';
-        _('titre').style.visibility = 'hidden';
-        _('titreleft').style.visibility = 'hidden';
-        _('titrerightbis').style.visibility = 'hidden';
-        _('titreright').style.visibility = 'hidden';
-    }
-    // pincodeon
-    // _('pincodeon').checked=(config.charAt(10) == "Y");
-    // if (_('pincodeon').checked) {
-    //   _('spanpincodeon').innerHTML='Yes !'; 
-    //   _('pincodediv').style.visibility='visible'; 
-    // } else {
-    //   _('spanpincodeon').innerHTML='No.'; 
-    //   _('pincodediv').style.visibility='hidden';
-    // }
-
-    // ColorTitre
-    _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
-    ChangeColor('titre', _('ColorTitre').value);
-    ChangeColor('titreleft', _('ColorTitre').value);
-    ChangeColor('titrerightbis', _('ColorTitre').value);
     // subtitlepartialbaron
     _('subtitlepartialon').checked = (config.charAt(4) == 'Y');
     if (_('subtitlepartialon').checked) {
@@ -2665,9 +2518,7 @@ function applyConfig() {
     ChangeColor('partialtitre', _('ColorPartialTitre').value);
     // selectfontsize
     _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
-    _('titre').style.fontSize = _('selectfontsize').value;
     _('partialtitre').style.fontSize = _('selectfontsize').value;
-    _('studentfeedback').style.fontSize = _('selectfontsize').value;
     // Wooclap tab
     /*_('embedwooclapon').checked = (config.charAt(7) == "Y");
     if (_('embedwooclapon').checked) {
@@ -2688,32 +2539,14 @@ function applyConfig() {
     }*/
     //selectopacity
     _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    _('titre').style.backgroundColor = _('selectopacity').value;
     _('partialtitre').style.backgroundColor = _('selectopacity').value;
-    _('studentfeedback').style.backgroundColor = _('selectopacity').value;
 
-    // Arrows
-    _('arrowson').checked = (config.charAt(10) == 'Y');
-    if (_('arrowson').checked) {
-        _('titreleft').style.visibility = 'visible';
-        _('titrerightbis').style.visibility = 'visible';
-        _('titreright').style.visibility = 'visible';
-        _('spanarrowson').innerHTML = 'Yes !';
-    } else {
-        _('spanarrowson').innerHTML = 'No.';
-        _('titreleft').style.visibility = 'hidden';
-        _('titrerightbis').style.visibility = 'hidden';
-        _('titreright').style.visibility = 'hidden';
-    }
+
     // Icons
     _('iconon').checked = (config.charAt(11) == 'Y');
     _('spaniconon').innerHTML = (config.charAt(11) == 'Y') ? 'Yes !' : 'No.';
     showEachIcon();
 
-    // Pin code
-    _('pincodeon').checked = (config.charAt(12) == 'Y');
-    _('spanpincodeon').innerHTML = (config.charAt(12) == 'Y') ? 'Yes !' : 'No.';
-    _('pincodediv').style.visibility = (config.charAt(12) == 'Y') ? 'visible' : 'hidden';
 
     // Micro
     _('microon').checked = (config.charAt(13) == 'Y');
@@ -2745,24 +2578,8 @@ function applyConfig() {
         hide('FS');
     }
 
-    _('directMicrosoftTranslation').checked = (config.charAt(16) == 'Y');
-    _('spanmicrosoftdirecttranscritionon').innerHTML = (config.charAt(16) == 'Y') ? 'Yes !' : 'No.';
-    //_('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
-    if (_('directMicrosoftTranslation').checked) {
-        _('subtitlepartialon').checked = true;
-        _('spansubtitlepartialon').innerHTML = 'Yes !';
-        _('partialtitre').style.visibility = 'visible';
-
-        _('subtitlebaron').checked = false;
-        _('spansubtitlebaron').innerHTML = 'No.';
-        _('titre').style.visibility = 'hidden';
-        _('titreleft').style.visibility = 'hidden';
-        _('titrerightbis').style.visibility = 'hidden';
-        _('titreright').style.visibility = 'hidden';
-    }
-
-    _('directMicrosoftTranslationBoth').checked = (config.charAt(17) == 'Y');
-    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(17) == 'Y') ? 'Yes !' : 'No.';
+    _('directMicrosoftTranslationBoth').checked = (config.charAt(16) == 'Y');
+    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(16) == 'Y') ? 'Yes !' : 'No.';
    
     updateConfig();
 }
@@ -2770,40 +2587,38 @@ function applyConfig() {
 /**
  * @summary Function that fix the subtitle bar at the bottom of the page
  * 
- * @deprecated
+ * @deprecated - Removed: using CSS positioning instead
  */
 
-function fixTitle() {
-    for (var f in {
-            'partialtitre': 1,
-            'studentfeedback': 1
-        }) {
-        var e = document.getElementById(f);
-        e.style.top = (window.innerHeight - e.style.height - 200 - 10) + 'px';
-    }
-
-    var e = document.getElementById('titre');
-    e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
-}
+// function fixTitle() {
+//     for (var f in {
+//             'partialtitre': 1
+//         }) {
+//         var e = document.getElementById(f);
+//         e.style.top = (window.innerHeight - e.style.height - 200 - 10) + 'px';
+//     }
+// 
+//     var e = document.getElementById('titre');
+//     e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
+// }
 
 /**
  * @summary Function that allows to keep the partial title bar inside the window
  * 
- * @todo Do not work properly
+ * @todo Do not work properly - Removed: using CSS positioning
  */
 
-function MinTitlePos() {
-    for (var f in {
-            'partialtitre': 1,
-            'studentfeedback': 1
-        }) {
-        var e = document.getElementById(f);
-        var postop = 1 * (e.style.top.replace('px', ''));
-        if (postop > window.innerHeight - 50) {
-            e.style.top = (window.innerHeight - 50) + 'px';
-        }
-    }
-}
+// function MinTitlePos() {
+//     for (var f in {
+//             'partialtitre': 1
+//         }) {
+//         var e = document.getElementById(f);
+//         var postop = 1 * (e.style.top.replace('px', ''));
+//         if (postop > window.innerHeight - 50) {
+//             e.style.top = (window.innerHeight - 50) + 'px';
+//         }
+//     }
+// }
 
 /**
  * @summary Callback function when the question field (Classroom tab) has changed
@@ -3238,3 +3053,26 @@ if (document.readyState === 'loading') {
         fileInput.addEventListener('change', handleFileSelect);
     }
 }
+
+// =============================================================================
+// SURVEILLANCE DES CHANGEMENTS DANS LES NOTEBOOKS
+// =============================================================================
+setInterval(function() {
+    var notebookEl = document.getElementById('notebook');
+    var notebookVOEl = document.getElementById('notebookVO');
+    var partialtitreEl = document.getElementById('partialtitre');
+    
+    if (notebookEl && notebookVOEl && partialtitreEl) {
+        var notebookContent = notebookEl.innerHTML;
+        var notebookVOContent = notebookVOEl.innerHTML;
+        var partialtitreContent = partialtitreEl.innerHTML;
+
+        // Ne logger que si le contenu a changé depuis le dernier check
+        if (notebookContent !== window.lastNotebookContent ||
+            notebookVOContent !== window.lastNotebookVOContent) {
+
+            window.lastNotebookContent = notebookContent;
+            window.lastNotebookVOContent = notebookVOContent;
+        }
+    }
+}, 5000); // Vérifie toutes les 5 secondes

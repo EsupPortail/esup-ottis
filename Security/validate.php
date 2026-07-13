@@ -52,7 +52,7 @@ function validateTmpFilePath($roomid, $prefix = 'Link') {
         return false;
     }
 
-    $allowedPrefixes = ['Link', 'Translated', 'Verylast', 'Image', 'ImageID', 'LinkQuestions', 'pincodes'];
+    $allowedPrefixes = ['Link', 'Translated', 'Verylast', 'Image', 'ImageID', 'LinkQuestions'];
     if (!in_array($prefix, $allowedPrefixes)) {
         return false;
     }

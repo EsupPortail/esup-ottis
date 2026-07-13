@@ -1,8 +1,6 @@
 <?php require("./NoCache.php"); ?>
 <?php
 
-// Simplified logic for synchronize and classroomid
-$synchronize = isset($_GET["SYNC"]) && !isset($_GET["ROOMID"]);
 $classroomid = $_GET["ROOMID"] ?? '';
 
 // Generer un token unique pour ce ROOMID
@@ -46,7 +44,6 @@ if (isset($_GET["theme"])) $theme = $_GET["theme"];
 // Centralized JavaScript variables
 $jsVars = [
     "supportedlanguages" => $T_lang,
-    "needSynchronize" => $synchronize,
     "classroomid" => $classroomid,
     //"wooclapkey" => $wooclapkey,
     //"wooclapaddress" => $wooclapaddress,

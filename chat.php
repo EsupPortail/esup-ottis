@@ -19,7 +19,6 @@ ensureSessionStarted();
 <?php
 
 
-$synchronize = false;
 
 if (isset($_GET["ROOMID"])) {
   $classroomid = $_GET["ROOMID"];
@@ -822,21 +821,6 @@ function readImage() {
 }
 }
 
-function Synchronize(pin) {
-	var request = new XMLHttpRequest();
-	request.open("POST", "synchronize.php");
-  var f = new FormData();
-  f.append('pincode', pin);
-  f.append('room_token', ROOM_TOKEN);
-	request.send(f);
-	request.onload = function(event) {
-    if (request.responseText != "") {
-      document.getElementById('classroomid').value=request.responseText;
-    } else {
-      alert("ERROR : unknown pin code");
-    }
-  };
-}
 
 
 
@@ -864,10 +848,6 @@ function Init() {
   //resizeSlides();
   //activetab('tabs-0');
 
-<?php
-if ($synchronize) {
-  echo "Synchronize(prompt('Enter the session pincode'));\n";
-}
 ?>
   //setTimeout(function() {document.getElementById('wooclap').src='https://www.wooclap.com/';},1000);
   //setTimeout(function() {saveTextQ("[newstudentarrived]");},1000);

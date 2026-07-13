@@ -18,10 +18,8 @@ ensureSessionStarted();
 <?php
 if (isset($_GET["ROOMID"])) {
   $classroomid = $_GET["ROOMID"];
-  $synchronize = false;
 } else {
   $classroomid = 'UNKNOWN';
-  $synchronize = true;
 }
 
 $lang="";
@@ -93,34 +91,10 @@ function Lancer() {
   setInterval(remotespeech,200);
 }
 
-/**
- * @summary Synchronizes the remote control with the teacher application.
- * 
- * @param {int} The session pin code.
- */
-
-function Synchronize(pin) {
-	var request = new XMLHttpRequest();
-	request.open("POST", "synchronize.php");
-  var f = new FormData();
-  f.append('pincode', pin);
-  f.append('csrf_token', CSRF_TOKEN);
-	request.send(f);
-	request.onload = function(event) {
-    if (request.responseText != "") {
-      document.getElementById('classroomid').value=request.responseText;
-    } else {
-      alert("ERROR : unknown pin code");
-    }
-  };
-}
 
 var AllLanguages=[];
 function Init() {
 <?php
-if ($synchronize) {
-  echo "Synchronize(prompt('Enter the session pincode'));\n";
-}
   echo "// ".$lang."\n\n";
 
 if ($lang!="") {
@@ -138,9 +112,6 @@ if ($lang!="") {
 
 
 <?php
-if ($synchronize) {
-  echo "Synchronize(prompt('Enter the session pincode'));\n";
-}
 ?>
 
 var currentlanguage=0;

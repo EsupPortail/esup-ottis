@@ -355,14 +355,11 @@ $insertCommande_stats->execute([
   }
 	?>
 </head>
-<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); updateLinks(); Embedcode(); EcrireNBonly(''); applyConfig(); FixTabOrderIssue();">
+<body onload="Init(); InitVoices(); setTimeout(InitVoices,1000); setTimeout(InitVoices,2000); /*setTimeout(function () {StartSpeechRecognition(Traduction); },3000); */ setTimeout(Lancer,3000); ready(); Embedcode(); EcrireNBonly(''); applyConfig(); FixTabOrderIssue();">
 <main>
 <h1 style="display:none;">Outils de traduction : application enseignante</h1>
 </main>
 	<div id="Allbuttons">
-		<div id="pincodediv" title="Pincode that can be communicated to the students. It allows to synchronize the student app with the presented lesson. Alternatives (QRcode, direct link) can be found in the share tab." onclick="/*if (sizepincodediv == 1) sizepincodediv=0.1; else sizepincodediv=1; this.style.transform='scaleX('+sizepincodediv+')';*/">
-		<div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'I-Site NExT" style="width: 109px; height: 50px;" ></div>
-			<!--<span style="font-size: 0.5em;">Pin code</span><br>--><span title="" id="sharedpin"></span></div>
     <div id="icondiv">
       <div id="connexion"><i class='material-icons big'>signal_wifi_off</i></div>
       <div id="micon" onclick="Micro();" title="This button allows to switch on/off the microphone transcription. Alternatives for this button are the space key, the smartphone remote red button or the presentation pointer button."><i class='material-icons'>voice_over_off</i></div>
@@ -422,10 +419,6 @@ $insertCommande_stats->execute([
 							<label for="recognitionon">Speech recognition active ? </label>
 							<input type="checkbox" id="recognitionon" >
 						</li>
-						<li <?php if (true) echo "style=\"display:none;\""; ?> > <label for="pincode">Pin code :</label>
-							<input type="text" id="pincode" style="width: 50px;" disabled> &nbsp;
-							<input type="button" value="Change pin" onclick="_('pincode').value=prompt('Enter a PIN code'); Synchronize_save();" >
-							<input type="button" value="Synchronize" onclick="Synchronize(prompt('Enter a PIN code'));" > </li>
 						<li>&nbsp;</li>
 						<li style="display: none;">Translate subtitles ?
 							<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
@@ -518,8 +511,6 @@ $insertCommande_stats->execute([
 							<input type="checkbox" checked id="iconon" onclick="showEachIcon(); if (this.checked) {
     {_('spaniconon').innerHTML='Yes !';} else {_('spaniconon').innerHTML='No.';}" > &nbsp;<span class="yesno" id="spaniconon">Yes !</span></li>
 						<li id="eachicon" style="display:none">
-							<label for="pincodeon">Pin code ?</label>
-							<input title="Hide or show the pincode information. If 'Yes !' or checked, the pincode is visible." type="checkbox" id="pincodeon" onclick="if (this.checked) {_('spanpincodeon').innerHTML='Yes !'; _('pincodediv').style.visibility='visible';} else {_('spanpincodeon').innerHTML='No.';_('pincodediv').style.visibility='hidden';}" >&nbsp;<span class="yesno" id="spanpincodeon">No.</span> &nbsp; 
 							<label for="microon">Micro ?</label>
 							<input title="Hide or show the microphone icon. If 'Yes !' or checked, the microphone icon is visible." type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" >&nbsp;<span class="yesno" id="spanmicroon">No.</span> &nbsp; 
 							<label for="questionon">Question ?</label>
@@ -527,14 +518,6 @@ $insertCommande_stats->execute([
 							<label for="fson">Full screen ?</label>
 							<input title="Hide or show the fullscreen icon. If 'Yes !' or checked, the fullscreen icon is visible." type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" >&nbsp;<span class="yesno" id="spanfson">No.</span></li>
 						<li>&nbsp;</li>
-						<li><b>Pin code appearance</b></li>
-						<li><label for="selecticonsize">Pin code size</label>
-							<select id="selecticonsize" onchange="ChangeSizeIcons(this.value);" class="jqueryselect">
-								<option value=30>Small</option>
-								<option value=50 selected>Normal</option>
-								<option value=80>Big</option>
-							</select>
-						</li>
 					</ul>
 				</div>
 				<h3 class="tabbed">Tabs configuration and external tools</h3>
@@ -579,15 +562,6 @@ $insertCommande_stats->execute([
 					</ul>
 					<p>The following links to open source online tools can be useful for the extra tabs feature.
 						<ul style="list-style-type: none; margin: 10px; padding:0;">
-							<li>Tableau noir blackboard :
-								<a id="link1" class="tooltip" onload="this.src='';" onclick="opentab(this)" title="Click to add to extra tabs" href="javascript:void(0)"></a>
-							</li>
-							<li>WBO whiteboard :
-								<a id="link2" class="tooltip" onclick="opentab(this)" onload="this.src='';" title="Click to add to extra tabs" href="javascript:void(0)"></a>
-							</li>
-							<li>Jitsi visioconference :
-								<a id="link3" class="tooltip" onclick="opentab(this)" onload="this.src='';" title="Click to add to extra tabs" href="javascript:void(0)"></a>
-							</li>
 							<li>Symbolic computations (Xcas) : <a id="link4" class="tooltip" onclick="opentab(this)" onload="this.src='https://algoscript.info/xcas';"  title="Click to add to extra tabs for https://algoscript.info/xcas" href="javascript:void(0)">https://algoscript.info/xcas</a></li>
 							<li>PPTX generic viewer : <a id="link5" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs for https://products.groupdocs.app/fr/viewer/pptx" href="javascript:void(0)" onload="this.src='https://products.groupdocs.app/fr/viewer/pptx';">https://products.groupdocs.app/fr/viewer/pptx</a></li>
 							<li>Universal document viewer : <a id="link6" class="tooltip" onclick="opentab(this)" title="Click to add to extra tabs for https://products.groupdocs.app/fr/viewer/total" href="javascript:void(0)" onload="this.src='https://products.groupdocs.app/fr/viewer/total';">https://products.groupdocs.app/fr/viewer/total</a></li>
@@ -613,9 +587,7 @@ $insertCommande_stats->execute([
 							<input type="checkbox" id="externaltranscritionon" onclick="if (this.checked) _('spanexternaltranscritionon').innerHTML='Yes !'; else _('spanexternaltranscritionon').innerHTML='No.'; builtin_externaltranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanexternaltranscritionon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="microsofttranscritionon">Microsoft transcription service ?</label>
 							<input type="checkbox" id="microsofttranscritionon" onclick="InitializeMicrosoft(); if (this.checked) _('spanmicrosofttranscritionon').innerHTML='Yes !'; else _('spanmicrosofttranscritionon').innerHTML='No.'; builtin_microsofttranscritionon=this.checked" >&nbsp;<span class="yesno" id="spanmicrosofttranscritionon">No.</span></li>
-						<li title="Do not change unless you know what you are doing ! This functionnality imply a huge increase of the translation cost !"><label for="directMicrosoftTranslation">Enable the direct translation functionnality ?</label>
-							<input type="checkbox" id="directMicrosoftTranslation" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionon">No.</span></li>
-						<li title="Do not change unless you know what you are doing !"><label for="directMicrosoftTranslationBoth">Show both the direct transcription and its translation ?</label>
+						<li title="Do not change unless you know what you are doing !"><label for="directMicrosoftTranslationBoth">Show both (VO + translation) ?</label>
 							<input type="checkbox" id="directMicrosoftTranslationBoth" onclick="if (this.checked) _('spanmicrosoftdirecttranscritionBothon').innerHTML='Yes !'; else _('spanmicrosoftdirecttranscritionBothon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spanmicrosoftdirecttranscritionBothon">No.</span></li>
 						<li <?php if (! $Microsofton) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !"><label for="BoostedWords">Boosted words or expressions (one per line)</label>
 							<br>
@@ -729,7 +701,6 @@ $insertCommande_stats->execute([
 				<div>
 					<ul style="list-style-type: none;">
 						<li>Students application : <a id="sharedlink" href="Student.php?ROOMID=<?php echo $classroomid; if ($theme != "") echo "&theme=".$theme; ?>">Student.php?ROOMID=<?php echo $classroomid; if ($theme != "") echo "&theme=".$theme; ?></a></li>
-						<li>Pin code : <span title="" id="sharedpin2" style="font-size: 5em;"></span></li>
 						<li>QR code :
 							<div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div>
 						</li>

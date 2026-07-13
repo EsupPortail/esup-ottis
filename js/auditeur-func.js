@@ -846,30 +846,6 @@ function readImage() {
     }
 }
 
-/**
- * @summary Synchronize the student App with a given PIN number
- * 
- * @param {number} pin a 5 digits pin code
- */
-
-function Synchronize(pin) {
-    var request = new XMLHttpRequest();
-    request.open("POST", "synchronize.php");
-    increasependingrequests();
-    var f = new FormData();
-    f.append('pincode', pin);
-    f.append('room_token', window.ROOM_TOKEN);
-    request.send(f);
-    AbortTimeout(request,"Synchronize");
-    request.onload = function(event) {
-        decreasependingrequests();
-        if (request.responseText != "") {
-            _('classroomid').value = request.responseText;
-        } else {
-            alert("ERROR : unknown pin code");
-        }
-    };
-}
 
 
 /**
@@ -904,7 +880,6 @@ function Init() {
     activetab('tabs-0');
     startChatPolling();
 
-    if (needSynchronize) Synchronize(prompt('Enter the session pincode'));
     // Wooclap disabled - tabs commented out
     /*
     setTimeout(function() {
