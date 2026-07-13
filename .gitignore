@@ -17,4 +17,14 @@ tmp/
 *.swp
 *~
 
+# Ignore Mistral Vibe configuration
+.vibe/
+AGENTS.md
+
+# Ignore test directory
+test/
+
+# Ignore uploads directory
+uploads/
+
 tables/tokens_OLD.json
