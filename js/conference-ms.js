@@ -19,7 +19,7 @@ function InitializeMicrosoft() {
             if (builtin_language != subtitle_language) {
                 var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
             } else {
-                var text = RemoveVerbalTics(result.text);
+                var text = result.text;
             }
             EcrirePartial(text);
         }
@@ -28,9 +28,9 @@ function InitializeMicrosoft() {
             var result = recognitionEventArgs.result;
             if (builtin_language != subtitle_language) {
                 var text = recognitionEventArgs.privResult.privTranslations.privMap.privValues[0];
-                var textVO = RemoveVerbalTics(result.text);
+                var textVO = result.text;
             } else {
-                var text = RemoveVerbalTics(result.text);
+                var text = result.text;
                 var textVO = text;
             }
             EcrirePartial(text);

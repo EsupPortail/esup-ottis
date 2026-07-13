@@ -215,7 +215,7 @@ input[type=text] {
 	color		 : white;
 } */
 
-#micon,#connexion,#questionicon,#FS {
+#micon,#questionicon,#FS {
 	transition	 : 0.5s ease;
 	/*
   	position	 : fixed;

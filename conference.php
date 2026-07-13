@@ -201,7 +201,7 @@ include_once __DIR__ . '/includes/header.php';
 
 
 
-<div id="partialtitre"></div>
+<div id="partialtitre" style="color: white; opacity: 0.5; background-color: black; visibility: visible; font-size: 18px;"></div>
 
 
 <h3 class="tabbed">For students</h3>
@@ -269,141 +269,16 @@ include_once __DIR__ . '/includes/header.php';
 </div>
 <div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
 </div>
-
-
-<!-- ====================================================================== -->
-<!-- LEGACY ELEMENTS - Éléments critiques pour la compatibilité JS -->
-<!-- Ces éléments sont référencés dans le JavaScript mais ont été supprimés -->
-<!-- du design principal. LAISSÉS VISIBLES pour étude de nécessité. -->
-<!-- ====================================================================== -->
-<div id="legacy-elements" style="border: 2px dashed #ccc; padding: 20px; margin: 20px 0; background-color: #f9f9f9;">
-    <h2 style="color: #c00; text-align: center;">⚠️ LEGACY ELEMENTS - À ANALYSER POUR NÉCESSITÉ ⚠️</h2>
-
-    <!-- ===== 1. ÉLÉMENTS CRITIQUES POUR FONCTIONNEMENT DE BASE ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>1. Fonctionnement de base (CRITIQUE)</strong></legend>
-        <!-- micon et classroomid déplacés dans le layout principal -->
-        <div id="connexion" style="display: inline-block; margin: 5px;"><i class='material-icons big'>signal_wifi_off</i></div>
-        <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-            ⚠️ <strong>micon</strong> et <strong>classroomid</strong> ont été déplacés dans le layout principal.<br>
-            <strong>pincode</strong>, <strong>pincodediv</strong>, <strong>sharedpin</strong>, <strong>sharedpin2</strong> : supprimés (redondants avec QR code/lien direct).
-        </p>
-    </fieldset>
-
-    <!-- ===== 2. SÉLECTEURS DE COULEURS ET OPACITÉ ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>2. Couleurs et opacité</strong></legend>
-        <label for="ColorPartialTitre">Couleur titre partiel :</label>
-        <select id="ColorPartialTitre" name="ColorPartialTitre" onchange="ChangeColor('partialtitre',this.value);" class="jqueryselect" style="margin: 5px;">
-            <option value="0,0,255|0,0,255">blue</option>
-            <option value="0,255,0|0,100,0">green</option>
-            <option value="255,0,0|100,0,0">red</option>
-            <option value="0,0,0|0,0,0" selected>black</option>
-        </select>
-        
-        <label for="selectopacity">Opacité :</label>
-        <select id="selectopacity" onchange="ChangeOpacity('partialtitre', this.value);" class="jqueryselect" style="margin: 5px;">
-            <option value="0">0% opaque</option>
-            <option value="0.25">25% opaque</option>
-            <option value="0.5" selected>50% opaque</option>
-            <option value="0.75">75% opaque</option>
-            <option value="1">100% opaque</option>
-        </select>
-    </fieldset>
-
-    <!-- ===== 3. ÉLÉMENTS DE SOUS-TITRES ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>3. Configuration des sous-titres</strong></legend>
-        <label><input type="checkbox" id="subtitlepartialon" onclick="if (this.checked) {_('partialtitre').style.visibility='visible';} else {_('partialtitre').style.visibility='hidden';}"> Afficher transcription instantanée</label>
-        <span class="yesno" id="spansubtitlepartialon">No.</span>
-        
-        <label for="selectfontsize">Taille police :</label>
-        <select id="selectfontsize" onchange="_('partialtitre').style.fontSize = this.value;" class="jqueryselect" style="margin: 5px;">
-            <option value="12px">Small</option>
-            <option value="18px" selected>Normal</option>
-            <option value="24px">Big</option>
-            <option value="32px">Huge</option>
-            <option value="48px">Enormous</option>
-        </select>
-    </fieldset>
-
-    <!-- ===== 4. ÉLÉMENTS VOCAL/AUDIO ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>4. Audio et reconnaissance vocale</strong></legend>
-        <label><input type="checkbox" id="liveon"> Translation live active</label>
-        <button id="bready" style="margin: 5px;">Ready to listen ?</button>
-        
-        <label for="VoiceOutput">Langue de sortie :</label>
-        <select id="VoiceOutput" onchange="setLanguageOutput(this.value);" class="jqueryselect" style="margin: 5px;"></select>
-        
-        <button id="bswitch" onclick="var tmp=_('VoiceOutput').value; _('VoiceOutput').value=_('classroomlanguage').value; setLanguageOutput(_('VoiceOutput').value); setLanguageInput(_('classroomlanguage').value); Micro(); Micro();" style="margin: 5px;">input ↔ output</button>
-        <div id="output" style="margin: 5px; padding: 5px; border: 1px dashed #999;"></div>
-    </fieldset>
-
-    <!-- ===== 5. CONFIGURATION GÉNÉRALE ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>5. Traduction et configuration</strong></legend>
-        <label for="whichtranslator">Choix traducteur :</label>
-        <select id="whichtranslator" class="jqueryselect" style="margin: 5px;">
-            <option value="" selected>Default</option>
-            <option value="DEEPLPRO">DeepL Pro API</option>
-            <option value="DEEPLFREE">DeepL Free API</option>
-            <option value="LIBRETRANSLATE">Libre Translate</option>
-        </select>
-        
-        <label for="apikey">Clé API :</label>
-        <input type="text" id="apikey" value="" style="margin: 5px;">
-        
-        <label><input type="checkbox" id="externaltranscritionon"> Service de transcription externe</label>
-        <span class="yesno" id="spanexternaltranscritionon">No.</span>
-        
-        <label><input type="checkbox" id="directMicrosoftTranslationBoth"> Afficher les deux (VO + traduction)</label>
-        <span class="yesno" id="spanmicrosoftdirecttranscritionBothon">No.</span>
-        
-        <label for="verbaltics">Tics verbaux (un par ligne) :</label>
-        <textarea id="verbaltics" rows="3" cols="20" style="margin: 5px;"></textarea>
-    </fieldset>
-
-    <!-- ===== 6. LIENS ET ICÔNES ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>6. Liens et icônes</strong></legend>
-        <label>Lien étudiants : <a id="sharedlink" href="auditeur.php?ROOMID=<?php echo $classroomid; ?>">auditeur.php?ROOMID=<?php echo $classroomid; ?></a></label>
-        <br>
-        <label>Lien sous-titres : <a id="sublink" href="javascript:void(0)" onclick="SubWindow()">Ouvrir fenêtre sous-titres</a></label>
-        <div id="linkslides" style="margin: 5px; padding: 5px; border: 1px dashed #999;"></div>
-        <label><input type="checkbox" id="iconon" onclick="showEachIcon(); if (this.checked) {_('spaniconon').innerHTML='Yes !';} else {_('spaniconon').innerHTML='No.';}" > Show icons</label>
-        <span class="yesno" id="spaniconon">Yes !</span>
-        <label><input type="checkbox" id="microon" onclick="if (this.checked) {_('spanmicroon').innerHTML='Yes !'; show('micon');} else {_('spanmicroon').innerHTML='No.';hide('micon');}" > Micro ?</label>
-        <span class="yesno" id="spanmicroon">No.</span>
-        <label><input type="checkbox" id="questionon" onclick="if (this.checked) {_('spanquestionon').innerHTML='Yes !'; show('questionicon');} else {_('spanquestionon').innerHTML='No.';hide('questionicon');}" > Question ?</label>
-        <span class="yesno" id="spanquestionon">No.</span>
-        <label><input type="checkbox" id="fson" onclick="if (this.checked) {_('spanfson').innerHTML='Yes !'; show('FS');} else {_('spanfson').innerHTML='No.';hide('FS');}" > Full screen ?</label>
-        <span class="yesno" id="spanfson">No.</span>
-        <div id="eachicon" style="display: none;"></div>
-        <div id="questionicon" title="New messages indicator"><i class='material-icons'>thumb_up</i></div>
-        <div id="FS" title="Toggle fullscreen view" onclick="GoFS();"><i class='material-icons'>fullscreen</i></div>
-        <label><input type="checkbox" id="embedshareon" onclick="if (this.checked) {_('spanembedshareon').innerHTML='Yes !'; show('titleshare');} else {_('spanembedshareon').innerHTML='No.'; hide('titleshare');}" > Show Share tab ?</label>
-        <span class="yesno" id="spanembedshareon">Yes !</span>
-        <div id="titleshare" style="display: none;"></div>
-    </fieldset>
-
-    <!-- ===== 7. ÉLÉMENTS DIVERS ===== -->
-    <fieldset style="margin-bottom: 15px; border: 1px solid #ddd; padding: 10px;">
-        <legend><strong>7. Divers</strong></legend>
-        <div id="debugspan" style="margin: 5px; padding: 5px; border: 1px dashed #999;"></div>
-        <div id="LinkConfig" style="margin: 5px; padding: 5px; border: 1px dashed #999;"></div>
-        <input type="text" id="myConfig" value="0" style="width: 250px; margin: 5px;" disabled>
-        <input type="checkbox" id="notifications" name="notifications" checked style="margin: 5px;">
-        <label for="notifications">Activer les notifications</label>
-        <input type="checkbox" id="backup" name="backup" style="margin: 5px;">
-        <label for="backup">Sauvegardes automatiques</label>
-        <select id="theme" name="theme" class="form-control" style="margin: 5px;">
-            <option value="light">Clair</option>
-            <option value="dark">Sombre</option>
-        </select>
-        <label for="theme">Thème</label>
-    </fieldset>
-
+<!-- ADMIN CONFIGURATION -->
+<div id="admin-config" style="border: 2px solid #4CAF50; padding: 15px; margin: 20px 0; background-color: #f0fff0;">
+    <h2 style="color: #2E7D32; text-align: center;">ADMIN - Configuration Traduction</h2>
+    <label for="whichtranslator">Choix traducteur :</label>
+    <select id="whichtranslator" class="jqueryselect" style="margin: 5px;">
+        <option value="" selected>Default</option>
+        <option value="DEEPLPRO">DeepL Pro API</option>
+        <option value="DEEPLFREE">DeepL Free API</option>
+        <option value="LIBRETRANSLATE">Libre Translate</option>
+    </select>
 </div>
 
 <!-- Bouton micro flottant en haut à droite -->

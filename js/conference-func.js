@@ -106,11 +106,9 @@ function StudentTranslate2(ch, l, linput, lineid) {
     formData.append('ROOMID', _('classroomid').value || '');
     formData.append('lineid', lineid);
     
-    // Ajouter whichtranslator et apikey directement
+    // Ajouter whichtranslator (apikey gere via config.php)
     var whichtranslator = _('whichtranslator').value;
-    var apikey = _('apikey').value;
     if (whichtranslator) formData.append('whichtranslator', whichtranslator);
-    if (apikey) formData.append('apikey', apikey);
     
     xhr.onloadend = function() {
         StudentCompleteTranslation2();
@@ -337,6 +335,7 @@ function InviteExternal() {
 
 function PopulateVoicesOut() {
     var select = _('VoiceOutput');
+    if (!select) return;
     AllOutputVoices = [];
     while (select.firstChild) {
         select.removeChild(select.firstChild);
@@ -522,27 +521,6 @@ function notready() {
  * @returns The same sentence without the verbal tics.
  */
 
-function RemoveVerbalTics(ch) {
-    var T_verbaltics = _('verbaltics').value.trim().split('\n');
-    var ch2 = ch;
-    for (var i = 0; i < T_verbaltics.length; i++) {
-        var fromword = T_verbaltics[i].trim();
-        if (fromword.trim() != '') {
-            if (fromword.indexOf('|') <= 0) {
-                ch2 = (ch2 + ' ').replaceAll(fromword + ' ', '').trim();
-                ch2 = ch2.replaceAll(fromword + ',', '');
-            } else {
-                var [fromword, toword] = fromword.split('|');
-                ch2 = (ch2 + ' ').replaceAll(fromword + ' ', toword + ' ').trim();
-                ch2 = ch2.replaceAll(fromword + ',', toword + ',');
-                ch2 = ch2.replaceAll(fromword + '.', toword + '.');
-            }
-        }
-    }
-    return ch2;
-}
-
-
 /**
  * @summary Main function for translating a given text, handles the synchronisation of different translations.
  * 
@@ -552,7 +530,6 @@ function RemoveVerbalTics(ch) {
 
 function Traduction(ch) {
     var recognitionon = _('recognitionon').checked;
-    ch = RemoveVerbalTics(ch);
     if (recognitionon) {
         EcrireNBonlyVO(ch);
 
@@ -599,9 +576,7 @@ function Traduction(ch) {
 function TranslatorInfo() {
     var res='';
     var whichtranslator=_('whichtranslator').value;
-    var apikey=_('apikey').value;
     if (whichtranslator != '') res+='&whichtranslator='+whichtranslator;
-    if (apikey != '') res+='&apikey='+apikey;
     return res;
 }
 
@@ -660,11 +635,9 @@ function TranslateThen(ch, l, linput, f, forcelibre = false) {
         formData.append('forcelibre', 'true');
     }
 
-    // Ajouter whichtranslator et apikey directement
+    // Ajouter whichtranslator (apikey gere via config.php)
     var whichtranslator = _('whichtranslator').value;
-    var apikey = _('apikey').value;
     if (whichtranslator) formData.append('whichtranslator', whichtranslator);
-    if (apikey) formData.append('apikey', apikey);
 
     xhr.onreadystatechange = function() {
         if (this.readyState === XMLHttpRequest.DONE) {
@@ -1255,10 +1228,12 @@ function FullScreen() {
  */
 
 function SubWindow(){
+    var sublink = _('sublink');
+    if (!sublink) return; // Éléments supprimés
     event.preventDefault();
     var window_width = window.screen.width;
     var windowFeatures = 'status=no,location=no,toolbar=no,menubar=no,width=1200,height=110';
-    var link = _('sublink').innerHTML.replaceAll('&amp;','&');
+    var link = sublink.innerHTML.replaceAll('&amp;','&');
     window.open(link,'_blank',windowFeatures);
 }
 
@@ -1339,22 +1314,13 @@ function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
             if (forceTranslate || LiveTranslationNum % LiveTranslationFreq == 0) {
                 lastSentenceVO = ch;
                 totalTranslated += ch.length;
-                _('debugspan').innerHTML='Total translated = '+totalTranslated+' chars';
                 TranslateThen(ch, loutput, linput, function(translatedText) {
                     lastSentenceTranslated = translatedText;
-                    if (_('directMicrosoftTranslationBoth').checked) {
-                        EcrirePartial(lastSentenceTranslated+'<br><span>'+lastSentenceVO+'</span>');
-                    } else {
-                        EcrirePartial(lastSentenceTranslated);
-                    }
+                    EcrirePartial(lastSentenceTranslated);
                     if (callback) callback(lastPartialTranslation);
                 },forcelibre=false);
             } else {
-                if (_('directMicrosoftTranslationBoth').checked) {
-                    EcrirePartial(lastSentenceTranslated+'<br><span>'+ch+'</span>');
-                } else {
-                    EcrirePartial(lastSentenceTranslated);
-                }
+                EcrirePartial(lastSentenceTranslated);
                 if (callback) callback(lastPartialTranslation);
             }
             LiveTranslationNum++;
@@ -1390,18 +1356,17 @@ function StartSpeechRecognition(callback) {
             }
             if (partial.trim() != '') {
                 if (_('recognitionon').checked) {
-                    var cleanedText = RemoveVerbalTics(partial);
                     if (isFinalResult) {
-                        EcrireTranslatePartial(cleanedText, function(translatedText) {
+                        EcrireTranslatePartial(partial, function(translatedText) {
                             // Écrire le texte original uniquement si pas de traduction nécessaire
                             if (builtin_language === subtitle_language) {
-                                EcrireNBonly(cleanedText);
+                                EcrireNBonly(partial);
                             }
                             // Sinon: la traduction sera gérée par Traduction() via callback(partial)
                         });
                         callback(partial);
                     } else {
-                        EcrireTranslatePartial(cleanedText);
+                        EcrireTranslatePartial(partial);
                     }
                 }
             }
@@ -1589,9 +1554,11 @@ function EcrirePartial(ch) {
  */
 
 function Ecrire(ch) {
-    if (_('output').innerHTML == '')
-        _('output').innerHTML = ch;
-    else _('output').innerHTML = ch + '<br/>' + _('output').innerHTML;
+    var outputElement = _('output');
+    if (!outputElement) return;
+    if (outputElement.innerHTML == '')
+        outputElement.innerHTML = ch;
+    else outputElement.innerHTML = ch + '<br/>' + outputElement.innerHTML;
 }
 
 /**
@@ -1840,21 +1807,6 @@ function Init() {
 
     //setTimeout(Micro,1000);
     //setTimeout(Micro,1500);
-    //version addEventListener
-    window.addEventListener('offline', (event) => {
-        console.log('La connexion au réseau est perdue.');
-        _('connexion').style.visibility = 'visible';
-        delayStudentReadtext = 100000;
-        delayReadtextQ = 100000;
-        delayRemote = 100000;
-    });
-    window.addEventListener('online', (event) => {
-        console.log('La connexion au réseau est rétablie.');
-        _('connexion').style.visibility = 'hidden';
-        delayStudentReadtext = 500;
-        delayReadtextQ = 100;
-        delayRemote = 200;
-    });
 
     /*if (_('embedwooclapon').checked) {
         _('spanembedwooclapon').innerHTML = 'Yes !';
@@ -1871,7 +1823,6 @@ function Init() {
     // Adjust a few parameters according to the url arguments
     var base = new URL(window.location.toLocaleString()).searchParams;
     if (base.has('WhichTranslator')) _('whichtranslator').value = base.get('WhichTranslator');
-    if (base.has('ApiKey')) _('apikey').value = base.get('ApiKey');
 
 
 }
@@ -2068,8 +2019,10 @@ function draw() {
         setTimeout(draw, 1000);
     } else {
         var tab = _('questionicon');
-        tab.innerHTML = '<i class=\'material-icons\'>thumb_up</i>';
-        tab.style.backgroundColor = 'green';
+        if (tab) {
+            tab.innerHTML = '<i class=\'material-icons\'>thumb_up</i>';
+            tab.style.backgroundColor = 'green';
+        }
     }
 }
 
@@ -2083,9 +2036,11 @@ function EventNewQuestion() {
     if (timenew_question == 0) {
         timenew_question = 10;
         var tab = _('questionicon');
-        tab.innerHTML = '<i class=\'material-icons blink\'>warning</i>';
-        tab.style.backgroundColor = 'orange';
-        draw();
+        if (tab) {
+            tab.innerHTML = '<i class=\'material-icons blink\'>warning</i>';
+            tab.style.backgroundColor = 'orange';
+            draw();
+        }
     } else timenew_question = 10;
 }
 
@@ -2139,13 +2094,10 @@ function TranslateQ(ch, l, linput, name, order) {
     formData.append('ROOMID', (classroomidEl && classroomidEl.value) ? classroomidEl.value : '');
     formData.append('room_token', window.ROOM_TOKEN);
 
-    // Ajouter whichtranslator et apikey directement
+    // Ajouter whichtranslator (apikey gere via config.php)
     var whichtranslatorEl = _('whichtranslator');
-    var apikeyEl = _('apikey');
     var whichtranslator = (whichtranslatorEl && whichtranslatorEl.value) ? whichtranslatorEl.value : '';
-    var apikey = (apikeyEl && apikeyEl.value) ? apikeyEl.value : '';
     if (whichtranslator) formData.append('whichtranslator', whichtranslator);
-    if (apikey) formData.append('apikey', apikey);
 
     xhr.onreadystatechange = function() {
         if (this.readyState === XMLHttpRequest.DONE) {
@@ -2392,16 +2344,7 @@ function setScrollvalues(l) {
  * @deprecated ?
  */
 
-function showEachIcon() {
-    var checkBox = _('iconon');
-    var text = _('eachicon');
-    if (!checkBox.checked) {
-        text.style.display = 'block';
-        text.style.padding = '0px 0px 0px 20px';
-    } else {
-        text.style.display = 'none';
-    }
-}
+function showEachIcon() {} // Fonction conservée pour compatibilité, mais vide (éléments supprimés)
 
 /**
  * @summary Generate the HTML code allowing to embed a Chat window
@@ -2456,37 +2399,8 @@ function updateConfig() {
     var newConfig = [];
     newConfig[0] = String.fromCharCode(65 + _('classroomlanguage').selectedIndex);
     newConfig[1] = String.fromCharCode(65 + _('subtitlelanguage').selectedIndex);
-    newConfig[2] = 'N'; // subtitlebaron removed - was controlling #titre element
-    newConfig[3] = 'A'; // ColorTitre removed - was controlling #titre element color
-    newConfig[4] = (_('subtitlepartialon').checked ? 'Y' : 'N');
-    newConfig[5] = String.fromCharCode(65 + _('ColorPartialTitre').selectedIndex);
-    newConfig[6] = String.fromCharCode(65 + _('selectfontsize').selectedIndex);
-    //newConfig[7] = (_('embedwooclapon').checked ? 'Y' : 'N');
-    newConfig[8] = (_('embedshareon') ? (_('embedshareon').checked ? 'Y' : 'N') : 'N');
-    newConfig[9] = String.fromCharCode(65 + _('selectopacity').selectedIndex);
-    newConfig[10] = 'N'; // arrowson removed
-    newConfig[11] = (_('iconon').checked ? 'Y' : 'N');
-    newConfig[13] = (_('microon').checked ? 'Y' : 'N');
-    newConfig[14] = (_('questionon').checked ? 'Y' : 'N');
-    newConfig[15] = (_('fson').checked ? 'Y' : 'N');
-    newConfig[16] = (_('directMicrosoftTranslationBoth').checked ? 'Y' : 'N');
-    // newConfig[10]=(_('pincodeon').checked?"Y":"N");
     currentconfig = newConfig.join('');
-    _('myConfig').value = currentconfig;
-    if (window.location.href.indexOf('?') > 0) {
-        _('LinkConfig').href = window_location_href + '&myconfig=' + _('myConfig').value;
-        // var link = "subtitles.php&myconfig=" + _("myConfig").value;
-    } else {
-        _('LinkConfig').href = window_location_href + '?myconfig=' + _('myConfig').value;
-        // var link = "subtitles.php?myconfig=" + _("myConfig").value;
-    }
-    var link = _('LinkConfig').href.replace('index.php','subtitles.php');
-    var room_id = _('sharedlink').innerHTML.replace('Student.php?','&');
-    _('LinkConfig').innerHTML = _('LinkConfig').href;
-    _('sublink').innerHTML = link+room_id;
-    var link_tot = link+room_id;
-    link_tot = link_tot.replaceAll('&amp;','&');
-    _('sublink').href = link_tot;
+    // Configuration simplifiée : seuls classroomlanguage et subtitlelanguage sont conservés
 }
 
 /**
@@ -2497,91 +2411,14 @@ function updateConfig() {
 function applyConfig() {
     console.log('Apply config ');
     var config = window.pageData.currentconfig;
-    if (config.length != 'ABYANACNNCNNNYYYYN'.length) return;
+    if (config.length < 2) return; // Seuls les 2 premiers caractères (langues) sont utilisés
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     //setLanguageInput(_('classroomlanguage').value);
     // subtitlelanguage
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
-    // subtitlepartialbaron
-    _('subtitlepartialon').checked = (config.charAt(4) == 'Y');
-    if (_('subtitlepartialon').checked) {
-        _('spansubtitlepartialon').innerHTML = 'Yes !';
-        _('partialtitre').style.visibility = 'visible';
-    } else {
-        _('spansubtitlepartialon').innerHTML = 'No.';
-        _('partialtitre').style.visibility = 'hidden';
-    }
-    // ColorPartialTitre
-    _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
-    ChangeColor('partialtitre', _('ColorPartialTitre').value);
-    // selectfontsize
-    _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
-    _('partialtitre').style.fontSize = _('selectfontsize').value;
-    // Wooclap tab
-    /*_('embedwooclapon').checked = (config.charAt(7) == "Y");
-    if (_('embedwooclapon').checked) {
-        _('spanembedwooclapon').innerHTML = 'Yes !';
-        show('titlewooclap');
-    } else {
-        _('spanembedwooclapon').innerHTML = 'No.';
-        hide('titlewooclap');
-    }*/
-    // Share tab
-    /*_('embedshareon').checked = (config.charAt(8) == "Y");
-    if (_('embedshareon').checked) {
-        _('spanembedshareon').innerHTML = 'Yes !';
-        show('titleshare');
-    } else {
-        _('spanembedshareon').innerHTML = 'No.';
-        hide('titleshare');
-    }*/
-    //selectopacity
-    _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    _('partialtitre').style.backgroundColor = _('selectopacity').value;
-
-
-    // Icons
-    _('iconon').checked = (config.charAt(11) == 'Y');
-    _('spaniconon').innerHTML = (config.charAt(11) == 'Y') ? 'Yes !' : 'No.';
-    showEachIcon();
-
-
-    // Micro
-    _('microon').checked = (config.charAt(13) == 'Y');
-    _('spanmicroon').innerHTML = (config.charAt(13) == 'Y') ? 'Yes !' : 'No.';
-    if (_('microon').checked) {
-        show('micon');
-    } else {
-        hide('micon');
-    }
-    //_('micon').style.visibility = (config.charAt(13) == "Y") ? "visible" : "hidden";
-
-    // Question
-    _('questionon').checked = (config.charAt(14) == 'Y');
-    _('spanquestionon').innerHTML = (config.charAt(14) == 'Y') ? 'Yes !' : 'No.';
-    if (_('questionon').checked) {
-        show('questionicon');
-    } else {
-        hide('questionicon');
-    }
-    //_('questionicon').style.visibility = (config.charAt(14) == "Y") ? "visible" : "hidden";
-
-    // FS
-    _('fson').checked = (config.charAt(15) == 'Y');
-    _('spanfson').innerHTML = (config.charAt(15) == 'Y') ? 'Yes !' : 'No.';
-    //_('FS').style.visibility = (config.charAt(15) == "Y") ? "visible" : "hidden";
-    if (_('fson').checked) {
-        show('FS');
-    } else {
-        hide('FS');
-    }
-
-    _('directMicrosoftTranslationBoth').checked = (config.charAt(16) == 'Y');
-    _('spanmicrosoftdirecttranscritionBothon').innerHTML = (config.charAt(16) == 'Y') ? 'Yes !' : 'No.';
-   
-    updateConfig();
+    // Les autres paramètres de config ne sont plus utilisés (éléments supprimés)
 }
 
 /**

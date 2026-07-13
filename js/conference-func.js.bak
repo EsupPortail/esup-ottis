@@ -1687,21 +1687,7 @@ function Init() {
 
     //setTimeout(Micro,1000);
     //setTimeout(Micro,1500);
-    //version addEventListener
-    window.addEventListener('offline', (event) => {
-        console.log("La connexion au réseau est perdue.");
-        _('connexion').style.visibility = 'visible';
-        delayStudentReadtext = 100000;
-        delayReadtextQ = 100000;
-        delayRemote = 100000;
-    });
-    window.addEventListener('online', (event) => {
-        console.log("La connexion au réseau est rétablie.");
-        _('connexion').style.visibility = 'hidden';
-        delayStudentReadtext = 500;
-        delayReadtextQ = 100;
-        delayRemote = 200;
-    });
+
 
     if (_('embedwooclapon').checked) {
         _('spanembedwooclapon').innerHTML = 'Yes !';
