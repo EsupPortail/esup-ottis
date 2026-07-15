@@ -221,12 +221,6 @@ $(function() {
 
 });
 
-$("#question").keyup(function(event) {
-    if (event.keyCode === 13) {
-        sendclick();
-    }
-});
-
 $(function() {
     // When language changes, force a refresh of the chat to re-translate with new language
     $("#classroomlanguage").on("change", function() {

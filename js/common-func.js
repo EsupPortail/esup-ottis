@@ -68,9 +68,8 @@ function escapeHtml(text) {
 }
 
 /**
- * Generate a deterministic color for a user based on their name
- * Prevents the same user from having different colors across sessions
- * Uses localStorage to persist colors between page reloads
+ * Generate a random color for a user, avoiding intervenant's blue (0,0,255)
+ * Persists the color in localStorage so the same user keeps the same color across sessions
  * Returns [backgroundColor, textColor] with proper contrast
  */
 function getUserColor(username) {
@@ -85,27 +84,13 @@ function getUserColor(username) {
         }
     }
 
-    // Simple hash function
-    let hash = 0;
-    for (let i = 0; i < username.length; i++) {
-        hash = username.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    // Generate RGB values from hash
-    let r = (hash & 0xFF0000) >> 16;
-    let g = (hash & 0x00FF00) >> 8;
-    let b = hash & 0x0000FF;
-
-    // Ensure values are in 55-255 range (to avoid too dark colors)
-    r = Math.max(55, Math.min(255, r));
-    g = Math.max(55, Math.min(255, g));
-    b = Math.max(55, Math.min(255, b));
-
-    // Prevent using intervenant's color (RGB 0,0,255)
-    if (r === 0 && g === 0 && b === 255) {
-        r = (r + 50) % 256;
-        g = (g + 100) % 256;
-        b = (b + 150) % 256;
-    }
+    // Generate random RGB values in 55-255 range to avoid too dark colors
+    let r, g, b;
+    do {
+        r = Math.floor(Math.random() * 201) + 55;
+        g = Math.floor(Math.random() * 201) + 55;
+        b = Math.floor(Math.random() * 201) + 55;
+    } while (r === 0 && g === 0 && b === 255); // Never use intervenant's blue
 
     // Calculate brightness to determine text color (black or white)
     // Using relative luminance formula (simplified)

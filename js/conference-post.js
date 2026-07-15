@@ -237,12 +237,6 @@ $(function() {
 
 
 
-$("#question").keyup(function(event) {
-    if (event.keyCode === 13) {
-        sendclick();
-    }
-});
-
 window.onbeforeunload = function(event) {
     event.returnValue = "Quit";
 };

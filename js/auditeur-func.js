@@ -900,7 +900,7 @@ function Init() {
 
     // Keyboard navigation
     document.onkeyup = function(event) {
-        if (["StudentName", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)<0) {
+        if (["AuditorName", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)<0) {
             if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
             }
             if (event.code === 'KeyS') { // Show slides tab

@@ -89,3 +89,68 @@
     padding: 8px 16px;
     cursor: pointer;
 }
+
+/* ============================================ */
+/* CHAT ALERT - Notification indicator           */
+/* ============================================ */
+.chat-alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #ff5722;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    pointer-events: none;
+}
+
+.chat-alert-visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.chat-alert-blink {
+    background-color: #ff1744 !important;
+    animation: chatAlertPulse 0.5s ease;
+}
+
+.chat-alert-icon {
+    font-size: 28px;
+}
+
+.chat-alert-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ffffff;
+    color: #ff5722;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #ff5722;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+@keyframes chatAlertPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}

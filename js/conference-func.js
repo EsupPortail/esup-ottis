@@ -17,6 +17,13 @@ function myalert(ch) {
 
 var lastPartialTranslation = '';
 
+// Global variables for user connection tracking
+var NBconnectedusers = 0;
+var Tconnectedusers = [];
+
+// Global variable for tracking new questions (used by chat message handler)
+var nbnewQ = 0;
+
 // =============================================================================
 // LOGGING POUR DÉBOGAGE DES NOTEBOOKS - DÉSACTIVÉ
 // =============================================================================
@@ -1954,9 +1961,12 @@ function updateUsers() {
 
 /**
  * @summary Read the CLASSROOM queue
+ * Now using centralized readTextQ from chat-common.js
+ * Old implementation kept for reference (commented out)
  * 
  */
 
+/*
 function readTextQ() {
     var classroomidEl = _('classroomid');
     if (classroomidEl && classroomidEl.value != '') {
@@ -2007,6 +2017,7 @@ function readTextQ() {
         };
     }
 }
+*/
 
 /**
  * @summary Looping function that is executed to animate the question icon
@@ -2220,6 +2231,9 @@ function reduceToolbar() {
 function resizeSlides() {
     console.log('resizeSlides');
     var slide = _('img_slides');
+    if (!slide || !slide.width || !slide.height) {
+        return;
+    }
     var ratio = slide.width / slide.height;
     var aggrandissmentX = (window.innerWidth - 30) / slide.width;
     var aggrandissmentY = (window.innerHeight - 80) / slide.height;

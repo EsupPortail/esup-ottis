@@ -6,6 +6,7 @@ $classroomid = $_GET["ROOMID"] ?? '';
 // Generer un token unique pour ce ROOMID
 require_once __DIR__ . '/Security/room_tokens.php';
 $roomToken = generateRoomToken($classroomid);
+require_once __DIR__ . '/includes/chat-component.php';
 
 /*
 $wooclapkey = "";
@@ -101,6 +102,7 @@ $jsVars = [
     $pageScripts[] = "/js/auditeur-def.js";
     $pageScripts[] = "/js/common-func.js";
     $pageScripts[] = "/js/chat-common.js";
+    $pageScripts[] = "/js/chat-alert.js";
     $pageScripts[] = "/js/auditeur-func.js";
     $pageScripts[] = "/js/auditeur-post.js";
     
@@ -177,8 +179,8 @@ $jsVars = [
   <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
-<span><label for="StudentName">My surname :</label>
-  <input type="text" id="StudentName" onchange="if (this.value == 'Intervenant') this.value='Student';" value="<?php echo $randomname; ?>" autocomplete="given-name">
+<span><label for="AuditorName">My surname :</label>
+  <input type="text" id="AuditorName" onchange="if (this.value == 'Intervenant') this.value='Auditor';" value="<?php echo $randomname; ?>" autocomplete="given-name">
 </span><br>
 <span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
@@ -247,10 +249,16 @@ Show the original version banner</label>
 	<section id="tabs-1" role="region" aria-labelledby="chat-section-title">
     <h2 id="chat-section-title" style="display: none;">Classroom Chat</h2>
     <div>
-        <label for="question">Classroom Chat</label>
-        <div id="classroom" class="chat-container" aria-live="polite" aria-atomic="true"></div>
-        <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
-        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send your message">
+        <?php
+        renderChatComponent([
+            'roomId' => $classroomid,
+            'roomToken' => $roomToken,
+            'userName' => $randomname,
+            'isIntervenant' => false,
+            'placeholder' => 'Type your message here...',
+            'labelText' => 'Classroom Chat'
+        ]);
+        ?>
     </div>
 </section>
 
@@ -362,6 +370,23 @@ Show the original version banner</label>
 <?php foreach ($pageScripts as $script) {
     echo "<script src=\"{$script}\"></script>\n";
 } ?>
+
+<!-- Initialize chat alert after all scripts are loaded -->
+<script>
+// Initialize chat alert when DOM is ready and all scripts are loaded
+jQuery(function($) {
+    // Wait a bit to ensure all scripts are loaded
+    setTimeout(function() {
+        if (typeof initChatAlert === 'function') {
+            var userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : '<?php echo $randomname; ?>';
+            initChatAlert(userName);
+        } else {
+            console.error('[Chat Alert] initChatAlert function not found!');
+        }
+    }, 500);
+});
+</script>
+
 <script>
   $( function() {
     $("#tabs-0").accordion({

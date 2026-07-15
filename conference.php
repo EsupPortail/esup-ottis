@@ -13,6 +13,7 @@ header('Cache-Control: no-cache, must-revalidate');
 include("config.php");
 include("Admin/Stats/config_database_stats.php");
 require_once __DIR__ . '/Security/room_tokens.php';
+require_once __DIR__ . '/includes/chat-component.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -21,19 +22,19 @@ $_SESSION["from"]="teacher";
 $language = $_GET['lang'] ?? 'fr'; // Langue par défaut
 $translations = json_decode(file_get_contents("lang/{$language}.json"), true);
 $pageTitle = "Omist - Conference";
-$pageStyles = ["jquery/flat_black/jquery-ui.min.css",
-                "jquery/flat_black/extras.css",
-                //"styles/teacher.css",
+$pageStyles = ["jquery/jquery-ui.min.css",
+                "styles/auditeur.css",
                 "styles/conference.css",
                 "styles/chat.css"
 ];
 $pageScripts = ["/js/conference-def.js",
                 "/js/common-func.js",
                 "/js/chat-common.js",
+                "/js/chat-alert.js",
                 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
                 "/js/conference-func.js",
-                "jquery/flat_black/external/jquery/jquery.js",
-                "jquery/flat_black/jquery-ui.js",
+                "jquery/jquery.js",
+                "jquery/jquery-ui.min.js",
                 "/js/qrcode.min.js",
                 "/js/conference-post.js"
 ];
@@ -174,10 +175,16 @@ include_once __DIR__ . '/includes/header.php';
 <section id="chat-section" class="conference-card" aria-labelledby="chat-section-title">
     <h2 id="chat-section-title">Classroom Chat</h2>
     <div>
-        <label for="question">Classroom Chat</label>
-        <div id="classroom" class="chat-container" aria-live="polite" aria-atomic="true"></div>
-        <textarea id="question" aria-label="Type your message here" title="Type your message here" placeholder="Type your message here..." rows="2" cols="50" style="width: 70%;"></textarea>
-        <input type="button" value="Send" class="button-3 tooltip" id="questionsend" onclick="sendclick();" title="Send">
+        <?php
+        renderChatComponent([
+            'roomId' => $classroomid,
+            'roomToken' => $roomToken,
+            'userName' => $uid,
+            'isIntervenant' => true,
+            'placeholder' => 'Type your message here...',
+            'labelText' => 'Classroom Chat'
+        ]);
+        ?>
     </div>
 </section>
 
@@ -329,6 +336,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 500);
     }
+});
+</script>
+
+<!-- Initialize chat alert after all scripts are loaded -->
+<script>
+// Initialize chat alert when DOM is ready - using native DOMContentLoaded to avoid jQuery dependency
+ document.addEventListener('DOMContentLoaded', function() {
+    // Wait to ensure all scripts are loaded
+    setTimeout(function() {
+        if (typeof initChatAlert === 'function') {
+            // In conference, the sender is always "Intervenant" for chat messages
+            // Use that as current user to filter out own messages
+            var userName = 'Intervenant';
+            initChatAlert(userName);
+        } else {
+            console.error('[Chat Alert] Conference: initChatAlert function not found!');
+        }
+    }, 500);
 });
 </script>
 

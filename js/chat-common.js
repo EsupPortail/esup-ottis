@@ -144,22 +144,24 @@ function readTextQCommon(roomId, messageHandler) {
                     isSpecial = true;
                 }
                 
-                // Only process non-special messages through handler
-                if (!isSpecial) {
-                    // Skip ROBOT messages
-                    if (who !== 'ROBOT' && text.indexOf("[newstudent") < 0) {
-                        if (messageHandler) {
-                            messageHandler(who, text, lang, i, isSpecial, specialType);
-                        }
-                    }
-                } else {
-                    // Handle special messages
-                    if (specialType === "extratab" && who === 'Intervenant' && messageHandler) {
-                        // Let handler deal with extratab
-                        messageHandler(who, text, lang, i, true, "extratab");
+                // Process messages through handler
+                // Skip ROBOT messages, but pass everything else including special messages
+                if (who !== 'ROBOT') {
+                    if (messageHandler) {
+                        messageHandler(who, text, lang, i, isSpecial, specialType);
                     }
                 }
             }
+        }
+        
+        // Trigger EventNewQuestion for conference if new messages were processed
+        if (typeof nbnewQ !== 'undefined' && nbnewQ > 0 && typeof EventNewQuestion === 'function') {
+            EventNewQuestion();
+        }
+        
+        // Reset nbnewQ for next polling cycle
+        if (typeof nbnewQ !== 'undefined') {
+            nbnewQ = 0;
         }
         
         // Update the counter
@@ -170,6 +172,7 @@ function readTextQCommon(roomId, messageHandler) {
 /**
  * @summary Default message handler for chat messages
  * Translates if needed, then displays using EcrireCR
+ * Handles conference-specific features: EventNewQuestion, user connection tracking
  * 
  * @param {string} who Sender name
  * @param {string} text Message text
@@ -179,9 +182,40 @@ function readTextQCommon(roomId, messageHandler) {
  * @param {string} specialType Type of special message
  */
 function defaultMessageHandler(who, text, lang, order, isSpecial, specialType) {
+    // Handle special messages for conference
     if (isSpecial) {
-        // Skip processing special messages in default handler
+        // Handle new student arrived
+        if (specialType === "newstudentarrived" && typeof NBconnectedusers !== 'undefined') {
+            NBconnectedusers++;
+            if (typeof Tconnectedusers !== 'undefined') {
+                Tconnectedusers.push(who);
+            }
+            if (typeof updateUsers === 'function') {
+                updateUsers();
+            }
+        }
+        // Handle new student lived (disconnected)
+        else if (specialType === "newstudentlived" && typeof NBconnectedusers !== 'undefined') {
+            NBconnectedusers--;
+            if (typeof Tconnectedusers !== 'undefined') {
+                Tconnectedusers = Tconnectedusers.filter(student => student !== who);
+            }
+            if (typeof updateUsers === 'function') {
+                updateUsers();
+            }
+        }
+        // For other special messages, skip normal processing
         return;
+    }
+    
+    // Trigger alert for new messages from other users
+    if (typeof triggerNewMessageAlert === 'function') {
+        triggerNewMessageAlert(who);
+    }
+    
+    // Track new questions for conference
+    if (typeof nbnewQ !== 'undefined') {
+        nbnewQ++;
     }
     
     // Get current language
@@ -229,8 +263,8 @@ function saveTextQ(ch) {
     // Try to get from different possible contexts
     if (typeof _ !== 'undefined') {
         // auditeur.php, conference.php context
-        if (_('StudentName') && _('StudentName').value) {
-            senderName = 'User ' + _('StudentName').value;
+        if (_('AuditorName') && _('AuditorName').value) {
+            senderName = _('AuditorName').value;
         }
         if (_('classroomid') && _('classroomid').value) {
             roomId = _('classroomid').value;
@@ -242,10 +276,10 @@ function saveTextQ(ch) {
         }
     } else if (document.getElementById) {
         // chat.php, Student.php context
-        if (document.getElementById('StudentName') && document.getElementById('StudentName').value) {
-            senderName = 'Student ' + document.getElementById('StudentName').value;
-        } else if (document.getElementById('StudentName')) {
-            senderName = document.getElementById('StudentName').value;
+        if (document.getElementById('AuditorName') && document.getElementById('AuditorName').value) {
+            senderName = document.getElementById('AuditorName').value;
+        } else if (document.getElementById('AuditorName')) {
+            senderName = document.getElementById('AuditorName').value;
         }
         if (document.getElementById('classroomid') && document.getElementById('classroomid').value) {
             roomId = document.getElementById('classroomid').value;
