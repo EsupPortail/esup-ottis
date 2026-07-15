@@ -41,7 +41,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	<title>OMIST - Subtitles</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link href="styles/auditeur.css" rel="stylesheet">
+    <link href="styles/auditor.css" rel="stylesheet">
     <?php if ($theme != "") {
     echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">';
     echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet">';
@@ -69,10 +69,10 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
   ?>
 </script>
-<script src="js/auditeur-def.js"></script>
+<script src="js/auditor-def.js"></script>
 <script src="js/common-func.js"></script>
 <script src="js/chat-common.js"></script>
-<script src="js/auditeur-func.js"></script>
+<script src="js/auditor-func.js"></script>
 <?php if ($theme != "") {
     echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
     echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';

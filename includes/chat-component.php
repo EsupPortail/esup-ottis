@@ -3,7 +3,7 @@
  * Chat Component - Reusable chat interface for OMIST
  * 
  * This component provides a standardized chat interface that can be used across
- * chat.php, conference.php, and auditeur.php to eliminate code duplication.
+ * conference.php, and auditor.php to eliminate code duplication.
  * 
  * @package OMIST
  * @subpackage Chat

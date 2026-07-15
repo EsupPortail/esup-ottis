@@ -13,7 +13,7 @@ window.onresize=resizeSlides;
 function retourOK(e) {
     var res = '';
     for (var p in e) res += p + '=' + e[p] + '\n';
-    console.log(res);
+
 }
 
 function retourErreur() {}
@@ -266,7 +266,7 @@ function updateWC() {
     //if (buffer_has_changed) parseText(removeTags(bufferWC.join(' ')));
     if (buffer_has_changed) {
         parseText(CreateString());
-        console.log("WC with : " + CreateString());
+
     }
     buffer_has_changed = false;
 }

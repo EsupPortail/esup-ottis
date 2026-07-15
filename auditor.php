@@ -65,7 +65,7 @@ $jsVars = [
     <?php
     // Centralized styles
     $pageStyles = [
-        "styles/auditeur.css"
+        "styles/auditor.css"
     ];
     
     // Add theme-specific styles
@@ -99,19 +99,19 @@ $jsVars = [
     }
     
     $pageScripts[] = "libs/quickmenu/src/jquery.popmenu.js";
-    $pageScripts[] = "/js/auditeur-def.js";
+    $pageScripts[] = "/js/auditor-def.js";
     $pageScripts[] = "/js/common-func.js";
     $pageScripts[] = "/js/chat-common.js";
     $pageScripts[] = "/js/chat-alert.js";
-    $pageScripts[] = "/js/auditeur-func.js";
-    $pageScripts[] = "/js/auditeur-post.js";
+    $pageScripts[] = "/js/auditor-func.js";
+    $pageScripts[] = "/js/auditor-post.js";
     
     // Inject pageData for JavaScript
     echo "<script>window.pageData = " . json_encode($jsVars) . ";</script>\n";
     echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "';</script>\n";
     ?>
     
-    <link href="styles/auditeur-specific.css" rel="stylesheet">
+    <link href="styles/auditor-specific.css" rel="stylesheet">
     <link href="styles/chat.css" rel="stylesheet">
 </head>
 <body onload="Init(); setTimeout(loadVoicesWhenAvailable,100);">

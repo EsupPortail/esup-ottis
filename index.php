@@ -732,14 +732,7 @@ $insertCommande_stats->execute([
 						</li>
 					</ul>
 				</div>
-				<h3 class="tabbed">Chat only</h3>
-				<div>
-					<ul style="list-style-type: none;">
-						<li>Chat only link : <a id="chatlink" href="chat.php?ROOMID=<?php echo $classroomid; ?>">chat.php?ROOMID=<?php echo $classroomid; ?></a></li>
-						<li><label for="embedcontent">Chat only embed code :</label>
-							<input type="text" id="embedcontent" value="" > </li>
-					</ul>
-				</div>
+
 				<h3 class="tabbed">Subtitles only</h3>
 				<div>
 					<ul style="list-style-type: none;">

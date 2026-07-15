@@ -57,9 +57,9 @@ function fakeSpeechRecognition() {
     this.lang="";
     this.onresult = function(e) {};
     this.onend=function(e){};
-    this.start=function() {console.log('Starting fake SpeechRecognition service')};
-    this.stop=function() {console.log('Stoping fake SpeechRecognition service')};
-    this.abort=function() {console.log('Aborting fake SpeechRecognition service')};
+    this.start=function() {};
+    this.stop=function() {};
+    this.abort=function() {};
     this.continuous= true;
     this.interimResults=true;
     this.enableAutomaticPunctuation=true;

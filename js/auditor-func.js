@@ -196,7 +196,7 @@ function countLines(elm) {
 
 
 function auto_size_text(elm="titre", max_lines=3) {
-    console.log("CHANGE");
+
     var el = document.getElementById(elm);
     var lines = countLines(elm);
     var size = parseInt(el.style.fontSize.replace("px", ""));
@@ -241,7 +241,7 @@ function ParleThen(txt, f) {
         discours.lang = builtin_voice.lang.replace('_', '-')
         discours.onend = f;
         discours.onerror = function() {
-            console.log('Error Speech synthesis for ' + txt);
+
             f();
         }
         window.speechSynthesis.speak(discours);
@@ -255,17 +255,17 @@ function ParleThen(txt, f) {
 
 function applyConfigSub() {
     var config = currentconfig;
-    console.log(config);
+
     if (config.length != "ABYANACNNCNNNYYYYN".length) return;
     // classroomlanguage
     _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
     setLanguageInput(_('classroomlanguage').value);
-    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text);
+
 
     // subtitlelanguage
     _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageOutput(_('VoiceOutput').value);
-    console.log(_('VoiceOutput').value);
+
 
     // subtitlebaron
     if (config.charAt(2) == "Y") {
@@ -297,8 +297,7 @@ function applyConfigSub() {
     ChangeOpacity('VOBanner', _('selectopacity').value)
 
     //document.getElementById('synthesison').checked=true;
-    console.log(_('VoiceOutput').value.substr(0, 2));
-    console.log(_('classroomlanguage').options[_('classroomlanguage').value].text.substr(0, 2));
+
 
     // Micro
     // _('microon').checked = (config.charAt(13) == "Y");
@@ -347,7 +346,7 @@ function decreasependingrequests() {
 function Translate(ch, l, linput, lineid) {
     // Ne pas traduire si classroomid est vide ou inconnu
     if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
-        console.log('Translate() - Skipping: classroomid is empty or UNKNOWN');
+
         decreasependingrequests();
         CompleteTranslation();
         return;
@@ -358,7 +357,7 @@ function Translate(ch, l, linput, lineid) {
     increasependingrequests();
 
     var f = new FormData();
-    console.log('Translate() - ch parameter:', ch);
+
     f.append('texte', ch);
     f.append('lang', l);
     f.append('langinput', linput);
@@ -367,14 +366,14 @@ function Translate(ch, l, linput, lineid) {
 
     xhr.onreadystatechange = function() { // Call a function when the state changes.
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            console.log(this.responseText);
+
             var response = JSON.parse(this.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 ToSay['' + lineid] = (response["data"]["translations"][0]["text"]);
                 //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
                 Ecrire(response["data"]["translations"][0]["text"]);
             } else {
-                console.error('auditeur-func.js:356 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
+                console.error('auditor-func.js:356 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
                 console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
                 alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
                 Ecrire("---- Translation ERROR ---- (see console)")
@@ -384,7 +383,7 @@ function Translate(ch, l, linput, lineid) {
     };
     xhr.timeout = 9999;
     xhr.ontimeout = function() {
-        console.log('ERROR TRANSLATE Timeout');
+
     };
     xhr.onloadend = function() {
         decreasependingrequests();
@@ -408,7 +407,7 @@ function Translate(ch, l, linput, lineid) {
 function Translate2(ch, l, linput, lineid) {
     // Ne pas traduire si classroomid est vide ou inconnu
     if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
-        console.log('Translate2() - Skipping: classroomid is empty or UNKNOWN');
+
         decreasependingrequests();
         CompleteTranslation2();
         return;
@@ -481,7 +480,7 @@ function EcrireNBSub(ch) {
  */
 
 function Ecrire(ch) {
-    console.log(ch);
+
     if (_('output').innerHTML == "")
         _('output').innerHTML = ch;
     else _('output').innerHTML = _('output').innerHTML + "<br/>" + ch;
@@ -839,7 +838,7 @@ function readImage() {
                     imgSlides.onload = resizeSlides;
                 }
                 if (_('stillwaiting')) _('stillwaiting').style.display="none";
-                console.log('Got a new image');
+
             }
 
         };

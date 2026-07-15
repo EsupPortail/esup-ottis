@@ -23,7 +23,7 @@ $language = $_GET['lang'] ?? 'fr'; // Langue par défaut
 $translations = json_decode(file_get_contents("lang/{$language}.json"), true);
 $pageTitle = "Omist - Conference";
 $pageStyles = ["jquery/jquery-ui.min.css",
-                "styles/auditeur.css",
+                "styles/auditor.css",
                 "styles/conference.css",
                 "styles/chat.css"
 ];
@@ -215,7 +215,7 @@ include_once __DIR__ . '/includes/header.php';
 <div>
 	<ul style="list-style-type: none;">
 		<li><span id="connectedusers">connected users</span></li>
-		<li>Students application : <a id="sharedlink" href="auditeur.php?ROOMID=<?php echo $classroomid;?>">auditeur.php?ROOMID=<?php echo $classroomid;?></a></li>
+		<li>Students application : <a id="sharedlink" href="auditor.php?ROOMID=<?php echo $classroomid;?>">auditor.php?ROOMID=<?php echo $classroomid;?></a></li>
 		<li>QR code :
 			<div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div>
 		</li>

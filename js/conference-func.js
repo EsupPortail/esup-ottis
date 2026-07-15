@@ -101,7 +101,7 @@ function StudentTranslate(ch, l, linput, lineid) {
  */
 
 function StudentTranslate2(ch, l, linput, lineid) {
-    console.log('StudentTranslate2');
+
     var xhr = new XMLHttpRequest();
     lineid='DIRECT';
     xhr.open('POST', 'Translate.php', true);
@@ -146,7 +146,7 @@ function StudentCompleteTranslation() {
  */
 
 function StudentCompleteTranslation2() {
-    console.log('StudentCompleteTranslation2');
+
     if (StudentToTranslate2.length > 0) {
         var L = StudentToTranslate2[0];
         StudentToTranslate2.splice(0, 1);
@@ -198,7 +198,7 @@ function StudentCompleteSpeech() {
  */
 
 function StudentreadText() {
-    console.log('StudentreadText');
+
     var synthesison = true;
     if (synthesison) {
         if (_('classroomid').value != '') {
@@ -271,7 +271,7 @@ function StudentreadText() {
             f.append('room_token', window.ROOM_TOKEN);
             request.send(f);
             request.onload = function(event) {
-                console.log(request.responseText)
+
                 var T = request.responseText.split('\n');
                 var maxi = -1;
                 var readedorder = ('0' + T[0]).split(';')[0] * 1;
@@ -405,7 +405,7 @@ function PopulateVoicesIn() {
                 if (index === 0) {
                     opt.selected = true;
                     builtin_language = code;
-                    console.log(builtin_language);
+
                 }
 
                 TLangInput.push(code);
@@ -423,7 +423,7 @@ function PopulateVoicesIn() {
 
 
 function PopulateSubtitlesLang() {
-    console.log('sous-titre');
+
     var select = _('subtitlelanguage');
     Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
             if (TLangInput.indexOf(code) === -1) {
@@ -469,7 +469,7 @@ function PopulateSpeechLang() {
 
 function setLanguageSubtitle(i) {
     subtitle_language = i;
-    console.log('Subtitles set to '+subtitle_language+ ' builtin_language is '+builtin_language);
+
 }
 
 /**
@@ -481,7 +481,7 @@ function setLanguageSubtitle(i) {
 
 function setLanguageSpeech(i) {
     builtin_language = i;
-    console.log('Speech set to builtin language is '+builtin_language);
+
 }
 
 /**
@@ -598,7 +598,7 @@ function TranslatorInfo() {
 
 function Translate(ch, l, linput, callback) {
     // Use TranslateThen which handles encoding and callbacks
-    console.log('Translate (via TranslateThen)');
+
     TranslateThen(ch, l, linput, function(translatedText) {
         if (typeof translatedText === 'string') {
             // Only speak if voice is available
@@ -626,7 +626,7 @@ function Translate(ch, l, linput, callback) {
   */
 
 function TranslateThen(ch, l, linput, f, forcelibre = false) {
-    console.log('TranslateThen - Texte :', ch, ', Langue cible :', l, ", Langue d'entrée :", linput);
+
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'Translate.php', true);
@@ -695,7 +695,7 @@ function TranslateThen(ch, l, linput, f, forcelibre = false) {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             var d_end = Date.now();
             //console.log("Receiving translation in " + (d_end - d_begin) + "ms for " + ch + " from " + linput + " to " + l);
-            console.log(this.responseText);
+
             //T_durations[ch]=undefined;
             var response = JSON.parse(this.responseText);
             lastSentenceTranslated=response["data"]["translations"][0]["translatedText"];
@@ -829,7 +829,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
  */
 
 function ShowImage(n) {
-    console.log('ShowImage ' + n);
+
     if (n != previousimage) {
         EcrireNBonly('---------- Slide ' + n + ' ----------');
         EcrireNBonlyVO('---------- Slide ' + n + ' ----------');
@@ -878,9 +878,7 @@ function ShowImage(n) {
  */
 
 function formateresponse(datatxt,editable=true) {
-    console.log('formateresponse');
-    console.log(datatxt);
-    console.log('Raw response:', datatxt);
+
     try {
         var data = JSON.parse(datatxt);
     } catch (e) {
@@ -944,7 +942,7 @@ function formateresponse(datatxt,editable=true) {
         res += '</dl>';
     }
     //  alert(res);
-    console.log('DEBUG : ' + res);
+
     return res;
 }
 
@@ -1072,7 +1070,7 @@ function SlideBackward() {
  */
 
 function completeHandler(event,editable=false) {
-    console.log('completeHandler');
+
     _('notebookcompleteformatted').innerHTML = formateresponse(event.target.responseText,editable);
     _('progressBar').value = 0;
 
@@ -1092,7 +1090,7 @@ function completeHandler(event,editable=false) {
  * 
  */
 function SlideNotes() {
-    console.log('SlideNotes');
+
     var fileInput = _('ppt_presentation');
     if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
         alert('Please select a file first!');
@@ -1127,7 +1125,7 @@ function SlideNotes() {
     var formdata = new FormData();
     formdata.append('ppt_presentation', file);
     formdata.append('ACCESS', _('classroomid').value);
-    console.log('FormData contents:', [...formdata.entries()]); // Debug
+
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', scriptfile);
@@ -1135,14 +1133,14 @@ function SlideNotes() {
     xhr.addEventListener('load', completeHandler, false);
     xhr.timeout = time;
     xhr.ontimeout = (e) => {
-        console.log('Timeout error!');
+
         _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
     };
     xhr.send(formdata);
 }
 /*function SlideNotes() {
-    console.log("SlideNotes");
+
     var fileInput = _("ppt_presentation");
     if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
         alert("Please select a file first!");
@@ -1171,7 +1169,7 @@ function SlideNotes() {
     var formdata = new FormData();
     formdata.append("ppt_presentation", file);
     formdata.append("ACCESS", _('classroomid').value);
-    console.log("FormData contents:", [...formdata.entries()]); // Log all entries
+
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", scriptfile);
@@ -1188,7 +1186,7 @@ function SlideNotes() {
       *//*
     xhr.timeout = time;
     xhr.ontimeout = (e) => {
-        console.log("Erreur Timeout !");
+
         _('spinnertxt').innerHTML='Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert("Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.")
     };
@@ -1263,7 +1261,7 @@ function SlideNotesUncloud(uncloudlink) {
     xhr.addEventListener('load', completeHandler, false);
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
-        console.log('Erreur Timeout !');
+
         _('spinnertxt').innerHTML='Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
     };
@@ -1291,7 +1289,7 @@ function SlideNotesUncloudHtml(uncloudhtmllink) {
     xhr.addEventListener('load', completeHandler, false);
     xhr.timeout = 30000;
     xhr.ontimeout = (e) => {
-        console.log('Erreur Timeout !');
+
         _('spinnertxt').innerHTML='No presentation yet...<br/>Please go to the complete lesson tab to import it.';
         alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
     };
@@ -1343,7 +1341,7 @@ function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
  */
 
 function StartSpeechRecognition(callback) {
-    console.log('StartSpeechRecognition '+builtin_language);
+
     builtin_recognition.lang = builtin_language;
     builtin_recognition.onresult = function(event) {
         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
@@ -1523,17 +1521,14 @@ function EcrirePartial(ch) {
     /*xhr.open("POST", "TranscriptionSub.php", true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     
-    console.log(_('classroomid').value);
     var params = `texte=${encodeURIComponent(ch)}&ROOMID=${encodeURIComponent(_('classroomid').value)}`;
-    console.log("Paramètres envoyés :", params); // Pour débogage
-    console.log("Sending for transcription " + ch)
     xhr.addEventListener("load", function (e) {var data=JSON.parse(e.target.responseText);}, false);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 try {
                     var data = JSON.parse(xhr.responseText);
-                    console.log("Réponse du serveur :", data);
+
                     if (data.status === 'error') {
                         console.error("Erreur serveur :", data.message);
                     }
@@ -1575,7 +1570,7 @@ function Ecrire(ch) {
  */
 
 function saveText(ch) {
-    console.log('saveText '+ch);
+
     var inputlanguage = builtin_language;
     if (ch.indexOf(':|:') >= 0) { // If there are a language indication
         var Tch = ch.split(':|:');
@@ -1710,7 +1705,7 @@ function FreeResources() {
  */
 
 function Lancer() {
-    console.log('Lancer');
+
     LaunchRemote();
     startChatPolling();
     //LaunchStudentReadText();
@@ -1872,7 +1867,7 @@ function startZoom(zoomid) {
  */
 
 function setLanguageStr(l) {
-    console.log('Remote says set language to (' + l + ')');
+
     // Try to find the language in the language list
     var s = _('classroomlanguage');
     var finded = -1;
@@ -1896,7 +1891,7 @@ function remote() {
     if (_('classroomid').value != '') {
         // Check if ROOM_TOKEN exists and is not empty
         if (typeof window.ROOM_TOKEN === 'undefined' || window.ROOM_TOKEN === '') {
-            console.log('remote() - No room token available, stopping remote polling');
+
             return;
         }
 
@@ -1913,13 +1908,13 @@ function remote() {
         request.onload = function(event) {
             // Check for HTTP errors
             if (request.status !== 200) {
-                console.log('remote() - HTTP error: ' + request.status + ' - ' + request.responseText);
+
                 return;
             }
 
             var order = request.responseText;
             if (order != '') {
-                console.log('Get order ' + order);
+
                 if (order == 'forward') Forward();
                 if (order == 'backward') Backward();
                 if (order == 'skipforward') SkipForward();
@@ -1936,7 +1931,7 @@ function remote() {
                     var options = order.substr('language'.length).trim().split('|');
                     var to_lang = options[0].trim();
                     var fromremote = options[1].trim();
-                    console.log('Order for (' + _('appid').value + ') from (' + fromremote + ') for language (' + to_lang + ')');
+
                     if (fromremote == _('appid').value || fromremote == '') setLanguageStr(to_lang);
                 }
             }
@@ -1944,7 +1939,7 @@ function remote() {
 
         // Add error handler for network errors
         request.onerror = function(event) {
-            console.log('remote() - Network error');
+
         };
     }
 }
@@ -2092,7 +2087,7 @@ function saveTextQ(ch) {
  */
 
 function TranslateQ(ch, l, linput, name, order) {
-    console.log('TranslateQ - Texte :', ch, ', Langue cible :', l, ", Langue d'entrée :", linput);
+
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'Translate.php', true);
@@ -2157,7 +2152,7 @@ function TranslateQ(ch, l, linput, name, order) {
                 EcrireCR(name, response["data"]["translations"][0]["translatedText"], order);
             } else {
                 //EcrireCR("----","---- Translation ERROR ----")
-                console.log("---- Translation ERROR ----");
+
             }
 
         }
@@ -2229,7 +2224,7 @@ function reduceToolbar() {
  */
 
 function resizeSlides() {
-    console.log('resizeSlides');
+
     var slide = _('img_slides');
     if (!slide || !slide.width || !slide.height) {
         return;
@@ -2423,7 +2418,7 @@ function updateConfig() {
  */
 
 function applyConfig() {
-    console.log('Apply config ');
+
     var config = window.pageData.currentconfig;
     if (config.length < 2) return; // Seuls les 2 premiers caractères (langues) sont utilisés
     // classroomlanguage

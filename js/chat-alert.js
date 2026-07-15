@@ -2,7 +2,7 @@
  * chat-alert.js
  * Chat notification alert component for OMIST
  * Provides a blinking alert indicator when new messages are received
- * Works with both auditeur.php and conference.php
+ * Works with both auditor.php and conference.php
  */
 
 // Global state for chat alert

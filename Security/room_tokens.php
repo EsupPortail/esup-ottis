@@ -1,6 +1,6 @@
 <?php
 /**
- * Gestion des tokens par ROOMID pour l'auditeur
+ * Gestion des tokens par ROOMID pour l'auditor
  * Permet l'accès multi-onglets/multi-appareils sans dépendre de la session PHP
  */
 
