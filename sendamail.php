@@ -1,5 +1,4 @@
 <?php
-include("Security/referer.php");
 
 if (isset($_POST["from"])) $from = $_POST["from"]; else $from = "";
 if (isset($_POST["to"])) $to = $_POST["to"]; else $to = "";

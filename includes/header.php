@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?= htmlspecialchars($language) ?>">
     <title><?php echo $pageTitle ?? 'OMIST'; ?></title>
-    <!-- Room token is now handled at the page level -->
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
 
@@ -24,7 +23,6 @@
 
     <script src="./js/translatepage.js"></script>
     <script src="./js/matomo.js"></script>
-    <script src="./js/accueil.js"></script>
     <!-- JS spécifiques à la page -->
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
@@ -53,7 +51,7 @@
                 </menu>
         </nav>
         <div id="firefox-warning" class="alert-banner">
-            <p class="translate" data-key="accueil.alertBrowser">⚠️ Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <b>Chrome ou Edge</b> pour une expérience optimale.</p>
+            <p class="translate" data-key="index.alertBrowser">⚠️ Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <b>Chrome ou Edge</b> pour une expérience optimale.</p>
         </div>
     </header>
     <main>

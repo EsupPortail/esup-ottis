@@ -13,7 +13,7 @@ Ses fonctionnalités principales sont :
 Des outils compagnons, les OMIST_Tools permettent de travailler à partir de divers types de présentations (Powerpoint et LaTeX/Beamer par exemple).
 
 Les pages principales sont : 
-- l'accueil (les scénarios) scenarios.php
+- l'accueil (les scénarios) index.php
 - l'administration Admin/Administration.php (accessible seulement pour des utilisateurs administrateurs)
 - la gestion des comptes externes Admin/Registration/admin/home.php (accessible seulement pour des utilisateurs administrateurs)
 - le tableau de bord Admin/Stats/Dashboard.php (accessible seulement pour des utilisateurs administrateurs)

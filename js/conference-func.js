@@ -308,31 +308,6 @@ function StudentreadText() {
 
 
 
-/**
- * @summary Create an association link for a given course that can be shared
- * 
- */
-
-function InviteExternal() {
-    if (_('classroomid').value != '') {
-        var request = new XMLHttpRequest();
-        request.open('POST', 'createExternal.php');
-        AbortTimeout(request,'InviteExternal');
-        var f = new FormData();
-        f.append('ROOMID', _('classroomid').value);
-        f.append('DURATION', _('duration').value);
-        f.append('room_token', window.ROOM_TOKEN);
-        request.send(f);
-        request.onload = function(event) {
-            var T = request.responseText.trim();
-            if (T == 'ok') {
-                var link = _('teacherlink').href.replace('index.php', 'indexExternal.php');
-                navigator.clipboard.writeText(link);
-                myalert('External guest created !\nThe following link has been copied. It must be used in the next 7 days.\n<a href="' + link + '">' + link + '</a>');
-            }
-        };
-    }
-}
 
 
 /**

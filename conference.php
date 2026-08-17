@@ -11,7 +11,6 @@ header('Cache-Control: no-cache, must-revalidate');
     
 //include("Security/Authentification.php");
 include("config.php");
-include("Admin/Stats/config_database_stats.php");
 require_once __DIR__ . '/Security/room_tokens.php';
 require_once __DIR__ . '/includes/chat-component.php';
 

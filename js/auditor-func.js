@@ -282,8 +282,13 @@ function applyConfigSub() {
         hideBanner('VOBanner');
     }
     // ColorTitre
-    _('ColorTitre').selectedIndex = 1 * (config.charCodeAt(3) - 65);
-    ChangeColor('titre', _('ColorTitre').value);
+    var colorTitreEl = _('ColorTitre');
+    if (colorTitreEl) {
+        colorTitreEl.selectedIndex = 1 * (config.charCodeAt(3) - 65);
+        ChangeColor('titre', colorTitreEl.value);
+    } else {
+        ChangeColor('titre', '0,0,255|0,0,255');
+    }
     // ColorPartialTitre
     _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
     ChangeColor('VOBanner', _('ColorPartialTitre').value);
@@ -292,9 +297,15 @@ function applyConfigSub() {
     _('titre').style.fontSize = _('selectfontsize').value;
     _('VOBanner').style.fontSize = _('selectfontsize').value;
     //selectopacity
-    _('selectopacity').selectedIndex = 1 * (config.charCodeAt(9) - 65);
-    ChangeOpacity('titre', _('selectopacity').value)
-    ChangeOpacity('VOBanner', _('selectopacity').value)
+    var selectOpacityEl = _('selectopacity');
+    if (selectOpacityEl) {
+        selectOpacityEl.selectedIndex = 1 * (config.charCodeAt(9) - 65);
+        ChangeOpacity('titre', selectOpacityEl.value);
+        ChangeOpacity('VOBanner', selectOpacityEl.value);
+    } else {
+        ChangeOpacity('titre', '0.5');
+        ChangeOpacity('VOBanner', '0.5');
+    }
 
     //document.getElementById('synthesison').checked=true;
 
@@ -830,15 +841,6 @@ function readImage() {
             if (request.responseText != "") {
                 var Trep = request.responseText.split('|||');
                 currentrandom = Trep[0];
-                var imgSlides = _('img_slides');
-                if (imgSlides && Trep[1]) {
-                    imgSlides.src = Trep[1];
-                    imgSlides.width = 1280;
-                    imgSlides.height = 800;
-                    imgSlides.onload = resizeSlides;
-                }
-                if (_('stillwaiting')) _('stillwaiting').style.display="none";
-
             }
 
         };
@@ -857,7 +859,6 @@ function Lancer() {
     setInterval(readTextQ, 500);
     setInterval(readImage, 500);
     setLanguageInput(0);
-    resizeSlides();
 }
 
 /**
@@ -875,8 +876,6 @@ function Init() {
       }
     },false);
     */
-    resizeSlides();
-    activetab('tabs-0');
     startChatPolling();
 
     // Wooclap disabled - tabs commented out
@@ -891,26 +890,15 @@ function Init() {
     setTimeout(function() {
         saveTextQ("[newstudentarrived]");
     }, 1000);
-    setTimeout(function() {
-        showMessageMenu()
-    }, 3000);
-    if (_('iconeMenu')) _('iconeMenu').src = MenuOnIMG;
-    ChangeColor('titre', _('ColorTitre').value);
+    var colorTitreEl = _('ColorTitre');
+    ChangeColor('titre', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
 
     // Keyboard navigation
     document.onkeyup = function(event) {
         if (["AuditorName", "dialog_MailTo", "dialog_MailFrom", "dialog_MailSubject", "question"].indexOf(document.activeElement.id)<0) {
             if (event.code === 'SemiColon' || event.code === 'KeyM') { // Show/Hide the menu
             }
-            if (event.code === 'KeyS') { // Show slides tab
-                activetab('tabs-7');
-            }
-            if (event.code === 'KeyC') { // Show configuration tab
-                activetab('tabs-0');
-            }
-            if (event.code === 'KeyT') { // Show Tchat tab
-                activetab('tabs-1');
-            }
+            // Tab navigation removed - all sections are now displayed sequentially
             if (event.code === 'KeyL') { // go to live
                 gotolive=true; CompleteSpeech();
             }
@@ -945,63 +933,17 @@ function Init() {
 function GoFS() {
     if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
-        _('bar').style.transform = "scaleY(0.5)";
-        scalemenu = 1;
-        ShowMenu();
+        // Fullscreen entered
         //_('bar').style.bottom="10px";
         //resizeSlides();
     } else {
         document.exitFullscreen();
-        _('bar').style.transform = "scaleY(1)";
-        scalemenu = 1;
-        ShowMenu();
+        // Fullscreen exited
         //resizeSlides();
     }
 }
 
 
-/**
- * @summary Resize the slides window
- * 
- */
-
-function resizeSlides() {
-    var slide = _('img_slides');
-    
-    // Guard: if slide doesn't exist or has no valid dimensions, skip
-    if (!slide || slide.width <= 0 || slide.height <= 0) {
-        return;
-    }
-    
-    var ratio = slide.width / slide.height;
-    var aggrandissmentX = (window.innerWidth - 30) / slide.width;
-    var aggrandissmentY = (window.innerHeight - 80) / slide.height;
-    if (aggrandissmentX > aggrandissmentY) {
-        /*
-        slide.width=aggrandissmentY*slide.width;
-        slide.style.width=aggrandissmentY*slide.width+"px";
-        slide.height=aggrandissmentY*slide.height;
-        slide.style.height=aggrandissmentY*slide.height+"px";
-        */
-        slide.style.transform = 'scaleX(' + aggrandissmentY + ') scaleY(' + aggrandissmentY + ')';
-        //    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
-    } else {
-        /*    slide.width=aggrandissmentX*slide.width;
-            slide.style.width=aggrandissmentX*slide.width+"px";
-            slide.height=aggrandissmentX*slide.height;
-            slide.style.height=aggrandissmentX*slide.height+"px";
-        */
-        slide.style.transform = 'scaleX(' + aggrandissmentX + ') scaleY(' + aggrandissmentX + ')';
-    }
-    //slide.style.top=(48*scalemenu)+'px';
-
-    //var TTabs=['tabs-0','tabs-1','tabs-2','tabs-3','tabs-4','tabs-6','tabs-7'];
-    //TTabs.map(function (name) {_(name).style.top=(48*scalemenu)+'px';})
-    // For wooclap and others (DISABLED - tabs commented out)
-    // ['tabs-0',"tabs-7","wooclap", "extratab1", "extratab2", "extratab3", "extratab4"].map(resizeWindow)
-    ['tabs-7'].map(resizeWindow)
-    MinTitlePos();
-}
 
 
 /**
@@ -1053,45 +995,11 @@ function LoadVoices() {
 
 
 /**
- * @summary Display the menu bar
- * 
- */
-
-function ShowMenu() {
-    scalemenu = 1 - scalemenu;
-    if (scalemenu < 0.05) {
-        if (_('iconeMenu')) _('iconeMenu').src = MenuOnIMG;
-    } else {
-        if (_('iconeMenu')) _('iconeMenu').src = MenuOffIMG;
-    }
-    _('bar').style.transform = "scaleX(" + scalemenu + ")";
-    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7'];
-    for (var i = 0; i < TTabs.length; i++) {
-        _(TTabs[i]).style.transform = "translateX(" + (160 * scalemenu) + "px)";
-    }
-
-    resizeSlides();
-
-}
-
-/**
  * @summary Display the selected tab 
  * 
  */
 
-function activetab(tab) {
-    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7'];
-    for (var i = 0; i < TTabs.length; i++) {
-        _(TTabs[i]).style.display = "none";
-        _("l" + TTabs[i]).style.color = "black";
-        _("l" + TTabs[i]).style.backgroundColor = "rgb(247,247,247)";
-    }
-    _(tab).style.display = 'block';
-    _("l" + tab).style.color = "white";
-    _("l" + tab).style.backgroundColor = "rgb(57,199,204)";
-    ShowMenu();
-    resizeSlides();
-}
+
 
 
 /**
@@ -1156,11 +1064,3 @@ function showBanner(e) {
     _(e).style.transform = 'scale(1)';
 }
 
-/**
- * @summary Hide the message menu div by scaling it to 0x
- * 
- */
-
-function showMessageMenu() {
-    _("tmpmessage").style.transform = 'scale(0)';
-}

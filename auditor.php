@@ -8,15 +8,6 @@ require_once __DIR__ . '/Security/room_tokens.php';
 $roomToken = generateRoomToken($classroomid);
 require_once __DIR__ . '/includes/chat-component.php';
 
-/*
-$wooclapkey = "";
-$wooclapaddress = "https://app.wooclap.com";
-if (isset($_GET["WOOCLAPKEY"])) {
-  $wooclapaddress = "https://www.wooclap.com/" . $_GET["WOOCLAPKEY"];
-  $wooclapkey = $_GET["WOOCLAPKEY"];
-}
-*/
-
 $Tcolors = array("Red", "Blue", "Orange", "Purple", "Black", "White", "Green");
 $Tobjects = array("Alpaca", "Alligator", "Dragoon", "Elephant", "Lion", "Panther", "Tiger", "Zebra");
 $randomname = $Tcolors[mt_rand(0, count($Tcolors)-1)] . " " . $Tobjects[mt_rand(0, count($Tobjects)-1)];
@@ -68,17 +59,6 @@ $jsVars = [
         "styles/auditor.css"
     ];
     
-    // Add theme-specific styles
-    if ($theme != "" && $theme != "flat") {
-        $pageStyles[] = "jquery/{$theme}/jquery-ui.min.css";
-        $pageStyles[] = "jquery/{$theme}/extras.css";
-    } else {
-        $pageStyles[] = "jquery/jquery-ui.min.css";
-    }
-    
-    // Add external libraries
-    $pageStyles[] = "libs/quickmenu/lib/font-awesome/css/font-awesome.min.css";
-    
     // Render styles
     foreach ($pageStyles as $style) {
         echo "<link href=\"{$style}\" rel=\"stylesheet\">\n";
@@ -88,17 +68,6 @@ $jsVars = [
     <?php
     // Centralized scripts to be loaded before </body>
     $pageScripts = [];
-    
-    // Add theme-specific jQuery first so plugins and custom scripts can use it.
-    if ($theme != "" && $theme != "flat") {
-        $pageScripts[] = "jquery/{$theme}/external/jquery/jquery.js";
-        $pageScripts[] = "jquery/{$theme}/jquery-ui.js";
-    } else {
-        $pageScripts[] = "jquery/jquery.js";
-        $pageScripts[] = "jquery/jquery-ui.min.js";
-    }
-    
-    $pageScripts[] = "libs/quickmenu/src/jquery.popmenu.js";
     $pageScripts[] = "/js/auditor-def.js";
     $pageScripts[] = "/js/common-func.js";
     $pageScripts[] = "/js/chat-common.js";
@@ -119,31 +88,9 @@ $jsVars = [
 <h1 style="display:none;">Outils de traduction : application étudiante</h1>
 </main>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
-<div id="showmenu" onclick="ShowMenu();" ><img src="images/blank.png" alt="Icone du Menu ☰" id="iconeMenu"></div>
 <div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
-<div id="bar2" style="border:none; position: fixed; top: 1px; left: 1px; z-index: 100000;">
-           <div class="pop_ctrl" title="Open the menu dialog">-->
-               <span class="fa-stack fa-lg">
-                   <i class="fa fa-square fa-stack-2x fa-menu" style="color: rgb(26,189,157);"></i>
-                   <i class="fa fa-bars fa-stack-1x fa-inverse fa-menu" style="font-size: 1.1em;"></i>
-                 </span>
-           </div>
-           <ul id="demo_ul">
-               <li id="lltabs-0" onclick="activetab('tabs-0')" class="demo_li"><div><i class="fa fa-cog"></i></div><div>Settings</div></li>
-               <li id="lltabs-1" onclick="activetab('tabs-1')" class="demo_li"><div><i class="fa fa-comments"></i></div><div>Tchat</div></li>
-               <li id="lltabs-7" onclick="activetab('tabs-7')" class="demo_li"><div><i class="fa fa-picture-o"></i></div><div>Slides</div></li>
-               <li id="lltabs-2" onclick="activetab('tabs-2')" class="demo_li"><div><i class="fa fa-download"></i></div><div>Export VO</div></li>
-               <li id="lltabs-3" onclick="activetab('tabs-3')" class="demo_li"><div><i class="fa fa-language" aria-hidden="true"></i></div><div>Export</div></li>
-               <!-- <li id="lltabs-8" style="opacity: 0.5" onclick="if (this.style.opacity ==1) activetab('tabs-8')" class="demo_li"><div style="line-height: 70px; vertical-align: middle;"><img src="images/wooclap-ico.png" alt="Icone de l'outil WOOCLAP" width="40" style="vertical-align: middle;"></div><div>WOOCLAP</div></li> -->
-               <!-- <li id="lltabs-9" style="opacity: 0.5" onclick="if (this.style.opacity ==1) activetab('tabs-9');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 1</div></li> -->
-               <!-- <li id="lltabs-10" style="opacity: 0.5" onclick="if (this.style.opacity ==1) activetab('tabs-10');" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 2</div></li> -->
-               <!-- <li id="lltabs-11" style="opacity: 0.5" onclick="if (this.style.opacity ==1) activetab('tabs-11')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 3</div></li> -->
-               <!-- <li id="lltabs-12" style="opacity: 0.5" onclick="if (this.style.opacity ==1) activetab('tabs-12')" class="demo_li"><div><i class="fa fa-desktop"></i></div><div>Tab 4</div></li> -->
 
-               
-           </ul>
-       </div>
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 
 <div id="VOBanner"></div>
@@ -151,21 +98,9 @@ $jsVars = [
 
 <form id="myform" onsubmit="return false;">
 
-<div id="tabs" style="border:none;">
-	<ul id="bar">
-		<li id="ltabs-0" onclick="activetab('tabs-0')">Informations</li>
-		<li id="ltabs-1" onclick="activetab('tabs-1')">Classroom</li>
-		<li id="ltabs-2" onclick="activetab('tabs-2')">Notebook</li>
-		<li id="ltabs-3" onclick="activetab('tabs-3')">Output</li>
-    <li id="ltabs-7" onclick="activetab('tabs-7')">Slides</li>
-    <!-- <li id="ltabs-8" onclick="activetab('tabs-8')">WOOCLAP</li> -->
-    <!-- <li id="ltabs-9" onclick="activetab('tabs-9');">1</li> -->
-		<!-- <li id="ltabs-10" onclick="activetab('tabs-10');">2</li> -->
-		<!-- <li id="ltabs-11" onclick="activetab('tabs-11');">3</li> -->
-		<!-- <li id="ltabs-12" onclick="activetab('tabs-12');">4</li> -->
-		<!-- <li id="ltabs-13" onclick="activetab('tabs-13');" class="wordcloud">Word Cloud</li> -->
-
-	</ul>
+<!-- Sections affichées à la suite -->
+	<section id="section-settings">
+    <h2>Settings</h2>
 	<div id="tabs-0">
     <h3 >Language and basic settings</h3>
     <div>
@@ -176,7 +111,7 @@ $jsVars = [
   </select>
 </span>
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}">
+  <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true;}">
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="AuditorName">My surname :</label>
@@ -185,69 +120,12 @@ $jsVars = [
 <span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
-</div>
-<h3>Appearance settings</h3>
-<div>
-<span><label for="subtitlesfontsize">Subtitles font size : </label><select id="subtitlesfontsize" onchange="document.getElementById('titre').style.fontSize = this.value;document.getElementById('VOBanner').style.fontSize = this.value;">
-<option value="12px">Small</option>
-<option value="18px" selected>Normal</option>
-<option value="24px" >Big</option>
-<option value="32px" >Huge</option>
-<option value="48px" >Enormous</option>
-  </select>
-</span><br>
-  <span><label for="selectopacity">Subtitles opacity : </label><select id="selectopacity" onchange="ChangeOpacity('titre', this.value); ChangeOpacity('VOBanner', this.value);">
-<option value="0">0% opaque</option>
-<option value="0.25" >25% opaque</option>
-<option value="0.5" selected>50% opaque</option>
-<option value="0.75" >75% opaque</option>
-<option value="1" >100% opaque</option>
-  </select></span><br>
-<span>
-<label for="checktranlatedbanner">Show the translated version banner ?</label>
-<input type="checkbox" id="checktranlatedbanner" checked="checked" onclick="if (this.checked) showBanner('titre'); else hideBanner('titre');"></span><br>
-<span>
-<label for="ColorTitre">Translated version banner color : </label><select id="ColorTitre" onchange="ChangeColor('titre',this.value);">
-<option value="0,0,255|0,0,255" selected>blue</option>
-<option value="0,255,0|0,100,0">green</option>
-<option value="255,0,0|100,0,0" >red</option>
-<option value="255,0,255|100,0,255" >purple</option>
-<option value="255,255,0|100,100,0" >yellow</option>
-<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
-<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
-<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
-<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
-<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0">black</option>
-<option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></span><br>
-<span><label for="checkoriginalbanner">
-Show the original version banner</label>
-<input type="checkbox"  id="checkoriginalbanner" onclick="if (this.checked) showBanner('VOBanner'); else hideBanner('VOBanner');">
-  </span><br>
-<span><label for="ColorTitreVO">original version banner color : </label><select id="ColorTitreVO" onchange="ChangeColor('VOBanner',this.value);">
-<option value="0,0,255|0,0,255" selected>blue</option>
-<option value="0,255,0|0,100,0">green</option>
-<option value="255,0,0|100,0,0" >red</option>
-<option value="255,0,255|100,0,255" >purple</option>
-<option value="255,255,0|100,100,0" >yellow</option>
-<option value="0,0,255|0,0,255|0,0,50">blue inverted</option>
-<option value="0,255,0|0,255,0|0,50,0">green inverted</option>
-<option value="255,0,0|255,0,0|20,0,0">red inverted</option>
-<option value="255,0,255|255,0,255|25,0,50">purple inverted</option>
-<option value="255,255,0|200,200,0|50,50,0" >yellow inverted</option>
-<option value="0,0,0|0,0,0">black</option>
-<option value="255,255,255|255,255,255|0,0,0">white</option>
-  </select></span>
-</div>
-<h3>Advanced options</h3>
-<div>
-<!-- <span><label for="wooclapkey">WOOCLAP Key? </label> <input type="text" value="<?php echo $wooclapkey; ?>" id="wooclapkey" onchange="if (this.value != '') _('lltabs-8').style.opacity=1; document.getElementById('wooclap').src='https://app.wooclap.com/'+document.getElementById('wooclapkey').value;"></span><br> -->
-  <span>Voice speed (reference value 100): <br><span id="slider_speed"><div id="custom-handle" class="ui-slider-handle"></div></span></span>
+
 </div>
 	</div>
+	<section id="section-chat">
+    <h2>Classroom Chat</h2>
 	<section id="tabs-1" role="region" aria-labelledby="chat-section-title">
-    <h2 id="chat-section-title" style="display: none;">Classroom Chat</h2>
     <div>
         <?php
         renderChatComponent([
@@ -262,30 +140,22 @@ Show the original version banner</label>
     </div>
 </section>
 
+	<section id="section-notebook">
+    <h2>Notebook</h2>
 	<div id="tabs-2">
     
     <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the original speech in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
+	<section id="section-output">
+    <h2>Output</h2>
 	<div id="tabs-3">
   <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the translated speech in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
     <div id="output">
     </div>
   </div>
 
-
-  <div id="tabs-7" style="text-align: center;">
-    <div id="stillwaiting">
-			<div style="width:500px; text-align: center;"><svg id="stillwaitingspinner" role="img" alt="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="350" height="148" viewBox="0 0 48 48">
-<?php include __DIR__ . '/includes/spinner.php'; ?>
-</svg></div>
-					<p id="spinnertxt">No presentation yet...</p>
-</div>
-			<img src="images/blank.png"
-				 id="img_slides" style="border: none; width: 1280px; height: 800px" alt="Emplacement des slides diffusés" > 
-
-	</div>
 
 
 	<!-- <div id="tabs-13" class="wordcloud" style="display:none;">
@@ -338,15 +208,11 @@ Show the original version banner</label>
   <!-- <div id="tabs-12"><iframe title="Quatrième fenêtre pour inclure un outil externe" id="extratab4" allowfullscreen  allow="camera;microphone;display-capture;clipboard-read; clipboard-write" src="blank.html" ></iframe>
   </div> -->
 
-</div>
-
-<div id="tmpmessage">Change the visible tab in this menu</div>
-
 </form>
 <div id="FS" onclick="GoFS();"  title="Toggle fullscreen mode"><i class='material-icons' style="font-size: 41px;" >fullscreen</i></div>
 
-<div id="dialog-mail" title="Mail"> 
-  <form>
+<dialog id="dialog-mail" style="width: 800px; height: 500px;"> 
+  <form method="dialog">
     <fieldset>
       <legend style="display: none;">Send a mail</legend>
 	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" ><br>
@@ -355,18 +221,25 @@ Show the original version banner</label>
 	Body : <br>
 	<div id="dialog_MailBody">
 	</div>
+    <menu>
+      <button type="submit" onclick="EnvoiMail(); return false;">Send</button>
+      <button type="reset" onclick="document.getElementById('dialog-mail').close();">Cancel</button>
+    </menu>
     </fieldset>
   </form>
-</div>
+</dialog>
 
-<div id="dialog-choose" title="Choose your language"> 
-  <form>
+<dialog id="dialog-choose" style="min-width: 300px;"> 
+  <form method="dialog">
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
   <select id="VoiceOutputchoose">
   </select>
   </span>
+  <menu>
+    <button type="submit" id="dialog-choose-go">Go</button>
+  </menu>
   </form>
-</div>
+</dialog>
 <?php foreach ($pageScripts as $script) {
     echo "<script src=\"{$script}\"></script>\n";
 } ?>
@@ -374,73 +247,13 @@ Show the original version banner</label>
 <!-- Initialize chat alert after all scripts are loaded -->
 <script>
 // Initialize chat alert when DOM is ready and all scripts are loaded
-jQuery(function($) {
-    // Wait a bit to ensure all scripts are loaded
-    setTimeout(function() {
-        if (typeof initChatAlert === 'function') {
-            var userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : '<?php echo $randomname; ?>';
-            initChatAlert(userName);
-        } else {
-            console.error('[Chat Alert] initChatAlert function not found!');
-        }
-    }, 500);
-});
+if (typeof initChatAlert === 'function') {
+    var userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : '<?php echo $randomname; ?>';
+    initChatAlert(userName);
+} else {
+    console.error('[Chat Alert] initChatAlert function not found!');
+}
 </script>
-
-<script>
-  $( function() {
-    $("#tabs-0").accordion({
-      heightStyle: "panel"
-    });
-    $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-  } );
-  $(function(){
-      $('#bar2').popmenu({
-        'controller': true,
-        'width': '360px',
-        'background': '#34495e',
-        'focusColor': '#1abc9c',
-        'borderRadius': '10px',
-        'top': '0',
-        'left': '0',
-        'iconSize': '90px'
-      });
-  });
-
-  /**
- * @summary Display the selected tab 
- *  Pourquoi du multi tab ????
- */
-
-function activetab(tab) {
-    var TTabs = ['tabs-0', 'tabs-1', 'tabs-2', 'tabs-3', 'tabs-7'];
-    for (var i = 0; i < TTabs.length; i++) {
-        var elt = _(TTabs[i]);
-        if (elt) elt.style.display = "none";
-    }
-    var target = _(tab);
-    if (target) target.style.display = 'block';
-    $( "#demo_ul" ).hide();
-}
-
-/**
- * @summary Switch a given extratab visible or invisible (DISABLED - tabs commented out)
- * 
- * @param {string} url - The URL to set
- * @param {number} num - The tab number.
- */
-
- /*
- function showET(url, num) {
-    if (url != "") {
-      _('lltabs-' + (8 + 1 * num)).style.opacity = 1;
-      if (_('extratab' + num).src != url) _('extratab' + num).src = url;
-    } else {
-      _('lltabs-' + (8 + 1 * num)).style.opacity = 0.5;
-    }
-}
-*/
 
   </script>
 </body>

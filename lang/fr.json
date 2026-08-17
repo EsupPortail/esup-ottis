@@ -1,5 +1,5 @@
 {
-    "accueil": {
+    "index": {
         "alertBrowser": "⚠️ Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser &nbsp<b> Chrome ou Edge </b>&nbsp pour une expérience optimale.",
         "conferenceTitle": "Conférence",
         "conferenceDesc": "Permet de sous-titrer une conférence dans la langue choisie.",

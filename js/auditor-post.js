@@ -7,7 +7,6 @@
   } );
 */
 
-window.onresize=resizeSlides;
 
 
 function retourOK(e) {
@@ -21,10 +20,6 @@ function retourErreur() {}
 window.onbeforeunload = function(event) {
     event.returnValue = "Quit";
 };
-
-window.addEventListener('unload', function(event) {
-    saveTextQ("[newstudentlived]");
-});
 
 function fixTitle() {
     var e = document.getElementById("titre");
@@ -49,189 +44,90 @@ function MinTitlePos() {
 }
 
 /**
- * jQuery Draggable Touch v0.6
- * Jonatan Heyman | http://heyman.info 
- *
- * Make HTML elements draggable by using uses touch events.
- * The plugin also has a fallback that uses mouse events, 
- * in case the device doesn't support touch events.
- * 
- * Licenced under THE BEER-WARE LICENSE (Revision 42):
- * Jonatan Heyman (http://heyman.info) wrote this file. As long as you retain this 
- * notice you can do whatever you want with this stuff. If we meet some day, and 
- * you think this stuff is worth it, you can buy me a beer in return.
+ * Native Draggable - Vanilla JS implementation
+ * Replaces jQuery draggableTouch plugin
  */
-;
-(function($) {
-    $.fn.draggableTouch = function(actionOrSettings) {
-        // check if the device has touch support, and if not, fallback to use mouse
-        // draggableMouse which uses mouse events
-        if (window.ontouchstart === undefined) {
-            return this.draggableMouse(actionOrSettings);
-        }
+function makeDraggable(element) {
+    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    
+    // Get the element's current position
+    function getPosition(el) {
+        const rect = el.getBoundingClientRect();
+        return {
+            left: rect.left + window.scrollX,
+            top: rect.top + window.scrollY
+        };
+    }
 
-        if (typeof(actionOrSettings) == "string") {
-            // check if we shall make it not draggable
-            if (actionOrSettings == "disable") {
-                this.unbind("touchstart.draggableTouch");
-                this.unbind("touchmove.draggableTouch");
-                this.unbind("touchend.draggableTouch");
-                this.unbind("touchcancel.draggableTouch");
+    // Mouse events
+    element.onmousedown = dragMouseDown;
 
-                this.trigger("dragdisabled");
+    // Touch events
+    element.ontouchstart = dragTouchStart;
 
-                return this;
-            }
-        } else {
-            var useTransform = actionOrSettings && actionOrSettings.useTransform;
-        }
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        const pos = getPosition(element);
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDrag;
+        document.onmousemove = elementDrag;
+    }
 
-        this.each(function() {
-            var element = $(this);
-            var offset = null;
-            var draggingTouchId = null;
-            var end = function(e) {
-                e.preventDefault();
-                var orig = e.originalEvent;
-                for (var i = 0; i < orig.changedTouches.length; i++) {
-                    var touch = orig.changedTouches[i];
-                    // the only touchend/touchcancel event we care about is the touch
-                    // that started the dragging
-                    if (touch.identifier != draggingTouchId) {
-                        continue;
-                    }
-                    element.trigger("dragend", {
-                        top: orig.changedTouches[0].pageY - offset.y,
-                        left: orig.changedTouches[0].pageX - offset.x
-                    });
-                    draggingTouchId = null;
-                }
-            };
+    function dragTouchStart(e) {
+        e = e || window.event;
+        e.preventDefault();
+        const pos = getPosition(element);
+        pos3 = e.touches[0].clientX;
+        pos4 = e.touches[0].clientY;
+        document.ontouchend = closeDrag;
+        document.ontouchmove = elementDrag;
+    }
 
-            element.bind("touchstart.draggableTouch", function(e) {
-                e.preventDefault();
-                var orig = e.originalEvent;
-                // if this element is already being dragged, we can early exit, otherwise
-                // we need to store which touch started dragging the element
-                if (draggingTouchId) {
-                    return;
-                } else {
-                    draggingTouchId = orig.changedTouches[0].identifier;
-                }
-                var pos = $(this).position();
-                offset = {
-                    x: orig.changedTouches[0].pageX - pos.left,
-                    y: orig.changedTouches[0].pageY - pos.top
-                };
-                element.trigger("dragstart", pos);
-            });
-            element.bind("touchmove.draggableTouch", function(e) {
-                e.preventDefault();
-                var orig = e.originalEvent;
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-                for (var i = 0; i < orig.changedTouches.length; i++) {
-                    var touch = orig.changedTouches[i];
-                    // the only touchend/touchcancel event we care about is the touch
-                    // that started the dragging
-                    if (touch.identifier != draggingTouchId) {
-                        continue;
-                    }
-                    if (useTransform) {
-                        $(this).css({
-                            "transform": "translate3d(" + (touch.pageX - offset.x) + "px, " + (touch.pageY - offset.y) + "px, 0px)",
-                        });
-                    } else {
-                        $(this).css({
-                            top: touch.pageY - offset.y,
-                            left: touch.pageX - offset.x
-                        });
-                    }
-                }
-            });
-            element.bind("touchend.draggableTouch touchcancel.draggableTouch", end);
-        });
-        return this;
-    };
+        pos1 = pos3 - clientX;
+        pos2 = pos4 - clientY;
+        pos3 = clientX;
+        pos4 = clientY;
 
-    /**
-     * Draggable fallback for when touch is not available
-     */
-    $.fn.draggableMouse = function(actionOrSettings) {
-        if (typeof(actionOrSettings) == "string") {
-            // check if we shall make it not draggable
-            if (actionOrSettings == "disable") {
-                this.unbind("mousedown.draggableTouch");
-                this.unbind("mouseup.draggableTouch");
-                $(document).unbind("mousemove.draggableTouch");
+        element.style.top = (element.offsetTop - pos2) + "px";
+        element.style.left = (element.offsetLeft - pos1) + "px";
+    }
 
-                this.trigger("dragdisabled");
+    function closeDrag() {
+        document.onmouseup = null;
+        document.onmousemove = null;
+        document.ontouchend = null;
+        document.ontouchmove = null;
+    }
+}
 
-                return this;
-            }
-        } else {
-            var useTransform = actionOrSettings && actionOrSettings.useTransform;
-        }
-
-        this.each(function() {
-            var element = $(this);
-            var offset = null;
-
-            var move = function(e) {
-                if (useTransform) {
-                    element.css({
-                        "transform": "translate3d(" + (e.pageX - offset.x) + "px, " + (e.pageY - offset.y) + "px, 0px)",
-                    });
-                } else {
-                    element.css({
-                        top: e.pageY - offset.y,
-                        left: e.pageX - offset.x,
-                    });
-                }
-            };
-            var up = function(e) {
-                element.unbind("mouseup.draggableTouch", up);
-                $(document).unbind("mousemove.draggableTouch", move);
-                element.trigger("dragend", {
-                    top: e.pageY - offset.y,
-                    left: e.pageX - offset.x
-                });
-            };
-            element.bind("mousedown.draggableTouch", function(e) {
-                var pos = element.position();
-                offset = {
-                    x: e.pageX - pos.left,
-                    y: e.pageY - pos.top
-                };
-                $(document).bind("mousemove.draggableTouch", move);
-                element.bind("mouseup.draggableTouch", up);
-                element.trigger("dragstart", pos);
-                e.preventDefault();
-            });
-        });
-        return this;
-    };
-})(jQuery);
-
-
-$(function() {
+// Initialize draggable elements when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
     fixTitle();
-    //$( "#titre" ).draggable();
-    $("#titre").draggableTouch();
-    $("#VOBanner").draggableTouch();
+    const titre = document.getElementById('titre');
+    const voBanner = document.getElementById('VOBanner');
+    if (titre) makeDraggable(titre);
+    if (voBanner) makeDraggable(voBanner);
 
-});
-
-$(function() {
     // When language changes, force a refresh of the chat to re-translate with new language
-    $("#classroomlanguage").on("change", function() {
-        // Wait a bit for the language to be set, then refresh the chat
-        setTimeout(function() {
-            if (typeof readTextQ !== 'undefined') {
-                readTextQ();
-            }
-        }, 500);
-    });
-
+    const classroomLanguage = document.getElementById('classroomlanguage');
+    if (classroomLanguage) {
+        classroomLanguage.addEventListener('change', function() {
+            // Wait a bit for the language to be set, then refresh the chat
+            setTimeout(function() {
+                if (typeof readTextQ !== 'undefined') {
+                    readTextQ();
+                }
+            }, 500);
+        });
+    }
 });
 
 
@@ -280,86 +176,64 @@ function LaunchWC() {
 
 
 
-$(function() {
-    var dialog, form, dialogchoose;
+// Native implementations for dialogs and slider
 
+// Global variables
+var builtin_discoursrate = 1.0;
 
+// Initialize dialogs and slider when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Get references to dialog elements
+    var dialogMail = _('dialog-mail');
+    var dialogChoose = _('dialog-choose');
+    var sliderSpeed = _('slider_speed');
+    var speedValue = 100; // Default value
 
-    dialog = $("#dialog-mail").dialog({
-        autoOpen: false,
-        height: 500,
-        width: 800,
-        modal: false,
-        buttons: {
-            "Send": EnvoiMail,
-            Cancel: function() {
-                dialog.dialog("close");
-            }
-        },
-        close: function() {}
-    });
-    dialogchoose = $("#dialog-choose").dialog({
-        closeText: "hide",
-        closeOnEscape: false,
-        hide: { effect: "puff", duration: 1000 },
-        autoOpen: false,
-        //height: 800,
-        //width: 600,
-        modal: true,
-        buttons: {
-            "Go": function() {
-                $("#dialog-choose").dialog("close");
-            }
-        },
-        close: function() {
-            firsttime=false;
-            firstclick=false;
-            resizeSlides();
-            _('VoiceOutput').value=_('VoiceOutputchoose').value;
-            setLanguageOutputAndRetranslate(_('VoiceOutput').value);
-            _('synthesison').checked=false;
-            _('arrowlanguage').style.visibility='hidden';
-            _('arrowlanguage').style.display='none';
-            // _('arrowsynthesis').style.visibility='visible';
-            // _('arrowsynthesis').style.display='none';
-            _('lilanguage').style.animation='none';
-            // _('lisynthese').style.animation='none'; 
-            firstclick=true; 
-            showMessageMenu();       
-        }
-    });
-    //    form = dialog.find( "form" ).on( "submit", function( event ) {
-    //      event.preventDefault();
-    //      EnvoiMail();
-    //    });
-
-    // Fonction pour ouvrir le dialog de choix de langue
-    window.openLanguageDialog = function() {
-        if ($("#dialog-choose").dialog("instance")) {
-            $("#dialog-choose").dialog("open");
-        }
-    };
+    // Initialize slider if it exists
+    if (sliderSpeed) {
+        sliderSpeed.value = 100;
+        sliderSpeed.addEventListener('input', refreshSpeed);
+        sliderSpeed.addEventListener('change', refreshSpeed);
+    }
 
     function refreshSpeed() {
-        builtin_discoursrate = $("#slider_speed").slider("value") / 100;
+        builtin_discoursrate = (sliderSpeed ? parseInt(sliderSpeed.value) : speedValue) / 100;
     }
-    $("#slider_speed").slider({
-        orientation: "horizontal",
-        range: "min",
-        max: 200,
-        value: 100,
-        slide: refreshSpeed,
-        change: refreshSpeed
-    });
-    $("#slider_speed").slider("value", 100);
+    // Set initial value
+    refreshSpeed();
 
-    var handle = $( "#custom-handle" );
-    $( "#slider_speed" ).slider({
-        create: function() {
-          handle.text( $( this ).slider( "value" ) );
-        },
-        slide: function( event, ui ) {
-          handle.text( ui.value );
-        }
-      });
+    // Initialize dialog-choose close handler
+    var dialogChooseForm = dialogChoose.querySelector('form');
+    if (dialogChooseForm) {
+        dialogChooseForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            firsttime = false;
+            firstclick = false;
+            _('VoiceOutput').value = _('VoiceOutputchoose').value;
+            setLanguageOutputAndRetranslate(_('VoiceOutput').value);
+            _('synthesison').checked = false;
+            _('arrowlanguage').style.visibility = 'hidden';
+            _('arrowlanguage').style.display = 'none';
+            _('lilanguage').style.animation = 'none';
+            firstclick = true;
+            dialogChoose.close();
+        });
+    }
+
+    // Initialize dialog-mail cancel button
+    var cancelBtn = dialogMail.querySelector('button[type="reset"]');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            dialogMail.close();
+        });
+    }
 });
+
+// Fonction pour ouvrir le dialog de choix de langue
+window.openLanguageDialog = function() {
+    var dialogChoose = _('dialog-choose');
+    if (dialogChoose) {
+        dialogChoose.showModal();
+    }
+};

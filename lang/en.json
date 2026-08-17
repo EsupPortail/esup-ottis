@@ -1,7 +1,9 @@
 {
-    "accueil": {
+    "index": {
         "alertBrowser": "⚠️ ",
-        "test": "Aide sur Madoc"
+        "conferenceTitle": "Conference",
+        "conferenceDesc": "Allows subtitling a conference in the chosen language.",
+        "conferenceButton": "Prepare the conference"
     },
     "scenarios":{
         "aide": "Help on madoc",

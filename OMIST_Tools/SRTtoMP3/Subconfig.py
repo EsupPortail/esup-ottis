@@ -1,2 +1,0 @@
-MICROSOFT_KEY="bae361b8f5ef4337bebc416ab9d44cf8"
-MICROSOFT_REGION="francecentral"
