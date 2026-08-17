@@ -42,12 +42,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link href="styles/auditor.css" rel="stylesheet">
-    <?php if ($theme != "") {
-    echo '<link href="jquery/'.$theme.'/jquery-ui.min.css" rel="stylesheet">';
-    echo '<link href="jquery/'.$theme.'/extras.css" rel="stylesheet">';
-  } else {
-    echo '<link href="jquery/jquery-ui.min.css" rel="stylesheet">';
-  }
+    <!-- jQuery UI CSS supprimé (redondant avec les styles natifs) -->
 	?>
   <link rel="icon" type="image/png" href="./images/favicon.svg" >
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -73,16 +68,11 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 <script src="js/common-func.js"></script>
 <script src="js/chat-common.js"></script>
 <script src="js/auditor-func.js"></script>
-<?php if ($theme != "") {
-    echo '<script src="jquery/'.$theme.'/external/jquery/jquery.js"></script>';
-    echo '<script src="jquery/'.$theme.'/jquery-ui.js"></script>';
-  } else {
-    echo '<script src="jquery/jquery.js"></script>';
-    echo '<script src="jquery/jquery-ui.min.js"></script>';
-  }
-  ?>
+<?php
+// jQuery dependency removed - all jQuery functionality replaced with native JavaScript
+// jQuery files have been completely removed from the project
+?>
 <link rel="stylesheet" href="libs/quickmenu/lib/font-awesome/css/font-awesome.min.css">
-<script src="libs/quickmenu/src/jquery.popmenu.js"></script>
 
 <style>
 #bar2 {
@@ -232,14 +222,14 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	<div id="VOBanner"></div>
 	<div id="classroom" style="display: none;" aria-live="polite" aria-atomic="true"></div>
 	<div id="scrollbarSub"></div>
-  <select id="selectopacity" class="jqueryselect" style="display : none">
+  <select id="selectopacity" class="select" style="display : none">
     <option value="0">0% opaque</option>
     <option value="0.25">25% opaque</option>
     <option value="0.5" selected>50% opaque</option>
     <option value="0.75">75% opaque</option>
     <option value="1">100% opaque</option>
   </select>
-  <select id="ColorTitre" class="jqueryselect" style="display : none">
+  <select id="ColorTitre" class="select" style="display : none">
     <option value="0,0,255|0,0,255" selected>blue</option>
     <option value="0,255,0|0,100,0">green</option>
     <option value="255,0,0|100,0,0">red</option>
@@ -253,7 +243,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <option value="0,0,0|0,0,0">black</option>
     <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select>
-  <select id="ColorPartialTitre" class="jqueryselect" style="display : none">
+  <select id="ColorPartialTitre" class="select" style="display : none">
     <option value="0,0,255|0,0,255">blue</option>
     <option value="0,255,0|0,100,0">green</option>
     <option value="255,0,0|100,0,0">red</option>
@@ -267,15 +257,15 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <option value="0,0,0|0,0,0" selected>black</option>
     <option value="255,255,255|255,255,255|0,0,0">white</option>
   </select>
-  <select id="selectfontsize" class="jqueryselect" style="display : none">
+  <select id="selectfontsize" class="select" style="display : none">
     <option value="12px">Small</option>
     <option value="18px" selected>Normal</option>
     <option value="24px">Big</option>
     <option value="32px">Huge</option>
     <option value="48px">Enormous</option>
   </select>
-  <select id="classroomlanguage" class="jqueryselect" style="display : none"> </select>
-  <select id="subtitlelanguage" class="jqueryselect" style="display : none"> </select>
+  <select id="classroomlanguage" class="select" style="display : none"> </select>
+  <select id="subtitlelanguage" class="select" style="display : none"> </select>
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
   <!-- <div id="partialtitre" style="display : none"></div> -->
@@ -284,7 +274,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
     <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" >
   </li>
   <input type="checkbox" id="liveon" style="display : none"/>
-  <select id="VoiceOutput" class="jqueryselect" style="display : none"> </select>
+  <select id="VoiceOutput" class="select" style="display : none"> </select>
   <!-- <span id="lilanguage"><label for="VoiceOutput">My language :</label> -->
   <!-- <select id="VoiceOutput" onchange="setLanguageOutput(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=true; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true; showMessageMenu();}"> -->
   <!-- </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
@@ -304,5 +294,8 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 
 
+<?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
+    <script src="/js/tests/no-jquery-validation.js"></script>
+<?php endif; ?>
 </body>
 </html>

@@ -31,6 +31,9 @@ var currentorder_readtext=0;
 var maxorder_readtext=-1;
 var AllPhrases=[];
 
+// Pour synchroniser le notebook avec notebookVO de conference
+var lastNotebookVOContent = '';
+
 var currentrandom = 0;
 
 var firsttime = true;

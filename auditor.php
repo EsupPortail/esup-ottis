@@ -73,6 +73,8 @@ $jsVars = [
     $pageScripts[] = "/js/chat-common.js";
     $pageScripts[] = "/js/chat-alert.js";
     $pageScripts[] = "/js/auditor-func.js";
+    $pageScripts[] = "/js/utils/dom.js";
+    $pageScripts[] = "/js/utils/draggable.js";
     $pageScripts[] = "/js/auditor-post.js";
     
     // Inject pageData for JavaScript
@@ -83,7 +85,7 @@ $jsVars = [
     <link href="styles/auditor-specific.css" rel="stylesheet">
     <link href="styles/chat.css" rel="stylesheet">
 </head>
-<body onload="Init(); setTimeout(loadVoicesWhenAvailable,100);">
+<body>
 <main>
 <h1 style="display:none;">Outils de traduction : application étudiante</h1>
 </main>
@@ -111,14 +113,14 @@ $jsVars = [
   </select>
 </span>
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {resizeSlides(); document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true;}">
+  <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true;}">
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="AuditorName">My surname :</label>
   <input type="text" id="AuditorName" onchange="if (this.value == 'Intervenant') this.value='Auditor';" value="<?php echo $randomname; ?>" autocomplete="given-name">
 </span><br>
 <span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
-<input type="checkbox" id="synthesison" onclick="resizeSlides(); document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
+<input type="checkbox" id="synthesison" onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
 
 </div>
@@ -253,8 +255,16 @@ if (typeof initChatAlert === 'function') {
 } else {
     console.error('[Chat Alert] initChatAlert function not found!');
 }
+
+// Initialize the application - must be after all scripts are loaded
+console.log('[AUDITOR DEBUG] DOM fully loaded, calling Init()');
+Init();
+setTimeout(loadVoicesWhenAvailable, 100);
 </script>
 
   </script>
+<?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
+    <script src="/js/tests/no-jquery-validation.js"></script>
+<?php endif; ?>
 </body>
 </html>

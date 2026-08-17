@@ -21,7 +21,7 @@ $_SESSION["from"]="teacher";
 $language = $_GET['lang'] ?? 'fr'; // Langue par défaut
 $translations = json_decode(file_get_contents("lang/{$language}.json"), true);
 $pageTitle = "Omist - Conference";
-$pageStyles = ["jquery/jquery-ui.min.css",
+$pageStyles = [
                 "styles/auditor.css",
                 "styles/conference.css",
                 "styles/chat.css"
@@ -31,9 +31,10 @@ $pageScripts = ["/js/conference-def.js",
                 "/js/chat-common.js",
                 "/js/chat-alert.js",
                 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
+                "/js/utils/dom.js",
+                "/js/utils/dialog.js",
+                "/js/utils/draggable.js",
                 "/js/conference-func.js",
-                "jquery/jquery.js",
-                "jquery/jquery-ui.min.js",
                 "/js/qrcode.min.js",
                 "/js/conference-post.js"
 ];
@@ -155,7 +156,7 @@ include_once __DIR__ . '/includes/header.php';
 	<ul style="list-style-type: none;">
 		<li>
 			<label for="classroomlanguage">Speaker language :</label>
-			<select id="classroomlanguage" onchange="setLanguageSpeech(this.value);" class="jqueryselect"> </select>
+			<select id="classroomlanguage" onchange="setLanguageSpeech(this.value);" class="select"> </select>
 		</li>
 		<li style="display: none;">
 			<label for="recognitionon">Speech recognition active ? </label>
@@ -165,7 +166,7 @@ include_once __DIR__ . '/includes/header.php';
 		<li style="display: none;">Translate subtitles ?
 			<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
 		<li><label for="subtitlelanguage">Language for subtitles :</label>
-			<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="jqueryselect"> </select>
+			<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="select"> </select>
 		</li>
 	</ul>
 </div>
@@ -221,7 +222,7 @@ include_once __DIR__ . '/includes/header.php';
 	</ul>
 </div>
 
-<h3 class="tabbed">Remote control</h3>
+<h3 class="tabbed">Remote control (SUPPRIMER ?)</h3>
 <div>
 	<ul style="list-style-type: none;">
 		<li>Remote control : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid;?>&LANG=fr,en&APPID=<?php echo $appid;?>">remote.php?ROOMID=<?php echo $classroomid;?>&LANG=fr,en&APPID=<?php echo $appid;?></a></li>
@@ -279,7 +280,7 @@ include_once __DIR__ . '/includes/header.php';
 <div id="admin-config" style="border: 2px solid #4CAF50; padding: 15px; margin: 20px 0; background-color: #f0fff0;">
     <h2 style="color: #2E7D32; text-align: center;">ADMIN - Configuration Traduction</h2>
     <label for="whichtranslator">Choix traducteur :</label>
-    <select id="whichtranslator" class="jqueryselect" style="margin: 5px;">
+    <select id="whichtranslator" class="select" style="margin: 5px;">
         <option value="" selected>Default</option>
         <option value="DEEPLPRO">DeepL Pro API</option>
         <option value="DEEPLFREE">DeepL Free API</option>
@@ -340,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Initialize chat alert after all scripts are loaded -->
 <script>
-// Initialize chat alert when DOM is ready - using native DOMContentLoaded to avoid jQuery dependency
+// Initialize chat alert when DOM is ready - using native DOMContentLoaded instead of jQuery
  document.addEventListener('DOMContentLoaded', function() {
     // Wait to ensure all scripts are loaded
     setTimeout(function() {

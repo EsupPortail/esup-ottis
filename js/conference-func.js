@@ -12,7 +12,7 @@
 function myalert(ch) {
     ch = ch.replaceAll('\n', '<br/>');
     _('dialog-invite-p').innerHTML = ch;
-    $('#dialog-invite').dialog('open');
+    openDialog('dialog-invite');
 }
 
 var lastPartialTranslation = '';
@@ -42,7 +42,7 @@ function logNotebookEvent(source, elementId, text, currentContent) {
 
 // Fonction pour obtenir le contenu actuel d'un élément
 function getNotebookContent(elementId) {
-    var el = document.getElementById(elementId);
+    var el = get(elementId);
     return el ? el.innerHTML.replace(/<br\/?>$/, '').substring(0, 100) + '...' : 'N/A';
 }
 
@@ -479,7 +479,7 @@ function Parle(txt) {
  * 
  */
 
-function ready() {
+function setReadyToTalk() {
     readytotalk = true;
     _('bready').style.backgroundColor = 'green';
     StartSpeechRecognition(Traduction);
@@ -490,10 +490,21 @@ function ready() {
  * 
  */
 
-function notready() {
+function setNotReadyToTalk() {
     StopSpeechRecognition();
     readytotalk = false;
     _('bready').style.backgroundColor = 'red';
+}
+
+/**
+ * @summary Wrapper function to execute callbacks when DOM is ready
+ * Compatible with jQuery-style ready() function for migration purposes
+ * @param {function} callback - Function to execute
+ */
+function ready(callback) {
+    if (typeof callback === 'function') {
+        callback();
+    }
 }
 
 /**
@@ -535,7 +546,7 @@ function Traduction(ch) {
 /*        var liveon = _('liveon').checked;
         if (liveon) {
             if (readytotalk) {
-                notready();
+                setNotReadyToTalk();
                 Ecrire('Input : ' + ch);
                 if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2)){
                     Translate(ch, builtin_voice.lang.substr(0, 2), builtin_language.substr(0, 2));
@@ -2352,7 +2363,7 @@ function sendnotebook() {
     _('dialog_MailTo').value = 'your.mail@univ-nantes.fr';
     _('dialog_MailSubject').value = 'Content of the lesson ' + _('classroomid').value;
     _('dialog_MailBody').innerHTML = _('notebook').innerHTML;
-    $('#dialog-mail').dialog('open');
+    openDialog('dialog-mail');
 }
 
 
@@ -2415,11 +2426,11 @@ function applyConfig() {
 //     for (var f in {
 //             'partialtitre': 1
 //         }) {
-//         var e = document.getElementById(f);
+//         var e = get(f);
 //         e.style.top = (window.innerHeight - e.style.height - 200 - 10) + 'px';
 //     }
 // 
-//     var e = document.getElementById('titre');
+//     var e = get('titre');
 //     e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
 // }
 
@@ -2433,7 +2444,7 @@ function applyConfig() {
 //     for (var f in {
 //             'partialtitre': 1
 //         }) {
-//         var e = document.getElementById(f);
+//         var e = get(f);
 //         var postop = 1 * (e.style.top.replace('px', ''));
 //         if (postop > window.innerHeight - 50) {
 //             e.style.top = (window.innerHeight - 50) + 'px';
@@ -2447,10 +2458,10 @@ function applyConfig() {
  */
 
 function sendclick() {
-    var tosend = document.getElementById('question').value.replaceAll('\n', '').trim();
+    var tosend = get('question').value.replaceAll('\n', '').trim();
     //alert("Will send : ("+tosend+")");
     if (tosend != '') saveTextQ(tosend);
-    document.getElementById('question').value = '';
+    get('question').value = '';
 }
 
 
@@ -2477,7 +2488,7 @@ if (typeof pdfjsLib !== 'undefined') {
 // Only active when PDF viewer is visible
 // Note: Space and Backspace are intentionally not used as they are reserved for other functions
 document.addEventListener('keydown', function(event) {
-    const pdfViewer = document.getElementById('pdf-viewer');
+    const pdfViewer = get('pdf-viewer');
     
     // Only handle keyboard events when PDF viewer is active and visible
     if (!pdfDoc || !pdfViewer || pdfViewer.style.display !== 'block') {
@@ -2518,7 +2529,7 @@ let currentRenderTask = null;
  * Initialize PDF.js viewer elements
  */
 function initPdfViewer() {
-    canvas = document.getElementById('pdf-canvas');
+    canvas = get('pdf-canvas');
     if (!canvas) return;
     
     ctx = canvas.getContext('2d');
@@ -2583,11 +2594,11 @@ function renderPage(num) {
 function updatePdfNavigation() {
     if (!pdfDoc) return;
 
-    document.getElementById('pdf-page-indicator').textContent = 
+    get('pdf-page-indicator').textContent = 
         `Page ${pageNum} of ${pdfDoc.numPages}`;
-    document.getElementById('pdf-page-input').value = pageNum;
-    document.getElementById('pdf-prev').disabled = pageNum <= 1;
-    document.getElementById('pdf-next').disabled = pageNum >= pdfDoc.numPages;
+    get('pdf-page-input').value = pageNum;
+    get('pdf-prev').disabled = pageNum <= 1;
+    get('pdf-next').disabled = pageNum >= pdfDoc.numPages;
 }
 
 /**
@@ -2613,7 +2624,7 @@ function nextPage() {
  * @param {number} num - Page number
  */
 function goToPage(num) {
-    const pageInput = document.getElementById('pdf-page-input');
+    const pageInput = get('pdf-page-input');
     num = parseInt(num);
     if (num >= 1 && num <= pdfDoc.numPages) {
         pageNum = num;
@@ -2641,8 +2652,8 @@ function queueRenderPage(num) {
  */
 function displayPDF(url) {
     // Hide text viewer, show PDF viewer
-    const pdfViewer = document.getElementById('pdf-viewer');
-    const textViewer = document.getElementById('text-content-viewer');
+    const pdfViewer = get('pdf-viewer');
+    const textViewer = get('text-content-viewer');
     
     if (pdfViewer) pdfViewer.style.display = 'block';
     if (textViewer) textViewer.style.display = 'none';
@@ -2662,8 +2673,8 @@ function displayPDF(url) {
  * @param {string} content - Text content to display
  */
 function displayTextContent(content) {
-    const viewer = document.getElementById('text-content-viewer');
-    const pdfViewer = document.getElementById('pdf-viewer');
+    const viewer = get('text-content-viewer');
+    const pdfViewer = get('pdf-viewer');
     
     if (viewer) {
         viewer.style.display = 'block';
@@ -2679,7 +2690,7 @@ function displayTextContent(content) {
  * Uses Fullscreen API with browser prefixes support
  */
 function togglePdfFullscreen() {
-    const pdfViewer = document.getElementById('pdf-viewer');
+    const pdfViewer = get('pdf-viewer');
     
     if (!pdfViewer) {
         return;
@@ -2743,7 +2754,7 @@ document.addEventListener('keydown', function(event) {
  * @param {string} message - Error message
  */
 function showPresentationError(message) {
-    const notebook = document.getElementById('notebookcompleteformatted');
+    const notebook = get('notebookcompleteformatted');
     if (notebook) {
         notebook.innerHTML = `<div style="padding: 20px; color: red; text-align: center;">${message}</div>`;
     }
@@ -2763,8 +2774,8 @@ function handleFileSelect(event) {
     }
 
     // Get elements
-    const progressBar = document.getElementById('presentation-progress');
-    const progressStatus = document.getElementById('progress-status');
+    const progressBar = get('presentation-progress');
+    const progressStatus = get('progress-status');
     
     // Initialize progress
     if (progressBar) {
@@ -2775,8 +2786,8 @@ function handleFileSelect(event) {
     }
 
     // Hide viewers
-    const pdfViewer = document.getElementById('pdf-viewer');
-    const textViewer = document.getElementById('text-content-viewer');
+    const pdfViewer = get('pdf-viewer');
+    const textViewer = get('text-content-viewer');
     if (pdfViewer) pdfViewer.style.display = 'none';
     if (textViewer) textViewer.style.display = 'none';
 
@@ -2862,14 +2873,14 @@ function handleFileSelect(event) {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
         initPdfViewer();
-        const fileInput = document.getElementById('presentation_file');
+        const fileInput = get('presentation_file');
         if (fileInput) {
             fileInput.addEventListener('change', handleFileSelect);
         }
     });
 } else {
     initPdfViewer();
-    const fileInput = document.getElementById('presentation_file');
+    const fileInput = get('presentation_file');
     if (fileInput) {
         fileInput.addEventListener('change', handleFileSelect);
     }
@@ -2879,9 +2890,9 @@ if (document.readyState === 'loading') {
 // SURVEILLANCE DES CHANGEMENTS DANS LES NOTEBOOKS
 // =============================================================================
 setInterval(function() {
-    var notebookEl = document.getElementById('notebook');
-    var notebookVOEl = document.getElementById('notebookVO');
-    var partialtitreEl = document.getElementById('partialtitre');
+    var notebookEl = get('notebook');
+    var notebookVOEl = get('notebookVO');
+    var partialtitreEl = get('partialtitre');
     
     if (notebookEl && notebookVOEl && partialtitreEl) {
         var notebookContent = notebookEl.innerHTML;

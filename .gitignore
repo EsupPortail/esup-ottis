@@ -23,6 +23,7 @@ AGENTS.md
 
 # Ignore test directory
 test/
+audit/
 
 # Ignore uploads directory
 uploads/

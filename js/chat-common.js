@@ -276,13 +276,13 @@ function saveTextQ(ch) {
         }
     } else if (document.getElementById) {
         // chat.php, Student.php context
-        if (document.getElementById('AuditorName') && document.getElementById('AuditorName').value) {
-            senderName = document.getElementById('AuditorName').value;
-        } else if (document.getElementById('AuditorName')) {
-            senderName = document.getElementById('AuditorName').value;
+        if (_('AuditorName') && _('AuditorName').value) {
+            senderName = _('AuditorName').value;
+        } else if (_('AuditorName')) {
+            senderName = _('AuditorName').value;
         }
-        if (document.getElementById('classroomid') && document.getElementById('classroomid').value) {
-            roomId = document.getElementById('classroomid').value;
+        if (_('classroomid') && _('classroomid').value) {
+            roomId = _('classroomid').value;
         }
         if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
             language = builtin_voice.lang;
@@ -315,7 +315,7 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "Translate.php", true);
     
-    var roomid = (typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? document.getElementById('classroomid').value : ''));
+    var roomid = (typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? _('classroomid').value : ''));
     
     var f = new FormData();
     f.append('texte', ch);
@@ -383,7 +383,7 @@ function sendclick() {
     if (typeof _ !== 'undefined') {
         questionElement = _('question');
     } else if (document.getElementById) {
-        questionElement = document.getElementById('question');
+        questionElement = _('question');
     }
     
     if (questionElement) {
@@ -401,7 +401,7 @@ function sendclick() {
  * @returns {void}
  */
 function ClearCR() {
-    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : document.getElementById('classroom');
+    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
     if (classroomEl) classroomEl.innerHTML = '<ul role="list" aria-live="polite" class="chat-message-list"></ul>';
     if (typeof ScreenCR !== 'undefined') {
         ScreenCR = [];
@@ -424,7 +424,7 @@ function RefreshCR() {
     }
     html += '</ul>';
     
-    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : document.getElementById('classroom');
+    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
     if (classroomEl) classroomEl.innerHTML = html;
 }
 
@@ -502,8 +502,8 @@ function startChatPolling() {
         var roomId = '';
         if (typeof _ !== 'undefined' && _('classroomid')) {
             roomId = _('classroomid').value;
-        } else if (document.getElementById && document.getElementById('classroomid')) {
-            roomId = document.getElementById('classroomid').value;
+        } else if (document.getElementById && _('classroomid')) {
+            roomId = _('classroomid').value;
         }
         if (roomId) {
             readTextQ(roomId);

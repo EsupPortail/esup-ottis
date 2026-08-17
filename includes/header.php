@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?= htmlspecialchars($language) ?>">
-    <title><?php echo $pageTitle ?? 'OMIST'; ?></title>
+    <title><?php echo $pageTitle ?? 'OTTIS'; ?></title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
 

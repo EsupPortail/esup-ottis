@@ -1,14 +1,3 @@
-//$( "#tabs" ).tabs();
-//$( "#enregistrer" ).button();
-/*
-  $( function() {
-    $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-    $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-  } );
-*/
-
-
-
 function retourOK(e) {
     var res = '';
     for (var p in e) res += p + '=' + e[p] + '\n';
@@ -22,102 +11,37 @@ window.onbeforeunload = function(event) {
 };
 
 function fixTitle() {
-    var e = document.getElementById("titre");
+    var e = get("titre");
     e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
 
-    e = document.getElementById("VOBanner");
+    e = get("VOBanner");
     e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
 }
 
 function MinTitlePos() {
-    var e = document.getElementById("titre");
+    var e = get("titre");
     var postop = 1 * (e.style.top.replace('px', ''));
     if (postop > window.innerHeight - 50) {
         e.style.top = (window.innerHeight - 50) + 'px';
     }
-    var e = document.getElementById("VOBanner");
+    var e = get("VOBanner");
     var postop = 1 * (e.style.top.replace('px', ''));
     if (postop > window.innerHeight - 50) {
         e.style.top = (window.innerHeight - 50) + 'px';
     }
 
-}
-
-/**
- * Native Draggable - Vanilla JS implementation
- * Replaces jQuery draggableTouch plugin
- */
-function makeDraggable(element) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    
-    // Get the element's current position
-    function getPosition(el) {
-        const rect = el.getBoundingClientRect();
-        return {
-            left: rect.left + window.scrollX,
-            top: rect.top + window.scrollY
-        };
-    }
-
-    // Mouse events
-    element.onmousedown = dragMouseDown;
-
-    // Touch events
-    element.ontouchstart = dragTouchStart;
-
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        const pos = getPosition(element);
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        document.onmouseup = closeDrag;
-        document.onmousemove = elementDrag;
-    }
-
-    function dragTouchStart(e) {
-        e = e || window.event;
-        e.preventDefault();
-        const pos = getPosition(element);
-        pos3 = e.touches[0].clientX;
-        pos4 = e.touches[0].clientY;
-        document.ontouchend = closeDrag;
-        document.ontouchmove = elementDrag;
-    }
-
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-        pos1 = pos3 - clientX;
-        pos2 = pos4 - clientY;
-        pos3 = clientX;
-        pos4 = clientY;
-
-        element.style.top = (element.offsetTop - pos2) + "px";
-        element.style.left = (element.offsetLeft - pos1) + "px";
-    }
-
-    function closeDrag() {
-        document.onmouseup = null;
-        document.onmousemove = null;
-        document.ontouchend = null;
-        document.ontouchmove = null;
-    }
 }
 
 // Initialize draggable elements when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     fixTitle();
-    const titre = document.getElementById('titre');
-    const voBanner = document.getElementById('VOBanner');
+    const titre = get('titre');
+    const voBanner = get('VOBanner');
     if (titre) makeDraggable(titre);
     if (voBanner) makeDraggable(voBanner);
 
     // When language changes, force a refresh of the chat to re-translate with new language
-    const classroomLanguage = document.getElementById('classroomlanguage');
+    const classroomLanguage = get('classroomlanguage');
     if (classroomLanguage) {
         classroomLanguage.addEventListener('change', function() {
             // Wait a bit for the language to be set, then refresh the chat

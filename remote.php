@@ -35,7 +35,6 @@ if (isset($_GET["APPID"])) $appid=$_GET["APPID"];
 	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/remote.css">
-	<link href="jquery/jquery-ui.min.css" rel="stylesheet">
   <link rel="icon" type="image/png" href="./images/favicon.svg" >
 
 <script type="text/javascript">
@@ -178,9 +177,6 @@ function changeOpacity(obj){
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward'); changeOpacity(this);"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
 <input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
 <input type="text" style="display: none;" name="appid" id="appid" value="<?php echo $appid; ?>" />
-
-<script src="jquery/jquery.js"></script>
-<script src="jquery/jquery-ui.min.js"></script>
 
 </body>
 </html>

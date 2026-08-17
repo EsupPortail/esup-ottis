@@ -15,7 +15,7 @@ body {
 	left		: 0;
 }
 
-select, .jqueryselect, input[type="text"], textarea, button {
+select, input[type="text"], textarea, button {
 	border-radius : 7px;
 	margin		 : 1px;
 	padding		 : 2px;

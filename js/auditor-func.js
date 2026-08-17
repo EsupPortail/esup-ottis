@@ -1,5 +1,10 @@
 // Basic functions
 
+// Global variable to track notebook VO content (must be declared before use in callbacks)
+if (typeof lastNotebookVOContent === 'undefined') {
+    lastNotebookVOContent = '';
+}
+
 /**
  * @summary Decode HTML entities in a string
  * @param {string} text - Text containing HTML entities
@@ -187,7 +192,7 @@ function PopulateVoicesInSub() {
 }
 
 function countLines(elm) {
-    var el = document.getElementById(elm);
+    var el = _(elm);
     var divHeight = el.offsetHeight;
     var lineHeight = parseInt(el.style.lineHeight);
     var lines = divHeight / lineHeight;
@@ -197,7 +202,7 @@ function countLines(elm) {
 
 function auto_size_text(elm="titre", max_lines=3) {
 
-    var el = document.getElementById(elm);
+    var el = _(elm);
     var lines = countLines(elm);
     var size = parseInt(el.style.fontSize.replace("px", ""));
     if(lines > max_lines) {
@@ -307,7 +312,7 @@ function applyConfigSub() {
         ChangeOpacity('VOBanner', '0.5');
     }
 
-    //document.getElementById('synthesison').checked=true;
+    //_('synthesison').checked=true;
 
 
     // Micro
@@ -464,8 +469,11 @@ function InitVoices() {
  */
 
 function EcrireNB(ch) {
-    if (_('notebook').innerHTML == "")
+    console.log('[AUDITOR DEBUG] EcrireNB called with:', ch);
+    if (_('notebook').innerHTML == "") {
         _('notebook').innerHTML = ch;
+        console.log('[AUDITOR DEBUG] notebook set to:', ch);
+    }
     else _('notebook').innerHTML = _('notebook').innerHTML + "<br/>" + ch;
 
     // VOBanner
@@ -479,8 +487,10 @@ function EcrireNB(ch) {
  */
 
 function EcrireNBSub(ch) {
-    if (_('notebook').innerHTML == "")
+    if (_('notebook').innerHTML == "") {
         _('notebook').innerHTML = ch;
+        console.log('[AUDITOR DEBUG] notebook set to:', ch);
+    }
     else _('notebook').innerHTML = _('notebook').innerHTML + "<br/>" + ch;
 }
 
@@ -513,7 +523,7 @@ function CompleteTranslation() {
     // Vérification précoce : ne pas traduire si classroomid est invalide
     if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
         ToTranslate = [];
-        if (document.getElementById('synthesison').checked) {
+        if (_('synthesison').checked) {
             CompleteSpeech();
         }
         return;
@@ -551,7 +561,7 @@ function CompleteTranslation() {
             Translate(sourceText, currentLang, sourceLang.substr(0, 2), id);
         }
     } else {
-        if (document.getElementById('synthesison').checked) {
+        if (_('synthesison').checked) {
             CompleteSpeech();
         }
     }
@@ -655,15 +665,21 @@ function readText() {
                                 }*/
                                 
                                 // If listener's language matches source or target language -> direct display
+                                // For auditor: when a translated element goes to Output, the original VO goes to Notebook
                                 if (currentLang === L[2].substr(0, 2)) {
-                                    EcrireNB(sourceText);
+                                    Ecrire(sourceText);
+                                    EcrireNB(sourceText);  // Add VO to notebook
                                     ToSay['' + L[0]] = sourceText;
                                 } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
-                                    EcrireNB(targetText);
+                                    Ecrire(targetText);
+                                    EcrireNB(sourceText);  // Add original VO text (L[3]) to notebook, not the translation
                                     ToSay['' + L[0]] = targetText;
                                 } else {
                                     // Translation needed
-                                    ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);                                }
+                                    ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);
+                                    // Also add VO to notebook immediately
+                                    EcrireNB(sourceText);
+                                }
                             }
                         }
                         /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
@@ -767,6 +783,7 @@ function readTextSub() {
 
 function readTextSubTranscript() {
     if (_('classroomid').value != "") {
+        console.log('[AUDITOR DEBUG] readTextSubTranscript() called, classroomid:', _('classroomid').value, 'ROOM_TOKEN:', window.ROOM_TOKEN);
         var requestTranscriptSub = new XMLHttpRequest();
         requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
         increasependingrequests();
@@ -781,8 +798,41 @@ function readTextSubTranscript() {
         AbortTimeout(requestTranscriptSub,"readTextSubTranscript");
         requestTranscriptSub.onload = function(event) {
             decreasependingrequests();
+            console.log('[AUDITOR DEBUG] readTextSubTranscript response:', requestTranscriptSub.responseText);
             var T = requestTranscriptSub.responseText.split('\n');
-            _("VOBanner").innerHTML = T;
+            console.log('[AUDITOR DEBUG] Split into T:', T);
+            
+            // Construire le contenu complet du notebook VO
+            var newContent = '';
+            for (var i = 0; i < T.length; i++) {
+                var line = T[i].trim();
+                if (line) {
+                    var parts = line.split(';');
+                    if (parts.length > 1 && parts[1]) {
+                        if (newContent !== '') {
+                            newContent += '<br/>';
+                        }
+                        newContent += parts[1];
+                    }
+                }
+            }
+            
+            console.log('[AUDITOR DEBUG] newContent:', newContent);
+            console.log('[AUDITOR DEBUG] lastNotebookVOContent:', lastNotebookVOContent);
+            
+            // Ne mettre à jour que si le contenu a changé
+            if (newContent !== lastNotebookVOContent && newContent !== '') {
+                lastNotebookVOContent = newContent;
+                
+                // Mettre à jour VOBanner et notebook avec le contenu complet
+                _("VOBanner").innerHTML = newContent;
+                _('notebook').innerHTML = newContent;
+                console.log('[AUDITOR DEBUG] Notebook updated with VO content');
+            } else if (newContent === '') {
+                console.log('[AUDITOR DEBUG] newContent is empty, not updating');
+            } else {
+                console.log('[AUDITOR DEBUG] Content unchanged, skipping update');
+            }
             //console.log('Readtext get : '+request.responseText);
 //             var maxi = -1;
 //             var readedorder = ('0' + T[0]).split(';')[0] * 1;
@@ -855,10 +905,13 @@ function readImage() {
  */
 
 function Lancer() {
+    console.log('[AUDITOR DEBUG] Lancer() called - setting up intervals');
     setInterval(readText, 500);
     setInterval(readTextQ, 500);
+    // setInterval(readTextSubTranscript, 500); - DISABLED: notebook now synced via readText()
     setInterval(readImage, 500);
     setLanguageInput(0);
+    console.log('[AUDITOR DEBUG] Intervals set. Notebook synced via readText()');
 }
 
 /**
@@ -867,6 +920,12 @@ function Lancer() {
  */
 
 function Init() {
+    console.log('[AUDITOR DEBUG] Init() called');
+    console.log('[AUDITOR DEBUG] notebook element exists:', !!_('notebook'));
+    console.log('[AUDITOR DEBUG] classroomid value:', _('classroomid') ? _('classroomid').value : 'null');
+    // Start the polling intervals for text, chat, and subtitles
+    Lancer();
+    
     /*
     _('question').addEventListener('keyup', function (event) {
       if (event.code === 'Enter') {
@@ -906,13 +965,13 @@ function Init() {
                 GoFS();
             }
             if (event.code === 'KeyR') { // repeat
-                Parle(document.getElementById('titre').innerHTML);
+                Parle(_('titre').innerHTML);
             }
             if (event.code === 'ArrowUp') { // Move the subtitles UP
-                document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1-5)+"px";
+                _('titre').style.top=(_('titre').style.top.replace('px','')*1-5)+"px";
             }
             if (event.code === 'ArrowDown') { // Move the subtitles Down
-                document.getElementById('titre').style.top=(document.getElementById('titre').style.top.replace('px','')*1+5)+"px";
+                _('titre').style.top=(_('titre').style.top.replace('px','')*1+5)+"px";
             }
         }
     };

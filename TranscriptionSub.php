@@ -40,11 +40,11 @@ if (!file_exists($tmpDir)) {
     }
 }
 
-// Sauvegarder le texte dans un fichier temporaire
+// Sauvegarder le texte dans un fichier temporaire (mode "a" pour append/ajouter)
 $filename = $tmpDir . "VerylastSub_" . $roomId;
-$fd = @fopen($filename, "w");
+$fd = @fopen($filename, "a");
 if ($fd) {
-    fwrite($fd, $texte);
+    fwrite($fd, $texte . "\n");
     fclose($fd);
 
     // Retourner une réponse JSON avec succès

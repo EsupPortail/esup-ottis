@@ -38,7 +38,7 @@ function initChatAlert(userName) {
  * @returns {void}
  */
 function createChatAlertElement() {
-    if (document.getElementById('chat-alert')) {
+    if (_('chat-alert')) {
         return; // Already exists
     }
 
@@ -82,10 +82,10 @@ function createChatAlertElement() {
  * @returns {void}
  */
 function showChatAlert() {
-    var alertElement = document.getElementById('chat-alert');
+    var alertElement = _('chat-alert');
     if (!alertElement) {
         createChatAlertElement();
-        alertElement = document.getElementById('chat-alert');
+        alertElement = _('chat-alert');
     }
 
     if (!alertElement) return;
@@ -105,7 +105,7 @@ function showChatAlert() {
  * @returns {void}
  */
 function hideChatAlert() {
-    var alertElement = document.getElementById('chat-alert');
+    var alertElement = _('chat-alert');
     if (!alertElement) return;
 
     chatAlertState.isVisible = false;
@@ -143,7 +143,7 @@ function incrementAlertCount() {
  * @returns {void}
  */
 function updateAlertBadge() {
-    var badge = document.getElementById('chat-alert-badge');
+    var badge = _('chat-alert-badge');
     if (!badge) return;
 
     if (chatAlertState.alertCount > 0) {
@@ -167,7 +167,7 @@ function startBlinkAnimation() {
     }
 
     chatAlertState.blinkInterval = setInterval(function() {
-        var alertElement = document.getElementById('chat-alert');
+        var alertElement = _('chat-alert');
         if (!alertElement || !chatAlertState.hasNewMessages) return;
 
         // Toggle blink class for pulsating effect
@@ -190,7 +190,7 @@ function stopBlinkAnimation() {
         chatAlertState.blinkInterval = null;
 
         // Remove blink class
-        var alertElement = document.getElementById('chat-alert');
+        var alertElement = _('chat-alert');
         if (alertElement) {
             alertElement.classList.remove('chat-alert-blink');
         }
