@@ -28,4 +28,8 @@ audit/
 # Ignore uploads directory
 uploads/
 
+# Composer
+vendor/
+composer.phar
+
 tables/tokens_OLD.json

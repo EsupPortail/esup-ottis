@@ -41,78 +41,70 @@ if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
     }
 }
 
-// Generate HTML
+// Generate HTML with notes and images
 $randompath = md5(gmdate("U"));
-$omistToolsDir = __DIR__ . '/OMIST_Tools';
-$command = 'cd ' . escapeshellarg($omistToolsDir) . '; bash ./CreateApp/CreateAppForInstantTranslator.sh ' . escapeshellarg($tmp_file) . ' ' . escapeshellarg($randompath) . ' 2>&1';
-exec($command, $commandOutput, $returnVar);
-if ($returnVar !== 0) {
-    error_log("ExtractSlidesNotes_PPTX_images failed (return=$returnVar): " . implode("\n", $commandOutput));
-}
-$tmp_file = $omistToolsDir . '/tmp/output_' . $randompath . '.html';
 
-if (!file_exists($tmp_file)) {
-    error_log("Expected generated HTML file not found: $tmp_file");
-    if (!empty($commandOutput)) {
-        echo json_encode(["error" => "Failed to generate HTML file", "details" => trim(implode(" | ", $commandOutput))]);
-    } else {
-        echo json_encode(["error" => "Failed to generate HTML file"]);
-    }
+// Créer un répertoire temporaire
+$workDir = sys_get_temp_dir() . '/' . $randompath;
+mkdir($workDir, 0777, true);
+$imagesDir = $workDir . '/images';
+mkdir($imagesDir, 0777, true);
+
+// Extraire les notes
+require_once __DIR__ . '/PPTXNotesExtractor.php';
+try {
+    $notes = PPTXNotesExtractor::extract($tmp_file);
+} catch (Exception $e) {
+    error_log("Note extraction failed: " . $e->getMessage());
+    echo json_encode(["error" => "Failed to extract notes: " . $e->getMessage()]);
     exit;
 }
 
-$contenttxt = file_get_contents($tmp_file);
-if ($contenttxt === false) {
-    echo json_encode(["error" => "Failed to read generated HTML file"]);
-    exit;
-}
-
-$content = explode("\n", $contenttxt);
-$txtslidenotes = "";
-$T_images = array();
-
-foreach ($content as $line) {
-    if (strpos("_$line", "var slidesnotes = ") > 0) {
-        $txtslidenotes = str_replace("var slidesnotes = ", "", $line);
-        $txtslidenotes = substr($txtslidenotes, 0, strlen($txtslidenotes) - 1);
+// Extraire les images (si LibreOffice/ImageMagick disponibles)
+$T_images = [];
+try {
+    $pdfFile = null;
+    
+    // Convertir PPTX en PDF
+    $cmd = "soffice --headless --convert-to pdf:impress_pdf_Export " . escapeshellarg($tmp_file) . " --outdir " . escapeshellarg($workDir) . " 2>/dev/null";
+    exec($cmd, $output, $return);
+    
+    // LibreOffice utilise le nom original du fichier pour le PDF
+    $pdfFiles = glob($workDir . '/*.pdf');
+    if ($return === 0 && !empty($pdfFiles)) {
+        $pdfFile = $pdfFiles[0];
+        // Convertir PDF en images
+        $cmd = "convert -density 100 " . escapeshellarg($pdfFile) . " -scale 1024x768 " . escapeshellarg($imagesDir . "/slide-%03d.jpg") . " 2>/dev/null";
+        exec($cmd, $output, $return);
+        
+        // Lister les images générées
+        if ($return === 0) {
+            $imageFiles = glob($imagesDir . "/slide-*.jpg");
+            natsort($imageFiles);
+            foreach ($imageFiles as $img) {
+                $T_images[] = basename($img);
+            }
+        }
     }
-    if (strpos("_$line", "Timages.push(") > 0) {
-        $txtimage = str_replace("Timages.push('", "", $line);
-        $txtimage = str_replace("');", "", $txtimage);
-        $T_images[] = $txtimage;
-    }
+} catch (Exception $e) {
+    error_log("Image extraction failed: " . $e->getMessage());
 }
 
-if (empty($txtslidenotes)) {
-    echo json_encode(["error" => "No slidesnotes found in the generated file"]);
-    exit;
+// Ajouter les images à chaque slide
+foreach ($notes as &$note) {
+    $note['Images'] = $T_images;
 }
+unset($note);
 
-$Tnotes = json_decode($txtslidenotes);
-if ($Tnotes === null) {
-    echo json_encode(["error" => "Invalid JSON in slidesnotes: " . json_last_error_msg()]);
-    exit;
-}
-
-$notes = [];
-foreach ($Tnotes as $lang => $noteslang) {
-    if (is_array($noteslang)) {
-        $notes = $noteslang;
-        break;
-    }
-}
-
-if (empty($notes)) {
-    $notes = [["Slide" => 0, "Notes" => [], "Images" => $T_images]];
-} else {
-    $n = count($notes);
-    $T = array();
-    $T["Images"] = $T_images;
-    $T["Slide"] = $n;
-    $T["Notes"] = array();
-    $notes[$n] = $T;
-}
-
+// Retourner le résultat
 echo json_encode($notes);
-unlink($tmp_file);
+
+// Nettoyer les fichiers temporaires
+// Supprimer d'abord les fichiers dans les sous-répertoires
+array_map('unlink', glob($workDir . '/images/*'));
+rmdir($workDir . '/images');
+
+// Supprimer les autres fichiers dans workDir
+array_map('unlink', glob($workDir . '/*'));
+rmdir($workDir);
 ?>

@@ -20,46 +20,51 @@ if( is_uploaded_file($tmp_file) ) {
 }
 */
 if ($_FILES["ppt_presentation"]["tmp_name"] != "") {
-$randompath=md5(gmdate("U"));
-
-$command = 'cd OMIST_Tools; bash ./ExtractSpeech/ExtractSpeechFromPPTX.sh '.$randompath.' "'.$tmp_file.'" >/dev/null 2>/dev/null';//>/dev/null 2>/dev/null
-system($command);
-
-$filename='OMIST_Tools/tmp/speech_'.$randompath.'.txt';
-
-$contenttxt = file_get_contents($filename);
-$content = explode("\n",$contenttxt);
-$notes=array();
-$num=0;
-$notesslide=array();
-for($i=0;$i<count($content);$i++) {
-    $txt=$content[$i];
-    if ((strpos("_".$txt,"----------")>0) || (strpos("_".$txt,"[forward]")>0)) {
-	if ($num>0) {
-           $slidenotes=array();
-           $slidenotes["Slide"]=$num;
-           $slidenotes["Notes"]=$notesslide;
-           $notes[]=$slidenotes;
-           $notesslide=array();
-	}
-        $num++;
-	//echo "DEBUG : ".$txt."\n";
-     } else {
-        $notesslide[]=$txt;
-     }
-}
-if (count($notesslide)>0) {
-    $slidenotes=array();
-    $slidenotes["Slide"]=$num;
-    $slidenotes["Notes"]=$notesslide;
-    $notes[]=$slidenotes;
-}
-
-//print_r($notes);
-echo json_encode($notes);
-unlink($filename);
-
-
+    // Convertir ODP en PPTX si nécessaire
+    $convertedFile = $tmp_file;
+    $isTempFile = false;
+    
+    // Détecter le format par l'extension
+    $fileName = $_FILES['ppt_presentation']['name'];
+    $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    
+    if ($extension === 'odp') {
+        // Convertir ODP en PPTX via LibreOffice
+        $tempDir = sys_get_temp_dir();
+        
+        $cmd = 'soffice --headless --convert-to pptx ' . escapeshellarg($tmp_file) . ' --outdir ' . escapeshellarg($tempDir) . ' 2>/dev/null';
+        exec($cmd, $output, $return);
+        
+        if ($return === 0) {
+            // LibreOffice utilise le nom original pour le fichier converti
+            $pptxFiles = glob($tempDir . '/*.pptx');
+            if (!empty($pptxFiles)) {
+                $convertedFile = $pptxFiles[0];
+                $isTempFile = true;
+            }
+        }
+        
+        if (!$isTempFile) {
+            echo json_encode(["error" => "Failed to convert ODP to PPTX"]);
+            exit;
+        }
+    }
+    
+    // Utiliser la nouvelle librairie d'extraction de notes PPTX
+    require_once __DIR__ . '/PPTXNotesExtractor.php';
+    
+    try {
+        $notes = PPTXNotesExtractor::extract($convertedFile);
+        echo json_encode($notes);
+    } catch (Exception $e) {
+        error_log("Erreur d'extraction des notes PPTX: " . $e->getMessage());
+        echo json_encode(["error" => "Failed to extract notes: " . $e->getMessage()]);
+    }
+    
+    // Nettoyer le fichier temporaire si converti
+    if ($isTempFile && file_exists($convertedFile)) {
+        unlink($convertedFile);
+    }
 }
 
 /*
