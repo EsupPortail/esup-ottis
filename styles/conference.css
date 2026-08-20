@@ -92,6 +92,25 @@ input[type="checkbox"] {
 	text-shadow		 : 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0,0,0), -1px -1px 0 rgb(0,0,0), 1px -1px 0 rgb(0,0,0), -1px 1px 0 rgb(0,0,0);
 	visibility		 : visible;
 }
+
+#textBand {
+	transition			 : 1s ease;
+	transition-property	 : background-color, color, box-shadow, text-shadow, font-size;
+	border-radius			 : 25px;
+	height				 : 150px;
+	background-color		 : rgba(0, 0, 0, 0.5);
+	color					 : white;
+	font-size				 : 18px;
+	font-family			 : helvetica, arial, sans-serif;
+	font-style			 : italic;
+	padding				 : 10px;
+	box-shadow			 : 2px 2px 5px rgb(0, 0, 0);
+	text-shadow			 : 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0,0,0), -1px -1px 0 rgb(0,0,0), 1px -1px 0 rgb(0,0,0), -1px 1px 0 rgb(0,0,0);
+	overflow				 : auto;
+	margin-top			 : 10px;
+	width					 : 100%;
+}
+
 #partialtitreSub {
 	transition		 : 1s ease;
 	transition-property : background-color, color, box-shadow, text-shadow, font-size;
@@ -263,13 +282,7 @@ input[type="checkbox"] {
 	min-height: 42px;
 }
 
-#notebookcompleteformatted {
-	border-radius: 12px;
-	padding: 1rem;
-	background: #fafafa;
-	min-height: 28rem;
-	overflow: auto;
-}
+
 
 #stillwaiting {
 	position: relative;

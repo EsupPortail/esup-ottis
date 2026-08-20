@@ -168,6 +168,10 @@ include_once __DIR__ . '/includes/header.php';
 		<li><label for="subtitlelanguage">Language for subtitles :</label>
 			<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="select"> </select>
 		</li>
+		<li>
+			<label for="usetextband">Use partialtitre instead of textBand:</label>
+			<input type="checkbox" id="usetextband" onclick="toggleTextBandDisplay()">
+		</li>
 	</ul>
 </div>
 </section>
@@ -208,7 +212,7 @@ include_once __DIR__ . '/includes/header.php';
 
 
 
-<div id="partialtitre" style="color: white; opacity: 0.5; background-color: black; visibility: visible; font-size: 18px;"></div>
+<div id="partialtitre" style="color: white; opacity: 0.5; background-color: black; display: none; font-size: 18px;"></div>
 
 
 <h3 class="tabbed">For students</h3>
@@ -251,30 +255,33 @@ include_once __DIR__ . '/includes/header.php';
     <!-- PDF.js viewer container (hidden by default) -->
     <div id="pdf-viewer" style="display: none; margin-top: 10px; position: relative;">
         <canvas id="pdf-canvas" style="border: 1px solid #ccc; max-width: 100%;"></canvas>
-        <div style="display: flex; justify-content: center; gap: 20px; margin: 10px 0;">
-            <button id="pdf-prev" onclick="prevPage()" disabled
-                    aria-label="Previous page"
-                    title="Go to previous page">← Previous</button>
-            <span id="pdf-page-indicator" style="align-self: center;">Page 1 of 1</span>
-            <button id="pdf-next" onclick="nextPage()" disabled
-                    aria-label="Next page"
-                    title="Go to next page">Next →</button>
-            <input type="number" id="pdf-page-input" min="1" style="width: 60px;"
-                   onchange="goToPage(this.value)" aria-label="Go to page number">
+        <!-- PDF control panel -->
+        <div id="pdf-control" style="display: none; margin-top: 10px;">
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 10px 0;">
+                <button id="pdf-prev" onclick="prevPage()" disabled
+                        aria-label="Previous page"
+                        title="Go to previous page">← Previous</button>
+                <span id="pdf-page-indicator" style="align-self: center;">Page 1 of 1</span>
+                <button id="pdf-next" onclick="nextPage()" disabled
+                        aria-label="Next page"
+                        title="Go to next page">Next →</button>
+                <input type="number" id="pdf-page-input" min="1" style="width: 60px;"
+                       onchange="goToPage(this.value)" aria-label="Go to page number">
+                <button id="pdf-fullscreen-btn" onclick="togglePdfFullscreen()"
+                        style="margin-left: auto;"
+                        aria-label="Toggle fullscreen mode"
+                        title="Press ESC to exit fullscreen">
+                    Fullscreen
+                </button>
+            </div>
         </div>
-        <!-- Fullscreen button (bottom right) -->
-        <button id="pdf-fullscreen-btn" onclick="togglePdfFullscreen()"
-                style="position: absolute; bottom: 10px; right: 10px;"
-                aria-label="Toggle fullscreen mode"
-                title="Press ESC to exit fullscreen">
-            Fullscreen
-        </button>
     </div>
 
     <!-- Text content viewer (fallback) -->
     <div id="text-content-viewer" style="display: none; border: 1px solid #ccc; padding: 15px; margin-top: 10px; max-height: 500px; overflow: auto;"></div>
+    <!-- textBand - Alternative display to partialtitre, fixed under upload -->
+    <div id="textBand" style="display: block; border-radius: 25px; height: 150px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 18px; font-family: helvetica, arial, sans-serif; font-style: italic; padding: 10px; box-shadow: 2px 2px 5px rgb(0, 0, 0); overflow: auto; margin-top: 10px;"></div>
 </div>
-<div id="notebookcompleteformatted" style="border: solid 1px; height: 600px; overflow: auto;"> </div>
 </div>
 <!-- ADMIN CONFIGURATION -->
 <div id="admin-config" style="border: 2px solid #4CAF50; padding: 15px; margin: 20px 0; background-color: #f0fff0;">

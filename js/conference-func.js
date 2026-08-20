@@ -1463,7 +1463,11 @@ function EcrirePartial(ch) {
 
     // Mettre à jour l'interface
     if (ch != 'undefined' && ch != undefined) {
-        _('partialtitre').innerHTML = ch;
+        _('textBand').innerHTML = ch;
+        // Synchroniser avec partialtitre si la case est cochée (utilisation de partialtitre)
+        if (_('usetextband') && _('usetextband').checked) {
+            _('partialtitre').innerHTML = ch;
+        }
     }
 
     // Vérifier que ROOMID est défini et non vide
@@ -2414,6 +2418,11 @@ function applyConfig() {
     _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
     setLanguageSubtitle(_('subtitlelanguage').value);
     // Les autres paramètres de config ne sont plus utilisés (éléments supprimés)
+    
+    // Initialiser l'affichage de textBand
+    if (_('usetextband')) {
+        toggleTextBandDisplay();
+    }
 }
 
 /**
@@ -2654,9 +2663,11 @@ function displayPDF(url) {
     // Hide text viewer, show PDF viewer
     const pdfViewer = get('pdf-viewer');
     const textViewer = get('text-content-viewer');
+    const pdfControl = get('pdf-control');
     
     if (pdfViewer) pdfViewer.style.display = 'block';
     if (textViewer) textViewer.style.display = 'none';
+    if (pdfControl) pdfControl.style.display = 'block';
 
     pdfjsLib.getDocument(url).promise.then(function(pdf) {
         pdfDoc = pdf;
@@ -2675,6 +2686,7 @@ function displayPDF(url) {
 function displayTextContent(content) {
     const viewer = get('text-content-viewer');
     const pdfViewer = get('pdf-viewer');
+    const pdfControl = get('pdf-control');
     
     if (viewer) {
         viewer.style.display = 'block';
@@ -2683,6 +2695,7 @@ function displayTextContent(content) {
         viewer.textContent = content;
     }
     if (pdfViewer) pdfViewer.style.display = 'none';
+    if (pdfControl) pdfControl.style.display = 'none';
 }
 
 /**
@@ -2754,9 +2767,9 @@ document.addEventListener('keydown', function(event) {
  * @param {string} message - Error message
  */
 function showPresentationError(message) {
-    const notebook = get('notebookcompleteformatted');
+    const notebook = get('progress-status');
     if (notebook) {
-        notebook.innerHTML = `<div style="padding: 20px; color: red; text-align: center;">${message}</div>`;
+        notebook.innerHTML = `<span style="color: red; font-weight: bold;">${message}</span>`;
     }
 }
 
@@ -2788,8 +2801,10 @@ function handleFileSelect(event) {
     // Hide viewers
     const pdfViewer = get('pdf-viewer');
     const textViewer = get('text-content-viewer');
+    const pdfControl = get('pdf-control');
     if (pdfViewer) pdfViewer.style.display = 'none';
     if (textViewer) textViewer.style.display = 'none';
+    if (pdfControl) pdfControl.style.display = 'none';
 
     // Create FormData and upload
     const formData = new FormData();
@@ -2883,6 +2898,24 @@ if (document.readyState === 'loading') {
     const fileInput = get('presentation_file');
     if (fileInput) {
         fileInput.addEventListener('change', handleFileSelect);
+    }
+}
+
+/**
+ * @summary Toggle display between partialtitre and textBand based on checkbox
+ */
+function toggleTextBandDisplay() {
+    var useTextBand = _('usetextband').checked;
+    if (useTextBand) {
+        // Masquer textBand, afficher partialtitre
+        _('textBand').style.display = 'none';
+        _('partialtitre').style.display = 'block';
+        // Synchroniser le contenu
+        _('partialtitre').innerHTML = _('textBand').innerHTML;
+    } else {
+        // Masquer partialtitre, afficher textBand
+        _('partialtitre').style.display = 'none';
+        _('textBand').style.display = 'block';
     }
 }
 
