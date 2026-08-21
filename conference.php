@@ -31,6 +31,7 @@ $pageScripts = ["/js/conference-def.js",
                 "/js/chat-common.js",
                 "/js/chat-alert.js",
                 "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
+                "/js/pdf-init.js",
                 "/js/utils/dom.js",
                 "/js/utils/dialog.js",
                 "/js/utils/draggable.js",
@@ -214,7 +215,6 @@ include_once __DIR__ . '/includes/header.php';
 
 <div id="partialtitre" style="color: white; opacity: 0.5; background-color: black; display: none; font-size: 18px;"></div>
 
-
 <h3 class="tabbed">For students</h3>
 <div>
 	<ul style="list-style-type: none;">
@@ -237,7 +237,7 @@ include_once __DIR__ . '/includes/header.php';
 </div>
 
 <!-- NEW PRESENTATION UPLOAD INTERFACE -->
-<div>
+<div style="display: block; min-height: 160px;">
     <!-- File input with auto-upload on change -->
     <label for="presentation_file">Upload Presentation:</label>
     <input type="file" id="presentation_file" name="presentation_file"
@@ -252,9 +252,9 @@ include_once __DIR__ . '/includes/header.php';
              aria-label="Upload and conversion progress"></progress>
     <span id="progress-status" style="margin-left: 10px;" aria-live="polite"></span>
 
-    <!-- PDF.js viewer container (hidden by default) -->
-    <div id="pdf-viewer" style="display: none; margin-top: 10px; position: relative;">
-        <canvas id="pdf-canvas" style="border: 1px solid #ccc; max-width: 100%;"></canvas>
+    <!-- PDF.js viewer container -->
+    <div id="pdf-viewer" style="display: block; visibility: hidden; margin-top: 10px; position: relative;">
+        <canvas id="pdf-canvas" style="display: none; border: 1px solid #ccc; max-width: 100%;"></canvas>
         <!-- PDF control panel -->
         <div id="pdf-control" style="display: none; margin-top: 10px;">
             <div style="display: flex; justify-content: center; gap: 20px; margin: 10px 0;">
@@ -274,15 +274,18 @@ include_once __DIR__ . '/includes/header.php';
                     Fullscreen
                 </button>
             </div>
-        </div>
+        <!-- textBand -->
+        <div id="textBand" style="display: block; visibility: visible; border-radius: 25px; height: 150px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 18px; font-family: helvetica, arial, sans-serif; font-style: italic; padding: 10px; box-shadow: 2px 2px 5px rgb(0, 0, 0); overflow: auto; margin-top: 10px;"></div>
     </div>
 
     <!-- Text content viewer (fallback) -->
     <div id="text-content-viewer" style="display: none; border: 1px solid #ccc; padding: 15px; margin-top: 10px; max-height: 500px; overflow: auto;"></div>
-    <!-- textBand - Alternative display to partialtitre, fixed under upload -->
-    <div id="textBand" style="display: block; border-radius: 25px; height: 150px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 18px; font-family: helvetica, arial, sans-serif; font-style: italic; padding: 10px; box-shadow: 2px 2px 5px rgb(0, 0, 0); overflow: auto; margin-top: 10px;"></div>
+
+
 </div>
-</div>
+
+
+<div id="textfixe" style="border-radius: 25px; height: 150px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 18px; font-family: helvetica, arial, sans-serif; font-style: italic; padding: 10px; box-shadow: 2px 2px 5px rgb(0, 0, 0); overflow: auto; margin-top: 10px; display: block;"></div>
 <!-- ADMIN CONFIGURATION -->
 <div id="admin-config" style="border: 2px solid #4CAF50; padding: 15px; margin: 20px 0; background-color: #f0fff0;">
     <h2 style="color: #2E7D32; text-align: center;">ADMIN - Configuration Traduction</h2>
@@ -363,5 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 500);
 });
 </script>
+
 
 <?php include_once __DIR__ . '/includes/footer.php'; ?>

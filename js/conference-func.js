@@ -1464,6 +1464,7 @@ function EcrirePartial(ch) {
     // Mettre à jour l'interface
     if (ch != 'undefined' && ch != undefined) {
         _('textBand').innerHTML = ch;
+        _('textfixe').innerHTML = ch;
         // Synchroniser avec partialtitre si la case est cochée (utilisation de partialtitre)
         if (_('usetextband') && _('usetextband').checked) {
             _('partialtitre').innerHTML = ch;
@@ -2481,16 +2482,23 @@ function sendclick() {
 // ============================================================================
 
 // PDF.js configuration - set worker path and CMap support for better font rendering
-if (typeof pdfjsLib !== 'undefined') {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-    
-    // Add CMap support for proper character encoding in PDFs
-    // This resolves "TT: undefined function" warnings
-    pdfjsLib.GlobalWorkerOptions.cMapUrl = 
-        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
-    pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
+function configurePdfJs() {
+    if (typeof pdfjsLib !== 'undefined') {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+        
+        // Add CMap support for proper character encoding in PDFs
+        // This resolves "TT: undefined function" warnings
+        pdfjsLib.GlobalWorkerOptions.cMapUrl = 
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
+        pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
+    } else {
+        setTimeout(configurePdfJs, 200);
+    }
 }
+
+// Appeler la configuration
+configurePdfJs();
 
 // Keyboard navigation for PDF viewer
 // Allows Left/Right arrows, Home, End for navigation
@@ -2534,6 +2542,16 @@ let canvas = null;
 let ctx = null;
 let currentRenderTask = null;
 
+// Fullscreen state variables
+let originalPdfScale = 1.5;
+let fullscreenScale = 1.5;
+let isCalculatingFullscreenScale = false;
+
+// Store original canvas style for fullscreen toggle
+let originalCanvasStyle = '';
+let originalTextBandStyle = '';
+let originalPdfControlStyle = { cssText: '', buttonStyles: [] };
+
 /**
  * Initialize PDF.js viewer elements
  */
@@ -2549,6 +2567,12 @@ function initPdfViewer() {
  * @param {number} num - Page number to render
  */
 function renderPage(num) {
+    // Don't start new render if one is already in progress
+    if (pageRendering) {
+        pageNumPending = num;
+        return;
+    }
+
     pageRendering = true;
 
     // Cancel any previous render task to avoid canvas conflicts
@@ -2558,7 +2582,34 @@ function renderPage(num) {
     }
 
     pdfDoc.getPage(num).then(function(page) {
-        const viewport = page.getViewport({ scale: scale });
+        const isFullscreen = document.fullscreenElement || 
+                            document.webkitFullscreenElement || 
+                            document.mozFullScreenElement || 
+                            document.msFullscreenElement;
+        
+        let viewport;
+        if (isFullscreen) {
+            // In fullscreen mode, size canvas to fit the available space
+            // Account for bottom: 170px margin for controls
+            const parent = canvas.parentElement;
+            if (parent) {
+                const availableWidth = parent.clientWidth;
+                const availableHeight = parent.clientHeight - 170; // Reserve space for controls
+                
+                // Get page original dimensions
+                const originalViewport = page.getViewport({ scale: 1.0 });
+                const widthScale = availableWidth / originalViewport.width;
+                const heightScale = availableHeight / originalViewport.height;
+                const fsScale = Math.min(widthScale, heightScale) * 0.95;
+                
+                viewport = page.getViewport({ scale: fsScale });
+            } else {
+                viewport = page.getViewport({ scale: scale });
+            }
+        } else {
+            viewport = page.getViewport({ scale: scale });
+        }
+        
         canvas.height = viewport.height;
         canvas.width = viewport.width;
 
@@ -2660,23 +2711,44 @@ function queueRenderPage(num) {
  * @param {string} url - Path to the PDF file
  */
 function displayPDF(url) {
-    // Hide text viewer, show PDF viewer
-    const pdfViewer = get('pdf-viewer');
-    const textViewer = get('text-content-viewer');
-    const pdfControl = get('pdf-control');
-    
-    if (pdfViewer) pdfViewer.style.display = 'block';
-    if (textViewer) textViewer.style.display = 'none';
-    if (pdfControl) pdfControl.style.display = 'block';
 
-    pdfjsLib.getDocument(url).promise.then(function(pdf) {
-        pdfDoc = pdf;
-        pageNum = 1;
-        renderPage(1);
-    }).catch(function(error) {
-        console.error('Error loading PDF:', error);
-        showPresentationError('Failed to load PDF: ' + error.message);
-    });
+    // Attendre que PDF.js soit chargé
+    function waitForPdfJs() {
+        if (typeof pdfjsLib !== 'undefined' && pdfjsLib.getDocument) {
+            loadPDF();
+        } else {
+            setTimeout(waitForPdfJs, 200);
+        }
+    }
+
+    function loadPDF() {
+        const pdfViewer = get('pdf-viewer');
+        const textViewer = get('text-content-viewer');
+        const pdfControl = get('pdf-control');
+        
+        if (pdfViewer) pdfViewer.style.visibility = 'visible';
+        const canvas = get('pdf-canvas');
+        if (canvas) canvas.style.display = 'block';
+        if (textViewer) textViewer.style.display = 'none';
+        if (pdfControl) pdfControl.style.display = 'block';
+        // Masquer textfixe quand une presentation est chargée
+        const textfixe = get('textfixe');
+        if (textfixe) textfixe.style.display = 'none';
+
+        // Passer l'URL directement à PDF.js (plus simple et évite les problèmes de Blob)
+        pdfjsLib.getDocument(url).promise
+            .then(pdf => {
+                pdfDoc = pdf;
+                pageNum = 1;
+                renderPage(1);
+            })
+            .catch(error => {
+                showPresentationError('Erreur chargement PDF: ' + error.message);
+            });
+    }
+
+    // Démarrer l'attente
+    waitForPdfJs();
 }
 
 /**
@@ -2694,8 +2766,14 @@ function displayTextContent(content) {
         viewer.style.wordWrap = 'break-word';
         viewer.textContent = content;
     }
-    if (pdfViewer) pdfViewer.style.display = 'none';
+    // Masquer pdf-viewer mais garder textBand visible (visibility: visible)
+    if (pdfViewer) pdfViewer.style.visibility = 'hidden';
+    const canvas = get('pdf-canvas');
+    if (canvas) canvas.style.display = 'none';
     if (pdfControl) pdfControl.style.display = 'none';
+    // Masquer textfixe quand une presentation (texte) est chargée
+    const textfixe = get('textfixe');
+    if (textfixe) textfixe.style.display = 'none';
 }
 
 /**
@@ -2704,37 +2782,312 @@ function displayTextContent(content) {
  */
 function togglePdfFullscreen() {
     const pdfViewer = get('pdf-viewer');
+    const fullscreenBtn = get('pdf-fullscreen-btn');
     
-    if (!pdfViewer) {
+    if (!pdfViewer || !fullscreenBtn) {
         return;
     }
 
     // Check if already in fullscreen
-    if (document.fullscreenElement || document.webkitFullscreenElement || 
-        document.mozFullScreenElement || document.msFullscreenElement) {
-        // Exit fullscreen with browser prefixes
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
+    const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || 
+                        document.mozFullScreenElement || document.msFullscreenElement;
+
+    if (isFullscreen) {
+        // Exit fullscreen
+        exitPdfFullscreen();
     } else {
-        // Enter fullscreen with browser prefixes
-        if (pdfViewer.requestFullscreen) {
-            pdfViewer.requestFullscreen();
-        } else if (pdfViewer.webkitRequestFullscreen) {
-            pdfViewer.webkitRequestFullscreen();
-        } else if (pdfViewer.mozRequestFullScreen) {
-            pdfViewer.mozRequestFullScreen();
-        } else if (pdfViewer.msRequestFullscreen) {
-            pdfViewer.msRequestFullscreen();
+        // Enter fullscreen
+        enterPdfFullscreen(pdfViewer);
+    }
+}
+
+/**
+ * Save current inline styles before entering fullscreen
+ */
+function saveCurrentCanvasStyles() {
+    const canvasEl = get('pdf-canvas');
+    const textBandEl = get('textBand');
+    const pdfControlEl = get('pdf-control');
+    
+    if (canvasEl) {
+        originalCanvasStyle = canvasEl.style.cssText;
+    }
+    
+    if (textBandEl) {
+        originalTextBandStyle = textBandEl.style.cssText;
+    }
+    
+    if (pdfControlEl) {
+        originalPdfControlStyle.cssText = pdfControlEl.style.cssText;
+        
+        // Save button styles
+        const controlButtons = pdfControlEl.querySelectorAll('button, input, span');
+        originalPdfControlStyle.buttonStyles = [];
+        controlButtons.forEach(el => {
+            originalPdfControlStyle.buttonStyles.push({
+                tagName: el.tagName,
+                background: el.style.background,
+                color: el.style.color,
+                border: el.style.border
+            });
+        });
+    }
+}
+
+/**
+ * Apply fullscreen styles to canvas via JavaScript
+ * This ensures styles override inline styles
+ */
+function applyFullscreenCanvasStyles() {
+    const canvasEl = get('pdf-canvas');
+    const textBandEl = get('textBand');
+    const pdfControlEl = get('pdf-control');
+    
+    if (!canvasEl) return;
+
+    // Apply fullscreen styles directly via style property to canvas
+    canvasEl.style.position = 'absolute';
+    canvasEl.style.top = '0';
+    canvasEl.style.left = '50%';
+    canvasEl.style.bottom = '163px';
+    canvasEl.style.transform = 'translateX(-50%)';
+    canvasEl.style.width = 'auto';
+    canvasEl.style.height = 'auto';
+    canvasEl.style.boxSizing = 'border-box';
+    canvasEl.style.zIndex = '9999';
+    
+    // Apply fullscreen styles to textBand
+    if (textBandEl) {
+        textBandEl.style.position = 'fixed';
+        textBandEl.style.bottom = '0';
+        textBandEl.style.left = '0';
+        textBandEl.style.right = '0';
+        textBandEl.style.height = '100px';
+        textBandEl.style.width = '100%';
+        textBandEl.style.padding = '0';
+        textBandEl.style.margin = '0';
+        textBandEl.style.borderRadius = '0';
+        textBandEl.style.overflow = 'hidden';
+        textBandEl.style.zIndex = '10001';
+        textBandEl.style.display = 'block';
+    }
+    
+    // Apply fullscreen styles to pdf-control
+    if (pdfControlEl) {
+        pdfControlEl.style.position = 'fixed';
+        pdfControlEl.style.bottom = '100px';
+        pdfControlEl.style.left = '0';
+        pdfControlEl.style.right = '0';
+        pdfControlEl.style.margin = '0';
+        pdfControlEl.style.padding = '10px 0';
+        pdfControlEl.style.background = 'rgba(0, 0, 0, 0.8)';
+        pdfControlEl.style.zIndex = '10000';
+        pdfControlEl.style.display = 'block';
+        
+        // Style the buttons inside pdf-control for fullscreen
+        const controlButtons = pdfControlEl.querySelectorAll('button, input, span');
+        controlButtons.forEach(el => {
+            if (el.tagName === 'BUTTON') {
+                el.style.background = 'rgba(255, 255, 255, 0.2)';
+                el.style.color = 'white';
+                el.style.border = '1px solid rgba(255, 255, 255, 0.4)';
+            } else if (el.tagName === 'SPAN') {
+                el.style.color = 'white';
+                el.style.background = 'transparent';
+            } else if (el.tagName === 'INPUT') {
+                el.style.background = 'rgba(0, 0, 0, 0.5)';
+                el.style.color = 'white';
+                el.style.border = '1px solid rgba(255, 255, 255, 0.4)';
+            }
+        });
+    }
+}
+
+/**
+ * Restore original canvas styles
+ */
+function restoreCanvasStyles() {
+    const canvasEl = get('pdf-canvas');
+    const textBandEl = get('textBand');
+    const pdfControlEl = get('pdf-control');
+    
+    if (canvasEl && originalCanvasStyle) {
+        canvasEl.style.cssText = originalCanvasStyle;
+    }
+    
+    if (textBandEl && originalTextBandStyle) {
+        textBandEl.style.cssText = originalTextBandStyle;
+    }
+    
+    if (pdfControlEl && originalPdfControlStyle && originalPdfControlStyle.cssText) {
+        pdfControlEl.style.cssText = originalPdfControlStyle.cssText;
+        
+        // Restore button styles
+        if (originalPdfControlStyle.buttonStyles) {
+            const controlButtons = pdfControlEl.querySelectorAll('button, input, span');
+            controlButtons.forEach((el, index) => {
+                if (index < originalPdfControlStyle.buttonStyles.length) {
+                    const orig = originalPdfControlStyle.buttonStyles[index];
+                    if (orig.tagName === el.tagName) {
+                        el.style.background = orig.background;
+                        el.style.color = orig.color;
+                        el.style.border = orig.border;
+                    }
+                }
+            });
         }
     }
 }
+
+/**
+ * Enter fullscreen mode for PDF viewer
+ * @param {HTMLElement} element - The element to make fullscreen
+ */
+function enterPdfFullscreen(element) {
+    // Save original scale
+    originalPdfScale = scale;
+    
+    // Save current styles BEFORE requesting fullscreen
+    saveCurrentCanvasStyles();
+    
+    // Update button text
+    const fullscreenBtn = get('pdf-fullscreen-btn');
+    if (fullscreenBtn) {
+        fullscreenBtn.textContent = 'Exit Fullscreen';
+        fullscreenBtn.title = 'Exit fullscreen mode';
+    }
+
+    // Request fullscreen with browser prefixes
+    const requestPromise = new Promise((resolve) => {
+        const onFullscreen = () => {
+            document.removeEventListener('fullscreenchange', onFullscreen);
+            document.removeEventListener('webkitfullscreenchange', onFullscreen);
+            document.removeEventListener('mozfullscreenchange', onFullscreen);
+            document.removeEventListener('MSFullscreenChange', onFullscreen);
+            resolve();
+        };
+        
+        document.addEventListener('fullscreenchange', onFullscreen);
+        document.addEventListener('webkitfullscreenchange', onFullscreen);
+        document.addEventListener('mozfullscreenchange', onFullscreen);
+        document.addEventListener('MSFullscreenChange', onFullscreen);
+        
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+        
+        // Fallback timeout if event doesn't fire
+        setTimeout(onFullscreen, 500);
+    });
+    
+    requestPromise.then(() => {
+        // Apply fullscreen styles via JS to ensure they override inline styles
+        applyFullscreenCanvasStyles();
+        // Calculate optimal scale and render after styles are applied
+        calculateFullscreenScale();
+    });
+}
+
+/**
+ * Exit fullscreen mode for PDF viewer
+ */
+function exitPdfFullscreen() {
+    // Restore original canvas styles first
+    restoreCanvasStyles();
+    
+    // Restore original scale
+    scale = originalPdfScale;
+    
+    // Re-render current page with original scale
+    if (pdfDoc && pageNum) {
+        renderPage(pageNum);
+    }
+    
+    // Update button text
+    const fullscreenBtn = get('pdf-fullscreen-btn');
+    if (fullscreenBtn) {
+        fullscreenBtn.textContent = 'Fullscreen';
+        fullscreenBtn.title = 'Toggle fullscreen mode';
+    }
+
+    // Exit fullscreen with browser prefixes
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+}
+
+/**
+ * Calculate optimal scale for fullscreen PDF display
+ * Takes into account screen size and reserved space for textBand and pdf-control
+ */
+function calculateFullscreenScale() {
+    const pdfCanvas = get('pdf-canvas');
+    if (!pdfCanvas || !pdfDoc) return;
+
+    // Don't calculate if already in progress
+    if (isCalculatingFullscreenScale) {
+        return;
+    }
+    isCalculatingFullscreenScale = true;
+
+    // Reserve space: ~50px for pdf-control + 100px for textBand + 20px margin = 170px
+    const reservedHeight = 170;
+    const availableHeight = window.innerHeight - reservedHeight;
+    const availableWidth = window.innerWidth;
+
+    // Get first page dimensions to calculate aspect ratio
+    pdfDoc.getPage(1).then(function(page) {
+        const originalViewport = page.getViewport({ scale: 1.0 });
+        
+        // Calculate scale based on available height and width
+        const heightScale = availableHeight / originalViewport.height;
+        const widthScale = availableWidth / originalViewport.width;
+        
+        // Use the scale that fits the entire page
+        fullscreenScale = Math.min(heightScale, widthScale) * 0.95; // 5% margin
+        
+        // Apply the scale
+        scale = fullscreenScale;
+        
+        // Re-render current page if not already rendering
+        if (pageNum && !pageRendering) {
+            renderPage(pageNum);
+        }
+        isCalculatingFullscreenScale = false;
+    }).catch(function(error) {
+        console.error('Error calculating fullscreen scale:', error);
+        isCalculatingFullscreenScale = false;
+    });
+}
+
+/**
+ * Recalculate scale when window is resized in fullscreen mode
+ */
+function handleFullscreenResize() {
+    const isFullscreen = document.fullscreenElement || 
+                        document.webkitFullscreenElement || 
+                        document.mozFullScreenElement || 
+                        document.msFullscreenElement;
+    
+    if (isFullscreen) {
+        // Use a small timeout to allow the resize to complete
+        setTimeout(calculateFullscreenScale, 100);
+    }
+}
+
+
 
 // Add ESC key handler for fullscreen exit
 // Only active when in fullscreen mode
@@ -2746,18 +3099,18 @@ document.addEventListener('keydown', function(event) {
                             document.mozFullScreenElement || 
                             document.msFullscreenElement;
         
-        if (isFullscreen) {
+        const pdfViewer = get('pdf-viewer');
+        const isPdfFullscreen = pdfViewer && (
+            pdfViewer === document.fullscreenElement ||
+            pdfViewer === document.webkitFullscreenElement ||
+            pdfViewer === document.mozFullScreenElement ||
+            pdfViewer === document.msFullscreenElement
+        );
+        
+        if (isFullscreen && isPdfFullscreen) {
             event.preventDefault();
-            // Exit fullscreen with browser prefixes
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.msExitFullscreen) {
-                document.msExitFullscreen();
-            }
+            // Use our exit function which handles scale and button text
+            exitPdfFullscreen();
         }
     }
 });
@@ -2767,9 +3120,11 @@ document.addEventListener('keydown', function(event) {
  * @param {string} message - Error message
  */
 function showPresentationError(message) {
-    const notebook = get('progress-status');
-    if (notebook) {
-        notebook.innerHTML = `<span style="color: red; font-weight: bold;">${message}</span>`;
+    const statusEl = get('progress-status');
+    if (statusEl) {
+        // Affiche en rouge ET dans la console
+        statusEl.innerHTML = `<span style="color: red; font-weight: bold;">ERREUR: ${message}</span>`;
+        // Ne plus effacer automatiquement
     }
 }
 
@@ -2798,11 +3153,13 @@ function handleFileSelect(event) {
         progressStatus.textContent = 'Preparing upload...';
     }
 
-    // Hide viewers
+    // Hide pdf-viewer (but textBand stays visible due to visibility: visible)
     const pdfViewer = get('pdf-viewer');
     const textViewer = get('text-content-viewer');
     const pdfControl = get('pdf-control');
-    if (pdfViewer) pdfViewer.style.display = 'none';
+    const canvas = get('pdf-canvas');
+    if (pdfViewer) pdfViewer.style.visibility = 'hidden';
+    if (canvas) canvas.style.display = 'none';
     if (textViewer) textViewer.style.display = 'none';
     if (pdfControl) pdfControl.style.display = 'none';
 
@@ -2836,7 +3193,9 @@ function handleFileSelect(event) {
             progressStatus.textContent = 'Converting...';
         }
         
-        return response.json();
+        return response.json().catch(err => {
+            throw new Error('Invalid JSON response: ' + err.message);
+        });
     })
     .then(data => {
         // Update progress to 100% when conversion is complete
@@ -2848,7 +3207,7 @@ function handleFileSelect(event) {
         }
 
         if (data.status === 'error') {
-            throw new Error(data.message);
+            throw new Error(data.message || 'Server error');
         }
 
         // Display based on file type
@@ -2870,17 +3229,6 @@ function handleFileSelect(event) {
             progressStatus.textContent = 'Error: ' + error.message;
         }
         showPresentationError('Upload failed: ' + error.message);
-    })
-    .finally(() => {
-        // Reset progress after a delay
-        setTimeout(() => {
-            if (progressBar) {
-                progressBar.value = 0;
-            }
-            if (progressStatus) {
-                progressStatus.textContent = '';
-            }
-        }, 2000);
     });
 }
 
@@ -2902,20 +3250,31 @@ if (document.readyState === 'loading') {
 }
 
 /**
- * @summary Toggle display between partialtitre and textBand based on checkbox
+ * @summary Toggle display between partialtitre, textBand and textfixe based on checkbox
  */
 function toggleTextBandDisplay() {
     var useTextBand = _('usetextband').checked;
+    var pdfViewer = _('pdf-viewer');
+    var hasPresentation = pdfViewer && pdfViewer.style.visibility === 'visible';
+    
     if (useTextBand) {
-        // Masquer textBand, afficher partialtitre
+        // Masquer textBand et textfixe, afficher partialtitre
         _('textBand').style.display = 'none';
         _('partialtitre').style.display = 'block';
+        if (!hasPresentation) {
+            _('textfixe').style.display = 'none';
+        }
         // Synchroniser le contenu
         _('partialtitre').innerHTML = _('textBand').innerHTML;
     } else {
-        // Masquer partialtitre, afficher textBand
+        // Masquer partialtitre, afficher textBand et textfixe (si pas de presentation)
         _('partialtitre').style.display = 'none';
         _('textBand').style.display = 'block';
+        if (!hasPresentation) {
+            _('textfixe').style.display = 'block';
+            // Synchroniser le contenu de textfixe avec partialtitre
+            _('textfixe').innerHTML = _('partialtitre').innerHTML;
+        }
     }
 }
 
@@ -2941,3 +3300,83 @@ setInterval(function() {
         }
     }
 }, 5000); // Vérifie toutes les 5 secondes
+
+
+/**
+ * Handle fullscreen state change event
+ * Updates button text and scale when entering/exiting fullscreen
+ */
+function handleFullscreenStateChange() {
+    const isFullscreen = document.fullscreenElement || 
+                        document.webkitFullscreenElement || 
+                        document.mozFullScreenElement || 
+                        document.msFullscreenElement;
+    
+    const fullscreenBtn = get('pdf-fullscreen-btn');
+    const pdfViewer = get('pdf-viewer');
+    
+    // Check if pdf-viewer is the fullscreen element
+    const isPdfFullscreen = pdfViewer && (
+        pdfViewer === document.fullscreenElement ||
+        pdfViewer === document.webkitFullscreenElement ||
+        pdfViewer === document.mozFullScreenElement ||
+        pdfViewer === document.msFullscreenElement
+    );
+    
+    if (isFullscreen && isPdfFullscreen) {
+        // Entered fullscreen on pdf-viewer
+        if (fullscreenBtn) {
+            fullscreenBtn.textContent = 'Exit Fullscreen';
+            fullscreenBtn.title = 'Exit fullscreen mode';
+        }
+        calculateFullscreenScale();
+        applyFullscreenCanvasStyles();
+    } else if (!isFullscreen) {
+        // Exited fullscreen
+        if (fullscreenBtn) {
+            fullscreenBtn.textContent = 'Fullscreen';
+            fullscreenBtn.title = 'Toggle fullscreen mode';
+        }
+        // Restore original scale
+        scale = originalPdfScale;
+        if (pdfDoc && pageNum) {
+            renderPage(pageNum);
+        }
+        restoreCanvasStyles();
+    }
+}
+
+/**
+ * Setup event listeners for PDF fullscreen functionality
+ */
+function setupPdfFullscreenListeners() {
+    // Fullscreen change events with browser prefixes
+    document.addEventListener('fullscreenchange', handleFullscreenStateChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenStateChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenStateChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenStateChange);
+    
+    // Window resize event for recalculating scale in fullscreen
+    window.addEventListener('resize', handleFullscreenResize);
+}
+
+// Initialize fullscreen listeners when the script loads
+setupPdfFullscreenListeners();
+
+// Add click handler to canvas for manual debug logging
+const pdfCanvas = get('pdf-canvas');
+if (pdfCanvas) {
+    pdfCanvas.addEventListener('click', function(e) {
+        // Double-click to avoid interfering with single click
+        // Or use Ctrl+Click for debug
+        if (e.ctrlKey || e.metaKey) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
+    // Also log on single click for easier debugging
+    pdfCanvas.addEventListener('dblclick', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+}

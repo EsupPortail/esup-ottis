@@ -7,8 +7,22 @@
 
 header('Content-Type: application/json');
 
+// === LOGGING ===
+$logFile = __DIR__ . '/uploads/upload_log.txt';
+file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Nouvelle requête\n", FILE_APPEND);
+
+// Log des infos du fichier
+if (isset($_FILES['presentation_file'])) {
+    $file = $_FILES['presentation_file'];
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Fichier: " . $file['name'] .
+        ", Taille: " . $file['size'] .
+        ", Type: " . $file['type'] .
+        ", Error: " . $file['error'] . "\n", FILE_APPEND);
+}
+
 // Check if file was uploaded
 if (!isset($_FILES['presentation_file'])) {
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: No file uploaded\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -41,6 +55,7 @@ if ($_FILES['presentation_file']['error'] !== UPLOAD_ERR_OK) {
             $errorMessage = 'File upload stopped by extension';
             break;
     }
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR UPLOAD: " . $errorMessage . " (code: " . $_FILES['presentation_file']['error'] . ")\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -70,6 +85,7 @@ $fileInfo = pathinfo($file['name']);
 $extension = strtolower($fileInfo['extension']);
 
 if (!in_array($extension, $allowedExtensions)) {
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: Invalid file type: " . $extension . "\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -81,6 +97,7 @@ if (!in_array($extension, $allowedExtensions)) {
 // Validate file size (50MB max)
 $maxFileSize = 50 * 1024 * 1024;
 if ($file['size'] > $maxFileSize) {
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: File too large (" . $file['size'] . " bytes)\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -92,6 +109,7 @@ if ($file['size'] > $maxFileSize) {
 // Create uploads directory if it doesn't exist
 if (!file_exists($uploadDir)) {
     if (!mkdir($uploadDir, 0755, true)) {
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: Failed to create upload directory\n", FILE_APPEND);
         http_response_code(500);
         echo json_encode([
             'status' => 'error',
@@ -107,6 +125,7 @@ $targetPath = $uploadDir . $uniqueId;
 
 // Move uploaded file to target location
 if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: Failed to save uploaded file\n", FILE_APPEND);
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
@@ -155,6 +174,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
     // Check if conversion succeeded (focus on file existence, not return code)
     // LibreOffice may return non-zero even on success due to warnings
     if ($converted && file_exists($pdfPath)) {
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "SUCCÈS: Conversion réussie (attempts: " . $attempt . ")\n", FILE_APPEND);
         // Remove original file (PPTX or ODP)
         unlink($targetPath);
         $targetPath = $pdfPath;
@@ -164,6 +184,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
         if (file_exists($targetPath)) {
             unlink($targetPath);
         }
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR CONVERSION: " . implode(" ", $output) . " (attempts: " . $attempt . ")\n", FILE_APPEND);
         http_response_code(500);
         echo json_encode([
             'status' => 'error',
@@ -180,6 +201,14 @@ if ($extension === 'pptx' || $extension === 'odp') {
 // Return success response
 // The URL is relative to the website root
 $relativeUrl = '/uploads/' . basename($targetPath);
+
+// Log de la réponse
+file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Réponse: " .
+    json_encode([
+        'status' => 'success',
+        'file' => $targetPath,
+        'exists' => file_exists($targetPath) ? 'YES' : 'NO'
+    ]) . "\n", FILE_APPEND);
 
 echo json_encode([
     'status' => 'success',
