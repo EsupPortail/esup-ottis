@@ -24,6 +24,7 @@ $pageTitle = "Omist - Conference";
 $pageStyles = [
                 "styles/auditor.css",
                 "styles/conference.css",
+                "https://fonts.googleapis.com/icon?family=Material+Icons",
                 "styles/chat.css"
 ];
 $pageScripts = ["/js/conference-def.js",
@@ -37,7 +38,8 @@ $pageScripts = ["/js/conference-def.js",
                 "/js/utils/draggable.js",
                 "/js/conference-func.js",
                 "/js/qrcode.min.js",
-                "/js/conference-post.js"
+                "/js/conference-post.js",
+                "/js/conference-events.js"
 ];
 
 
@@ -154,24 +156,24 @@ include_once __DIR__ . '/includes/header.php';
 <section id="language-section" class="conference-card" aria-labelledby="language-section-title">
     <h2 id="language-section-title">Configuration linguistique</h2>
     <div>
-	<ul style="list-style-type: none;">
+	<ul class="no-bullets">
 		<li>
 			<label for="classroomlanguage">Speaker language :</label>
-			<select id="classroomlanguage" onchange="setLanguageSpeech(this.value);" class="select"> </select>
+			<select id="classroomlanguage" class="select"> </select>
 		</li>
-		<li style="display: none;">
+		<li class="hidden">
 			<label for="recognitionon">Speech recognition active ? </label>
 			<input type="checkbox" id="recognitionon" >
 		</li>
 		<li>&nbsp;</li>
-		<li style="display: none;">Translate subtitles ?
-			<input type="checkbox" id="subtitleon" onclick="if (this.checked) _('spansubtitleon').innerHTML='Yes !'; else _('spansubtitleon').innerHTML='No.';" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
+		<li class="hidden">Translate subtitles ?
+			<input type="checkbox" id="subtitleon" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
 		<li><label for="subtitlelanguage">Language for subtitles :</label>
-			<select id="subtitlelanguage" onchange="setLanguageSubtitle(this.value);" class="select"> </select>
+			<select id="subtitlelanguage" class="select"> </select>
 		</li>
 		<li>
 			<label for="usetextband">Use partialtitre instead of textBand:</label>
-			<input type="checkbox" id="usetextband" onclick="toggleTextBandDisplay()">
+			<input type="checkbox" id="usetextband">
 		</li>
 	</ul>
 </div>
@@ -195,17 +197,17 @@ include_once __DIR__ . '/includes/header.php';
 
 <section id="notebook-section" class="conference-card" aria-labelledby="notebook-section-title">
     <h2 id="notebook-section-title">Notebook</h2>
-    <div id="notebooks_container" style="display: flex;">
+    <div id="notebooks_container">
 	<label>NOTEBOOK</label>
-	<div id="VO_container" style="width: 50%;">
-		<input type="button" id="buttondownloadspeechVO" value="Download the speech VO" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lessonVO_'+_('classroomid').value+'.txt', _('notebookVO').innerHTML);;" >
+	<div id="VO_container">
+		<input type="button" id="buttondownloadspeechVO" value="Download the speech VO" class="button-3 tooltip" title="Download the notebook in txt format.">
 		<br>
-		<div id="notebookVO" style="border: solid 1px;" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."></div>
+		<div id="notebookVO" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."></div>
 	</div>
-	<div id="translated_container" style="width: 50%;">
-		<input type="button" id="buttondownloadspeech" value="Download the speech translated" class="button-3 tooltip" title="Download the notebook in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', _('notebook').innerHTML);;" >
+	<div id="translated_container">
+		<input type="button" id="buttondownloadspeech" value="Download the speech translated" class="button-3 tooltip" title="Download the notebook in txt format.">
 		<br>
-		<div id="notebook" style="border: solid 1px;" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."> </div>
+		<div id="notebook" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."> </div>
 	</div>
 </div>
 </section>
@@ -213,84 +215,81 @@ include_once __DIR__ . '/includes/header.php';
 
 
 
-<div id="partialtitre" style="color: white; opacity: 0.5; background-color: black; display: none; font-size: 18px;"></div>
+<div id="partialtitre" class="hidden" style="display: none;"></div>
 
 <h3 class="tabbed">For students</h3>
 <div>
-	<ul style="list-style-type: none;">
+	<ul class="no-bullets">
 		<li><span id="connectedusers">connected users</span></li>
 		<li>Students application : <a id="sharedlink" href="auditor.php?ROOMID=<?php echo $classroomid;?>">auditor.php?ROOMID=<?php echo $classroomid;?></a></li>
 		<li>QR code :
-			<div title="" id="sharedqr" style="margin-left: auto; margin-right: auto;"></div>
+			<div title="" id="sharedqr"></div>
 		</li>
 	</ul>
 </div>
 
 <h3 class="tabbed">Remote control (SUPPRIMER ?)</h3>
 <div>
-	<ul style="list-style-type: none;">
+	<ul class="no-bullets">
 		<li>Remote control : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid;?>&LANG=fr,en&APPID=<?php echo $appid;?>">remote.php?ROOMID=<?php echo $classroomid;?>&LANG=fr,en&APPID=<?php echo $appid;?></a></li>
 		<li>QR code :
-			<div title="" id="remoteqr" style="margin-left: auto; margin-right: auto;"></div>
+			<div title="" id="remoteqr"></div>
 		</li>
 	</ul>
 </div>
 
 <!-- NEW PRESENTATION UPLOAD INTERFACE -->
-<div style="display: block; min-height: 160px;">
+<div>
     <!-- File input with auto-upload on change -->
     <label for="presentation_file">Upload Presentation:</label>
     <input type="file" id="presentation_file" name="presentation_file"
            accept=".pptx,.odp,.pdf,.txt,.html,.htm"
            aria-label="Upload presentation file"
-           title="Upload PPTX, ODP, PDF, TXT, or HTML file"
-           onchange="handleFileSelect(event)">
+           title="Upload PPTX, ODP, PDF, TXT, or HTML file">
 
     <!-- Progress indicator -->
     <progress id="presentation-progress" value="0" max="100"
-             style="width: 300px; margin-top: 5px;"
              aria-label="Upload and conversion progress"></progress>
-    <span id="progress-status" style="margin-left: 10px;" aria-live="polite"></span>
+    <span id="progress-status" aria-live="polite"></span>
 
     <!-- PDF.js viewer container -->
-    <div id="pdf-viewer" style="display: block; visibility: hidden; margin-top: 10px; position: relative;">
-        <canvas id="pdf-canvas" style="display: none; border: 1px solid #ccc; max-width: 100%;"></canvas>
+    <div id="pdf-viewer">
+        <canvas id="pdf-canvas"></canvas>
         <!-- PDF control panel -->
-        <div id="pdf-control" style="display: none; margin-top: 10px;">
-            <div style="display: flex; justify-content: center; gap: 20px; margin: 10px 0;">
-                <button id="pdf-prev" onclick="prevPage()" disabled
+        <div id="pdf-control">
+            <div>
+                <button id="pdf-prev" disabled
                         aria-label="Previous page"
                         title="Go to previous page">← Previous</button>
-                <span id="pdf-page-indicator" style="align-self: center;">Page 1 of 1</span>
-                <button id="pdf-next" onclick="nextPage()" disabled
+                <span id="pdf-page-indicator">Page 1 of 1</span>
+                <button id="pdf-next" disabled
                         aria-label="Next page"
                         title="Go to next page">Next →</button>
-                <input type="number" id="pdf-page-input" min="1" style="width: 60px;"
-                       onchange="goToPage(this.value)" aria-label="Go to page number">
-                <button id="pdf-fullscreen-btn" onclick="togglePdfFullscreen()"
-                        style="margin-left: auto;"
+                <input type="number" id="pdf-page-input" min="1"
+                       aria-label="Go to page number">
+                <button id="pdf-fullscreen-btn"
                         aria-label="Toggle fullscreen mode"
                         title="Press ESC to exit fullscreen">
                     Fullscreen
                 </button>
             </div>
         <!-- textBand -->
-        <div id="textBand" style="display: block; visibility: visible; border-radius: 25px; height: 150px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 18px; font-family: helvetica, arial, sans-serif; font-style: italic; padding: 10px; box-shadow: 2px 2px 5px rgb(0, 0, 0); overflow: auto; margin-top: 10px;"></div>
+        <div id="textBand" class="text-band-style" style="display: block; visibility: visible;"></div>
     </div>
 
     <!-- Text content viewer (fallback) -->
-    <div id="text-content-viewer" style="display: none; border: 1px solid #ccc; padding: 15px; margin-top: 10px; max-height: 500px; overflow: auto;"></div>
+    <div id="text-content-viewer"></div>
 
 
 </div>
 
 
-<div id="textfixe" style="border-radius: 25px; height: 150px; background-color: rgba(0, 0, 0, 0.5); color: white; font-size: 18px; font-family: helvetica, arial, sans-serif; font-style: italic; padding: 10px; box-shadow: 2px 2px 5px rgb(0, 0, 0); overflow: auto; margin-top: 10px; display: block;"></div>
+<div id="textfixe" class="text-band-style" style="display: block;"></div>
 <!-- ADMIN CONFIGURATION -->
-<div id="admin-config" style="border: 2px solid #4CAF50; padding: 15px; margin: 20px 0; background-color: #f0fff0;">
-    <h2 style="color: #2E7D32; text-align: center;">ADMIN - Configuration Traduction</h2>
+<div id="admin-config">
+    <h2>ADMIN - Configuration Traduction</h2>
     <label for="whichtranslator">Choix traducteur :</label>
-    <select id="whichtranslator" class="select" style="margin: 5px;">
+    <select id="whichtranslator" class="select">
         <option value="" selected>Default</option>
         <option value="DEEPLPRO">DeepL Pro API</option>
         <option value="DEEPLFREE">DeepL Free API</option>
@@ -301,71 +300,11 @@ include_once __DIR__ . '/includes/header.php';
 <!-- Bouton micro flottant en haut à droite -->
 <!-- Note: Le style de base est défini dans conference.min.css -->
 <!-- Ce style inline améliore la visibilité et la taille -->
-<div id="micon" onclick="Micro();"
-     title="Activer/Désactiver le microphone. Alternatives : barre d'espace, bouton rouge de la télécommande smartphone ou bouton du pointeur de présentation."
-     style="position: fixed; top: 15px; right: 15px; z-index: 1000; width: 56px; height: 56px; font-size: 36px; background-color: #d32f2f; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.4); color: white; cursor: pointer; display: flex !important; align-items: center; justify-content: center;">
+<div id="micon" title="Activer/Désactiver le microphone. Alternatives : barre d'espace, bouton rouge de la télécommande smartphone ou bouton du pointeur de présentation.">
     <i class='material-icons'>voice_over_off</i>
 </div>
 
-<!-- Amélioration du style pour l'état actif (vert) et animation -->
-<style>
-    /* Style amélioré pour micon quand actif (via classe .blink ajoutée par Micro()) */
-    #micon .blink {
-        color: white !important;
-        animation: microPulse 1.5s infinite !important;
-    }
-    #micon:has(.blink) {
-        background-color: #4caf50 !important;
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6) !important;
-    }
-    @keyframes microPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-    }
-    
-    /* Compatibilité pour les anciens navigateurs (sans :has) */
-    #micon.blink-active {
-        background-color: #4caf50 !important;
-        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6) !important;
-    }
-</style>
-
-<script>
-// Patch pour compatibilité des anciens navigateurs avec :has()
-// Ajoute une classe sur micon quand l'icône est en mode enregistrement
-document.addEventListener('DOMContentLoaded', function() {
-    var micon = document.getElementById('micon');
-    if (micon) {
-        // Vérifier périodiquement si l'icône a changé
-        setInterval(function() {
-            var icon = micon.querySelector('.blink');
-            if (icon) {
-                micon.classList.add('blink-active');
-            } else {
-                micon.classList.remove('blink-active');
-            }
-        }, 500);
-    }
-});
-</script>
-
-<!-- Initialize chat alert after all scripts are loaded -->
-<script>
-// Initialize chat alert when DOM is ready - using native DOMContentLoaded instead of jQuery
- document.addEventListener('DOMContentLoaded', function() {
-    // Wait to ensure all scripts are loaded
-    setTimeout(function() {
-        if (typeof initChatAlert === 'function') {
-            // In conference, the sender is always "Intervenant" for chat messages
-            // Use that as current user to filter out own messages
-            var userName = 'Intervenant';
-            initChatAlert(userName);
-        } else {
-            console.error('[Chat Alert] Conference: initChatAlert function not found!');
-        }
-    }, 500);
-});
-</script>
+<!-- -->
 
 
 <?php include_once __DIR__ . '/includes/footer.php'; ?>

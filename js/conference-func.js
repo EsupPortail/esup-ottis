@@ -2804,6 +2804,11 @@ function togglePdfFullscreen() {
 /**
  * Save current inline styles before entering fullscreen
  */
+
+// Variables pour sauvegarde ciblée (Option B - sauvegarde display/visibility uniquement)
+var originalTextBandDisplay = '';
+var originalTextBandVisibility = '';
+
 function saveCurrentCanvasStyles() {
     const canvasEl = get('pdf-canvas');
     const textBandEl = get('textBand');
@@ -2814,7 +2819,10 @@ function saveCurrentCanvasStyles() {
     }
     
     if (textBandEl) {
-        originalTextBandStyle = textBandEl.style.cssText;
+        // Sauvegarde ciblée (Option B)
+        originalTextBandDisplay = textBandEl.style.display;
+        originalTextBandVisibility = textBandEl.style.visibility;
+        originalTextBandStyle = textBandEl.style.cssText; // Gardé pour compatibilité
     }
     
     if (pdfControlEl) {
