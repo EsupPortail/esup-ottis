@@ -5,6 +5,18 @@
  * All output files are PDF format for consistent display with PDF.js
  */
 
+require_once __DIR__ . '/Security/csrf.php';
+require_once __DIR__ . '/Security/validate.php';
+
+// Vérification du token CSRF
+if (!verifyCsrfRequest()) {
+    http_response_code(403);
+    die(json_encode([
+        'status' => 'error',
+        'message' => 'CSRF token validation failed'
+    ]));
+}
+
 header('Content-Type: application/json');
 
 // === LOGGING ===
@@ -90,6 +102,21 @@ if (!in_array($extension, $allowedExtensions)) {
     echo json_encode([
         'status' => 'error',
         'message' => 'Invalid file type. Allowed: ' . implode(', ', $allowedExtensions)
+    ]);
+    exit;
+}
+
+// Validate actual MIME type using finfo
+$finfo = finfo_open(FILEINFO_MIME_TYPE);
+$detectedMime = finfo_file($finfo, $file['tmp_name']);
+finfo_close($finfo);
+
+if (!in_array($detectedMime, $allowedMimeTypes)) {
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: Invalid MIME type: " . $detectedMime . "\n", FILE_APPEND);
+    http_response_code(400);
+    echo json_encode([
+        'status' => 'error',
+        'message' => 'Invalid MIME type. Detected: ' . $detectedMime
     ]);
     exit;
 }

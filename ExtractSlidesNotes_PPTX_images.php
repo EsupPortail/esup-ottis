@@ -3,6 +3,14 @@ ini_set("upload_max_filesize", "50M");
 ini_set("post_max_size", "50M");
 include("config.php");
 
+require_once __DIR__ . '/Security/csrf.php';
+
+// Vérification du token CSRF
+if (!verifyCsrfRequest()) {
+    http_response_code(403);
+    die(json_encode(["error" => "CSRF token validation failed"]));
+}
+
 // Debug: Log all input
 error_log("POST: " . print_r($_POST, true));
 error_log("FILES: " . print_r($_FILES, true));

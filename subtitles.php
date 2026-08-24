@@ -4,6 +4,9 @@
     header('Expires: 0');
     header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
     header('Cache-Control: no-cache, must-revalidate');
+
+require_once __DIR__ . '/Security/csrf.php';
+initCsrfProtection();
 ?>
 <?php
 
@@ -46,6 +49,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	?>
   <link rel="icon" type="image/png" href="./images/favicon.svg" >
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 <script>
 
 ?>
@@ -212,6 +216,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
 </head>
 <body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); setInterval(readTextSub, 500); setInterval(readTextSubTranscript, 300);/*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
+<?php echo csrfField(); ?>
 <main>
 <h1 style="display:none;">Sous-titres</h1>
 </main>

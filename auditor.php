@@ -8,6 +8,13 @@ require_once __DIR__ . '/Security/room_tokens.php';
 $roomToken = generateRoomToken($classroomid);
 require_once __DIR__ . '/includes/chat-component.php';
 
+// Initialiser la protection CSRF
+require_once __DIR__ . '/Security/csrf.php';
+initCsrfProtection();
+
+// Inclure les fonctions de sanitization
+require_once __DIR__ . '/Security/sanitize.php';
+
 $Tcolors = array("Red", "Blue", "Orange", "Purple", "Black", "White", "Green");
 $Tobjects = array("Alpaca", "Alligator", "Dragoon", "Elephant", "Lion", "Panther", "Tiger", "Zebra");
 $randomname = $Tcolors[mt_rand(0, count($Tcolors)-1)] . " " . $Tobjects[mt_rand(0, count($Tobjects)-1)];
@@ -84,6 +91,7 @@ $jsVars = [
     
     <link href="styles/auditor-specific.css" rel="stylesheet">
     <link href="styles/chat.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 </head>
 <body>
 <main>
@@ -99,6 +107,7 @@ $jsVars = [
 <div id="soustitre"></div>
 
 <form id="myform" onsubmit="return false;">
+<?php echo csrfField(); ?>
 
 <!-- Sections affichées à la suite -->
 	<section id="section-settings">
@@ -106,7 +115,7 @@ $jsVars = [
 	<div id="tabs-0">
     <h3 >Language and basic settings</h3>
     <div>
-    <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" ></span>
+    <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo e($classroomid); ?>" ></span>
 <span style="display:none">Pending requests : <span id="nbrequests">0</span></span>
 <span style="display:none"><label for="classroomlanguage">Classroom language :</label>
   <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
@@ -117,7 +126,7 @@ $jsVars = [
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="AuditorName">My surname :</label>
-  <input type="text" id="AuditorName" onchange="if (this.value == 'Intervenant') this.value='Auditor';" value="<?php echo $randomname; ?>" autocomplete="given-name">
+  <input type="text" id="AuditorName" onchange="if (this.value == 'Intervenant') this.value='Auditor';" value="<?php echo e($randomname); ?>" autocomplete="given-name">
 </span><br>
 <span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
 <input type="checkbox" id="synthesison" onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
@@ -217,6 +226,7 @@ $jsVars = [
   <form method="dialog">
     <fieldset>
       <legend style="display: none;">Send a mail</legend>
+	<?php echo csrfField(); ?>
 	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" ><br>
 	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly>
 	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly><br>
@@ -233,6 +243,7 @@ $jsVars = [
 
 <dialog id="dialog-choose" style="min-width: 300px;"> 
   <form method="dialog">
+  <?php echo csrfField(); ?>
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
   <select id="VoiceOutputchoose">
   </select>
@@ -250,7 +261,7 @@ $jsVars = [
 <script>
 // Initialize chat alert when DOM is ready and all scripts are loaded
 if (typeof initChatAlert === 'function') {
-    var userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : '<?php echo $randomname; ?>';
+    var userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : <?php echo e_js($randomname); ?>;
     initChatAlert(userName);
 } else {
     console.error('[Chat Alert] initChatAlert function not found!');

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         subtitleOn.addEventListener('click', function() {
             var span = document.getElementById('spansubtitleon');
             if (span) {
-                span.innerHTML = this.checked ? 'Yes !' : 'No.';
+                span.textContent = this.checked ? 'Yes !' : 'No.';
             }
         });
     }

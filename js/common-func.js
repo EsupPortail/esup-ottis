@@ -12,6 +12,20 @@ function _(el) {
 }
 
 /**
+ * @summary Add CSRF token to FormData object
+ * 
+ * @param {FormData} formData The FormData object to add CSRF token to
+ * @returns {FormData} The FormData object with CSRF token added
+ */
+function addCsrfToken(formData) {
+    var csrfToken = document.querySelector('input[name="csrf_token"]').value;
+    if (csrfToken) {
+        formData.append('csrf_token', csrfToken);
+    }
+    return formData;
+}
+
+/**
  * @summary Hide an HTML object by changing its "display" parameter.
  * 
  * @param {HTML div} e an HTML DOM object
@@ -119,7 +133,6 @@ function AbortTimeout(r,s) {
     r.timeout = 10000;
 
     r.ontimeout = (e) => {
-        console.log("Timeout problem in "+s+" !")
         r.abort();
     };
 
@@ -198,11 +211,11 @@ function RefreshCR() {
     var html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
     for (var i = 0; i < ScreenCR.length; i++) {
         if (ScreenCR[i] != undefined) {
-            html += ScreenCR[i];
+            html += DOMPurify.sanitize(ScreenCR[i]);
         }
     }
     html += '</ul>';
-    _('classroom').innerHTML = html;
+    _('classroom').innerHTML = DOMPurify.sanitize(html);
 }
 
 /*
@@ -323,4 +336,118 @@ function DownloadSpeechLesson(filename, elText, mimeType) {
     link.setAttribute('download', filename);
     link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));
     link.click();
+}
+/**
+ * @summary Display an error message to the user
+ * 
+ * @param {string} message The error message to display
+ * @param {string} [context] Optional context for logging
+ */
+function showError(message, context = null) {
+    console.error(context ? `[${context}] ${message}` : message);
+    // Could also display in a user-friendly way (toast, alert, etc.)
+    // For now, just log to console
+}
+
+/**
+ * @summary Handle XMLHttpRequest errors centrally
+ * 
+ * @param {XMLHttpRequest} xhr The XMLHttpRequest object
+ * @param {string} context Context for error identification
+ * @returns {boolean} True if error was handled, false otherwise
+ */
+function handleXhrError(xhr, context = 'unknown') {
+    if (xhr.status === 0) {
+        showError('Network error: Unable to connect to server', context);
+    } else if (xhr.status >= 400 && xhr.status < 600) {
+        showError(`HTTP error ${xhr.status}: ${xhr.statusText}`, context);
+    } else {
+        showError('An unexpected error occurred', context);
+    }
+    return true;
+}
+
+/**
+ * @summary Create an XMLHttpRequest with centralized error handling
+ * 
+ * @param {string} method HTTP method (GET, POST, etc.)
+ * @param {string} url The URL to request
+ * @param {Object} options Options including onSuccess, onError, data, timeout, onProgress, onUploadProgress
+ * @returns {XMLHttpRequest} The configured XMLHttpRequest object
+ */
+function createXhrRequest(method, url, options = {}) {
+    const xhr = new XMLHttpRequest();
+    const {
+        onSuccess = null,
+        onError = handleXhrError,
+        data = null,
+        timeout = 30000,
+        contentType = 'application/x-www-form-urlencoded',
+        context = url,
+        onProgress = null,
+        onUploadProgress = null
+    } = options;
+
+    xhr.open(method, url, true);
+    xhr.timeout = timeout;
+    
+    if (method === 'POST' && data instanceof FormData) {
+        // FormData sets its own Content-Type with boundary
+    } else if (contentType) {
+        xhr.setRequestHeader('Content-Type', contentType);
+    }
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                if (onSuccess) onSuccess(xhr);
+            } else {
+                if (onError) onError(xhr, context);
+            }
+        }
+    };
+
+    xhr.ontimeout = function() {
+        showError('Request timed out', context);
+    };
+
+    xhr.onerror = function() {
+        showError('Network error', context);
+    };
+
+    // Add progress event listeners if provided
+    if (onProgress && xhr.addEventListener) {
+        xhr.addEventListener('progress', onProgress, false);
+    }
+    if (onUploadProgress && xhr.upload && xhr.upload.addEventListener) {
+        xhr.upload.addEventListener('progress', onUploadProgress, false);
+    }
+
+    return xhr;
+}
+
+/**
+ * @summary Simple fetch wrapper with centralized error handling
+ * 
+ * @param {string} url The URL to request
+ * @param {Object} options Fetch options
+ * @returns {Promise<Response>} The fetch response
+ */
+async function fetchWithErrorHandling(url, options = {}) {
+    try {
+        const response = await fetch(url, options);
+        
+        if (!response.ok) {
+            const errorText = await response.text().catch(() => '');
+            showError(`HTTP ${response.status}: ${errorText || response.statusText}`, url);
+            throw new Error(`HTTP ${response.status}`);
+        }
+        
+        return response;
+    } catch (error) {
+        if (error.name !== 'AbortError') {
+            showError(error.message, url);
+        }
+        throw error;
+    }
 }

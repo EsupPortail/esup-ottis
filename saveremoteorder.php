@@ -1,8 +1,15 @@
 <?php
 require_once __DIR__ . '/Security/validate.php';
 require_once __DIR__ . '/Security/validate_room_token.php';
+require_once __DIR__ . '/Security/csrf.php';
 
 requireRoomToken();
+
+// Vérification du token CSRF
+if (!verifyCsrfRequest()) {
+    http_response_code(403);
+    die('CSRF token validation failed');
+}
 
 $order = $_POST["ORDER"];
 $roomid = $_POST["ROOMID"];

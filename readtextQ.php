@@ -1,6 +1,13 @@
 <?php 
 require_once __DIR__ . '/Security/validate.php';
 require_once __DIR__ . '/Security/room_tokens.php';
+require_once __DIR__ . '/Security/csrf.php';
+
+// Vérification du token CSRF
+if (!verifyCsrfRequest()) {
+    http_response_code(403);
+    die('CSRF token validation failed');
+}
 
 // Security Phase 1: Input validation and XSS prevention
 // Validate ROOMID parameter using regex (alphanumeric, underscore, hyphen only)

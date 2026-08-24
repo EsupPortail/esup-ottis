@@ -72,7 +72,6 @@ function createChatAlertElement() {
         resetChatAlert();
 
         // Log for future implementation
-        console.log('[Chat Alert] Clicked - chat should open here');
     });
 }
 

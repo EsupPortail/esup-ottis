@@ -33,9 +33,6 @@ if (!ColorsForCR["Intervenant"]) {
  * @returns {void}
  */
 function saveTextQCommon(ch, senderName, roomId, language) {
-    var request = new XMLHttpRequest();
-    request.open("POST", "savetextQ.php");
-
     // Use increasependingrequests if available
     if (typeof increasependingrequests === 'function') {
         increasependingrequests();
@@ -52,23 +49,25 @@ function saveTextQCommon(ch, senderName, roomId, language) {
         f.append('room_token', window.ROOM_TOKEN);
     }
     
+    // Ajouter le token CSRF pour la protection
+    addCsrfToken(f);
+    
+    var request = createXhrRequest('POST', 'savetextQ.php', {
+        onSuccess: function(xhr) {
+            // Use decreasependingrequests if available
+            if (typeof decreasependingrequests === 'function') {
+                decreasependingrequests();
+            }
+            // Reload messages
+            if (typeof readTextQ === 'function') {
+                readTextQ();
+            }
+        },
+        data: f,
+        timeout: 10000,
+        context: 'saveTextQ'
+    });
     request.send(f);
-    
-    // Use AbortTimeout if available
-    if (typeof AbortTimeout === 'function') {
-        AbortTimeout(request, "saveTextQ");
-    }
-    
-    request.onload = function(event) {
-        // Use decreasependingrequests if available
-        if (typeof decreasependingrequests === 'function') {
-            decreasependingrequests();
-        }
-        // Reload messages
-        if (typeof readTextQ === 'function') {
-            readTextQ();
-        }
-    };
 }
 
 /**
@@ -80,9 +79,6 @@ function saveTextQCommon(ch, senderName, roomId, language) {
  */
 function readTextQCommon(roomId, messageHandler) {
     if (!roomId || roomId === "") return;
-    
-    var request = new XMLHttpRequest();
-    request.open("POST", "readtextQ.php");
 
     // Use increasependingrequests if available
     if (typeof increasependingrequests === 'function') {
@@ -98,75 +94,77 @@ function readTextQCommon(roomId, messageHandler) {
         f.append('room_token', window.ROOM_TOKEN);
     }
     
-    request.send(f);
+    // Ajouter le token CSRF pour la protection
+    addCsrfToken(f);
     
-    // Use AbortTimeout if available
-    if (typeof AbortTimeout === 'function') {
-        AbortTimeout(request, "readTextQ");
-    }
-    
-    request.onload = function(event) {
-        // Use decreasependingrequests if available
-        if (typeof decreasependingrequests === 'function') {
-            decreasependingrequests();
-        }
-        
-        var Told = request.responseText.split('\n');
-        var k = 0;
-        var T = [];
-        
-        // Filter out empty lines
-        for (var i = 0; i < Told.length; i++) {
-            if (Told[i].split(';').length > 2) {
-                T.push(Told[i]);
+    var request = createXhrRequest('POST', 'readtextQ.php', {
+        onSuccess: function(xhr) {
+            // Use decreasependingrequests if available
+            if (typeof decreasependingrequests === 'function') {
+                decreasependingrequests();
             }
-        }
-        
-        // Process new messages
-        for (var i = inputnumberQ; i < T.length; i++) {
-            var L = T[i].split(';');
-            if (L.length >= 3) {
-                var who = L[0];
-                var lang = L[1];
-                var text = L[2];
-                var isSpecial = false;
-                var specialType = '';
-                
-                // Check for special messages
-                if (text.indexOf("[newstudentarrived]") >= 0) {
-                    specialType = "newstudentarrived";
-                    isSpecial = true;
-                } else if (text.indexOf("[newstudentlived]") >= 0) {
-                    specialType = "newstudentlived";
-                    isSpecial = true;
-                } else if (text.indexOf("[extratab") >= 0) {
-                    specialType = "extratab";
-                    isSpecial = true;
+            
+            var Told = xhr.responseText.split('\n');
+            var k = 0;
+            var T = [];
+            
+            // Filter out empty lines
+            for (var i = 0; i < Told.length; i++) {
+                if (Told[i].split(';').length > 2) {
+                    T.push(Told[i]);
                 }
-                
-                // Process messages through handler
-                // Skip ROBOT messages, but pass everything else including special messages
-                if (who !== 'ROBOT') {
-                    if (messageHandler) {
-                        messageHandler(who, text, lang, i, isSpecial, specialType);
+            }
+            
+            // Process new messages
+            for (var i = inputnumberQ; i < T.length; i++) {
+                var L = T[i].split(';');
+                if (L.length >= 3) {
+                    var who = L[0];
+                    var lang = L[1];
+                    var text = L[2];
+                    var isSpecial = false;
+                    var specialType = '';
+                    
+                    // Check for special messages
+                    if (text.indexOf("[newstudentarrived]") >= 0) {
+                        specialType = "newstudentarrived";
+                        isSpecial = true;
+                    } else if (text.indexOf("[newstudentlived]") >= 0) {
+                        specialType = "newstudentlived";
+                        isSpecial = true;
+                    } else if (text.indexOf("[extratab") >= 0) {
+                        specialType = "extratab";
+                        isSpecial = true;
+                    }
+                    
+                    // Process messages through handler
+                    // Skip ROBOT messages, but pass everything else including special messages
+                    if (who !== 'ROBOT') {
+                        if (messageHandler) {
+                            messageHandler(who, text, lang, i, isSpecial, specialType);
+                        }
                     }
                 }
             }
-        }
-        
-        // Trigger EventNewQuestion for conference if new messages were processed
-        if (typeof nbnewQ !== 'undefined' && nbnewQ > 0 && typeof EventNewQuestion === 'function') {
-            EventNewQuestion();
-        }
-        
-        // Reset nbnewQ for next polling cycle
-        if (typeof nbnewQ !== 'undefined') {
-            nbnewQ = 0;
-        }
-        
-        // Update the counter
-        inputnumberQ = T.length;
-    };
+            
+            // Trigger EventNewQuestion for conference if new messages were processed
+            if (typeof nbnewQ !== 'undefined' && nbnewQ > 0 && typeof EventNewQuestion === 'function') {
+                EventNewQuestion();
+            }
+            
+            // Reset nbnewQ for next polling cycle
+            if (typeof nbnewQ !== 'undefined') {
+                nbnewQ = 0;
+            }
+            
+            // Update the counter
+            inputnumberQ = T.length;
+        },
+        data: f,
+        timeout: 10000,
+        context: 'readTextQ'
+    });
+    request.send(f);
 }
 
 /**
@@ -312,9 +310,6 @@ function saveTextQ(ch) {
  * @returns {void}
  */
 function TranslateQ(ch, targetLang, sourceLang, name, order) {
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php", true);
-    
     var roomid = (typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? _('classroomid').value : ''));
     
     var f = new FormData();
@@ -329,14 +324,16 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
         increasependingrequests();
     }
     
-    xhr.onreadystatechange = function() {
-        if (typeof decreasependingrequests === 'function') {
-            decreasependingrequests();
-        }
-        
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+    addCsrfToken(f);
+    
+    var xhr = createXhrRequest('POST', 'Translate.php', {
+        onSuccess: function(xhr) {
+            if (typeof decreasependingrequests === 'function') {
+                decreasependingrequests();
+            }
+            
             try {
-                var response = JSON.parse(this.responseText);
+                var response = JSON.parse(xhr.responseText);
                 if (!response["error"] && response["data"] && response["data"]["translations"] && response["data"]["translations"][0]) {
                     var translation = response["data"]["translations"][0]["text"];
                     if (translation) {
@@ -354,23 +351,20 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
                     if (typeof EcrireCR === 'function') {
                         EcrireCR(name, "---- Translation ERROR ---- (see console)", order);
                     }
-                    console.error('Translation ERROR - Response:', response, 'Raw:', this.responseText);
+                    console.error('Translation ERROR - Response:', response, 'Raw:', xhr.responseText);
                 }
             } catch (e) {
                 if (typeof EcrireCR === 'function') {
                     EcrireCR(name, "---- Translation ERROR ---- (see console)", order);
                 }
-                console.error('Translation ERROR - Exception:', e, 'Response:', this.responseText);
+                console.error('Translation ERROR - Exception:', e, 'Response:', xhr.responseText);
             }
-        }
-    };
-    
+        },
+        data: f,
+        timeout: 10000,
+        context: 'TranslateQ'
+    });
     xhr.send(f);
-    
-    // Use AbortTimeout if available
-    if (typeof AbortTimeout === 'function') {
-        AbortTimeout(xhr, "TranslateQ");
-    }
 }
 
 /**
@@ -418,14 +412,14 @@ function RefreshCR() {
     if (typeof ScreenCR !== 'undefined') {
         for (var i = 0; i < ScreenCR.length; i++) {
             if (ScreenCR[i] !== undefined) {
-                html += ScreenCR[i];
+                html += DOMPurify.sanitize(ScreenCR[i]);
             }
         }
     }
     html += '</ul>';
     
     var classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
-    if (classroomEl) classroomEl.innerHTML = html;
+    if (classroomEl) classroomEl.innerHTML = DOMPurify.sanitize(html);
 }
 
 /**

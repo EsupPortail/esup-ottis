@@ -1,5 +1,12 @@
 <?php 
 
+require_once __DIR__ . '/Security/csrf.php';
+
+// Vérification du token CSRF
+if (!verifyCsrfRequest()) {
+    http_response_code(403);
+    die('CSRF token validation failed');
+}
 
 ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );

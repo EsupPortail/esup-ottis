@@ -1,17 +1,20 @@
+<?php
+require_once __DIR__ . '/../Security/sanitize.php';
+?>
 <!DOCTYPE html>
 <html lang="<?= htmlspecialchars($language) ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?= htmlspecialchars($language) ?>">
-    <title><?php echo $pageTitle ?? 'OTTIS'; ?></title>
+    <title><?php echo e($pageTitle ?? 'OTTIS'); ?></title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
 
     <!-- CSS spécifiques à la page -->
     <?php if (isset($pageStyles) && is_array($pageStyles)): ?>
         <?php foreach ($pageStyles as $style): ?>
-            <link rel="stylesheet" href="<?php echo $style; ?>">
+            <link rel="stylesheet" href="<?php echo e($style); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
     
@@ -22,11 +25,12 @@
     </script>
 
     <script src="./js/translatepage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="./js/matomo.js"></script>
     <!-- JS spécifiques à la page -->
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
-            <script src="<?php echo $script; ?>"></script>
+            <script src="<?php echo e($script); ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
 
@@ -38,7 +42,7 @@
     <header>
         <nav>
             <!-- <a href="https://omist-preprod.intra.univ-nantes.fr/"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a> -->
-            <a href="<?php echo $pageDestination; ?>"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
+            <a href="<?php echo e($pageDestination ?? './'); ?>"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
                 <menu>
                     <li><a href="mailto:support-omist@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
                     <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu translate" data-key="scenarios.aide">Aide sur Madoc</span></a></li>

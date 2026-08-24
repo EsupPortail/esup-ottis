@@ -1,7 +1,11 @@
 <?php require("./NoCache.php"); ?>
 <?php 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+// Désactiver l'affichage des erreurs en production
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+// Activer le logging des erreurs
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/tmp/php_errors.log');
 error_reporting(E_ALL);
 // Empêche la mise en cache
 header('Pragma: no-cache');
@@ -13,10 +17,13 @@ header('Cache-Control: no-cache, must-revalidate');
 include("config.php");
 require_once __DIR__ . '/Security/room_tokens.php';
 require_once __DIR__ . '/includes/chat-component.php';
+require_once __DIR__ . '/Security/csrf.php';
+require_once __DIR__ . '/Security/sanitize.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
+initCsrfProtection();
 $_SESSION["from"]="teacher";
 $language = $_GET['lang'] ?? 'fr'; // Langue par défaut
 $translations = json_decode(file_get_contents("lang/{$language}.json"), true);
@@ -147,8 +154,9 @@ $jsVars = [
 include_once __DIR__ . '/includes/header.php';
 ?>
 
-<input type="hidden" id="classroomid" value="<?php echo $classroomid; ?>">
-<input type="hidden" id="appid" value="<?php echo $appid; ?>">
+<input type="hidden" id="classroomid" value="<?php echo e($classroomid); ?>">
+<input type="hidden" id="appid" value="<?php echo e($appid); ?>">
+<?php echo csrfField(); ?>
 
 
 <div id="conference-main" class="conference-grid">
@@ -221,7 +229,7 @@ include_once __DIR__ . '/includes/header.php';
 <div>
 	<ul class="no-bullets">
 		<li><span id="connectedusers">connected users</span></li>
-		<li>Students application : <a id="sharedlink" href="auditor.php?ROOMID=<?php echo $classroomid;?>">auditor.php?ROOMID=<?php echo $classroomid;?></a></li>
+		<li>Students application : <a id="sharedlink" href="auditor.php?ROOMID=<?php echo e($classroomid);?>">auditor.php?ROOMID=<?php echo e($classroomid);?></a></li>
 		<li>QR code :
 			<div title="" id="sharedqr"></div>
 		</li>
@@ -231,7 +239,7 @@ include_once __DIR__ . '/includes/header.php';
 <h3 class="tabbed">Remote control (SUPPRIMER ?)</h3>
 <div>
 	<ul class="no-bullets">
-		<li>Remote control : <a id="remotelink" href="remote.php?ROOMID=<?php echo $classroomid;?>&LANG=fr,en&APPID=<?php echo $appid;?>">remote.php?ROOMID=<?php echo $classroomid;?>&LANG=fr,en&APPID=<?php echo $appid;?></a></li>
+		<li>Remote control : <a id="remotelink" href="remote.php?ROOMID=<?php echo e($classroomid);?>&LANG=fr,en&APPID=<?php echo e($appid);?>">remote.php?ROOMID=<?php echo e($classroomid);?>&LANG=fr,en&APPID=<?php echo e($appid);?></a></li>
 		<li>QR code :
 			<div title="" id="remoteqr"></div>
 		</li>

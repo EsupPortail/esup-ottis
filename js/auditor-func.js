@@ -38,7 +38,7 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
             if (voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
             voices[i].textonly = false;
             AllOutputVoices.push(voices[i]);
-            opt.innerHTML = voices[i].lang + " " + voices[i].name + ((voices[i].localService) ? "" : " [external service]");
+            opt.textContent = voices[i].lang + " " + voices[i].name + ((voices[i].localService) ? "" : " [external service]");
             optgroup.appendChild(opt);
         }
     }
@@ -50,7 +50,7 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
             if (voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
             voices[i].textonly = false;
             AllOutputVoices.push(voices[i]);
-            opt.innerHTML = voices[i].lang + " " + voices[i].name + ((voices[i].localService) ? "" : " [external service]");
+            opt.textContent = voices[i].lang + " " + voices[i].name + ((voices[i].localService) ? "" : " [external service]");
             optgroup.appendChild(opt);
         }
     }
@@ -67,7 +67,7 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
             "textonly": true
         });
 
-        opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+        opt.textContent = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
         optgroup2.appendChild(opt);
     }
     select.appendChild(optgroup2);
@@ -96,7 +96,7 @@ function PopulateVoicesOutSub(selectname='VoiceOutput') {
             "textonly": true
         });
 
-        opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+        opt.textContent = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
         optgroup2.appendChild(opt);
     }
     select.appendChild(optgroup2);
@@ -122,11 +122,11 @@ function PopulateVoicesIn() {
                 var opt = document.createElement("option");
                 opt.value = TLangInput.length;
                 TLangInput.push(lang);
-                opt.innerHTML = lang;
+                opt.textContent = lang;
                 select.appendChild(opt);
                 var opt2 = document.createElement("option");
                 opt2.value = TLangInput.length;
-                opt2.innerHTML = lang;
+                opt2.textContent = lang;
                 select2.appendChild(opt2);
             }
         }
@@ -151,11 +151,11 @@ function PopulateVoicesIn() {
                 var opt = document.createElement("option");
                 opt.value = TLangInput.length;
                 TLangInput.push(lang);
-                opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+                opt.textContent = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
                 select.appendChild(opt);
                 var opt2 = document.createElement("option");
                 opt2.value = TLangInput.length;
-                opt2.innerHTML = lang;
+                opt2.textContent = lang;
                 select2.appendChild(opt2);
             }
         }
@@ -180,7 +180,7 @@ function PopulateVoicesInSub() {
                 var opt = document.createElement("option");
                 opt.value = TLangInput.length;
                 TLangInput.push(lang);
-                opt.innerHTML = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
+                opt.textContent = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
                 select.appendChild(opt);
                 // var opt2 = document.createElement("option");
                 // opt2.value = TLangInput.length;
@@ -238,7 +238,7 @@ function Parle(txt) {
  */
 
 function ParleThen(txt, f) {
-    _('titre').innerHTML = txt;
+    _('titre').innerHTML = DOMPurify.sanitize(txt);
     if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly) {
         var discours = new SpeechSynthesisUtterance(txt);
         discours.voice = builtin_voice;
@@ -368,8 +368,6 @@ function Translate(ch, l, linput, lineid) {
         return;
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "Translate.php", true);
     increasependingrequests();
 
     var f = new FormData();
@@ -379,34 +377,31 @@ function Translate(ch, l, linput, lineid) {
     f.append('langinput', linput);
     f.append('ROOMID', _('classroomid').value);
     f.append('lineid', lineid);
+    addCsrfToken(f);
 
-    xhr.onreadystatechange = function() { // Call a function when the state changes.
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-
-            var response = JSON.parse(this.responseText);
+    var xhr = createXhrRequest('POST', 'Translate.php', {
+        onSuccess: function(xhr) {
+            var response = JSON.parse(xhr.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 ToSay['' + lineid] = (response["data"]["translations"][0]["text"]);
-                //        Ecrire(lineid+"  :  "+response["data"]["translations"][0]["translatedText"]);
                 Ecrire(response["data"]["translations"][0]["text"]);
             } else {
-                console.error('auditor-func.js:356 - Translation ERROR. Response:', response, 'Raw:', this.responseText);
+                console.error('auditor-func.js:356 - Translation ERROR. Response:', response, 'Raw:', xhr.responseText);
                 console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
                 alert('Translation error for: "' + ch.substr(0, 100) + '..."\nCheck console for details.');
                 Ecrire("---- Translation ERROR ---- (see console)")
             }
-
-        }
-    };
-    xhr.timeout = 9999;
-    xhr.ontimeout = function() {
-
-    };
+        },
+        data: f,
+        timeout: 9999,
+        context: 'Translate'
+    });
     xhr.onloadend = function() {
         decreasependingrequests();
         CompleteTranslation();
     };
+    xhr.ontimeout = function() {};
     xhr.send(f);
-    AbortTimeout(xhr,"Translate");
 }
 
 /**
@@ -430,18 +425,23 @@ function Translate2(ch, l, linput, lineid) {
     }
 
     var xhr = new XMLHttpRequest();
-    var url = "Translate.php?texte=" + encodeURIComponent(ch)
-        + "&lang=" + encodeURIComponent(l)
-        + "&langinput=" + encodeURIComponent(linput)
-        + "&ROOMID=" + encodeURIComponent(_('classroomid').value)
-        + "&lineid=" + encodeURIComponent(lineid);
-    xhr.open("POST", url, true);
+    xhr.open("POST", "Translate.php", true);
     increasependingrequests();
+    
+    var f = new FormData();
+    f.append('texte', ch);
+    f.append('lang', l);
+    f.append('langinput', linput);
+    f.append('ROOMID', _('classroomid').value);
+    f.append('lineid', lineid);
+    addCsrfToken(f);
+    
     xhr.onloadend = function() {
         decreasependingrequests();
         CompleteTranslation2();
     };
-    xhr.send();
+    addCsrfToken(f);
+    xhr.send(f);
     AbortTimeout(xhr,"Translate2");
 }
 */
@@ -469,15 +469,13 @@ function InitVoices() {
  */
 
 function EcrireNB(ch) {
-    console.log('[AUDITOR DEBUG] EcrireNB called with:', ch);
     if (_('notebook').innerHTML == "") {
-        _('notebook').innerHTML = ch;
-        console.log('[AUDITOR DEBUG] notebook set to:', ch);
+        _('notebook').innerHTML = DOMPurify.sanitize(ch);
     }
-    else _('notebook').innerHTML = _('notebook').innerHTML + "<br/>" + ch;
+    else _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + "<br/>" + ch);
 
     // VOBanner
-    _('VOBanner').innerHTML = ch;
+    _('VOBanner').innerHTML = DOMPurify.sanitize(ch);
 }
 
 /**
@@ -488,10 +486,9 @@ function EcrireNB(ch) {
 
 function EcrireNBSub(ch) {
     if (_('notebook').innerHTML == "") {
-        _('notebook').innerHTML = ch;
-        console.log('[AUDITOR DEBUG] notebook set to:', ch);
+        _('notebook').innerHTML = DOMPurify.sanitize(ch);
     }
-    else _('notebook').innerHTML = _('notebook').innerHTML + "<br/>" + ch;
+    else _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + "<br/>" + ch);
 }
 
 /**
@@ -503,9 +500,9 @@ function EcrireNBSub(ch) {
 function Ecrire(ch) {
 
     if (_('output').innerHTML == "")
-        _('output').innerHTML = ch;
-    else _('output').innerHTML = _('output').innerHTML + "<br/>" + ch;
-    _('titre').innerHTML=ch;
+        _('output').innerHTML = DOMPurify.sanitize(ch);
+    else _('output').innerHTML = DOMPurify.sanitize(_('output').innerHTML + "<br/>" + ch);
+    _('titre').innerHTML=DOMPurify.sanitize(ch);
     //_('subtitles').innerHTML=ch;
 
     //bufferWC[placebufferWC] = ch;
@@ -621,8 +618,6 @@ function CompleteSpeech() {
 
 function readText() {
     if (_('classroomid').value != "") {
-        var request = new XMLHttpRequest();
-        request.open("POST", "readtext.php");
         increasependingrequests();
         currentorder_readtext++;
         var f = new FormData();
@@ -630,72 +625,56 @@ function readText() {
         f.append('ORDER', currentorder_readtext);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
-        request.send(f);
-        AbortTimeout(request,"readText");
-        request.onload = function(event) {
-            decreasependingrequests();
-            var T = request.responseText.split('\n');
-            //console.log('Readtext get : '+request.responseText);
-            var maxi = -1;
-            var readedorder = ('0' + T[0]).split(';')[0] * 1;
-            if (readedorder > maxorder_readtext) {
-                maxorder_readtext = readedorder;
-                for (var i = 0; i < T.length; i++) {
-                    var L = T[i].split(';');
-                    if (L.length > 3) {
-                        if (1 * L[1] > maxi) maxi = 1 * L[1];
-                        if (AllPhrases[1 * L[1]] == undefined) {
-                            // Skip if classroomid is invalid
-                            if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
-                                AllPhrases[1 * L[1]] = true;
-                                
-                                // Decode HTML entities from source text
-                                var sourceLang = L[2];
-                                var sourceText = decodeHtmlEntities(L[3]);
-                                var targetLang = L[4];
-                                var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
-                                
-                                // Get listener's current language
-                                var currentLang = builtin_voice.lang;
-                               /* console.log('readText() - builtin_voice.lang:', builtin_voice.lang);
-                                if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
-                                    currentLang = builtin_voice.lang.substr(0, 2);
-                                } else if (typeof builtin_language !== 'undefined' && builtin_language) {
-                                    currentLang = builtin_language.substr(0, 2);
-                                }*/
-                                
-                                // If listener's language matches source or target language -> direct display
-                                // For auditor: when a translated element goes to Output, the original VO goes to Notebook
-                                if (currentLang === L[2].substr(0, 2)) {
-                                    Ecrire(sourceText);
-                                    EcrireNB(sourceText);  // Add VO to notebook
-                                    ToSay['' + L[0]] = sourceText;
-                                } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
-                                    Ecrire(targetText);
-                                    EcrireNB(sourceText);  // Add original VO text (L[3]) to notebook, not the translation
-                                    ToSay['' + L[0]] = targetText;
-                                } else {
-                                    // Translation needed
-                                    ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);
-                                    // Also add VO to notebook immediately
-                                    EcrireNB(sourceText);
+        addCsrfToken(f);
+
+        var request = createXhrRequest('POST', 'readtext.php', {
+            onSuccess: function(xhr) {
+                decreasependingrequests();
+                var T = xhr.responseText.split('\n');
+                var maxi = -1;
+                var readedorder = ('0' + T[0]).split(';')[0] * 1;
+                if (readedorder > maxorder_readtext) {
+                    maxorder_readtext = readedorder;
+                    for (var i = 0; i < T.length; i++) {
+                        var L = T[i].split(';');
+                        if (L.length > 3) {
+                            if (1 * L[1] > maxi) maxi = 1 * L[1];
+                            if (AllPhrases[1 * L[1]] == undefined) {
+                                if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
+                                    AllPhrases[1 * L[1]] = true;
+                                    
+                                    var sourceLang = L[2];
+                                    var sourceText = decodeHtmlEntities(L[3]);
+                                    var targetLang = L[4];
+                                    var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
+                                    
+                                    var currentLang = builtin_voice.lang;
+                                    
+                                    if (currentLang === L[2].substr(0, 2)) {
+                                        Ecrire(sourceText);
+                                        EcrireNB(sourceText);
+                                        ToSay['' + L[0]] = sourceText;
+                                    } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
+                                        Ecrire(targetText);
+                                        EcrireNB(sourceText);
+                                        ToSay['' + L[0]] = targetText;
+                                    } else {
+                                        ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);
+                                        EcrireNB(sourceText);
+                                    }
                                 }
                             }
                         }
-                        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-    Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
-    else {
-    Parle(L[2]);
-    Ecrire(""+L[2]);
-    }*/
                     }
                 }
-            }
-            //alert(maxi);
-            if (maxi > inputnumber) inputnumber = maxi;
-
-            CompleteTranslation();
-        };
+                if (maxi > inputnumber) inputnumber = maxi;
+                CompleteTranslation();
+            },
+            data: f,
+            timeout: 10000,
+            context: 'readText'
+        });
+        request.send(f);
     }
 }
 
@@ -706,8 +685,6 @@ function readText() {
 
 function readTextSub() {
     if (_('classroomid').value != "") {
-        var request = new XMLHttpRequest();
-        request.open("POST", "readtext.php");
         increasependingrequests();
         currentorder_readtext++;
         var f = new FormData();
@@ -715,64 +692,57 @@ function readTextSub() {
         f.append('ORDER', currentorder_readtext);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
-        request.send(f);
-        AbortTimeout(request,"readTextSub");
-        request.onload = function(event) {
-            decreasependingrequests();
-            var T = request.responseText.split('\n');
-            var maxi = -1;
-            var readedorder = ('0' + T[0]).split(';')[0] * 1;
-            if (readedorder > maxorder_readtext) {
-                maxorder_readtext = readedorder;
-                for (var i = 0; i < T.length; i++) {
-                    var L = T[i].split(';');
-                    if (L.length > 3) {
-                        if (1 * L[1] > maxi) maxi = 1 * L[1];
-                        if (AllPhrases[1 * L[1]] == undefined) {
-                            // Skip if classroomid is invalid
-                            if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
-                                AllPhrases[1 * L[1]] = true;
-                                
-                                // Decode HTML entities from source text
-                                var sourceLang = L[2];                      // L[2] = langue_source
-                                var sourceText = decodeHtmlEntities(L[3]);  // L[3] = texte_source
-                                var targetLang = L[4];                      // L[4] = langue_cible
-                                var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;  // L[5] = texte_traduit
-                                
-                                // Get listener's current language
-                                var currentLang = '';
-                                if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
-                                    currentLang = builtin_voice.lang.substr(0, 2);
-                                } else if (typeof builtin_language !== 'undefined' && builtin_language) {
-                                    currentLang = builtin_language.substr(0, 2);
+        addCsrfToken(f);
+
+        var request = createXhrRequest('POST', 'readtext.php', {
+            onSuccess: function(xhr) {
+                decreasependingrequests();
+                var T = xhr.responseText.split('\n');
+                var maxi = -1;
+                var readedorder = ('0' + T[0]).split(';')[0] * 1;
+                if (readedorder > maxorder_readtext) {
+                    maxorder_readtext = readedorder;
+                    for (var i = 0; i < T.length; i++) {
+                        var L = T[i].split(';');
+                        if (L.length > 3) {
+                            if (1 * L[1] > maxi) maxi = 1 * L[1];
+                            if (AllPhrases[1 * L[1]] == undefined) {
+                                if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
+                                    AllPhrases[1 * L[1]] = true;
+                                    
+                                    var sourceLang = L[2];
+                                    var sourceText = decodeHtmlEntities(L[3]);
+                                    var targetLang = L[4];
+                                    var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
+                                    
+                                    var currentLang = '';
+                                    if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
+                                        currentLang = builtin_voice.lang.substr(0, 2);
+                                    } else if (typeof builtin_language !== 'undefined' && builtin_language) {
+                                        currentLang = builtin_language.substr(0, 2);
+                                    }
+                                    
+                                    if (currentLang === L[2].substr(0, 2)) {
+                                        EcrireNBSub(sourceText);
+                                        ToSay['' + L[0]] = sourceText;
+                                    } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
+                                        EcrireNBSub(targetText);
+                                        ToSay['' + L[0]] = targetText;
+                                    } else {
+                                        ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);                           }
                                 }
-                                
-                                // If listener's language matches source or target language -> direct display
-                                if (currentLang === L[2].substr(0, 2)) {
-                                    EcrireNBSub(sourceText);
-                                    ToSay['' + L[0]] = sourceText;
-                                } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
-                                    EcrireNBSub(targetText);
-                                    ToSay['' + L[0]] = targetText;
-                                } else {
-                                    // Translation needed
-                                    ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);                           }
                             }
                         }
-                        /*      if (builtin_voice.lang.substr(0,2) != L[1].substr(0,2))
-    Translate(L[2], builtin_voice.lang.substr(0,2), L[1].substr(0,2),L[0]);
-    else {
-    Parle(L[2]);
-    Ecrire(""+L[2]);
-    }*/
                     }
                 }
-            }
-            //alert(maxi);
-            if (maxi > inputnumber) inputnumber = maxi;
-
-            CompleteTranslation();
-        };
+                if (maxi > inputnumber) inputnumber = maxi;
+                CompleteTranslation();
+            },
+            data: f,
+            timeout: 10000,
+            context: 'readTextSub'
+        });
+        request.send(f);
     }
 }
 
@@ -783,9 +753,6 @@ function readTextSub() {
 
 function readTextSubTranscript() {
     if (_('classroomid').value != "") {
-        console.log('[AUDITOR DEBUG] readTextSubTranscript() called, classroomid:', _('classroomid').value, 'ROOM_TOKEN:', window.ROOM_TOKEN);
-        var requestTranscriptSub = new XMLHttpRequest();
-        requestTranscriptSub.open("POST", "readtextTranscriptSub.php");
         increasependingrequests();
         currentorder_readtext++;
         var f = new FormData();
@@ -793,47 +760,47 @@ function readTextSubTranscript() {
         f.append('ORDER', currentorder_readtext);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
+        addCsrfToken(f);
 
-        requestTranscriptSub.send(f);
-        AbortTimeout(requestTranscriptSub,"readTextSubTranscript");
-        requestTranscriptSub.onload = function(event) {
-            decreasependingrequests();
-            console.log('[AUDITOR DEBUG] readTextSubTranscript response:', requestTranscriptSub.responseText);
-            var T = requestTranscriptSub.responseText.split('\n');
-            console.log('[AUDITOR DEBUG] Split into T:', T);
-            
-            // Construire le contenu complet du notebook VO
-            var newContent = '';
-            for (var i = 0; i < T.length; i++) {
-                var line = T[i].trim();
-                if (line) {
-                    var parts = line.split(';');
-                    if (parts.length > 1 && parts[1]) {
-                        if (newContent !== '') {
-                            newContent += '<br/>';
+        var requestTranscriptSub = createXhrRequest('POST', 'readtextTranscriptSub.php', {
+            onSuccess: function(xhr) {
+                decreasependingrequests();
+                var T = xhr.responseText.split('\n');
+                
+                // Construire le contenu complet du notebook VO
+                var newContent = '';
+                for (var i = 0; i < T.length; i++) {
+                    var line = T[i].trim();
+                    if (line) {
+                        var parts = line.split(';');
+                        if (parts.length > 1 && parts[1]) {
+                            if (newContent !== '') {
+                                newContent += '<br/>';
+                            }
+                            newContent += parts[1];
                         }
-                        newContent += parts[1];
                     }
                 }
-            }
-            
-            console.log('[AUDITOR DEBUG] newContent:', newContent);
-            console.log('[AUDITOR DEBUG] lastNotebookVOContent:', lastNotebookVOContent);
-            
-            // Ne mettre à jour que si le contenu a changé
-            if (newContent !== lastNotebookVOContent && newContent !== '') {
-                lastNotebookVOContent = newContent;
                 
-                // Mettre à jour VOBanner et notebook avec le contenu complet
-                _("VOBanner").innerHTML = newContent;
-                _('notebook').innerHTML = newContent;
-                console.log('[AUDITOR DEBUG] Notebook updated with VO content');
-            } else if (newContent === '') {
-                console.log('[AUDITOR DEBUG] newContent is empty, not updating');
-            } else {
-                console.log('[AUDITOR DEBUG] Content unchanged, skipping update');
-            }
-            //console.log('Readtext get : '+request.responseText);
+                
+                // Ne mettre à jour que si le contenu a changé
+                if (newContent !== lastNotebookVOContent && newContent !== '') {
+                    lastNotebookVOContent = newContent;
+                    
+                    // Mettre à jour VOBanner et notebook avec le contenu complet
+                    _("VOBanner").innerHTML = DOMPurify.sanitize(newContent);
+                    _('notebook').innerHTML = DOMPurify.sanitize(newContent);
+                } else if (newContent === '') {
+                } else {
+                }
+                //console.log('Readtext get : '+xhr.responseText);
+            },
+            data: f,
+            timeout: 10000,
+            context: 'readTextSubTranscript'
+        });
+        requestTranscriptSub.send(f);
+
 //             var maxi = -1;
 //             var readedorder = ('0' + T[0]).split(';')[0] * 1;
 //             console.log("READEDORDER : "+readedorder);
@@ -868,7 +835,6 @@ function readTextSubTranscript() {
 
         };
     }
-}
 
 /**
  * @summary Verify if there is something new in the IMAGE queue and if so, load the image.
@@ -877,23 +843,26 @@ function readTextSubTranscript() {
 
 function readImage() {
     if (_('classroomid').value != "") {
-        var request = new XMLHttpRequest();
-        request.open("POST", "readimage.php");
         increasependingrequests();
         var f = new FormData();
         f.append('random', currentrandom);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
-        request.send(f);
-        AbortTimeout(request,"readImage");
-        request.onload = function(event) {
-            decreasependingrequests();
-            if (request.responseText != "") {
-                var Trep = request.responseText.split('|||');
-                currentrandom = Trep[0];
-            }
+        addCsrfToken(f);
 
-        };
+        var request = createXhrRequest('POST', 'readimage.php', {
+            onSuccess: function(xhr) {
+                decreasependingrequests();
+                if (xhr.responseText != "") {
+                    var Trep = xhr.responseText.split('|||');
+                    currentrandom = Trep[0];
+                }
+            },
+            data: f,
+            timeout: 10000,
+            context: 'readImage'
+        });
+        request.send(f);
     }
 }
 
@@ -905,13 +874,11 @@ function readImage() {
  */
 
 function Lancer() {
-    console.log('[AUDITOR DEBUG] Lancer() called - setting up intervals');
     setInterval(readText, 500);
     setInterval(readTextQ, 500);
     // setInterval(readTextSubTranscript, 500); - DISABLED: notebook now synced via readText()
     setInterval(readImage, 500);
     setLanguageInput(0);
-    console.log('[AUDITOR DEBUG] Intervals set. Notebook synced via readText()');
 }
 
 /**
@@ -920,9 +887,6 @@ function Lancer() {
  */
 
 function Init() {
-    console.log('[AUDITOR DEBUG] Init() called');
-    console.log('[AUDITOR DEBUG] notebook element exists:', !!_('notebook'));
-    console.log('[AUDITOR DEBUG] classroomid value:', _('classroomid') ? _('classroomid').value : 'null');
     // Start the polling intervals for text, chat, and subtitles
     Lancer();
     
@@ -1068,23 +1032,32 @@ function LoadVoices() {
 
 function EnvoiMail() {
     // alert("I will send the mail to "+_('dialog_MailTo').value.replaceAll(' - ',','));
-    var XHR = new XMLHttpRequest();
     var FD = new FormData();
-    FD.append('from', _('dialog_MailFrom').value);
+    FD.append('from', _('dialog_MailTo').value);
     FD.append('to', _('dialog_MailTo').value.replaceAll(' - ', ','));
     FD.append('subject', _('dialog_MailSubject').value);
     //FD.append('body', _('dialog_MailBody').innerHTML);
-    FD.append('body', _('dialog_MailBody').innerHTML);
+    FD.append('body', DOMPurify.sanitize(_('dialog_MailBody').innerHTML));
     //FD.append('body', quillmail.getText());
-    XHR.addEventListener('load', function(event) {
-        alert('Mail sent.');
+    
+    // Ajouter le token CSRF pour la protection
+    addCsrfToken(FD);
+    
+    var XHR = createXhrRequest('POST', 'sendamail.php', {
+        onSuccess: function(xhr) {
+            alert('Mail sent.');
+        },
+        onError: function(xhr, context) {
+            alert('Error, the mail cannot be sent.');
+        },
+        data: FD,
+        timeout: 10000,
+        context: 'EnvoiMail'
     });
     XHR.addEventListener('error', function(event) {
         alert('Error, the mail cannot be sent.');
     });
-    XHR.open('POST', 'sendamail.php');
     XHR.send(FD);
-    AbortTimeout(XHR,"EnvoiMail");
     // dialog.dialog( "close" );		
 }
 
@@ -1097,7 +1070,7 @@ function sendnotebook(content) {
     _('dialog_MailFrom').value = 'bourdon-j@univ-nantes.fr';
     _('dialog_MailTo').value = 'your.mail@univ-nantes.fr';
     _('dialog_MailSubject').value = 'Content of lesson ' + _('classroomid').value;
-    _('dialog_MailBody').innerHTML = content;
+    _('dialog_MailBody').innerHTML = DOMPurify.sanitize(content);
     //$( "#dialog-mail" ).dialog("open");
     _('dialog_MailTo').value = prompt('Enter your email', 'your.mail@univ-nantes.fr');
     EnvoiMail();

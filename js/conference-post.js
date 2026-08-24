@@ -72,7 +72,6 @@ ready(() => {
     // var dialog, form;
 
     function EnvoiMail() {
-        var XHR = new XMLHttpRequest();
         var FD = new FormData();
         FD.append('from', get('dialog_MailFrom').value);
         FD.append('to', get('dialog_MailTo').value.replaceAll(' - ', ','));
@@ -80,15 +79,25 @@ ready(() => {
         //FD.append('body', get('dialog_MailBody').innerHTML);
         FD.append('body', get('dialog_MailBody').innerHTML);
         //FD.append('body', quillmail.getText());
-        XHR.addEventListener('load', function(event) {
-            alert('Mail sent.');
+        
+        // Ajouter le token CSRF
+        addCsrfToken(FD);
+        
+        var XHR = createXhrRequest('POST', 'sendamail.php', {
+            onSuccess: function(xhr) {
+                alert('Mail sent.');
+            },
+            onError: function(xhr, context) {
+                alert('Error, the mail cannot be sent.');
+            },
+            data: FD,
+            timeout: 10000,
+            context: 'EnvoiMail'
         });
         XHR.addEventListener('error', function(event) {
             alert('Error, the mail cannot be sent.');
         });
-        XHR.open('POST', 'sendamail.php');
         XHR.send(FD);
-        AbortTimeout(XHR,"EnvoiMail");
         closeDialog('dialog-mail');
     }
 

@@ -1,6 +1,8 @@
 <?php
 // Security includes
 require_once __DIR__ . '/Security/validate.php';
+require_once __DIR__ . '/Security/csrf.php';
+require_once __DIR__ . '/Security/sanitize.php';
 
 // Disable error display
 ini_set('display_errors', 0);
@@ -14,6 +16,7 @@ header('Cache-Control: no-cache, must-revalidate');
 
 // Start session for CSRF
 ensureSessionStarted();
+initCsrfProtection();
 ?>
 <?php
 if (isset($_GET["ROOMID"])) {
@@ -36,6 +39,8 @@ if (isset($_GET["APPID"])) $appid=$_GET["APPID"];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/remote.css">
   <link rel="icon" type="image/png" href="./images/favicon.svg" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+<script src="js/common-func.js"></script>
 
 <script type="text/javascript">
 
@@ -47,16 +52,19 @@ if (isset($_GET["APPID"])) $appid=$_GET["APPID"];
 
 function remote(myorder) {
   if (document.getElementById('classroomid').value != "") {
-	var request = new XMLHttpRequest();
-	request.open("POST", "saveremoteorder.php");
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
   f.append('ORDER',myorder);
-	request.send(f);
-	request.onload = function(event) {
-    var order=request.responseText;
-  };
-}
+  
+  // Ajouter le token CSRF
+  var csrfToken = document.querySelector('input[name="csrf_token"]').value;
+  if (csrfToken) {
+      f.append('csrf_token', csrfToken);
+  }
+	createXhrRequest("POST", "saveremoteorder.php", f, function(responseText) {
+    var order=responseText;
+  });
+  }
 }
 
 /**
@@ -66,23 +74,20 @@ function remote(myorder) {
 
 function remotespeech() {
   if (document.getElementById('classroomid').value != "") {
-	var request = new XMLHttpRequest();
-	request.open("POST", "savespeechforremote.php");
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
   f.append('SPEECH','read');
-	request.send(f);
-	request.onload = function(event) {
-    var data=request.responseText;
+	createXhrRequest("POST", "savespeechforremote.php", f, function(responseText) {
+    var data=responseText;
     var Tspeech = data.split(':|:');
     if (document.getElementById('speech_before').innerHTML != Tspeech[0])
-      document.getElementById('speech_before').innerHTML = Tspeech[0];
+      document.getElementById('speech_before').innerHTML = DOMPurify.sanitize(Tspeech[0]);
     if (document.getElementById('speech_current').innerHTML != Tspeech[1])
-      document.getElementById('speech_current').innerHTML = Tspeech[1];
+      document.getElementById('speech_current').innerHTML = DOMPurify.sanitize(Tspeech[1]);
     if (document.getElementById('speech_after').innerHTML != Tspeech[2])
-      document.getElementById('speech_after').innerHTML = Tspeech[2];
-  };
-}
+      document.getElementById('speech_after').innerHTML = DOMPurify.sanitize(Tspeech[2]);
+  });
+  }
 }
 
 
@@ -134,7 +139,7 @@ function changeLanguage() {
 
 function setLanguage() {
   if (AllLanguages.length>0) {
-    document.getElementById('langdiv').innerHTML='<i class="fa fa-language" aria-hidden="true"></i> '+AllLanguages[currentlanguage];
+    document.getElementById('langdiv').innerHTML='<i class="fa fa-language" aria-hidden="true"></i> '+DOMPurify.sanitize(AllLanguages[currentlanguage]);
     remote("language "+AllLanguages[currentlanguage]+" | "+document.getElementById('appid').value);
   }
 }
@@ -175,8 +180,9 @@ function changeOpacity(obj){
 <div title="Skip subtitle" id="skipright" onclick="remote('skipforward');changeOpacity(this);"><span style="font-size: 1em;">Skip comment <i class="fa fa-arrow-right" aria-hidden="true"></i></span></div>
 <div id="titreleft" style="font-size: 2em;" onclick="remote('backward'); changeOpacity(this);"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
 <div id="titreright" style="font-size: 2em;" onclick="remote('forward'); changeOpacity(this);"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
-<input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" />
-<input type="text" style="display: none;" name="appid" id="appid" value="<?php echo $appid; ?>" />
+<input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo e($classroomid); ?>" />
+<input type="text" style="display: none;" name="appid" id="appid" value="<?php echo e($appid); ?>" />
+<?php echo csrfField(); ?>
 
 </body>
 </html>

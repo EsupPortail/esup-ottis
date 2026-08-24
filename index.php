@@ -1,5 +1,8 @@
 <?php require("./NoCache.php"); ?>
 <?php 
+// Initialiser la sécurité (optionnel mais recommandé)
+// require_once __DIR__ . '/Security/init.php';
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }

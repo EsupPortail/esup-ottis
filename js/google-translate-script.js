@@ -6,7 +6,6 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
     setTimeout(Init2,1000);
     document.body.style = "";
-    console.log(_('google_translate_element').style);
 }
 
 function Init2() {

@@ -12,12 +12,11 @@ function translateElement(element) {
     // Accède à translations[lang][clé_imbriquée]
     const lang = element.closest('[lang]')?.lang || 'fr';
     const value = getNestedValue(translations[lang], key);
-    element.innerHTML = value || `⚠️ ${key}`;
+    element.innerHTML = DOMPurify.sanitize(value || `⚠️ ${key}`);
 }
 
 // Fonction pour initialiser les traductions
 async function initTranslations(lang) {
-    console.log(`Chargement des traductions pour ${lang}...`);
     try {
         const response = await fetch(`lang/${lang}.json`);
         if (!response.ok) throw new Error(`Langue ${lang} non trouvée (statut : ${response.status}).`);
@@ -26,7 +25,7 @@ async function initTranslations(lang) {
     } catch (error) {
         console.error("Erreur :", error.message);
         document.querySelectorAll('.translate').forEach(element => {
-            element.innerHTML = `⚠️ ${element.getAttribute('data-key')}`;
+            element.innerHTML = DOMPurify.sanitize(`⚠️ ${element.getAttribute('data-key')}`);
         });
     }
 }

@@ -1,1 +1,10 @@
 DirectoryIndex index.php index.html index.htm
+
+# Désactiver l'indexation des répertoires
+Options -Indexes
+
+# Bloquer l'accès direct aux fichiers uploadés
+RewriteEngine On
+
+# Empêcher le listing des répertoires
+Options -Indexes

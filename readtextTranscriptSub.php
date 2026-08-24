@@ -1,11 +1,21 @@
 <?php
 require_once __DIR__ . '/Security/room_tokens.php';
 require_once __DIR__ . '/Security/validate_room_token.php';
+require_once __DIR__ . '/Security/csrf.php';
 
 // Écriture directe dans un fichier de log minimaliste
 file_put_contents('/tmp/test_execution.log', "Script readtextTranscriptSub.php exécuté à " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Désactiver l'affichage des erreurs en production
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/tmp/php_errors.log');
+
+// Vérification du token CSRF
+if (!verifyCsrfRequest()) {
+    http_response_code(403);
+    die('CSRF token validation failed');
+}
 
 // Chemin du fichier de log
 $logFile = '/tmp/readtext_debug.log';
