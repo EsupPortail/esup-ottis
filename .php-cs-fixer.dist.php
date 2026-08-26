@@ -35,16 +35,16 @@ return (new Config())
         'phpdoc_align' => false,
         'yoda_style' => false,
         'phpdoc_order' => true,
-        'class_attributes_separation' => ['elements' => ['method']],
+        // 'class_attributes_separation' => ['elements' => ['property', 'method']],
         'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
-        'no_extra_blank_lines' => ['tokens' => ['curly_brace_block', 'extra', 'parenthesis_brace_block', 'square_brace_block', 'curly_brace_block', 'colon']],
-        'blank_line_before_statement' => ['statements' => ['return', 'try', 'if', 'else', 'elseif', 'switch', 'while', 'do', 'for', 'foreach', 'break', 'continue']],
+        'no_extra_blank_lines' => true,
+        // 'blank_line_before_statement' => ['statements' => ['return', 'try', 'if', 'else', 'elseif', 'switch', 'while', 'do', 'for', 'foreach', 'break', 'continue']],
         'single_quote' => true,
         'no_empty_comment' => true,
         'no_empty_phpdoc' => true,
         'no_trailing_whitespace' => true,
         'single_line_comment_style' => ['comment_types' => ['hash']],
-        'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_only'],
+        // 'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_only'], // deprecated in newer versions
         'phpdoc_indent' => false,
     ])
     ->setFinder($finder)

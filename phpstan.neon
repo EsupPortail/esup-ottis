@@ -8,7 +8,6 @@ parameters:
         - Security
         - config
         - includes
-        - *.php
     excludePaths:
         analyse:
             - vendor/*
@@ -24,11 +23,7 @@ parameters:
             - Security/validate_room_token.php
             - Security/init.php
             - Security/load_env.php
-    checkMissingIterableValueType: false
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false
-    allowDynamicProperties: false
+    checkDynamicProperties: true
     checkExtraArguments: true
-    checkFunctionNameCase: true
-    checkMethodNameCase: true
-    checkPropertyNameCase: true

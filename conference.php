@@ -13,7 +13,6 @@ header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
     
-//include("Security/Authentification.php");
 include("config.php");
 require_once __DIR__ . '/Security/room_tokens.php';
 require_once __DIR__ . '/includes/chat-component.php';

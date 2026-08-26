@@ -27,9 +27,7 @@ $randomname=$Tcolors[mt_rand(0,count($Tcolors)-1)]." ".$Tobjects[mt_rand(0,count
 $T_lang=array();
 $fd = fopen("supportedlanguages.csv","r");
 while($line=fgets($fd,4096)) {
-//  echo $line."\n";
   $ligne=explode(";",$line);
-//  print_r($ligne);
   if (count($ligne)>2) $T_lang[]=array("name_fr"=>trim($ligne[2]), "name_vo"=>trim($ligne[0]), "code"=>trim($ligne[1]), "voice"=>"-1");
 }
 fclose($fd);
@@ -223,7 +221,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 </style>
 
 </head>
-<body onload="/*Init();*/ /*InitVoices(); setTimeout(InitVoices,1000); setTimeout(Lancer,3000); */ PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); setInterval(readTextSub, 500); setInterval(readTextSubTranscript, 300);/*setTimeout(loadVoicesWhenAvailable,100);*/ /*loadVoicesWhenAvailable();*/">
+<body onload="PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); setInterval(readTextSub, 500); setInterval(readTextSubTranscript, 300);">
 <?php echo csrfField(); ?>
 <main>
 <h1 style="display:none;">Sous-titres</h1>

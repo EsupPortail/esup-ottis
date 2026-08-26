@@ -24,17 +24,6 @@ if (isset($_POST["uncloudlink"]) && trim($_POST["uncloudlink"]) != "") {
 $flag_justif=false;
 $filename = "tmpfiles/test.html";
 
-/*
-if( is_uploaded_file($tmp_file) ) {
-    if (!move_uploaded_file($tmp_file, $filename)) {
-        echo "ERROR UPLOAD !!!!"; exit;
-    }
-}
-*/
-
-//$filename="tmpfiles/out.html";
-//echo "[{'Slide':'1', 'Notes':'ok'}]"; exit;
-
 $contenttxt = file_get_contents($tmp_file);
 $content = explode("\n",$contenttxt);
 $txtslidenotes="";
@@ -68,8 +57,6 @@ $T["Slide"]=0;
 $T["Notes"]=array();
 $notes[$n]=$T;
 
-//print_r($notes);
 echo json_encode($notes);
-//unlink($filename);
 
 ?>
