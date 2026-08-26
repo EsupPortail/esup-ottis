@@ -70,8 +70,16 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 </script>
 <script src="js/auditor-def.js"></script>
 <script src="js/common-func.js"></script>
-<script src="js/chat-common.js"></script>
-<script src="js/auditor-func.js"></script>
+<!-- Auditor modules (replaces auditor-func.js) -->
+<script src="js/lib/auditor/text-processing.js"></script>
+<script src="js/lib/auditor/voices.js"></script>
+<script src="js/lib/auditor/speech.js"></script>
+<script src="js/lib/auditor/display.js"></script>
+<script src="js/lib/auditor/translation.js"></script>
+<script src="js/lib/auditor/network.js"></script>
+<script src="js/lib/auditor/config.js"></script>
+<script src="js/lib/auditor/mail.js"></script>
+<script src="js/lib/auditor/main.js"></script>
 <?php
 // jQuery dependency removed - all jQuery functionality replaced with native JavaScript
 // jQuery files have been completely removed from the project

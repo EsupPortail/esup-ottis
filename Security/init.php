@@ -22,6 +22,9 @@ require_once __DIR__ . '/validate.php';
 require_once __DIR__ . '/csrf.php';
 require_once __DIR__ . '/sanitize.php';
 
+// Charger les fonctions legacy pour la rétrocompatibilité
+require_once __DIR__ . '/legacy_functions.php';
+
 // Démarrer la session si ce n'est pas déjà fait
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

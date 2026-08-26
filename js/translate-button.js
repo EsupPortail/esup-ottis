@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     if (elt) {
         elt.addEventListener("click", (event) => {
             event.target.style.display = "none";
-            var glink=document.createElement('script');
+            let glink=document.createElement('script');
             glink.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
             document.body.appendChild(glink);
         }, false);

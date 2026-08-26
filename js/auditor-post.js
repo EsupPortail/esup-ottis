@@ -1,6 +1,6 @@
 function retourOK(e) {
-    var res = '';
-    for (var p in e) res += p + '=' + e[p] + '\n';
+    let res = '';
+    for (let p in e) res += p + '=' + e[p] + '\n';
 
 }
 
@@ -11,7 +11,7 @@ window.onbeforeunload = function(event) {
 };
 
 function fixTitle() {
-    var e = get("titre");
+    let e = get("titre");
     e.style.top = (window.innerHeight - e.style.height - 100 - 10) + 'px';
 
     e = get("VOBanner");
@@ -19,13 +19,13 @@ function fixTitle() {
 }
 
 function MinTitlePos() {
-    var e = get("titre");
-    var postop = 1 * (e.style.top.replace('px', ''));
+    let e = get("titre");
+    let postop = 1 * (e.style.top.replace('px', ''));
     if (postop > window.innerHeight - 50) {
         e.style.top = (window.innerHeight - 50) + 'px';
     }
-    var e = get("VOBanner");
-    var postop = 1 * (e.style.top.replace('px', ''));
+    e = get("VOBanner");
+    postop = 1 * (e.style.top.replace('px', ''));
     if (postop > window.innerHeight - 50) {
         e.style.top = (window.innerHeight - 50) + 'px';
     }
@@ -60,12 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 /*
-var bufferWC = [];
-var sizebufferWC = 15;
-var placebufferWC = 0;
-var buffer_has_changed = true;
+let bufferWC = [];
+let sizebufferWC = 15;
+let placebufferWC = 0;
+let buffer_has_changed = true;
 
-for (var i = 0; i < sizebufferWC; i++) bufferWC[i] = "";
+for (let i = 0; i < sizebufferWC; i++) bufferWC[i] = "";
 
 function removeTags(str) {
     if ((str === null) || (str === ''))
@@ -76,9 +76,9 @@ function removeTags(str) {
 }
 
 function CreateString() {
-    var previous = (placebufferWC - 1 + sizebufferWC) % sizebufferWC;
-    var pprevious = (placebufferWC - 2 + sizebufferWC) % sizebufferWC;
-    var ch = bufferWC.join(' ') + ' ' + bufferWC[previous] + ' ' + bufferWC[previous] + ' ' + bufferWC[pprevious];
+    let previous = (placebufferWC - 1 + sizebufferWC) % sizebufferWC;
+    let pprevious = (placebufferWC - 2 + sizebufferWC) % sizebufferWC;
+    let ch = bufferWC.join(' ') + ' ' + bufferWC[previous] + ' ' + bufferWC[previous] + ' ' + bufferWC[pprevious];
     return ch;
 }
 
@@ -103,15 +103,15 @@ function LaunchWC() {
 // Native implementations for dialogs and slider
 
 // Global variables
-var builtin_discoursrate = 1.0;
+builtin_discoursrate = 1.0;
 
 // Initialize dialogs and slider when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Get references to dialog elements
-    var dialogMail = _('dialog-mail');
-    var dialogChoose = _('dialog-choose');
-    var sliderSpeed = _('slider_speed');
-    var speedValue = 100; // Default value
+    let dialogMail = _('dialog-mail');
+    let dialogChoose = _('dialog-choose');
+    let sliderSpeed = _('slider_speed');
+    let speedValue = 100; // Default value
 
     // Initialize slider if it exists
     if (sliderSpeed) {
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     refreshSpeed();
 
     // Initialize dialog-choose close handler
-    var dialogChooseForm = dialogChoose.querySelector('form');
+    let dialogChooseForm = dialogChoose.querySelector('form');
     if (dialogChooseForm) {
         dialogChooseForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -141,11 +141,16 @@ document.addEventListener('DOMContentLoaded', function() {
             _('lilanguage').style.animation = 'none';
             firstclick = true;
             dialogChoose.close();
+            
+            // Start polling now that language is selected
+            if (typeof window.startAuditorPolling === 'function') {
+                window.startAuditorPolling();
+            }
         });
     }
 
     // Initialize dialog-mail cancel button
-    var cancelBtn = dialogMail.querySelector('button[type="reset"]');
+    let cancelBtn = dialogMail.querySelector('button[type="reset"]');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -156,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Fonction pour ouvrir le dialog de choix de langue
 window.openLanguageDialog = function() {
-    var dialogChoose = _('dialog-choose');
+    let dialogChoose = _('dialog-choose');
     if (dialogChoose) {
         dialogChoose.showModal();
     }

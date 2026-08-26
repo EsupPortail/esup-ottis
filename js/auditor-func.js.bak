@@ -11,7 +11,7 @@ if (typeof lastNotebookVOContent === 'undefined') {
  * @returns {string} Decoded text
  */
 function decodeHtmlEntities(text) {
-    var textarea = document.createElement("textarea");
+    let textarea = document.createElement("textarea");
     textarea.innerHTML = text;
     return textarea.value;
 }
@@ -22,18 +22,18 @@ function decodeHtmlEntities(text) {
  */
 
 function PopulateVoicesOut(selectname='VoiceOutput') {
-    var select = _(selectname);
+    let select = _(selectname);
     AllOutputVoices = [];
     while (select.firstChild) {
         select.removeChild(select.firstChild);
     }
-    var optgroup = document.createElement("optgroup");
+    let optgroup = document.createElement("optgroup");
     optgroup.label = "Voice and text translation";
-    var voices = window.speechSynthesis.getVoices();
+    let voices = window.speechSynthesis.getVoices();
     // Voices in english first
-    for (var i = 0; i < voices.length; i++) {
+    for (let i = 0; i < voices.length; i++) {
         if (voices[i].lang.substr(0, 2).toLowerCase() == 'en') { //(voices[i].localService) {
-            var opt = document.createElement("option");
+            let opt = document.createElement("option");
             opt.value = AllOutputVoices.length;
             if (voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
             voices[i].textonly = false;
@@ -43,9 +43,9 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
         }
     }
 
-    for (var i = 0; i < voices.length; i++) {
+    for (let i = 0; i < voices.length; i++) {
         if (voices[i].lang.substr(0, 2).toLowerCase() != 'en') { //(voices[i].localService) {
-            var opt = document.createElement("option");
+            let opt = document.createElement("option");
             opt.value = AllOutputVoices.length;
             if (voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
             voices[i].textonly = false;
@@ -56,11 +56,11 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
     }
     maxvoices = voices.length;
     select.appendChild(optgroup);
-    var optgroup2 = document.createElement("optgroup");
+    let optgroup2 = document.createElement("optgroup");
     optgroup2.label = "Text translation only";
-    for (var i = 0; i < supportedlanguages.length; i++) {
-        var lang = supportedlanguages[i].code; //.substr(0,5);
-        var opt = document.createElement("option");
+    for (let i = 0; i < supportedlanguages.length; i++) {
+        let lang = supportedlanguages[i].code; //.substr(0,5);
+        let opt = document.createElement("option");
         opt.value = maxvoices + i;
         AllOutputVoices.push({
             "lang": lang,
@@ -79,17 +79,17 @@ function PopulateVoicesOut(selectname='VoiceOutput') {
  */
 
 function PopulateVoicesOutSub(selectname='VoiceOutput') {
-    var select = _(selectname);
+    let select = _(selectname);
     AllOutputVoices = [];
     // while (select.firstChild) {
     //     select.removeChild(select.firstChild);
     // }
     
-    var optgroup2 = document.createElement("optgroup");
+    let optgroup2 = document.createElement("optgroup");
     optgroup2.label = "Text translation only";
-    for (var i = 0; i < supportedlanguages.length; i++) {
-        var lang = supportedlanguages[i].code; //.substr(0,5);
-        var opt = document.createElement("option");
+    for (let i = 0; i < supportedlanguages.length; i++) {
+        let lang = supportedlanguages[i].code; //.substr(0,5);
+        let opt = document.createElement("option");
         opt.value = maxvoices + i;
         AllOutputVoices.push({
             "lang": lang,
@@ -110,21 +110,21 @@ function PopulateVoicesOutSub(selectname='VoiceOutput') {
  */
 
 function PopulateVoicesIn() {
-    var select = _('VoiceInput');
-    var select2 = _('classroomlanguage');
-    var voices = window.speechSynthesis.getVoices();
+    let select = _('VoiceInput');
+    let select2 = _('classroomlanguage');
+    let voices = window.speechSynthesis.getVoices();
     //alert(voices[0].name);
     TLangInput = [];
-    for (var i = 0; i < voices.length; i++) {
+    for (let i = 0; i < voices.length; i++) {
         if (voices[i].localService) {
-            var lang = voices[i].lang; //.substr(0,5);
+            let lang = voices[i].lang; //.substr(0,5);
             if (TLangInput.indexOf(lang) < 0) {
-                var opt = document.createElement("option");
+                let opt = document.createElement("option");
                 opt.value = TLangInput.length;
                 TLangInput.push(lang);
                 opt.textContent = lang;
                 select.appendChild(opt);
-                var opt2 = document.createElement("option");
+                let opt2 = document.createElement("option");
                 opt2.value = TLangInput.length;
                 opt2.textContent = lang;
                 select2.appendChild(opt2);
@@ -140,20 +140,20 @@ function PopulateVoicesIn() {
 
 function PopulateVoicesIn() {
     if (TLangInput.length == 0) {
-        var select = _('VoiceInput');
-        var select2 = _('classroomlanguage');
-        //var voices = window.speechSynthesis.getVoices();
+        let select = _('VoiceInput');
+        let select2 = _('classroomlanguage');
+        //let voices = window.speechSynthesis.getVoices();
         TLangInput = [];
 
-        for (var i = 0; i < supportedlanguages.length; i++) {
-            var lang = supportedlanguages[i].code; //.substr(0,5);
+        for (let i = 0; i < supportedlanguages.length; i++) {
+            let lang = supportedlanguages[i].code; //.substr(0,5);
             if (TLangInput.indexOf(lang) < 0) {
-                var opt = document.createElement("option");
+                let opt = document.createElement("option");
                 opt.value = TLangInput.length;
                 TLangInput.push(lang);
                 opt.textContent = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
                 select.appendChild(opt);
-                var opt2 = document.createElement("option");
+                let opt2 = document.createElement("option");
                 opt2.value = TLangInput.length;
                 opt2.textContent = lang;
                 select2.appendChild(opt2);
@@ -169,20 +169,20 @@ function PopulateVoicesIn() {
 
 function PopulateVoicesInSub() {
     if (TLangInput.length == 0) {
-        // var select = _('VoiceInput');
-        var select = _('classroomlanguage');
-        //var voices = window.speechSynthesis.getVoices();
+        // let select = _('VoiceInput');
+        let select = _('classroomlanguage');
+        //let voices = window.speechSynthesis.getVoices();
         TLangInput = [];
 
-        for (var i = 0; i < supportedlanguages.length; i++) {
-            var lang = supportedlanguages[i].code; //.substr(0,5);
+        for (let i = 0; i < supportedlanguages.length; i++) {
+            let lang = supportedlanguages[i].code; //.substr(0,5);
             if (TLangInput.indexOf(lang) < 0) {
-                var opt = document.createElement("option");
+                let opt = document.createElement("option");
                 opt.value = TLangInput.length;
                 TLangInput.push(lang);
                 opt.textContent = lang + " " + supportedlanguages[i].name_fr + " " + supportedlanguages[i].name_vo;
                 select.appendChild(opt);
-                // var opt2 = document.createElement("option");
+                // let opt2 = document.createElement("option");
                 // opt2.value = TLangInput.length;
                 // opt2.innerHTML = lang;
                 // select2.appendChild(opt2);
@@ -192,19 +192,19 @@ function PopulateVoicesInSub() {
 }
 
 function countLines(elm) {
-    var el = _(elm);
-    var divHeight = el.offsetHeight;
-    var lineHeight = parseInt(el.style.lineHeight);
-    var lines = divHeight / lineHeight;
+    let el = _(elm);
+    let divHeight = el.offsetHeight;
+    let lineHeight = parseInt(el.style.lineHeight);
+    let lines = divHeight / lineHeight;
     return lines;
 }
 
 
 function auto_size_text(elm="titre", max_lines=3) {
 
-    var el = _(elm);
-    var lines = countLines(elm);
-    var size = parseInt(el.style.fontSize.replace("px", ""));
+    let el = _(elm);
+    let lines = countLines(elm);
+    let size = parseInt(el.style.fontSize.replace("px", ""));
     if(lines > max_lines) {
         size--;
         el.style.fontSize = size + "px";
@@ -221,7 +221,7 @@ function auto_size_text(elm="titre", max_lines=3) {
 
 function Parle(txt) {
     if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly) {
-        var discours = new SpeechSynthesisUtterance(txt);
+        let discours = new SpeechSynthesisUtterance(txt);
         discours.voice = builtin_voice;
         discours.rate = builtin_discoursrate;
         discours.lang = builtin_voice.lang;
@@ -240,7 +240,7 @@ function Parle(txt) {
 function ParleThen(txt, f) {
     _('titre').innerHTML = DOMPurify.sanitize(txt);
     if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly) {
-        var discours = new SpeechSynthesisUtterance(txt);
+        let discours = new SpeechSynthesisUtterance(txt);
         discours.voice = builtin_voice;
         discours.rate = builtin_discoursrate;
         discours.lang = builtin_voice.lang.replace('_', '-')
@@ -259,7 +259,7 @@ function ParleThen(txt, f) {
  */
 
 function applyConfigSub() {
-    var config = currentconfig;
+    let config = currentconfig;
 
     if (config.length != "ABYANACNNCNNNYYYYN".length) return;
     // classroomlanguage
@@ -287,7 +287,7 @@ function applyConfigSub() {
         hideBanner('VOBanner');
     }
     // ColorTitre
-    var colorTitreEl = _('ColorTitre');
+    let colorTitreEl = _('ColorTitre');
     if (colorTitreEl) {
         colorTitreEl.selectedIndex = 1 * (config.charCodeAt(3) - 65);
         ChangeColor('titre', colorTitreEl.value);
@@ -302,7 +302,7 @@ function applyConfigSub() {
     _('titre').style.fontSize = _('selectfontsize').value;
     _('VOBanner').style.fontSize = _('selectfontsize').value;
     //selectopacity
-    var selectOpacityEl = _('selectopacity');
+    let selectOpacityEl = _('selectopacity');
     if (selectOpacityEl) {
         selectOpacityEl.selectedIndex = 1 * (config.charCodeAt(9) - 65);
         ChangeOpacity('titre', selectOpacityEl.value);
@@ -333,7 +333,7 @@ function applyConfigSub() {
  */
 
 function increasependingrequests() {
-    var nb = _('nbrequests');
+    let nb = _('nbrequests');
     if (!nb) return;
     nb.innerHTML = nb.innerHTML * 1 + 1;
 }
@@ -344,7 +344,7 @@ function increasependingrequests() {
  */
 
 function decreasependingrequests() {
-    var nb = _('nbrequests');
+    let nb = _('nbrequests');
     if (!nb) return;
     nb.innerHTML = nb.innerHTML * 1 - 1;
 }
@@ -370,7 +370,7 @@ function Translate(ch, l, linput, lineid) {
 
     increasependingrequests();
 
-    var f = new FormData();
+    let f = new FormData();
 
     f.append('texte', ch);
     f.append('lang', l);
@@ -379,9 +379,9 @@ function Translate(ch, l, linput, lineid) {
     f.append('lineid', lineid);
     addCsrfToken(f);
 
-    var xhr = createXhrRequest('POST', 'Translate.php', {
+    let xhr = createXhrRequest('POST', 'Translate.php', {
         onSuccess: function(xhr) {
-            var response = JSON.parse(xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
             if ((!response["error"]) && response["data"]["translations"]) {
                 ToSay['' + lineid] = (response["data"]["translations"][0]["text"]);
                 Ecrire(response["data"]["translations"][0]["text"]);
@@ -424,11 +424,11 @@ function Translate2(ch, l, linput, lineid) {
         return;
     }
 
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.open("POST", "Translate.php", true);
     increasependingrequests();
     
-    var f = new FormData();
+    let f = new FormData();
     f.append('texte', ch);
     f.append('lang', l);
     f.append('langinput', linput);
@@ -527,17 +527,17 @@ function CompleteTranslation() {
     }
 
     if (ToTranslate.length > 0) {
-        var L = ToTranslate[0];
+        let L = ToTranslate[0];
         ToTranslate.splice(0, 1);
         
 
-        var id = L[0];
-        var sourceLang = L[1];
-        var sourceText = L[2];
-        var targetLang = L[3];
-        var targetText = L[4];
+        let id = L[0];
+        let sourceLang = L[1];
+        let sourceText = L[2];
+        let targetLang = L[3];
+        let targetText = L[4];
         
-        var currentLang = '';
+        let currentLang = '';
         if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
             currentLang = builtin_voice.lang.substr(0, 2);
         } else if (typeof builtin_language !== 'undefined' && builtin_language) {
@@ -574,9 +574,9 @@ function CompleteTranslation() {
 /*
 function CompleteTranslation2() {
     if (ToTranslate2.length > 0) {
-        var L = ToTranslate2[0];
+        let L = ToTranslate2[0];
         ToTranslate2.splice(0, 1);
-        var currentLang = '';
+        let currentLang = '';
         if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
             currentLang = builtin_voice.lang;
         } else if (typeof builtin_language !== 'undefined' && builtin_language) {
@@ -596,16 +596,16 @@ function CompleteTranslation2() {
  */
 
 function CompleteSpeech() {
-    var maxId = -1;
+    let maxId = -1;
     // Last ID in ToSay
-    for (var key in ToSay) {
-        var id = parseInt(key);
+    for (let key in ToSay) {
+        let id = parseInt(key);
         if (id > maxId) maxId = id;
     }
 
     // ONLY read the last one, if there is something new
     if (maxId > currentdiscours) {
-        var L = ToSay['' + maxId].replace("&nbsp;", " ");
+        let L = ToSay['' + maxId].replace("&nbsp;", " ");
         ParleThen(L, CompleteSpeech);
         currentdiscours = maxId;
     }
@@ -620,35 +620,35 @@ function readText() {
     if (_('classroomid').value != "") {
         increasependingrequests();
         currentorder_readtext++;
-        var f = new FormData();
+        let f = new FormData();
         f.append('lineid', inputnumber);
         f.append('ORDER', currentorder_readtext);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
         addCsrfToken(f);
 
-        var request = createXhrRequest('POST', 'readtext.php', {
+        let request = createXhrRequest('POST', 'readtext.php', {
             onSuccess: function(xhr) {
                 decreasependingrequests();
-                var T = xhr.responseText.split('\n');
-                var maxi = -1;
-                var readedorder = ('0' + T[0]).split(';')[0] * 1;
+                let T = xhr.responseText.split('\n');
+                let maxi = -1;
+                let readedorder = ('0' + T[0]).split(';')[0] * 1;
                 if (readedorder > maxorder_readtext) {
                     maxorder_readtext = readedorder;
-                    for (var i = 0; i < T.length; i++) {
-                        var L = T[i].split(';');
+                    for (let i = 0; i < T.length; i++) {
+                        let L = T[i].split(';');
                         if (L.length > 3) {
                             if (1 * L[1] > maxi) maxi = 1 * L[1];
                             if (AllPhrases[1 * L[1]] == undefined) {
                                 if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
                                     AllPhrases[1 * L[1]] = true;
                                     
-                                    var sourceLang = L[2];
-                                    var sourceText = decodeHtmlEntities(L[3]);
-                                    var targetLang = L[4];
-                                    var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
+                                    let sourceLang = L[2];
+                                    let sourceText = decodeHtmlEntities(L[3]);
+                                    let targetLang = L[4];
+                                    let targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
                                     
-                                    var currentLang = builtin_voice.lang;
+                                    let currentLang = builtin_voice.lang;
                                     
                                     if (currentLang === L[2].substr(0, 2)) {
                                         Ecrire(sourceText);
@@ -687,35 +687,35 @@ function readTextSub() {
     if (_('classroomid').value != "") {
         increasependingrequests();
         currentorder_readtext++;
-        var f = new FormData();
+        let f = new FormData();
         f.append('lineid', inputnumber);
         f.append('ORDER', currentorder_readtext);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
         addCsrfToken(f);
 
-        var request = createXhrRequest('POST', 'readtext.php', {
+        let request = createXhrRequest('POST', 'readtext.php', {
             onSuccess: function(xhr) {
                 decreasependingrequests();
-                var T = xhr.responseText.split('\n');
-                var maxi = -1;
-                var readedorder = ('0' + T[0]).split(';')[0] * 1;
+                let T = xhr.responseText.split('\n');
+                let maxi = -1;
+                let readedorder = ('0' + T[0]).split(';')[0] * 1;
                 if (readedorder > maxorder_readtext) {
                     maxorder_readtext = readedorder;
-                    for (var i = 0; i < T.length; i++) {
-                        var L = T[i].split(';');
+                    for (let i = 0; i < T.length; i++) {
+                        let L = T[i].split(';');
                         if (L.length > 3) {
                             if (1 * L[1] > maxi) maxi = 1 * L[1];
                             if (AllPhrases[1 * L[1]] == undefined) {
                                 if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
                                     AllPhrases[1 * L[1]] = true;
                                     
-                                    var sourceLang = L[2];
-                                    var sourceText = decodeHtmlEntities(L[3]);
-                                    var targetLang = L[4];
-                                    var targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
+                                    let sourceLang = L[2];
+                                    let sourceText = decodeHtmlEntities(L[3]);
+                                    let targetLang = L[4];
+                                    let targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
                                     
-                                    var currentLang = '';
+                                    let currentLang = '';
                                     if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
                                         currentLang = builtin_voice.lang.substr(0, 2);
                                     } else if (typeof builtin_language !== 'undefined' && builtin_language) {
@@ -755,24 +755,24 @@ function readTextSubTranscript() {
     if (_('classroomid').value != "") {
         increasependingrequests();
         currentorder_readtext++;
-        var f = new FormData();
+        let f = new FormData();
         f.append('lineid', inputnumber);
         f.append('ORDER', currentorder_readtext);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
         addCsrfToken(f);
 
-        var requestTranscriptSub = createXhrRequest('POST', 'readtextTranscriptSub.php', {
+        let requestTranscriptSub = createXhrRequest('POST', 'readtextTranscriptSub.php', {
             onSuccess: function(xhr) {
                 decreasependingrequests();
-                var T = xhr.responseText.split('\n');
+                let T = xhr.responseText.split('\n');
                 
                 // Construire le contenu complet du notebook VO
-                var newContent = '';
-                for (var i = 0; i < T.length; i++) {
-                    var line = T[i].trim();
+                let newContent = '';
+                for (let i = 0; i < T.length; i++) {
+                    let line = T[i].trim();
                     if (line) {
-                        var parts = line.split(';');
+                        let parts = line.split(';');
                         if (parts.length > 1 && parts[1]) {
                             if (newContent !== '') {
                                 newContent += '<br/>';
@@ -801,13 +801,13 @@ function readTextSubTranscript() {
         });
         requestTranscriptSub.send(f);
 
-//             var maxi = -1;
-//             var readedorder = ('0' + T[0]).split(';')[0] * 1;
+//             let maxi = -1;
+//             let readedorder = ('0' + T[0]).split(';')[0] * 1;
 //             console.log("READEDORDER : "+readedorder);
 //             if (readedorder > maxorder_readtext) {
 //                 maxorder_readtext = readedorder;
-//                 for (var i = 0; i < T.length; i++) {
-//                     var L = T[i].split(';');
+//                 for (let i = 0; i < T.length; i++) {
+//                     let L = T[i].split(';');
 //                     console.log(L);
 //                     if (L.length > 3) {
 //                         if (1 * L[1] > maxi) maxi = 1 * L[1];
@@ -844,17 +844,17 @@ function readTextSubTranscript() {
 function readImage() {
     if (_('classroomid').value != "") {
         increasependingrequests();
-        var f = new FormData();
+        let f = new FormData();
         f.append('random', currentrandom);
         f.append('ROOMID', _('classroomid').value);
         f.append('room_token', window.ROOM_TOKEN);
         addCsrfToken(f);
 
-        var request = createXhrRequest('POST', 'readimage.php', {
+        let request = createXhrRequest('POST', 'readimage.php', {
             onSuccess: function(xhr) {
                 decreasependingrequests();
                 if (xhr.responseText != "") {
-                    var Trep = xhr.responseText.split('|||');
+                    let Trep = xhr.responseText.split('|||');
                     currentrandom = Trep[0];
                 }
             },
@@ -875,7 +875,7 @@ function readImage() {
 
 function Lancer() {
     setInterval(readText, 500);
-    setInterval(readTextQ, 500);
+    // setInterval(readTextQ, 500);
     // setInterval(readTextSubTranscript, 500); - DISABLED: notebook now synced via readText()
     setInterval(readImage, 500);
     setLanguageInput(0);
@@ -899,21 +899,25 @@ function Init() {
       }
     },false);
     */
-    startChatPolling();
+    if (typeof startChatPolling !== 'undefined') {
+        startChatPolling();
+    }
 
     // Wooclap disabled - tabs commented out
     /*
     setTimeout(function() {
-        var wooclapEl = _('wooclap');
+        let wooclapEl = _('wooclap');
         if (wooclapEl) {
             wooclapEl.src = 'https://app.wooclap.com/';
         }
     }, 1000);
     */
     setTimeout(function() {
-        saveTextQ("[newstudentarrived]");
+        if (typeof saveTextQ !== 'undefined') {
+            saveTextQ("[newstudentarrived]");
+        }
     }, 1000);
-    var colorTitreEl = _('ColorTitre');
+    let colorTitreEl = _('ColorTitre');
     ChangeColor('titre', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
 
     // Keyboard navigation
@@ -1032,7 +1036,7 @@ function LoadVoices() {
 
 function EnvoiMail() {
     // alert("I will send the mail to "+_('dialog_MailTo').value.replaceAll(' - ',','));
-    var FD = new FormData();
+    let FD = new FormData();
     FD.append('from', _('dialog_MailTo').value);
     FD.append('to', _('dialog_MailTo').value.replaceAll(' - ', ','));
     FD.append('subject', _('dialog_MailSubject').value);
@@ -1043,7 +1047,7 @@ function EnvoiMail() {
     // Ajouter le token CSRF pour la protection
     addCsrfToken(FD);
     
-    var XHR = createXhrRequest('POST', 'sendamail.php', {
+    let XHR = createXhrRequest('POST', 'sendamail.php', {
         onSuccess: function(xhr) {
             alert('Mail sent.');
         },

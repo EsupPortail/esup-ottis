@@ -321,29 +321,24 @@ input[type="checkbox"] {
 :-moz-full-screen #pdf-viewer,
 :-ms-fullscreen #pdf-viewer {
     width: 100vw;
-    height: 100vh;
+    height: 100vh !important;
     margin: 0;
     padding: 0;
     background: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
 }
 
 :fullscreen #pdf-canvas,
 :-webkit-full-screen #pdf-canvas,
 :-moz-full-screen #pdf-canvas,
 :-ms-fullscreen #pdf-canvas {
-    width: auto !important;
-    height: auto !important;
     display: block !important;
-    position: absolute !important;
-    z-index: 9999 !important;
-    top: 0 !important;
-    left: 50% !important;
-    bottom: 163px !important;
-    transform: translateX(-50%) !important;
+    margin: 0 auto !important;
     box-sizing: border-box !important;
 }
 
@@ -352,15 +347,15 @@ input[type="checkbox"] {
 :-moz-full-screen #pdf-control,
 :-ms-fullscreen #pdf-control {
     display: block !important;
-    position: fixed;
-    bottom: 100px;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px 0;
-    margin: 0;
-    z-index: 10000;
-    width: 100%;
+    position: absolute !important;
+    bottom: 100px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    padding: 10px 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 :fullscreen #pdf-control > div,
@@ -408,18 +403,19 @@ input[type="checkbox"] {
 :-moz-full-screen #textBand,
 :-ms-fullscreen #textBand {
     display: block !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
     height: 100px !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     border-radius: 0;
-    z-index: 10001;
     overflow: hidden !important;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
 }
 
 :fullscreen body,

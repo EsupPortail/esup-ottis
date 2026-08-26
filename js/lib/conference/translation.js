@@ -52,7 +52,8 @@ export function StudentCompleteTranslation2() {
     if (StudentToTranslate2.length > 0) {
         let L = StudentToTranslate2[0];
         StudentToTranslate2.splice(0, 1);
-        if (subtitle_language.substr(0, 2).toLowerCase() != L[1].substr(0, 2)) {
+        if (typeof subtitle_language === 'string' && L && L[1] && typeof L[1] === 'string' && 
+            subtitle_language.substr(0, 2).toLowerCase() != L[1].substr(0, 2)) {
             // Ecrire("Push : "+L[2]);
             StudentTranslate2(L[2], subtitle_language.substr(0, 2).toLowerCase(), L[1].substr(0, 2), L[0]);
         } else StudentCompleteTranslation2();
@@ -95,8 +96,8 @@ export function Traduction(ch) {
         EcrireNBonlyVO(ch);
 
         // Check if subtitle language is set and different from source
-        if (typeof subtitle_language !== 'undefined' && subtitle_language && 
-            builtin_language && builtin_language !== subtitle_language) {
+        if (typeof subtitle_language === 'string' && subtitle_language && 
+            typeof builtin_language === 'string' && builtin_language && builtin_language !== subtitle_language) {
             Translate(ch, subtitle_language.substr(0, 2), builtin_language.substr(0, 2), 
                 function(translatedText) {
                     if (translatedText && translatedText !== '') {
@@ -209,13 +210,13 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
 }
 
 export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
-    let linput = builtin_language.substr(0, 2).toLowerCase();
+    let linput = (typeof builtin_language === 'string' && builtin_language) ? builtin_language.substr(0, 2).toLowerCase() : '';
     if (ch.indexOf(':|:') >= 0) { // If there are a language indication
         let Tch = ch.split(':|:');
-        linput = Tch[0].substr(0, 2).toLowerCase();
+        linput = (Tch[0]) ? Tch[0].substr(0, 2).toLowerCase() : '';
         ch = Tch[1];
     }
-    let loutput = subtitle_language.substr(0, 2).toLowerCase();
+    let loutput = (typeof subtitle_language === 'string' && subtitle_language) ? subtitle_language.substr(0, 2).toLowerCase() : '';
     if (linput == loutput) {
         EcrirePartial(ch);
         if (callback) callback(ch);

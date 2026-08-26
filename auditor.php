@@ -41,13 +41,21 @@ $theme = "flat";
 if (isset($_GET["theme"])) $theme = $_GET["theme"];
 
 // Centralized JavaScript variables
+// Add currentconfig similar to conference.php
+if (isset($_GET["myconfig"])) {
+    $currentconfig = $_GET["myconfig"];
+} else {
+    $currentconfig = 'ABYANACNNCNNNYYYYN';
+}
+
 $jsVars = [
     "supportedlanguages" => $T_lang,
     "classroomid" => $classroomid,
     //"wooclapkey" => $wooclapkey,
     //"wooclapaddress" => $wooclapaddress,
     "theme" => $theme,
-    "randomname" => $randomname
+    "randomname" => $randomname,
+    "currentconfig" => $currentconfig
 ];
 
 ?>
@@ -77,12 +85,29 @@ $jsVars = [
     $pageScripts = [];
     $pageScripts[] = "/js/auditor-def.js";
     $pageScripts[] = "/js/common-func.js";
-    $pageScripts[] = "/js/chat-common.js";
-    $pageScripts[] = "/js/chat-alert.js";
-    $pageScripts[] = "/js/auditor-func.js";
+    // Auditor modules (replaces auditor-func.js)
+    $pageScripts[] = "/js/lib/auditor/text-processing.js";
+    $pageScripts[] = "/js/lib/auditor/speech.js";
+    $pageScripts[] = "/js/lib/auditor/display.js";
+    $pageScripts[] = "/js/lib/auditor/translation.js";
+    $pageScripts[] = "/js/lib/auditor/network.js";
+    $pageScripts[] = "/js/lib/auditor/config.js";
+    $pageScripts[] = "/js/lib/auditor/mail.js";
+    $pageScripts[] = "/js/lib/auditor/main.js";
     $pageScripts[] = "/js/utils/dom.js";
     $pageScripts[] = "/js/utils/draggable.js";
     $pageScripts[] = "/js/auditor-post.js";
+    
+    // Chat modules and conference legacy as ES modules
+    $chatScripts = [];
+    // Charge conference-legacy.js en premier pour définir les fonctions nécessaires (EcrireNB, EcrireCR, etc.)
+    $chatScripts[] = "/js/conference-legacy.js";
+    $chatScripts[] = "/js/lib/chat/alert.js";
+    $chatScripts[] = "/js/lib/chat/network.js";
+    $chatScripts[] = "/js/lib/chat/handlers.js";
+    $chatScripts[] = "/js/lib/chat/display.js";
+    $chatScripts[] = "/js/lib/chat/main.js";
+    $chatScripts[] = "/js/auditor-init.js";
     
     // Inject pageData for JavaScript
     echo "<script>window.pageData = " . json_encode($jsVars) . ";</script>\n";
@@ -255,25 +280,12 @@ $jsVars = [
 </dialog>
 <?php foreach ($pageScripts as $script) {
     echo "<script src=\"{$script}\"></script>\n";
-} ?>
-
-<!-- Initialize chat alert after all scripts are loaded -->
-<script>
-// Initialize chat alert when DOM is ready and all scripts are loaded
-if (typeof initChatAlert === 'function') {
-    var userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : <?php echo e_js($randomname); ?>;
-    initChatAlert(userName);
-} else {
-    console.error('[Chat Alert] initChatAlert function not found!');
 }
-
-// Initialize the application - must be after all scripts are loaded
-console.log('[AUDITOR DEBUG] DOM fully loaded, calling Init()');
-Init();
-setTimeout(loadVoicesWhenAvailable, 100);
-</script>
-
-  </script>
+// Chat modules as ES modules
+foreach ($chatScripts as $script) {
+    echo "<script type=\"module\" src=\"{$script}\"></script>\n";
+}
+?>
 <?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
     <script src="/js/tests/no-jquery-validation.js"></script>
 <?php endif; ?>

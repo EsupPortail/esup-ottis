@@ -6,7 +6,7 @@
  */
 
 // Global state for chat alert
-var chatAlertState = {
+let chatAlertState = {
     hasNewMessages: false,
     alertCount: 0,
     isVisible: false,
@@ -21,7 +21,7 @@ var chatAlertState = {
  * @param {string} userName - Current user's name to filter out their own messages
  * @returns {void}
  */
-function initChatAlert(userName) {
+export function initChatAlert(userName) {
     chatAlertState.currentUser = userName || '';
 
     // Create alert element if it doesn't exist
@@ -37,12 +37,12 @@ function initChatAlert(userName) {
  *
  * @returns {void}
  */
-function createChatAlertElement() {
-    if (_('chat-alert')) {
+export function createChatAlertElement() {
+    if (window._('chat-alert')) {
         return; // Already exists
     }
 
-    var alertElement = document.createElement('div');
+    let alertElement = document.createElement('div');
     alertElement.id = 'chat-alert';
     alertElement.className = 'chat-alert';
     alertElement.setAttribute('role', 'alert');
@@ -51,12 +51,12 @@ function createChatAlertElement() {
     alertElement.title = 'New chat message received. Click to open chat.';
 
     // Icon for the alert
-    var icon = document.createElement('i');
+    let icon = document.createElement('i');
     icon.className = 'fa fa-comments chat-alert-icon';
     alertElement.appendChild(icon);
 
     // Badge with count
-    var badge = document.createElement('span');
+    let badge = document.createElement('span');
     badge.className = 'chat-alert-badge';
     badge.id = 'chat-alert-badge';
     badge.textContent = '0';
@@ -80,11 +80,11 @@ function createChatAlertElement() {
  *
  * @returns {void}
  */
-function showChatAlert() {
-    var alertElement = _('chat-alert');
+export function showChatAlert() {
+    let alertElement = window._('chat-alert');
     if (!alertElement) {
         createChatAlertElement();
-        alertElement = _('chat-alert');
+        alertElement = window._('chat-alert');
     }
 
     if (!alertElement) return;
@@ -103,8 +103,8 @@ function showChatAlert() {
  *
  * @returns {void}
  */
-function hideChatAlert() {
-    var alertElement = _('chat-alert');
+export function hideChatAlert() {
+    let alertElement = window._('chat-alert');
     if (!alertElement) return;
 
     chatAlertState.isVisible = false;
@@ -117,7 +117,7 @@ function hideChatAlert() {
  *
  * @returns {void}
  */
-function resetChatAlert() {
+export function resetChatAlert() {
     chatAlertState.hasNewMessages = false;
     chatAlertState.alertCount = 0;
     hideChatAlert();
@@ -129,7 +129,7 @@ function resetChatAlert() {
  *
  * @returns {void}
  */
-function incrementAlertCount() {
+export function incrementAlertCount() {
     chatAlertState.alertCount++;
     chatAlertState.hasNewMessages = true;
     showChatAlert();
@@ -141,8 +141,8 @@ function incrementAlertCount() {
  *
  * @returns {void}
  */
-function updateAlertBadge() {
-    var badge = _('chat-alert-badge');
+export function updateAlertBadge() {
+    let badge = window._('chat-alert-badge');
     if (!badge) return;
 
     if (chatAlertState.alertCount > 0) {
@@ -159,14 +159,14 @@ function updateAlertBadge() {
  *
  * @returns {void}
  */
-function startBlinkAnimation() {
+export function startBlinkAnimation() {
     // Clear any existing interval
     if (chatAlertState.blinkInterval) {
         clearInterval(chatAlertState.blinkInterval);
     }
 
     chatAlertState.blinkInterval = setInterval(function() {
-        var alertElement = _('chat-alert');
+        let alertElement = window._('chat-alert');
         if (!alertElement || !chatAlertState.hasNewMessages) return;
 
         // Toggle blink class for pulsating effect
@@ -183,13 +183,13 @@ function startBlinkAnimation() {
  *
  * @returns {void}
  */
-function stopBlinkAnimation() {
+export function stopBlinkAnimation() {
     if (chatAlertState.blinkInterval) {
         clearInterval(chatAlertState.blinkInterval);
         chatAlertState.blinkInterval = null;
 
         // Remove blink class
-        var alertElement = _('chat-alert');
+        let alertElement = window._('chat-alert');
         if (alertElement) {
             alertElement.classList.remove('chat-alert-blink');
         }
@@ -203,7 +203,7 @@ function stopBlinkAnimation() {
  * @param {string} senderName - Name of the message sender
  * @returns {void}
  */
-function triggerNewMessageAlert(senderName) {
+export function triggerNewMessageAlert(senderName) {
     // Don't trigger alert for own messages
     if (senderName && senderName === chatAlertState.currentUser) {
         return;
@@ -218,6 +218,6 @@ function triggerNewMessageAlert(senderName) {
  *
  * @returns {object} Current alert state
  */
-function getChatAlertState() {
+export function getChatAlertState() {
     return chatAlertState;
 }

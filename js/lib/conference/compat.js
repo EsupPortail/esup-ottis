@@ -1,5 +1,5 @@
 /** @module conference/compat */
-import { EcrireCR as libEcrireCR } from '../chat/helpers.js';
+import { EcrireCR as libEcrireCR } from '../chat/display.js';
 import { AbortTimeout as xhrAbortTimeout } from '../xhr.js';
 
 /**

@@ -92,7 +92,12 @@ export function ready(callback) {
 }
 
 export function StartSpeechRecognition(callback) {
-
+    // Ne pas démarrer la reconnaissance si la langue n'est pas définie
+    if (!builtin_language || typeof builtin_language !== 'string') {
+        console.warn('[SpeechRecognition] StartSpeechRecognition: builtin_language is not set. Language must be selected first. Current value:', builtin_language);
+        return;
+    }
+    console.log('[SpeechRecognition] Starting with language:', builtin_language);
     builtin_recognition.lang = builtin_language;
     builtin_recognition.onresult = function(event) {
         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
@@ -130,8 +135,12 @@ export function StartSpeechRecognition(callback) {
         }
     };
     builtin_recognition.onend = function(event) {
+        console.log('[SpeechRecognition] onend called, builtin_recognitionon:', builtin_recognitionon, 'builtin_language:', builtin_language);
         if (builtin_recognitionon) {
+            console.log('[SpeechRecognition] Restarting recognition...');
             StartSpeechRecognition(callback);
+        } else {
+            console.log('[SpeechRecognition] Not restarting - builtin_recognitionon is false');
         }
     };
     setBuiltinRecognitionon(true);

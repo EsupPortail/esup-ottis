@@ -84,8 +84,8 @@ Le projet OMIST Automatic Translator (v3.2.0) a obtenu un **score global D (Crit
 | 11 | Configurer l'autoloading PSR-4 | ⚠️ Important | Élevé (10h) | Élevé | À définir | ⏳ |
 | 12 | **Réorganiser en architecture MVC** (séparer logique/affichage) | ⚠️ Important | Très Élevé (30h) | Élevé | À définir | ⏳ |
 | 13 | Ajouter DocBlocks à toutes les fonctions publiques | ⚠️ Important | Moyen (12h) | Moyen | À définir | ⏳ |
-| 14 | Configurer PHP-CS-Fixer | ⚠️ Important | Faible (2h) | Moyen | À définir | ⏳ |
-| 15 | Configurer PHPStan (niveau 5) | ⚠️ Important | Faible (2h) | Moyen | À définir | ⏳ |
+| 14 | Configurer PHP-CS-Fixer | ⚠️ Important | Faible (2h) | Moyen | À définir | ✅ Terminé |
+| 15 | Configurer PHPStan (niveau 5) | ⚠️ Important | Faible (2h) | Moyen | À définir | ✅ Terminé |
 | 16 | Supprimer tout le code commenté (code mort) | ⚠️ Important | Moyen (8h) | Moyen | À définir | ⏳ |
 | 17 | Extraire le code dupliqué dans des fichiers partagés | ⚠️ Important | Élevé (16h) | Élevé | À définir | ⏳ |
 
@@ -102,8 +102,8 @@ Le projet OMIST Automatic Translator (v3.2.0) a obtenu un **score global D (Crit
 - [ ] Structure de dossiers src/ (Controller, Service, Model, Utils)
 - [ ] Autoloading PSR-4 configuré et fonctionnel
 - [ ] Architecture MVC implémentée pour les nouveaux composants
-- [ ] Configuration PHP-CS-Fixer et PHPStan
-- [ ] Fichiers .php-cs-fixer.dist.php et phpstan.neon
+- [x] Configuration PHP-CS-Fixer et PHPStan
+- [x] Fichiers .php-cs-fixer.dist.php et phpstan.neon
 - [ ] Package.json configuré avec npm
 - [ ] Configuration ESLint et Prettier
 - [ ] Tout le code commenté supprimé
@@ -114,7 +114,7 @@ Le projet OMIST Automatic Translator (v3.2.0) a obtenu un **score global D (Crit
 - [ ] Pas de code commenté non supprimé
 - [ ] 100% des `var` remplacés par `const`/`let`
 - [x] conference-func.js divisé en modules de < 500 lignes
-- [ ] Linters configurés et passants sur tout le code
+- [x] Linters PHP configurés (PHP-CS-Fixer, PHPStan)
 
 ---
 

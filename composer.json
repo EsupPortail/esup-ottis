@@ -5,7 +5,10 @@
         "phpoffice/common": "^1.0",
         "vlucas/phpdotenv": "^5.5"
     },
-    "require-dev": {},
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.13",
+        "phpstan/phpstan": "^1.10"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "src/"

@@ -34,32 +34,17 @@ $pageStyles = [
                 "https://fonts.googleapis.com/icon?family=Material+Icons",
                 "styles/chat.css"
 ];
-$pageScripts = ["/js/conference-def.js",
-                "/js/common-func.js",
-                "/js/chat-common.js",
-                "/js/chat-alert.js",
-                "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
-                "/js/pdf-init.js",
-                "/js/utils/dom.js",
-                "/js/utils/dialog.js",
-                "/js/utils/draggable.js",
-                "/js/conference-func.js",
-                "/js/qrcode.min.js",
-                "/js/conference-post.js",
-                "/js/conference-events.js"
+$pageScripts = ["https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
+                "/js/qrcode.min.js"
 ];
 
 
 // Tableau de fonctions à exécuter
 $onloadFunctions = [
-    "Init()",
-    "InitVoices()",
     //"setTimeout(InitVoices,1000)",
     //"setTimeout(InitVoices,2000)",
     //"setTimeout(Lancer,3003)",
-	"Lancer()",
-    //"ready()",
-    "setTimeout(applyConfig, 100)",
+    // Init(), Lancer(), InitVoices() and applyConfig() are now called from conference-legacy.js
 ];
 $onloadScripts = implode(";\n    ", $onloadFunctions);
 
@@ -153,6 +138,8 @@ $jsVars = [
 
 include_once __DIR__ . '/includes/header.php';
 ?>
+
+<input type="hidden" id="classroomid" value="<?php echo e($classroomid); ?>">
 
 <input type="hidden" id="classroomid" value="<?php echo e($classroomid); ?>">
 <input type="hidden" id="appid" value="<?php echo e($appid); ?>">
@@ -315,4 +302,12 @@ include_once __DIR__ . '/includes/header.php';
 <!-- -->
 
 
+<script type="module" src="/js/conference-legacy.js"></script>
+<!-- Chat modules -->
+<script src="/js/common-func.js"></script>
+<script type="module" src="/js/lib/chat/alert.js"></script>
+<script type="module" src="/js/lib/chat/network.js"></script>
+<script type="module" src="/js/lib/chat/handlers.js"></script>
+<script type="module" src="/js/lib/chat/display.js"></script>
+<script type="module" src="/js/lib/chat/main.js"></script>
 <?php include_once __DIR__ . '/includes/footer.php'; ?>

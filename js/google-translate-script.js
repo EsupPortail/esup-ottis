@@ -1,4 +1,4 @@
-var gt;
+let gt;
 function googleTranslateElementInit() {
     document.cookie='';
     gt=new google.translate.TranslateElement({
@@ -9,10 +9,10 @@ function googleTranslateElementInit() {
 }
 
 function Init2() {
-    var a = document.querySelector("#google_translate_element select");
+    let a = document.querySelector("#google_translate_element select");
     if(a){
-        var find=0;
-        for(var i=0; i<a.options.length; i++) {
+        let find=0;
+        for (let i=0; i<a.options.length; i++) {
             if (a.options[i].value==document.body.lang) find=i;
         }
         a.selectedIndex=find;
@@ -20,6 +20,6 @@ function Init2() {
     }
     a=document.querySelector("#google_translate_element > div");
     a.childNodes[1].deleteData(0,100);
-    for(var i=2; i<a.childNodes.length; i++) a.childNodes[i].innerHTML='';
+    for (let i=2; i<a.childNodes.length; i++) a.childNodes[i].innerHTML='';
     document.querySelector("#translateButton").style = "background-color : var(--black); border : none;";
 }

@@ -12,8 +12,8 @@ if (typeof ColorsForCR === 'undefined') {
 }
 
 // Global variables for chat state
-var inputnumberQ = 0;
-var ColorsForCR = ColorsForCR || [];
+window.inputnumberQ = window.inputnumberQ || 0;
+window.ColorsForCR = window.ColorsForCR || [];
 
 // Initialize default colors if not already set
 if (!ColorsForCR["----"]) {
@@ -38,7 +38,7 @@ function saveTextQCommon(ch, senderName, roomId, language) {
         increasependingrequests();
     }
     
-    var f = new FormData();
+    let f = new FormData();
     f.append('lineid', senderName);
     f.append('text', ch);
     f.append('inputlanguage', language || '');
@@ -52,7 +52,7 @@ function saveTextQCommon(ch, senderName, roomId, language) {
     // Ajouter le token CSRF pour la protection
     addCsrfToken(f);
     
-    var request = createXhrRequest('POST', 'savetextQ.php', {
+    let request = createXhrRequest('POST', 'savetextQ.php', {
         onSuccess: function(xhr) {
             // Use decreasependingrequests if available
             if (typeof decreasependingrequests === 'function') {
@@ -85,7 +85,7 @@ function readTextQCommon(roomId, messageHandler) {
         increasependingrequests();
     }
     
-    var f = new FormData();
+    let f = new FormData();
     f.append('lineid', 0);
     f.append('ROOMID', roomId);
     
@@ -97,33 +97,33 @@ function readTextQCommon(roomId, messageHandler) {
     // Ajouter le token CSRF pour la protection
     addCsrfToken(f);
     
-    var request = createXhrRequest('POST', 'readtextQ.php', {
+    let request = createXhrRequest('POST', 'readtextQ.php', {
         onSuccess: function(xhr) {
             // Use decreasependingrequests if available
             if (typeof decreasependingrequests === 'function') {
                 decreasependingrequests();
             }
             
-            var Told = xhr.responseText.split('\n');
-            var k = 0;
-            var T = [];
+            let Told = xhr.responseText.split('\n');
+            let k = 0;
+            let T = [];
             
             // Filter out empty lines
-            for (var i = 0; i < Told.length; i++) {
+            for (let i = 0; i < Told.length; i++) {
                 if (Told[i].split(';').length > 2) {
                     T.push(Told[i]);
                 }
             }
             
             // Process new messages
-            for (var i = inputnumberQ; i < T.length; i++) {
-                var L = T[i].split(';');
+            for (let i = inputnumberQ; i < T.length; i++) {
+                let L = T[i].split(';');
                 if (L.length >= 3) {
-                    var who = L[0];
-                    var lang = L[1];
-                    var text = L[2];
-                    var isSpecial = false;
-                    var specialType = '';
+                    let who = L[0];
+                    let lang = L[1];
+                    let text = L[2];
+                    let isSpecial = false;
+                    let specialType = '';
                     
                     // Check for special messages
                     if (text.indexOf("[newstudentarrived]") >= 0) {
@@ -217,7 +217,7 @@ function defaultMessageHandler(who, text, lang, order, isSpecial, specialType) {
     }
     
     // Get current language
-    var currentLang = '';
+    let currentLang = '';
     if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
         currentLang = builtin_voice.lang;
     } else if (typeof builtin_language !== 'undefined' && builtin_language) {
@@ -254,9 +254,9 @@ function readTextQ(roomId) {
  */
 function saveTextQ(ch) {
     // Determine sender name based on context
-    var senderName = 'User Unknown';
-    var roomId = '';
-    var language = '';
+    let senderName = 'User Unknown';
+    let roomId = '';
+    let language = '';
     
     // Try to get from different possible contexts
     if (typeof _ !== 'undefined') {
@@ -310,9 +310,9 @@ function saveTextQ(ch) {
  * @returns {void}
  */
 function TranslateQ(ch, targetLang, sourceLang, name, order) {
-    var roomid = (typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? _('classroomid').value : ''));
+    let roomid = (typeof _ !== 'undefined' && _('classroomid') ? _('classroomid').value : (document.getElementById ? _('classroomid').value : ''));
     
-    var f = new FormData();
+    let f = new FormData();
     f.append('texte', ch);
     f.append('lang', targetLang);
     f.append('langinput', sourceLang);
@@ -326,16 +326,16 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
     
     addCsrfToken(f);
     
-    var xhr = createXhrRequest('POST', 'Translate.php', {
+    let xhr = createXhrRequest('POST', 'Translate.php', {
         onSuccess: function(xhr) {
             if (typeof decreasependingrequests === 'function') {
                 decreasependingrequests();
             }
             
             try {
-                var response = JSON.parse(xhr.responseText);
+                let response = JSON.parse(xhr.responseText);
                 if (!response["error"] && response["data"] && response["data"]["translations"] && response["data"]["translations"][0]) {
-                    var translation = response["data"]["translations"][0]["text"];
+                    let translation = response["data"]["translations"][0]["text"];
                     if (translation) {
                         if (typeof EcrireCR === 'function') {
                             EcrireCR(name, translation, order);
@@ -373,7 +373,7 @@ function TranslateQ(ch, targetLang, sourceLang, name, order) {
  * @returns {void}
  */
 function sendclick() {
-    var questionElement = null;
+    let questionElement = null;
     if (typeof _ !== 'undefined') {
         questionElement = _('question');
     } else if (document.getElementById) {
@@ -381,7 +381,7 @@ function sendclick() {
     }
     
     if (questionElement) {
-        var tosend = questionElement.value.replaceAll('\n','').trim();
+        let tosend = questionElement.value.replaceAll('\n','').trim();
         if (tosend !== "") {
             saveTextQ(tosend);
             questionElement.value = '';
@@ -395,7 +395,7 @@ function sendclick() {
  * @returns {void}
  */
 function ClearCR() {
-    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
+    let classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
     if (classroomEl) classroomEl.innerHTML = '<ul role="list" aria-live="polite" class="chat-message-list"></ul>';
     if (typeof ScreenCR !== 'undefined') {
         ScreenCR = [];
@@ -408,9 +408,9 @@ function ClearCR() {
  * @returns {void}
  */
 function RefreshCR() {
-    var html = '<ul role="list" aria-live="polite" class="chat-message-list">';
+    let html = '<ul role="list" aria-live="polite" class="chat-message-list">';
     if (typeof ScreenCR !== 'undefined') {
-        for (var i = 0; i < ScreenCR.length; i++) {
+        for (let i = 0; i < ScreenCR.length; i++) {
             if (ScreenCR[i] !== undefined) {
                 html += DOMPurify.sanitize(ScreenCR[i]);
             }
@@ -418,7 +418,7 @@ function RefreshCR() {
     }
     html += '</ul>';
     
-    var classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
+    let classroomEl = typeof _ !== 'undefined' ? _('classroom') : _('classroom');
     if (classroomEl) classroomEl.innerHTML = DOMPurify.sanitize(html);
 }
 
@@ -434,9 +434,9 @@ function EcrireCR(who, ch, order) {
     // Use the centralized version from common-func.js if available
     if (typeof window !== 'undefined' && window.ColorsForCR && typeof window.getUserColor === 'function') {
         if (!ColorsForCR[who]) {
-            var colors = getUserColor(who);
-            var bg = colors[0];
-            var fg = colors[1];
+            let colors = getUserColor(who);
+            let bg = colors[0];
+            let fg = colors[1];
             ColorsForCR[who] = [bg, fg, 20];
         }
 
@@ -444,10 +444,10 @@ function EcrireCR(who, ch, order) {
             ScreenCR = [];
         }
         
-        var rgbFunc = typeof rgb === 'function' ? rgb : function(T) {
+        let rgbFunc = typeof rgb === 'function' ? rgb : function(T) {
             return "rgb(" + T[0] + "," + T[1] + "," + T[2] + ")";
         };
-        var escapeHtmlFunc = typeof escapeHtml === 'function' ? escapeHtml : function(text) { 
+        let escapeHtmlFunc = typeof escapeHtml === 'function' ? escapeHtml : function(text) { 
             if (typeof text !== 'string') return '';
             const div = document.createElement('div');
             div.textContent = text;
@@ -460,8 +460,8 @@ function EcrireCR(who, ch, order) {
         };
         
         // Determine CSS class based on sender
-        var messageClass = 'chat-message';
-        var styleAttr = '';
+        let messageClass = 'chat-message';
+        let styleAttr = '';
 
         if (who === '----') {
             messageClass += ' chat-message--system';
@@ -482,7 +482,7 @@ function EcrireCR(who, ch, order) {
 
 // Initialize ScreenCR if not defined
 if (typeof ScreenCR === 'undefined') {
-    var ScreenCR = [];
+    let ScreenCR = [];
 }
 
 /**
@@ -493,7 +493,7 @@ if (typeof ScreenCR === 'undefined') {
 function startChatPolling() {
     // Start polling every 500ms
     setInterval(function() {
-        var roomId = '';
+        let roomId = '';
         if (typeof _ !== 'undefined' && _('classroomid')) {
             roomId = _('classroomid').value;
         } else if (document.getElementById && _('classroomid')) {

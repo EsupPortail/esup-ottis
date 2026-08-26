@@ -134,11 +134,8 @@ if (typeof window !== 'undefined') {
     if (base.has('tab')) inSlideTab = true;
 }
 
-// Import ScreenCR from chat/helpers for use in this module
-import { ScreenCR as libScreenCR } from '../chat/helpers.js';
-
-// Re-export ScreenCR for other modules
-export { libScreenCR as ScreenCR };
+// ScreenCR is defined globally by common-func.js, use window.ScreenCR
+// Note: This module is loaded after common-func.js in auditor.php, so window.ScreenCR should be available
 
 // ============================================
 // Additional state variables that were in common-func.js
@@ -203,7 +200,9 @@ export function ClearCR() {
     if (classroomEl) {
         classroomEl.innerHTML = '';
     }
-    libScreenCR.length = 0;
+    if (typeof window !== 'undefined' && window.ScreenCR) {
+        window.ScreenCR.length = 0;
+    }
     
     // Expose on window for backward compatibility
     if (typeof window !== 'undefined') {
@@ -230,9 +229,11 @@ export function recharger() {
  */
 export function RefreshCR() {
     let html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
-    for (let i = 0; i < libScreenCR.length; i++) {
-        if (libScreenCR[i] !== undefined) {
-            html += typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(libScreenCR[i]) : libScreenCR[i];
+    if (typeof window !== 'undefined' && window.ScreenCR) {
+        for (let i = 0; i < window.ScreenCR.length; i++) {
+            if (window.ScreenCR[i] !== undefined) {
+                html += typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(window.ScreenCR[i]) : window.ScreenCR[i];
+            }
         }
     }
     html += '</ul>';

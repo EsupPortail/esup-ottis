@@ -11,6 +11,11 @@ function _(el) {
     return document.getElementById(el);
 }
 
+// Expose to window for access from ES modules
+if (typeof window !== 'undefined') {
+    window._ = _;
+}
+
 /**
  * @summary Add CSRF token to FormData object
  * 
@@ -18,7 +23,7 @@ function _(el) {
  * @returns {FormData} The FormData object with CSRF token added
  */
 function addCsrfToken(formData) {
-    var csrfToken = document.querySelector('input[name="csrf_token"]').value;
+    let csrfToken = document.querySelector('input[name="csrf_token"]').value;
     if (csrfToken) {
         formData.append('csrf_token', csrfToken);
     }
@@ -32,7 +37,7 @@ function addCsrfToken(formData) {
  */
 
 function hide(e) {
-    var el = _(e);
+    let el = _(e);
     if (el) el.style.display = 'none';
 }
 
@@ -43,7 +48,7 @@ function hide(e) {
  */
 
 function show(e) {
-    var el = _(e);
+    let el = _(e);
     if (el) el.style.display = 'block';
 }
 
@@ -59,9 +64,21 @@ function rgb(T) {
 }
 
 // Global color mapping for chat participants
-var ColorsForCR = [];
+let ColorsForCR = [];
 ColorsForCR["----"] = [[255,0,0],[255,255,255],5];
 ColorsForCR["Intervenant"] = [[0,0,255],[255,255,255],0];
+
+// Global array to store chat messages
+let ScreenCR = [];
+
+// Expose to window for access from ES modules
+if (typeof window !== 'undefined') {
+    window.ColorsForCR = ColorsForCR;
+    window.ScreenCR = ScreenCR;
+    window.rgb = rgb;
+    window.escapeHtml = escapeHtml;
+    window.getUserColor = getUserColor;
+}
 
 /**
  * Escape HTML special characters to prevent XSS
@@ -153,7 +170,11 @@ function AbortTimeout(r,s) {
  */
 
 function setLanguageInput(i) {
-    builtin_language = TLangInput[i];
+    if (typeof TLangInput !== 'undefined' && TLangInput && TLangInput[i]) {
+        builtin_language = TLangInput[i];
+    } else {
+        builtin_language = '';
+    }
 }
 
 /**
@@ -163,8 +184,13 @@ function setLanguageInput(i) {
  */
 
 function setLanguageOutput(i) {
-    builtin_voice = AllOutputVoices[i];
-    builtin_language = (builtin_voice && builtin_voice.lang) ? builtin_voice.lang : '';
+    if (typeof AllOutputVoices !== 'undefined' && AllOutputVoices && AllOutputVoices[i]) {
+        builtin_voice = AllOutputVoices[i];
+        builtin_language = (builtin_voice && builtin_voice.lang) ? builtin_voice.lang : '';
+    } else {
+        builtin_voice = null;
+        builtin_language = '';
+    }
 }
 
 /**
@@ -197,8 +223,14 @@ function ClearCR() {
 
 function recharger() {
     ClearCR();
-    inputnumberQ = 0;
-    readTextQ();
+    if (typeof setInputnumberQ !== 'undefined') {
+        setInputnumberQ(0);
+    } else {
+        inputnumberQ = 0;
+    }
+    if (typeof readTextQ !== 'undefined') {
+        readTextQ();
+    }
 
 }
 
@@ -208,8 +240,8 @@ function recharger() {
  */
 
 function RefreshCR() {
-    var html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
-    for (var i = 0; i < ScreenCR.length; i++) {
+    let html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
+    for (let i = 0; i < ScreenCR.length; i++) {
         if (ScreenCR[i] != undefined) {
             html += DOMPurify.sanitize(ScreenCR[i]);
         }
@@ -227,15 +259,15 @@ function RefreshCR() {
  *
 function EcrireCR(who, ch, order) {
     if (!ColorsForCR[who]) {
-        var colors = getUserColor(who);
-        var bg = colors[0];
-        var fg = colors[1];
+        let colors = getUserColor(who);
+        let bg = colors[0];
+        let fg = colors[1];
         ColorsForCR[who] = [bg, fg, 20];
     }
 
     // Déterminer le style d'alignement : gauche pour Intervenant, droite pour les auditeurs
-    var floatStyle = (who === 'Intervenant') ? 'left' : 'right';
-    var marginLeft = (who === 'Intervenant') ? '0px' : '20px';
+    let floatStyle = (who === 'Intervenant') ? 'left' : 'right';
+    let marginLeft = (who === 'Intervenant') ? '0px' : '20px';
 
     ScreenCR[order] = '<li role="listitem" style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; float: ' + floatStyle + '; margin-left: ' + marginLeft + '; margin-top: 0; margin-bottom: 2px; margin-right: 0; padding: 5px; border-radius: 5px; display: block; clear: both;">' + escapeHtml(who + ' : ' + ch) + '</li>';
     RefreshCR();
@@ -261,7 +293,7 @@ function TailleCR() {
  */
 
 function resizeWindow(wname) {
-    var wc = _(wname);
+    let wc = _(wname);
     if (!wc) return;
     wc.style.width = (window.innerWidth - 20) + "px";
     wc.style.height = (window.innerHeight - 48) + "px";
@@ -278,11 +310,11 @@ function resizeWindow(wname) {
  */
 
 function ChangeColor(boxname, color) {
-    var [bgcolor, bordercolor, textcolor] = color.split('|');
-    var e = _(boxname);
+    let [bgcolor, bordercolor, textcolor] = color.split('|');
+    let e = _(boxname);
     if (!e) return;
-    var opacityEl = _("selectopacity");
-    var opacity = opacityEl ? opacityEl.value : '0.5';
+    let opacityEl = _("selectopacity");
+    let opacity = opacityEl ? opacityEl.value : '0.5';
     if (textcolor) e.style.color = 'rgb(' + textcolor + ')';
     else e.style.color = 'rgb(255,255,255)';
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
@@ -298,11 +330,11 @@ function ChangeColor(boxname, color) {
  */
 
 function ChangeOpacity(boxname, opacity) {
-    var e = _(boxname);
+    let e = _(boxname);
     if (!e) return;
-    var color = e.style.backgroundColor;
-    var [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
-    var bgcolor = [red, green, blue];
+    let color = e.style.backgroundColor;
+    let [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
+    let bgcolor = [red, green, blue];
     e.style.backgroundColor = 'rgba(' + bgcolor + ',' + opacity + ')';
 }
 
@@ -313,9 +345,9 @@ function ChangeOpacity(boxname, opacity) {
  */
 
 function whichBrowser() {
-    var ua = navigator.userAgent;
-    var browsers = ["Chrome","Firefox","Safari","Edge","Opera"];
-    for(var i=0; i<=browsers.length; i++) {
+    let ua = navigator.userAgent;
+    let browsers = ["Chrome","Firefox","Safari","Edge","Opera"];
+    for (let i=0; i<=browsers.length; i++) {
         if (ua.indexOf(browsers[i]) > 0) return browsers[i];
     }
     return "Unknown";
@@ -331,7 +363,7 @@ function whichBrowser() {
 
 function DownloadSpeechLesson(filename, elText, mimeType) {
     elText = elText.replaceAll("<br>", "\n");
-    var link = document.createElement('a');
+    let link = document.createElement('a');
     mimeType = mimeType || 'text/plain';
     link.setAttribute('download', filename);
     link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));

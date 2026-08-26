@@ -35,10 +35,10 @@ export let inputnumber = 0;
 export let Studentinputnumber = 0;
 
 /** @type {number} */
-export let delayReadtextQ = 1000;
+export let delayReadtextQ = 5000;
 
 /** @type {number} */
-export let delayRemote = 1000;
+export let delayRemote = 5000;
 
 /** @type {number} */
 export let FeedbackQueue = 0;

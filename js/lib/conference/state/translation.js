@@ -54,7 +54,7 @@ export let TLangInput = [];
 export let builtin_voice = null;
 
 /** @type {string} */
-export let builtin_language = '';
+export let builtin_language = 'en-US'; // Anglais (États-Unis) par défaut
 
 // =============================================================================
 // État du discours et de la parole

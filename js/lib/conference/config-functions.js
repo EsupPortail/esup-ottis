@@ -7,11 +7,10 @@ import { ROOM_TOKEN } from './compat.js';
 import { zoomid, uncloudlink, uncloudhtmllink, targettab, inSlideTab, setLanguageInput } from './config.js';
 import { setLanguageSubtitle, PopulateSubtitlesLang, PopulateSpeechLang } from './voices.js';
 import { LaunchRemote } from './remote.js';
-import { startChatPolling } from '../chat/common.js';
+import { startChatPolling, saveTextQ } from '../chat/main.js';
 import { Forward, Backward, SlideForward, SlideBackward, SkipForward, SkipBackward } from './navigation.js';
 import { Micro, showET, toggleTextBandDisplay } from './ui.js';
 import { SlideNotesUncloud, SlideNotesUncloudHtml } from './pdf-viewer.js';
-import { saveTextQ } from './notebook.js';
 
 
 
@@ -170,7 +169,7 @@ export function setLanguageStr(l) {
 }
 
 export function remote() {
-    if (_('classroomid').value != '') {
+    if (_('classroomid') && _('classroomid').value != '') {
         // Check if ROOM_TOKEN exists and is not empty
         if (typeof ROOM_TOKEN === 'undefined' || ROOM_TOKEN === '') {
 
@@ -179,7 +178,7 @@ export function remote() {
 
         let f = new FormData();
         f.append('ROOMID', _('classroomid').value);
-        f.append('APPID', _('appid').value);
+        f.append('APPID', (_('appid') ? _('appid').value : ''));
         f.append('room_token', ROOM_TOKEN);
         f.append('ORDER', '');
         addCsrfToken(f);
@@ -198,14 +197,14 @@ export function remote() {
                     }
                     if (order.substr(0, 'micro'.length) == 'micro') {
                         let fromremote = order.substr('micro'.length).trim();
-                        if (fromremote == _('appid').value || fromremote == '') Micro();
+                        if (fromremote == (_('appid') ? _('appid').value : '') || fromremote == '') Micro();
                     }
                     if (order.substr(0, 'language'.length) == 'language') {
                         let options = order.substr('language'.length).trim().split('|');
                         let to_lang = options[0].trim();
                         let fromremote = options[1].trim();
 
-                        if (fromremote == _('appid').value || fromremote == '') setLanguageStr(to_lang);
+                        if (fromremote == (_('appid') ? _('appid').value : '') || fromremote == '') setLanguageStr(to_lang);
                     }
                 }
             },
@@ -221,8 +220,15 @@ export function remote() {
 }
 
 export function updateUsers() {
-    _('connectedusers').textContent = (NBconnectedusers) + ' connected users';
-    _('connectedusers').title = Tconnectedusers.join(', ');
+    let connectedEl = _('connectedusers');
+    if (connectedEl) {
+        connectedEl.textContent = (NBconnectedusers) + ' connected users';
+        if (Tconnectedusers && Array.isArray(Tconnectedusers)) {
+            connectedEl.title = Tconnectedusers.join(', ');
+        } else {
+            connectedEl.title = '';
+        }
+    }
 }
 
 export function updateConfig() {
@@ -235,14 +241,22 @@ export function updateConfig() {
 
 export function applyConfig() {
 
-    let config = window.pageData.currentconfig;
-    if (config.length < 2) return; // Seuls les 2 premiers caractères (langues) sont utilisés
+    let config = window.pageData?.currentconfig;
+    if (!config || config.length < 2) return; // Seuls les 2 premiers caractères (langues) sont utilisés
+    
     // classroomlanguage
-    _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    let classroomLangEl = _('classroomlanguage');
+    if (classroomLangEl) {
+        classroomLangEl.selectedIndex = 1 * (config.charCodeAt(0) - 65);
+    }
     //setLanguageInput(_('classroomlanguage').value);
+    
     // subtitlelanguage
-    _('subtitlelanguage').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-    setLanguageSubtitle(_('subtitlelanguage').value);
+    let subtitleLangEl = _('subtitlelanguage');
+    if (subtitleLangEl) {
+        subtitleLangEl.selectedIndex = 1 * (config.charCodeAt(1) - 65);
+        setLanguageSubtitle(subtitleLangEl.value);
+    }
     // Les autres paramètres de config ne sont plus utilisés (éléments supprimés)
     
     // Initialiser l'affichage de textBand

@@ -4,7 +4,11 @@
  * Doit être chargé avec <script type="module">
  */
 
-// Importer tous les modules principaux
+// Importer chat modules en premier pour priorité
+import * as chatMain from './lib/chat/main.js';
+import * as chatAlert from './lib/chat/alert.js';
+
+// Importer conference modules
 import * as conference from './lib/conference/index.js';
 import * as state from './lib/conference/state.js';
 import * as domHelpers from './lib/conference/dom-helpers.js';
@@ -16,7 +20,11 @@ import * as lib from './lib/index.js';
 
 
 // Tableau de tous les modules à exposer
+// chatMain et chatAlert en premier pour que leurs fonctions ne soient pas écrasées
 const modules = [
+    chatMain,
+    chatAlert,
+
     conference,
     state,
     domHelpers,
@@ -47,9 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof Init === 'function') {
         Init();
     }
-    if (typeof Lancer === 'function') {
-        Lancer();
-    }
+    // NE PAS appeler Lancer() ici - il sera appelé après la validation de la langue
+    // dans startAuditorPolling() pour auditor.php
+    // if (typeof Lancer === 'function') {
+    //     Lancer();
+    // }
     if (typeof InitVoices === 'function') {
         InitVoices();
     }

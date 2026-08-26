@@ -8,12 +8,18 @@ import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer 
 
 
 export function FullScreen() {
-    if (!builtin_microsofttranscritionon) {
-        builtin_recognition.abort();
-    }
     let mybox = _('micon');
-    _('recognitionon').checked = !_('recognitionon').checked;
-    setBuiltinRecognitionon(_('recognitionon').checked);
+    const newCheckedState = !_('recognitionon').checked;
+    
+    // Si on désactive le micro, arrêter la reconnaissance
+    if (_('recognitionon').checked && !newCheckedState) {
+        if (!builtin_microsofttranscritionon) {
+            builtin_recognition.abort();
+        }
+    }
+    
+    _('recognitionon').checked = newCheckedState;
+    setBuiltinRecognitionon(newCheckedState);
     if (_('recognitionon').checked) {
         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
     } else {
@@ -65,12 +71,18 @@ export function showET(obj, num) {
 }
 
 export function Micro() {
-    if (!builtin_microsofttranscritionon) {
-        builtin_recognition.abort();
-    }
     let mybox = _('micon');
-    _('recognitionon').checked = !_('recognitionon').checked;
-    setBuiltinRecognitionon(_('recognitionon').checked);
+    const newCheckedState = !_('recognitionon').checked;
+    
+    // Si on désactive le micro, arrêter la reconnaissance
+    if (_('recognitionon').checked && !newCheckedState) {
+        if (!builtin_microsofttranscritionon) {
+            builtin_recognition.abort();
+        }
+    }
+    
+    _('recognitionon').checked = newCheckedState;
+    setBuiltinRecognitionon(newCheckedState);
     if (_('recognitionon').checked) {
         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
     } else {

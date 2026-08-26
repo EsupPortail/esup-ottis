@@ -68,20 +68,26 @@ export function EcrireNB(ch) {
     // if (_('notebook').innerHTML == "")
     //  _('notebook').innerHTML=ch;
     //else 
-    _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + ch + '<br/>');
+    // Use DOMPurify with allowed br tags to preserve line breaks
+    let sanitizeOptions = {ALLOWED_TAGS: ['br']};
+    _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + ch + '<br/>', sanitizeOptions);
     //EcrireTitle(ch);
 }
 
 export function EcrireNBonly(ch) {
     // let currentContent = getNotebookContent('notebook');
     // logNotebookEvent('EcrireNBonly', 'notebook', ch, currentContent);
-    _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + ch + '<br/>');
+    // Use DOMPurify with allowed br tags to preserve line breaks
+    let sanitizeOptions = {ALLOWED_TAGS: ['br']};
+    _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + ch + '<br/>', sanitizeOptions);
 }
 
 export function EcrireNBonlyVO(ch) {
     // let currentContent = getNotebookContent('notebookVO');
     // logNotebookEvent('EcrireNBonlyVO', 'notebookVO', ch, currentContent);
-    _('notebookVO').innerHTML = DOMPurify.sanitize(_('notebookVO').innerHTML + ch + '<br/>');
+    // Use DOMPurify with allowed br tags to preserve line breaks
+    let sanitizeOptions = {ALLOWED_TAGS: ['br']};
+    _('notebookVO').innerHTML = DOMPurify.sanitize(_('notebookVO').innerHTML + ch + '<br/>', sanitizeOptions);
 }
 
 export function EcrirePartial(ch) {
@@ -242,27 +248,7 @@ export function saveTextNB(ch) {
     return;
 }
 
-export function saveTextQ(ch) {
-    let f = new FormData();
-    f.append('lineid', 'Intervenant');
-    //inputnumberQ++;
-    f.append('text', ch);
-    f.append('inputlanguage', builtin_language);
-    let classroomidEl = _('classroomid');
-    f.append('ROOMID', classroomidEl ? classroomidEl.value : '');
-    f.append('room_token', ROOM_TOKEN);
-    addCsrfToken(f);
 
-    let request = createXhrRequest('POST', 'savetextQ.php', {
-        onSuccess: function(xhr) {
-            readTextQ();
-        },
-        data: f,
-        timeout: 10000,
-        context: 'saveTextQ'
-    });
-    request.send(f);
-}
 
 export function readTextQ() {
     let classroomidEl = _('classroomid');
@@ -288,6 +274,9 @@ export function readTextQ() {
             let nbnewQ = 0;
             for (let i = inputnumberQ; i < T.length; i++) {
                 let L = T[i].split(';');
+                // Safety check - ensure L has enough elements
+                if (L.length < 3) continue;
+                
                 if (L[2].indexOf('[newstudentarrived]') >= 0) {
                     setNBconnectedusers(NBconnectedusers + 1);
                     Tconnectedusers.push(L[0]);
@@ -299,9 +288,17 @@ export function readTextQ() {
                         updateUsers();
                     } else {
                         setNbnewQ(nbnewQ + 1);
-                        if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
-                            TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
-                        } else {
+                        // Ensure L[1] exists and builtin_language is a string before accessing substr
+                        if (L.length >= 2 && typeof builtin_language === 'string' && builtin_language && L[1] && L[1].substr) {
+                            if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
+                                TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
+                            } else {
+                                if (true) {
+                                    EcrireCR(L[0], L[2], i);
+                                }
+                            }
+                        } else if (L.length >= 1) {
+                            // Fallback if L[1] is missing
                             if (true) {
                                 EcrireCR(L[0], L[2], i);
                             }
