@@ -1,0 +1,159 @@
+<div id="conference-main" class="conference-grid">
+    <input type="hidden" id="classroomid" value="<?php echo $this->escape($classroomid); ?>">
+    <input type="hidden" id="appid" value="<?php echo $this->escape($appid); ?>">
+    <?php echo csrfField(); ?>
+
+    <!-- Language Section -->
+    <section id="language-section" class="conference-card" aria-labelledby="language-section-title">
+        <h2 id="language-section-title">Configuration linguistique</h2>
+        <div>
+            <ul class="no-bullets">
+                <li>
+                    <label for="classroomlanguage">Speaker language :</label>
+                    <select id="classroomlanguage" class="select"> </select>
+                </li>
+                <li class="hidden">
+                    <label for="recognitionon">Speech recognition active ? </label>
+                    <input type="checkbox" id="recognitionon" >
+                </li>
+                <li>&nbsp;</li>
+                <li class="hidden">Translate subtitles ?
+                    <input type="checkbox" id="subtitleon" >&nbsp;<span class="yesno" id="spansubtitleon">No.</span></li>
+                <li><label for="subtitlelanguage">Language for subtitles :</label>
+                    <select id="subtitlelanguage" class="select"> </select>
+                </li>
+                <li>
+                    <label for="usetextband">Use partialtitre instead of textBand:</label>
+                    <input type="checkbox" id="usetextband">
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Chat Section -->
+    <section id="chat-section" class="conference-card" aria-labelledby="chat-section-title">
+        <h2 id="chat-section-title">Classroom Chat</h2>
+        <div>
+            <?php
+            if (function_exists('renderChatComponent')) {
+                renderChatComponent([
+                    'roomId' => $classroomid,
+                    'roomToken' => $roomToken,
+                    'userName' => $uid,
+                    'isIntervenant' => true,
+                    'placeholder' => 'Type your message here...',
+                    'labelText' => 'Classroom Chat'
+                ]);
+            }
+            ?>
+        </div>
+    </section>
+
+    <!-- Notebook Section -->
+    <section id="notebook-section" class="conference-card" aria-labelledby="notebook-section-title">
+        <h2 id="notebook-section-title">Notebook</h2>
+        <div id="notebooks_container">
+            <label>NOTEBOOK</label>
+            <div id="VO_container">
+                <input type="button" id="buttondownloadspeechVO" value="Download the speech VO" class="button-3 tooltip" title="Download the notebook in txt format.">
+                <br>
+                <div id="notebookVO" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."></div>
+            </div>
+            <div id="translated_container">
+                <input type="button" id="buttondownloadspeech" value="Download the speech translated" class="button-3 tooltip" title="Download the notebook in txt format.">
+                <br>
+                <div id="notebook" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."> </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Students Section -->
+    <div id="partialtitre" class="hidden" style="display: none;"></div>
+
+    <h3 class="tabbed">For students</h3>
+    <div>
+        <ul class="no-bullets">
+            <li><span id="connectedusers">connected users</span></li>
+            <li>Students application : <a id="sharedlink" href="auditor.php?ROOMID=<?php echo $this->escape($classroomid); ?>">auditor.php?ROOMID=<?php echo $this->escape($classroomid); ?></a></li>
+            <li>QR code :
+                <div title="" id="sharedqr"></div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Remote Control Section -->
+    <h3 class="tabbed">Remote control</h3>
+    <div>
+        <ul class="no-bullets">
+            <li>Remote control : <a id="remotelink" href="remote.php?ROOMID=<?php echo $this->escape($classroomid); ?>&LANG=fr,en&APPID=<?php echo $this->escape($appid); ?>">remote.php?ROOMID=<?php echo $this->escape($classroomid); ?>&LANG=fr,en&APPID=<?php echo $this->escape($appid); ?></a></li>
+            <li>QR code :
+                <div title="" id="remoteqr"></div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Presentation Upload -->
+    <div>
+        <label for="presentation_file">Upload Presentation:</label>
+        <input type="file" id="presentation_file" name="presentation_file"
+               accept=".pptx,.odp,.pdf,.txt,.html,.htm"
+               aria-label="Upload presentation file"
+               title="Upload PPTX, ODP, PDF, TXT, or HTML file">
+
+        <progress id="presentation-progress" value="0" max="100"
+                 aria-label="Upload and conversion progress"></progress>
+        <span id="progress-status" aria-live="polite"></span>
+
+        <div id="pdf-viewer">
+            <canvas id="pdf-canvas"></canvas>
+            <div id="pdf-control">
+                <div>
+                    <button id="pdf-prev" disabled
+                            aria-label="Previous page"
+                            title="Go to previous page">← Previous</button>
+                    <span id="pdf-page-indicator">Page 1 of 1</span>
+                    <button id="pdf-next" disabled
+                            aria-label="Next page"
+                            title="Go to next page">Next →</button>
+                    <input type="number" id="pdf-page-input" min="1"
+                           aria-label="Go to page number">
+                    <button id="pdf-fullscreen-btn"
+                            aria-label="Toggle fullscreen mode"
+                            title="Press ESC to exit fullscreen">
+                        Fullscreen
+                    </button>
+                </div>
+                <div id="textBand" class="text-band-style" style="display: block; visibility: visible;"></div>
+            </div>
+        </div>
+
+        <div id="text-content-viewer"></div>
+    </div>
+
+    <div id="textfixe" class="text-band-style" style="display: block;"></div>
+
+    <!-- Admin Configuration -->
+    <div id="admin-config">
+        <h2>ADMIN - Configuration Traduction</h2>
+        <label for="whichtranslator">Choix traducteur :</label>
+        <select id="whichtranslator" class="select">
+            <option value="" selected>Default</option>
+            <option value="DEEPLPRO">DeepL Pro API</option>
+            <option value="DEEPLFREE">DeepL Free API</option>
+            <option value="LIBRETRANSLATE">Libre Translate</option>
+        </select>
+    </div>
+
+    <!-- Microphone Button -->
+    <div id="micon" title="Activer/Désactiver le microphone. Alternatives : barre d'espace, bouton rouge de la télécommande smartphone ou bouton du pointeur de présentation.">
+        <i class='material-icons'>voice_over_off</i>
+    </div>
+</div>
+
+<!-- Scripts spécifiques à la conference -->
+<script type="module" src="/js/conference-legacy.js"></script>
+<script type="module" src="/js/lib/chat/alert.js"></script>
+<script type="module" src="/js/lib/chat/network.js"></script>
+<script type="module" src="/js/lib/chat/handlers.js"></script>
+<script type="module" src="/js/lib/chat/display.js"></script>
+<script type="module" src="/js/lib/chat/main.js"></script>
