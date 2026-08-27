@@ -39,7 +39,7 @@ class RoomTokenManager
         // If a token already exists for this room, return it
         if (file_exists($tokenFile)) {
             $content = explode('\n', trim(file_get_contents($tokenFile)));
-            $existingToken = $content[0] ?? '';
+            $existingToken = $content[0];
             if (!empty($existingToken)) {
                 error_log("RoomTokenManager: Reusing existing token for ROOMID=$roomid");
                 return $existingToken;
@@ -72,7 +72,7 @@ class RoomTokenManager
         }
 
         $content = explode('\n', trim(file_get_contents($tokenFile)));
-        $storedToken = $content[0] ?? '';
+        $storedToken = $content[0];
         $timestamp = (int)($content[1] ?? 0);
 
         // Invalid token if empty or doesn't match

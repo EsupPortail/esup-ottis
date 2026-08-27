@@ -6,21 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/remote.css">
     <link rel="icon" type="image/png" href="./images/favicon.svg" >
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="js/common-func.js"></script>
-</head>
-<body>
-    <input type="hidden" id="classroomid" value="<?php echo $this->escape($classroomid); ?>">
-    <input type="hidden" id="appid" value="<?php echo $this->escape($appid); ?>">
-    <input type="hidden" id="LANG" value="<?php echo $this->escape($lang); ?>">
-    <?php echo csrfField(); ?>
 
-    <div id="remote-container">
-        <!-- Remote control interface -->
-    </div>
-
-    <script>
-    // Remote control functions
+    <script type="text/javascript">
+    
+    /**
+     * @summary Sends the order to the teacher application.
+     * 
+     * @param {string} The order to send.
+     */
+    
     function remote(myorder) {
         if (document.getElementById('classroomid').value != "") {
             var f = new FormData();
@@ -32,26 +29,110 @@
             if (csrfToken) {
                 f.append('csrf_token', csrfToken);
             }
-            
             createXhrRequest("POST", "saveremoteorder.php", f, function(responseText) {
                 var order = responseText;
             });
         }
     }
 
+    /**
+     * @summary Displays the current, previous and next speech on the remote control.
+     * 
+     */
+    
     function remotespeech() {
         if (document.getElementById('classroomid').value != "") {
             var f = new FormData();
             f.append('ROOMID', document.getElementById('classroomid').value);
             f.append('SPEECH', 'read');
-            
             createXhrRequest("POST", "savespeechforremote.php", f, function(responseText) {
                 var data = responseText;
                 var Tspeech = data.split(':|:');
-                // Process speech data
+                if (document.getElementById('speech_before').innerHTML != Tspeech[0])
+                    document.getElementById('speech_before').innerHTML = DOMPurify.sanitize(Tspeech[0]);
+                if (document.getElementById('speech_current').innerHTML != Tspeech[1])
+                    document.getElementById('speech_current').innerHTML = DOMPurify.sanitize(Tspeech[1]);
+                if (document.getElementById('speech_after').innerHTML != Tspeech[2])
+                    document.getElementById('speech_after').innerHTML = DOMPurify.sanitize(Tspeech[2]);
             });
         }
     }
+
+    function Lancer() {
+        setInterval(remotespeech, 200);
+    }
+
+    var AllLanguages = [];
+    
+    function Init() {
+<?php
+if ($lang != "") {
+    echo "    AllLanguages = '" . $this->escape($lang) . "'.split(',');\n";
+    echo "    setLanguage();\n";
+} else {
+    echo "    document.getElementById('langdiv').style.display='none';\n";
+    echo "    document.getElementById('skipleft').style.width='40%';\n";
+    echo "    document.getElementById('skipright').style.width='40%';\n";
+}
+?>
+    }
+
+    var currentlanguage = 0;
+
+    /**
+     * @summary Get the next available language.
+     */
+    function changeLanguage() {
+        if (AllLanguages.length > 0) {
+            currentlanguage = (currentlanguage + 1) % AllLanguages.length;
+        }
+        setLanguage();
+    }
+
+    /**
+     * @summary Changes the speaker language.
+     */
+    function setLanguage() {
+        if (AllLanguages.length > 0) {
+            document.getElementById('langdiv').innerHTML = '<i class="fa fa-language" aria-hidden="true"></i> ' + DOMPurify.sanitize(AllLanguages[currentlanguage]);
+            remote("language " + AllLanguages[currentlanguage] + " | " + document.getElementById('appid').value);
+        }
+    }
+
+    /**
+     * @summary Changes the opacity of the object when you click on it.
+     * @param {object} obj the selected object.
+     */
+    function changeOpacity(obj) {
+        if (obj.title === 'Skip subtitle') {
+            obj.style.opacity = '0.25';
+            setTimeout(() => { obj.style.opacity = '0.5'; }, 300);
+        } else if ((obj.id === 'titreleft') || (obj.id === 'titreright')) {
+            obj.style.opacity = '0.5';
+            setTimeout(() => { obj.style.opacity = '1'; }, 300);
+        } else if (obj.id === 'micon') {
+            obj.style.opacity = '0.5';
+            setTimeout(() => { obj.style.opacity = '1'; }, 300);
+        }
+    }
+    
     </script>
+
+</head>
+<body onload="Init(); setTimeout(Lancer, 300);" style="width: 100%; height: 100%;">
+
+<div id="micon" onclick="remote('micro ' + document.getElementById('appid').value); changeOpacity(this);"><i id='micro_icon' class='material-icons'>record_voice_over</i></div>
+<div id="speech_before" onclick="remote('backward');">Before</div>
+<div id="speech_current" onclick="remote('playcurrent');">Current</div>
+<div id="speech_after" onclick="remote('forward');">After</div>
+<div title="Skip subtitle" id="skipleft" onclick="remote('skipbackward'); changeOpacity(this);"><span style="font-size: 1em;"><i class="fa fa-arrow-left" aria-hidden="true"></i> Skip comment </span></div>
+<div title="Change Language" id="langdiv" onclick="changeLanguage();"><i class="fa fa-language" aria-hidden="true"></i> fr</div>
+<div title="Skip subtitle" id="skipright" onclick="remote('skipforward');changeOpacity(this);"><span style="font-size: 1em;">Skip comment <i class="fa fa-arrow-right" aria-hidden="true"></i></span></div>
+<div id="titreleft" style="font-size: 2em;" onclick="remote('backward'); changeOpacity(this);"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
+<div id="titreright" style="font-size: 2em;" onclick="remote('forward'); changeOpacity(this);"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+<input type="text" style="display: none;" name="classroomid" id="classroomid" value="<?php echo $this->escape($classroomid); ?>" />
+<input type="text" style="display: none;" name="appid" id="appid" value="<?php echo $this->escape($appid); ?>" />
+<?php echo csrfField(); ?>
+
 </body>
 </html>

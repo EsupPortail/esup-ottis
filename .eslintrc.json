@@ -3,6 +3,9 @@
     "airbnb-base",
     "plugin:security/recommended"
   ],
+  "globals": {
+    "DOMPurify": "readonly"
+  },
   "env": {
     "browser": true,
     "es2022": true,
@@ -37,7 +40,9 @@
     "linebreak-style": ["error", "unix"],
     "no-trailing-spaces": "error",
     "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "no-secrets/no-secrets": "warn",
+    "security/detect-object-injection": "error"
   },
   "overrides": [
     {

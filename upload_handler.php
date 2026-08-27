@@ -5,8 +5,7 @@
  * All output files are PDF format for consistent display with PDF.js
  */
 
-require_once __DIR__ . '/Security/csrf.php';
-require_once __DIR__ . '/Security/validate.php';
+require __DIR__ . '/vendor/autoload.php';
 
 // Vérification du token CSRF
 if (!verifyCsrfRequest()) {

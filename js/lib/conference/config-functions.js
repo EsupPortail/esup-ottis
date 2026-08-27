@@ -42,77 +42,44 @@ export function Init() {
     //resizeSlides();
 
     document.onkeyup = function(event) {
-        if (inSlideTab) {
-            if (event.code === 'ArrowDown') {
-                Forward();
-            }
-            if (event.code === 'ArrowUp') {
-                Backward();
-            }
-            if (event.code === 'ArrowRight') {
-                SlideForward();
-            }
-            if (event.code === 'ArrowLeft') {
-                SlideBackward();
-            }
-            if (event.code === 'PageDown') {
-                SlideForward();
-            }
-            if (event.code === 'PageUp') {
-                SlideBackward();
-            }
-            if (event.code === 'KeyB') {
-                Micro();
-            }
-            if (event.code === 'Space') {
-                Micro();
-            }
-
+        // Gestion des flèches pour la présentation (toujours active)
+        if (event.code === 'ArrowDown') {
+            Forward();
             event.preventDefault();
             event.stopPropagation();
+            return;
         }
-        else {
-            if (event.code === 'KeyB') {
-                Micro();
-            }
-            if (event.code === 'Space') {
-                Micro();
-            }
-
+        if (event.code === 'ArrowUp') {
+            Backward();
             event.preventDefault();
             event.stopPropagation();
+            return;
+        }
+        if (event.code === 'ArrowRight') {
+            SlideForward();
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+        if (event.code === 'ArrowLeft') {
+            SlideBackward();
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+        if (event.code === 'PageDown') {
+            SlideForward();
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+        if (event.code === 'PageUp') {
+            SlideBackward();
+            event.preventDefault();
+            event.stopPropagation();
+            return;
         }
     };
-
-    // document.onkeyup = function(event) {
-    //     if (event.code === 'KeyB') {
-    //         if (inSlideTab) {
-    //             Micro();addEventListener
-    //         }
-    //     }
-    //     if (event.code === 'Space') {
-    //         if (inSlideTab) {
-    //             Micro();
-    //         }
-    //     }
-
-    //     event.preventDefault();
-    //     event.stopPropagation();
-    // };
-
-    document.onkeydown = function(event) {
-        if (inSlideTab) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
-    document.onkeypress = function(event) {
-        if (inSlideTab) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
-
 
     //setTimeout(Micro,1000);
     //setTimeout(Micro,1500);
@@ -163,7 +130,6 @@ export function setLanguageStr(l) {
     if (finded != -1) {
         s.selectedIndex = finded;
         setLanguageInput(_('classroomlanguage').value);
-        Micro();
         Micro();
     }
 }

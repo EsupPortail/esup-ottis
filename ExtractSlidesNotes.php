@@ -1,4 +1,6 @@
 <?php 
+use App\Utils\PPTXNotesExtractor;
+
 ini_set ( "upload_max_filesize" , "50M" );
 ini_set ( "post_max_size" , "50M" );
 
@@ -37,8 +39,6 @@ if ($_FILES["ppt_presentation"]["tmp_name"] != "") {
     }
     
     // Utiliser la nouvelle librairie d'extraction de notes PPTX
-    require_once __DIR__ . '/PPTXNotesExtractor.php';
-    
     try {
         $notes = PPTXNotesExtractor::extract($convertedFile);
         echo json_encode($notes);

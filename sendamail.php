@@ -1,8 +1,7 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
 // Vérification du token CSRF
-require_once __DIR__ . '/Security/csrf.php';
-
 if (!verifyCsrfRequest()) {
     http_response_code(403);
     echo 'CSRF token validation failed';

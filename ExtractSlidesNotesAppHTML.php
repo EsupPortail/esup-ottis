@@ -1,6 +1,5 @@
-<?php 
-
-require_once __DIR__ . '/Security/csrf.php';
+<?php
+require __DIR__ . '/vendor/autoload.php';
 
 // Vérification du token CSRF
 if (!verifyCsrfRequest()) {

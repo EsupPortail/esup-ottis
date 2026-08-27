@@ -9,6 +9,12 @@ class HomeController extends BaseController
 {
     /**
      * Display the homepage
+     *
+     * Renders the landing page with carrousel, styles, and scripts.
+     * Sets up page title, carousel items data, and session marker.
+     * Configures Swiper library and custom JavaScript for the homepage.
+     *
+     * @return void
      */
     public function index(): void
     {

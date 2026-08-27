@@ -1,16 +1,16 @@
-<?php 
-// Empêche la mise en cache
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-    header('Cache-Control: no-cache, must-revalidate');
-
-require_once __DIR__ . '/Security/csrf.php';
-initCsrfProtection();
-?>
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
+use App\Service\LanguageLoader;
+use App\Service\RandomNameGenerator;
 
+// Empêche la mise en cache
+header('Pragma: no-cache');
+header('Expires: 0');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+header('Cache-Control: no-cache, must-revalidate');
+
+initCsrfProtection();
 
 $wooclapkey="";
 if (isset($_GET["WOOCLAPKEY"])) {
@@ -20,17 +20,9 @@ if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://app.wooclap.com";
 }
 
-$Tcolors=array("Red","Blue","Orange","Purple","Black","White","Green");
-$Tobjects=array("Alpaca","Alligator","Dragoon", "Elephant","Lion", "Panther", "Tiger","Zebra");
-$randomname=$Tcolors[mt_rand(0,count($Tcolors)-1)]." ".$Tobjects[mt_rand(0,count($Tobjects)-1)];
-
-$T_lang=array();
-$fd = fopen("supportedlanguages.csv","r");
-while($line=fgets($fd,4096)) {
-  $ligne=explode(";",$line);
-  if (count($ligne)>2) $T_lang[]=array("name_fr"=>trim($ligne[2]), "name_vo"=>trim($ligne[0]), "code"=>trim($ligne[1]), "voice"=>"-1");
-}
-fclose($fd);
+// Use services to load data
+$randomname = RandomNameGenerator::generateName();
+$T_lang = LanguageLoader::load();
 
 $theme="flat";
 if (isset($_GET["theme"])) $theme=$_GET["theme"];

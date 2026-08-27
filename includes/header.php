@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../Security/sanitize.php';
+require __DIR__ . '/../vendor/autoload.php';
 ?>
 <!DOCTYPE html>
-<html lang="<?= htmlspecialchars($language) ?>">
+<html lang="<?= htmlspecialchars($language ?? 'fr') ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="lang" content="<?= htmlspecialchars($language) ?>">
+    <meta name="lang" content="<?= htmlspecialchars($language ?? 'fr') ?>">
     <title><?php echo e($pageTitle ?? 'OTTIS'); ?></title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
@@ -48,8 +48,8 @@ require_once __DIR__ . '/../Security/sanitize.php';
                     <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu translate" data-key="scenarios.aide">Aide sur Madoc</span></a></li>
                     <li id="language_element">
                         <select id="language-select" onchange="changeLanguage(this.value)">
-                            <option value="fr" <?= $language === 'fr' ? 'selected' : '' ?>>Français</option>
-                            <option value="en" <?= $language === 'en' ? 'selected' : '' ?>>English</option>
+                            <option value="fr" <?= ($language ?? 'fr') === 'fr' ? 'selected' : '' ?>>Français</option>
+                            <option value="en" <?= ($language ?? 'fr') === 'en' ? 'selected' : '' ?>>English</option>
                         </select>
                     </li>
                 </menu>

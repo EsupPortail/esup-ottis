@@ -25,9 +25,9 @@ abstract class BaseController
     protected string $viewPath;
 
     /**
-     * @var string Layout to use (default: 'default')
+     * @var string|false|null Layout to use (default: 'default', false for no layout)
      */
-    protected string $layout = 'default';
+    protected string|false|null $layout = 'default';
 
     /**
      * @var array Data to pass to the view
@@ -61,6 +61,21 @@ abstract class BaseController
 
         // Set language from GET parameter or session
         $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? 'fr';
+        
+        // Send no-cache headers for all pages
+        $this->sendNoCacheHeaders();
+    }
+
+    /**
+     * Send HTTP headers to prevent caching
+     * This is useful for pages that should always load fresh data
+     */
+    protected function sendNoCacheHeaders(): void
+    {
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: no-cache, must-revalidate');
     }
 
     /**
@@ -68,9 +83,9 @@ abstract class BaseController
      * 
      * @param string $view View file name (without .php extension)
      * @param array $data Data to pass to the view
-     * @param string|null $layout Layout to use (null to use default, false for no layout)
+     * @param string|false|null $layout Layout to use (null to use default, false for no layout)
      */
-    protected function render(string $view, array $data = [], ?string $layout = null): void
+    protected function render(string $view, array $data = [], string|false|null $layout = null): void
     {
         // Merge provided data with view data
         $this->viewData = array_merge($this->viewData, $data);

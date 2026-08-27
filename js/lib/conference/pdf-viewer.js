@@ -246,13 +246,13 @@ export function updatePdfNavigation() {
 
 export function prevPage() {
     if (pageNum <= 1) return;
-    pageNum--;
+    setPageNum(pageNum - 1);
     queueRenderPage(pageNum);
 }
 
 export function nextPage() {
     if (pageNum >= pdfDoc.numPages) return;
-    pageNum++;
+    setPageNum(pageNum + 1);
     queueRenderPage(pageNum);
 }
 

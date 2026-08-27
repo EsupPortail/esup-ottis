@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/Security/room_tokens.php';
-require_once __DIR__ . '/Security/validate_room_token.php';
-require_once __DIR__ . '/Security/csrf.php';
+require __DIR__ . '/vendor/autoload.php';
 
 // Écriture directe dans un fichier de log minimaliste
 file_put_contents('/tmp/test_execution.log', "Script readtextTranscriptSub.php exécuté à " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);

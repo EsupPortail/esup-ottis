@@ -13,8 +13,6 @@ const userName = document.getElementById('AuditorName') ? document.getElementByI
 // Initialize chat alert
 if (typeof initChatAlert === 'function') {
     initChatAlert(userName);
-} else {
-    console.error('[Chat Alert] initChatAlert function not found!');
 }
 
 // Wait for DOM to be fully loaded
@@ -28,7 +26,6 @@ if (document.readyState === 'loading') {
 
 function initializeAuditor() {
     // Initialize the application
-    console.log('[AUDITOR DEBUG] DOM fully loaded, calling Init()');
     if (typeof Init === 'function') {
         Init();
     }
@@ -36,7 +33,5 @@ function initializeAuditor() {
     // Load voices when available
     if (typeof loadVoicesWhenAvailable === 'function') {
         setTimeout(loadVoicesWhenAvailable, 100);
-    } else {
-        console.error('[AUDITOR DEBUG] loadVoicesWhenAvailable function not found!');
     }
 }

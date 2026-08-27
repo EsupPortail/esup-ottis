@@ -1,4 +1,11 @@
 <?php
+
+namespace App\Utils;
+
+use ZipArchive;
+use RuntimeException;
+use InvalidArgumentException;
+
 /**
  * PPTXNotesExtractor - Extrait les notes des slides d'un fichier PPTX
  *
@@ -6,7 +13,6 @@
  * en parsant directement le XML contenu dans le fichier PPTX (qui est une archive ZIP).
  * Elle inclut un fallback vers PHPPresentation si nécessaire.
  */
-
 class PPTXNotesExtractor
 {
     /**
@@ -14,14 +20,14 @@ class PPTXNotesExtractor
      *
      * @param string $filePath Chemin vers le fichier PPTX
      * @return array Tableau de slides avec leurs notes
-     * @throws Exception En cas d'erreur de lecture
+     * @throws \Exception En cas d'erreur de lecture
      */
     public static function extract(string $filePath): array
     {
         // Essayer d'abord le parsing XML direct (plus fiable pour les notes)
         try {
             return self::extractNotesFromXML($filePath);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // Fallback vers PHPPresentation si disponible
             error_log("Parsing XML échoué, fallback vers PHPPresentation: " . $e->getMessage());
         }
@@ -29,7 +35,7 @@ class PPTXNotesExtractor
         // Si PHPPresentation n'est pas disponible ou échoue aussi
         try {
             return self::extractWithPHPPresentation($filePath);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             error_log("PHPPresentation échoué: " . $e->getMessage());
         }
 

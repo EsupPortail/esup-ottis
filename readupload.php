@@ -6,8 +6,7 @@
  * empêchant l'accès direct aux fichiers uploadés.
  */
 
-require_once __DIR__ . '/Security/init.php';
-require_once __DIR__ . '/Security/validate.php';
+require __DIR__ . '/vendor/autoload.php';
 
 // Vérifier que le paramètre file est présent
 if (!isset($_GET['file']) || empty($_GET['file'])) {

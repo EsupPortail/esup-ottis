@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Service\LanguageLoader;
+use App\Service\RandomNameGenerator;
+
 /**
  * AuditorController - Handles the student/attendee view for conference rooms
  * 
@@ -12,6 +15,13 @@ class AuditorController extends BaseController
 {
     /**
      * Display the auditor interface
+     *
+     * Renders the student/attendee view for joining conference rooms.
+     * Handles room token generation, random name assignment for anonymous users,
+     * and loads supported languages for the translation interface.
+     * Sets up JavaScript variables and module scripts for the auditor functionality.
+     *
+     * @return void
      */
     public function index(): void
     {
@@ -24,13 +34,9 @@ class AuditorController extends BaseController
         // Initialize CSRF protection
         initCsrfProtection();
         
-        // Generate random name for anonymous users
-        $Tcolors = ['Red', 'Blue', 'Orange', 'Purple', 'Black', 'White', 'Green'];
-        $Tobjects = ['Alpaca', 'Alligator', 'Dragoon', 'Elephant', 'Lion', 'Panther', 'Tiger', 'Zebra'];
-        $randomname = $Tcolors[mt_rand(0, count($Tcolors) - 1)] . ' ' . $Tobjects[mt_rand(0, count($Tobjects) - 1)];
-        
-        // Load supported languages
-        $T_lang = $this->loadSupportedLanguages();
+        // Use services to load data
+        $T_lang = LanguageLoader::load();
+        $randomname = RandomNameGenerator::generateName();
         
         // Get theme parameter
         $theme = $this->getParam('theme', 'flat');
@@ -48,7 +54,7 @@ class AuditorController extends BaseController
         ];
         
         // Set page data
-        $this->viewData['pageTitle'] = 'Omist - Student View';
+        $this->viewData['pageTitle'] = 'Automatic translation for teaching purposes';
         $this->viewData['classroomid'] = $classroomid;
         $this->viewData['roomToken'] = $roomToken;
         $this->viewData['randomname'] = $randomname;
@@ -59,11 +65,14 @@ class AuditorController extends BaseController
         
         // Define styles for this page
         $this->viewData['pageStyles'] = [
-            'styles/auditor.css'
+            'styles/auditor.css',
+            'https://fonts.googleapis.com/icon?family=Material+Icons',
+            'styles/auditor-specific.css',
+            'styles/chat.css'
         ];
         
         // Define scripts for this page
-        $this->viewData['pageScripts'] = [
+        $pageScripts = [
             '/js/auditor-def.js',
             '/js/common-func.js',
             '/js/lib/auditor/text-processing.js',
@@ -77,54 +86,38 @@ class AuditorController extends BaseController
             '/js/utils/dom.js',
             '/js/utils/draggable.js',
             '/js/auditor-post.js',
-            '/js/conference-legacy.js',
         ];
         
-        // Render the auditor view
+        // Chat modules
+        $chatScripts = [
+            '/js/conference-legacy.js',
+            '/js/lib/chat/alert.js',
+            '/js/lib/chat/network.js',
+            '/js/lib/chat/handlers.js',
+            '/js/lib/chat/display.js',
+            '/js/lib/chat/main.js',
+            '/js/auditor-init.js',
+        ];
+        
+        $this->viewData['pageScripts'] = $pageScripts;
+        $this->viewData['chatScripts'] = $chatScripts;
+        
+        // Render the auditor view (without layout as it has its own HTML structure)
+        $this->layout = false;
         $this->render('auditor/index');
     }
     
     /**
      * Display a specific auditor room
-     * 
+     *
+     * Redirects to the auditor page with the specified room ID.
+     *
      * @param string $roomId The room identifier
+     * @return void
      */
     public function show(string $roomId): void
     {
-        // Redirect to the main auditor page with the room ID
         $this->redirect('/auditor.php?ROOMID=' . urlencode($roomId));
     }
-    
-    /**
-     * Load supported languages from CSV file
-     * 
-     * @return array Array of supported languages
-     */
-    protected function loadSupportedLanguages(): array
-    {
-        $T_lang = [];
-        $fd = fopen(APP_ROOT . '/supportedlanguages.csv', 'r');
-        
-        if ($fd) {
-            while ($line = fgets($fd, 4096)) {
-                if (trim($line) === '') {
-                    continue;
-                }
-                
-                $ligne = explode(';', $line);
-                if (count($ligne) >= 3) {
-                    $code = trim($ligne[1]);
-                    $T_lang[$code] = [
-                        'name_fr' => trim($ligne[2]),
-                        'name_vo' => trim($ligne[0]),
-                        'code' => trim($ligne[1]),
-                        'voice' => '-1'
-                    ];
-                }
-            }
-            fclose($fd);
-        }
-        
-        return $T_lang;
-    }
 }
+

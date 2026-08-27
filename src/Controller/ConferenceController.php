@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-use App\Security\RoomTokenManager;
+use App\Service\LanguageLoader;
+use App\Service\RoomInfoService;
+use App\Service\TranslatorStatsService;
 
 /**
  * ConferenceController - Handles conference room creation and management
@@ -14,6 +16,17 @@ class ConferenceController extends BaseController
 {
     /**
      * Display the conference index page
+     *
+     * Initializes a new conference room or loads an existing one.
+     * Handles CSRF protection, language selection, and room configuration.
+     * Sets up all necessary data for the conference view including:
+     * - Room ID and token generation
+     * - User identification
+     * - Supported languages loading
+     * - DeepL API statistics
+     * - Wooclap integration
+     *
+     * @return void
      */
     public function index(): void
     {
@@ -26,7 +39,14 @@ class ConferenceController extends BaseController
         // Get language from request
         $language = $this->getParam('lang', 'fr');
         
-        // Set page-specific data
+        // Load config values from global scope
+        global $WhichTranslator, $DEEPLAPITOKEN, $DEEPLFREEAPITOKEN, $proxy;
+        
+        // Load translations using parent method
+        $this->viewData['language'] = $language;
+        $this->loadTranslations();
+        
+        // Set page metadata
         $this->viewData['pageTitle'] = 'Omist - Conference';
         
         // Define styles for this page
@@ -49,39 +69,37 @@ class ConferenceController extends BaseController
             $classroomid = md5(gmdate('Y-m-d\TH:i:s\Z'));
         }
         
-        // Generate room token
+        // Use services to load data
+        $T_lang = LanguageLoader::load();
         $roomToken = generateRoomToken($classroomid);
+        $appid = RoomInfoService::generateAppId();
+        $uid = RoomInfoService::getUserId('anonymous');
+        $ip = RoomInfoService::getClientIp();
         
-        // Generate app ID
-        $appid = md5(gmdate('Y-m-d\TH:i:s\Z') . 'XXX');
-        
-        // Get user ID
-        $uid = $_SERVER['PHP_AUTH_USER'] ?? 'anonymous';
-        if (empty($uid)) {
-            $uid = 'anonymous';
-        }
-        if (strpos($_SERVER['SERVER_NAME'], 'univ-nantes.fr') === false) {
-            $uid = 'anonymous';
-        }
-        
-        // Load supported languages
-        $T_lang = $this->loadSupportedLanguages();
-        
-        // Get DeepL stats if applicable
-        $Stats_DEEPL = [];
-        $percentage_DEEPL = 0;
+        // Get DeepL statistics
+        $statsService = new TranslatorStatsService($proxy ?? '');
+        $statsResult = $statsService->getTranslatorStats($WhichTranslator ?? '', $DEEPLAPITOKEN ?? $DEEPLFREEAPITOKEN ?? '');
+        $Stats_DEEPL = $statsResult['stats'];
+        $percentage_DEEPL = $statsResult['percentage_used'];
         
         // Get configuration parameter
         $currentconfig = $this->getParam('myconfig', 'AAYAYKCNYCNYNYNNN');
         
-        // Prepare data for JavaScript
+        // Get Wooclap address
+        if (isset($_GET['WOOCLAPKEY'])) {
+            $wooclapaddress = 'https://app.wooclap.com/events/' . $_GET['WOOCLAPKEY'] . '/0';
+        } else {
+            $wooclapaddress = 'https://app.wooclap.com/events/';
+        }
+        
+        // Prepare JavaScript variables
         $jsVars = [
             'supportedlanguages' => $T_lang,
             'currentconfig' => $currentconfig,
             'roomToken' => $roomToken
         ];
         
-        // Set variables for the view
+        // Set all variables for the view
         $this->viewData['classroomid'] = $classroomid;
         $this->viewData['appid'] = $appid;
         $this->viewData['uid'] = $uid;
@@ -89,55 +107,26 @@ class ConferenceController extends BaseController
         $this->viewData['Stats_DEEPL'] = $Stats_DEEPL;
         $this->viewData['percentage_DEEPL'] = $percentage_DEEPL;
         $this->viewData['currentconfig'] = $currentconfig;
+        $this->viewData['wooclapaddress'] = $wooclapaddress;
         $this->viewData['jsVars'] = $jsVars;
         $this->viewData['roomToken'] = $roomToken;
+        $this->viewData['ip'] = $ip;
         
-        // Render the conference view
+        // No layout as this page has its own complete HTML structure
+        $this->layout = false;
         $this->render('conference/index');
     }
     
     /**
      * Display a specific conference room
-     * 
+     *
+     * Redirects to the conference page with the specified room ID.
+     *
      * @param string $roomId The room identifier
+     * @return void
      */
     public function show(string $roomId): void
     {
-        // For now, redirect to the main conference page with the room ID
         $this->redirect('/conference.php?ROOMID=' . urlencode($roomId));
-    }
-    
-    /**
-     * Load supported languages from CSV file
-     * 
-     * @return array Array of supported languages
-     */
-    protected function loadSupportedLanguages(): array
-    {
-        $T_lang = [];
-        $fd = fopen(APP_ROOT . '/supportedlanguages.csv', 'r');
-        
-        if ($fd) {
-            while ($line = fgets($fd, 4096)) {
-                // Skip empty lines
-                if (trim($line) === '') {
-                    continue;
-                }
-                
-                $ligne = explode(';', $line);
-                if (count($ligne) >= 3) {
-                    $code = trim($ligne[1]);
-                    $T_lang[$code] = [
-                        'name_fr' => trim($ligne[2]),
-                        'name_vo' => trim($ligne[0]),
-                        'code' => trim($ligne[1]),
-                        'voice' => '-1'
-                    ];
-                }
-            }
-            fclose($fd);
-        }
-        
-        return $T_lang;
     }
 }

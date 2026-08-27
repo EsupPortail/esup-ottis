@@ -32,7 +32,6 @@ export function StudentreadText() {
             let request = createXhrRequest('POST', 'readtext.php', {
                 onSuccess: function(xhr) {
                     if (!xhr.responseText.trim()) {
-                        console.warn('Réponse vide ou erreur côté serveur.');
                         return;
                     }
                     // Traiter la réponse
@@ -60,7 +59,7 @@ export function StudentreadText() {
                     StudentCompleteTranslation2();
                 },
                 onError: function(xhr, context) {
-                    console.error('Erreur HTTP:', xhr.status, xhr.statusText);
+                    
                 },
                 data: f,
                 timeout: 10000,
@@ -68,7 +67,7 @@ export function StudentreadText() {
             });
             request.send(f);
         } else {
-            console.warn('classroomid est vide !');
+            
         }
     }
 }
@@ -94,14 +93,11 @@ export function ready(callback) {
 export function StartSpeechRecognition(callback) {
     // Ne pas démarrer la reconnaissance si la langue n'est pas définie
     if (!builtin_language || typeof builtin_language !== 'string') {
-        console.warn('[SpeechRecognition] StartSpeechRecognition: builtin_language is not set. Language must be selected first. Current value:', builtin_language);
         return;
     }
-    console.log('[SpeechRecognition] Starting with language:', builtin_language);
     builtin_recognition.lang = builtin_language;
     builtin_recognition.onresult = function(event) {
         if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
-            //console.log(event.results);
             let partial = '';
             let isFinalResult = false;
             for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -135,12 +131,8 @@ export function StartSpeechRecognition(callback) {
         }
     };
     builtin_recognition.onend = function(event) {
-        console.log('[SpeechRecognition] onend called, builtin_recognitionon:', builtin_recognitionon, 'builtin_language:', builtin_language);
         if (builtin_recognitionon) {
-            console.log('[SpeechRecognition] Restarting recognition...');
             StartSpeechRecognition(callback);
-        } else {
-            console.log('[SpeechRecognition] Not restarting - builtin_recognitionon is false');
         }
     };
     setBuiltinRecognitionon(true);

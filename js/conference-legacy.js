@@ -55,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof Init === 'function') {
         Init();
     }
+    // Démarrer le polling du chat pour conference
+    if (typeof startChatPolling === 'function') {
+        startChatPolling();
+    }
     // NE PAS appeler Lancer() ici - il sera appelé après la validation de la langue
     // dans startAuditorPolling() pour auditor.php
     // if (typeof Lancer === 'function') {
@@ -68,5 +72,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Logger pour débogage
-console.log('Conference ES modules loaded - legacy compatibility enabled');
+// Logger pour débogage (désactivé)

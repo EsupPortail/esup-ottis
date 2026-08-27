@@ -64,7 +64,8 @@ export function formateresponse(datatxt,editable=true) {
         console.error('Unexpected response format:', data);
         return '<pre>Error: Unexpected response format from server.</pre>';
     }
-    currentPresentation = [];
+    window.currentPresentation = [];
+    window.currentDiscours = 0;
     //alert(datatxt);
     let res = '';
     // console.log(data);

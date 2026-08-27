@@ -9,6 +9,10 @@ class TextController extends BaseController
 {
     /**
      * Read text content
+     *
+     * Reads text content from a file or source based on request parameters.
+     *
+     * @return void
      */
     public function read(): void
     {
@@ -25,6 +29,10 @@ class TextController extends BaseController
     
     /**
      * Read text with queue
+     *
+     * Reads text content from a queue-based source.
+     *
+     * @return void
      */
     public function readQ(): void
     {
@@ -39,6 +47,10 @@ class TextController extends BaseController
     
     /**
      * Read transcript subtitles
+     *
+     * Retrieves transcript subtitle content for a specific room and language.
+     *
+     * @return void
      */
     public function readTranscriptSub(): void
     {
@@ -53,11 +65,18 @@ class TextController extends BaseController
     
     /**
      * Save text content
+     *
+     * Validates CSRF token and saves text content to storage.
+     * Retrieves text, room ID, and language from POST request.
+     * Returns JSON response with success status and character count.
+     *
+     * @return void
+     * @throws \RuntimeException When CSRF validation fails
      */
     public function save(): void
     {
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Get POST parameters
         $text = $this->postParam('text', '');
@@ -72,11 +91,18 @@ class TextController extends BaseController
     
     /**
      * Save text with queue
+     *
+     * Validates CSRF token and saves text content with queue support.
+     * Retrieves text, room ID, and queue ID from POST request.
+     * Returns JSON response with success status.
+     *
+     * @return void
+     * @throws \RuntimeException When CSRF validation fails
      */
     public function saveQ(): void
     {
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Get POST parameters
         $text = $this->postParam('text', '');

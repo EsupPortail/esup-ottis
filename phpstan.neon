@@ -3,6 +3,8 @@ includes:
 
 parameters:
     level: 5
+    stubFiles:
+        - tests/phpstan/stubs/GlobalConstants.php
     paths:
         - src
         - Security

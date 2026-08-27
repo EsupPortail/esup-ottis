@@ -1,5 +1,11 @@
-<?php require("./NoCache.php"); ?>
-<?php 
+<?php
+require __DIR__ . '/NoCache.php';
+require __DIR__ . '/vendor/autoload.php';
+
+use App\Service\LanguageLoader;
+use App\Service\RoomInfoService;
+use App\Service\TranslatorStatsService;
+
 // Désactiver l'affichage des erreurs en production
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
@@ -14,10 +20,7 @@ header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
     
 include("config.php");
-require_once __DIR__ . '/Security/room_tokens.php';
 require_once __DIR__ . '/includes/chat-component.php';
-require_once __DIR__ . '/Security/csrf.php';
-require_once __DIR__ . '/Security/sanitize.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -47,10 +50,8 @@ $onloadFunctions = [
 ];
 $onloadScripts = implode(";\n    ", $onloadFunctions);
 
-$uid="";
-if (isset($_SERVER['PHP_AUTH_USER'])) $uid = $_SERVER['PHP_AUTH_USER'];
-if ($uid == "") $uid="anonymous"; //$uid="e18XXX"; // en attendant de rétablir le CAS....
-if (strpos($_SERVER['SERVER_NAME'],"univ-nantes.fr") === false) $uid="anonymous";
+// Use services to load data
+$uid = RoomInfoService::getUserId('anonymous');
 
 if (isset($_GET["ROOMID"]))
   $classroomid = $_GET["ROOMID"];
@@ -59,68 +60,25 @@ else {
 }
 $roomToken = generateRoomToken($classroomid);
 
-$appid=md5(gmdate("Y-m-d\TH:i:s\Z")."XXX");
+$appid = RoomInfoService::generateAppId();
 
 if (isset($_GET["WOOCLAPKEY"])) {
   $wooclapaddress = "https://app.wooclap.com/events/".$_GET["WOOCLAPKEY"]."/0";
 } else {
-  //$wooclapaddress = "https://www.wooclap.com";
-  //$wooclapaddress = "https://app.wooclap.com/auth/login?lang=en&redirectTo=/home";
   $wooclapaddress = "https://app.wooclap.com/events/";
 }
 
-$T_lang = array();
-$fd = fopen("supportedlanguages.csv", "r");
-while ($line = fgets($fd, 4096)) {
-    // Ignorer les lignes vides
-    if (trim($line) === '') {
-        continue;
-    }
-    $ligne = explode(";", $line);
-    if (count($ligne) >= 3) {
-        $code = trim($ligne[1]); 
-        $T_lang[$code] = [
-            "name_fr" => trim($ligne[2]),
-            "name_vo" => trim($ligne[0]),
-            "code" => trim($ligne[1]),
-            "voice" => "-1"
-        ];
-    }
-}
-fclose($fd);
+// Use services to load languages
+$T_lang = LanguageLoader::load();
 
-//Get IP address
-if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-	//ip from share internet
-	$ip = $_SERVER['HTTP_CLIENT_IP'];
-}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-	//ip pass from proxy
-	$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-}else{
-	$ip = $_SERVER['REMOTE_ADDR'];
-}
+// Get IP address using service
+$ip = RoomInfoService::getClientIp();
 
-$res=array();
-
-if ($WhichTranslator == "DEEPLPRO"){
-	if ($DEEPLAPITOKEN != "") {
-		exec($proxy." curl -q https://api.deepl.com/v2/usage?auth_key=".$DEEPLAPITOKEN,$res);
-		$Stats_DEEPL = json_decode($res[0],true);
-	} else {
-		$Stats_DEEPL=array();
-	}
-} else if ($WhichTranslator == "DEEPLFREE"){
-	if ($DEEPLFREEAPITOKEN != "") {
-		exec($proxy." curl -q https://api-free.deepl.com/v2/usage?auth_key=".$DEEPLFREEAPITOKEN,$res);
-		$Stats_DEEPL = json_decode($res[0],true);
-	} else {
-		$Stats_DEEPL=array();
-	}
-}
-
-if (isset($Stats_DEEPL["character_count"])) {
-  $percentage_DEEPL = ceil(10000*$Stats_DEEPL["character_count"]/($Stats_DEEPL["character_limit"]+0.00000001))/100;
-} else $percentage_DEEPL = 0;
+// Get DeepL statistics using service
+$statsService = new TranslatorStatsService($proxy ?? '');
+$statsResult = $statsService->getTranslatorStats($WhichTranslator ?? '', $DEEPLAPITOKEN ?? $DEEPLFREEAPITOKEN ?? '');
+$Stats_DEEPL = $statsResult['stats'];
+$percentage_DEEPL = $statsResult['percentage_used'];
 
 if (isset($_GET["myconfig"])) {
     $currentconfig = $_GET["myconfig"];
@@ -301,9 +259,9 @@ include_once __DIR__ . '/includes/header.php';
 <!-- -->
 
 
-<script type="module" src="/js/conference-legacy.js"></script>
-<!-- Chat modules -->
+<!-- Chat modules - common-func.js doit être chargé AVANT conference-legacy.js -->
 <script src="/js/common-func.js"></script>
+<script type="module" src="/js/conference-legacy.js"></script>
 <script type="module" src="/js/lib/chat/alert.js"></script>
 <script type="module" src="/js/lib/chat/network.js"></script>
 <script type="module" src="/js/lib/chat/handlers.js"></script>

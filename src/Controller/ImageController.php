@@ -9,6 +9,11 @@ class ImageController extends BaseController
 {
     /**
      * Read image content
+     *
+     * Retrieves and returns image content from storage.
+     * Requires either imageId or roomId parameter.
+     *
+     * @return void
      */
     public function read(): void
     {
@@ -34,11 +39,18 @@ class ImageController extends BaseController
     
     /**
      * Save image content
+     *
+     * Validates CSRF token, processes uploaded image file.
+     * Validates image type and saves to secure storage.
+     * Returns JSON response with image information.
+     *
+     * @return void
+     * @throws \RuntimeException When no image is uploaded or type is invalid
      */
     public function save(): void
     {
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Check if image was uploaded
         if (!isset($_FILES['image']) || $_FILES['image']['error'] !== UPLOAD_ERR_OK) {

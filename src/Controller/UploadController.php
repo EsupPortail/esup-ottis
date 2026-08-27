@@ -9,6 +9,11 @@ class UploadController extends BaseController
 {
     /**
      * Handle file upload request
+     *
+     * Main entry point for file upload operations.
+     * Routes to processUpload() for POST or showUploadForm() for GET requests.
+     *
+     * @return void
      */
     public function handle(): void
     {
@@ -34,7 +39,7 @@ class UploadController extends BaseController
         }
         
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Get file information
         $file = $_FILES['file'];
@@ -75,6 +80,11 @@ class UploadController extends BaseController
     
     /**
      * Read uploaded file content
+     *
+     * Retrieves and returns the content of a previously uploaded file.
+     * Requires file identifier parameter.
+     *
+     * @return void
      */
     public function read(): void
     {

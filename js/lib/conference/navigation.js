@@ -1,7 +1,7 @@
 import { currentscroll, previousimage, scale } from './state.js';
 
 import { formateresponse } from './utils.js';
-import { ShowImage } from './pdf-viewer.js';
+import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
 
 import { _ } from './dom-helpers.js';
 import { addCsrfToken, createXhrRequest } from './network.js';
@@ -13,57 +13,77 @@ import { addCsrfToken, createXhrRequest } from './network.js';
 
 
 export function SkipForward() {
-    if (currentPresentation.length > 0) {
-        currentDiscours = (currentDiscours + 1) % currentPresentation.length;
-        ShowImage(currentPresentation[currentDiscours]['Slide']);
+    if (window.currentPresentation.length > 0) {
+        window.currentDiscours = (window.currentDiscours + 1) % window.currentPresentation.length;
+        ShowImage(window.currentPresentation[window.currentDiscours]['Slide']);
         saveremotespeech();
     }
 }
 
 export function SkipBackward() {
-    if (currentPresentation.length > 0) {
-        currentDiscours = (currentDiscours - 1 + currentPresentation.length) % currentPresentation.length;
-        ShowImage(currentPresentation[currentDiscours]['Slide']);
+    if (window.currentPresentation.length > 0) {
+        window.currentDiscours = (window.currentDiscours - 1 + window.currentPresentation.length) % window.currentPresentation.length;
+        ShowImage(window.currentPresentation[window.currentDiscours]['Slide']);
         saveremotespeech();
     }
 }
 
 export function Forward() {
-    if (currentPresentation.length > 0) {
-        currentDiscours = (currentDiscours + 1) % currentPresentation.length;
-        addToNB(currentPresentation[currentDiscours]['Discours'], 0);
-        ShowImage(currentPresentation[currentDiscours]['Slide']);
+    if (window.currentPresentation.length > 0) {
+        window.currentDiscours = (window.currentDiscours + 1) % window.currentPresentation.length;
+        addToNB(window.currentPresentation[window.currentDiscours]['Discours'], 0);
+        ShowImage(window.currentPresentation[window.currentDiscours]['Slide']);
         saveremotespeech();
     }
 }
 
 export function Backward() {
-    if (currentPresentation.length > 0) {
-        currentDiscours = (currentDiscours - 1 + currentPresentation.length) % currentPresentation.length;
-        addToNB(currentPresentation[currentDiscours]['Discours'], 0);
-        ShowImage(currentPresentation[currentDiscours]['Slide']);
+    if (window.currentPresentation.length > 0) {
+        window.currentDiscours = (window.currentDiscours - 1 + window.currentPresentation.length) % window.currentPresentation.length;
+        addToNB(window.currentPresentation[window.currentDiscours]['Discours'], 0);
+        ShowImage(window.currentPresentation[window.currentDiscours]['Slide']);
         saveremotespeech();
     }
 }
 
 export function SlideForward() {
-    if (slide['Images'].length > 1) {
-        let currentSlide = currentPresentation[currentDiscours]['Slide'];
-        while (currentDiscours < currentPresentation.length - 1 && currentPresentation[currentDiscours]['Slide'] == currentSlide) {
-            currentDiscours++;
+    if (!window.currentPresentation || window.currentPresentation.length === 0) {
+        // Fallback to PDF navigation if a PDF is loaded
+        if (window.pdfDoc) {
+            nextPage();
+        } else {
+            console.log('[NAV] SlideForward: No presentation or PDF loaded');
         }
-        ShowImage(currentPresentation[currentDiscours]['Slide']);
+        return;
+    }
+    let slide = window.currentPresentation[window.currentDiscours];
+    if (slide && slide['Images'] && slide['Images'].length > 1) {
+        let currentSlide = slide['Slide'];
+        while (window.currentDiscours < window.currentPresentation.length - 1 && window.currentPresentation[window.currentDiscours]['Slide'] == currentSlide) {
+            window.currentDiscours++;
+        }
+        ShowImage(slide['Slide']);
         saveremotespeech();
     }
 }
 
 export function SlideBackward() {
-    if (slide['Images'].length > 1) {
-        let currentSlide = currentPresentation[currentDiscours]['Slide'];
-        while (currentDiscours > 0 && currentPresentation[currentDiscours]['Slide'] == currentSlide) {
-            currentDiscours--;
+    if (!window.currentPresentation || window.currentPresentation.length === 0) {
+        // Fallback to PDF navigation if a PDF is loaded
+        if (window.pdfDoc) {
+            prevPage();
+        } else {
+            console.log('[NAV] SlideBackward: No presentation or PDF loaded');
         }
-        ShowImage(currentPresentation[currentDiscours]['Slide']);
+        return;
+    }
+    let slide = window.currentPresentation[window.currentDiscours];
+    if (slide && slide['Images'] && slide['Images'].length > 1) {
+        let currentSlide = slide['Slide'];
+        while (window.currentDiscours > 0 && window.currentPresentation[window.currentDiscours]['Slide'] == currentSlide) {
+            window.currentDiscours--;
+        }
+        ShowImage(slide['Slide']);
         saveremotespeech();
     }
 }
@@ -75,11 +95,11 @@ export function completeHandler(event,editable=false) {
 
     // Re-initialize the presentation
     previousimage = -1;
-    currentDiscours = 0;
-    if (currentPresentation.length > 0) {
+    window.currentDiscours = 0;
+    if (window.currentPresentation.length > 0) {
         setTimeout(function() {
             _('stillwaiting').style.display='none';
-            ShowImage(currentPresentation[0]['Slide']);
+            ShowImage(window.currentPresentation[0]['Slide']);
         }, 1000);
     }
 }

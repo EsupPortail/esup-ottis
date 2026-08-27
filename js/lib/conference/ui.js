@@ -9,17 +9,19 @@ import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer 
 
 export function FullScreen() {
     let mybox = _('micon');
-    const newCheckedState = !_('recognitionon').checked;
+    const currentCheckedState = _('recognitionon').checked;
+    const newCheckedState = !currentCheckedState;
+    
+    // Mettre à jour l'état AVANT d'arrêter la reconnaissance pour éviter les race conditions
+    _('recognitionon').checked = newCheckedState;
+    setBuiltinRecognitionon(newCheckedState);
     
     // Si on désactive le micro, arrêter la reconnaissance
-    if (_('recognitionon').checked && !newCheckedState) {
+    if (currentCheckedState && !newCheckedState) {
         if (!builtin_microsofttranscritionon) {
             builtin_recognition.abort();
         }
     }
-    
-    _('recognitionon').checked = newCheckedState;
-    setBuiltinRecognitionon(newCheckedState);
     if (_('recognitionon').checked) {
         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
     } else {
@@ -72,17 +74,19 @@ export function showET(obj, num) {
 
 export function Micro() {
     let mybox = _('micon');
-    const newCheckedState = !_('recognitionon').checked;
+    const currentCheckedState = _('recognitionon').checked;
+    const newCheckedState = !currentCheckedState;
+    
+    // Mettre à jour l'état AVANT d'arrêter la reconnaissance pour éviter les race conditions
+    _('recognitionon').checked = newCheckedState;
+    setBuiltinRecognitionon(newCheckedState);
     
     // Si on désactive le micro, arrêter la reconnaissance
-    if (_('recognitionon').checked && !newCheckedState) {
+    if (currentCheckedState && !newCheckedState) {
         if (!builtin_microsofttranscritionon) {
             builtin_recognition.abort();
         }
     }
-    
-    _('recognitionon').checked = newCheckedState;
-    setBuiltinRecognitionon(newCheckedState);
     if (_('recognitionon').checked) {
         mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
     } else {

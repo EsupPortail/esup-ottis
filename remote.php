@@ -1,8 +1,5 @@
 <?php
-// Security includes
-require_once __DIR__ . '/Security/validate.php';
-require_once __DIR__ . '/Security/csrf.php';
-require_once __DIR__ . '/Security/sanitize.php';
+require __DIR__ . '/vendor/autoload.php';
 
 // Disable error display
 ini_set('display_errors', 0);

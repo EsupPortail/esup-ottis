@@ -9,6 +9,10 @@ class ExtractController extends BaseController
 {
     /**
      * Extract slides and notes from presentation
+     *
+     * Handles both POST (extraction) and GET (form display) requests.
+     *
+     * @return void
      */
     public function slidesNotes(): void
     {
@@ -23,6 +27,10 @@ class ExtractController extends BaseController
     
     /**
      * Extract slides and notes as HTML
+     *
+     * Similar to slidesNotes but returns HTML format.
+     *
+     * @return void
      */
     public function slidesNotesAppHTML(): void
     {
@@ -37,6 +45,10 @@ class ExtractController extends BaseController
     
     /**
      * Extract slides and notes as text
+     *
+     * Extracts and returns presentation content as plain text.
+     *
+     * @return void
      */
     public function slidesNotesTxt(): void
     {
@@ -51,6 +63,10 @@ class ExtractController extends BaseController
     
     /**
      * Extract PPTX images
+     *
+     * Extracts images from PPTX files. Requires POST method.
+     *
+     * @return void
      */
     public function pptxImages(): void
     {
@@ -65,6 +81,10 @@ class ExtractController extends BaseController
     
     /**
      * Extract PPTX notes using the PPTXNotesExtractor service
+     *
+     * Uses the PPTXNotesExtractor service for note extraction. Requires POST method.
+     *
+     * @return void
      */
     public function pptxNotes(): void
     {
@@ -85,7 +105,7 @@ class ExtractController extends BaseController
     protected function processExtraction(string $format = 'default'): void
     {
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Check if file was uploaded
         if (!isset($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {

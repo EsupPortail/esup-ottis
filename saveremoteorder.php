@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/Security/validate.php';
-require_once __DIR__ . '/Security/validate_room_token.php';
-require_once __DIR__ . '/Security/csrf.php';
+require __DIR__ . '/vendor/autoload.php';
 
 requireRoomToken();
 

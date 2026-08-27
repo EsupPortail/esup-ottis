@@ -1,41 +1,22 @@
-<?php require("./NoCache.php"); ?>
 <?php
+require __DIR__ . '/NoCache.php';
+require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/includes/chat-component.php';
+
+use App\Service\LanguageLoader;
+use App\Service\RandomNameGenerator;
 
 $classroomid = $_GET["ROOMID"] ?? '';
 
 // Generer un token unique pour ce ROOMID
-require_once __DIR__ . '/Security/room_tokens.php';
 $roomToken = generateRoomToken($classroomid);
-require_once __DIR__ . '/includes/chat-component.php';
 
 // Initialiser la protection CSRF
-require_once __DIR__ . '/Security/csrf.php';
 initCsrfProtection();
 
-// Inclure les fonctions de sanitization
-require_once __DIR__ . '/Security/sanitize.php';
-
-$Tcolors = array("Red", "Blue", "Orange", "Purple", "Black", "White", "Green");
-$Tobjects = array("Alpaca", "Alligator", "Dragoon", "Elephant", "Lion", "Panther", "Tiger", "Zebra");
-$randomname = $Tcolors[mt_rand(0, count($Tcolors)-1)] . " " . $Tobjects[mt_rand(0, count($Tobjects)-1)];
-
-// Optimized language loading - using associative array by code like conference.php
-$T_lang = array();
-$fd = fopen("supportedlanguages.csv", "r");
-while ($line = fgets($fd, 4096)) {
-    if (trim($line) === '') continue;  // Skip empty lines
-    $ligne = explode(";", $line);
-    if (count($ligne) >= 3) {
-        $code = trim($ligne[1]);
-        $T_lang[$code] = [
-            "name_fr" => trim($ligne[2]),
-            "name_vo" => trim($ligne[0]),
-            "code" => trim($ligne[1]),
-            "voice" => "-1"
-        ];
-    }
-}
-fclose($fd);
+// Use services to load data
+$T_lang = LanguageLoader::load();
+$randomname = RandomNameGenerator::generateName();
 
 $theme = "flat";
 if (isset($_GET["theme"])) $theme = $_GET["theme"];

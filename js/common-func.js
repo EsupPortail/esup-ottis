@@ -1,5 +1,3 @@
-// Basic functions
-
 /**
  * @summary shortcut for document.getElementById
  * 
@@ -11,7 +9,6 @@ function _(el) {
     return document.getElementById(el);
 }
 
-// Expose to window for access from ES modules
 if (typeof window !== 'undefined') {
     window._ = _;
 }
@@ -71,7 +68,6 @@ ColorsForCR["Intervenant"] = [[0,0,255],[255,255,255],0];
 // Global array to store chat messages
 let ScreenCR = [];
 
-// Expose to window for access from ES modules
 if (typeof window !== 'undefined') {
     window.ColorsForCR = ColorsForCR;
     window.ScreenCR = ScreenCR;
@@ -152,16 +148,7 @@ function AbortTimeout(r,s) {
     r.ontimeout = (e) => {
         r.abort();
     };
-
-    //setTimeout(function() {
-    //    console.log("Timeout problem in "+s+" !")
-    //    r.abort();
-    //}, 10000);
 }
-
-
-
-
 
 /**
  * @summary setter for the input language
@@ -200,7 +187,6 @@ function setLanguageOutput(i) {
  */
 function setLanguageOutputAndRetranslate(i) {
     setLanguageOutput(i);
-    // Reload and retranslate all messages with the new language
     if (typeof recharger === 'function') {
         recharger();
     }
@@ -231,7 +217,6 @@ function recharger() {
     if (typeof readTextQ !== 'undefined') {
         readTextQ();
     }
-
 }
 
 /**
@@ -250,41 +235,15 @@ function RefreshCR() {
     _('classroom').innerHTML = DOMPurify.sanitize(html);
 }
 
-/*
- * @summary Write something to the classroom queue - NOW DEPRECATED, use chat-common.js version
- * 
- * @param {string} who surname of the person who writes.
- * @param {string} ch text that is to be written.
- * @param {number} order synchronisation parameter.
- *
-function EcrireCR(who, ch, order) {
-    if (!ColorsForCR[who]) {
-        let colors = getUserColor(who);
-        let bg = colors[0];
-        let fg = colors[1];
-        ColorsForCR[who] = [bg, fg, 20];
-    }
-
-    // Déterminer le style d'alignement : gauche pour Intervenant, droite pour les auditeurs
-    let floatStyle = (who === 'Intervenant') ? 'left' : 'right';
-    let marginLeft = (who === 'Intervenant') ? '0px' : '20px';
-
-    ScreenCR[order] = '<li role="listitem" style="color:' + rgb(ColorsForCR[who][1]) + '; background-color:' + rgb(ColorsForCR[who][0]) + '; float: ' + floatStyle + '; margin-left: ' + marginLeft + '; margin-top: 0; margin-bottom: 2px; margin-right: 0; padding: 5px; border-radius: 5px; display: block; clear: both;">' + escapeHtml(who + ' : ' + ch) + '</li>';
-    RefreshCR();
-}
-*/
-
 /**
  * @summary Computes the number of questions in the classroom queue
  * 
- * @returns Tthe number of questions in the classroom queue.
+ * @returns the number of questions in the classroom queue.
  */
 
 function TailleCR() {
     return _('classroom').innerHTML.split('<br/>').length;
 }
-
-
 
 /**
  * @summary Resize the main windows
@@ -300,7 +259,6 @@ function resizeWindow(wname) {
     wc.style.top = "48px";
     wc.style.left = "0px";
 }
-
 
 /**
  * @summary Change the color of a HTML div
@@ -369,6 +327,7 @@ function DownloadSpeechLesson(filename, elText, mimeType) {
     link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(elText));
     link.click();
 }
+
 /**
  * @summary Display an error message to the user
  * 
@@ -377,8 +336,6 @@ function DownloadSpeechLesson(filename, elText, mimeType) {
  */
 function showError(message, context = null) {
     console.error(context ? `[${context}] ${message}` : message);
-    // Could also display in a user-friendly way (toast, alert, etc.)
-    // For now, just log to console
 }
 
 /**

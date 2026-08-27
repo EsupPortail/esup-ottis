@@ -12,6 +12,12 @@ class RemoteController extends BaseController
 {
     /**
      * Display the remote control interface
+     *
+     * Renders the remote control interface for managing conference presentations.
+     * Initializes CSRF protection and retrieves room parameters from the request.
+     * Sets up page data including room ID, language, and application ID.
+     *
+     * @return void
      */
     public function index(): void
     {
@@ -29,25 +35,18 @@ class RemoteController extends BaseController
         $this->viewData['lang'] = $lang;
         $this->viewData['appid'] = $appid;
         
-        // Define styles for this page
-        $this->viewData['pageStyles'] = [
-            'styles/remote.css'
-        ];
-        
-        // Define scripts for this page
-        $this->viewData['pageScripts'] = [
-            'https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js',
-            'js/common-func.js'
-        ];
-        
-        // Render the remote view
+        // Render the remote view (without layout as it has its own HTML structure)
+        $this->layout = false;
         $this->render('remote/index');
     }
     
     /**
      * Save remote order (AJAX endpoint)
-     * 
-     * This method handles POST requests to save remote control orders
+     *
+     * This method handles POST requests to save remote control orders.
+     *
+     * @return void
+     * @throws \RuntimeException When required parameters are missing
      */
     public function saveOrder(): void
     {
@@ -56,7 +55,7 @@ class RemoteController extends BaseController
         $order = $this->postParam('ORDER', '');
         
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Validate required parameters
         if (empty($classroomid) || empty($order)) {
@@ -74,8 +73,11 @@ class RemoteController extends BaseController
     
     /**
      * Save speech for remote (AJAX endpoint)
-     * 
-     * This method handles POST requests to save speech for remote display
+     *
+     * This method handles POST requests to save speech for remote display.
+     *
+     * @return void
+     * @throws \RuntimeException When classroom ID is missing
      */
     public function saveSpeech(): void
     {
@@ -84,7 +86,7 @@ class RemoteController extends BaseController
         $speech = $this->postParam('SPEECH', '');
         
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Validate required parameters
         if (empty($classroomid)) {

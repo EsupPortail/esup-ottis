@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Service\LanguageLoader;
+use App\Service\RandomNameGenerator;
+
 /**
  * SubtitlesController - Handles subtitle generation and display
  */
@@ -9,26 +12,82 @@ class SubtitlesController extends BaseController
 {
     /**
      * Display the subtitles page
+     *
+     * Renders the subtitles interface for real-time transcription display.
+     * Generates random names for anonymous users, loads supported languages,
+     * and sets up Wooclap integration and Microsoft Azure speech services.
+     * Configures page styles and JavaScript modules for subtitle functionality.
+     *
+     * @return void
      */
     public function index(): void
     {
         // Initialize CSRF protection
         initCsrfProtection();
         
-        // Set page data
-        $this->viewData['pageTitle'] = 'Omist - Subtitles';
+        // Get Wooclap key
+        $wooclapkey = $this->getParam('WOOCLAPKEY', '');
+        $wooclapaddress = !empty($wooclapkey)
+            ? 'https://www.wooclap.com/' . $wooclapkey
+            : 'https://app.wooclap.com';
         
-        // Define styles for this page
+        // Use services to load data
+        $randomname = RandomNameGenerator::generateName();
+        $T_lang = LanguageLoader::load();
+        
+        // Get theme
+        $theme = $this->getParam('theme', 'flat');
+        
+        // Get config
+        $currentconfig = $this->getParam('myconfig', 'AAYANKCNYCYNYYYY');
+        
+        // Get classroom ID
+        $classroomid = $this->getParam('ROOMID', '');
+        
+        // Get global config variables
+        global $MicrosoftKey, $MicrosoftRegion;
+        $MicrosoftKey = $MicrosoftKey ?? '';
+        $MicrosoftRegion = $MicrosoftRegion ?? '';
+        
+        // Set page data
+        $this->viewData['pageTitle'] = 'OMIST - Subtitles';
+        $this->viewData['wooclapaddress'] = $wooclapaddress;
+        $this->viewData['randomname'] = $randomname;
+        $this->viewData['T_lang'] = $T_lang;
+        $this->viewData['theme'] = $theme;
+        $this->viewData['currentconfig'] = $currentconfig;
+        $this->viewData['classroomid'] = $classroomid;
+        $this->viewData['MicrosoftKey'] = $MicrosoftKey;
+        $this->viewData['MicrosoftRegion'] = $MicrosoftRegion;
+        
+        // Define styles
         $this->viewData['pageStyles'] = [
-            'styles/conference.css'
+            'styles/auditor.css',
+            'https://fonts.googleapis.com/icon?family=Material+Icons',
+            'libs/quickmenu/lib/font-awesome/css/font-awesome.min.css'
         ];
         
-        // Define scripts for this page
+        // Define scripts
         $this->viewData['pageScripts'] = [
+            'js/auditor-def.js',
             'js/common-func.js'
         ];
         
-        // Render the subtitles view
+        // Auditor modules
+        $this->viewData['auditorScripts'] = [
+            'js/lib/auditor/text-processing.js',
+            'js/lib/auditor/voices.js',
+            'js/lib/auditor/speech.js',
+            'js/lib/auditor/display.js',
+            'js/lib/auditor/translation.js',
+            'js/lib/auditor/network.js',
+            'js/lib/auditor/config.js',
+            'js/lib/auditor/mail.js',
+            'js/lib/auditor/main.js'
+        ];
+        
+        // No layout as this page has its own complete HTML structure
+        $this->layout = false;
         $this->render('subtitles/index');
     }
 }

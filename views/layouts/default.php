@@ -41,8 +41,8 @@
                     <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu translate" data-key="scenarios.aide">Aide sur Madoc</span></a></li>
                     <li id="language_element">
                         <select id="language-select" onchange="changeLanguage(this.value)">
-                            <option value="fr" <?= $language === 'fr' ? 'selected' : '' ?>>Français</option>
-                            <option value="en" <?= $language === 'en' ? 'selected' : '' ?>>English</option>
+                            <option value="fr" <?php echo isset($language) && $language === 'fr' ? 'selected' : ''; ?>>Français</option>
+                            <option value="en" <?php echo isset($language) && $language === 'en' ? 'selected' : ''; ?>>English</option>
                         </select>
                     </li>
                 </menu>

@@ -9,11 +9,18 @@ class EmailController extends BaseController
 {
     /**
      * Send email
+     *
+     * Validates CSRF token, retrieves and sanitizes email parameters from POST request.
+     * Validates email format and sends the email message.
+     * Returns JSON response with success/failure status.
+     *
+     * @return void
+     * @throws \RuntimeException When required parameters are missing or invalid
      */
     public function send(): void
     {
         // Validate CSRF token
-        validateCsrfToken();
+        \App\Utils\Csrf::verifyRequest();
         
         // Get POST parameters
         $to = $this->postParam('to');

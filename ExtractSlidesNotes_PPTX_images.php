@@ -1,9 +1,10 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
+use App\Utils\PPTXNotesExtractor;
+
 ini_set("upload_max_filesize", "50M");
 ini_set("post_max_size", "50M");
 include("config.php");
-
-require_once __DIR__ . '/Security/csrf.php';
 
 // Vérification du token CSRF
 if (!verifyCsrfRequest()) {
@@ -59,7 +60,6 @@ $imagesDir = $workDir . '/images';
 mkdir($imagesDir, 0777, true);
 
 // Extraire les notes
-require_once __DIR__ . '/PPTXNotesExtractor.php';
 try {
     $notes = PPTXNotesExtractor::extract($tmp_file);
 } catch (Exception $e) {

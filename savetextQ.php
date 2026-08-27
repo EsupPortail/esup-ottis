@@ -1,7 +1,5 @@
 <?php
-require_once __DIR__ . '/Security/validate.php';
-require_once __DIR__ . '/Security/room_tokens.php';
-require_once __DIR__ . '/Security/csrf.php';
+require __DIR__ . '/vendor/autoload.php';
 
 // Vérification du token CSRF
 if (!verifyCsrfRequest()) {
