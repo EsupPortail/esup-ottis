@@ -18,58 +18,57 @@ import * as utils from './lib/conference/utils.js';
 import * as events from './lib/conference/events.js';
 import * as lib from './lib/index.js';
 
-
 // Tableau de tous les modules à exposer
 // chatMain et chatAlert en premier pour que leurs fonctions ne soient pas écrasées
 const modules = [
-    chatMain,
-    chatAlert,
+  chatMain,
+  chatAlert,
 
-    conference,
-    state,
-    domHelpers,
-    network,
-    compat,
-    utils,
-    events,
-    lib
+  conference,
+  state,
+  domHelpers,
+  network,
+  compat,
+  utils,
+  events,
+  lib,
 ];
 
 // Attacher toutes les exports à window pour la compatibilité
-modules.forEach(module => {
-    Object.entries(module).forEach(([key, value]) => {
-        // Ne pas écraser les propriétés existantes de window
-        if (!(key in window)) {
-            window[key] = value;
-        }
-    });
+modules.forEach((module) => {
+  Object.entries(module).forEach(([key, value]) => {
+    // Ne pas écraser les propriétés existantes de window
+    if (!(key in window)) {
+      window[key] = value;
+    }
+  });
 });
 
 // Appeler les fonctions d'initialisation après le chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialiser les event listeners
-    if (typeof initConferenceEvents === 'function') {
-        initConferenceEvents();
-    }
-    
-    if (typeof Init === 'function') {
-        Init();
-    }
-    // Démarrer le polling du chat pour conference
-    if (typeof startChatPolling === 'function') {
-        startChatPolling();
-    }
-    // NE PAS appeler Lancer() ici - il sera appelé après la validation de la langue
-    // dans startAuditorPolling() pour auditor.php
-    // if (typeof Lancer === 'function') {
-    //     Lancer();
-    // }
-    if (typeof InitVoices === 'function') {
-        InitVoices();
-    }
-    if (typeof applyConfig === 'function') {
-        setTimeout(applyConfig, 100);
-    }
+  // Initialiser les event listeners
+  if (typeof initConferenceEvents === 'function') {
+    initConferenceEvents();
+  }
+
+  if (typeof Init === 'function') {
+    Init();
+  }
+  // Démarrer le polling du chat pour conference
+  if (typeof startChatPolling === 'function') {
+    startChatPolling();
+  }
+  // NE PAS appeler Lancer() ici - il sera appelé après la validation de la langue
+  // dans startAuditorPolling() pour auditor.php
+  // if (typeof Lancer === 'function') {
+  //     Lancer();
+  // }
+  if (typeof InitVoices === 'function') {
+    InitVoices();
+  }
+  if (typeof applyConfig === 'function') {
+    setTimeout(applyConfig, 100);
+  }
 });
 
 // Logger pour débogage (désactivé)

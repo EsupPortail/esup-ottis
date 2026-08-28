@@ -10,11 +10,11 @@ import { showError } from './browser.js';
  * @returns {FormData} The FormData object with CSRF token added
  */
 export function addCsrfToken(formData) {
-    const csrfToken = document.querySelector('input[name="csrf_token"]')?.value;
-    if (csrfToken) {
-        formData.append('csrf_token', csrfToken);
-    }
-    return formData;
+  const csrfToken = document.querySelector('input[name="csrf_token"]')?.value;
+  if (csrfToken) {
+    formData.append('csrf_token', csrfToken);
+  }
+  return formData;
 }
 
 /**
@@ -24,14 +24,14 @@ export function addCsrfToken(formData) {
  * @returns {boolean} True if error was handled
  */
 export function handleXhrError(xhr, context = 'unknown') {
-    if (xhr.status === 0) {
-        showError('Network error: Unable to connect to server', context);
-    } else if (xhr.status >= 400 && xhr.status < 600) {
-        showError(`HTTP error ${xhr.status}: ${xhr.statusText}`, context);
-    } else {
-        showError('An unexpected error occurred', context);
-    }
-    return true;
+  if (xhr.status === 0) {
+    showError('Network error: Unable to connect to server', context);
+  } else if (xhr.status >= 400 && xhr.status < 600) {
+    showError(`HTTP error ${xhr.status}: ${xhr.statusText}`, context);
+  } else {
+    showError('An unexpected error occurred', context);
+  }
+  return true;
 }
 
 /**
@@ -50,54 +50,52 @@ export function handleXhrError(xhr, context = 'unknown') {
  * @returns {XMLHttpRequest} The configured XMLHttpRequest object
  */
 export function createXhrRequest(method, url, options = {}) {
-    const xhr = new XMLHttpRequest();
-    const {
-        onSuccess = null,
-        onError = handleXhrError,
-        data = null,
-        timeout = 30000,
-        contentType = 'application/x-www-form-urlencoded',
-        context = url,
-        onProgress = null,
-        onUploadProgress = null
-    } = options;
+  const xhr = new XMLHttpRequest();
+  const {
+    onSuccess = null,
+    onError = handleXhrError,
+    data = null,
+    timeout = 30000,
+    contentType = 'application/x-www-form-urlencoded',
+    context = url,
+    onProgress = null,
+    onUploadProgress = null,
+  } = options;
 
-    xhr.open(method, url, true);
-    xhr.timeout = timeout;
+  xhr.open(method, url, true);
+  xhr.timeout = timeout;
 
-    if (method === 'POST' && data instanceof FormData) {
-        // FormData sets its own Content-Type with boundary
-    } else if (contentType) {
-        xhr.setRequestHeader('Content-Type', contentType);
+  if (method === 'POST' && data instanceof FormData) {
+    // FormData sets its own Content-Type with boundary
+  } else if (contentType) {
+    xhr.setRequestHeader('Content-Type', contentType);
+  }
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        if (onSuccess) onSuccess(xhr);
+      } else if (onError) onError(xhr, context);
     }
+  };
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                if (onSuccess) onSuccess(xhr);
-            } else {
-                if (onError) onError(xhr, context);
-            }
-        }
-    };
+  xhr.ontimeout = function () {
+    showError('Request timed out', context);
+  };
 
-    xhr.ontimeout = function() {
-        showError('Request timed out', context);
-    };
+  xhr.onerror = function () {
+    showError('Network error', context);
+  };
 
-    xhr.onerror = function() {
-        showError('Network error', context);
-    };
+  // Add progress event listeners if provided
+  if (onProgress && xhr.addEventListener) {
+    xhr.addEventListener('progress', onProgress, false);
+  }
+  if (onUploadProgress && xhr.upload && xhr.upload.addEventListener) {
+    xhr.upload.addEventListener('progress', onUploadProgress, false);
+  }
 
-    // Add progress event listeners if provided
-    if (onProgress && xhr.addEventListener) {
-        xhr.addEventListener('progress', onProgress, false);
-    }
-    if (onUploadProgress && xhr.upload && xhr.upload.addEventListener) {
-        xhr.upload.addEventListener('progress', onUploadProgress, false);
-    }
-
-    return xhr;
+  return xhr;
 }
 
 /**
@@ -106,10 +104,10 @@ export function createXhrRequest(method, url, options = {}) {
  * @param {string} s - Context string
  */
 export function AbortTimeout(r, s) {
-    r.timeout = 10000;
-    r.ontimeout = (e) => {
-        r.abort();
-    };
+  r.timeout = 10000;
+  r.ontimeout = (e) => {
+    r.abort();
+  };
 }
 
 /**
@@ -119,20 +117,20 @@ export function AbortTimeout(r, s) {
  * @returns {Promise<Response>} The fetch response
  */
 export async function fetchWithErrorHandling(url, options = {}) {
-    try {
-        const response = await fetch(url, options);
+  try {
+    const response = await fetch(url, options);
 
-        if (!response.ok) {
-            const errorText = await response.text().catch(() => '');
-            showError(`HTTP ${response.status}: ${errorText || response.statusText}`, url);
-            throw new Error(`HTTP ${response.status}`);
-        }
-
-        return response;
-    } catch (error) {
-        if (error.name !== 'AbortError') {
-            showError(error.message, url);
-        }
-        throw error;
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => '');
+      showError(`HTTP ${response.status}: ${errorText || response.statusText}`, url);
+      throw new Error(`HTTP ${response.status}`);
     }
+
+    return response;
+  } catch (error) {
+    if (error.name !== 'AbortError') {
+      showError(error.message, url);
+    }
+    throw error;
+  }
 }

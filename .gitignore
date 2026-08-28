@@ -13,6 +13,14 @@ tables/tokens.json
 OMIST_Tools/__pycache__/
 node_modules/
 tmp/
+.cache/
+.local/
+.config/
+.npm/
+.php-cs-fixer.cache
+.phpunit.result.cache
+js/coverage/
+js/cov
 # Ignore editor files
 *.swp
 *~
@@ -27,6 +35,9 @@ audit/
 
 # Ignore uploads directory
 uploads/
+
+# Ignore logs directory
+logs/
 
 # Composer
 vendor/

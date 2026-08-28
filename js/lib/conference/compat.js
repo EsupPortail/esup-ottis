@@ -9,7 +9,7 @@ import { AbortTimeout as xhrAbortTimeout } from '../xhr.js';
  * @param {number} order - The order number
  */
 export function EcrireCR(who, ch, order) {
-    return libEcrireCR(who, ch, order);
+  return libEcrireCR(who, ch, order);
 }
 
 /**
@@ -18,7 +18,7 @@ export function EcrireCR(who, ch, order) {
  * @param {string} s - The context string
  */
 export function AbortTimeout(r, s) {
-    return xhrAbortTimeout(r, s);
+  return xhrAbortTimeout(r, s);
 }
 
 /**

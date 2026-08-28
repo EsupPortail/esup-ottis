@@ -6,12 +6,12 @@
  */
 
 // Global state for chat alert
-let chatAlertState = {
-    hasNewMessages: false,
-    alertCount: 0,
-    isVisible: false,
-    blinkInterval: null,
-    currentUser: ''
+const chatAlertState = {
+  hasNewMessages: false,
+  alertCount: 0,
+  isVisible: false,
+  blinkInterval: null,
+  currentUser: '',
 };
 
 /**
@@ -22,13 +22,13 @@ let chatAlertState = {
  * @returns {void}
  */
 export function initChatAlert(userName) {
-    chatAlertState.currentUser = userName || '';
+  chatAlertState.currentUser = userName || '';
 
-    // Create alert element if it doesn't exist
-    createChatAlertElement();
+  // Create alert element if it doesn't exist
+  createChatAlertElement();
 
-    // Start blink animation when alert is shown
-    startBlinkAnimation();
+  // Start blink animation when alert is shown
+  startBlinkAnimation();
 }
 
 /**
@@ -38,41 +38,41 @@ export function initChatAlert(userName) {
  * @returns {void}
  */
 export function createChatAlertElement() {
-    if (window._('chat-alert')) {
-        return; // Already exists
-    }
+  if (window._('chat-alert')) {
+    return; // Already exists
+  }
 
-    let alertElement = document.createElement('div');
-    alertElement.id = 'chat-alert';
-    alertElement.className = 'chat-alert';
-    alertElement.setAttribute('role', 'alert');
-    alertElement.setAttribute('aria-live', 'assertive');
-    alertElement.setAttribute('aria-hidden', 'true');
-    alertElement.title = 'New chat message received. Click to open chat.';
+  const alertElement = document.createElement('div');
+  alertElement.id = 'chat-alert';
+  alertElement.className = 'chat-alert';
+  alertElement.setAttribute('role', 'alert');
+  alertElement.setAttribute('aria-live', 'assertive');
+  alertElement.setAttribute('aria-hidden', 'true');
+  alertElement.title = 'New chat message received. Click to open chat.';
 
-    // Icon for the alert
-    let icon = document.createElement('i');
-    icon.className = 'fa fa-comments chat-alert-icon';
-    alertElement.appendChild(icon);
+  // Icon for the alert
+  const icon = document.createElement('i');
+  icon.className = 'fa fa-comments chat-alert-icon';
+  alertElement.appendChild(icon);
 
-    // Badge with count
-    let badge = document.createElement('span');
-    badge.className = 'chat-alert-badge';
-    badge.id = 'chat-alert-badge';
-    badge.textContent = '0';
-    alertElement.appendChild(badge);
+  // Badge with count
+  const badge = document.createElement('span');
+  badge.className = 'chat-alert-badge';
+  badge.id = 'chat-alert-badge';
+  badge.textContent = '0';
+  alertElement.appendChild(badge);
 
-    // Add to body
-    document.body.appendChild(alertElement);
+  // Add to body
+  document.body.appendChild(alertElement);
 
-    // Add click handler - placeholder for future implementation
-    alertElement.addEventListener('click', function() {
-        // Click handler will be implemented later to show chat
-        // For now, just reset the alert
-        resetChatAlert();
+  // Add click handler - placeholder for future implementation
+  alertElement.addEventListener('click', () => {
+    // Click handler will be implemented later to show chat
+    // For now, just reset the alert
+    resetChatAlert();
 
-        // Log for future implementation
-    });
+    // Log for future implementation
+  });
 }
 
 /**
@@ -81,21 +81,21 @@ export function createChatAlertElement() {
  * @returns {void}
  */
 export function showChatAlert() {
-    let alertElement = window._('chat-alert');
-    if (!alertElement) {
-        createChatAlertElement();
-        alertElement = window._('chat-alert');
-    }
+  let alertElement = window._('chat-alert');
+  if (!alertElement) {
+    createChatAlertElement();
+    alertElement = window._('chat-alert');
+  }
 
-    if (!alertElement) return;
+  if (!alertElement) return;
 
-    chatAlertState.hasNewMessages = true;
-    chatAlertState.isVisible = true;
-    alertElement.setAttribute('aria-hidden', 'false');
-    alertElement.classList.add('chat-alert-visible');
+  chatAlertState.hasNewMessages = true;
+  chatAlertState.isVisible = true;
+  alertElement.setAttribute('aria-hidden', 'false');
+  alertElement.classList.add('chat-alert-visible');
 
-    // Update badge count
-    updateAlertBadge();
+  // Update badge count
+  updateAlertBadge();
 }
 
 /**
@@ -104,12 +104,12 @@ export function showChatAlert() {
  * @returns {void}
  */
 export function hideChatAlert() {
-    let alertElement = window._('chat-alert');
-    if (!alertElement) return;
+  const alertElement = window._('chat-alert');
+  if (!alertElement) return;
 
-    chatAlertState.isVisible = false;
-    alertElement.setAttribute('aria-hidden', 'true');
-    alertElement.classList.remove('chat-alert-visible');
+  chatAlertState.isVisible = false;
+  alertElement.setAttribute('aria-hidden', 'true');
+  alertElement.classList.remove('chat-alert-visible');
 }
 
 /**
@@ -118,10 +118,10 @@ export function hideChatAlert() {
  * @returns {void}
  */
 export function resetChatAlert() {
-    chatAlertState.hasNewMessages = false;
-    chatAlertState.alertCount = 0;
-    hideChatAlert();
-    updateAlertBadge();
+  chatAlertState.hasNewMessages = false;
+  chatAlertState.alertCount = 0;
+  hideChatAlert();
+  updateAlertBadge();
 }
 
 /**
@@ -130,10 +130,10 @@ export function resetChatAlert() {
  * @returns {void}
  */
 export function incrementAlertCount() {
-    chatAlertState.alertCount++;
-    chatAlertState.hasNewMessages = true;
-    showChatAlert();
-    updateAlertBadge();
+  chatAlertState.alertCount++;
+  chatAlertState.hasNewMessages = true;
+  showChatAlert();
+  updateAlertBadge();
 }
 
 /**
@@ -142,16 +142,16 @@ export function incrementAlertCount() {
  * @returns {void}
  */
 export function updateAlertBadge() {
-    let badge = window._('chat-alert-badge');
-    if (!badge) return;
+  const badge = window._('chat-alert-badge');
+  if (!badge) return;
 
-    if (chatAlertState.alertCount > 0) {
-        badge.textContent = chatAlertState.alertCount;
-        badge.style.display = 'inline';
-    } else {
-        badge.textContent = '0';
-        badge.style.display = 'none';
-    }
+  if (chatAlertState.alertCount > 0) {
+    badge.textContent = chatAlertState.alertCount;
+    badge.style.display = 'inline';
+  } else {
+    badge.textContent = '0';
+    badge.style.display = 'none';
+  }
 }
 
 /**
@@ -160,22 +160,22 @@ export function updateAlertBadge() {
  * @returns {void}
  */
 export function startBlinkAnimation() {
-    // Clear any existing interval
-    if (chatAlertState.blinkInterval) {
-        clearInterval(chatAlertState.blinkInterval);
+  // Clear any existing interval
+  if (chatAlertState.blinkInterval) {
+    clearInterval(chatAlertState.blinkInterval);
+  }
+
+  chatAlertState.blinkInterval = setInterval(() => {
+    const alertElement = window._('chat-alert');
+    if (!alertElement || !chatAlertState.hasNewMessages) return;
+
+    // Toggle blink class for pulsating effect
+    if (alertElement.classList.contains('chat-alert-blink')) {
+      alertElement.classList.remove('chat-alert-blink');
+    } else {
+      alertElement.classList.add('chat-alert-blink');
     }
-
-    chatAlertState.blinkInterval = setInterval(function() {
-        let alertElement = window._('chat-alert');
-        if (!alertElement || !chatAlertState.hasNewMessages) return;
-
-        // Toggle blink class for pulsating effect
-        if (alertElement.classList.contains('chat-alert-blink')) {
-            alertElement.classList.remove('chat-alert-blink');
-        } else {
-            alertElement.classList.add('chat-alert-blink');
-        }
-    }, 500); // 500ms interval for blinking
+  }, 500); // 500ms interval for blinking
 }
 
 /**
@@ -184,16 +184,16 @@ export function startBlinkAnimation() {
  * @returns {void}
  */
 export function stopBlinkAnimation() {
-    if (chatAlertState.blinkInterval) {
-        clearInterval(chatAlertState.blinkInterval);
-        chatAlertState.blinkInterval = null;
+  if (chatAlertState.blinkInterval) {
+    clearInterval(chatAlertState.blinkInterval);
+    chatAlertState.blinkInterval = null;
 
-        // Remove blink class
-        let alertElement = window._('chat-alert');
-        if (alertElement) {
-            alertElement.classList.remove('chat-alert-blink');
-        }
+    // Remove blink class
+    const alertElement = window._('chat-alert');
+    if (alertElement) {
+      alertElement.classList.remove('chat-alert-blink');
     }
+  }
 }
 
 /**
@@ -204,13 +204,13 @@ export function stopBlinkAnimation() {
  * @returns {void}
  */
 export function triggerNewMessageAlert(senderName) {
-    // Don't trigger alert for own messages
-    if (senderName && senderName === chatAlertState.currentUser) {
-        return;
-    }
+  // Don't trigger alert for own messages
+  if (senderName && senderName === chatAlertState.currentUser) {
+    return;
+  }
 
-    // Increment count and show alert
-    incrementAlertCount();
+  // Increment count and show alert
+  incrementAlertCount();
 }
 
 /**
@@ -219,5 +219,5 @@ export function triggerNewMessageAlert(senderName) {
  * @returns {object} Current alert state
  */
 export function getChatAlertState() {
-    return chatAlertState;
+  return chatAlertState;
 }

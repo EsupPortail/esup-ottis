@@ -1,10 +1,12 @@
 <?php
+
 // Désactiver l'affichage des erreurs et activer les logs
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 // Vérification du token CSRF
 if (!verifyCsrfRequest()) {
@@ -16,7 +18,8 @@ if (!verifyCsrfRequest()) {
 $DEBUG = true; // Mettre à false en production !!!!
 $logFile = __DIR__ . '/tmp/translate_deepl_debug.log';
 
-function safe_log($message) {
+function safe_log($message)
+{
     global $DEBUG, $logFile;
     if (!$DEBUG) {
         return;
@@ -28,7 +31,8 @@ function safe_log($message) {
     file_put_contents($logFile, $message, FILE_APPEND);
 }
 
-function http_post($url, $payload, $headers, &$httpCode, &$errorMsg) {
+function http_post($url, $payload, $headers, &$httpCode, &$errorMsg)
+{
     $errorMsg = '';
     $httpCode = null;
 
@@ -86,7 +90,8 @@ function http_post($url, $payload, $headers, &$httpCode, &$errorMsg) {
     return $result;
 }
 
-function respond_json(array $response, int $statusCode = 200) {
+function respond_json(array $response, int $statusCode = 200)
+{
     http_response_code($statusCode);
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
@@ -96,7 +101,7 @@ function respond_json(array $response, int $statusCode = 200) {
 // Security Phase 1: Input validation and XSS prevention
 
 // Récupérer les paramètres avec validation et limites de sécurité
-$texte = $_POST["texte"] ?? '';
+$texte = $_POST['texte'] ?? '';
 
 // Security: Limit text length to prevent DoS (10KB max)
 if (strlen($texte) > 10240) {
@@ -138,9 +143,9 @@ if (!preg_match('/^[a-zA-Z0-9_-]{0,64}$/', $lineid)) {
 $forcelibre = isset($_POST['forcelibre']);
 $WhichTranslator = $_POST['whichtranslator'] ?? null; // may be set later
 if ($forcelibre) {
-    $WhichTranslator = "LIBRETRANSLATE";
+    $WhichTranslator = 'LIBRETRANSLATE';
 }
-$apikey = $_POST["apikey"] ?? '';
+$apikey = $_POST['apikey'] ?? '';
 
 // Log des paramètres reçus
 safe_log("Paramètres reçus:\n" .
@@ -149,46 +154,47 @@ safe_log("Paramètres reçus:\n" .
     "langinput: $langinput\n" .
     "ROOMID: $roomId\n" .
     "lineid: $lineid\n" .
-    "forcelibre: " . ($forcelibre ? 'true' : 'false') . "\n" .
+    'forcelibre: ' . ($forcelibre ? 'true' : 'false') . "\n" .
     "WhichTranslator: $WhichTranslator\n");
 
 // Définir l'en-tête JSON
 header('Content-Type: application/json');
 
-include "config.php";
+include 'config.php';
 
 // Si l'utilisateur n'a pas forcé un traducteur via GET, utiliser DEEPLPRO
 if (empty($WhichTranslator)) {
     $WhichTranslator = 'DEEPLPRO';
 }
 
-safe_log("Clé DeepL Pro: " . (isset($DEEPLAPITOKEN) ? "*** (masquée) ***" : "NON DÉFINIE") . "\n");
+safe_log('Clé DeepL Pro: ' . (isset($DEEPLAPITOKEN) ? '*** (masquée) ***' : 'NON DÉFINIE') . "\n");
 
-if ($apikey != "") {
+if ($apikey != '') {
     switch ($WhichTranslator) {
-        case "DEEPL":
-        case "DEEPLPRO":
+        case 'DEEPL':
+        case 'DEEPLPRO':
             $DEEPLAPITOKEN = $apikey;
             break;
-        case "DEEPLFREE":
+        case 'DEEPLFREE':
             $DEEPLFREEAPITOKEN = $apikey;
             break;
     }
 }
 
-$deepl_usable = "true";
-$proxy = "";
+$deepl_usable = 'true';
+$proxy = '';
 
-if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
-    if ($deepl_usable == "false") {
-        $WhichTranslator = "LIBRETRANSLATE";
+if ($WhichTranslator == 'DEEPL' || $WhichTranslator == 'DEEPLPRO') {
+    if ($deepl_usable == 'false') {
+        $WhichTranslator = 'LIBRETRANSLATE';
     }
 }
 
-function removeAccents($str) {
-  $a = array('À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ', 'Ά', 'ά', 'Έ', 'έ', 'Ό', 'ό', 'Ώ', 'ώ', 'Ί', 'ί', 'ϊ', 'ΐ', 'Ύ', 'ύ', 'ϋ', 'ΰ', 'Ή', 'ή');
-  $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o', 'Α', 'α', 'Ε', 'ε', 'Ο', 'ο', 'Ω', 'ω', 'Ι', 'ι', 'ι', 'ι', 'Υ', 'υ', 'υ', 'υ', 'Η', 'η');
-  return str_replace($a, $b, $str);
+function removeAccents($str)
+{
+    $a = ['À', 'Á', 'Â', 'Ã', 'Ä', 'Å', 'Æ', 'Ç', 'È', 'É', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ð', 'Ñ', 'Ò', 'Ó', 'Ô', 'Õ', 'Ö', 'Ø', 'Ù', 'Ú', 'Û', 'Ü', 'Ý', 'ß', 'à', 'á', 'â', 'ã', 'ä', 'å', 'æ', 'ç', 'è', 'é', 'ê', 'ë', 'ì', 'í', 'î', 'ï', 'ñ', 'ò', 'ó', 'ô', 'õ', 'ö', 'ø', 'ù', 'ú', 'û', 'ü', 'ý', 'ÿ', 'Ā', 'ā', 'Ă', 'ă', 'Ą', 'ą', 'Ć', 'ć', 'Ĉ', 'ĉ', 'Ċ', 'ċ', 'Č', 'č', 'Ď', 'ď', 'Đ', 'đ', 'Ē', 'ē', 'Ĕ', 'ĕ', 'Ė', 'ė', 'Ę', 'ę', 'Ě', 'ě', 'Ĝ', 'ĝ', 'Ğ', 'ğ', 'Ġ', 'ġ', 'Ģ', 'ģ', 'Ĥ', 'ĥ', 'Ħ', 'ħ', 'Ĩ', 'ĩ', 'Ī', 'ī', 'Ĭ', 'ĭ', 'Į', 'į', 'İ', 'ı', 'Ĳ', 'ĳ', 'Ĵ', 'ĵ', 'Ķ', 'ķ', 'Ĺ', 'ĺ', 'Ļ', 'ļ', 'Ľ', 'ľ', 'Ŀ', 'ŀ', 'Ł', 'ł', 'Ń', 'ń', 'Ņ', 'ņ', 'Ň', 'ň', 'ŉ', 'Ō', 'ō', 'Ŏ', 'ŏ', 'Ő', 'ő', 'Œ', 'œ', 'Ŕ', 'ŕ', 'Ŗ', 'ŗ', 'Ř', 'ř', 'Ś', 'ś', 'Ŝ', 'ŝ', 'Ş', 'ş', 'Š', 'š', 'Ţ', 'ţ', 'Ť', 'ť', 'Ŧ', 'ŧ', 'Ũ', 'ũ', 'Ū', 'ū', 'Ŭ', 'ŭ', 'Ů', 'ů', 'Ű', 'ű', 'Ų', 'ų', 'Ŵ', 'ŵ', 'Ŷ', 'ŷ', 'Ÿ', 'Ź', 'ź', 'Ż', 'ż', 'Ž', 'ž', 'ſ', 'ƒ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ǎ', 'ǎ', 'Ǐ', 'ǐ', 'Ǒ', 'ǒ', 'Ǔ', 'ǔ', 'Ǖ', 'ǖ', 'Ǘ', 'ǘ', 'Ǚ', 'ǚ', 'Ǜ', 'ǜ', 'Ǻ', 'ǻ', 'Ǽ', 'ǽ', 'Ǿ', 'ǿ', 'Ά', 'ά', 'Έ', 'έ', 'Ό', 'ό', 'Ώ', 'ώ', 'Ί', 'ί', 'ϊ', 'ΐ', 'Ύ', 'ύ', 'ϋ', 'ΰ', 'Ή', 'ή'];
+    $b = ['A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o', 'Α', 'α', 'Ε', 'ε', 'Ο', 'ο', 'Ω', 'ω', 'Ι', 'ι', 'ι', 'ι', 'Υ', 'υ', 'υ', 'υ', 'Η', 'η'];
+    return str_replace($a, $b, $str);
 }
 
 // Préparer la réponse JSON
@@ -199,30 +205,34 @@ $response = [
     'data' => []
 ];
 
-$result = "";
-if ($roomId != "UNKNOWN") {
-    if ($lineid == "DIRECT") {
-        if (file_exists("tmp/Verylast_" . $roomId)) {
-            $fd = fopen("tmp/Verylast_" . $roomId, "r");
-            while ($T = fgetcsv($fd, 4096, ";")) {
+$result = '';
+if ($roomId != 'UNKNOWN') {
+    if ($lineid == 'DIRECT') {
+        if (file_exists('tmp/Verylast_' . $roomId)) {
+            $fd = fopen('tmp/Verylast_' . $roomId, 'r');
+            while ($T = fgetcsv($fd, 4096, ';')) {
                 if (count($T) > 2) {
                     if ($lineid == $T[0] && $lang == $T[1]) {
                         $result = $T[2];
-                        if ($lang == "en") $result = removeAccents($result);
+                        if ($lang == 'en') {
+                            $result = removeAccents($result);
+                        }
                     }
                 }
             }
             fclose($fd);
         }
     } else {
-        if (file_exists("tmp/Translated_" . $roomId)) {
-            $fd = fopen("tmp/Translated_" . $roomId, "r");
-            if ($lineid != "DIRECT" && $lineid != "NONE" && $lineid != "") {
-                while ($T = fgetcsv($fd, 4096, ";")) {
+        if (file_exists('tmp/Translated_' . $roomId)) {
+            $fd = fopen('tmp/Translated_' . $roomId, 'r');
+            if ($lineid != 'DIRECT' && $lineid != 'NONE' && $lineid != '') {
+                while ($T = fgetcsv($fd, 4096, ';')) {
                     if (count($T) > 2) {
                         if ($lineid == $T[0] && $lang == $T[1]) {
                             $result = $T[2];
-                            if ($lang == "en") $result = removeAccents($result);
+                            if ($lang == 'en') {
+                                $result = removeAccents($result);
+                            }
                         }
                     }
                 }
@@ -231,7 +241,7 @@ if ($roomId != "UNKNOWN") {
         }
     }
 
-    if ($result == "") {
+    if ($result == '') {
         // Appels aux APIs de traduction (inchangé)
         $data = [
             'text' => [$texte],  // $texte n'a pas besoin d'être modifié manuellement
@@ -241,8 +251,8 @@ if ($roomId != "UNKNOWN") {
         $payload = json_encode($data, JSON_UNESCAPED_UNICODE);
 
         // Utiliser cURL natif PHP pour DeepL Pro
-        if ($WhichTranslator == "DEEPL" || $WhichTranslator == "DEEPLPRO") {
-            safe_log("Appel DeepL payload: " . $payload . "\n");
+        if ($WhichTranslator == 'DEEPL' || $WhichTranslator == 'DEEPLPRO') {
+            safe_log('Appel DeepL payload: ' . $payload . "\n");
 
             $headers = [
                 'Authorization: DeepL-Auth-Key ' . $DEEPLAPITOKEN,
@@ -257,7 +267,7 @@ if ($roomId != "UNKNOWN") {
             $result = $resultjson;
         }
 
-        if ($WhichTranslator == "DEEPLFREE") {
+        if ($WhichTranslator == 'DEEPLFREE') {
             $url = 'https://api-free.deepl.com/v2/translate';
             $payload = http_build_query([
                 'auth_key' => $DEEPLFREEAPITOKEN,
@@ -282,7 +292,7 @@ if ($roomId != "UNKNOWN") {
             $result = $resultjson;
         }
 
-        if ($WhichTranslator == "LIBRETRANSLATE") {
+        if ($WhichTranslator == 'LIBRETRANSLATE') {
             $url = $LIBRETRANSLATESERVER;
             $payload = http_build_query([
                 'q' => $texte,
@@ -310,10 +320,10 @@ if ($roomId != "UNKNOWN") {
         }
 
         // Sauvegarder le résultat dans un fichier
-        $translatedFile = "tmp/Translated_" . $roomId;
-        $fd = @fopen($translatedFile, "a");
+        $translatedFile = 'tmp/Translated_' . $roomId;
+        $fd = @fopen($translatedFile, 'a');
         if ($fd !== false) {
-            if ($lineid != "NONE" && $lineid != "") {
+            if ($lineid != 'NONE' && $lineid != '') {
                 fputcsv($fd, [$lineid, $lang, $result], ';');
             }
             fclose($fd);
@@ -321,9 +331,9 @@ if ($roomId != "UNKNOWN") {
             safe_log("Impossible d'ouvrir '$translatedFile' en écriture\n");
         }
 
-        if ($lineid == "NONE") {
-            $verylastFile = "tmp/Verylast_" . $roomId;
-            $fd = @fopen($verylastFile, "w");
+        if ($lineid == 'NONE') {
+            $verylastFile = 'tmp/Verylast_' . $roomId;
+            $fd = @fopen($verylastFile, 'w');
             if ($fd !== false) {
                 fputcsv($fd, [$lineid, $lang, $result], ';');
                 fclose($fd);
@@ -365,4 +375,3 @@ if (!empty($result)) {
 
 // Retourner la réponse JSON
 echo json_encode($response, JSON_UNESCAPED_UNICODE);
-?>

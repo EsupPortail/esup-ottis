@@ -2,7 +2,7 @@
  * Chat module index
  * Shared chat functionality for all OMIST interfaces
  * Replaces duplicated functions in auditor-func.js, conf-func.js, student-func.js, chat-func.js
- * 
+ *
  * Dependencies: common-func.js (for ColorsForCR, getUserColor, rgb, escapeHtml, _, ScreenCR, EcrireCR, RefreshCR, ClearCR)
  */
 

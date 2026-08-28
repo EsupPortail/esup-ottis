@@ -3,11 +3,13 @@
         "php": "^8.1",
         "phpoffice/phppresentation": "^1.0",
         "phpoffice/common": "^1.0",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "monolog/monolog": "^3.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.13",
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10.0"
     },
     "autoload": {
         "files": [
@@ -16,7 +18,8 @@
             "Security/sanitize.php",
             "Security/room_tokens.php",
             "Security/validate_room_token.php",
-            "Security/load_env.php"
+            "Security/load_env.php",
+            "Security/logger.php"
         ],
         "psr-4": {
             "App\\": "src/"

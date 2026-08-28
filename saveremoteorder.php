@@ -1,5 +1,7 @@
 <?php
+
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 requireRoomToken();
 
@@ -9,18 +11,25 @@ if (!verifyCsrfRequest()) {
     die('CSRF token validation failed');
 }
 
-$order = $_POST["ORDER"];
-$roomid = $_POST["ROOMID"];
+$order = $_POST['ORDER'];
+$roomid = $_POST['ROOMID'];
 
-if (file_exists("tmp/remote_".$roomid)) {
-  $content = file_get_contents("tmp/remote_".$roomid);
-} else $content = "";
-$towrite = "";
-if ($order == "same") $towrite = $content; else $towrite = $order;
+if (file_exists('tmp/remote_' . $roomid)) {
+    $content = file_get_contents('tmp/remote_' . $roomid);
+} else {
+    $content = '';
+}
+$towrite = '';
+if ($order == 'same') {
+    $towrite = $content;
+} else {
+    $towrite = $order;
+}
 
-$fd=fopen("tmp/remote_".$roomid,"w");
-if ($towrite != "") fputs($fd,$towrite);
+$fd = fopen('tmp/remote_' . $roomid, 'w');
+if ($towrite != '') {
+    fputs($fd, $towrite);
+}
 fclose($fd);
 
 echo $content;
-?>

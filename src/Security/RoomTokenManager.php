@@ -149,19 +149,19 @@ class RoomTokenManager
         // Basic validations
         if (!Validator::validateRoomId($roomid)) {
             http_response_code(400);
-            die("Invalid ROOMID");
+            die('Invalid ROOMID');
         }
 
         if (empty($roomToken)) {
             http_response_code(403);
             error_log("Room token missing for ROOMID=$roomid");
-            die("Room token missing");
+            die('Room token missing');
         }
 
         if (!self::validateRoomToken($roomid, $roomToken)) {
             http_response_code(403);
             error_log("Invalid room token for ROOMID=$roomid");
-            die("Invalid room token");
+            die('Invalid room token');
         }
     }
 }

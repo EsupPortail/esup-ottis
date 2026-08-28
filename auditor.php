@@ -1,42 +1,42 @@
 <?php
 require __DIR__ . '/NoCache.php';
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 require_once __DIR__ . '/includes/chat-component.php';
 
 use App\Service\LanguageLoader;
 use App\Service\RandomNameGenerator;
 
-$classroomid = $_GET["ROOMID"] ?? '';
+$classroomid = $_GET['ROOMID'] ?? '';
 
 // Generer un token unique pour ce ROOMID
 $roomToken = generateRoomToken($classroomid);
-
-// Initialiser la protection CSRF
-initCsrfProtection();
 
 // Use services to load data
 $T_lang = LanguageLoader::load();
 $randomname = RandomNameGenerator::generateName();
 
-$theme = "flat";
-if (isset($_GET["theme"])) $theme = $_GET["theme"];
+$theme = 'flat';
+if (isset($_GET['theme'])) {
+    $theme = $_GET['theme'];
+}
 
 // Centralized JavaScript variables
 // Add currentconfig similar to conference.php
-if (isset($_GET["myconfig"])) {
-    $currentconfig = $_GET["myconfig"];
+if (isset($_GET['myconfig'])) {
+    $currentconfig = $_GET['myconfig'];
 } else {
     $currentconfig = 'ABYANACNNCNNNYYYYN';
 }
 
 $jsVars = [
-    "supportedlanguages" => $T_lang,
-    "classroomid" => $classroomid,
+    'supportedlanguages' => $T_lang,
+    'classroomid' => $classroomid,
     //"wooclapkey" => $wooclapkey,
     //"wooclapaddress" => $wooclapaddress,
-    "theme" => $theme,
-    "randomname" => $randomname,
-    "currentconfig" => $currentconfig
+    'theme' => $theme,
+    'randomname' => $randomname,
+    'currentconfig' => $currentconfig
 ];
 
 ?>
@@ -48,53 +48,58 @@ $jsVars = [
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="icon" type="image/png" href="./images/favicon.svg" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <?php
     // Centralized styles
     $pageStyles = [
-        "styles/auditor.css"
+        'styles/auditor.css'
     ];
-    
-    // Render styles
-    foreach ($pageStyles as $style) {
-        echo "<link href=\"{$style}\" rel=\"stylesheet\">\n";
-    }
-    ?>
-    
+
+// Render styles
+foreach ($pageStyles as $style) {
+    echo "<link href=\"{$style}\" rel=\"stylesheet\">\n";
+}
+?>
+
     <?php
-    // Centralized scripts to be loaded before </body>
-    $pageScripts = [];
-    $pageScripts[] = "/js/auditor-def.js";
-    $pageScripts[] = "/js/common-func.js";
-    // Auditor modules (replaces auditor-func.js)
-    $pageScripts[] = "/js/lib/auditor/text-processing.js";
-    $pageScripts[] = "/js/lib/auditor/speech.js";
-    $pageScripts[] = "/js/lib/auditor/display.js";
-    $pageScripts[] = "/js/lib/auditor/translation.js";
-    $pageScripts[] = "/js/lib/auditor/network.js";
-    $pageScripts[] = "/js/lib/auditor/config.js";
-    $pageScripts[] = "/js/lib/auditor/mail.js";
-    $pageScripts[] = "/js/lib/auditor/main.js";
-    $pageScripts[] = "/js/utils/dom.js";
-    $pageScripts[] = "/js/utils/draggable.js";
-    $pageScripts[] = "/js/auditor-post.js";
-    
-    // Chat modules and conference legacy as ES modules
-    $chatScripts = [];
-    // Charge conference-legacy.js en premier pour définir les fonctions nécessaires (EcrireNB, EcrireCR, etc.)
-    $chatScripts[] = "/js/conference-legacy.js";
-    $chatScripts[] = "/js/lib/chat/alert.js";
-    $chatScripts[] = "/js/lib/chat/network.js";
-    $chatScripts[] = "/js/lib/chat/handlers.js";
-    $chatScripts[] = "/js/lib/chat/display.js";
-    $chatScripts[] = "/js/lib/chat/main.js";
-    $chatScripts[] = "/js/auditor-init.js";
-    
-    // Inject pageData for JavaScript
-    echo "<script>window.pageData = " . json_encode($jsVars) . ";</script>\n";
-    echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "';</script>\n";
-    ?>
-    
+// Centralized scripts to be loaded before </body>
+$pageScripts = [];
+$pageScripts[] = '/js/auditor-def.js';
+$pageScripts[] = '/js/common-func.js';
+$pageScripts[] = '/js/auditor-post.js';
+
+// ES Modules for auditor
+$moduleScripts = [];
+// Auditor modules (replaces auditor-func.js) - ES Modules
+$moduleScripts[] = '/js/lib/conference/dom-helpers.js';
+$moduleScripts[] = '/js/lib/auditor/request-counter.js';
+$moduleScripts[] = '/js/lib/auditor/text-processing.js';
+$moduleScripts[] = '/js/lib/auditor/speech.js';
+$moduleScripts[] = '/js/lib/auditor/display.js';
+$moduleScripts[] = '/js/lib/auditor/translation.js';
+$moduleScripts[] = '/js/lib/auditor/network.js';
+$moduleScripts[] = '/js/lib/auditor/config.js';
+$moduleScripts[] = '/js/lib/auditor/mail.js';
+$moduleScripts[] = '/js/auditor-init.js';
+$moduleScripts[] = '/js/lib/auditor/main.js';
+$moduleScripts[] = '/js/utils/dom.js';
+$moduleScripts[] = '/js/utils/draggable.js';
+
+// Chat modules and conference legacy as ES modules
+$chatScripts = [];
+// Charge conference-legacy.js en premier pour définir les fonctions nécessaires (EcrireNB, EcrireCR, etc.)
+$chatScripts[] = '/js/conference-legacy.js';
+$chatScripts[] = '/js/lib/chat/alert.js';
+$chatScripts[] = '/js/lib/chat/network.js';
+$chatScripts[] = '/js/lib/chat/handlers.js';
+$chatScripts[] = '/js/lib/chat/display.js';
+$chatScripts[] = '/js/lib/chat/main.js';
+
+// Inject pageData for JavaScript
+echo '<script>window.pageData = ' . json_encode($jsVars) . ";</script>\n";
+echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "';</script>\n";
+?>
+
     <link href="styles/auditor-specific.css" rel="stylesheet">
     <link href="styles/chat.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
@@ -145,22 +150,22 @@ $jsVars = [
 	<section id="tabs-1" role="region" aria-labelledby="chat-section-title">
     <div>
         <?php
-        renderChatComponent([
-            'roomId' => $classroomid,
-            'roomToken' => $roomToken,
-            'userName' => $randomname,
-            'isIntervenant' => false,
-            'placeholder' => 'Type your message here...',
-            'labelText' => 'Classroom Chat'
-        ]);
-        ?>
+    renderChatComponent([
+        'roomId' => $classroomid,
+        'roomToken' => $roomToken,
+        'userName' => $randomname,
+        'isIntervenant' => false,
+        'placeholder' => 'Type your message here...',
+        'labelText' => 'Classroom Chat'
+    ]);
+?>
     </div>
 </section>
 
 	<section id="section-notebook">
     <h2>Notebook</h2>
 	<div id="tabs-2">
-    
+
     <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the original speech in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
@@ -209,10 +214,10 @@ $jsVars = [
 </div>
 </div>
   </div> -->
-  
 
 
-    
+
+
   <!-- <div id="tabs-8"><iframe title="Fenêtre qui contient WOOCLAP" id="wooclap" src="<?php echo $wooclapaddress; ?>" style="width: 95%; height: 90%; bottom:0px; left:0px; z-index:1000;"   allowfullscreen allow="camera;microphone;display-capture;clipboard-read; clipboard-write"></iframe>
   </div> -->
 
@@ -228,7 +233,7 @@ $jsVars = [
 </form>
 <div id="FS" onclick="GoFS();"  title="Toggle fullscreen mode"><i class='material-icons' style="font-size: 41px;" >fullscreen</i></div>
 
-<dialog id="dialog-mail" style="width: 800px; height: 500px;"> 
+<dialog id="dialog-mail" style="width: 800px; height: 500px;">
   <form method="dialog">
     <fieldset>
       <legend style="display: none;">Send a mail</legend>
@@ -247,7 +252,7 @@ $jsVars = [
   </form>
 </dialog>
 
-<dialog id="dialog-choose" style="min-width: 300px;"> 
+<dialog id="dialog-choose" style="min-width: 300px;">
   <form method="dialog">
   <?php echo csrfField(); ?>
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
@@ -261,6 +266,10 @@ $jsVars = [
 </dialog>
 <?php foreach ($pageScripts as $script) {
     echo "<script src=\"{$script}\"></script>\n";
+}
+// ES Modules for auditor
+foreach ($moduleScripts as $script) {
+    echo "<script type=\"module\" src=\"{$script}\"></script>\n";
 }
 // Chat modules as ES modules
 foreach ($chatScripts as $script) {

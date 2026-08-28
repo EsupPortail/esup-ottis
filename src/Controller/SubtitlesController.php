@@ -22,33 +22,30 @@ class SubtitlesController extends BaseController
      */
     public function index(): void
     {
-        // Initialize CSRF protection
-        initCsrfProtection();
-        
         // Get Wooclap key
         $wooclapkey = $this->getParam('WOOCLAPKEY', '');
         $wooclapaddress = !empty($wooclapkey)
             ? 'https://www.wooclap.com/' . $wooclapkey
             : 'https://app.wooclap.com';
-        
+
         // Use services to load data
         $randomname = RandomNameGenerator::generateName();
         $T_lang = LanguageLoader::load();
-        
+
         // Get theme
         $theme = $this->getParam('theme', 'flat');
-        
+
         // Get config
         $currentconfig = $this->getParam('myconfig', 'AAYANKCNYCYNYYYY');
-        
+
         // Get classroom ID
         $classroomid = $this->getParam('ROOMID', '');
-        
+
         // Get global config variables
         global $MicrosoftKey, $MicrosoftRegion;
         $MicrosoftKey = $MicrosoftKey ?? '';
         $MicrosoftRegion = $MicrosoftRegion ?? '';
-        
+
         // Set page data
         $this->viewData['pageTitle'] = 'OMIST - Subtitles';
         $this->viewData['wooclapaddress'] = $wooclapaddress;
@@ -59,20 +56,20 @@ class SubtitlesController extends BaseController
         $this->viewData['classroomid'] = $classroomid;
         $this->viewData['MicrosoftKey'] = $MicrosoftKey;
         $this->viewData['MicrosoftRegion'] = $MicrosoftRegion;
-        
+
         // Define styles
         $this->viewData['pageStyles'] = [
             'styles/auditor.css',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
             'libs/quickmenu/lib/font-awesome/css/font-awesome.min.css'
         ];
-        
+
         // Define scripts
         $this->viewData['pageScripts'] = [
             'js/auditor-def.js',
             'js/common-func.js'
         ];
-        
+
         // Auditor modules
         $this->viewData['auditorScripts'] = [
             'js/lib/auditor/text-processing.js',
@@ -85,7 +82,7 @@ class SubtitlesController extends BaseController
             'js/lib/auditor/mail.js',
             'js/lib/auditor/main.js'
         ];
-        
+
         // No layout as this page has its own complete HTML structure
         $this->layout = false;
         $this->render('subtitles/index');

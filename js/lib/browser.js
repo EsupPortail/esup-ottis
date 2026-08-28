@@ -9,7 +9,7 @@
  * @param {string} [context=null] - Optional context for logging
  */
 export function showError(message, context = null) {
-    console.error(context ? `[${context}] ${message}` : message);
+  console.error(context ? `[${context}] ${message}` : message);
 }
 
 /**
@@ -17,12 +17,12 @@ export function showError(message, context = null) {
  * @returns {string} The browser name
  */
 export function whichBrowser() {
-    const ua = navigator.userAgent;
-    const browsers = ["Chrome", "Firefox", "Safari", "Edge", "Opera"];
-    for (let i = 0; i < browsers.length; i++) {
-        if (ua.indexOf(browsers[i]) > 0) return browsers[i];
-    }
-    return "Unknown";
+  const ua = navigator.userAgent;
+  const browsers = ['Chrome', 'Firefox', 'Safari', 'Edge', 'Opera'];
+  for (let i = 0; i < browsers.length; i++) {
+    if (ua.indexOf(browsers[i]) > 0) return browsers[i];
+  }
+  return 'Unknown';
 }
 
 /**
@@ -31,13 +31,13 @@ export function whichBrowser() {
  * @returns {string} The escaped text
  */
 export function escapeHtml(text) {
-    if (typeof text !== 'string') return '';
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+  if (typeof text !== 'string') return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }

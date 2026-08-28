@@ -8,7 +8,7 @@ use App\Service\TranslatorStatsService;
 
 /**
  * ConferenceController - Handles conference room creation and management
- * 
+ *
  * This controller manages the main conference interface where teachers
  * can create and manage translation sessions.
  */
@@ -30,25 +30,22 @@ class ConferenceController extends BaseController
      */
     public function index(): void
     {
-        // Initialize CSRF protection
-        initCsrfProtection();
-        
         // Set session marker
         $_SESSION['from'] = 'teacher';
-        
+
         // Get language from request
         $language = $this->getParam('lang', 'fr');
-        
+
         // Load config values from global scope
         global $WhichTranslator, $DEEPLAPITOKEN, $DEEPLFREEAPITOKEN, $proxy;
-        
+
         // Load translations using parent method
         $this->viewData['language'] = $language;
         $this->loadTranslations();
-        
+
         // Set page metadata
         $this->viewData['pageTitle'] = 'Omist - Conference';
-        
+
         // Define styles for this page
         $this->viewData['pageStyles'] = [
             'styles/auditor.css',
@@ -56,49 +53,49 @@ class ConferenceController extends BaseController
             'https://fonts.googleapis.com/icon?family=Material+Icons',
             'styles/chat.css'
         ];
-        
+
         // Define scripts for this page
         $this->viewData['pageScripts'] = [
             'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js',
             '/js/qrcode.min.js'
         ];
-        
+
         // Get or generate classroom ID
         $classroomid = $this->getParam('ROOMID');
         if (empty($classroomid)) {
             $classroomid = md5(gmdate('Y-m-d\TH:i:s\Z'));
         }
-        
+
         // Use services to load data
         $T_lang = LanguageLoader::load();
         $roomToken = generateRoomToken($classroomid);
         $appid = RoomInfoService::generateAppId();
         $uid = RoomInfoService::getUserId('anonymous');
         $ip = RoomInfoService::getClientIp();
-        
+
         // Get DeepL statistics
         $statsService = new TranslatorStatsService($proxy ?? '');
         $statsResult = $statsService->getTranslatorStats($WhichTranslator ?? '', $DEEPLAPITOKEN ?? $DEEPLFREEAPITOKEN ?? '');
         $Stats_DEEPL = $statsResult['stats'];
         $percentage_DEEPL = $statsResult['percentage_used'];
-        
+
         // Get configuration parameter
         $currentconfig = $this->getParam('myconfig', 'AAYAYKCNYCNYNYNNN');
-        
+
         // Get Wooclap address
         if (isset($_GET['WOOCLAPKEY'])) {
             $wooclapaddress = 'https://app.wooclap.com/events/' . $_GET['WOOCLAPKEY'] . '/0';
         } else {
             $wooclapaddress = 'https://app.wooclap.com/events/';
         }
-        
+
         // Prepare JavaScript variables
         $jsVars = [
             'supportedlanguages' => $T_lang,
             'currentconfig' => $currentconfig,
             'roomToken' => $roomToken
         ];
-        
+
         // Set all variables for the view
         $this->viewData['classroomid'] = $classroomid;
         $this->viewData['appid'] = $appid;
@@ -111,12 +108,12 @@ class ConferenceController extends BaseController
         $this->viewData['jsVars'] = $jsVars;
         $this->viewData['roomToken'] = $roomToken;
         $this->viewData['ip'] = $ip;
-        
+
         // No layout as this page has its own complete HTML structure
         $this->layout = false;
         $this->render('conference/index');
     }
-    
+
     /**
      * Display a specific conference room
      *

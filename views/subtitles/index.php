@@ -14,10 +14,10 @@
 <script>
   <?php
   echo "var supportedlanguages=JSON.parse('" . json_encode($T_lang) . "');";
-  echo "var currentconfig='" . $this->escape($currentconfig) . "';";
-  echo "var MicrosoftKey='" . $this->escape($MicrosoftKey) . "';";
-  echo "var MicrosoftRegion='" . $this->escape($MicrosoftRegion) . "';";
-  ?>
+	echo "var currentconfig='" . $this->escape($currentconfig) . "';";
+	echo "var MicrosoftKey='" . $this->escape($MicrosoftKey) . "';";
+	echo "var MicrosoftRegion='" . $this->escape($MicrosoftRegion) . "';";
+	?>
 </script>
 <script src="<?php echo $this->escape($pageScripts[0]); ?>"></script>
 <script src="<?php echo $this->escape($pageScripts[1]); ?>"></script>
@@ -40,7 +40,7 @@
 	#bar, #showmenu {
 		display:none;
 	}
-	
+
 	#bar2 {
 		display:block;
         font-family: helvetica, arial, sans-serif;
@@ -66,7 +66,7 @@
   }
   #VoiceOutput, select, input {
     max-width: 30%;
-  } 
+  }
 #img_slides {
   width: 100%;
   height: 100%;
@@ -105,32 +105,32 @@
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
 	-moz-transition-property: -moz-transform;
-	-moz-animation-name: rotate; 
-	-moz-animation-duration: 2s; 
+	-moz-animation-name: rotate;
+	-moz-animation-duration: 2s;
 	-moz-animation-iteration-count: infinite;
 	-moz-animation-timing-function: linear;
 	transition-property: transform;
-	animation-name: rotate; 
-	animation-duration: 2s; 
+	animation-name: rotate;
+	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
   }
-  
+
   @-webkit-keyframes rotate {
 	d from {-webkit-transform: rotate(0deg);}
 	d to {-webkit-transform: rotate(360deg);}
   }
-  
+
   @-moz-keyframes rotate {
 	d from {-moz-transform: rotate(0deg);}
 	d to {-moz-transform: rotate(360deg);}
   }
-  
+
   @keyframes rotate {
 	d from {transform: rotate(0deg);}
 	d to {transform: rotate(360deg);}
   }
-  
+
   #tabs-0 {
     margin-top: 50px;
     width: 100%;
@@ -145,7 +145,7 @@
 
   #dialog-choose select {
     max-width: 100%;
-  } 
+  }
 
   .ui-dialog { z-index: 40000 !important ;}
 </style>
@@ -208,7 +208,9 @@
   <select id="subtitlelanguage" class="select" style="display : none"> </select>
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
-  <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+  <li <?php if (true) {
+      echo 'style="display:none;"';
+  } ?> title="Do not change unless you know what you are doing !">
     <label for="classroomid">Classroom identifier :</label>
     <input type="text" name="classroomid" id="classroomid" value="<?php echo $this->escape($classroomid); ?>" >
   </li>

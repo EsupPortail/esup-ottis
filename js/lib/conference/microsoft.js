@@ -28,53 +28,53 @@ export let microsoftRecognizer = null;
  * @param {string} language - Langue de reconnaissance
  */
 export function doContinuousRecognition(key, region, language) {
-    if (typeof SpeechRecognition === 'undefined' && typeof webkitSpeechRecognition === 'undefined') {
-        console.warn('Speech Recognition API not available');
-        return;
+  if (typeof SpeechRecognition === 'undefined' && typeof webkitSpeechRecognition === 'undefined') {
+    console.warn('Speech Recognition API not available');
+    return;
+  }
+
+  // Si on a une clé Microsoft, on pourrait utiliser Azure Cognitive Services
+  // Pour l'instant, on utilise l'API Web Speech standard
+  if (microsoftRecognizer) {
+    try {
+      microsoftRecognizer.stopContinuousRecognitionAsync();
+    } catch (e) {
+      console.error('Error stopping Microsoft recognizer:', e);
     }
-    
-    // Si on a une clé Microsoft, on pourrait utiliser Azure Cognitive Services
-    // Pour l'instant, on utilise l'API Web Speech standard
-    if (microsoftRecognizer) {
-        try {
-            microsoftRecognizer.stopContinuousRecognitionAsync();
-        } catch (e) {
-            console.error('Error stopping Microsoft recognizer:', e);
-        }
-    }
-    
-    // Initialiser le recognizer Microsoft si les crédentials sont fournis
-    if (key && region) {
-        // Cela nécessiterait l'import de Microsoft Cognitive Services SDK
-        // Pour l'instant, on utilise un fallback vers Web Speech API
-        console.log('Microsoft Azure Speech Recognition would be initialized here with key:', key, 'region:', region);
-    }
+  }
+
+  // Initialiser le recognizer Microsoft si les crédentials sont fournis
+  if (key && region) {
+    // Cela nécessiterait l'import de Microsoft Cognitive Services SDK
+    // Pour l'instant, on utilise un fallback vers Web Speech API
+    console.log('Microsoft Azure Speech Recognition would be initialized here with key:', key, 'region:', region);
+  }
 }
 
 /**
  * Arrêter la reconnaissance vocale
  */
 export function stopRecognizer() {
-    if (microsoftRecognizer) {
-        try {
-            microsoftRecognizer.stopContinuousRecognitionAsync();
-            microsoftRecognizer = null;
-        } catch (e) {
-            console.error('Error stopping Microsoft recognizer:', e);
-        }
+  if (microsoftRecognizer) {
+    try {
+      microsoftRecognizer.stopContinuousRecognitionAsync();
+      microsoftRecognizer = null;
+    } catch (e) {
+      console.error('Error stopping Microsoft recognizer:', e);
     }
-    
-    // Fallback pour Web Speech API
-    if (typeof speechRecognition !== 'undefined' && speechRecognition) {
-        speechRecognition.stop();
-    }
+  }
+
+  // Fallback pour Web Speech API
+  if (typeof speechRecognition !== 'undefined' && speechRecognition) {
+    speechRecognition.stop();
+  }
 }
 
 /**
  * Initialiser le recognizer Microsoft avec les paramètres globaux
  */
 export function initMicrosoftRecognizer() {
-    if (MicrosoftKey && MicrosoftRegion) {
-        doContinuousRecognition(MicrosoftKey, MicrosoftRegion, 'fr-FR');
-    }
+  if (MicrosoftKey && MicrosoftRegion) {
+    doContinuousRecognition(MicrosoftKey, MicrosoftRegion, 'fr-FR');
+  }
 }

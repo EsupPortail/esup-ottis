@@ -4,21 +4,16 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Set the base directory for relative substitutions
-    RewriteBase /public/
-    
-    # Check if this is the main .htaccess or a subdirectory one
-    # For the main application, we want to route to public/index.php
-    
     # If the request is for an existing file or directory in /public, serve it directly
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d [OR]
     RewriteCond %{REQUEST_FILENAME} -l
     RewriteRule ^ - [L]
     
-    # Route all other requests to the Front Controller
-    RewriteRule ^(.*)$ index.php [QSA,L]
+    # All 404s are handled by FallbackResource in root .htaccess
 </IfModule>
+
+# Custom error documents - Handled by FallbackResource in root .htaccess
 
 # Security: Disable directory listing
 Options -Indexes

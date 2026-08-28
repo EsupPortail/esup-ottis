@@ -7,7 +7,7 @@ use App\Service\RandomNameGenerator;
 
 /**
  * AuditorController - Handles the student/attendee view for conference rooms
- * 
+ *
  * This controller manages the interface for students to join and participate
  * in translation sessions created by teachers.
  */
@@ -27,23 +27,20 @@ class AuditorController extends BaseController
     {
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');
-        
+
         // Generate room token
         $roomToken = generateRoomToken($classroomid);
-        
-        // Initialize CSRF protection
-        initCsrfProtection();
-        
+
         // Use services to load data
         $T_lang = LanguageLoader::load();
         $randomname = RandomNameGenerator::generateName();
-        
+
         // Get theme parameter
         $theme = $this->getParam('theme', 'flat');
-        
+
         // Get configuration
         $currentconfig = $this->getParam('myconfig', 'ABYANACNNCNNNYYYYN');
-        
+
         // Prepare JavaScript variables
         $jsVars = [
             'supportedlanguages' => $T_lang,
@@ -52,7 +49,7 @@ class AuditorController extends BaseController
             'randomname' => $randomname,
             'currentconfig' => $currentconfig
         ];
-        
+
         // Set page data
         $this->viewData['pageTitle'] = 'Automatic translation for teaching purposes';
         $this->viewData['classroomid'] = $classroomid;
@@ -62,7 +59,7 @@ class AuditorController extends BaseController
         $this->viewData['T_lang'] = $T_lang;
         $this->viewData['currentconfig'] = $currentconfig;
         $this->viewData['jsVars'] = $jsVars;
-        
+
         // Define styles for this page
         $this->viewData['pageStyles'] = [
             'styles/auditor.css',
@@ -70,7 +67,7 @@ class AuditorController extends BaseController
             'styles/auditor-specific.css',
             'styles/chat.css'
         ];
-        
+
         // Define scripts for this page
         $pageScripts = [
             '/js/auditor-def.js',
@@ -87,7 +84,7 @@ class AuditorController extends BaseController
             '/js/utils/draggable.js',
             '/js/auditor-post.js',
         ];
-        
+
         // Chat modules
         $chatScripts = [
             '/js/conference-legacy.js',
@@ -98,15 +95,15 @@ class AuditorController extends BaseController
             '/js/lib/chat/main.js',
             '/js/auditor-init.js',
         ];
-        
+
         $this->viewData['pageScripts'] = $pageScripts;
         $this->viewData['chatScripts'] = $chatScripts;
-        
+
         // Render the auditor view (without layout as it has its own HTML structure)
         $this->layout = false;
         $this->render('auditor/index');
     }
-    
+
     /**
      * Display a specific auditor room
      *
@@ -120,4 +117,3 @@ class AuditorController extends BaseController
         $this->redirect('/auditor.php?ROOMID=' . urlencode($roomId));
     }
 }
-

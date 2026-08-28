@@ -40,16 +40,16 @@ class RoomInfoService
     public static function getUserId(string $default = 'anonymous'): string
     {
         $uid = $_SERVER['PHP_AUTH_USER'] ?? '';
-        
+
         if (empty($uid)) {
             return $default;
         }
-        
+
         // For non-univ-nantes.fr domains, use anonymous
         if (strpos($_SERVER['SERVER_NAME'] ?? '', 'univ-nantes.fr') === false) {
             return 'anonymous';
         }
-        
+
         return $uid;
     }
 

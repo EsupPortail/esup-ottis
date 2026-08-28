@@ -76,7 +76,7 @@ function secureOpenTmpFile($roomid, $prefix, $mode) {
 
     $fd = @fopen($filepath, $mode);
     if ($fd === false) {
-        error_log("Impossible d'ouvrir le fichier: " . $filepath);
+        log_error("Impossible d'ouvrir le fichier: {filepath}", ['filepath' => $filepath]);
         return false;
     }
 

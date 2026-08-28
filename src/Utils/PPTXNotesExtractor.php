@@ -2,9 +2,9 @@
 
 namespace App\Utils;
 
-use ZipArchive;
-use RuntimeException;
 use InvalidArgumentException;
+use RuntimeException;
+use ZipArchive;
 
 /**
  * PPTXNotesExtractor - Extrait les notes des slides d'un fichier PPTX
@@ -19,8 +19,8 @@ class PPTXNotesExtractor
      * Extrait les notes de toutes les slides d'un fichier PPTX
      *
      * @param string $filePath Chemin vers le fichier PPTX
-     * @return array Tableau de slides avec leurs notes
      * @throws \Exception En cas d'erreur de lecture
+     * @return array Tableau de slides avec leurs notes
      */
     public static function extract(string $filePath): array
     {
@@ -29,14 +29,14 @@ class PPTXNotesExtractor
             return self::extractNotesFromXML($filePath);
         } catch (\Exception $e) {
             // Fallback vers PHPPresentation si disponible
-            error_log("Parsing XML échoué, fallback vers PHPPresentation: " . $e->getMessage());
+            error_log('Parsing XML échoué, fallback vers PHPPresentation: ' . $e->getMessage());
         }
 
         // Si PHPPresentation n'est pas disponible ou échoue aussi
         try {
             return self::extractWithPHPPresentation($filePath);
         } catch (\Exception $e) {
-            error_log("PHPPresentation échoué: " . $e->getMessage());
+            error_log('PHPPresentation échoué: ' . $e->getMessage());
         }
 
         throw new RuntimeException("Impossible d'extraire les notes du fichier PPTX");
@@ -51,7 +51,7 @@ class PPTXNotesExtractor
     private static function extractNotesFromXML(string $filePath): array
     {
         $notes = [];
-        $zip = new ZipArchive;
+        $zip = new ZipArchive();
 
         if ($zip->open($filePath) !== true) {
             throw new RuntimeException("Impossible d'ouvrir le fichier PPTX comme archive ZIP");
@@ -133,7 +133,7 @@ class PPTXNotesExtractor
 
         // Charger PHPPresentation si disponible
         if (!class_exists('PhpOffice\PhpPresentation\IOFactory')) {
-            throw new RuntimeException("PHPPresentation non disponible");
+            throw new RuntimeException('PHPPresentation non disponible');
         }
 
         $presentation = \PhpOffice\PhpPresentation\IOFactory::load($filePath);

@@ -26,13 +26,13 @@ function requireRoomToken($roomidParam = 'ROOMID', $tokenParam = 'room_token') {
 
     if (empty($roomToken)) {
         http_response_code(403);
-        error_log("Room token missing for ROOMID=$roomid");
+        log_security('warning', 'Room token missing for ROOMID={roomid}', ['roomid' => $roomid]);
         die("Room token missing");
     }
 
     if (!validateRoomToken($roomid, $roomToken)) {
         http_response_code(403);
-        error_log("Invalid room token for ROOMID=$roomid");
+        log_security('warning', 'Invalid room token for ROOMID={roomid}', ['roomid' => $roomid]);
         die("Invalid room token");
     }
 }

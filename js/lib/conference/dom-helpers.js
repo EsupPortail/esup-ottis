@@ -6,7 +6,7 @@
  * @returns {HTMLElement|null} The DOM element or null
  */
 export function _(id) {
-    return document.getElementById(id);
+  return document.getElementById(id);
 }
 
 /**
@@ -15,7 +15,7 @@ export function _(id) {
  * @returns {HTMLElement|null} The first matching element
  */
 export function query(selector) {
-    return document.querySelector(selector);
+  return document.querySelector(selector);
 }
 
 /**
@@ -24,7 +24,7 @@ export function query(selector) {
  * @returns {NodeList} All matching elements
  */
 export function queryAll(selector) {
-    return document.querySelectorAll(selector);
+  return document.querySelectorAll(selector);
 }
 
 /**
@@ -32,10 +32,10 @@ export function queryAll(selector) {
  * @param {string} id - The dialog element ID
  */
 export function openDialog(id) {
-    const dialog = _(id);
-    if (dialog && dialog.tagName === 'DIALOG') {
-        dialog.showModal();
-    }
+  const dialog = _(id);
+  if (dialog && dialog.tagName === 'DIALOG') {
+    dialog.showModal();
+  }
 }
 
 /**
@@ -43,8 +43,8 @@ export function openDialog(id) {
  * @param {string} id - The dialog element ID
  */
 export function closeDialog(id) {
-    const dialog = _(id);
-    if (dialog && dialog.tagName === 'DIALOG') {
-        dialog.close();
-    }
+  const dialog = _(id);
+  if (dialog && dialog.tagName === 'DIALOG') {
+    dialog.close();
+  }
 }

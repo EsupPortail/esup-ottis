@@ -4,22 +4,13 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Redirect all requests to public/ directory, except for:
-    # - existing files and directories
-    # - specific files that should remain accessible from root
+    # Serve existing files/directories directly
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+    RewriteRule ^(.*)$ /public/$1 [L]
     
-    # Files and directories to exclude from redirection
-    RewriteCond %{REQUEST_URI} !^/public/ [NC]
-    RewriteCond %{REQUEST_URI} !^/\.well-known/ [NC]
-    RewriteCond %{REQUEST_URI} !^/(favicon\.ico|robots\.txt|sitemap\.xml)$ [NC]
-    
-    # Do not redirect if file or directory exists
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-l
-    
-    # Redirect all other requests to public/
-    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+    # Fallback to front controller for 404s (no error headers sent)
+    FallbackResource /public/index.php
 </IfModule>
 
 # Désactiver l'indexation des répertoires
@@ -63,3 +54,13 @@ Options -Indexes
     php_flag display_errors Off
     php_flag log_errors On
 </IfModule>
+
+# Custom error documents - Handled by mod_rewrite in /public/.htaccess (removed to prevent Apache from sending error headers before PHP)
+# ErrorDocument 400 /public/index.php
+# ErrorDocument 401 /public/index.php
+# ErrorDocument 403 /public/index.php
+# ErrorDocument 404 /public/index.php
+# ErrorDocument 500 /public/index.php
+# ErrorDocument 502 /public/index.php
+# ErrorDocument 503 /public/index.php
+# ErrorDocument 504 /public/index.php

@@ -6,14 +6,25 @@
  * pour activer la protection CSRF et les fonctions de sanitization.
  */
 
+// Charger l'autoloading de Composer
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
+
+// Charger le logger dès que possible (il charge autoload.php lui-même si nécessaire)
+require_once __DIR__ . '/logger.php';
+
+// Charger le gestionnaire d'erreurs centralisé
+require_once __DIR__ . '/error_handler.php';
+
 // Charger les variables d'environnement avec Dotenv
 try {
     if (file_exists(__DIR__ . '/../.env')) {
-        require_once __DIR__ . '/../vendor/autoload.php';
-        $dotenv = Dotenv\Dotenv::create(__DIR__ . '/..');
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
         $dotenv->load();
     }
 } catch (Exception $e) {
+    // Ne pas logger ici car Monolog peut ne pas être initialisé
     error_log('Dotenv load failed: ' . $e->getMessage());
 }
 

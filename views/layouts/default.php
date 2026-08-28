@@ -7,14 +7,14 @@
     <title><?php echo $this->escape($pageTitle ?? 'OTTIS'); ?></title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
-    
+
     <!-- CSS spécifiques à la page -->
     <?php if (isset($pageStyles) && is_array($pageStyles)): ?>
         <?php foreach ($pageStyles as $style): ?>
             <link rel="stylesheet" href="<?php echo $this->escape($style); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
-    
+
     <!-- Injection des variables PHP dans JavaScript -->
     <script>
         window.pageData = <?php echo json_encode($jsVars ?? []); ?>;

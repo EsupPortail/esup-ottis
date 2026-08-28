@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 use App\Service\LanguageLoader;
 use App\Service\RandomNameGenerator;
@@ -10,22 +11,22 @@ header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
 
-initCsrfProtection();
-
-$wooclapkey="";
-if (isset($_GET["WOOCLAPKEY"])) {
-  $wooclapaddress = "https://www.wooclap.com/".$_GET["WOOCLAPKEY"];
-  $wooclapkey=$_GET["WOOCLAPKEY"];
+$wooclapkey = '';
+if (isset($_GET['WOOCLAPKEY'])) {
+    $wooclapaddress = 'https://www.wooclap.com/' . $_GET['WOOCLAPKEY'];
+    $wooclapkey = $_GET['WOOCLAPKEY'];
 } else {
-  $wooclapaddress = "https://app.wooclap.com";
+    $wooclapaddress = 'https://app.wooclap.com';
 }
 
 // Use services to load data
 $randomname = RandomNameGenerator::generateName();
 $T_lang = LanguageLoader::load();
 
-$theme="flat";
-if (isset($_GET["theme"])) $theme=$_GET["theme"];
+$theme = 'flat';
+if (isset($_GET['theme'])) {
+    $theme = $_GET['theme'];
+}
 
 ?>
 <!doctype html>
@@ -47,29 +48,30 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 </script>
 <script>
   <?php
-  echo "var supportedlanguages=JSON.parse('".json_encode($T_lang)."');";
+  echo "var supportedlanguages=JSON.parse('" . json_encode($T_lang) . "');";
 
-  if (isset($_GET["myconfig"])) {
-    echo "var currentconfig='".$_GET["myconfig"]."';\n";
-  } else {
+if (isset($_GET['myconfig'])) {
+    echo "var currentconfig='" . $_GET['myconfig'] . "';\n";
+} else {
     echo "var currentconfig='AAYANKCNYCYNYYYY';\n";
-  }
-  echo "var MicrosoftKey='".$MicrosoftKey."';\n";
-  echo "var MicrosoftRegion='".$MicrosoftRegion."';\n";
-  ?>
+}
+echo "var MicrosoftKey='" . $MicrosoftKey . "';\n";
+echo "var MicrosoftRegion='" . $MicrosoftRegion . "';\n";
+?>
 </script>
 <script src="js/auditor-def.js"></script>
 <script src="js/common-func.js"></script>
-<!-- Auditor modules (replaces auditor-func.js) -->
-<script src="js/lib/auditor/text-processing.js"></script>
-<script src="js/lib/auditor/voices.js"></script>
-<script src="js/lib/auditor/speech.js"></script>
-<script src="js/lib/auditor/display.js"></script>
-<script src="js/lib/auditor/translation.js"></script>
-<script src="js/lib/auditor/network.js"></script>
-<script src="js/lib/auditor/config.js"></script>
-<script src="js/lib/auditor/mail.js"></script>
-<script src="js/lib/auditor/main.js"></script>
+<!-- Auditor modules (replaces auditor-func.js) - ES Modules -->
+<script type="module" src="js/lib/conference/dom-helpers.js"></script>
+<script type="module" src="js/lib/auditor/text-processing.js"></script>
+<script type="module" src="js/lib/auditor/voices.js"></script>
+<script type="module" src="js/lib/auditor/speech.js"></script>
+<script type="module" src="js/lib/auditor/display.js"></script>
+<script type="module" src="js/lib/auditor/translation.js"></script>
+<script type="module" src="js/lib/auditor/network.js"></script>
+<script type="module" src="js/lib/auditor/config.js"></script>
+<script type="module" src="js/lib/auditor/mail.js"></script>
+<script type="module" src="js/lib/auditor/main.js"></script>
 <?php
 // jQuery dependency removed - all jQuery functionality replaced with native JavaScript
 // jQuery files have been completely removed from the project
@@ -91,7 +93,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	#bar, #showmenu {
 		display:none;
 	}
-	
+
 	#bar2 {
 		display:block;
     font-family: helvetica, arial, sans-serif;
@@ -117,7 +119,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   }
   #VoiceOutput, select, input {
     max-width: 30%;
-  } 
+  }
 #img_slides {
   width: 100%;
   height: 100%;
@@ -157,35 +159,35 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 	-webkit-animation-name: rotate;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
-	
+
 	-moz-transition-property: -moz-transform;
-	-moz-animation-name: rotate; 
-	-moz-animation-duration: 2s; 
+	-moz-animation-name: rotate;
+	-moz-animation-duration: 2s;
 	-moz-animation-iteration-count: infinite;
 	-moz-animation-timing-function: linear;
-	
+
 	transition-property: transform;
-	animation-name: rotate; 
-	animation-duration: 2s; 
+	animation-name: rotate;
+	animation-duration: 2s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
   }
-  
+
   @-webkit-keyframes rotate {
 	  from {-webkit-transform: rotate(0deg);}
 	  to {-webkit-transform: rotate(360deg);}
   }
-  
+
   @-moz-keyframes rotate {
 	  from {-moz-transform: rotate(0deg);}
 	  to {-moz-transform: rotate(360deg);}
   }
-  
+
   @keyframes rotate {
 	  from {transform: rotate(0deg);}
 	  to {transform: rotate(360deg);}
   }
-  
+
   #tabs-0 {
     margin-top: 50px;
     width: 100%;
@@ -207,7 +209,7 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
 
   #dialog-choose select {
     max-width: 100%;
-  } 
+  }
 
   .ui-dialog { z-index: 40000 !important ;}
 </style>
@@ -272,7 +274,9 @@ if (isset($_GET["theme"])) $theme=$_GET["theme"];
   <input type="checkbox" id="recognitionon" style="display : none"/>
   <textarea id="verbaltics" rows="3" cols="20" style="display : none"></textarea>
   <!-- <div id="partialtitre" style="display : none"></div> -->
-  <li <?php if (true) echo "style=\"display:none;\""; ?> title="Do not change unless you know what you are doing !">
+  <li <?php if (true) {
+      echo 'style="display:none;"';
+  } ?> title="Do not change unless you know what you are doing !">
     <label for="classroomid">Classroom identifier :</label>
     <input type="text" name="classroomid" id="classroomid" value="<?php echo $classroomid; ?>" >
   </li>

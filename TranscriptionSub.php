@@ -1,4 +1,5 @@
 <?php
+
 // Désactiver l'affichage des erreurs en production
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
@@ -9,7 +10,7 @@ ini_set('error_log', __DIR__ . '/tmp/php_errors.log');
 header('Content-Type: application/json');
 
 // Vérifier que les paramètres sont présents
-if (!isset($_GET["texte"]) || !isset($_GET["ROOMID"])) {
+if (!isset($_GET['texte']) || !isset($_GET['ROOMID'])) {
     http_response_code(400); // Bad Request
     echo json_encode([
         'status' => 'error',
@@ -18,19 +19,19 @@ if (!isset($_GET["texte"]) || !isset($_GET["ROOMID"])) {
     exit;
 }
 
-$texte = $_GET["texte"];
-$roomId = $_GET["ROOMID"];
+$texte = $_GET['texte'];
+$roomId = $_GET['ROOMID'];
 
 // Nettoyer le texte
 $texte = html_entity_decode(strip_tags($texte));
 
 // Remplacer les balises <span> si présentes
-if (strpos($texte, "<span>") !== false) {
-    $texte = str_replace("<span>", "<span style='font-size: 0.7em; font-style: italic;'>", $texte);
+if (strpos($texte, '<span>') !== false) {
+    $texte = str_replace('<span>', "<span style='font-size: 0.7em; font-style: italic;'>", $texte);
 }
 
 // Vérifier que le dossier tmp/ existe et est accessible
-$tmpDir = "tmp/";
+$tmpDir = 'tmp/';
 if (!file_exists($tmpDir)) {
     if (!mkdir($tmpDir, 0755, true)) {
         http_response_code(500); // Internal Server Error
@@ -43,8 +44,8 @@ if (!file_exists($tmpDir)) {
 }
 
 // Sauvegarder le texte dans un fichier temporaire (mode "a" pour append/ajouter)
-$filename = $tmpDir . "VerylastSub_" . $roomId;
-$fd = @fopen($filename, "a");
+$filename = $tmpDir . 'VerylastSub_' . $roomId;
+$fd = @fopen($filename, 'a');
 if ($fd) {
     fwrite($fd, $texte . "\n");
     fclose($fd);
@@ -67,4 +68,3 @@ if ($fd) {
         'permissions' => substr(sprintf('%o', fileperms($tmpDir)), -4)
     ]);
 }
-?>

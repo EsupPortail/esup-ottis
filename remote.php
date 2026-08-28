@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 // Disable error display
 ini_set('display_errors', 0);
@@ -11,21 +12,22 @@ header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
 
-// Start session for CSRF
-ensureSessionStarted();
-initCsrfProtection();
 ?>
 <?php
-if (isset($_GET["ROOMID"])) {
-  $classroomid = $_GET["ROOMID"];
+if (isset($_GET['ROOMID'])) {
+    $classroomid = $_GET['ROOMID'];
 } else {
-  $classroomid = 'UNKNOWN';
+    $classroomid = 'UNKNOWN';
 }
 
-$lang="";
-if (isset($_GET["LANG"])) $lang=$_GET["LANG"];
-$appid="";
-if (isset($_GET["APPID"])) $appid=$_GET["APPID"];
+$lang = '';
+if (isset($_GET['LANG'])) {
+    $lang = $_GET['LANG'];
+}
+$appid = '';
+if (isset($_GET['APPID'])) {
+    $appid = $_GET['APPID'];
+}
 
 ?>
 <!doctype html>
@@ -43,7 +45,7 @@ if (isset($_GET["APPID"])) $appid=$_GET["APPID"];
 
 /**
  * @summary Sends the order to the teacher application.
- * 
+ *
  * @param {string} The order to send.
  */
 
@@ -52,7 +54,7 @@ function remote(myorder) {
   var f=new FormData();
   f.append('ROOMID',document.getElementById('classroomid').value);
   f.append('ORDER',myorder);
-  
+
   // Ajouter le token CSRF
   var csrfToken = document.querySelector('input[name="csrf_token"]').value;
   if (csrfToken) {
@@ -66,7 +68,7 @@ function remote(myorder) {
 
 /**
  * @summary Displays the current, previous and next speech on the remote control.
- * 
+ *
  */
 
 function remotespeech() {
@@ -96,15 +98,15 @@ function Lancer() {
 var AllLanguages=[];
 function Init() {
 <?php
-  echo "// ".$lang."\n\n";
+  echo '// ' . $lang . "\n\n";
 
-if ($lang!="") {
-  echo "    AllLanguages='".$lang."'.split(',');\n";
-  echo "    setLanguage();\n";
+if ($lang != '') {
+    echo "    AllLanguages='" . $lang . "'.split(',');\n";
+    echo "    setLanguage();\n";
 } else {
-  echo "    document.getElementById('langdiv').style.display='none';\n";
-  echo "    document.getElementById('skipleft').style.width='40%';\n";
-  echo "    document.getElementById('skipright').style.width='40%';\n";
+    echo "    document.getElementById('langdiv').style.display='none';\n";
+    echo "    document.getElementById('skipleft').style.width='40%';\n";
+    echo "    document.getElementById('skipright').style.width='40%';\n";
 }
 
 ?>
@@ -119,7 +121,7 @@ var currentlanguage=0;
 
 /**
  * @summary Get the next available language.
- * 
+ *
  */
 
 function changeLanguage() {
@@ -131,7 +133,7 @@ function changeLanguage() {
 
 /**
  * @summary Changes the speaker language.
- * 
+ *
  */
 
 function setLanguage() {
@@ -143,7 +145,7 @@ function setLanguage() {
 
 /**
  * @summary Changes the opacity of the object when you click on it.
- * 
+ *
  * @param {object} obj the selected object.
  */
 
@@ -155,7 +157,7 @@ function changeOpacity(obj){
     obj.style.opacity='0.5';
     setTimeout(()=> {obj.style.opacity='1';},300);
   } else if (obj.id==='micon'){
-    obj.style.opacity='0.5'; 
+    obj.style.opacity='0.5';
     setTimeout(()=> {obj.style.opacity='1';},300);
   }
 }

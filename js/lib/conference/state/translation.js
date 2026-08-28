@@ -11,23 +11,23 @@
 export let lastPartialTranslation = '';
 
 /** @type {Array} */
-export let StudentToTranslate2 = [];
+export const StudentToTranslate2 = [];
 
 // =============================================================================
 // État du discours étudiant
 // =============================================================================
 
 /** @type {number} */
-export let Studentcurrentdiscours = 0;
+export const Studentcurrentdiscours = 0;
 
 /** @type {Object} */
-export let StudentToSay = {};
+export const StudentToSay = {};
 
 /** @type {boolean} */
-export let Studentgotolive = false;
+export const Studentgotolive = false;
 
 /** @type {number} */
-export let currentdiscours = 0;
+export const currentdiscours = 0;
 
 // =============================================================================
 // Langue des sous-titres
@@ -41,10 +41,10 @@ export let subtitle_language = '';
 // =============================================================================
 
 /** @type {Array} */
-export let AllOutputVoices = [];
+export const AllOutputVoices = [];
 
 /** @type {Array} */
-export let TLangInput = [];
+export const TLangInput = [];
 
 // =============================================================================
 // Variables globales pour la voix et la langue
@@ -61,7 +61,7 @@ export let builtin_language = 'en-US'; // Anglais (États-Unis) par défaut
 // =============================================================================
 
 /** @type {boolean} */
-export let readytotalk = false;
+export const readytotalk = false;
 
 /** @type {number} */
 export let previousimage = 0;
@@ -76,10 +76,10 @@ export let lastSentenceTranslated = '';
 export let LiveTranslationNum = 0;
 
 /** @type {number} */
-export let LiveTranslationFreq = 5;
+export const LiveTranslationFreq = 5;
 
 /** @type {boolean} */
-export let Studentcompletespeechactive = false;
+export const Studentcompletespeechactive = false;
 
 // =============================================================================
 // Setter functions for translation state
@@ -90,10 +90,10 @@ export let Studentcompletespeechactive = false;
  * @param {Object} voice - The voice object
  */
 export function setBuiltinVoice(voice) {
-    builtin_voice = voice;
-    if (typeof window !== 'undefined') {
-        window.builtin_voice = voice;
-    }
+  builtin_voice = voice;
+  if (typeof window !== 'undefined') {
+    window.builtin_voice = voice;
+  }
 }
 
 /**
@@ -101,10 +101,10 @@ export function setBuiltinVoice(voice) {
  * @param {string} lang - The language code
  */
 export function setBuiltinLanguage(lang) {
-    builtin_language = lang;
-    if (typeof window !== 'undefined') {
-        window.builtin_language = lang;
-    }
+  builtin_language = lang;
+  if (typeof window !== 'undefined') {
+    window.builtin_language = lang;
+  }
 }
 
 /**
@@ -112,10 +112,10 @@ export function setBuiltinLanguage(lang) {
  * @param {string} lang - The language code
  */
 export function setSubtitleLanguage(lang) {
-    subtitle_language = lang;
-    if (typeof window !== 'undefined') {
-        window.subtitle_language = lang;
-    }
+  subtitle_language = lang;
+  if (typeof window !== 'undefined') {
+    window.subtitle_language = lang;
+  }
 }
 
 /**
@@ -123,10 +123,10 @@ export function setSubtitleLanguage(lang) {
  * @param {string} value - The translation text
  */
 export function setLastPartialTranslation(value) {
-    lastPartialTranslation = value;
-    if (typeof window !== 'undefined') {
-        window.lastPartialTranslation = value;
-    }
+  lastPartialTranslation = value;
+  if (typeof window !== 'undefined') {
+    window.lastPartialTranslation = value;
+  }
 }
 
 /**
@@ -134,10 +134,10 @@ export function setLastPartialTranslation(value) {
  * @param {string} value - The translated text
  */
 export function setLastSentenceTranslated(value) {
-    lastSentenceTranslated = value;
-    if (typeof window !== 'undefined') {
-        window.lastSentenceTranslated = value;
-    }
+  lastSentenceTranslated = value;
+  if (typeof window !== 'undefined') {
+    window.lastSentenceTranslated = value;
+  }
 }
 
 /**
@@ -145,10 +145,10 @@ export function setLastSentenceTranslated(value) {
  * @param {number} value - The new value
  */
 export function setLiveTranslationNum(value) {
-    LiveTranslationNum = value;
-    if (typeof window !== 'undefined') {
-        window.LiveTranslationNum = value;
-    }
+  LiveTranslationNum = value;
+  if (typeof window !== 'undefined') {
+    window.LiveTranslationNum = value;
+  }
 }
 
 /**
@@ -156,10 +156,10 @@ export function setLiveTranslationNum(value) {
  * @param {number} value - The previous image number
  */
 export function setPreviousimage(value) {
-    previousimage = value;
-    if (typeof window !== 'undefined') {
-        window.previousimage = value;
-    }
+  previousimage = value;
+  if (typeof window !== 'undefined') {
+    window.previousimage = value;
+  }
 }
 
 /**
@@ -167,8 +167,8 @@ export function setPreviousimage(value) {
  * @param {number} value - The scroll position
  */
 export function setCurrentscroll(value) {
-    currentscroll = value;
-    if (typeof window !== 'undefined') {
-        window.currentscroll = value;
-    }
+  currentscroll = value;
+  if (typeof window !== 'undefined') {
+    window.currentscroll = value;
+  }
 }

@@ -5,15 +5,15 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link rel="icon" type="image/png" href="./images/favicon.svg" >
-    
+
     <?php foreach ($pageStyles as $style): ?>
         <link href="<?php echo $this->escape($style); ?>" rel="stylesheet">
     <?php endforeach; ?>
-    
+
     <script>
         window.pageData = <?php echo json_encode($jsVars); ?>;
     </script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 </head>
 <body>
@@ -22,7 +22,7 @@
 <?php echo csrfField(); ?>
 
 <div id="conference-main" class="conference-grid">
-    
+
     <!-- Language Section -->
     <section id="language-section" class="conference-card" aria-labelledby="language-section-title">
         <h2 id="language-section-title">Configuration linguistique</h2>
@@ -68,7 +68,7 @@
                     'labelText' => 'Classroom Chat'
                 ]);
             }
-            ?>
+	?>
         </div>
     </section>
 

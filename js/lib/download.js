@@ -10,9 +10,9 @@
  * @param {string} [mimeType='text/plain'] - The MIME type of the file
  */
 export function DownloadSpeechLesson(filename, elText, mimeType = 'text/plain') {
-    elText = elText.replaceAll("<br>", "\n");
-    const link = document.createElement('a');
-    link.setAttribute('download', filename);
-    link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elText));
-    link.click();
+  elText = elText.replaceAll('<br>', '\n');
+  const link = document.createElement('a');
+  link.setAttribute('download', filename);
+  link.setAttribute('href', `data:${mimeType};charset=utf-8,${encodeURIComponent(elText)}`);
+  link.click();
 }

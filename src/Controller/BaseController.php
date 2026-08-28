@@ -6,7 +6,7 @@ use App\Service\Router;
 
 /**
  * BaseController - Abstract base controller for all MVC controllers
- * 
+ *
  * Provides common functionality for all controllers including:
  * - View rendering
  * - Request/Response handling
@@ -61,7 +61,7 @@ abstract class BaseController
 
         // Set language from GET parameter or session
         $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? 'fr';
-        
+
         // Send no-cache headers for all pages
         $this->sendNoCacheHeaders();
     }
@@ -80,7 +80,7 @@ abstract class BaseController
 
     /**
      * Render a view with optional layout
-     * 
+     *
      * @param string $view View file name (without .php extension)
      * @param array $data Data to pass to the view
      * @param string|false|null $layout Layout to use (null to use default, false for no layout)
@@ -112,7 +112,7 @@ abstract class BaseController
 
     /**
      * Render view with layout
-     * 
+     *
      * @param string $view View file name
      * @param string $layout Layout file name
      */
@@ -140,24 +140,24 @@ abstract class BaseController
 
     /**
      * Render a view file
-     * 
+     *
      * @param string $view View file name (without .php extension)
      */
     protected function renderView(string $view): void
     {
         $viewPath = $this->viewPath . str_replace('.', '/', $view) . '.php';
-        
+
         if (file_exists($viewPath)) {
             extract($this->viewData);
             include $viewPath;
         } else {
-            throw new \RuntimeException("View file not found: " . $viewPath);
+            throw new \RuntimeException('View file not found: ' . $viewPath);
         }
     }
 
     /**
      * Render a partial view (without layout)
-     * 
+     *
      * @param string $partial Partial view name
      * @param array $data Data to pass to the partial
      */
@@ -183,7 +183,7 @@ abstract class BaseController
 
     /**
      * Redirect to a route or URL
-     * 
+     *
      * @param string $url URL or route path
      * @param int $statusCode HTTP status code
      * @return never
@@ -195,7 +195,7 @@ abstract class BaseController
 
     /**
      * Get a GET parameter
-     * 
+     *
      * @param string $key Parameter key
      * @param mixed $default Default value if not set
      * @return mixed Parameter value or default
@@ -207,7 +207,7 @@ abstract class BaseController
 
     /**
      * Get a POST parameter
-     * 
+     *
      * @param string $key Parameter key
      * @param mixed $default Default value if not set
      * @return mixed Parameter value or default
@@ -219,7 +219,7 @@ abstract class BaseController
 
     /**
      * Get request parameter (GET or POST)
-     * 
+     *
      * @param string $key Parameter key
      * @param mixed $default Default value if not set
      * @return mixed Parameter value or default
@@ -231,7 +231,7 @@ abstract class BaseController
 
     /**
      * Get all GET parameters
-     * 
+     *
      * @return array All GET parameters
      */
     protected function getAllGetParams(): array
@@ -241,7 +241,7 @@ abstract class BaseController
 
     /**
      * Get all POST parameters
-     * 
+     *
      * @return array All POST parameters
      */
     protected function getAllPostParams(): array
@@ -251,7 +251,7 @@ abstract class BaseController
 
     /**
      * Set a session value
-     * 
+     *
      * @param string $key Session key
      * @param mixed $value Value to set
      */
@@ -262,7 +262,7 @@ abstract class BaseController
 
     /**
      * Get a session value
-     * 
+     *
      * @param string $key Session key
      * @param mixed $default Default value if not set
      * @return mixed Session value or default
@@ -274,7 +274,7 @@ abstract class BaseController
 
     /**
      * Check if current request is AJAX
-     * 
+     *
      * @return bool True if AJAX request
      */
     protected function isAjax(): bool
@@ -284,7 +284,7 @@ abstract class BaseController
 
     /**
      * Send a JSON response
-     * 
+     *
      * @param mixed $data Data to send as JSON
      * @param int $statusCode HTTP status code
      */
@@ -298,7 +298,7 @@ abstract class BaseController
 
     /**
      * Send a plain text response
-     * 
+     *
      * @param string $text Text to send
      * @param int $statusCode HTTP status code
      */
@@ -312,18 +312,18 @@ abstract class BaseController
 
     /**
      * Send an error response
-     * 
+     *
      * @param string $message Error message
      * @param int $statusCode HTTP status code (default: 404)
      */
     protected function errorResponse(string $message, int $statusCode = 404): void
     {
         http_response_code($statusCode);
-        
+
         if ($this->isAjax()) {
             $this->jsonResponse(['error' => $message], $statusCode);
         }
-        
+
         // For non-AJAX requests, render error view
         $this->render('errors/error', [
             'message' => $message,
@@ -334,7 +334,7 @@ abstract class BaseController
 
     /**
      * Generate a URL for a route
-     * 
+     *
      * @param string $path Route path
      * @param array $params Route parameters
      * @return string Generated URL
@@ -346,7 +346,7 @@ abstract class BaseController
 
     /**
      * Sanitize output for HTML
-     * 
+     *
      * @param string $value Value to sanitize
      * @return string Sanitized value
      */

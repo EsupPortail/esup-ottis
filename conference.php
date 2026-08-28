@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/NoCache.php';
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 use App\Service\LanguageLoader;
 use App\Service\RoomInfoService;
@@ -18,28 +19,23 @@ header('Pragma: no-cache');
 header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
-    
-include("config.php");
+
+include('config.php');
 require_once __DIR__ . '/includes/chat-component.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
-initCsrfProtection();
-$_SESSION["from"]="teacher";
+$_SESSION['from'] = 'teacher';
 $language = $_GET['lang'] ?? 'fr'; // Langue par défaut
 $translations = json_decode(file_get_contents("lang/{$language}.json"), true);
-$pageTitle = "Omist - Conference";
+$pageTitle = 'Omist - Conference';
 $pageStyles = [
-                "styles/auditor.css",
-                "styles/conference.css",
-                "https://fonts.googleapis.com/icon?family=Material+Icons",
-                "styles/chat.css"
+                'styles/auditor.css',
+                'styles/conference.css',
+                'https://fonts.googleapis.com/icon?family=Material+Icons',
+                'styles/chat.css'
 ];
-$pageScripts = ["https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js",
-                "/js/qrcode.min.js"
+$pageScripts = ['https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js',
+                '/js/qrcode.min.js'
 ];
-
 
 // Tableau de fonctions à exécuter
 $onloadFunctions = [
@@ -53,19 +49,19 @@ $onloadScripts = implode(";\n    ", $onloadFunctions);
 // Use services to load data
 $uid = RoomInfoService::getUserId('anonymous');
 
-if (isset($_GET["ROOMID"]))
-  $classroomid = $_GET["ROOMID"];
-else {
-  $classroomid = md5(gmdate("Y-m-d\TH:i:s\Z"));
+if (isset($_GET['ROOMID'])) {
+    $classroomid = $_GET['ROOMID'];
+} else {
+    $classroomid = md5(gmdate("Y-m-d\TH:i:s\Z"));
 }
 $roomToken = generateRoomToken($classroomid);
 
 $appid = RoomInfoService::generateAppId();
 
-if (isset($_GET["WOOCLAPKEY"])) {
-  $wooclapaddress = "https://app.wooclap.com/events/".$_GET["WOOCLAPKEY"]."/0";
+if (isset($_GET['WOOCLAPKEY'])) {
+    $wooclapaddress = 'https://app.wooclap.com/events/' . $_GET['WOOCLAPKEY'] . '/0';
 } else {
-  $wooclapaddress = "https://app.wooclap.com/events/";
+    $wooclapaddress = 'https://app.wooclap.com/events/';
 }
 
 // Use services to load languages
@@ -80,17 +76,17 @@ $statsResult = $statsService->getTranslatorStats($WhichTranslator ?? '', $DEEPLA
 $Stats_DEEPL = $statsResult['stats'];
 $percentage_DEEPL = $statsResult['percentage_used'];
 
-if (isset($_GET["myconfig"])) {
-    $currentconfig = $_GET["myconfig"];
+if (isset($_GET['myconfig'])) {
+    $currentconfig = $_GET['myconfig'];
 } else {
     $currentconfig = 'AAYAYKCNYCNYNYNNN';
 }
 
 //Variables
 $jsVars = [
-    "supportedlanguages" => $T_lang,
-    "currentconfig" => $currentconfig,
-    "roomToken" => $roomToken
+    'supportedlanguages' => $T_lang,
+    'currentconfig' => $currentconfig,
+    'roomToken' => $roomToken
 ];
 
 include_once __DIR__ . '/includes/header.php';
@@ -104,7 +100,7 @@ include_once __DIR__ . '/includes/header.php';
 
 
 <div id="conference-main" class="conference-grid">
-          
+
 <section id="language-section" class="conference-card" aria-labelledby="language-section-title">
     <h2 id="language-section-title">Configuration linguistique</h2>
     <div>
@@ -143,7 +139,7 @@ include_once __DIR__ . '/includes/header.php';
             'placeholder' => 'Type your message here...',
             'labelText' => 'Classroom Chat'
         ]);
-        ?>
+?>
     </div>
 </section>
 
@@ -261,10 +257,13 @@ include_once __DIR__ . '/includes/header.php';
 
 <!-- Chat modules - common-func.js doit être chargé AVANT conference-legacy.js -->
 <script src="/js/common-func.js"></script>
-<script type="module" src="/js/conference-legacy.js"></script>
+
+<!-- Charger tous les modules chat AVANT conference-legacy.js -->
 <script type="module" src="/js/lib/chat/alert.js"></script>
 <script type="module" src="/js/lib/chat/network.js"></script>
 <script type="module" src="/js/lib/chat/handlers.js"></script>
 <script type="module" src="/js/lib/chat/display.js"></script>
 <script type="module" src="/js/lib/chat/main.js"></script>
+
+<script type="module" src="/js/conference-legacy.js"></script>
 <?php include_once __DIR__ . '/includes/footer.php'; ?>

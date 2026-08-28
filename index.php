@@ -1,14 +1,12 @@
-<?php require("./NoCache.php"); ?>
-<?php 
+<?php require('./NoCache.php'); ?>
+<?php
 // Initialiser la sécurité (optionnel mais recommandé)
+require_once __DIR__ . '/Security/init.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
-$_SESSION["from"]="index";
+$_SESSION['from'] = 'index';
 $language = $_GET['lang'] ?? 'fr'; // Langue par défaut
 $translations = json_decode(file_get_contents("lang/{$language}.json"), true);
-$pageTitle = "Omist";
+$pageTitle = 'Omist';
 $pageStyles = [
     'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css',
     'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200',
@@ -23,7 +21,6 @@ $pageScripts = [
 ];
 
 include_once __DIR__ . '/includes/header.php';
-
 
 ?>
 <!-- Bandeau d'alerte (masqué par défaut) -->
@@ -68,9 +65,9 @@ include_once __DIR__ . '/includes/header.php';
                     ]
                 ];
 
-                // Génération dynamique des slides
-                foreach ($carrouselItems as $item) {
-                    echo <<<HTML
+// Génération dynamique des slides
+foreach ($carrouselItems as $item) {
+    echo <<<HTML
                     <div class="swiper-slide">
                         <div class="slide-icon">{$item['icon']}</div>
                         <h3 class="translate" data-key="{$item['title']}">Titre</h3>
@@ -78,8 +75,8 @@ include_once __DIR__ . '/includes/header.php';
                         <a href="{$item['buttonLink']}" class="slide-button translate" data-key="{$item['buttonText']}">Texte bouton</a>
                     </div>
                     HTML;
-                }
-                ?>
+}
+?>
             </div>
         </div>
     </div>

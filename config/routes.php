@@ -2,7 +2,7 @@
 
 /**
  * Routes Configuration for OMIST Application
- * 
+ *
  * This file centralizes all route definitions for the MVC architecture.
  * Each route maps a URL path to a controller and action method.
  */
@@ -11,7 +11,7 @@ return [
     // =========================================================================
     // Public Pages - GET Routes
     // =========================================================================
-    
+
     // Home page
     '/' => [
         'controller' => \App\Controller\HomeController::class,
@@ -23,7 +23,7 @@ return [
         'action' => 'index',
         'methods' => ['GET']
     ],
-    
+
     // Conference pages
     '/conference' => [
         'controller' => \App\Controller\ConferenceController::class,
@@ -41,7 +41,7 @@ return [
         'methods' => ['GET'],
         'params' => ['roomId']
     ],
-    
+
     // Auditor page
     '/auditor' => [
         'controller' => \App\Controller\AuditorController::class,
@@ -59,7 +59,7 @@ return [
         'methods' => ['GET'],
         'params' => ['roomId']
     ],
-    
+
     // Remote control
     '/remote' => [
         'controller' => \App\Controller\RemoteController::class,
@@ -71,7 +71,7 @@ return [
         'action' => 'index',
         'methods' => ['GET']
     ],
-    
+
     // Subtitles
     '/subtitles' => [
         'controller' => \App\Controller\SubtitlesController::class,
@@ -83,11 +83,11 @@ return [
         'action' => 'index',
         'methods' => ['GET']
     ],
-    
+
     // =========================================================================
     // API Endpoints - File Upload and Processing
     // =========================================================================
-    
+
     '/upload_handler.php' => [
         'controller' => \App\Controller\UploadController::class,
         'action' => 'handle',
@@ -98,7 +98,7 @@ return [
         'action' => 'read',
         'methods' => ['GET', 'POST']
     ],
-    
+
     // Text processing
     '/readtext.php' => [
         'controller' => \App\Controller\TextController::class,
@@ -115,18 +115,18 @@ return [
         'action' => 'readTranscriptSub',
         'methods' => ['GET', 'POST']
     ],
-    
+
     // Image processing
     '/readimage.php' => [
         'controller' => \App\Controller\ImageController::class,
         'action' => 'read',
         'methods' => ['GET']
     ],
-    
+
     // =========================================================================
     // Save Endpoints - POST Routes
     // =========================================================================
-    
+
     '/savetext.php' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'save',
@@ -152,18 +152,18 @@ return [
         'action' => 'saveSpeech',
         'methods' => ['POST']
     ],
-    
+
     // Email
     '/sendamail.php' => [
         'controller' => \App\Controller\EmailController::class,
         'action' => 'send',
         'methods' => ['POST']
     ],
-    
+
     // =========================================================================
     // Extraction Tools
     // =========================================================================
-    
+
     '/ExtractSlidesNotes.php' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'slidesNotes',
@@ -189,12 +189,12 @@ return [
         'action' => 'pptxNotes',
         'methods' => ['GET', 'POST']
     ],
-    
+
     // =========================================================================
     // Legacy Compatibility Routes
     // These routes maintain backward compatibility with existing URLs
     // =========================================================================
-    
+
     // Add legacy routes here as needed for backward compatibility
     // Example:
     // '/old-page.php' => [

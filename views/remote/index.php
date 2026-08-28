@@ -11,19 +11,19 @@
     <script src="js/common-func.js"></script>
 
     <script type="text/javascript">
-    
+
     /**
      * @summary Sends the order to the teacher application.
-     * 
+     *
      * @param {string} The order to send.
      */
-    
+
     function remote(myorder) {
         if (document.getElementById('classroomid').value != "") {
             var f = new FormData();
             f.append('ROOMID', document.getElementById('classroomid').value);
             f.append('ORDER', myorder);
-            
+
             // Add CSRF token
             var csrfToken = document.querySelector('input[name="csrf_token"]').value;
             if (csrfToken) {
@@ -37,9 +37,9 @@
 
     /**
      * @summary Displays the current, previous and next speech on the remote control.
-     * 
+     *
      */
-    
+
     function remotespeech() {
         if (document.getElementById('classroomid').value != "") {
             var f = new FormData();
@@ -63,10 +63,10 @@
     }
 
     var AllLanguages = [];
-    
+
     function Init() {
 <?php
-if ($lang != "") {
+if ($lang != '') {
     echo "    AllLanguages = '" . $this->escape($lang) . "'.split(',');\n";
     echo "    setLanguage();\n";
 } else {
@@ -115,7 +115,7 @@ if ($lang != "") {
             setTimeout(() => { obj.style.opacity = '1'; }, 300);
         }
     }
-    
+
     </script>
 
 </head>

@@ -15,6 +15,9 @@ PHPCS := vendor/bin/php-cs-fixer
 # Binaire PHPStan
 PHPSTAN := vendor/bin/phpstan
 
+# Binaire PHPUnit (si disponible)
+PHPUNIT := vendor/bin/phpunit
+
 # Binaire ESLint (si disponible)
 ESLINT := node_modules/.bin/eslint
 
@@ -31,8 +34,9 @@ help: ## Afficher l'aide
 	@echo "  check             - Vérifier la qualité du code (PHP + JS)"
 	@echo "  fix               - Corriger automatiquement le code (PHP + JS)"
 	@echo ""
-	@echo "  check-php         - Vérifier le code PHP (PHPStan + PHP-CS-Fixer)"
+	@echo "  check-php         - Vérifier le code PHP (PHPStan + PHP-CS-Fixer + PHPUnit)"
 	@echo "  fix-php           - Corriger automatiquement le code PHP"
+	@echo "  test-php          - Exécuter les tests PHP avec PHPUnit"
 	@echo ""
 	@echo "  check-js          - Vérifier le code JavaScript (ESLint)"
 	@echo "  fix-js            - Corriger automatiquement le code JavaScript"
@@ -57,7 +61,7 @@ tools: install ## Installer et tester les outils de qualité
 # Tâches PHP
 #===============================================================================
 
-check-php: ## Vérifier le code PHP (analyse statique + format)
+check-php: ## Vérifier le code PHP (analyse statique + format + tests)
 	@echo "$(YELLOW)Analyse du code PHP avec PHPStan...$(NC)"
 	$(PHPSTAN) analyse --error-format=table
 
@@ -65,10 +69,19 @@ check-php: ## Vérifier le code PHP (analyse statique + format)
 	@echo "$(YELLOW)Vérification du format avec PHP-CS-Fixer...$(NC)"
 	$(PHPCS) fix --dry-run --diff --stop-on-violation
 
+	@echo ""
+	@echo "$(YELLOW)Exécution des tests PHP avec PHPUnit...$(NC)"
+	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 $(PHPUNIT)
+
 
 fix-php: ## Corriger automatiquement le code PHP
 	@echo "$(YELLOW)Correction automatique du code PHP...$(NC)"
 	$(PHPCS) fix
+
+
+test-php: ## Exécuter les tests PHP avec PHPUnit
+	@echo "$(YELLOW)Exécution des tests PHP avec PHPUnit...$(NC)"
+	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 $(PHPUNIT)
 
 
 #===============================================================================

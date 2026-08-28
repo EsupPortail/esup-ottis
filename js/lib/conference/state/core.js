@@ -32,7 +32,7 @@ export let inputnumberQ = 0;
 export let inputnumber = 0;
 
 /** @type {number} */
-export let Studentinputnumber = 0;
+export const Studentinputnumber = 0;
 
 /** @type {number} */
 export let delayReadtextQ = 5000;
@@ -50,7 +50,7 @@ export let delayStudentReadtext = 1000;
 export let delayFeedback = 1000;
 
 /** @type {number} */
-export let MaxSavedLines = 100;
+export const MaxSavedLines = 100;
 
 // =============================================================================
 // Timer variables
@@ -61,7 +61,7 @@ export let timenew_question = 0;
 
 // Exposer sur window pour compatibilité legacy
 if (typeof window !== 'undefined') {
-    window.timenew_question = timenew_question;
+  window.timenew_question = timenew_question;
 }
 
 // =============================================================================
@@ -73,10 +73,10 @@ if (typeof window !== 'undefined') {
  * @param {number} value - The new value
  */
 export function setNbnewQ(value) {
-    nbnewQ = value;
-    if (typeof window !== 'undefined') {
-        window.nbnewQ = value;
-    }
+  nbnewQ = value;
+  if (typeof window !== 'undefined') {
+    window.nbnewQ = value;
+  }
 }
 
 /**
@@ -84,10 +84,10 @@ export function setNbnewQ(value) {
  * @param {number} value - The new value
  */
 export function setInputnumberQ(value) {
-    inputnumberQ = value;
-    if (typeof window !== 'undefined') {
-        window.inputnumberQ = value;
-    }
+  inputnumberQ = value;
+  if (typeof window !== 'undefined') {
+    window.inputnumberQ = value;
+  }
 }
 
 /**
@@ -95,10 +95,10 @@ export function setInputnumberQ(value) {
  * @param {number} value - The new value
  */
 export function setNBconnectedusers(value) {
-    NBconnectedusers = value;
-    if (typeof window !== 'undefined') {
-        window.NBconnectedusers = value;
-    }
+  NBconnectedusers = value;
+  if (typeof window !== 'undefined') {
+    window.NBconnectedusers = value;
+  }
 }
 
 /**
@@ -106,12 +106,12 @@ export function setNBconnectedusers(value) {
  * @param {Array} arr - The new array
  */
 export function setTconnectedusers(arr) {
-    // Clear and repopulate the array
-    Tconnectedusers.length = 0;
-    Tconnectedusers.push(...arr);
-    if (typeof window !== 'undefined') {
-        window.Tconnectedusers = Tconnectedusers;
-    }
+  // Clear and repopulate the array
+  Tconnectedusers.length = 0;
+  Tconnectedusers.push(...arr);
+  if (typeof window !== 'undefined') {
+    window.Tconnectedusers = Tconnectedusers;
+  }
 }
 
 /**
@@ -119,10 +119,10 @@ export function setTconnectedusers(arr) {
  * @param {string} user - The user to remove
  */
 export function removeFromTconnectedusers(user) {
-    Tconnectedusers = Tconnectedusers.filter(student => student !== user);
-    if (typeof window !== 'undefined') {
-        window.Tconnectedusers = Tconnectedusers;
-    }
+  Tconnectedusers = Tconnectedusers.filter((student) => student !== user);
+  if (typeof window !== 'undefined') {
+    window.Tconnectedusers = Tconnectedusers;
+  }
 }
 
 /**
@@ -130,10 +130,10 @@ export function removeFromTconnectedusers(user) {
  * @param {number} value - The new value
  */
 export function setInputnumber(value) {
-    inputnumber = value;
-    if (typeof window !== 'undefined') {
-        window.inputnumber = value;
-    }
+  inputnumber = value;
+  if (typeof window !== 'undefined') {
+    window.inputnumber = value;
+  }
 }
 
 /**
@@ -141,10 +141,10 @@ export function setInputnumber(value) {
  * @param {number} value - The new queue value
  */
 export function setFeedbackQueue(value) {
-    FeedbackQueue = value;
-    if (typeof window !== 'undefined') {
-        window.FeedbackQueue = value;
-    }
+  FeedbackQueue = value;
+  if (typeof window !== 'undefined') {
+    window.FeedbackQueue = value;
+  }
 }
 
 /**
@@ -152,10 +152,10 @@ export function setFeedbackQueue(value) {
  * @param {number} value - The delay in milliseconds
  */
 export function setDelayReadtextQ(value) {
-    delayReadtextQ = value;
-    if (typeof window !== 'undefined') {
-        window.delayReadtextQ = value;
-    }
+  delayReadtextQ = value;
+  if (typeof window !== 'undefined') {
+    window.delayReadtextQ = value;
+  }
 }
 
 /**
@@ -163,10 +163,10 @@ export function setDelayReadtextQ(value) {
  * @param {number} value - The delay in milliseconds
  */
 export function setDelayRemote(value) {
-    delayRemote = value;
-    if (typeof window !== 'undefined') {
-        window.delayRemote = value;
-    }
+  delayRemote = value;
+  if (typeof window !== 'undefined') {
+    window.delayRemote = value;
+  }
 }
 
 /**
@@ -174,10 +174,10 @@ export function setDelayRemote(value) {
  * @param {number} value - The delay in milliseconds
  */
 export function setDelayStudentReadtext(value) {
-    delayStudentReadtext = value;
-    if (typeof window !== 'undefined') {
-        window.delayStudentReadtext = value;
-    }
+  delayStudentReadtext = value;
+  if (typeof window !== 'undefined') {
+    window.delayStudentReadtext = value;
+  }
 }
 
 /**
@@ -185,10 +185,10 @@ export function setDelayStudentReadtext(value) {
  * @param {number} value - The delay in milliseconds
  */
 export function setDelayFeedback(value) {
-    delayFeedback = value;
-    if (typeof window !== 'undefined') {
-        window.delayFeedback = value;
-    }
+  delayFeedback = value;
+  if (typeof window !== 'undefined') {
+    window.delayFeedback = value;
+  }
 }
 
 /**
@@ -196,8 +196,8 @@ export function setDelayFeedback(value) {
  * @param {number} value - The new value
  */
 export function setTimenewQuestion(value) {
-    timenew_question = value;
-    if (typeof window !== 'undefined') {
-        window.timenew_question = value;
-    }
+  timenew_question = value;
+  if (typeof window !== 'undefined') {
+    window.timenew_question = value;
+  }
 }

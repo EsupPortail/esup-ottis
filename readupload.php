@@ -1,12 +1,14 @@
 <?php
+
 /**
  * Script pour servir les fichiers uploadés de manière sécurisée
- * 
+ *
  * Ce script valide le fichier demandé avant de le servir,
  * empêchant l'accès direct aux fichiers uploadés.
  */
 
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 // Vérifier que le paramètre file est présent
 if (!isset($_GET['file']) || empty($_GET['file'])) {

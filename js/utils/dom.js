@@ -13,7 +13,7 @@
  * @returns {HTMLElement|null} The DOM element or null
  */
 function get(id) {
-    return document.getElementById(id);
+  return document.getElementById(id);
 }
 
 /**
@@ -22,7 +22,7 @@ function get(id) {
  * @returns {HTMLElement|null} The first matching element
  */
 function query(selector) {
-    return document.querySelector(selector);
+  return document.querySelector(selector);
 }
 
 /**
@@ -31,7 +31,7 @@ function query(selector) {
  * @returns {NodeList} List of matching elements
  */
 function queryAll(selector) {
-    return document.querySelectorAll(selector);
+  return document.querySelectorAll(selector);
 }
 
 // =============================================
@@ -46,10 +46,10 @@ function queryAll(selector) {
  * @param {Object} [options] - Options (e.g., { capture: true, once: true })
  */
 function on(element, event, fn, options) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (el) {
-        el.addEventListener(event, fn, options);
-    }
+  const el = typeof element === 'string' ? get(element) : element;
+  if (el) {
+    el.addEventListener(event, fn, options);
+  }
 }
 
 /**
@@ -59,10 +59,10 @@ function on(element, event, fn, options) {
  * @param {Function} fn - Callback function
  */
 function off(element, event, fn) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (el) {
-        el.removeEventListener(event, fn);
-    }
+  const el = typeof element === 'string' ? get(element) : element;
+  if (el) {
+    el.removeEventListener(event, fn);
+  }
 }
 
 // =============================================
@@ -74,11 +74,11 @@ function off(element, event, fn) {
  * @param {Function} fn - Function to execute
  */
 function ready(fn) {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fn);
-    } else {
-        setTimeout(fn, 0);
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fn);
+  } else {
+    setTimeout(fn, 0);
+  }
 }
 
 // =============================================
@@ -91,12 +91,12 @@ function ready(fn) {
  * @param {Object} styles - Object with CSS properties (e.g., { top: '10px', left: '20px' })
  */
 function css(element, styles) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (el && el.style) {
-        for (const [property, value] of Object.entries(styles)) {
-            el.style[property] = value;
-        }
+  const el = typeof element === 'string' ? get(element) : element;
+  if (el && el.style) {
+    for (const [property, value] of Object.entries(styles)) {
+      el.style[property] = value;
     }
+  }
 }
 
 // =============================================
@@ -111,14 +111,14 @@ function css(element, styles) {
  * @returns {string|null} The attribute value if value is not provided
  */
 function attr(element, name, value) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (!el) return null;
+  const el = typeof element === 'string' ? get(element) : element;
+  if (!el) return null;
 
-    if (value !== undefined) {
-        el.setAttribute(name, value);
-        return value;
-    }
-    return el.getAttribute(name);
+  if (value !== undefined) {
+    el.setAttribute(name, value);
+    return value;
+  }
+  return el.getAttribute(name);
 }
 
 // =============================================
@@ -132,14 +132,14 @@ function attr(element, name, value) {
  * @returns {string} The element value if value is not provided
  */
 function val(element, value) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (!el) return null;
+  const el = typeof element === 'string' ? get(element) : element;
+  if (!el) return null;
 
-    if (value !== undefined) {
-        el.value = value;
-        return value;
-    }
-    return el.value;
+  if (value !== undefined) {
+    el.value = value;
+    return value;
+  }
+  return el.value;
 }
 
 // =============================================
@@ -152,22 +152,18 @@ function val(element, value) {
  * @returns {Object} Position { top: number, left: number }
  */
 function position(element) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (!el) return { top: 0, left: 0 };
+  const el = typeof element === 'string' ? get(element) : element;
+  if (!el) return { top: 0, left: 0 };
 
-    const rect = el.getBoundingClientRect();
-    return {
-        top: rect.top + window.scrollY,
-        left: rect.left + window.scrollX
-    };
+  const rect = el.getBoundingClientRect();
+  return {
+    top: rect.top + window.scrollY,
+    left: rect.left + window.scrollX,
+  };
 }
 
 // =============================================
-// Module export (for use with import/export)
+// ES Module exports
 // =============================================
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        get, query, queryAll, on, off, ready, css, attr, val, position
-    };
-}
+export { get, query, queryAll, on, off, ready, css, attr, val, position };

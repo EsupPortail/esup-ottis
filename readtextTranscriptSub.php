@@ -1,8 +1,10 @@
 <?php
+
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 // Écriture directe dans un fichier de log minimaliste
-file_put_contents('/tmp/test_execution.log', "Script readtextTranscriptSub.php exécuté à " . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
+file_put_contents('/tmp/test_execution.log', 'Script readtextTranscriptSub.php exécuté à ' . date('Y-m-d H:i:s') . "\n", FILE_APPEND);
 error_reporting(E_ALL);
 // Désactiver l'affichage des erreurs en production
 ini_set('display_errors', 0);
@@ -19,7 +21,8 @@ if (!verifyCsrfRequest()) {
 $logFile = '/tmp/readtext_debug.log';
 
 // Fonction pour écrire dans le fichier de log
-function writeLog($message) {
+function writeLog($message)
+{
     global $logFile;
     $timestamp = date('Y-m-d H:i:s');
     $logMessage = "[$timestamp] $message" . PHP_EOL;
@@ -27,31 +30,31 @@ function writeLog($message) {
 }
 
 // Log des paramètres reçus
-writeLog("readtextTranscriptSub.php - Début de la requête");
-writeLog("Paramètres reçus - ROOMID: " . (isset($_POST["ROOMID"]) ? $_POST["ROOMID"] : "non défini") .
-         ", ORDER: " . (isset($_POST["ORDER"]) ? $_POST["ORDER"] : "non défini"));
+writeLog('readtextTranscriptSub.php - Début de la requête');
+writeLog('Paramètres reçus - ROOMID: ' . (isset($_POST['ROOMID']) ? $_POST['ROOMID'] : 'non défini') .
+         ', ORDER: ' . (isset($_POST['ORDER']) ? $_POST['ORDER'] : 'non défini'));
 
 // Récupérer et valider le ROOMID et room_token
-$roomid = $_POST["ROOMID"] ?? '';
-$roomToken = $_POST["room_token"] ?? '';
+$roomid = $_POST['ROOMID'] ?? '';
+$roomToken = $_POST['room_token'] ?? '';
 
 // Vérifier le room_token
 if (!validateRoomToken($roomid, $roomToken)) {
     writeLog("ERREUR: Token invalide pour ROOMID=$roomid");
     http_response_code(403);
-    echo "ERREUR: Token invalide.";
+    echo 'ERREUR: Token invalide.';
     exit;
 }
 
-$order = isset($_POST["ORDER"]) ? $_POST["ORDER"] : 0;
+$order = isset($_POST['ORDER']) ? $_POST['ORDER'] : 0;
 
 if (empty($roomid)) {
-    writeLog("ERREUR: ROOMID non défini.");
-    echo "ERREUR: ROOMID manquant.";
+    writeLog('ERREUR: ROOMID non défini.');
+    echo 'ERREUR: ROOMID manquant.';
     exit;
 }
 
-$filename = "tmp/VerylastSub_" . $roomid;
+$filename = 'tmp/VerylastSub_' . $roomid;
 writeLog("Recherche du fichier: $filename");
 
 if (!file_exists($filename)) {
@@ -66,7 +69,7 @@ if (!is_readable($filename)) {
     exit;
 }
 
-$fd = fopen($filename, "r");
+$fd = fopen($filename, 'r');
 if (!$fd) {
     writeLog("ERREUR: Impossible d'ouvrir $filename.");
     echo "ERREUR: Impossible d'ouvrir $filename.";
@@ -74,7 +77,7 @@ if (!$fd) {
 }
 
 // Lire tout le contenu du fichier
-$output = "";
+$output = '';
 while ($ligne = fgets($fd)) {
     $output .= $ligne;
 }
@@ -84,19 +87,18 @@ writeLog("Contenu du fichier $filename: " . trim($output));
 
 if (empty(trim($output))) {
     writeLog("AVERTISSEMENT: Fichier $filename est vide.");
-    echo "INFO: Fichier vide.";
+    echo 'INFO: Fichier vide.';
 } else {
     // Préfixer chaque ligne avec $order
     $lines = explode("\n", trim($output));
-    $result = "";
+    $result = '';
     foreach ($lines as $line) {
-        if (trim($line) !== "") {
-            $result .= $order . ";" . $line . "\n";
+        if (trim($line) !== '') {
+            $result .= $order . ';' . $line . "\n";
         }
     }
-    writeLog("Réponse envoyée: " . trim($result));
+    writeLog('Réponse envoyée: ' . trim($result));
     echo trim($result);
 }
 
-writeLog("readtextTranscriptSub.php - Fin de la requête");
-?>
+writeLog('readtextTranscriptSub.php - Fin de la requête');

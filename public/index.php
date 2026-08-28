@@ -2,11 +2,11 @@
 
 /**
  * Front Controller - Main entry point for the OMIST application
- * 
+ *
  * This file serves as the single entry point for all HTTP requests.
  * It initializes the application, sets up autoloading, and dispatches
  * requests to the appropriate controller based on the URL.
- * 
+ *
  * For backward compatibility, direct access to old PHP files is still supported.
  */
 
@@ -15,19 +15,26 @@ define('APP_ROOT', dirname(__DIR__));
 define('APP_PUBLIC', __DIR__);
 define('APP_VIEWS', APP_ROOT . '/views');
 
-// Error reporting - disabled in production, enabled in development
-if (getenv('APP_ENV') === 'production' || (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'univ-nantes.fr') !== false)) {
-    ini_set('display_errors', 0);
-    ini_set('display_startup_errors', 0);
-    error_reporting(0);
-} else {
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-}
-
 // Ensure no output before headers
 ob_start();
+
+// Load Composer autoloader and Security init FIRST to have error handler available
+$autoloadPath = APP_ROOT . '/vendor/autoload.php';
+if (file_exists($autoloadPath)) {
+    require $autoloadPath;
+    try {
+        require_once APP_ROOT . '/Security/init.php';
+    } catch (Exception $e) {
+        error_log('Security/init.php load failed: ' . $e->getMessage());
+        // Continue without Security/init.php in case of error
+    }
+} else {
+    // Fallback for development without Composer
+    $fallbackAutoload = APP_ROOT . '/Security/load_env.php';
+    if (file_exists($fallbackAutoload)) {
+        require $fallbackAutoload;
+    }
+}
 
 // Set default timezone
 if (!ini_get('date.timezone')) {
@@ -43,27 +50,23 @@ header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
 
-// Load Composer autoloader
-$autoloadPath = APP_ROOT . '/vendor/autoload.php';
-if (file_exists($autoloadPath)) {
-    require $autoloadPath;
-} else {
-    // Fallback for development without Composer
-    $fallbackAutoload = APP_ROOT . '/Security/load_env.php';
-    if (file_exists($fallbackAutoload)) {
-        require $fallbackAutoload;
-    }
-}
-
 // Load environment variables
 if (class_exists('Dotenv\Dotenv')) {
-    $dotenv = \Dotenv\Dotenv::createImmutable(APP_ROOT);
-    $dotenv->safeLoad();
+    try {
+        $dotenv = \Dotenv\Dotenv::createImmutable(APP_ROOT);
+        $dotenv->safeLoad();
+    } catch (Exception $e) {
+        error_log('Dotenv load failed: ' . $e->getMessage());
+    }
 }
 
 // Initialize security functions
 if (file_exists(APP_ROOT . '/Security/load_env.php')) {
     require_once APP_ROOT . '/Security/load_env.php';
+}
+// Initialize sanitization functions
+if (file_exists(APP_ROOT . '/Security/sanitize.php')) {
+    require_once APP_ROOT . '/Security/sanitize.php';
 }
 
 // Initialize session
@@ -79,25 +82,25 @@ $routes = [
     // Home page
     '/' => [\App\Controller\HomeController::class, 'index'],
     '/index.php' => [\App\Controller\HomeController::class, 'index'],
-    
+
     // Conference pages
     '/conference.php' => [\App\Controller\ConferenceController::class, 'index'],
     '/conference' => [\App\Controller\ConferenceController::class, 'index'],
     '/conference/{roomId}' => [\App\Controller\ConferenceController::class, 'show'],
-    
+
     // Auditor page
     '/auditor.php' => [\App\Controller\AuditorController::class, 'index'],
     '/auditor' => [\App\Controller\AuditorController::class, 'index'],
     '/auditor/{roomId}' => [\App\Controller\AuditorController::class, 'show'],
-    
+
     // Remote control
     '/remote.php' => [\App\Controller\RemoteController::class, 'index'],
     '/remote' => [\App\Controller\RemoteController::class, 'index'],
-    
+
     // Subtitles
     '/subtitles.php' => [\App\Controller\SubtitlesController::class, 'index'],
     '/subtitles' => [\App\Controller\SubtitlesController::class, 'index'],
-    
+
     // API endpoints for uploads
     '/upload_handler.php' => [\App\Controller\UploadController::class, 'handle'],
     '/readupload.php' => [\App\Controller\UploadController::class, 'read'],
@@ -105,17 +108,17 @@ $routes = [
     '/readtextQ.php' => [\App\Controller\TextController::class, 'readQ'],
     '/readtextTranscriptSub.php' => [\App\Controller\TextController::class, 'readTranscriptSub'],
     '/readimage.php' => [\App\Controller\ImageController::class, 'read'],
-    
+
     // Save endpoints
     '/savetext.php' => [\App\Controller\TextController::class, 'save'],
     '/savetextQ.php' => [\App\Controller\TextController::class, 'saveQ'],
     '/saveimage.php' => [\App\Controller\ImageController::class, 'save'],
     '/saveremoteorder.php' => [\App\Controller\RemoteController::class, 'saveOrder'],
     '/savespeechforremote.php' => [\App\Controller\RemoteController::class, 'saveSpeech'],
-    
+
     // Other endpoints
     '/sendamail.php' => [\App\Controller\EmailController::class, 'send'],
-    
+
     // Extract endpoints
     '/ExtractSlidesNotes.php' => [\App\Controller\ExtractController::class, 'slidesNotes'],
     '/ExtractSlidesNotesAppHTML.php' => [\App\Controller\ExtractController::class, 'slidesNotesAppHTML'],
@@ -145,17 +148,24 @@ $match = $router->match();
 
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
-    
+
+    // Validate that we have a valid controller class
+    if (empty($controllerClass)) {
+        $match = null;
+    }
+}
+
+if ($match !== null) {
     // Check if controller exists and is instantiable
     if (class_exists($controllerClass)) {
         try {
             $controller = new $controllerClass($router);
-            
+
             // Call the action method if it exists
             if (method_exists($controller, $action)) {
                 // Clear output buffer before controller output
                 ob_clean();
-                
+
                 // Call the controller action
                 $controller->$action(...array_values($params));
                 exit;
@@ -164,20 +174,20 @@ if ($match !== null) {
                 handleLegacyRequest();
             }
         } catch (\Throwable $e) {
-            // Log error
-            error_log('Controller Error: ' . $e->getMessage());
-            
-            // For development, show error
-            if (getenv('APP_ENV') !== 'production') {
-                ob_clean();
-                echo "Error: " . $e->getMessage();
-                echo "<pre>" . $e->getTraceAsString() . "</pre>";
+            // Log error with Monolog
+            if (function_exists('log_error')) {
+                log_error('Controller Error: {error}', [
+                    'error' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString()
+                ]);
             } else {
-                // Production: show generic error
-                ob_clean();
-                http_response_code(500);
-                echo "An error occurred. Please try again later.";
+                error_log('Controller Error: ' . $e->getMessage());
             }
+
+            // Return 500 error code (error pages handled by infrastructure)
+            http_response_code(500);
             exit;
         }
     } else {
@@ -196,11 +206,11 @@ if ($match !== null) {
 function handleLegacyRequest(): void
 {
     ob_clean();
-    
+
     // Get the requested path
     $uri = $_SERVER['REQUEST_URI'] ?? '/';
     $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-    
+
     // Map URIs to old PHP files
     $legacyFiles = [
         '/' => '/index.php',
@@ -226,10 +236,14 @@ function handleLegacyRequest(): void
         '/savespeechforremote.php' => '/savespeechforremote.php',
         '/sendamail.php' => '/sendamail.php',
     ];
-    
+
     // Check if the request matches a legacy file
     $requestPath = parse_url($uri, PHP_URL_PATH);
-    
+
+    // Debug: Log the request path for troubleshooting
+    error_log('DEBUG: REQUEST_URI = ' . $_SERVER['REQUEST_URI']);
+    error_log('DEBUG: requestPath = ' . $requestPath);
+
     // Handle query strings
     if (isset($legacyFiles[$requestPath])) {
         $legacyFile = APP_ROOT . $legacyFiles[$requestPath];
@@ -240,13 +254,13 @@ function handleLegacyRequest(): void
                 $_SERVER['QUERY_STRING'] = $queryString;
                 parse_str($queryString, $_GET);
             }
-            
+
             // Include the legacy file
             require $legacyFile;
             exit;
         }
     }
-    
+
     // Try direct file mapping (e.g., /conference.php -> conference.php)
     $basename = basename($requestPath);
     if (str_ends_with($basename, '.php')) {
@@ -256,7 +270,7 @@ function handleLegacyRequest(): void
             exit;
         }
     }
-    
+
     // If we're in the public directory, check if the file exists directly
     $publicFile = APP_PUBLIC . $requestPath;
     if (file_exists($publicFile) && is_file($publicFile)) {
@@ -264,7 +278,7 @@ function handleLegacyRequest(): void
             require $publicFile;
             exit;
         }
-        
+
         // For non-PHP files, serve them directly
         $mimeTypes = [
             '.css' => 'text/css',
@@ -278,7 +292,7 @@ function handleLegacyRequest(): void
             '.woff2' => 'font/woff2',
             '.ttf' => 'font/ttf',
         ];
-        
+
         $extension = strtolower(pathinfo($publicFile, PATHINFO_EXTENSION));
         if (isset($mimeTypes[$extension])) {
             header('Content-Type: ' . $mimeTypes[$extension]);
@@ -286,10 +300,10 @@ function handleLegacyRequest(): void
             exit;
         }
     }
-    
-    // No match found - 404
+
+    // No match found - 404 (error pages handled by infrastructure)
+    error_log('DEBUG: Reached 404 handler for requestPath = /anything-not-found');
     http_response_code(404);
-    echo "404 Not Found";
     exit;
 }
 

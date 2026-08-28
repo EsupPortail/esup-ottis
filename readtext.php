@@ -1,5 +1,7 @@
 <?php
+
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 // Vérifier le room_token
 requireRoomToken();
@@ -11,25 +13,25 @@ if (!verifyCsrfRequest()) {
 }
 
 // Input validation
-$ligneID = validateLineId($_POST["lineid"] ?? 0);
-$roomid = $_POST["ROOMID"] ?? '';
-$order = validateLineId($_POST["ORDER"] ?? 0);
+$ligneID = validateLineId($_POST['lineid'] ?? 0);
+$roomid = $_POST['ROOMID'] ?? '';
+$order = validateLineId($_POST['ORDER'] ?? 0);
 
 // Validate ROOMID
 if (!validateRoomId($roomid)) {
     http_response_code(400);
-    die("Invalid ROOMID");
+    die('Invalid ROOMID');
 }
 
 $filePath = validateTmpFilePath($roomid, 'Link');
 if ($filePath === false) {
     http_response_code(400);
-    die("Invalid file path");
+    die('Invalid file path');
 }
 
 // Check if file exists
 if (!file_exists($filePath)) {
-    echo "";
+    echo '';
     exit;
 }
 
@@ -37,15 +39,13 @@ if (!file_exists($filePath)) {
 $fd = secureOpenTmpFile($roomid, 'Link', 'r');
 if ($fd === false) {
     http_response_code(403);
-    die("Access denied");
+    die('Access denied');
 }
 
-while($ligne=fgets($fd,4096)){
-    $T=explode(";",$ligne);
-    if ($T[0]*1>$ligneID*1) {
-        echo $order.";".$ligne;
+while ($ligne = fgets($fd, 4096)) {
+    $T = explode(';', $ligne);
+    if ($T[0] * 1 > $ligneID * 1) {
+        echo $order . ';' . $ligne;
     }
 }
 fclose($fd);
-
-?>

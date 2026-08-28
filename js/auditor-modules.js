@@ -1,7 +1,7 @@
 /**
  * Auditor Modules Loader
  * This file replaces auditor-func.js and loads all auditor modules
- * 
+ *
  * To use: Include this file instead of auditor-func.js
  * <script src="js/auditor-modules.js"></script>
  */

@@ -2,18 +2,19 @@
  * Display functions for auditor
  */
 
+import { _ } from '../conference/dom-helpers.js';
+
 /**
  * @summary Function that update the "notebook" div.
  * @param {string} ch - The text that is adding to the notebook.
  */
 function EcrireNB(ch) {
-    if (_('notebook').innerHTML == "") {
-        _('notebook').innerHTML = DOMPurify.sanitize(ch);
-    }
-    else _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + "<br/>" + ch);
+  if (_('notebook').innerHTML == '') {
+    _('notebook').innerHTML = window.DOMPurify.sanitize(ch);
+  } else _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
 
-    // VOBanner
-    _('VOBanner').innerHTML = DOMPurify.sanitize(ch);
+  // VOBanner
+  _('VOBanner').innerHTML = window.DOMPurify.sanitize(ch);
 }
 
 /**
@@ -21,10 +22,9 @@ function EcrireNB(ch) {
  * @param {string} ch - The text that is adding to the notebook.
  */
 function EcrireNBSub(ch) {
-    if (_('notebook').innerHTML == "") {
-        _('notebook').innerHTML = DOMPurify.sanitize(ch);
-    }
-    else _('notebook').innerHTML = DOMPurify.sanitize(_('notebook').innerHTML + "<br/>" + ch);
+  if (_('notebook').innerHTML == '') {
+    _('notebook').innerHTML = window.DOMPurify.sanitize(ch);
+  } else _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
 }
 
 /**
@@ -32,16 +32,14 @@ function EcrireNBSub(ch) {
  * @param {string} ch - The text that is adding to the notebook.
  */
 function Ecrire(ch) {
+  if (_('output').innerHTML == '') _('output').innerHTML = window.DOMPurify.sanitize(ch);
+  else _('output').innerHTML = window.DOMPurify.sanitize(`${_('output').innerHTML}<br/>${ch}`);
+  _('titre').innerHTML = window.DOMPurify.sanitize(ch);
+  // _('subtitles').innerHTML=ch;
 
-    if (_('output').innerHTML == "")
-        _('output').innerHTML = DOMPurify.sanitize(ch);
-    else _('output').innerHTML = DOMPurify.sanitize(_('output').innerHTML + "<br/>" + ch);
-    _('titre').innerHTML = DOMPurify.sanitize(ch);
-    //_('subtitles').innerHTML=ch;
-
-    //bufferWC[placebufferWC] = ch;
-    //placebufferWC = (placebufferWC + 1) % sizebufferWC;
-    //buffer_has_changed = true;
+  // bufferWC[placebufferWC] = ch;
+  // placebufferWC = (placebufferWC + 1) % sizebufferWC;
+  // buffer_has_changed = true;
 }
 
 /**
@@ -49,7 +47,8 @@ function Ecrire(ch) {
  * @param {string} e - HTML div element ID
  */
 function hideBanner(e) {
-    _(e).style.transform = 'scale(0)';
+  const el = _(e);
+  if (el) el.style.transform = 'scale(0)';
 }
 
 /**
@@ -57,5 +56,8 @@ function hideBanner(e) {
  * @param {string} e - HTML div element ID
  */
 function showBanner(e) {
-    _(e).style.transform = 'scale(1)';
+  const el = _(e);
+  if (el) el.style.transform = 'scale(1)';
 }
+
+export { EcrireNB, EcrireNBSub, Ecrire, hideBanner, showBanner };

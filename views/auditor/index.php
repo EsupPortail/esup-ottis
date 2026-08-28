@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="icon" type="image/png" href="./images/favicon.svg" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <?php foreach ($pageStyles as $style): ?>
         <link href="<?php echo $this->escape($style); ?>" rel="stylesheet">
     <?php endforeach; ?>
-    
+
     <script>
         window.pageData = <?php echo json_encode($jsVars); ?>;
         var ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
     </script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 
 </head>
@@ -73,14 +73,14 @@
             'placeholder' => 'Type your message here...',
             'labelText' => 'Classroom Chat'
         ]);
-        ?>
+	?>
     </div>
 </section>
 
 	<section id="section-notebook">
     <h2>Notebook</h2>
 	<div id="tabs-2">
-    
+
     <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the original speech in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
@@ -95,13 +95,13 @@
 
 
 
-    
+
 	<!-- Word cloud section (commented out in original) -->
 
 </form>
 <div id="FS" onclick="GoFS();"  title="Toggle fullscreen mode"><i class='material-icons' style="font-size: 41px;" >fullscreen</i></div>
 
-<dialog id="dialog-mail" style="width: 800px; height: 500px;"> 
+<dialog id="dialog-mail" style="width: 800px; height: 500px;">
   <form method="dialog">
     <fieldset>
       <legend style="display: none;">Send a mail</legend>
@@ -116,13 +116,13 @@
       <button type="submit" onclick="EnvoiMail(); return false;">Send</button>
       <button type="reset" onclick="document.getElementById('dialog-mail').close();">Cancel</button>
     </menu>
-    </fieldset> 
+    </fieldset>
   </form>
 </dialog>
 
-<dialog id="dialog-choose" style="min-width: 300px;"> 
+<dialog id="dialog-choose" style="min-width: 300px;">
   <form method="dialog">
-  <?php echo csrfField(); ?> 
+  <?php echo csrfField(); ?>
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
   <select id="VoiceOutputchoose">
   </select>

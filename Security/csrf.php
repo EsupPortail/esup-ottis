@@ -65,7 +65,9 @@ function verifyCsrfRequest(): bool
     
     if (!validateCsrfToken($token)) {
         // Log de la tentative CSRF
-        error_log('CSRF token validation failed for IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+        log_security('error', 'CSRF token validation failed for IP: {ip}', [
+            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+        ]);
         return false;
     }
     

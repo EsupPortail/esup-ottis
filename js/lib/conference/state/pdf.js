@@ -73,7 +73,7 @@ export let originalPdfControlStyle = { cssText: '', buttonStyles: [] };
 
 // Exposer sur window pour compatibilité legacy
 if (typeof window !== 'undefined') {
-    window.originalPdfControlStyle = originalPdfControlStyle;
+  window.originalPdfControlStyle = originalPdfControlStyle;
 }
 
 /** @type {string} */
@@ -110,10 +110,10 @@ export let originalPdfViewerStyle = '';
  * @param {Object|null} value - The PDF document object
  */
 export function setPdfDoc(value) {
-    pdfDoc = value;
-    if (typeof window !== 'undefined') {
-        window.pdfDoc = value;
-    }
+  pdfDoc = value;
+  if (typeof window !== 'undefined') {
+    window.pdfDoc = value;
+  }
 }
 
 /**
@@ -121,10 +121,10 @@ export function setPdfDoc(value) {
  * @param {number} value - The page number
  */
 export function setPageNum(value) {
-    pageNum = value;
-    if (typeof window !== 'undefined') {
-        window.pageNum = value;
-    }
+  pageNum = value;
+  if (typeof window !== 'undefined') {
+    window.pageNum = value;
+  }
 }
 
 /**
@@ -132,10 +132,10 @@ export function setPageNum(value) {
  * @param {boolean} value - The rendering status
  */
 export function setPageRendering(value) {
-    pageRendering = value;
-    if (typeof window !== 'undefined') {
-        window.pageRendering = value;
-    }
+  pageRendering = value;
+  if (typeof window !== 'undefined') {
+    window.pageRendering = value;
+  }
 }
 
 /**
@@ -143,10 +143,10 @@ export function setPageRendering(value) {
  * @param {number|null} value - The pending page number
  */
 export function setPageNumPending(value) {
-    pageNumPending = value;
-    if (typeof window !== 'undefined') {
-        window.pageNumPending = value;
-    }
+  pageNumPending = value;
+  if (typeof window !== 'undefined') {
+    window.pageNumPending = value;
+  }
 }
 
 /**
@@ -154,10 +154,10 @@ export function setPageNumPending(value) {
  * @param {number} value - The scale factor
  */
 export function setScale(value) {
-    scale = value;
-    if (typeof window !== 'undefined') {
-        window.scale = value;
-    }
+  scale = value;
+  if (typeof window !== 'undefined') {
+    window.scale = value;
+  }
 }
 
 /**
@@ -165,10 +165,10 @@ export function setScale(value) {
  * @param {HTMLCanvasElement|null} value - The canvas element
  */
 export function setCanvas(value) {
-    canvas = value;
-    if (typeof window !== 'undefined') {
-        window.canvas = value;
-    }
+  canvas = value;
+  if (typeof window !== 'undefined') {
+    window.canvas = value;
+  }
 }
 
 /**
@@ -176,10 +176,10 @@ export function setCanvas(value) {
  * @param {CanvasRenderingContext2D|null} value - The canvas context
  */
 export function setCtx(value) {
-    ctx = value;
-    if (typeof window !== 'undefined') {
-        window.ctx = value;
-    }
+  ctx = value;
+  if (typeof window !== 'undefined') {
+    window.ctx = value;
+  }
 }
 
 /**
@@ -187,10 +187,10 @@ export function setCtx(value) {
  * @param {Object|null} value - The current render task
  */
 export function setCurrentRenderTask(value) {
-    currentRenderTask = value;
-    if (typeof window !== 'undefined') {
-        window.currentRenderTask = value;
-    }
+  currentRenderTask = value;
+  if (typeof window !== 'undefined') {
+    window.currentRenderTask = value;
+  }
 }
 
 // =============================================================================
@@ -202,10 +202,10 @@ export function setCurrentRenderTask(value) {
  * @param {number} value - The scale factor
  */
 export function setFullscreenScale(value) {
-    fullscreenScale = value;
-    if (typeof window !== 'undefined') {
-        window.fullscreenScale = value;
-    }
+  fullscreenScale = value;
+  if (typeof window !== 'undefined') {
+    window.fullscreenScale = value;
+  }
 }
 
 /**
@@ -213,10 +213,10 @@ export function setFullscreenScale(value) {
  * @param {boolean} value - The calculation status
  */
 export function setIsCalculatingFullscreenScale(value) {
-    isCalculatingFullscreenScale = value;
-    if (typeof window !== 'undefined') {
-        window.isCalculatingFullscreenScale = value;
-    }
+  isCalculatingFullscreenScale = value;
+  if (typeof window !== 'undefined') {
+    window.isCalculatingFullscreenScale = value;
+  }
 }
 
 /**
@@ -224,10 +224,10 @@ export function setIsCalculatingFullscreenScale(value) {
  * @param {boolean} value - Whether initial dimensions have been saved
  */
 export function setHasSavedInitialDimensions(value) {
-    hasSavedInitialDimensions = value;
-    if (typeof window !== 'undefined') {
-        window.hasSavedInitialDimensions = value;
-    }
+  hasSavedInitialDimensions = value;
+  if (typeof window !== 'undefined') {
+    window.hasSavedInitialDimensions = value;
+  }
 }
 
 /**
@@ -235,10 +235,10 @@ export function setHasSavedInitialDimensions(value) {
  * @param {number} value - The initial client width
  */
 export function setInitialClientWidth(value) {
-    initialClientWidth = value;
-    if (typeof window !== 'undefined') {
-        window.initialClientWidth = value;
-    }
+  initialClientWidth = value;
+  if (typeof window !== 'undefined') {
+    window.initialClientWidth = value;
+  }
 }
 
 /**
@@ -246,10 +246,10 @@ export function setInitialClientWidth(value) {
  * @param {number} value - The initial client height
  */
 export function setInitialClientHeight(value) {
-    initialClientHeight = value;
-    if (typeof window !== 'undefined') {
-        window.initialClientHeight = value;
-    }
+  initialClientHeight = value;
+  if (typeof window !== 'undefined') {
+    window.initialClientHeight = value;
+  }
 }
 
 /**
@@ -257,10 +257,10 @@ export function setInitialClientHeight(value) {
  * @param {number} value - The original scale factor
  */
 export function setOriginalPdfScale(value) {
-    originalPdfScale = value;
-    if (typeof window !== 'undefined') {
-        window.originalPdfScale = value;
-    }
+  originalPdfScale = value;
+  if (typeof window !== 'undefined') {
+    window.originalPdfScale = value;
+  }
 }
 
 /**
@@ -268,10 +268,10 @@ export function setOriginalPdfScale(value) {
  * @param {string} value - The original canvas style
  */
 export function setOriginalCanvasStyle(value) {
-    originalCanvasStyle = value;
-    if (typeof window !== 'undefined') {
-        window.originalCanvasStyle = value;
-    }
+  originalCanvasStyle = value;
+  if (typeof window !== 'undefined') {
+    window.originalCanvasStyle = value;
+  }
 }
 
 /**
@@ -279,10 +279,10 @@ export function setOriginalCanvasStyle(value) {
  * @param {string} value - The original canvas display value
  */
 export function setOriginalCanvasDisplay(value) {
-    originalCanvasDisplay = value;
-    if (typeof window !== 'undefined') {
-        window.originalCanvasDisplay = value;
-    }
+  originalCanvasDisplay = value;
+  if (typeof window !== 'undefined') {
+    window.originalCanvasDisplay = value;
+  }
 }
 
 /**
@@ -290,10 +290,10 @@ export function setOriginalCanvasDisplay(value) {
  * @param {number} value - The original canvas width
  */
 export function setOriginalCanvasWidth(value) {
-    originalCanvasWidth = value;
-    if (typeof window !== 'undefined') {
-        window.originalCanvasWidth = value;
-    }
+  originalCanvasWidth = value;
+  if (typeof window !== 'undefined') {
+    window.originalCanvasWidth = value;
+  }
 }
 
 /**
@@ -301,10 +301,10 @@ export function setOriginalCanvasWidth(value) {
  * @param {number} value - The original canvas height
  */
 export function setOriginalCanvasHeight(value) {
-    originalCanvasHeight = value;
-    if (typeof window !== 'undefined') {
-        window.originalCanvasHeight = value;
-    }
+  originalCanvasHeight = value;
+  if (typeof window !== 'undefined') {
+    window.originalCanvasHeight = value;
+  }
 }
 
 /**
@@ -312,10 +312,10 @@ export function setOriginalCanvasHeight(value) {
  * @param {string} value - The original text band style
  */
 export function setOriginalTextBandStyle(value) {
-    originalTextBandStyle = value;
-    if (typeof window !== 'undefined') {
-        window.originalTextBandStyle = value;
-    }
+  originalTextBandStyle = value;
+  if (typeof window !== 'undefined') {
+    window.originalTextBandStyle = value;
+  }
 }
 
 /**
@@ -323,10 +323,10 @@ export function setOriginalTextBandStyle(value) {
  * @param {Object} value - The original PDF control style
  */
 export function setOriginalPdfControlStyle(value) {
-    originalPdfControlStyle = value;
-    if (typeof window !== 'undefined') {
-        window.originalPdfControlStyle = value;
-    }
+  originalPdfControlStyle = value;
+  if (typeof window !== 'undefined') {
+    window.originalPdfControlStyle = value;
+  }
 }
 
 /**
@@ -334,10 +334,10 @@ export function setOriginalPdfControlStyle(value) {
  * @param {string} value - The original text band display value
  */
 export function setOriginalTextBandDisplay(value) {
-    originalTextBandDisplay = value;
-    if (typeof window !== 'undefined') {
-        window.originalTextBandDisplay = value;
-    }
+  originalTextBandDisplay = value;
+  if (typeof window !== 'undefined') {
+    window.originalTextBandDisplay = value;
+  }
 }
 
 /**
@@ -345,10 +345,10 @@ export function setOriginalTextBandDisplay(value) {
  * @param {string} value - The original text band visibility value
  */
 export function setOriginalTextBandVisibility(value) {
-    originalTextBandVisibility = value;
-    if (typeof window !== 'undefined') {
-        window.originalTextBandVisibility = value;
-    }
+  originalTextBandVisibility = value;
+  if (typeof window !== 'undefined') {
+    window.originalTextBandVisibility = value;
+  }
 }
 
 // =============================================================================
@@ -360,10 +360,10 @@ export function setOriginalTextBandVisibility(value) {
  * @param {Element|null} value - The original text band parent element
  */
 export function setOriginalTextBandParent(value) {
-    originalTextBandParent = value;
-    if (typeof window !== 'undefined') {
-        window.originalTextBandParent = value;
-    }
+  originalTextBandParent = value;
+  if (typeof window !== 'undefined') {
+    window.originalTextBandParent = value;
+  }
 }
 
 /**
@@ -371,10 +371,10 @@ export function setOriginalTextBandParent(value) {
  * @param {Element|null} value - The original text band next sibling element
  */
 export function setOriginalTextBandNextSibling(value) {
-    originalTextBandNextSibling = value;
-    if (typeof window !== 'undefined') {
-        window.originalTextBandNextSibling = value;
-    }
+  originalTextBandNextSibling = value;
+  if (typeof window !== 'undefined') {
+    window.originalTextBandNextSibling = value;
+  }
 }
 
 /**
@@ -382,10 +382,10 @@ export function setOriginalTextBandNextSibling(value) {
  * @param {Element|null} value - The original PDF control parent element
  */
 export function setOriginalPdfControlParent(value) {
-    originalPdfControlParent = value;
-    if (typeof window !== 'undefined') {
-        window.originalPdfControlParent = value;
-    }
+  originalPdfControlParent = value;
+  if (typeof window !== 'undefined') {
+    window.originalPdfControlParent = value;
+  }
 }
 
 /**
@@ -393,10 +393,10 @@ export function setOriginalPdfControlParent(value) {
  * @param {Element|null} value - The original PDF control next sibling element
  */
 export function setOriginalPdfControlNextSibling(value) {
-    originalPdfControlNextSibling = value;
-    if (typeof window !== 'undefined') {
-        window.originalPdfControlNextSibling = value;
-    }
+  originalPdfControlNextSibling = value;
+  if (typeof window !== 'undefined') {
+    window.originalPdfControlNextSibling = value;
+  }
 }
 
 /**
@@ -404,8 +404,8 @@ export function setOriginalPdfControlNextSibling(value) {
  * @param {string} value - The original PDF viewer style
  */
 export function setOriginalPdfViewerStyle(value) {
-    originalPdfViewerStyle = value;
-    if (typeof window !== 'undefined') {
-        window.originalPdfViewerStyle = value;
-    }
+  originalPdfViewerStyle = value;
+  if (typeof window !== 'undefined') {
+    window.originalPdfViewerStyle = value;
+  }
 }

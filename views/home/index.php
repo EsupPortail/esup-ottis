@@ -17,7 +17,7 @@
                     </div>
                     HTML;
                 }
-                ?>
+            ?>
             </div>
         </div>
     </div>

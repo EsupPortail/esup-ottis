@@ -17,7 +17,7 @@ require __DIR__ . '/../vendor/autoload.php';
             <link rel="stylesheet" href="<?php echo e($style); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
-    
+
    <!-- Injection des variables PHP dans JavaScript -->
     <script>
         window.pageData = <?php echo json_encode($jsVars ?? []); ?>;
@@ -34,8 +34,8 @@ require __DIR__ . '/../vendor/autoload.php';
         <?php endforeach; ?>
     <?php endif; ?>
 
- 
-    
+
+
 
 </head>
 <body <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>

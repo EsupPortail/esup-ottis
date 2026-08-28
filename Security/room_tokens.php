@@ -24,7 +24,7 @@ function generateRoomToken($roomid) {
         $content = explode('\n', trim(file_get_contents($tokenFile)));
         $existingToken = $content[0] ?? '';
         if (!empty($existingToken)) {
-            error_log("room_tokens.php: Reusing existing token for ROOMID=$roomid");
+            log_debug("Reusing existing token for ROOMID={roomid}", ['roomid' => $roomid]);
             return $existingToken;
         }
     }
@@ -33,9 +33,9 @@ function generateRoomToken($roomid) {
     $token = bin2hex(random_bytes(16));
     $result = file_put_contents($tokenFile, $token . '\n' . time()); // Stocker le token + timestamp
     if ($result === false) {
-        error_log("room_tokens.php: Failed to write token file for ROOMID=$roomid");
+        log_error("Failed to write token file for ROOMID={roomid}", ['roomid' => $roomid]);
     }
-    error_log("room_tokens.php: Generated new token for ROOMID=$roomid");
+    log_debug("Generated new token for ROOMID={roomid}", ['roomid' => $roomid]);
     return $token;
 }
 

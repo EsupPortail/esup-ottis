@@ -4,7 +4,7 @@ namespace App\Service;
 
 /**
  * Router - Simple PSR-7 compatible router for MVC architecture
- * 
+ *
  * This router handles HTTP requests and dispatches them to the appropriate
  * controller and action method based on the request URI and method.
  */
@@ -52,31 +52,31 @@ class Router
 
     /**
      * Parse the request URI
-     * 
+     *
      * @return string The request URI without base path
      */
     private function parseUri(): string
     {
         $uri = $_SERVER['REQUEST_URI'] ?? '/';
-        
+
         // Remove query string
         if (($pos = strpos($uri, '?')) !== false) {
             $uri = substr($uri, 0, $pos);
         }
-        
+
         // Remove base path
         $basePath = $this->detectBasePath();
         if (!empty($basePath) && str_starts_with($uri, $basePath)) {
             $uri = substr($uri, strlen($basePath));
         }
-        
+
         // Ensure URI starts with /
         return '/' . ltrim($uri, '/');
     }
 
     /**
      * Detect the base path of the application
-     * 
+     *
      * @return string The base path
      */
     private function detectBasePath(): string
@@ -84,19 +84,19 @@ class Router
         // Check if we're in a subdirectory
         $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
         $scriptDir = dirname($scriptName);
-        
+
         // If running from public/index.php, the base path is the directory containing public
         if (str_ends_with($scriptName, '/public/index.php')) {
             return $scriptDir . '/public';
         }
-        
+
         // For root installation
         return '';
     }
 
     /**
      * Add a GET route
-     * 
+     *
      * @param string $path Route path (e.g., '/', '/conference')
      * @param string $controller Controller class name (e.g., 'HomeController')
      * @param string $action Action method name (e.g., 'index')
@@ -108,7 +108,7 @@ class Router
 
     /**
      * Add a POST route
-     * 
+     *
      * @param string $path Route path
      * @param string $controller Controller class name
      * @param string $action Action method name
@@ -120,7 +120,7 @@ class Router
 
     /**
      * Add a PUT route
-     * 
+     *
      * @param string $path Route path
      * @param string $controller Controller class name
      * @param string $action Action method name
@@ -132,7 +132,7 @@ class Router
 
     /**
      * Add a DELETE route
-     * 
+     *
      * @param string $path Route path
      * @param string $controller Controller class name
      * @param string $action Action method name
@@ -144,13 +144,13 @@ class Router
 
     /**
      * Match the current request to a route
-     * 
+     *
      * @return array|null [controller, action, params] or null if no match
      */
     public function match(): ?array
     {
         $method = $this->method;
-        
+
         // Try exact match first
         if (isset($this->routes[$method][$this->uri])) {
             return [
@@ -176,7 +176,7 @@ class Router
 
     /**
      * Convert a route path to a regex pattern
-     * 
+     *
      * @param string $path Route path with parameters like /conference/{roomId}
      * @return string Regex pattern
      */
@@ -184,14 +184,14 @@ class Router
     {
         // Replace {param} with named capture groups
         $pattern = preg_replace('/\{([a-zA-Z_][a-zA-Z0-9_]*)\}/', '(?P<$1>[^/]+)', $path);
-        
+
         // Ensure pattern matches from start to end
         return '#^' . $pattern . '$#';
     }
 
     /**
      * Get the current request method
-     * 
+     *
      * @return string HTTP method
      */
     public function getMethod(): string
@@ -201,7 +201,7 @@ class Router
 
     /**
      * Get the current request URI
-     * 
+     *
      * @return string Request URI
      */
     public function getUri(): string
@@ -211,7 +211,7 @@ class Router
 
     /**
      * Get route parameters
-     * 
+     *
      * @return array Route parameters
      */
     public function getParams(): array
@@ -221,7 +221,7 @@ class Router
 
     /**
      * Generate a URL for a named route
-     * 
+     *
      * @param string $path Route path
      * @param array $params Parameters to substitute
      * @return string Generated URL
@@ -233,13 +233,13 @@ class Router
         foreach ($params as $key => $value) {
             $url = str_replace('{' . $key . '}', urlencode($value), $url);
         }
-        
+
         return $this->basePath . $url;
     }
 
     /**
      * Redirect to a URL
-     * 
+     *
      * @param string $url URL to redirect to
      * @param int $statusCode HTTP status code (default: 302)
      * @return never
@@ -252,12 +252,12 @@ class Router
 
     /**
      * Check if current request is AJAX
-     * 
+     *
      * @return bool True if AJAX request
      */
     public function isAjax(): bool
     {
-        return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+        return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
                 strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 }

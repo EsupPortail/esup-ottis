@@ -6,11 +6,12 @@
  * @returns {FormData} The FormData object with CSRF token added
  */
 export function addCsrfToken(formData) {
-    let csrfToken = document.querySelector('input[name="csrf_token"]').value;
-    if (csrfToken) {
-        formData.append('csrf_token', csrfToken);
-    }
-    return formData;
+  const csrfInput = document.querySelector('input[name="csrf_token"]');
+  const csrfToken = csrfInput ? csrfInput.value : null;
+  if (csrfToken) {
+    formData.append('csrf_token', csrfToken);
+  }
+  return formData;
 }
 
 /**
@@ -29,58 +30,56 @@ export function addCsrfToken(formData) {
  * @returns {XMLHttpRequest} The configured XHR object
  */
 export function createXhrRequest(method, url, options = {}) {
-    const xhr = new XMLHttpRequest();
-    const {
-        onSuccess = null,
-        onError = null,
-        data = null,
-        timeout = 30000,
-        contentType = 'application/x-www-form-urlencoded',
-        context = url,
-        onProgress = null,
-        onUploadProgress = null
-    } = options;
+  const xhr = new XMLHttpRequest();
+  const {
+    onSuccess = null,
+    onError = null,
+    data = null,
+    timeout = 30000,
+    contentType = 'application/x-www-form-urlencoded',
+    context = url,
+    onProgress = null,
+    onUploadProgress = null,
+  } = options;
 
-    xhr.open(method, url, true);
-    xhr.timeout = timeout;
-    
-    if (method === 'POST' && data instanceof FormData) {
-        // FormData sets its own Content-Type with boundary
-    } else if (contentType) {
-        xhr.setRequestHeader('Content-Type', contentType);
+  xhr.open(method, url, true);
+  xhr.timeout = timeout;
+
+  if (method === 'POST' && data instanceof FormData) {
+    // FormData sets its own Content-Type with boundary
+  } else if (contentType) {
+    xhr.setRequestHeader('Content-Type', contentType);
+  }
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        if (onSuccess) onSuccess(xhr);
+      } else if (onError) onError(xhr, context);
     }
+  };
 
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                if (onSuccess) onSuccess(xhr);
-            } else {
-                if (onError) onError(xhr, context);
-            }
-        }
-    };
-
-    xhr.ontimeout = function() {
-        if (typeof showError !== 'undefined') {
-            showError('Request timed out', context);
-        }
-    };
-
-    xhr.onerror = function() {
-        if (typeof showError !== 'undefined') {
-            showError('Network error', context);
-        }
-    };
-
-    // Add progress event listeners if provided
-    if (onProgress && xhr.addEventListener) {
-        xhr.addEventListener('progress', onProgress, false);
+  xhr.ontimeout = function () {
+    if (typeof showError !== 'undefined') {
+      showError('Request timed out', context);
     }
-    if (onUploadProgress && xhr.upload && xhr.upload.addEventListener) {
-        xhr.upload.addEventListener('progress', onUploadProgress, false);
-    }
+  };
 
-    return xhr;
+  xhr.onerror = function () {
+    if (typeof showError !== 'undefined') {
+      showError('Network error', context);
+    }
+  };
+
+  // Add progress event listeners if provided
+  if (onProgress && xhr.addEventListener) {
+    xhr.addEventListener('progress', onProgress, false);
+  }
+  if (onUploadProgress && xhr.upload && xhr.upload.addEventListener) {
+    xhr.upload.addEventListener('progress', onUploadProgress, false);
+  }
+
+  return xhr;
 }
 
 /**
@@ -90,16 +89,16 @@ export function createXhrRequest(method, url, options = {}) {
  * @returns {Promise<Response>} The fetch response
  */
 export async function fetchWithErrorHandling(url, options = {}) {
-    try {
-        const response = await fetch(url, options);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        return response;
-    } catch (error) {
-        console.error('Fetch error:', error);
-        throw error;
+  try {
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    return response;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
 }

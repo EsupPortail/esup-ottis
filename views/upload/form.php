@@ -6,25 +6,25 @@
     <title><?php echo $this->escape($pageTitle ?? 'Upload Presentation'); ?></title>
     <link rel="icon" type="image/png" href="./images/favicon.svg">
     <link rel="stylesheet" href="./styles/index.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="/js/translatepage.js"></script>
     <script src="/js/matomo.js"></script>
 </head>
 <body>
     <h1>Upload Presentation File</h1>
-    
+
     <form action="upload_handler.php" method="POST" enctype="multipart/form-data">
         <?php echo csrfField(); ?>
-        
+
         <div>
             <label for="file">Select file (PPTX, PDF, TXT):</label>
             <input type="file" id="file" name="file" accept=".pptx,.pdf,.txt" required>
         </div>
-        
+
         <button type="submit">Upload</button>
     </form>
-    
+
     <div id="upload-status"></div>
 
     <?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>

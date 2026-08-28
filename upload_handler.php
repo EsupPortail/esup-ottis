@@ -1,4 +1,5 @@
 <?php
+
 /**
  * upload_handler.php
  * Handles presentation file upload with automatic conversion to PDF
@@ -6,6 +7,7 @@
  */
 
 require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/Security/init.php';
 
 // Vérification du token CSRF
 if (!verifyCsrfRequest()) {
@@ -25,10 +27,10 @@ file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Nouvelle requête\n", FILE
 // Log des infos du fichier
 if (isset($_FILES['presentation_file'])) {
     $file = $_FILES['presentation_file'];
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Fichier: " . $file['name'] .
-        ", Taille: " . $file['size'] .
-        ", Type: " . $file['type'] .
-        ", Error: " . $file['error'] . "\n", FILE_APPEND);
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'Fichier: ' . $file['name'] .
+        ', Taille: ' . $file['size'] .
+        ', Type: ' . $file['type'] .
+        ', Error: ' . $file['error'] . "\n", FILE_APPEND);
 }
 
 // Check if file was uploaded
@@ -66,7 +68,7 @@ if ($_FILES['presentation_file']['error'] !== UPLOAD_ERR_OK) {
             $errorMessage = 'File upload stopped by extension';
             break;
     }
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR UPLOAD: " . $errorMessage . " (code: " . $_FILES['presentation_file']['error'] . ")\n", FILE_APPEND);
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'ERREUR UPLOAD: ' . $errorMessage . ' (code: ' . $_FILES['presentation_file']['error'] . ")\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -96,7 +98,7 @@ $fileInfo = pathinfo($file['name']);
 $extension = strtolower($fileInfo['extension']);
 
 if (!in_array($extension, $allowedExtensions)) {
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: Invalid file type: " . $extension . "\n", FILE_APPEND);
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'ERREUR: Invalid file type: ' . $extension . "\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -111,7 +113,7 @@ $detectedMime = finfo_file($finfo, $file['tmp_name']);
 finfo_close($finfo);
 
 if (!in_array($detectedMime, $allowedMimeTypes)) {
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: Invalid MIME type: " . $detectedMime . "\n", FILE_APPEND);
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'ERREUR: Invalid MIME type: ' . $detectedMime . "\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -123,7 +125,7 @@ if (!in_array($detectedMime, $allowedMimeTypes)) {
 // Validate file size (50MB max)
 $maxFileSize = 50 * 1024 * 1024;
 if ($file['size'] > $maxFileSize) {
-    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR: File too large (" . $file['size'] . " bytes)\n", FILE_APPEND);
+    file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'ERREUR: File too large (' . $file['size'] . " bytes)\n", FILE_APPEND);
     http_response_code(400);
     echo json_encode([
         'status' => 'error',
@@ -176,7 +178,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
     if (!file_exists($tempProfile)) {
         mkdir($tempProfile, 0777, true);
     }
-    
+
     $command = "HOME={$tempProfile} libreoffice --headless --norestore --convert-to pdf --outdir {$escapedUploadDir} {$escapedTargetPath} 2>/dev/null";
 
     // Execute conversion
@@ -187,7 +189,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
     $maxAttempts = 10;
     $attempt = 0;
     $converted = false;
-    
+
     while ($attempt < $maxAttempts && !$converted) {
         $attempt++;
         if (file_exists($pdfPath)) {
@@ -200,7 +202,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
     // Check if conversion succeeded (focus on file existence, not return code)
     // LibreOffice may return non-zero even on success due to warnings
     if ($converted && file_exists($pdfPath)) {
-        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "SUCCÈS: Conversion réussie (attempts: " . $attempt . ")\n", FILE_APPEND);
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'SUCCÈS: Conversion réussie (attempts: ' . $attempt . ")\n", FILE_APPEND);
         // Remove original file (PPTX or ODP)
         unlink($targetPath);
         $targetPath = $pdfPath;
@@ -210,7 +212,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
         if (file_exists($targetPath)) {
             unlink($targetPath);
         }
-        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "ERREUR CONVERSION: " . implode(" ", $output) . " (attempts: " . $attempt . ")\n", FILE_APPEND);
+        file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'ERREUR CONVERSION: ' . implode(' ', $output) . ' (attempts: ' . $attempt . ")\n", FILE_APPEND);
         http_response_code(500);
         echo json_encode([
             'status' => 'error',
@@ -229,7 +231,7 @@ if ($extension === 'pptx' || $extension === 'odp') {
 $relativeUrl = '/uploads/' . basename($targetPath);
 
 // Log de la réponse
-file_put_contents($logFile, date('[Y-m-d H:i:s] ') . "Réponse: " .
+file_put_contents($logFile, date('[Y-m-d H:i:s] ') . 'Réponse: ' .
     json_encode([
         'status' => 'success',
         'file' => $targetPath,
@@ -245,4 +247,3 @@ echo json_encode([
     'url' => $relativeUrl,
     'original_extension' => $fileInfo['extension']
 ]);
-?>
