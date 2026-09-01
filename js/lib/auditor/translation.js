@@ -36,13 +36,16 @@ function Translate(ch, l, linput, lineid) {
     onSuccess(xhr) {
       const response = JSON.parse(xhr.responseText);
       if ((!response.error) && response.data.translations) {
-        window.ToSay[`${lineid}`] = (response.data.translations[0].text);
-        Ecrire(response.data.translations[0].text);
+        const translatedText = response.data.translations[0].text;
+        window.ToSay[`${lineid}`] = translatedText;
+        // Réinsérer dans ToTranslate pour traitement dans l'ordre
+        window.ToTranslate.unshift([lineid, linput, ch, l, translatedText]);
       } else {
         console.error('translation.js: Translation ERROR. Response:', response, 'Raw:', xhr.responseText);
         console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
         alert(`Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`);
-        Ecrire('---- Translation ERROR ---- (see console)');
+        // Réinsérer avec un message d'erreur
+        window.ToTranslate.unshift([lineid, linput, ch, l, '---- Translation ERROR ---- (see console)']);
       }
     },
     data: f,
@@ -115,4 +118,34 @@ function CompleteTranslation() {
   }
 }
 
-export { Translate, CompleteTranslation };
+/**
+ * @summary Reconstruit l'output avec la nouvelle langue sans re-traduire ce qui est déjà disponible
+ */
+function rebuildOutputForLanguage() {
+  // Vider l'output
+  const outputEl = document.getElementById('output');
+  if (outputEl) {
+    outputEl.innerHTML = '';
+  }
+  
+  // Vider ToTranslate pour reconstruction
+  window.ToTranslate = [];
+  
+  // Reconstruire ToTranslate depuis AllLines avec la nouvelle langue
+  if (typeof window.AllLines !== 'undefined') {
+    for (const lineId in window.AllLines) {
+      const line = window.AllLines[lineId];
+      window.ToTranslate.push([lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText]);
+    }
+  }
+  
+  // Laisser CompleteTranslation traiter toutes les lignes avec la nouvelle langue
+  CompleteTranslation();
+}
+
+// Exposer sur window pour compatibilité avec setLanguageOutputAndRetranslate
+if (typeof window !== 'undefined') {
+  window.rebuildOutputForLanguage = rebuildOutputForLanguage;
+}
+
+export { Translate, CompleteTranslation, rebuildOutputForLanguage };

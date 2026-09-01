@@ -1,20 +1,74 @@
 /* Student-specific styles - extracted from auditeur.php inline CSS */
 
-#VoiceOutput, select, input {
-    max-width: 30%;
-}
-
 #tabs-0 {
     margin-top: 50px;
     width: 100%;
 }
 
+/* Dialog choose - Modern styling */
 #dialog-choose {
-    font-size: 1.2em;
+    width: 90%;
+    max-width: 500px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    background: white;
+    padding: 0;
+    overflow: hidden;
+    font-size: 1rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-#dialog-choose select {
-    max-width: 100%;
+#dialog-choose .dialog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+}
+
+#dialog-choose h2 {
+    margin: 0 0 8px 0;
+    color: #2c3e50;
+    font-size: 1.4em;
+    text-align: center;
+    font-weight: 600;
+}
+
+#dialog-choose .dialog-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#dialog-choose label {
+    font-weight: 500;
+    color: #495057;
+}
+
+#dialog-choose .dialog-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: white;
+    transition: border-color 0.2s;
+}
+
+#dialog-choose .dialog-select:focus {
+    outline: none;
+    border-color: #2191c0;
+    box-shadow: 0 0 0 3px rgba(33, 145, 192, 0.15);
+}
+
+#dialog-choose .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
 }
 
 /* Native dialog styling */
@@ -45,11 +99,6 @@ dialog::backdrop {
     margin-left: 10px;
     padding: 8px 16px;
     cursor: pointer;
-}
-
-#dialog-choose menu {
-    margin-top: 20px;
-    text-align: right;
 }
 
 /* Native slider styling */

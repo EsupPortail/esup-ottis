@@ -86,6 +86,7 @@ function Init() {
     */
   const colorTitreEl = _('ColorTitre');
   ChangeColor('titre', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
+  ChangeColor('fixed-title', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
 
   // Keyboard navigation
   document.onkeyup = function (event) {

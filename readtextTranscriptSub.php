@@ -84,20 +84,28 @@ while ($ligne = fgets($fd)) {
 fclose($fd);
 
 writeLog("Contenu du fichier $filename: " . trim($output));
+writeLog("Contenu brut ligne par ligne:");
+$lines = explode("\n", trim($output));
+foreach ($lines as $idx => $line) {
+    writeLog("  Ligne $idx: " . trim($line));
+}
 
 if (empty(trim($output))) {
     writeLog("AVERTISSEMENT: Fichier $filename est vide.");
     echo 'INFO: Fichier vide.';
 } else {
-    // Préfixer chaque ligne avec $order
+    // Préfixer chaque ligne avec un numéro séquentiel
     $lines = explode("\n", trim($output));
     $result = '';
+    $lineNumber = 0;
     foreach ($lines as $line) {
         if (trim($line) !== '') {
-            $result .= $order . ';' . $line . "\n";
+            $result .= $lineNumber . ';' . $line . "\n";
+            $lineNumber++;
         }
     }
     writeLog('Réponse envoyée: ' . trim($result));
+    writeLog('readtextTranscriptSub.php - Nombre de lignes: ' . substr_count(trim($result), '\n') + 1);
     echo trim($result);
 }
 

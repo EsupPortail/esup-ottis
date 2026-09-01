@@ -451,3 +451,29 @@ input[type=text] {
 	width		 : 30px;
 	text-align	 : center;
 }
+
+/* Titre fixe intégré au-dessus de Settings */
+#fixed-title {
+	transition		 : 1s ease;
+	transition-property : background-color, color, box-shadow, text-shadow, font-size;
+	border-radius : 25px;
+	width			 : 100%;
+	margin-top    : 10px;
+	margin-bottom : 20px;
+	min-height	 : 64px;
+	clear		 : both;
+	background-color : rgba(0,0,255,0.5);
+	color			 : white;
+	font-size		 : 18px;
+	font-family	 : helvetica, arial, sans-serif;
+	font-style	 : italic;
+	padding		 : 10px;
+	box-shadow	 : 2px 2px 5px blue;
+	text-shadow  : 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
+#fixed-title h1 {
+	text-align	 : center;
+	font-size		 : 1.5em;
+	font-weight	 : bold;
+}

@@ -49,6 +49,9 @@ $fd = @fopen($filename, 'a');
 if ($fd) {
     fwrite($fd, $texte . "\n");
     fclose($fd);
+    
+    // Log pour debug
+    file_put_contents('/tmp/transcriptionsub_debug.log', date('Y-m-d H:i:s') . " - Écriture dans {$filename}: " . $texte . "\n", FILE_APPEND);
 
     // Retourner une réponse JSON avec succès
     echo json_encode([

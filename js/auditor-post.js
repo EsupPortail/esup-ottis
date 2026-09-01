@@ -37,6 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const voBanner = get('VOBanner');
   if (titre) makeDraggable(titre);
   if (voBanner) makeDraggable(voBanner);
+  
+  // Masquer le titre flottant par défaut
+  if (titre) {
+    titre.style.display = 'none';
+  }
 
   // When language changes, force a refresh of the chat to re-translate with new language
   const classroomLanguage = get('classroomlanguage');
@@ -95,7 +100,6 @@ function LaunchWC() {
 // Native implementations for dialogs and slider
 
 // Global variables
-builtin_discoursrate = 1.0;
 
 // Initialize dialogs and slider when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
@@ -150,6 +154,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// Toggle floating title visibility
+function toggleFloatingTitle() {
+  const titre = get('titre');
+  const button = get('toggle-floating-title');
+  if (titre) {
+    if (titre.style.display === 'none') {
+      titre.style.display = 'block';
+      if (button) button.textContent = 'Hide Floating Title';
+    } else {
+      titre.style.display = 'none';
+      if (button) button.textContent = 'Show Floating Title';
+    }
+  }
+}
+
+// Expose to window for access from HTML onclick
+window.toggleFloatingTitle = toggleFloatingTitle;
 
 // Fonction pour ouvrir le dialog de choix de langue
 window.openLanguageDialog = function () {

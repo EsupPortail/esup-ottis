@@ -45,6 +45,7 @@ if ($fd === false) {
 while ($ligne = fgets($fd, 4096)) {
     $T = explode(';', $ligne);
     if ($T[0] * 1 > $ligneID * 1) {
+        error_log('readtext.php - Ligne: ' . trim($ligne));
         echo $order . ';' . $ligne;
     }
 }

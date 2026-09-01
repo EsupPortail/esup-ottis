@@ -4,6 +4,25 @@ require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/Security/init.php';
 require_once __DIR__ . '/includes/chat-component.php';
 
+// Désactiver l'affichage des erreurs en production (comme dans conference.php)
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+// Activer le logging des erreurs
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/tmp/php_errors.log');
+error_reporting(E_ALL);
+// Empêche la mise en cache
+header('Pragma: no-cache');
+header('Expires: 0');
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+header('Cache-Control: no-cache, must-revalidate');
+
+// Load configuration (tokens, etc.) - required before including header
+require __DIR__ . '/config.php';
+
+// Set session variable for auditor (like conference.php sets 'teacher')
+$_SESSION['from'] = 'student';
+
 use App\Service\LanguageLoader;
 use App\Service\RandomNameGenerator;
 
@@ -15,6 +34,10 @@ $roomToken = generateRoomToken($classroomid);
 // Use services to load data
 $T_lang = LanguageLoader::load();
 $randomname = RandomNameGenerator::generateName();
+
+// Variables for header.php
+$language = $_GET['lang'] ?? 'fr';
+$pageTitle = 'Automatic translation for teaching purposes';
 
 $theme = 'flat';
 if (isset($_GET['theme'])) {
@@ -39,34 +62,22 @@ $jsVars = [
     'currentconfig' => $currentconfig
 ];
 
-?>
-<!doctype html>
-<html lang="fr">
-<head>
-	<title>Automatic translation for teaching purposes</title>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="icon" type="image/png" href="./images/favicon.svg" >
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+// Define page styles for header.php
+// Note: header.php already loads header.css, so we don't include it here
+$pageStyles = [
+    'styles/auditor.css',
+    'styles/auditor-specific.css',
+    'styles/chat.css',
+    'https://fonts.googleapis.com/icon?family=Material+Icons'
+];
 
-    <?php
-    // Centralized styles
-    $pageStyles = [
-        'styles/auditor.css'
-    ];
-
-// Render styles
-foreach ($pageStyles as $style) {
-    echo "<link href=\"{$style}\" rel=\"stylesheet\">\n";
-}
-?>
-
-    <?php
-// Centralized scripts to be loaded before </body>
-$pageScripts = [];
-$pageScripts[] = '/js/auditor-def.js';
-$pageScripts[] = '/js/common-func.js';
-$pageScripts[] = '/js/auditor-post.js';
+// Define page scripts for header.php
+// Note: header.php already loads DOMPurify, so we don't include it here
+$pageScripts = [
+    '/js/auditor-def.js',
+    '/js/common-func.js',
+    '/js/auditor-post.js'
+];
 
 // ES Modules for auditor
 $moduleScripts = [];
@@ -95,19 +106,29 @@ $chatScripts[] = '/js/lib/chat/handlers.js';
 $chatScripts[] = '/js/lib/chat/display.js';
 $chatScripts[] = '/js/lib/chat/main.js';
 
-// Inject pageData for JavaScript
-echo '<script>window.pageData = ' . json_encode($jsVars) . ";</script>\n";
-echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "';</script>\n";
-?>
+// Include header
+include_once __DIR__ . '/includes/header.php';
 
-    <link href="styles/auditor-specific.css" rel="stylesheet">
-    <link href="styles/chat.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-</head>
-<body>
-<main>
-<h1 style="display:none;">Outils de traduction : application étudiante</h1>
-</main>
+// Load ES Modules
+foreach ($moduleScripts as $script) {
+    echo "<script type=\"module\" src=\"{$script}\"></script>\n";
+}
+// Chat modules as ES modules
+foreach ($chatScripts as $script) {
+    echo "<script type=\"module\" src=\"{$script}\"></script>\n";
+}
+// Note: header.php already opened <main> and injected pageData/ROOM_TOKEN, so we don't need to do it again
+// Note: header.php already opened <main>, so we don't need to open it again
+
+?>
+<script>
+  // Ouvrir automatiquement le dialog de choix de langue si aucune langue n'est sélectionnée
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!localStorage.getItem('selectedLanguage') && !document.getElementById('VoiceOutput')?.value) {
+      setTimeout(() => { if (typeof window.openLanguageDialog === 'function') window.openLanguageDialog(); }, 100);
+    }
+  });
+</script>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
 <div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
@@ -117,15 +138,22 @@ echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "
 <div id="VOBanner"></div>
 <div id="soustitre"></div>
 
+<!-- Sections affichées à la suite -->
+	<!-- Titre FIXE intégré -->
+	<div id="fixed-title">
+		<h1>Subtitle</h1>
+	</div>
+
 <form id="myform" onsubmit="return false;">
 <?php echo csrfField(); ?>
-
-<!-- Sections affichées à la suite -->
 	<section id="section-settings">
     <h2>Settings</h2>
 	<div id="tabs-0">
     <h3 >Language and basic settings</h3>
     <div>
+    <div style="margin-bottom: 15px;">
+		<button type="button" id="toggle-floating-title" class="button-3" onclick="toggleFloatingTitle();">Show Floating Title</button>
+	</div>
     <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo e($classroomid); ?>" ></span>
 <span style="display:none">Pending requests : <span id="nbrequests">0</span></span>
 <span style="display:none"><label for="classroomlanguage">Classroom language :</label>
@@ -252,32 +280,19 @@ echo "<script>var ROOM_TOKEN = '" . htmlspecialchars($roomToken, ENT_QUOTES) . "
   </form>
 </dialog>
 
-<dialog id="dialog-choose" style="min-width: 300px;">
-  <form method="dialog">
+<dialog id="dialog-choose">
+  <form method="dialog" class="dialog-form">
   <?php echo csrfField(); ?>
-  <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
-  <select id="VoiceOutputchoose">
-  </select>
-  </span>
-  <menu>
-    <button type="submit" id="dialog-choose-go">Go</button>
-  </menu>
+    <h2>Choose your language</h2>
+    <div class="dialog-body">
+      <label for="VoiceOutputchoose">Select your language:</label>
+      <select id="VoiceOutputchoose" class="dialog-select"></select>
+    </div>
+    <div class="dialog-actions">
+      <button type="submit" id="dialog-choose-go" class="button-3">Go</button>
+    </div>
   </form>
 </dialog>
-<?php foreach ($pageScripts as $script) {
-    echo "<script src=\"{$script}\"></script>\n";
-}
-// ES Modules for auditor
-foreach ($moduleScripts as $script) {
-    echo "<script type=\"module\" src=\"{$script}\"></script>\n";
-}
-// Chat modules as ES modules
-foreach ($chatScripts as $script) {
-    echo "<script type=\"module\" src=\"{$script}\"></script>\n";
-}
-?>
-<?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
-    <script src="/js/tests/no-jquery-validation.js"></script>
-<?php endif; ?>
-</body>
-</html>
+<?php
+// Include footer
+include_once __DIR__ . '/includes/footer.php';

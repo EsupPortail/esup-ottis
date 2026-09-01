@@ -36,8 +36,10 @@ function applyConfigSub() {
   if (colorTitreEl) {
     colorTitreEl.selectedIndex = 1 * (config.charCodeAt(3) - 65);
     ChangeColor('titre', colorTitreEl.value);
+    ChangeColor('fixed-title', colorTitreEl.value);
   } else {
     ChangeColor('titre', '0,0,255|0,0,255');
+    ChangeColor('fixed-title', '0,0,255|0,0,255');
   }
   // ColorPartialTitre
   _('ColorPartialTitre').selectedIndex = 1 * (config.charCodeAt(5) - 65);
@@ -45,15 +47,18 @@ function applyConfigSub() {
   // selectfontsize
   _('selectfontsize').selectedIndex = 1 * (config.charCodeAt(6) - 65);
   _('titre').style.fontSize = _('selectfontsize').value;
+  _('fixed-title').style.fontSize = _('selectfontsize').value;
   _('VOBanner').style.fontSize = _('selectfontsize').value;
   // selectopacity
   const selectOpacityEl = _('selectopacity');
   if (selectOpacityEl) {
     selectOpacityEl.selectedIndex = 1 * (config.charCodeAt(9) - 65);
     ChangeOpacity('titre', selectOpacityEl.value);
+    ChangeOpacity('fixed-title', selectOpacityEl.value);
     ChangeOpacity('VOBanner', selectOpacityEl.value);
   } else {
     ChangeOpacity('titre', '0.5');
+    ChangeOpacity('fixed-title', '0.5');
     ChangeOpacity('VOBanner', '0.5');
   }
 

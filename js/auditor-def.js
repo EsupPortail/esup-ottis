@@ -7,7 +7,7 @@ const theme = window.pageData ? window.pageData.theme : 'flat';
 const randomname = window.pageData ? window.pageData.randomname : '';
 
 const visioactive = false;
-const builtin_discoursrate = 1;
+let builtin_discoursrate = 1;
 // builtin_voice and builtin_language are defined globally (without let/var/const)
 // so they can be modified by common-func.js setLanguageOutput/Input functions
 builtin_voice = null;
@@ -33,8 +33,8 @@ window.lastNotebookVOContent = lastNotebookVOContent;
 
 const currentrandom = 0;
 
-const firsttime = true;
-const firstclick = false;
+let firsttime = true;
+let firstclick = false;
 
 // Expose all variables to window for ES modules compatibility
 window.ToSay = ToSay;
@@ -82,6 +82,7 @@ function Ecrire(ch) {
   if (_('output').innerHTML == '') _('output').innerHTML = window.DOMPurify.sanitize(ch);
   else _('output').innerHTML = window.DOMPurify.sanitize(`${_('output').innerHTML}<br/>${ch}`);
   _('titre').innerHTML = window.DOMPurify.sanitize(ch);
+  _('fixed-title').innerHTML = window.DOMPurify.sanitize(ch);
 }
 
 // Exposer au niveau window pour compatibilité

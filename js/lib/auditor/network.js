@@ -50,18 +50,16 @@ function readText() {
                     currentLang = window.builtin_language.substr(0, 2);
                   }
 
-                  if (L.length >= 3 && L[2] && currentLang === L[2].substr(0, 2)) {
-                    Ecrire(sourceText);
-                    EcrireNB(sourceText);
-                    window.ToSay[`${L[0]}`] = sourceText;
-                  } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
-                    Ecrire(targetText);
-                    EcrireNB(sourceText);
-                    window.ToSay[`${L[0]}`] = targetText;
-                  } else {
-                    window.ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);
-                    EcrireNB(sourceText);
-                  }
+                  // Toujours ajouter au notebook
+                  EcrireNB(sourceText);
+
+                  // Stocker les métadonnées pour reconstruction lors du changement de langue
+                  if (typeof window.AllLines === 'undefined') window.AllLines = {};
+                  window.AllLines[L[1]] = {sourceLang, sourceText, targetLang, targetText};
+
+                  // Toujours ajouter à ToTranslate pour traitement dans l'ordre
+                  // CompleteTranslation gérera l'affichage dans l'output et ne traduira que si nécessaire
+                  window.ToTranslate.push([L[1], sourceLang, sourceText, targetLang, targetText]);
                 }
               }
             }
@@ -122,12 +120,15 @@ function readTextSub() {
 
                   if (L.length >= 3 && L[2] && currentLang === L[2].substr(0, 2)) {
                     EcrireNBSub(sourceText);
-                    window.ToSay[`${L[0]}`] = sourceText;
+                    window.ToSay[`${L[1]}`] = sourceText;
                   } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
                     EcrireNBSub(targetText);
-                    window.ToSay[`${L[0]}`] = targetText;
+                    window.ToSay[`${L[1]}`] = targetText;
                   } else {
-                    window.ToTranslate.push([L[0], sourceLang, sourceText, targetLang, targetText]);
+                    // Stocker les métadonnées pour reconstruction lors du changement de langue
+                    if (typeof window.AllLines === 'undefined') window.AllLines = {};
+                    window.AllLines[L[1]] = {sourceLang, sourceText, targetLang, targetText};
+                    window.ToTranslate.push([L[1], sourceLang, sourceText, targetLang, targetText]);
                   }
                 }
               }
@@ -146,7 +147,8 @@ function readTextSub() {
 }
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for transcribed subtitles application.
+ * @summary Verify if there is something new in the MAIN queue for transcribed subtitles application.
+ * Modifié pour gérer output selon la langue choisie
  */
 function readTextSubTranscript() {
   if (_('classroomid').value != '') {
@@ -164,41 +166,218 @@ function readTextSubTranscript() {
         decreasependingrequests();
         const T = xhr.responseText.split('\n');
 
-        // Construire le contenu complet du notebook VO
-        let newContent = '';
+        // Construire le contenu complet du notebook Sub (sous-titres) avec tri par ordre
+        let lines = [];
         for (let i = 0; i < T.length; i++) {
           const line = T[i].trim();
           if (line) {
             const parts = line.split(';');
-            if (parts.length > 1 && parts[1]) {
-              if (newContent !== '') {
-                newContent += '<br/>';
-              }
-              newContent += parts[1];
+            if (parts.length > 1) {
+              lines.push({
+                order: parseInt(parts[0], 10),
+                content: parts.slice(1).join(';')
+              });
             }
           }
         }
-
-        // Ne mettre à jour que si le contenu a changé
-        if (newContent !== window.lastNotebookVOContent && newContent !== '') {
-          window.lastNotebookVOContent = newContent;
-
-          // Mettre à jour VOBanner et notebook avec le contenu complet
-          _('VOBanner').innerHTML = window.DOMPurify.sanitize(newContent);
-          _('notebook').innerHTML = window.DOMPurify.sanitize(newContent);
-        } else if (newContent === '') {
-        } else {
+        // Trier par ordre numérique
+        lines.sort((a, b) => a.order - b.order);
+        // Concaténer dans l'ordre
+        let notebookContent = '';
+        for (let i = 0; i < lines.length; i++) {
+          if (i > 0) {
+            notebookContent += '<br/>';
+          }
+          notebookContent += lines[i].content;
         }
-        // console.log('Readtext get : '+xhr.responseText);
+
+        // Mettre à jour VOBanner et notebook avec le contenu des sous-titres
+        if (notebookContent !== window.lastNotebookVOContent && notebookContent !== '') {
+          window.lastNotebookVOContent = notebookContent;
+          _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookContent);
+          _('notebook').innerHTML = window.DOMPurify.sanitize(notebookContent);
+        }
+
+        // === NOUVEAU: Récupérer aussi le notebook VO et appliquer la logique pour output ===
+        updateOutputBasedOnLanguage();
       },
       data: f,
       timeout: 10000,
       context: 'readTextSubTranscript',
     });
     requestTranscriptSub.send(f);
-
-    // Old commented code - removed for clarity
   }
+}
+
+/**
+ * Met à jour output en fonction de la langue choisie
+ * - Si langue choisie == langue source de conference → output = notebookVO
+ * - Si langue choisie == langue subtitle de conference → output = notebook
+ * - Sinon → output = notebookVO (sera traduit par le système existant)
+ */
+function updateOutputBasedOnLanguage() {
+  const roomId = _('classroomid')?.value;
+  const roomToken = window.ROOM_TOKEN || '';
+  const config = window.pageData?.currentconfig || '';
+  const supportedLanguages = window.pageData?.supportedlanguages || [];
+  const selectedLangSelect = _('classroomlanguage');
+
+  if (!roomId || !config || config.length < 2 || !selectedLangSelect || !supportedLanguages.length) {
+    return;
+  }
+
+  // Récupérer les codes de langue depuis les indexes
+  const getLangCode = (index) => {
+    if (supportedLanguages[index]) {
+      return supportedLanguages[index].code;
+    }
+    return null;
+  };
+
+  const sourceLangIndex = config.charCodeAt(0) - 65;
+  const subtitleLangIndex = config.charCodeAt(1) - 65;
+  const selectedLangIndex = selectedLangSelect.selectedIndex;
+
+  const sourceLangCode = getLangCode(sourceLangIndex);
+  const subtitleLangCode = getLangCode(subtitleLangIndex);
+  const selectedLangCode = getLangCode(selectedLangIndex);
+
+  if (!sourceLangCode || !subtitleLangCode || !selectedLangCode) {
+    return;
+  }
+
+  // Récupérer le contenu de Verylast (notebookVO)
+  fetchVerylastContent(roomId, roomToken, (notebookVOContent) => {
+    // Récupérer le contenu de VerylastSub (notebook)
+    fetchVerylastSubContent(roomId, roomToken, (notebookSubContent) => {
+      let outputContent = '';
+
+      if (selectedLangCode === sourceLangCode) {
+        // Langue choisie = langue source → afficher notebookVO
+        outputContent = notebookVOContent;
+      } else if (selectedLangCode === subtitleLangCode) {
+        // Langue choisie = langue subtitle → afficher notebook
+        outputContent = notebookSubContent;
+      } else {
+        // Langue choisie différente → afficher notebookVO (sera traduit par le système existant)
+        outputContent = notebookVOContent;
+      }
+
+      // Remplir output si ce n'est pas déjà fait
+      const outputEl = _('output');
+      if (outputEl && outputContent && outputEl.innerHTML === '') {
+        outputEl.innerHTML = window.DOMPurify.sanitize(outputContent);
+      }
+    });
+  });
+}
+
+/**
+ * Récupère le contenu de Verylast_{roomId}
+ */
+function fetchVerylastContent(roomId, roomToken, callback) {
+  if (!roomId) {
+    callback('');
+    return;
+  }
+
+  const f = new FormData();
+  f.append('lineid', 0);
+  f.append('ORDER', 1);
+  f.append('ROOMID', roomId);
+  f.append('room_token', roomToken);
+  addCsrfToken(f);
+
+  const request = createXhrRequest('POST', 'readtextVO.php', {
+    onSuccess(xhr) {
+      const T = xhr.responseText.split('\n');
+      let lines = [];
+      for (let i = 0; i < T.length; i++) {
+        const line = T[i].trim();
+        if (line) {
+          const parts = line.split(';');
+          if (parts.length > 1) {
+            lines.push({
+              order: parseInt(parts[0], 10),
+              content: parts.slice(1).join(';')
+            });
+          }
+        }
+      }
+      // Trier par ordre numérique
+      lines.sort((a, b) => a.order - b.order);
+      // Concaténer dans l'ordre
+      let content = '';
+      for (let i = 0; i < lines.length; i++) {
+        if (i > 0) {
+          content += '<br/>';
+        }
+        content += lines[i].content;
+      }
+      callback(content);
+    },
+    onError() {
+      callback('');
+    },
+    data: f,
+    timeout: 5000,
+    context: 'fetchVerylastContent'
+  });
+  request.send(f);
+}
+
+/**
+ * Récupère le contenu de VerylastSub_{roomId}
+ */
+function fetchVerylastSubContent(roomId, roomToken, callback) {
+  if (!roomId) {
+    callback('');
+    return;
+  }
+
+  const f = new FormData();
+  f.append('lineid', 0);
+  f.append('ORDER', 1);
+  f.append('ROOMID', roomId);
+  f.append('room_token', roomToken);
+  addCsrfToken(f);
+
+  const request = createXhrRequest('POST', 'readtextTranscriptSub.php', {
+    onSuccess(xhr) {
+      const T = xhr.responseText.split('\n');
+      let lines = [];
+      for (let i = 0; i < T.length; i++) {
+        const line = T[i].trim();
+        if (line) {
+          const parts = line.split(';');
+          if (parts.length > 1) {
+            lines.push({
+              order: parseInt(parts[0], 10),
+              content: parts.slice(1).join(';')
+            });
+          }
+        }
+      }
+      // Trier par ordre numérique
+      lines.sort((a, b) => a.order - b.order);
+      // Concaténer dans l'ordre
+      let content = '';
+      for (let i = 0; i < lines.length; i++) {
+        if (i > 0) {
+          content += '<br/>';
+        }
+        content += lines[i].content;
+      }
+      callback(content);
+    },
+    onError() {
+      callback('');
+    },
+    data: f,
+    timeout: 5000,
+    context: 'fetchVerylastSubContent'
+  });
+  request.send(f);
 }
 
 /**
@@ -228,4 +407,5 @@ function readImage() {
     request.send(f);
   }
 }
+
 export { readText, readTextSub, readTextSubTranscript, readImage };

@@ -25,9 +25,15 @@ js/cov
 *.swp
 *~
 
+# Ignore backup files
+*.bak
+
 # Ignore Mistral Vibe configuration
 .vibe/
 AGENTS.md
+
+# Ignore test files
+public/test_*.php
 
 # Ignore test directory
 test/

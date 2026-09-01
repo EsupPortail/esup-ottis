@@ -337,6 +337,7 @@ if ($roomId != 'UNKNOWN') {
             if ($fd !== false) {
                 fputcsv($fd, [$lineid, $lang, $result], ';');
                 fclose($fd);
+                safe_log("Translate.php - Écriture dans Verylast_{$roomId}: lineid={$lineid}, lang={$lang}, result=" . substr($result, 0, 100) . "\n");
             } else {
                 safe_log("Impossible d'ouvrir '$verylastFile' en écriture\n");
             }

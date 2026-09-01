@@ -23,6 +23,7 @@ function Parle(txt) {
  */
 function ParleThen(txt, f) {
   _('titre').innerHTML = window.DOMPurify.sanitize(txt);
+  _('fixed-title').innerHTML = window.DOMPurify.sanitize(txt);
   if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly && builtin_voice.lang) {
     const discours = new SpeechSynthesisUtterance(txt);
     discours.voice = builtin_voice;

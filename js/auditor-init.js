@@ -11,7 +11,8 @@ import { Parle, ParleThen, CompleteSpeech } from './lib/auditor/speech.js';
 import { readText, readTextSub, readTextSubTranscript, readImage } from './lib/auditor/network.js';
 
 import { initChatAlert } from './lib/chat/alert.js';
-import { loadVoicesWhenAvailable } from './lib/conference/index.js';
+import { loadVoicesWhenAvailable, setLanguageOutput } from './lib/conference/index.js';
+import { rebuildOutputForLanguage } from './lib/auditor/translation.js';
 
 // Get user name from DOM
 const userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : window.randomname;
@@ -48,6 +49,15 @@ function initializeAuditor() {
   window.readTextSub = readTextSub;
   window.readTextSubTranscript = readTextSubTranscript;
   window.readImage = readImage;
+
+  // ===== NOUVEAU: Surcharger setLanguageOutputAndRetranslate pour l'auditor =====
+  // Utiliser rebuildOutputForLanguage au lieu de recharger() pour économiser les ressources
+  if (typeof rebuildOutputForLanguage === 'function') {
+    window.setLanguageOutputAndRetranslate = function(i) {
+      setLanguageOutput(i);
+      rebuildOutputForLanguage();
+    };
+  }
 
   // Load voices when available
   if (typeof loadVoicesWhenAvailable === 'function') {
