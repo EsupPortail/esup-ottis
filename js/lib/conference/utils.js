@@ -1,7 +1,7 @@
 import { builtin_language, currentscroll, scale, timenew_question, setTimenewQuestion } from './state.js';
 
 import { _, openDialog } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 
 import { ROOM_TOKEN } from './compat.js';
 
@@ -127,15 +127,15 @@ export function saveremotespeech() {
       f.append('room_token', ROOM_TOKEN);
       addCsrfToken(f);
 
-      const request = createXhrRequest('POST', 'savespeechforremote.php', {
-        onSuccess(xhr) {
-          const data = xhr.responseText;
+      const request = createFetchRequest('POST', 'savespeechforremote.php', {
+        onSuccess(response) {
+          const data = response.responseText;
         },
         data: f,
         timeout: 10000,
         context: 'saveremotespeech',
       });
-      request.send(f);
+      request.send();
     }
   }
 }

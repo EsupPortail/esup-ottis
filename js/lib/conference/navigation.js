@@ -4,7 +4,7 @@ import { formateresponse } from './utils.js';
 import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
 
 import { _ } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 
 /** @module conference/navigation */
 
@@ -136,18 +136,20 @@ export function SlideNotes() {
   formdata.append('ACCESS', _('classroomid').value);
   addCsrfToken(formdata);
 
-  const xhr = createXhrRequest('POST', scriptfile, {
+  const request = createFetchRequest('POST', scriptfile, {
     data: formdata,
     timeout: time,
     context: 'SlideNotes',
     onUploadProgress: progressHandler,
     onSuccess: completeHandler,
+    onError(response, context) {
+      if (response.status === 0 && response.statusText === 'Timeout') {
+        _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
+        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
+      }
+    },
   });
-  xhr.ontimeout = (e) => {
-    _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
-    alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
-  };
-  xhr.send(formdata);
+  request.send();
 }
 
 export function reduceToolbar() {

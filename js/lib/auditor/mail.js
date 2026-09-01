@@ -20,21 +20,21 @@ function EnvoiMail() {
   // Ajouter le token CSRF pour la protection
   addCsrfToken(FD);
 
-  const XHR = createXhrRequest('POST', 'sendamail.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'sendamail.php', {
+    onSuccess(response) {
       alert('Mail sent.');
     },
-    onError(xhr, context) {
-      alert('Error, the mail cannot be sent.');
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        alert('Error, the mail cannot be sent.');
+      }
     },
     data: FD,
     timeout: 10000,
     context: 'EnvoiMail',
   });
-  XHR.addEventListener('error', (event) => {
-    alert('Error, the mail cannot be sent.');
-  });
-  XHR.send(FD);
+  request.send();
   // dialog.dialog( "close" );
 }
 

@@ -1,7 +1,7 @@
 import { StudentToSay, StudentToTranslate2, Studentcompletespeechactive, Studentcurrentdiscours, Studentgotolive, builtin_language, builtin_voice, currentdiscours, lastPartialTranslation, lastSentenceTranslated, readytotalk, subtitle_language, setLastSentenceTranslated, LiveTranslationNum, LiveTranslationFreq, setLiveTranslationNum } from './state.js';
 
 import { _ } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 import { Ecrire, EcrireNB, EcrireNBonly, EcrireNBonlyVO, EcrirePartial, saveText, saveTextWithTranslation } from './notebook.js';
 import { Parle } from './voices.js';
 
@@ -33,15 +33,21 @@ export function StudentTranslate2(ch, l, linput, lineid) {
   // Ajouter le token CSRF
   addCsrfToken(formData);
 
-  const xhr = createXhrRequest('POST', 'Translate.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'Translate.php', {
+    onSuccess(response) {
       StudentCompleteTranslation2();
+    },
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('Translation request failed. Context:', context);
+      }
     },
     data: formData,
     timeout: 10000,
     context: 'StudentTranslate2',
   });
-  xhr.send(formData);
+  request.send();
 }
 
 export function StudentCompleteTranslation2() {
@@ -171,38 +177,37 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
   const d_begin = Date.now();
   addCsrfToken(formData);
 
-  const xhr = createXhrRequest('POST', 'Translate.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'Translate.php', {
+    onSuccess(response) {
       const d_end = Date.now();
       try {
-        const response = JSON.parse(xhr.responseText);
+        const parsedResponse = JSON.parse(response.responseText);
 
-        if (response && !response.error && response.data && response.data.translations
-                    && response.data.translations[0] && response.data.translations[0].text) {
-          setLastSentenceTranslated(response.data.translations[0].text);
-          f(response.data.translations[0].text);
+        if (parsedResponse && !parsedResponse.error && parsedResponse.data && parsedResponse.data.translations
+                    && parsedResponse.data.translations[0] && parsedResponse.data.translations[0].text) {
+          setLastSentenceTranslated(parsedResponse.data.translations[0].text);
+          f(parsedResponse.data.translations[0].text);
         } else {
-          console.error('Erreur de traduction. Réponse :', response);
+          console.error('Erreur de traduction. Réponse :', parsedResponse);
           f('---- Translation ERROR ----');
         }
       } catch (error) {
-        console.error('Erreur de parsing JSON :', error, 'Réponse brute :', xhr.responseText);
+        console.error('Erreur de parsing JSON :', error, 'Réponse brute :', response.responseText);
         f('---- JSON Parse ERROR ----');
       }
     },
-    onError(xhr, context) {
-      console.error('Erreur HTTP :', xhr.status, xhr.statusText);
-      f(`---- HTTP ERROR ${xhr.status} ----`);
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('Erreur HTTP :', response.status, response.statusText);
+        f(`---- HTTP ERROR ${response.status} ----`);
+      }
     },
     data: formData,
     timeout: 10000,
     context: 'TranslateThen',
   });
-  xhr.onerror = function () {
-    console.error('Erreur réseau dans TranslateThen.');
-    f('---- Network ERROR ----');
-  };
-  xhr.send(formData);
+  request.send();
 }
 
 export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {

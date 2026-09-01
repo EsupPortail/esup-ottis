@@ -20,7 +20,7 @@ import { updateUsers } from './config.js';
 import { EcrireCR, AbortTimeout, ROOM_TOKEN } from './compat.js';
 
 import { _ } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 
 /** @module conference/notebook */
 
@@ -119,57 +119,31 @@ export function EcrirePartial(ch) {
   // Créer la requête GET avec les paramètres encodés
   const url = `TranscriptionSub.php?texte=${encodeURIComponent(ch)}&ROOMID=${encodeURIComponent(roomId)}`;
 
-  const xhr = createXhrRequest('GET', url, {
-    onSuccess(xhr) {
-      if (xhr.responseText.trim() !== '') {
+  const request = createFetchRequest('GET', url, {
+    onSuccess(response) {
+      if (response.responseText.trim() !== '') {
         try {
-          const data = JSON.parse(xhr.responseText);
+          const data = JSON.parse(response.responseText);
           if (data.status === 'error') {
             console.error('Erreur serveur :', data.message);
           }
         } catch (error) {
-          console.error('Erreur de parsing JSON. Réponse brute :', xhr.responseText);
+          console.error('Erreur de parsing JSON. Réponse brute :', response.responseText);
         }
       } else {
         console.error('Réponse vide du serveur.');
       }
     },
-    onError(xhr, context) {
-      console.error('Erreur HTTP :', xhr.status, xhr.responseText);
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('Erreur HTTP :', response.status, response.responseText);
+      }
     },
+    timeout: 10000,
+    context: 'Transcription',
   });
-    /* if (ch != 'undefined' && ch != undefined) _('partialtitre').innerHTML = ch;
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "TranscriptionSub.php?texte=" + ch + "&ROOMID=" + _('classroomid').value, true); */
-
-  /* xhr.open("POST", "TranscriptionSub.php", true);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-    let params = `texte=${encodeURIComponent(ch)}&ROOMID=${encodeURIComponent(_('classroomid').value)}`;
-    xhr.addEventListener("load", function (e) {let data=JSON.parse(e.target.responseText);}, false);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                try {
-                    let data = JSON.parse(xhr.responseText);
-
-                    if (data.status === 'error') {
-                        console.error("Erreur serveur :", data.message);
-                    }
-                } catch (error) {
-                    console.error("Erreur de parsing JSON. Réponse brute :", xhr.responseText);
-                }
-            } else {
-                console.error("Erreur HTTP :", xhr.status, xhr.responseText);
-            }
-        }
-    }; */
-
-  xhr.onerror = function () {
-    console.error('Erreur de requête.');
-  };
-  xhr.send();
-  AbortTimeout(xhr, 'Transcription');
+  request.send();
 }
 
 export function Ecrire(ch) {
@@ -196,12 +170,12 @@ export function saveText(ch) {
   f.append('room_token', ROOM_TOKEN);
   addCsrfToken(f);
 
-  const request = createXhrRequest('POST', 'savetext.php', {
+  const request = createFetchRequest('POST', 'savetext.php', {
     data: f,
     timeout: 10000,
     context: 'saveText',
   });
-  request.send(f);
+  request.send();
 
   //	request.onload = function(event) {};
 }
@@ -228,12 +202,12 @@ export function saveTextWithTranslation(sourceText, translatedText) {
   f.append('room_token', ROOM_TOKEN);
   addCsrfToken(f);
 
-  const request = createXhrRequest('POST', 'savetext.php', {
+  const request = createFetchRequest('POST', 'savetext.php', {
     data: f,
     timeout: 10000,
     context: 'saveTextWithTranslation',
   });
-  request.send(f);
+  request.send();
 }
 
 export function saveTextNB(ch) {
@@ -244,58 +218,65 @@ export function saveTextNB(ch) {
 export function readTextQ() {
   const classroomidEl = _('classroomid');
   if (classroomidEl && classroomidEl.value != '') {
-    const request = new XMLHttpRequest();
-    request.open('POST', 'readtextQ.php');
     const f = new FormData();
     f.append('lineid', 0);
     f.append('ROOMID', classroomidEl.value);
     f.append('room_token', ROOM_TOKEN);
     addCsrfToken(f);
-    request.send(f);
-    if (typeof AbortTimeout !== 'undefined') {
-      AbortTimeout(request, 'readTextQ');
-    }
-    request.onload = function (event) {
-      const Told = request.responseText.split('\n');
-      const k = 0;
-      const T = [];
-      for (let i = 0; i < Told.length; i++) {
-        if (Told[i].split(';').length > 2) T.push(Told[i]);
-      }
-      const nbnewQ = 0;
-      for (let i = inputnumberQ; i < T.length; i++) {
-        const L = T[i].split(';');
-        // Safety check - ensure L has enough elements
-        if (L.length < 3) continue;
 
-        if (L[2].indexOf('[newstudentarrived]') >= 0) {
-          setNBconnectedusers(NBconnectedusers + 1);
-          Tconnectedusers.push(L[0]);
-          updateUsers();
-        } else if (L[2].indexOf('[newstudentlived]') >= 0) {
-          setNBconnectedusers(NBconnectedusers - 1);
-          removeFromTconnectedusers(L[0]);
-          updateUsers();
-        } else {
-          setNbnewQ(nbnewQ + 1);
-          // Ensure L[1] exists and builtin_language is a string before accessing substr
-          if (L.length >= 2 && typeof builtin_language === 'string' && builtin_language && L[1] && L[1].substr) {
-            if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
-              TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
-            } else if (true) {
-              EcrireCR(L[0], L[2], i);
-            }
-          } else if (L.length >= 1) {
-            // Fallback if L[1] is missing
-            if (true) {
-              EcrireCR(L[0], L[2], i);
+    const request = createFetchRequest('POST', 'readtextQ.php', {
+      onSuccess(response) {
+        const Told = response.responseText.split('\n');
+        const k = 0;
+        const T = [];
+        for (let i = 0; i < Told.length; i++) {
+          if (Told[i].split(';').length > 2) T.push(Told[i]);
+        }
+        const nbnewQ = 0;
+        for (let i = inputnumberQ; i < T.length; i++) {
+          const L = T[i].split(';');
+          // Safety check - ensure L has enough elements
+          if (L.length < 3) continue;
+
+          if (L[2].indexOf('[newstudentarrived]') >= 0) {
+            setNBconnectedusers(NBconnectedusers + 1);
+            Tconnectedusers.push(L[0]);
+            updateUsers();
+          } else if (L[2].indexOf('[newstudentlived]') >= 0) {
+            setNBconnectedusers(NBconnectedusers - 1);
+            removeFromTconnectedusers(L[0]);
+            updateUsers();
+          } else {
+            setNbnewQ(nbnewQ + 1);
+            // Ensure L[1] exists and builtin_language is a string before accessing substr
+            if (L.length >= 2 && typeof builtin_language === 'string' && builtin_language && L[1] && L[1].substr) {
+              if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
+                TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
+              } else if (true) {
+                EcrireCR(L[0], L[2], i);
+              }
+            } else if (L.length >= 1) {
+              // Fallback if L[1] is missing
+              if (true) {
+                EcrireCR(L[0], L[2], i);
+              }
             }
           }
         }
-      }
-      if (nbnewQ > 0) EventNewQuestion();
-      setInputnumberQ(T.length);
-    };
+        if (nbnewQ > 0) EventNewQuestion();
+        setInputnumberQ(T.length);
+      },
+      onError(response, context) {
+        // Ignorer les timeouts de polling (comportement normal)
+        if (response.status !== 0 || response.statusText !== 'Timeout') {
+          console.error('readTextQ request failed. Context:', context);
+        }
+      },
+      data: f,
+      timeout: 10000,
+      context: 'readTextQ',
+    });
+    request.send();
   }
 }
 
@@ -314,18 +295,18 @@ export function TranslateQ(ch, l, linput, name, order) {
 
   addCsrfToken(formData);
 
-  const xhr = createXhrRequest('POST', 'Translate.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'Translate.php', {
+    onSuccess(response) {
       try {
-        const response = JSON.parse(xhr.responseText);
+        const parsedResponse = JSON.parse(response.responseText);
 
-        if (response && !response.error && response.data && response.data.translations) {
-          const translatedText = response.data.translations[0].text;
+        if (parsedResponse && !parsedResponse.error && parsedResponse.data && parsedResponse.data.translations) {
+          const translatedText = parsedResponse.data.translations[0].text;
           if (true) {
             EcrireCR(name, translatedText, order);
           }
         } else {
-          console.error('Erreur de traduction. Réponse :', response);
+          console.error('Erreur de traduction. Réponse :', parsedResponse);
           if (true) {
             EcrireCR(name, '---- Translation ERROR ----', order);
           }
@@ -337,21 +318,18 @@ export function TranslateQ(ch, l, linput, name, order) {
         }
       }
     },
-    onError(xhr, context) {
-      console.error('Erreur HTTP :', xhr.status);
-      if (true) {
-        EcrireCR(name, `---- HTTP ERROR ${xhr.status} ----`, order);
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('Erreur HTTP :', response.status);
+        if (true) {
+          EcrireCR(name, `---- HTTP ERROR ${response.status} ----`, order);
+        }
       }
     },
     data: formData,
     timeout: 10000,
     context: 'TranslateQ',
   });
-  xhr.onerror = function () {
-    console.error('Erreur réseau dans TranslateQ.');
-    if (true) {
-      EcrireCR(name, '---- Network ERROR ----', order);
-    }
-  };
-  xhr.send(formData);
+  request.send();
 }

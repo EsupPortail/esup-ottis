@@ -32,32 +32,37 @@ function Translate(ch, l, linput, lineid) {
   f.append('lineid', lineid);
   addCsrfToken(f);
 
-  const xhr = createXhrRequest('POST', 'Translate.php', {
-    onSuccess(xhr) {
-      const response = JSON.parse(xhr.responseText);
-      if ((!response.error) && response.data.translations) {
-        const translatedText = response.data.translations[0].text;
+  const request = createFetchRequest('POST', 'Translate.php', {
+    onSuccess(response) {
+      const parsedResponse = JSON.parse(response.responseText);
+      if ((!parsedResponse.error) && parsedResponse.data.translations) {
+        const translatedText = parsedResponse.data.translations[0].text;
         window.ToSay[`${lineid}`] = translatedText;
         // Réinsérer dans ToTranslate pour traitement dans l'ordre
         window.ToTranslate.unshift([lineid, linput, ch, l, translatedText]);
       } else {
-        console.error('translation.js: Translation ERROR. Response:', response, 'Raw:', xhr.responseText);
+        console.error('translation.js: Translation ERROR. Response:', parsedResponse, 'Raw:', response.responseText);
         console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
         alert(`Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`);
         // Réinsérer avec un message d'erreur
         window.ToTranslate.unshift([lineid, linput, ch, l, '---- Translation ERROR ---- (see console)']);
       }
+      decreasependingrequests();
+      CompleteTranslation();
+    },
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('translation.js: Translation request failed. Context:', context);
+      }
+      decreasependingrequests();
+      CompleteTranslation();
     },
     data: f,
     timeout: 9999,
     context: 'Translate',
   });
-  xhr.onloadend = function () {
-    decreasependingrequests();
-    CompleteTranslation();
-  };
-  xhr.ontimeout = function () {};
-  xhr.send(f);
+  request.send();
 }
 
 /**

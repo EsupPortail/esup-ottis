@@ -1,7 +1,7 @@
 import { NBconnectedusers, Tconnectedusers } from './state.js';
 
 import { _ } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 
 import { ROOM_TOKEN } from './compat.js';
 import { zoomid, uncloudlink, uncloudhtmllink, targettab, inSlideTab, setLanguageInput } from './config.js';
@@ -139,9 +139,9 @@ export function remote() {
     f.append('ORDER', '');
     addCsrfToken(f);
 
-    const request = createXhrRequest('POST', 'saveremoteorder.php', {
-      onSuccess(xhr) {
-        const order = xhr.responseText;
+    const request = createFetchRequest('POST', 'saveremoteorder.php', {
+      onSuccess(response) {
+        const order = response.responseText;
         if (order != '') {
           if (order == 'forward') Forward();
           if (order == 'backward') Backward();
@@ -168,10 +168,7 @@ export function remote() {
       timeout: 10000,
       context: 'remote',
     });
-    request.onerror = function (event) {
-
-    };
-    request.send(f);
+    request.send();
   }
 }
 

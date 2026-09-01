@@ -3,7 +3,7 @@ import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, initialClien
 import { b64toBlob } from './utils.js';
 
 import { _ } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 
 import { ROOM_TOKEN } from './compat.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
@@ -52,12 +52,12 @@ export function ShowImage(n) {
       f.append('room_token', ROOM_TOKEN);
       addCsrfToken(f);
 
-      const request = createXhrRequest('POST', 'saveimage.php', {
+      const request = createFetchRequest('POST', 'saveimage.php', {
         data: f,
         timeout: 10000,
         context: 'ShowImage',
       });
-      request.send(f);
+      request.send();
       //	request.onload = function(event) {};
     }
   }
@@ -71,18 +71,20 @@ export function SlideNotesUncloud(uncloudlink) {
   formdata.append('uncloudlink', uncloudlink);
   addCsrfToken(formdata);
 
-  const xhr = createXhrRequest('POST', scriptfile, {
+  const request = createFetchRequest('POST', scriptfile, {
     data: formdata,
     timeout: 30000,
     context: 'SlideNotesUNCloud',
     onUploadProgress: progressHandler,
     onSuccess: completeHandler,
+    onError(response, context) {
+      if (response.status === 0 && response.statusText === 'Timeout') {
+        _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
+        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
+      }
+    },
   });
-  xhr.ontimeout = (e) => {
-    _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
-    alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
-  };
-  xhr.send(formdata);
+  request.send();
 }
 
 export function SlideNotesUncloudHtml(uncloudhtmllink) {
@@ -94,18 +96,20 @@ export function SlideNotesUncloudHtml(uncloudhtmllink) {
   formdata.append('uncloudlink', uncloudhtmllink);
   addCsrfToken(formdata);
 
-  const xhr = createXhrRequest('POST', scriptfile, {
+  const request = createFetchRequest('POST', scriptfile, {
     data: formdata,
     timeout: 30000,
     context: 'SlideNotesUncloudHtml',
     onUploadProgress: progressHandler,
     onSuccess: completeHandler,
+    onError(response, context) {
+      if (response.status === 0 && response.statusText === 'Timeout') {
+        _('spinnertxt').innerHTML = 'No presentation yet...<br/>Please go to the complete lesson tab to import it.';
+        alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
+      }
+    },
   });
-  xhr.ontimeout = (e) => {
-    _('spinnertxt').innerHTML = 'No presentation yet...<br/>Please go to the complete lesson tab to import it.';
-    alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
-  };
-  xhr.send(formdata);
+  request.send();
 }
 
 export function configurePdfJs() {

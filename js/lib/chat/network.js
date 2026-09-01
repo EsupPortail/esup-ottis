@@ -1,10 +1,10 @@
 /**
  * Chat network functions
- * Dependencies: common-func.js (for createXhrRequest, addCsrfToken)
+ * Dependencies: common-func.js (for createFetchRequest, addCsrfToken)
  */
 
 // Ensure common-func.js is loaded first
-if (typeof createXhrRequest === 'undefined') {
+if (typeof createFetchRequest === 'undefined') {
   console.error('chat/network.js requires common-func.js to be loaded first');
 }
 
@@ -37,18 +37,28 @@ export function saveTextQCommon(ch, senderName, roomId, language) {
   // Ajouter le token CSRF pour la protection
   addCsrfToken(f);
 
-  const request = createXhrRequest('POST', 'savetextQ.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'savetextQ.php', {
+    onSuccess(response) {
       // Use window.decreasependingrequests if available
       if (typeof window.decreasependingrequests === 'function') {
         window.decreasependingrequests();
+      }
+    },
+    onError(response, context) {
+      // Use window.decreasependingrequests if available
+      if (typeof window.decreasependingrequests === 'function') {
+        window.decreasependingrequests();
+      }
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('saveTextQ request failed. Context:', context);
       }
     },
     data: f,
     timeout: 10000,
     context: 'saveTextQ',
   });
-  request.send(f);
+  request.send();
 }
 
 /**
@@ -78,20 +88,20 @@ export function readTextQCommon(roomId, messageHandler) {
   // Ajouter le token CSRF pour la protection
   addCsrfToken(f);
 
-  const request = createXhrRequest('POST', 'readtextQ.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'readtextQ.php', {
+    onSuccess(response) {
       // Use window.decreasependingrequests if available
       if (typeof window.decreasependingrequests === 'function') {
         window.decreasependingrequests();
       }
 
-      // Safety checks for xhr and responseText
-      if (!xhr || typeof xhr.responseText !== 'string') {
-        console.error('readTextQ: Invalid xhr or responseText');
+      // Safety checks for response and responseText
+      if (!response || typeof response.responseText !== 'string') {
+        console.error('readTextQ: Invalid response or responseText');
         return;
       }
 
-      const Told = xhr.responseText.split('\n');
+      const Told = response.responseText.split('\n');
       const k = 0;
       const T = [];
 
@@ -150,11 +160,21 @@ export function readTextQCommon(roomId, messageHandler) {
       // Update the counter
       window.inputnumberQ = T.length;
     },
+    onError(response, context) {
+      // Use window.decreasependingrequests if available
+      if (typeof window.decreasependingrequests === 'function') {
+        window.decreasependingrequests();
+      }
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('readTextQ request failed. Context:', context);
+      }
+    },
     data: f,
     timeout: 10000,
     context: 'readTextQ',
   });
-  request.send(f);
+  request.send();
 }
 
 /**
@@ -184,16 +204,16 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
 
   addCsrfToken(f);
 
-  const xhr = createXhrRequest('POST', 'Translate.php', {
-    onSuccess(xhr) {
+  const request = createFetchRequest('POST', 'Translate.php', {
+    onSuccess(response) {
       if (typeof window.decreasependingrequests === 'function') {
         window.decreasependingrequests();
       }
 
       try {
-        const response = JSON.parse(xhr.responseText);
-        if (!response.error && response.data && response.data.translations && response.data.translations[0]) {
-          const translation = response.data.translations[0].text;
+        const parsedResponse = JSON.parse(response.responseText);
+        if (!parsedResponse.error && parsedResponse.data && parsedResponse.data.translations && parsedResponse.data.translations[0]) {
+          const translation = parsedResponse.data.translations[0].text;
           if (translation) {
             if (typeof EcrireCR === 'function') {
               EcrireCR(name, translation, order);
@@ -209,18 +229,30 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
           if (typeof EcrireCR === 'function') {
             EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
           }
-          console.error('Translation ERROR - Response:', response, 'Raw:', xhr.responseText);
+          console.error('Translation ERROR - Response:', parsedResponse, 'Raw:', response.responseText);
         }
       } catch (e) {
         if (typeof EcrireCR === 'function') {
           EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
         }
-        console.error('Translation ERROR - Exception:', e, 'Response:', xhr.responseText);
+        console.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
+      }
+    },
+    onError(response, context) {
+      if (typeof window.decreasependingrequests === 'function') {
+        window.decreasependingrequests();
+      }
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        if (typeof EcrireCR === 'function') {
+          EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
+        }
+        console.error('Translation ERROR - Request failed. Context:', context);
       }
     },
     data: f,
     timeout: 10000,
     context: 'TranslateQ',
   });
-  xhr.send(f);
+  request.send();
 }

@@ -5,7 +5,7 @@
 import { decodeHtmlEntities } from './text-processing.js';
 import { CompleteTranslation } from './translation.js';
 import { increasependingrequests, decreasependingrequests } from './request-counter.js';
-import { addCsrfToken, createXhrRequest } from '../conference/network.js';
+import { addCsrfToken, createFetchRequest } from '../conference/network.js';
 import { Ecrire, EcrireNB, EcrireNBSub } from './display.js';
 
 /**
@@ -22,10 +22,10 @@ function readText() {
     f.append('room_token', window.ROOM_TOKEN);
     addCsrfToken(f);
 
-    const request = createXhrRequest('POST', 'readtext.php', {
-      onSuccess(xhr) {
+    const request = createFetchRequest('POST', 'readtext.php', {
+      onSuccess(response) {
         decreasependingrequests();
-        const T = xhr.responseText.split('\n');
+        const T = response.responseText.split('\n');
         let maxi = -1;
         const readedorder = (`0${T[0]}`).split(';')[0] * 1;
         if (readedorder > window.maxorder_readtext) {
@@ -68,11 +68,18 @@ function readText() {
         if (maxi > window.inputnumber) window.inputnumber = maxi;
         CompleteTranslation();
       },
+      onError(response, context) {
+        // Ignorer les timeouts de polling (comportement normal)
+        if (response.status !== 0 || response.statusText !== 'Timeout') {
+          console.error('readText request failed. Context:', context);
+        }
+        decreasependingrequests();
+      },
       data: f,
       timeout: 10000,
       context: 'readText',
     });
-    request.send(f);
+    request.send();
   }
 }
 
@@ -90,10 +97,10 @@ function readTextSub() {
     f.append('room_token', window.ROOM_TOKEN);
     addCsrfToken(f);
 
-    const request = createXhrRequest('POST', 'readtext.php', {
-      onSuccess(xhr) {
+    const request = createFetchRequest('POST', 'readtext.php', {
+      onSuccess(response) {
         decreasependingrequests();
-        const T = xhr.responseText.split('\n');
+        const T = response.responseText.split('\n');
         let maxi = -1;
         const readedorder = (`0${T[0]}`).split(';')[0] * 1;
         if (readedorder > window.maxorder_readtext) {
@@ -138,11 +145,18 @@ function readTextSub() {
         if (maxi > window.inputnumber) window.inputnumber = maxi;
         CompleteTranslation();
       },
+      onError(response, context) {
+        // Ignorer les timeouts de polling (comportement normal)
+        if (response.status !== 0 || response.statusText !== 'Timeout') {
+          console.error('readTextSub request failed. Context:', context);
+        }
+        decreasependingrequests();
+      },
       data: f,
       timeout: 10000,
       context: 'readTextSub',
     });
-    request.send(f);
+    request.send();
   }
 }
 
@@ -161,10 +175,10 @@ function readTextSubTranscript() {
     f.append('room_token', window.ROOM_TOKEN);
     addCsrfToken(f);
 
-    const requestTranscriptSub = createXhrRequest('POST', 'readtextTranscriptSub.php', {
-      onSuccess(xhr) {
+    const requestTranscriptSub = createFetchRequest('POST', 'readtextTranscriptSub.php', {
+      onSuccess(response) {
         decreasependingrequests();
-        const T = xhr.responseText.split('\n');
+        const T = response.responseText.split('\n');
 
         // Construire le contenu complet du notebook Sub (sous-titres) avec tri par ordre
         let lines = [];
@@ -201,11 +215,18 @@ function readTextSubTranscript() {
         // === NOUVEAU: Récupérer aussi le notebook VO et appliquer la logique pour output ===
         updateOutputBasedOnLanguage();
       },
+      onError(response, context) {
+        // Ignorer les timeouts de polling (comportement normal)
+        if (response.status !== 0 || response.statusText !== 'Timeout') {
+          console.error('readTextSubTranscript request failed. Context:', context);
+        }
+        decreasependingrequests();
+      },
       data: f,
       timeout: 10000,
       context: 'readTextSubTranscript',
     });
-    requestTranscriptSub.send(f);
+    requestTranscriptSub.send();
   }
 }
 
@@ -288,9 +309,9 @@ function fetchVerylastContent(roomId, roomToken, callback) {
   f.append('room_token', roomToken);
   addCsrfToken(f);
 
-  const request = createXhrRequest('POST', 'readtextVO.php', {
-    onSuccess(xhr) {
-      const T = xhr.responseText.split('\n');
+  const request = createFetchRequest('POST', 'readtextVO.php', {
+    onSuccess(response) {
+      const T = response.responseText.split('\n');
       let lines = [];
       for (let i = 0; i < T.length; i++) {
         const line = T[i].trim();
@@ -316,14 +337,18 @@ function fetchVerylastContent(roomId, roomToken, callback) {
       }
       callback(content);
     },
-    onError() {
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('fetchVerylastContent request failed. Context:', context);
+      }
       callback('');
     },
     data: f,
     timeout: 5000,
     context: 'fetchVerylastContent'
   });
-  request.send(f);
+  request.send();
 }
 
 /**
@@ -342,9 +367,9 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
   f.append('room_token', roomToken);
   addCsrfToken(f);
 
-  const request = createXhrRequest('POST', 'readtextTranscriptSub.php', {
-    onSuccess(xhr) {
-      const T = xhr.responseText.split('\n');
+  const request = createFetchRequest('POST', 'readtextTranscriptSub.php', {
+    onSuccess(response) {
+      const T = response.responseText.split('\n');
       let lines = [];
       for (let i = 0; i < T.length; i++) {
         const line = T[i].trim();
@@ -370,14 +395,18 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
       }
       callback(content);
     },
-    onError() {
+    onError(response, context) {
+      // Ignorer les timeouts de polling (comportement normal)
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('fetchVerylastSubContent request failed. Context:', context);
+      }
       callback('');
     },
     data: f,
     timeout: 5000,
     context: 'fetchVerylastSubContent'
   });
-  request.send(f);
+  request.send();
 }
 
 /**
@@ -392,19 +421,26 @@ function readImage() {
     f.append('room_token', window.ROOM_TOKEN);
     addCsrfToken(f);
 
-    const request = createXhrRequest('POST', 'readimage.php', {
-      onSuccess(xhr) {
+    const request = createFetchRequest('POST', 'readimage.php', {
+      onSuccess(response) {
         decreasependingrequests();
-        if (xhr.responseText != '') {
-          const Trep = xhr.responseText.split('|||');
+        if (response.responseText != '') {
+          const Trep = response.responseText.split('|||');
           window.currentrandom = Trep[0];
         }
+      },
+      onError(response, context) {
+        // Ignorer les timeouts de polling (comportement normal)
+        if (response.status !== 0 || response.statusText !== 'Timeout') {
+          console.error('readImage request failed. Context:', context);
+        }
+        decreasependingrequests();
       },
       data: f,
       timeout: 10000,
       context: 'readImage',
     });
-    request.send(f);
+    request.send();
   }
 }
 

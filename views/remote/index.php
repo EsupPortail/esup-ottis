@@ -29,9 +29,13 @@
             if (csrfToken) {
                 f.append('csrf_token', csrfToken);
             }
-            createXhrRequest("POST", "saveremoteorder.php", f, function(responseText) {
-                var order = responseText;
+            const request = createFetchRequest("POST", "saveremoteorder.php", {
+                data: f,
+                onSuccess: function(response) {
+                    var order = response.responseText;
+                }
             });
+            request.send();
         }
     }
 
@@ -45,16 +49,20 @@
             var f = new FormData();
             f.append('ROOMID', document.getElementById('classroomid').value);
             f.append('SPEECH', 'read');
-            createXhrRequest("POST", "savespeechforremote.php", f, function(responseText) {
-                var data = responseText;
-                var Tspeech = data.split(':|:');
-                if (document.getElementById('speech_before').innerHTML != Tspeech[0])
-                    document.getElementById('speech_before').innerHTML = DOMPurify.sanitize(Tspeech[0]);
-                if (document.getElementById('speech_current').innerHTML != Tspeech[1])
-                    document.getElementById('speech_current').innerHTML = DOMPurify.sanitize(Tspeech[1]);
-                if (document.getElementById('speech_after').innerHTML != Tspeech[2])
-                    document.getElementById('speech_after').innerHTML = DOMPurify.sanitize(Tspeech[2]);
+            const request = createFetchRequest("POST", "savespeechforremote.php", {
+                data: f,
+                onSuccess: function(response) {
+                    var data = response.responseText;
+                    var Tspeech = data.split(':|:');
+                    if (document.getElementById('speech_before').innerHTML != Tspeech[0])
+                        document.getElementById('speech_before').innerHTML = DOMPurify.sanitize(Tspeech[0]);
+                    if (document.getElementById('speech_current').innerHTML != Tspeech[1])
+                        document.getElementById('speech_current').innerHTML = DOMPurify.sanitize(Tspeech[1]);
+                    if (document.getElementById('speech_after').innerHTML != Tspeech[2])
+                        document.getElementById('speech_after').innerHTML = DOMPurify.sanitize(Tspeech[2]);
+                }
             });
+            request.send();
         }
     }
 

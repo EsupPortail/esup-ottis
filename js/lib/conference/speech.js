@@ -1,7 +1,7 @@
 import { StudentToTranslate2, builtin_language, readytotalk, subtitle_language, LiveTranslationNum, setLiveTranslationNum } from './state.js';
 
 import { _ } from './dom-helpers.js';
-import { addCsrfToken, createXhrRequest } from './network.js';
+import { addCsrfToken, createFetchRequest } from './network.js';
 
 import { ROOM_TOKEN } from './compat.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
@@ -25,13 +25,13 @@ export function StudentreadText() {
       f.append('room_token', ROOM_TOKEN);
       addCsrfToken(f);
 
-      const request = createXhrRequest('POST', 'readtext.php', {
-        onSuccess(xhr) {
-          if (!xhr.responseText.trim()) {
+      const request = createFetchRequest('POST', 'readtext.php', {
+        onSuccess(response) {
+          if (!response.responseText.trim()) {
             return;
           }
           // Traiter la réponse
-          const T = xhr.responseText.split('\n');
+          const T = response.responseText.split('\n');
           let maxi = -1;
           for (let i = 0; i < T.length; i++) {
             if (T[i].trim() === '') continue;
@@ -54,14 +54,17 @@ export function StudentreadText() {
           if (maxi > Studentinputnumber) Studentinputnumber = maxi;
           StudentCompleteTranslation2();
         },
-        onError(xhr, context) {
-
+        onError(response, context) {
+          // Ignorer les timeouts de polling (comportement normal)
+          if (response.status !== 0 || response.statusText !== 'Timeout') {
+            console.error('StudentreadText request failed. Context:', context);
+          }
         },
         data: f,
         timeout: 10000,
         context: 'StudentreadText',
       });
-      request.send(f);
+      request.send();
     } else {
 
     }
