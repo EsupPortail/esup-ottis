@@ -5,6 +5,7 @@ import { handleFileSelect } from './pdf-fullscreen.js';
 import { prevPage, nextPage, goToPage, togglePdfFullscreen } from './pdf-viewer.js';
 import { DownloadSpeechLesson } from '../download.js';
 import { initChatAlert } from '../chat/alert.js';
+import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 
 /**
  * Initialize all conference event listeners
@@ -112,7 +113,7 @@ export function initConferenceEvents() {
 function initMiconCompatibility() {
   const micon = document.getElementById('micon');
   if (micon) {
-    setInterval(() => {
+    safeSetInterval(() => {
       const icon = micon.querySelector('.blink');
       if (icon) {
         micon.classList.add('blink-active');
@@ -127,7 +128,7 @@ function initMiconCompatibility() {
  * Initialize conference chat alert
  */
 function initConferenceChatAlert() {
-  setTimeout(() => {
+  safeSetTimeout(() => {
     const userName = 'Intervenant';
     initChatAlert(userName);
   }, 500);

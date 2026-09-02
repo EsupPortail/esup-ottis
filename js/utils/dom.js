@@ -77,7 +77,7 @@ function ready(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn);
   } else {
-    setTimeout(fn, 0);
+    (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(fn, 0);
   }
 }
 

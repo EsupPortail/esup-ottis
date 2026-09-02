@@ -4,6 +4,7 @@
  */
 import { readTextQCommon, saveTextQCommon, TranslateQ } from './network.js';
 import { defaultMessageHandler, sendclick } from './handlers.js';
+import { safeSetInterval } from '../utils/cleanup.js';
 
 /**
  * @summary Read and display messages from the classroom queue
@@ -75,7 +76,7 @@ export function saveTextQ(ch) {
  */
 export function startChatPolling() {
   // Start polling every 2000ms (reduced from 500ms to prevent 429 errors)
-  setInterval(() => {
+  safeSetInterval(() => {
     let roomId = '';
     if (typeof _ !== 'undefined' && window._('classroomid')) {
       roomId = window._('classroomid').value;

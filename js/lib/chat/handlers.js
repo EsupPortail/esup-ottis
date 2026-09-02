@@ -118,7 +118,7 @@ export function sendclick() {
       questionElement.value = '';
 
       // Re-enable after a delay (in case of error, timeout will reset it)
-      setTimeout(() => {
+      (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(() => {
         window.sendInProgress = false;
         if (sendButton) {
           sendButton.disabled = false;

@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (classroomLanguage) {
     classroomLanguage.addEventListener('change', () => {
       // Wait a bit for the language to be set, then refresh the chat
-      setTimeout(() => {
+      (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(() => {
         if (typeof readTextQ !== 'undefined') {
           readTextQ();
         }

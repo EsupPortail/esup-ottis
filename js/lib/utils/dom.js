@@ -3,6 +3,7 @@
  * DOM Utilities - Native JavaScript replacements for jQuery core functionality
  * Provides cross-browser DOM manipulation helpers
  */
+import { safeSetTimeout } from './cleanup.js';
 
 // ============================================
 // Selectors
@@ -86,7 +87,7 @@ export function ready(fn) {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fn);
   } else {
-    setTimeout(fn, 0);
+    safeSetTimeout(fn, 0);
   }
 }
 

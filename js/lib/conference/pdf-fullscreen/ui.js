@@ -7,6 +7,7 @@ import { _ } from '../dom-helpers.js';
 import { addCsrfToken } from '../network.js';
 import { calculateFullscreenScale } from './core.js';
 import { displayPDF } from '../pdf-viewer.js';
+import { safeSetInterval, safeSetTimeout } from '../../utils/cleanup.js';
 
 // Alias pour compatibilité avec l'ancien code
 const get = _;
@@ -74,7 +75,7 @@ export function handleFileSelect(event) {
   const formData = new FormData();
   formData.append('presentation_file', file);
 
-  const uploadProgress = setInterval(() => {
+  const uploadProgress = safeSetInterval(() => {
     if (progressBar && progressBar.value < 50) {
       progressBar.value = Math.min(progressBar.value + 10, 50);
       if (progressStatus) {
@@ -188,7 +189,7 @@ export function setupPdfFullscreenListeners() {
                             || document.msFullscreenElement;
 
     if (isFullscreen) {
-      setTimeout(() => {
+      safeSetTimeout(() => {
         calculateFullscreenScale();
       }, 100);
     }

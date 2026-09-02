@@ -4,7 +4,7 @@ function googleTranslateElementInit() {
   gt = new google.translate.TranslateElement({
     pageLanguage: 'auto', layout: google.translate.TranslateElement.InlineLayout,
   }, 'google_translate_element');
-  setTimeout(Init2, 1000);
+  (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(Init2, 1000);
   document.body.style = '';
 }
 

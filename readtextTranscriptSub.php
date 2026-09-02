@@ -84,7 +84,7 @@ while ($ligne = fgets($fd)) {
 fclose($fd);
 
 writeLog("Contenu du fichier $filename: " . trim($output));
-writeLog("Contenu brut ligne par ligne:");
+writeLog('Contenu brut ligne par ligne:');
 $lines = explode("\n", trim($output));
 foreach ($lines as $idx => $line) {
     writeLog("  Ligne $idx: " . trim($line));

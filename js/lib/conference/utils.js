@@ -2,6 +2,7 @@ import { builtin_language, currentscroll, scale, timenew_question, setTimenewQue
 
 import { _, openDialog } from './dom-helpers.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 import { ROOM_TOKEN } from './compat.js';
 
@@ -81,7 +82,7 @@ export function formateresponse(datatxt, editable = true) {
       for (let j = 1; j <= slide.Images.length; j++) {
         toexec += `_('img_${j}').src='${slide.Images[j - 1]}'; `;
       }
-      setTimeout(toexec, 10);
+      safeSetTimeout(toexec, 10);
     } else {
       //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
       //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
@@ -143,7 +144,7 @@ export function saveremotespeech() {
 export function draw() {
   if (timenew_question > 0) {
     setTimenewQuestion(timenew_question - 1);
-    setTimeout(draw, 1000);
+    safeSetTimeout(draw, 1000);
   } else {
     const tab = _('questionicon');
     if (tab) {

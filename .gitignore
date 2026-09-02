@@ -21,6 +21,9 @@ tmp/
 .phpunit.result.cache
 js/coverage/
 js/cov
+# Ignore pre-commit test files
+.pre-commit/
+
 # Ignore editor files
 *.swp
 *~

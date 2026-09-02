@@ -5,6 +5,7 @@ import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
 
 import { _ } from './dom-helpers.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 /** @module conference/navigation */
 
@@ -92,7 +93,7 @@ export function completeHandler(event, editable = false) {
   previousimage = -1;
   window.currentDiscours = 0;
   if (window.currentPresentation.length > 0) {
-    setTimeout(() => {
+    safeSetTimeout(() => {
       _('stillwaiting').style.display = 'none';
       ShowImage(window.currentPresentation[0].Slide);
     }, 1000);

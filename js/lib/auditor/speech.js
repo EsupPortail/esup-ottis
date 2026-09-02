@@ -34,7 +34,7 @@ function ParleThen(txt, f) {
       f();
     };
     window.speechSynthesis.speak(discours);
-  } else setTimeout(f, 10000);
+  } else (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(f, 10000);
 }
 
 /**

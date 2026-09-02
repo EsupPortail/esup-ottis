@@ -1,6 +1,7 @@
 /**
  * Main initialization functions for auditor
  */
+import { safeSetInterval, safeSetTimeout, registerRequest } from '../utils/cleanup.js';
 
 /**
  * @summary A function that is launched when the HTML page is loaded
@@ -24,7 +25,7 @@ function startAuditorPolling() {
     if (typeof window.readText === 'function' && typeof window.readImage === 'function') {
       // Start centralized polling for auditor (2000ms interval to prevent 429 errors)
       // This handles readText (main queue), readImage (image queue)
-      setInterval(() => {
+      safeSetInterval(() => {
         if (typeof _ !== 'undefined' && _('classroomid') && _('classroomid').value !== '') {
           window.readText();
           window.readImage();
@@ -43,7 +44,7 @@ function startAuditorPolling() {
       }
     } else {
       // Functions not yet available, try again in 100ms
-      setTimeout(checkAndStart, 100);
+      safeSetTimeout(checkAndStart, 100);
     }
   }
 
@@ -59,7 +60,7 @@ function Init() {
   // Start polling immediately (will use builtin_language for display if no voice selected)
   // Language dialog will be opened by InitVoices
   if (typeof window.startAuditorPolling === 'function') {
-    setTimeout(window.startAuditorPolling, 100);
+    safeSetTimeout(window.startAuditorPolling, 100);
   }
 
   // Initialize voices when available - will call LoadVoices which calls InitVoices

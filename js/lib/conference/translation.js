@@ -4,6 +4,7 @@ import { _ } from './dom-helpers.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { Ecrire, EcrireNB, EcrireNBonly, EcrireNBonlyVO, EcrirePartial, saveText, saveTextWithTranslation } from './notebook.js';
 import { Parle } from './voices.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 // Local state variables for this module
 let lastSentenceVO = '';
@@ -13,7 +14,7 @@ let totalTranslated = 0;
 
 export function StudentParleThen(txt, f) {
   // EcrireFeedback(txt);
-  setTimeout(f, 100 * txt.length);
+  safeSetTimeout(f, 100 * txt.length);
 }
 
 export function StudentTranslate2(ch, l, linput, lineid) {
@@ -59,7 +60,7 @@ export function StudentCompleteTranslation2() {
       // Ecrire("Push : "+L[2]);
       StudentTranslate2(L[2], subtitle_language.substr(0, 2).toLowerCase(), L[1].substr(0, 2), L[0]);
     } else StudentCompleteTranslation2();
-  } else setTimeout(StudentCompleteTranslation2, 10);
+  } else safeSetTimeout(StudentCompleteTranslation2, 10);
 }
 
 export function StudentCompleteSpeech() {

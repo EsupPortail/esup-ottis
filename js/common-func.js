@@ -347,6 +347,143 @@ function showError(message, context = null) {
 }
 
 /**
+ * Memory Leak Prevention Utilities
+ * Centralized cleanup for timers and requests
+ */
+
+// Store all active timer IDs for cleanup
+const activeTimers = new Set();
+
+// Store all active request objects for cleanup
+const activeRequests = new Set();
+
+// Store cleanup callbacks
+const cleanupCallbacks = [];
+
+/**
+ * Register a timer ID for automatic cleanup
+ * @param {number} timerId - The timer ID from setTimeout or setInterval
+ * @returns {number} The timer ID
+ */
+function registerTimer(timerId) {
+  activeTimers.add(timerId);
+  return timerId;
+}
+
+/**
+ * Register a cleanup callback to execute on page unload
+ * @param {Function} callback - Function to call during cleanup
+ * @returns {Function} The callback function
+ */
+function registerCleanup(callback) {
+  cleanupCallbacks.push(callback);
+  return callback;
+}
+
+/**
+ * Register a request for automatic cleanup
+ * @param {Object} request - The request object with abort method
+ * @returns {Object} The request object
+ */
+function registerRequest(request) {
+  if (request && typeof request.abort === 'function') {
+    activeRequests.add(request);
+  }
+  return request;
+}
+
+/**
+ * Clear all registered timers
+ */
+function clearAllTimers() {
+  activeTimers.forEach(timerId => {
+    try {
+      clearTimeout(timerId);
+      clearInterval(timerId);
+    } catch (error) {
+      console.warn('Error clearing timer:', error);
+    }
+  });
+  activeTimers.clear();
+}
+
+/**
+ * Abort all registered requests
+ */
+function abortAllRequests() {
+  activeRequests.forEach(request => {
+    try {
+      request.abort();
+    } catch (error) {
+      console.warn('Error aborting request:', error);
+    }
+  });
+  activeRequests.clear();
+}
+
+/**
+ * Execute all registered cleanup callbacks
+ */
+function executeCleanupCallbacks() {
+  cleanupCallbacks.forEach(callback => {
+    try {
+      callback();
+    } catch (error) {
+      console.warn('Error in cleanup callback:', error);
+    }
+  });
+  cleanupCallbacks.length = 0;
+}
+
+/**
+ * Cleanup everything - call this on page unload
+ */
+function cleanupAll() {
+  clearAllTimers();
+  abortAllRequests();
+  executeCleanupCallbacks();
+}
+
+/**
+ * Safe setTimeout that automatically registers for cleanup
+ * @param {Function} fn - Callback function
+ * @param {number} delay - Delay in milliseconds
+ * @param {...any} args - Arguments to pass to the callback
+ * @returns {number} Timer ID
+ */
+function safeSetTimeout(fn, delay, ...args) {
+  const timerId = setTimeout(() => {
+    activeTimers.delete(timerId);
+    fn(...args);
+  }, delay);
+  return registerTimer(timerId);
+}
+
+/**
+ * Safe setInterval that automatically registers for cleanup
+ * @param {Function} fn - Callback function
+ * @param {number} interval - Interval in milliseconds
+ * @param {...any} args - Arguments to pass to the callback
+ * @returns {number} Timer ID
+ */
+function safeSetInterval(fn, interval, ...args) {
+  const timerId = setInterval(fn, interval, ...args);
+  return registerTimer(timerId);
+}
+
+// Install automatic cleanup on beforeunload for legacy scripts
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeunload', cleanupAll);
+  // Expose cleanup functions globally for legacy code
+  window.registerTimer = registerTimer;
+  window.registerRequest = registerRequest;
+  window.registerCleanup = registerCleanup;
+  window.safeSetTimeout = safeSetTimeout;
+  window.safeSetInterval = safeSetInterval;
+  window.cleanupAll = cleanupAll;
+}
+
+/**
  * @summary Handle XMLHttpRequest errors centrally
  *
  * @param {XMLHttpRequest} xhr The XMLHttpRequest object
@@ -423,6 +560,9 @@ function createXhrRequest(method, url, options = {}) {
     xhr.upload.addEventListener('progress', onUploadProgress, false);
   }
 
+  // Register XHR for automatic cleanup on page unload
+  registerRequest({ abort: () => xhr.abort() });
+
   return xhr;
 }
 
@@ -484,7 +624,7 @@ function createFetchRequest(method, url, options = {}) {
   if (onUploadProgress) {
     console.warn('createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback');
     const xhr = createXhrRequest(method, url, options);
-    return {
+    const requestObj = {
       send: (body = data) => {
         xhr.send(body);
         return Promise.resolve(xhr);
@@ -492,6 +632,7 @@ function createFetchRequest(method, url, options = {}) {
       abort: () => xhr.abort(),
       xhr: xhr
     };
+    return registerRequest(requestObj);
   }
 
   const controller = new AbortController();
@@ -529,7 +670,7 @@ function createFetchRequest(method, url, options = {}) {
     }
   }
 
-  timeoutId = setTimeout(() => {
+  timeoutId = safeSetTimeout(() => {
     controller.abort();
     if (onError) onError({ status: 0, statusText: 'Timeout', responseText: '' }, context);
   }, timeout);
@@ -543,8 +684,8 @@ function createFetchRequest(method, url, options = {}) {
 
   const request = {
     send: async (body = data) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = safeSetTimeout(() => {
         controller.abort();
         if (onError) onError({ status: 0, statusText: 'Timeout', responseText: '' }, context);
       }, timeout);
@@ -598,7 +739,7 @@ function createFetchRequest(method, url, options = {}) {
         return successResponse;
 
       } catch (error) {
-        clearTimeout(timeoutId);
+        if (timeoutId) clearTimeout(timeoutId);
         if (error.name === 'AbortError') {
           if (onError) onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);
         } else if (onError) {
@@ -608,12 +749,12 @@ function createFetchRequest(method, url, options = {}) {
       }
     },
     abort: () => {
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
       controller.abort();
     }
   };
 
-  return request;
+  return registerRequest(request);
 }
 
 // Export functions for testing and module usage
@@ -643,5 +784,14 @@ if (typeof module !== 'undefined' && module.exports) {
     setLanguageOutput,
     setLanguageOutputAndRetranslate,
     addCsrfToken,
+    // Memory leak prevention utilities
+    registerTimer,
+    registerRequest,
+    registerCleanup,
+    cleanupAll,
+    clearAllTimers,
+    abortAllRequests,
+    safeSetTimeout,
+    safeSetInterval,
   };
 }

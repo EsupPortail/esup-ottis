@@ -4,6 +4,7 @@ import { b64toBlob } from './utils.js';
 
 import { _ } from './dom-helpers.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 import { ROOM_TOKEN } from './compat.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
@@ -121,7 +122,7 @@ export function configurePdfJs() {
     pdfjsLib.GlobalWorkerOptions.cMapUrl = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
     pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
   } else {
-    setTimeout(configurePdfJs, 200);
+    safeSetTimeout(configurePdfJs, 200);
   }
 }
 
@@ -280,7 +281,7 @@ export function displayPDF(url) {
     if (typeof pdfjsLib !== 'undefined' && pdfjsLib.getDocument) {
       loadPDF();
     } else {
-      setTimeout(waitForPdfJs, 200);
+      safeSetTimeout(waitForPdfJs, 200);
     }
   }
 

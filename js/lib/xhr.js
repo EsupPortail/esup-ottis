@@ -3,6 +3,7 @@
  * XHR and fetch utilities with centralized error handling
  */
 import { showError } from './browser.js';
+import { registerRequest, registerTimer, safeSetTimeout } from './utils/cleanup.js';
 
 /**
  * Add CSRF token to FormData object
@@ -95,6 +96,15 @@ export function createXhrRequest(method, url, options = {}) {
     xhr.upload.addEventListener('progress', onUploadProgress, false);
   }
 
+  // Register XHR for automatic cleanup on page unload
+  xhr.abort = (function(originalAbort) {
+    return function() {
+      originalAbort.call(this);
+    };
+  })(xhr.abort);
+
+  registerRequest({ abort: () => xhr.abort() });
+
   return xhr;
 }
 
@@ -166,7 +176,7 @@ export function createFetchRequest(method, url, options = {}) {
   if (onUploadProgress) {
     console.warn('createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback');
     const xhr = createXhrRequest(method, url, options);
-    return {
+    const requestObj = {
       send: (body = data) => {
         xhr.send(body);
         return Promise.resolve(xhr);
@@ -174,6 +184,7 @@ export function createFetchRequest(method, url, options = {}) {
       abort: () => xhr.abort(),
       xhr: xhr
     };
+    return registerRequest(requestObj);
   }
 
   const controller = new AbortController();
@@ -211,7 +222,7 @@ export function createFetchRequest(method, url, options = {}) {
     }
   }
 
-  timeoutId = setTimeout(() => {
+  timeoutId = safeSetTimeout(() => {
     controller.abort();
     if (onError) onError({ status: 0, statusText: 'Timeout', responseText: '' }, context);
   }, timeout);
@@ -225,8 +236,8 @@ export function createFetchRequest(method, url, options = {}) {
 
   const request = {
     send: async (body = data) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = safeSetTimeout(() => {
         controller.abort();
         if (onError) onError({ status: 0, statusText: 'Timeout', responseText: '' }, context);
       }, timeout);
@@ -280,7 +291,7 @@ export function createFetchRequest(method, url, options = {}) {
         return successResponse;
 
       } catch (error) {
-        clearTimeout(timeoutId);
+        if (timeoutId) clearTimeout(timeoutId);
         if (error.name === 'AbortError') {
           if (onError) onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);
         } else if (onError) {
@@ -290,10 +301,10 @@ export function createFetchRequest(method, url, options = {}) {
       }
     },
     abort: () => {
-      clearTimeout(timeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
       controller.abort();
     }
   };
 
-  return request;
+  return registerRequest(request);
 }

@@ -1,4 +1,5 @@
 /** @module conference/network */
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 /**
  * Add CSRF token to FormData object
@@ -179,7 +180,7 @@ export function createFetchRequest(method, url, options = {}) {
     }
   }
 
-  timeoutId = setTimeout(() => {
+  timeoutId = safeSetTimeout(() => {
     controller.abort();
     if (onError) onError({ status: 0, statusText: 'Timeout', responseText: '' }, context);
   }, timeout);
@@ -193,8 +194,8 @@ export function createFetchRequest(method, url, options = {}) {
 
   const request = {
     send: async (body = data) => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = safeSetTimeout(() => {
         controller.abort();
         if (onError) onError({ status: 0, statusText: 'Timeout', responseText: '' }, context);
       }, timeout);

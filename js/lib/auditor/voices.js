@@ -194,7 +194,7 @@ function loadVoicesWhenAvailable() {
   if (Tvoices.length !== 0) {
     LoadVoices();
   } else {
-    setTimeout(() => {
+    (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(() => {
       loadVoicesWhenAvailable();
     }, 10);
   }

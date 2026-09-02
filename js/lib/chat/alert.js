@@ -4,6 +4,7 @@
  * Provides a blinking alert indicator when new messages are received
  * Works with both auditor.php and conference.php
  */
+import { safeSetInterval } from '../utils/cleanup.js';
 
 // Global state for chat alert
 const chatAlertState = {
@@ -165,7 +166,7 @@ export function startBlinkAnimation() {
     clearInterval(chatAlertState.blinkInterval);
   }
 
-  chatAlertState.blinkInterval = setInterval(() => {
+  chatAlertState.blinkInterval = safeSetInterval(() => {
     const alertElement = window._('chat-alert');
     if (!alertElement || !chatAlertState.hasNewMessages) return;
 

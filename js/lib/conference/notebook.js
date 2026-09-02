@@ -21,6 +21,7 @@ import { EcrireCR, AbortTimeout, ROOM_TOKEN } from './compat.js';
 
 import { _ } from './dom-helpers.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { safeSetTimeout, registerRequest } from '../utils/cleanup.js';
 
 /** @module conference/notebook */
 
@@ -54,7 +55,7 @@ export function addToNB(ch, before) {
 export function saveTextTable(T, i) {
   if (i < T.length) {
     saveText(T[i].replace(/<br\/>/gi, '').replace(/<br>/gi, ''));
-    setTimeout(() => {
+    safeSetTimeout(() => {
       saveTextTable(T, i + 1);
     }, 100);
   }

@@ -17,6 +17,7 @@ import * as compat from './lib/conference/compat.js';
 import * as utils from './lib/conference/utils.js';
 import * as events from './lib/conference/events.js';
 import * as lib from './lib/index.js';
+import { safeSetTimeout } from './lib/utils/cleanup.js';
 
 // Tableau de tous les modules à exposer
 // chatMain et chatAlert en premier pour que leurs fonctions ne soient pas écrasées
@@ -67,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     InitVoices();
   }
   if (typeof applyConfig === 'function') {
-    setTimeout(applyConfig, 100);
+    safeSetTimeout(applyConfig, 100);
   }
 });
 

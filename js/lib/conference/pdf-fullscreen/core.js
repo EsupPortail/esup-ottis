@@ -20,6 +20,7 @@ import {
 
 import { _ } from '../dom-helpers.js';
 import { renderPage } from '../pdf-viewer.js';
+import { safeSetTimeout } from '../../utils/cleanup.js';
 
 // Alias pour compatibilité avec l'ancien code
 const get = _;
@@ -399,7 +400,7 @@ export function enterPdfFullscreen(element) {
       element.msRequestFullscreen();
     }
 
-    setTimeout(onFullscreen, 500);
+    safeSetTimeout(onFullscreen, 500);
   });
 
   requestPromise.then(() => {
@@ -487,6 +488,6 @@ export function handleFullscreenResize() {
                         || document.msFullscreenElement;
 
   if (isFullscreen) {
-    setTimeout(calculateFullscreenScale, 100);
+    safeSetTimeout(calculateFullscreenScale, 100);
   }
 }

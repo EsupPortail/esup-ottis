@@ -13,6 +13,7 @@ import { readText, readTextSub, readTextSubTranscript, readImage } from './lib/a
 import { initChatAlert } from './lib/chat/alert.js';
 import { loadVoicesWhenAvailable, setLanguageOutput } from './lib/conference/index.js';
 import { rebuildOutputForLanguage } from './lib/auditor/translation.js';
+import { safeSetTimeout } from './lib/utils/cleanup.js';
 
 // Get user name from DOM
 const userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : window.randomname;
@@ -61,6 +62,6 @@ function initializeAuditor() {
 
   // Load voices when available
   if (typeof loadVoicesWhenAvailable === 'function') {
-    setTimeout(loadVoicesWhenAvailable, 100);
+    safeSetTimeout(loadVoicesWhenAvailable, 100);
   }
 }

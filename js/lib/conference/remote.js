@@ -6,34 +6,35 @@ import { StudentreadText } from './speech.js';
 
 import { _ } from './dom-helpers.js';
 import { addCsrfToken } from './network.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 /** @module conference/remote */
 
 export function LaunchReadTextQ() {
   readTextQ();
-  setTimeout(LaunchReadTextQ, delayReadtextQ);
+  safeSetTimeout(LaunchReadTextQ, delayReadtextQ);
 }
 
 export function LaunchRemote() {
   remote();
-  setTimeout(LaunchRemote, delayRemote);
+  safeSetTimeout(LaunchRemote, delayRemote);
 }
 
 export function LaunchStudentReadText() {
   StudentreadText();
-  setTimeout(LaunchStudentReadText, delayStudentReadtext);
+  safeSetTimeout(LaunchStudentReadText, delayStudentReadtext);
 }
 
 export function LaunchFeedbackReady() {
   if (FeedbackQueue > 0) setFeedbackQueue(FeedbackQueue - delayFeedback); else setFeedbackQueue(0);
-  setTimeout(LaunchFeedbackReady, delayFeedback);
+  safeSetTimeout(LaunchFeedbackReady, delayFeedback);
 }
 
 export function FreeResources() {
   setDelayStudentReadtext(1000);
   setDelayReadtextQ(1000);
   setDelayRemote(1000);
-  setTimeout(() => {
+  safeSetTimeout(() => {
     setDelayStudentReadtext(500);
     setDelayReadtextQ(100);
     setDelayRemote(200);

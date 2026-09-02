@@ -9,6 +9,7 @@ import {
   setSubtitleLanguage,
 } from './state.js';
 import { _ } from './dom-helpers.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 /** @module conference/voices */
 
@@ -181,7 +182,7 @@ export function loadVoicesWhenAvailable() {
       window.openLanguageDialog();
     }
   } else {
-    setTimeout(() => {
+    safeSetTimeout(() => {
       loadVoicesWhenAvailable();
     }, 10);
   }
