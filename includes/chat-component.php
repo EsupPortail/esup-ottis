@@ -51,8 +51,8 @@ function renderChatComponent($options = [])
 
     // Output the chat HTML structure
     echo "<div id=\"classroom\" class=\"{$containerClass}\" aria-live=\"polite\" aria-atomic=\"true\"></div>\n";
-    echo "<textarea id=\"question\" aria-label=\"{$labelText}\" title=\"{$labelText}\" placeholder=\"{$placeholder}\" rows=\"2\" cols=\"50\" style=\"width: 70%;\" onkeyup=\"if(event && (event.key === 'Enter' || event.keyCode === 13)) { sendclick(); }\"></textarea>\n";
-    echo "<input type=\"button\" value=\"Send\" class=\"button-3 tooltip\" id=\"questionsend\" onclick=\"sendclick();\" title=\"Send your message\">\n";
+    echo "<textarea id=\"question\" aria-label=\"{$labelText}\" title=\"{$labelText}\" placeholder=\"{$placeholder}\" rows=\"2\" cols=\"50\" style=\"width: 70%;\"></textarea>\n";
+    echo "<input type=\"button\" value=\"Send\" class=\"button-3 tooltip\" id=\"questionsend\" title=\"Send your message\">\n";
 }
 
 /**

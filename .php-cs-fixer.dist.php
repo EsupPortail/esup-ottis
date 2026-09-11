@@ -11,7 +11,6 @@ $finder = Finder::create()
     ->exclude('uploads')
     ->exclude('Security/tmp')
     // Exclure les fichiers legacy pendant migration
-    ->notPath('Security/legacy_functions.php')
     ->notPath('Security/sanitize.php')
     ->notPath('Security/csrf.php')
     ->notPath('Security/validate.php')

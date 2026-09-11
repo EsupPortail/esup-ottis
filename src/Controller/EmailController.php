@@ -22,40 +22,52 @@ class EmailController extends BaseController
         // Validate CSRF token
         \App\Utils\Csrf::verifyRequest();
 
-        // Get POST parameters
+        // Get POST parameters (using 'body' instead of 'message' to match legacy sendamail.php)
         $to = $this->postParam('to');
         $subject = $this->postParam('subject');
-        $message = $this->postParam('message');
-        $from = $this->postParam('from');
+        $body = $this->postParam('body', '');
+        $from = $this->postParam('from', '');
 
         // Validate required parameters
-        if (empty($to) || empty($subject) || empty($message)) {
+        if (empty($to) || empty($subject)) {
             $this->jsonResponse(['error' => 'Missing required parameters'], 400);
         }
 
-        // Sanitize inputs
+        // Sanitize inputs - clean HTML tags from body
+        $body = str_replace('<p>', '', $body);
+        $body = str_replace('</p>', '', $body);
+
+        // Convert line breaks for HTML email
+        $body = str_replace('<br>', "<br>\r\n", str_replace('<br/>', "<br/>\r\n", $body));
+
+        // Email application sender
+        $mailapplication = 'Ne pas répondre <bourdon-j@univ-nantes.fr>';
+
+        // Sanitize other inputs
         $to = filter_var($to, FILTER_SANITIZE_EMAIL);
         $subject = $this->escape($subject);
-        $message = $this->escape($message);
 
-        // Validate email format
+        // Validate email format for 'to' field
         if (!filter_var($to, FILTER_VALIDATE_EMAIL)) {
             $this->jsonResponse(['error' => 'Invalid email address'], 400);
         }
 
-        // TODO: Implement actual email sending logic
-        // This should:
-        // 1. Configure mail server settings
-        // 2. Set headers (From, Reply-To, Content-Type)
-        // 3. Send the email
-        // 4. Return success/failure status
+        // Only send if 'to' is not empty (legacy behavior)
+        if ($to != '') {
+            $headers = 'From: ' . $mailapplication . "\r\n"
+                    . 'Reply-To: ' . $from . "\r\n"
+                    . 'Content-type: text/html; charset=utf-8' . "\r\n";
 
-        // For now, just log the email and return success
-        error_log("Email to send: To={$to}, Subject={$subject}, From={$from}");
+            // Send the email
+            $sent = mail($to, $subject, $body, $headers);
+        } else {
+            $sent = false;
+        }
 
+        // Return success/failure
         $this->jsonResponse([
-            'success' => true,
-            'message' => 'Email queued for delivery'
+            'success' => $sent !== false,
+            'message' => $sent ? 'Email sent successfully' : 'Failed to send email'
         ]);
     }
 }

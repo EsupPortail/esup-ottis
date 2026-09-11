@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\LanguageLoader;
 use App\Service\RandomNameGenerator;
+use App\Service\TokenConfigService;
 
 /**
  * SubtitlesController - Handles subtitle generation and display
@@ -42,9 +43,9 @@ class SubtitlesController extends BaseController
         $classroomid = $this->getParam('ROOMID', '');
 
         // Get global config variables
-        global $MicrosoftKey, $MicrosoftRegion;
-        $MicrosoftKey = $MicrosoftKey ?? '';
-        $MicrosoftRegion = $MicrosoftRegion ?? '';
+        $tokenConfig = TokenConfigService::create();
+        $MicrosoftKey = $tokenConfig->getMicrosoftKey();
+        $MicrosoftRegion = $tokenConfig->getMicrosoftRegion();
 
         // Set page data
         $this->viewData['pageTitle'] = 'OMIST - Subtitles';
@@ -66,12 +67,13 @@ class SubtitlesController extends BaseController
 
         // Define scripts
         $this->viewData['pageScripts'] = [
-            'js/auditor-def.js',
-            'js/common-func.js'
+            'js/auditor-def.js'
         ];
 
         // Auditor modules
         $this->viewData['auditorScripts'] = [
+            '/js/lib/compat/global.js',
+            'js/lib/conference/dom-helpers.js',
             'js/lib/auditor/text-processing.js',
             'js/lib/auditor/voices.js',
             'js/lib/auditor/speech.js',

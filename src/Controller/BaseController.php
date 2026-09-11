@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\Router;
+use App\Utils\Sanitizer;
 
 /**
  * BaseController - Abstract base controller for all MVC controllers
@@ -172,7 +173,7 @@ abstract class BaseController
      */
     protected function loadTranslations(): void
     {
-        $langFile = __DIR__ . '/../../lang/' . $this->language . '.json';
+        $langFile = __DIR__ . '/../../public/lang/' . $this->language . '.json';
         if (file_exists($langFile)) {
             $translations = json_decode(file_get_contents($langFile), true);
             $this->viewData['translations'] = $translations ?? [];
@@ -352,9 +353,6 @@ abstract class BaseController
      */
     protected function escape(string $value): string
     {
-        if (function_exists('e')) {
-            return e($value);
-        }
-        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        return Sanitizer::e($value);
     }
 }

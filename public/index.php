@@ -1,13 +1,16 @@
 <?php
 
+ini_set('opcache.enable', 0);
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /**
  * Front Controller - Main entry point for the OMIST application
  *
  * This file serves as the single entry point for all HTTP requests.
  * It initializes the application, sets up autoloading, and dispatches
  * requests to the appropriate controller based on the URL.
- *
- * For backward compatibility, direct access to old PHP files is still supported.
  */
 
 // Define application constants
@@ -74,57 +77,70 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// Fix for path preservation through Apache rewrite using PATH_INFO
+$pathInfo = $_SERVER['PATH_INFO'] ?? '';
+if (!empty($pathInfo)) {
+    $_SERVER['REQUEST_URI'] = $pathInfo;
+}
+
 // Create router instance
 $router = new \App\Service\Router();
+
+// Calculate base path for JavaScript
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
+$scriptDir = dirname($scriptName);
+$basePath = '';
+if (str_ends_with($scriptName, '/public/index.php')) {
+    $basePath = '/'; // Base path is root, not /public
+}
+
+// Expose base path to JavaScript - ALWAYS define BASE_PATH
+$basePathScript = "<script>window.BASE_PATH = '" . addslashes($basePath) . "';</script>";
+error_log('BASE_PATH: ' . $basePath);
+error_log('=== DEBUG REQUEST ===');
+error_log('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
+error_log('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
+error_log('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
+error_log('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
 
 // Register routes
 $routes = [
     // Home page
     '/' => [\App\Controller\HomeController::class, 'index'],
-    '/index.php' => [\App\Controller\HomeController::class, 'index'],
 
-    // Conference pages
-    '/conference.php' => [\App\Controller\ConferenceController::class, 'index'],
     '/conference' => [\App\Controller\ConferenceController::class, 'index'],
     '/conference/{roomId}' => [\App\Controller\ConferenceController::class, 'show'],
 
-    // Auditor page
-    '/auditor.php' => [\App\Controller\AuditorController::class, 'index'],
     '/auditor' => [\App\Controller\AuditorController::class, 'index'],
     '/auditor/{roomId}' => [\App\Controller\AuditorController::class, 'show'],
 
-    // Remote control
-    '/remote.php' => [\App\Controller\RemoteController::class, 'index'],
-    '/remote' => [\App\Controller\RemoteController::class, 'index'],
-
-    // Subtitles
-    '/subtitles.php' => [\App\Controller\SubtitlesController::class, 'index'],
     '/subtitles' => [\App\Controller\SubtitlesController::class, 'index'],
 
-    // API endpoints for uploads
-    '/upload_handler.php' => [\App\Controller\UploadController::class, 'handle'],
-    '/readupload.php' => [\App\Controller\UploadController::class, 'read'],
-    '/readtext.php' => [\App\Controller\TextController::class, 'read'],
-    '/readtextQ.php' => [\App\Controller\TextController::class, 'readQ'],
-    '/readtextTranscriptSub.php' => [\App\Controller\TextController::class, 'readTranscriptSub'],
-    '/readimage.php' => [\App\Controller\ImageController::class, 'read'],
+    // Upload endpoints
+    '/upload' => [\App\Controller\UploadController::class, 'handle'],
+    '/upload/handle' => [\App\Controller\UploadController::class, 'handle'],
+
+    // Text endpoints
+    '/text/read' => [\App\Controller\TextController::class, 'read'],
+    '/text/read-q' => [\App\Controller\TextController::class, 'readQ'],
+    '/text/read-transcript-sub' => [\App\Controller\TextController::class, 'readTranscriptSub'],
+    '/image/read' => [\App\Controller\ImageController::class, 'read'],
+    '/text/save' => [\App\Controller\TextController::class, 'save'],
+    '/text/translate' => [\App\Controller\TextController::class, 'translate'],
+    '/text/read-vo' => [\App\Controller\TextController::class, 'readVO'],
+    '/text/save-q' => [\App\Controller\TextController::class, 'saveQ'],
 
     // Save endpoints
-    '/savetext.php' => [\App\Controller\TextController::class, 'save'],
-    '/savetextQ.php' => [\App\Controller\TextController::class, 'saveQ'],
-    '/saveimage.php' => [\App\Controller\ImageController::class, 'save'],
-    '/saveremoteorder.php' => [\App\Controller\RemoteController::class, 'saveOrder'],
-    '/savespeechforremote.php' => [\App\Controller\RemoteController::class, 'saveSpeech'],
+    '/image/save' => [\App\Controller\ImageController::class, 'save'],
 
     // Other endpoints
-    '/sendamail.php' => [\App\Controller\EmailController::class, 'send'],
-
-    // Extract endpoints
-    '/ExtractSlidesNotes.php' => [\App\Controller\ExtractController::class, 'slidesNotes'],
-    '/ExtractSlidesNotesAppHTML.php' => [\App\Controller\ExtractController::class, 'slidesNotesAppHTML'],
-    '/ExtractSlidesNotesTxt.php' => [\App\Controller\ExtractController::class, 'slidesNotesTxt'],
-    '/ExtractSlidesNotes_PPTX_images.php' => [\App\Controller\ExtractController::class, 'pptxImages'],
-    '/PPTXNotesExtractor.php' => [\App\Controller\ExtractController::class, 'pptxNotes'],
+    '/email/send' => [\App\Controller\EmailController::class, 'send'],
+    '/extract/transcription-sub' => [\App\Controller\ExtractController::class, 'transcriptionSub'],
+    '/extract/slides-notes' => [\App\Controller\ExtractController::class, 'slidesNotes'],
+    '/extract/slides-notes-txt' => [\App\Controller\ExtractController::class, 'slidesNotesTxt'],
+    '/extract/slides-notes-apphtml' => [\App\Controller\ExtractController::class, 'slidesNotesAppHTML'],
+    '/extract/pptx-images' => [\App\Controller\ExtractController::class, 'pptxImages'],
+    '/extract/pptx-notes' => [\App\Controller\ExtractController::class, 'pptxNotes'],
 ];
 
 // Register GET routes
@@ -133,18 +149,48 @@ foreach ($routes as $path => $handler) {
 }
 
 // For POST requests, register the same handlers
+// First, register explicit POST routes with specific action names
+$router->post('/extract/transcription-sub', \App\Controller\ExtractController::class, 'transcriptionSub');
+$router->post('/extract/slides-notes', \App\Controller\ExtractController::class, 'slidesNotes');
+$router->post('/extract/slides-notes-txt', \App\Controller\ExtractController::class, 'slidesNotesTxt');
+$router->post('/extract/slides-notes-apphtml', \App\Controller\ExtractController::class, 'slidesNotesAppHTML');
+$router->post('/extract/pptx-images', \App\Controller\ExtractController::class, 'pptxImages');
+$router->post('/extract/pptx-notes', \App\Controller\ExtractController::class, 'pptxNotes');
+$router->post('/image/read', \App\Controller\ImageController::class, 'read');
+$router->post('/text/read', \App\Controller\TextController::class, 'read');
+$router->post('/text/read-q', \App\Controller\TextController::class, 'readQ');
+$router->post('/text/read-transcript-sub', \App\Controller\TextController::class, 'readTranscriptSub');
+$router->post('/text/read-vo', \App\Controller\TextController::class, 'readVO');
+$router->post('/image/save', \App\Controller\ImageController::class, 'save');
+$router->post('/text/save-q', \App\Controller\TextController::class, 'saveQ');
+$router->post('/text/save', \App\Controller\TextController::class, 'save');
+$router->post('/text/translate', \App\Controller\TextController::class, 'translate');
+$router->post('/email/send', \App\Controller\EmailController::class, 'send');
+
 foreach ($routes as $path => $handler) {
-    // Use 'store' or 'handle' as the action for POST
+    // Skip routes we already registered explicitly
+    if (in_array($path, ['/extract/transcription-sub', '/image/read', '/text/read', '/text/read-q', '/text/read-transcript-sub', '/text/read-vo', '/text/save-q', '/text/save', '/text/translate', '/image/save', '/email/send', '/extract/slides-notes', '/extract/slides-notes-txt', '/extract/slides-notes-apphtml', '/extract/pptx-images', '/extract/pptx-notes'])) {
+        continue;
+    }
+    // Use 'store' as the action for POST save routes
     $action = in_array($path, [
-        '/upload_handler.php', '/savetext.php', '/savetextQ.php',
-        '/saveimage.php', '/saveremoteorder.php', '/savespeechforremote.php',
-        '/sendamail.php'
+        '/text/save', '/text/save-q',
+        '/image/save',
+        '/email/send'
     ]) ? 'store' : 'handle';
     $router->post($path, $handler[0], $action);
 }
 
+// DEBUG: Log des routes POST enregistrées
+error_log('=== POST ROUTES ===');
+foreach ($router->getRoutes()['POST'] as $path => $handler) {
+    error_log("POST $path => " . $handler[0] . '::' . $handler[1]);
+}
+
 // Try to match and dispatch the route
 $match = $router->match();
+error_log('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
+error_log('[Router] Match result: ' . var_export($match, true));
 
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
@@ -166,12 +212,41 @@ if ($match !== null) {
                 // Clear output buffer before controller output
                 ob_clean();
 
+                // Inject BASE_PATH script only for HTML responses (not for API endpoints)
+                $requestUri = $_SERVER['REQUEST_URI'] ?? '';
+                $isApiRequest = str_starts_with($requestUri, '/text/') ||
+                                str_starts_with($requestUri, '/extract/') ||
+                                str_starts_with($requestUri, '/email/') ||
+                                str_starts_with($requestUri, '/image/') ||
+                                str_starts_with($requestUri, '/upload/') ||
+                                str_starts_with($requestUri, '/auditor/') ||
+                                str_starts_with($requestUri, '/conference/') ||
+                                str_starts_with($requestUri, '/subtitles/') ||
+                                // API endpoints that return JSON
+                                str_starts_with($requestUri, '/text/save') ||
+                                str_starts_with($requestUri, '/text/save-q') ||
+                                str_starts_with($requestUri, '/text/read') ||
+                                str_starts_with($requestUri, '/text/read-q') ||
+                                str_starts_with($requestUri, '/text/read-transcript-sub') ||
+                                str_starts_with($requestUri, '/image/save') ||
+                                str_starts_with($requestUri, '/image/read') ||
+                                str_starts_with($requestUri, '/email/send') ||
+                                str_starts_with($requestUri, '/text/translate') ||
+                                str_starts_with($requestUri, '/extract/transcription-sub') ||
+                                str_starts_with($requestUri, '/extract/slides-notes') ||
+                                str_starts_with($requestUri, '/text/read-vo');
+
+                if (!$isApiRequest) {
+                    echo $basePathScript;
+                }
+
                 // Call the controller action
                 $controller->$action(...array_values($params));
                 exit;
             } else {
-                // Action method doesn't exist, try fallback
-                handleLegacyRequest();
+                // Action method doesn't exist
+                http_response_code(404);
+                exit;
             }
         } catch (\Throwable $e) {
             // Log error with Monolog
@@ -186,123 +261,25 @@ if ($match !== null) {
                 error_log('Controller Error: ' . $e->getMessage());
             }
 
+            // Display error if display_errors is enabled (for debugging)
+            if (ini_get('display_errors')) {
+                echo '<h1>Internal Server Error</h1>';
+                echo '<pre>Message: ' . htmlspecialchars($e->getMessage()) . '</pre>';
+                echo '<pre>File: ' . $e->getFile() . ':' . $e->getLine() . '</pre>';
+                echo '<pre>Trace: ' . $e->getTraceAsString() . '</pre>';
+            }
+
             // Return 500 error code (error pages handled by infrastructure)
             http_response_code(500);
             exit;
         }
     } else {
-        // Controller class doesn't exist, try fallback
-        handleLegacyRequest();
+        // Controller class doesn't exist
+        http_response_code(404);
+        exit;
     }
 } else {
-    // No route matched, try fallback to legacy system
-    handleLegacyRequest();
-}
-
-/**
- * Fallback handler for requests that don't match MVC routes
- * This ensures backward compatibility with the old codebase
- */
-function handleLegacyRequest(): void
-{
-    ob_clean();
-
-    // Get the requested path
-    $uri = $_SERVER['REQUEST_URI'] ?? '/';
-    $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-
-    // Map URIs to old PHP files
-    $legacyFiles = [
-        '/' => '/index.php',
-        '/index.php' => '/index.php',
-        '/conference' => '/conference.php',
-        '/conference.php' => '/conference.php',
-        '/auditor' => '/auditor.php',
-        '/auditor.php' => '/auditor.php',
-        '/remote' => '/remote.php',
-        '/remote.php' => '/remote.php',
-        '/subtitles' => '/subtitles.php',
-        '/subtitles.php' => '/subtitles.php',
-        '/upload_handler.php' => '/upload_handler.php',
-        '/readupload.php' => '/readupload.php',
-        '/readtext.php' => '/readtext.php',
-        '/readtextQ.php' => '/readtextQ.php',
-        '/readtextTranscriptSub.php' => '/readtextTranscriptSub.php',
-        '/readimage.php' => '/readimage.php',
-        '/savetext.php' => '/savetext.php',
-        '/savetextQ.php' => '/savetextQ.php',
-        '/saveimage.php' => '/saveimage.php',
-        '/saveremoteorder.php' => '/saveremoteorder.php',
-        '/savespeechforremote.php' => '/savespeechforremote.php',
-        '/sendamail.php' => '/sendamail.php',
-    ];
-
-    // Check if the request matches a legacy file
-    $requestPath = parse_url($uri, PHP_URL_PATH);
-
-    // Debug: Log the request path for troubleshooting
-    error_log('DEBUG: REQUEST_URI = ' . $_SERVER['REQUEST_URI']);
-    error_log('DEBUG: requestPath = ' . $requestPath);
-
-    // Handle query strings
-    if (isset($legacyFiles[$requestPath])) {
-        $legacyFile = APP_ROOT . $legacyFiles[$requestPath];
-        if (file_exists($legacyFile)) {
-            // Preserve query string
-            $queryString = parse_url($uri, PHP_URL_QUERY);
-            if (!empty($queryString)) {
-                $_SERVER['QUERY_STRING'] = $queryString;
-                parse_str($queryString, $_GET);
-            }
-
-            // Include the legacy file
-            require $legacyFile;
-            exit;
-        }
-    }
-
-    // Try direct file mapping (e.g., /conference.php -> conference.php)
-    $basename = basename($requestPath);
-    if (str_ends_with($basename, '.php')) {
-        $legacyFile = APP_ROOT . '/' . $basename;
-        if (file_exists($legacyFile)) {
-            require $legacyFile;
-            exit;
-        }
-    }
-
-    // If we're in the public directory, check if the file exists directly
-    $publicFile = APP_PUBLIC . $requestPath;
-    if (file_exists($publicFile) && is_file($publicFile)) {
-        if (str_ends_with($publicFile, '.php')) {
-            require $publicFile;
-            exit;
-        }
-
-        // For non-PHP files, serve them directly
-        $mimeTypes = [
-            '.css' => 'text/css',
-            '.js' => 'application/javascript',
-            '.png' => 'image/png',
-            '.jpg' => 'image/jpeg',
-            '.jpeg' => 'image/jpeg',
-            '.gif' => 'image/gif',
-            '.svg' => 'image/svg+xml',
-            '.woff' => 'font/woff',
-            '.woff2' => 'font/woff2',
-            '.ttf' => 'font/ttf',
-        ];
-
-        $extension = strtolower(pathinfo($publicFile, PATHINFO_EXTENSION));
-        if (isset($mimeTypes[$extension])) {
-            header('Content-Type: ' . $mimeTypes[$extension]);
-            readfile($publicFile);
-            exit;
-        }
-    }
-
-    // No match found - 404 (error pages handled by infrastructure)
-    error_log('DEBUG: Reached 404 handler for requestPath = /anything-not-found');
+    // No route matched
     http_response_code(404);
     exit;
 }

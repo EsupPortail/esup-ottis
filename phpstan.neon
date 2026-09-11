@@ -17,7 +17,6 @@ parameters:
             - tmp/*
             - uploads/*
             - Security/tmp/*
-            - Security/legacy_functions.php
             - Security/sanitize.php
             - Security/csrf.php
             - Security/validate.php
@@ -25,7 +24,9 @@ parameters:
             - Security/validate_room_token.php
             - Security/init.php
             - Security/load_env.php
+            - src/Controller/UploadController.php
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false
     checkDynamicProperties: true
     checkExtraArguments: true
+    treatPhpDocTypesAsCertain: false

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?php echo $this->escape($language); ?>">
     <title><?php echo $this->escape($pageTitle ?? 'OTTIS'); ?></title>
-    <link rel="icon" type="image/png" href="./images/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/favicon.svg">
     <link rel="stylesheet" href="./styles/header.css">
 
     <!-- CSS spécifiques à la page -->
@@ -18,12 +18,24 @@
     <!-- Injection des variables PHP dans JavaScript -->
     <script>
         window.pageData = <?php echo json_encode($jsVars ?? []); ?>;
-        var ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
+        window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
     </script>
 
     <script src="./js/translatepage.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="./js/matomo.js"></script>
+    <!-- Configure PDF.js worker before loading PDF.js -->
+    <script>
+        // Configure PDF.js GlobalWorkerOptions before PDF.js is loaded
+        if (typeof pdfjsLib === 'undefined' && typeof pdfjsDist === 'undefined') {
+            window.pdfjsLib = { GlobalWorkerOptions: {} };
+        }
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+            pdfjsLib.GlobalWorkerOptions.cMapUrl = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
+            pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
+        }
+    </script>
     <!-- JS spécifiques à la page -->
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>

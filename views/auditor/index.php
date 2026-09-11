@@ -4,7 +4,7 @@
 	<title><?php echo $this->escape($pageTitle); ?></title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="icon" type="image/png" href="./images/favicon.svg" >
+    <link rel="icon" type="image/png" href="/images/favicon.svg" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <?php foreach ($pageStyles as $style): ?>
@@ -13,7 +13,7 @@
 
     <script>
         window.pageData = <?php echo json_encode($jsVars); ?>;
-        var ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
+        window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
@@ -24,13 +24,15 @@
 <h1 style="display:none;">Outils de traduction : application étudiante</h1>
 </main>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
-<div id="micon" style="background-color: #EE0000;" onclick="gotolive=true; CompleteSpeech(); this.style.backgroundColor='rgba(238,0,0,0.5)'; setTimeout(()=> {document.getElementById('micon').style.backgroundColor='rgba(238,0,0,1)';},300);"><i class='material-icons'>sensors</i><span style="font-size: 10px;color: white;"><br>LIVE</span></div>
 <div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 
 <div id="VOBanner"></div>
 <div id="soustitre"></div>
+
+<!-- Fixed title for display functions -->
+<div id="fixed-title"></div>
 
 <form id="myform" onsubmit="return false;">
 <?php echo csrfField(); ?>
@@ -44,11 +46,11 @@
     <span style="display:none"><label for="classroomid">Classroom identifier :</label><input type="text" name="classroomid" id="classroomid" value="<?php echo $this->escape($classroomid); ?>"></span>
 <span style="display:none">Pending requests : <span id="nbrequests">0</span></span>
 <span style="display:none"><label for="classroomlanguage">Classroom language :</label>
-  <select id="classroomlanguage" onchange="setLanguageInput(this.value);">
+  <select id="classroomlanguage">
   </select>
 </span>
 <span id="lilanguage"><label for="VoiceOutput">My language :</label>
-  <select id="VoiceOutput" onchange="setLanguageOutputAndRetranslate(this.value);"  onmouseout="if (firsttime && firstclick) {document.getElementById('synthesison').checked=false; firsttime=false;}" onclick="if (firsttime) {document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='visible'; document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='hithere 0.5s 5'; firstclick=true;}">
+  <select id="VoiceOutput">
   </select><span id="arrowlanguage">&nbsp;Choose your language first</span>
 </span><br>
 <span><label for="AuditorName">My surname :</label>
@@ -91,6 +93,7 @@
   <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the translated speech in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
     <div id="output">
     </div>
+    <div id="notebookVO" style="display:none;"></div>
   </div>
 
 
@@ -120,7 +123,7 @@
   </form>
 </dialog>
 
-<dialog id="dialog-choose" style="min-width: 300px;">
+<dialog id="dialog-choose">
   <form method="dialog">
   <?php echo csrfField(); ?>
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
@@ -132,6 +135,15 @@
   </menu>
   </form>
 </dialog>
+
+<script>
+// Ouvrir automatiquement le dialog de choix de langue si aucune langue n'est sélectionnée
+ document.addEventListener('DOMContentLoaded', function() {
+   if (!localStorage.getItem('selectedLanguage') && !document.getElementById('VoiceOutput')?.value) {
+     setTimeout(() => { if (typeof window.openLanguageDialog === 'function') window.openLanguageDialog(); }, 100);
+   }
+ });
+</script>
 
 <?php foreach ($pageScripts as $script): ?>
     <script src="<?php echo $this->escape($script); ?>"></script>

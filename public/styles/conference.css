@@ -1,0 +1,530 @@
+/* Style des panneaux */
+.settings-panel {
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+.panel {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.panel-title {
+    background-color: #1E90FF; /* Fond bleu */
+    color: white;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    user-select: none; /* Empêche la sélection de texte au clic */
+}
+
+.panel-title:hover {
+    background-color: #1C7ED6; /* Bleu plus foncé au survol */
+}
+
+.panel-title::marker {
+    color: white; /* Style de la flèche par défaut */
+}
+
+.panel-content {
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+/* Style des éléments de formulaire */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+/* Animation pour une transition fluide */
+.panel[open] .panel-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#partialtitre, #studentfeedback {
+	transition		 : 1s ease;
+	transition-property : background-color, color, box-shadow, text-shadow, font-size;
+	border-radius	 : 25px;
+	position		 : fixed;
+	top				 : 10px;
+	left			 : 20px;
+	width			 : 90%;
+	margin-left		 : auto;
+	margin-right	 : auto;
+	min-height		 : 64px;
+	background-color : rgba(0, 0, 0, 0.5);
+	color			 : white;
+	font-size		 : 18px;
+	font-family		 : helvetica, arial, sans-serif;
+	font-style		 : italic;
+	padding			 : 10px;
+	box-shadow		 : 2px 2px 5px rgb(0, 0, 0);
+	padding			 : auto;
+	justify-content  : center;
+	align-items		 : center;
+	z-index			 : 20000;
+	text-shadow		 : 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0,0,0), -1px -1px 0 rgb(0,0,0), 1px -1px 0 rgb(0,0,0), -1px 1px 0 rgb(0,0,0);
+	visibility		 : visible;
+}
+
+#textBand {
+	transition			 : 1s ease;
+	transition-property	 : background-color, color, box-shadow, text-shadow, font-size;
+	border-radius			 : 25px;
+	height				 : 150px;
+	background-color		 : rgba(0, 0, 0, 0.5);
+	color					 : white;
+	font-size				 : 18px;
+	font-family			 : helvetica, arial, sans-serif;
+	font-style			 : italic;
+	padding				 : 10px;
+	box-shadow			 : 2px 2px 5px rgb(0, 0, 0);
+	text-shadow			 : 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0,0,0), -1px -1px 0 rgb(0,0,0), 1px -1px 0 rgb(0,0,0), -1px 1px 0 rgb(0,0,0);
+	overflow				 : auto;
+	margin-top			 : 10px;
+	width					 : 100%;
+}
+
+#partialtitreSub {
+	transition		 : 1s ease;
+	transition-property : background-color, color, box-shadow, text-shadow, font-size;
+	border-radius	 : 25px;
+	position		 : fixed;
+	top				 : 0px;
+	left			 : 0px;
+	width			 : 92%;
+	margin-left		 : auto;
+	margin-right	 : auto;
+	min-height		 : 64px;
+	background-color : rgba(0,0,255,0.5);
+	color			 : white;
+	font-size		 : 18px;
+	font-family		 : helvetica, arial, sans-serif;
+	font-style		 : italic;
+	padding			 : 10px;
+	box-shadow		 : 2px 2px 5px rgb(0, 0, 0);
+	padding			 : auto;
+	justify-content	 : center;
+	align-items		 : center;
+	z-index			 : 20000;
+	text-shadow		 : 2px 0 0 rgb(0, 0, 0), -2px 0 0 rgb(0, 0, 0), 0 2px 0 rgb(0, 0, 0), 0 -2px 0 rgb(0, 0, 0), 1px 1px rgb(0,0,0), -1px -1px 0 rgb(0,0,0), 1px -1px 0 rgb(0,0,0), -1px 1px 0 rgb(0,0,0);
+	visibility		 : hidden;
+}
+
+#partialtitre>span {
+	font-size		 : 0.7em;
+	font-style		 : italic;
+}
+
+#micon,#questionicon,#FS {
+	transition		 : 0.5s ease;
+	/*
+  	position		 : fixed;
+	top				 : 5px;
+	right			 : 5px;
+  */
+	font-size		 : 36px;
+	z-index			 : 1000;
+	background-color : red;
+	border-radius	 : 10px;
+	width			 : 40px;
+	height			 : 40px;
+	margin			 : 5px auto 5px auto;
+	color			 : white;
+	text-align		 : center;
+	vertical-align	 : middle;
+	padding			 : auto;
+}
+
+#icondiv {
+  position			 : fixed;
+  top				 : 0px;
+  right				 : 0px;
+  width				 : 45px;
+  z-index			 : 1100;
+
+}
+
+
+@media ((min-width:650px) and (max-width:800px)) {
+	#Allbuttons {
+		visibility	 : visible;
+	}
+
+	#questionicon,#logonext,#FS {
+		visibility	 : hidden;
+	}
+
+	#micon {
+		top			 : 32px;
+		right		 : 5px;
+	}
+}
+
+@media ((min-width:500px) and (max-width:650px)) {
+	#Allbuttons {
+		visibility	 : visible;
+	}
+
+	#questionicon,#logonext,#FS {
+		visibility	 : hidden;
+	}
+
+	#micon {
+		transform-origin : top right;
+		transform	 : scale(0.5);
+		top			 : 5px;
+		right		 : 5px;
+	}
+}
+
+/* Spinner */
+
+#stillwaiting {
+	position: absolute;
+	width: 50%;
+	height: 50%;
+	top:200px;
+	left:25%;
+	color: black;
+	font-size: 2em;
+	z-index:20000;
+}
+
+#stillwaitingspinnerdiv {
+	width:100px;
+	height:100px;
+	border:20px solid #555555;
+	border-top:25px solid #aaaaaa;
+	border-radius:50%;
+	margin: auto;
+}
+
+#stillwaitingspinner {
+	width:150px;
+	height:150px;
+	margin: auto;
+}
+
+
+/* Accessible conference layout */
+#conference-main {
+	display: grid;
+	gap: 1.5rem;
+	padding: 1rem;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.conference-card {
+	background: #ffffff;
+	border: 1px solid #d7d7d7;
+	border-radius: 14px;
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+	padding: 1.1rem 1.3rem;
+}
+
+.conference-card h2,
+.conference-card h3 {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	color: #0f3d82;
+}
+
+.conference-columns {
+	display: grid;
+	grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+	gap: 1rem;
+	align-items: start;
+}
+
+@media (max-width: 980px) {
+	.conference-columns {
+		grid-template-columns: 1fr;
+	}
+}
+
+.conference-actions {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 0.8rem;
+}
+
+.conference-actions button,
+.conference-actions input[type="button"] {
+	width: 100%;
+	min-height: 42px;
+}
+
+
+
+#stillwaiting {
+	position: relative;
+	width: auto;
+	height: auto;
+	top: auto;
+	left: auto;
+	margin: 0 auto;
+	padding: 2rem;
+	background: rgba(255, 255, 255, 0.95);
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	text-align: center;
+	font-size: 1.05rem;
+	z-index: 20000;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+/* ========================================
+   Styles pour le mode plein ecran PDF
+   ======================================== */
+
+:fullscreen #pdf-viewer,
+:-webkit-full-screen #pdf-viewer,
+:-moz-full-screen #pdf-viewer,
+:-ms-fullscreen #pdf-viewer {
+    width: 100vw;
+    height: 100vh !important;
+    margin: 0;
+    padding: 0;
+    background: black;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 9999 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+:fullscreen #pdf-canvas,
+:-webkit-full-screen #pdf-canvas,
+:-moz-full-screen #pdf-canvas,
+:-ms-fullscreen #pdf-canvas {
+    display: block !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+:fullscreen #pdf-control,
+:-webkit-full-screen #pdf-control,
+:-moz-full-screen #pdf-control,
+:-ms-fullscreen #pdf-control {
+    display: block !important;
+    position: absolute !important;
+    bottom: 100px !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    padding: 10px 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+:fullscreen #pdf-control > div,
+:-webkit-full-screen #pdf-control > div,
+:-moz-full-screen #pdf-control > div,
+:-ms-fullscreen #pdf-control > div {
+    justify-content: center;
+}
+
+:fullscreen #pdf-control button,
+:-webkit-full-screen #pdf-control button,
+:-moz-full-screen #pdf-control button,
+:-ms-fullscreen #pdf-control button {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+:fullscreen #pdf-control button:hover,
+:-webkit-full-screen #pdf-control button:hover,
+:-moz-full-screen #pdf-control button:hover,
+:-ms-fullscreen #pdf-control button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+:fullscreen #pdf-control span,
+:-webkit-full-screen #pdf-control span,
+:-moz-full-screen #pdf-control span,
+:-ms-fullscreen #pdf-control span {
+    color: white;
+    background: transparent;
+}
+
+:fullscreen #pdf-control input,
+:-webkit-full-screen #pdf-control input,
+:-moz-full-screen #pdf-control input,
+:-ms-fullscreen #pdf-control input {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+:fullscreen #textBand,
+:-webkit-full-screen #textBand,
+:-moz-full-screen #textBand,
+:-ms-fullscreen #textBand {
+    display: block !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 100px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+}
+
+:fullscreen #partialtitre,
+:-webkit-full-screen #partialtitre,
+:-moz-full-screen #partialtitre,
+:-ms-fullscreen #partialtitre {
+    display: block !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 100px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    color: white !important;
+}
+
+:fullscreen body,
+:-webkit-full-screen body,
+:-moz-full-screen body,
+:-ms-fullscreen body {
+    overflow: hidden !important;
+    margin: 0;
+    padding: 0;
+}
+
+:fullscreen #pdf-page-indicator,
+:-webkit-full-screen #pdf-page-indicator,
+:-moz-full-screen #pdf-page-indicator,
+:-ms-fullscreen #pdf-page-indicator {
+    color: white !important;
+    background: transparent !important;
+}
+
+/* ========================================
+   Styles extraits des inline de conference.php
+   ======================================== */
+
+/* Classe commune pour textBand et textfixe */
+.text-band-style {
+    border-radius: 25px;
+    height: 150px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 18px;
+    font-family: helvetica, arial, sans-serif;
+    font-style: italic;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgb(0, 0, 0);
+    overflow: auto;
+    margin-top: 10px;
+}
+
+/* PDF Viewer - styles de base (fullscreen déjà défini plus haut) */
+#pdf-viewer { display: block; visibility: hidden; margin-top: 10px; position: relative; }
+#pdf-canvas { display: none; border: 1px solid #ccc; max-width: 100%; }
+#pdf-control { display: none; margin-top: 10px; }
+#pdf-control > div { display: flex; justify-content: center; gap: 20px; margin: 10px 0; }
+#pdf-page-input { width: 60px; }
+#pdf-fullscreen-btn { margin-left: auto; }
+#presentation-progress { width: 300px; margin-top: 5px; }
+#progress-status { margin-left: 10px; }
+
+/* Admin Config */
+#admin-config {
+    border: 2px solid #4CAF50;
+    padding: 15px;
+    margin: 20px 0;
+    background-color: #f0fff0;
+}
+#admin-config h2 { color: #2E7D32; text-align: center; }
+#whichtranslator { margin: 5px; }
+
+/* MICON - Remplace les styles existants */
+#micon {
+    position: fixed; top: 15px; right: 15px; z-index: 1000;
+    width: 56px; height: 56px; font-size: 36px;
+    background-color: #d32f2f; border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    color: white; cursor: pointer;
+    display: flex !important; align-items: center; justify-content: center;
+}
+#micon:has(.blink) { background-color: #4caf50 !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6) !important; }
+#micon.blink-active { background-color: #4caf50 !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6) !important; }
+#micon .blink { color: white !important; animation: microPulse 1.5s infinite !important; }
+
+@keyframes microPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+/* Text Content Viewer */
+#text-content-viewer {
+    display: none; border: 1px solid #ccc; padding: 15px;
+    margin-top: 10px; max-height: 500px; overflow: auto;
+}
+
+/* Containers */
+#notebooks_container { display: flex; }
+#VO_container, #translated_container { width: 50%; }
+#notebookVO, #notebook { border: solid 1px; }
+
+/* Partial Titre - style de base */
+#partialtitre { display: none; }
+
+/* Utilitaires */
+.hidden { display: none; }
+.no-bullets { list-style-type: none; }
+#sharedqr { margin-left: auto; margin-right: auto; }
+#pdf-page-indicator { align-self: center; }

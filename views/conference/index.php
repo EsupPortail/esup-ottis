@@ -4,7 +4,7 @@
 	<title><?php echo $this->escape($pageTitle); ?></title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" href="./images/favicon.svg" >
+    <link rel="icon" type="image/png" href="/images/favicon.svg" >
 
     <?php foreach ($pageStyles as $style): ?>
         <link href="<?php echo $this->escape($style); ?>" rel="stylesheet">
@@ -96,19 +96,9 @@
     <div>
         <ul class="no-bullets">
             <li><span id="connectedusers">connected users</span></li>
-            <li>Students application : <a id="sharedlink" href="auditor.php?ROOMID=<?php echo $this->escape($classroomid); ?>">auditor.php?ROOMID=<?php echo $this->escape($classroomid); ?></a></li>
+            <li>Students application : <a id="sharedlink" href="/auditor?ROOMID=<?php echo $this->escape($classroomid); ?>">/auditor?ROOMID=<?php echo $this->escape($classroomid); ?></a></li>
             <li>QR code :
                 <div title="" id="sharedqr"></div>
-            </li>
-        </ul>
-    </div>
-
-    <h3 class="tabbed">Remote control</h3>
-    <div>
-        <ul class="no-bullets">
-            <li>Remote control : <a id="remotelink" href="remote.php?ROOMID=<?php echo $this->escape($classroomid); ?>&LANG=fr,en&APPID=<?php echo $this->escape($appid); ?>">remote.php?ROOMID=<?php echo $this->escape($classroomid); ?>&LANG=fr,en&APPID=<?php echo $this->escape($appid); ?></a></li>
-            <li>QR code :
-                <div title="" id="remoteqr"></div>
             </li>
         </ul>
     </div>
@@ -162,15 +152,23 @@
 </div>
 
 <!-- Conference-specific scripts -->
+<!-- Charger global.js EN PREMIER pour initialiser les variables globales avant les bibliothèques externes -->
+<script type="module" src="/js/lib/compat/global.js"></script>
+
 <?php foreach ($pageScripts as $script): ?>
 <script src="<?php echo $this->escape($script); ?>"></script>
 <?php endforeach; ?>
-<script type="module" src="/js/conference-legacy.js"></script>
+<!-- Charger les autres dépendances -->
+<script type="module" src="/js/lib/utils/cleanup.js"></script>
+<script type="module" src="/js/lib/index.js"></script>
 <script type="module" src="/js/lib/chat/alert.js"></script>
 <script type="module" src="/js/lib/chat/network.js"></script>
+<script type="module" src="/js/lib/chat/main.js"></script>
 <script type="module" src="/js/lib/chat/handlers.js"></script>
 <script type="module" src="/js/lib/chat/display.js"></script>
-<script type="module" src="/js/lib/chat/main.js"></script>
+<script type="module" src="/js/lib/conference/index.js"></script>
+<!-- Puis le script d'initialisation -->
+<script type="module" src="/js/conference-init.js"></script>
 
 <?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
     <script src="/js/tests/no-jquery-validation.js"></script>

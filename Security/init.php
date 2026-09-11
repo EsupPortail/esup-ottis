@@ -1,7 +1,8 @@
 <?php
+
 /**
  * Initialisation des fonctionnalités de sécurité
- * 
+ *
  * Ce fichier doit être inclus au début de chaque script PHP
  * pour activer la protection CSRF et les fonctions de sanitization.
  */
@@ -32,9 +33,6 @@ try {
 require_once __DIR__ . '/validate.php';
 require_once __DIR__ . '/csrf.php';
 require_once __DIR__ . '/sanitize.php';
-
-// Charger les fonctions legacy pour la rétrocompatibilité
-require_once __DIR__ . '/legacy_functions.php';
 
 // Démarrer la session si ce n'est pas déjà fait
 if (session_status() === PHP_SESSION_NONE) {

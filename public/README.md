@@ -32,11 +32,6 @@ The Front Controller (`index.php`) is responsible for:
    - Displaying error pages in development
    - Showing generic error messages in production
 
-4. **Backward Compatibility**
-   - Fallback to legacy PHP files if no MVC route matches
-   - Support for old URLs like `/conference.php`
-   - Preservation of existing functionality
-
 ## Routing Configuration
 
 All routes are defined in `/config/routes.php`. The Front Controller loads this configuration and registers the routes with the Router.
@@ -102,18 +97,6 @@ Router::match() - Find matching route
 Controller::action() - Execute controller method
     ↓
 Response (HTML, JSON, redirect, etc.)
-```
-
-### Fallback Flow (Legacy Support)
-
-```
-No matching route found
-    ↓
-handleLegacyRequest()
-    ↓
-Check for legacy PHP file
-    ↓
-Include legacy file or return 404
 ```
 
 ## Development Notes

@@ -1,6 +1,8 @@
 # Apache configuration for OMIST Front Controller
 # This file routes all requests to the public/index.php Front Controller
 
+# Disable OPcache for debugging
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
@@ -9,6 +11,11 @@
     RewriteCond %{REQUEST_FILENAME} -d [OR]
     RewriteCond %{REQUEST_FILENAME} -l
     RewriteRule ^ - [L]
+    
+    # Serve index.php for all non-existing files/dirs with PATH_INFO
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [PT,L]
     
     # All 404s are handled by FallbackResource in root .htaccess
 </IfModule>
@@ -19,7 +26,7 @@
 Options -Indexes
 
 # Security: Protect sensitive files
-<FilesMatch "\.(env|log|sql|md|json|lock|yml|yaml|xml|ini|conf|config)$">
+<FilesMatch "\.(env|log|sql|md|lock|yml|yaml|xml|ini|conf|config)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

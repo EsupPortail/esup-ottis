@@ -18,19 +18,9 @@ return [
         'action' => 'index',
         'methods' => ['GET']
     ],
-    '/index.php' => [
-        'controller' => \App\Controller\HomeController::class,
-        'action' => 'index',
-        'methods' => ['GET']
-    ],
 
     // Conference pages
     '/conference' => [
-        'controller' => \App\Controller\ConferenceController::class,
-        'action' => 'index',
-        'methods' => ['GET', 'POST']
-    ],
-    '/conference.php' => [
         'controller' => \App\Controller\ConferenceController::class,
         'action' => 'index',
         'methods' => ['GET', 'POST']
@@ -48,11 +38,6 @@ return [
         'action' => 'index',
         'methods' => ['GET']
     ],
-    '/auditor.php' => [
-        'controller' => \App\Controller\AuditorController::class,
-        'action' => 'index',
-        'methods' => ['GET']
-    ],
     '/auditor/{roomId}' => [
         'controller' => \App\Controller\AuditorController::class,
         'action' => 'show',
@@ -60,25 +45,8 @@ return [
         'params' => ['roomId']
     ],
 
-    // Remote control
-    '/remote' => [
-        'controller' => \App\Controller\RemoteController::class,
-        'action' => 'index',
-        'methods' => ['GET']
-    ],
-    '/remote.php' => [
-        'controller' => \App\Controller\RemoteController::class,
-        'action' => 'index',
-        'methods' => ['GET']
-    ],
-
     // Subtitles
     '/subtitles' => [
-        'controller' => \App\Controller\SubtitlesController::class,
-        'action' => 'index',
-        'methods' => ['GET']
-    ],
-    '/subtitles.php' => [
         'controller' => \App\Controller\SubtitlesController::class,
         'action' => 'index',
         'methods' => ['GET']
@@ -88,118 +56,163 @@ return [
     // API Endpoints - File Upload and Processing
     // =========================================================================
 
-    '/upload_handler.php' => [
+    '/upload' => [
         'controller' => \App\Controller\UploadController::class,
         'action' => 'handle',
         'methods' => ['GET', 'POST']
     ],
-    '/readupload.php' => [
+    '/readupload' => [
         'controller' => \App\Controller\UploadController::class,
         'action' => 'read',
         'methods' => ['GET', 'POST']
     ],
 
     // Text processing
-    '/readtext.php' => [
+    '/readtext' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'read',
         'methods' => ['GET', 'POST']
     ],
-    '/readtextQ.php' => [
+    '/readtextQ' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readQ',
         'methods' => ['GET', 'POST']
     ],
-    '/readtextTranscriptSub.php' => [
+    '/readtextTranscriptSub' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readTranscriptSub',
         'methods' => ['GET', 'POST']
     ],
+    '/read-vo' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'readVO',
+        'methods' => ['GET', 'POST']
+    ],
+    '/translate' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'translate',
+        'methods' => ['GET', 'POST']
+    ],
+
+    // Text processing with /text/ prefix (for JavaScript compatibility)
+    '/text/read' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'read',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/readQ' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'readQ',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/translate' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'translate',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/save' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'save',
+        'methods' => ['POST']
+    ],
+    '/text/saveQ' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'saveQ',
+        'methods' => ['POST']
+    ],
+    '/text/read-transcript-sub' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'readTranscriptSub',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/read-vo' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'readVO',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/read-q' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'readQ',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/save-q' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'saveQ',
+        'methods' => ['POST']
+    ],
 
     // Image processing
-    '/readimage.php' => [
+    '/readimage' => [
         'controller' => \App\Controller\ImageController::class,
         'action' => 'read',
-        'methods' => ['GET']
+        'methods' => ['GET', 'POST']
     ],
 
     // =========================================================================
     // Save Endpoints - POST Routes
     // =========================================================================
 
-    '/savetext.php' => [
+    '/savetext' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'save',
         'methods' => ['POST']
     ],
-    '/savetextQ.php' => [
+    '/savetextQ' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'saveQ',
         'methods' => ['POST']
     ],
-    '/saveimage.php' => [
+    '/saveimage' => [
         'controller' => \App\Controller\ImageController::class,
         'action' => 'save',
         'methods' => ['POST']
     ],
-    '/saveremoteorder.php' => [
-        'controller' => \App\Controller\RemoteController::class,
-        'action' => 'saveOrder',
-        'methods' => ['POST']
-    ],
-    '/savespeechforremote.php' => [
-        'controller' => \App\Controller\RemoteController::class,
-        'action' => 'saveSpeech',
-        'methods' => ['POST']
-    ],
 
     // Email
-    '/sendamail.php' => [
+    '/sendamail' => [
         'controller' => \App\Controller\EmailController::class,
         'action' => 'send',
         'methods' => ['POST']
+    ],
+    '/transcription-sub' => [
+        'controller' => \App\Controller\ExtractController::class,
+        'action' => 'transcriptionSub',
+        'methods' => ['GET', 'POST']
     ],
 
     // =========================================================================
     // Extraction Tools
     // =========================================================================
 
-    '/ExtractSlidesNotes.php' => [
+    // New MVC-style routes for extraction
+    '/extract/slides-notes' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'slidesNotes',
         'methods' => ['GET', 'POST']
     ],
-    '/ExtractSlidesNotesAppHTML.php' => [
-        'controller' => \App\Controller\ExtractController::class,
-        'action' => 'slidesNotesAppHTML',
-        'methods' => ['GET', 'POST']
-    ],
-    '/ExtractSlidesNotesTxt.php' => [
+    '/extract/slides-notes-txt' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'slidesNotesTxt',
         'methods' => ['GET', 'POST']
     ],
-    '/ExtractSlidesNotes_PPTX_images.php' => [
+    '/extract/slides-notes-apphtml' => [
+        'controller' => \App\Controller\ExtractController::class,
+        'action' => 'slidesNotesAppHTML',
+        'methods' => ['GET', 'POST']
+    ],
+    '/extract/pptx-images' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'pptxImages',
         'methods' => ['GET', 'POST']
     ],
-    '/PPTXNotesExtractor.php' => [
+    '/extract/pptx-notes' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'pptxNotes',
         'methods' => ['GET', 'POST']
     ],
-
-    // =========================================================================
-    // Legacy Compatibility Routes
-    // These routes maintain backward compatibility with existing URLs
-    // =========================================================================
-
-    // Add legacy routes here as needed for backward compatibility
-    // Example:
-    // '/old-page.php' => [
-    //     'controller' => \App\Controller\LegacyController::class,
-    //     'action' => 'oldPage',
-    //     'methods' => ['GET', 'POST']
-    // ],
+    '/ExtractSlidesNotes' => [
+        'controller' => \App\Controller\ExtractController::class,
+        'action' => 'slidesNotes',
+        'methods' => ['GET', 'POST']
+    ],
 ];

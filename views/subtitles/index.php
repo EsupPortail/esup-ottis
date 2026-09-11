@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link href="styles/auditor.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="./images/favicon.svg" >
+    <link rel="icon" type="image/png" href="/images/favicon.svg" >
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <?php foreach ($pageStyles as $style): ?>
         <link href="<?php echo $this->escape($style); ?>" rel="stylesheet">
@@ -13,17 +13,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
 <script>
   <?php
-  echo "var supportedlanguages=JSON.parse('" . json_encode($T_lang) . "');";
-	echo "var currentconfig='" . $this->escape($currentconfig) . "';";
-	echo "var MicrosoftKey='" . $this->escape($MicrosoftKey) . "';";
-	echo "var MicrosoftRegion='" . $this->escape($MicrosoftRegion) . "';";
+  echo "window.supportedlanguages=JSON.parse('" . json_encode($T_lang) . "');";
+	echo "window.currentconfig='" . $this->escape($currentconfig) . "';";
+	echo "window.MicrosoftKey='" . $this->escape($MicrosoftKey) . "';";
+	echo "window.MicrosoftRegion='" . $this->escape($MicrosoftRegion) . "';";
 	?>
 </script>
 <script src="<?php echo $this->escape($pageScripts[0]); ?>"></script>
 <script src="<?php echo $this->escape($pageScripts[1]); ?>"></script>
-<!-- Auditor modules -->
+<!-- Auditor modules - ES Modules -->
 <?php foreach ($auditorScripts as $script): ?>
-<script src="<?php echo $this->escape($script); ?>"></script>
+<script type="module" src="<?php echo $this->escape($script); ?>"></script>
 <?php endforeach; ?>
 
 <style>

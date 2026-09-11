@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
 use App\Service\RoomInfoService;
+use App\Service\TokenConfigService;
 use App\Service\TranslatorStatsService;
 
 /**
@@ -30,21 +32,25 @@ class ConferenceController extends BaseController
      */
     public function index(): void
     {
+        // Load chat component functions
+        require_once __DIR__ . '/../../includes/chat-component.php';
+
         // Set session marker
         $_SESSION['from'] = 'teacher';
 
         // Get language from request
         $language = $this->getParam('lang', 'fr');
 
-        // Load config values from global scope
-        global $WhichTranslator, $DEEPLAPITOKEN, $DEEPLFREEAPITOKEN, $proxy;
+        // Load config values from TokenConfigService
+        $tokenConfig = TokenConfigService::create();
+        $WhichTranslator = $tokenConfig->getWhichTranslator();
 
         // Load translations using parent method
         $this->viewData['language'] = $language;
         $this->loadTranslations();
 
         // Set page metadata
-        $this->viewData['pageTitle'] = 'Omist - Conference';
+        $this->viewData['pageTitle'] = 'OTTIS - Conference';
 
         // Define styles for this page
         $this->viewData['pageStyles'] = [
@@ -68,16 +74,21 @@ class ConferenceController extends BaseController
 
         // Use services to load data
         $T_lang = LanguageLoader::load();
-        $roomToken = generateRoomToken($classroomid);
+        $roomToken = RoomTokenManager::generateRoomToken($classroomid);
         $appid = RoomInfoService::generateAppId();
         $uid = RoomInfoService::getUserId('anonymous');
         $ip = RoomInfoService::getClientIp();
 
         // Get DeepL statistics
-        $statsService = new TranslatorStatsService($proxy ?? '');
-        $statsResult = $statsService->getTranslatorStats($WhichTranslator ?? '', $DEEPLAPITOKEN ?? $DEEPLFREEAPITOKEN ?? '');
-        $Stats_DEEPL = $statsResult['stats'];
-        $percentage_DEEPL = $statsResult['percentage_used'];
+        $statsService = new TranslatorStatsService($tokenConfig->getProxy());
+        try {
+            $statsResult = $statsService->getTranslatorStats($WhichTranslator, $tokenConfig->getDeepLProApiToken() ?: $tokenConfig->getDeepLFreeApiToken());
+            $Stats_DEEPL = $statsResult['stats'] ?? [];
+            $percentage_DEEPL = $statsResult['percentage_used'] ?? 0;
+        } catch (\Throwable $e) {
+            $Stats_DEEPL = [];
+            $percentage_DEEPL = 0;
+        }
 
         // Get configuration parameter
         $currentconfig = $this->getParam('myconfig', 'AAYAYKCNYCNYNYNNN');
@@ -117,13 +128,15 @@ class ConferenceController extends BaseController
     /**
      * Display a specific conference room
      *
-     * Redirects to the conference page with the specified room ID.
+     * Sets the ROOMID parameter and reuses the index logic.
      *
      * @param string $roomId The room identifier
      * @return void
      */
     public function show(string $roomId): void
     {
-        $this->redirect('/conference.php?ROOMID=' . urlencode($roomId));
+        // Set ROOMID parameter and reuse index logic
+        $_GET['ROOMID'] = $roomId;
+        $this->index();
     }
 }

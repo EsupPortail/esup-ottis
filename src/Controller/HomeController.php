@@ -19,7 +19,7 @@ class HomeController extends BaseController
     public function index(): void
     {
         // Set page-specific data
-        $this->viewData['pageTitle'] = 'Omist - Automatic Translator';
+        $this->viewData['pageTitle'] = 'OTTIS - Outil de Transcription et de Traduction Intelligente et Synchrone';
 
         // Define styles for this page
         $this->viewData['pageStyles'] = [
@@ -42,7 +42,7 @@ class HomeController extends BaseController
                 'title' => 'index.conferenceTitle',
                 'text' => 'index.conferenceDesc',
                 'buttonText' => 'index.conferenceButton',
-                'buttonLink' => 'conference.php'
+                'buttonLink' => '/conference'
             ],
             [
                 'icon' => '📱',

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $this->escape($pageTitle ?? 'Extract Presentation Content'); ?></title>
-    <link rel="icon" type="image/png" href="./images/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/favicon.svg">
     <link rel="stylesheet" href="./styles/index.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
@@ -15,7 +15,7 @@
     <h1>Extract Content from Presentation</h1>
     <p>Format: <?php echo $this->escape($format ?? 'default'); ?></p>
 
-    <form action="ExtractSlidesNotes.php" method="POST" enctype="multipart/form-data">
+    <form action="/extract/slides-notes" method="POST" enctype="multipart/form-data">
         <?php echo csrfField(); ?>
 
         <input type="hidden" name="format" value="<?php echo $this->escape($format ?? 'default'); ?>">

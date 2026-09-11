@@ -4,13 +4,22 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # Serve existing files/directories directly
-    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [OR]
-    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
-    RewriteRule ^(.*)$ /public/$1 [L]
+    # FORCER le passage par index.php pour toutes les routes API (readimage, translate, etc.)
+    # Exception : fichiers statiques (css, js, images)
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+    RewriteCond %{REQUEST_URI} !^/(js/|css/|images/|libs/|lang/|favicon\.ico)
+    RewriteRule ^ - [L]
     
-    # Fallback to front controller for 404s (no error headers sent)
-    FallbackResource /public/index.php
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+    RewriteRule ^ - [L]
+    
+    RewriteCond %{REQUEST_FILENAME} -l
+    RewriteRule ^ - [L]
+    
+    # Redirect all other requests to /public/index.php with PATH_INFO
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ /public/index.php/$1 [PT,L,QSA]
 </IfModule>
 
 # Désactiver l'indexation des répertoires

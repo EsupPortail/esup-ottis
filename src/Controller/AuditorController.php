@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
 use App\Service\RandomNameGenerator;
 
@@ -25,11 +26,17 @@ class AuditorController extends BaseController
      */
     public function index(): void
     {
+        // Load chat component functions
+        require_once __DIR__ . '/../../includes/chat-component.php';
+
+        // Set session marker
+        $_SESSION['from'] = 'student';
+
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');
 
         // Generate room token
-        $roomToken = generateRoomToken($classroomid);
+        $roomToken = RoomTokenManager::generateRoomToken($classroomid);
 
         // Use services to load data
         $T_lang = LanguageLoader::load();
@@ -51,7 +58,7 @@ class AuditorController extends BaseController
         ];
 
         // Set page data
-        $this->viewData['pageTitle'] = 'Automatic translation for teaching purposes';
+        $this->viewData['pageTitle'] = 'OTTIS - Auditor';
         $this->viewData['classroomid'] = $classroomid;
         $this->viewData['roomToken'] = $roomToken;
         $this->viewData['randomname'] = $randomname;
@@ -70,24 +77,25 @@ class AuditorController extends BaseController
 
         // Define scripts for this page
         $pageScripts = [
+            '/js/lib/auditor/config.js',
+        ];
+
+        // Chat modules and auditor ES modules
+        $chatScripts = [
+            '/js/lib/compat/global.js',
             '/js/auditor-def.js',
-            '/js/common-func.js',
+            '/js/auditor-post.js',
+            '/js/lib/conference/network.js',
+            '/js/lib/utils/request-counter.js',
             '/js/lib/auditor/text-processing.js',
             '/js/lib/auditor/speech.js',
             '/js/lib/auditor/display.js',
             '/js/lib/auditor/translation.js',
             '/js/lib/auditor/network.js',
-            '/js/lib/auditor/config.js',
             '/js/lib/auditor/mail.js',
             '/js/lib/auditor/main.js',
             '/js/utils/dom.js',
             '/js/utils/draggable.js',
-            '/js/auditor-post.js',
-        ];
-
-        // Chat modules
-        $chatScripts = [
-            '/js/conference-legacy.js',
             '/js/lib/chat/alert.js',
             '/js/lib/chat/network.js',
             '/js/lib/chat/handlers.js',
@@ -107,13 +115,15 @@ class AuditorController extends BaseController
     /**
      * Display a specific auditor room
      *
-     * Redirects to the auditor page with the specified room ID.
+     * Sets the ROOMID parameter and reuses the index logic.
      *
      * @param string $roomId The room identifier
      * @return void
      */
     public function show(string $roomId): void
     {
-        $this->redirect('/auditor.php?ROOMID=' . urlencode($roomId));
+        // Set ROOMID parameter and reuse index logic
+        $_GET['ROOMID'] = $roomId;
+        $this->index();
     }
 }

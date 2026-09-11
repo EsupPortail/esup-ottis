@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $this->escape($pageTitle ?? 'Upload Presentation'); ?></title>
-    <link rel="icon" type="image/png" href="./images/favicon.svg">
+    <link rel="icon" type="image/png" href="/images/favicon.svg">
     <link rel="stylesheet" href="./styles/index.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
@@ -14,7 +14,7 @@
 <body>
     <h1>Upload Presentation File</h1>
 
-    <form action="upload_handler.php" method="POST" enctype="multipart/form-data">
+    <form action="/upload/handle" method="POST" enctype="multipart/form-data">
         <?php echo csrfField(); ?>
 
         <div>

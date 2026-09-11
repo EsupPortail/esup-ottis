@@ -87,7 +87,7 @@ class Router
 
         // If running from public/index.php, the base path is the directory containing public
         if (str_ends_with($scriptName, '/public/index.php')) {
-            return $scriptDir . '/public';
+            return $scriptDir;
         }
 
         // For root installation
@@ -259,5 +259,15 @@ class Router
     {
         return (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
                 strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+    }
+
+    /**
+     * Get all registered routes (for debugging)
+     *
+     * @return array All registered routes
+     */
+    public function getRoutes(): array
+    {
+        return $this->routes;
     }
 }
