@@ -1,0 +1,164 @@
+/*
+Main stylesheet for Dashboard
+*/
+
+:root {
+    --black          : rgb(0  , 0  , 0  );
+    --blue           : rgb(52 , 82 , 255);
+    --dark-grey      : rgb(81 , 89 , 97 );
+    --grey           : rgb(241, 242, 246);
+    --white          : rgb(255, 255, 255);
+}
+
+html, body {
+    font-family      : "Open Sans", sans-serif;
+    height           : 100%;
+}
+
+body {
+    background       : var(--white)FFF;
+    height           : 100%;
+    margin           : 0px;
+}
+
+img {
+    max-width        : 90%;
+}
+
+ul {
+    list-style       : none;
+    margin           : 0;
+    padding          : 0;
+}
+
+a {
+    text-decoration  : none;
+}
+
+#header {
+    float            : left;
+    width            : 100%;
+    background       : var(--white);
+    position         : relative;
+}
+
+#sidebar {
+    overflow         : hidden;
+    width            : 185px;
+    height           : 100%;
+    float            : left;
+    background       : #2A2D33;
+    position         : fixed;
+}
+
+#sidebar-nav {
+    width            : 106%;
+    height           : 100%;
+    padding          : 0;
+    background       : var(--black);
+    border-right     : 1px solid #E0E0E0;
+    overflow-y       : scroll;
+}
+
+#sidebar-nav h2 {
+    color            : #60636B;
+    float            : left;
+    width            : 100%;
+    font-size        : 0.8em;
+    font-family      : "Open Sans", sans-serif;
+    font-weight      : 600;
+    text-transform   : uppercase;
+    padding          : 3px 0 2px 20px;
+    border-top       : 1px solid #4D4C4C;
+    box-sizing       : border-box;
+    margin           : 10px 0;
+}
+
+.tablink {
+    color            : var(--white);
+    font-size        : 0.95em;
+    padding          : 15px 20px;
+    float            : left;
+    width            : 100%;
+    font-weight      : 600;
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing  : border-box;
+    box-sizing       : border-box;
+}
+
+.tablink:hover {
+    background       : var(--blue);
+}
+
+.tablink {
+    background-color : var(--black);
+    color            : var(--white);
+}
+
+#content {
+    left             : 190px;
+    position         : relative;
+    float            : left;
+    width            : calc(100% - 210px);
+    height           : 100%;
+    word-wrap        : break-word;
+    background       : var(--white)FFF;
+    font-family      : Raleway, sans-serif;
+}
+
+::-webkit-scrollbar {
+    width            : 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow : inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius    : 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius    : 10px;
+    -webkit-box-shadow : inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.content {
+    left             : 190px;
+    position         : relative;
+    float            : left;
+    background       : #E9EEF4;
+    width            : 100%;
+    height           : calc(100% - 64px);
+    -webkit-box-sizing : border-box;
+    -moz-box-sizing  : border-box;
+    box-sizing       : border-box;
+}
+
+#logoOMIST {
+    width            : 163px;
+    height           : auto;
+    margin           : 10px;
+}
+
+.tabcontent {
+    color            : var(--white);
+    display          : none;
+    padding          : 20px 20px;
+    height           : 100%;
+}
+
+.graph-tot {
+    width            : 90%; 
+    height           : 500px; 
+    border           : none;
+}
+
+.tab i {
+    color            : var(--white);
+}
+
+#sidebar-nav i {
+    padding-right    : 8px;
+    font-size        : 1.3em;
+    width            : 25px;
+    text-align       : center;
+}
+

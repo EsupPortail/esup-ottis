@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>OMIST - Conversation </title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./images/favicon.svg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+
+<style type="text/css">
+select {
+  height: 40px;
+  font-family: helvetica;
+  font-size: 1.2em;
+  color: white;
+  background-color: rgb(50,100,255);
+}
+
+#bready {
+  border: none;
+  font-family: helvetica;
+  font-size: 1.2em;
+  padding: 10px;
+  background-color: rgb(20, 135, 11);
+}
+
+#excbutton {
+  border-radius: 4px;
+  font-family: helvetica;
+  font-size: 2em;
+  background-color: rgb(50,255,100);
+  padding: 10px;
+}
+
+#speakbutton {
+  border-radius: 4px;
+  font-family: helvetica;
+  font-size: 2em;
+  padding: 10px;
+}
+
+#partial {
+  font-style: italic;
+}
+
+</style>
+
+<script type="text/javascript">
+
+// Parameters
+var defaultIn="fr-FR";
+var defaultOut="en-US";
+var base = new URL(window.location.toLocaleString()).searchParams;
+
+if (base.has('defaultIn')) defaultIn=base.get('defaultIn');
+if (base.has('defaultOut')) defaultOut=base.get('defaultOut');
+
+console.log("Input = "+defaultIn);
+console.log("Output = "+defaultOut);
+
+var AllOutputVoices=[];
+var TLangInput=[];
+var builtin_voice;
+var builtin_language=[];
+builtin_language["lang"]="fr-FR";
+
+function PopulateVoicesOut() {
+  var select = document.getElementById('VoiceOutput');
+  AllOutputVoices=[];
+  while (select.firstChild) {
+    select.removeChild(select.firstChild);
+  }
+  var voices = window.speechSynthesis.getVoices();
+  for(var i=0; i<voices.length; i++) {
+    if (true) { //voices[i].localService) {
+      var opt=document.createElement("option");
+      opt.value=AllOutputVoices.length;
+      AllOutputVoices.push(voices[i]);
+      opt.innerHTML=voices[i].lang+" "+voices[i].name;
+      select.appendChild(opt);
+    }
+  }
+}
+
+function PopulateVoicesIn() {
+  var select = document.getElementById('VoiceInput');
+  //AllOutputVoices=[];
+  while (select.firstChild) {
+    select.removeChild(select.firstChild);
+  }
+  var voices = window.speechSynthesis.getVoices();
+  for(var i=0; i<voices.length; i++) {
+    if (true) { //voices[i].localService) {
+      var opt=document.createElement("option");
+      opt.value=AllOutputVoices.length;
+      //AllOutputVoices.push(voices[i]);
+      opt.innerHTML=voices[i].lang+" "+voices[i].name;
+      select.appendChild(opt);
+    }
+  }
+}
+
+function old_PopulateVoicesIn() {
+  var select = document.getElementById('VoiceInput');
+  var voices = window.speechSynthesis.getVoices();
+  TLangInput=[];
+  //alert(voices[0].name);
+  for(var i=0; i<voices.length; i++) {
+    if (true) { //voices[i].localService) {
+      var lang=voices[i].lang; //.substr(0,5);
+      if (TLangInput.indexOf(lang)<0) {
+        var opt=document.createElement("option");
+        opt.value=TLangInput.length;
+        TLangInput.push(lang);
+        opt.innerHTML=lang;
+        select.appendChild(opt);
+      }
+    }
+  }
+}
+
+function setLanguageInput(i) {
+  //builtin_language=TLangInput[i];
+  builtin_language=AllOutputVoices[i];
+  //Ecrire(builtin_language);
+}
+
+function setLanguageOutput(i) {
+  builtin_voice=AllOutputVoices[i];
+  //Ecrire(builtin_voice.lang);
+}
+
+function Parle(txt) {
+  if (speakeron) {
+    var discours = new SpeechSynthesisUtterance(txt);
+    discours.voice = builtin_voice;
+    discours.lang = builtin_voice.lang;
+    window.speechSynthesis.speak(discours);
+    discours.onend=ready;
+    discours.onerror=ready;
+  } else {
+    ready();
+  }
+}
+
+var readytotalk=true;
+
+function ready() {
+  readytotalk=true;
+  document.getElementById('bready').style.backgroundColor='rgb(20, 135, 11)';
+  StartSpeechRecognition(Traduction);
+}
+
+function notready() {
+  StopSpeechRecognition();
+  readytotalk=false;
+  document.getElementById('bready').style.backgroundColor='red';
+}
+
+function Traduction(ch) {
+  if (readytotalk) {
+    notready();
+  Ecrire('Input ('+builtin_language.lang.substr(0,2)+'): '+ch);
+  if (builtin_voice.lang.substr(0,2) != builtin_language.lang.substr(0,2))
+    Translate(ch, builtin_voice.lang.substr(0,2), builtin_language.lang.substr(0,2));
+  else {
+    Parle(ch);
+    Ecrire("Output ("+builtin_voice.lang.substr(0,2)+"): "+ch);
+  }
+  }
+}
+
+function Translate(ch, l, linput) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput, true);
+
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      // console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      if ((! response["error"]) && response["data"]["translations"]) {
+        Parle(response["data"]["translations"][0]["translatedText"]);
+        Ecrire("Output ("+builtin_voice.lang.substr(0,2)+"): "+response["data"]["translations"][0]["translatedText"]);
+      } else {
+        Ecrire("Output ("+builtin_voice.lang.substr(0,2)+"): Erreur de traduction")
+      }
+
+    }
+  };
+  xhr.send();
+}
+
+
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var builtin_recognition = new SpeechRecognition();
+builtin_recognition.continuous = false;
+//builtin_recognition.continuous = true;
+//builtin_recognition.interimResults = true;
+//builtin_recognition.enableAutomaticPunctuation= true;
+//builtin_recognition.maxAlternatives = 1;
+
+//builtin_recognition.continuous = false;
+var builtin_recognitionon = false;
+
+function StartSpeechRecognition(callback) {
+  //console.log('DEBUG : '+builtin_language);
+  builtin_recognition.lang = builtin_language.lang.split(" ")[0];
+  //console.log("Recognition language is "+builtin_recognition.lang);
+  builtin_recognition.onresult = function(event) {
+    if (builtin_recognitionon) {
+ /*   var partial='';
+      for (var i = event.resultIndex; i < event.results.length; i++) {
+        if (event.results[i].isFinal) {
+          partial=event.results[i][0].transcript; //+" > ";
+          partial='';
+          EcrirePartial(partial);
+          callback(event.results[i][0].transcript);
+        } else {
+          partial+=' '+event.results[i][0].transcript;
+        }
+      }
+      if (partial.trim() != '') {
+        EcrirePartial(partial);
+      }
+
+      builtin_recognition.stop();
+
+*/
+
+      for (i = event.resultIndex; i < event.results.length; i++) {
+        callback(event.results[i][0].transcript);
+      }
+      builtin_recognition.stop();
+      
+    }
+  };
+  builtin_recognition.onend = function(event) {
+    if (builtin_recognitionon) {
+      StartSpeechRecognition(callback);
+    }
+  };
+  builtin_recognitionon = true;
+  builtin_recognition.start();
+}
+
+function StopSpeechRecognition() {
+  builtin_recognitionon = false;
+  builtin_recognition.stop();
+}
+
+
+function InitVoices() {
+  PopulateVoicesIn();
+  PopulateVoicesOut();
+  var defaultv=0;
+  for(var i=0; i<AllOutputVoices.length;i++) {
+    var voicelongname=(AllOutputVoices[i].lang+" "+AllOutputVoices[i].name).replaceAll("_","-");
+    //console.log("Search "+defaultIn+" in "+AllOutputVoices[i].lang+" : "+AllOutputVoices[i].lang.indexOf(defaultIn));
+    if (voicelongname.indexOf(defaultIn)>=0) {defaultv=i; break;}
+  }
+  document.getElementById("VoiceInput").selectedIndex=defaultv;
+  setLanguageInput(defaultv);
+  var defaultv=0;
+  for(var i=0; i<AllOutputVoices.length;i++) {
+    var voicelongname=(AllOutputVoices[i].lang+" "+AllOutputVoices[i].name).replaceAll("_","-");
+    //console.log("Search "+defaultOut+" in "+AllOutputVoices[i].lang+" : "+AllOutputVoices[i].lang.indexOf(defaultOut));
+    if (voicelongname.indexOf(defaultOut)>=0) {defaultv=i; break;}
+  }
+  //console.log("Output set to "+defaultv);
+  document.getElementById("VoiceOutput").selectedIndex=defaultv;
+  setLanguageOutput(defaultv);
+}
+
+function Ecrire(ch) {
+  document.getElementById('output').innerHTML=ch+"<br/>"+document.getElementById('output').innerHTML;
+}
+
+function hide(e) {
+  document.getElementById(e).style.display='none';
+}
+
+function show(e) {
+  document.getElementById(e).style.display='block';
+}
+//document.body.addEventListener('load',Init,true);
+
+function Exchange() {
+  var s1=document.getElementById('VoiceInput');
+  var s2=document.getElementById('VoiceOutput');
+  var tmp=s1.selectedIndex;
+  s1.selectedIndex=s2.selectedIndex;
+  s2.selectedIndex=tmp;
+  setLanguageInput(s1.selectedIndex);
+  setLanguageOutput(s2.selectedIndex);
+  console.log("Input is "+s1.value+" and output is "+s2.value);
+  notready();
+  ready();
+}
+
+var Tvoices;
+function loadVoicesWhenAvailable() {
+         Tvoices = window.speechSynthesis.getVoices();
+
+         if (Tvoices.length !== 0) {
+                LoadVoices();
+            }
+            else {
+                setTimeout(function () { loadVoicesWhenAvailable(); }, 10)
+            }
+    }
+
+function LoadVoices() {
+  InitVoices();
+  Lancer();
+}
+
+function Lancer() {
+  ready(); 
+  StartSpeechRecognition(Traduction);
+}
+
+var speakeron=true;
+function SpeakerONOFF() {
+  speakeron = !speakeron;
+  if (speakeron) {
+    document.getElementById('iconspeaker').innerHTML='record_voice_over';
+  } else {
+    document.getElementById('iconspeaker').innerHTML='voice_over_off';
+  }
+}
+
+function EcrirePartial(txt) {
+  document.getElementById('partial').innerHTML=txt;
+}
+
+var ForWebcamvideo = document.createElement("video");
+ForWebcamvideo.setAttribute("width", 640);
+ForWebcamvideo.setAttribute("height", 480);
+
+var ForWebcamcanvas = document.createElement("canvas");
+ForWebcamcanvas.setAttribute("width", 640);
+ForWebcamcanvas.setAttribute("height", 480);
+var ForWebcamcontext = ForWebcamcanvas.getContext('2d');
+
+function ForWebcamProcess(f) {
+  if (ForWebcamvideo.paused || ForWebcamvideo.ended) {
+    return;
+  }
+  ForWebcamcontext.drawImage(ForWebcamvideo, 0, 0, 640, 480);
+  var frame = ForWebcamcontext.getImageData(0, 0, 640, 480);
+  f(frame);
+  setTimeout(function() {
+    ForWebcamProcess(f);
+  }, 0);
+}
+
+function StartWebcam(f) {
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.GetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  navigator.getUserMedia({
+    video: true
+  }, function(stream) {
+    ForWebcamvideo.srcObject = stream;
+    ForWebcamvideo.play();
+    ForWebcamProcess(f);
+  }, function(e) {
+    console.error(e);
+  });
+}
+
+function StopWebcam() {
+  ForWebcamvideo.pause();
+}
+
+function StartWebcam(f) {
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mediaDevices.GetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  navigator.getUserMedia({
+    video: true
+  }, function(stream) {
+    ForWebcamvideo.srcObject = stream;
+    ForWebcamvideo.play();
+    ForWebcamProcess(f);
+  }, function(e) {
+    console.error(e);
+  });
+}
+
+var moyr = 0;
+var moyv = 0;
+var moyb = 0;
+var nb = 0;
+var color="white";
+flag=0;
+
+function Traitement(T) {
+  var totalr = 0;
+  var totalv = 0;
+  var totalb = 0;
+  var n = 0;
+  for (var i = 0; i < T.data.length; i = i + 4) {
+    var rouge = T.data[i];
+    var vert = T.data[i + 1];
+    var bleu = T.data[i + 2];
+    totalr = (n * totalr + rouge) / (n + 1);
+    totalv = (n * totalv + vert) / (n + 1);
+    totalb = (n * totalb + bleu) / (n + 1);
+    n++;
+  }
+
+  if (nb > 1000) {
+    moyr = 0;
+    moyv = 0;
+    moyb = 0;
+    nb = 0;
+  }
+
+  moyr = (nb * moyr + totalr) / (nb + 1);
+  moyv = (nb * moyv + totalv) / (nb + 1);
+  moyb = (nb * moyb + totalb) / (nb + 1);
+  nb++;
+
+  var moy = (totalr + totalv + totalb) / 3;
+  flag--;
+  if (flag<500) color="white";
+  if (flag<0 && Math.abs(moyr - totalr) + Math.abs(moyv - totalv) + Math.abs(moyb - totalb) > 20) {
+    flag=1000;
+    Exchange();
+  } 
+
+}
+
+
+</script>
+</head>
+<body onload="loadVoicesWhenAvailable(); /*StartWebcam(Traitement); */">
+<!--<h1>Conversation</h1>-->
+<main>
+<div id="buttons">
+<button id="bready">Ready to listen ?</button>
+<!-- <button onclick="StopSpeechRecognition();">Stop</button> -->
+</div>
+<table id="tb">
+  <caption>One to one conversation</caption>
+<tr>
+<td><label for="VoiceInput">Input</label></td>
+<td>
+<select id="VoiceInput" onchange="setLanguageInput(this.selectedIndex);">
+</select>
+</td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td style="text-align:center;">
+    <button id="excbutton" onclick="Exchange();" title="Switch Input and Output languages"><span class="material-symbols-outlined">
+swap_vert
+</span></button>
+    <button id="speakbutton" onclick="SpeakerONOFF();" title="Turn on the audio on or off"><span id="iconspeaker" class="material-symbols-outlined">record_voice_over</span></button>
+    </td>
+</tr>
+<tr>
+<td><label for="VoiceOutput">Output</label></td>
+<td>
+<select id="VoiceOutput" onchange="setLanguageOutput(this.selectedIndex);">
+</select>
+</td>
+</tr>
+
+</table>
+<div id="logo" style="position: fixed; bottom:0px; right:0px; height: 100px;"><img src="images/logo-next-omist.png" style="width: 100px" alt=""/></div>
+<div id="partial">
+</div>
+<div id="output">
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,8 @@
+### linux misc serveur configuration
+SOFFICE="/usr/bin/soffice"
+FINDER="ls"
+INSTALLDIR="/var/www/html/AutomaticTranslator/OMIST_Tools/tmp"
+CAIRO="/usr/bin/pdftocairo"
+PYTHON="/usr/bin/python3.9"
+PROXYHTTP="http://cache.univ-nantes.fr:3128"
+PROXYHTTPS="http://cache.univ-nantes.fr:3128"

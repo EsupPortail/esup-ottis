@@ -1,0 +1,8 @@
+pandas
+plotly
+geopy
+ip2geotools
+nominatim
+kaleido
+matplotlib
+requests

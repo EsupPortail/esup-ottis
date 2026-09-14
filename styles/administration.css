@@ -1,0 +1,68 @@
+/*
+Main stylesheet for Administration
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css');
+
+:root {
+    --black          : rgb(0  , 0  , 0  );
+    --blue           : rgb(52 , 82 , 255);
+    --dark-grey      : rgb(81 , 89 , 97 );
+    --grey           : rgb(241, 242, 246);
+    --white          : rgb(255, 255, 255);
+}
+
+html,
+body {
+    font-family      : Source Sans Pro;
+    height           : 100%;
+}
+
+h1 {
+    font-weight      : 400;
+    font-style       : normal;
+}
+
+header {
+    height           : 6%; 
+    width            : 98%; 
+    padding          : 0 1%; 
+    display          : flex; 
+    flex-direction   : row;
+    align-items      : center;
+    background-color : var(--black);
+    color            : var(--white);
+}
+
+header * {
+    display          : flex; 
+    flex-direction   : inherit;
+}
+
+#logoNU {
+    height           : 80%; 
+}
+
+nav {
+    height           : 100%;
+    width            : 100%;
+    align-items      : center;
+}
+
+.button-admin {
+    background       : var(--dark-grey);
+    border           : var(--dark-grey);
+    color            : var(--white);
+    font-family      : Source Sans Pro;
+}
+
+.button-admin:hover{
+    background       : var(--blue);
+    border           : var(--blue);
+}
+
+.button-admin:focus{
+    background       : var(--blue);
+    border           : var(--blue);
+}

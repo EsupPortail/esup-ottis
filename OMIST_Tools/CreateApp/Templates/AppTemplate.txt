@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /> -->
+<!-- <meta http-equiv="Pragma" content="no-cache" /> -->
+<!-- <meta http-equiv="expires" content="0" /> -->
+<title>[TITLE]</title>
+<style>
+#header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 64px;
+  width: 100%;
+  text-align: center;
+	z-index: 15000;
+}
+
+#Play {
+  position: relative;
+  vertical-align:middle;
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+	z-index: 15000;
+  font-family: Lato, Helvetica, Arial, sans-serif;
+  top: 30px;
+  font-size: x-large;
+  background-color: white;
+}
+
+.svg-button{
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+}
+
+.svg-icon {
+  transform: scale(3);
+  fill:white;
+  opacity:1;
+}
+
+#FS {
+  position: fixed; 
+  top:0px; 
+  right: 0px; 
+  padding: 3px;
+}
+
+#launchbutton:hover {
+  opacity:0.75;
+}
+
+#classroomlanguage{
+  position: relative;
+  font-size: medium;
+  top: 10px;
+}
+
+.container { 
+  position: relative; 
+}
+
+.container img { 
+  display: block; 
+}
+
+.container svg{ 
+  position: absolute;
+}
+
+#svgRectPlay{
+  width: 100px;
+  height: 100px;
+}
+
+#notes {
+  border-radius: 25px;
+  position: relative;
+  top: 0px;
+  right: 0px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 64px;
+  background-color: rgba(0,0,255,0.5);
+  color: white;
+  font-size: 18px;
+  font-family: helvetica, arial, sans-serif;
+  font-style: italic;
+  display:none;
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,255,0.5);
+  justify-content: center;
+  align-items: center;
+	z-index: 15000;
+}
+
+#dialog {
+transform-origin: top left;
+transform: scaleX(0);
+transition: 1s ease;
+border-radius: 10px;
+position: fixed;
+bottom: 10px;
+left: 10px;
+width: 256px;
+height: 64px;
+background-color: orange;
+color: white;
+font-size: 16px;
+font-family: helvetica, arial, sans-serif;
+padding: 10px;
+box-shadow: 2px 2px 5px orange;
+vertical-align: middle;
+text-align: center;
+z-index: 10000;
+}
+
+#dialog2 {
+transform-origin: top right;
+transform: scaleX(0);
+transition: 1s ease;
+border-radius: 10px;
+position: fixed;
+bottom: 10px;
+right: 10px;
+width: 256px;
+height: 64px;
+background-color: rgb(0,220,60);
+color: black;
+font-size: 16px;
+font-family: helvetica, arial, sans-serif;
+padding: 10px;
+box-shadow: 2px 2px 5px rgb(0,220,60);
+vertical-align: middle;
+text-align: center;
+z-index: 10000;
+}
+
+#dialog a {
+	color: white;
+	font-weight: bold;
+}
+
+#mouse {
+transform: scale(0);
+transform-origin: center;
+transition: 1s ease;
+position: absolute;
+top: 0px;
+left: 0px;
+width: 10px;
+height: 10px;
+color: black;
+font-size: 16px;
+font-family: helvetica, arial, sans-serif;
+vertical-align: middle;
+text-align: center;
+z-index: 11000;
+cursor: default;
+}
+
+
+ /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+} 
+
+#DEBUG {
+  display: none;
+  z-index: 20000;
+}
+
+</style>
+<script>
+// Configuration
+var langueorigine = "@@LANGUEORIGINE@@";
+var languetraduction = "@@LANGUETRADUCTION@@";
+var nslides = @@NBSLIDES@@;
+var title = "@@TITRE@@";
+var filename = "@@FILENAME@@";
+
+var slidesnotes = @@SLIDESNOTES@@;
+var Timages = @@IMAGES@@;
+var aspectratio = eval("@@ASPECTRATIO@@");
+var keepaspectratio = eval("@@KEEPASPECTRATIO@@" != "N");
+
+
+// --------- Fin Configuration
+
+// Gestion des options
+function InitParams() {
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('debug')) {
+    document.getElementById('DEBUG').style.display='block';
+  }
+}
+window.addEventListener("load", InitParams);
+
+document.title = title;
+var languetraduction_0 = languetraduction;
+var current = 0;
+var currenttxt = 0;
+var move = false;
+
+function formate(n) {
+  var res = n;
+  var puiss=Math.pow(10,nbzerosignificatif-1);
+  while (n<puiss) {
+    puiss/=10;
+    res="0"+res;
+  }
+  return res;
+};
+
+function update() {
+  //document.getElementById('slidenum').innerHTML = current;
+  //document.getElementById('infos').innerHTML = builtin_voice.lang+" ("+builtin_voice.name+")";
+  //if (current>0) EcouterTexte(TslidesNotes,0);
+  document.getElementById('slidesprogress').value=currenttxt*100/TslidesNotes.length;
+}
+
+function Init() {
+document.getElementById('slidesprogress').addEventListener('click', function (e) {
+  var w=document.getElementById('slidesprogress').offsetWidth;
+  var x=e.x-document.getElementById('slidesprogress').offsetLeft;
+  document.getElementById('slidesprogress').value = 100*x/w;
+  currenttxt = Math.floor(TslidesNotes.length*x/w);
+  move=true;
+  if (window.speechSynthesis.speaking) window.speechSynthesis.cancel();
+	if (navigator.userAgent.indexOf("Firefox")<0) {
+		EcouterTexte(TslidesNotes,currenttxt);
+	}
+  //alert(currenttxt+'   '+TslideNumber[currenttxt]);
+});
+document.getElementById('slide').src=Timages[0];
+document.getElementById("FS").style.visibility='hidden';
+setTimeout(InitSelect,1500);
+}
+
+function InitSelect() {
+	var selectitem=document.getElementById('classroomlanguage');
+	if (! selectitem.selectedIndex) selectitem.selectedIndex=0;
+	setLanguage(selectitem.value);
+	updateSlideNotes(selectitem.value);
+  // Ready to Play
+	document.getElementById('launchbutton').style.visibility='visible';
+
+}
+
+
+function forward() {
+  if (current<nslides) current++;
+//  document.getElementById('slide').src=filename+formate(current)+extension;
+//  document.getElementById('slide').src=filename+formate(TslideNumber[currenttxt]+1)+extension;
+	document.getElementById('slide').src=Timages[TslideNumber[currenttxt]];
+	//document.getElementById('slide').src=Timages[current];
+  //console.log('Forward to slide '+(current-1));
+  update();
+}
+
+function backward() {
+  if (current>0) current--;
+//  document.getElementById('slide').src=filename+formate(current)+extension;
+	document.getElementById('slide').src=Timages[current];
+	//console.log('Backward to slide '+(current-1));
+    update();
+}
+
+var flagresource=-1;
+var flagresource2=-1;
+
+function HideResource(flag) {
+  //console.log("HideResource with flag="+flag+" and flagresource="+flagresource);
+	//document.getElementById('dialog').style.transform='scaleX(0)';
+	if (flag == flagresource) {
+		document.getElementById('dialog').style.transform='scaleX(0)';
+	}
+
+}
+
+function ShowNotification(resource) {
+  resource[1]=resource[1].replaceAll(" :",":");
+	document.getElementById('dialog2').innerHTML = resource[0];
+	document.getElementById('dialog2').style.transform='scaleX(1)';
+	flagresource2++;
+	setTimeout("HideNotification("+flagresource2+");",5000);
+}
+
+function HideNotification(flag) {
+  //console.log("HideResource with flag="+flag+" and flagresource="+flagresource);
+	//document.getElementById('dialog2').style.transform='scaleX(0)';
+	if (flag == flagresource2) {
+		document.getElementById('dialog2').style.transform='scaleX(0)';
+	}
+
+}
+
+function ShowResource(resource) {
+  resource[1]=resource[1].replaceAll(" :",":");
+	document.getElementById('dialog').innerHTML = 'Have a look on this resource<br/><a target="_blank" href="'+resource[1]+'">'+resource[0]+'</a>';
+	document.getElementById('dialog').style.transform='scaleX(1)';
+	flagresource++;
+	setTimeout("HideResource("+flagresource+");",10000);
+}
+
+
+var mousesize = 1;
+var mouseangle = 0;
+
+function showMouse() {
+  document.getElementById('mouse').style.transform='scale('+mousesize+') rotate('+mouseangle+'deg)';
+}
+
+function hideMouse() {
+  document.getElementById('mouse').style.transform='scale(0) rotate(0deg)';
+}
+
+function MouseInstruction(instruction) {
+	var c=document.getElementById('slide');
+	if (instruction[0] == "go") {
+		var pourcx=1*instruction[1]/100;
+		var pourcy=1*instruction[2]/100;
+    	var pr=getDevicePixelRatio();
+		var x=c.x/pr+pourcx*c.width-5;
+		var y=c.y/pr+pourcy*c.height-5;
+    showMouse();
+		document.getElementById('mouse').style.top=y+"px";
+		document.getElementById('mouse').style.left=x+"px";
+	}
+	if (instruction[0] == "shape") {
+    var allShapes=['+','X','☝','○','⚫','↖'];
+    var s=allShapes[((1*instruction[1])%allShapes.length)];
+    showMouse();
+		document.getElementById('mouse').innerHTML=s;
+	}
+	if (instruction[0] == "customshape") {
+    var s='';
+    for(var k=1; k<instruction.length; k++) s+=instruction[k]+' ';
+    s=s.trim().replaceAll('”','"');
+    showMouse();
+		document.getElementById('mouse').innerHTML=s;
+    //alert("custom shape with "+s);
+	}
+	if (instruction[0] == "hide") {
+    hideMouse();
+	}
+	if (instruction[0] == "show") {
+    showMouse();
+	}
+  if (instruction[0] == "color") {
+    showMouse();
+		document.getElementById('mouse').style.color=instruction[1];
+	}
+  if (instruction[0] == "size") {
+    mousesize=instruction[1]*1;
+    showMouse();
+	}
+  if (instruction[0] == "rotate") {
+    mouseangle=instruction[1]*1;
+    showMouse();
+	}
+}
+
+
+function EcouterTexte(Tch, c) {
+  if (move) {
+    move = false;
+    c = currenttxt;
+		console.log('Jumping to slide '+TslideNumber[c]);
+		document.getElementById('slide').src=Timages[TslideNumber[c]];
+		current=TslideNumber[c]; //+1;
+
+  }
+  update();
+  currenttxt = c;
+  if (c < Tch.length) {
+    var s = Tch[c];
+    if (s.indexOf("[forward]") >= 0) {
+      console.log("AVANCER");
+      forward();
+      s = s.replace("[forward]", "");
+    }
+    if (s.indexOf("[backward]") >= 0) {
+      console.log("RECULER");
+      backward();
+      s = s.replace("[backward]", "");
+    }
+		if (s.indexOf("[pause]") >= 0) {
+      console.log("PAUSE");
+      alert('Pause\nPress OK to resume');
+
+      //myalert('Pause<br/>Press OK to resume');
+
+      s = s.replace("[pause]", "");
+    }
+    var waittime=0;
+		if (s.indexOf("[wait ") >= 0) {
+		  waittime = 1*s.replace("[wait ","").replace("]","").split("|");
+      console.log("wait : "+waittime);
+			s = "";
+    }
+		if (s.indexOf("[resource ") >= 0) {
+		  var resource = s.replace("[resource ","").replace("]","").split("|");
+			if (resource.length > 0) {
+				if (resource.length <2) resource[1]=resource[0];
+      	console.log("Resource : "+resource[0]+' à '+resource[1]);
+      	ShowResource(resource);
+				}
+				s = "";
+    }
+    if (s.indexOf("[notification ") >= 0) {
+		  var resource = s.replace("[notification ","").replace("]","").split("|");
+			if (resource.length > 0) {
+				if (resource.length <2) resource[1]=resource[0];
+      	console.log("Notification : "+resource[0]);
+      	ShowNotification(resource);
+				}
+				s = "";
+    }
+    if (s.indexOf("[mouse ") >= 0) {
+		  var instruction = s.replace("[mouse ","").replace("]","").split(" ");
+      	console.log("Mouse : "+instruction);
+      	MouseInstruction(instruction);
+				s = "";
+    }
+
+    // console.log(s);
+
+    if (true) { //(langueorigine.substr(0,2) == languetraduction.substr(0,2)) {
+      if (waittime>0) {
+				//Affiche("Sleeping for "+(waittime/1000)+" s.....");
+			} else {
+				Affiche(s);
+			}
+      setTimeout(function () {ParleThen(s, function() {EcouterTexte(Tch, c + 1);});}, waittime);
+    } else {
+      Translate(s, languetraduction, langueorigine, function() {
+        EcouterTexte(Tch, c + 1);
+      });
+    }
+  }
+}
+
+function Affiche(txt) {
+    document.getElementById("notes").innerHTML = txt;
+}
+
+function Translate(ch, l, linput, f) {
+  l = l.substr(0,2);
+  linput = linput.substr(0,2);
+  // alert("traduction de "+ch+"\n\n"+linput+" --> "+l);
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "../Translate.php?texte=" + ch + "&lang=" + l + "&langinput=" + linput + "&ROOMID=" + filename + "&lineid=" + currenttxt, true);
+
+  xhr.onreadystatechange = function() { // Call a function when the state changes.
+    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+      // console.log(this.responseText);
+      var response = JSON.parse(this.responseText);
+      if ((! response["error"]) && response["data"]["translations"]) {
+        Affiche(response["data"]["translations"][0]["translatedText"]);
+        ParleThen(response["data"]["translations"][0]["translatedText"],f);
+      } else {
+        Affiche("---- Translation ERROR ----")
+      }
+
+    }
+  };
+  xhr.send();
+}
+
+var Tvoices = window.speechSynthesis.getVoices();
+var current_voice = 0;
+var builtin_voice = Tvoices[current_voice];
+if (builtin_voice) languetraduction = builtin_voice.lang.replace("_","-");
+
+
+function loadVoicesWhenAvailable() {
+         Tvoices = window.speechSynthesis.getVoices();
+
+         if (Tvoices.length !== 0) {
+                LoadVoices();
+            }
+            else {
+                setTimeout(function () { loadVoicesWhenAvailable(); }, 10)
+            }
+    }
+
+function LoadVoices() {
+  Tvoices = window.speechSynthesis.getVoices();
+	/*if (Tvoices.length == 0) {
+				 loadVoicesWhenAvailable();
+	}*/
+  current_voice = 0;
+  builtin_voice = Tvoices[current_voice];
+  for(var i=0; i<Tvoices.length; i++)
+    if (Tvoices[i].lang.substr(0,2) == languetraduction_0.substr(0,2) && Tvoices[i].lang.substr(3,2) == languetraduction_0.substr(3,2)) current_voice = i;
+  builtin_voice = Tvoices[current_voice];
+  languetraduction = builtin_voice.lang.replace("_","-");
+  PopulateVoicesIn();
+};
+
+var Tvoices;
+var current_voice = 0;
+var builtin_voice = null;
+
+function PopulateVoicesIn() {
+  var allvoices = "";
+  var select = document.getElementById('classroomlanguage');
+  nopt = 0;
+  for(var i=0; i<Tvoices.length; i++) {
+    if (allvoices.indexOf('|'+Tvoices[i].lang+'_'+Tvoices[i].name+'|')<0) {//(voices[i].localService) {
+      var lang=Tvoices[i].lang; //.substr(0,5);
+        var opt=document.createElement("option");
+        opt.value=i;
+        opt.innerHTML=lang+" ("+Tvoices[i].name+")";
+        if (lang == languetraduction) opt.selected = true;
+        select.appendChild(opt);
+        allvoices+='|'+Tvoices[i].lang+'_'+Tvoices[i].name+'|';
+      }
+  }
+}
+
+
+function ParleThen(txt, f) {
+  if (paused) f=function () {};
+  if (txt.length>0) {
+		if (document.getElementById('classroomlanguage').value.indexOf('no voice')<0) {
+			//console.log("Speak with voice "+builtin_voice)
+  		var discours = new SpeechSynthesisUtterance(txt);
+  		discours.voice = builtin_voice;
+			discours.lang = builtin_voice.lang.replace('_','-')
+  		window.speechSynthesis.speak(discours);
+  		discours.onend = f;
+		} else {
+			//console.log('Speak with no voice');
+			var txtlength=Math.max(20,txt.length);
+			txtlength=Math.min(100,txtlength);
+			setTimeout(f,50*txtlength);
+		}
+  } else setTimeout(f,100);
+}
+
+//window.onclick = forward;
+//window.ondblclick = backward;
+
+function updateSlideNotes(langvoice) {
+// Possible languages (notes translated)
+var posslang=[];
+for(var lang in slidesnotes) posslang[lang.substr(0,2)] = lang;
+var lang = posslang[langvoice.substr(0,2)];
+	TslidesNotes=[];
+ 	TslideNumber=[];
+ 	numslide=0;
+	for(var i=0; i<slidesnotes[lang].length; i++) {
+  	TslidesNotes.push('[forward]');
+  	TslideNumber.push(numslide);
+  	var notes=slidesnotes[lang][i].Notes;
+  	for(var j=0; j<notes.length; j++) {
+    	if (notes[j].indexOf("[forward]")>=0) numslide++;
+    	TslidesNotes.push(notes[j]);
+    	TslideNumber.push(numslide);
+  	}
+  	numslide++;
+		}
+}
+
+var lang = 0;
+for(lang in slidesnotes) break;
+var TslidesNotes=[];
+var TslideNumber=[];
+var numslide=0;
+for(var i=0; i<slidesnotes[lang].length; i++) {
+  TslidesNotes.push('[forward]');
+  TslideNumber.push(numslide);
+  var notes=slidesnotes[lang][i].Notes;
+  for(var j=0; j<notes.length; j++) {
+    if (notes[j].indexOf("[forward]")>=0) numslide++;
+    TslidesNotes.push(notes[j]);
+    TslideNumber.push(numslide);
+  }
+  numslide++;
+}
+//console.log('TslideNumber='+TslideNumber);
+
+
+function resizeslides() {
+  var wx = window.innerWidth;
+  var wy = window.innerHeight;
+  var img = document.getElementById('slide');
+  var imgmaxw = wx;
+  var imgmaxh = (wy - 64 - 50 - 30);
+  if (keepaspectratio) {
+    if (imgmaxw/imgmaxh > aspectratio) {
+      imgmaxw = imgmaxh*aspectratio;
+    } else {
+      imgmaxh = imgmaxw/aspectratio;
+    }
+  }
+  img.style.width = imgmaxw+"px";
+  img.style.height = imgmaxh+"px";
+}
+
+
+var paused=true;
+var started=false;
+function play() {
+  if (!started) {
+    started=true;
+    document.getElementById('Play').style.display = "none";
+    document.getElementById('launchbutton').style.display = "none";
+    document.getElementById('notes').style.display = "flex";
+    document.getElementById('bar').style.display = "block";
+    document.getElementById('FS').style.visibility="visible";
+  }
+  if (paused) {
+    document.getElementById('button1').value = '||';
+      paused = !paused;
+      //if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+      EcouterTexte(TslidesNotes,currenttxt);
+  } else {
+//    document.getElementById('Play').style.display = "none";
+    document.getElementById('button1').value = '>';
+    //if (window.speechSynthesis.pending) window.speechSynthesis.pause();
+    paused = !paused;
+  }
+}
+
+function setLanguage(i) {
+	builtin_voice=Tvoices[0];
+	var found=false;
+	for(var k=0; k<Tvoices.length; k++) {
+		if ((Tvoices[k].lang.replace("_","-")+" ("+Tvoices[k].name+")") == i) {builtin_voice=Tvoices[k]; found=true;}
+	}
+  languetraduction = builtin_voice.lang.replace("_","-");
+	if (!found) {buitin_voice=null;}
+}
+
+window.onresize = resizeslides;
+
+//alert(TslidesNotes);
+
+/*
+function PopulateVoicesIn() {
+  var select = document.getElementById('classroomlanguage');
+  nopt = 0;
+	var i=0;
+  for(var lang in slidesnotes) {
+        var opt=document.createElement("option");
+        opt.value=lang;
+				i++;
+        opt.innerHTML=lang;
+        if (lang == languetraduction) opt.selected = true;
+        select.appendChild(opt);
+    }
+}
+*/
+
+function PopulateVoicesIn() {
+	// Possible languages (notes translated)
+	var posslang=[];
+	for(var lang in slidesnotes) posslang[lang.substr(0,2)] = lang;
+
+  var seenlang=[];
+  var allvoices = "";
+  var select = document.getElementById('classroomlanguage');
+  nopt = 0;
+  for(var i=0; i<Tvoices.length; i++) {
+    if (allvoices.indexOf('|'+Tvoices[i].lang+'_'+Tvoices[i].name+'|')<0) {
+      var lang=Tvoices[i].lang.replace("_","-"); //.substr(0,5);
+        var opt=document.createElement("option");
+        opt.value=lang+" ("+Tvoices[i].name+")";
+        opt.innerHTML=lang+" ("+Tvoices[i].name+")";
+        if (lang.toLowerCase() == languetraduction.toLowerCase()) opt.selected = true;
+				if (! posslang[lang.substr(0,2)]) opt.disabled = true; else select.appendChild(opt);
+        if (posslang[lang.substr(0,2)]) seenlang[lang.substr(0,2)] = true;
+        allvoices+='|'+Tvoices[i].lang.replace("_","-")+'_'+Tvoices[i].name+'|';
+      }
+    }
+  for(var lang in slidesnotes) {
+    if (! seenlang[lang.substr(0,2)]) {
+        var opt=document.createElement("option");
+        opt.value=lang+" (no voice)";
+        opt.innerHTML=lang+" (no voice)";
+       select.appendChild(opt);
+    }
+  }
+}
+
+function getDevicePixelRatio() {
+    var mediaQuery;
+    var is_firefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (window.devicePixelRatio !== undefined && !is_firefox) {
+        return window.devicePixelRatio;
+    } else {
+        return 1;
+    }
+}
+
+function followmouse(e) {
+  var c=document.getElementById('slide');
+	var pr=getDevicePixelRatio();
+  var pourcx=Math.floor((e.pageX-c.x/pr)/(c.width)*100000)/1000;
+  var pourcy=Math.floor((e.pageY-c.y/pr)/(c.height)*100000)/1000;
+	var x=c.x/pr+pourcx/100*c.width-5;
+	var y=c.y/pr+pourcy/100*c.height-5;
+  document.getElementById('mousepos').innerHTML='pos=('+pourcx+','+pourcy+')';
+  showMouse();
+	//document.getElementById('mouse').style.top=y+"px";
+	//document.getElementById('mouse').style.left=x+"px";
+	document.getElementById('mouse').style.top=y+"px";
+	document.getElementById('mouse').style.left=x+"px";
+
+}
+
+</script>
+</head>
+<body onload="resizeslides(); loadVoicesWhenAvailable(); Init();">
+  <main>
+    <h1 style="display:none;">Animation</h1>
+  </main>
+  <div id="header">
+    <div id="bar" style="margin-left: auto; margin-right: auto; width:80%; display:none;">
+      <input type="button" id="button1" onclick="play();" value="||" style="display:none;">
+      <svg id="button2" role="img" aria-label="Stop" class="svg-button" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="window.location.reload();">
+        <title>Stop</title>
+        <g id="stop">
+          <rect width="100%" height="100%" rx="15" style="fill:red;opacity:1"/>
+          <rect class="svg-icon" height="23" rx="2" width="23" x="5" y="5"/>
+        </g>
+      </svg>
+      <svg id="button3" role="img" aria-label="Pause" class="svg-button" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" onclick="window.speechSynthesis.pause();">
+        <title>Pause</title>
+        <g id="pause">
+          <rect width="100%" height="100%" rx="15" style="fill:#34495e;opacity:1"/>
+          <rect class="svg-icon" height="25" rx="1" width="7" x="7" y="4"/>
+          <rect class="svg-icon" height="25" rx="1" width="7" x="18" y="4"/>
+        </g>
+      </svg>
+      <svg id="button4" role="img" aria-label="Play" class="svg-button" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" onclick="window.speechSynthesis.resume();">
+        <title>Play</title>
+        <g>
+          <rect width="100%" height="100%" rx="15" style="fill:#78cc78;opacity:1"/>
+          <path class="svg-icon" d="M26.78,13.45,11.58,4A3,3,0,0,0,7,6.59V25.41a3,3,0,0,0,3,3A3,3,0,0,0,11.58,28l15.2-9.41a3,3,0,0,0,0-5.1Z"/>
+        </g>
+      </svg>
+      <progress id="slidesprogress" title="Progress bar" max="100" value="0" style="margin-left: auto; margin-right: auto; height: 30px; width:60%;"> 0% </progress>
+    </div>
+
+    <div id="Play" >
+      Choose your language
+      <br>
+			<select id="classroomlanguage" title="Choose your language" onchange="setLanguage(this.value); updateSlideNotes(this.value);"></select>
+      <br>
+    </div>
+    <div id="notes">
+    </div>
+
+    <div id="content" style="text-align:center; position:fixed; bottom:0; left:0;width:100%; height: 85%;">
+      <div class="container">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAHAQMAAAARXq6uAAAAKXRFWHRDcmVhdGlvbiBUaW1lAGpldS4gMTEgYXZyaWwgMjAyNCAxNjozNTo1Mfo3j+oAAAAZdEVYdFNvZnR3YXJlAGdub21lLXNjcmVlbnNob3TvA78+AAAAA1BMVEX///+nxBvIAAAACklEQVQIHWNAAQAADgABwjMmuAAAAABJRU5ErkJggg==" id="slide" alt="Slide" style="position:relative; bottom:0; margin-left: auto; margin-right: auto; height: 80%;">
+          <svg id="launchbutton" role="img" aria-label="Play" width="130px" height="130px" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" onclick="play();" style="top:45%; left:45%">
+            <title>Play</title>
+            <g>
+              <rect id="svgRectPlay" width="100px" height="100px" class="svg-rect" rx="15" style="fill:#78cc78;opacity:1"/>
+              <path class="svg-icon" d="M26.78,13.45,11.58,4A3,3,0,0,0,7,6.59V25.41a3,3,0,0,0,3,3A3,3,0,0,0,11.58,28l15.2-9.41a3,3,0,0,0,0-5.1Z"/>
+            </g>
+          </svg>
+      </div>
+    </div>
+
+    <svg id="FS" role="img" aria-label="Full Screen" onclick="if (!document.fullscreenElement) {document.documentElement.requestFullscreen();} else {document.exitFullscreen();}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" enable-background="new 0 0 24 24" xml:space="preserve"   style="position: fixed; top:0px; right: 0px; padding: 3px;" viewBox="0 0 100 100">
+      <title>Full Screen</title>
+      <g>
+        <rect width="100px" height="100px" rx="15" style="fill:rgba(0, 0, 255, 0.5)"/>
+        <g class="svg-icon" style="transform-origin: -7px -6px;">
+          <path d="M5,21H1c-0.6,0-1-0.4-1-1v-4c0-0.6,0.4-1,1-1s1,0.4,1,1v3h3c0.6,0,1,0.4,1,1S5.6,21,5,21z"/>
+          <path d="M23,21h-4c-0.6,0-1-0.4-1-1s0.4-1,1-1h3v-3c0-0.6,0.4-1,1-1s1,0.4,1,1v4C24,20.6,23.6,21,23,21z"/>
+          <path d="M23,9c-0.6,0-1-0.4-1-1V5h-3c-0.6,0-1-0.4-1-1s0.4-1,1-1h4c0.6,0,1,0.4,1,1v4C24,8.6,23.6,9,23,9z"/>
+          <path d="M1,9C0.4,9,0,8.6,0,8V4c0-0.6,0.4-1,1-1h4c0.6,0,1,0.4,1,1S5.6,5,5,5H2v3C2,8.6,1.6,9,1,9z"/>
+        </g>
+      </g>
+    </svg>
+
+  <div title="Resource" id="dialog">OK</div>
+  <div title="Notification" id="dialog2">OK</div>
+  <div title="mouse" id="mouse">+</div>
+  <div id="DEBUG" style="position: fixed; top: 0px; left: 0px; background-color: white;">
+    <button onclick="var s=prompt('Mouse instruction\n (eg. show, hide, go X Y, color c, size f, rotate a, shape n, customshape ch,...)'); var instruction = s.replace('[mouse ','').replace(']','').split(' '); MouseInstruction(instruction);">Mouse order</button>
+    <button onclick="backward();">Prev slide</button>
+    <button onclick="forward();">Next slide</button>
+    <input type="checkbox" onclick="if (this.checked) {document.getElementById('mouse').style.transition='0s'; document.getElementById('slide').onmousemove=followmouse;} else {document.getElementById('mouse').style.transition='1s ease'; document.getElementById('slide').onmousemove=function (e) {};}">Lock Mouse <span id="mousepos"></span>
+  </div>
+<!--  <div id="pausediv" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="pausecontent">Pause<br/>Press OK to resume</p>
+  </div>-->
+  <div style="position: fixed; top: 0px; left: 0px">
+  <!-- <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAABDCAIAAABWTd3SAAAAAXNSR0IArs4c6QAAAIRlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAMigAwAEAAAAAQAAAEMAAAAArlfRFQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDYuMC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KGV7hBwAAG61JREFUeAHt3HncrtXUB/C3yZghEeJFMkWKJELSMQ+RytTHUM4HSaa8MqQoR+aPOSQyZcqYMTORBmOJMpwoGRsMDaj0fs/51bJd13Xfz32e8zznPJ/j3n9c977WXnuttddee+21h+te67LLLvufaZpqYK41sPZcE5zSm2pgmQamhjW1g3nRwNSw5kWtU6JTw5rawLxoYGpY86LWKdGpYU1tYF40MDWseVHrlOjUsObLBmwQ/jfvEa47iV4vvfTSQbS11lpr7bWXmSYN/utf/xrEAVxnnXU6RaMIooZmB7n/urzLLt/XhT9YpcWJkH068wfRwLSFGIPizR/rBUJ5LS1fGVFSfQ51N4ue6FfpQ1amjStal1VlLF1wwQVXv/rVV7T6moE/s2H94x//OPnkkzsOiSVdcsklN7jBDTbZZBOKOO+88376059e6UpX6qDp4PXWW++Od7xja3lwTjrpJGSNaQjRI4SLL7745je/OZpjzCJFOuw3v/mN6mS4yU1uovPaKi2O/DWvec2NN954lfWW1hHstNNOe+ITn7jffvs96EEPKjtbZTIsCEZUPyrRiKKlS5euu253xoyh7LHHHql79tlnb7jhhqPac+SRR0JjN5Quc/7559/whjfsIIfgq1/96mCGbP+JCODnPvc51a961at6PuQhDwGJqMEPzmc+85mweNjDHtZBCNp8PBk6su9617vC+uijj/YaeeaD3UKmOXPwrstjWDJJtBaIoSl/0UUXsaoXvOAF8vyT5xWIl1d8yUteAqgKRchImSlU72CGYHDGPOMX//73v6PDgD784Q+rqP/aKsWLzbXwyiOiKCkEq6gyiCiSiprMFZWWjbrClEmRzDHHHBO4ioEnE2A9W1KDCB1MVivhPh65aq3ezMyG1cpHF1ILkY+R7b333mYlvauzg+ZJEUztlFNOee973wvTa6duYYZsnh2c/itzBGRMtCzz3Oc+98ILL8RosHqQWyKxDNWJmhRSodZiqqtIChHyy1xRaR35tkVeBQOqm3xDJMPME4WWLMvokIIA2BdArcKkZwl3yGlCS3Oh5btz3KB8/Q5r7YBC2dOVr3zl5z3veU972tPS7KKT4fXKV77y8Y9/fPReRSuZodwtt9xSsHXmmWcuWbLk4IMP1gfpy5ZyR3g4ugfCn/70p1/96lfcLaludrObie0A0dRzVZ29Sl6vcpWriORUFBr++Mc/Nptf61rXuv3tbw9SVf76179Cvt71rqc0FM4999x//vOfAlA0r33ta4dv8GkJslDsb3/7G/j/Lk8dASK5UjILc8866yzKRF8kev3rXx9ytSXsFtaT9KMSFSg6/fTTGQ2hGVCJHh2JTyGwKg2W0c5b3vKWcNq+8Rrk97znPXBg0vuNb3xjcMrtEHzNa14Tgp6DCS/wz372s6koyOMp5RkHv6iIDJLMpz/96eC0QViKvv/97++8887Xve51i7teh3bqqaeGgmcYvepVr2JS0r777gv4zne+M4uVVNTBH/vYx8BZj+djHvMYxsdtX+1qVwvCda5zHesGASU7YBlw2KUng3vmM5/JlkqA9ddf/973vrc5VGmElIlW3/72t2+66aat8tk0ab/zne/AKbTkF85zWWQwKk1uWChEuVRPWbGk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" alt="Nantes Université"/> -->
+  </div>
+  @@COMPLEMENTS@@
+  <script>
+    /*
+    function myalert(msg) {
+      document.getElementById('pausecontent').innerHTML = msg;
+      document.getElementById("pausediv").style.display = "block";
+    }
+    
+    var span = document.getElementsByClassName("close")[0];
+    span.onclick = function() {
+      document.getElementById("pausediv").style.display = "none";
+    }
+    
+    window.onclick = function(event) {
+      if (event.target == document.getElementById("pausediv")) {
+        document.getElementById("pausediv").style.display = "none";
+      }
+    }
+     */
+    /*
+    var isLinux = navigator.userAgent.indexOf('Linux')>=0;
+    var isChrome = navigator.userAgent.indexOf('Chrome')>=0;
+    
+    console.log("System : Linux ? "+isLinux+"   Chrome ?"+isChrome);
+    
+    if (isLinux && ! isChrome) alert('Linux user : for a better experience (speech synthesis), use the Google Chrome navigator.')
+    */
+    document.getElementById("mouse").setAttribute("tabIndex", "-1");
+    
+    </script>
+</div>
+</body>
+</html>
