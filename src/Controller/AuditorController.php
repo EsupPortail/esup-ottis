@@ -83,25 +83,24 @@ class AuditorController extends BaseController
         // Chat modules and auditor ES modules
         $chatScripts = [
             '/js/lib/compat/global.js',
-            '/js/auditor-def.js',
-            '/js/auditor-post.js',
+            '/js/utils/draggable.js',
             '/js/lib/conference/network.js',
             '/js/lib/utils/request-counter.js',
             '/js/lib/auditor/text-processing.js',
             '/js/lib/auditor/speech.js',
             '/js/lib/auditor/display.js',
             '/js/lib/auditor/translation.js',
-            '/js/lib/auditor/network.js',
             '/js/lib/auditor/mail.js',
             '/js/lib/auditor/main.js',
             '/js/utils/dom.js',
-            '/js/utils/draggable.js',
             '/js/lib/chat/alert.js',
             '/js/lib/chat/network.js',
             '/js/lib/chat/handlers.js',
             '/js/lib/chat/display.js',
             '/js/lib/chat/main.js',
+            '/js/lib/auditor/network.js',  // Must load BEFORE auditor-init.js (provides readText)
             '/js/auditor-init.js',
+            '/js/lib/auditor/post.js',  // REQUIRED for openLanguageDialog - must load AFTER auditor-init.js
         ];
 
         $this->viewData['pageScripts'] = $pageScripts;

@@ -136,15 +136,6 @@
   </form>
 </dialog>
 
-<script>
-// Ouvrir automatiquement le dialog de choix de langue si aucune langue n'est sélectionnée
- document.addEventListener('DOMContentLoaded', function() {
-   if (!localStorage.getItem('selectedLanguage') && !document.getElementById('VoiceOutput')?.value) {
-     setTimeout(() => { if (typeof window.openLanguageDialog === 'function') window.openLanguageDialog(); }, 100);
-   }
- });
-</script>
-
 <?php foreach ($pageScripts as $script): ?>
     <script src="<?php echo $this->escape($script); ?>"></script>
 <?php endforeach; ?>
@@ -152,6 +143,7 @@
 <?php foreach ($chatScripts as $script): ?>
     <script type="module" src="<?php echo $this->escape($script); ?>"></script>
 <?php endforeach; ?>
+
 
 <?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
     <script src="/js/tests/no-jquery-validation.js"></script>

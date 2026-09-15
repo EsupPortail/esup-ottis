@@ -67,7 +67,6 @@ class SubtitlesController extends BaseController
 
         // Define scripts
         $this->viewData['pageScripts'] = [
-            'js/auditor-def.js'
         ];
 
         // Auditor modules

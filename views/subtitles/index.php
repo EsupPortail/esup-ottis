@@ -20,7 +20,6 @@
 	?>
 </script>
 <script src="<?php echo $this->escape($pageScripts[0]); ?>"></script>
-<script src="<?php echo $this->escape($pageScripts[1]); ?>"></script>
 <!-- Auditor modules - ES Modules -->
 <?php foreach ($auditorScripts as $script): ?>
 <script type="module" src="<?php echo $this->escape($script); ?>"></script>

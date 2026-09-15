@@ -1,45 +1,13 @@
 /**
  * Chat display functions
- * Dependencies: conference/dom-helpers.js (for _)
+ * Dependencies: chat/state.js, chat/utils.js, conference/dom-helpers.js
  */
 import { _ } from '../conference/dom-helpers.js';
+import { ScreenCR } from './state.js';
+import { ClearCR, RefreshCR } from './utils.js';
 
-// Use global ScreenCR from window (defined in common-func.js)
-// This ensures compatibility with existing code
-let ScreenCR = (typeof window !== 'undefined' && window.ScreenCR) ? window.ScreenCR : [];
-
-// Export for use by other modules
-export { ScreenCR };
-
-/**
- * @summary Clear the classroom chat
- *
- * @returns {void}
- */
-export function ClearCR() {
-  const classroomEl = _('classroom');
-  if (classroomEl) classroomEl.innerHTML = '<ul role="list" aria-live="polite" class="chat-message-list"></ul>';
-
-  ScreenCR = [];
-}
-
-/**
- * @summary Refresh the classroom chat display
- *
- * @returns {void}
- */
-export function RefreshCR() {
-  let html = '<ul role="list" aria-live="polite" class="chat-message-list">';
-  for (let i = 0; i < ScreenCR.length; i++) {
-    if (ScreenCR[i] !== undefined) {
-      html += window.DOMPurify.sanitize(ScreenCR[i]);
-    }
-  }
-  html += '</ul>';
-
-  const classroomEl = _('classroom');
-  if (classroomEl) classroomEl.innerHTML = window.DOMPurify.sanitize(html);
-}
+// Re-export for backward compatibility
+export { ScreenCR, ClearCR, RefreshCR };
 
 /**
  * @summary Write a message to the classroom chat
@@ -57,10 +25,6 @@ export function EcrireCR(who, ch, order) {
       const bg = colors[0];
       const fg = colors[1];
       window.ColorsForCR[who] = [bg, fg, 20];
-    }
-
-    if (typeof ScreenCR === 'undefined') {
-      ScreenCR = [];
     }
 
     const rgbFunc = typeof window.rgb === 'function' ? window.rgb : function (T) {

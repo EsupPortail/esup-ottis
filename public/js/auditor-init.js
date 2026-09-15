@@ -53,12 +53,14 @@ function initializeAuditor() {
 
   // ===== NOUVEAU: Surcharger setLanguageOutputAndRetranslate pour l'auditor =====
   // Utiliser rebuildOutputForLanguage au lieu de recharger() pour économiser les ressources
-  if (typeof rebuildOutputForLanguage === 'function') {
-    window.setLanguageOutputAndRetranslate = function(i) {
-      setLanguageOutput(i);
+  window.setLanguageOutputAndRetranslate = function(i) {
+    setLanguageOutput(i);
+    if (typeof rebuildOutputForLanguage === 'function') {
       rebuildOutputForLanguage();
-    };
-  }
+    } else {
+      console.warn('[auditor-init.js] ❌ rebuildOutputForLanguage NOT available, falling back to default');
+    }
+  };
 
   // Load voices when available
   if (typeof loadVoicesWhenAvailable === 'function') {

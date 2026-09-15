@@ -14,6 +14,9 @@
 // ============================================================================
 import { _, query, queryAll } from '../conference/dom-helpers.js';
 import { get, css, attr, val, position, on, off, ready } from '../utils/dom.js';
+import { hide, show } from '../dom/visibility.js';
+import { ChangeColor, ChangeOpacity } from '../dom/styles.js';
+import { resizeWindow } from '../dom/layout.js';
 
 // ============================================================================
 // Browser & Error Utilities
@@ -65,6 +68,8 @@ import * as chatAlert from '../chat/alert.js';
 import * as chatDisplay from '../chat/display.js';
 import * as chatHandlers from '../chat/handlers.js';
 import * as chatNetwork from '../chat/network.js';
+import { ScreenCR, ToSay, ToTranslate, currentdiscours, gotolive } from '../chat/state.js';
+import { ClearCR, RefreshCR, recharger } from '../chat/utils.js';
 
 // ============================================================================
 // Conference Modules
@@ -98,19 +103,12 @@ import { CompleteSpeech, Parle, ParleThen } from '../auditor/speech.js';
 // Global State Variables
 // ============================================================================
 
-// ScreenCR - Global array to store chat messages (from common-func.js)
-const ScreenCR = [];
-
 // ============================================================================
 // Global State Variables from auditor-def.js
 // These are needed by legacy code for speech processing and must be available on window
 // ============================================================================
-const ToSay = [];
-const ToTranslate = [];
 const ToTranslate2 = [];
 const AllPhrases = [];
-let currentdiscours = -1;
-let gotolive = false;
 let completespeechactive = false;
 let currentorder_readtext = 0;
 let maxorder_readtext = -1;
@@ -118,103 +116,6 @@ let inputnumber = -1;
 let builtin_discoursrate = 1;
 
 // ============================================================================
-// Simple hide function
-// ============================================================================
-function hide(e) {
-  const el = typeof e === 'string' ? _(e) : e;
-  if (el) el.style.display = 'none';
-}
-
-// ============================================================================
-// Simple show function
-// ============================================================================
-function show(e) {
-  const el = typeof e === 'string' ? _(e) : e;
-  if (el) el.style.display = 'block';
-}
-
-// ============================================================================
-// Function to resize window elements
-// ============================================================================
-function resizeWindow(wname) {
-  const wc = _(wname);
-  if (!wc) return;
-  wc.style.width = `${window.innerWidth - 20}px`;
-  wc.style.height = `${window.innerHeight - 48}px`;
-  wc.style.top = '48px';
-  wc.style.left = '0px';
-}
-
-// ============================================================================
-// Function to change the color of a HTML div
-// ============================================================================
-function ChangeColor(boxname, color) {
-  const [bgcolor, bordercolor, textcolor] = color.split('|');
-  const e = _(boxname);
-  if (!e) return;
-  const opacityEl = _('selectopacity');
-  const opacity = opacityEl ? opacityEl.value : '0.5';
-  if (textcolor) e.style.color = `rgb(${textcolor})`;
-  else e.style.color = 'rgb(255,255,255)';
-  e.style.backgroundColor = `rgba(${bgcolor},${opacity})`;
-  e.style.boxShadow = `2px 2px 5px rgb(${bgcolor})`;
-  e.style.textShadow = `2px 0 0 rgb(${bordercolor}), -2px 0 0 rgb(${bordercolor}), 0 2px 0 rgb(${bordercolor}), 0 -2px 0 rgb(${bordercolor}), 1px 1px rgb(${bordercolor}), -1px -1px 0 rgb(${bordercolor}), 1px -1px 0 rgb(${bordercolor}), -1px 1px 0 rgb(${bordercolor})`;
-}
-
-// ============================================================================
-// Function to change the opacity of a HTML div
-// ============================================================================
-function ChangeOpacity(boxname, opacity) {
-  const e = _(boxname);
-  if (!e) return;
-  const color = e.style.backgroundColor;
-  if (!color || color === '') return;
-  const [red, green, blue] = color.substring(color.indexOf('(') + 1, color.lastIndexOf(')')).split(/,\s*/);
-  const bgcolor = [red, green, blue];
-  e.style.backgroundColor = `rgba(${bgcolor},${opacity})`;
-}
-
-// ============================================================================
-// Function to clear the classroom chat
-// ============================================================================
-function ClearCR() {
-  const classroomEl = _('classroom');
-  if (classroomEl) classroomEl.innerHTML = '';
-  ScreenCR.length = 0;
-}
-
-// ============================================================================
-// Function to reload the classroom queue
-// ============================================================================
-function recharger() {
-  ClearCR();
-  if (typeof setInputnumberQ !== 'undefined') {
-    setInputnumberQ(0);
-  } else if (typeof window !== 'undefined') {
-    window.inputnumberQ = 0;
-  }
-  if (typeof readTextQ !== 'undefined') {
-    const roomId = _('classroomid')?.value;
-    if (roomId) readTextQ(roomId);
-  }
-}
-
-// ============================================================================
-// Function to refresh the classroom display
-// ============================================================================
-function RefreshCR() {
-  let html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
-  for (let i = 0; i < ScreenCR.length; i++) {
-    if (ScreenCR[i] !== undefined) {
-      html += typeof window.DOMPurify !== 'undefined' ? window.DOMPurify.sanitize(ScreenCR[i]) : ScreenCR[i];
-    }
-  }
-  html += '</ul>';
-  const classroomEl = _('classroom');
-  if (classroomEl) {
-    classroomEl.innerHTML = typeof window.DOMPurify !== 'undefined' ? window.DOMPurify.sanitize(html) : html;
-  }
-}
 
 // ============================================================================
 // Function to compute the number of questions in the classroom queue
@@ -295,6 +196,9 @@ const modulesToExpose = [
     fetchWithErrorHandling
   },
   
+  // DOM utilities from lib/dom/
+  { hide, show, resizeWindow, ChangeColor, ChangeOpacity },
+  
   // Download utilities
   { DownloadSpeechLesson },
   
@@ -304,6 +208,9 @@ const modulesToExpose = [
   chatDisplay,
   chatHandlers,
   chatNetwork,
+  // Chat utilities from lib/chat/
+  { ScreenCR, ToSay, ToTranslate, currentdiscours, gotolive },
+  { ClearCR, RefreshCR, recharger },
   
   // Conference modules
   conference,
@@ -350,9 +257,6 @@ if (typeof window !== 'undefined') {
   window.resizeWindow = resizeWindow;
   window.ChangeColor = ChangeColor;
   window.ChangeOpacity = ChangeOpacity;
-  window.ClearCR = ClearCR;
-  window.recharger = recharger;
-  window.RefreshCR = RefreshCR;
   window.TailleCR = TailleCR;
   window.setLanguageInput = setLanguageInput;
   window.setLanguageOutput = setLanguageOutput;
@@ -410,6 +314,7 @@ if (typeof window !== 'undefined') {
   
   // Initialize cleanup on page unload
   window.addEventListener('beforeunload', cleanupAll);
+
 }
 
 // ============================================================================
