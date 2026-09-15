@@ -92,7 +92,6 @@ class AuditorController extends BaseController
             '/js/lib/auditor/translation.js',
             '/js/lib/auditor/mail.js',
             '/js/lib/auditor/main.js',
-            '/js/utils/dom.js',
             '/js/lib/chat/alert.js',
             '/js/lib/chat/network.js',
             '/js/lib/chat/handlers.js',

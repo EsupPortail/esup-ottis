@@ -34,15 +34,19 @@ export function position(element, x, y) {
 }
 
 /**
- * Get element position
+ * Get element position (compatible with jQuery .position() method)
+ * Returns position relative to document (includes scroll offset)
  * @param {HTMLElement|string} element - Element or element ID
- * @returns {Object} - Object with x and y properties
+ * @returns {Object} - Object with top and left properties (includes scroll offset)
  */
 export function getPosition(element) {
     const el = typeof element === 'string' ? _(element) : element;
     if (el) {
         const rect = el.getBoundingClientRect();
-        return { x: rect.left, y: rect.top };
+        return {
+            top: rect.top + window.scrollY,
+            left: rect.left + window.scrollX,
+        };
     }
-    return { x: 0, y: 0 };
+    return { top: 0, left: 0 };
 }

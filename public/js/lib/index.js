@@ -10,7 +10,6 @@ export * from './xhr.js';
 export * from './download.js';
 export * from './browser.js';
 export * from './pdf/init.js';
-export * from './utils/dom.js';
 export * from './utils/dialog.js';
 export * from './utils/draggable.js';
 export * from './conference/index.js';

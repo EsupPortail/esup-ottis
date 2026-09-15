@@ -3,30 +3,40 @@
  * ES Module for event handling
  */
 
+import { safeSetTimeout } from '../utils/cleanup.js';
+
 /**
  * Add event listener
  * @param {HTMLElement|string} element - Element or element ID
- * @param {string} event - Event name
+ * @param {string} event - Event name (can be space-separated for multiple events)
  * @param {Function} handler - Event handler function
  * @param {boolean|Object} [options] - Event listener options
  */
 export function on(element, event, handler, options) {
     const el = typeof element === 'string' ? document.getElementById(element) : element;
     if (el) {
-        el.addEventListener(event, handler, options);
+        // Handle multiple events separated by spaces
+        const events = event.split(/\s+/);
+        events.forEach((evt) => {
+            el.addEventListener(evt, handler, options);
+        });
     }
 }
 
 /**
  * Remove event listener
  * @param {HTMLElement|string} element - Element or element ID
- * @param {string} event - Event name
+ * @param {string} event - Event name (can be space-separated for multiple events)
  * @param {Function} handler - Event handler function
  */
 export function off(element, event, handler) {
     const el = typeof element === 'string' ? document.getElementById(element) : element;
     if (el) {
-        el.removeEventListener(event, handler);
+        // Handle multiple events separated by spaces
+        const events = event.split(/\s+/);
+        events.forEach((evt) => {
+            el.removeEventListener(evt, handler);
+        });
     }
 }
 
@@ -38,7 +48,7 @@ export function ready(callback) {
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', callback);
     } else {
-        callback();
+        safeSetTimeout(callback, 0);
     }
 }
 

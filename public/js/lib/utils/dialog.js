@@ -4,7 +4,7 @@
  * Provides modal dialog management without jQuery UI dependency
  */
 
-import { get } from './dom.js';
+import { get } from '../dom/selector.js';
 
 /**
  * Open a dialog by ID

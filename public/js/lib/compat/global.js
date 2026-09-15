@@ -13,7 +13,10 @@
 // DOM Utilities
 // ============================================================================
 import { _, query, queryAll } from '../conference/dom-helpers.js';
-import { get, css, attr, val, position, on, off, ready } from '../utils/dom.js';
+import { get, attr, val } from '../dom/selector.js';
+import { css } from '../dom/styles.js';
+import { on, off, ready } from '../dom/events.js';
+import { getPosition as position } from '../dom/layout.js';
 import { hide, show } from '../dom/visibility.js';
 import { ChangeColor, ChangeOpacity } from '../dom/styles.js';
 import { resizeWindow } from '../dom/layout.js';

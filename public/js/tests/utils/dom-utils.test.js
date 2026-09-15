@@ -1,12 +1,13 @@
 /**
- * Tests unitaires pour js/utils/dom.js
- * Tests des utilitaires DOM de base (version CommonJS/ES)
+ * Tests unitaires pour js/lib/dom.js
+ * Tests des utilitaires DOM (version ES module)
+ * Anciennement pour utils/dom.js, migré vers lib/dom.js
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { get, query, queryAll, on, off, ready, css, attr, val, position } from '../../utils/dom.js';
+import { get, query, queryAll, on, off, ready, css, attr, val, getPosition as position } from '../../../lib/dom.js';
 
-describe('utils/dom.js - DOM Utilities', () => {
+describe('lib/dom.js - DOM Utilities (migrated from utils/dom.js)', () => {
   beforeEach(() => {
     document.body.innerHTML = `
       <div id="test-id">Test Element</div>
