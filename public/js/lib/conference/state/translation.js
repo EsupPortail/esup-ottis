@@ -40,11 +40,8 @@ export let subtitle_language = '';
 // Voix disponibles
 // =============================================================================
 
-/** @type {Array} */
-export const AllOutputVoices = [];
-
-/** @type {Array} */
-export const TLangInput = [];
+import { AllOutputVoices, TLangInput } from '../../language/state.js';
+export { AllOutputVoices, TLangInput };
 
 // =============================================================================
 // Variables globales pour la voix et la langue

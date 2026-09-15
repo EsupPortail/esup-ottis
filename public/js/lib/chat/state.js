@@ -25,16 +25,16 @@ export let currentdiscours = -1;
 export let gotolive = false;
 
 /**
- * Text to say (for speech synthesis)
- * @type {string}
+ * Text to say (for speech synthesis) - Object indexed by line ID
+ * @type {Object}
  */
-export let ToSay = '';
+export let ToSay = {};
 
 /**
- * Text to translate
- * @type {string}
+ * Text to translate - Array of translation requests
+ * @type {Array}
  */
-export let ToTranslate = '';
+export let ToTranslate = [];
 
 /**
  * Chat messages history
@@ -66,8 +66,8 @@ export function initChatState(screenElement) {
     
     // Reset state
     ScreenCR.length = 0;
-    ToSay = '';
-    ToTranslate = '';
+    ToSay = {};
+    ToTranslate = [];
     chatHistory.length = 0;
     currentSessionId = null;
 }
@@ -123,19 +123,21 @@ export function clearHistory() {
 }
 
 /**
- * Set text to say
+ * Set text to say - Note: ToSay is now an object, this function clears and sets a single entry
+ * @param {string} id - Line ID
  * @param {string} text - Text to say
  */
-export function setToSay(text) {
-    ToSay = text;
+export function setToSay(id, text) {
+    ToSay = {};
+    ToSay[`${id}`] = text;
 }
 
 /**
- * Set text to translate
- * @param {string} text - Text to translate
+ * Set text to translate - Note: ToTranslate is now an array
+ * @param {Array} items - Translation request array [id, sourceLang, sourceText, targetLang, targetText]
  */
-export function setToTranslate(text) {
-    ToTranslate = text;
+export function setToTranslate(items) {
+    ToTranslate = Array.isArray(items) ? items : [];
 }
 
 /**

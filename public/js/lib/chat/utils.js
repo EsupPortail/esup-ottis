@@ -78,8 +78,8 @@ export function displayInCR(text, className = '') {
  * Clear both ToSay and ToTranslate
  */
 export function clearChatText() {
-    ToSay = '';
-    ToTranslate = '';
+    ToSay = {};
+    ToTranslate = [];
 }
 
 /**

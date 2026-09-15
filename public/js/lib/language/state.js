@@ -7,7 +7,7 @@
  * Available output voices
  * @type {Array}
  */
-export const AllOutputVoices = [
+export let AllOutputVoices = [
     { id: 'fr-FR', name: 'Français' },
     { id: 'en-US', name: 'English' },
     { id: 'es-ES', name: 'Español' },
@@ -22,26 +22,17 @@ export const AllOutputVoices = [
 
 /**
  * Available input languages
- * @type {Array}
+ * @type {Array<string>}
  */
-export const TLangInput = [
-    { id: 'fr', name: 'Français' },
-    { id: 'en', name: 'English' },
-    { id: 'es', name: 'Español' },
-    { id: 'de', name: 'Deutsch' },
-    { id: 'it', name: 'Italiano' },
-    { id: 'pt', name: 'Português' },
-    { id: 'ru', name: 'Русский' },
-    { id: 'zh', name: '中文' },
-    { id: 'ja', name: '日本語' },
-    { id: 'ar', name: 'العربية' }
+export let TLangInput = [
+    'fr', 'en', 'es', 'de', 'it', 'pt', 'ru', 'zh', 'ja', 'ar'
 ];
 
 /**
  * Maximum number of voices to display
  * @type {number}
  */
-export const maxvoices = 10;
+export let maxvoices = 10;
 
 /**
  * Current input language

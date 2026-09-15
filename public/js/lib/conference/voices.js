@@ -2,46 +2,45 @@ import {
   builtin_voice,
   builtin_language,
   subtitle_language,
-  TLangInput,
-  AllOutputVoices,
   setBuiltinVoice,
   setBuiltinLanguage,
   setSubtitleLanguage,
 } from './state.js';
+import { AllOutputVoices, TLangInput } from '../language/state.js';
 import { _ } from './dom-helpers.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
 /** @module conference/voices */
 
 export function PopulateVoicesIn() {
-  if (TLangInput.length == 0) {
-    const select = _('classroomlanguage');
-    TLangInput.length = 0;
+  const select = _('classroomlanguage');
+  if (!select) return;
 
-    // Ensure pageData.supportedlanguages exists
-    if (!window.pageData || !window.pageData.supportedlanguages) {
-      console.warn('pageData.supportedlanguages not available');
-      // Set default language to en-US
-      setBuiltinLanguage('en-US');
-      return;
-    }
+  TLangInput.length = 0;
 
-    Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
-      if (TLangInput.indexOf(code) === -1) {
-        const opt = document.createElement('option');
-        opt.value = code;
-
-        if (index === 0) {
-          opt.selected = true;
-          setBuiltinLanguage(code);
-        }
-
-        TLangInput.push(code);
-        opt.textContent = `${code} ${lang.name_fr} ${lang.name_vo}`;
-        select.appendChild(opt);
-      }
-    });
+  // Ensure pageData.supportedlanguages exists
+  if (!window.pageData || !window.pageData.supportedlanguages) {
+    console.warn('pageData.supportedlanguages not available');
+    // Set default language to en-US
+    setBuiltinLanguage('en-US');
+    return;
   }
+
+  Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
+    if (TLangInput.indexOf(code) === -1) {
+      const opt = document.createElement('option');
+      opt.value = code;
+
+      if (index === 0) {
+        opt.selected = true;
+        setBuiltinLanguage(code);
+      }
+
+      TLangInput.push(code);
+      opt.textContent = `${code} ${lang.name_fr} ${lang.name_vo}`;
+      select.appendChild(opt);
+    }
+  });
 }
 
 export function PopulateSubtitlesLang() {
@@ -104,6 +103,7 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   optgroup.label = 'Voice and text translation';
   const voices = window.speechSynthesis.getVoices();
   let englishVoiceFound = false;
+  let maxvoices = voices.length;
   for (let i = 0; i < voices.length; i++) {
     if (true) {
       const opt = document.createElement('option');
@@ -127,7 +127,6 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
     }
   }
   select.appendChild(optgroup);
-  const maxvoices = voices.length;
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
   const supportedlanguages = window.pageData ? window.pageData.supportedlanguages : [];

@@ -130,8 +130,8 @@ function TailleCR() {
 // Set language input function
 // ============================================================================
 function setLanguageInput(i) {
-  if (typeof TLangInput !== 'undefined' && TLangInput && TLangInput[i]) {
-    window.builtin_language = TLangInput[i];
+  if (typeof state.TLangInput !== 'undefined' && state.TLangInput && state.TLangInput[i]) {
+    window.builtin_language = state.TLangInput[i];
   } else {
     window.builtin_language = '';
   }
@@ -141,8 +141,8 @@ function setLanguageInput(i) {
 // Set language output function
 // ============================================================================
 function setLanguageOutput(i) {
-  if (typeof AllOutputVoices !== 'undefined' && AllOutputVoices && AllOutputVoices[i]) {
-    window.builtin_voice = AllOutputVoices[i];
+  if (typeof state.AllOutputVoices !== 'undefined' && state.AllOutputVoices && state.AllOutputVoices[i]) {
+    window.builtin_voice = state.AllOutputVoices[i];
     window.builtin_language = (window.builtin_voice && window.builtin_voice.lang) ? window.builtin_voice.lang : '';
   } else {
     window.builtin_voice = null;

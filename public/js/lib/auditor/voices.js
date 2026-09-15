@@ -7,10 +7,7 @@ if (typeof lastNotebookVOContent === 'undefined') {
   lastNotebookVOContent = '';
 }
 
-// Global variables for voice management
-let AllOutputVoices = [];
-let TLangInput = [];
-let maxvoices = 0;
+import { AllOutputVoices, TLangInput } from '../language/state.js';
 
 /**
  * @summary Fill the select VoiceOutput field
@@ -27,6 +24,7 @@ function PopulateVoicesOut(selectname = 'VoiceOutput') {
   const optgroup = document.createElement('optgroup');
   optgroup.label = 'Voice and text translation';
   const voices = window.speechSynthesis.getVoices();
+  let maxvoices = voices.length;
   // Voices in english first
   for (let i = 0; i < voices.length; i++) {
     if (voices[i].lang && typeof voices[i].lang === 'string' && voices[i].lang.substr(0, 2).toLowerCase() == 'en') { // (voices[i].localService) {
@@ -51,7 +49,6 @@ function PopulateVoicesOut(selectname = 'VoiceOutput') {
       optgroup.appendChild(opt);
     }
   }
-  maxvoices = voices.length;
   select.appendChild(optgroup);
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
@@ -89,6 +86,8 @@ function PopulateVoicesOutSub(selectname = 'VoiceOutput') {
 
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
+  const voices = window.speechSynthesis.getVoices();
+  let maxvoices = voices.length;
   if (typeof supportedlanguages !== 'undefined' && Array.isArray(supportedlanguages)) {
     for (let i = 0; i < supportedlanguages.length; i++) {
       if (supportedlanguages[i] && supportedlanguages[i].code) {
@@ -112,25 +111,25 @@ function PopulateVoicesOutSub(selectname = 'VoiceOutput') {
  * @summary Fill the select VoiceInput field
  */
 function PopulateVoicesIn() {
-  if (TLangInput.length == 0) {
-    const select = _('VoiceInput');
-    const select2 = _('classroomlanguage');
-    // let voices = window.speechSynthesis.getVoices();
-    TLangInput = [];
+  const select = _('VoiceInput');
+  const select2 = _('classroomlanguage');
+  if (!select || !select2) return;
 
-    for (let i = 0; i < supportedlanguages.length; i++) {
-      const lang = supportedlanguages[i].code; // .substr(0,5);
-      if (TLangInput.indexOf(lang) < 0) {
-        const opt = document.createElement('option');
-        opt.value = TLangInput.length;
-        TLangInput.push(lang);
-        opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
-        select.appendChild(opt);
-        const opt2 = document.createElement('option');
-        opt2.value = TLangInput.length;
-        opt2.textContent = lang;
-        select2.appendChild(opt2);
-      }
+  // let voices = window.speechSynthesis.getVoices();
+  TLangInput = [];
+
+  for (let i = 0; i < supportedlanguages.length; i++) {
+    const lang = supportedlanguages[i].code; // .substr(0,5);
+    if (TLangInput.indexOf(lang) < 0) {
+      const opt = document.createElement('option');
+      opt.value = TLangInput.length;
+      TLangInput.push(lang);
+      opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
+      select.appendChild(opt);
+      const opt2 = document.createElement('option');
+      opt2.value = TLangInput.length;
+      opt2.textContent = lang;
+      select2.appendChild(opt2);
     }
   }
 }
@@ -139,25 +138,25 @@ function PopulateVoicesIn() {
  * @summary Fill the select VoiceInput field for the subtitle application
  */
 function PopulateVoicesInSub() {
-  if (TLangInput.length == 0) {
-    // let select = _('VoiceInput');
-    const select = _('classroomlanguage');
-    // let voices = window.speechSynthesis.getVoices();
-    TLangInput = [];
+  const select = _('classroomlanguage');
+  if (!select) return;
 
-    for (let i = 0; i < supportedlanguages.length; i++) {
-      const lang = supportedlanguages[i].code; // .substr(0,5);
-      if (TLangInput.indexOf(lang) < 0) {
-        const opt = document.createElement('option');
-        opt.value = TLangInput.length;
-        TLangInput.push(lang);
-        opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
-        select.appendChild(opt);
-        // let opt2 = document.createElement("option");
-        // opt2.value = TLangInput.length;
-        // opt2.innerHTML = lang;
-        // select2.appendChild(opt2);
-      }
+  // let select = _('VoiceInput');
+  // let voices = window.speechSynthesis.getVoices();
+  TLangInput = [];
+
+  for (let i = 0; i < supportedlanguages.length; i++) {
+    const lang = supportedlanguages[i].code; // .substr(0,5);
+    if (TLangInput.indexOf(lang) < 0) {
+      const opt = document.createElement('option');
+      opt.value = TLangInput.length;
+      TLangInput.push(lang);
+      opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
+      select.appendChild(opt);
+      // let opt2 = document.createElement("option");
+      // opt2.value = TLangInput.length;
+      // opt2.innerHTML = lang;
+      // select2.appendChild(opt2);
     }
   }
 }
