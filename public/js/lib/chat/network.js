@@ -1,9 +1,10 @@
 /**
  * Chat network functions
- * Dependencies: conference/network.js (for createFetchRequest, addCsrfToken)
+ * Dependencies: conference/network.js (for createFetchRequest), network/utils.js (for addCsrfToken)
  */
 
-import { addCsrfToken, createFetchRequest } from '../conference/network.js';
+import { addCsrfToken } from '../network/utils.js';
+import { createFetchRequest } from '../conference/network.js';
 import { increasependingrequests, decreasependingrequests } from '../utils/request-counter.js';
 
 /**

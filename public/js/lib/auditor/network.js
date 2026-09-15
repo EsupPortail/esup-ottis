@@ -5,7 +5,8 @@
 import { decodeHtmlEntities } from './text-processing.js';
 import { CompleteTranslation } from './translation.js';
 import { increasependingrequests, decreasependingrequests } from '../utils/request-counter.js';
-import { addCsrfToken, createFetchRequest } from '../conference/network.js';
+import { addCsrfToken } from '../network/utils.js';
+import { createFetchRequest } from '../conference/network.js';
 import { Ecrire, EcrireNB, EcrireNBSub } from './display.js';
 
 /**

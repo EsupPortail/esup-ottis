@@ -47,13 +47,13 @@ import {
 // Network Utilities
 // ============================================================================
 import { 
-  addCsrfToken,
   handleXhrError,
   createXhrRequest,
   createFetchRequest,
   AbortTimeout,
   fetchWithErrorHandling
 } from '../xhr.js';
+import { addCsrfToken } from '../network/utils.js';
 
 // ============================================================================
 // Download Utilities

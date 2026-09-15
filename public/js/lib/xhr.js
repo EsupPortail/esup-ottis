@@ -6,19 +6,6 @@ import { showError } from './browser.js';
 import { registerRequest, registerTimer, safeSetTimeout } from './utils/cleanup.js';
 
 /**
- * Add CSRF token to FormData object
- * @param {FormData} formData - The FormData object to add CSRF token to
- * @returns {FormData} The FormData object with CSRF token added
- */
-export function addCsrfToken(formData) {
-  const csrfToken = document.querySelector('input[name="csrf_token"]')?.value;
-  if (csrfToken) {
-    formData.append('csrf_token', csrfToken);
-  }
-  return formData;
-}
-
-/**
  * Handle XMLHttpRequest errors centrally
  * @param {XMLHttpRequest} xhr - The XMLHttpRequest object
  * @param {string} [context='unknown'] - Context for error identification

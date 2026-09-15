@@ -4,22 +4,32 @@
  */
 
 /**
- * Get CSRF token from meta tag
+ * Get CSRF token from DOM
  * @returns {string} - CSRF token value
  */
 function getCsrfToken() {
+    // Try meta tag first (Symfony standard)
     const meta = document.querySelector('meta[name="csrf-token"]');
-    return meta ? meta.content : '';
+    if (meta) return meta.content;
+    
+    // Fallback to input field (legacy)
+    const input = document.querySelector('input[name="csrf_token"]');
+    return input ? input.value : '';
 }
 
 /**
  * Add CSRF token to data object or URL
- * @param {Object|string} data - Data object or URL string
- * @returns {Object|string} - Data with CSRF token or URL with token
+ * @param {Object|string|FormData} data - Data object, URL string, or FormData
+ * @returns {Object|string|FormData} - Data with CSRF token or URL with token
  */
 export function addCsrfToken(data) {
     const token = getCsrfToken();
     if (!token) return data;
+
+    if (data instanceof FormData) {
+        data.append('csrf_token', token);
+        return data;
+    }
 
     if (typeof data === 'string') {
         // If it's a URL, append as query parameter

@@ -1,19 +1,6 @@
 /** @module conference/network */
 import { safeSetTimeout } from '../utils/cleanup.js';
-
-/**
- * Add CSRF token to FormData object
- * @param {FormData} formData - The FormData object to add token to
- * @returns {FormData} The FormData object with CSRF token added
- */
-export function addCsrfToken(formData) {
-  const csrfInput = document.querySelector('input[name="csrf_token"]');
-  const csrfToken = csrfInput ? csrfInput.value : null;
-  if (csrfToken) {
-    formData.append('csrf_token', csrfToken);
-  }
-  return formData;
-}
+import { addCsrfToken } from '../network/utils.js';
 
 /**
  * Create and configure an XMLHttpRequest
@@ -266,3 +253,6 @@ export function createFetchRequest(method, url, options = {}) {
 
   return request;
 }
+
+// Re-export addCsrfToken from network/utils.js for backward compatibility
+export { addCsrfToken } from '../network/utils.js';

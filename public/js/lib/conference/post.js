@@ -4,7 +4,8 @@
  * Handles QR code generation, drag-and-drop, dialogs, and mail sending
  */
 
-import { addCsrfToken, createFetchRequest } from '../xhr.js';
+import { addCsrfToken } from '../network/utils.js';
+import { createFetchRequest } from '../xhr.js';
 import { makeDraggable } from '../utils/draggable.js';
 import { upgradeLegacyDialogs, closeDialog } from '../utils/dialog.js';
 
