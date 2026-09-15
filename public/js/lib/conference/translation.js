@@ -1,6 +1,6 @@
 import { StudentToSay, StudentToTranslate2, Studentcompletespeechactive, Studentcurrentdiscours, Studentgotolive, builtin_language, builtin_voice, currentdiscours, lastPartialTranslation, lastSentenceTranslated, readytotalk, subtitle_language, setLastSentenceTranslated, LiveTranslationNum, LiveTranslationFreq, setLiveTranslationNum } from './state.js';
 
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { Ecrire, EcrireNB, EcrireNBonly, EcrireNBonlyVO, EcrirePartial, saveText, saveTextWithTranslation } from './notebook.js';
 import { Parle } from './voices.js';

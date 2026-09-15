@@ -12,14 +12,14 @@
 // ============================================================================
 // DOM Utilities
 // ============================================================================
-import { _, query, queryAll } from '../conference/dom-helpers.js';
-import { get, attr, val } from '../dom/selector.js';
+import { _, get, query, queryAll, attr, val } from '../dom/selector.js';
 import { css } from '../dom/styles.js';
 import { on, off, ready } from '../dom/events.js';
 import { getPosition as position } from '../dom/layout.js';
 import { hide, show } from '../dom/visibility.js';
 import { ChangeColor, ChangeOpacity } from '../dom/styles.js';
 import { resizeWindow } from '../dom/layout.js';
+import { openDialog, closeDialog } from '../dom/dialog.js';
 
 // ============================================================================
 // Browser & Error Utilities
@@ -79,7 +79,6 @@ import { ClearCR, RefreshCR, recharger } from '../chat/utils.js';
 // ============================================================================
 import * as conference from '../conference/index.js';
 import * as state from '../conference/state.js';
-import * as domHelpers from '../conference/dom-helpers.js';
 import * as network from '../conference/network.js';
 import * as compat from '../conference/compat.js';
 import * as utils from '../conference/utils.js';
@@ -202,6 +201,9 @@ const modulesToExpose = [
   // DOM utilities from lib/dom/
   { hide, show, resizeWindow, ChangeColor, ChangeOpacity },
   
+  // DOM dialog utilities from lib/dom/
+  { openDialog, closeDialog },
+  
   // Download utilities
   { DownloadSpeechLesson },
   
@@ -218,7 +220,6 @@ const modulesToExpose = [
   // Conference modules
   conference,
   state,
-  domHelpers,
   network,
   compat,
   utils,

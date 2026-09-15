@@ -2,7 +2,7 @@
  * Chat main functions
  * Dependencies: all other chat modules
  */
-import { _ } from '../conference/dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { readTextQCommon, saveTextQCommon, TranslateQ } from './network.js';
 import { defaultMessageHandler, sendclick } from './handlers.js';
 import { safeSetInterval } from '../utils/cleanup.js';

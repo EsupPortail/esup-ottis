@@ -1,8 +1,8 @@
 /**
  * Chat message handlers
- * Dependencies: colors.js (for ColorsForCR), conference/dom-helpers.js (for _), display.js (for EcrireCR)
+ * Dependencies: colors.js (for ColorsForCR), ../dom/selector.js (for _), display.js (for EcrireCR)
  */
-import { _ } from '../conference/dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { EcrireCR } from './display.js';
 import { ColorsForCR } from '../colors.js';
 

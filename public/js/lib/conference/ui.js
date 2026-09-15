@@ -1,4 +1,6 @@
-import { _, openDialog } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
+import { hide, show } from '../dom/visibility.js';
+import { openDialog } from '../dom/dialog.js';
 import { builtin_language } from './state.js';
 import { builtin_recognition, builtin_recognitionon, builtin_microsofttranscritionon, setBuiltinRecognitionon } from './config.js';
 import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer } from './microsoft.js';

@@ -1,6 +1,8 @@
 import { builtin_language, currentscroll, scale, timenew_question, setTimenewQuestion } from './state.js';
 
-import { _, openDialog } from './dom-helpers.js';
+import { _, get } from '../dom/selector.js';
+import { hide, show } from '../dom/visibility.js';
+import { openDialog } from '../dom/dialog.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 

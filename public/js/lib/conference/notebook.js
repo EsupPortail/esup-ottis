@@ -19,7 +19,7 @@ import { getNotebookContent, EventNewQuestion } from './utils.js';
 import { updateUsers } from './config.js';
 import { EcrireCR, AbortTimeout, ROOM_TOKEN } from './compat.js';
 
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout, registerRequest } from '../utils/cleanup.js';
 

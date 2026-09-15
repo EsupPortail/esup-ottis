@@ -18,7 +18,7 @@ import {
   setOriginalPdfControlNextSibling, setOriginalPdfViewerStyle, setOriginalPdfScale,
 } from '../state.js';
 
-import { _ } from '../dom-helpers.js';
+import { _ } from '../../dom/selector.js';
 import { renderPage } from '../pdf-viewer.js';
 import { toggleTextBandDisplay } from '../ui.js';
 import { safeSetTimeout } from '../../utils/cleanup.js';

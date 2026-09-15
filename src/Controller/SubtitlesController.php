@@ -72,16 +72,14 @@ class SubtitlesController extends BaseController
         // Auditor modules
         $this->viewData['auditorScripts'] = [
             '/js/lib/compat/global.js',
-            'js/lib/conference/dom-helpers.js',
-            'js/lib/auditor/text-processing.js',
-            'js/lib/auditor/voices.js',
-            'js/lib/auditor/speech.js',
-            'js/lib/auditor/display.js',
-            'js/lib/auditor/translation.js',
-            'js/lib/auditor/network.js',
-            'js/lib/auditor/config.js',
-            'js/lib/auditor/mail.js',
-            'js/lib/auditor/main.js'
+            '/js/lib/conference/dom-helpers.js',
+            '/js/lib/auditor/text-processing.js',
+            '/js/lib/auditor/voices.js',
+            '/js/lib/auditor/speech.js',
+            '/js/lib/auditor/display.js',
+            '/js/lib/auditor/config.js',
+            '/js/lib/auditor/mail.js',
+            '/js/lib/auditor/main.js'
         ];
 
         // No layout as this page has its own complete HTML structure

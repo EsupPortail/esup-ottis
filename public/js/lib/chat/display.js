@@ -1,8 +1,8 @@
 /**
  * Chat display functions
- * Dependencies: chat/state.js, chat/utils.js, conference/dom-helpers.js
+ * Dependencies: chat/state.js, chat/utils.js, ../dom/selector.js and ../dom/dialog.js
  */
-import { _ } from '../conference/dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { ScreenCR } from './state.js';
 import { ClearCR, RefreshCR } from './utils.js';
 

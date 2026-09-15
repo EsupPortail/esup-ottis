@@ -3,7 +3,7 @@ import { currentscroll, previousimage, scale } from './state.js';
 import { formateresponse } from './utils.js';
 import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
 
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 

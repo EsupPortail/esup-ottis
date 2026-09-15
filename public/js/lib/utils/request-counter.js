@@ -3,7 +3,7 @@
  * Module indépendant pour éviter les dépendances circulaires
  */
 
-import { _ } from '../conference/dom-helpers.js';
+import { _ } from '../dom/selector.js';
 
 function increasependingrequests() {
   const nb = _('nbrequests');

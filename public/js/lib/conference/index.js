@@ -14,7 +14,7 @@ export * from './config.js';
 export * from './ui.js';
 export * from './microsoft.js';
 export * from './config-functions.js';
-export * from './dom-helpers.js';
+export * from '../dom/dialog.js';
 export * from './network.js';
 export * from './utils.js';
 export * from './compat.js';

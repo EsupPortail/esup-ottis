@@ -1,3 +1,4 @@
+import { _ } from '../dom/selector.js';
 /**
  * Speech synthesis functions for auditor
  */

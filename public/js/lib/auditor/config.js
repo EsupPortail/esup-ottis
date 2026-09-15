@@ -2,10 +2,16 @@
  * Configuration functions for auditor
  */
 
+import { _ } from '../dom/selector.js';
+import { hide, show } from '../dom/visibility.js';
+import { ChangeColor, ChangeOpacity } from '../dom/styles.js';
+import { setLanguageInput, setLanguageOutput } from '../language/management.js';
+import { showBanner, hideBanner } from './display.js';
+
 /**
  * @summary Apply a configuration (at startup) for the subtitle application
  */
-function applyConfigSub() {
+export function applyConfigSub() {
   const config = currentconfig;
 
   if (config.length != 'ABYANACNNCNNNYYYYN'.length) return;

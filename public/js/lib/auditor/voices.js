@@ -1,3 +1,4 @@
+import { _ } from '../dom/selector.js';
 /**
  * Voice management functions for auditor
  */

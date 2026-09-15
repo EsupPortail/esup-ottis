@@ -3,7 +3,7 @@
  * Module UI pour la gestion du plein écran PDF
  */
 
-import { _ } from '../dom-helpers.js';
+import { _ } from '../../dom/selector.js';
 import { addCsrfToken } from '../network.js';
 import { calculateFullscreenScale } from './core.js';
 import { displayPDF } from '../pdf-viewer.js';

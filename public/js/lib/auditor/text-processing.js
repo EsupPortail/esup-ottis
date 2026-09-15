@@ -2,7 +2,7 @@
  * Text processing utilities for auditor
  */
 
-import { _ } from '../conference/dom-helpers.js';
+import { _ } from '../dom/selector.js';
 
 /**
  * @summary Decode HTML entities in a string

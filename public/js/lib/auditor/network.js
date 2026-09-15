@@ -1,3 +1,4 @@
+import { _ } from '../dom/selector.js';
 /**
  * Network functions for auditor
  */

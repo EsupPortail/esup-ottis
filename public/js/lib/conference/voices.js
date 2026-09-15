@@ -7,7 +7,7 @@ import {
   setSubtitleLanguage,
 } from './state.js';
 import { AllOutputVoices, TLangInput } from '../language/state.js';
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
 /** @module conference/voices */

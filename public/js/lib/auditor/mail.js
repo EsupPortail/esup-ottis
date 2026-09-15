@@ -2,7 +2,7 @@
  * Mail functions for auditor
  */
 
-import { _ } from '../conference/dom-helpers.js';
+import { _ } from '../dom/selector.js';
 
 /**
  * @summary Generic function for sending an email

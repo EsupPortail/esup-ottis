@@ -1,6 +1,6 @@
 import { StudentToTranslate2, builtin_language, readytotalk, subtitle_language, LiveTranslationNum, setLiveTranslationNum, setDelayStudentReadtext, setDelayReadtextQ } from './state.js';
 
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
@@ -85,11 +85,7 @@ export function setNotReadyToTalk() {
   _('bready').style.backgroundColor = 'red';
 }
 
-export function ready(callback) {
-  if (typeof callback === 'function') {
-    callback();
-  }
-}
+
 
 export function StartSpeechRecognition(callback) {
   

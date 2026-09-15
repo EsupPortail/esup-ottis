@@ -1,3 +1,4 @@
+import { _ } from '../dom/selector.js';
 /**
  * Translation functions for auditor
  */

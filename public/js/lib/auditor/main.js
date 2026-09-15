@@ -1,3 +1,4 @@
+import { _ } from '../dom/selector.js';
 /**
  * Main initialization functions for auditor
  */

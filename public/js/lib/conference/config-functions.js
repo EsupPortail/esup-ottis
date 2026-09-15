@@ -1,6 +1,7 @@
 import { NBconnectedusers, Tconnectedusers } from './state.js';
 
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
+import { hide, show } from '../dom/visibility.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 

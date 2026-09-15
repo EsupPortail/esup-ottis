@@ -3,7 +3,7 @@ import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, initialClien
 import { b64toBlob } from './utils.js';
 import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
 
-import { _ } from './dom-helpers.js';
+import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 

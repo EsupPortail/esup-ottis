@@ -76,9 +76,7 @@ class AuditorController extends BaseController
         ];
 
         // Define scripts for this page
-        $pageScripts = [
-            '/js/lib/auditor/config.js',
-        ];
+        $pageScripts = [];
 
         // Chat modules and auditor ES modules
         $chatScripts = [
@@ -89,6 +87,7 @@ class AuditorController extends BaseController
             '/js/lib/auditor/text-processing.js',
             '/js/lib/auditor/speech.js',
             '/js/lib/auditor/display.js',
+            '/js/lib/auditor/config.js',  // Must load AFTER display.js (depends on showBanner, hideBanner)
             '/js/lib/auditor/translation.js',
             '/js/lib/auditor/mail.js',
             '/js/lib/auditor/main.js',

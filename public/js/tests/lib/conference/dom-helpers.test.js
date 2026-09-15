@@ -4,7 +4,8 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { _, query, queryAll, openDialog, closeDialog } from '../../../lib/conference/dom-helpers.js';
+import { _, query, queryAll } from '../../../lib/dom/selector.js';
+import { openDialog, closeDialog } from '../../../lib/dom/dialog.js';
 
 describe('lib/conference/dom-helpers.js - Conference DOM Helpers', () => {
   beforeEach(() => {
