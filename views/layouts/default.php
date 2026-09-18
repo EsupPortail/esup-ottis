@@ -21,9 +21,9 @@
         window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
     </script>
 
-    <script src="./js/translatepage.js"></script>
+    <script type="module" src="./js/lib/i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <script src="./js/matomo.js"></script>
+    <script src="./js/lib/analytics.js"></script>
     <!-- Configure PDF.js worker before loading PDF.js -->
     <script>
         // Configure PDF.js GlobalWorkerOptions before PDF.js is loaded
@@ -39,7 +39,11 @@
     <!-- JS spécifiques à la page -->
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
-            <script src="<?php echo $this->escape($script); ?>"></script>
+            <?php
+            $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
+            $typeAttr = $isModule ? 'type="module"' : '';
+            ?>
+            <script <?php echo $typeAttr; ?> src="<?php echo $this->escape($script); ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
 

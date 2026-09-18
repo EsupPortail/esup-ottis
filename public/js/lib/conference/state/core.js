@@ -56,10 +56,7 @@ export const MaxSavedLines = 100;
 /** @type {number} */
 export let timenew_question = 0;
 
-// Exposer sur window pour compatibilité legacy
-if (typeof window !== 'undefined') {
-  window.timenew_question = timenew_question;
-}
+
 
 // =============================================================================
 // Setter functions for core state
@@ -71,9 +68,6 @@ if (typeof window !== 'undefined') {
  */
 export function setNbnewQ(value) {
   nbnewQ = value;
-  if (typeof window !== 'undefined') {
-    window.nbnewQ = value;
-  }
 }
 
 /**
@@ -82,9 +76,6 @@ export function setNbnewQ(value) {
  */
 export function setInputnumberQ(value) {
   inputnumberQ = value;
-  if (typeof window !== 'undefined') {
-    window.inputnumberQ = value;
-  }
 }
 
 /**
@@ -93,9 +84,6 @@ export function setInputnumberQ(value) {
  */
 export function setNBconnectedusers(value) {
   NBconnectedusers = value;
-  if (typeof window !== 'undefined') {
-    window.NBconnectedusers = value;
-  }
 }
 
 /**
@@ -106,9 +94,6 @@ export function setTconnectedusers(arr) {
   // Clear and repopulate the array
   Tconnectedusers.length = 0;
   Tconnectedusers.push(...arr);
-  if (typeof window !== 'undefined') {
-    window.Tconnectedusers = Tconnectedusers;
-  }
 }
 
 /**
@@ -117,9 +102,6 @@ export function setTconnectedusers(arr) {
  */
 export function removeFromTconnectedusers(user) {
   Tconnectedusers = Tconnectedusers.filter((student) => student !== user);
-  if (typeof window !== 'undefined') {
-    window.Tconnectedusers = Tconnectedusers;
-  }
 }
 
 /**
@@ -128,9 +110,6 @@ export function removeFromTconnectedusers(user) {
  */
 export function setInputnumber(value) {
   inputnumber = value;
-  if (typeof window !== 'undefined') {
-    window.inputnumber = value;
-  }
 }
 
 /**
@@ -139,9 +118,6 @@ export function setInputnumber(value) {
  */
 export function setFeedbackQueue(value) {
   FeedbackQueue = value;
-  if (typeof window !== 'undefined') {
-    window.FeedbackQueue = value;
-  }
 }
 
 /**
@@ -150,9 +126,6 @@ export function setFeedbackQueue(value) {
  */
 export function setDelayReadtextQ(value) {
   delayReadtextQ = value;
-  if (typeof window !== 'undefined') {
-    window.delayReadtextQ = value;
-  }
 }
 
 /**
@@ -161,9 +134,6 @@ export function setDelayReadtextQ(value) {
  */
 export function setDelayStudentReadtext(value) {
   delayStudentReadtext = value;
-  if (typeof window !== 'undefined') {
-    window.delayStudentReadtext = value;
-  }
 }
 
 /**
@@ -172,9 +142,6 @@ export function setDelayStudentReadtext(value) {
  */
 export function setDelayFeedback(value) {
   delayFeedback = value;
-  if (typeof window !== 'undefined') {
-    window.delayFeedback = value;
-  }
 }
 
 /**
@@ -183,7 +150,4 @@ export function setDelayFeedback(value) {
  */
 export function setTimenewQuestion(value) {
   timenew_question = value;
-  if (typeof window !== 'undefined') {
-    window.timenew_question = value;
-  }
 }

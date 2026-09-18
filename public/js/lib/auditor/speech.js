@@ -2,18 +2,26 @@ import { _ } from '../dom/selector.js';
 /**
  * Speech synthesis functions for auditor
  */
+import { safeSetTimeout } from '../utils/cleanup.js';
+import { getBuiltinVoice } from '../state/auditor.js';
+import {
+    getDiscoursRate, getToSay, getCurrentDiscours,
+    setCurrentDiscours
+} from '../state/shared.js';
 
 /**
  * @summary Speech synthesis of a given text
  * @param {string} txt - Text to synthesize
  */
 function Parle(txt) {
-  if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly && builtin_voice.lang) {
+  const builtinVoice = getBuiltinVoice();
+  const discoursRate = getDiscoursRate();
+  if (typeof builtinVoice !== 'undefined' && builtinVoice && !builtinVoice.textonly && builtinVoice.lang) {
     const discours = new SpeechSynthesisUtterance(txt);
-    discours.voice = builtin_voice;
-    discours.rate = builtin_discoursrate;
-    discours.lang = builtin_voice.lang;
-    window.speechSynthesis.speak(discours);
+    discours.voice = builtinVoice;
+    discours.rate = discoursRate;
+    discours.lang = builtinVoice.lang;
+    speechSynthesis.speak(discours);
   }
 }
 
@@ -25,17 +33,19 @@ function Parle(txt) {
 function ParleThen(txt, f) {
   _('titre').innerHTML = window.DOMPurify.sanitize(txt);
   _('fixed-title').innerHTML = window.DOMPurify.sanitize(txt);
-  if (typeof builtin_voice !== 'undefined' && builtin_voice && !builtin_voice.textonly && builtin_voice.lang) {
+  const builtinVoice = getBuiltinVoice();
+  const discoursRate = getDiscoursRate();
+  if (typeof builtinVoice !== 'undefined' && builtinVoice && !builtinVoice.textonly && builtinVoice.lang) {
     const discours = new SpeechSynthesisUtterance(txt);
-    discours.voice = builtin_voice;
-    discours.rate = builtin_discoursrate;
-    discours.lang = builtin_voice.lang.replace('_', '-');
+    discours.voice = builtinVoice;
+    discours.rate = discoursRate;
+    discours.lang = builtinVoice.lang.replace('_', '-');
     discours.onend = f;
     discours.onerror = function () {
       f();
     };
-    window.speechSynthesis.speak(discours);
-  } else (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(f, 10000);
+    speechSynthesis.speak(discours);
+  } else (typeof safeSetTimeout === 'function' ? safeSetTimeout : setTimeout)(f, 10000);
 }
 
 /**
@@ -46,17 +56,18 @@ function CompleteSpeech() {
   try {
     let maxId = -1;
     // Last ID in ToSay
-    for (const key in ToSay) {
+    const toSay = getToSay() || {};
+    for (const key in toSay) {
       const id = parseInt(key);
       if (id > maxId) maxId = id;
     }
 
 
     // ONLY read the last one, if there is something new
-    if (maxId > currentdiscours) {
-      const L = ToSay[`${maxId}`].replace('&nbsp;', ' ');
+    if (maxId > getCurrentDiscours()) {
+      const L = toSay[`${maxId}`].replace('&nbsp;', ' ');
       ParleThen(L, CompleteSpeech);
-      currentdiscours = maxId;
+      setCurrentDiscours(maxId);
     } else {
     }
   } catch (error) {

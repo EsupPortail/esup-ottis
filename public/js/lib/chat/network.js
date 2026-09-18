@@ -6,6 +6,12 @@
 import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
 import { increasependingrequests, decreasependingrequests } from '../utils/request-counter.js';
+import { getRoomToken, getBasePath, getInputNumberQ, setInputNumberQ } from '../state/shared.js';
+import { EcrireCR } from './display.js';
+import { ScreenCR } from './state.js';
+import { nbnewQ, setNbnewQ } from '../conference/state/core.js';
+import { EventNewQuestion } from '../conference/utils.js';
+import { _ } from '../dom/selector.js';
 
 /**
  * @summary Send a new question to the classroom queue
@@ -26,14 +32,15 @@ export function saveTextQCommon(ch, senderName, roomId, language) {
   f.append('ROOMID', roomId || '');
 
   // Ajouter le token pour l'auditeur (multi-onglets)
-  if (typeof window.ROOM_TOKEN !== 'undefined') {
-    f.append('room_token', window.ROOM_TOKEN);
+  const roomToken = getRoomToken();
+  if (typeof roomToken !== 'undefined') {
+    f.append('room_token', roomToken);
   }
 
   // Ajouter le token CSRF pour la protection
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/save-q', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/save-q', {
     onSuccess(response) {
       decreasependingrequests();
     },
@@ -70,8 +77,9 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
   f.append('ROOMID', roomId);
 
   // Ajouter le token pour l'auditeur (multi-onglets)
-  if (typeof window.ROOM_TOKEN !== 'undefined') {
-    f.append('room_token', window.ROOM_TOKEN);
+  const roomToken = getRoomToken();
+  if (typeof roomToken !== 'undefined') {
+    f.append('room_token', roomToken);
   }
 
   // Ajouter le token CSRF pour la protection
@@ -81,7 +89,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
   const handleRateLimit = () => { if (typeof onRateLimit === 'function') onRateLimit(); };
   const handleSuccess = () => { if (typeof onSuccess === 'function') onSuccess(); };
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/read-q', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/read-q', {
     onSuccess(response) {
       decreasependingrequests();
 
@@ -106,7 +114,14 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       }
 
       // Process new messages
-      for (let i = window.inputnumberQ; i < T.length; i++) {
+      const startIndex = getInputNumberQ();
+      
+      // Update inputnumberQ immediately to prevent overlapping requests from reprocessing messages
+      if (T.length > startIndex) {
+        setInputNumberQ(T.length);
+      }
+      
+      for (let i = startIndex; i < T.length; i++) {
         const L = T[i].split(';');
         if (L.length >= 3) {
           const who = L[0] || '';
@@ -138,18 +153,13 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       }
 
       // Trigger EventNewQuestion for conference if new messages were processed
-      if (typeof nbnewQ !== 'undefined' && nbnewQ > 0 && typeof EventNewQuestion === 'function') {
+      if (nbnewQ > 0 && typeof EventNewQuestion === 'function') {
         EventNewQuestion();
       }
 
       // Reset nbnewQ for next polling cycle
-      if (typeof nbnewQ !== 'undefined') {
-        nbnewQ = 0;
-      }
+      setNbnewQ(0);
 
-      // Update the counter
-      window.inputnumberQ = T.length;
-      
       // Appeler le callback de succes pour le polling adaptatif
       handleSuccess();
     },
@@ -192,13 +202,13 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
   f.append('lang', targetLang);
   f.append('langinput', sourceLang);
   f.append('ROOMID', roomid);
-  f.append('room_token', window.ROOM_TOKEN);
+  f.append('room_token', getRoomToken());
 
   increasependingrequests();
 
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/translate', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
     onSuccess(response) {
       decreasependingrequests();
 
@@ -207,37 +217,37 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
         if (!parsedResponse.error && parsedResponse.data && parsedResponse.data.translations && parsedResponse.data.translations[0]) {
           const translation = parsedResponse.data.translations[0].text;
           if (translation) {
-            if (typeof EcrireCR === 'function') {
-              EcrireCR(name, translation, order);
-            }
+            EcrireCR(name, translation, order);
           } else {
             // Fallback to original text
-            if (typeof EcrireCR === 'function') {
-              EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
+            if (ScreenCR[order] === undefined) {
+              EcrireCR(name, ch, order);
             }
-            console.error('Translation ERROR - No translation text found');
+            console.error('Translation ERROR - No translation text found, not displaying original to avoid overwrite:', ch);
           }
         } else {
-          if (typeof EcrireCR === 'function') {
-            EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
+          if (ScreenCR[order] === undefined) {
+            EcrireCR(name, ch, order);
           }
           console.error('Translation ERROR - Response:', parsedResponse, 'Raw:', response.responseText);
         }
       } catch (e) {
-        if (typeof EcrireCR === 'function') {
-          EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
+        if (ScreenCR[order] === undefined) {
+          EcrireCR(name, ch, order);
         }
         console.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
       }
     },
     onError(response, context) {
       decreasependingrequests();
+      // Ne pas afficher le texte original si le message existe déjà
+      // (le message a peut-être déjà été affiché traduit par une autre requête)
+      if (ScreenCR[order] === undefined) {
+        EcrireCR(name, ch, order);
+      }
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        if (typeof EcrireCR === 'function') {
-          EcrireCR(name, '---- Translation ERROR ---- (see console)', order);
-        }
-        console.error('Translation ERROR - Request failed. Context:', context);
+        console.error('[TRANSLATE-Q] Request failed (not displaying original text to avoid overwrite). Context:', context);
       }
     },
     data: f,

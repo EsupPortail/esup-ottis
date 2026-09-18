@@ -4,27 +4,29 @@
  * This is the main configuration file that combines state variables and functions
  */
 
-// Re-export state variables and functions from config-functions
-// (which was originally conference-def.js and part of common-func.js)
-// Import state variables and functions from state.js
-// These are the single source of truth for application state
+// Import state variables and functions from NEW centralized store
 import {
-  AllOutputVoices,
-  TLangInput,
-  builtin_voice,
-  builtin_language,
-  subtitle_language,
-  inputnumberQ,
-  setInputnumberQ,
+  getAllOutputVoices as AllOutputVoices,
+  getTLangInput as TLangInput
+} from '../state/shared.js';
+
+import {
+  getSubtitleLanguage as subtitle_language,
+  getInputNumberQ as inputnumberQ,
+  setInputNumberQ as setInputnumberQ
+} from '../state/conference.js';
+
+import {
+  getBuiltinVoice as builtin_voice,
+  getBuiltinLanguage as builtin_language,
   setBuiltinVoice,
-  setBuiltinLanguage,
-} from './state.js';
+  setBuiltinLanguage
+} from '../state/auditor.js';
 
-// Import functions from other modules that are used here
-import { readTextQ } from './notebook.js';
+import { recharger } from '../chat/utils.js';
 
-export * from './config-functions.js';
-
+// Note: config-functions.js is no longer re-exported here to break circular dependency
+// Removed unused import: readTextQ (was imported but never used)
 // Also export from lib/colors to ensure ColorsForCR is available
 export { ColorsForCR } from '../colors.js';
 
@@ -39,7 +41,7 @@ export {
   setInputnumberQ,
   setBuiltinVoice,
   setBuiltinLanguage,
-} from './state.js';
+};
 
 // URL parameters - these were in the original conference-def.js
 // Parse URL parameters
@@ -64,9 +66,6 @@ export let builtin_microsofttranscritionon = false;
  */
 export function setBuiltinRecognitionon(value) {
   builtin_recognitionon = value;
-  if (typeof window !== 'undefined') {
-    window.builtin_recognitionon = value;
-  }
 }
 
 /**
@@ -75,9 +74,6 @@ export function setBuiltinRecognitionon(value) {
  */
 export function setBuiltinExternalTranscriptionon(value) {
   builtin_externaltranscritionon = value;
-  if (typeof window !== 'undefined') {
-    window.builtin_externaltranscritionon = value;
-  }
 }
 
 /**
@@ -86,9 +82,6 @@ export function setBuiltinExternalTranscriptionon(value) {
  */
 export function setBuiltinMicrosoftTranscriptionon(value) {
   builtin_microsofttranscritionon = value;
-  if (typeof window !== 'undefined') {
-    window.builtin_microsofttranscritionon = value;
-  }
 }
 
 // Initialize speech recognition
@@ -116,35 +109,18 @@ if (typeof window !== 'undefined') {
     builtin_recognition.enableAutomaticPunctuation = true;
     builtin_recognition.maxAlternatives = 1;
   }
-
-  // Expose on window for backward compatibility
-  window.builtin_recognition = builtin_recognition;
-  window.builtin_recognitionon = builtin_recognitionon;
-  window.builtin_externaltranscritionon = builtin_externaltranscritionon;
-  window.builtin_microsofttranscritionon = builtin_microsofttranscritionon;
-}
-
-// Initialize from URL if available
-if (typeof window !== 'undefined') {
-  const base = new URL(window.location.toLocaleString()).searchParams;
-  if (base.has('ZOOMID')) zoomid = base.get('ZOOMID');
-  if (base.has('link')) uncloudlink = base.get('link');
-  if (base.has('htmllink')) uncloudhtmllink = base.get('htmllink');
-  if (base.has('tab')) targettab = base.get('tab');
-  if (base.has('tab')) inSlideTab = true;
 }
 
 // ScreenCR is defined globally by common-func.js, use window.ScreenCR
+// URL parameters are now parsed in config-functions.js to break circular dependency
 // Note: This module is loaded after common-func.js in auditor.php, so window.ScreenCR should be available
 
 // ============================================
 // Additional state variables that were in common-func.js
 // ============================================
 
-// Initialize inputnumberQ from window if available (for backward compatibility)
-if (typeof window !== 'undefined') {
-  setInputnumberQ(window.inputnumberQ || 0);
-}
+// Initialize inputnumberQ from store if available
+// (backward compatibility handled by store initialization from window)
 
 // ============================================
 // Language functions (migrated from common-func.js)
@@ -159,9 +135,11 @@ if (typeof window !== 'undefined') {
  * @param {number} i - Language index
  */
 export function setLanguageInput(i) {
-  // These variables are exported from config-functions.js
-  if (typeof TLangInput !== 'undefined' && TLangInput[i]) {
-    setBuiltinLanguage(TLangInput[i]);
+  console.log('[CONFIG] setLanguageInput appelé avec i:', i);
+  // These variables are now getters from the centralized store
+  const tLangInput = TLangInput();
+  if (typeof tLangInput !== 'undefined' && tLangInput[i]) {
+    setBuiltinLanguage(tLangInput[i]);
   }
 }
 
@@ -170,11 +148,12 @@ export function setLanguageInput(i) {
  * @param {number} i - Language index
  */
 export function setLanguageOutput(i) {
-  if (typeof AllOutputVoices !== 'undefined' && AllOutputVoices[i]) {
-    setBuiltinVoice(AllOutputVoices[i]);
+  const allOutputVoices = AllOutputVoices();
+  if (typeof allOutputVoices !== 'undefined' && allOutputVoices[i]) {
+    setBuiltinVoice(allOutputVoices[i]);
   }
-  const newLanguage = (builtin_voice && builtin_voice.lang) ? builtin_voice.lang : '';
-  setBuiltinLanguage(newLanguage);
+  // Note: We no longer update builtin_language here to avoid overwriting the input language
+  // builtin_language should only be set via setLanguageInput()
 }
 
 /**
@@ -185,11 +164,6 @@ export function setLanguageOutputAndRetranslate(i) {
   setLanguageOutput(i);
   // Reload and retranslate all messages with the new language
   recharger();
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.setLanguageOutputAndRetranslate = setLanguageOutputAndRetranslate;
-  }
 }
 
 

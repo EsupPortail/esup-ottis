@@ -9,6 +9,11 @@ tables/tokens.json
 # Ignore environment and local files
 .env
 .env.*
+# Ignore Node.js development files
+package.json
+package-lock.json
+public/js/package*.json
+
 # Ignore generated and temporary files
 OMIST_Tools/__pycache__/
 node_modules/
@@ -22,6 +27,9 @@ tmp/
 js/coverage/
 js/cov
 public/js/coverage/
+public/js/tests/
+public/js/vitest.config.js
+scripts/test-js*.sh
 # Ignore pre-commit test files
 .pre-commit/
 

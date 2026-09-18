@@ -18,7 +18,6 @@ parameters:
             - uploads/*
             - Security/tmp/*
             - Security/sanitize.php
-            - Security/csrf.php
             - Security/validate.php
             - Security/room_tokens.php
             - Security/validate_room_token.php

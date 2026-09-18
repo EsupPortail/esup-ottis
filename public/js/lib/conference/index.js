@@ -10,7 +10,8 @@ export * from './navigation.js';
 export * from './speech.js';
 export * from './pdf-viewer.js';
 export * from './pdf-fullscreen.js';
-export * from './config.js';
+// Note: config.js removed to break circular dependency with config-functions.js
+// config-functions.js is exported below and re-exports what's needed
 export * from './ui.js';
 export * from './microsoft.js';
 export * from './config-functions.js';

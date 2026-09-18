@@ -13,7 +13,6 @@
     },
     "autoload": {
         "files": [
-            "Security/csrf.php",
             "Security/validate.php",
             "Security/sanitize.php",
             "Security/room_tokens.php",

@@ -3,12 +3,9 @@ import { _ } from '../dom/selector.js';
  * Voice management functions for auditor
  */
 
-// Global variable to track notebook VO content (must be declared before use in callbacks)
-if (typeof lastNotebookVOContent === 'undefined') {
-  lastNotebookVOContent = '';
-}
-
 import { AllOutputVoices, TLangInput } from '../language/state.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
+import { getLastNotebookVOContent, setLastNotebookVOContent } from '../state/shared.js';
 
 /**
  * @summary Fill the select VoiceOutput field
@@ -24,13 +21,13 @@ function PopulateVoicesOut(selectname = 'VoiceOutput') {
   }
   const optgroup = document.createElement('optgroup');
   optgroup.label = 'Voice and text translation';
-  const voices = window.speechSynthesis.getVoices();
+  const voices = speechSynthesis.getVoices();
   let maxvoices = voices.length;
   // Voices in english first
   for (let i = 0; i < voices.length; i++) {
     if (voices[i].lang && typeof voices[i].lang === 'string' && voices[i].lang.substr(0, 2).toLowerCase() == 'en') { // (voices[i].localService) {
       const opt = document.createElement('option');
-      opt.value = AllOutputVoices.length;
+      opt.value = voices[i].lang; // Use voice.lang as value instead of numeric index
       if (voices[i].lang && typeof voices[i].lang === 'string' && voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
       voices[i].textonly = false;
       AllOutputVoices.push(voices[i]);
@@ -42,7 +39,7 @@ function PopulateVoicesOut(selectname = 'VoiceOutput') {
   for (let i = 0; i < voices.length; i++) {
     if (voices[i].lang && typeof voices[i].lang === 'string' && voices[i].lang.substr(0, 2).toLowerCase() != 'en') { // (voices[i].localService) {
       const opt = document.createElement('option');
-      opt.value = AllOutputVoices.length;
+      opt.value = voices[i].lang; // Use voice.lang as value instead of numeric index
       if (voices[i].lang && typeof voices[i].lang === 'string' && voices[i].lang.substr(0, 2).toLowerCase() == navigator.language) opt.selected = true;
       voices[i].textonly = false;
       AllOutputVoices.push(voices[i]);
@@ -58,8 +55,9 @@ function PopulateVoicesOut(selectname = 'VoiceOutput') {
       if (supportedlanguages[i] && supportedlanguages[i].code) {
         const lang = supportedlanguages[i].code;
         const opt = document.createElement('option');
-        opt.value = maxvoices + i;
+        opt.value = lang; // Use language code as value instead of numeric index
         AllOutputVoices.push({
+          id: lang,
           lang,
           textonly: true,
         });
@@ -87,15 +85,16 @@ function PopulateVoicesOutSub(selectname = 'VoiceOutput') {
 
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
-  const voices = window.speechSynthesis.getVoices();
+  const voices = speechSynthesis.getVoices();
   let maxvoices = voices.length;
   if (typeof supportedlanguages !== 'undefined' && Array.isArray(supportedlanguages)) {
     for (let i = 0; i < supportedlanguages.length; i++) {
       if (supportedlanguages[i] && supportedlanguages[i].code) {
         const lang = supportedlanguages[i].code; // .substr(0,5);
         const opt = document.createElement('option');
-        opt.value = maxvoices + i;
+        opt.value = lang; // Use language code as value instead of numeric index
         AllOutputVoices.push({
+          id: lang,
           lang,
           textonly: true,
         });
@@ -123,12 +122,12 @@ function PopulateVoicesIn() {
     const lang = supportedlanguages[i].code; // .substr(0,5);
     if (TLangInput.indexOf(lang) < 0) {
       const opt = document.createElement('option');
-      opt.value = TLangInput.length;
+      opt.value = lang; // Use language code as value instead of numeric index
       TLangInput.push(lang);
       opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
       select.appendChild(opt);
       const opt2 = document.createElement('option');
-      opt2.value = TLangInput.length;
+      opt2.value = lang; // Use language code as value instead of numeric index
       opt2.textContent = lang;
       select2.appendChild(opt2);
     }
@@ -150,7 +149,7 @@ function PopulateVoicesInSub() {
     const lang = supportedlanguages[i].code; // .substr(0,5);
     if (TLangInput.indexOf(lang) < 0) {
       const opt = document.createElement('option');
-      opt.value = TLangInput.length;
+      opt.value = lang; // Use language code as value instead of numeric index
       TLangInput.push(lang);
       opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
       select.appendChild(opt);
@@ -189,12 +188,12 @@ function LoadVoices() {
  * @summary Wait for the SpeechSynthesis Voices to be available
  */
 function loadVoicesWhenAvailable() {
-  Tvoices = window.speechSynthesis.getVoices();
+  const Tvoices = speechSynthesis.getVoices();
 
   if (Tvoices.length !== 0) {
     LoadVoices();
   } else {
-    (typeof window.safeSetTimeout === 'function' ? window.safeSetTimeout : setTimeout)(() => {
+    safeSetTimeout(() => {
       loadVoicesWhenAvailable();
     }, 10);
   }

@@ -19,7 +19,9 @@
 	echo "window.MicrosoftRegion='" . $this->escape($MicrosoftRegion) . "';";
 	?>
 </script>
+<?php if (!empty($pageScripts)): ?>
 <script src="<?php echo $this->escape($pageScripts[0]); ?>"></script>
+<?php endif; ?>
 <!-- Auditor modules - ES Modules -->
 <?php foreach ($auditorScripts as $script): ?>
 <script type="module" src="<?php echo $this->escape($script); ?>"></script>
@@ -151,7 +153,7 @@
 
 </head>
 <body onload="PopulateVoicesInSub(); PopulateVoicesOutSub(selectname='VoiceOutput'); applyConfigSub(); setInterval(readTextSub, 500); setInterval(readTextSubTranscript, 300);">
-<?php echo csrfField(); ?>
+<?php echo \App\Utils\Csrf::field(); ?>
 <main>
 <h1 style="display:none;">Sous-titres</h1>
 </main>

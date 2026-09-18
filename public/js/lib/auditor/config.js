@@ -6,22 +6,30 @@ import { _ } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
 import { ChangeColor, ChangeOpacity } from '../dom/styles.js';
 import { setLanguageInput, setLanguageOutput } from '../language/management.js';
+import { setBuiltinVoice, setBuiltinLanguage } from '../state/auditor.js';
 import { showBanner, hideBanner } from './display.js';
 
 /**
  * @summary Apply a configuration (at startup) for the subtitle application
  */
 export function applyConfigSub() {
-  const config = currentconfig;
+  // Get config from window.pageData or fallback to global variable
+  const config = (typeof window !== 'undefined' && window.pageData && window.pageData.currentconfig) 
+    ? window.pageData.currentconfig 
+    : (typeof currentconfig !== 'undefined' ? currentconfig : '');
 
   if (config.length != 'ABYANACNNCNNNYYYYN'.length) return;
   // classroomlanguage
   _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
-  setLanguageInput(_('classroomlanguage').value);
+  const classroomLangValue = _('classroomlanguage').value;
+  setLanguageInput(classroomLangValue);
+  setBuiltinLanguage(classroomLangValue);
 
   // subtitlelanguage
   _('VoiceOutput').selectedIndex = 1 * (config.charCodeAt(1) - 65);
-  setLanguageOutput(_('VoiceOutput').value);
+  const voiceOutputValue = _('VoiceOutput').value;
+  setLanguageOutput(voiceOutputValue);
+  setBuiltinVoice({ lang: voiceOutputValue });
 
   // subtitlebaron
   if (config.charAt(2) == 'Y') {

@@ -31,8 +31,7 @@ class HomeController extends BaseController
         // Define scripts for this page
         $this->viewData['pageScripts'] = [
             'https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js',
-            './js/index.js',
-            './js/carroussel.js'
+            '/js/home-init.js'
         ];
 
         // Carrousel items data

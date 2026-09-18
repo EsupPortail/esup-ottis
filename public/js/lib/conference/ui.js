@@ -1,8 +1,9 @@
 import { _ } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
 import { openDialog } from '../dom/dialog.js';
-import { builtin_language } from './state.js';
-import { builtin_recognition, builtin_recognitionon, builtin_microsofttranscritionon, setBuiltinRecognitionon } from './config.js';
+import { getBuiltinLanguage } from '../state/auditor.js';
+import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
+import { isBuiltinMicrosoftTranscriptionOn, isBuiltinExternalTranscriptionOn } from '../state/conference.js';
 import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer } from './microsoft.js';
 import { StartSpeechRecognition } from './speech.js';
 import { Traduction } from './translation.js';
@@ -19,7 +20,7 @@ export function FullScreen() {
 
   // Si on désactive le micro, arrêter la reconnaissance
   if (currentCheckedState && !newCheckedState) {
-    if (!builtin_microsofttranscritionon) {
+    if (!isBuiltinMicrosoftTranscriptionOn()) {
       builtin_recognition.abort();
     }
   }
@@ -28,14 +29,14 @@ export function FullScreen() {
   } else {
     mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
   }
-  if (builtin_microsofttranscritionon) {
+  if (isBuiltinMicrosoftTranscriptionOn()) {
     if (builtin_recognitionon) {
-      doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
+      doContinuousRecognition(MicrosoftKey, MicrosoftRegion, getBuiltinLanguage());
     } else {
       stopRecognizer();
     }
   }
-  if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+  if (_('recognitionon').checked && !isBuiltinMicrosoftTranscriptionOn()) {
     StartSpeechRecognition(Traduction);
   }
   /* else {
@@ -99,7 +100,7 @@ export function Micro() {
 
   // Si on désactive le micro, arrêter la reconnaissance
   if (currentCheckedState && !newCheckedState) {
-    if (!builtin_microsofttranscritionon) {
+    if (!isBuiltinMicrosoftTranscriptionOn()) {
       builtin_recognition.abort();
     }
   }
@@ -108,15 +109,15 @@ export function Micro() {
   } else {
     mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
   }
-  if (builtin_microsofttranscritionon) {
+  if (isBuiltinMicrosoftTranscriptionOn()) {
     if (builtin_recognitionon) {
-      doContinuousRecognition(MicrosoftKey, MicrosoftRegion, builtin_language);
+      doContinuousRecognition(MicrosoftKey, MicrosoftRegion, getBuiltinLanguage());
     } else {
       stopRecognizer();
     }
   }
   
-  if (_('recognitionon').checked && !builtin_microsofttranscritionon) {
+  if (_('recognitionon').checked && !isBuiltinMicrosoftTranscriptionOn()) {
     try {
       StartSpeechRecognition(Traduction);
     } catch (e) {

@@ -9,6 +9,15 @@ import { increasependingrequests, decreasependingrequests } from '../utils/reque
 import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
 import { Ecrire, EcrireNB, EcrireNBSub } from './display.js';
+import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
+import {
+    getBasePath, getRoomToken, getMaxOrder, setMaxOrder,
+    getAllPhrases, setPhrase, pushToTranslate, getCurrentOrder,
+    incrementCurrentOrder, getInputNumber, setInputNumber,
+    getAllLines, setLine,
+    setToSayKey, getLastNotebookVOContent, setLastNotebookVOContent,
+    get
+} from '../state/shared.js';
 
 /**
  * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue).
@@ -16,29 +25,29 @@ import { Ecrire, EcrireNB, EcrireNBSub } from './display.js';
 function readText() {
   if (_('classroomid').value != '') {
     increasependingrequests();
-    window.currentorder_readtext++;
+    incrementCurrentOrder();
     const f = new FormData();
-    f.append('lineid', window.inputnumber);
-    f.append('ORDER', window.currentorder_readtext);
+    f.append('lineid', getInputNumber());
+    f.append('ORDER', getCurrentOrder());
     f.append('ROOMID', _('classroomid').value);
-    f.append('room_token', window.ROOM_TOKEN);
+    f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const request = createFetchRequest('POST', window.BASE_PATH + '/text/read', {
+    const request = createFetchRequest('POST', getBasePath() + '/text/read', {
       onSuccess(response) {
         decreasependingrequests();
         const T = response.responseText.split('\n');
         let maxi = -1;
         const readedorder = (`0${T[0]}`).split(';')[0] * 1;
-        if (readedorder > window.maxorder_readtext) {
-          window.maxorder_readtext = readedorder;
+        if (readedorder > getMaxOrder()) {
+          setMaxOrder(readedorder);
           for (let i = 0; i < T.length; i++) {
             const L = T[i].split(';');
             if (L.length > 3) {
               if (1 * L[1] > maxi) maxi = 1 * L[1];
-              if (window.AllPhrases[1 * L[1]] == undefined) {
+              if (getAllPhrases()[1 * L[1]] === undefined) {
                 if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
-                  window.AllPhrases[1 * L[1]] = true;
+                  setPhrase(1 * L[1], true);
 
                   const sourceLang = L[2];
                   const sourceText = decodeHtmlEntities(L[3]);
@@ -46,28 +55,31 @@ function readText() {
                   const targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
 
                   let currentLang = '';
-                  if (typeof window.builtin_voice !== 'undefined' && window.builtin_voice && window.builtin_voice.lang && typeof window.builtin_voice.lang === 'string') {
-                    currentLang = window.builtin_voice.lang.substr(0, 2);
-                  } else if (typeof window.builtin_language !== 'undefined' && window.builtin_language && typeof window.builtin_language === 'string') {
-                    currentLang = window.builtin_language.substr(0, 2);
+                  const builtinVoice = getBuiltinVoice();
+                  const builtinLanguage = getBuiltinLanguage();
+                  // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language
+                  if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
+                    currentLang = builtinVoice.lang.substr(0, 2);
+                  } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
+                    currentLang = builtinLanguage.substr(0, 2);
                   }
 
                   // Toujours ajouter au notebook
                   EcrireNB(sourceText);
 
                   // Stocker les métadonnées pour reconstruction lors du changement de langue
-                  if (typeof window.AllLines === 'undefined') window.AllLines = {};
-                  window.AllLines[L[1]] = {sourceLang, sourceText, targetLang, targetText};
+                  const currentLines = getAllLines() || {};
+                  setLine(L[1], {sourceLang, sourceText, targetLang, targetText});
 
                   // Toujours ajouter à ToTranslate pour traitement dans l'ordre
                   // CompleteTranslation gérera l'affichage dans l'output et ne traduira que si nécessaire
-                  window.ToTranslate.push([L[1], sourceLang, sourceText, targetLang, targetText]);
+                  pushToTranslate([L[1], sourceLang, sourceText, targetLang, targetText]);
                 }
               }
             }
           }
         }
-        if (maxi > window.inputnumber) window.inputnumber = maxi;
+        if (maxi > getInputNumber()) setInputNumber(maxi);
         CompleteTranslation();
       },
       onError(response, context) {
@@ -91,29 +103,29 @@ function readText() {
 function readTextSub() {
   if (_('classroomid').value != '') {
     increasependingrequests();
-    window.currentorder_readtext++;
+    incrementCurrentOrder();
     const f = new FormData();
-    f.append('lineid', window.inputnumber);
-    f.append('ORDER', window.currentorder_readtext);
+    f.append('lineid', getInputNumber());
+    f.append('ORDER', getCurrentOrder());
     f.append('ROOMID', _('classroomid').value);
-    f.append('room_token', window.ROOM_TOKEN);
+    f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const request = createFetchRequest('POST', window.BASE_PATH + '/text/read', {
+    const request = createFetchRequest('POST', getBasePath() + '/text/read', {
       onSuccess(response) {
         decreasependingrequests();
         const T = response.responseText.split('\n');
         let maxi = -1;
         const readedorder = (`0${T[0]}`).split(';')[0] * 1;
-        if (readedorder > window.maxorder_readtext) {
-          window.maxorder_readtext = readedorder;
+        if (readedorder > getMaxOrder()) {
+          setMaxOrder(readedorder);
           for (let i = 0; i < T.length; i++) {
             const L = T[i].split(';');
             if (L.length > 3) {
               if (1 * L[1] > maxi) maxi = 1 * L[1];
-              if (window.AllPhrases[1 * L[1]] == undefined) {
+              if (getAllPhrases()[1 * L[1]] === undefined) {
                 if (_('classroomid').value !== '' && _('classroomid').value !== 'UNKNOWN') {
-                  window.AllPhrases[1 * L[1]] = true;
+                  setPhrase(1 * L[1], true);
 
                   const sourceLang = L[2];
                   const sourceText = decodeHtmlEntities(L[3]);
@@ -121,30 +133,32 @@ function readTextSub() {
                   const targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
 
                   let currentLang = '';
-                  if (typeof window.builtin_voice !== 'undefined' && window.builtin_voice && window.builtin_voice.lang && typeof window.builtin_voice.lang === 'string') {
-                    currentLang = window.builtin_voice.lang.substr(0, 2);
-                  } else if (typeof window.builtin_language !== 'undefined' && window.builtin_language && typeof window.builtin_language === 'string') {
-                    currentLang = window.builtin_language.substr(0, 2);
+                  const builtinVoice = getBuiltinVoice();
+                  const builtinLanguage = getBuiltinLanguage();
+                  // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language
+                  if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
+                    currentLang = builtinVoice.lang.substr(0, 2);
+                  } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
+                    currentLang = builtinLanguage.substr(0, 2);
                   }
 
                   if (L.length >= 3 && L[2] && currentLang === L[2].substr(0, 2)) {
                     EcrireNBSub(sourceText);
-                    window.ToSay[`${L[1]}`] = sourceText;
+                    setToSayKey(L[1], sourceText);
                   } else if (targetLang && currentLang === targetLang.substr(0, 2) && targetText) {
                     EcrireNBSub(targetText);
-                    window.ToSay[`${L[1]}`] = targetText;
+                    setToSayKey(L[1], targetText);
                   } else {
                     // Stocker les métadonnées pour reconstruction lors du changement de langue
-                    if (typeof window.AllLines === 'undefined') window.AllLines = {};
-                    window.AllLines[L[1]] = {sourceLang, sourceText, targetLang, targetText};
-                    window.ToTranslate.push([L[1], sourceLang, sourceText, targetLang, targetText]);
+                    setLine(L[1], {sourceLang, sourceText, targetLang, targetText});
+                    pushToTranslate([L[1], sourceLang, sourceText, targetLang, targetText]);
                   }
                 }
               }
             }
           }
         }
-        if (maxi > window.inputnumber) window.inputnumber = maxi;
+        if (maxi > getInputNumber()) setInputNumber(maxi);
         CompleteTranslation();
       },
       onError(response, context) {
@@ -169,15 +183,15 @@ function readTextSub() {
 function readTextSubTranscript() {
   if (_('classroomid').value != '') {
     increasependingrequests();
-    window.currentorder_readtext++;
+    incrementCurrentOrder();
     const f = new FormData();
-    f.append('lineid', window.inputnumber);
-    f.append('ORDER', window.currentorder_readtext);
+    f.append('lineid', getInputNumber());
+    f.append('ORDER', getCurrentOrder());
     f.append('ROOMID', _('classroomid').value);
-    f.append('room_token', window.ROOM_TOKEN);
+    f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const requestTranscriptSub = createFetchRequest('POST', window.BASE_PATH + '/text/read-transcript-sub', {
+    const requestTranscriptSub = createFetchRequest('POST', getBasePath() + '/text/read-transcript-sub', {
       onSuccess(response) {
         decreasependingrequests();
         const T = response.responseText.split('\n');
@@ -208,8 +222,8 @@ function readTextSubTranscript() {
         }
 
         // Mettre à jour VOBanner et notebook avec le contenu des sous-titres
-        if (notebookContent !== window.lastNotebookVOContent && notebookContent !== '') {
-          window.lastNotebookVOContent = notebookContent;
+        if (notebookContent !== getLastNotebookVOContent() && notebookContent !== '') {
+          setLastNotebookVOContent(notebookContent);
           _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookContent);
           _('notebook').innerHTML = window.DOMPurify.sanitize(notebookContent);
         }
@@ -240,9 +254,9 @@ function readTextSubTranscript() {
  */
 function updateOutputBasedOnLanguage() {
   const roomId = _('classroomid')?.value;
-  const roomToken = window.ROOM_TOKEN || '';
-  const config = window.pageData?.currentconfig || '';
-  const supportedLanguages = window.pageData?.supportedlanguages || [];
+  const roomToken = getRoomToken() || '';
+  const config = get('currentconfig') || '';
+  const supportedLanguages = get('supportedlanguages') || [];
   const selectedLangSelect = _('classroomlanguage');
 
   if (!roomId || !config || config.length < 2 || !selectedLangSelect || !supportedLanguages.length) {
@@ -311,7 +325,7 @@ function fetchVerylastContent(roomId, roomToken, callback) {
   f.append('room_token', roomToken);
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/read-vo', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/read-vo', {
     onSuccess(response) {
       const T = response.responseText.split('\n');
       let lines = [];
@@ -369,7 +383,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
   f.append('room_token', roomToken);
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/read-transcript-sub', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/read-transcript-sub', {
     onSuccess(response) {
       const T = response.responseText.split('\n');
       let lines = [];

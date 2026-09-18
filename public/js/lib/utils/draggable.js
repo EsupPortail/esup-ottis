@@ -111,11 +111,6 @@ export function makeDraggable(element) {
     upListener = null;
     moveListener = null;
   }
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.makeDraggable = makeDraggable;
-  }
 }
 
 /**
@@ -125,9 +120,4 @@ export function makeDraggable(element) {
 export function makeAllDraggable(selector) {
   const elements = document.querySelectorAll(selector);
   elements.forEach((el) => makeDraggable(el));
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.makeAllDraggable = makeAllDraggable;
-  }
 }

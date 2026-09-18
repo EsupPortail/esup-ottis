@@ -1,8 +1,16 @@
 import { _ } from '../dom/selector.js';
+import { ChangeColor } from '../dom/styles.js';
 /**
  * Main initialization functions for auditor
  */
 import { safeSetInterval, safeSetTimeout, registerRequest } from '../utils/cleanup.js';
+import { isLanguageSelected, setGotolive } from '../state/shared.js';
+import { readText } from './network.js';
+import { startChatPolling } from '../chat/main.js';
+import { setupChatInput } from '../chat/input.js';
+import { CompleteSpeech, Parle } from './speech.js';
+import { setLanguageInput } from '../language/management.js';
+import { setBuiltinLanguage } from '../state/auditor.js';
 
 /**
  * @summary A function that is launched when the HTML page is loaded
@@ -11,39 +19,33 @@ import { safeSetInterval, safeSetTimeout, registerRequest } from '../utils/clean
 // Global flag to track if polling has started
 let auditorPollingStarted = false;
 
-// Expose to window for access from auditor-post.js
-if (typeof window !== 'undefined') {
-  window.startAuditorPolling = startAuditorPolling;
-}
-
 // Function to start polling - should be called after language is selected
 function startAuditorPolling() {
   // Check if we can start (language selected for Auditor) - direct check
   const hasDialogChoose = !!document.getElementById('dialog-choose');
 
-  if (hasDialogChoose && !window.languageSelected) {
+  if (hasDialogChoose && !isLanguageSelected()) {
     return;
   }
 
   if (auditorPollingStarted) return;
   auditorPollingStarted = true;
 
-  // Wait for required functions to be available (they are attached by conference-legacy.js)
+  // Wait for required functions to be available
   function checkAndStart() {
-    if (typeof window.readText === 'function' /* && typeof window.readImage === 'function' */) {
+    if (typeof readText === 'function' /* && typeof readImage === 'function' */) {
       // Start centralized polling for auditor (2000ms interval to prevent 429 errors)
       // This handles readText (main queue) /* , readImage (image queue) DISABLED */
       safeSetInterval(() => {
         if (typeof _ !== 'undefined' && _('classroomid') && _('classroomid').value !== '') {
-          window.readText();
-          // window.readImage(); // DISABLED - Obsolete image sharing
+          readText();
+          // readImage(); // DISABLED - Obsolete image sharing
         }
       }, 2000);
 
-      // startChatPolling is attached to window by conference-legacy.js
-      // It handles chat queue polling (readTextQ)
-      if (typeof window.startChatPolling === 'function') {
-        window.startChatPolling();
+      // startChatPolling handles chat queue polling (readTextQ)
+      if (typeof startChatPolling === 'function') {
+        startChatPolling();
       }
     } else {
       // Functions not yet available, try again in 100ms
@@ -55,9 +57,14 @@ function startAuditorPolling() {
 }
 
 function Init() {
-  // Initialize default language
+  // Initialize default language to French ('fr')
   if (typeof setLanguageInput !== 'undefined') {
-    setLanguageInput(0);
+    const defaultLang = 'fr'; // Default to French
+    setLanguageInput(defaultLang);
+    // Also update the store for consistency with translation logic
+    if (typeof setBuiltinLanguage !== 'undefined') {
+      setBuiltinLanguage(defaultLang);
+    }
   }
 
   // Polling starts after language selection via auditor-post.js dialog handler
@@ -65,16 +72,8 @@ function Init() {
   // Initialize voices when available - will call LoadVoices which calls InitVoices
   // InitVoices will open the language dialog
 
-  // Wooclap disabled - tabs commented out
-  /*
-    _('question').addEventListener('keyup', function (event) {
-      if (event.code === 'Enter') {
-          saveTextQ(_('question').value);
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    },false);
-    */
+  // Setup chat input Enter key handler
+  setupChatInput();
 
   /*
     setTimeout(function() {
@@ -93,7 +92,7 @@ function Init() {
     if (['AuditorName', 'dialog_MailTo', 'dialog_MailFrom', 'dialog_MailSubject', 'question'].indexOf(document.activeElement.id) < 0) {
       // Tab navigation removed - all sections are now displayed sequentially
       if (event.code === 'KeyL') { // go to live
-        gotolive = true;
+        setGotolive(true);
         CompleteSpeech();
       }
       if (event.code === 'KeyF') { // go fullscreen
@@ -122,3 +121,5 @@ function GoFS() {
     document.exitFullscreen();
   }
 }
+
+export { Init, startAuditorPolling, GoFS };

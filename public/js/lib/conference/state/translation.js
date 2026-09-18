@@ -26,15 +26,10 @@ export const StudentToSay = {};
 /** @type {boolean} */
 export const Studentgotolive = false;
 
-/** @type {number} */
-export const currentdiscours = 0;
-
 // =============================================================================
-// Langue des sous-titres
+// Langue des sous-titres (désormais gérée par le store)
 // =============================================================================
 
-/** @type {string} */
-export let subtitle_language = '';
 
 // =============================================================================
 // Voix disponibles
@@ -42,16 +37,6 @@ export let subtitle_language = '';
 
 import { AllOutputVoices, TLangInput } from '../../language/state.js';
 export { AllOutputVoices, TLangInput };
-
-// =============================================================================
-// Variables globales pour la voix et la langue
-// =============================================================================
-
-/** @type {Object|null} */
-export let builtin_voice = null;
-
-/** @type {string} */
-export let builtin_language = 'en-US'; // Anglais (États-Unis) par défaut
 
 // =============================================================================
 // État du discours et de la parole
@@ -79,41 +64,9 @@ export const LiveTranslationFreq = 5;
 export const Studentcompletespeechactive = false;
 
 // =============================================================================
-// Setter functions for translation state
+// Setter functions for translation state (désormais gérée par le store)
 // =============================================================================
 
-/**
- * Set the builtin voice
- * @param {Object} voice - The voice object
- */
-export function setBuiltinVoice(voice) {
-  builtin_voice = voice;
-  if (typeof window !== 'undefined') {
-    window.builtin_voice = voice;
-  }
-}
-
-/**
- * Set the builtin language
- * @param {string} lang - The language code
- */
-export function setBuiltinLanguage(lang) {
-  builtin_language = lang;
-  if (typeof window !== 'undefined') {
-    window.builtin_language = lang;
-  }
-}
-
-/**
- * Set the subtitle language
- * @param {string} lang - The language code
- */
-export function setSubtitleLanguage(lang) {
-  subtitle_language = lang;
-  if (typeof window !== 'undefined') {
-    window.subtitle_language = lang;
-  }
-}
 
 /**
  * Set the last partial translation
@@ -121,9 +74,6 @@ export function setSubtitleLanguage(lang) {
  */
 export function setLastPartialTranslation(value) {
   lastPartialTranslation = value;
-  if (typeof window !== 'undefined') {
-    window.lastPartialTranslation = value;
-  }
 }
 
 /**
@@ -132,9 +82,6 @@ export function setLastPartialTranslation(value) {
  */
 export function setLastSentenceTranslated(value) {
   lastSentenceTranslated = value;
-  if (typeof window !== 'undefined') {
-    window.lastSentenceTranslated = value;
-  }
 }
 
 /**
@@ -143,9 +90,6 @@ export function setLastSentenceTranslated(value) {
  */
 export function setLiveTranslationNum(value) {
   LiveTranslationNum = value;
-  if (typeof window !== 'undefined') {
-    window.LiveTranslationNum = value;
-  }
 }
 
 /**
@@ -154,9 +98,6 @@ export function setLiveTranslationNum(value) {
  */
 export function setPreviousimage(value) {
   previousimage = value;
-  if (typeof window !== 'undefined') {
-    window.previousimage = value;
-  }
 }
 
 /**
@@ -165,7 +106,4 @@ export function setPreviousimage(value) {
  */
 export function setCurrentscroll(value) {
   currentscroll = value;
-  if (typeof window !== 'undefined') {
-    window.currentscroll = value;
-  }
 }

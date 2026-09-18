@@ -1,10 +1,29 @@
-import { StudentToTranslate2, builtin_language, readytotalk, subtitle_language, LiveTranslationNum, setLiveTranslationNum, setDelayStudentReadtext, setDelayReadtextQ } from './state.js';
+// Depuis le store auditor
+import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
+
+// Depuis le store conference
+import { getSubtitleLanguage, isBuiltinExternalTranscriptionOn, isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
+
+// Depuis translation.js
+import {
+  StudentToTranslate2,
+  readytotalk,
+  LiveTranslationNum,
+  setLiveTranslationNum
+} from './state/translation.js';
+
+// Depuis core.js
+import {
+  setDelayStudentReadtext,
+  setDelayReadtextQ
+} from './state/core.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
+import { getBasePath } from '../state/shared.js';
 
-import { ROOM_TOKEN } from './compat.js';
+import { getRoomToken } from './compat.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
 import { EcrireTranslatePartial, Traduction } from './translation.js';
@@ -24,10 +43,10 @@ export function StudentreadText() {
       f.append('lineid', Studentinputnumber); // Non utilisé dans readtextTranscriptSub.php, mais conservé pour compatibilité
       f.append('ORDER', Studentcurrentorder_readtext);
       f.append('ROOMID', classroomIdElement.value);
-      f.append('room_token', ROOM_TOKEN);
+      f.append('room_token', getRoomToken());
       addCsrfToken(f);
 
-      const request = createFetchRequest('POST', window.BASE_PATH + '/text/read', {
+      const request = createFetchRequest('POST', getBasePath() + '/text/read', {
         onSuccess(response) {
           if (!response.responseText.trim()) {
             return;
@@ -90,16 +109,17 @@ export function setNotReadyToTalk() {
 export function StartSpeechRecognition(callback) {
   
   // Ne pas démarrer la reconnaissance si la langue n'est pas définie
-  if (!builtin_language || typeof builtin_language !== 'string') {
+  const builtinLang = getBuiltinLanguage();
+  if (!builtinLang || typeof builtinLang !== 'string') {
     return;
   }
   try {
-    builtin_recognition.lang = builtin_language;
+    builtin_recognition.lang = builtinLang;
   } catch (e) {
     return;
   }
   builtin_recognition.onresult = function (event) {
-    if (builtin_recognitionon && !builtin_externaltranscritionon && !builtin_microsofttranscritionon) {
+    if (builtin_recognitionon && !isBuiltinExternalTranscriptionOn() && !isBuiltinMicrosoftTranscriptionOn()) {
       let partial = '';
       let isFinalResult = false;
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -118,7 +138,7 @@ export function StartSpeechRecognition(callback) {
           if (isFinalResult) {
             EcrireTranslatePartial(partial, (translatedText) => {
               // Écrire le texte original uniquement si pas de traduction nécessaire
-              if (builtin_language === subtitle_language) {
+              if (getBuiltinLanguage() === getSubtitleLanguage()) {
                 EcrireNBonly(partial);
               }
               // Sinon: la traduction sera gérée par Traduction() via callback(partial)

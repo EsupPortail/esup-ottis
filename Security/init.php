@@ -31,7 +31,6 @@ try {
 
 // Inclure les fichiers de sécurité
 require_once __DIR__ . '/validate.php';
-require_once __DIR__ . '/csrf.php';
 require_once __DIR__ . '/sanitize.php';
 
 // Démarrer la session si ce n'est pas déjà fait
@@ -40,4 +39,4 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Initialiser la protection CSRF
-initCsrfProtection();
+\App\Utils\Csrf::initProtection();

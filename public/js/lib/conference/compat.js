@@ -22,6 +22,9 @@ export function AbortTimeout(r, s) {
 }
 
 /**
- * ROOM_TOKEN - re-export from window
+ * Re-exports from other modules
  */
-export const ROOM_TOKEN = typeof window !== 'undefined' ? window.ROOM_TOKEN : null;
+// ROOM_TOKEN est désormais géré directement via getRoomToken() du store
+// Export de getRoomToken pour compatibilité
+import { getRoomToken } from '../state/shared.js';
+export { getRoomToken };

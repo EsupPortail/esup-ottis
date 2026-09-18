@@ -6,6 +6,12 @@ import { _ } from '../dom/selector.js';
 import { CompleteSpeech } from './speech.js';
 import { Ecrire } from './display.js';
 import { increasependingrequests, decreasependingrequests } from '../utils/request-counter.js';
+import { addCsrfToken, createFetchRequest } from '../conference/network.js';
+import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
+import {
+    getBasePath, setToSayKey, unshiftToTranslate, getToTranslate,
+    setToTranslate, shiftToTranslate, getAllLines
+} from '../state/shared.js';
 
 /**
  * @summary Translate a given string from a language to another
@@ -33,20 +39,20 @@ function Translate(ch, l, linput, lineid) {
   f.append('lineid', lineid);
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/translate', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
     onSuccess(response) {
       const parsedResponse = JSON.parse(response.responseText);
       if ((!parsedResponse.error) && parsedResponse.data.translations) {
         const translatedText = parsedResponse.data.translations[0].text;
-        window.ToSay[`${lineid}`] = translatedText;
+        setToSayKey(lineid, translatedText);
         // Réinsérer dans ToTranslate pour traitement dans l'ordre
-        window.ToTranslate.unshift([lineid, linput, ch, l, translatedText]);
+        unshiftToTranslate([lineid, linput, ch, l, translatedText]);
       } else {
         console.error('translation.js: Translation ERROR. Response:', parsedResponse, 'Raw:', response.responseText);
         console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
         alert(`Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`);
         // Réinsérer avec un message d'erreur
-        window.ToTranslate.unshift([lineid, linput, ch, l, '---- Translation ERROR ---- (see console)']);
+        unshiftToTranslate([lineid, linput, ch, l, '---- Translation ERROR ---- (see console)']);
       }
       decreasependingrequests();
       CompleteTranslation();
@@ -73,16 +79,17 @@ function Translate(ch, l, linput, lineid) {
 function CompleteTranslation() {
   // Verification precoce : ne pas traduire si classroomid est invalide
   if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') {
-    window.ToTranslate = [];
+    setToTranslate([]);
     if (_('synthesison').checked) {
       CompleteSpeech();
     }
     return;
   }
 
-  if (window.ToTranslate.length > 0) {
-    const L = window.ToTranslate[0];
-    window.ToTranslate.splice(0, 1);
+  const currentTranslate = getToTranslate() || [];
+  if (currentTranslate.length > 0) {
+    const L = currentTranslate[0];
+    shiftToTranslate();
 
     const id = L[0];
     const sourceLang = L[1];
@@ -91,19 +98,22 @@ function CompleteTranslation() {
     const targetText = L[4];
 
     let currentLang = '';
-    if (typeof window.builtin_voice !== 'undefined' && window.builtin_voice && window.builtin_voice.lang && typeof window.builtin_voice.lang === 'string') {
-      currentLang = window.builtin_voice.lang.substr(0, 2);
-    } else if (typeof window.builtin_language !== 'undefined' && window.builtin_language && typeof window.builtin_language === 'string') {
-      currentLang = window.builtin_language.substr(0, 2);
+    const builtinVoice = getBuiltinVoice();
+    const builtinLanguage = getBuiltinLanguage();
+    // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language
+    if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
+      currentLang = builtinVoice.lang.substr(0, 2);
+    } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
+      currentLang = builtinLanguage.substr(0, 2);
     }
 
     // If listener's language matches source or target language -> direct display
     if (currentLang && sourceLang && typeof sourceLang === 'string' && currentLang === sourceLang.substr(0, 2)) {
-      window.ToSay[`${id}`] = sourceText;
+      setToSayKey(id, sourceText);
       Ecrire(sourceText);
       CompleteTranslation();
     } else if (currentLang && targetLang && typeof targetLang === 'string' && currentLang === targetLang.substr(0, 2)) {
-      window.ToSay[`${id}`] = targetText;
+      setToSayKey(id, targetText);
       Ecrire(targetText);
       CompleteTranslation();
     } else {
@@ -119,8 +129,10 @@ function CompleteTranslation() {
         Ecrire(sourceText);
       }
     }
-  } else if (_('synthesison').checked) {
-    CompleteSpeech();
+  } else {
+    if (_('synthesison').checked) {
+      CompleteSpeech();
+    }
   }
 }
 
@@ -135,23 +147,17 @@ function rebuildOutputForLanguage() {
   }
   
   // Vider ToTranslate pour reconstruction
-  window.ToTranslate = [];
+  setToTranslate([]);
   
   // Reconstruire ToTranslate depuis AllLines avec la nouvelle langue
-  if (typeof window.AllLines !== 'undefined') {
-    for (const lineId in window.AllLines) {
-      const line = window.AllLines[lineId];
-      window.ToTranslate.push([lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText]);
-    }
+  const allLines = getAllLines() || {};
+  for (const lineId in allLines) {
+    const line = allLines[lineId];
+    unshiftToTranslate([lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText]);
   }
   
   // Laisser CompleteTranslation traiter toutes les lignes avec la nouvelle langue
   CompleteTranslation();
-}
-
-// Exposer sur window pour compatibilité avec setLanguageOutputAndRetranslate
-if (typeof window !== 'undefined') {
-  window.rebuildOutputForLanguage = rebuildOutputForLanguage;
 }
 
 export { Translate, CompleteTranslation, rebuildOutputForLanguage };

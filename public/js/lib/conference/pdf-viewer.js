@@ -1,4 +1,5 @@
-import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, initialClientHeight, initialClientWidth, pageNum, pageNumPending, pageRendering, pdfDoc, previousimage, scale, setCanvas, setCtx, setCurrentRenderTask, setHasSavedInitialDimensions, setInitialClientHeight, setInitialClientWidth, setPageNum, setPageNumPending, setPageRendering, setPdfDoc, setPreviousimage, setScale } from './state.js';
+import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, initialClientHeight, initialClientWidth, pageNum, pageNumPending, pageRendering, pdfDoc, scale, setCanvas, setCtx, setCurrentRenderTask, setHasSavedInitialDimensions, setInitialClientHeight, setInitialClientWidth, setPageNum, setPageNumPending, setPageRendering, setPdfDoc, setScale } from './state/pdf.js';
+import { previousimage, setPreviousimage } from './state/translation.js';
 
 import { b64toBlob } from './utils.js';
 import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
@@ -7,7 +8,7 @@ import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
-import { ROOM_TOKEN } from './compat.js';
+import { getRoomToken } from './compat.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
 
 // Alias pour compatibilité avec l'ancien code
@@ -51,7 +52,7 @@ export function ShowImage(n) {
       const blob = b64toBlob(realData, contentType);
       f.append('image', blob);
       f.append('ROOMID', _('classroomid').value);
-      f.append('room_token', ROOM_TOKEN);
+      f.append('room_token', getRoomToken());
       addCsrfToken(f);
 
       const request = createFetchRequest('POST', '/image/save', {

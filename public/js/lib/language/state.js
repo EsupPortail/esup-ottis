@@ -41,10 +41,26 @@ export let maxvoices = 10;
 export let currentInputLanguage = 'fr';
 
 /**
+ * Set the current input language
+ * @param {string} langId - Language ID
+ */
+export function setCurrentInputLanguage(langId) {
+    currentInputLanguage = langId;
+}
+
+/**
  * Current output voice
  * @type {string}
  */
 export let currentOutputVoice = 'fr-FR';
+
+/**
+ * Set the current output voice
+ * @param {string} voiceId - Voice ID
+ */
+export function setCurrentOutputVoice(voiceId) {
+    currentOutputVoice = voiceId;
+}
 
 /**
  * Get voice by ID
@@ -58,8 +74,11 @@ export function getVoiceById(id) {
 /**
  * Get input language by ID
  * @param {string} id - Language ID
- * @returns {Object|null}
+ * @returns {string|null}
  */
 export function getInputLanguageById(id) {
-    return TLangInput.find(lang => lang.id === id) || null;
+    // TLangInput is an array of strings, so just check if it exists
+    return TLangInput.includes(id) ? id : null;
 }
+
+

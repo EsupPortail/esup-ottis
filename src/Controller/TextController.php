@@ -58,7 +58,7 @@ class TextController extends BaseController
         while ($ligne = fgets($fd, 4096)) {
             $T = explode(';', $ligne);
             // phpstan-ignore-next-line - explode always returns at least one element
-            if ((int)$T[0] > $ligneID) {
+            if ((int)$T[0] >= $ligneID) {
                 error_log('readtext - Ligne: ' . trim($ligne));
                 $output .= $order . ';' . $ligne;
             }

@@ -1,4 +1,5 @@
-import { builtin_language, currentscroll, scale, timenew_question, setTimenewQuestion } from './state.js';
+import { currentscroll, setCurrentscroll } from './state/translation.js';
+import { timenew_question, setTimenewQuestion } from './state/core.js';
 
 import { _, get } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
@@ -6,7 +7,7 @@ import { openDialog } from '../dom/dialog.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
-import { ROOM_TOKEN } from './compat.js';
+import { setCurrentPresentation, setCurrentDiscours } from '../state/conference.js';
 
 /** @module conference/utils */
 
@@ -62,8 +63,9 @@ export function formateresponse(datatxt, editable = true) {
     console.error('Unexpected response format:', data);
     return '<pre>Error: Unexpected response format from server.</pre>';
   }
-  window.currentPresentation = [];
-  window.currentDiscours = 0;
+  const currentPresentation = [];
+  setCurrentPresentation(currentPresentation);
+  setCurrentDiscours(0);
   // alert(datatxt);
   let res = '';
   // console.log(data);
@@ -212,7 +214,9 @@ function resizeSlides() {
   // For wooclap and others
   // ["wooclap", "extratab1", "extratab2", "extratab3", "extratab4", "visio"].map(resizeWindow)
 }
-window.onresize = resizeSlides;
+if (typeof window !== 'undefined') {
+  window.addEventListener('resize', resizeSlides);
+}
 
 /**
  * @summary (Pincode system removed - using QR code/direct link instead)

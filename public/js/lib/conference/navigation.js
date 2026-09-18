@@ -1,4 +1,5 @@
-import { currentscroll, previousimage, scale } from './state.js';
+import { currentscroll, previousimage } from './state/translation.js';
+import { scale } from './state/pdf.js';
 
 import { formateresponse } from './utils.js';
 import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
@@ -6,71 +7,89 @@ import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
+import { getCurrentPresentation, getCurrentDiscours, setCurrentDiscours } from '../state/conference.js';
+import { pdfDoc } from './state/pdf.js';
 
 /** @module conference/navigation */
 
 export function SkipForward() {
-  if (window.currentPresentation.length > 0) {
-    window.currentDiscours = (window.currentDiscours + 1) % window.currentPresentation.length;
-    ShowImage(window.currentPresentation[window.currentDiscours].Slide);
+  const presentation = getCurrentPresentation();
+  if (presentation.length > 0) {
+    const newIndex = (getCurrentDiscours() + 1) % presentation.length;
+    setCurrentDiscours(newIndex);
+    ShowImage(presentation[newIndex].Slide);
   }
 }
 
 export function SkipBackward() {
-  if (window.currentPresentation.length > 0) {
-    window.currentDiscours = (window.currentDiscours - 1 + window.currentPresentation.length) % window.currentPresentation.length;
-    ShowImage(window.currentPresentation[window.currentDiscours].Slide);
+  const presentation = getCurrentPresentation();
+  if (presentation.length > 0) {
+    const newIndex = (getCurrentDiscours() - 1 + presentation.length) % presentation.length;
+    setCurrentDiscours(newIndex);
+    ShowImage(presentation[newIndex].Slide);
   }
 }
 
 export function Forward() {
-  if (window.currentPresentation.length > 0) {
-    window.currentDiscours = (window.currentDiscours + 1) % window.currentPresentation.length;
-    addToNB(window.currentPresentation[window.currentDiscours].Discours, 0);
-    ShowImage(window.currentPresentation[window.currentDiscours].Slide);
+  const presentation = getCurrentPresentation();
+  if (presentation.length > 0) {
+    const newIndex = (getCurrentDiscours() + 1) % presentation.length;
+    setCurrentDiscours(newIndex);
+    addToNB(presentation[newIndex].Discours, 0);
+    ShowImage(presentation[newIndex].Slide);
   }
 }
 
 export function Backward() {
-  if (window.currentPresentation.length > 0) {
-    window.currentDiscours = (window.currentDiscours - 1 + window.currentPresentation.length) % window.currentPresentation.length;
-    addToNB(window.currentPresentation[window.currentDiscours].Discours, 0);
-    ShowImage(window.currentPresentation[window.currentDiscours].Slide);
+  const presentation = getCurrentPresentation();
+  if (presentation.length > 0) {
+    const newIndex = (getCurrentDiscours() - 1 + presentation.length) % presentation.length;
+    setCurrentDiscours(newIndex);
+    addToNB(presentation[newIndex].Discours, 0);
+    ShowImage(presentation[newIndex].Slide);
   }
 }
 
 export function SlideForward() {
-  if (!window.currentPresentation || window.currentPresentation.length === 0) {
+  const presentation = getCurrentPresentation();
+  if (!presentation || presentation.length === 0) {
     // Fallback to PDF navigation if a PDF is loaded
-    if (window.pdfDoc) {
+    if (pdfDoc) {
       nextPage();
     }
     return;
   }
-  const slide = window.currentPresentation[window.currentDiscours];
+  const currentIndex = getCurrentDiscours();
+  const slide = presentation[currentIndex];
   if (slide && slide.Images && slide.Images.length > 1) {
     const currentSlide = slide.Slide;
-    while (window.currentDiscours < window.currentPresentation.length - 1 && window.currentPresentation[window.currentDiscours].Slide == currentSlide) {
-      window.currentDiscours++;
+    let newIndex = currentIndex;
+    while (newIndex < presentation.length - 1 && presentation[newIndex].Slide == currentSlide) {
+      newIndex++;
     }
+    setCurrentDiscours(newIndex);
     ShowImage(slide.Slide);
   }
 }
 
 export function SlideBackward() {
-  if (!window.currentPresentation || window.currentPresentation.length === 0) {
+  const presentation = getCurrentPresentation();
+  if (!presentation || presentation.length === 0) {
     // Fallback to PDF navigation if a PDF is loaded
-    if (window.pdfDoc) {
+    if (pdfDoc) {
       prevPage();
     }
     return;
   }
-  const slide = window.currentPresentation[window.currentDiscours];
+  const currentIndex = getCurrentDiscours();
+  const slide = presentation[currentIndex];
   if (slide && slide.Images && slide.Images.length > 1) {
     const currentSlide = slide.Slide;
-    while (window.currentDiscours > 0 && window.currentPresentation[window.currentDiscours].Slide == currentSlide) {
-      window.currentDiscours--;
+    let newIndex = currentIndex;
+    while (newIndex > 0 && presentation[newIndex].Slide == currentSlide) {
+      newIndex--;
     }
+    setCurrentDiscours(newIndex);
     ShowImage(slide.Slide);
   }
 }
@@ -81,11 +100,12 @@ export function completeHandler(event, editable = false) {
 
   // Re-initialize the presentation
   previousimage = -1;
-  window.currentDiscours = 0;
-  if (window.currentPresentation.length > 0) {
+  setCurrentDiscours(0);
+  const presentation = getCurrentPresentation();
+  if (presentation.length > 0) {
     safeSetTimeout(() => {
       _('stillwaiting').style.display = 'none';
-      ShowImage(window.currentPresentation[0].Slide);
+      ShowImage(presentation[0].Slide);
     }, 1000);
   }
 }

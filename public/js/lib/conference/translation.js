@@ -1,7 +1,14 @@
-import { StudentToSay, StudentToTranslate2, Studentcompletespeechactive, Studentcurrentdiscours, Studentgotolive, builtin_language, builtin_voice, currentdiscours, lastPartialTranslation, lastSentenceTranslated, readytotalk, subtitle_language, setLastSentenceTranslated, LiveTranslationNum, LiveTranslationFreq, setLiveTranslationNum } from './state.js';
+import {
+  StudentToSay, StudentToTranslate2, Studentcompletespeechactive, Studentcurrentdiscours,
+  Studentgotolive, lastPartialTranslation, lastSentenceTranslated,
+  readytotalk, LiveTranslationNum, LiveTranslationFreq, setLastSentenceTranslated, setLiveTranslationNum
+} from './state/translation.js';
+import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
+import { getSubtitleLanguage, getCurrentDiscours } from '../state/conference.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { getBasePath } from '../state/shared.js';
 import { Ecrire, EcrireNB, EcrireNBonly, EcrireNBonlyVO, EcrirePartial, saveText, saveTextWithTranslation } from './notebook.js';
 import { Parle } from './voices.js';
 import { setNotReadyToTalk, setReadyToTalk, StartSpeechRecognition, StopSpeechRecognition } from './speech.js';
@@ -35,10 +42,10 @@ export function StudentTranslate2(ch, l, linput, lineid) {
   // Ajouter le token CSRF
   addCsrfToken(formData);
 
-  console.log('[StudentTranslate2] URL:', window.BASE_PATH + '/text/translate');
+  console.log('[StudentTranslate2] URL:', getBasePath() + '/text/translate');
   console.log('[StudentTranslate2] formData entries:', Array.from(formData.entries()));
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/translate', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
     onSuccess(response) {
       StudentCompleteTranslation2();
     },
@@ -60,10 +67,11 @@ export function StudentCompleteTranslation2() {
   if (StudentToTranslate2.length > 0) {
     const L = StudentToTranslate2[0];
     StudentToTranslate2.splice(0, 1);
-    if (typeof subtitle_language === 'string' && L && L[1] && typeof L[1] === 'string'
-            && subtitle_language.substr(0, 2).toLowerCase() != L[1].substr(0, 2)) {
+    const subtitleLang = getSubtitleLanguage();
+    if (typeof subtitleLang === 'string' && L && L[1] && typeof L[1] === 'string'
+            && subtitleLang.substr(0, 2).toLowerCase() != L[1].substr(0, 2)) {
       // Ecrire("Push : "+L[2]);
-      StudentTranslate2(L[2], subtitle_language.substr(0, 2).toLowerCase(), L[1].substr(0, 2), L[0]);
+      StudentTranslate2(L[2], subtitleLang.substr(0, 2).toLowerCase(), L[1].substr(0, 2), L[0]);
     } else StudentCompleteTranslation2();
   } else safeSetTimeout(StudentCompleteTranslation2, 10);
 }
@@ -103,12 +111,14 @@ export function Traduction(ch) {
     EcrireNBonlyVO(ch);
 
     // Check if subtitle language is set and different from source
-    if (typeof subtitle_language === 'string' && subtitle_language
-            && typeof builtin_language === 'string' && builtin_language && builtin_language !== subtitle_language) {
+    const subtitleLang = getSubtitleLanguage();
+    const builtinLang = getBuiltinLanguage();
+    if (typeof subtitleLang === 'string' && subtitleLang
+            && typeof builtinLang === 'string' && builtinLang && builtinLang !== subtitleLang) {
       Translate(
         ch,
-        subtitle_language.substr(0, 2),
-        builtin_language.substr(0, 2),
+        subtitleLang.substr(0, 2),
+        builtinLang.substr(0, 2),
         (translatedText) => {
           if (translatedText && translatedText !== '') {
             EcrireNBonly(translatedText);
@@ -127,9 +137,11 @@ export function Traduction(ch) {
             if (readytotalk) {
                 setNotReadyToTalk();
                 Ecrire('Input : ' + ch);
-                if (builtin_voice.lang.substr(0, 2) != builtin_language.substr(0, 2)){
-                    Translate(ch, builtin_voice.lang.substr(0, 2), builtin_language.substr(0, 2));
-                }else {
+                const bv = getBuiltinVoice();
+            const bl = getBuiltinLanguage();
+            if (bv && bv.lang && bl && bv.lang.substr(0, 2) != bl.substr(0, 2)) {
+                    Translate(ch, bv.lang.substr(0, 2), bl.substr(0, 2));
+                } else {
                     Parle(ch);
                     Ecrire("Output : " + ch);
                 }
@@ -149,7 +161,7 @@ export function Translate(ch, l, linput, callback) {
   TranslateThen(ch, l, linput, (translatedText) => {
     if (typeof translatedText === 'string') {
       // Only speak if voice is available
-      if (typeof builtin_voice !== 'undefined' && builtin_voice) {
+      if (typeof getBuiltinVoice() !== 'undefined' && getBuiltinVoice()) {
         Parle(translatedText);
       }
       setLastSentenceTranslated(translatedText);
@@ -181,7 +193,7 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
   const d_begin = Date.now();
   addCsrfToken(formData);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/translate', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
     onSuccess(response) {
       const d_end = Date.now();
       try {
@@ -215,13 +227,15 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
 }
 
 export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
-  let linput = (typeof builtin_language === 'string' && builtin_language) ? builtin_language.substr(0, 2).toLowerCase() : '';
+  const builtinLang = getBuiltinLanguage();
+  const subtitleLang = getSubtitleLanguage();
+  let linput = (typeof builtinLang === 'string' && builtinLang) ? builtinLang.substr(0, 2).toLowerCase() : '';
   if (ch.indexOf(':|:') >= 0) { // If there are a language indication
     const Tch = ch.split(':|:');
     linput = (Tch[0]) ? Tch[0].substr(0, 2).toLowerCase() : '';
     ch = Tch[1];
   }
-  const loutput = (typeof subtitle_language === 'string' && subtitle_language) ? subtitle_language.substr(0, 2).toLowerCase() : '';
+  const loutput = (typeof subtitleLang === 'string' && subtitleLang) ? subtitleLang.substr(0, 2).toLowerCase() : '';
   if (linput == loutput) {
     if (ch && ch.trim() !== '') {
       EcrirePartial(ch);

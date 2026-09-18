@@ -24,13 +24,17 @@ require_once __DIR__ . '/../vendor/autoload.php';
         var ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
     </script>
 
-    <script src="./js/translatepage.js"></script>
+    <script type="module" src="./js/lib/i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <script src="./js/matomo.js"></script>
+    <script src="./js/lib/analytics.js"></script>
     <!-- JS spécifiques à la page -->
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
-            <script src="<?php echo e($script); ?>"></script>
+            <?php
+            $isModule = (strpos($script, '/js/lib/') !== false && strpos($script, 'analytics.js') === false);
+            $typeAttr = $isModule ? 'type="module"' : '';
+            ?>
+            <script <?php echo $typeAttr; ?> src="<?php echo e($script); ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
 

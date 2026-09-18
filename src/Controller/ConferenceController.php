@@ -62,8 +62,12 @@ class ConferenceController extends BaseController
 
         // Define scripts for this page
         $this->viewData['pageScripts'] = [
+            // Store must be loaded FIRST
+            '/js/lib/state/store.js',
+            '/js/lib/state/shared.js',
+            '/js/lib/state/conference.js',
             'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js',
-            '/js/qrcode.min.js'
+            'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
         ];
 
         // Get or generate classroom ID

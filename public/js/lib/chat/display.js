@@ -5,6 +5,8 @@
 import { _ } from '../dom/selector.js';
 import { ScreenCR } from './state.js';
 import { ClearCR, RefreshCR } from './utils.js';
+import { ColorsForCR, rgb, getUserColor } from '../colors.js';
+import { escapeHtml } from '../browser.js';
 
 // Re-export for backward compatibility
 export { ScreenCR, ClearCR, RefreshCR };
@@ -18,29 +20,21 @@ export { ScreenCR, ClearCR, RefreshCR };
  * @returns {void}
  */
 export function EcrireCR(who, ch, order) {
-  // Use the centralized version from common-func.js if available
-  if (typeof window !== 'undefined' && window.ColorsForCR && typeof window.getUserColor === 'function') {
-    if (!window.ColorsForCR[who]) {
-      const colors = window.getUserColor(who);
-      const bg = colors[0];
-      const fg = colors[1];
-      window.ColorsForCR[who] = [bg, fg, 20];
-    }
+  // Prevent overwriting existing messages (already translated)
+  if (ScreenCR[order] !== undefined) {
+    return;
+  }
+  
+  // Use the centralized version from colors.js
+  if (!ColorsForCR[who]) {
+    const colors = getUserColor(who);
+    const bg = colors[0];
+    const fg = colors[1];
+    ColorsForCR[who] = [bg, fg, 20];
+  }
 
-    const rgbFunc = typeof window.rgb === 'function' ? window.rgb : function (T) {
-      return `rgb(${T[0]},${T[1]},${T[2]})`;
-    };
-    const escapeHtmlFunc = typeof window.escapeHtml === 'function' ? window.escapeHtml : function (text) {
-      if (typeof text !== 'string') return '';
-      const div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    };
+  const rgbFunc = rgb;
+  const escapeHtmlFunc = escapeHtml;
 
     // Determine CSS class based on sender
     let messageClass = 'chat-message';
@@ -52,13 +46,12 @@ export function EcrireCR(who, ch, order) {
       messageClass += ' chat-message--intervenant';
     } else {
       messageClass += ' chat-message--user';
-      styleAttr = ` style="background-color: ${rgbFunc(window.ColorsForCR[who][0])
-      }; color: ${rgbFunc(window.ColorsForCR[who][1])
+      styleAttr = ` style="background-color: ${rgbFunc(ColorsForCR[who][0])
+      }; color: ${rgbFunc(ColorsForCR[who][1])
       }; margin-left: 20px;"`;
     }
 
     ScreenCR[order] = `<li role="listitem" class="${messageClass}"${styleAttr}>${
       escapeHtmlFunc(`${who} : ${ch}`)}</li>`;
     RefreshCR();
-  }
 }

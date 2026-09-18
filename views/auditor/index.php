@@ -24,7 +24,7 @@
 <h1 style="display:none;">Outils de traduction : application étudiante</h1>
 </main>
 <div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
-<div id="repeat" onclick="Parle(document.getElementById('titre').innerHTML);" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
+<div id="repeat" title="Repeat the last sentence"><i class='material-icons'>replay</i><span style="font-size: 10px;color: white;"><br>REPEAT</span></div>
 
 <div id="titre"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
 
@@ -35,7 +35,7 @@
 <div id="fixed-title"></div>
 
 <form id="myform" onsubmit="return false;">
-<?php echo csrfField(); ?>
+<?php echo \App\Utils\Csrf::field(); ?>
 
 <!-- Settings Section -->
 <section id="section-settings">
@@ -57,7 +57,8 @@
   <input type="text" id="AuditorName" onchange="if (this.value == 'Intervenant') this.value='Auditor';" value="<?php echo $this->escape($randomname); ?>" autocomplete="given-name">
 </span><br>
 <span id="lisynthese"><label for="synthesison">Speech synthesis active ? </label>
-<input type="checkbox" id="synthesison" onclick="document.getElementById('arrowlanguage').style.visibility='hidden'; document.getElementById('arrowsynthesis').style.visibility='hidden';  document.getElementById('lilanguage').style.animation='none'; document.getElementById('lisynthese').style.animation='none'; firsttime=false;"><span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
+<input type="checkbox" id="synthesison">
+<span id="arrowsynthesis">&nbsp; Then launch the speech synthesis</span>
 </span>
 
 </div>
@@ -83,14 +84,14 @@
     <h2>Notebook</h2>
 	<div id="tabs-2">
 
-    <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the original speech in txt format." onclick="DownloadSpeechLesson('lesson_'+_('classroomid').value+'.txt', document.getElementById('notebook').innerHTML);"><br>
+    <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the original speech in txt format." id="download-notebook-btn"><br>
     <div id="notebook" style="border: solid 1px;"></div>
 
 	</div>
 	<section id="section-output">
     <h2>Output</h2>
 	<div id="tabs-3">
-  <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the translated speech in txt format." onclick="DownloadSpeechLesson('translated_lesson_'+_('classroomid').value+'.txt', document.getElementById('output').innerHTML);"><br>
+  <input style="margin-left: 64px;" type="button" value="Download" class="button-3 tooltip" title="Download the translated speech in txt format." id="download-output-btn"><br>
     <div id="output">
     </div>
     <div id="notebookVO" style="display:none;"></div>
@@ -102,13 +103,13 @@
 	<!-- Word cloud section (commented out in original) -->
 
 </form>
-<div id="FS" onclick="GoFS();"  title="Toggle fullscreen mode"><i class='material-icons' style="font-size: 41px;" >fullscreen</i></div>
+<div id="FS" title="Toggle fullscreen mode"><i class='material-icons' style="font-size: 41px;" >fullscreen</i></div>
 
 <dialog id="dialog-mail" style="width: 800px; height: 500px;">
   <form method="dialog">
     <fieldset>
       <legend style="display: none;">Send a mail</legend>
-	<?php echo csrfField(); ?>
+	<?php echo \App\Utils\Csrf::field(); ?>
 	<label for="dialog_MailTo">Mail to : </label><input type="text" id="dialog_MailTo" ><br>
 	<label style="display:none;" for="dialog_MailFrom">Mail From : </label><input type="text" id="dialog_MailFrom" style="display:none;" readonly>
 	<label for="dialog_MailSubject">Subject : </label><input type="text" id="dialog_MailSubject" readonly><br>
@@ -116,8 +117,8 @@
 	<div id="dialog_MailBody">
 	</div>
     <menu>
-      <button type="submit" onclick="EnvoiMail(); return false;">Send</button>
-      <button type="reset" onclick="document.getElementById('dialog-mail').close();">Cancel</button>
+      <button type="submit" id="send-mail-btn">Send</button>
+      <button type="reset" id="cancel-mail-btn">Cancel</button>
     </menu>
     </fieldset>
   </form>
@@ -125,7 +126,7 @@
 
 <dialog id="dialog-choose">
   <form method="dialog">
-  <?php echo csrfField(); ?>
+  <?php echo \App\Utils\Csrf::field(); ?>
   <span><label for="VoiceOutputchoose">You first have to choose your language</label><br>
   <select id="VoiceOutputchoose">
   </select>
@@ -137,7 +138,11 @@
 </dialog>
 
 <?php foreach ($pageScripts as $script): ?>
-    <script src="<?php echo $this->escape($script); ?>"></script>
+    <?php
+    $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
+    $typeAttr = $isModule ? 'type="module"' : '';
+    ?>
+    <script <?php echo $typeAttr; ?> src="<?php echo $this->escape($script); ?>"></script>
 <?php endforeach; ?>
 
 <?php foreach ($chatScripts as $script): ?>

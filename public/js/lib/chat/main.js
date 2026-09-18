@@ -6,6 +6,8 @@ import { _ } from '../dom/selector.js';
 import { readTextQCommon, saveTextQCommon, TranslateQ } from './network.js';
 import { defaultMessageHandler, sendclick } from './handlers.js';
 import { safeSetInterval } from '../utils/cleanup.js';
+import { isLanguageSelected, setLanguageSelected, isChatPollingStarted, setChatPollingStarted, getChatPollingIntervalId, setChatPollingIntervalId } from '../state/shared.js';
+import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
 
 /**
  * @summary Read and display messages from the classroom queue
@@ -43,10 +45,12 @@ export function saveTextQ(ch) {
     roomId = classroomIdEl.value;
   }
   
-  if (typeof builtin_voice !== 'undefined' && builtin_voice && builtin_voice.lang) {
-    language = builtin_voice.lang;
-  } else if (typeof builtin_language !== 'undefined' && builtin_language) {
-    language = builtin_language;
+  const voice = getBuiltinVoice();
+  const lang = getBuiltinLanguage();
+  if (voice && voice.lang) {
+    language = voice.lang;
+  } else if (lang) {
+    language = lang;
   }
 
   // For conference (teacher), use Intervenant
@@ -61,11 +65,6 @@ export function saveTextQ(ch) {
   saveTextQCommon(ch, senderName, roomId, language);
 }
 
-// Global flag for language selection
-if (typeof window !== 'undefined') {
-  window.languageSelected = false;
-}
-
 /**
  * @summary Start the chat polling with adaptive interval
  *
@@ -73,16 +72,16 @@ if (typeof window !== 'undefined') {
  */
 export function startChatPolling() {
   // Prevent multiple polling instances
-  if (window.chatPollingStarted) return;
+  if (isChatPollingStarted()) return;
 
   const hasDialogChoose = !!document.getElementById('dialog-choose');
 
   // Check if we can start (language selected for Auditor) - direct check
-  if (hasDialogChoose && !window.languageSelected) {
+  if (hasDialogChoose && !isLanguageSelected()) {
     return;
   }
 
-  window.chatPollingStarted = true;
+  setChatPollingStarted(true);
 
   // Adaptive polling configuration
   let currentInterval = 500;
@@ -95,10 +94,11 @@ export function startChatPolling() {
   let consecutiveSuccesses = 0;
 
   const restartPolling = () => {
-    if (window.chatPollingIntervalId) {
-      clearInterval(window.chatPollingIntervalId);
+    const intervalId = getChatPollingIntervalId();
+    if (intervalId) {
+      clearInterval(intervalId);
     }
-    window.chatPollingIntervalId = safeSetInterval(pollChat, currentInterval);
+    setChatPollingIntervalId(safeSetInterval(pollChat, currentInterval));
   };
 
   const handleRateLimit = () => {
@@ -131,12 +131,7 @@ export function startChatPolling() {
     }
   };
 
-  window.chatPollingIntervalId = safeSetInterval(pollChat, currentInterval);
+  setChatPollingIntervalId(safeSetInterval(pollChat, currentInterval));
 }
 
-// Expose globally for inline event handlers
-if (typeof window !== 'undefined') {
-  window.saveTextQ = saveTextQ;
-  window.readTextQ = readTextQ;
-  window.startChatPolling = startChatPolling;
-}
+// Expose globally for inline event handlers - removed, use ES module imports instead

@@ -1,14 +1,17 @@
 import {
-  builtin_voice,
-  builtin_language,
-  subtitle_language,
+  getBuiltinVoice,
+  getBuiltinLanguage,
   setBuiltinVoice,
   setBuiltinLanguage,
+} from '../state/auditor.js';
+import {
+  getSubtitleLanguage,
   setSubtitleLanguage,
-} from './state.js';
+} from '../state/conference.js';
 import { AllOutputVoices, TLangInput } from '../language/state.js';
 import { _ } from '../dom/selector.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
+import { getSupportedLanguages } from '../state/shared.js';
 
 /** @module conference/voices */
 
@@ -18,15 +21,29 @@ export function PopulateVoicesIn() {
 
   TLangInput.length = 0;
 
-  // Ensure pageData.supportedlanguages exists
-  if (!window.pageData || !window.pageData.supportedlanguages) {
-    console.warn('pageData.supportedlanguages not available');
+  // Get supported languages from store
+  const supportedLanguages = getSupportedLanguages();
+  if (!supportedLanguages) {
     // Set default language to en-US
     setBuiltinLanguage('en-US');
     return;
   }
 
-  Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
+  // supportedLanguages can be either an array or an object (from pageData)
+  const languagesArray = Array.isArray(supportedLanguages) 
+    ? supportedLanguages 
+    : Object.entries(supportedLanguages);
+  
+  if (languagesArray.length === 0) {
+    setBuiltinLanguage('en-US');
+    return;
+  }
+
+  languagesArray.forEach((langEntry, index) => {
+    // langEntry can be either {code, name_fr, name_vo} or [code, lang]
+    const code = Array.isArray(langEntry) ? langEntry[0] : langEntry.code;
+    const lang = Array.isArray(langEntry) ? langEntry[1] : langEntry;
+    
     if (TLangInput.indexOf(code) === -1) {
       const opt = document.createElement('option');
       opt.value = code;
@@ -46,7 +63,21 @@ export function PopulateVoicesIn() {
 export function PopulateSubtitlesLang() {
   if (!_('subtitlelanguage')) return;
   const select = _('subtitlelanguage');
-  Object.entries(window.pageData.supportedlanguages).forEach(([code, lang], index) => {
+  const supportedLanguages = getSupportedLanguages();
+  
+  if (!supportedLanguages) {
+    return;
+  }
+  
+  // supportedLanguages can be either an array or an object (from pageData)
+  const languagesArray = Array.isArray(supportedLanguages) 
+    ? supportedLanguages 
+    : Object.entries(supportedLanguages);
+  
+  languagesArray.forEach((langEntry, index) => {
+    const code = Array.isArray(langEntry) ? langEntry[0] : langEntry.code;
+    const lang = Array.isArray(langEntry) ? langEntry[1] : langEntry;
+    
     const opt = document.createElement('option');
     opt.value = code;
 
@@ -63,13 +94,25 @@ export function PopulateSubtitlesLang() {
 export function PopulateSpeechLang() {
   if (!_('speechlanguage')) return;
   const select = _('speechlanguage');
-  for (let i = 0; i < window.pageData.supportedlanguages.length; i++) {
-    const lang = window.pageData.supportedlanguages[i].code; // .substr(0,5);
-    const opt = document.createElement('option');
-    opt.value = lang;
-    opt.textContent = `${lang} ${window.pageData.supportedlanguages[i].name_fr} ${window.pageData.supportedlanguages[i].name_vo}`;
-    select.appendChild(opt);
+  const supportedLanguages = getSupportedLanguages();
+  
+  if (!supportedLanguages) {
+    return;
   }
+  
+  // supportedLanguages can be either an array or an object (from pageData)
+  const languagesArray = Array.isArray(supportedLanguages) 
+    ? supportedLanguages 
+    : Object.entries(supportedLanguages);
+  
+  languagesArray.forEach((langEntry) => {
+    const code = Array.isArray(langEntry) ? langEntry[0] : langEntry.code;
+    const lang = Array.isArray(langEntry) ? langEntry[1] : langEntry;
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.textContent = `${code} ${lang.name_fr} ${lang.name_vo}`;
+    select.appendChild(opt);
+  });
 }
 
 export function setLanguageSubtitle(i) {
@@ -82,8 +125,9 @@ export function setLanguageSpeech(i) {
 
 export function Parle(txt) {
   const discours = new SpeechSynthesisUtterance(txt);
-  discours.voice = builtin_voice;
-  discours.lang = builtin_voice ? builtin_voice.lang : '';
+  const bv = getBuiltinVoice();
+  discours.voice = bv;
+  discours.lang = bv ? bv.lang : '';
   window.speechSynthesis.speak(discours);
   discours.onend = ready;
   discours.onerror = ready;
@@ -94,7 +138,9 @@ export function Parle(txt) {
  */
 export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   const select = _(selectname);
-  if (!select) return;
+  if (!select) {
+    return;
+  }
   AllOutputVoices.length = 0;
   while (select.firstChild) {
     select.removeChild(select.firstChild);
@@ -107,7 +153,9 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   for (let i = 0; i < voices.length; i++) {
     if (true) {
       const opt = document.createElement('option');
-      opt.value = AllOutputVoices.length;
+      // Use voice.lang as the value instead of numeric index
+      const voiceId = voices[i].lang;
+      opt.value = voiceId;
       // Sélectionner en-US par défaut (sans Male/Female), sinon la langue du navigateur
       const langCode = voices[i].lang.toLowerCase();
       const voiceName = voices[i].name.toLowerCase();
@@ -129,7 +177,18 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   select.appendChild(optgroup);
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
-  const supportedlanguages = window.pageData ? window.pageData.supportedlanguages : [];
+  const supportedLanguagesRaw = getSupportedLanguages();
+  
+  if (!supportedLanguagesRaw) {
+    select.appendChild(optgroup2);
+    return;
+  }
+  
+  // supportedLanguages can be either an array or an object (from pageData)
+  const supportedlanguages = Array.isArray(supportedLanguagesRaw) 
+    ? supportedLanguagesRaw 
+    : Object.values(supportedLanguagesRaw);
+  
   // Trouver l'index de en-US dans supportedlanguages
   let englishLangIndex = -1;
   for (let i = 0; i < supportedlanguages.length; i++) {
@@ -141,13 +200,15 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   for (let i = 0; i < supportedlanguages.length; i++) {
     const lang = supportedlanguages[i].code;
     const opt = document.createElement('option');
-    opt.value = maxvoices + i;
+    // Use language code as the value instead of numeric index
+    opt.value = lang;
     // Sélectionner en-US par défaut dans Text translation only
     if (!englishVoiceFound && i === englishLangIndex) {
       opt.selected = true;
       englishVoiceFound = true; // Marquer pour éviter double sélection
     }
     AllOutputVoices.push({
+      id: lang,
       lang,
       textonly: true,
     });
@@ -168,7 +229,8 @@ export function InitVoices() {
   // setLanguageOutput(0);
 }
 
-export function loadVoicesWhenAvailable() {
+export function loadVoicesWhenAvailable(attempt = 0) {
+  const maxAttempts = 100; // Prevent infinite loops
   const Tvoices = window.speechSynthesis.getVoices();
 
   if (Tvoices.length !== 0) {
@@ -180,9 +242,15 @@ export function loadVoicesWhenAvailable() {
     if (typeof window.openLanguageDialog === 'function') {
       window.openLanguageDialog();
     }
-  } else {
+  } else if (attempt < maxAttempts) {
     safeSetTimeout(() => {
-      loadVoicesWhenAvailable();
+      loadVoicesWhenAvailable(attempt + 1);
     }, 10);
+  } else {
+    // Fallback: populate with static voices if speech synthesis voices not available
+    InitVoices();
+    if (typeof window.openLanguageDialog === 'function') {
+      window.openLanguageDialog();
+    }
   }
 }

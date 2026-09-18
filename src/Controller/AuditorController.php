@@ -78,10 +78,30 @@ class AuditorController extends BaseController
         // Define scripts for this page
         $pageScripts = [];
 
-        // Chat modules and auditor ES modules
+        // DOM utilities - must load FIRST (required by many modules)
         $chatScripts = [
-            '/js/lib/compat/global.js',
-            '/js/utils/draggable.js',
+            '/js/lib/dom/selector.js',
+            '/js/lib/dom/styles.js',
+            '/js/lib/dom/visibility.js',
+            '/js/lib/dom/layout.js',
+            '/js/lib/dom/events.js',
+            '/js/lib/dom/dialog.js',
+            // Network utilities
+            '/js/lib/network/utils.js',
+            '/js/lib/network/xhr.js',
+            '/js/lib/network/fetch.js',
+            '/js/lib/network/counter.js',
+            // Language utilities
+            '/js/lib/language/state.js',
+            '/js/lib/language/management.js',
+            // Chat utilities
+            '/js/lib/chat/state.js',
+            '/js/lib/chat/utils.js',
+            // Store must be loaded FIRST
+            '/js/lib/state/store.js',
+            '/js/lib/state/shared.js',
+            '/js/lib/state/auditor.js',
+            '/js/lib/utils/draggable.js',
             '/js/lib/conference/network.js',
             '/js/lib/utils/request-counter.js',
             '/js/lib/auditor/text-processing.js',

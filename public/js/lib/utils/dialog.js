@@ -15,11 +15,6 @@ export function openDialog(id) {
   if (dialog && dialog.tagName === 'DIALOG') {
     dialog.showModal();
   }
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.openDialog = openDialog;
-  }
 }
 
 /**
@@ -30,11 +25,6 @@ export function closeDialog(id) {
   const dialog = get(id);
   if (dialog && dialog.tagName === 'DIALOG') {
     dialog.close();
-  }
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.closeDialog = closeDialog;
   }
 }
 
@@ -50,11 +40,6 @@ export function toggleDialog(id) {
     } else {
       dialog.showModal();
     }
-  }
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.toggleDialog = toggleDialog;
   }
 }
 
@@ -141,11 +126,6 @@ export function createDialog(id, options = {}) {
     div.parentNode.replaceChild(dialog, div);
   }
 
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.createDialog = createDialog;
-  }
-
   return dialog;
 }
 
@@ -174,11 +154,6 @@ export function upgradeLegacyDialogs() {
       createDialog(div.id, { modal: true });
     }
   });
-
-  // Expose on window for backward compatibility
-  if (typeof window !== 'undefined') {
-    window.upgradeLegacyDialogs = upgradeLegacyDialogs;
-  }
 }
 
 // Auto-upgrade legacy dialogs when DOM is ready

@@ -5,6 +5,8 @@
 
 import { ScreenCR, ToSay, ToTranslate, chatHistory, clearHistory } from './state.js';
 import { _ } from '../dom/selector.js';
+import { readTextQ } from './main.js';
+import { setInputNumberQ } from '../state/shared.js';
 
 /**
  * Clear the classroom chat and reset ScreenCR array
@@ -45,10 +47,9 @@ export function RefreshCR() {
  */
 export function recharger() {
     ClearCR();
+    // Reset inputnumberQ to 0 to force reprocessing all messages (for language change)
+    setInputNumberQ(0);
     // Call legacy functions if they exist (will be migrated later)
-    if (typeof setInputnumberQ !== 'undefined') {
-        setInputnumberQ(0);
-    }
     if (typeof readTextQ !== 'undefined') {
         readTextQ(_('classroomid')?.value);
     }

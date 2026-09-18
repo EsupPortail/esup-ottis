@@ -71,10 +71,7 @@ export let originalTextBandStyle = '';
 /** @type {Object} */
 export let originalPdfControlStyle = { cssText: '', buttonStyles: [] };
 
-// Exposer sur window pour compatibilité legacy
-if (typeof window !== 'undefined') {
-  window.originalPdfControlStyle = originalPdfControlStyle;
-}
+
 
 /** @type {string} */
 export let originalTextBandDisplay = '';
@@ -111,9 +108,6 @@ export let originalPdfViewerStyle = '';
  */
 export function setPdfDoc(value) {
   pdfDoc = value;
-  if (typeof window !== 'undefined') {
-    window.pdfDoc = value;
-  }
 }
 
 /**
@@ -122,9 +116,6 @@ export function setPdfDoc(value) {
  */
 export function setPageNum(value) {
   pageNum = value;
-  if (typeof window !== 'undefined') {
-    window.pageNum = value;
-  }
 }
 
 /**
@@ -133,9 +124,6 @@ export function setPageNum(value) {
  */
 export function setPageRendering(value) {
   pageRendering = value;
-  if (typeof window !== 'undefined') {
-    window.pageRendering = value;
-  }
 }
 
 /**
@@ -144,9 +132,6 @@ export function setPageRendering(value) {
  */
 export function setPageNumPending(value) {
   pageNumPending = value;
-  if (typeof window !== 'undefined') {
-    window.pageNumPending = value;
-  }
 }
 
 /**
@@ -155,9 +140,6 @@ export function setPageNumPending(value) {
  */
 export function setScale(value) {
   scale = value;
-  if (typeof window !== 'undefined') {
-    window.scale = value;
-  }
 }
 
 /**
@@ -166,9 +148,6 @@ export function setScale(value) {
  */
 export function setCanvas(value) {
   canvas = value;
-  if (typeof window !== 'undefined') {
-    window.canvas = value;
-  }
 }
 
 /**
@@ -177,9 +156,6 @@ export function setCanvas(value) {
  */
 export function setCtx(value) {
   ctx = value;
-  if (typeof window !== 'undefined') {
-    window.ctx = value;
-  }
 }
 
 /**
@@ -188,9 +164,6 @@ export function setCtx(value) {
  */
 export function setCurrentRenderTask(value) {
   currentRenderTask = value;
-  if (typeof window !== 'undefined') {
-    window.currentRenderTask = value;
-  }
 }
 
 // =============================================================================
@@ -203,9 +176,6 @@ export function setCurrentRenderTask(value) {
  */
 export function setFullscreenScale(value) {
   fullscreenScale = value;
-  if (typeof window !== 'undefined') {
-    window.fullscreenScale = value;
-  }
 }
 
 /**
@@ -214,9 +184,6 @@ export function setFullscreenScale(value) {
  */
 export function setIsCalculatingFullscreenScale(value) {
   isCalculatingFullscreenScale = value;
-  if (typeof window !== 'undefined') {
-    window.isCalculatingFullscreenScale = value;
-  }
 }
 
 /**
@@ -225,9 +192,6 @@ export function setIsCalculatingFullscreenScale(value) {
  */
 export function setHasSavedInitialDimensions(value) {
   hasSavedInitialDimensions = value;
-  if (typeof window !== 'undefined') {
-    window.hasSavedInitialDimensions = value;
-  }
 }
 
 /**
@@ -236,9 +200,6 @@ export function setHasSavedInitialDimensions(value) {
  */
 export function setInitialClientWidth(value) {
   initialClientWidth = value;
-  if (typeof window !== 'undefined') {
-    window.initialClientWidth = value;
-  }
 }
 
 /**
@@ -247,9 +208,6 @@ export function setInitialClientWidth(value) {
  */
 export function setInitialClientHeight(value) {
   initialClientHeight = value;
-  if (typeof window !== 'undefined') {
-    window.initialClientHeight = value;
-  }
 }
 
 /**
@@ -258,9 +216,6 @@ export function setInitialClientHeight(value) {
  */
 export function setOriginalPdfScale(value) {
   originalPdfScale = value;
-  if (typeof window !== 'undefined') {
-    window.originalPdfScale = value;
-  }
 }
 
 /**
@@ -269,9 +224,6 @@ export function setOriginalPdfScale(value) {
  */
 export function setOriginalCanvasStyle(value) {
   originalCanvasStyle = value;
-  if (typeof window !== 'undefined') {
-    window.originalCanvasStyle = value;
-  }
 }
 
 /**
@@ -280,9 +232,6 @@ export function setOriginalCanvasStyle(value) {
  */
 export function setOriginalCanvasDisplay(value) {
   originalCanvasDisplay = value;
-  if (typeof window !== 'undefined') {
-    window.originalCanvasDisplay = value;
-  }
 }
 
 /**
@@ -291,9 +240,6 @@ export function setOriginalCanvasDisplay(value) {
  */
 export function setOriginalCanvasWidth(value) {
   originalCanvasWidth = value;
-  if (typeof window !== 'undefined') {
-    window.originalCanvasWidth = value;
-  }
 }
 
 /**
@@ -302,9 +248,6 @@ export function setOriginalCanvasWidth(value) {
  */
 export function setOriginalCanvasHeight(value) {
   originalCanvasHeight = value;
-  if (typeof window !== 'undefined') {
-    window.originalCanvasHeight = value;
-  }
 }
 
 /**
@@ -313,9 +256,6 @@ export function setOriginalCanvasHeight(value) {
  */
 export function setOriginalTextBandStyle(value) {
   originalTextBandStyle = value;
-  if (typeof window !== 'undefined') {
-    window.originalTextBandStyle = value;
-  }
 }
 
 /**
@@ -324,9 +264,6 @@ export function setOriginalTextBandStyle(value) {
  */
 export function setOriginalPdfControlStyle(value) {
   originalPdfControlStyle = value;
-  if (typeof window !== 'undefined') {
-    window.originalPdfControlStyle = value;
-  }
 }
 
 /**
@@ -335,9 +272,6 @@ export function setOriginalPdfControlStyle(value) {
  */
 export function setOriginalTextBandDisplay(value) {
   originalTextBandDisplay = value;
-  if (typeof window !== 'undefined') {
-    window.originalTextBandDisplay = value;
-  }
 }
 
 /**
@@ -346,9 +280,6 @@ export function setOriginalTextBandDisplay(value) {
  */
 export function setOriginalTextBandVisibility(value) {
   originalTextBandVisibility = value;
-  if (typeof window !== 'undefined') {
-    window.originalTextBandVisibility = value;
-  }
 }
 
 // =============================================================================
@@ -361,9 +292,6 @@ export function setOriginalTextBandVisibility(value) {
  */
 export function setOriginalTextBandParent(value) {
   originalTextBandParent = value;
-  if (typeof window !== 'undefined') {
-    window.originalTextBandParent = value;
-  }
 }
 
 /**
@@ -372,9 +300,6 @@ export function setOriginalTextBandParent(value) {
  */
 export function setOriginalTextBandNextSibling(value) {
   originalTextBandNextSibling = value;
-  if (typeof window !== 'undefined') {
-    window.originalTextBandNextSibling = value;
-  }
 }
 
 /**
@@ -383,9 +308,6 @@ export function setOriginalTextBandNextSibling(value) {
  */
 export function setOriginalPdfControlParent(value) {
   originalPdfControlParent = value;
-  if (typeof window !== 'undefined') {
-    window.originalPdfControlParent = value;
-  }
 }
 
 /**
@@ -394,9 +316,6 @@ export function setOriginalPdfControlParent(value) {
  */
 export function setOriginalPdfControlNextSibling(value) {
   originalPdfControlNextSibling = value;
-  if (typeof window !== 'undefined') {
-    window.originalPdfControlNextSibling = value;
-  }
 }
 
 /**
@@ -405,7 +324,4 @@ export function setOriginalPdfControlNextSibling(value) {
  */
 export function setOriginalPdfViewerStyle(value) {
   originalPdfViewerStyle = value;
-  if (typeof window !== 'undefined') {
-    window.originalPdfViewerStyle = value;
-  }
 }

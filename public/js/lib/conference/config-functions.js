@@ -1,18 +1,27 @@
-import { NBconnectedusers, Tconnectedusers } from './state.js';
+import { NBconnectedusers, Tconnectedusers } from './state/core.js';
 
 import { _ } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
+import { getCurrentConfig } from '../state/conference.js';
 
-import { ROOM_TOKEN } from './compat.js';
-import { zoomid, uncloudlink, uncloudhtmllink, targettab, inSlideTab, setLanguageInput } from './config.js';
+import { getRoomToken } from './compat.js';
+import { setLanguageInput } from './config.js';
 import { setLanguageSubtitle, PopulateSubtitlesLang, PopulateSpeechLang } from './voices.js';
 import { startChatPolling, saveTextQ } from '../chat/main.js';
+import { setupChatInput } from '../chat/input.js';
 import { Forward, Backward, SlideForward, SlideBackward, SkipForward, SkipBackward } from './navigation.js';
 import { Micro, showET, toggleTextBandDisplay } from './ui.js';
 import { togglePdfFullscreen, SlideNotesUncloud, SlideNotesUncloudHtml } from './pdf-viewer.js';
 import { exitPdfFullscreen, restoreCanvasStyles, saveCurrentCanvasStyles } from './pdf-fullscreen/core.js';
+
+// URL parameters - moved from config.js to break circular dependency
+let zoomid = '';
+let uncloudlink = '';
+let uncloudhtmllink = '';
+let targettab = 0;
+let inSlideTab = false;
 
 /** @module conference/config */
 
@@ -24,17 +33,21 @@ export function Lancer() {
 }
 
 export function Init() {
+  // Parse URL parameters for zoomid, uncloudlink, etc.
+  const urlParams = new URL(window.location.toLocaleString()).searchParams;
+  if (urlParams.has('ZOOMID')) zoomid = urlParams.get('ZOOMID');
+  if (urlParams.has('link')) uncloudlink = urlParams.get('link');
+  if (urlParams.has('htmllink')) uncloudhtmllink = urlParams.get('htmllink');
+  if (urlParams.has('tab')) targettab = parseInt(urlParams.get('tab')) || 0;
+  if (urlParams.has('tab')) inSlideTab = true;
+  if (urlParams.has('WhichTranslator')) _('whichtranslator').value = urlParams.get('WhichTranslator');
+
   if (_('subtitlelanguage')) PopulateSubtitlesLang();
   if (_('speechlanguage')) PopulateSpeechLang();
 
-  /*  _('question').addEventListener('keyup', function (event) {
-        if (event.code === 'Enter') {
-            saveTextQ(_('question').value);
-          event.preventDefault();
-          event.stopPropagation();
-        }
-      },false);
-    */
+  // Setup chat input Enter key handler
+  setupChatInput();
+
   // resizeSlides();
 
   document.addEventListener('keyup', function (event) {
@@ -118,10 +131,6 @@ export function Init() {
   if (uncloudlink != '') SlideNotesUncloud(uncloudlink);
   if (uncloudhtmllink != '') SlideNotesUncloudHtml(uncloudhtmllink);
   if (targettab > 0) _(`ttab-${targettab}`).click();
-
-  // Adjust a few parameters according to the url arguments
-  const base = new URL(window.location.toLocaleString()).searchParams;
-  if (base.has('WhichTranslator')) _('whichtranslator').value = base.get('WhichTranslator');
 }
 
 export function opentab_url(url) {
@@ -175,7 +184,7 @@ export function updateConfig() {
 }
 
 export function applyConfig() {
-  const config = window.pageData?.currentconfig;
+  const config = getCurrentConfig();
   if (!config || config.length < 2) return; // Seuls les 2 premiers caractères (langues) sont utilisés
 
   // classroomlanguage
@@ -206,7 +215,4 @@ export function sendclick() {
   _('question').value = '';
 }
 
-// Expose globally for inline event handlers
-if (typeof window !== 'undefined') {
-  window.sendclick = sendclick;
-}
+// Expose globally for inline event handlers - removed, use ES module imports instead

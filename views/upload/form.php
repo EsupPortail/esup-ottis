@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="./styles/index.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <script src="/js/translatepage.js"></script>
-    <script src="/js/matomo.js"></script>
+    <script type="module" src="/js/lib/i18n.js"></script>
+    <script src="/js/lib/analytics.js"></script>
 </head>
 <body>
     <h1>Upload Presentation File</h1>
 
     <form action="/upload/handle" method="POST" enctype="multipart/form-data">
-        <?php echo csrfField(); ?>
+        <?php echo \App\Utils\Csrf::field(); ?>
 
         <div>
             <label for="file">Select file (PPTX, PDF, TXT):</label>

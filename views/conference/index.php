@@ -19,7 +19,7 @@
 <body>
 <input type="hidden" id="classroomid" value="<?php echo $this->escape($classroomid); ?>">
 <input type="hidden" id="appid" value="<?php echo $this->escape($appid); ?>">
-<?php echo csrfField(); ?>
+<?php echo \App\Utils\Csrf::field(); ?>
 
 <div id="conference-main" class="conference-grid">
 
@@ -152,12 +152,32 @@
 </div>
 
 <!-- Conference-specific scripts -->
-<!-- Charger global.js EN PREMIER pour initialiser les variables globales avant les bibliothèques externes -->
-<script type="module" src="/js/lib/compat/global.js"></script>
-
 <?php foreach ($pageScripts as $script): ?>
-<script src="<?php echo $this->escape($script); ?>"></script>
+    <?php
+    echo "<!-- [TEMPLATE] Chargement: $script -->\n";
+    $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
+    $typeAttr = $isModule ? 'type="module"' : '';
+    echo "<!-- [TEMPLATE] Type: $typeAttr -->\n";
+    ?>
+    <script <?php echo $typeAttr; ?> src="<?php echo $this->escape($script); ?>"></script>
 <?php endforeach; ?>
+<!-- DOM and Network utilities - must load FIRST -->
+<script type="module" src="/js/lib/dom/selector.js"></script>
+<script type="module" src="/js/lib/dom/styles.js"></script>
+<script type="module" src="/js/lib/dom/visibility.js"></script>
+<script type="module" src="/js/lib/dom/layout.js"></script>
+<script type="module" src="/js/lib/dom/events.js"></script>
+<script type="module" src="/js/lib/dom/dialog.js"></script>
+<script type="module" src="/js/lib/network/utils.js"></script>
+<script type="module" src="/js/lib/network/xhr.js"></script>
+<script type="module" src="/js/lib/network/fetch.js"></script>
+<script type="module" src="/js/lib/network/counter.js"></script>
+<!-- Language utilities -->
+<script type="module" src="/js/lib/language/state.js"></script>
+<script type="module" src="/js/lib/language/management.js"></script>
+<!-- Chat utilities -->
+<script type="module" src="/js/lib/chat/state.js"></script>
+<script type="module" src="/js/lib/chat/utils.js"></script>
 <!-- Charger les autres dépendances -->
 <script type="module" src="/js/lib/utils/cleanup.js"></script>
 <script type="module" src="/js/lib/index.js"></script>

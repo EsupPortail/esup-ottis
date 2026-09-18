@@ -1,27 +1,25 @@
+import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
+import { getSubtitleLanguage } from '../state/conference.js';
 import {
-  builtin_language,
-  inputnumber,
   MaxSavedLines,
   NBconnectedusers,
   Tconnectedusers,
-  inputnumberQ,
-  subtitle_language,
-  lastPartialTranslation,
   setNBconnectedusers,
-  setInputnumberQ,
-  setInputnumber,
-  setNbnewQ,
-  setLastPartialTranslation,
   removeFromTconnectedusers,
-} from './state.js';
+  nbnewQ,
+  setNbnewQ
+} from './state/core.js';
+import { getInputNumber, setInputNumber, getInputNumberQ, setInputNumberQ } from '../state/shared.js';
+import { lastPartialTranslation, setLastPartialTranslation } from './state/translation.js';
 
 import { getNotebookContent, EventNewQuestion } from './utils.js';
-import { updateUsers } from './config.js';
-import { EcrireCR, AbortTimeout, ROOM_TOKEN } from './compat.js';
+import { updateUsers } from './config-functions.js';
+import { EcrireCR, AbortTimeout, getRoomToken } from './compat.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout, registerRequest } from '../utils/cleanup.js';
+import { getBasePath } from '../state/shared.js';
 
 /** @module conference/notebook */
 
@@ -174,23 +172,23 @@ export function saveText(ch) {
     return;
   }
 
-  let inputlanguage = builtin_language;
+  let inputlanguage = getBuiltinLanguage();
   if (ch.indexOf(':|:') >= 0) { // If there are a language indication
     const Tch = ch.split(':|:');
     inputlanguage = Tch[0];
     ch = Tch[1];
   }
   const f = new FormData();
-  f.append('lineid', inputnumber);
-  setInputnumber(inputnumber + 1);
+  f.append('lineid', getInputNumber());
+  setInputNumber(getInputNumber() + 1);
   f.append('text', ch);
   f.append('inputlanguage', inputlanguage);
   f.append('ROOMID', classroomIdElement.value);
   f.append('LastLines', MaxSavedLines);
-  f.append('room_token', ROOM_TOKEN);
+  f.append('room_token', getRoomToken());
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/save', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/save', {
     data: f,
     timeout: 10000,
     context: 'saveText',
@@ -201,8 +199,8 @@ export function saveText(ch) {
 }
 
 export function saveTextWithTranslation(sourceText, translatedText) {
-  const inputlanguage = builtin_language || '';
-  const targetLanguage = subtitle_language || '';
+  const inputlanguage = getBuiltinLanguage() || '';
+  const targetLanguage = getSubtitleLanguage() || '';
 
   // Ensure we have valid data before sending
   if (!inputlanguage || !targetLanguage || !sourceText) {
@@ -218,18 +216,18 @@ export function saveTextWithTranslation(sourceText, translatedText) {
   }
 
   const f = new FormData();
-  f.append('lineid', inputnumber);
-  setInputnumber(inputnumber + 1);
+  f.append('lineid', getInputNumber());
+  setInputNumber(getInputNumber() + 1);
   f.append('text', sourceText);
   f.append('inputlanguage', inputlanguage);
   f.append('targetlanguage', targetLanguage);
   f.append('translatedtext', translatedText);
   f.append('ROOMID', classroomIdElement.value);
   f.append('LastLines', MaxSavedLines);
-  f.append('room_token', ROOM_TOKEN);
+  f.append('room_token', getRoomToken());
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/save', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/save', {
     data: f,
     timeout: 10000,
     context: 'saveTextWithTranslation',
@@ -248,10 +246,10 @@ export function readTextQ() {
     const f = new FormData();
     f.append('lineid', 0);
     f.append('ROOMID', classroomidEl.value);
-    f.append('room_token', ROOM_TOKEN);
+    f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const request = createFetchRequest('POST', window.BASE_PATH + '/text/read-q', {
+    const request = createFetchRequest('POST', getBasePath() + '/text/read-q', {
       onSuccess(response) {
         const Told = response.responseText.split('\n');
         const k = 0;
@@ -260,7 +258,12 @@ export function readTextQ() {
           if (Told[i].split(';').length > 2) T.push(Told[i]);
         }
         const nbnewQ = 0;
-        for (let i = inputnumberQ; i < T.length; i++) {
+        const startIndex = getInputNumberQ();
+        // Update inputnumberQ immediately to prevent overlapping requests from reprocessing messages
+        if (T.length > startIndex) {
+          setInputNumberQ(T.length);
+        }
+        for (let i = startIndex; i < T.length; i++) {
           const L = T[i].split(';');
           // Safety check - ensure L has enough elements
           if (L.length < 3) continue;
@@ -272,26 +275,26 @@ export function readTextQ() {
           } else if (L[2].indexOf('[newstudentlived]') >= 0) {
             setNBconnectedusers(NBconnectedusers - 1);
             removeFromTconnectedusers(L[0]);
-            updateUsers();
+            if (typeof updateUsers === 'function') updateUsers();
           } else {
             setNbnewQ(nbnewQ + 1);
-            // Ensure L[1] exists and builtin_language is a string before accessing substr
-            if (L.length >= 2 && typeof builtin_language === 'string' && builtin_language && L[1] && L[1].substr) {
-              if (builtin_language.substr(0, 2) != L[1].substr(0, 2)) {
-                TranslateQ(L[2], builtin_language.substr(0, 2), L[1].substr(0, 2), L[0], i);
-              } else if (true) {
-                EcrireCR(L[0], L[2], i);
-              }
+            // Use same logic as defaultMessageHandler (builtin_voice.lang first)
+            const bv = getBuiltinVoice();
+            const bl = getBuiltinLanguage();
+            let currentLang = '';
+            if (typeof bv !== 'undefined' && bv && bv.lang) {
+              currentLang = bv.lang;
+            } else if (typeof bl !== 'undefined' && bl) {
+              currentLang = bl;
+            }
+            if (L.length >= 2 && currentLang && L[1] && L[1].substr && currentLang.substr(0, 2) !== L[1].substr(0, 2)) {
+              TranslateQ(L[2], currentLang.substr(0, 2), L[1].substr(0, 2), L[0], i);
             } else if (L.length >= 1) {
-              // Fallback if L[1] is missing
-              if (true) {
-                EcrireCR(L[0], L[2], i);
-              }
+              EcrireCR(L[0], L[2], i);
             }
           }
         }
         if (nbnewQ > 0) EventNewQuestion();
-        setInputnumberQ(T.length);
       },
       onError(response, context) {
         // Ignorer les timeouts de polling (comportement normal)
@@ -314,7 +317,7 @@ export function TranslateQ(ch, l, linput, name, order) {
   formData.append('langinput', linput);
   const classroomidEl = _('classroomid');
   formData.append('ROOMID', (classroomidEl && classroomidEl.value) ? classroomidEl.value : '');
-  formData.append('room_token', ROOM_TOKEN);
+  formData.append('room_token', getRoomToken());
 
   const whichtranslatorEl = _('whichtranslator');
   const whichtranslator = (whichtranslatorEl && whichtranslatorEl.value) ? whichtranslatorEl.value : '';
@@ -322,7 +325,7 @@ export function TranslateQ(ch, l, linput, name, order) {
 
   addCsrfToken(formData);
 
-  const request = createFetchRequest('POST', window.BASE_PATH + '/text/translate', {
+  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
     onSuccess(response) {
       try {
         const parsedResponse = JSON.parse(response.responseText);

@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="./styles/index.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <script src="/js/translatepage.js"></script>
-    <script src="/js/matomo.js"></script>
+    <script type="module" src="/js/lib/i18n.js"></script>
+    <script src="/js/lib/analytics.js"></script>
 </head>
 <body>
     <h1>Extract Content from Presentation</h1>
     <p>Format: <?php echo $this->escape($format ?? 'default'); ?></p>
 
     <form action="/extract/slides-notes" method="POST" enctype="multipart/form-data">
-        <?php echo csrfField(); ?>
+        <?php echo \App\Utils\Csrf::field(); ?>
 
         <input type="hidden" name="format" value="<?php echo $this->escape($format ?? 'default'); ?>">
 
