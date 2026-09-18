@@ -1,0 +1,479 @@
+/*
+Main stylesheet for Student application
+*/
+
+:root {
+    --black     : rgb(0  , 0  , 0  );
+    --blue      : rgb(52 , 82 , 255);
+    --dark-grey : rgb(81 , 89 , 97 );
+    --grey      : rgb(241, 242, 246);
+    --white     : rgb(255, 255, 255);
+}
+
+body {
+	top			: 0;
+	left		: 0;
+}
+
+select, input[type="text"], textarea, button {
+	border-radius : 7px;
+	margin		 : 1px;
+	padding		 : 2px;
+}
+
+button {
+	cursor		 : pointer;
+}
+
+input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+    border: 2px solid rgb(100,100,255);
+    border-radius: 3px;
+    background-color: white;
+    vertical-align: middle;
+    z-index: 21000;
+}
+
+input[type=checkbox]:checked {
+    background-color: rgb(100,100,255);
+    border-color: rgb(10,10,10);
+}
+
+input[type=checkbox]:hover {
+    border-color: rgba(100,100,255, 0.7);
+    background-color: rgba(100,100,255, 0.1);
+}
+
+.classselect {
+	width		 : 300px;
+	height		 : 40px;
+	font-family	 : Verdana,Arial,sans-serif;
+	font-size	 : 1em;
+	background-color : #2191c0;
+	color		 : #eaf5f7;
+}
+
+option {
+	font-family  : Verdana,Arial,sans-serif;
+	font-size	 : 1.5em;
+	color		 : black;
+	background-color : white;
+}
+
+option:hover {
+	color		 : white;
+	background-color : #acdd4a;
+}
+
+input[type=text] {
+	width		 : 500px;
+}
+
+#logonext {
+	position	 : fixed;
+	top			 : 5px;
+	right		 : 5px;
+	z-index		 : 1000;
+	display		 : none;
+}
+  
+/*
+#titre {
+    transition	 : 1s ease;
+    border-radius : 25px;
+    position	 : fixed;
+    bottom		 : 10px;
+    left		 : 20px;
+    width		 : 90%;
+    margin-left  : auto;
+    margin-right : auto;
+    min-height	 : 64px;
+    background-color : rgba(0,0,255,0.5);
+    color		 : white;
+    font-size	 : 18px;
+    font-family	 : helvetica, arial, sans-serif;
+    font-style	 : italic;
+    padding		 : 10px;
+    box-shadow   : 2px 2px 5px blue;
+    padding		 :auto;
+    justify-content : center;
+    align-items  : center;
+    z-index		 : 20000;
+    text-shadow  : 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+*/
+  
+#VOBanner {
+	transition	 : 1s ease;
+	transition-property : background-color, color, box-shadow, text-shadow, font-size;
+	transform	 : scale(0);
+	border-radius : 25px;
+	position	 : fixed;
+	top			 : 10px;
+	left		 : 20px;
+	width		 : 90%;
+	margin-left	 : auto;
+	margin-right : auto;
+	min-height	 : 64px;
+	background-color : rgba(0,0,255,0.5);
+	color		 : white;
+	font-size	 : 18px;
+	font-family	 : helvetica, arial, sans-serif;
+	font-style	 : italic;
+	padding		 : 10px;
+	box-shadow	 : 2px 2px 5px blue;
+	padding		 : auto;
+	justify-content : center;
+	align-items	 : center;
+	z-index		 : 20000;
+	text-shadow  : 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
+#VOBanner>span {
+	font-size	 : 0.7em;
+	font-style	 : italic;
+}
+
+#titre {
+	transition	 : 1s ease;
+	transition-property : background-color, color, box-shadow, text-shadow, font-size;
+	transform	 : scale(1);
+	border-radius : 25px;
+	position	 : fixed;
+	top			 : 10px;
+	left		 : 20px;
+	width		 : 90%;
+	margin-left	 : auto;
+	margin-right : auto;
+	min-height	 : 64px;
+	background-color : rgba(0,0,255,0.5);
+	color		 : white;
+	font-size 	 : 18px;
+	font-family	 : helvetica, arial, sans-serif;
+	font-style	 : italic;
+	padding		 : 10px;
+	box-shadow	 : 2px 2px 5px blue;
+	padding		 : auto;
+	justify-content : center;
+	align-items	 : center;
+	z-index		 : 20000;
+	text-shadow  : 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
+#soustitre {
+	transition	 : 1s ease;
+	position	 : fixed;
+	bottom		 : 0px;
+	left		 : 0px;
+	width		 : 100%;
+	height		 : 10px;
+	z-index		 : 20000;
+}
+
+#titre h1 {
+	text-align	 : center;
+	font-size	 : 1.5em;
+	font-weight	 : bold;
+}
+
+#micon,#questionicon,#FS {
+	transition	 : 0.5s ease;
+	/*
+  	position	 : fixed;
+	top		 	 : 5px;
+	right		 : 5px;
+  */
+	font-size	 : 36px;
+	z-index		 : 1000;
+	background-color : red;
+	border-radius : 10px;
+	width		 : 40px;
+	height		 : 40px;
+	margin		 : 5px auto 5px auto;
+	color		 : white;
+	text-align	 : center;
+	vertical-align : middle;
+	padding		 : auto;
+}
+
+#FS {
+	background-color : #2191c0 ;
+	position	 : fixed;
+	top			 : 0px;
+	right		 : 0px;
+	width		 : 50px;
+	height		 : 50px;
+	font-size	 : 50px;
+	z-index		 : 15000;
+	border-radius : 10px;
+	margin		 : auto;
+	color		 : white;
+	text-align	 : center;
+	vertical-align : middle;
+}
+
+#showmenu {
+	transition	 : 1s ease;
+	position	 : fixed;
+	top			 : 0px;
+	left		 : 0px;
+	color		 : white;
+	text-align	 : center;
+	font-size	 : 24px;
+	z-index		 : 12000;
+	display		 : block;
+}
+
+#showmenu:hover {
+	transform	 : scale(0.9);
+}
+
+#iconeMenu {
+	width		 : 36px;
+	height		 : 36px;
+}
+
+#micon {
+	position	 : fixed;
+	top			 : 0px;
+	right		 : 60px;
+	font-size	 : 16px;
+	z-index		 : 15000;
+	font-family	 : helvetica, arial, sans-serif;
+	background-color : red;
+	border-radius : 10px;
+	width		 : 50px;
+	height		 : 50px;
+	margin		 : auto;
+	color		 : white;
+	text-align	 : center;
+	vertical-align : middle;
+}
+
+#repeat {
+	position	 : fixed;
+	top			 : 0px;
+	right		 : 120px;
+	font-size	 : 16px;
+	z-index		 : 15000;
+	font-family	 : helvetica, arial, sans-serif;
+	background-color : green;
+	border-radius : 10px;
+	width		 : 50px;
+	height		 : 50px;
+	margin		 : auto;
+	color		 : white;
+	text-align	 : center;
+	vertical-align : middle;
+}
+
+.big {
+	font-size	 : 36px;
+	transform	 : scale(1.5) translateY(5px);
+}
+
+@media screen and (max-width: 500px) {
+	#showmenu {
+		display	 : block;
+	}
+}
+
+#tabs-0, #tabs-1, #tabs-2, #tabs-3 {
+	width		 : 100%;
+	padding	 : 20px;
+	box-sizing: border-box;
+}
+
+#question {
+	outline		 : none;
+	font-size	 : 1.5em;
+	font-style	 : italic;
+}
+  
+  /* CSS */
+.button-3 {
+	appearance	 : none;
+	background-color : #2ea44f;
+	border		 : 1px solid rgba(27, 31, 35, .15);
+	border-radius : 6px;
+	box-shadow	 : rgba(27, 31, 35, .1) 0 1px 0;
+	box-sizing	 : border-box;
+	color		 : #fff;
+	cursor	 	 : pointer;
+	display		 : inline-block;
+	font-family	 : -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+	font-size	 : 14px;
+	font-weight	 : 600;
+	line-height	 : 20px;
+	padding		 : 6px 16px;
+	position	 : relative;
+	text-align	 : center;
+	text-decoration : none;
+	user-select	 : none;
+	-webkit-user-select : none;
+	touch-action : manipulation;
+	vertical-align : middle;
+	white-space	 : nowrap;
+}
+
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+	box-shadow	 : none;
+	outline		 : none;
+}
+
+.button-3:hover {
+	background-color : #2c974b;
+}
+
+.button-3:focus {
+	box-shadow	 : rgba(46, 164, 79, .4) 0 0 0 3px;
+	outline		 : none;
+}
+
+.button-3:disabled {
+	background-color : #94d3a2;
+	border-color : rgba(27, 31, 35, .1);
+	color		 : rgba(255, 255, 255, .8);
+	cursor		 : default;
+}
+
+.button-3:active {
+	background-color : #298e46;
+	box-shadow	 : rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.checkbox-example {
+	width	 	 : 45px;
+	height		 : 15px;
+	background	 : #aaa;
+	margin		 : 20px 10px;
+	position	 : relative;
+	border-radius : 5px;
+}
+
+.checkbox-example label {
+	display		 : inline;
+	width		 : 18px;
+	height		 : 18px;
+	border-radius : 50%;
+	transition	 : all 0.5s ease;
+	cursor		 : pointer;
+	position	 : absolute;
+	top			 : -2px;
+	left		 : -3px;
+	background	 : red;
+}
+
+.checkbox-example input[type="checkbox"]:checked + label {
+	background-color : green;
+	left		 : 27px;
+}
+
+.wordcloud {
+	display		 : block;
+}
+
+@keyframes hithere {
+	from, to {
+		transform : translateX(0);
+	}
+
+	50% {
+		transform : translateX(10px);
+	}
+}
+
+#lilanguage {
+	animation	 : hithere 0.5s infinite;
+}
+
+#lisynthese {
+	animation	 : none;
+	display	 : inline;
+}
+
+#arrowlanguage, #arrowsynthesis {
+	transition	 : 1s ease;
+	display		 : inline;
+	font-family	 : helvetica, arial, sans-serif;
+	color		 : red;
+}
+
+#arrowsynthesis {
+	visibility	 : hidden;
+}
+
+#tmpmessage {
+	font-family  : arial, helvetica, sans-serif;
+	transition	 : 1s ease;
+	transform	 : scale(1);
+	transform-origin : top left;
+	background-color : #2C3F50;
+	border-radius : 5px;
+	color		 : white;
+	position	 : absolute;
+	top			 : 54px;
+	left		 : -5px;
+	padding		 : 1.125em 1.5em;
+	font-size	 : 1.25em;
+	border-radius : 1rem;
+	box-shadow	 : 0 0.125rem 0.5rem rgba(0, 0, 0, .3), 0 0.0625rem 0.125rem rgba(0, 0, 0, .2);
+	z-index		 : 30000;
+}
+
+#tmpmessage::before {
+	content		 : '';
+	position	 : absolute;
+	width		 : 0;
+	height		 : 0;
+	bottom		 : 100%;
+	left		 : 0.5em;
+	border		 : .75rem solid transparent;
+	border-top	 : none;
+	border-bottom-color : #2C3F50;
+	filter		 : drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
+}
+
+#slider_speed {
+	float		 : left;
+	clear		 : left;
+	width		 : 300px;
+	margin		 : 15px;
+}
+
+#custom-handle {
+	width		 : 30px;
+	text-align	 : center;
+}
+
+/* Titre fixe intégré au-dessus de Settings */
+#fixed-title {
+	transition		 : 1s ease;
+	transition-property : background-color, color, box-shadow, text-shadow, font-size;
+	border-radius : 25px;
+	width			 : 100%;
+	margin-top    : 10px;
+	margin-bottom : 20px;
+	min-height	 : 64px;
+	clear		 : both;
+	background-color : rgba(0,0,255,0.5);
+	color			 : white;
+	font-size		 : 18px;
+	font-family	 : helvetica, arial, sans-serif;
+	font-style	 : italic;
+	padding		 : 10px;
+	box-shadow	 : 2px 2px 5px blue;
+	text-shadow  : 2px 0 0 #00f, -2px 0 0 #00f, 0 2px 0 #00f, 0 -2px 0 #00f, 1px 1px #00f, -1px -1px 0 #00f, 1px -1px 0 #00f, -1px 1px 0 #00f;
+}
+
+#fixed-title h1 {
+	text-align	 : center;
+	font-size		 : 1.5em;
+	font-weight	 : bold;
+}

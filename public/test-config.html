@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test config.js</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Test de chargement de config.js</h1>
+    
+    <h2>Test 1: Avec type="module" (devrait fonctionner)</h2>
+    <script type="module" src="/js/lib/conference/config.js"></script>
+    
+    <h2>Test 2: Via conference/index.js (comme en production)</h2>
+    <script type="module" src="/js/lib/conference/index.js"></script>
+    
+    <h2>Test 3: Charger le store d'abord</h2>
+    <script type="module" src="/js/lib/state/store.js"></script>
+    <script type="module" src="/js/lib/state/shared.js"></script>
+    <script type="module" src="/js/lib/state/conference.js"></script>
+    <script type="module" src="/js/lib/conference/config.js"></script>
+    
+    <h2>Résultat</h2>
+    <p id="result"></p>
+    
+    <script>
+        // Vérifier si config.js a été chargé
+        setTimeout(() => {
+            document.getElementById('result').innerHTML = 
+                '<p style="color:green;">Si vous voyez ceci, les modules ES sont chargés correctement.</p>';
+        }, 1000);
+    </script>
+</body>
+</html>

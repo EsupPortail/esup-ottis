@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Test ES Modules OMIST</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 10px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { background-color: #d4edda; }
+        .error { background-color: #f8d7da; }
+    </style>
+</head>
+<body>
+    <h1>Test ES Modules OMIST</h1>
+
+    <div id="test1" class="test">Test 1: ES Module basique - <span id="test1-status">En attente...</span></div>
+    <div id="test2" class="test">Test 2: Export de fonction - <span id="test2-status">En attente...</span></div>
+    <div id="test3" class="test">Test 3: Avec import - <span id="test3-status">En attente...</span></div>
+    <div id="test4" class="test">Test 4: Import store - <span id="test4-status">En attente...</span></div>
+    <div id="test5" class="test">Test 5: Config-like - <span id="test5-status">En attente...</span></div>
+
+    <!-- Charger le store en premier -->
+    <script type="module" src="/js/lib/state/store.js"></script>
+    <script type="module" src="/js/lib/state/shared.js"></script>
+    <script type="module" src="/js/lib/state/conference.js"></script>
+    <script type="module" src="/js/lib/state/auditor.js"></script>
+
+    <!-- Tests -->
+    <script type="module">
+        // Test 1
+        import { test1Value } from '/js/test/test1-esm-basic.js';
+        document.getElementById('test1-status').textContent = '✅ SUCCESS: ' + test1Value;
+        document.getElementById('test1').classList.add('success');
+    </script>
+
+    <script type="module">
+        // Test 2
+        import { test2Function } from '/js/test/test2-export-function.js';
+        document.getElementById('test2-status').textContent = '✅ SUCCESS: ' + test2Function();
+        document.getElementById('test2').classList.add('success');
+    </script>
+
+    <script type="module">
+        // Test 3
+        import { test3Value } from '/js/test/test3-with-import.js';
+        document.getElementById('test3-status').textContent = '✅ SUCCESS: ' + test3Value;
+        document.getElementById('test3').classList.add('success');
+    </script>
+
+    <script type="module">
+        // Test 4
+        import { test4Value } from '/js/test/test4-store-import.js';
+        document.getElementById('test4-status').textContent = '✅ SUCCESS: ' + test4Value;
+        document.getElementById('test4').classList.add('success');
+    </script>
+
+    <script type="module">
+        // Test 5
+        import { test5Function, test5Value } from '/js/test/test5-config-like.js';
+        document.getElementById('test5-status').textContent = '✅ SUCCESS: ' + test5Function() + ', ' + test5Value;
+        document.getElementById('test5').classList.add('success');
+    </script>
+
+    <!-- Capture des erreurs -->
+    <script>
+        window.addEventListener('error', (event) => {
+            console.error('[ERROR EVENT]', event.error);
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('[UNHANDLED REJECTION]', event.reason);
+        });
+    </script>
+</body>
+</html>

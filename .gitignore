@@ -1,0 +1,69 @@
+# Ignore configuration and secret files
+config.php
+config OLD.php
+OMIST_Tools/config.py
+OMIST_Tools/configOT.php
+OMIST_Tools/config_database.php
+OMIST_Tools/config_sh
+tables/tokens.json
+# Ignore environment and local files
+.env
+.env.*
+# Ignore Node.js development files
+package.json
+package-lock.json
+public/js/package*.json
+
+# Ignore generated and temporary files
+OMIST_Tools/__pycache__/
+node_modules/
+tmp/
+.cache/
+.local/
+.config/
+.npm/
+.php-cs-fixer.cache
+.phpunit.result.cache
+js/coverage/
+js/cov
+public/js/coverage/
+public/js/tests/
+public/js/vitest.config.js
+scripts/test-js*.sh
+# Ignore pre-commit test files
+.pre-commit/
+
+# Ignore editor files
+*.swp
+*~
+
+# Ignore backup files
+*.bak
+
+# Ignore DS_Store files
+.DS_Store
+
+# Ignore Mistral Vibe configuration
+.vibe/
+AGENTS.md
+vibe-safe
+
+# Ignore test files
+public/test*.php
+public/test_*.php
+
+# Ignore test directory
+test/
+audit/
+
+# Ignore uploads directory
+uploads/
+
+# Ignore logs directory
+logs/
+
+# Composer
+vendor/
+composer.phar
+
+tables/tokens_OLD.json

@@ -1,0 +1,13 @@
+{
+    "index": {
+        "alertBrowser": "⚠️ ",
+        "conferenceTitle": "Conference",
+        "conferenceDesc": "Allows subtitling a conference in the chosen language.",
+        "conferenceButton": "Prepare the conference"
+    },
+    "scenarios":{
+        "aide": "Help on madoc",
+        "choix": "Choose your scenario",
+        "externe": "Are you extern to Nantes Université ?"
+    }
+}

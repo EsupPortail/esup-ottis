@@ -1,0 +1,63 @@
+# Apache configuration for OMIST Front Controller
+# This file routes all requests to the public/index.php Front Controller
+
+# Disable OPcache for debugging
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # If the request is for an existing file or directory in /public, serve it directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    RewriteCond %{REQUEST_FILENAME} -l
+    RewriteRule ^ - [L]
+    
+    # Serve index.php for all non-existing files/dirs with PATH_INFO
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [PT,L]
+    
+    # All 404s are handled by FallbackResource in root .htaccess
+</IfModule>
+
+# Custom error documents - Handled by FallbackResource in root .htaccess
+
+# Security: Disable directory listing
+Options -Indexes
+
+# Security: Protect sensitive files
+<FilesMatch "\.(env|log|sql|md|lock|yml|yaml|xml|ini|conf|config)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Set PHP version (if available)
+# Requires PHP 8.1+
+<IfModule mod_php.c>
+    AddHandler "php81-script" .php
+</IfModule>
+
+# Cache control for static files
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access 1 year"
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/svg+xml "access 1 year"
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType application/javascript "access 1 month"
+    ExpiresByType font/woff "access 1 month"
+    ExpiresByType font/woff2 "access 1 month"
+    ExpiresByType font/ttf "access 1 month"
+</IfModule>
+
+# Compress text files
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>

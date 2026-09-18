@@ -1,0 +1,31 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+    level: 5
+    stubFiles:
+        - tests/phpstan/stubs/GlobalConstants.php
+    paths:
+        - src
+        - Security
+        - config
+        - includes
+    excludePaths:
+        analyse:
+            - vendor/*
+            - node_modules/*
+            - tmp/*
+            - uploads/*
+            - Security/tmp/*
+            - Security/sanitize.php
+            - Security/validate.php
+            - Security/room_tokens.php
+            - Security/validate_room_token.php
+            - Security/init.php
+            - Security/load_env.php
+            - src/Controller/UploadController.php
+    inferPrivatePropertyTypeFromConstructor: true
+    reportUnmatchedIgnoredErrors: false
+    checkDynamicProperties: true
+    checkExtraArguments: true
+    treatPhpDocTypesAsCertain: false
