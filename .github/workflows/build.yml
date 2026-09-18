@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: composer:2.7
+      image: composer:latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction
+        run: composer install --prefer-dist --no-interaction ext-gd
 
       - name: Upload vendor artifact
         uses: actions/upload-artifact@v4
