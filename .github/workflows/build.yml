@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction ext-gd
+        run: apt install php-gd | composer require ext-gdcomposer install --prefer-dist --no-interaction
 
       - name: Upload vendor artifact
         uses: actions/upload-artifact@v4
