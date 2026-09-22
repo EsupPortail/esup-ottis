@@ -4,7 +4,8 @@
         "phpoffice/phppresentation": "^1.0",
         "phpoffice/common": "^1.0",
         "vlucas/phpdotenv": "^5.5",
-        "monolog/monolog": "^3.0"
+        "monolog/monolog": "^3.0",
+        "apereo/phpcas": "^1.6.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.13",

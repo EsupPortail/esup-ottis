@@ -1,4 +1,8 @@
 <?php
+if (!defined('APP_ROOT')) {
+    define('APP_ROOT', dirname(__DIR__));
+}
+
 /**
  * Gestion des tokens par ROOMID pour l'auditor
  * Permet l'accès multi-onglets/multi-appareils sans dépendre de la session PHP
@@ -11,7 +15,7 @@
  * @return string Le token généré
  */
 function generateRoomToken($roomid) {
-    $tokenDir = __DIR__ . '/tmp';
+    $tokenDir = APP_ROOT . '/tmp';
     $tokenFile = $tokenDir . '/room_token_' . basename($roomid);
     
     // Créer le répertoire tmp s'il n'existe pas
@@ -47,7 +51,7 @@ function generateRoomToken($roomid) {
  * @return bool True si le token est valide, false sinon
  */
 function validateRoomToken($roomid, $token) {
-    $tokenFile = __DIR__ . '/tmp/room_token_' . basename($roomid);
+    $tokenFile = APP_ROOT . '/tmp/room_token_' . basename($roomid);
     
     if (!file_exists($tokenFile)) {
         return false;
@@ -72,7 +76,7 @@ function validateRoomToken($roomid, $token) {
  * Nettoie les tokens expirés (24h)
  */
 function cleanupExpiredTokens() {
-    $tmpDir = __DIR__ . '/tmp';
+    $tmpDir = APP_ROOT . '/tmp';
     $now = time();
     $expiry = 24 * 3600; // 24 heures
     
@@ -96,7 +100,7 @@ function cleanupExpiredTokens() {
  * @param string $roomid L'identifiant de la salle
  */
 function cleanupRoomToken($roomid) {
-    $tokenFile = __DIR__ . '/tmp/room_token_' . basename($roomid);
+    $tokenFile = APP_ROOT . '/tmp/room_token_' . basename($roomid);
     if (file_exists($tokenFile)) {
         unlink($tokenFile);
     }
@@ -109,6 +113,6 @@ function cleanupRoomToken($roomid) {
  * @return bool True si un token valide existe
  */
 function hasValidRoomToken($roomid) {
-    $tokenFile = __DIR__ . '/tmp/room_token_' . basename($roomid);
+    $tokenFile = APP_ROOT . '/tmp/room_token_' . basename($roomid);
     return file_exists($tokenFile);
 }

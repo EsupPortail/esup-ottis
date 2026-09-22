@@ -132,7 +132,9 @@ function initMiconCompatibility() {
  */
 function initConferenceChatAlert() {
   safeSetTimeout(() => {
-    const userName = 'Intervenant';
+    const currentUser = globalThis.OMIST_USER || {};
+    const currentUserNameEl = document.getElementById('CurrentUserDisplayName');
+    const userName = currentUser.fullName || (currentUserNameEl && currentUserNameEl.value) || 'Intervenant';
     initChatAlert(userName);
   }, 500);
 }

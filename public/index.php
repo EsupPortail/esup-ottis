@@ -77,6 +77,55 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+$casConfigPath = APP_ROOT . '/config/cas.php';
+$casConfig = [];
+if (file_exists($casConfigPath)) {
+    $loadedConfig = require $casConfigPath;
+    if (is_array($loadedConfig)) {
+        $casConfig = $loadedConfig;
+    }
+}
+$casEnabled = (bool) ($casConfig['enabled'] ?? false);
+
+$currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$isProtectedRoute = $currentPath === '/' || $currentPath === '/conference' || str_starts_with($currentPath, '/conference/');
+$isAuditorRoute = $currentPath === '/auditor' || str_starts_with($currentPath, '/auditor/');
+
+if ($casEnabled && $isProtectedRoute) {
+    $casUser = $_SESSION['cas_user'] ?? null;
+    $casAttributes = $_SESSION['cas_attributes'] ?? [];
+
+    $affiliations = $casAttributes['eduPersonAffiliation'] ?? ($casAttributes['eduPersonPrimaryAffiliation'] ?? []);
+    if (!is_array($affiliations)) {
+        $affiliations = [$affiliations];
+    }
+
+    $allowedAffiliations = ['faculty', 'staff', 'employee', 'teacher'];
+    $hasAuthorizedAffiliation = false;
+
+    foreach ($affiliations as $affiliation) {
+        if ($affiliation === null || $affiliation === '') {
+            continue;
+        }
+
+        $normalizedAffiliation = strtolower(trim((string) $affiliation));
+        if (in_array($normalizedAffiliation, $allowedAffiliations, true)) {
+            $hasAuthorizedAffiliation = true;
+            break;
+        }
+    }
+
+    if (empty($casUser) || !$hasAuthorizedAffiliation) {
+        http_response_code(403);
+        echo '<h1>Accès interdit</h1><p>Cette zone est réservée au personnel et aux enseignants.</p>';
+        exit;
+    }
+}
+
+if ($casEnabled && $isAuditorRoute) {
+    // Route publique : accès libre, sans CAS.
+}
+
 // Fix for path preservation through Apache rewrite using PATH_INFO
 $pathInfo = $_SERVER['PATH_INFO'] ?? '';
 if (!empty($pathInfo)) {
@@ -124,6 +173,7 @@ $routes = [
     '/text/read' => [\App\Controller\TextController::class, 'read'],
     '/text/read-q' => [\App\Controller\TextController::class, 'readQ'],
     '/text/read-transcript-sub' => [\App\Controller\TextController::class, 'readTranscriptSub'],
+    '/room/metadata' => [\App\Controller\TextController::class, 'roomMetadata'],
     '/image/read' => [\App\Controller\ImageController::class, 'read'],
     '/text/save' => [\App\Controller\TextController::class, 'save'],
     '/text/translate' => [\App\Controller\TextController::class, 'translate'],
@@ -166,6 +216,7 @@ $router->post('/text/save-q', \App\Controller\TextController::class, 'saveQ');
 $router->post('/text/save', \App\Controller\TextController::class, 'save');
 $router->post('/text/translate', \App\Controller\TextController::class, 'translate');
 $router->post('/email/send', \App\Controller\EmailController::class, 'send');
+$router->get('/room/metadata', \App\Controller\TextController::class, 'roomMetadata');
 
 foreach ($routes as $path => $handler) {
     // Skip routes we already registered explicitly

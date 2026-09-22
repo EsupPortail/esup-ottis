@@ -78,9 +78,19 @@ class ConferenceController extends BaseController
 
         // Use services to load data
         $T_lang = LanguageLoader::load();
-        $roomToken = RoomTokenManager::generateRoomToken($classroomid);
+        $uid = $_SESSION['cas_user'] ?? RoomInfoService::getUserId('anonymous');
+        $uid = is_string($uid) && trim($uid) !== '' ? trim($uid) : 'anonymous';
+        $roomToken = RoomTokenManager::generateRoomToken($classroomid, $uid);
+        RoomTokenManager::setRoomOwnerUid($classroomid, $uid);
         $appid = RoomInfoService::generateAppId();
-        $uid = RoomInfoService::getUserId('anonymous');
+        $uid = trim($uid) !== '' ? trim($uid) : 'anonymous';
+        $casAttributes = $_SESSION['cas_attributes'] ?? [];
+        $givenName = trim((string) ($casAttributes['givenName'] ?? ''));
+        $sn = trim((string) ($casAttributes['sn'] ?? ''));
+        $currentUserDisplayName = trim($givenName . ' ' . $sn);
+        if ($currentUserDisplayName === '') {
+            $currentUserDisplayName = $uid;
+        }
         $ip = RoomInfoService::getClientIp();
 
         // Get DeepL statistics
@@ -108,18 +118,21 @@ class ConferenceController extends BaseController
         $jsVars = [
             'supportedlanguages' => $T_lang,
             'currentconfig' => $currentconfig,
-            'roomToken' => $roomToken
+            'roomToken' => $roomToken,
+            'intervenantUid' => $uid
         ];
 
         // Set all variables for the view
         $this->viewData['classroomid'] = $classroomid;
         $this->viewData['appid'] = $appid;
         $this->viewData['uid'] = $uid;
+        $this->viewData['currentUserDisplayName'] = $currentUserDisplayName;
         $this->viewData['T_lang'] = $T_lang;
         $this->viewData['Stats_DEEPL'] = $Stats_DEEPL;
         $this->viewData['percentage_DEEPL'] = $percentage_DEEPL;
         $this->viewData['currentconfig'] = $currentconfig;
         $this->viewData['wooclapaddress'] = $wooclapaddress;
+        $this->viewData['intervenantUid'] = $uid;
         $this->viewData['jsVars'] = $jsVars;
         $this->viewData['roomToken'] = $roomToken;
         $this->viewData['ip'] = $ip;

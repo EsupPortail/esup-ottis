@@ -3,7 +3,7 @@
  * Dependencies: colors.js (for ColorsForCR), ../dom/selector.js (for _), display.js (for EcrireCR)
  */
 import { _ } from '../dom/selector.js';
-import { EcrireCR } from './display.js';
+import { EcrireCR, isIntervenantSender } from './display.js';
 import { ColorsForCR } from '../colors.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 import { getInputNumberQ, setInputNumberQ, isSendInProgress, setSendInProgress } from '../state/shared.js';
@@ -37,7 +37,7 @@ const currentInputNumberQ = getInputNumberQ();
  * @param {boolean} isSpecial - Is this a special message
  * @param {string} specialType - Type of special message
  */
-export function defaultMessageHandler(who, text, lang, order, isSpecial, specialType) {
+export function defaultMessageHandler(who, text, lang, order, isSpecial, specialType, senderRole = '') {
   // Skip if message already displayed to prevent re-translation
   if (ScreenCR[order] !== undefined) {
     return;
@@ -83,10 +83,11 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
         && currentLang.substr(0, 2) !== lang.substr(0, 2)) {
 
     if (typeof TranslateQ === 'function') {
-      TranslateQ(text, currentLang.substr(0, 2), lang.substr(0, 2), who, order);
+      TranslateQ(text, currentLang.substr(0, 2), lang.substr(0, 2), who, order, senderRole);
     }
   } else {
-    EcrireCR(who, text, order);
+    const hasIntervenantIdentity = senderRole === 'intervenant' || (!senderRole && isIntervenantSender(who));
+    EcrireCR(who, text, order, hasIntervenantIdentity);
   }
 }
 
