@@ -51,7 +51,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
                     <li><a href="mailto:support-omist@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
                     <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu translate" data-key="scenarios.aide">Aide sur Madoc</span></a></li>
                     <li id="language_element">
-                        <select id="language-select" onchange="changeLanguage(this.value)">
+                        <select id="language-select">
                             <option value="fr" <?= ($language ?? 'fr') === 'fr' ? 'selected' : '' ?>>Français</option>
                             <option value="en" <?= ($language ?? 'fr') === 'en' ? 'selected' : '' ?>>English</option>
                         </select>

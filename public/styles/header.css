@@ -2,147 +2,168 @@
 @import url('../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css');
 
 :root {
-    --black     : rgb(0  , 0  , 0  );
-    --blue      : rgb(52 , 82 , 255);
-    --dark-grey : rgb(81 , 89 , 97 );
-    --grey      : rgb(241, 242, 246);
-    --white     : rgb(255, 255, 255);
+    --ottis-bg: #f4f4f6;
+    --ottis-header: #1c1c2e;
+    --ottis-orange: #c8692a;
+    --ottis-text: #1c1c2e;
+    --ottis-muted: #555;
+    --ottis-card: #ffffff;
+    --ottis-border: #e8e3dc;
+    --ottis-shadow: rgba(0, 0, 0, 0.07);
 }
 
-*::before { margin : unset; padding : unset; }
-*         { margin : unset; padding : unset; }
-*::after  { margin : unset; padding : unset; }
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 html {
-    height           : 100%; 
-    width            : 100%;
+    height: 100%;
+    width: 100%;
 }
 
 body {
-    height           : 100%; 
-    width            : 100%;
-    overflow         : auto;
-    background-image : url('/images/background-nantes-univ.png'); 
-    background-size  : cover; 
-    color            : var(--dark-grey);
-    font-family      : Source Sans Pro;
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f4f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-header {
-    height           : 6%; 
-    width            : 98%; 
-    padding          : 0 1%; 
-    display          : flex; 
-    flex-direction   : row;
-    align-items      : center;
-    background-color : var(--black);
-    color            : var(--white);
+header.ottis-header {
+    background-color: #1c1c2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
 }
 
-header * {
-    display          : flex; 
-    flex-direction   : inherit;
+.ottis-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    background-color: #1c1c2e;
 }
 
-header a {
-    justify-content  : center;
-    align-items      : center;
+.ottis-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
 }
 
-nav {
-    height           : 100%;
-    width            : 100%;
-    align-items      : center;
+.ottis-brand__logo {
+    width: 34px;
+    height: 34px;
+    background-color: #c8692a;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-nav > a {
-    height           : -webkit-fill-available; 
-    width            : fit-content;
+.ottis-brand__name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
 }
 
-#logoNU {
-    height           : 80%; 
+.ottis-nav__menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
 }
 
-menu {
-    width            : 30%;
-    position         : absolute; 
-    right            : 1%;
-    justify-content  : flex-end; 
-    align-items      : center;
-    gap              : 25px;
+.ottis-nav__menu a {
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.9;
+    transition: opacity 0.15s;
+    text-decoration: none;
 }
 
-menu li {
-    height           : 100%; 
+.ottis-nav__menu a:hover {
+    opacity: 0.7;
 }
 
-menu #google_translate_element {
-    height           : 100%; 
-    width            : fit-content;
-    margin           : 0 5%;
+.ottis-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
 }
 
-menu button {
-    height           : fit-content; 
-    width            : fit-content;
-    display          : flex; 
-    flex-direction   : row; 
-    gap              : 2.5%;
-    border           : none; 
-    border-radius    : 5px; 
-    border-color     : var(--black);
-    background-color : var(--white); 
-    color            : var(--dark-grey);
-    white-space      : nowrap;
+.ottis-language select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding-right: 4px;
 }
 
-menu button b {
-    padding          : 7px;
+.ottis-language select:focus {
+    outline: none;
 }
 
-menu a {
-    height           : 100%; 
-    width            : 100%;
-    padding          : 0 15%;
-    display          : flex; 
-    flex-direction   : column;
-    font-size        : 8pt;
-    white-space      : nowrap;
+.ottis-language svg {
+    pointer-events: none;
 }
 
-menu a:hover {
-    .icone-menu {
-      text-decoration: underline;
-    }
+.ottis-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 16px 40px;
+    gap: 24px;
 }
 
-menu a:focus {
-    .icone-menu {
-      text-decoration: underline;
-    } 
+.ottis-footer {
+    border-top: 1px solid #ddd;
+    background-color: #f4f4f6;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #666;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-menu a img {
-    height           : 30px; 
-    width            : 30px;
-    margin           : 2.5% 0 0;
+.ottis-footer__links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
-a {
-    background-color : inherit; 
-    color            : inherit;
-    cursor           : pointer;
+.ottis-footer a {
+    color: #666;
+    text-decoration: none;
 }
 
-/* "Rustine pour que cela fonctionne sur Firefox */
-#logoNU, #logoFrance2030, #logoPaysDeLaLoire, #logoNantesMetropole, #logoEUniWell, #logoNEXT {
-    height           : 30px; 
+.ottis-footer a:hover {
+    text-decoration: underline;
 }
 
-body.firefox-warning-active {
-    margin-top: 40px; /* Hauteur du bandeau + un peu de marge */
-}
 .alert-banner {
     background-color: #ff4444;
     color: white;
@@ -153,5 +174,23 @@ body.firefox-warning-active {
     left: 0;
     right: 0;
     z-index: 1000;
-    display: none; /* Masqué par défaut */
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .ottis-nav {
+        padding: 12px 20px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .ottis-nav__menu {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .ottis-footer {
+        padding: 14px 20px;
+    }
 }

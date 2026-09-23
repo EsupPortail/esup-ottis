@@ -91,14 +91,28 @@ export function getCurrentLanguage() {
 }
 
 /**
+ * Bind the language selector to the module-based translation logic.
+ */
+function bindLanguageSelector() {
+  const select = document.getElementById('language-select');
+  if (!select) return;
+
+  select.addEventListener('change', (event) => {
+    changeLanguage(event.target.value);
+  });
+}
+
+/**
  * Auto-initialize translations on DOM ready
  */
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     const lang = getCurrentLanguage();
     initTranslations(lang);
+    bindLanguageSelector();
   });
 } else {
   const lang = getCurrentLanguage();
   initTranslations(lang);
+  bindLanguageSelector();
 }
