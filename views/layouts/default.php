@@ -80,9 +80,6 @@
                             <option value="fr" <?php echo isset($language) && $language === 'fr' ? 'selected' : ''; ?>>FR</option>
                             <option value="en" <?php echo isset($language) && $language === 'en' ? 'selected' : ''; ?>>EN</option>
                         </select>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                            <path d="M3 4.5l3 3 3-3" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
                     </label>
                 </li>
             </menu>

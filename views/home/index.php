@@ -7,12 +7,12 @@
             <p class="translate" data-key="index.cardText">Ajoutez des sous-titres multilingues à votre intervention (avec ou sans support).</p>
         </div>
 
-        <button class="btn-primary" type="button">
+        <a class="btn-primary" href="/conference" aria-label="Démarrer l'outil">
             <span class="translate" data-key="index.cardButton">Démarrer l'outil</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-        </button>
+        </a>
     </div>
 
     <div class="accordion">
