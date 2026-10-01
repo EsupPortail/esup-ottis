@@ -96,11 +96,20 @@ export function EcrirePartial(ch) {
 
   // Mettre à jour l'interface
   if (ch != 'undefined' && ch != undefined) {
-    _('textBand').innerHTML = window.DOMPurify.sanitize(ch);
-    _('textfixe').innerHTML = window.DOMPurify.sanitize(ch);
+    const textBandEl = _('textBand');
+    if (textBandEl) {
+      textBandEl.innerHTML = window.DOMPurify.sanitize(ch);
+    }
+    const textfixeEl = _('textfixe');
+    if (textfixeEl) {
+      textfixeEl.innerHTML = window.DOMPurify.sanitize(ch);
+    }
     // Synchroniser avec partialtitre si la case est cochée (utilisation de partialtitre)
     if (_('usetextband') && _('usetextband').checked) {
-      _('partialtitre').innerHTML = window.DOMPurify.sanitize(ch);
+      const partialtitreEl = _('partialtitre');
+      if (partialtitreEl) {
+        partialtitreEl.innerHTML = window.DOMPurify.sanitize(ch);
+      }
     }
   }
 

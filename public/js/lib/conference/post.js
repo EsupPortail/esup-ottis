@@ -68,7 +68,7 @@ export function initQRCode() {
  * Initialize event listeners
  */
 export function initEventListeners() {
-  const bar = document.getElementById('bar');
+  const bar = document.getElementById('presentation-progress');
   if (bar) {
     bar.addEventListener('keydown', (e) => {
       e.preventDefault();

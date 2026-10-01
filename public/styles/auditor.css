@@ -182,7 +182,7 @@ input[type=text] {
 	font-weight	 : bold;
 }
 
-#micon,#questionicon,#FS {
+/* #micon,#questionicon,#FS {
 	transition	 : 0.5s ease;
 	/*
   	position	 : fixed;
@@ -196,7 +196,7 @@ input[type=text] {
 	width		 : 40px;
 	height		 : 40px;
 	margin		 : 5px auto 5px auto;
-	color		 : white;
+} */	color		 : white;
 	text-align	 : center;
 	vertical-align : middle;
 	padding		 : auto;
@@ -239,7 +239,7 @@ input[type=text] {
 	height		 : 36px;
 }
 
-#micon {
+/* #micon {
 	position	 : fixed;
 	top			 : 0px;
 	right		 : 60px;
@@ -251,7 +251,7 @@ input[type=text] {
 	width		 : 50px;
 	height		 : 50px;
 	margin		 : auto;
-	color		 : white;
+} */	color		 : white;
 	text-align	 : center;
 	vertical-align : middle;
 }

@@ -53,6 +53,12 @@ export function handleFileSelect(event) {
     return;
   }
 
+  // Masquer la section d'import une fois le fichier sélectionné
+  const importSection = _('import-section');
+  if (importSection) {
+    importSection.hidden = true;
+  }
+
   const progressBar = _('presentation-progress');
   const progressStatus = _('progress-status');
 
@@ -118,6 +124,16 @@ export function handleFileSelect(event) {
         if (progressStatus) {
           progressStatus.textContent = 'Displaying...';
         }
+        // Afficher le canvas et les contrôles PDF (ottis-live-area reste visible)
+        if (canvas) {
+          canvas.hidden = false;
+          canvas.style.display = 'block';
+        }
+        if (pdfControl) {
+          pdfControl.hidden = false;
+          pdfControl.style.display = 'block';
+        }
+        // pdf-viewer est déjà visible, ottis-live-area reste visible
         displayPDF(data.url);
       } else {
         showPresentationError(`Unexpected file type: ${data.file_type}`);

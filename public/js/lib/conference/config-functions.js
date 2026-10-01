@@ -40,7 +40,12 @@ export function Init() {
   if (urlParams.has('htmllink')) uncloudhtmllink = urlParams.get('htmllink');
   if (urlParams.has('tab')) targettab = parseInt(urlParams.get('tab')) || 0;
   if (urlParams.has('tab')) inSlideTab = true;
-  if (urlParams.has('WhichTranslator')) _('whichtranslator').value = urlParams.get('WhichTranslator');
+  if (urlParams.has('WhichTranslator')) {
+    const whichtranslatorEl = _('whichtranslator');
+    if (whichtranslatorEl) {
+      whichtranslatorEl.value = urlParams.get('WhichTranslator');
+    }
+  }
 
   if (_('subtitlelanguage')) PopulateSubtitlesLang();
   if (_('speechlanguage')) PopulateSpeechLang();

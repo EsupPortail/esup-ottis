@@ -16,6 +16,10 @@
             <link rel="stylesheet" href="<?php echo $this->escape($style); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
+    
+    <?php if (isset($isConferencePage) && $isConferencePage): ?>
+        <link rel="stylesheet" href="/styles/conference-new.css">
+    <?php endif; ?>
 
     <script>
         window.pageData = <?php echo json_encode($jsVars ?? []); ?>;
@@ -37,7 +41,7 @@
     <?php endif; ?>
 </head>
 
-<body <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
+<body class="<?php echo (isset($isConferencePage) && $isConferencePage) ? 'ottis-page-conference' : ''; ?>" <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
     <header class="ottis-header">
         <nav class="ottis-nav" aria-label="Navigation principale">
             <div class="ottis-nav__brand">
@@ -93,6 +97,10 @@
     <main class="ottis-main">
         <?php echo $content; ?>
     </main>
+
+    <?php if (isset($afterContentScripts)): ?>
+        <?php echo $afterContentScripts; ?>
+    <?php endif; ?>
 
     <footer class="ottis-footer">
         <span class="translate" data-key="footer.copyright">© Nantes Université - 2026</span>

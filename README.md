@@ -330,10 +330,10 @@ Le projet suit une **architecture MVC (Modèle-Vue-Contrôleur)** moderne avec :
 
 ## Licence
 
-Ce projet est distribué sous la licence **LGPL-3.0-only** (GNU Lesser General Public License version 3).
+Ce projet est distribué sous la licence **Apache 2.0**.
 
 - **Fichier** : [LICENSE](LICENSE)
-- **Résumé** : Vous pouvez utiliser, modifier et distribuer ce logiciel, sous réserve de maintenir la même licence pour les modifications.
+- **Résumé** : Vous pouvez utiliser, modifier et distribuer ce logiciel selon les termes de la licence Apache 2.0.
 - **Auteurs** : Jérémie Bourdon, Jeanne Dionisi (Nantes Université)
 
 ---

@@ -18,16 +18,20 @@ export function FullScreen() {
   _('recognitionon').checked = newCheckedState;
   setBuiltinRecognitionon(newCheckedState);
 
+  // Toggle l'état aria-pressed
+  const isPressed = mybox.getAttribute('aria-pressed') === 'true';
+  const newPressedState = !isPressed;
+  mybox.setAttribute('aria-pressed', newPressedState);
+  
+  // Mettre à jour le label
+  const newLabel = newPressedState ? 'Arrêter les sous-titres' : 'Lancer les sous-titres';
+  mybox.setAttribute('aria-label', newLabel);
+
   // Si on désactive le micro, arrêter la reconnaissance
   if (currentCheckedState && !newCheckedState) {
     if (!isBuiltinMicrosoftTranscriptionOn()) {
       builtin_recognition.abort();
     }
-  }
-  if (_('recognitionon').checked) {
-    mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
-  } else {
-    mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
   }
   if (isBuiltinMicrosoftTranscriptionOn()) {
     if (builtin_recognitionon) {
@@ -74,7 +78,6 @@ export function showET(obj, num) {
 }
 
 export function Micro() {
-  
   const mybox = _('micon');
   const recognitiononEl = _('recognitionon');
   
@@ -98,16 +101,20 @@ export function Micro() {
     return;
   }
 
+  // Toggle l'état aria-pressed
+  const isPressed = mybox.getAttribute('aria-pressed') === 'true';
+  const newPressedState = !isPressed;
+  mybox.setAttribute('aria-pressed', newPressedState);
+  
+  // Mettre à jour le label
+  const newLabel = newPressedState ? 'Arrêter les sous-titres' : 'Lancer les sous-titres';
+  mybox.setAttribute('aria-label', newLabel);
+
   // Si on désactive le micro, arrêter la reconnaissance
   if (currentCheckedState && !newCheckedState) {
     if (!isBuiltinMicrosoftTranscriptionOn()) {
       builtin_recognition.abort();
     }
-  }
-  if (_('recognitionon').checked) {
-    mybox.innerHTML = '<i class=\'material-icons blink\'>record_voice_over</i>';
-  } else {
-    mybox.innerHTML = '<i class=\'material-icons\'>voice_over_off</i>';
   }
   if (isBuiltinMicrosoftTranscriptionOn()) {
     if (builtin_recognitionon) {
@@ -162,30 +169,36 @@ export function toggleTextBandDisplay() {
     // Masquer textBand et textfixe, afficher partialtitre
     _('textBand').style.display = 'none';
     const partialtitre = _('partialtitre');
+    const textBand = _('textBand');
+    const textfixe = _('textfixe');
     if (partialtitre) {
       partialtitre.style.display = 'block';
       partialtitre.classList.remove('hidden');
     }
-    if (!hasPresentation) {
-      _('textfixe').style.display = 'none';
+    if (!hasPresentation && textfixe) {
+      textfixe.style.display = 'none';
     }
     // Synchroniser le contenu
-    if (partialtitre) {
-      partialtitre.innerHTML = window.DOMPurify.sanitize(_('textBand').innerHTML);
+    if (partialtitre && textBand) {
+      partialtitre.innerHTML = window.DOMPurify.sanitize(textBand.innerHTML);
     }
   } else {
     // Masquer partialtitre, afficher textBand et textfixe (si pas de presentation)
     const partialtitre = _('partialtitre');
+    const textBand = _('textBand');
+    const textfixe = _('textfixe');
     if (partialtitre) {
       partialtitre.style.display = 'none';
       partialtitre.classList.add('hidden');
     }
-    _('textBand').style.display = 'block';
-    if (!hasPresentation) {
-      _('textfixe').style.display = 'block';
+    if (textBand) {
+      textBand.style.display = 'block';
+    }
+    if (!hasPresentation && textfixe) {
+      textfixe.style.display = 'block';
       // Synchroniser le contenu de textfixe avec partialtitre
       if (partialtitre) {
-        _('textfixe').innerHTML = window.DOMPurify.sanitize(partialtitre.innerHTML);
+        textfixe.innerHTML = window.DOMPurify.sanitize(partialtitre.innerHTML);
       }
     }
   }
