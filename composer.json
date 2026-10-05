@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "phpoffice/phppresentation": "^1.0",
         "phpoffice/common": "^1.0",
         "vlucas/phpdotenv": "^5.5",
