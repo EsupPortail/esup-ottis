@@ -80,6 +80,19 @@ export let originalTextBandDisplay = '';
 export let originalTextBandVisibility = '';
 
 // =============================================================================
+// Variables pour live (ottis-live-area) - Remplace textBand
+// =============================================================================
+
+/** @type {string} */
+export let originalLiveStyle = '';
+
+/** @type {string} */
+export let originalLiveDisplay = '';
+
+/** @type {string} */
+export let originalLiveVisibility = '';
+
+// =============================================================================
 // Positions DOM originales (pour le mode plein écran)
 // =============================================================================
 
@@ -88,6 +101,12 @@ export let originalTextBandParent = null;
 
 /** @type {Element|null} */
 export let originalTextBandNextSibling = null;
+
+/** @type {Element|null} */
+export let originalLiveParent = null;
+
+/** @type {Element|null} */
+export let originalLiveNextSibling = null;
 
 /** @type {Element|null} */
 export let originalPdfControlParent = null;
@@ -283,6 +302,34 @@ export function setOriginalTextBandVisibility(value) {
 }
 
 // =============================================================================
+// Live Setters (ottis-live-area)
+// =============================================================================
+
+/**
+ * Set the originalLiveStyle value
+ * @param {string} value - The original live style
+ */
+export function setOriginalLiveStyle(value) {
+  originalLiveStyle = value;
+}
+
+/**
+ * Set the originalLiveDisplay value
+ * @param {string} value - The original live display value
+ */
+export function setOriginalLiveDisplay(value) {
+  originalLiveDisplay = value;
+}
+
+/**
+ * Set the originalLiveVisibility value
+ * @param {string} value - The original live visibility value
+ */
+export function setOriginalLiveVisibility(value) {
+  originalLiveVisibility = value;
+}
+
+// =============================================================================
 // PDF Fullscreen DOM Position Setters
 // =============================================================================
 
@@ -300,6 +347,22 @@ export function setOriginalTextBandParent(value) {
  */
 export function setOriginalTextBandNextSibling(value) {
   originalTextBandNextSibling = value;
+}
+
+/**
+ * Set the originalLiveParent value
+ * @param {Element|null} value - The original live parent element
+ */
+export function setOriginalLiveParent(value) {
+  originalLiveParent = value;
+}
+
+/**
+ * Set the originalLiveNextSibling value
+ * @param {Element|null} value - The original live next sibling element
+ */
+export function setOriginalLiveNextSibling(value) {
+  originalLiveNextSibling = value;
 }
 
 /**

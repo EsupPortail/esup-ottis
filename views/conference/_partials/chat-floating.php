@@ -35,8 +35,8 @@
         </form>
     </section>
 
-    <!-- Bouton FAB (Floating Action Button) -->
-    <button type="button" class="ottis-fab" id="fab" 
+    <!-- Bouton FAB (Floating Action Button) - temporairement caché -->
+    <button type="button" class="ottis-fab" id="fab" hidden
             aria-expanded="false" 
             aria-controls="chat" 
             aria-label="Tchat">

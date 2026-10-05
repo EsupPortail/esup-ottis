@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?php echo $this->escape($language ?? 'fr'); ?>">
+    <meta name="csrf-token" content="<?php echo \App\Utils\Csrf::generateToken(); ?>">
     <title><?php echo $this->escape($pageTitle ?? 'OTTIS'); ?></title>
     <link rel="icon" type="image/png" href="/images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">

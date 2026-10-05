@@ -61,12 +61,16 @@ export function handleFileSelect(event) {
 
   const progressBar = _('presentation-progress');
   const progressStatus = _('progress-status');
+  const dProg = _('d-prog');
 
   if (progressBar) {
     progressBar.value = 0;
   }
   if (progressStatus) {
     progressStatus.textContent = 'Preparing upload...';
+  }
+  if (dProg) {
+    dProg.hidden = false;
   }
 
   const pdfViewer = _('pdf-viewer');
@@ -90,7 +94,7 @@ export function handleFileSelect(event) {
     }
   }, 300);
 
-  fetch('/upload/handle', {
+  fetch('/upload', {
     method: 'POST',
     body: addCsrfToken(formData),
   })

@@ -3,7 +3,7 @@
 ini_set('opcache.enable', 0);
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 /**
  * Front Controller - Main entry point for the OMIST application
@@ -200,6 +200,8 @@ foreach ($routes as $path => $handler) {
 
 // For POST requests, register the same handlers
 // First, register explicit POST routes with specific action names
+$router->post('/upload', \App\Controller\UploadController::class, 'handle');
+$router->post('/upload/handle', \App\Controller\UploadController::class, 'handle');
 $router->post('/extract/transcription-sub', \App\Controller\ExtractController::class, 'transcriptionSub');
 $router->post('/extract/slides-notes', \App\Controller\ExtractController::class, 'slidesNotes');
 $router->post('/extract/slides-notes-txt', \App\Controller\ExtractController::class, 'slidesNotesTxt');
@@ -217,6 +219,7 @@ $router->post('/text/save', \App\Controller\TextController::class, 'save');
 $router->post('/text/translate', \App\Controller\TextController::class, 'translate');
 $router->post('/email/send', \App\Controller\EmailController::class, 'send');
 $router->get('/room/metadata', \App\Controller\TextController::class, 'roomMetadata');
+
 
 foreach ($routes as $path => $handler) {
     // Skip routes we already registered explicitly
@@ -269,7 +272,7 @@ if ($match !== null) {
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||
                                 str_starts_with($requestUri, '/image/') ||
-                                str_starts_with($requestUri, '/upload/') ||
+                                str_starts_with($requestUri, '/upload') ||
                                 str_starts_with($requestUri, '/auditor/') ||
                                 str_starts_with($requestUri, '/conference/') ||
                                 str_starts_with($requestUri, '/subtitles/') ||

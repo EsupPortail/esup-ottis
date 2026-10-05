@@ -320,6 +320,12 @@ export function displayPDF(url) {
               setHasSavedInitialDimensions(true);
             }
           }
+          
+          // Masquer la barre de progression une fois le PDF chargé
+          const dProg = get('d-prog');
+          if (dProg) {
+            dProg.hidden = true;
+          }
         });
       })
       .catch((error) => {

@@ -77,8 +77,9 @@ export function saveTextQ(ch) {
  * @returns {void}
  */
 export function startChatPolling() {
-  // Prevent multiple polling instances
-  if (isChatPollingStarted()) return;
+  // Polling DISABLED - Waiting for SSE migration to avoid PHP-FPM saturation
+  console.log("Chat polling DISABLED - Waiting for SSE migration");
+  return;
 
   const hasDialogChoose = !!document.getElementById('dialog-choose');
 

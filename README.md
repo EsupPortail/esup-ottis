@@ -97,7 +97,7 @@ mv composer.phar /usr/local/bin/composer
 composer install --no-dev --optimize-autoloader
 ```
 
-### 3️⃣ Configurer l'environnement
+### Configurer l'environnement
 
 ```bash
 # Copier le fichier d'exemple
@@ -112,11 +112,53 @@ nano tables/tokens.json
 ```
 
 
+
+
 ---
 
-## ⚙️ Configuration
+## Configuration
 
-### 📄 Fichier `.env`
+### Fichier php.ini
+
+upload_max_filesize = 50M
+post_max_size = 50M
+max_execution_time = 300
+max_input_time = 300
+
+
+### Fichier ottis.conf
+
+user = ottis
+group = www-data
+
+listen = /run/php/php-fpm.omist.sock
+
+listen.owner = www-data
+listen.group = www-data
+
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+; max_requests afin de permettre le renouvellement périodique des workers.
+pm.max_requests = 500 ;
+
+; Activer les access logs FPM et configurer un fichier error_log pour qu'il soit accessible par l'utilisateur du pool
+php_admin_value[error_log] = /home/omist/logs/fpm-error.log
+php_admin_flag[log_errors] = on
+
+; Limiter la mémoire
+php_admin_value[memory_limit]=512M
+
+; Upload settings
+php_admin_value[upload_max_filesize] = 50M
+php_admin_value[post_max_size] = 50M
+php_admin_value[max_execution_time] = 300
+php_admin_value[max_input_time] = 300
+
+
+### Fichier `.env`
 
 Copiez `.env.example` en `.env` et configurez **uniquement** les variables suivantes :
 
@@ -155,7 +197,7 @@ sudo a2enmod rewrite
 sudo systemctl restart apache2
 ```
 
-### 🔧 Configuration du VirtualHost (exemple)
+### Configuration du VirtualHost (exemple)
 
 ```apache
 <VirtualHost *:80>
@@ -205,7 +247,7 @@ php public/index.php
 ---
 
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```
 .
