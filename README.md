@@ -44,6 +44,7 @@
 | **Git** | 2.x | Contrôle de version | `sudo apt install git` |
 | **Make** | 4.x | Exécution des tâches | `sudo apt install make` |
 | **Unzip** | 6.x | Extraction des archives | `sudo apt install unzip` |
+| **ImageMagick** | 6.x ou 7.x | Conversion PDF → Images | `sudo apt install imagemagick` |
 
 ### Serveur Web
 
@@ -66,6 +67,12 @@
 | **[phpoffice/common](https://github.com/PHPOffice/Common)** | ^1.0 | Bibliotheque commune PHPOffice | Dépendance transitive de phppresentation |
 | **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `Security/init.php`, `public/index.php` |
 | **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.0 | Logging structuré | Utilisée dans `config/logging.php`, `Security/logger.php` |
+
+### Extensions PHP requises
+
+| Extension | Version | Rôle | Installation | Vérification |
+|-----------|---------|------|-------------|--------------|
+| **imagick** | latest | Conversion PDF → Images (via ImageMagick) | `sudo apt install php-imagick` + `sudo phpenmod imagick` | `php -m \| grep imagick` |
 
 
 ---
@@ -95,6 +102,11 @@ mv composer.phar /usr/local/bin/composer
 
 # Installer UNIQUEMENT les dépendances de production (pas de dev)
 composer install --no-dev --optimize-autoloader
+
+# Installer les extensions PHP requises
+sudo apt-get install -y php-imagick
+sudo phpenmod imagick
+sudo systemctl restart apache2
 ```
 
 ### Configurer l'environnement
@@ -124,6 +136,10 @@ upload_max_filesize = 50M
 post_max_size = 50M
 max_execution_time = 300
 max_input_time = 300
+
+# Imagick (pour la conversion PDF → Images)
+# Vérifier que l'extension est chargée
+extension=imagick
 
 
 ### Fichier ottis.conf
