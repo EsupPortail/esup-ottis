@@ -1,0 +1,17 @@
+----------- Général ----------
+Quelques détails de configuration pour "tokens".
+Les mots clés qui peuvent être définis sont "GOOGLETOKENS", "DEEPLPROTOKENS", "DEEPLFREETOKENS", "WHICHTRANSLATOR".
+Tous ces mots clés sont associés à des listes de valeurs qui sont des clés d'API pour les trois premiers et des mots clés de systèmes de traductions implémentés dans l'outil ("GOOGLE", "DEEPLPRO", "DEEPLFREE" ou "LIBRETRANSLATE").
+A chaque traduction, le système de traduction est choisi au hasard ainsi que la clé utilisée.
+Par défaut, le tirage aléatoire est uniforme mais il est possible de répéter plusieurs fois la même clé ou le même système dans la liste pour modifier les probabilités de tirages.
+Par exemple, si l'on souhaite utiliser le système DEEPLPRO 3 fois sur 4 et le système DEEPLFREE 1 fois sur 4, il suffit de définir le paramètre WHICHTRANSLATOR comme suit:
+"WHICHTRANSLATOR": ["DEEPLPRO", "DEEPLPRO", "DEEPLPRO", "DEEPLFREE"]
+
+Quelques détails de configuration pour "authorizedStudents".
+Par défaut, les étudiants de Nantes Université, dont le login ressemble à e22XXXXx ne sont pas autorisés à utiliser l'outil "Enseignant". Il est toutefois possible d'émettre des exceptions à cette règle en ajoutant le numéro d'étudiant (=login) à cette liste. Un numéro par ligne.
+
+Quelques détails de configuration pour "ListAdmin".
+Les droits par défaut des utilisateurs "personnels non étudiants de Nantes Université" sont définis par un score de 2 sur l'échelle 1, 2, 3.
+Ce fichier contient des couples "login;valeur droits". Les super utilisateurs et administrateurs de l'instance ont des droits égaux à 1, les extérieurs à Nantes Université ont des droits égaux à 3.
+
+

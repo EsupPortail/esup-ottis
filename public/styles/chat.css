@@ -1,0 +1,156 @@
+/* ============================================ */
+/* CHAT CONTAINER - Conteneur principal         */
+/* ============================================ */
+.chat-container {
+    border: solid 1px #ccc;
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 5px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+/* ============================================ */
+/* CHAT MESSAGE LIST - Liste des messages       */
+/* ============================================ */
+.chat-message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ============================================ */
+/* CHAT MESSAGES - Messages avec classes        */
+/* ============================================ */
+.chat-message {
+    padding: 8px 12px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 4px;
+    margin-left: 0;
+    border-radius: 5px;
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 85%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+.chat-message--system {
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+    margin-left: 5px;
+}
+
+.chat-message--intervenant {
+    background-color: rgb(0, 0, 255);
+    color: rgb(255, 255, 255);
+    margin-left: 5px;
+}
+
+.chat-message--user {
+    margin-left: 20px;
+}
+
+/* ============================================ */
+/* HOVER & ACCESSIBILITY                        */
+/* ============================================ */
+.chat-message:hover {
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+}
+
+/* ============================================ */
+/* INPUT AREA - Zone de saisie                 */
+/* ============================================ */
+.chat-input-container {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-input-container textarea {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 40px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.chat-send-button {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+/* ============================================ */
+/* CHAT ALERT - Notification indicator           */
+/* ============================================ */
+.chat-alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #ff5722;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    pointer-events: none;
+}
+
+.chat-alert-visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.chat-alert-blink {
+    background-color: #ff1744 !important;
+    animation: chatAlertPulse 0.5s ease;
+}
+
+.chat-alert-icon {
+    font-size: 28px;
+}
+
+.chat-alert-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ffffff;
+    color: #ff5722;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid #ff5722;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+@keyframes chatAlertPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}

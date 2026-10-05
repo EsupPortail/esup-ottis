@@ -1,0 +1,31 @@
+{
+    "index": {
+        "alertBrowser": "⚠️ You are using an unsupported browser. Some features may not display correctly. We recommend using <b>Chrome or Edge</b> for the best experience.",
+        "conferenceTitle": "Conference",
+        "conferenceDesc": "Allows subtitling a conference in the chosen language.",
+        "conferenceButton": "Prepare the conference",
+        "title": "OTTIS makes it easier to include your interventions",
+        "cardTitle": "Subtitle your live intervention",
+        "cardText": "Add multilingual subtitles to your intervention (with or without support).",
+        "cardButton": "Start the tool",
+        "accordionTitle": "Tips for optimal use of OTTIS",
+        "tip1": "For effective capture, avoid noisy environments and prefer a quality microphone (ideally: headset or lavalier mic).",
+        "tip2": "For better subtitle readability, keep sentences short and pause at the end of each sentence."
+    },
+    "nav": {
+        "contact": "Contact",
+        "help": "Help on Madoc"
+    },
+    "footer": {
+        "copyright": "© Nantes Université - 2026",
+        "mentions": "Legal notices",
+        "accessibility": "Accessibility: partially compliant",
+        "personalData": "Personal data",
+        "sitemap": "Sitemap"
+    },
+    "scenarios": {
+        "aide": "Help on Madoc",
+        "choix": "Choose your scenario",
+        "externe": "Are you external to Nantes Université?"
+    }
+}

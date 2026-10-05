@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css');
+
+:root {
+    --ottis-bg: #f4f4f6;
+    --ottis-header: #1c1c2e;
+    --ottis-orange: #c8692a;
+    --ottis-text: #1c1c2e;
+    --ottis-muted: #555;
+    --ottis-card: #ffffff;
+    --ottis-border: #e8e3dc;
+    --ottis-shadow: rgba(0, 0, 0, 0.07);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f4f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header.ottis-header {
+    background-color: #1c1c2e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.ottis-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    background-color: #1c1c2e;
+}
+
+.ottis-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.ottis-brand__logo {
+    width: 34px;
+    height: 34px;
+    background-color: #c8692a;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ottis-brand__name {
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+}
+
+.ottis-nav__menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+}
+
+.ottis-nav__menu a {
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.9;
+    transition: opacity 0.15s;
+    text-decoration: none;
+}
+
+.ottis-nav__menu a:hover {
+    opacity: 0.7;
+}
+
+.ottis-language {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+}
+
+.ottis-language select {
+    appearance: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+    padding-right: 4px;
+}
+
+.ottis-language select:focus {
+    outline: none;
+}
+
+.ottis-language svg {
+    pointer-events: none;
+}
+
+.ottis-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 16px 40px;
+    gap: 24px;
+}
+
+.ottis-footer {
+    border-top: 1px solid #ddd;
+    background-color: #f4f4f6;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #666;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ottis-footer__links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ottis-footer a {
+    color: #666;
+    text-decoration: none;
+}
+
+.ottis-footer a:hover {
+    text-decoration: underline;
+}
+
+.alert-banner {
+    background-color: #ff4444;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .ottis-nav {
+        padding: 12px 20px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .ottis-nav__menu {
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .ottis-footer {
+        padding: 14px 20px;
+    }
+}

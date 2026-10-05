@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('../libs/quickmenu/lib/font-awesome/css/font-awesome.min.css');
+
+:root {
+    --black         : rgb(0  , 0  , 0  );
+    --blue          : rgb(52 , 82 , 255);
+    --dark-grey     : rgb(81 , 89 , 97 );
+    --grey          : rgb(241, 242, 246);
+    --white         : rgb(255, 255, 255);
+}
+
+html,
+body {
+    font-family     : Source Sans Pro;
+    font-size       : 100%;
+}
+
+
+#micon {
+    align-content     : center;
+    position          : fixed;
+    top               :2%;
+    right             : 5%;
+    font-size         : 90%;
+    z-index           : 1000;
+    background-color  : red;
+    width             : 40%;
+    height            : 10%;
+    margin            : auto;
+    padding           : auto;
+    color             : var(--white);
+    text-align        : center;
+    vertical-align    : middle;
+}
+
+#micro_icon{
+    font-size         : 2.5em;
+}
+
+#titreleft,#titreright {
+    transition        : 1s ease;
+    position          : fixed;
+    top               : 70%;
+    width             : 40%;
+    margin-left       : auto;
+    margin-right      : auto;
+    height            : 10%;
+    background-color  : var(--blue);
+    color             : var(--white);
+    font-size         : 18px;
+    font-family       : Source Sans Pro;
+    font-style        : italic;
+    padding           : 0px;
+    padding           :auto;
+    justify-content   : center;
+    align-items       : center;
+    z-index           : 20000;
+    text-align        : center;
+    vertical-align    : middle;
+    font-size         : 2em;
+    font-weight       : bold;
+    align-content     : center;
+}
+
+#titreleft {
+    left              : 5%;
+}
+
+#titreright {
+    right             : 5%;
+}
+
+#skipleft,#skipright,#langdiv {
+    transition        : 1s ease;
+    position          : fixed;
+    top               : 83%;
+    width             : 40%;
+    margin-left       : auto;
+    margin-right      : auto;
+    height            : 5%;
+    color             : var(--white);
+    font-size         : 18px;
+    font-family       : Source Sans Pro;
+    font-style        : italic;
+    padding           : 0px;
+    padding           :auto;
+    justify-content   : center;
+    align-items       : center;
+    z-index           : 20000;
+    text-align        : center;
+    vertical-align    : middle;
+    font-size         : 2em;
+    font-weight       : bold;
+}
+
+#langdiv {
+    top               : 2%;
+    left              : 5%;
+    width             : 40%;
+    height            : 10%;
+    align-content     : center;
+    background-color  : var(--black);
+    font-style        : normal;
+}
+
+#skipleft {
+    left              : 5%;
+}
+
+#skipright {
+    right             : 5%;
+}
+
+#skipright, #skipleft{
+    background-color  : var(--blue);
+    opacity           : 0.5;
+    font-size         : 1.2em;
+    align-content     : center;
+}
+
+
+#speech_before, #speech_current, #speech_after {
+    width             : 90%;
+    height            : 15%;
+    left              : 5%;
+    position          : fixed;
+    margin            : auto;
+    background-color  : var(--dark-grey);
+    color             : var(--white);
+    font-family       : Source Sans Pro;
+    font-style        : italic;
+    padding           : 0px;
+    justify-content   : center;
+    align-items       : center;
+    z-index           : 20000;
+    text-align        : center;
+    vertical-align    : middle;
+    overflow          :hidden;
+}
+
+#speech_before {
+    top               : 15%;
+    font-size         : 0.8em;
+    height            : 13%;
+    background-color  : var(--grey);
+
+}
+#speech_current {
+    top               : 30%;
+    font-size         : 1em;
+    font-weight       : bold;
+    height            : 23%;
+    font-style        : normal;
+
+}
+#speech_after {
+    top               : 55%;
+    font-size         : 0.8em;
+    height            : 13%;
+    background-color  : var(--grey);
+}
+
+#speech_before, #speech_after{
+    color             : var(--black);
+}

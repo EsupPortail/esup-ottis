@@ -1,0 +1,23 @@
+# Fichiers tiers et minifiés
+qrcode.min.js
+matomo.js
+pdf-init.js
+carroussel.js
+
+# Dossiers de build
+dist/
+build/
+coverage/
+
+# Dossiers système
+node_modules/
+vendor/
+tmp/
+
+# Fichiers de configuration (sauf .eslintrc.json)
+!.eslintrc.json
+!.prettierrc.json
+!package.json
+
+# Fichiers générés
+*.min.js
