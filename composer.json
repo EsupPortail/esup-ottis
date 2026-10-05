@@ -1,11 +1,11 @@
 {
     "require": {
-        "php": "^8.1",
-        "phpoffice/phppresentation": "^1.0",
-        "phpoffice/common": "^1.0",
+        "php": "^8.2",
+        "phpoffice/phppresentation": "^1.2",
+        "phpoffice/common": "^1.1",
         "vlucas/phpdotenv": "^5.5",
-        "monolog/monolog": "^3.0",
-        "apereo/phpcas": "^1.6.1"
+        "monolog/monolog": "^3.5",
+        "apereo/phpcas": "^1.6.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.13",
@@ -24,5 +24,9 @@
         "psr-4": {
             "App\\": "src/"
         }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
     }
 }
