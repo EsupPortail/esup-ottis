@@ -67,9 +67,6 @@ class PPTXToHTMLSlidesConverter
         // Charger la présentation
         try {
             $presentation = IOFactory::load($pptxPath);
-            if (!$presentation instanceof PhpPresentation) {
-                throw new RuntimeException("Fichier non reconnu comme présentation PPTX");
-            }
         } catch (\Exception $e) {
             throw new RuntimeException("Erreur de chargement PPTX: " . $e->getMessage());
         }
@@ -176,16 +173,16 @@ class PPTXToHTMLSlidesConverter
     private static function renderShape($shape, array $imageMap): string
     {
         // Shape de texte (a getText method)
-        if (method_exists($shape, 'getText')) {
+        if (method_exists($shape, 'getText') && is_object($shape)) {
             $text = $shape->getText();
             if ($text === null || $text === '') {
                 return '';
             }
 
-            $x = $shape->getOffsetX();
-            $y = $shape->getOffsetY();
-            $w = $shape->getWidth();
-            $h = $shape->getHeight();
+            $x = (int) $shape->getOffsetX();
+            $y = (int) $shape->getOffsetY();
+            $w = (int) $shape->getWidth();
+            $h = (int) $shape->getHeight();
 
             // Récupérer le style de texte
             $font = null;
@@ -225,11 +222,12 @@ class PPTXToHTMLSlidesConverter
 
         // Shape d'image (Drawing - a path or image data)
         if (is_a($shape, '\PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter') ||
-            is_a($shape, '\PhpOffice\PhpPresentation\AbstractGraphic')) {
-            $x = $shape->getOffsetX();
-            $y = $shape->getOffsetY();
-            $w = $shape->getWidth();
-            $h = $shape->getHeight();
+            is_a($shape, '\PhpOffice\PhpPresentation\Shape\Drawing') ||
+            (class_exists('\PhpOffice\PhpPresentation\AbstractGraphic') && is_a($shape, '\PhpOffice\PhpPresentation\AbstractGraphic'))) {
+            $x = (int) $shape->getOffsetX();
+            $y = (int) $shape->getOffsetY();
+            $w = (int) $shape->getWidth();
+            $h = (int) $shape->getHeight();
 
             // Trouver l'image correspondante (utiliser la première disponible pour l'instant)
             if (!empty($imageMap)) {

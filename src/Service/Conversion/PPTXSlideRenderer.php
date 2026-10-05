@@ -115,10 +115,10 @@ class PPTXSlideRenderer
         // Priorité 2: essayer d'obtenir la taille depuis le slide layout
         else {
             try {
-                if (method_exists($slide, 'getSlideLayout') && $slide->getSlideLayout() !== null) {
-                    $slideLayout = $slide->getSlideLayout();
-                    if (method_exists($slideLayout, 'getSlideSize') && $slideLayout->getSlideSize() !== null) {
-                        $size = $slideLayout->getSlideSize();
+                $slideLayout = $slide->getSlideLayout();
+                if ($slideLayout !== null && method_exists($slideLayout, 'getSlideSize')) {
+                    $size = $slideLayout->getSlideSize();
+                    if ($size !== null) {
                         $width = $size->getX() ?: $this->defaultWidth;
                         $height = $size->getY() ?: $this->defaultHeight;
                     }
@@ -197,7 +197,7 @@ class PPTXSlideRenderer
             $this->renderTextShape($image, $shape);
         }
         // Shape d'image
-        elseif ($shape instanceof AbstractDrawing || $shape instanceof Graphic) {
+        elseif ($shape instanceof Graphic || (class_exists('\PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing') && $shape instanceof \PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing)) {
             $this->renderImageShape($image, $shape);
         }
         // Groupe de shapes
@@ -251,6 +251,9 @@ class PPTXSlideRenderer
 
         // Couleur de texte
         $textColor = imagecolorallocate($image, $fontColor['r'], $fontColor['g'], $fontColor['b']);
+        
+        // Couleur blanche pour comparaison
+        $white = imagecolorallocate($image, 255, 255, 255);
 
         // Déterminer la position du texte (approximative)
         // En GD, les coordonnées y commencent en haut à gauche
@@ -476,14 +479,6 @@ class PPTXSlideRenderer
             }
         }
         return ['r' => 0, 'g' => 0, 'b' => 0];
-    }
-
-    /**
-     * Dessine un rectangle
-     */
-    private function drawRectangle($image, int $x1, int $y1, int $x2, int $y2, int $color): void
-    {
-        imagerectangle($image, $x1, $y1, $x2, $y2, $color);
     }
 
     /**

@@ -94,9 +94,6 @@ class PPTXToPDFConverter
 
         // Charger la présentation
         $presentation = IOFactory::load($pptxPath);
-        if (!$presentation instanceof PhpPresentation) {
-            throw new \RuntimeException("Fichier non reconnu comme présentation PPTX");
-        }
 
         // Créer un répertoire temporaire pour les images
         $tempImagesDir = $this->tempDir . 'images_' . uniqid() . '/';

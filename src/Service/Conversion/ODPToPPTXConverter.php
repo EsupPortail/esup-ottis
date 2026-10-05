@@ -154,7 +154,7 @@ class ODPToPPTXConverter
     {
         // Créer une nouvelle slide
         $slide = $presentation->createSlide();
-        $slide->setSlideLayout(SlideLayout::TITLE_AND_CONTENT);
+        $slide->setSlideLayout(SlideLayout::TITLE);
 
         // Position de départ pour le contenu
         $y = 50;
@@ -167,7 +167,6 @@ class ODPToPPTXConverter
                 $titleText = $this->extractTextFromElement($titleElement);
                 if (!empty($titleText)) {
                     $titleShape = $slide->createRichTextShape();
-                    $titleShape->setText($titleText);
                     $titleShape->setOffsetX(50);
                     $titleShape->setOffsetY($y);
                     $titleShape->setWidth($maxWidth);
@@ -177,7 +176,10 @@ class ODPToPPTXConverter
                     $paragraph = $titleShape->getActiveParagraph();
                     $paragraph->getFont()->setSize(24);
                     $paragraph->getFont()->setBold(true);
-                    $paragraph->setAlignment(Alignment::HORIZONTAL_CENTER);
+                    $paragraph->setAlignment(new Alignment(Alignment::HORIZONTAL_CENTER));
+                    
+                    // Ajouter le texte
+                    $paragraph->createTextRun($titleText);
                     
                     $y += 70;
                 }
@@ -190,11 +192,14 @@ class ODPToPPTXConverter
             $text = $this->extractTextFromElement($textElement);
             if (!empty($text)) {
                 $shape = $slide->createRichTextShape();
-                $shape->setText($text);
                 $shape->setOffsetX(50);
                 $shape->setOffsetY($y);
                 $shape->setWidth($maxWidth);
                 $shape->setHeight(40);
+                
+                // Ajouter le texte via un paragraph
+                $paragraph = $shape->getActiveParagraph();
+                $paragraph->createTextRun($text);
                 
                 $y += 50;
             }

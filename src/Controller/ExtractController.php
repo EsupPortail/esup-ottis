@@ -463,14 +463,14 @@ class ExtractController extends BaseController
         $imageFiles = [];
 
         try {
-            if (extension_loaded('imagick') && class_exists('Imagick')) {
-                $imagick = new Imagick();
+            if (extension_loaded('imagick') && class_exists('\Imagick')) {
+                $imagick = new \Imagick();
                 $imagick->setResolution(100, 100);
                 $imagick->readImage($pdfFile);
 
                 foreach ($imagick as $pageNumber => $page) {
                     $page->setImageFormat('jpg');
-                    $page->resizeImage(1024, 768, Imagick::FILTER_LANCZOS, 1);
+                    $page->resizeImage(1024, 768, \Imagick::FILTER_LANCZOS, 1);
                     $filename = $imagesDir . '/slide-' . str_pad($pageNumber, 3, '0', STR_PAD_LEFT) . '.jpg';
                     $page->writeImage($filename);
                     $imageFiles[] = basename($filename);
@@ -490,7 +490,7 @@ class ExtractController extends BaseController
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             error_log('PDF to image conversion failed: ' . $e->getMessage());
         }
 
