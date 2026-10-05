@@ -39,6 +39,11 @@ class RoomInfoService
      */
     public static function getUserId(string $default = 'anonymous'): string
     {
+        $sessionUid = $_SESSION['cas_user'] ?? ($_SESSION['uid'] ?? null);
+        if (is_string($sessionUid) && trim($sessionUid) !== '') {
+            return trim($sessionUid);
+        }
+
         $uid = $_SERVER['PHP_AUTH_USER'] ?? '';
 
         if (empty($uid)) {

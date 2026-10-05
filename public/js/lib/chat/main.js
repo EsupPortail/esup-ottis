@@ -28,23 +28,37 @@ export function readTextQ(roomId, onRateLimit, onSuccess) {
  * @returns {void}
  */
 export function saveTextQ(ch) {
-  // Determine sender name based on context
-  let senderName = 'User Unknown';
+  // Determine sender identity based on the authenticated user when available.
+  let senderName = 'Intervenant';
+  let senderUid = 'intervenant';
   let roomId = '';
   let language = '';
 
-  // Try to get from different possible contexts
   const auditorNameEl = _('AuditorName');
   const classroomIdEl = _('classroomid');
-  
-  if (auditorNameEl && auditorNameEl.value) {
+  const currentUserNameEl = document.getElementById('CurrentUserDisplayName');
+  const currentUser = globalThis.OMIST_USER || {};
+
+  if (currentUser.fullName) {
+    senderName = currentUser.fullName;
+  } else if (currentUserNameEl && currentUserNameEl.value) {
+    senderName = currentUserNameEl.value;
+  } else if (auditorNameEl && auditorNameEl.value) {
     senderName = auditorNameEl.value;
   }
-  
+
+  if (currentUser.uid) {
+    senderUid = currentUser.uid;
+  } else if (currentUserNameEl && currentUserNameEl.value) {
+    senderUid = currentUserNameEl.value;
+  } else if (auditorNameEl && auditorNameEl.value) {
+    senderUid = auditorNameEl.value;
+  }
+
   if (classroomIdEl && classroomIdEl.value) {
     roomId = classroomIdEl.value;
   }
-  
+
   const voice = getBuiltinVoice();
   const lang = getBuiltinLanguage();
   if (voice && voice.lang) {
@@ -53,16 +67,8 @@ export function saveTextQ(ch) {
     language = lang;
   }
 
-  // For conference (teacher), use Intervenant
-  if (roomId && (senderName === 'User Unknown' || senderName === 'Student ')) {
-    // Check if this is a conference/teacher context
-    if (classroomIdEl) {
-      // This might be conference - use Intervenant
-      senderName = 'Intervenant';
-    }
-  }
-
-  saveTextQCommon(ch, senderName, roomId, language);
+  const senderRole = currentUser.isIntervenant ? 'intervenant' : 'auditor';
+  saveTextQCommon(ch, `${senderUid}:${senderName}`, roomId, language, senderRole);
 }
 
 /**

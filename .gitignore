@@ -67,3 +67,5 @@ vendor/
 composer.phar
 
 tables/tokens_OLD.json
+
+README_OLD.md

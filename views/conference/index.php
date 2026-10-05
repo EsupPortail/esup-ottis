@@ -12,6 +12,18 @@
 
     <script>
         window.pageData = <?php echo json_encode($jsVars); ?>;
+        const intervenantName = <?php echo json_encode($currentUserDisplayName ?? $uid ?? ''); ?>;
+        const intervenantUid = <?php echo json_encode($uid ?? 'anonymous'); ?>;
+        globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
+            fullName: intervenantName,
+            uid: intervenantUid,
+            isIntervenant: true
+        });
+        globalThis.ROOM_OWNER_UID = intervenantUid;
+        window.pageData = Object.assign(window.pageData || {}, {
+            intervenantName,
+            roomOwnerUid: intervenantUid
+        });
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
@@ -19,6 +31,7 @@
 <body>
 <input type="hidden" id="classroomid" value="<?php echo $this->escape($classroomid); ?>">
 <input type="hidden" id="appid" value="<?php echo $this->escape($appid); ?>">
+<input type="hidden" id="CurrentUserDisplayName" value="<?php echo $this->escape($currentUserDisplayName ?? $uid ?? ''); ?>">
 <?php echo \App\Utils\Csrf::field(); ?>
 
 <div id="conference-main" class="conference-grid">

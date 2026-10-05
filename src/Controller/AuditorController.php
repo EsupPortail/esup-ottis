@@ -35,8 +35,9 @@ class AuditorController extends BaseController
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');
 
-        // Generate room token
+        // Generate room token and recover the room owner uid from the shared room metadata.
         $roomToken = RoomTokenManager::generateRoomToken($classroomid);
+        $intervenantUid = RoomTokenManager::getRoomOwnerUid($classroomid);
 
         // Use services to load data
         $T_lang = LanguageLoader::load();
@@ -54,7 +55,9 @@ class AuditorController extends BaseController
             'classroomid' => $classroomid,
             'theme' => $theme,
             'randomname' => $randomname,
-            'currentconfig' => $currentconfig
+            'currentconfig' => $currentconfig,
+            'intervenantUid' => $intervenantUid,
+            'roomOwnerUid' => $intervenantUid,
         ];
 
         // Set page data
@@ -65,6 +68,7 @@ class AuditorController extends BaseController
         $this->viewData['theme'] = $theme;
         $this->viewData['T_lang'] = $T_lang;
         $this->viewData['currentconfig'] = $currentconfig;
+        $this->viewData['intervenantUid'] = $intervenantUid;
         $this->viewData['jsVars'] = $jsVars;
 
         // Define styles for this page

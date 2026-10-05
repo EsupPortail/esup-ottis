@@ -14,6 +14,20 @@
     <script>
         window.pageData = <?php echo json_encode($jsVars); ?>;
         window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
+        const auditorName = <?php echo json_encode($randomname ?? ''); ?>;
+        const auditorUid = <?php echo json_encode($randomname ?? 'auditor'); ?>;
+        const intervenantUid = <?php echo json_encode($intervenantUid ?? null); ?>;
+        globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
+            fullName: auditorName,
+            uid: auditorUid,
+            isIntervenant: false
+        });
+        globalThis.ROOM_OWNER_UID = window.pageData?.roomOwnerUid || intervenantUid || null;
+        window.pageData = Object.assign(window.pageData || {}, {
+            roomOwnerUid: globalThis.ROOM_OWNER_UID,
+            intervenantUid: intervenantUid,
+            intervenantName: null
+        });
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>

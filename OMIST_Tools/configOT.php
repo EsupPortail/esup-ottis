@@ -1,4 +1,0 @@
-<?php
-// $DATABASETYPE="fakeDB";
-$DATABASETYPE="";
-?>

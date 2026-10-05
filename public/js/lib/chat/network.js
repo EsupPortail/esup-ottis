@@ -22,7 +22,7 @@ import { _ } from '../dom/selector.js';
  * @param {string} language - The language code
  * @returns {void}
  */
-export function saveTextQCommon(ch, senderName, roomId, language) {
+export function saveTextQCommon(ch, senderName, roomId, language, senderRole = 'auditor') {
   increasependingrequests();
 
   const f = new FormData();
@@ -30,6 +30,7 @@ export function saveTextQCommon(ch, senderName, roomId, language) {
   f.append('text', ch);
   f.append('inputlanguage', language || '');
   f.append('ROOMID', roomId || '');
+  f.append('sender_role', senderRole || 'auditor');
 
   // Ajouter le token pour l'auditeur (multi-onglets)
   const roomToken = getRoomToken();
@@ -126,7 +127,11 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
         if (L.length >= 3) {
           const who = L[0] || '';
           const lang = L[1] || '';
-          const text = L[2] || '';
+          const roleToken = (L[L.length - 1] || '').trim().toLowerCase();
+          const hasExplicitRole = ['intervenant', 'auditor'].includes(roleToken);
+          const senderRole = hasExplicitRole ? roleToken : '';
+          const textParts = hasExplicitRole ? L.slice(2, -1) : L.slice(2);
+          const text = textParts.join(';');
           let isSpecial = false;
           let specialType = '';
 
@@ -146,7 +151,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
           // Skip ROBOT messages, but pass everything else including special messages
           if (who !== 'ROBOT') {
             if (messageHandler) {
-              messageHandler(who, text, lang, i, isSpecial, specialType);
+              messageHandler(who, text, lang, i, isSpecial, specialType, senderRole);
             }
           }
         }
@@ -193,7 +198,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
  * @param {number} order - Message order
  * @returns {void}
  */
-export function TranslateQ(ch, targetLang, sourceLang, name, order) {
+export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole = '') {
   const classroomIdEl = _('classroomid');
   const roomid = classroomIdEl ? classroomIdEl.value : '';
 
@@ -203,6 +208,9 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
   f.append('langinput', sourceLang);
   f.append('ROOMID', roomid);
   f.append('room_token', getRoomToken());
+  if (senderRole) {
+    f.append('sender_role', senderRole);
+  }
 
   increasependingrequests();
 
@@ -217,23 +225,23 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
         if (!parsedResponse.error && parsedResponse.data && parsedResponse.data.translations && parsedResponse.data.translations[0]) {
           const translation = parsedResponse.data.translations[0].text;
           if (translation) {
-            EcrireCR(name, translation, order);
+            EcrireCR(name, translation, order, senderRole === 'intervenant');
           } else {
             // Fallback to original text
             if (ScreenCR[order] === undefined) {
-              EcrireCR(name, ch, order);
+              EcrireCR(name, ch, order, senderRole === 'intervenant');
             }
             console.error('Translation ERROR - No translation text found, not displaying original to avoid overwrite:', ch);
           }
         } else {
           if (ScreenCR[order] === undefined) {
-            EcrireCR(name, ch, order);
+            EcrireCR(name, ch, order, senderRole === 'intervenant');
           }
           console.error('Translation ERROR - Response:', parsedResponse, 'Raw:', response.responseText);
         }
       } catch (e) {
         if (ScreenCR[order] === undefined) {
-          EcrireCR(name, ch, order);
+          EcrireCR(name, ch, order, senderRole === 'intervenant');
         }
         console.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
       }
@@ -243,7 +251,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order) {
       // Ne pas afficher le texte original si le message existe déjà
       // (le message a peut-être déjà été affiché traduit par une autre requête)
       if (ScreenCR[order] === undefined) {
-        EcrireCR(name, ch, order);
+        EcrireCR(name, ch, order, senderRole === 'intervenant');
       }
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {

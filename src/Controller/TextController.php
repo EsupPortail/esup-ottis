@@ -216,6 +216,22 @@ class TextController extends BaseController
      * @throws \RuntimeException When CSRF validation fails
      * @return void
      */
+    public function roomMetadata(): void
+    {
+        $roomid = trim((string) ($this->getParam('ROOMID', '') ?: $this->getParam('roomId', '')));
+
+        if ($roomid === '' || !preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)) {
+            $this->jsonResponse(['error' => 'ROOMID invalide'], 400);
+        }
+
+        $ownerUid = \App\Security\RoomTokenManager::getRoomOwnerUid($roomid);
+
+        $this->jsonResponse([
+            'roomId' => $roomid,
+            'roomOwnerUid' => $ownerUid,
+        ]);
+    }
+
     public function save(): void
     {
         // Validate CSRF token
@@ -348,6 +364,10 @@ class TextController extends BaseController
         $lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $lang);
 
         $text = $_POST['text'];
+        $senderRole = strtolower(trim((string)($_POST['sender_role'] ?? $_POST['role'] ?? '')));
+        if (!in_array($senderRole, ['intervenant', 'auditor'], true)) {
+            $senderRole = 'auditor';
+        }
 
         // Security: Limit text length to prevent DoS (10KB max)
         if (strlen($text) > 10240) {
@@ -368,10 +388,10 @@ class TextController extends BaseController
             $this->jsonResponse(['error' => 'Server configuration error'], 500);
         }
 
-        // Save to file
+        // Save to file with explicit server-side role metadata.
         $fd = fopen($tmpDir . '/LinkQuestions_' . $roomid, 'a');
         if ($fd) {
-            fputs($fd, $ligneID . ';' . $lang . ';' . $text . "\n");
+            fputs($fd, $ligneID . ';' . $lang . ';' . $text . ';' . $senderRole . "\n");
             fclose($fd);
             $this->jsonResponse(['success' => true]);
         } else {
