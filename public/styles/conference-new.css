@@ -621,12 +621,39 @@ progress::-moz-progress-bar {
 
 /* PDF Viewer - conteneur flex pour empiler canvas et live-area verticalement */
 .ottis-pdf-viewer {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     margin: 0 auto;
     max-height: calc(100vh - 200px);
+}
+
+.ottis-pdf-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 0.4rem;
+    background: var(--navy);
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(5,21,53,0.3);
+}
+
+.ottis-pdf-close svg {
+    width: 16px;
+    height: 16px;
+}
+
+.ottis-pdf-close:hover {
+    background: var(--navy2);
 }
 .ottis-pdf-viewer canvas {
     display: block;

@@ -43,6 +43,12 @@
     <div id="ottis-import" class="ottis-import-container">
         <!-- Visualiseur PDF -->
         <div id="pdf-viewer" class="ottis-pdf-viewer">
+            <!-- Bouton pour fermer la présentation - caché par défaut -->
+            <button type="button" class="ottis-pdf-close" id="pdf-close-btn" hidden aria-label="Fermer la pr&eacute;sentation">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
             <!-- Canvas caché par défaut, sera affiché à l'import -->
             <canvas id="pdf-canvas" hidden></canvas>
             <div id="pdf-control" class="ottis-pdf-control" hidden>
@@ -64,18 +70,19 @@
                     <input type="number" id="pdf-page-input" min="1" aria-label="Go to page number" style="width: 40px;">
                 </div>
             </div>
-            <section class="ottis-live-area" id="live" aria-label="Bloc de sous-titrage">
-                    <button type="button" class="ottis-mic" id="micon"
-                            aria-pressed="false"
-                            aria-label="Lancer les sous-titres">
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="9" y="3" width="6" height="11" rx="3"/>
-                            <path d="M5 11a7 7 0 0014 0M12 18v3"/>
-                        </svg>
-                    </button>
-                    <p id="textfixe" role="status" aria-live="polite">Cliquez sur le micro pour lancer les sous-titres&hellip;</p>
-                </section>
         </div>
+        <!-- Live area déplacé en dehors de pdf-viewer pour rester visible -->
+        <section class="ottis-live-area" id="live" aria-label="Bloc de sous-titrage">
+                <button type="button" class="ottis-mic" id="micon"
+                        aria-pressed="false"
+                        aria-label="Lancer les sous-titres">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="3" width="6" height="11" rx="3"/>
+                        <path d="M5 11a7 7 0 0014 0M12 18v3"/>
+                    </svg>
+                </button>
+                <p id="textfixe" role="status" aria-live="polite">Cliquez sur le micro pour lancer les sous-titres&hellip;</p>
+            </section>
     </div>
 
     <!-- Conteneur pour text-content-viewer -->
