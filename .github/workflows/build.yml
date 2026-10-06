@@ -39,6 +39,7 @@ jobs:
             --prefer-dist \
             --no-progress \
             --no-interaction
+            --no-check-publish
 
       - name: Validate Composer file
         run: composer validate --strict
