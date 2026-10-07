@@ -45,7 +45,7 @@ export function saveTextQCommon(ch, senderName, roomId, language, senderRole = '
     onSuccess() {
       decreasependingrequests();
     },
-    onError(response) {
+    onError(response, context) {
       decreasependingrequests();
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
@@ -167,7 +167,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       // Appeler le callback de succes pour le polling adaptatif
       handleSuccess();
     },
-    onError(response) {
+    onError(response, context) {
       decreasependingrequests();
       
       // Appeler le callback de rate limit pour le polling adaptatif
@@ -245,7 +245,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
         console.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
       }
     },
-    onError(response) {
+    onError(response, context) {
       decreasependingrequests();
       // Ne pas afficher le texte original si le message existe déjà
       // (le message a peut-être déjà été affiché traduit par une autre requête)

@@ -3,6 +3,8 @@
  */
 
 import { _ } from '../dom/selector.js';
+import { addCsrfToken } from '../network/utils.js';
+import { createFetchRequest } from './network.js';
 
 /**
  * @summary Generic function for sending an email

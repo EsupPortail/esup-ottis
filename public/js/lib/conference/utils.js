@@ -48,8 +48,9 @@ export function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 export function formateresponse(datatxt, editable = true) {
+  let data;
   try {
-    const data = JSON.parse(datatxt);
+    data = JSON.parse(datatxt);
   } catch (e) {
     console.error('Failed to parse JSON:', e, datatxt);
     return '<pre>Error: Invalid JSON response. Check server output.</pre>';
@@ -69,7 +70,7 @@ export function formateresponse(datatxt, editable = true) {
   let res = '';
   // console.log(data);
   for (let i = 0; i < data.length; i++) {
-    slide = data[i];
+    const slide = data[i];
     let txtnotes = '';
     for (let j = 0; j < slide.Notes.length; j++) {
       if (slide.Notes[j].indexOf('[forward]') >= 0 || slide.Notes[j].indexOf('[backward]') >= 0 || slide.Notes[j].indexOf('[pause') >= 0 || slide.Notes[j].indexOf('[resource') >= 0 || slide.Notes[j].indexOf('[mouse') >= 0 || slide.Notes[j].indexOf('[notification') >= 0 || slide.Notes[j].indexOf('[wait') >= 0) {
