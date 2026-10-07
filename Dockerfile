@@ -1,11 +1,33 @@
 FROM php:8.2-apache
 
-# Installer les extensions PHP requises
-# Installer les binaires externes requis
-# Optionnel : agent de messagerie pour l'envoi d'e-mails (/email/send)
-
-RUN apt-get update && apt-get install -y php-imagick php-curl php-xml php-zip php-gd php-mbstring libreoffice curl postfix\
-    git unzip curl \
+# Mettre à jour et installer les paquets
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libmagickwand-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libreoffice \
+    curl \
+    postfix \
+    git \
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+    pdo_mysql \
+    mysqli \
+    curl \
+    xml \
+    zip \
+    gd \
+    mbstring \
+    exif \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Activer les modules Apache utiles
