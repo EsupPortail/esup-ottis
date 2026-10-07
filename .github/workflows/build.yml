@@ -39,10 +39,9 @@ jobs:
             --prefer-dist \
             --no-progress \
             --no-interaction
-            --no-check-publish
 
       - name: Validate Composer file
-        run: composer validate --strict
+        run: composer validate --strict --no-check-publish
 
       - name: PHP CS Fixer
         run: |
