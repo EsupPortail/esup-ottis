@@ -9,6 +9,7 @@ tables/tokens.json
 # Ignore environment and local files
 .env
 .env.*
+!.env.example
 # Ignore Node.js development files
 package.json
 package-lock.json

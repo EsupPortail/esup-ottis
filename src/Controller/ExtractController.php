@@ -420,11 +420,11 @@ class ExtractController extends BaseController
 
             // For HTML: use .html extension
             if (strpos($uncloudlink, '.html') !== false) {
-                $tmp_file = '/var/www/html/uploads/uncloudfile_' . md5(gmdate('U')) . '.html';
+                $tmp_file = APP_ROOT . '/uploads/uncloudfile_' . md5(gmdate('U')) . '.html';
                 $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
             } else {
                 // For PPTX: use .pptx extension
-                $tmp_file = '/var/www/html/uploads/uncloudfile_' . md5(gmdate('U')) . '.pptx';
+                $tmp_file = APP_ROOT . '/uploads/uncloudfile_' . md5(gmdate('U')) . '.pptx';
                 $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
             }
 
