@@ -1,4 +1,4 @@
-name: PHP Build
+name: PHP Build and Push Docker Image
 
 on:
   push:
@@ -6,6 +6,10 @@ on:
       - main
       - develop
   pull_request:
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/gudrun-legacy:${{ github.sha }}
+
 
 jobs:
   build:
@@ -54,3 +58,33 @@ jobs:
           if [ -f vendor/bin/phpstan ]; then
             vendor/bin/phpstan analyse src --memory-limit=512M
           fi
+
+
+  push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up BuildKit
+        run: |
+          docker buildx create --use
+          docker buildx install
+
+      - name: Login to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build and push with BuildKit
+        run: |
+          buildctl-daemonless.sh build \
+            --frontend dockerfile.v0 \
+            --local context=. \
+            --local dockerfile=. \
+            --output type=image,name="$IMAGE_NAME",push=true
+        env:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
