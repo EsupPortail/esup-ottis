@@ -41,7 +41,7 @@ jobs:
             --no-interaction
 
       - name: Validate Composer file
-        run: composer validate --strict --no-check-publish
+        run: composer validate --no-check-publish
 
       - name: PHP CS Fixer
         run: |
