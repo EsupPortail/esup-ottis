@@ -38,11 +38,10 @@ jobs:
           composer install \
             --prefer-dist \
             --no-progress \
-            --no-interaction \
-            --no-check-publish
+            --no-interaction
 
       - name: Validate Composer file
-        run: composer validate --strict
+        run: composer validate --strict --no-check-publish
 
       - name: PHP CS Fixer
         run: |
