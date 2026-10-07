@@ -1,15 +1,21 @@
 FROM php:8.2-apache
 
-RUN apt-get update && apt-get install -y \
+# Installer les extensions PHP requises
+# Installer les binaires externes requis
+# Optionnel : agent de messagerie pour l'envoi d'e-mails (/email/send)
+
+RUN apt-get update && apt-get install -y php-imagick php-curl php-xml php-zip php-gd php-mbstring libreoffice curl postfix\
     git unzip curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Activer les modules Apache utiles
 RUN a2enmod rewrite
+RUN phpenmod imagick
+RUN systemctl restart apache2
 
 WORKDIR /var/www/html
 
-COPY GUDRUN/ .
+COPY OTTIS/ .
 COPY php.ini /usr/local/etc/php/
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -17,3 +23,5 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && rm composer-setup.php \
     && composer install --no-dev --prefer-dist --no-interaction \
     && docker-php-ext-install pdo pdo_mysql php-gd
+    && php -r "unlink('composer-setup.php');"
+    && mv composer.phar /usr/local/bin/composer
