@@ -34,8 +34,9 @@
 
 | Composant | Version minimale | Description | Vérification |
 |-----------|-----------------|-------------|--------------|
-| **PHP** | 8.1 | Runtime PHP | `php -v` |
+| **PHP** | 8.2 | Runtime PHP (requis par composer.json : `^8.2`) | `php -v` |
 | **Composer** | 2.x | Gestionnaire de dépendances PHP | `composer --version` |
+| **Node.js + npm** | 18.x / 9.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement | `node -v && npm -v` |
 
 ### Outils CLI requis
 
@@ -44,7 +45,10 @@
 | **Git** | 2.x | Contrôle de version | `sudo apt install git` |
 | **Make** | 4.x | Exécution des tâches | `sudo apt install make` |
 | **Unzip** | 6.x | Extraction des archives | `sudo apt install unzip` |
-| **ImageMagick** | 6.x ou 7.x | Conversion PDF → Images | `sudo apt install imagemagick` |
+| **LibreOffice** | 7.x | **Requis** : conversion PPTX → PDF et ODP → PPTX (`soffice --headless`) | `sudo apt install libreoffice` |
+| **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") et statistiques d'usage DeepL | `sudo apt install curl` |
+| **ImageMagick** | 6.x ou 7.x | **Optionnel** : fallback PDF → Images si l'extension PHP `imagick` est absente | `sudo apt install imagemagick` |
+| **MTA** (postfix, sendmail…) | — | **Optionnel** : envoi d'e-mails (`/email/send`, fonction PHP `mail()`) | `sudo apt install postfix` |
 
 ### Serveur Web
 
@@ -62,17 +66,24 @@
 
 | Dépendance | Version | Rôle | Utilisation |
 |------------|---------|------|-------------|
-| **php** | ^8.1 | Langage PHP | Runtime |
-| **[phpoffice/phppresentation](https://github.com/PHPOffice/PHPPresentation)** | ^1.0 | Lecture/écriture de présentations PowerPoint | Utilisée dans `PPTXNotesExtractor.php` (fallback) |
-| **[phpoffice/common](https://github.com/PHPOffice/Common)** | ^1.0 | Bibliotheque commune PHPOffice | Dépendance transitive de phppresentation |
+| **php** | ^8.2 | Langage PHP | Runtime |
+| **[phpoffice/phppresentation](https://github.com/PHPOffice/PHPPresentation)** | ^1.2 | Lecture/écriture de présentations PowerPoint | Utilisée dans `PPTXNotesExtractor.php` (fallback) |
+| **[phpoffice/common](https://github.com/PHPOffice/Common)** | ^1.1 | Bibliotheque commune PHPOffice | Dépendance transitive de phppresentation |
 | **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `Security/init.php`, `public/index.php` |
-| **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.0 | Logging structuré | Utilisée dans `config/logging.php`, `Security/logger.php` |
+| **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.5 | Logging structuré | Utilisée dans `config/logging.php`, `Security/logger.php` |
+| **[apereo/phpcas](https://github.com/apereo/phpCAS)** | ^1.6.2 | Authentification CAS (SSO) | Utilisée dans `Security/init.php` |
 
 ### Extensions PHP requises
 
 | Extension | Version | Rôle | Installation | Vérification |
 |-----------|---------|------|-------------|--------------|
-| **imagick** | latest | Conversion PDF → Images (via ImageMagick) | `sudo apt install php-imagick` + `sudo phpenmod imagick` | `php -m \| grep imagick` |
+| **imagick** | latest | Conversion PDF → Images (méthode primaire) | `sudo apt install php-imagick` + `sudo phpenmod imagick` | `php -m \| grep imagick` |
+| **curl** | — | Appels API traduction (DeepL, Google…) et phpCAS | `sudo apt install php-curl` | `php -m \| grep curl` |
+| **dom, xml, simplexml, xmlreader/writer** | — | Lecture des PPTX/ODP, phpCAS | `sudo apt install php-xml` | `php -m \| grep dom` |
+| **zip** | — | Extraction des archives PPTX/ODP | `sudo apt install php-zip` | `php -m \| grep zip` |
+| **gd** | — | Traitement d'images (phpoffice/phpspreadsheet, transitive) | `sudo apt install php-gd` | `php -m \| grep gd` |
+| **mbstring, iconv** | — | Chaînes multi-octets (phpspreadsheet) | `sudo apt install php-mbstring` | `php -m \| grep mbstring` |
+| **fileinfo, ctype, zlib** | — | Requises par les bibliothèques PHPOffice | généralement incluses | `php -m` |
 
 
 ---
@@ -104,9 +115,15 @@ mv composer.phar /usr/local/bin/composer
 composer install --no-dev --optimize-autoloader
 
 # Installer les extensions PHP requises
-sudo apt-get install -y php-imagick
+sudo apt-get install -y php-imagick php-curl php-xml php-zip php-gd php-mbstring
 sudo phpenmod imagick
 sudo systemctl restart apache2
+
+# Installer les binaires externes requis
+sudo apt-get install -y libreoffice curl
+
+# Optionnel : agent de messagerie pour l'envoi d'e-mails (/email/send)
+sudo apt-get install -y postfix
 ```
 
 ### Configurer l'environnement
@@ -118,8 +135,8 @@ cp .env.example .env
 # Configurer les variables nécessaires (voir section Configuration ci-dessous)
 nano .env  # ou utiliser votre éditeur préféré
 
-# IMPORTANT : Configurer tables/tokens.json avec vos tokens API
-# Copier tables/tokens.json.example si disponible, ou créer le fichier
+# IMPORTANT : Configurer les tokens API de traduction
+cp tables/tokens.json.example tables/tokens.json
 nano tables/tokens.json
 ```
 
@@ -182,12 +199,17 @@ Copiez `.env.example` en `.env` et configurez **uniquement** les variables suiva
 # Configuration minimale requise pour la production
 APP_ENV=production        # Obligatoire : development, staging, ou production
 
+# Authentification CAS (true/false - voir section "Authentification CAS" ci-dessous)
+CAS_ENABLED=false
+
 # Serveur LibreTranslate (optionnel - défaut : https://translate.terraprint.co/translate)
 LIBRETRANSLATESERVER=
 
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
 ```
+
+> **Note** : les tokens API de traduction ne se configurent **pas** dans ce fichier, mais dans `tables/tokens.json` (voir ci-dessus). Seules les variables listées ci-dessus sont lues par le code.
 
 > **Important** : Les tokens API (GOOGLE_API_TOKENS, DEEPL_FREE_TOKENS, DEEPL_PRO_TOKENS, MICROSOFT_TRANSLATOR_KEY, etc.) **ne sont PAS configurés dans le fichier .env**. Ils doivent être définis dans le fichier **`tables/tokens.json`** avec la structure suivante :
 >
@@ -196,10 +218,11 @@ HTTP_PROXY=
 >   "WHICHTRANSLATOR": ["DEEPLFREE"],
 >   "GOOGLETOKENS": ["votre_token_google_1", "votre_token_google_2"],
 >   "DEEPLFREETOKENS": ["votre_token_deepl_free"],
->   "DEEPLPROTOKENS": [],
->   "LIBRETRANSLATESERVER": "https://translate.terraprint.co/translate"
+>   "DEEPLPROTOKENS": []
 > }
 > ```
+>
+> La clé `LIBRETRANSLATESERVER` ne se configure pas dans `tokens.json` mais dans `.env` (voir ci-dessus). Les clés lues par le code (`src/Service/TokenConfigService.php`) sont : `WHICHTRANSLATOR`, `GOOGLETOKENS`, `DEEPLFREETOKENS`, `DEEPLPROTOKENS`.
 
 ### Configuration Apache
 
@@ -232,6 +255,31 @@ sudo systemctl restart apache2
 
 
 
+### Authentification CAS (config/cas.php)
+
+L'application s'appuie sur **apereo/phpcas** pour l'authentification centralisée (SSO). La configuration se trouve dans `config/cas.php` :
+
+```php
+return [
+    'enabled' => (bool) (getenv('CAS_ENABLED') ?: false),   // Piloté par la variable CAS_ENABLED du fichier .env
+    'host' => 'login.univ-nantes.fr',
+    'port' => 443,
+    'url' => '/cas26m/',
+    'server_validation' => false,
+    'cert_path' => null,
+    'dev_mode' => false,
+    // ...
+];
+```
+
+> **Important** : l'activation du CAS se pilote par la variable `CAS_ENABLED` du fichier `.env` (désactivée par défaut dans le dépôt). Le fichier `config/cas.php` pointe vers le serveur CAS de Nantes Université : adaptez `host`, `port` et `url` à votre établissement avant de passer `CAS_ENABLED=true`, sinon les routes protégées renverront une erreur d'authentification.
+
+- **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
+- **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
+- **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
+
+
+
 ### Production
 
 #### Préparation
@@ -251,6 +299,7 @@ php public/index.php
 - Utiliser **Apache** avec le `.htaccess` fourni
 - Configurer les permissions :
   ```bash
+  mkdir -p tmp/ uploads/ logs/
   chown -R www-data:www-data .
   chmod -R 755 .
   chmod -R 775 tmp/ uploads/ logs/
@@ -270,7 +319,7 @@ php public/index.php
 ├── .env.example              # Modèle de configuration environnement
 ├── .htaccess                 # Configuration Apache (racine)
 ├── ARCHITECTURE.md           # Documentation de l'architecture MVC
-├── LICENSE                   # Licence LGPL-3.0-only
+├── LICENSE                   # Licence Apache 2.0
 ├── Makefile                 # Tâches de qualité de code
 ├── composer.json            # Dépendances PHP
 ├── package.json             # Dépendances JavaScript (racine)
@@ -278,6 +327,7 @@ php public/index.php
 ├── phpstan.neon             # Configuration PHPStan
 │
 ├── config/                  # Configuration applicative
+│   ├── cas.php              # Configuration de l'authentification CAS
 │   ├── logging.php          # Configuration Monolog
 │   ├── routes.php           # Définition des routes MVC
 │   └── security.php          # Configuration de sécurité
@@ -447,7 +497,7 @@ Pour des questions sur :
 | Services | 5 |
 | Tests unitaires PHP | 2 fichiers |
 | Tests JavaScript | 25+ fichiers |
-| Dépendances PHP | 5 (production) + 3 (dev) |
+| Dépendances PHP | 6 (production) + 3 (dev) |
 | Dépendances JS | 6 (dev) + 2 (tests) |
 
 
