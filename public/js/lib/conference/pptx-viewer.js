@@ -9,7 +9,7 @@
  */
 
 import { _ } from '../dom/selector.js';
-import { safeSetTimeout } from '../utils/cleanup.js';
+import '../utils/cleanup.js';
 
 // État du visualiseur PPTX
 let pptxLoaded = false;

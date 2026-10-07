@@ -42,10 +42,10 @@ export function saveTextQCommon(ch, senderName, roomId, language, senderRole = '
   addCsrfToken(f);
 
   const request = createFetchRequest('POST', getBasePath() + '/text/save-q', {
-    onSuccess(response) {
+    onSuccess() {
       decreasependingrequests();
     },
-    onError(response, context) {
+    onError(response) {
       decreasependingrequests();
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
@@ -91,7 +91,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
   const handleSuccess = () => { if (typeof onSuccess === 'function') onSuccess(); };
 
   const request = createFetchRequest('POST', getBasePath() + '/text/read-q', {
-    onSuccess(response) {
+    onSuccess() {
       decreasependingrequests();
 
       // Safety checks for response and responseText
@@ -101,7 +101,6 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       }
 
       const Told = response.responseText.split('\n');
-      const k = 0;
       const T = [];
 
       // Filter out empty lines
@@ -168,7 +167,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       // Appeler le callback de succes pour le polling adaptatif
       handleSuccess();
     },
-    onError(response, context) {
+    onError(response) {
       decreasependingrequests();
       
       // Appeler le callback de rate limit pour le polling adaptatif
@@ -217,7 +216,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
   addCsrfToken(f);
 
   const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
-    onSuccess(response) {
+    onSuccess() {
       decreasependingrequests();
 
       try {
@@ -246,7 +245,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
         console.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
       }
     },
-    onError(response, context) {
+    onError(response) {
       decreasependingrequests();
       // Ne pas afficher le texte original si le message existe déjà
       // (le message a peut-être déjà été affiché traduit par une autre requête)

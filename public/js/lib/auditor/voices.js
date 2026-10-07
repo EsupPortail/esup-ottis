@@ -5,7 +5,6 @@ import { _ } from '../dom/selector.js';
 
 import { AllOutputVoices, TLangInput } from '../language/state.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
-import { getLastNotebookVOContent, setLastNotebookVOContent } from '../state/shared.js';
 
 /**
  * @summary Fill the select VoiceOutput field
@@ -22,7 +21,6 @@ function PopulateVoicesOut(selectname = 'VoiceOutput') {
   const optgroup = document.createElement('optgroup');
   optgroup.label = 'Voice and text translation';
   const voices = speechSynthesis.getVoices();
-  let maxvoices = voices.length;
   // Voices in english first
   for (let i = 0; i < voices.length; i++) {
     if (voices[i].lang && typeof voices[i].lang === 'string' && voices[i].lang.substr(0, 2).toLowerCase() == 'en') { // (voices[i].localService) {
@@ -86,7 +84,6 @@ function PopulateVoicesOutSub(selectname = 'VoiceOutput') {
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
   const voices = speechSynthesis.getVoices();
-  let maxvoices = voices.length;
   if (typeof supportedlanguages !== 'undefined' && Array.isArray(supportedlanguages)) {
     for (let i = 0; i < supportedlanguages.length; i++) {
       if (supportedlanguages[i] && supportedlanguages[i].code) {

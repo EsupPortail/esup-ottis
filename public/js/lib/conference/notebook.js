@@ -1,25 +1,19 @@
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
 import { getSubtitleLanguage } from '../state/conference.js';
 import {
-  MaxSavedLines,
-  NBconnectedusers,
-  Tconnectedusers,
-  setNBconnectedusers,
-  removeFromTconnectedusers,
-  nbnewQ,
-  setNbnewQ
+  MaxSavedLines, NBconnectedusers, Tconnectedusers,
+  setNBconnectedusers, removeFromTconnectedusers, setNbnewQ
 } from './state/core.js';
-import { getInputNumber, setInputNumber, getInputNumberQ, setInputNumberQ } from '../state/shared.js';
-import { lastPartialTranslation, setLastPartialTranslation } from './state/translation.js';
+import { getInputNumber, setInputNumber, getInputNumberQ, setInputNumberQ, getBasePath } from '../state/shared.js';
+import { setLastPartialTranslation } from './state/translation.js';
 
-import { getNotebookContent, EventNewQuestion } from './utils.js';
+import { EventNewQuestion } from './utils.js';
 import { updateUsers } from './config-functions.js';
-import { EcrireCR, AbortTimeout, getRoomToken } from './compat.js';
+import { EcrireCR, getRoomToken } from './compat.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
-import { safeSetTimeout, registerRequest } from '../utils/cleanup.js';
-import { getBasePath } from '../state/shared.js';
+import { safeSetTimeout } from '../utils/cleanup.js';
 
 /** @module conference/notebook */
 
@@ -147,7 +141,7 @@ export function EcrirePartial(ch) {
         console.error('Réponse vide du serveur.');
       }
     },
-    onError(response, context) {
+    onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
         console.error('Erreur HTTP :', response.status, response.responseText);
@@ -244,7 +238,7 @@ export function saveTextWithTranslation(sourceText, translatedText) {
   request.send();
 }
 
-export function saveTextNB(ch) {
+export function saveTextNB() {
   // Deprecated: batch-save of notebook is not used in current flows.
   console.warn('saveTextNB() is deprecated and has been disabled.');
 }
@@ -261,7 +255,6 @@ export function readTextQ() {
     const request = createFetchRequest('POST', getBasePath() + '/text/read-q', {
       onSuccess(response) {
         const Told = response.responseText.split('\n');
-        const k = 0;
         const T = [];
         for (let i = 0; i < Told.length; i++) {
           if (Told[i].split(';').length > 2) T.push(Told[i]);
@@ -357,7 +350,7 @@ export function TranslateQ(ch, l, linput, name, order) {
         }
       }
     },
-    onError(response, context) {
+    onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
         console.error('Erreur HTTP :', response.status);

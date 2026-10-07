@@ -4,23 +4,20 @@
  */
 
 import {
-  canvas, fullscreenScale, initialClientHeight, initialClientWidth,
-  isCalculatingFullscreenScale, originalPdfControlStyle, originalPdfScale,
+  initialClientWidth, isCalculatingFullscreenScale, originalPdfControlStyle,
   originalTextBandDisplay, originalTextBandStyle, originalTextBandVisibility,
   originalTextBandParent, originalTextBandNextSibling, originalPdfControlParent,
   originalPdfControlNextSibling, originalPdfViewerStyle, originalCanvasDisplay,
-  originalCanvasWidth, originalCanvasHeight,
   originalLiveStyle, originalLiveDisplay, originalLiveVisibility,
-  originalLiveParent, originalLiveNextSibling,
-  pageNum, pageRendering, pdfDoc, scale,
-  setPageNum, setScale, setPdfDoc, setPageRendering, setFullscreenScale,
-  setIsCalculatingFullscreenScale, setOriginalCanvasStyle, setOriginalCanvasDisplay,
-  setOriginalCanvasWidth, setOriginalCanvasHeight, setOriginalPdfControlStyle,
-  setOriginalTextBandDisplay, setOriginalTextBandStyle, setOriginalTextBandVisibility,
-  setOriginalTextBandParent, setOriginalTextBandNextSibling, setOriginalPdfControlParent,
-  setOriginalPdfControlNextSibling, setOriginalPdfViewerStyle, setOriginalPdfScale,
-  setOriginalLiveStyle, setOriginalLiveDisplay, setOriginalLiveVisibility,
-  setOriginalLiveParent, setOriginalLiveNextSibling,
+  originalLiveParent, originalLiveNextSibling, pageNum,
+  pageRendering, pdfDoc, scale,
+  setScale, setFullscreenScale, setIsCalculatingFullscreenScale,
+  setOriginalCanvasDisplay, setOriginalCanvasWidth, setOriginalCanvasHeight,
+  setOriginalPdfControlStyle, setOriginalTextBandDisplay, setOriginalTextBandStyle,
+  setOriginalTextBandVisibility, setOriginalTextBandParent, setOriginalTextBandNextSibling,
+  setOriginalPdfControlParent, setOriginalPdfControlNextSibling, setOriginalPdfViewerStyle,
+  setOriginalPdfScale, setOriginalLiveStyle, setOriginalLiveDisplay,
+  setOriginalLiveVisibility, setOriginalLiveParent, setOriginalLiveNextSibling
 } from '../state.js';
 
 import { _ } from '../../dom/selector.js';
@@ -28,9 +25,6 @@ import { renderPage } from '../pdf-viewer.js';
 import { toggleTextBandDisplay } from '../ui.js';
 import { safeSetTimeout } from '../../utils/cleanup.js';
 import { t } from '../../i18n.js';
-
-// Alias pour compatibilité avec l'ancien code
-const get = _;
 
 // Indique que le plein ecran PDF est actif (styles appliques, non encore restaures)
 let pdfFullscreenActive = false;
@@ -240,7 +234,7 @@ export function applyFullscreenCanvasStyles() {
   }
 }
 
-export function restoreCanvasStyles(renderPageCalled = false) {
+export function restoreCanvasStyles() {
   const canvasEl = _('pdf-canvas');
   const textBandEl = _('textBand');
   const pdfControlEl = _('pdf-control');
@@ -410,7 +404,7 @@ export function enterPdfFullscreen(element) {
     // Appliquer l'affichage selon la case (le plein écran impose le bloc fixe)
     toggleTextBandDisplay(true);
     pdfFullscreenActive = true;
-  }).catch((error) => {
+  }).catch(() => {
   });
 }
 
@@ -440,7 +434,7 @@ export function exitPdfFullscreen() {
         if (pageNum) {
           renderPage(pageNum);
         }
-      }).catch((error) => {
+      }).catch(() => {
         if (pageNum) {
           renderPage(pageNum);
         }
@@ -448,7 +442,7 @@ export function exitPdfFullscreen() {
     } else if (pageNum) {
       renderPage(pageNum);
     }
-  }).catch((error) => {
+  }).catch(() => {
   });
 }
 
@@ -489,7 +483,7 @@ export function calculateFullscreenScale() {
       renderPage(pageNum);
     }
     setIsCalculatingFullscreenScale(false);
-  }).catch((error) => {
+  }).catch(() => {
     setIsCalculatingFullscreenScale(false);
   });
 }

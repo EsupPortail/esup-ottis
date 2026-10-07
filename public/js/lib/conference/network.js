@@ -1,6 +1,5 @@
 /** @module conference/network */
 import { safeSetTimeout } from '../utils/cleanup.js';
-import { addCsrfToken } from '../network/utils.js';
 
 /**
  * Create and configure an XMLHttpRequest

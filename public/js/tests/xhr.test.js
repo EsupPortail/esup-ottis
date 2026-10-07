@@ -4,8 +4,8 @@
  */
 
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
+import { addCsrfToken } from '../lib/network/utils.js';
 import {
-  addCsrfToken,
   handleXhrError,
   createXhrRequest,
   createFetchRequest,

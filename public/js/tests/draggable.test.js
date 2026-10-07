@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { makeDraggable, makeAllDraggable } from '../utils/draggable.js';
+import { makeDraggable, makeAllDraggable } from '../lib/utils/draggable.js';
 
 describe('Draggable Utilities', () => {
   beforeEach(() => {

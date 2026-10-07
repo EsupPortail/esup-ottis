@@ -8,7 +8,7 @@ import { CompleteTranslation } from './translation.js';
 import { increasependingrequests, decreasependingrequests } from '../utils/request-counter.js';
 import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
-import { Ecrire, EcrireNB, EcrireNBSub } from './display.js';
+import { EcrireNB, EcrireNBSub } from './display.js';
 import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
 import {
     getBasePath, getRoomToken, getMaxOrder, setMaxOrder,

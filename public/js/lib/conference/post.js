@@ -170,10 +170,10 @@ export function EnvoiMail() {
   addCsrfToken(FD);
 
   const request = createFetchRequest('POST', '/email/send', {
-    onSuccess(response) {
+    onSuccess() {
       alert('Mail sent.');
     },
-    onError(response, context) {
+    onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
         alert('Error, the mail cannot be sent.');

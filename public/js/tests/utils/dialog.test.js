@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { openDialog, closeDialog, toggleDialog, createDialog, upgradeLegacyDialogs } from '../../utils/dialog.js';
+import { openDialog, closeDialog, toggleDialog, createDialog, upgradeLegacyDialogs } from '../../lib/utils/dialog.js';
 
 describe('utils/dialog.js - Dialog Utilities', () => {
   beforeEach(() => {

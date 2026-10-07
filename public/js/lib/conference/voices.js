@@ -1,12 +1,8 @@
 import {
-  getBuiltinVoice,
-  getBuiltinLanguage,
-  setBuiltinVoice,
-  setBuiltinLanguage,
+  getBuiltinVoice, setBuiltinLanguage
 } from '../state/auditor.js';
 import {
-  getSubtitleLanguage,
-  setSubtitleLanguage,
+  setSubtitleLanguage
 } from '../state/conference.js';
 import { AllOutputVoices, TLangInput } from '../language/state.js';
 import { _ } from '../dom/selector.js';
@@ -149,7 +145,6 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   optgroup.label = 'Voice and text translation';
   const voices = window.speechSynthesis.getVoices();
   let englishVoiceFound = false;
-  let maxvoices = voices.length;
   for (let i = 0; i < voices.length; i++) {
     if (true) {
       const opt = document.createElement('option');

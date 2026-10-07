@@ -1,5 +1,4 @@
-import { currentscroll, previousimage } from './state/translation.js';
-import { scale } from './state/pdf.js';
+import { setPreviousimage, setCurrentscroll } from './state/translation.js';
 
 import { formateresponse } from './utils.js';
 import { ShowImage, nextPage, prevPage } from './pdf-viewer.js';
@@ -99,7 +98,7 @@ export function completeHandler(event, editable = false) {
   _('progressBar').value = 0;
 
   // Re-initialize the presentation
-  previousimage = -1;
+  setPreviousimage(-1);
   setCurrentDiscours(0);
   const presentation = getCurrentPresentation();
   if (presentation.length > 0) {
@@ -153,7 +152,7 @@ export function SlideNotes() {
     context: 'SlideNotes',
     onUploadProgress: progressHandler,
     onSuccess: completeHandler,
-    onError(response, context) {
+    onError(response) {
       if (response.status === 0 && response.statusText === 'Timeout') {
         _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
@@ -204,7 +203,7 @@ export function resizeSlides() {
 }
 
 export function setScrollvalues(l) {
-  currentscroll = 1;
+  setCurrentscroll(1);
   const txtlength = Math.max(20, l);
   // txtlength=Math.min(200,txtlength);
   const duration = 55 * txtlength; // estimated duration in ms

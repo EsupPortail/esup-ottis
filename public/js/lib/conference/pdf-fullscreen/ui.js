@@ -10,9 +10,6 @@ import { displayPDF } from '../pdf-viewer.js';
 import { safeSetInterval, safeSetTimeout } from '../../utils/cleanup.js';
 import { t } from '../../i18n.js';
 
-// Alias pour compatibilité avec l'ancien code
-const get = _;
-
 // =============================================================================
 // Gestion des événements et upload
 // =============================================================================
@@ -171,7 +168,6 @@ export function closePresentation() {
   const canvas = _('pdf-canvas');
   const textViewer = _('text-content-viewer');
   const textfixe = _('textfixe');
-  const liveArea = _('live');
   const closeBtn = _('pdf-close-btn');
 
   // Réafficher la section d'import

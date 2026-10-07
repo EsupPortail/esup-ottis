@@ -3,7 +3,7 @@ import { hide, show } from '../dom/visibility.js';
 import { openDialog } from '../dom/dialog.js';
 import { getBuiltinLanguage } from '../state/auditor.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
-import { isBuiltinMicrosoftTranscriptionOn, isBuiltinExternalTranscriptionOn } from '../state/conference.js';
+import { isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
 import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer } from './microsoft.js';
 import { StartSpeechRecognition } from './speech.js';
 import { Traduction } from './translation.js';
@@ -53,7 +53,6 @@ export function SubWindow() {
   const sublink = _('sublink');
   if (!sublink) return; // Éléments supprimés
   event.preventDefault();
-  const window_width = window.screen.width;
   const windowFeatures = 'status=no,location=no,toolbar=no,menubar=no,width=1200,height=110';
   const link = sublink.innerHTML.replaceAll('&amp;', '&');
   window.open(link, '_blank', windowFeatures);

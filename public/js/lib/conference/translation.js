@@ -1,17 +1,17 @@
 import {
-  StudentToSay, StudentToTranslate2, Studentcompletespeechactive, Studentcurrentdiscours,
+  StudentToSay, StudentToTranslate2, Studentcurrentdiscours,
   Studentgotolive, lastPartialTranslation, lastSentenceTranslated,
-  readytotalk, LiveTranslationNum, LiveTranslationFreq, setLastSentenceTranslated, setLiveTranslationNum
+  LiveTranslationNum, LiveTranslationFreq, setLastSentenceTranslated,
+  setLiveTranslationNum
 } from './state/translation.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
-import { getSubtitleLanguage, getCurrentDiscours, getWhichTranslator } from '../state/conference.js';
+import { getSubtitleLanguage, getWhichTranslator } from '../state/conference.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { getBasePath } from '../state/shared.js';
-import { Ecrire, EcrireNB, EcrireNBonly, EcrireNBonlyVO, EcrirePartial, saveText, saveTextWithTranslation } from './notebook.js';
+import { Ecrire, EcrireNBonly, EcrireNBonlyVO, EcrirePartial, saveText, saveTextWithTranslation } from './notebook.js';
 import { Parle } from './voices.js';
-import { setNotReadyToTalk, setReadyToTalk, StartSpeechRecognition, StopSpeechRecognition } from './speech.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
 // Local state variables for this module
@@ -48,7 +48,7 @@ export function StudentTranslate2(ch, l, linput, lineid) {
   console.log('[StudentTranslate2] formData entries:', Array.from(formData.entries()));
 
   const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
-    onSuccess(response) {
+    onSuccess() {
       StudentCompleteTranslation2();
     },
     onError(response, context) {
@@ -194,12 +194,10 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
     formData.append('whichtranslator', whichtranslator);
   }
 
-  const d_begin = Date.now();
   addCsrfToken(formData);
 
   const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
     onSuccess(response) {
-      const d_end = Date.now();
       try {
         const parsedResponse = JSON.parse(response.responseText);
 
@@ -216,7 +214,7 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
         f('---- JSON Parse ERROR ----');
       }
     },
-    onError(response, context) {
+    onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
         console.error('Erreur HTTP :', response.status, response.statusText);

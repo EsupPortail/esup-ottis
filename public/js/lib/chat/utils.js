@@ -79,8 +79,11 @@ export function displayInCR(text, className = '') {
  * Clear both ToSay and ToTranslate
  */
 export function clearChatText() {
-    ToSay = {};
-    ToTranslate = [];
+    // Mutation en place : les bindings importes ne sont pas reassignables
+    Object.keys(ToSay).forEach((key) => {
+        delete ToSay[key];
+    });
+    ToTranslate.length = 0;
 }
 
 /**

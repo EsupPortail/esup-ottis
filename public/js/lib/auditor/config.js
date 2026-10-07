@@ -3,7 +3,6 @@
  */
 
 import { _ } from '../dom/selector.js';
-import { hide, show } from '../dom/visibility.js';
 import { ChangeColor, ChangeOpacity } from '../dom/styles.js';
 import { setLanguageInput, setLanguageOutput } from '../language/management.js';
 import { setBuiltinVoice, setBuiltinLanguage } from '../state/auditor.js';

@@ -3,10 +3,10 @@
  * Dependencies: all other chat modules
  */
 import { _ } from '../dom/selector.js';
-import { readTextQCommon, saveTextQCommon, TranslateQ } from './network.js';
-import { defaultMessageHandler, sendclick } from './handlers.js';
+import { readTextQCommon, saveTextQCommon } from './network.js';
+import { defaultMessageHandler } from './handlers.js';
 import { safeSetInterval } from '../utils/cleanup.js';
-import { isLanguageSelected, setLanguageSelected, isChatPollingStarted, setChatPollingStarted, getChatPollingIntervalId, setChatPollingIntervalId } from '../state/shared.js';
+import { isLanguageSelected, setChatPollingStarted, getChatPollingIntervalId, setChatPollingIntervalId } from '../state/shared.js';
 import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
 
 /**

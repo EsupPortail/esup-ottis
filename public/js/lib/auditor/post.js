@@ -7,11 +7,11 @@ import { safeSetTimeout } from '../utils/cleanup.js';
 import { startAuditorPolling } from './main.js';
 import { readText, readTextSubTranscript } from './network.js';
 import { readTextQCommon } from '../chat/network.js';
-import { EcrireCR, ClearCR } from '../chat/display.js';
+import { ClearCR } from '../chat/display.js';
 import { defaultMessageHandler } from '../chat/handlers.js';
-import { setLanguageSelected, setFirstClick, setFirstTime, setDiscoursRate, setInputNumberQ, getInputNumberQ } from '../state/shared.js';
+import { setLanguageSelected, setFirstClick, setFirstTime, setDiscoursRate, setInputNumberQ } from '../state/shared.js';
 import { setLanguageOutput } from '../language/management.js';
-import { setBuiltinVoice, setBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
+import { setBuiltinVoice } from '../state/auditor.js';
 import { rebuildOutputForLanguage } from './translation.js';
 import { _ } from '../dom/selector.js';
 

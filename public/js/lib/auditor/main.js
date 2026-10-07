@@ -3,7 +3,7 @@ import { ChangeColor } from '../dom/styles.js';
 /**
  * Main initialization functions for auditor
  */
-import { safeSetInterval, safeSetTimeout, registerRequest } from '../utils/cleanup.js';
+import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 import { isLanguageSelected, setGotolive } from '../state/shared.js';
 import { readText } from './network.js';
 import { startChatPolling } from '../chat/main.js';

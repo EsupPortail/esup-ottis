@@ -6,9 +6,9 @@ import { _ } from '../dom/selector.js';
 import { EcrireCR, isIntervenantSender } from './display.js';
 import { ColorsForCR } from '../colors.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
-import { getInputNumberQ, setInputNumberQ, isSendInProgress, setSendInProgress } from '../state/shared.js';
+import { getInputNumberQ, isSendInProgress, setSendInProgress } from '../state/shared.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
-import { nbnewQ, setNbnewQ, NBconnectedusers, Tconnectedusers } from '../conference/state/core.js';
+import { nbnewQ, setNbnewQ, NBconnectedusers, Tconnectedusers, setNBconnectedusers, setTconnectedusers } from '../conference/state/core.js';
 import { updateUsers } from '../conference/config-functions.js';
 import { TranslateQ } from './network.js';
 import { triggerNewMessageAlert } from './alert.js';
@@ -47,14 +47,14 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
   if (isSpecial) {
     // Handle new student arrived
     if (specialType === 'newstudentarrived') {
-      NBconnectedusers++;
+      setNBconnectedusers(NBconnectedusers + 1);
       Tconnectedusers.push(who);
       updateUsers();
     }
     // Handle new student lived (disconnected)
     else if (specialType === 'newstudentlived') {
-      NBconnectedusers--;
-      Tconnectedusers = Tconnectedusers.filter((student) => student !== who);
+      setNBconnectedusers(NBconnectedusers - 1);
+      setTconnectedusers(Tconnectedusers.filter((student) => student !== who));
       updateUsers();
     }
     // For other special messages, skip normal processing

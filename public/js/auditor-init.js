@@ -5,20 +5,16 @@
  */
 
 // Import des fonctions voix
-import { Parle, ParleThen, CompleteSpeech } from './lib/auditor/speech.js';
-import { Init } from './lib/auditor/main.js';
+import { Parle } from './lib/auditor/speech.js';
+import { Init, GoFS } from './lib/auditor/main.js';
 
 // Import des fonctions réseau
-import { readText, readTextSub, readTextSubTranscript /* readImage DISABLED */ } from './lib/auditor/network.js';
 
 // Import des fonctions de traduction
-import { rebuildOutputForLanguage } from './lib/auditor/translation.js';
 
 // Import des fonctions utilitaires
-import { GoFS } from './lib/auditor/main.js';
 import { initChatAlert } from './lib/chat/alert.js';
 import { loadVoicesWhenAvailable } from './lib/conference/voices.js';
-import { setLanguageOutput } from './lib/language/management.js';
 import { safeSetTimeout } from './lib/utils/cleanup.js';
 import { EnvoiMail } from './lib/auditor/mail.js';
 import { DownloadSpeechLesson } from './lib/download.js';

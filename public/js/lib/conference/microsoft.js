@@ -25,9 +25,8 @@ export let microsoftRecognizer = null;
  * Démarrer la reconnaissance vocale continue avec Microsoft Azure
  * @param {string} key - Clé API Microsoft
  * @param {string} region - Région Azure
- * @param {string} language - Langue de reconnaissance
  */
-export function doContinuousRecognition(key, region, language) {
+export function doContinuousRecognition(key, region) {
   if (typeof SpeechRecognition === 'undefined' && typeof webkitSpeechRecognition === 'undefined') {
     console.warn('Speech Recognition API not available');
     return;
