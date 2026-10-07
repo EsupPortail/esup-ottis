@@ -31,6 +31,9 @@ import { safeSetTimeout } from '../../utils/cleanup.js';
 // Alias pour compatibilité avec l'ancien code
 const get = _;
 
+// Indique que le plein ecran PDF est actif (styles appliques, non encore restaures)
+let pdfFullscreenActive = false;
+
 // =============================================================================
 // Fonctions de gestion du plein écran
 // =============================================================================
@@ -179,6 +182,11 @@ export function applyFullscreenCanvasStyles() {
   // Gestion de live (ottis-live-area) - remplace textBand
   const liveEl = _('live');
   if (liveEl) {
+    // En plein ecran, seuls l'element plein ecran et ses descendants sont rendus :
+    // rattacher le bloc au pdf-viewer (restoreCanvasStyles le remettra a sa place)
+    if (pdfViewerEl && liveEl.parentNode !== pdfViewerEl) {
+      pdfViewerEl.appendChild(liveEl);
+    }
     liveEl.style.position = 'fixed';
     liveEl.style.bottom = '0';
     liveEl.style.left = '0';
@@ -397,31 +405,16 @@ export function enterPdfFullscreen(element) {
   requestPromise.then(() => {
     applyFullscreenCanvasStyles();
     calculateFullscreenScale();
-    
-    // Gérer l'affichage de textBand/partialtitre selon useTextBand
-    const useTextBandCheckbox = _('usetextband');
-    const partialtitre = _('partialtitre');
-    const textBand = _('textBand');
-    
-    if (useTextBandCheckbox && partialtitre && textBand) {
-      if (useTextBandCheckbox.checked) {
-        // Si useTextBand est coché, cacher partialtitre et afficher textBand (en plein écran)
-        partialtitre.style.display = 'none';
-        partialtitre.classList.add('hidden');
-        textBand.style.display = 'block';
-        textBand.style.visibility = 'visible';
-      } else {
-        // Sinon, cacher textBand et afficher partialtitre (en plein écran)
-        partialtitre.style.display = 'block';
-        partialtitre.classList.remove('hidden');
-        textBand.style.display = 'none';
-      }
-    }
+
+    // Appliquer l'affichage selon la case (le plein écran impose le bloc fixe)
+    toggleTextBandDisplay(true);
+    pdfFullscreenActive = true;
   }).catch((error) => {
   });
 }
 
 export function exitPdfFullscreen() {
+  pdfFullscreenActive = false;
 
   const fullscreenBtn = _('pdf-fullscreen-btn');
   if (fullscreenBtn) {
@@ -456,6 +449,16 @@ export function exitPdfFullscreen() {
     }
   }).catch((error) => {
   });
+}
+
+/**
+ * Rattrape une sortie de plein ecran faite sans le bouton (touche Echap) :
+ * restaure les styles et reapplique l'affichage selon la case.
+ */
+export function ensureFullscreenExited() {
+  if (pdfFullscreenActive && !document.fullscreenElement) {
+    exitPdfFullscreen();
+  }
 }
 
 export function calculateFullscreenScale() {

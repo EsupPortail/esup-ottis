@@ -36,6 +36,24 @@ export function initConferenceEvents() {
     });
   }
 
+  // Theme du bloc de sous-titrage (Apparence)
+  document.querySelectorAll('input[name="th"]').forEach((radio) => {
+    const applyLiveTheme = () => {
+      const isDark = radio.value === 'd';
+      ['live', 'float-live'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.setProperty('--sb', isDark ? '#111a2e' : '#fff');
+          el.style.setProperty('--sf', isDark ? '#fff' : '#111a2e');
+        }
+      });
+    };
+    radio.addEventListener('change', applyLiveTheme);
+    if (radio.checked) {
+      applyLiveTheme();
+    }
+  });
+
   // Subtitle toggle
   const subtitleOn = document.getElementById('subtitleon');
   if (subtitleOn) {

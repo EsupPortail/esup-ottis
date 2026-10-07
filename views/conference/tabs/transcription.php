@@ -20,11 +20,12 @@
         <button type="button" class="ottis-btn ottis-btn--primary"
                 id="buttondownloadspeechVO"
                 data-s="notebookVO" data-f="discours-original.txt">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <path d="M7 10l5 5 5-5M12 15v-5"/>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" focusable="false">
+                <path d="M12 4v11M7 11l5 5 5-5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/>
             </svg>
-            <span>T&eacute;l&eacute;charger le discours original</span>
+            <span>T&eacute;l&eacute;charger le discours original (.txt)</span>
         </button>
     </section>
 
@@ -33,14 +34,15 @@
         <h2 id="tt">Discours traduit</h2>
         <div class="ottis-box" id="notebook"
              role="region" tabindex="0" aria-labelledby="tt" lang="en"></div>
-        <button type="button" class="ottis-btn"
+        <button type="button" class="ottis-btn ottis-btn--primary"
                 id="buttondownloadspeech"
                 data-s="notebook" data-f="discours-traduit.txt">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <path d="M7 10l5 5 5-5M12 15v-5"/>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" focusable="false">
+                <path d="M12 4v11M7 11l5 5 5-5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/>
             </svg>
-            <span>T&eacute;l&eacute;charger le discours traduit</span>
+            <span>T&eacute;l&eacute;charger le discours traduit (.txt)</span>
         </button>
     </section>
 </div>

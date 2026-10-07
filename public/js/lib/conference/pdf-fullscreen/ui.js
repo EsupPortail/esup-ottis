@@ -5,7 +5,7 @@
 
 import { _ } from '../../dom/selector.js';
 import { addCsrfToken } from '../network.js';
-import { calculateFullscreenScale } from './core.js';
+import { calculateFullscreenScale, ensureFullscreenExited } from './core.js';
 import { displayPDF } from '../pdf-viewer.js';
 import { safeSetInterval, safeSetTimeout } from '../../utils/cleanup.js';
 
@@ -233,6 +233,8 @@ export function handleFullscreenStateChange() {
     if (typeof window !== 'undefined' && window.console && window.console.info) {
       console.info('Sortie du plein écran (via state change)');
     }
+    // Sortie par Echap : restaurer les styles si exitPdfFullscreen n'a pas encore agi
+    ensureFullscreenExited();
     if (fullscreenBtn) {
       fullscreenBtn.textContent = 'Fullscreen';
       fullscreenBtn.title = 'Toggle fullscreen mode';

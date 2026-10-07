@@ -83,6 +83,11 @@
                 </button>
                 <p id="textfixe" role="status" aria-live="polite">Cliquez sur le micro pour lancer les sous-titres&hellip;</p>
             </section>
+        <!-- Bloc de sous-titrage flottant (activable depuis l'onglet Apparence) -->
+        <section class="ottis-float-live-area" id="float-live" hidden tabindex="0"
+                 aria-label="Bloc de sous-titrage flottant, d&eacute;pla&ccedil;able &agrave; la souris, au doigt ou avec les touches fl&eacute;ch&eacute;es">
+            <p id="partialtitre" role="status" aria-live="polite">Cliquez sur le micro pour lancer les sous-titres&hellip;</p>
+        </section>
     </div>
 
     <!-- Conteneur pour text-content-viewer -->
