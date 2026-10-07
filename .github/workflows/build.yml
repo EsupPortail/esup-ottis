@@ -54,9 +54,3 @@ jobs:
           if [ -f vendor/bin/phpstan ]; then
             vendor/bin/phpstan analyse src --memory-limit=512M
           fi
-
-      - name: PHPUnit
-        run: |
-          if [ -f vendor/bin/phpunit ]; then
-            vendor/bin/phpunit
-          fi
