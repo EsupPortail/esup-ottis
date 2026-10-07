@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Activer les modules Apache utiles
 RUN a2enmod rewrite
-RUN phpenmod imagick
+# RUN phpenmod imagick
 RUN systemctl restart apache2
 
 # Code de l'application
