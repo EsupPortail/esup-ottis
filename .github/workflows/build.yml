@@ -38,7 +38,7 @@ jobs:
           composer install \
             --prefer-dist \
             --no-progress \
-            --no-interaction
+            --no-interaction \
             --no-check-publish
 
       - name: Validate Composer file
