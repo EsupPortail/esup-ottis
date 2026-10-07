@@ -8,8 +8,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository }}/ottis:${{ github.sha }}
-
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:${{ github.sha }}
 
 jobs:
   build:
@@ -22,6 +21,11 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+
+      - name: Set lowercase image name
+        id: vars
+        run: |
+          echo "image_name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:${{ github.sha }}" | tr '[:upper:]' '[:lower:]' >> $GITHUB_OUTPUT
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -75,6 +79,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ env.IMAGE_NAME }}
+          tags: ${{ steps.vars.outputs.image_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
