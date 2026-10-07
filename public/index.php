@@ -3,7 +3,7 @@
 ini_set('opcache.enable', 0);
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 /**
  * Front Controller - Main entry point for the OMIST application
@@ -145,12 +145,17 @@ if (str_ends_with($scriptName, '/public/index.php')) {
 
 // Expose base path to JavaScript - ALWAYS define BASE_PATH
 $basePathScript = "<script>window.BASE_PATH = '" . addslashes($basePath) . "';</script>";
-error_log('BASE_PATH: ' . $basePath);
-error_log('=== DEBUG REQUEST ===');
-error_log('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
-error_log('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
-error_log('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
-error_log('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
+
+// Logs de debug uniquement en environnement de développement
+$isDevEnvironment = in_array(strtolower(getenv('APP_ENV') ?: 'development'), ['development', 'dev', 'local'], true);
+if ($isDevEnvironment) {
+    error_log('BASE_PATH: ' . $basePath);
+    error_log('=== DEBUG REQUEST ===');
+    error_log('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
+    error_log('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
+    error_log('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
+    error_log('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
+}
 
 // Register routes
 $routes = [
@@ -200,6 +205,8 @@ foreach ($routes as $path => $handler) {
 
 // For POST requests, register the same handlers
 // First, register explicit POST routes with specific action names
+$router->post('/upload', \App\Controller\UploadController::class, 'handle');
+$router->post('/upload/handle', \App\Controller\UploadController::class, 'handle');
 $router->post('/extract/transcription-sub', \App\Controller\ExtractController::class, 'transcriptionSub');
 $router->post('/extract/slides-notes', \App\Controller\ExtractController::class, 'slidesNotes');
 $router->post('/extract/slides-notes-txt', \App\Controller\ExtractController::class, 'slidesNotesTxt');
@@ -232,16 +239,20 @@ foreach ($routes as $path => $handler) {
     $router->post($path, $handler[0], $action);
 }
 
-// DEBUG: Log des routes POST enregistrées
-error_log('=== POST ROUTES ===');
-foreach ($router->getRoutes()['POST'] as $path => $handler) {
-    error_log("POST $path => " . $handler[0] . '::' . $handler[1]);
+// DEBUG: Log des routes POST enregistrées (développement uniquement)
+if ($isDevEnvironment) {
+    error_log('=== POST ROUTES ===');
+    foreach ($router->getRoutes()['POST'] as $path => $handler) {
+        error_log("POST $path => " . $handler[0] . '::' . $handler[1]);
+    }
 }
 
 // Try to match and dispatch the route
 $match = $router->match();
-error_log('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
-error_log('[Router] Match result: ' . var_export($match, true));
+if ($isDevEnvironment) {
+    error_log('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
+    error_log('[Router] Match result: ' . var_export($match, true));
+}
 
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
@@ -269,7 +280,7 @@ if ($match !== null) {
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||
                                 str_starts_with($requestUri, '/image/') ||
-                                str_starts_with($requestUri, '/upload/') ||
+                                str_starts_with($requestUri, '/upload') ||
                                 str_starts_with($requestUri, '/auditor/') ||
                                 str_starts_with($requestUri, '/conference/') ||
                                 str_starts_with($requestUri, '/subtitles/') ||

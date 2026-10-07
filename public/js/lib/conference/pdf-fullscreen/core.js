@@ -9,13 +9,18 @@ import {
   originalTextBandDisplay, originalTextBandStyle, originalTextBandVisibility,
   originalTextBandParent, originalTextBandNextSibling, originalPdfControlParent,
   originalPdfControlNextSibling, originalPdfViewerStyle, originalCanvasDisplay,
-  originalCanvasWidth, originalCanvasHeight, pageNum, pageRendering, pdfDoc, scale,
+  originalCanvasWidth, originalCanvasHeight,
+  originalLiveStyle, originalLiveDisplay, originalLiveVisibility,
+  originalLiveParent, originalLiveNextSibling,
+  pageNum, pageRendering, pdfDoc, scale,
   setPageNum, setScale, setPdfDoc, setPageRendering, setFullscreenScale,
   setIsCalculatingFullscreenScale, setOriginalCanvasStyle, setOriginalCanvasDisplay,
   setOriginalCanvasWidth, setOriginalCanvasHeight, setOriginalPdfControlStyle,
   setOriginalTextBandDisplay, setOriginalTextBandStyle, setOriginalTextBandVisibility,
   setOriginalTextBandParent, setOriginalTextBandNextSibling, setOriginalPdfControlParent,
   setOriginalPdfControlNextSibling, setOriginalPdfViewerStyle, setOriginalPdfScale,
+  setOriginalLiveStyle, setOriginalLiveDisplay, setOriginalLiveVisibility,
+  setOriginalLiveParent, setOriginalLiveNextSibling,
 } from '../state.js';
 
 import { _ } from '../../dom/selector.js';
@@ -107,6 +112,16 @@ export function saveCurrentCanvasStyles() {
     setOriginalTextBandStyle(textBandEl.style.cssText);
   }
 
+  // Gestion de live (ottis-live-area) - remplace textBand
+  const liveEl = _('live');
+  if (liveEl) {
+    setOriginalLiveParent(liveEl.parentNode);
+    setOriginalLiveNextSibling(liveEl.nextSibling);
+    setOriginalLiveDisplay(liveEl.style.display);
+    setOriginalLiveVisibility(liveEl.style.visibility);
+    setOriginalLiveStyle(liveEl.style.cssText);
+  }
+
   if (pdfControlEl) {
     setOriginalPdfControlParent(pdfControlEl.parentNode);
     setOriginalPdfControlNextSibling(pdfControlEl.nextSibling);
@@ -159,6 +174,17 @@ export function applyFullscreenCanvasStyles() {
     textBandEl.style.right = '0';
     textBandEl.style.height = '100px';
     textBandEl.style.zIndex = '10000';
+  }
+
+  // Gestion de live (ottis-live-area) - remplace textBand
+  const liveEl = _('live');
+  if (liveEl) {
+    liveEl.style.position = 'fixed';
+    liveEl.style.bottom = '0';
+    liveEl.style.left = '0';
+    liveEl.style.right = '0';
+    liveEl.style.zIndex = '10000';
+    liveEl.style.height = 'auto';
   }
 
   if (pdfControlEl) {
@@ -250,6 +276,33 @@ export function restoreCanvasStyles(renderPageCalled = false) {
     textBandEl.style.left = '';
     textBandEl.style.right = '';
     textBandEl.style.height = '';
+  }
+
+  // Restaurer live (ottis-live-area)
+  const liveEl = _('live');
+  if (liveEl) {
+    if (originalLiveParent && liveEl.parentNode !== originalLiveParent) {
+      if (originalLiveNextSibling) {
+        originalLiveParent.insertBefore(liveEl, originalLiveNextSibling);
+      } else {
+        originalLiveParent.appendChild(liveEl);
+      }
+    }
+
+    if (originalLiveStyle && originalLiveStyle.trim()) {
+      liveEl.style.cssText = originalLiveStyle;
+    }
+    if (originalLiveDisplay) {
+      liveEl.style.display = originalLiveDisplay;
+    }
+    if (originalLiveVisibility) {
+      liveEl.style.visibility = originalLiveVisibility;
+    }
+    liveEl.style.position = '';
+    liveEl.style.bottom = '';
+    liveEl.style.left = '';
+    liveEl.style.right = '';
+    liveEl.style.height = '';
   }
 
   if (pdfControlEl && originalPdfControlStyle) {

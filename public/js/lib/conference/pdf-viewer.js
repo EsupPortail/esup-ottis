@@ -3,6 +3,7 @@ import { previousimage, setPreviousimage } from './state/translation.js';
 
 import { b64toBlob } from './utils.js';
 import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
+import { showPresentationError } from './pdf-fullscreen/ui.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
@@ -261,7 +262,7 @@ export function goToPage(num) {
   if (num >= 1 && num <= pdfDoc.numPages) {
     setPageNum(num);
     queueRenderPage(pageNum);
-  } else {
+  } else if (pageInput) {
     pageInput.value = pageNum;
   }
 }
@@ -318,6 +319,12 @@ export function displayPDF(url) {
               setInitialClientHeight(canvasEl.clientHeight);
               setHasSavedInitialDimensions(true);
             }
+          }
+          
+          // Masquer la barre de progression une fois le PDF chargé
+          const dProg = get('d-prog');
+          if (dProg) {
+            dProg.hidden = true;
           }
         });
       })

@@ -160,7 +160,7 @@ function GoFS() {
     // resizeSlides();
   } else {
     document.exitFullscreen();
-    _('bar').style.transform = 'scaleY(1)';
+    // _('bar').style.transform = 'scaleY(1)';
     // resizeSlides();
   }
 }
@@ -174,7 +174,7 @@ function reduceToolbar() {
   if (document.fullscreenElement) {
     // _('bar').style.transform = "scaleY(0.1)";
   } else {
-    _('bar').style.transform = 'scaleY(1)';
+    // _('bar').style.transform = 'scaleY(1)';
   }
 }
 

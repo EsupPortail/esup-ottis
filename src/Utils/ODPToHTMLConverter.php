@@ -2,9 +2,8 @@
 
 namespace App\Utils;
 
-use ZipArchive;
-use SimpleXMLElement;
 use RuntimeException;
+use ZipArchive;
 
 /**
  * ODPToHTMLConverter - Convertit un fichier ODP (OpenDocument Presentation) en HTML.
@@ -17,8 +16,8 @@ class ODPToHTMLConverter
      * Convertit un fichier ODP en HTML.
      *
      * @param string $odpPath Chemin absolu vers le fichier ODP
-     * @return string Contenu HTML généré
      * @throws RuntimeException Si le fichier ne peut pas être lu ou parse
+     * @return string Contenu HTML généré
      */
     public static function convert(string $odpPath): string
     {
@@ -43,7 +42,7 @@ class ODPToHTMLConverter
         $xml = simplexml_load_string($contentXml);
         if ($xml === false) {
             $zip->close();
-            throw new RuntimeException("Impossible de parser content.xml");
+            throw new RuntimeException('Impossible de parser content.xml');
         }
 
         // Namespaces pour XPath
@@ -120,7 +119,7 @@ class ODPToHTMLConverter
             return 'image/png';
         } elseif (strpos($signature, "\xFF\xD8\xFF") === 0) {
             return 'image/jpeg';
-        } elseif (strpos($signature, "GIF8") === 0) {
+        } elseif (strpos($signature, 'GIF8') === 0) {
             return 'image/gif';
         }
         return 'image/png'; // Default fallback

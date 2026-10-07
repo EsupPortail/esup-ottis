@@ -2,22 +2,20 @@
 
 namespace App\Service\Conversion;
 
-use PhpOffice\PhpPresentation\PhpPresentation;
-use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\AbstractShape;
-use PhpOffice\PhpPresentation\Shape\RichText;
-use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing;
+use PhpOffice\PhpPresentation\PhpPresentation;
+use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter;
 use PhpOffice\PhpPresentation\Shape\Group;
-use PhpOffice\PhpPresentation\Shape\Graphic;
+use PhpOffice\PhpPresentation\Shape\RichText;
+use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\Slide\Background;
-use ZipArchive;
 
 /**
  * PPTXSlideRenderer - Rend les slides PPTX en images 100% PHP
- * 
+ *
  * Utilise GD pour dessiner les slides. Chaque élément (texte, image) est positionné
  * et dessiné sur une image PHP.
- * 
+ *
  * Limites :
  * - Les styles complexes (ombres, dégradés) ne sont pas supportés
  * - Les animations ne sont pas supportées
@@ -106,7 +104,7 @@ class PPTXSlideRenderer
         // Obtenir les dimensions de la slide
         $width = $this->defaultWidth;
         $height = $this->defaultHeight;
-        
+
         // Priorité 1: utiliser la taille passée en paramètre
         if ($slideSize !== null && method_exists($slideSize, 'getX') && method_exists($slideSize, 'getY')) {
             $width = $slideSize->getX() ?: $this->defaultWidth;
@@ -197,7 +195,7 @@ class PPTXSlideRenderer
             $this->renderTextShape($image, $shape);
         }
         // Shape d'image
-        elseif ($shape instanceof Graphic || (class_exists('\PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing') && $shape instanceof \PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing)) {
+        elseif ($shape instanceof AbstractDrawingAdapter) {
             $this->renderImageShape($image, $shape);
         }
         // Groupe de shapes
@@ -205,7 +203,7 @@ class PPTXSlideRenderer
             $this->renderGroupShape($image, $shape);
         }
         // Autres formes (rectangle, ligne, etc.)
-        elseif (method_exists($shape, 'getOffsetX') && method_exists($shape, 'getOffsetY')) {
+        else {
             $this->renderGenericShape($image, $shape);
         }
     }
@@ -231,7 +229,7 @@ class PPTXSlideRenderer
         } elseif (method_exists($shape, 'getText')) {
             $text = $shape->getText();
         }
-        
+
         if (empty($text)) {
             return;
         }
@@ -251,7 +249,7 @@ class PPTXSlideRenderer
 
         // Couleur de texte
         $textColor = imagecolorallocate($image, $fontColor['r'], $fontColor['g'], $fontColor['b']);
-        
+
         // Couleur blanche pour comparaison
         $white = imagecolorallocate($image, 255, 255, 255);
 
@@ -284,7 +282,7 @@ class PPTXSlideRenderer
             $gdFont = 5;
             $lines = explode("\n", wordwrap($text, 60));
             $currentY = $textY;
-            
+
             foreach ($lines as $line) {
                 imagestring($image, $gdFont, $x, $currentY, $line, $textColor);
                 $currentY += imagefontheight($gdFont) + 2;
@@ -318,11 +316,10 @@ class PPTXSlideRenderer
     {
         // Obtenir le chemin de l'image
         $path = null;
-        
+
         if (method_exists($shape, 'getPath')) {
             $path = $shape->getPath();
-        }
-        elseif (property_exists($shape, 'path')) {
+        } elseif (property_exists($shape, 'path')) {
             $path = $shape->path;
         }
 
@@ -357,7 +354,7 @@ class PPTXSlideRenderer
         }
 
         $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-        
+
         switch ($ext) {
             case 'png':
                 return imagecreatefrompng($path);
@@ -401,10 +398,16 @@ class PPTXSlideRenderer
 
         // Copier l'image avec redimensionnement
         imagecopyresampled(
-            $canvas, $sourceImage,
-            $offsetX, $offsetY, 0, 0,
-            $newWidth, $newHeight,
-            $srcWidth, $srcHeight
+            $canvas,
+            $sourceImage,
+            $offsetX,
+            $offsetY,
+            0,
+            0,
+            $newWidth,
+            $newHeight,
+            $srcWidth,
+            $srcHeight
         );
 
         // Libérer la mémoire

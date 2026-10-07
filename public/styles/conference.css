@@ -142,7 +142,7 @@ input[type="checkbox"] {
 	font-style		 : italic;
 }
 
-#micon,#questionicon,#FS {
+/* #micon,#questionicon,#FS {
 	transition		 : 0.5s ease;
 	/*
   	position		 : fixed;
@@ -160,7 +160,7 @@ input[type="checkbox"] {
 	text-align		 : center;
 	vertical-align	 : middle;
 	padding			 : auto;
-}
+} */
 
 #icondiv {
   position			 : fixed;
@@ -181,11 +181,10 @@ input[type="checkbox"] {
 		visibility	 : hidden;
 	}
 
-	#micon {
+	/* #micon {
 		top			 : 32px;
 		right		 : 5px;
-	}
-}
+	} */
 
 @media ((min-width:500px) and (max-width:650px)) {
 	#Allbuttons {
@@ -196,13 +195,12 @@ input[type="checkbox"] {
 		visibility	 : hidden;
 	}
 
-	#micon {
+	/* #micon {
 		transform-origin : top right;
 		transform	 : scale(0.5);
 		top			 : 5px;
 		right		 : 5px;
-	}
-}
+	} */
 
 /* Spinner */
 
@@ -494,7 +492,7 @@ input[type="checkbox"] {
 #admin-config h2 { color: #2E7D32; text-align: center; }
 #whichtranslator { margin: 5px; }
 
-/* MICON - Remplace les styles existants */
+/* MICON - Remplace les styles existants (désactivé - géré par conference-new.css)
 #micon {
     position: fixed; top: 15px; right: 15px; z-index: 1000;
     width: 56px; height: 56px; font-size: 36px;
@@ -506,6 +504,7 @@ input[type="checkbox"] {
 #micon:has(.blink) { background-color: #4caf50 !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6) !important; }
 #micon.blink-active { background-color: #4caf50 !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.6) !important; }
 #micon .blink { color: white !important; animation: microPulse 1.5s infinite !important; }
+*/
 
 @keyframes microPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 

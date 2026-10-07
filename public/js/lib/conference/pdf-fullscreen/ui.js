@@ -53,14 +53,24 @@ export function handleFileSelect(event) {
     return;
   }
 
+  // Masquer la section d'import une fois le fichier sélectionné
+  const importSection = _('import-section');
+  if (importSection) {
+    importSection.hidden = true;
+  }
+
   const progressBar = _('presentation-progress');
   const progressStatus = _('progress-status');
+  const dProg = _('d-prog');
 
   if (progressBar) {
     progressBar.value = 0;
   }
   if (progressStatus) {
     progressStatus.textContent = 'Preparing upload...';
+  }
+  if (dProg) {
+    dProg.hidden = false;
   }
 
   const pdfViewer = _('pdf-viewer');
@@ -84,7 +94,7 @@ export function handleFileSelect(event) {
     }
   }, 300);
 
-  fetch('/upload/handle', {
+  fetch('/upload', {
     method: 'POST',
     body: addCsrfToken(formData),
   })
@@ -118,6 +128,21 @@ export function handleFileSelect(event) {
         if (progressStatus) {
           progressStatus.textContent = 'Displaying...';
         }
+        // Afficher le canvas et les contrôles PDF (ottis-live-area reste visible)
+        if (canvas) {
+          canvas.hidden = false;
+          canvas.style.display = 'block';
+        }
+        if (pdfControl) {
+          pdfControl.hidden = false;
+          pdfControl.style.display = 'block';
+        }
+        // Afficher le bouton de fermeture
+        const closeBtn = _('pdf-close-btn');
+        if (closeBtn) {
+          closeBtn.hidden = false;
+        }
+        // pdf-viewer est déjà visible, ottis-live-area reste visible
         displayPDF(data.url);
       } else {
         showPresentationError(`Unexpected file type: ${data.file_type}`);
@@ -133,6 +158,51 @@ export function handleFileSelect(event) {
       }
       showPresentationError(`Upload failed: ${error.message}`);
     });
+}
+
+/**
+ * Ferme la présentation et retourne à l'état initial
+ */
+export function closePresentation() {
+  const importSection = _('import-section');
+  const pdfViewer = _('pdf-viewer');
+  const pdfControl = _('pdf-control');
+  const canvas = _('pdf-canvas');
+  const textViewer = _('text-content-viewer');
+  const textfixe = _('textfixe');
+  const liveArea = _('live');
+  const closeBtn = _('pdf-close-btn');
+
+  // Réafficher la section d'import
+  if (importSection) {
+    importSection.hidden = false;
+  }
+
+  // Masquer les éléments PDF
+  if (pdfViewer) pdfViewer.style.visibility = 'hidden';
+  if (canvas) {
+    canvas.style.display = 'none';
+    canvas.hidden = true;
+  }
+  if (pdfControl) {
+    pdfControl.style.display = 'none';
+    pdfControl.hidden = true;
+  }
+  if (textViewer) textViewer.style.display = 'none';
+
+  // Réafficher textfixe
+  if (textfixe) textfixe.style.display = 'block';
+
+  // Masquer le bouton de fermeture
+  if (closeBtn) {
+    closeBtn.hidden = true;
+  }
+
+  // ottis-live-area reste visible (déplacé en dehors de pdf-viewer)
+
+  // Réinitialiser le state PDF
+  if (typeof setPdfDoc !== 'undefined') setPdfDoc(null);
+  if (typeof setPageNum !== 'undefined') setPageNum(1);
 }
 
 /**
@@ -191,4 +261,14 @@ export function setupPdfFullscreenListeners() {
       }, 100);
     }
   });
+}
+
+/**
+ * Configure l'écouteur pour le bouton de fermeture de la présentation
+ */
+export function setupPdfCloseListener() {
+  const closeBtn = _('pdf-close-btn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closePresentation);
+  }
 }

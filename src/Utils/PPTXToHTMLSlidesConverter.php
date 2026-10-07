@@ -2,15 +2,15 @@
 
 namespace App\Utils;
 
+use InvalidArgumentException;
+use PhpOffice\PhpPresentation\AbstractShape;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\PhpPresentation;
+use PhpOffice\PhpPresentation\Shape\AbstractGraphic;
+use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter;
 use PhpOffice\PhpPresentation\Slide;
-use PhpOffice\PhpPresentation\Shape\RichText;
-use PhpOffice\PhpPresentation\Shape\Group;
-use PhpOffice\PhpPresentation\AbstractShape;
-use ZipArchive;
 use RuntimeException;
-use InvalidArgumentException;
+use ZipArchive;
 
 /**
  * PPTXToHTMLSlidesConverter - Convertit un PPTX en HTML (1 slide = 1 div structuré)
@@ -30,8 +30,8 @@ class PPTXToHTMLSlidesConverter
      * @param string $pptxPath Chemin du fichier PPTX
      * @param string $outputDir Dossier de sortie
      * @param array $options Options (largeur, hauteur, qualité)
-     * @return array Tableau des chemins des fichiers HTML générés
      * @throws RuntimeException En cas d'erreur
+     * @return array Tableau des chemins des fichiers HTML générés
      */
     public static function convert(string $pptxPath, string $outputDir, array $options = []): array
     {
@@ -68,7 +68,7 @@ class PPTXToHTMLSlidesConverter
         try {
             $presentation = IOFactory::load($pptxPath);
         } catch (\Exception $e) {
-            throw new RuntimeException("Erreur de chargement PPTX: " . $e->getMessage());
+            throw new RuntimeException('Erreur de chargement PPTX: ' . $e->getMessage());
         }
 
         $htmlFiles = [];
@@ -88,7 +88,7 @@ class PPTXToHTMLSlidesConverter
         }
 
         if (empty($htmlFiles)) {
-            throw new RuntimeException("Aucune slide valide trouvée");
+            throw new RuntimeException('Aucune slide valide trouvée');
         }
 
         // Créer un fichier HTML combiné (optionnel)
@@ -173,7 +173,7 @@ class PPTXToHTMLSlidesConverter
     private static function renderShape($shape, array $imageMap): string
     {
         // Shape de texte (a getText method)
-        if (method_exists($shape, 'getText') && is_object($shape)) {
+        if ($shape instanceof AbstractShape && method_exists($shape, 'getText')) {
             $text = $shape->getText();
             if ($text === null || $text === '') {
                 return '';
@@ -204,14 +204,22 @@ class PPTXToHTMLSlidesConverter
 
             $style = sprintf(
                 'left: %dpx; top: %dpx; width: %dpx; height: %dpx; ',
-                $x, $y, $w, $h
+                $x,
+                $y,
+                $w,
+                $h
             );
             $style .= sprintf(
                 'font-size: %dpt; color: %s; ',
-                $fontSize, $fontColor
+                $fontSize,
+                $fontColor
             );
-            if ($bold) $style .= 'font-weight: bold; ';
-            if ($italic) $style .= 'font-style: italic; ';
+            if ($bold) {
+                $style .= 'font-weight: bold; ';
+            }
+            if ($italic) {
+                $style .= 'font-style: italic; ';
+            }
 
             return sprintf(
                 '<div class="slide-text" style="%s">%s</div>',
@@ -221,9 +229,7 @@ class PPTXToHTMLSlidesConverter
         }
 
         // Shape d'image (Drawing - a path or image data)
-        if (is_a($shape, '\PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter') ||
-            is_a($shape, '\PhpOffice\PhpPresentation\Shape\Drawing') ||
-            (class_exists('\PhpOffice\PhpPresentation\AbstractGraphic') && is_a($shape, '\PhpOffice\PhpPresentation\AbstractGraphic'))) {
+        if ($shape instanceof AbstractDrawingAdapter || $shape instanceof AbstractGraphic) {
             $x = (int) $shape->getOffsetX();
             $y = (int) $shape->getOffsetY();
             $w = (int) $shape->getWidth();
@@ -234,7 +240,10 @@ class PPTXToHTMLSlidesConverter
                 $firstImage = reset($imageMap);
                 $style = sprintf(
                     'left: %dpx; top: %dpx; width: %dpx; height: %dpx;',
-                    $x, $y, $w, $h
+                    $x,
+                    $y,
+                    $w,
+                    $h
                 );
                 return sprintf(
                     '<img class="slide-image" src="%s" style="%s" />',

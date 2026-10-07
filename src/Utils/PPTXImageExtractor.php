@@ -2,18 +2,18 @@
 
 namespace App\Utils;
 
-use ZipArchive;
 use InvalidArgumentException;
 use RuntimeException;
+use ZipArchive;
 
 /**
  * PPTXImageExtractor - Extrait les images d'un fichier PPTX.
- * 
+ *
  * Les fichiers PPTX sont des archives ZIP contenant :
  * - ppt/media/ : images (image1.png, image2.jpeg, etc.)
  * - ppt/slides/ : slides (slide1.xml, slide2.xml, etc.)
  * - ppt/slideMasters/ : masters
- * 
+ *
  * Cette classe extrait directement les images depuis ppt/media/ sans conversion.
  */
 class PPTXImageExtractor
@@ -23,8 +23,8 @@ class PPTXImageExtractor
      *
      * @param string $filePath Chemin vers le fichier PPTX
      * @param string $outputDir Dossier de sortie (doit exister et être accessible en écriture)
-     * @return array Tableau des chemins des images extraites
      * @throws RuntimeException Si le fichier ne peut pas être lu
+     * @return array Tableau des chemins des images extraites
      */
     public static function extract(string $filePath, string $outputDir): array
     {
@@ -44,7 +44,7 @@ class PPTXImageExtractor
 
         $zip = new ZipArchive();
         $zipOpenResult = $zip->open($filePath);
-        
+
         if ($zipOpenResult !== true) {
             throw new RuntimeException("Impossible d'ouvrir le fichier PPTX (code: $zipOpenResult)");
         }
@@ -55,15 +55,15 @@ class PPTXImageExtractor
         // Parcourir tous les fichiers dans l'archive
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $entryName = $zip->getNameIndex($i);
-            
+
             // Filtrer les images dans ppt/media/
             if (strpos($entryName, 'ppt/media/') === 0) {
                 $imageName = basename($entryName);
                 $extension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-                
+
                 // Extensions d'image supportées
                 $imageExtensions = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'svg', 'webp'];
-                
+
                 if (in_array($extension, $imageExtensions)) {
                     // Extraire le contenu de l'image directement
                     $imageData = $zip->getFromName($entryName);
@@ -93,20 +93,20 @@ class PPTXImageExtractor
     {
         $images = [];
         $zip = new ZipArchive();
-        
+
         if ($zip->open($filePath) !== true) {
             throw new RuntimeException("Impossible d'ouvrir le fichier PPTX");
         }
 
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $entryName = $zip->getNameIndex($i);
-            
+
             if (strpos($entryName, 'ppt/media/') === 0) {
                 $imageName = basename($entryName);
                 $extension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
-                
+
                 $imageExtensions = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'svg', 'webp'];
-                
+
                 if (in_array($extension, $imageExtensions)) {
                     $imageData = $zip->getFromName($entryName);
                     if ($imageData !== false) {
@@ -143,7 +143,7 @@ class PPTXImageExtractor
             'svg' => 'image/svg+xml',
             'webp' => 'image/webp'
         ];
-        
+
         return $mimeTypes[strtolower($extension)] ?? 'application/octet-stream';
     }
 }

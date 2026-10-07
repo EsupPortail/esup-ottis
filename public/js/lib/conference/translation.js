@@ -4,7 +4,7 @@ import {
   readytotalk, LiveTranslationNum, LiveTranslationFreq, setLastSentenceTranslated, setLiveTranslationNum
 } from './state/translation.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
-import { getSubtitleLanguage, getCurrentDiscours } from '../state/conference.js';
+import { getSubtitleLanguage, getCurrentDiscours, getWhichTranslator } from '../state/conference.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
@@ -35,9 +35,11 @@ export function StudentTranslate2(ch, l, linput, lineid) {
   formData.append('ROOMID', _('classroomid').value || '');
   formData.append('lineid', lineid);
 
-  // Ajouter whichtranslator (apikey gere via config.php)
-  const whichtranslator = _('whichtranslator').value;
-  if (whichtranslator) formData.append('whichtranslator', whichtranslator);
+  // Ajouter whichtranslator (apikey gere via config.php ou variable globale)
+  const whichtranslator = getWhichTranslator();
+  if (whichtranslator) {
+    formData.append('whichtranslator', whichtranslator);
+  }
 
   // Ajouter le token CSRF
   addCsrfToken(formData);
@@ -152,7 +154,7 @@ export function Traduction(ch) {
 
 export function TranslatorInfo() {
   let res = '';
-  const whichtranslator = _('whichtranslator').value;
+  const whichtranslator = getWhichTranslator();
   if (whichtranslator != '') res += `&whichtranslator=${whichtranslator}`;
   return res;
 }
@@ -186,9 +188,11 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
     formData.append('forcelibre', 'true');
   }
 
-  // Ajouter whichtranslator (apikey gere via config.php)
-  const whichtranslator = _('whichtranslator').value;
-  if (whichtranslator) formData.append('whichtranslator', whichtranslator);
+  // Ajouter whichtranslator (apikey gere via config.php ou variable globale)
+  const whichtranslator = getWhichTranslator();
+  if (whichtranslator) {
+    formData.append('whichtranslator', whichtranslator);
+  }
 
   const d_begin = Date.now();
   addCsrfToken(formData);

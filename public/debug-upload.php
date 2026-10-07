@@ -1,6 +1,9 @@
 <?php
+
 // Désactive le buffer pour voir les erreurs brutes
-while (ob_get_level()) ob_end_clean();
+while (ob_get_level()) {
+    ob_end_clean();
+}
 
 // Active le logging complet
 ini_set('display_errors', 0);  // ⚠️ Désactivé pour éviter le HTML dans la réponse
@@ -43,4 +46,3 @@ $method->invoke($controller);
 
 // Nettoyage
 @unlink($testFile);
-?>

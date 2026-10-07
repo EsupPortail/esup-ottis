@@ -17,6 +17,12 @@ use Monolog\Logger;
 // Récupérer l'environnement de l'application
 $appEnv = $_ENV['APP_ENV'] ?? (getenv('APP_ENV') ?: 'development');
 
+// S'assurer que le répertoire de logs existe (sinon Monolog échoue au premier log)
+$logDir = __DIR__ . '/../logs';
+if (!is_dir($logDir)) {
+    @mkdir($logDir, 0775, true);
+}
+
 // Format des logs : "2026-08-27 14:30:45.123456 [WARNING] security: Invalid room ID"
 $dateFormat = 'Y-m-d H:i:s.u';
 $output = "%datetime% [%level_name%] %channel%.%context%: %message%\n";

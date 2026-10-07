@@ -55,7 +55,6 @@ class ConferenceController extends BaseController
         // Define styles for this page
         $this->viewData['pageStyles'] = [
             'styles/auditor.css',
-            'styles/conference.css',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
             'styles/chat.css'
         ];
@@ -137,8 +136,69 @@ class ConferenceController extends BaseController
         $this->viewData['roomToken'] = $roomToken;
         $this->viewData['ip'] = $ip;
 
-        // No layout as this page has its own complete HTML structure
-        $this->layout = false;
+        // Rediriger les anciennes URLs avec ?tab= vers le format hash-based SPA
+        if (isset($_GET['tab'])) {
+            $tab = $_GET['tab'];
+            $validTabs = ['outil', 'langues', 'partage', 'transcription'];
+            if (in_array($tab, $validTabs)) {
+                header('Location: /conference#' . $tab);
+                exit;
+            }
+        }
+
+        $this->viewData['isConferencePage'] = true;
+
+        // Tous les scripts nécessaires pour la SPA (tous les onglets chargés)
+        $afterContentScripts = '';
+
+        // DOM and Network utilities
+        $afterContentScripts .= '<script type="module" src="/js/lib/dom/selector.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/dom/styles.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/dom/visibility.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/dom/layout.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/dom/events.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/dom/dialog.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/network/utils.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/network/xhr.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/network/fetch.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/network/counter.js"></script>';
+
+        // Language utilities
+        $afterContentScripts .= '<script type="module" src="/js/lib/language/state.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/language/management.js"></script>';
+
+        // Chat utilities
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/state.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/utils.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/utils/cleanup.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/index.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/alert.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/network.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/main.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/handlers.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/chat/display.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/index.js"></script>';
+
+        // Conference scripts (tous les onglets)
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-viewer.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/core.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/ui.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/events.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/notebook.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/config-functions.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/post.js"></script>';
+        $afterContentScripts .= '<script type="module" src="/js/lib/conference/speech.js"></script>';
+
+        // Script d'initialisation
+        $afterContentScripts .= '<script type="module" src="/js/conference-init.js"></script>';
+
+        // Script de test pour localhost
+        if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) {
+            $afterContentScripts .= '<script src="/js/tests/no-jquery-validation.js"></script>';
+        }
+
+        $this->viewData['afterContentScripts'] = $afterContentScripts;
+
         $this->render('conference/index');
     }
 

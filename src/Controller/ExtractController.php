@@ -234,18 +234,8 @@ class ExtractController extends BaseController
                 $pdfFiles = glob($workDir . '/*.pdf');
                 if ($return === 0 && !empty($pdfFiles)) {
                     $pdfFile = $pdfFiles[0];
-                    // Convertir PDF en images
-                    $cmd = 'convert -density 100 ' . escapeshellarg($pdfFile) . ' -scale 1024x768 ' . escapeshellarg($imagesDir . '/slide-%03d.jpg') . ' 2>/dev/null';
-                    exec($cmd, $output, $return);
-
-                    // Lister les images générées
-                    if ($return === 0) {
-                        $imageFiles = glob($imagesDir . '/slide-*.jpg');
-                        natsort($imageFiles);
-                        foreach ($imageFiles as $img) {
-                            $T_images[] = basename($img);
-                        }
-                    }
+                    // Convertir PDF en images via Imagick ou ImageMagick CLI
+                    $T_images = $this->convertPdfToImages($pdfFile, $imagesDir);
                 }
             } catch (\Exception $e) {
                 error_log('Image extraction failed: ' . $e->getMessage());
@@ -430,11 +420,11 @@ class ExtractController extends BaseController
 
             // For HTML: use .html extension
             if (strpos($uncloudlink, '.html') !== false) {
-                $tmp_file = '/var/www/html/uploads/uncloudfile_' . md5(gmdate('U')) . '.html';
+                $tmp_file = APP_ROOT . '/uploads/uncloudfile_' . md5(gmdate('U')) . '.html';
                 $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
             } else {
                 // For PPTX: use .pptx extension
-                $tmp_file = '/var/www/html/uploads/uncloudfile_' . md5(gmdate('U')) . '.pptx';
+                $tmp_file = APP_ROOT . '/uploads/uncloudfile_' . md5(gmdate('U')) . '.pptx';
                 $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
             }
 
@@ -459,6 +449,52 @@ class ExtractController extends BaseController
         }
 
         return $tmp_file;
+    }
+
+    /**
+     * Convert PDF to JPG images using Imagick extension or fallback to ImageMagick CLI
+     *
+     * @param string $pdfFile Path to the PDF file
+     * @param string $imagesDir Directory to save JPG images
+     * @return array Array of generated image filenames
+     */
+    private function convertPdfToImages(string $pdfFile, string $imagesDir): array
+    {
+        $imageFiles = [];
+
+        try {
+            if (extension_loaded('imagick') && class_exists('\Imagick')) {
+                $imagick = new \Imagick();
+                $imagick->setResolution(100, 100);
+                $imagick->readImage($pdfFile);
+
+                foreach ($imagick as $pageNumber => $page) {
+                    $page->setImageFormat('jpg');
+                    $page->resizeImage(1024, 768, \Imagick::FILTER_LANCZOS, 1);
+                    $filename = $imagesDir . '/slide-' . str_pad($pageNumber, 3, '0', STR_PAD_LEFT) . '.jpg';
+                    $page->writeImage($filename);
+                    $imageFiles[] = basename($filename);
+                }
+
+                $imagick->clear();
+                $imagick->destroy();
+            } else {
+                $cmd = 'convert -density 100 ' . escapeshellarg($pdfFile) . ' -scale 1024x768 ' . escapeshellarg($imagesDir . '/slide-%03d.jpg') . ' 2>/dev/null';
+                exec($cmd, $output, $return);
+
+                if ($return === 0) {
+                    $imageFiles = glob($imagesDir . '/slide-*.jpg');
+                    if ($imageFiles !== false) {
+                        natsort($imageFiles);
+                        $imageFiles = array_map('basename', $imageFiles);
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            error_log('PDF to image conversion failed: ' . $e->getMessage());
+        }
+
+        return $imageFiles;
     }
 
     /**

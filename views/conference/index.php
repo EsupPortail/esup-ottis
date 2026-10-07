@@ -1,210 +1,205 @@
-<!doctype html>
-<html lang="fr">
-<head>
-	<title><?php echo $this->escape($pageTitle); ?></title>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="icon" type="image/png" href="/images/favicon.svg" >
+<?php
+/**
+ * index.php - SPA Conference
+ * Migration vers architecture SPA hash-based
+ * Phase 5 : Implémentation SPA avec noms du projet
+ * Structure adaptée pour s'intégrer dans default.php
+ */
 
-    <?php foreach ($pageStyles as $style): ?>
-        <link href="<?php echo $this->escape($style); ?>" rel="stylesheet">
-    <?php endforeach; ?>
+// Préparer les données communes pour les tabs
+$commonData = [
+    'classroomid' => $classroomid,
+    'appid' => $appid,
+    'roomToken' => $roomToken,
+    'uid' => $uid,
+    'currentUserDisplayName' => $currentUserDisplayName,
+    'jsVars' => $jsVars,
+];
+?>
 
-    <script>
-        window.pageData = <?php echo json_encode($jsVars); ?>;
-        const intervenantName = <?php echo json_encode($currentUserDisplayName ?? $uid ?? ''); ?>;
-        const intervenantUid = <?php echo json_encode($uid ?? 'anonymous'); ?>;
-        globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
-            fullName: intervenantName,
-            uid: intervenantUid,
-            isIntervenant: true
-        });
-        globalThis.ROOM_OWNER_UID = intervenantUid;
-        window.pageData = Object.assign(window.pageData || {}, {
-            intervenantName,
-            roomOwnerUid: intervenantUid
-        });
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-</head>
-<body>
+<!-- Inputs cachés -->
 <input type="hidden" id="classroomid" value="<?php echo $this->escape($classroomid); ?>">
 <input type="hidden" id="appid" value="<?php echo $this->escape($appid); ?>">
 <input type="hidden" id="CurrentUserDisplayName" value="<?php echo $this->escape($currentUserDisplayName ?? $uid ?? ''); ?>">
 <?php echo \App\Utils\Csrf::field(); ?>
 
-<div id="conference-main" class="conference-grid">
+<!-- Variables JavaScript -->
+<script>
+    window.pageData = <?php echo json_encode($jsVars); ?>;
+    window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
+    const intervenantName = <?php echo json_encode($currentUserDisplayName ?? $uid ?? ''); ?>;
+    const intervenantUid = <?php echo json_encode($uid ?? 'anonymous'); ?>;
+    globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
+        fullName: intervenantName,
+        uid: intervenantUid,
+        isIntervenant: true
+    });
+    globalThis.ROOM_OWNER_UID = intervenantUid;
+    window.pageData = Object.assign(window.pageData || {}, {
+        intervenantName,
+        roomOwnerUid: intervenantUid
+    });
+</script>
 
-    <!-- Language Section -->
-    <section id="language-section" class="conference-card" aria-labelledby="language-section-title">
-        <h2 id="language-section-title">Configuration linguistique</h2>
-        <div>
-            <ul class="no-bullets">
-                <li>
-                    <label for="classroomlanguage">Speaker language :</label>
-                    <select id="classroomlanguage" class="select"></select>
-                </li>
-                <li class="hidden">
-                    <label for="recognitionon">Speech recognition active ? </label>
-                    <input type="checkbox" id="recognitionon" >
-                </li>
-                <li>&nbsp;</li>
-                <li class="hidden">
-                    Translate subtitles ?
-                    <input type="checkbox" id="subtitleon">&nbsp;<span class="yesno" id="spansubtitleon">No.</span>
-                </li>
-                <li>
-                    <label for="subtitlelanguage">Language for subtitles :</label>
-                    <select id="subtitlelanguage" class="select"></select>
-                </li>
-                <li>
-                    <label for="usetextband">Use partialtitre instead of textBand:</label>
-                    <input type="checkbox" id="usetextband">
-                </li>
-            </ul>
+<!-- Structure SPA directe (s'intègre dans <main class="ottis-main"> de default.php) -->
+<div class="dock" id="dock">
+    <?php include __DIR__ . '/_partials/header-nav.php'; ?>
+
+    <!-- Panel unique (contenu dynamique) -->
+    <aside class="panel" id="panel" aria-labelledby="pt" hidden>
+        <div class="panel-header" id="ph">
+            <h2 id="pt" tabindex="-1"></h2>
+            <button type="button" class="x" id="pclose" aria-label="Fermer le panneau">
+                <span class="ottis-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></span>
+            </button>
         </div>
-    </section>
-
-    <!-- Chat Section -->
-    <section id="chat-section" class="conference-card" aria-labelledby="chat-section-title">
-        <h2 id="chat-section-title">Classroom Chat</h2>
-        <div>
-            <?php
-            if (function_exists('renderChatComponent')) {
-                renderChatComponent([
-                    'roomId' => $classroomid,
-                    'roomToken' => $roomToken,
-                    'userName' => $uid,
-                    'isIntervenant' => true,
-                    'placeholder' => 'Type your message here...',
-                    'labelText' => 'Classroom Chat'
-                ]);
-            }
-	?>
+        <div class="panel-body">
+            <?php include __DIR__ . '/_partials/panels/langues.php'; ?>
+            <?php include __DIR__ . '/_partials/panels/apparence.php'; ?>
+            <?php include __DIR__ . '/_partials/panels/partage.php'; ?>
+            <?php include __DIR__ . '/_partials/panels/transcription.php'; ?>
         </div>
-    </section>
-
-    <!-- Notebook Section -->
-    <section id="notebook-section" class="conference-card" aria-labelledby="notebook-section-title">
-        <h2 id="notebook-section-title">Notebook</h2>
-        <div id="notebooks_container">
-            <label>NOTEBOOK</label>
-            <div id="VO_container">
-                <input type="button" id="buttondownloadspeechVO" value="Download the speech VO" class="button-3 tooltip" title="Download the notebook in txt format.">
-                <br>
-                <div id="notebookVO" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."></div>
-            </div>
-            <div id="translated_container">
-                <input type="button" id="buttondownloadspeech" value="Download the speech translated" class="button-3 tooltip" title="Download the notebook in txt format.">
-                <br>
-                <div id="notebook" contenteditable="true" aria-label="Complete speech here." title="Complete speech here."></div>
-            </div>
-        </div>
-    </section>
-
-    <div id="partialtitre" class="hidden" style="display: none;"></div>
-
-    <h3 class="tabbed">For students</h3>
-    <div>
-        <ul class="no-bullets">
-            <li><span id="connectedusers">connected users</span></li>
-            <li>Students application : <a id="sharedlink" href="/auditor?ROOMID=<?php echo $this->escape($classroomid); ?>">/auditor?ROOMID=<?php echo $this->escape($classroomid); ?></a></li>
-            <li>QR code :
-                <div title="" id="sharedqr"></div>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Presentation Upload -->
-    <div>
-        <label for="presentation_file">Upload Presentation:</label>
-        <input type="file" id="presentation_file" name="presentation_file"
-               accept=".pptx,.odp,.pdf,.txt,.html,.htm"
-               aria-label="Upload presentation file"
-               title="Upload PPTX, ODP, PDF, TXT, or HTML file">
-
-        <progress id="presentation-progress" value="0" max="100" aria-label="Upload and conversion progress"></progress>
-        <span id="progress-status" aria-live="polite"></span>
-
-        <div id="pdf-viewer">
-            <canvas id="pdf-canvas"></canvas>
-            <div id="pdf-control">
-                <div>
-                    <button id="pdf-prev" disabled aria-label="Previous page" title="Go to previous page">Previous</button>
-                    <span id="pdf-page-indicator">Page 1 of 1</span>
-                    <button id="pdf-next" disabled aria-label="Next page" title="Go to next page">Next</button>
-                    <input type="number" id="pdf-page-input" min="1" aria-label="Go to page number">
-                    <button id="pdf-fullscreen-btn" aria-label="Toggle fullscreen mode" title="Press ESC to exit fullscreen">Fullscreen</button>
-                </div>
-                <div id="textBand" class="text-band-style" style="display: block; visibility: visible;"></div>
-            </div>
-        </div>
-
-        <div id="text-content-viewer"></div>
-    </div>
-
-    <div id="textfixe" class="text-band-style" style="display: block;"></div>
-
-    <!-- Admin Configuration -->
-    <div id="admin-config">
-        <h2>ADMIN - Configuration Traduction</h2>
-        <label for="whichtranslator">Choix traducteur :</label>
-        <select id="whichtranslator" class="select">
-            <option value="" selected>Default</option>
-            <option value="DEEPLPRO">DeepL Pro API</option>
-            <option value="DEEPLFREE">DeepL Free API</option>
-            <option value="LIBRETRANSLATE">Libre Translate</option>
-        </select>
-    </div>
-
-    <!-- Microphone Button -->
-    <div id="micon" title="Activer/Désactiver le microphone. Alternatives : barre d'espace, bouton rouge de la télécommande smartphone ou bouton du pointeur de présentation.">
-        <i class='material-icons'>voice_over_off</i>
-    </div>
+    </aside>
 </div>
 
-<!-- Conference-specific scripts -->
-<?php foreach ($pageScripts as $script): ?>
-    <?php
-    echo "<!-- [TEMPLATE] Chargement: $script -->\n";
-    $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
-    $typeAttr = $isModule ? 'type="module"' : '';
-    echo "<!-- [TEMPLATE] Type: $typeAttr -->\n";
-    ?>
-    <script <?php echo $typeAttr; ?> src="<?php echo $this->escape($script); ?>"></script>
-<?php endforeach; ?>
-<!-- DOM and Network utilities - must load FIRST -->
-<script type="module" src="/js/lib/dom/selector.js"></script>
-<script type="module" src="/js/lib/dom/styles.js"></script>
-<script type="module" src="/js/lib/dom/visibility.js"></script>
-<script type="module" src="/js/lib/dom/layout.js"></script>
-<script type="module" src="/js/lib/dom/events.js"></script>
-<script type="module" src="/js/lib/dom/dialog.js"></script>
-<script type="module" src="/js/lib/network/utils.js"></script>
-<script type="module" src="/js/lib/network/xhr.js"></script>
-<script type="module" src="/js/lib/network/fetch.js"></script>
-<script type="module" src="/js/lib/network/counter.js"></script>
-<!-- Language utilities -->
-<script type="module" src="/js/lib/language/state.js"></script>
-<script type="module" src="/js/lib/language/management.js"></script>
-<!-- Chat utilities -->
-<script type="module" src="/js/lib/chat/state.js"></script>
-<script type="module" src="/js/lib/chat/utils.js"></script>
-<!-- Charger les autres dépendances -->
-<script type="module" src="/js/lib/utils/cleanup.js"></script>
-<script type="module" src="/js/lib/index.js"></script>
-<script type="module" src="/js/lib/chat/alert.js"></script>
-<script type="module" src="/js/lib/chat/network.js"></script>
-<script type="module" src="/js/lib/chat/main.js"></script>
-<script type="module" src="/js/lib/chat/handlers.js"></script>
-<script type="module" src="/js/lib/chat/display.js"></script>
-<script type="module" src="/js/lib/conference/index.js"></script>
-<!-- Puis le script d'initialisation -->
-<script type="module" src="/js/conference-init.js"></script>
+<div class="content">
+    <!-- Contenus principaux (2 seulement) -->
+    <main class="m" id="v-outil" hidden>
+        <?php
+        extract($commonData);
+include __DIR__ . '/tabs/outil.php';
+?>
+    </main>
+    <main class="m" id="v-transcription" hidden>
+        <?php
+extract($commonData);
+include __DIR__ . '/tabs/transcription.php';
+?>
+    </main>
+</div>
 
-<?php if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) : ?>
-    <script src="/js/tests/no-jquery-validation.js"></script>
-<?php endif; ?>
-</body>
-</html>
+<!-- Chat flottant -->
+<?php include __DIR__ . '/_partials/chat-floating.php'; ?>
+
+<!-- Script de routage SPA -->
+<script type="module">
+(function() {
+    'use strict';
+
+    // Nettoyer les URLs avec ?tab=X au chargement
+    if (window.location.search.includes('tab=')) {
+        const match = window.location.search.match(/tab=([^&]+)/);
+        if (match) {
+            window.history.replaceState(null, '', '#' + match[1]);
+        }
+    }
+
+    const tabs = {
+        outils: {
+            content: 'v-outil',
+            panel: '',
+            title: 'Sous-titrer en direct',
+            panelTitle: ''
+        },
+        langues: {
+            content: 'v-outil',  // Garde le contenu outil
+            panel: 'langues',
+            title: 'Sous-titrer en direct',
+            panelTitle: 'Langues'
+        },
+        apparence: {
+            content: 'v-outil',  // Garde le contenu outil
+            panel: 'apparence',
+            title: 'Sous-titrer en direct',
+            panelTitle: 'Apparence'
+        },
+        partage: {
+            content: 'v-outil',  // Garde le contenu outil
+            panel: 'partage',
+            title: 'Sous-titrer en direct',
+            panelTitle: 'Partage'
+        },
+        transcription: {
+            content: 'v-transcription',
+            panel: '',
+            title: 'Transcription',
+            panelTitle: ''
+        }
+    };
+
+    function route() {
+        const hash = window.location.hash.replace('#', '') || 'outils';
+        const tab = tabs[hash] || tabs.outils;
+        const panel = document.getElementById('panel');
+        const pt = document.getElementById('pt');
+
+        // Masquer tous les contenus principaux
+        document.querySelectorAll('.m').forEach(el => {
+            el.hidden = true;
+        });
+
+        // Masquer tous les panels
+        document.querySelectorAll('.panel-content').forEach(el => {
+            el.style.display = 'none';
+        });
+
+        // Afficher le contenu actif
+        if (tab.content) {
+            document.getElementById(tab.content).hidden = false;
+        }
+
+        // RGAA/SPA: Assurer que seul le contenu actif est visible
+        const vOutil = document.getElementById('v-outil');
+        const vTranscription = document.getElementById('v-transcription');
+        if (hash === 'transcription') {
+            if (vOutil) vOutil.hidden = true;
+            if (vTranscription) vTranscription.hidden = false;
+        } else {
+            if (vOutil) vOutil.hidden = false;
+            if (vTranscription) vTranscription.hidden = true;
+        }
+
+        // Gérer le panel
+        if (tab.panel) {
+            panel.hidden = false;
+            pt.textContent = tab.panelTitle;
+            const activePanel = document.querySelector(`.panel-${tab.panel}`);
+            if (activePanel) {
+                activePanel.style.display = 'block';
+            }
+        } else {
+            panel.hidden = true;
+        }
+
+        // Gérer aria-current sur le rail
+        document.querySelectorAll('.rail a').forEach(a => a.removeAttribute('aria-current'));
+        const activeLink = document.querySelector(`.rail a[href="#${hash}"]`);
+        if (activeLink) {
+            activeLink.setAttribute('aria-current', 'page');
+        }
+
+        document.title = tab.title + ' – OTTIS';
+    }
+
+    window.addEventListener('hashchange', route);
+    window.addEventListener('DOMContentLoaded', route);
+
+    // Gestion du re-clic sur un onglet déjà actif
+    document.querySelectorAll('.rail a').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const targetHash = this.getAttribute('href').replace('#', '');
+            const currentHash = window.location.hash.replace('#', '');
+            // Si on clique sur l'onglet actif, fermer le panneau et revenir à Outil
+            if (targetHash === currentHash) {
+                e.preventDefault();
+                location.hash = '#outil';
+            }
+        });
+    });
+
+    // Gestion du bouton de fermeture du panneau
+    document.getElementById('pclose')?.addEventListener('click', function() {
+        location.hash = '#outil';
+    });
+})();
+</script>

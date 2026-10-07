@@ -2,6 +2,7 @@
 import { setLanguageSpeech, setLanguageSubtitle } from './voices.js';
 import { toggleTextBandDisplay, Micro } from './ui.js';
 import { handleFileSelect } from './pdf-fullscreen.js';
+import { setupPdfCloseListener, setupPdfFullscreenListeners } from './pdf-fullscreen/ui.js';
 import { prevPage, nextPage, goToPage, togglePdfFullscreen } from './pdf-viewer.js';
 import { DownloadSpeechLesson } from '../download.js';
 import { initChatAlert } from '../chat/alert.js';
@@ -104,6 +105,10 @@ export function initConferenceEvents() {
     });
   } else {
   }
+
+  // PDF close button
+  setupPdfCloseListener();
+  setupPdfFullscreenListeners();
 
   // Compatibility & Chat Alert
   initMiconCompatibility();

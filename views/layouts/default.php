@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="lang" content="<?php echo $this->escape($language ?? 'fr'); ?>">
+    <meta name="csrf-token" content="<?php echo \App\Utils\Csrf::generateToken(); ?>">
     <title><?php echo $this->escape($pageTitle ?? 'OTTIS'); ?></title>
     <link rel="icon" type="image/png" href="/images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +16,10 @@
         <?php foreach ($pageStyles as $style): ?>
             <link rel="stylesheet" href="<?php echo $this->escape($style); ?>">
         <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php if (isset($isConferencePage) && $isConferencePage): ?>
+        <link rel="stylesheet" href="/styles/conference-new.css">
     <?php endif; ?>
 
     <script>
@@ -37,7 +42,7 @@
     <?php endif; ?>
 </head>
 
-<body <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
+<body class="<?php echo (isset($isConferencePage) && $isConferencePage) ? 'ottis-page-conference' : ''; ?>" <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
     <header class="ottis-header">
         <nav class="ottis-nav" aria-label="Navigation principale">
             <div class="ottis-nav__brand">
@@ -80,9 +85,6 @@
                             <option value="fr" <?php echo isset($language) && $language === 'fr' ? 'selected' : ''; ?>>FR</option>
                             <option value="en" <?php echo isset($language) && $language === 'en' ? 'selected' : ''; ?>>EN</option>
                         </select>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                            <path d="M3 4.5l3 3 3-3" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
                     </label>
                 </li>
             </menu>
@@ -96,6 +98,10 @@
     <main class="ottis-main">
         <?php echo $content; ?>
     </main>
+
+    <?php if (isset($afterContentScripts)): ?>
+        <?php echo $afterContentScripts; ?>
+    <?php endif; ?>
 
     <footer class="ottis-footer">
         <span class="translate" data-key="footer.copyright">© Nantes Université - 2026</span>

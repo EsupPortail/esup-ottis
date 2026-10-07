@@ -2,27 +2,21 @@
 
 namespace App\Service\Conversion;
 
-use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
+use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\Slide;
-use PhpOffice\PhpPresentation\Slide\SlideLayout;
-use PhpOffice\PhpPresentation\Shape\RichText;
-use PhpOffice\PhpPresentation\Shape\RichText\TextElement;
-use PhpOffice\PhpPresentation\Shape\Drawing\File;
-use PhpOffice\PhpPresentation\Style\Color;
-use PhpOffice\PhpPresentation\Style\Font;
 use PhpOffice\PhpPresentation\Style\Alignment;
-use ZipArchive;
-use SimpleXMLElement;
 use RuntimeException;
+use SimpleXMLElement;
+use ZipArchive;
 
 /**
  * ODPToPPTXConverter - Convertit des fichiers ODP en PPTX 100% PHP
- * 
+ *
  * Les fichiers ODP (OpenDocument Presentation) sont des archives ZIP contenant du XML.
  * Ce convertisseur parse le XML et recrée une présentation équivalente en PPTX
  * utilisant PHPPresentation.
- * 
+ *
  * Format ODP :
  * - content.xml : Contient la structure des slides et le texte
  * - styles.xml : Contient les styles
@@ -31,7 +25,7 @@ use RuntimeException;
 class ODPToPPTXConverter
 {
     private string $tempDir;
-    
+
     public function __construct(string $tempDir = null)
     {
         $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_odp_convert/';
@@ -45,8 +39,8 @@ class ODPToPPTXConverter
      *
      * @param string $odpPath Chemin vers le fichier ODP source
      * @param string $pptxPath Chemin vers le fichier PPTX de sortie
-     * @return string Chemin vers le fichier PPTX généré
      * @throws RuntimeException En cas d'erreur de conversion
+     * @return string Chemin vers le fichier PPTX généré
      */
     public function convert(string $odpPath, string $pptxPath): string
     {
@@ -57,14 +51,14 @@ class ODPToPPTXConverter
         // Ouvrir l'archive ODP
         $zip = new ZipArchive();
         $zipOpenResult = $zip->open($odpPath);
-        
+
         if ($zipOpenResult !== true) {
             throw new RuntimeException("Impossible d'ouvrir le fichier ODP: code erreur $zipOpenResult");
         }
 
         // Créer une nouvelle présentation PPTX
         $presentation = new PhpPresentation();
-        
+
         // Lire content.xml
         $contentXml = $zip->getFromName('content.xml');
         if ($contentXml === false) {
@@ -76,7 +70,7 @@ class ODPToPPTXConverter
         $xml = simplexml_load_string($contentXml);
         if ($xml === false) {
             $zip->close();
-            throw new RuntimeException("Impossible de parser content.xml");
+            throw new RuntimeException('Impossible de parser content.xml');
         }
 
         // Namespaces pour XPath
@@ -89,10 +83,10 @@ class ODPToPPTXConverter
 
         // Extraire toutes les slides (draw:page)
         $slides = $xml->xpath('//draw:page');
-        
+
         if (empty($slides)) {
             $zip->close();
-            throw new RuntimeException("Aucune slide trouvée dans le fichier ODP");
+            throw new RuntimeException('Aucune slide trouvée dans le fichier ODP');
         }
 
         // Extraire les images de la présentation
@@ -121,24 +115,24 @@ class ODPToPPTXConverter
     private function extractODPImages(ZipArchive $zip, string $odpPath): array
     {
         $imagePaths = [];
-        
+
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $entryName = $zip->getNameIndex($i);
-            
+
             // Les images peuvent être dans Pictures/ ou dans d'autres répertoires
             if (preg_match('/Pictures\/.*\.(png|jpg|jpeg|gif|bmp|webp)$/i', $entryName) ||
                 preg_match('/.*\.(png|jpg|jpeg|gif|bmp|webp)$/i', $entryName)) {
-                
+
                 $imageData = $zip->getFromName($entryName);
                 if ($imageData !== false) {
                     $ext = strtolower(pathinfo($entryName, PATHINFO_EXTENSION));
                     if (!in_array($ext, ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp'])) {
                         $ext = 'png';
                     }
-                    
+
                     $localPath = $this->tempDir . 'image_' . md5($entryName) . '.' . $ext;
                     file_put_contents($localPath, $imageData);
-                    
+
                     $imagePaths[$entryName] = $localPath;
                 }
             }
@@ -154,7 +148,6 @@ class ODPToPPTXConverter
     {
         // Créer une nouvelle slide
         $slide = $presentation->createSlide();
-        $slide->setSlideLayout(SlideLayout::TITLE);
 
         // Position de départ pour le contenu
         $y = 50;
@@ -171,16 +164,18 @@ class ODPToPPTXConverter
                     $titleShape->setOffsetY($y);
                     $titleShape->setWidth($maxWidth);
                     $titleShape->setHeight(60);
-                    
+
                     // Style du titre
                     $paragraph = $titleShape->getActiveParagraph();
                     $paragraph->getFont()->setSize(24);
                     $paragraph->getFont()->setBold(true);
-                    $paragraph->setAlignment(new Alignment(Alignment::HORIZONTAL_CENTER));
-                    
+                    $alignment = new Alignment();
+                    $alignment->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                    $paragraph->setAlignment($alignment);
+
                     // Ajouter le texte
                     $paragraph->createTextRun($titleText);
-                    
+
                     $y += 70;
                 }
             }
@@ -196,11 +191,11 @@ class ODPToPPTXConverter
                 $shape->setOffsetY($y);
                 $shape->setWidth($maxWidth);
                 $shape->setHeight(40);
-                
+
                 // Ajouter le texte via un paragraph
                 $paragraph = $shape->getActiveParagraph();
                 $paragraph->createTextRun($text);
-                
+
                 $y += 50;
             }
         }
@@ -209,20 +204,20 @@ class ODPToPPTXConverter
         $imageElements = $slideXml->xpath('.//draw:image | .//draw:object');
         foreach ($imageElements as $imageElement) {
             $href = (string)($imageElement->attributes('xlink', true)->href ?? '');
-            
+
             if (!empty($href) && isset($imagePaths[$href])) {
                 $imagePath = $imagePaths[$href];
-                
+
                 if (file_exists($imagePath)) {
                     $shape = $slide->createDrawingShape();
                     $shape->setPath($imagePath);
                     $shape->setOffsetX(100);
                     $shape->setOffsetY($y);
-                    
+
                     // Taille par défaut pour les images
                     $shape->setWidth(400);
                     $shape->setHeight(300);
-                    
+
                     $y += 320;
                 }
             }
@@ -242,7 +237,7 @@ class ODPToPPTXConverter
     private function extractTextFromElement(SimpleXMLElement $element): string
     {
         $text = '';
-        
+
         // Obtenir le texte direct
         if (isset($element->{'text:span'})) {
             foreach ($element->{'text:span'} as $span) {
@@ -255,7 +250,7 @@ class ODPToPPTXConverter
         // Nettoyer le texte
         $text = str_replace(["\n", "\r", "\t"], ' ', $text);
         $text = preg_replace('/\s+/', ' ', $text);
-        
+
         return trim($text);
     }
 

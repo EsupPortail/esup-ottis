@@ -2,12 +2,12 @@
 
 namespace App\Service\Conversion;
 
-use ZipArchive;
 use RuntimeException;
+use ZipArchive;
 
 /**
  * PPTXImageExtractor - Extrait les images d'un fichier PPTX 100% PHP
- * 
+ *
  * Les fichiers PPTX sont des archives ZIP contenant un répertoire ppt/media/
  * avec toutes les images intégrées. Cette classe extrait directement ces images.
  */
@@ -18,7 +18,7 @@ class PPTXImageExtractor
     public function __construct(string $tempDir = null)
     {
         $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_pptx_images/';
-        
+
         if (!file_exists($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);
         }
@@ -30,8 +30,8 @@ class PPTXImageExtractor
      * @param string $pptxPath Chemin vers le fichier PPTX
      * @param string $outputDir Répertoire de sortie pour les images
      * @param bool $preserveNames Conserver les noms originaux des images
-     * @return array Tableau des chemins des images extraites
      * @throws RuntimeException En cas d'erreur
+     * @return array Tableau des chemins des images extraites
      */
     public function extractImages(string $pptxPath, string $outputDir, bool $preserveNames = false): array
     {
@@ -45,7 +45,7 @@ class PPTXImageExtractor
 
         $zip = new ZipArchive();
         $zipOpenResult = $zip->open($pptxPath);
-        
+
         if ($zipOpenResult !== true) {
             throw new RuntimeException("Impossible d'ouvrir le fichier PPTX: code erreur $zipOpenResult");
         }
@@ -56,7 +56,7 @@ class PPTXImageExtractor
         // Parcourir toutes les entrées dans l'archive
         for ($i = 0; $i < $zip->numFiles; $i++) {
             $entryName = $zip->getNameIndex($i);
-            
+
             // Les images sont dans ppt/media/
             if (strpos($entryName, 'ppt/media/') === 0) {
                 $fileData = $zip->getFromName($entryName);
@@ -64,7 +64,7 @@ class PPTXImageExtractor
                     // Déterminer l'extension
                     $ext = strtolower(pathinfo($entryName, PATHINFO_EXTENSION));
                     $validExtensions = ['png', 'jpg', 'jpeg', 'gif', 'bmp', 'webp', 'emf', 'wmf'];
-                    
+
                     if (!in_array($ext, $validExtensions)) {
                         // Essayer de détecter le type à partir des données
                         $ext = $this->detectImageExtension($fileData);
@@ -95,7 +95,7 @@ class PPTXImageExtractor
 
     /**
      * Extrait les images et les organise par slide
-     * 
+     *
      * @param string $pptxPath Chemin vers le fichier PPTX
      * @param string $outputDir Répertoire de sortie
      * @return array Tableau organisé par slide : ['slide_1' => [image1, image2, ...], ...]
@@ -112,7 +112,7 @@ class PPTXImageExtractor
 
         $zip = new ZipArchive();
         $zipOpenResult = $zip->open($pptxPath);
-        
+
         if ($zipOpenResult !== true) {
             throw new RuntimeException("Impossible d'ouvrir le fichier PPTX");
         }
@@ -141,13 +141,13 @@ class PPTXImageExtractor
         // L'association précise slide-image nécessite une analyse plus poussée
         // du contenu XML de chaque slide
         $allImages = $this->extractImages($pptxPath, $outputDir);
-        
+
         return ['all_slides' => $allImages];
     }
 
     /**
      * Extrait les images et retourne des informations détaillées
-     * 
+     *
      * @param string $pptxPath Chemin vers le fichier PPTX
      * @param string $outputDir Répertoire de sortie
      * @return array Tableau avec métadonnées : [['path' => ..., 'name' => ..., 'size' => ...], ...]
@@ -191,9 +191,9 @@ class PPTXImageExtractor
             'png' => "\x89PNG",
             'jpg' => "\xFF\xD8\xFF",
             'jpeg' => "\xFF\xD8\xFF",
-            'gif' => "GIF8",
-            'bmp' => "BM",
-            'webp' => "RIFF",
+            'gif' => 'GIF8',
+            'bmp' => 'BM',
+            'webp' => 'RIFF',
         ];
 
         foreach ($signatures as $ext => $signature) {

@@ -153,7 +153,7 @@
 
 <?php foreach ($pageScripts as $script): ?>
     <?php
-    $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
+	$isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
     $typeAttr = $isModule ? 'type="module"' : '';
     ?>
     <script <?php echo $typeAttr; ?> src="<?php echo $this->escape($script); ?>"></script>
