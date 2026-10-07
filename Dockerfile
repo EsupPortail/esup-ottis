@@ -44,7 +44,4 @@ WORKDIR /var/www/html
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && rm composer-setup.php \
-    && composer install --no-dev --prefer-dist --no-interaction \
-    && docker-php-ext-install pdo pdo_mysql php-gd \
-    && php -r "unlink('composer-setup.php');" \
-    && mv composer.phar /usr/local/bin/composer
+    && composer install --no-dev --prefer-dist --no-interaction
