@@ -5,7 +5,6 @@ namespace App\Service\Conversion;
 use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
 use PhpOffice\PhpPresentation\Slide;
-use PhpOffice\PhpPresentation\Slide\SlideLayout;
 use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Shape\RichText\TextElement;
 use PhpOffice\PhpPresentation\Shape\Drawing\File;
@@ -154,7 +153,6 @@ class ODPToPPTXConverter
     {
         // Créer une nouvelle slide
         $slide = $presentation->createSlide();
-        $slide->setSlideLayout(SlideLayout::TITLE);
 
         // Position de départ pour le contenu
         $y = 50;
@@ -176,7 +174,9 @@ class ODPToPPTXConverter
                     $paragraph = $titleShape->getActiveParagraph();
                     $paragraph->getFont()->setSize(24);
                     $paragraph->getFont()->setBold(true);
-                    $paragraph->setAlignment(new Alignment(Alignment::HORIZONTAL_CENTER));
+                    $alignment = new Alignment();
+                    $alignment->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                    $paragraph->setAlignment($alignment);
                     
                     // Ajouter le texte
                     $paragraph->createTextRun($titleText);

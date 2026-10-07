@@ -6,9 +6,8 @@ use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\AbstractShape;
 use PhpOffice\PhpPresentation\Shape\RichText;
-use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing;
+use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter;
 use PhpOffice\PhpPresentation\Shape\Group;
-use PhpOffice\PhpPresentation\Shape\Graphic;
 use PhpOffice\PhpPresentation\Slide\Background;
 use ZipArchive;
 
@@ -197,7 +196,7 @@ class PPTXSlideRenderer
             $this->renderTextShape($image, $shape);
         }
         // Shape d'image
-        elseif ($shape instanceof Graphic || (class_exists('\PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing') && $shape instanceof \PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawing)) {
+        elseif ($shape instanceof AbstractDrawingAdapter) {
             $this->renderImageShape($image, $shape);
         }
         // Groupe de shapes
@@ -205,7 +204,7 @@ class PPTXSlideRenderer
             $this->renderGroupShape($image, $shape);
         }
         // Autres formes (rectangle, ligne, etc.)
-        elseif (method_exists($shape, 'getOffsetX') && method_exists($shape, 'getOffsetY')) {
+        else {
             $this->renderGenericShape($image, $shape);
         }
     }

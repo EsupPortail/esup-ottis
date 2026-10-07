@@ -7,6 +7,8 @@ use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\Slide;
 use PhpOffice\PhpPresentation\Shape\RichText;
 use PhpOffice\PhpPresentation\Shape\Group;
+use PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter;
+use PhpOffice\PhpPresentation\Shape\AbstractGraphic;
 use PhpOffice\PhpPresentation\AbstractShape;
 use ZipArchive;
 use RuntimeException;
@@ -173,7 +175,7 @@ class PPTXToHTMLSlidesConverter
     private static function renderShape($shape, array $imageMap): string
     {
         // Shape de texte (a getText method)
-        if (method_exists($shape, 'getText') && is_object($shape)) {
+        if ($shape instanceof AbstractShape && method_exists($shape, 'getText')) {
             $text = $shape->getText();
             if ($text === null || $text === '') {
                 return '';
@@ -221,9 +223,7 @@ class PPTXToHTMLSlidesConverter
         }
 
         // Shape d'image (Drawing - a path or image data)
-        if (is_a($shape, '\PhpOffice\PhpPresentation\Shape\Drawing\AbstractDrawingAdapter') ||
-            is_a($shape, '\PhpOffice\PhpPresentation\Shape\Drawing') ||
-            (class_exists('\PhpOffice\PhpPresentation\AbstractGraphic') && is_a($shape, '\PhpOffice\PhpPresentation\AbstractGraphic'))) {
+        if ($shape instanceof AbstractDrawingAdapter || $shape instanceof AbstractGraphic) {
             $x = (int) $shape->getOffsetX();
             $y = (int) $shape->getOffsetY();
             $w = (int) $shape->getWidth();
