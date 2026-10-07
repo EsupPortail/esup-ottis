@@ -17,7 +17,7 @@
             <link rel="stylesheet" href="<?php echo $this->escape($style); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
-    
+
     <?php if (isset($isConferencePage) && $isConferencePage): ?>
         <link rel="stylesheet" href="/styles/conference-new.css">
     <?php endif; ?>

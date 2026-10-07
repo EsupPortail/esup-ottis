@@ -141,7 +141,7 @@ class ConferenceController extends BaseController
             $tab = $_GET['tab'];
             $validTabs = ['outil', 'langues', 'partage', 'transcription'];
             if (in_array($tab, $validTabs)) {
-                header("Location: /conference#" . $tab);
+                header('Location: /conference#' . $tab);
                 exit;
             }
         }
@@ -150,7 +150,7 @@ class ConferenceController extends BaseController
 
         // Tous les scripts nécessaires pour la SPA (tous les onglets chargés)
         $afterContentScripts = '';
-        
+
         // DOM and Network utilities
         $afterContentScripts .= '<script type="module" src="/js/lib/dom/selector.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/dom/styles.js"></script>';
@@ -162,11 +162,11 @@ class ConferenceController extends BaseController
         $afterContentScripts .= '<script type="module" src="/js/lib/network/xhr.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/network/fetch.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/network/counter.js"></script>';
-        
+
         // Language utilities
         $afterContentScripts .= '<script type="module" src="/js/lib/language/state.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/language/management.js"></script>';
-        
+
         // Chat utilities
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/state.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/utils.js"></script>';
@@ -178,7 +178,7 @@ class ConferenceController extends BaseController
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/handlers.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/display.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/conference/index.js"></script>';
-        
+
         // Conference scripts (tous les onglets)
         $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-viewer.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/core.js"></script>';
@@ -188,17 +188,17 @@ class ConferenceController extends BaseController
         $afterContentScripts .= '<script type="module" src="/js/lib/conference/config-functions.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/conference/post.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/conference/speech.js"></script>';
-        
+
         // Script d'initialisation
         $afterContentScripts .= '<script type="module" src="/js/conference-init.js"></script>';
-        
+
         // Script de test pour localhost
         if (isset($_SERVER['HTTP_HOST']) && in_array($_SERVER['HTTP_HOST'], ['localhost', '127.0.0.1', '::1'])) {
             $afterContentScripts .= '<script src="/js/tests/no-jquery-validation.js"></script>';
         }
-        
+
         $this->viewData['afterContentScripts'] = $afterContentScripts;
-        
+
         $this->render('conference/index');
     }
 

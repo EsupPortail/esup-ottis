@@ -17,8 +17,8 @@
         <h2 id="to">Discours original</h2>
         <div class="ottis-box ottis-box--primary" id="notebookVO"
              role="region" tabindex="0" aria-labelledby="to" lang="fr"></div>
-        <button type="button" class="ottis-btn ottis-btn--primary" 
-                id="buttondownloadspeechVO" 
+        <button type="button" class="ottis-btn ottis-btn--primary"
+                id="buttondownloadspeechVO"
                 data-s="notebookVO" data-f="discours-original.txt">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -33,8 +33,8 @@
         <h2 id="tt">Discours traduit</h2>
         <div class="ottis-box" id="notebook"
              role="region" tabindex="0" aria-labelledby="tt" lang="en"></div>
-        <button type="button" class="ottis-btn" 
-                id="buttondownloadspeech" 
+        <button type="button" class="ottis-btn"
+                id="buttondownloadspeech"
                 data-s="notebook" data-f="discours-traduit.txt">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>

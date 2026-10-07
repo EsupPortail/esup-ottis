@@ -25,7 +25,7 @@ class RoomTokenManager
         if (!is_dir($dir)) {
             mkdir($dir, 0775, true);
         }
-        
+
         // Si le répertoire existe mais n'est pas accessible en écriture, utiliser sys temp dir
         if (!is_writable($dir)) {
             $dir = sys_get_temp_dir() . '/omist_tokens/';
@@ -33,7 +33,7 @@ class RoomTokenManager
                 mkdir($dir, 0775, true);
             }
         }
-        
+
         return $dir;
     }
 
@@ -59,7 +59,7 @@ class RoomTokenManager
         }
 
         $segments = preg_split('/\r\n|\n|\\n/', $content);
-        $segments = array_values(array_filter($segments, static fn($segment) => $segment !== ''));
+        $segments = array_values(array_filter($segments, static fn ($segment) => $segment !== ''));
 
         $token = trim((string) ($segments[0] ?? ''));
         $timestamp = (int) ($segments[1] ?? 0);

@@ -2,17 +2,17 @@
 
 namespace App\Service\Conversion;
 
-use PhpOffice\PhpPresentation\PhpPresentation;
 use PhpOffice\PhpPresentation\IOFactory;
+use PhpOffice\PhpPresentation\PhpPresentation;
 
 /**
  * PPTXToPDFConverter - Convertit des fichiers PPTX en PDF 100% PHP
- * 
+ *
  * Stratégie :
  * 1. Charger la présentation avec PHPPresentation
  * 2. Rendre chaque slide en image avec PPTXSlideRenderer
  * 3. Créer un PDF avec TCPDF contenant toutes les images
- * 
+ *
  * Dépendances :
  * - phpoffice/phppresentation : Pour lire PPTX
  * - tecnickcom/tcpdf : Pour générer PDF
@@ -41,10 +41,10 @@ class PPTXToPDFConverter
         $this->imageHeight = $imageHeight;
         $this->pdfDpi = $pdfDpi;
         $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_pptx2pdf/';
-        
+
         // Vérifier que TCPDF est disponible
         $this->verifyTCPDF();
-        
+
         $this->slideRenderer = new PPTXSlideRenderer(
             $this->imageWidth,
             $this->imageHeight,
@@ -70,7 +70,7 @@ class PPTXToPDFConverter
                 require_once __DIR__ . '/../../../vendor/autoload.php';
             }
         }
-        
+
         if (!class_exists('TCPDF', false)) {
             throw new \RuntimeException(
                 'TCPDF library is not installed. Please run: composer require tecnickcom/tcpdf:^6.6'
@@ -83,8 +83,8 @@ class PPTXToPDFConverter
      *
      * @param string $pptxPath Chemin vers le fichier PPTX source
      * @param string $pdfPath Chemin vers le fichier PDF de sortie
-     * @return string Chemin vers le fichier PDF généré
      * @throws \RuntimeException En cas d'erreur de conversion
+     * @return string Chemin vers le fichier PDF généré
      */
     public function convert(string $pptxPath, string $pdfPath): string
     {
@@ -110,7 +110,7 @@ class PPTXToPDFConverter
             );
 
             if (empty($slideImages)) {
-                throw new \RuntimeException("Aucune image de slide générée");
+                throw new \RuntimeException('Aucune image de slide générée');
             }
 
             // Créer le PDF avec TCPDF
@@ -123,7 +123,7 @@ class PPTXToPDFConverter
         } catch (\Exception $e) {
             // Nettoyer en cas d'erreur
             $this->cleanupTempFiles($tempImagesDir);
-            throw new \RuntimeException("Erreur de conversion PPTX → PDF: " . $e->getMessage());
+            throw new \RuntimeException('Erreur de conversion PPTX → PDF: ' . $e->getMessage());
         }
     }
 
@@ -156,20 +156,20 @@ class PPTXToPDFConverter
         } catch (\Exception $e) {
             throw new \RuntimeException('Failed to load TCPDF: ' . $e->getMessage());
         }
-        
+
         if (!$tcpdfLoaded) {
             throw new \RuntimeException(
                 'TCPDF library is not installed. Please run: composer require tecnickcom/tcpdf:^6.6'
             );
         }
-        
+
         // Créer un nouveau document PDF
         $pdf = new \TCPDF('P', 'pt');
-        
+
         // Désactiver les en-têtes et pieds de page
         $pdf->SetPrintHeader(false);
         $pdf->SetPrintFooter(false);
-        
+
         // Définir les marges à 0
         $pdf->SetMargins(0, 0, 0);
         $pdf->SetAutoPageBreak(false);
@@ -231,7 +231,7 @@ class PPTXToPDFConverter
             );
 
             if (empty($slideImages)) {
-                throw new \RuntimeException("Aucune image de slide générée");
+                throw new \RuntimeException('Aucune image de slide générée');
             }
 
             // Créer le PDF
@@ -243,7 +243,7 @@ class PPTXToPDFConverter
             return $pdfPath;
         } catch (\Exception $e) {
             $this->cleanupTempFiles($tempImagesDir);
-            throw new \RuntimeException("Erreur de conversion: " . $e->getMessage());
+            throw new \RuntimeException('Erreur de conversion: ' . $e->getMessage());
         }
     }
 

@@ -67,14 +67,14 @@ $commonData = [
     <main class="m" id="v-outil" hidden>
         <?php
         extract($commonData);
-        include __DIR__ . '/tabs/outil.php';
-        ?>
+include __DIR__ . '/tabs/outil.php';
+?>
     </main>
     <main class="m" id="v-transcription" hidden>
         <?php
-        extract($commonData);
-        include __DIR__ . '/tabs/transcription.php';
-        ?>
+extract($commonData);
+include __DIR__ . '/tabs/transcription.php';
+?>
     </main>
 </div>
 

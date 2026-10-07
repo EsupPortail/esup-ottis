@@ -3,20 +3,19 @@
 namespace App\Service\Conversion;
 
 use PhpOffice\PhpPresentation\PhpPresentation;
-use PhpOffice\PhpPresentation\IOFactory;
 
 /**
  * PresentationConverter - Service de conversion universelle 100% PHP
- * 
+ *
  * Ce service fournit une API unifiée pour convertir entre différents formats
  * de présentation en utilisant uniquement des bibliothèques PHP.
- * 
+ *
  * Formats supportés :
  * - PPTX (PowerPoint) : Lecture et écriture complète
  * - ODP (OpenDocument Presentation) : Lecture via conversion en PPTX
  * - PDF : Écriture uniquement (via conversion depuis PPTX)
  * - Images : Génération depuis PPTX
- * 
+ *
  * Dépendances :
  * - phpoffice/phppresentation : Pour la gestion des présentations
  * - tecnickcom/tcpdf : Pour la génération PDF
@@ -35,7 +34,7 @@ class PresentationConverter
     public function __construct(string $tempDir = null)
     {
         $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_converter/';
-        
+
         if (!file_exists($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);
         }
@@ -47,12 +46,12 @@ class PresentationConverter
 
     /**
      * Convertit un fichier en PDF
-     * 
+     *
      * @param string $inputPath Chemin vers le fichier d'entrée (PPTX, ODP)
      * @param string $outputPath Chemin vers le fichier PDF de sortie
      * @param string $inputFormat Format du fichier d'entrée ('pptx', 'odp', 'auto')
-     * @return string Chemin vers le fichier PDF généré
      * @throws \RuntimeException En cas d'erreur de conversion
+     * @return string Chemin vers le fichier PDF généré
      */
     public function toPDF(string $inputPath, string $outputPath, string $inputFormat = 'auto'): string
     {
@@ -68,15 +67,15 @@ class PresentationConverter
                 // Convertir ODP en PPTX d'abord
                 $tempPptxPath = $this->tempDir . 'temp_' . uniqid() . '.pptx';
                 $this->odpToPptxConverter->convert($inputPath, $tempPptxPath);
-                
+
                 // Puis convertir PPTX en PDF
                 $result = $this->pptxToPdfConverter->convert($tempPptxPath, $outputPath);
-                
+
                 // Nettoyer le fichier temporaire
                 if (file_exists($tempPptxPath)) {
                     unlink($tempPptxPath);
                 }
-                
+
                 return $result;
 
             default:
@@ -86,13 +85,13 @@ class PresentationConverter
 
     /**
      * Convertit un fichier en images (une par slide)
-     * 
+     *
      * @param string $inputPath Chemin vers le fichier d'entrée (PPTX, ODP)
      * @param string $outputDir Répertoire de sortie pour les images
      * @param string $inputFormat Format du fichier d'entrée ('pptx', 'odp', 'auto')
      * @param string $prefix Préfixe pour les noms de fichiers
-     * @return array Tableau des chemins des images générées
      * @throws \RuntimeException En cas d'erreur de conversion
+     * @return array Tableau des chemins des images générées
      */
     public function toImages(string $inputPath, string $outputDir, string $inputFormat = 'auto', string $prefix = 'slide'): array
     {
@@ -108,15 +107,15 @@ class PresentationConverter
                 // Convertir ODP en PPTX d'abord
                 $tempPptxPath = $this->tempDir . 'temp_' . uniqid() . '.pptx';
                 $this->odpToPptxConverter->convert($inputPath, $tempPptxPath);
-                
+
                 // Puis générer les images depuis PPTX
                 $images = $this->slideRenderer->renderPresentation($tempPptxPath, $outputDir, $prefix);
-                
+
                 // Nettoyer le fichier temporaire
                 if (file_exists($tempPptxPath)) {
                     unlink($tempPptxPath);
                 }
-                
+
                 return $images;
 
             default:
@@ -126,11 +125,11 @@ class PresentationConverter
 
     /**
      * Extrait les notes de toutes les slides
-     * 
+     *
      * @param string $inputPath Chemin vers le fichier d'entrée (PPTX, ODP)
      * @param string $inputFormat Format du fichier d'entrée ('pptx', 'odp', 'auto')
-     * @return array Tableau des slides avec leurs notes
      * @throws \RuntimeException En cas d'erreur
+     * @return array Tableau des slides avec leurs notes
      */
     public function extractNotes(string $inputPath, string $inputFormat = 'auto'): array
     {
@@ -146,15 +145,15 @@ class PresentationConverter
                 // Convertir ODP en PPTX d'abord
                 $tempPptxPath = $this->tempDir . 'temp_' . uniqid() . '.pptx';
                 $this->odpToPptxConverter->convert($inputPath, $tempPptxPath);
-                
+
                 // Puis extraire les notes depuis PPTX
                 $notes = \App\Utils\PPTXNotesExtractor::extract($tempPptxPath);
-                
+
                 // Nettoyer le fichier temporaire
                 if (file_exists($tempPptxPath)) {
                     unlink($tempPptxPath);
                 }
-                
+
                 return $notes;
 
             default:
@@ -164,7 +163,7 @@ class PresentationConverter
 
     /**
      * Convertit ODP en PPTX
-     * 
+     *
      * @param string $odpPath Chemin vers le fichier ODP
      * @param string $pptxPath Chemin vers le fichier PPTX de sortie
      * @return string Chemin vers le fichier PPTX généré
@@ -176,7 +175,7 @@ class PresentationConverter
 
     /**
      * Convertit PPTX en PDF
-     * 
+     *
      * @param string $pptxPath Chemin vers le fichier PPTX
      * @param string $pdfPath Chemin vers le fichier PDF de sortie
      * @return string Chemin vers le fichier PDF généré
@@ -188,7 +187,7 @@ class PresentationConverter
 
     /**
      * Rend les slides d'une présentation en images
-     * 
+     *
      * @param string $pptxPath Chemin vers le fichier PPTX
      * @param string $outputDir Répertoire de sortie
      * @param string $prefix Préfixe pour les noms de fichiers
@@ -205,7 +204,7 @@ class PresentationConverter
     private function detectFormat(string $filePath): string
     {
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-        
+
         switch ($extension) {
             case 'pptx':
                 return 'pptx';
@@ -219,7 +218,7 @@ class PresentationConverter
                     $finfo = finfo_open(FILEINFO_MIME_TYPE);
                     $mime = finfo_file($finfo, $filePath);
                     finfo_close($finfo);
-                    
+
                     if (strpos($mime, 'powerpoint') !== false || strpos($mime, 'pptx') !== false) {
                         return 'pptx';
                     }
@@ -227,7 +226,7 @@ class PresentationConverter
                         return 'odp';
                     }
                 }
-                
+
                 throw new \RuntimeException("Impossible de détecter le format du fichier: $filePath");
         }
     }
@@ -254,7 +253,7 @@ class PresentationConverter
 
     /**
      * Définit les dimensions des images générées
-     * 
+     *
      * @param int $width Largeur en pixels
      * @param int $height Hauteur en pixels
      */
@@ -266,7 +265,7 @@ class PresentationConverter
 
     /**
      * Définit le DPI pour la conversion PDF
-     * 
+     *
      * @param int $dpi DPI (100 par défaut)
      */
     public function setPdfDpi(int $dpi = 100): void
