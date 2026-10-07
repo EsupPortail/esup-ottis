@@ -95,11 +95,4 @@
 
     <!-- Conteneur pour text-content-viewer -->
     <div id="text-content-viewer"></div>
-
-    <!-- Zone de sous-titres pour le PDF (commentée pour test) -->
-    <!--
-    <section class="ottis-textband-area" id="textband-section" hidden aria-label="Bloc de sous-titres PDF">
-        <div id="textBand" class="text-band-style"></div>
-    </section>
-    -->
     </section>

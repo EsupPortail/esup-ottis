@@ -171,7 +171,6 @@ class ConferenceController extends BaseController
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/state.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/utils.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/utils/cleanup.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/index.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/alert.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/network.js"></script>';
         $afterContentScripts .= '<script type="module" src="/js/lib/chat/main.js"></script>';
