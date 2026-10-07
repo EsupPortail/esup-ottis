@@ -16,7 +16,7 @@ RUN systemctl restart apache2
 WORKDIR /var/www/html
 
 COPY OTTIS/ .
-COPY php.ini /usr/local/etc/php/
+# COPY php.ini /usr/local/etc/php/
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
