@@ -13,9 +13,10 @@ RUN a2enmod rewrite
 RUN phpenmod imagick
 RUN systemctl restart apache2
 
+# Code de l'application
+COPY . /var/www/html
 WORKDIR /var/www/html
-
-COPY OTTIS/ .
+# COPY OTTIS/ .
 # COPY php.ini /usr/local/etc/php/
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
