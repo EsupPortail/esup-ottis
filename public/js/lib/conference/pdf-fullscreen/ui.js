@@ -8,6 +8,7 @@ import { addCsrfToken } from '../network.js';
 import { calculateFullscreenScale, ensureFullscreenExited } from './core.js';
 import { displayPDF } from '../pdf-viewer.js';
 import { safeSetInterval, safeSetTimeout } from '../../utils/cleanup.js';
+import { t } from '../../i18n.js';
 
 // Alias pour compatibilité avec l'ancien code
 const get = _;
@@ -67,7 +68,7 @@ export function handleFileSelect(event) {
     progressBar.value = 0;
   }
   if (progressStatus) {
-    progressStatus.textContent = 'Preparing upload...';
+    progressStatus.textContent = t('conference.progress.preparing');
   }
   if (dProg) {
     dProg.hidden = false;
@@ -89,7 +90,7 @@ export function handleFileSelect(event) {
     if (progressBar && progressBar.value < 50) {
       progressBar.value = Math.min(progressBar.value + 10, 50);
       if (progressStatus) {
-        progressStatus.textContent = `Uploading... ${progressBar.value}%`;
+        progressStatus.textContent = t('conference.progress.uploading', { n: progressBar.value });
       }
     }
   }, 300);
@@ -105,7 +106,7 @@ export function handleFileSelect(event) {
         progressBar.value = 75;
       }
       if (progressStatus) {
-        progressStatus.textContent = 'Converting...';
+        progressStatus.textContent = t('conference.progress.converting');
       }
 
       return response.json().catch((err) => {
@@ -117,7 +118,7 @@ export function handleFileSelect(event) {
         progressBar.value = 100;
       }
       if (progressStatus) {
-        progressStatus.textContent = 'Processing...';
+        progressStatus.textContent = t('conference.progress.processing');
       }
 
       if (data.status === 'error') {
@@ -126,7 +127,7 @@ export function handleFileSelect(event) {
 
       if (data.display_method === 'pdf') {
         if (progressStatus) {
-          progressStatus.textContent = 'Displaying...';
+          progressStatus.textContent = t('conference.progress.displaying');
         }
         // Afficher le canvas et les contrôles PDF (ottis-live-area reste visible)
         if (canvas) {
@@ -154,7 +155,7 @@ export function handleFileSelect(event) {
         progressBar.value = 0;
       }
       if (progressStatus) {
-        progressStatus.textContent = `Error: ${error.message}`;
+        progressStatus.textContent = `${t('conference.progress.uploadFailed')}${error.message}`;
       }
       showPresentationError(`Upload failed: ${error.message}`);
     });
@@ -226,8 +227,8 @@ export function handleFullscreenStateChange() {
 
   if (isFullscreen && isPdfFullscreen) {
     if (fullscreenBtn) {
-      fullscreenBtn.textContent = 'Exit Fullscreen';
-      fullscreenBtn.title = 'Exit fullscreen mode';
+      fullscreenBtn.textContent = t('conference.outil.exitFullscreen');
+      fullscreenBtn.title = t('conference.outil.exitFullscreen');
     }
   } else if (!isFullscreen) {
     if (typeof window !== 'undefined' && window.console && window.console.info) {
@@ -236,8 +237,8 @@ export function handleFullscreenStateChange() {
     // Sortie par Echap : restaurer les styles si exitPdfFullscreen n'a pas encore agi
     ensureFullscreenExited();
     if (fullscreenBtn) {
-      fullscreenBtn.textContent = 'Fullscreen';
-      fullscreenBtn.title = 'Toggle fullscreen mode';
+      fullscreenBtn.textContent = t('conference.outil.fullscreen');
+      fullscreenBtn.title = t('conference.outil.fullscreen');
     }
   }
 }

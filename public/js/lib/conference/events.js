@@ -7,6 +7,16 @@ import { prevPage, nextPage, goToPage, togglePdfFullscreen } from './pdf-viewer.
 import { DownloadSpeechLesson } from '../download.js';
 import { initChatAlert } from '../chat/alert.js';
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
+import { t } from '../i18n.js';
+
+// Reactualiser les libelles dynamiques apres un changement de langue sans rechargement
+document.addEventListener('ottis:languagechange', () => {
+  const mic = document.getElementById('micon');
+  if (mic) {
+    const isPressed = mic.getAttribute('aria-pressed') === 'true';
+    mic.setAttribute('aria-label', isPressed ? t('conference.outil.micStop') : t('conference.outil.micStart'));
+  }
+});
 
 /**
  * Initialize all conference event listeners

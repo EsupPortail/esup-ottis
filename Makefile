@@ -19,10 +19,10 @@ PHPSTAN := vendor/bin/phpstan
 PHPUNIT := vendor/bin/phpunit
 
 # Binaire ESLint (si disponible)
-ESLINT := node_modules/.bin/eslint
+ESLINT := public/js/node_modules/.bin/eslint
 
 # Binaire Prettier (si disponible)
-PRETTIER := node_modules/.bin/prettier
+PRETTIER := public/js/node_modules/.bin/prettier
 
 
 help: ## Afficher l'aide
@@ -84,28 +84,36 @@ test-php: ## Exécuter les tests PHP avec PHPUnit
 	LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 $(PHPUNIT)
 
 
+test-js: ## Exécuter les tests JavaScript avec Vitest
+	@echo "$(YELLOW)Exécution des tests JavaScript avec Vitest...$(NC)"
+	cd public/js && LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 ./node_modules/.bin/vitest run
+
+
+test: test-php test-js ## Exécuter tous les tests (PHP + JavaScript)
+
+
 #===============================================================================
 # Tâches JavaScript
 #===============================================================================
 
 check-js: ## Vérifier le code JavaScript (ESLint)
 	@echo "$(YELLOW)Analyse du code JavaScript avec ESLint...$(NC)"
-	$(ESLINT) . --ext .js
+	$(ESLINT) public/js --ext .js
 
 
 fix-js: ## Corriger automatiquement le code JavaScript
 	@echo "$(YELLOW)Correction automatique du code JavaScript...$(NC)"
-	$(ESLINT) . --ext .js --fix
+	$(ESLINT) public/js --ext .js --fix
 
 
 check-format-js: ## Vérifier le format JavaScript (Prettier)
 	@echo "$(YELLOW)Vérification du format JavaScript avec Prettier...$(NC)"
-	$(PRETTIER) --check "js/**/*.js" "*.js"
+	$(PRETTIER) --check "public/js/**/*.js"
 
 
 fix-format-js: ## Formater le code JavaScript (Prettier)
 	@echo "$(YELLOW)Formatage du code JavaScript avec Prettier...$(NC)"
-	$(PRETTIER) --write "js/**/*.js" "*.js"
+	$(PRETTIER) --write "public/js/**/*.js"
 
 
 #===============================================================================

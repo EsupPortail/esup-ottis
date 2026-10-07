@@ -1,10 +1,15 @@
 /** @module conference-init */
 import { loadVoicesWhenAvailable, applyConfig, initConferenceEvents, Init } from './lib/conference/index.js';
 import { startChatPolling } from './lib/chat/main.js';
-import { safeSetTimeout } from './lib/utils/cleanup.js';
+import { safeSetInterval, safeSetTimeout } from './lib/utils/cleanup.js';
 
 // Initialiser après chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
+  // Maintenir la session PHP active pendant toute la conference (toutes les 10 minutes)
+  safeSetInterval(() => {
+    fetch('/keepalive', { method: 'GET', credentials: 'same-origin' }).catch(() => {});
+  }, 600000);
+
   // Initialiser les event listeners
   initConferenceEvents();
 

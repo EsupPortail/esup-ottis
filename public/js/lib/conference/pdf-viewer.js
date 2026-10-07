@@ -4,6 +4,7 @@ import { previousimage, setPreviousimage } from './state/translation.js';
 import { b64toBlob } from './utils.js';
 import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
 import { showPresentationError } from './pdf-fullscreen/ui.js';
+import { t } from '../i18n.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
@@ -238,7 +239,7 @@ export function renderPage(num) {
 export function updatePdfNavigation() {
   if (!pdfDoc) return;
 
-  get('pdf-page-indicator').textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
+  get('pdf-page-indicator').textContent = t('conference.pdf.pageIndicator', { n: pageNum, m: pdfDoc.numPages });
   get('pdf-page-input').value = pageNum;
   get('pdf-prev').disabled = pageNum <= 1;
   get('pdf-next').disabled = pageNum >= pdfDoc.numPages;

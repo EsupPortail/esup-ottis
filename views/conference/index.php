@@ -49,7 +49,7 @@ $commonData = [
     <aside class="panel" id="panel" aria-labelledby="pt" hidden>
         <div class="panel-header" id="ph">
             <h2 id="pt" tabindex="-1"></h2>
-            <button type="button" class="x" id="pclose" aria-label="Fermer le panneau">
+            <button type="button" class="x translate" data-aria-key="conference.nav.closePanel" id="pclose" aria-label="Fermer le panneau">
                 <span class="ottis-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 5l14 14M19 5L5 19"/></svg></span>
             </button>
         </div>
@@ -99,31 +99,26 @@ include __DIR__ . '/tabs/transcription.php';
             content: 'v-outil',
             panel: '',
             title: 'Sous-titrer en direct',
-            panelTitle: ''
         },
         langues: {
             content: 'v-outil',  // Garde le contenu outil
             panel: 'langues',
             title: 'Sous-titrer en direct',
-            panelTitle: 'Langues'
         },
         apparence: {
             content: 'v-outil',  // Garde le contenu outil
             panel: 'apparence',
             title: 'Sous-titrer en direct',
-            panelTitle: 'Apparence'
         },
         partage: {
             content: 'v-outil',  // Garde le contenu outil
             panel: 'partage',
             title: 'Sous-titrer en direct',
-            panelTitle: 'Partage'
         },
         transcription: {
             content: 'v-transcription',
             panel: '',
             title: 'Transcription',
-            panelTitle: ''
         }
     };
 
@@ -159,10 +154,12 @@ include __DIR__ . '/tabs/transcription.php';
             if (vTranscription) vTranscription.hidden = true;
         }
 
-        // Gérer le panel
+        // Gérer le panel : le titre est lu depuis le libellé du lien du rail
+        // (déjà traduit par le mécanisme i18n), sans dupliquer les textes ici
         if (tab.panel) {
             panel.hidden = false;
-            pt.textContent = tab.panelTitle;
+            const titleLink = document.querySelector(`.rail a[href="#${hash}"] .translate`);
+            pt.textContent = titleLink ? titleLink.textContent : '';
             const activePanel = document.querySelector(`.panel-${tab.panel}`);
             if (activePanel) {
                 activePanel.style.display = 'block';

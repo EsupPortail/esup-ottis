@@ -8,6 +8,7 @@ import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../xhr.js';
 import { makeDraggable } from '../utils/draggable.js';
 import { upgradeLegacyDialogs, closeDialog } from '../utils/dialog.js';
+import { t } from '../i18n.js';
 
 /**
  * Initialize QR codes for shared and remote links
@@ -227,8 +228,8 @@ export function initSharePanel() {
       }
       if (cst) {
         cst.textContent = ok
-          ? 'Lien copié dans le presse-papiers.'
-          : 'Copie impossible : sélectionnez le lien et copiez-le manuellement.';
+          ? t('conference.partage.copied')
+          : t('conference.partage.copyFailed');
       }
     });
   }

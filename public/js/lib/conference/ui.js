@@ -7,6 +7,7 @@ import { isBuiltinMicrosoftTranscriptionOn, isBuiltinExternalTranscriptionOn } f
 import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer } from './microsoft.js';
 import { StartSpeechRecognition } from './speech.js';
 import { Traduction } from './translation.js';
+import { t } from '../i18n.js';
 /** @module conference/ui */
 
 export function FullScreen() {
@@ -24,7 +25,7 @@ export function FullScreen() {
   mybox.setAttribute('aria-pressed', newPressedState);
   
   // Mettre à jour le label
-  const newLabel = newPressedState ? 'Arrêter les sous-titres' : 'Lancer les sous-titres';
+  const newLabel = newPressedState ? t('conference.outil.micStop') : t('conference.outil.micStart');
   mybox.setAttribute('aria-label', newLabel);
 
   // Si on désactive le micro, arrêter la reconnaissance
@@ -107,7 +108,7 @@ export function Micro() {
   mybox.setAttribute('aria-pressed', newPressedState);
   
   // Mettre à jour le label
-  const newLabel = newPressedState ? 'Arrêter les sous-titres' : 'Lancer les sous-titres';
+  const newLabel = newPressedState ? t('conference.outil.micStop') : t('conference.outil.micStart');
   mybox.setAttribute('aria-label', newLabel);
 
   // Si on désactive le micro, arrêter la reconnaissance

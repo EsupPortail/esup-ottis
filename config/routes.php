@@ -19,6 +19,13 @@ return [
         'methods' => ['GET']
     ],
 
+    // Session keep-alive (conference) : rafraichit la session sans contenu
+    '/keepalive' => [
+        'controller' => \App\Controller\HomeController::class,
+        'action' => 'keepalive',
+        'methods' => ['GET']
+    ],
+
     // Conference pages
     '/conference' => [
         'controller' => \App\Controller\ConferenceController::class,

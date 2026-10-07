@@ -18,6 +18,7 @@
 | **Chat multilingue** | Outil de messagerie instantanée avec traduction intégrée |
 | **Prise de notes automatique** | Génération de notes multilingues à partir du discours |
 | **Diffusion de présentations** | Affichage de présentations sous-titré (PowerPoint, Pdf) |
+| **Interface bilingue** | Page de conférence traduite (français/anglais), changement de langue sans rechargement |
 
 ### Cas d'usage
 
@@ -36,7 +37,7 @@
 |-----------|-----------------|-------------|--------------|
 | **PHP** | 8.2 | Runtime PHP (requis par composer.json : `^8.2`) | `php -v` |
 | **Composer** | 2.x | Gestionnaire de dépendances PHP | `composer --version` |
-| **Node.js + npm** | 18.x / 9.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement | `node -v && npm -v` |
+| **Node.js + npm** | 18.x / 9.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement ; installés via `cd public/js && npm install` | `node -v && npm -v` |
 
 ### Outils CLI requis
 
@@ -277,6 +278,7 @@ return [
 - **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
 - **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
+- **Persistance de session** : la session PHP dure 8 h (cookie dédié) et est maintenue active pendant une conférence par un appel périodique à `/keepalive` (toutes les 10 minutes) ; si une reconnexion CAS devient nécessaire, elle est transparente (nettoyage du ticket, retour automatique à la page d'origine, salle conservée).
 
 
 
@@ -322,7 +324,6 @@ php public/index.php
 ├── LICENSE                   # Licence Apache 2.0
 ├── Makefile                 # Tâches de qualité de code
 ├── composer.json            # Dépendances PHP
-├── package.json             # Dépendances JavaScript (racine)
 ├── phpunit.xml              # Configuration PHPUnit
 ├── phpstan.neon             # Configuration PHPStan
 │
@@ -491,7 +492,7 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 0.1.0 |
+| Version | 0.2.0 |
 | Langues supportées | 100+ |
 | Contrôleurs | 10 |
 | Services | 5 |

@@ -27,6 +27,7 @@ import { _ } from '../../dom/selector.js';
 import { renderPage } from '../pdf-viewer.js';
 import { toggleTextBandDisplay } from '../ui.js';
 import { safeSetTimeout } from '../../utils/cleanup.js';
+import { t } from '../../i18n.js';
 
 // Alias pour compatibilité avec l'ancien code
 const get = _;
@@ -371,8 +372,8 @@ export function enterPdfFullscreen(element) {
 
   const fullscreenBtn = _('pdf-fullscreen-btn');
   if (fullscreenBtn) {
-    fullscreenBtn.textContent = 'Exit Fullscreen';
-    fullscreenBtn.title = 'Exit fullscreen mode';
+    fullscreenBtn.textContent = t('conference.outil.exitFullscreen');
+    fullscreenBtn.title = t('conference.outil.exitFullscreen');
   }
 
   const requestPromise = new Promise((resolve) => {
@@ -418,8 +419,8 @@ export function exitPdfFullscreen() {
 
   const fullscreenBtn = _('pdf-fullscreen-btn');
   if (fullscreenBtn) {
-    fullscreenBtn.textContent = 'Fullscreen';
-    fullscreenBtn.title = 'Toggle fullscreen mode';
+    fullscreenBtn.textContent = t('conference.outil.fullscreen');
+    fullscreenBtn.title = t('conference.outil.fullscreen');
   }
 
   exitFullscreenAsync().then(() => {
