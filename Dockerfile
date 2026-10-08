@@ -34,22 +34,16 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-
 # Activer les modules Apache utiles
 RUN a2enmod rewrite \
     && mkdir -p /var/www/html
-# RUN phpenmod imagick
-# RUN systemctl restart apache2
 
 # Code de l'application
-COPY . /var/www/html
-WORKDIR /var/www/html
-# COPY OTTIS/ .
-# COPY php.ini /usr/local/etc/php/
-
+COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html \
-    && chmod -R 775 /var/www/html/var 2>/dev/null || true
+    && chmod -R 755 /var/www/html
+WORKDIR /var/www/html
+
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
