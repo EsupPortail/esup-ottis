@@ -164,6 +164,8 @@ include __DIR__ . '/tabs/transcription.php';
             if (activePanel) {
                 activePanel.style.display = 'block';
             }
+            // RGAA : le panneau recouvre le contenu -> envoyer le focus sur son titre
+            pt.focus();
         } else {
             panel.hidden = true;
         }
@@ -197,6 +199,16 @@ include __DIR__ . '/tabs/transcription.php';
     // Gestion du bouton de fermeture du panneau
     document.getElementById('pclose')?.addEventListener('click', function() {
         location.hash = '#outil';
+    });
+
+    // RGAA : Échap ferme le panneau ouvert et rend le focus au lien du rail
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Escape') return;
+        const openPanel = document.getElementById('panel');
+        if (!openPanel || openPanel.hidden) return;
+        const activeLink = document.querySelector('.rail a[aria-current="page"]');
+        location.hash = '#outil';
+        if (activeLink) activeLink.focus();
     });
 })();
 </script>
