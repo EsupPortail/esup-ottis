@@ -79,6 +79,6 @@ jobs:
           
       - name: Vérifier le contenu de l'image
         run: |
-          docker build -t mon-app .
-          docker run --rm mon-app ls -la /var/www/html/
-          docker run --rm mon-app test -f /var/www/html/index.php && echo "Fichiers présents" || echo "Pas de fichiers"  
+          docker build -t ghcr.io/esupportail/esup-ottis/ottis:latest .
+          docker run --rm ghcr.io/esupportail/esup-ottis/ottis:latest ls -la /var/www/html/
+          docker run --rm ghcr.io/esupportail/esup-ottis/ottis:latest test -f /var/www/html/index.php && echo "Fichiers présents" || echo "Pas de fichiers"  
