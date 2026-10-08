@@ -17,3 +17,6 @@
   - À réactiver après réparation du système de chat (SSE)
   - Fichier à modifier : `/home/omist/views/conference/_partials/chat-floating.php` (supprimer `hidden`)
 
+
+-REtour sur l'accueil et pas sur la conference en cas de deco
+-Notebook a l'envers quand changement de langue (output)

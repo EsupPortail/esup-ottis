@@ -7,10 +7,13 @@
  */
 import { getRoomToken, getBasePath, getInputNumberQ, setInputNumberQ } from '../state/shared.js';
 import { parseChatLine } from './network.js';
+import { ClearCR } from './utils.js';
 import { nbnewQ, setNbnewQ } from '../conference/state/core.js';
 import { EventNewQuestion } from '../conference/utils.js';
 
 let chatSource = null;
+let currentRoomId = '';
+let currentHandler = null;
 
 /**
  * @summary Start the chat SSE stream
@@ -21,6 +24,9 @@ let chatSource = null;
 export function startChatStream(roomId, messageHandler) {
   if (!roomId || roomId === '') return;
   if (chatSource) return; // une seule connexion
+
+  currentRoomId = roomId;
+  currentHandler = messageHandler;
 
   const params = new URLSearchParams({
     ROOMID: roomId,
@@ -68,4 +74,28 @@ export function stopChatStream() {
     chatSource.close();
     chatSource = null;
   }
+}
+
+/**
+ * @summary Relancer le flux depuis le debut (last_id=0), apres un
+ * changement de langue : le serveur renvoie tout l'historique.
+ * @returns {void}
+ */
+export function restartChatStream() {
+  if (!chatSource || !currentRoomId) return;
+  const handler = currentHandler;
+  stopChatStream();
+  setInputNumberQ(0);
+  startChatStream(currentRoomId, handler);
+}
+
+/**
+ * @summary Retraduire tout le tchat apres un changement de langue :
+ * purger l'affichage (ScreenCR + DOM) puis relancer le flux depuis le debut.
+ * @returns {void}
+ */
+export function retranslateChatStream() {
+  if (!chatSource) return;
+  ClearCR();
+  restartChatStream();
 }

@@ -7,6 +7,7 @@ import { prevPage, nextPage, goToPage, togglePdfFullscreen } from './pdf-viewer.
 import { DownloadSpeechLesson } from '../download.js';
 import { initChatAlert, resetChatAlert } from '../chat/alert.js';
 import { saveTextQ } from '../chat/main.js';
+import { retranslateChatStream } from '../chat/sse.js';
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 import { t } from '../i18n.js';
 
@@ -29,6 +30,8 @@ export function initConferenceEvents() {
   if (classroomLanguage) {
     classroomLanguage.addEventListener('change', function () {
       setLanguageSpeech(this.value);
+      // Retraduire tous les messages du tchat dans la nouvelle langue
+      retranslateChatStream();
     });
   }
 

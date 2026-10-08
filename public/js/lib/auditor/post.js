@@ -13,6 +13,7 @@ import { setLanguageOutput } from '../language/management.js';
 import { setBuiltinVoice } from '../state/auditor.js';
 import { rebuildOutputForLanguage } from './translation.js';
 import { updateSpeechVersion } from './seg.js';
+import { retranslateChatStream } from '../chat/sse.js';
 import { _ } from '../dom/selector.js';
 
 // ============================================================================
@@ -233,8 +234,8 @@ function initializePost() {
       const output = document.getElementById('output');
       if (output) output.setAttribute('lang', voiceOutputSelect.value);
       rebuildOutputForLanguage();
-      // Chat desactive en attente du passage au mode SSE :
-      // pas de rechargement de la file de messages au changement de langue.
+      // Retraduire tous les messages du tchat dans la nouvelle langue
+      retranslateChatStream();
     });
   }
 }
