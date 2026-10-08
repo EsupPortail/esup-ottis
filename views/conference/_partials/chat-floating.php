@@ -21,10 +21,8 @@
                 </svg>
             </button>
         </header>
-        <div class="ottis-chat-scroll translate" role="log" data-aria-key="conference.chat.messages" aria-label="Messages" tabindex="0">
-            <ol id="msgs"></ol>
-        </div>
-        <form id="cform">
+        <div class="ottis-chat-scroll translate" id="classroom" role="log" data-aria-key="conference.chat.messages" aria-label="Messages" tabindex="0"></div>
+        <form id="cform" class="ottis-chat-form">
             <label for="cin" class="sr-only translate" data-key="conference.chat.inputPlaceholder">Envoyer un message</label>
             <input id="cin" class="translate" data-placeholder-key="conference.chat.inputPlaceholder" placeholder="Envoyer un message" autocomplete="off">
             <button type="submit" class="ottis-chat-send translate" data-aria-key="conference.chat.send" aria-label="Envoyer le message">
@@ -36,7 +34,7 @@
     </section>
 
     <!-- Bouton FAB (Floating Action Button) - temporairement caché -->
-    <button type="button" class="ottis-fab translate" id="fab" hidden
+    <button type="button" class="ottis-fab translate" id="fab"
             aria-expanded="false"
             aria-controls="chat"
             data-aria-key="conference.chat.open"
@@ -44,6 +42,6 @@
         <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
         </svg>
-        <span class="ottis-badge" id="badge" aria-hidden="true">0</span>
+        <span class="ottis-badge" id="badge" aria-hidden="true" hidden>0</span>
     </button>
 </div>

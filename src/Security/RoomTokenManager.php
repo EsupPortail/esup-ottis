@@ -195,7 +195,10 @@ class RoomTokenManager
         }
 
         foreach (glob($tmpDir . '/room_token_*') as $file) {
-            $data = self::readRoomTokenData(basename($file, 'room_token_'));
+            // basename($file, 'room_token_') ne retire pas le prefixe (suffixe en fin de nom) :
+            // l'ancien code lisait un fichier inexistant et supprimait TOUS les tokens.
+            $roomid = substr(basename($file), strlen('room_token_'));
+            $data = self::readRoomTokenData($roomid);
             $timestamp = (int) $data['timestamp'];
 
             if ($now - $timestamp > $expiry) {

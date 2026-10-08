@@ -1,6 +1,7 @@
 /** @module conference-init */
 import { loadVoicesWhenAvailable, applyConfig, initConferenceEvents, Init } from './lib/conference/index.js';
-import { startChatPolling } from './lib/chat/main.js';
+import { startChatStream } from './lib/chat/sse.js';
+import { defaultMessageHandler } from './lib/chat/handlers.js';
 import { safeSetInterval, safeSetTimeout } from './lib/utils/cleanup.js';
 
 // Initialiser après chargement du DOM
@@ -28,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
     safeSetTimeout(applyConfig, 200);
   }
 
-  // Démarrer le polling du chat
-  if (typeof startChatPolling === 'function') {
-    startChatPolling();
+  // Démarrer le flux SSE du tchat (remplace le polling, désactivé)
+  const classroomIdEl = document.getElementById('classroomid');
+  if (classroomIdEl && classroomIdEl.value) {
+    startChatStream(classroomIdEl.value, defaultMessageHandler);
   }
 });

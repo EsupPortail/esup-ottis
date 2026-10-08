@@ -132,6 +132,7 @@
             "synthesis": "Enable speech synthesis"
         },
         "nom": {
+            "title": "Your name",
             "label": "First name Last name (visible in the chat)",
             "error": "Please enter your first name and last name to access the chat.",
             "submit": "Submit"
@@ -141,7 +142,8 @@
             "messages": "Chat messages",
             "inputLabel": "Send a message",
             "placeholder": "Send a message",
-            "send": "Send the message"
+            "send": "Send the message",
+            "changeName": "Change your name"
         },
         "transcription": {
             "title": "Transcription",

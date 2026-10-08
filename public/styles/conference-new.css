@@ -808,6 +808,55 @@ progress::-moz-progress-bar {
     margin: 1rem 0;
     padding: 0.2rem;
 }
+/* Messages : bulles (maquette conference) */
+.ottis-chat-scroll ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.ottis-chat-scroll li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.ottis-chat-scroll li.me {
+    align-self: flex-end;
+    width: 62%;
+}
+.ottis-chat-scroll .meta {
+    margin: 0;
+    font-size: 0.85rem;
+}
+.ottis-chat-scroll .meta strong {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.ottis-chat-scroll .bub {
+    margin: 0;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    overflow-wrap: anywhere;
+}
+.ottis-chat-scroll .me .bub {
+    background: var(--navy);
+    color: #fff;
+    border-color: var(--navy);
+}
+/* Alerte flottante legacy (non positionnee depuis la suppression de chat.css) :
+   remplacee par le badge et le clignotement du fab */
+#chat-alert {
+    display: none !important;
+}
+/* Nom de l'intervenant mis en evidence (tchat conference) */
+.ottis-chat-scroll .msg-intervenant .meta strong {
+    color: var(--brown);
+    font-weight: 700;
+}
 .ottis-chat-scroll ol {
     list-style: none;
     margin: 0;
@@ -836,7 +885,7 @@ progress::-moz-progress-bar {
     background: transparent;
     min-width: 0;
     padding: 0.5rem 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 .ottis-chat-form input::placeholder {
     color: #4b5563;
@@ -873,7 +922,7 @@ progress::-moz-progress-bar {
     width: 54px;
     height: 54px;
     border-radius: 0.9rem;
-    background: var(--orange);
+    background: #fff;
     border: 0;
     color: var(--navy);
     cursor: pointer;
@@ -886,9 +935,15 @@ progress::-moz-progress-bar {
     width: 30px;
     height: 30px;
 }
-.ottis-fab[aria-expanded="true"] {
-    background: var(--orange);
-    color: var(--navy);
+/* Nouveau message : clignotement orange (coupe si prefers-reduced-motion) */
+.ottis-fab--alert {
+    animation: ottis-fab-blink 1s steps(2, start) infinite;
+}
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes ottis-fab-blink {
+        0%, 100% { background: #fff; }
+        50% { background: var(--orange); }
+    }
 }
 .ottis-badge {
     position: absolute;

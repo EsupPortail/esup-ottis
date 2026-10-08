@@ -15,7 +15,7 @@
 | **Reconnaissance vocale** | Capture et transcrit le discours de l'enseignant en temps réel |
 | **Traduction multilingue** | Traduction du discours dans plus de 100 langues |
 | **Synthèse vocale** | Restitution du discours traduit dans la langue de l'étudiant |
-| **Chat multilingue** | Outil de messagerie instantanée avec traduction intégrée |
+| **Chat multilingue** | Messagerie en temps réel (Server-Sent Events) avec traduction intégrée |
 | **Prise de notes automatique** | Génération de notes multilingues à partir du discours |
 | **Diffusion de présentations** | Affichage de présentations sous-titré (PowerPoint, Pdf) |
 | **Interface bilingue** | Page de conférence traduite (français/anglais), changement de langue sans rechargement |
@@ -444,7 +444,7 @@ Ce projet est distribué sous la licence **Apache 2.0**.
 
 - **Fichier** : [LICENSE](LICENSE)
 - **Résumé** : Vous pouvez utiliser, modifier et distribuer ce logiciel selon les termes de la licence Apache 2.0.
-- **Auteurs** : Jérémie Bourdon, Jeanne Dionisi (Nantes Université)
+- **Auteurs** : Jérémie BOURDON, Jeanne DIONISI, Thibaut AURIACOMBE (Nantes Université)
 
 ---
 
@@ -493,7 +493,7 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 0.3.0 |
+| Version | 0.4.0 |
 | Langues supportées | 100+ |
 | Contrôleurs | 10 |
 | Services | 5 |

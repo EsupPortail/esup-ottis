@@ -53,10 +53,13 @@
                 </button>
             </li>
             <li>
-                <button type="button" id="tab-tchat" aria-disabled="true">
-                    <span aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 8a5.5 4.5 0 10-9 3.5L3 15l3.2-1"/><path d="M9 14a5.5 4.5 0 108.8 2.6L21 20l-3.4-.9"/></svg></span>
+                <a href="#tchat" id="tab-tchat">
+                    <span class="ottis-tab-bubble" id="tchat-bubble" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        <span class="ottis-badge" id="badge" aria-hidden="true" hidden>0</span>
+                    </span>
                     <span class="translate" data-key="auditor.nav.tchat">Tchat</span>
-                </button>
+                </a>
             </li>
             <li>
                 <a href="#transcription" id="tab-transcription">
@@ -94,6 +97,7 @@
 
             <!-- Votre nom (prepare pour le tchat, en attente du passage SSE) -->
             <section class="panel-content panel-nom" id="sh-nom" style="display:none">
+                <span hidden class="translate" data-key="auditor.nom.title" id="nom-sheet-title">Votre nom</span>
                 <form id="nform" novalidate>
                     <p>
                         <label class="ottis-form-group-label" for="AuditorName">
@@ -124,6 +128,9 @@
     <!-- Tchat : interface preparee, onglet sans effet en attente du passage au mode SSE -->
     <section class="m" id="v-tchat" hidden>
         <h1 id="h-tchat" tabindex="-1" class="translate" data-key="auditor.tchat.title">Tchat</h1>
+        <p class="chat-tools">
+            <button type="button" class="link-btn translate" data-key="auditor.tchat.changeName" id="nom-open-btn">Changer de nom</button>
+        </p>
         <div class="chat">
             <div class="log" role="log" aria-label="Messages du tchat" tabindex="0">
                 <div id="classroom" aria-live="polite" aria-atomic="true"></div>
@@ -229,13 +236,14 @@
        Le tchat est desactive en attente du passage au mode SSE (onglet sans effet). */
     const tabs = {
         'sous-titres': { content: 'v-sous-titres', title: 'Sous-titres' },
+        tchat: { content: 'v-tchat', title: 'Tchat' },
         transcription: { content: 'v-transcription', title: 'Transcription' },
     };
+    let nomSheetShown = false;
 
     const panel = document.getElementById('panel');
     const pt = document.getElementById('pt');
     const tabLangue = document.getElementById('tab-langue');
-    const tabTranscription = document.getElementById('tab-transcription');
     let currentSheet = null;
     let sheetTrigger = null;
     let currentView = 'sous-titres';
@@ -247,10 +255,12 @@
             document.getElementById(t.content).hidden = true;
         });
         document.getElementById(tab.content).hidden = false;
-        if (tabTranscription) {
-            if (name === 'transcription') tabTranscription.setAttribute('aria-current', 'page');
-            else tabTranscription.removeAttribute('aria-current');
-        }
+        ['tchat', 'transcription'].forEach((n) => {
+            const el = document.getElementById('tab-' + n);
+            if (!el) return;
+            if (n === name) el.setAttribute('aria-current', 'page');
+            else el.removeAttribute('aria-current');
+        });
         document.title = tab.title + ' \u2013 OTTIS';
     }
 
@@ -262,6 +272,19 @@
             // RGAA : deplacer le focus sur le titre de la nouvelle vue
             const h = document.getElementById('h-' + name);
             if (h) h.focus();
+        }
+        if (name === 'tchat' && !nomSheetShown) {
+            // Premiere entree dans le tchat : reglage du nom
+            nomSheetShown = true;
+            const nomTitle = document.getElementById('nom-sheet-title');
+            openSheet('nom', nomTitle ? nomTitle.textContent : 'Votre nom',
+                document.getElementById('tab-tchat'));
+        }
+        if (name === 'tchat') {
+            // Messages lus : reinitialiser badge et clignotement
+            import('/js/lib/chat/alert.js').then(({ resetChatAlert }) => {
+                resetChatAlert();
+            }).catch(() => {});
         }
     }
 
@@ -343,6 +366,15 @@
                 uid: value,
             });
             closeSheet();
+        });
+    }
+
+    // Bouton "Changer de nom" (vue tchat) : ouvre le volet Votre nom
+    const nomOpenBtn = document.getElementById('nom-open-btn');
+    if (nomOpenBtn) {
+        nomOpenBtn.addEventListener('click', () => {
+            const nomTitle = document.getElementById('nom-sheet-title');
+            openSheet('nom', nomTitle ? nomTitle.textContent : 'Votre nom', nomOpenBtn);
         });
     }
 

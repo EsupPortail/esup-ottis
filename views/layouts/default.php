@@ -45,7 +45,7 @@ if (!function_exists('ottis_asset_url')) {
     <?php endif; ?>
 
     <?php if (isset($isConferencePage) && $isConferencePage): ?>
-        <link rel="stylesheet" href="/styles/conference-new.css">
+        <link rel="stylesheet" href="<?php echo ottis_asset_url('/styles/conference-new.css'); ?>">
     <?php endif; ?>
 
     <script>
@@ -55,7 +55,7 @@ if (!function_exists('ottis_asset_url')) {
 
     <script type="module" src="<?php echo ottis_asset_url('./js/lib/i18n.js'); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <script src="./js/lib/analytics.js"></script>
+    <script src="<?php echo ottis_asset_url('./js/lib/analytics.js'); ?>"></script>
 
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
@@ -135,7 +135,14 @@ if (isset($isAuditorPage) && $isAuditorPage) {
     </main>
 
     <?php if (isset($afterContentScripts)): ?>
-        <?php echo $afterContentScripts; ?>
+        <?php
+        // Cache-busting des scripts locaux injectes par les controleurs
+        echo preg_replace_callback(
+            '/src="(\/?\.?\/?js\/[^"]+)"/',
+            static fn (array $m): string => 'src="' . ottis_asset_url($m[1]) . '"',
+            (string) $afterContentScripts
+        );
+        ?>
     <?php endif; ?>
 
     <footer class="ottis-footer">

@@ -13,6 +13,18 @@ if (!defined('APP_ROOT')) {
  */
 class TextController extends BaseController
 {
+    /** Duree maximale d'une connexion SSE du tchat (s) avant cycle de reconnexion */
+    private const CHAT_STREAM_MAX_DURATION = 60;
+
+    /** Intervalle de verification de nouveaux messages (microsecondes) */
+    private const CHAT_STREAM_TICK_US = 300000;
+
+    /** Intervalle entre les heartbeats SSE (s) */
+    private const CHAT_STREAM_HEARTBEAT = 15;
+
+    /** Padding : mod_proxy_fcgi met en tampon tant que AP_MIN_BYTES_TO_WRITE (8000 o) n'est pas atteint */
+    private const CHAT_STREAM_FLUSH_PADDING_BYTES = 8200;
+
     /**
      * Read text content
      *
@@ -120,6 +132,161 @@ class TextController extends BaseController
         } else {
             $this->textResponse('');
         }
+    }
+
+    /**
+     * Chat SSE stream
+     *
+     * Server-Sent Events stream for the classroom chat (tmp/LinkQuestions file).
+     * Replaces client-side polling: one persistent GET connection per client,
+     * closed after CHAT_STREAM_MAX_DURATION seconds (the browser reconnects
+     * automatically with the Last-Event-ID header, so no message is lost).
+     *
+     * Security: the room token is mandatory (GET request, no CSRF possible);
+     * the PHP session lock is released immediately (session_write_close) so
+     * the long-lived stream does not block the user's other requests.
+     *
+     * @return void
+     */
+    public function chatStream(): void
+    {
+        $roomid = $this->getParam('ROOMID', '');
+        $roomToken = $this->getParam('room_token', '');
+
+        if (!is_string($roomid) || !preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)) {
+            $this->jsonResponse(['error' => 'Invalid ROOMID format'], 400);
+            return;
+        }
+
+        if (!is_string($roomToken) || $roomToken === ''
+            || !\App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
+            $this->jsonResponse(['error' => 'Room token validation failed'], 403);
+            return;
+        }
+
+        // CRITICAL: release the session lock before the long-lived stream,
+        // otherwise this connection blocks all other requests of the user.
+        session_write_close();
+
+        // Resume: Last-Event-ID header (browser reconnection) > last_id param
+        $lastId = 0;
+        $headerLastId = $_SERVER['HTTP_LAST_EVENT_ID'] ?? '';
+        if (is_string($headerLastId) && preg_match('/^\d+$/', $headerLastId) === 1) {
+            $lastId = (int) $headerLastId;
+        } else {
+            $paramLastId = $this->getParam('last_id', '0');
+            if (is_string($paramLastId) && preg_match('/^\d+$/', $paramLastId) === 1) {
+                $lastId = (int) $paramLastId;
+            }
+        }
+
+        header('Content-Type: text/event-stream; charset=utf-8');
+        header('Cache-Control: no-cache');
+        header('X-Accel-Buffering: no');
+        @ini_set('zlib.output_compression', '0');
+        @ini_set('output_buffering', 'off');
+        ignore_user_abort(true);
+        set_time_limit(self::CHAT_STREAM_MAX_DURATION + 10);
+
+        // Close and flush all output buffers so events reach the client immediately
+        while (ob_get_level() > 0) {
+            @ob_end_flush();
+        }
+
+        echo "retry: 3000\n\n";
+        echo ": stream open\n\n";
+        $this->flushChatStream();
+        ob_implicit_flush(true);
+
+        $filePath = APP_ROOT . '/tmp/LinkQuestions_' . $roomid;
+        $startTime = time();
+        $lastHeartbeat = $startTime;
+        $offset = 0;   // byte offset deja servi
+        $served = 0;   // nombre de lignes deja servies (ids SSE base 0)
+        $skipInitial = ($lastId > 0);
+
+        while (!connection_aborted() && (time() - $startTime) < self::CHAT_STREAM_MAX_DURATION) {
+            clearstatcache();
+            $fd = @fopen($filePath, 'r');
+            if ($fd !== false) {
+                if ($skipInitial) {
+                    // Reprendre a l'id demande (lignes deja recues par le client)
+                    while ($served < $lastId) {
+                        $line = fgets($fd);
+                        if ($line === false) {
+                            break;
+                        }
+                        if (trim($line) !== '') {
+                            $served++;
+                        }
+                        $tell = ftell($fd);
+                        if ($tell !== false) {
+                            $offset = $tell;
+                        }
+                    }
+                    $skipInitial = false;
+                } elseif ($offset > 0) {
+                    @fseek($fd, $offset);
+                }
+                while (($line = fgets($fd)) !== false) {
+                    $tell = ftell($fd);
+                    if ($tell !== false) {
+                        $offset = $tell;
+                    }
+                    if (trim($line) === '') {
+                        continue;
+                    }
+                    $this->sendChatStreamEvent($served, $line);
+                    $served++;
+                }
+                fclose($fd);
+            }
+
+            if ((time() - $lastHeartbeat) >= self::CHAT_STREAM_HEARTBEAT) {
+                echo ": hb\n\n";
+                $this->flushChatStream();
+                $lastHeartbeat = time();
+            }
+
+            usleep(self::CHAT_STREAM_TICK_US);
+        }
+
+        // Fin de cycle : le navigateur reconnecte seul avec Last-Event-ID
+        echo "event: bye\ndata: cycle\n\n";
+        flush();
+    }
+
+    /**
+     * Send one chat line as an SSE event
+     *
+     * @param int $index Line index (SSE event id)
+     * @param string $line Raw line from the LinkQuestions file
+     * @return void
+     */
+    private function sendChatStreamEvent(int $index, string $line): void
+    {
+        $data = str_replace(["\r", "\n"], ' ', rtrim($line));
+        if ($data === '') {
+            return;
+        }
+        echo 'id: ' . $index . "\n";
+        echo 'data: ' . $data . "\n\n";
+        $this->flushChatStream();
+    }
+
+    /**
+     * Flush the SSE stream to the client.
+     *
+     * Apache (mod_proxy_fcgi) buffers backend writes until AP_MIN_BYTES_TO_WRITE
+     * (8000 bytes) or EOF on keepalive connections : pad each write above that
+     * threshold so every event reaches the browser immediately.
+     *
+     * @return void
+     */
+    private function flushChatStream(): void
+    {
+        echo ': ', str_pad('', self::CHAT_STREAM_FLUSH_PADDING_BYTES, '*'), "\n\n";
+        flush();
     }
 
     /**

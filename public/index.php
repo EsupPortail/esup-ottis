@@ -184,6 +184,7 @@ $routes = [
     '/text/save' => [\App\Controller\TextController::class, 'save'],
     '/text/translate' => [\App\Controller\TextController::class, 'translate'],
     '/text/read-vo' => [\App\Controller\TextController::class, 'readVO'],
+    '/text/chat-stream' => [\App\Controller\TextController::class, 'chatStream'],
     '/text/save-q' => [\App\Controller\TextController::class, 'saveQ'],
 
     // Save endpoints
@@ -228,7 +229,7 @@ $router->get('/room/metadata', \App\Controller\TextController::class, 'roomMetad
 
 foreach ($routes as $path => $handler) {
     // Skip routes we already registered explicitly
-    if (in_array($path, ['/extract/transcription-sub', '/image/read', '/text/read', '/text/read-q', '/text/read-transcript-sub', '/text/read-vo', '/text/save-q', '/text/save', '/text/translate', '/image/save', '/email/send', '/extract/slides-notes', '/extract/slides-notes-txt', '/extract/slides-notes-apphtml', '/extract/pptx-images', '/extract/pptx-notes'])) {
+    if (in_array($path, ['/extract/transcription-sub', '/image/read', '/text/read', '/text/read-q', '/text/read-transcript-sub', '/text/read-vo', '/text/chat-stream', '/text/save-q', '/text/save', '/text/translate', '/image/save', '/email/send', '/extract/slides-notes', '/extract/slides-notes-txt', '/extract/slides-notes-apphtml', '/extract/pptx-images', '/extract/pptx-notes'])) {
         continue;
     }
     // Use 'store' as the action for POST save routes

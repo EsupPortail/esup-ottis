@@ -132,6 +132,7 @@
             "synthesis": "Activer la synthèse vocale"
         },
         "nom": {
+            "title": "Votre nom",
             "label": "Prénom Nom (visibles dans le tchat)",
             "error": "Saisissez votre prénom et votre nom pour accéder au tchat.",
             "submit": "Valider"
@@ -141,7 +142,8 @@
             "messages": "Messages du tchat",
             "inputLabel": "Envoyer un message",
             "placeholder": "Envoyer un message",
-            "send": "Envoyer le message"
+            "send": "Envoyer le message",
+            "changeName": "Changer de nom"
         },
         "transcription": {
             "title": "Transcription",

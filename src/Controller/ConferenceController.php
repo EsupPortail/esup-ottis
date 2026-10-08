@@ -56,7 +56,6 @@ class ConferenceController extends BaseController
         $this->viewData['pageStyles'] = [
             'styles/auditor.css',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
-            'styles/chat.css'
         ];
 
         // Define scripts for this page

@@ -50,11 +50,18 @@ Options -Indexes
     ExpiresByType image/png "access 1 year"
     ExpiresByType image/gif "access 1 year"
     ExpiresByType image/svg+xml "access 1 year"
-    ExpiresByType text/css "access 1 month"
-    ExpiresByType application/javascript "access 1 month"
     ExpiresByType font/woff "access 1 month"
     ExpiresByType font/woff2 "access 1 month"
     ExpiresByType font/ttf "access 1 month"
+</IfModule>
+
+# JavaScript et CSS : revalidation systemematique (304) obligatoire.
+# Les modules ES sont importes via des URL brutes (non versionnees) :
+# un cache long figerait des versions intermediaires du graphe de modules
+# (ex. display.js ancien appele par handlers.js + display.js nouveau en entree).
+<IfModule mod_headers.c>
+    Header set Cache-Control "no-cache" "expr=%{CONTENT_TYPE} =~ m|javascript|"
+    Header set Cache-Control "no-cache" "expr=%{CONTENT_TYPE} =~ m|^text/css|"
 </IfModule>
 
 # Compress text files

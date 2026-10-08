@@ -68,13 +68,6 @@
     text-decoration-thickness: 2px;
 }
 
-/* Tchat desactive (attente passage SSE) : composant inactif,
-   exonere des exigences de contraste (RGAA 4.1, composant non actif) */
-.ottis-page-auditor .rail button[aria-disabled="true"] {
-    opacity: 0.55;
-    cursor: default;
-}
-
 /* =============================================
    PANNEAU (Langue / Votre nom)
    ============================================= */
@@ -302,35 +295,112 @@
     padding: 1rem 0.25rem;
 }
 
-.ottis-page-auditor #classroom ul {
+.ottis-page-auditor #classroom ol {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
 }
 
-.ottis-page-auditor .chat-message {
-    padding: 8px 12px;
-    margin-bottom: 4px;
-    border-radius: 5px;
-    display: block;
-    font-size: 14px;
-    line-height: 1.4;
-    max-width: 85%;
-    word-wrap: break-word;
+.ottis-page-auditor #classroom li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
 
-.ottis-page-auditor .chat-message--system {
-    background: var(--red);
-    color: #fff;
+.ottis-page-auditor #classroom li.me {
+    align-self: flex-end;
+    width: 62%;
 }
 
-.ottis-page-auditor .chat-message--intervenant {
+.ottis-page-auditor #classroom .meta {
+    margin: 0;
+    font-size: 0.85rem;
+}
+
+.ottis-page-auditor #classroom .meta strong {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.ottis-page-auditor #classroom .bub {
+    margin: 0;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    overflow-wrap: anywhere;
+}
+
+.ottis-page-auditor #classroom .me .bub {
     background: var(--navy);
     color: #fff;
+    border-color: var(--navy);
 }
 
-.ottis-page-auditor .chat-message--user {
-    margin-left: 20px;
+/* Onglet Tchat : bulle (meme icone que le fab de la conference) */
+.ottis-page-auditor .rail #tchat-bubble {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 0.8rem;
+    background: #fff;
+    color: var(--navy);
+}
+
+.ottis-page-auditor .rail #tchat-bubble svg {
+    width: 26px;
+    height: 26px;
+}
+
+.ottis-page-auditor .rail #tchat-bubble .ottis-badge {
+    top: -6px;
+    right: -6px;
+}
+
+/* Nouveau message non lu : bulle orange clignotante (coupee si prefers-reduced-motion) */
+.ottis-tab-bubble--alert {
+    animation: ottis-tab-blink 1s steps(2, start) infinite;
+}
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes ottis-tab-blink {
+        0%, 100% { background: #fff; }
+        50% { background: var(--orange); }
+    }
+}
+
+/* Bouton "Changer de nom" (vue tchat) */
+.ottis-page-auditor .chat-tools {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 0.4rem;
+}
+
+.ottis-page-auditor .chat-tools .link-btn {
+    background: transparent;
+    border: 0;
+    padding: 0.2rem 0.4rem;
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.ottis-page-auditor .chat-tools .link-btn:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+}
+
+/* Nom de l'intervenant mis en evidence (tchat auditeur) */
+.ottis-page-auditor #classroom .msg-intervenant .meta strong {
+    color: var(--brown);
+    font-weight: 700;
 }
 
 .ottis-page-auditor .send {

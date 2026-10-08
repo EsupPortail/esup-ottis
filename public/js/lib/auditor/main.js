@@ -5,7 +5,8 @@ import { _ } from '../dom/selector.js';
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 import { isLanguageSelected, setGotolive } from '../state/shared.js';
 import { readText } from './network.js';
-import { startChatPolling } from '../chat/main.js';
+import { startChatStream } from '../chat/sse.js';
+import { defaultMessageHandler } from '../chat/handlers.js';
 import { setupChatInput } from '../chat/input.js';
 import { CompleteSpeech, Parle } from './speech.js';
 import { setLanguageInput } from '../language/management.js';
@@ -43,9 +44,9 @@ function startAuditorPolling() {
         }
       }, 2000);
 
-      // startChatPolling handles chat queue polling (readTextQ)
-      if (typeof startChatPolling === 'function') {
-        startChatPolling();
+      // Flux SSE du tchat (remplace le polling, désactivé en attente du SSE)
+      if (typeof startChatStream === 'function') {
+        startChatStream(_('classroomid').value, defaultMessageHandler);
       }
     } else {
       // Functions not yet available, try again in 100ms
