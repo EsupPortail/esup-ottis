@@ -40,8 +40,8 @@ RUN a2enmod rewrite \
 
 # Code de l'application
 COPY . /var/www/html/
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html
+RUN git config --global --add safe.directory /var/www/html
 WORKDIR /var/www/html
 
 
