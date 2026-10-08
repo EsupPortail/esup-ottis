@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Activer les modules Apache utiles
-RUN a2enmod rewrite
+RUN a2enmod rewrite \
     && mkdir -p /var/www/html
 # RUN phpenmod imagick
 # RUN systemctl restart apache2
