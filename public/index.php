@@ -161,6 +161,7 @@ if ($isDevEnvironment) {
 $routes = [
     // Home page
     '/' => [\App\Controller\HomeController::class, 'index'],
+    '/keepalive' => [\App\Controller\HomeController::class, 'keepalive'],
 
     '/conference' => [\App\Controller\ConferenceController::class, 'index'],
     '/conference/{roomId}' => [\App\Controller\ConferenceController::class, 'show'],
@@ -276,7 +277,8 @@ if ($match !== null) {
 
                 // Inject BASE_PATH script only for HTML responses (not for API endpoints)
                 $requestUri = $_SERVER['REQUEST_URI'] ?? '';
-                $isApiRequest = str_starts_with($requestUri, '/text/') ||
+                $isApiRequest = str_starts_with($requestUri, '/keepalive') ||
+                                str_starts_with($requestUri, '/text/') ||
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||
                                 str_starts_with($requestUri, '/image/') ||
