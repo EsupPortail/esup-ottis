@@ -9,21 +9,22 @@ import { increasependingrequests, decreasependingrequests } from '../utils/reque
 import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
 import { EcrireNB, EcrireNBSub } from './display.js';
+import { setLiveStatus } from './live-status.js';
 import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
 import {
     getBasePath, getRoomToken, getMaxOrder, setMaxOrder,
     getAllPhrases, setPhrase, pushToTranslate, getCurrentOrder,
     incrementCurrentOrder, getInputNumber, setInputNumber,
-    getAllLines, setLine,
+    setLine,
     setToSayKey, getLastNotebookVOContent, setLastNotebookVOContent,
     get
 } from '../state/shared.js';
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue).
+ * @summary Verify if there is something new pronounced by the teacher (MAIN queue).
  */
 function readText() {
-  if (_('classroomid').value != '') {
+  if (_('classroomid').value !== '') {
     increasependingrequests();
     incrementCurrentOrder();
     const f = new FormData();
@@ -36,6 +37,7 @@ function readText() {
     const request = createFetchRequest('POST', getBasePath() + '/text/read', {
       onSuccess(response) {
         decreasependingrequests();
+        setLiveStatus(true);
         const T = response.responseText.split('\n');
         let maxi = -1;
         const readedorder = (`0${T[0]}`).split(';')[0] * 1;
@@ -54,25 +56,15 @@ function readText() {
                   const targetLang = L[4];
                   const targetText = L.length >= 6 ? decodeHtmlEntities(L[5]) : null;
 
-                  let currentLang = '';
-                  const builtinVoice = getBuiltinVoice();
-                  const builtinLanguage = getBuiltinLanguage();
-                  // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language
-                  if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
-                    currentLang = builtinVoice.lang.substr(0, 2);
-                  } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
-                    currentLang = builtinLanguage.substr(0, 2);
-                  }
-
                   // Toujours ajouter au notebook
                   EcrireNB(sourceText);
 
                   // Stocker les métadonnées pour reconstruction lors du changement de langue
-                  const currentLines = getAllLines() || {};
                   setLine(L[1], {sourceLang, sourceText, targetLang, targetText});
 
                   // Toujours ajouter à ToTranslate pour traitement dans l'ordre
-                  // CompleteTranslation gérera l'affichage dans l'output et ne traduira que si nécessaire
+                  // CompleteTranslation gérera l'affichage dans l'output
+                  // et ne traduira que si nécessaire
                   pushToTranslate([L[1], sourceLang, sourceText, targetLang, targetText]);
                 }
               }
@@ -86,6 +78,7 @@ function readText() {
         // Ignorer les timeouts de polling (comportement normal)
         if (response.status !== 0 || response.statusText !== 'Timeout') {
           console.error('readText request failed. Context:', context);
+          setLiveStatus(false);
         }
         decreasependingrequests();
       },
@@ -98,10 +91,10 @@ function readText() {
 }
 
 /**
- * @summary Verify if there is something new pronounced by the teacher (ie, in the MAIN queue) for subtitles application.
+ * @summary Verify if there is something new pronounced by the teacher (MAIN queue) for subtitles.
  */
 function readTextSub() {
-  if (_('classroomid').value != '') {
+  if (_('classroomid').value !== '') {
     increasependingrequests();
     incrementCurrentOrder();
     const f = new FormData();
@@ -135,7 +128,8 @@ function readTextSub() {
                   let currentLang = '';
                   const builtinVoice = getBuiltinVoice();
                   const builtinLanguage = getBuiltinLanguage();
-                  // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language
+                  // Use builtin_voice.lang first (auditor output voice),
+                  // fallback to builtin_language
                   if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
                     currentLang = builtinVoice.lang.substr(0, 2);
                   } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
@@ -177,11 +171,11 @@ function readTextSub() {
 }
 
 /**
- * @summary Verify if there is something new in the MAIN queue for transcribed subtitles application.
+ * @summary Verify if there is something new in the MAIN queue for transcribed subtitles.
  * Modifié pour gérer output selon la langue choisie
  */
 function readTextSubTranscript() {
-  if (_('classroomid').value != '') {
+  if (_('classroomid').value !== '') {
     increasependingrequests();
     incrementCurrentOrder();
     const f = new FormData();
@@ -197,7 +191,7 @@ function readTextSubTranscript() {
         const T = response.responseText.split('\n');
 
         // Construire le contenu complet du notebook Sub (sous-titres) avec tri par ordre
-        let lines = [];
+        const lines = [];
         for (let i = 0; i < T.length; i++) {
           const line = T[i].trim();
           if (line) {
@@ -259,7 +253,8 @@ function updateOutputBasedOnLanguage() {
   const supportedLanguages = get('supportedlanguages') || [];
   const selectedLangSelect = _('classroomlanguage');
 
-  if (!roomId || !config || config.length < 2 || !selectedLangSelect || !supportedLanguages.length) {
+  if (!roomId || !config || config.length < 2
+    || !selectedLangSelect || !supportedLanguages.length) {
     return;
   }
 
@@ -328,7 +323,7 @@ function fetchVerylastContent(roomId, roomToken, callback) {
   const request = createFetchRequest('POST', getBasePath() + '/text/read-vo', {
     onSuccess(response) {
       const T = response.responseText.split('\n');
-      let lines = [];
+      const lines = [];
       for (let i = 0; i < T.length; i++) {
         const line = T[i].trim();
         if (line) {
@@ -386,7 +381,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
   const request = createFetchRequest('POST', getBasePath() + '/text/read-transcript-sub', {
     onSuccess(response) {
       const T = response.responseText.split('\n');
-      let lines = [];
+      const lines = [];
       for (let i = 0; i < T.length; i++) {
         const line = T[i].trim();
         if (line) {
@@ -430,7 +425,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
  * DISABLED - Obsolete image sharing functionality
  */
 // function readImage() {
-//   if (_('classroomid').value != '') {
+//   if (_('classroomid').value !== '') {
 //     increasependingrequests();
 //     const f = new FormData();
 //     f.append('random', window.currentrandom);

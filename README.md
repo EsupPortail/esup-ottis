@@ -19,6 +19,7 @@
 | **Prise de notes automatique** | Génération de notes multilingues à partir du discours |
 | **Diffusion de présentations** | Affichage de présentations sous-titré (PowerPoint, Pdf) |
 | **Interface bilingue** | Page de conférence traduite (français/anglais), changement de langue sans rechargement |
+| **Interface auditeur** | Vue étudiant refondue (SPA, layout commun, RGAA 4.1) : sous-titres en direct, transcription téléchargeable (VO/traduite), pop-up de choix de langue |
 
 ### Cas d'usage
 
@@ -492,7 +493,7 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 0.2.0 |
+| Version | 0.3.0 |
 | Langues supportées | 100+ |
 | Contrôleurs | 10 |
 | Services | 5 |

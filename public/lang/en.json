@@ -110,5 +110,53 @@
             "inputPlaceholder": "Send a message",
             "send": "Send the message"
         }
+    },
+    "auditor": {
+        "nav": {
+            "settings": "Subtitling settings",
+            "langue": "Language",
+            "tchat": "Chat",
+            "transcription": "Transcription",
+            "closePanel": "Close the panel"
+        },
+        "subtitles": {
+            "title": "Subtitles",
+            "region": "Live subtitles"
+        },
+        "live": {
+            "on": "Live",
+            "err": "Error"
+        },
+        "langue": {
+            "subtitlesLabel": "Subtitle language",
+            "synthesis": "Enable speech synthesis"
+        },
+        "nom": {
+            "label": "First name Last name (visible in the chat)",
+            "error": "Please enter your first name and last name to access the chat.",
+            "submit": "Submit"
+        },
+        "tchat": {
+            "title": "Chat",
+            "messages": "Chat messages",
+            "inputLabel": "Send a message",
+            "placeholder": "Send a message",
+            "send": "Send the message"
+        },
+        "transcription": {
+            "title": "Transcription",
+            "alert1": "Once OTTIS is closed, you will no longer have access to the transcription.",
+            "alert2": "Remember to download it at the end of the session, before closing your browser window.",
+            "versionLegend": "Speech version",
+            "voSr": " (original version)",
+            "trSr": " (translation)",
+            "downloadOriginal": "Download the original speech (.txt)",
+            "downloadTranslated": "Download the translated speech (.txt)"
+        },
+        "dialog": {
+            "title": "Listening settings",
+            "label": "You must first choose your language",
+            "submit": "Confirm"
+        }
     }
 }

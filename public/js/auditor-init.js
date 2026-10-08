@@ -5,8 +5,7 @@
  */
 
 // Import des fonctions voix
-import { Parle } from './lib/auditor/speech.js';
-import { Init, GoFS } from './lib/auditor/main.js';
+import { Init } from './lib/auditor/main.js';
 
 // Import des fonctions réseau
 
@@ -56,25 +55,6 @@ function initializeAuditor() {
  * Replaces all inline onclick handlers
  */
 function setupEventListeners() {
-  // Repeat button - plays the title text
-  const repeatBtn = document.getElementById('repeat');
-  if (repeatBtn) {
-    repeatBtn.addEventListener('click', () => {
-      const titreEl = document.getElementById('titre');
-      if (titreEl && typeof Parle === 'function') {
-        Parle(titreEl.innerHTML);
-      }
-    });
-  }
-
-  // Fullscreen button
-  const fsBtn = document.getElementById('FS');
-  if (fsBtn) {
-    fsBtn.addEventListener('click', () => {
-      GoFS();
-    });
-  }
-
   // Synthesis checkbox - hides UI arrows and animations
   const synthCheck = document.getElementById('synthesison');
   if (synthCheck) {

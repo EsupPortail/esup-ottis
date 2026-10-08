@@ -110,5 +110,53 @@
             "inputPlaceholder": "Envoyer un message",
             "send": "Envoyer le message"
         }
+    },
+    "auditor": {
+        "nav": {
+            "settings": "Réglages du sous-titrage",
+            "langue": "Langue",
+            "tchat": "Tchat",
+            "transcription": "Transcription",
+            "closePanel": "Fermer le panneau"
+        },
+        "subtitles": {
+            "title": "Sous-titres",
+            "region": "Sous-titres en direct"
+        },
+        "live": {
+            "on": "En direct",
+            "err": "En erreur"
+        },
+        "langue": {
+            "subtitlesLabel": "Langue des sous-titres",
+            "synthesis": "Activer la synthèse vocale"
+        },
+        "nom": {
+            "label": "Prénom Nom (visibles dans le tchat)",
+            "error": "Saisissez votre prénom et votre nom pour accéder au tchat.",
+            "submit": "Valider"
+        },
+        "tchat": {
+            "title": "Tchat",
+            "messages": "Messages du tchat",
+            "inputLabel": "Envoyer un message",
+            "placeholder": "Envoyer un message",
+            "send": "Envoyer le message"
+        },
+        "transcription": {
+            "title": "Transcription",
+            "alert1": "Une fois OTTIS fermé, vous n'aurez plus accès à la transcription.",
+            "alert2": "Pensez à la télécharger en fin d'intervention, avant de fermer la fenêtre de votre navigateur.",
+            "versionLegend": "Version du discours",
+            "voSr": " (version originale)",
+            "trSr": " (traduction)",
+            "downloadOriginal": "Télécharger le discours original (.txt)",
+            "downloadTranslated": "Télécharger le discours traduit (.txt)"
+        },
+        "dialog": {
+            "title": "Réglages de l'écoute",
+            "label": "Vous devez d'abord choisir votre langue",
+            "submit": "Valider"
+        }
     }
 }

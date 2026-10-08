@@ -1,5 +1,4 @@
 import { _ } from '../dom/selector.js';
-import { ChangeColor } from '../dom/styles.js';
 /**
  * Main initialization functions for auditor
  */
@@ -14,7 +13,8 @@ import { setBuiltinLanguage } from '../state/auditor.js';
 
 /**
  * @summary A function that is launched when the HTML page is loaded
- * Note: Centralized polling for auditor-specific functions (readText, readImage, readTextSubTranscript)
+ * Note: Centralized polling for auditor-specific functions
+ * (readText, readTextSubTranscript)
  */
 // Global flag to track if polling has started
 let auditorPollingStarted = false;
@@ -83,12 +83,9 @@ function Init() {
         }
     }, 1000);
     */
-  const colorTitreEl = _('ColorTitre');
-  ChangeColor('titre', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
-  ChangeColor('fixed-title', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
 
   // Keyboard navigation
-  document.addEventListener('keyup', function (event) {
+  document.addEventListener('keyup', (event) => {
     if (['AuditorName', 'dialog_MailTo', 'dialog_MailFrom', 'dialog_MailSubject', 'question'].indexOf(document.activeElement.id) < 0) {
       // Tab navigation removed - all sections are now displayed sequentially
       if (event.code === 'KeyL') { // go to live
