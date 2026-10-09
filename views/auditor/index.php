@@ -267,6 +267,8 @@
     function route(focus) {
         const hash = window.location.hash.replace('#', '') || 'sous-titres';
         const name = tabs[hash] ? hash : 'sous-titres';
+        // Navigation vers un autre onglet : fermer le panneau ouvert (langue, nom...)
+        closeSheet();
         showView(name);
         if (focus) {
             // RGAA : deplacer le focus sur le titre de la nouvelle vue

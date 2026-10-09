@@ -127,7 +127,11 @@ export async function changeLanguage(lang) {
  */
 export function getCurrentLanguage() {
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('lang') || 'fr';
+  // Page auditeur : interface en anglais par defaut
+  const defaultLang = document.body && document.body.classList.contains('ottis-page-auditor')
+    ? 'en'
+    : 'fr';
+  return urlParams.get('lang') || defaultLang;
 }
 
 /**

@@ -29,6 +29,10 @@ class AuditorController extends BaseController
         // Set session marker
         $_SESSION['from'] = 'student';
 
+        // Interface auditeur en anglais par defaut, sauf si une langue
+        // est explicitement demandee (?lang=) ou deja definie en session
+        $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? 'en';
+
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');
 
