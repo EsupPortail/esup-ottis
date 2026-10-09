@@ -4,7 +4,6 @@
  */
 
 /** Import du sélecteur DOM */
-import { _ } from '../dom/selector.js';
 
 /**
  * Screen chat messages array - Global array to store chat messages

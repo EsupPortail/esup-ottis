@@ -1,3 +1,29 @@
+<?php
+/**
+ * Cache-busting : ajoute ?v=<mtime> aux assets locaux.
+ * Le .htaccess sert JS/CSS avec "access 1 month" : sans version,
+ * les navigateurs conservent des fichiers perimes apres un deploiement.
+ */
+if (!function_exists('ottis_asset_url')) {
+    function ottis_asset_url($url)
+    {
+        if (preg_match('#^(https?:)?//#i', (string) $url)) {
+            return $url;
+        }
+        $path = parse_url((string) $url, PHP_URL_PATH);
+        $relative = ltrim((string) $path, '/.');
+        if ($relative === '') {
+            return $url;
+        }
+        $file = dirname(__DIR__, 2) . '/public/' . $relative;
+        if (is_file($file)) {
+            $separator = strpos((string) $url, '?') === false ? '?' : '&';
+            return $url . $separator . 'v=' . filemtime($file);
+        }
+        return $url;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="<?php echo $this->escape($language ?? 'fr'); ?>">
 <head>
@@ -10,16 +36,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/header.css">
+    <link rel="stylesheet" href="<?php echo ottis_asset_url('./styles/header.css'); ?>">
 
     <?php if (isset($pageStyles) && is_array($pageStyles)): ?>
         <?php foreach ($pageStyles as $style): ?>
-            <link rel="stylesheet" href="<?php echo $this->escape($style); ?>">
+            <link rel="stylesheet" href="<?php echo $this->escape(ottis_asset_url($style)); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
 
     <?php if (isset($isConferencePage) && $isConferencePage): ?>
-        <link rel="stylesheet" href="/styles/conference-new.css">
+        <link rel="stylesheet" href="<?php echo ottis_asset_url('/styles/conference-new.css'); ?>">
     <?php endif; ?>
 
     <script>
@@ -27,9 +53,14 @@
         window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
     </script>
 
+    <?php
+    // i18n.js est aussi importe par des modules ES (URL nue, ex : import '../i18n.js').
+    // La balise doit charger la MEME URL, sinon le module est instancie deux fois
+    // (double passe de traduction). Pas de cache-busting (?v=) ici pour cette raison.
+    ?>
     <script type="module" src="./js/lib/i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-    <script src="./js/lib/analytics.js"></script>
+    <script src="<?php echo ottis_asset_url('./js/lib/analytics.js'); ?>"></script>
 
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
@@ -37,12 +68,21 @@
             $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
             $typeAttr = $isModule ? 'type="module"' : '';
             ?>
-            <script <?php echo $typeAttr; ?> src="<?php echo $this->escape($script); ?>"></script>
+            <script <?php echo $typeAttr; ?> src="<?php echo $this->escape(ottis_asset_url($script)); ?>"></script>
         <?php endforeach; ?>
     <?php endif; ?>
 </head>
 
-<body class="<?php echo (isset($isConferencePage) && $isConferencePage) ? 'ottis-page-conference' : ''; ?>" <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
+<?php
+    $bodyClasses = [];
+if (isset($isConferencePage) && $isConferencePage) {
+    $bodyClasses[] = 'ottis-page-conference';
+}
+if (isset($isAuditorPage) && $isAuditorPage) {
+    $bodyClasses[] = 'ottis-page-auditor';
+}
+?>
+<body class="<?php echo implode(' ', $bodyClasses); ?>" <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
     <header class="ottis-header">
         <nav class="ottis-nav" aria-label="Navigation principale">
             <div class="ottis-nav__brand">
@@ -100,20 +140,27 @@
     </main>
 
     <?php if (isset($afterContentScripts)): ?>
-        <?php echo $afterContentScripts; ?>
+        <?php
+        // Cache-busting des scripts locaux injectes par les controleurs
+        echo preg_replace_callback(
+            '/src="(\/?\.?\/?js\/[^"]+)"/',
+            static fn (array $m): string => 'src="' . ottis_asset_url($m[1]) . '"',
+            (string) $afterContentScripts
+        );
+        ?>
     <?php endif; ?>
 
     <footer class="ottis-footer">
         <span class="translate" data-key="footer.copyright">© Nantes Université - 2026</span>
         <div class="ottis-footer__links">
             <span>•</span>
-            <a href="#" class="translate" data-key="footer.mentions">Mentions légales</a>
+            <a href="/mentions-legales" class="translate" data-key="footer.mentions">Mentions légales</a>
             <span>•</span>
-            <a href="#" class="translate" data-key="footer.accessibility">Accessibilité : partiellement conforme</a>
+            <a href="/accessibilite" class="translate" data-key="footer.accessibility">Accessibilité : partiellement conforme</a>
             <span>•</span>
-            <a href="#" class="translate" data-key="footer.personalData">Données personnelles</a>
+            <a href="/donnees-personnelles" class="translate" data-key="footer.personalData">Données personnelles</a>
             <span>•</span>
-            <a href="#" class="translate" data-key="footer.sitemap">Plan du site</a>
+            <a href="/plan-du-site" class="translate" data-key="footer.sitemap">Plan du site</a>
         </div>
     </footer>
 

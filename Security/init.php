@@ -40,6 +40,14 @@ require_once __DIR__ . '/sanitize.php';
 
 // Démarrer la session si ce n'est pas déjà fait
 if (session_status() === PHP_SESSION_NONE) {
+    // Session longue duree (8h) : une conference ne doit pas perdre sa session
+    session_set_cookie_params([
+        'lifetime' => 28800,
+        'path' => '/',
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+    ini_set('session.gc_maxlifetime', 28800);
     session_start();
 }
 
@@ -204,6 +212,10 @@ function ottisInitCas(array $casConfig): void
 
     try {
         if (!phpCAS::isAuthenticated()) {
+            // Memoriser l'URL complete (query incluse, sans ticket) pour y revenir apres reconnexion
+            if (!isset($_GET['ticket'])) {
+                $_SESSION['ottis_return_to'] = $_SERVER['REQUEST_URI'] ?? '/';
+            }
             phpCAS::forceAuthentication();
         }
 
@@ -212,8 +224,35 @@ function ottisInitCas(array $casConfig): void
         $_SESSION['auth_provider'] = 'cas';
     } catch (Throwable $e) {
         error_log('phpCAS authentication failed: ' . $e->getMessage());
+
+        // Ticket invalide ou deja consomme : reessayer une fois sur la meme URL sans le ticket
+        if (isset($_GET['ticket'])) {
+            $query = $_GET;
+            unset($query['ticket']);
+            $clean = strtok($_SERVER['REQUEST_URI'] ?? '/', '?') ?: '/';
+            if (!empty($query)) {
+                $clean .= '?' . http_build_query($query);
+            }
+            header('Location: ' . $clean, true, 302);
+            exit;
+        }
+
+        // Sinon, repartir de l'accueil (relance propre du flux CAS), sauf si on y est deja (evite une boucle)
+        if (ottisCurrentPath() !== '/') {
+            header('Location: /', true, 302);
+            exit;
+        }
+
         http_response_code(500);
-        echo '<h1>Erreur d’authentification CAS</h1><p>Le ticket de connexion CAS n’a pas été validé correctement. Merci de réessayer.</p>';
+        echo '<h1>Erreur d’authentification CAS</h1><p>Le service de connexion est indisponible. Merci de réessayer plus tard.</p>';
+        exit;
+    }
+
+    // Revenir a l'URL d'origine si CAS y est revenu sans la query (ROOMID, lang...)
+    $returnTo = $_SESSION['ottis_return_to'] ?? null;
+    unset($_SESSION['ottis_return_to']);
+    if ($returnTo && $returnTo !== ($_SERVER['REQUEST_URI'] ?? '')) {
+        header('Location: ' . $returnTo, true, 302);
         exit;
     }
 
@@ -221,6 +260,23 @@ function ottisInitCas(array $casConfig): void
         http_response_code(403);
         echo '<h1>Accès interdit</h1><p>Cette zone est réservée au personnel et aux enseignants.</p>';
         exit;
+    }
+
+    // Reconnexion CAS (retour avec ticket) : si l'URL d'origine a ete perdue
+    // (session detruite, ottis_return_to absent) et que l'intervenant possede
+    // une salle encore recente, y revenir directement pour ne pas perdre la
+    // conference et les auditeurs qui y sont lies.
+    if (isset($_GET['ticket'])
+        && class_exists(\App\Security\RoomTokenManager::class)
+        && (ottisCurrentPath() === '/'
+            || (ottisCurrentPath() === '/conference' && empty($_GET['ROOMID'])))) {
+        $recentRoom = \App\Security\RoomTokenManager::findRecentRoomByOwner(
+            (string) ($_SESSION['cas_user'] ?? '')
+        );
+        if ($recentRoom !== null) {
+            header('Location: /conference/' . rawurlencode($recentRoom), true, 302);
+            exit;
+        }
     }
 }
 

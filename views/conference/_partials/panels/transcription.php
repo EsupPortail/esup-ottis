@@ -6,5 +6,5 @@
 ?>
 
 <div class="panel-content panel-transcription">
-    <p class="ottis-hint">Aucun r&eacute;glage disponible pour la transcription.</p>
+    <p class="ottis-hint translate" data-key="conference.transcriptionPanel.noSettings">Aucun r&eacute;glage disponible pour la transcription.</p>
 </div>

@@ -1,0 +1,162 @@
+/*
+ * pages.css - Styles communs des pages statiques
+ * (mentions légales, données personnelles, accessibilité, plan du site)
+ * Réutilise les variables définies dans header.css (--ottis-*)
+ * Cible la structure des vues views/pages/fr/*.php sans classes dédiées.
+ */
+
+.ottis-static-page {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+    color: var(--ottis-text);
+    font-size: 1.02rem;
+    line-height: 1.7;
+}
+
+/* ---- Titres ---- */
+
+.ottis-static-page h1 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: var(--ottis-header);
+}
+
+/* Filet décoratif sous le titre principal */
+.ottis-static-page h1::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 3px;
+    margin-top: 14px;
+    background-color: var(--ottis-orange);
+    border-radius: 2px;
+}
+
+/* Chapô : premier paragraphe après le titre */
+.ottis-static-page h1 + p {
+    font-size: 1.12rem;
+    line-height: 1.6;
+    color: var(--ottis-muted);
+    margin-bottom: 20px;
+}
+
+.ottis-static-page h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 1.3rem;
+    line-height: 1.3;
+    margin: 40px 0 14px;
+    color: var(--ottis-header);
+}
+
+/* Tiret décoratif devant chaque section */
+.ottis-static-page h2::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 3px;
+    flex: none;
+    background-color: var(--ottis-orange);
+    border-radius: 2px;
+}
+
+.ottis-static-page h3 {
+    font-size: 1.08rem;
+    margin: 24px 0 8px;
+}
+
+/* ---- Texte courant ---- */
+
+.ottis-static-page p {
+    margin-bottom: 14px;
+}
+
+.ottis-static-page ul {
+    margin: 0 0 16px 4px;
+    padding: 0 0 0 20px;
+}
+
+.ottis-static-page li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.ottis-static-page li::marker {
+    color: var(--ottis-orange);
+}
+
+.ottis-static-page a {
+    color: var(--ottis-header);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.ottis-static-page a:hover {
+    text-decoration-thickness: 2px;
+}
+
+.ottis-static-page a:focus-visible {
+    outline: 2px solid var(--ottis-orange);
+    outline-offset: 2px;
+}
+
+/* ---- Blocs d'adresse : carte avec filet orange ---- */
+
+.ottis-static-page address {
+    font-style: normal;
+    line-height: 1.7;
+    background-color: var(--ottis-card);
+    border: 1px solid var(--ottis-border);
+    border-left: 3px solid var(--ottis-orange);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 0 0 16px;
+    box-shadow: 0 1px 3px var(--ottis-shadow);
+}
+
+/* ---- Dernière ligne : date de mise à jour ---- */
+
+.ottis-static-page__updated {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ottis-border);
+    font-size: 0.875rem;
+    color: var(--ottis-muted);
+}
+
+/* ---- Adaptation mobile ---- */
+
+@media (max-width: 640px) {
+    .ottis-static-page {
+        padding: 28px 16px 40px;
+    }
+
+    .ottis-static-page h1 {
+        font-size: 1.5rem;
+    }
+
+    .ottis-static-page h2 {
+        font-size: 1.15rem;
+        margin-top: 32px;
+    }
+}
+
+/* ---- Impression : masquer la navigation, garder le contenu ---- */
+
+@media print {
+    .ottis-header,
+    .ottis-nav,
+    .ottis-footer {
+        display: none;
+    }
+
+    .ottis-static-page {
+        max-width: none;
+        padding: 0;
+    }
+}

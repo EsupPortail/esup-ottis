@@ -5,20 +5,15 @@
  */
 
 // Import des fonctions voix
-import { Parle, ParleThen, CompleteSpeech } from './lib/auditor/speech.js';
 import { Init } from './lib/auditor/main.js';
 
 // Import des fonctions réseau
-import { readText, readTextSub, readTextSubTranscript /* readImage DISABLED */ } from './lib/auditor/network.js';
 
 // Import des fonctions de traduction
-import { rebuildOutputForLanguage } from './lib/auditor/translation.js';
 
 // Import des fonctions utilitaires
-import { GoFS } from './lib/auditor/main.js';
 import { initChatAlert } from './lib/chat/alert.js';
 import { loadVoicesWhenAvailable } from './lib/conference/voices.js';
-import { setLanguageOutput } from './lib/language/management.js';
 import { safeSetTimeout } from './lib/utils/cleanup.js';
 import { EnvoiMail } from './lib/auditor/mail.js';
 import { DownloadSpeechLesson } from './lib/download.js';
@@ -60,25 +55,6 @@ function initializeAuditor() {
  * Replaces all inline onclick handlers
  */
 function setupEventListeners() {
-  // Repeat button - plays the title text
-  const repeatBtn = document.getElementById('repeat');
-  if (repeatBtn) {
-    repeatBtn.addEventListener('click', () => {
-      const titreEl = document.getElementById('titre');
-      if (titreEl && typeof Parle === 'function') {
-        Parle(titreEl.innerHTML);
-      }
-    });
-  }
-
-  // Fullscreen button
-  const fsBtn = document.getElementById('FS');
-  if (fsBtn) {
-    fsBtn.addEventListener('click', () => {
-      GoFS();
-    });
-  }
-
   // Synthesis checkbox - hides UI arrows and animations
   const synthCheck = document.getElementById('synthesison');
   if (synthCheck) {

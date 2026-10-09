@@ -2,10 +2,8 @@
  * Chat display functions
  * Dependencies: chat/state.js, chat/utils.js, ../dom/selector.js and ../dom/dialog.js
  */
-import { _ } from '../dom/selector.js';
 import { ScreenCR } from './state.js';
 import { ClearCR, RefreshCR } from './utils.js';
-import { ColorsForCR, rgb, getUserColor } from '../colors.js';
 import { escapeHtml } from '../browser.js';
 
 // Re-export for backward compatibility
@@ -51,33 +49,22 @@ export function EcrireCR(who, ch, order, isIntervenant = false) {
 
   const senderIdentity = parseChatIdentity(who);
   const displayWho = senderIdentity.displayName || senderIdentity.uid || who || '';
-  const isIntervenantMessage = Boolean(isIntervenant) || isIntervenantSender(who, isIntervenant);
+  const currentUser = globalThis.OMIST_USER || {};
+  const isMe = Boolean(displayWho)
+    && (displayWho === currentUser.fullName || senderIdentity.uid === currentUser.uid);
 
-  // Use the centralized version from colors.js
-  if (!ColorsForCR[displayWho]) {
-    const colors = getUserColor(displayWho);
-    const bg = colors[0];
-    const fg = colors[1];
-    ColorsForCR[displayWho] = [bg, fg, 20];
+  const d = new Date();
+  const time = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
+
+  const msgClasses = ['msg', isMe ? 'me' : 'o'];
+  // Nom de l'intervenant mis en evidence dans tous les tchats
+  if (isIntervenant) {
+    msgClasses.push('msg-intervenant');
   }
 
-  const rgbFunc = rgb;
-  const escapeHtmlFunc = escapeHtml;
-
-  // Determine CSS class based on sender
-  let messageClass = 'chat-message';
-  let styleAttr = '';
-
-  if (who === '----') {
-    messageClass += ' chat-message--system';;
-  } else if (isIntervenantMessage) {
-    messageClass += ' chat-message--intervenant';
-  } else {
-    messageClass += ' chat-message--user';
-    styleAttr = ` style="background-color: ${rgbFunc(ColorsForCR[displayWho][0])}; color: ${rgbFunc(ColorsForCR[displayWho][1])}; margin-left: 20px;"`;
-  }
-
-  ScreenCR[order] = `<li role="listitem" class="${messageClass}"${styleAttr}>${
-    escapeHtmlFunc(`${displayWho} : ${ch}`)}</li>`;
+  // Rendu maquette : bulle + meta (nom, heure) ; moi a droite, les autres a gauche
+  ScreenCR[order] = `<li class="${msgClasses.join(' ')}">`
+    + `<p class="meta"><strong>${escapeHtml(displayWho)}</strong> <time>${time}</time></p>`
+    + `<p class="bub">${escapeHtml(ch)}</p></li>`;
   RefreshCR();
 }

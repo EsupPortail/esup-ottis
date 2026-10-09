@@ -23,10 +23,25 @@ function getNestedValue(obj, path) {
  */
 function translateElement(element) {
   const key = element.getAttribute('data-key');
-  if (!key) return;
-
-  // Get language from closest parent with lang attribute, default to 'fr'
+  const ariaKey = element.getAttribute('data-aria-key');
   const lang = element.closest('[lang]')?.lang || 'fr';
+
+  if (ariaKey) {
+    const ariaValue = getNestedValue(translations[lang], ariaKey);
+    if (ariaValue) {
+      element.setAttribute('aria-label', ariaValue);
+    }
+  }
+
+  const placeholderKey = element.getAttribute('data-placeholder-key');
+  if (placeholderKey) {
+    const placeholderValue = getNestedValue(translations[lang], placeholderKey);
+    if (placeholderValue) {
+      element.setAttribute('placeholder', placeholderValue);
+    }
+  }
+
+  if (!key) return;
 
   // Get translation value
   const value = getNestedValue(translations[lang], key);
@@ -74,11 +89,36 @@ export async function initTranslations(lang) {
 }
 
 /**
- * Change the application language and reload the page
+ * Translate a key with optional variables ({var} substitution)
+ * @param {string} key - The translation key (e.g. 'conference.pdf.pageIndicator')
+ * @param {Object} [vars] - Variables to substitute (e.g. { n: 1, m: 5 })
+ * @returns {string} The translated string, or the key if not found
+ */
+export function t(key, vars = {}) {
+  const lang = getCurrentLanguage();
+  const value = getNestedValue(translations[lang], key);
+  if (typeof value !== 'string') {
+    return key;
+  }
+  return Object.entries(vars).reduce(
+    (acc, [name, val]) => acc.replaceAll(`{${name}}`, String(val)),
+    value
+  );
+}
+
+/**
+ * Change the application language without reloading the page
+ * Updates the document language, the ?lang= URL parameter (history.replaceState)
+ * and re-translates every '.translate' element in place
  * @param {string} lang - The target language code
  */
-export function changeLanguage(lang) {
-  window.location.search = `?lang=${lang}`;
+export async function changeLanguage(lang) {
+  document.documentElement.lang = lang;
+  const params = new URLSearchParams(window.location.search);
+  params.set('lang', lang);
+  window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+  await initTranslations(lang);
+  document.dispatchEvent(new CustomEvent('ottis:languagechange', { detail: { lang } }));
 }
 
 /**
@@ -87,7 +127,11 @@ export function changeLanguage(lang) {
  */
 export function getCurrentLanguage() {
   const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('lang') || 'fr';
+  // Page auditeur : interface en anglais par defaut
+  const defaultLang = document.body && document.body.classList.contains('ottis-page-auditor')
+    ? 'en'
+    : 'fr';
+  return urlParams.get('lang') || defaultLang;
 }
 
 /**

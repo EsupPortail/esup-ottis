@@ -6,9 +6,9 @@ import { _ } from '../dom/selector.js';
 import { EcrireCR, isIntervenantSender } from './display.js';
 import { ColorsForCR } from '../colors.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
-import { getInputNumberQ, setInputNumberQ, isSendInProgress, setSendInProgress } from '../state/shared.js';
+import { isSendInProgress, setSendInProgress } from '../state/shared.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
-import { nbnewQ, setNbnewQ, NBconnectedusers, Tconnectedusers } from '../conference/state/core.js';
+import { nbnewQ, setNbnewQ, NBconnectedusers, Tconnectedusers, setNBconnectedusers, setTconnectedusers } from '../conference/state/core.js';
 import { updateUsers } from '../conference/config-functions.js';
 import { TranslateQ } from './network.js';
 import { triggerNewMessageAlert } from './alert.js';
@@ -21,9 +21,6 @@ if (!ColorsForCR['----']) {
 if (!ColorsForCR.Intervenant) {
   ColorsForCR.Intervenant = [[0, 0, 255], [255, 255, 255], 0];
 }
-
-// Initialize inputnumberQ from store (already initialized from window in store.js)
-const currentInputNumberQ = getInputNumberQ();
 
 /**
  * @summary Default message handler for chat messages
@@ -47,14 +44,14 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
   if (isSpecial) {
     // Handle new student arrived
     if (specialType === 'newstudentarrived') {
-      NBconnectedusers++;
+      setNBconnectedusers(NBconnectedusers + 1);
       Tconnectedusers.push(who);
       updateUsers();
     }
     // Handle new student lived (disconnected)
     else if (specialType === 'newstudentlived') {
-      NBconnectedusers--;
-      Tconnectedusers = Tconnectedusers.filter((student) => student !== who);
+      setNBconnectedusers(NBconnectedusers - 1);
+      setTconnectedusers(Tconnectedusers.filter((student) => student !== who));
       updateUsers();
     }
     // For other special messages, skip normal processing
@@ -68,14 +65,21 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
   setNbnewQ(nbnewQ + 1);
 
   // Get current language
-  // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language (for conference)
+  // Conference : le tchat suit la langue du conferencier (select "Langue du conferencier")
+  // Auditeur : langue choisie au pop-up (builtin_voice), sinon builtin_language
   let currentLang = '';
-  const bv = getBuiltinVoice();
-  const bl = getBuiltinLanguage();
-  if (typeof bv !== 'undefined' && bv && bv.lang) {
-    currentLang = bv.lang;
-  } else if (typeof bl !== 'undefined' && bl) {
-    currentLang = bl;
+  const currentUser = globalThis.OMIST_USER || {};
+  const classroomLanguageSelect = document.getElementById('classroomlanguage');
+  if (currentUser.isIntervenant && classroomLanguageSelect && classroomLanguageSelect.value) {
+    currentLang = classroomLanguageSelect.value;
+  } else {
+    const bv = getBuiltinVoice();
+    const bl = getBuiltinLanguage();
+    if (typeof bv !== 'undefined' && bv && bv.lang) {
+      currentLang = bv.lang;
+    } else if (typeof bl !== 'undefined' && bl) {
+      currentLang = bl;
+    }
   }
 
   // Only translate if we have a language selected and it's different from the message language
@@ -110,14 +114,19 @@ export function sendclick() {
       // Set flag to prevent multiple submissions
       setSendInProgress(true);
 
+      // Import dynamique : main.js importe deja handlers.js (evite le cycle)
+      import('./main.js').then(({ saveTextQ }) => {
+        if (typeof saveTextQ === 'function') {
+          saveTextQ(tosend);
+        }
+      });
+
       // Disable send button if it exists
       const sendButton = document.getElementById('questionsend');
       if (sendButton) {
         sendButton.disabled = true;
-        sendButton.value = 'Sending...';
       }
 
-      saveTextQ(tosend);
       questionElement.value = '';
 
       // Re-enable after a delay (in case of error, timeout will reset it)
@@ -125,7 +134,6 @@ export function sendclick() {
         setSendInProgress(false);
         if (sendButton) {
           sendButton.disabled = false;
-          sendButton.value = 'Send';
         }
       }, 2000); // 2 second cooldown
     }

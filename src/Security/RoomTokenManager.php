@@ -17,6 +17,12 @@ if (!defined('APP_ROOT')) {
 class RoomTokenManager
 {
     /**
+     * Fenetre (s) pendant laquelle une salle d'un intervenant reste
+     * recuperable apres sa derniere activite (reconnexion CAS).
+     */
+    public const ROOM_RECOVERY_WINDOW = 900;
+
+    /**
      * Token directory path
      */
     private static function getTokenDir(): string
@@ -195,13 +201,67 @@ class RoomTokenManager
         }
 
         foreach (glob($tmpDir . '/room_token_*') as $file) {
-            $data = self::readRoomTokenData(basename($file, 'room_token_'));
+            // basename($file, 'room_token_') ne retire pas le prefixe (suffixe en fin de nom) :
+            // l'ancien code lisait un fichier inexistant et supprimait TOUS les tokens.
+            $roomid = substr(basename($file), strlen('room_token_'));
+            $data = self::readRoomTokenData($roomid);
             $timestamp = (int) $data['timestamp'];
 
             if ($now - $timestamp > $expiry) {
                 unlink($file);
             }
         }
+    }
+
+    /**
+     * Rafraichir la date d'activite du token d'une salle (mtime du fichier).
+     * Appele par le heartbeat de la conference : une salle active reste
+     * "recente" tant que la page conference est ouverte.
+     *
+     * @param string $roomid
+     * @return void
+     */
+    public static function touchRoomToken(string $roomid): void
+    {
+        $tokenFile = self::getTokenDir() . '/room_token_' . basename($roomid);
+        if (file_exists($tokenFile)) {
+            touch($tokenFile);
+        }
+    }
+
+    /**
+     * Salle la plus recemment active possedee par un intervenant.
+     * Retourne l'ID de salle, ou null si aucune activite recente
+     * (fenetre ROOM_RECOVERY_WINDOW apres la derniere activite).
+     *
+     * @param string $ownerUid
+     * @return string|null
+     */
+    public static function findRecentRoomByOwner(string $ownerUid): ?string
+    {
+        if ($ownerUid === '') {
+            return null;
+        }
+
+        $now = time();
+        $bestRoom = null;
+        $bestMtime = 0;
+        foreach (glob(self::getTokenDir() . '/room_token_*') ?: [] as $file) {
+            $mtime = filemtime($file);
+            if ($mtime === false || ($now - $mtime) > self::ROOM_RECOVERY_WINDOW) {
+                continue;
+            }
+            $roomid = substr(basename($file), strlen('room_token_'));
+            if (self::readRoomTokenData($roomid)['ownerUid'] !== $ownerUid) {
+                continue;
+            }
+            if ($mtime > $bestMtime) {
+                $bestMtime = $mtime;
+                $bestRoom = $roomid;
+            }
+        }
+
+        return $bestRoom;
     }
 
     /**

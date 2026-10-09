@@ -157,86 +157,16 @@ if ($isDevEnvironment) {
     error_log('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
 }
 
-// Register routes
-$routes = [
-    // Home page
-    '/' => [\App\Controller\HomeController::class, 'index'],
-
-    '/conference' => [\App\Controller\ConferenceController::class, 'index'],
-    '/conference/{roomId}' => [\App\Controller\ConferenceController::class, 'show'],
-
-    '/auditor' => [\App\Controller\AuditorController::class, 'index'],
-    '/auditor/{roomId}' => [\App\Controller\AuditorController::class, 'show'],
-
-    '/subtitles' => [\App\Controller\SubtitlesController::class, 'index'],
-
-    // Upload endpoints
-    '/upload' => [\App\Controller\UploadController::class, 'handle'],
-    '/upload/handle' => [\App\Controller\UploadController::class, 'handle'],
-
-    // Text endpoints
-    '/text/read' => [\App\Controller\TextController::class, 'read'],
-    '/text/read-q' => [\App\Controller\TextController::class, 'readQ'],
-    '/text/read-transcript-sub' => [\App\Controller\TextController::class, 'readTranscriptSub'],
-    '/room/metadata' => [\App\Controller\TextController::class, 'roomMetadata'],
-    '/image/read' => [\App\Controller\ImageController::class, 'read'],
-    '/text/save' => [\App\Controller\TextController::class, 'save'],
-    '/text/translate' => [\App\Controller\TextController::class, 'translate'],
-    '/text/read-vo' => [\App\Controller\TextController::class, 'readVO'],
-    '/text/save-q' => [\App\Controller\TextController::class, 'saveQ'],
-
-    // Save endpoints
-    '/image/save' => [\App\Controller\ImageController::class, 'save'],
-
-    // Other endpoints
-    '/email/send' => [\App\Controller\EmailController::class, 'send'],
-    '/extract/transcription-sub' => [\App\Controller\ExtractController::class, 'transcriptionSub'],
-    '/extract/slides-notes' => [\App\Controller\ExtractController::class, 'slidesNotes'],
-    '/extract/slides-notes-txt' => [\App\Controller\ExtractController::class, 'slidesNotesTxt'],
-    '/extract/slides-notes-apphtml' => [\App\Controller\ExtractController::class, 'slidesNotesAppHTML'],
-    '/extract/pptx-images' => [\App\Controller\ExtractController::class, 'pptxImages'],
-    '/extract/pptx-notes' => [\App\Controller\ExtractController::class, 'pptxNotes'],
-];
-
-// Register GET routes
-foreach ($routes as $path => $handler) {
-    $router->get($path, $handler[0], $handler[1]);
-}
-
-// For POST requests, register the same handlers
-// First, register explicit POST routes with specific action names
-$router->post('/upload', \App\Controller\UploadController::class, 'handle');
-$router->post('/upload/handle', \App\Controller\UploadController::class, 'handle');
-$router->post('/extract/transcription-sub', \App\Controller\ExtractController::class, 'transcriptionSub');
-$router->post('/extract/slides-notes', \App\Controller\ExtractController::class, 'slidesNotes');
-$router->post('/extract/slides-notes-txt', \App\Controller\ExtractController::class, 'slidesNotesTxt');
-$router->post('/extract/slides-notes-apphtml', \App\Controller\ExtractController::class, 'slidesNotesAppHTML');
-$router->post('/extract/pptx-images', \App\Controller\ExtractController::class, 'pptxImages');
-$router->post('/extract/pptx-notes', \App\Controller\ExtractController::class, 'pptxNotes');
-$router->post('/image/read', \App\Controller\ImageController::class, 'read');
-$router->post('/text/read', \App\Controller\TextController::class, 'read');
-$router->post('/text/read-q', \App\Controller\TextController::class, 'readQ');
-$router->post('/text/read-transcript-sub', \App\Controller\TextController::class, 'readTranscriptSub');
-$router->post('/text/read-vo', \App\Controller\TextController::class, 'readVO');
-$router->post('/image/save', \App\Controller\ImageController::class, 'save');
-$router->post('/text/save-q', \App\Controller\TextController::class, 'saveQ');
-$router->post('/text/save', \App\Controller\TextController::class, 'save');
-$router->post('/text/translate', \App\Controller\TextController::class, 'translate');
-$router->post('/email/send', \App\Controller\EmailController::class, 'send');
-$router->get('/room/metadata', \App\Controller\TextController::class, 'roomMetadata');
-
-foreach ($routes as $path => $handler) {
-    // Skip routes we already registered explicitly
-    if (in_array($path, ['/extract/transcription-sub', '/image/read', '/text/read', '/text/read-q', '/text/read-transcript-sub', '/text/read-vo', '/text/save-q', '/text/save', '/text/translate', '/image/save', '/email/send', '/extract/slides-notes', '/extract/slides-notes-txt', '/extract/slides-notes-apphtml', '/extract/pptx-images', '/extract/pptx-notes'])) {
-        continue;
+// Register routes from the centralized configuration (config/routes.php)
+$routeConfig = require APP_ROOT . '/config/routes.php';
+foreach ($routeConfig as $path => $definition) {
+    $methods = $definition['methods'] ?? ['GET'];
+    foreach ($methods as $httpMethod) {
+        $httpMethod = strtolower((string) $httpMethod);
+        if (in_array($httpMethod, ['get', 'post', 'put', 'delete'], true)) {
+            $router->{$httpMethod}($path, $definition['controller'], $definition['action']);
+        }
     }
-    // Use 'store' as the action for POST save routes
-    $action = in_array($path, [
-        '/text/save', '/text/save-q',
-        '/image/save',
-        '/email/send'
-    ]) ? 'store' : 'handle';
-    $router->post($path, $handler[0], $action);
 }
 
 // DEBUG: Log des routes POST enregistrées (développement uniquement)
@@ -276,7 +206,8 @@ if ($match !== null) {
 
                 // Inject BASE_PATH script only for HTML responses (not for API endpoints)
                 $requestUri = $_SERVER['REQUEST_URI'] ?? '';
-                $isApiRequest = str_starts_with($requestUri, '/text/') ||
+                $isApiRequest = str_starts_with($requestUri, '/keepalive') ||
+                                str_starts_with($requestUri, '/text/') ||
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||
                                 str_starts_with($requestUri, '/image/') ||

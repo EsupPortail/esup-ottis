@@ -27,5 +27,138 @@
         "aide": "Aide sur Madoc",
         "choix": "Choisissez votre scénario",
         "externe": "Êtes-vous externe à Nantes Université ?"
+    },
+    "conference": {
+        "nav": {
+            "settings": "Réglages du sous-titrage",
+            "langues": "Langues",
+            "apparence": "Apparence",
+            "transcription": "Transcription",
+            "partage": "Partage",
+            "closePanel": "Fermer le panneau"
+        },
+        "outil": {
+            "title": "Sous-titrer en direct",
+            "importLabel": "Importer votre présentation",
+            "formats": "PPTX, PDF, ODP, HTML — max. 20 Mo",
+            "fileHelp": "Sélectionnez un fichier de présentation à sous-titrer (20 Mo maximum).",
+            "animNote": "Si votre présentation comporte des animations, elles apparaîtront figées.",
+            "importProgress": "Progression de l'import",
+            "closePresentation": "Fermer la présentation",
+            "fullscreen": "Plein écran",
+            "exitFullscreen": "Quitter le plein écran",
+            "prevPage": "Page précédente",
+            "nextPage": "Page suivante",
+            "liveArea": "Bloc de sous-titrage",
+            "micStart": "Lancer les sous-titres",
+            "micStop": "Arrêter les sous-titres",
+            "defaultSubtitle": "Cliquez sur le micro pour lancer les sous-titres…",
+            "floatArea": "Bloc de sous-titrage flottant, déplaçable à la souris, au doigt ou avec les touches fléchées"
+        },
+        "langues": {
+            "classroomLabel": "Langue du conférencier",
+            "classroomHelp": "Langue parlée pendant l'intervention ; la reconnaissance vocale s'y règle.",
+            "subtitleLabel": "Langue des sous-titres",
+            "subtitleHelp": "Les sous-titres seront traduits dans cette langue."
+        },
+        "apparence": {
+            "colorsLegend": "Couleurs du bloc de sous-titrage",
+            "colorsHelp": "Ce choix s'applique au bloc de sous-titres affiché à l'écran.",
+            "dark": "Fond sombre — texte blanc",
+            "light": "Fond blanc — texte sombre",
+            "floatLegend": "Bloc de sous-titrage flottant",
+            "floatLabel": "Activer le bloc de sous-titrage flottant",
+            "floatHelp": "Par défaut, les sous-titres seront statiques."
+        },
+        "partage": {
+            "linkLabel": "Lien de partage pour l'auditoire",
+            "linkHelp": "Communiquez ce lien à l'auditoire pour qu'il rejoigne la session.",
+            "copy": "Copier",
+            "copied": "Lien copié dans le presse-papiers.",
+            "copyFailed": "Copie impossible : sélectionnez le lien et copiez-le manuellement.",
+            "qrTitle": "QR Code",
+            "qrHelp": "Grâce au partage, chaque personne de l'auditoire pourra choisir sa langue de sous-titrage.",
+            "qrLabel": "QR code du lien de partage de la session"
+        },
+        "transcriptionPanel": {
+            "noSettings": "Aucun réglage disponible pour la transcription."
+        },
+        "transcription": {
+            "alert1": "Une fois OTTIS fermé, vous n'aurez plus accès à la transcription.",
+            "alert2": "Pensez à télécharger le ou les fichiers en fin d'intervention.",
+            "original": "Discours original",
+            "translated": "Discours traduit",
+            "downloadOriginal": "Télécharger le discours original (.txt)",
+            "downloadTranslated": "Télécharger le discours traduit (.txt)"
+        },
+        "progress": {
+            "preparing": "Préparation de l'envoi…",
+            "uploading": "Envoi… {n}%",
+            "converting": "Conversion en cours…",
+            "processing": "Traitement en cours…",
+            "displaying": "Affichage…",
+            "uploadFailed": "Échec de l'import : "
+        },
+        "pdf": {
+            "pageIndicator": "Page {n} sur {m}"
+        },
+        "chat": {
+            "title": "Tchat",
+            "open": "Tchat",
+            "close": "Fermer le tchat",
+            "messages": "Messages",
+            "inputPlaceholder": "Envoyer un message",
+            "send": "Envoyer le message"
+        }
+    },
+    "auditor": {
+        "nav": {
+            "settings": "Réglages du sous-titrage",
+            "langue": "Langue",
+            "tchat": "Tchat",
+            "transcription": "Transcription",
+            "closePanel": "Fermer le panneau"
+        },
+        "subtitles": {
+            "title": "Sous-titres",
+            "region": "Sous-titres en direct"
+        },
+        "live": {
+            "on": "En direct",
+            "err": "En erreur"
+        },
+        "langue": {
+            "subtitlesLabel": "Langue des sous-titres",
+            "synthesis": "Activer la synthèse vocale"
+        },
+        "nom": {
+            "title": "Votre nom",
+            "label": "Prénom Nom (visibles dans le tchat)",
+            "error": "Saisissez votre prénom et votre nom pour accéder au tchat.",
+            "submit": "Valider"
+        },
+        "tchat": {
+            "title": "Tchat",
+            "messages": "Messages du tchat",
+            "inputLabel": "Envoyer un message",
+            "placeholder": "Envoyer un message",
+            "send": "Envoyer le message",
+            "changeName": "Changer de nom"
+        },
+        "transcription": {
+            "title": "Transcription",
+            "alert1": "Une fois OTTIS fermé, vous n'aurez plus accès à la transcription.",
+            "alert2": "Pensez à la télécharger en fin d'intervention, avant de fermer la fenêtre de votre navigateur.",
+            "versionLegend": "Version du discours",
+            "voSr": " (version originale)",
+            "trSr": " (traduction)",
+            "downloadOriginal": "Télécharger le discours original (.txt)",
+            "downloadTranslated": "Télécharger le discours traduit (.txt)"
+        },
+        "dialog": {
+            "title": "Réglages de l'écoute",
+            "label": "Vous devez d'abord choisir votre langue",
+            "submit": "Valider"
+        }
     }
 }

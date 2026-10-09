@@ -1,12 +1,12 @@
 import { _ } from '../dom/selector.js';
-import { ChangeColor } from '../dom/styles.js';
 /**
  * Main initialization functions for auditor
  */
-import { safeSetInterval, safeSetTimeout, registerRequest } from '../utils/cleanup.js';
+import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 import { isLanguageSelected, setGotolive } from '../state/shared.js';
-import { readText } from './network.js';
-import { startChatPolling } from '../chat/main.js';
+import { readText, checkConferenceStatus } from './network.js';
+import { startChatStream } from '../chat/sse.js';
+import { defaultMessageHandler } from '../chat/handlers.js';
 import { setupChatInput } from '../chat/input.js';
 import { CompleteSpeech, Parle } from './speech.js';
 import { setLanguageInput } from '../language/management.js';
@@ -14,7 +14,8 @@ import { setBuiltinLanguage } from '../state/auditor.js';
 
 /**
  * @summary A function that is launched when the HTML page is loaded
- * Note: Centralized polling for auditor-specific functions (readText, readImage, readTextSubTranscript)
+ * Note: Centralized polling for auditor-specific functions
+ * (readText, readTextSubTranscript)
  */
 // Global flag to track if polling has started
 let auditorPollingStarted = false;
@@ -43,9 +44,9 @@ function startAuditorPolling() {
         }
       }, 2000);
 
-      // startChatPolling handles chat queue polling (readTextQ)
-      if (typeof startChatPolling === 'function') {
-        startChatPolling();
+      // Flux SSE du tchat (remplace le polling, désactivé en attente du SSE)
+      if (typeof startChatStream === 'function') {
+        startChatStream(_('classroomid').value, defaultMessageHandler);
       }
     } else {
       // Functions not yet available, try again in 100ms
@@ -75,6 +76,11 @@ function Init() {
   // Setup chat input Enter key handler
   setupChatInput();
 
+  // Statut de la conférence : vérifie immédiatement puis toutes les 10 s.
+  // Sans ROOMID ou conférence fermée, le badge passe "En erreur".
+  checkConferenceStatus();
+  safeSetInterval(checkConferenceStatus, 10000);
+
   /*
     setTimeout(function() {
         let wooclapEl = _('wooclap');
@@ -83,12 +89,9 @@ function Init() {
         }
     }, 1000);
     */
-  const colorTitreEl = _('ColorTitre');
-  ChangeColor('titre', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
-  ChangeColor('fixed-title', colorTitreEl ? colorTitreEl.value : '0,0,255|0,0,255');
 
   // Keyboard navigation
-  document.addEventListener('keyup', function (event) {
+  document.addEventListener('keyup', (event) => {
     if (['AuditorName', 'dialog_MailTo', 'dialog_MailFrom', 'dialog_MailSubject', 'question'].indexOf(document.activeElement.id) < 0) {
       // Tab navigation removed - all sections are now displayed sequentially
       if (event.code === 'KeyL') { // go to live

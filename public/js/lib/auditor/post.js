@@ -7,18 +7,20 @@ import { safeSetTimeout } from '../utils/cleanup.js';
 import { startAuditorPolling } from './main.js';
 import { readText, readTextSubTranscript } from './network.js';
 import { readTextQCommon } from '../chat/network.js';
-import { EcrireCR, ClearCR } from '../chat/display.js';
 import { defaultMessageHandler } from '../chat/handlers.js';
-import { setLanguageSelected, setFirstClick, setFirstTime, setDiscoursRate, setInputNumberQ, getInputNumberQ } from '../state/shared.js';
+import { setLanguageSelected, setFirstClick, setFirstTime, setDiscoursRate } from '../state/shared.js';
 import { setLanguageOutput } from '../language/management.js';
-import { setBuiltinVoice, setBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
+import { setBuiltinVoice } from '../state/auditor.js';
 import { rebuildOutputForLanguage } from './translation.js';
+import { updateSpeechVersion } from './seg.js';
+import { retranslateChatStream } from '../chat/sse.js';
 import { _ } from '../dom/selector.js';
 
 // ============================================================================
 // Fonction locale readTextQ pour auditor (remplace l'appel window.readTextQ)
-// ============================================================================
-function readTextQ() {
+// Chat desactive en attente du passage au mode SSE :
+// conservee et exportee pour la reactivation ulterieure.
+export function readTextQ() {
   const classroomidEl = _('classroomid');
   if (classroomidEl && classroomidEl.value) {
     readTextQCommon(classroomidEl.value, defaultMessageHandler);
@@ -35,12 +37,12 @@ function readTextQ() {
 export function fixTitle() {
   let e = document.getElementById('titre');
   if (e && e.style.height) {
-    const height = parseInt(e.style.height.replace('px', '')) || 0;
+    const height = parseInt(e.style.height.replace('px', ''), 10) || 0;
     e.style.top = `${innerHeight - height - 100 - 10}px`;
   }
   e = document.getElementById('VOBanner');
   if (e && e.style.height) {
-    const height = parseInt(e.style.height.replace('px', '')) || 0;
+    const height = parseInt(e.style.height.replace('px', ''), 10) || 0;
     e.style.top = `${innerHeight - height - 100 - 10}px`;
   }
 }
@@ -51,14 +53,14 @@ export function fixTitle() {
 export function MinTitlePos() {
   let e = document.getElementById('titre');
   if (e) {
-    let postop = parseInt(e.style.top.replace('px', '')) || 0;
+    const postop = parseInt(e.style.top.replace('px', ''), 10) || 0;
     if (postop > innerHeight - 50) {
       e.style.top = `${innerHeight - 50}px`;
     }
   }
   e = document.getElementById('VOBanner');
   if (e) {
-    let postop = parseInt(e.style.top.replace('px', '')) || 0;
+    const postop = parseInt(e.style.top.replace('px', ''), 10) || 0;
     if (postop > innerHeight - 50) {
       e.style.top = `${innerHeight - 50}px`;
     }
@@ -105,8 +107,51 @@ if (typeof window !== 'undefined') {
 export function refreshSpeed() {
   const sliderSpeed = document.getElementById('slider_speed');
   if (sliderSpeed) {
-    setDiscoursRate((parseInt(sliderSpeed.value) || 100) / 100);
+    setDiscoursRate((parseInt(sliderSpeed.value, 10) || 100) / 100);
   }
+}
+
+// ============================================================================
+// Dialog-choose : application de la langue choisie
+// ============================================================================
+
+/**
+ * @summary Apply the language chosen in dialog-choose and close the dialog
+ * @param {HTMLDialogElement} dialogChoose - Le pop-up de choix de langue
+ * @param {HTMLSelectElement} dialogChooseSelect - Le select #VoiceOutputchoose
+ */
+function applyChosenLanguage(dialogChoose, dialogChooseSelect) {
+  setFirstTime(false);
+  setFirstClick(false);
+  const voiceOutputSelect = document.getElementById('VoiceOutput');
+  if (voiceOutputSelect) voiceOutputSelect.value = dialogChooseSelect.value;
+  if (voiceOutputSelect && voiceOutputSelect.value) {
+    setLanguageOutput(voiceOutputSelect.value);
+    // Also update the store for consistency with translation logic
+    setBuiltinVoice({ lang: voiceOutputSelect.value });
+    // RGAA 8.4 : langue du contenu affiche (sous-titres et discours traduit)
+    const fixedTitle = document.getElementById('fixed-title');
+    if (fixedTitle) fixedTitle.setAttribute('lang', voiceOutputSelect.value);
+    const output = document.getElementById('output');
+    if (output) output.setAttribute('lang', voiceOutputSelect.value);
+  }
+  updateSpeechVersion();
+  rebuildOutputForLanguage();
+  // Chat desactive en attente du passage au mode SSE :
+  // pas de rechargement de la file de messages au changement de langue.
+
+  const synthCheck = document.getElementById('synthesison');
+  if (synthCheck) synthCheck.checked = false;
+  setFirstClick(true);
+  dialogChoose.close();
+  setLanguageSelected(true);
+
+  // Load all historical content from Verylast files
+  if (typeof readTextSubTranscript === 'function') {
+    readTextSubTranscript();
+  }
+
+  waitForReadTextAndStart();
 }
 
 // ============================================================================
@@ -118,9 +163,11 @@ export function refreshSpeed() {
  */
 export function initAuditorPost() {
   // Set beforeunload handler
-  onbeforeunload = function(event) {
-    event.returnValue = 'Quit';
-  };
+  window.addEventListener('beforeunload', (event) => {
+    const evt = event;
+    evt.preventDefault();
+    evt.returnValue = 'Quit';
+  });
 
   // Initialize on DOMContentLoaded
   if (document.readyState === 'loading') {
@@ -154,42 +201,14 @@ function initializePost() {
   }
   refreshSpeed();
 
-  // Dialog-choose form handler
+  // Dialog-choose : validation par le bouton "Valider" (soumission du formulaire)
   const dialogChoose = document.getElementById('dialog-choose');
+  const dialogChooseSelect = document.getElementById('VoiceOutputchoose');
   const dialogChooseForm = dialogChoose?.querySelector('form');
-  if (dialogChooseForm) {
+  if (dialogChoose && dialogChooseSelect && dialogChooseForm) {
     dialogChooseForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      setFirstTime(false);
-      setFirstClick(false);
-      document.getElementById('VoiceOutput').value = document.getElementById('VoiceOutputchoose').value;
-      // Set language output and rebuild for auditor
-      const voiceOutputSelect = document.getElementById('VoiceOutput');
-      setLanguageOutput(voiceOutputSelect.value);
-      // Also update the store for consistency with translation logic
-      setBuiltinVoice({ lang: voiceOutputSelect.value });
-      rebuildOutputForLanguage();
-      // Clear and re-fetch all messages to translate them with the new language
-      safeSetTimeout(() => {
-        setInputNumberQ(0);
-        ClearCR();
-        readTextQ();
-      }, 100);
-
-      document.getElementById('synthesison').checked = false;
-      document.getElementById('arrowlanguage').style.visibility = 'hidden';
-      document.getElementById('arrowlanguage').style.display = 'none';
-      document.getElementById('lilanguage').style.animation = 'none';
-      setFirstClick(true);
-      dialogChoose.close();
-      setLanguageSelected(true);
-      
-      // Load all historical content from Verylast files
-      if (typeof readTextSubTranscript === 'function') {
-        readTextSubTranscript();
-      }
-      
-      waitForReadTextAndStart();
+      applyChosenLanguage(dialogChoose, dialogChooseSelect);
     });
   }
 
@@ -203,31 +222,20 @@ function initializePost() {
     });
   }
 
-  // Language change handler
-  const classroomLanguage = document.getElementById('classroomlanguage');
-  if (classroomLanguage) {
-    classroomLanguage.addEventListener('change', () => {
-      safeSetTimeout(() => {
-        // Clear chat to allow re-translation with new language
-        ClearCR();
-        readTextQ();
-      }, 500);
-    });
-  }
-
   // VoiceOutput change handler - retraduire quand l'utilisateur change la langue cible
   const voiceOutputSelect = document.getElementById('VoiceOutput');
   if (voiceOutputSelect) {
     voiceOutputSelect.addEventListener('change', () => {
       setLanguageOutput(voiceOutputSelect.value);
       setBuiltinVoice({ lang: voiceOutputSelect.value });
+      // RGAA 8.4 : langue du contenu affiche (sous-titres et discours traduit)
+      const fixedTitle = document.getElementById('fixed-title');
+      if (fixedTitle) fixedTitle.setAttribute('lang', voiceOutputSelect.value);
+      const output = document.getElementById('output');
+      if (output) output.setAttribute('lang', voiceOutputSelect.value);
       rebuildOutputForLanguage();
-      // Clear and re-fetch all messages to translate them with the new language
-      safeSetTimeout(() => {
-        setInputNumberQ(0);
-        ClearCR();
-        readTextQ();
-      }, 100);
+      // Retraduire tous les messages du tchat dans la nouvelle langue
+      retranslateChatStream();
     });
   }
 }
@@ -249,7 +257,9 @@ function waitForReadTextAndStart() {
 
 export function retourOK(e) {
   let res = '';
-  for (const p in e) res += `${p}=${e[p]}\n`;
+  Object.entries(e).forEach(([p, v]) => {
+    res += `${p}=${v}\n`;
+  });
   return res;
 }
 

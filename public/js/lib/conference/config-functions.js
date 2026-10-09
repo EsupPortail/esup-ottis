@@ -1,20 +1,17 @@
 import { NBconnectedusers, Tconnectedusers } from './state/core.js';
 
 import { _ } from '../dom/selector.js';
-import { hide, show } from '../dom/visibility.js';
-import { addCsrfToken, createFetchRequest } from './network.js';
-import { safeSetTimeout } from '../utils/cleanup.js';
+import '../utils/cleanup.js';
 import { getCurrentConfig } from '../state/conference.js';
 
-import { getRoomToken } from './compat.js';
 import { setLanguageInput } from './config.js';
 import { setLanguageSubtitle, PopulateSubtitlesLang, PopulateSpeechLang } from './voices.js';
 import { startChatPolling, saveTextQ } from '../chat/main.js';
 import { setupChatInput } from '../chat/input.js';
-import { Forward, Backward, SlideForward, SlideBackward, SkipForward, SkipBackward } from './navigation.js';
+import { Forward, Backward, SlideForward, SlideBackward } from './navigation.js';
 import { Micro, showET, toggleTextBandDisplay } from './ui.js';
-import { togglePdfFullscreen, SlideNotesUncloud, SlideNotesUncloudHtml } from './pdf-viewer.js';
-import { exitPdfFullscreen, restoreCanvasStyles, saveCurrentCanvasStyles } from './pdf-fullscreen/core.js';
+import { SlideNotesUncloud, SlideNotesUncloudHtml } from './pdf-viewer.js';
+import { restoreCanvasStyles } from './pdf-fullscreen/core.js';
 
 // URL parameters - moved from config.js to break circular dependency
 let zoomid = '';

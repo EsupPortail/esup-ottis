@@ -154,6 +154,30 @@ export function updateAlertBadge() {
     badge.textContent = '0';
     badge.style.display = 'none';
   }
+
+  // Badge du bouton flottant (fab) de la page conference
+  const fabBadge = document.getElementById('badge');
+  if (fabBadge) {
+    if (chatAlertState.alertCount > 0) {
+      fabBadge.textContent = String(chatAlertState.alertCount);
+      fabBadge.hidden = false;
+    } else {
+      fabBadge.textContent = '0';
+      fabBadge.hidden = true;
+    }
+  }
+
+  // Clignotement orange du fab en presence de messages non lus
+  const fabBtn = document.getElementById('fab');
+  if (fabBtn) {
+    fabBtn.classList.toggle('ottis-fab--alert', chatAlertState.alertCount > 0);
+  }
+
+  // Onglet Tchat de l'auditeur : bulle clignotante
+  const tabBubble = document.getElementById('tchat-bubble');
+  if (tabBubble) {
+    tabBubble.classList.toggle('ottis-tab-bubble--alert', chatAlertState.alertCount > 0);
+  }
 }
 
 /**
@@ -205,9 +229,26 @@ export function stopBlinkAnimation() {
  * @param {string} senderName - Name of the message sender
  * @returns {void}
  */
+function isChatOpen() {
+  const chat = document.getElementById('chat');
+  if (chat) {
+    return !chat.hidden;
+  }
+  const vTchat = document.getElementById('v-tchat');
+  if (vTchat) {
+    return !vTchat.hidden;
+  }
+  return false;
+}
+
 export function triggerNewMessageAlert(senderName) {
   // Don't trigger alert for own messages
   if (senderName && senderName === chatAlertState.currentUser) {
+    return;
+  }
+
+  // Tchat ouvert : les messages s'affichent directement, pas d'alerte ni de badge
+  if (isChatOpen()) {
     return;
   }
 

@@ -6,7 +6,7 @@
  */
 ?>
 
-<nav class="rail on-dark" aria-label="R&eacute;glages du sous-titrage">
+<nav class="rail on-dark translate" data-aria-key="conference.nav.settings" aria-label="R&eacute;glages du sous-titrage">
     <ul>
         <li>
             <a href="#langues">
@@ -15,7 +15,7 @@
                         <path d="M3 5h9M7.5 3v2M5 5c1 4 4 7 7 8M11 5c-1 4-4 7-8 9M13 21l4-10 4 10M14.5 17.5h5"/>
                     </svg>
                 </span>
-                <span>Langues</span>
+                <span class="translate" data-key="conference.nav.langues">Langues</span>
             </a>
         </li>
         <li>
@@ -26,7 +26,7 @@
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </span>
-                <span>Apparence</span>
+                <span class="translate" data-key="conference.nav.apparence">Apparence</span>
             </a>
         </li>
         <li>
@@ -37,7 +37,7 @@
                         <path d="M7 10h3M13 10h4M7 14h5M15 14h2"/>
                     </svg>
                 </span>
-                <span>Transcription</span>
+                <span class="translate" data-key="conference.nav.transcription">Transcription</span>
             </a>
         </li>
         <li>
@@ -50,7 +50,7 @@
                         <path d="M8.6 10.6l6.8-4M8.6 13.4l6.8 4"/>
                     </svg>
                 </span>
-                <span>Partage</span>
+                <span class="translate" data-key="conference.nav.partage">Partage</span>
             </a>
         </li>
     </ul>

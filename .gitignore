@@ -30,7 +30,6 @@ js/cov
 public/js/coverage/
 public/js/tests/
 public/js/vitest.config.js
-scripts/test-js*.sh
 # Ignore pre-commit test files
 .pre-commit/
 
@@ -52,6 +51,7 @@ vibe-safe
 # Ignore test files
 public/test*.php
 public/test_*.php
+public/test*.html
 
 # Ignore test directory
 test/
@@ -59,6 +59,8 @@ audit/
 
 # Ignore uploads directory
 uploads/
+public/tmp/
+public/tmp
 
 # Ignore logs directory
 logs/
@@ -70,3 +72,5 @@ composer.phar
 tables/tokens_OLD.json
 
 README_OLD.md
+
+vibe-safe

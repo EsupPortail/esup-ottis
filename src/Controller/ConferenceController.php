@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
+use App\Service\RoomPresence;
 use App\Service\RoomInfoService;
 use App\Service\TokenConfigService;
 use App\Service\TranslatorStatsService;
@@ -56,31 +57,31 @@ class ConferenceController extends BaseController
         $this->viewData['pageStyles'] = [
             'styles/auditor.css',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
-            'styles/chat.css'
         ];
 
         // Define scripts for this page
         $this->viewData['pageScripts'] = [
-            // Store must be loaded FIRST
-            '/js/lib/state/store.js',
-            '/js/lib/state/shared.js',
-            '/js/lib/state/conference.js',
             'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
         ];
 
         // Get or generate classroom ID
+        // Identification de l'intervenant d'abord : necessaire pour retrouver sa salle
+        $uid = $_SESSION['cas_user'] ?? RoomInfoService::getUserId('anonymous');
+        $uid = is_string($uid) && trim($uid) !== '' ? trim($uid) : 'anonymous';
         $classroomid = $this->getParam('ROOMID');
         if (empty($classroomid)) {
-            $classroomid = md5(gmdate('Y-m-d\TH:i:s\Z'));
+            // Retour d'un intervenant (ex. reconnexion CAS) : reutiliser sa salle
+            // la plus recente pour ne pas perdre la conference et les auditeurs
+            $classroomid = RoomTokenManager::findRecentRoomByOwner($uid)
+                ?? md5(gmdate('Y-m-d\TH:i:s\Z'));
         }
 
         // Use services to load data
         $T_lang = LanguageLoader::load();
-        $uid = $_SESSION['cas_user'] ?? RoomInfoService::getUserId('anonymous');
-        $uid = is_string($uid) && trim($uid) !== '' ? trim($uid) : 'anonymous';
         $roomToken = RoomTokenManager::generateRoomToken($classroomid, $uid);
         RoomTokenManager::setRoomOwnerUid($classroomid, $uid);
+        RoomPresence::heartbeat($classroomid);
         $appid = RoomInfoService::generateAppId();
         $uid = trim($uid) !== '' ? trim($uid) : 'anonymous';
         $casAttributes = $_SESSION['cas_attributes'] ?? [];
@@ -148,48 +149,12 @@ class ConferenceController extends BaseController
 
         $this->viewData['isConferencePage'] = true;
 
-        // Tous les scripts nécessaires pour la SPA (tous les onglets chargés)
+        // Tous les scripts sont charges via le graphe d'imports de conference-init.js.
+        // Une seule balise d'entree garantit une instance unique par module ES :
+        // le cache-busting (?v=) ne doit jamais s'appliquer a une URL importee,
+        // sinon la deduplication des modules par URL est cassee (double evaluation,
+        // double QR code, ecouteurs dupliques).
         $afterContentScripts = '';
-
-        // DOM and Network utilities
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/selector.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/styles.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/visibility.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/layout.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/events.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/dialog.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/utils.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/xhr.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/fetch.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/counter.js"></script>';
-
-        // Language utilities
-        $afterContentScripts .= '<script type="module" src="/js/lib/language/state.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/language/management.js"></script>';
-
-        // Chat utilities
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/state.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/utils.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/utils/cleanup.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/index.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/alert.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/network.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/main.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/handlers.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/display.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/index.js"></script>';
-
-        // Conference scripts (tous les onglets)
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-viewer.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/core.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/ui.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/events.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/notebook.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/config-functions.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/post.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/speech.js"></script>';
-
-        // Script d'initialisation
         $afterContentScripts .= '<script type="module" src="/js/conference-init.js"></script>';
 
         // Script de test pour localhost
@@ -200,6 +165,44 @@ class ConferenceController extends BaseController
         $this->viewData['afterContentScripts'] = $afterContentScripts;
 
         $this->render('conference/index');
+    }
+
+    /**
+     * Heartbeat periodique envoye par la page conference :
+     * signale que la page est ouverte (conference "en direct").
+     */
+    public function heartbeat(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+        $roomToken = (string) $this->postParam('room_token', '');
+
+        if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)
+            || !RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
+            $this->textResponse('Invalid room', 403);
+        }
+
+        RoomPresence::heartbeat($roomid);
+        // Activite recente sur la salle : maintient la fenetre de recuperation
+        RoomTokenManager::touchRoomToken($roomid);
+        $this->jsonResponse(['ok' => true]);
+    }
+
+    /**
+     * Signal de fermeture envoye par la page conference (sendBeacon) :
+     * marque la conference comme fermee pour les auditeurs.
+     */
+    public function close(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+        $roomToken = (string) $this->postParam('room_token', '');
+
+        if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)
+            || !RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
+            $this->textResponse('Invalid room', 403);
+        }
+
+        RoomPresence::close($roomid);
+        $this->jsonResponse(['ok' => true]);
     }
 
     /**

@@ -27,5 +27,138 @@
         "aide": "Help on Madoc",
         "choix": "Choose your scenario",
         "externe": "Are you external to Nantes Université?"
+    },
+    "conference": {
+        "nav": {
+            "settings": "Subtitling settings",
+            "langues": "Languages",
+            "apparence": "Appearance",
+            "transcription": "Transcription",
+            "partage": "Share",
+            "closePanel": "Close the panel"
+        },
+        "outil": {
+            "title": "Live subtitling",
+            "importLabel": "Import your presentation",
+            "formats": "PPTX, PDF, ODP, HTML — max. 20 MB",
+            "fileHelp": "Select a presentation file to subtitle (20 MB maximum).",
+            "animNote": "If your presentation contains animations, they will appear frozen.",
+            "importProgress": "Import progress",
+            "closePresentation": "Close the presentation",
+            "fullscreen": "Fullscreen",
+            "exitFullscreen": "Exit fullscreen",
+            "prevPage": "Previous page",
+            "nextPage": "Next page",
+            "liveArea": "Subtitling block",
+            "micStart": "Start subtitles",
+            "micStop": "Stop subtitles",
+            "defaultSubtitle": "Click the microphone to start subtitles…",
+            "floatArea": "Floating subtitling block, movable with the mouse, by touch or with the arrow keys"
+        },
+        "langues": {
+            "classroomLabel": "Speaker's language",
+            "classroomHelp": "Language spoken during the session; speech recognition is set to it.",
+            "subtitleLabel": "Subtitles language",
+            "subtitleHelp": "Subtitles will be translated into this language."
+        },
+        "apparence": {
+            "colorsLegend": "Subtitling block colors",
+            "colorsHelp": "This choice applies to the subtitle block displayed on screen.",
+            "dark": "Dark background — white text",
+            "light": "White background — dark text",
+            "floatLegend": "Floating subtitling block",
+            "floatLabel": "Enable the floating subtitling block",
+            "floatHelp": "By default, subtitles are static."
+        },
+        "partage": {
+            "linkLabel": "Share link for the audience",
+            "linkHelp": "Share this link with the audience so they can join the session.",
+            "copy": "Copy",
+            "copied": "Link copied to clipboard.",
+            "copyFailed": "Copy failed: select the link and copy it manually.",
+            "qrTitle": "QR Code",
+            "qrHelp": "Through sharing, everyone in the audience will be able to choose their subtitling language.",
+            "qrLabel": "QR code of the session share link"
+        },
+        "transcriptionPanel": {
+            "noSettings": "No settings available for transcription."
+        },
+        "transcription": {
+            "alert1": "Once OTTIS is closed, you will no longer have access to the transcription.",
+            "alert2": "Remember to download the file(s) at the end of the session.",
+            "original": "Original speech",
+            "translated": "Translated speech",
+            "downloadOriginal": "Download the original speech (.txt)",
+            "downloadTranslated": "Download the translated speech (.txt)"
+        },
+        "progress": {
+            "preparing": "Preparing upload…",
+            "uploading": "Uploading… {n}%",
+            "converting": "Converting…",
+            "processing": "Processing…",
+            "displaying": "Displaying…",
+            "uploadFailed": "Upload failed: "
+        },
+        "pdf": {
+            "pageIndicator": "Page {n} of {m}"
+        },
+        "chat": {
+            "title": "Chat",
+            "open": "Chat",
+            "close": "Close the chat",
+            "messages": "Messages",
+            "inputPlaceholder": "Send a message",
+            "send": "Send the message"
+        }
+    },
+    "auditor": {
+        "nav": {
+            "settings": "Subtitling settings",
+            "langue": "Language",
+            "tchat": "Chat",
+            "transcription": "Transcription",
+            "closePanel": "Close the panel"
+        },
+        "subtitles": {
+            "title": "Subtitles",
+            "region": "Live subtitles"
+        },
+        "live": {
+            "on": "Live",
+            "err": "Error"
+        },
+        "langue": {
+            "subtitlesLabel": "Subtitle language",
+            "synthesis": "Enable speech synthesis"
+        },
+        "nom": {
+            "title": "Your name",
+            "label": "First name Last name (visible in the chat)",
+            "error": "Please enter your first name and last name to access the chat.",
+            "submit": "Submit"
+        },
+        "tchat": {
+            "title": "Chat",
+            "messages": "Chat messages",
+            "inputLabel": "Send a message",
+            "placeholder": "Send a message",
+            "send": "Send the message",
+            "changeName": "Change your name"
+        },
+        "transcription": {
+            "title": "Transcription",
+            "alert1": "Once OTTIS is closed, you will no longer have access to the transcription.",
+            "alert2": "Remember to download it at the end of the session, before closing your browser window.",
+            "versionLegend": "Speech version",
+            "voSr": " (original version)",
+            "trSr": " (translation)",
+            "downloadOriginal": "Download the original speech (.txt)",
+            "downloadTranslated": "Download the translated speech (.txt)"
+        },
+        "dialog": {
+            "title": "Listening settings",
+            "label": "You must first choose your language",
+            "submit": "Confirm"
+        }
     }
 }

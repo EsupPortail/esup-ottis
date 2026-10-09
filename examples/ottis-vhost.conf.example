@@ -1,0 +1,28 @@
+# ============================================================
+# OTTIS — Exemple de VirtualHost Apache
+# Copier ce fichier vers /etc/apache2/sites-available/ottis.conf
+# puis l'activer :
+#   sudo a2enmod rewrite proxy_fcgi setenvif
+#   sudo a2ensite ottis
+#   sudo systemctl reload apache2
+# Adapter : ServerName, DocumentRoot et socket FPM (/srv/ottis, /run/php/ottis.sock) a votre installation
+# ============================================================
+
+<VirtualHost *:80>
+    ServerName ottis.votre-domaine.fr
+
+    DocumentRoot /srv/ottis/public
+
+    <Directory /srv/ottis/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Pool PHP-FPM defini dans ottis.conf.example
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/ottis.sock|fcgi://localhost"
+    </FilesMatch>
+
+    ErrorLog ${APACHE_LOG_DIR}/ottis-error.log
+    CustomLog ${APACHE_LOG_DIR}/ottis-access.log combined
+</VirtualHost>

@@ -3,7 +3,7 @@
 
 :root {
     --ottis-bg: #f4f4f6;
-    --ottis-header: #1c1c2e;
+    --ottis-header: #051535;
     --ottis-orange: #c8692a;
     --ottis-text: #1c1c2e;
     --ottis-muted: #555;
@@ -32,7 +32,7 @@ body {
 }
 
 header.ottis-header {
-    background-color: #1c1c2e;
+    background-color: #051535;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -45,7 +45,7 @@ header.ottis-header {
     align-items: center;
     justify-content: space-between;
     padding: 12px 40px;
-    background-color: #1c1c2e;
+    background-color: #051535;
 }
 
 .ottis-brand {
@@ -109,7 +109,7 @@ header.ottis-header {
 
 .ottis-language select {
     appearance: none;
-    background: #1c1c2e;
+    background: #051535;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #fff;

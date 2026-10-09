@@ -1,15 +1,12 @@
 // Depuis le store auditor
-import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
+import { getBuiltinLanguage } from '../state/auditor.js';
 
 // Depuis le store conference
 import { getSubtitleLanguage, isBuiltinExternalTranscriptionOn, isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
 
 // Depuis translation.js
 import {
-  StudentToTranslate2,
-  readytotalk,
-  LiveTranslationNum,
-  setLiveTranslationNum
+  StudentToTranslate2, setLiveTranslationNum
 } from './state/translation.js';
 
 // Depuis core.js
@@ -104,8 +101,6 @@ export function setNotReadyToTalk() {
   _('bready').style.backgroundColor = 'red';
 }
 
-
-
 export function StartSpeechRecognition(callback) {
   
   // Ne pas démarrer la reconnaissance si la langue n'est pas définie
@@ -136,7 +131,7 @@ export function StartSpeechRecognition(callback) {
       if (partial.trim() != '') {
         if (_('recognitionon').checked) {
           if (isFinalResult) {
-            EcrireTranslatePartial(partial, (translatedText) => {
+            EcrireTranslatePartial(partial, () => {
               // Écrire le texte original uniquement si pas de traduction nécessaire
               if (getBuiltinLanguage() === getSubtitleLanguage()) {
                 EcrireNBonly(partial);
@@ -152,7 +147,7 @@ export function StartSpeechRecognition(callback) {
       // builtin_recognition.stop();
     }
   };
-  builtin_recognition.onend = function (event) {
+  builtin_recognition.onend = function () {
     if (builtin_recognitionon) {
       StartSpeechRecognition(callback);
     } else {

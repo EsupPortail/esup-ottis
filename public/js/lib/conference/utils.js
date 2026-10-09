@@ -1,10 +1,9 @@
-import { currentscroll, setCurrentscroll } from './state/translation.js';
+
 import { timenew_question, setTimenewQuestion } from './state/core.js';
 
 import { _, get } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
 import { openDialog } from '../dom/dialog.js';
-import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
 import { setCurrentPresentation, setCurrentDiscours } from '../state/conference.js';
@@ -49,8 +48,9 @@ export function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 export function formateresponse(datatxt, editable = true) {
+  let data;
   try {
-    const data = JSON.parse(datatxt);
+    data = JSON.parse(datatxt);
   } catch (e) {
     console.error('Failed to parse JSON:', e, datatxt);
     return '<pre>Error: Invalid JSON response. Check server output.</pre>';
@@ -70,7 +70,7 @@ export function formateresponse(datatxt, editable = true) {
   let res = '';
   // console.log(data);
   for (let i = 0; i < data.length; i++) {
-    slide = data[i];
+    const slide = data[i];
     let txtnotes = '';
     for (let j = 0; j < slide.Notes.length; j++) {
       if (slide.Notes[j].indexOf('[forward]') >= 0 || slide.Notes[j].indexOf('[backward]') >= 0 || slide.Notes[j].indexOf('[pause') >= 0 || slide.Notes[j].indexOf('[resource') >= 0 || slide.Notes[j].indexOf('[mouse') >= 0 || slide.Notes[j].indexOf('[notification') >= 0 || slide.Notes[j].indexOf('[wait') >= 0) {
@@ -148,37 +148,6 @@ export function EventNewQuestion() {
 export function playlesson() {}
 
 /**
- * @summary Switch the fullscreen mode on and off
- *
- */
-
-function GoFS() {
-  if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen();
-    // _('bar').style.transform = "scaleY(0.1)";
-    // _('bar').style.bottom="10px";
-    // resizeSlides();
-  } else {
-    document.exitFullscreen();
-    // _('bar').style.transform = 'scaleY(1)';
-    // resizeSlides();
-  }
-}
-
-/**
- * @summary Minimize toolbar when in full screen mode
- *
- */
-
-function reduceToolbar() {
-  if (document.fullscreenElement) {
-    // _('bar').style.transform = "scaleY(0.1)";
-  } else {
-    // _('bar').style.transform = 'scaleY(1)';
-  }
-}
-
-/**
  * @summary Resize the slides window
  *
  */
@@ -188,7 +157,6 @@ function resizeSlides() {
   if (!slide || !slide.width || !slide.height) {
     return;
   }
-  const ratio = slide.width / slide.height;
   const aggrandissmentX = (window.innerWidth - 30) / slide.width;
   const aggrandissmentY = (window.innerHeight - 80) / slide.height;
   if (aggrandissmentX > aggrandissmentY) {
@@ -216,51 +184,4 @@ function resizeSlides() {
 }
 if (typeof window !== 'undefined') {
   window.addEventListener('resize', resizeSlides);
-}
-
-/**
- * @summary (Pincode system removed - using QR code/direct link instead)
- *
- */
-
-/**
- * @summary Switch a given extratab visible or invisible
- *
- * @param {HTMLInput checkbox} obj a checkbox.
- * @param {number} num the tab number.
- * @returns
- */
-
-function showET(obj, num) {
-  if (obj.checked) {
-    const url = _(`extraurl${num}`).value;
-    if (url != '') {
-      _(`spanembedET${num}`).innerHTML = 'Yes !';
-      show(`titleextratab${num}`);
-      _(`extratab${num}`).src = url;
-    } else {
-      alert('Enter your url first !');
-      obj.checked = false;
-      _(`spanembedET${num}`).innerHTML = 'No.';
-      hide(`titleextratab${num}`);
-    }
-  } else {
-    _(`spanembedET${num}`).innerHTML = 'No.';
-    hide(`titleextratab${num}`);
-  }
-}
-
-/**
- * @summary Update the scroll bar value
- *
- * @param {number} l current value.
- * @returns
- */
-
-function setScrollvalues(l) {
-  currentscroll = 1;
-  const txtlength = Math.max(20, l);
-  // txtlength=Math.min(200,txtlength);
-  const duration = 55 * txtlength; // estimated duration in ms
-  currentindent = scrollinterval / duration;
 }

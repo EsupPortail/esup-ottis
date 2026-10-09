@@ -3,7 +3,7 @@
  * XHR and fetch utilities with centralized error handling
  */
 import { showError } from './browser.js';
-import { registerRequest, registerTimer, safeSetTimeout } from './utils/cleanup.js';
+import { registerRequest, safeSetTimeout } from './utils/cleanup.js';
 
 /**
  * Handle XMLHttpRequest errors centrally
@@ -98,11 +98,10 @@ export function createXhrRequest(method, url, options = {}) {
 /**
  * Abort a timeout for XHR requests
  * @param {XMLHttpRequest} r - The XHR request
- * @param {string} s - Context string
  */
-export function AbortTimeout(r, s) {
+export function AbortTimeout(r) {
   r.timeout = 10000;
-  r.ontimeout = (e) => {
+  r.ontimeout = () => {
     r.abort();
   };
 }

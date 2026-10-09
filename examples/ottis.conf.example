@@ -1,0 +1,37 @@
+; ============================================================
+; OTTIS — Exemple de configuration du pool PHP-FPM
+; Copier ce fichier vers /etc/php/<version>/fpm/pool.d/ottis.conf
+; puis adapter les chemins d'exemple (/srv/ottis, /run/php/ottis.sock)
+; et redemarrer le service :
+;   sudo systemctl reload php<version>-fpm
+; ============================================================
+
+user = ottis
+group = www-data
+
+listen = /run/php/ottis.sock
+
+listen.owner = www-data
+listen.group = www-data
+
+pm = dynamic
+pm.max_children = 5
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+; pm.max_requests afin de permettre le renouvellement périodique des workers.
+pm.max_requests = 500
+
+; Activer les access logs FPM et configurer un fichier error_log
+; pour qu'il soit accessible par l'utilisateur du pool
+php_admin_value[error_log] = /srv/ottis/logs/fpm-error.log
+php_admin_flag[log_errors] = on
+
+; Limiter la mémoire
+php_admin_value[memory_limit] = 512M
+
+; Upload settings
+php_admin_value[upload_max_filesize] = 50M
+php_admin_value[post_max_size] = 50M
+php_admin_value[max_execution_time] = 300
+php_admin_value[max_input_time] = 300

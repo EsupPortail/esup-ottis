@@ -25,7 +25,7 @@ export function ClearCR() {
  * Refresh the classroom chat display from ScreenCR array
  */
 export function RefreshCR() {
-    let html = '<ul role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
+    let html = '<ol role="list" aria-live="polite" style="list-style: none; padding: 0; margin: 0;">';
     for (let i = 0; i < ScreenCR.length; i++) {
         if (ScreenCR[i] !== undefined) {
             html += typeof window !== 'undefined' && typeof window.DOMPurify !== 'undefined'
@@ -33,7 +33,7 @@ export function RefreshCR() {
                 : ScreenCR[i];
         }
     }
-    html += '</ul>';
+    html += '</ol>';
     const classroomEl = _('classroom');
     if (classroomEl) {
         classroomEl.innerHTML = typeof window !== 'undefined' && typeof window.DOMPurify !== 'undefined'
@@ -58,9 +58,9 @@ export function recharger() {
 /**
  * Display text in chat screen
  * @param {string} text - Text to display
- * @param {string} [className=''] - CSS class for the message
+ * @param {string} [_className=''] - CSS class for the message (inutilise, reserve)
  */
-export function displayInCR(text, className = '') {
+export function displayInCR(text, _className = '') {
     // Add to ScreenCR array
     ScreenCR.push(text);
     
@@ -79,8 +79,11 @@ export function displayInCR(text, className = '') {
  * Clear both ToSay and ToTranslate
  */
 export function clearChatText() {
-    ToSay = {};
-    ToTranslate = [];
+    // Mutation en place : les bindings importes ne sont pas reassignables
+    Object.keys(ToSay).forEach((key) => {
+        delete ToSay[key];
+    });
+    ToTranslate.length = 0;
 }
 
 /**

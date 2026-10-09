@@ -151,10 +151,13 @@ function rebuildOutputForLanguage() {
   
   // Reconstruire ToTranslate depuis AllLines avec la nouvelle langue
   const allLines = getAllLines() || {};
-  for (const lineId in allLines) {
+  // Conserver l'ordre chronologique (lineid croissant) : unshift inverserait
+  // la file et afficherait l'output a l'envers
+  const orderedIds = Object.keys(allLines).sort((a, b) => (a * 1) - (b * 1));
+  setToTranslate(orderedIds.map((lineId) => {
     const line = allLines[lineId];
-    unshiftToTranslate([lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText]);
-  }
+    return [lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText];
+  }));
   
   // Laisser CompleteTranslation traiter toutes les lignes avec la nouvelle langue
   CompleteTranslation();

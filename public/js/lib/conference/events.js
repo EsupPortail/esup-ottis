@@ -5,8 +5,20 @@ import { handleFileSelect } from './pdf-fullscreen.js';
 import { setupPdfCloseListener, setupPdfFullscreenListeners } from './pdf-fullscreen/ui.js';
 import { prevPage, nextPage, goToPage, togglePdfFullscreen } from './pdf-viewer.js';
 import { DownloadSpeechLesson } from '../download.js';
-import { initChatAlert } from '../chat/alert.js';
+import { initChatAlert, resetChatAlert } from '../chat/alert.js';
+import { saveTextQ } from '../chat/main.js';
+import { retranslateChatStream } from '../chat/sse.js';
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
+import { t } from '../i18n.js';
+
+// Reactualiser les libelles dynamiques apres un changement de langue sans rechargement
+document.addEventListener('ottis:languagechange', () => {
+  const mic = document.getElementById('micon');
+  if (mic) {
+    const isPressed = mic.getAttribute('aria-pressed') === 'true';
+    mic.setAttribute('aria-label', isPressed ? t('conference.outil.micStop') : t('conference.outil.micStart'));
+  }
+});
 
 /**
  * Initialize all conference event listeners
@@ -18,6 +30,8 @@ export function initConferenceEvents() {
   if (classroomLanguage) {
     classroomLanguage.addEventListener('change', function () {
       setLanguageSpeech(this.value);
+      // Retraduire tous les messages du tchat dans la nouvelle langue
+      retranslateChatStream();
     });
   }
 
@@ -35,6 +49,24 @@ export function initConferenceEvents() {
       toggleTextBandDisplay();
     });
   }
+
+  // Theme du bloc de sous-titrage (Apparence)
+  document.querySelectorAll('input[name="th"]').forEach((radio) => {
+    const applyLiveTheme = () => {
+      const isDark = radio.value === 'd';
+      ['live', 'float-live'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.setProperty('--sb', isDark ? '#111a2e' : '#fff');
+          el.style.setProperty('--sf', isDark ? '#fff' : '#111a2e');
+        }
+      });
+    };
+    radio.addEventListener('change', applyLiveTheme);
+    if (radio.checked) {
+      applyLiveTheme();
+    }
+  });
 
   // Subtitle toggle
   const subtitleOn = document.getElementById('subtitleon');
@@ -113,6 +145,59 @@ export function initConferenceEvents() {
   // Compatibility & Chat Alert
   initMiconCompatibility();
   initConferenceChatAlert();
+
+  // Chat flottant : ouverture/fermeture (RGAA : focus gere)
+  const fab = document.getElementById('fab');
+  const chat = document.getElementById('chat');
+  const cclose = document.getElementById('cclose');
+  if (fab && chat) {
+    fab.addEventListener('click', () => {
+      // Bascule : re-clic sur le fab referme le tchat
+      if (!chat.hidden) {
+        chat.hidden = true;
+        fab.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      chat.hidden = false;
+      fab.setAttribute('aria-expanded', 'true');
+      const badge = document.getElementById('badge');
+      if (badge) {
+        badge.textContent = '0';
+        badge.hidden = true;
+      }
+      resetChatAlert();
+      const chatTitle = document.getElementById('ct');
+      if (chatTitle) chatTitle.focus();
+    });
+  }
+  if (cclose && chat) {
+    cclose.addEventListener('click', () => {
+      chat.hidden = true;
+      if (fab) {
+        fab.setAttribute('aria-expanded', 'false');
+        fab.focus();
+      }
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !chat || chat.hidden) return;
+    chat.hidden = true;
+    if (fab) fab.focus();
+  });
+
+  // Envoi de message : soumission du formulaire
+  const cform = document.getElementById('cform');
+  const cin = document.getElementById('cin');
+  if (cform && cin) {
+    cform.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = cin.value.trim();
+      if (text !== '') {
+        saveTextQ(text);
+        cin.value = '';
+      }
+    });
+  }
 }
 
 /**

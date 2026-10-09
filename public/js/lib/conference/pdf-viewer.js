@@ -1,9 +1,10 @@
-import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, initialClientHeight, initialClientWidth, pageNum, pageNumPending, pageRendering, pdfDoc, scale, setCanvas, setCtx, setCurrentRenderTask, setHasSavedInitialDimensions, setInitialClientHeight, setInitialClientWidth, setPageNum, setPageNumPending, setPageRendering, setPdfDoc, setScale } from './state/pdf.js';
+import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, pageNum, pageNumPending, pageRendering, pdfDoc, scale, setCanvas, setCtx, setCurrentRenderTask, setHasSavedInitialDimensions, setInitialClientHeight, setInitialClientWidth, setPageNum, setPageNumPending, setPageRendering, setPdfDoc } from './state/pdf.js';
 import { previousimage, setPreviousimage } from './state/translation.js';
 
 import { b64toBlob } from './utils.js';
 import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
 import { showPresentationError } from './pdf-fullscreen/ui.js';
+import { t } from '../i18n.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
@@ -81,7 +82,7 @@ export function SlideNotesUncloud(uncloudlink) {
     context: 'SlideNotesUNCloud',
     onUploadProgress: progressHandler,
     onSuccess: completeHandler,
-    onError(response, context) {
+    onError(response) {
       if (response.status === 0 && response.statusText === 'Timeout') {
         _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
         alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
@@ -106,7 +107,7 @@ export function SlideNotesUncloudHtml(uncloudhtmllink) {
     context: 'SlideNotesUncloudHtml',
     onUploadProgress: progressHandler,
     onSuccess: completeHandler,
-    onError(response, context) {
+    onError(response) {
       if (response.status === 0 && response.statusText === 'Timeout') {
         _('spinnertxt').innerHTML = 'No presentation yet...<br/>Please go to the complete lesson tab to import it.';
         alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
@@ -238,7 +239,7 @@ export function renderPage(num) {
 export function updatePdfNavigation() {
   if (!pdfDoc) return;
 
-  get('pdf-page-indicator').textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
+  get('pdf-page-indicator').textContent = t('conference.pdf.pageIndicator', { n: pageNum, m: pdfDoc.numPages });
   get('pdf-page-input').value = pageNum;
   get('pdf-prev').disabled = pageNum <= 1;
   get('pdf-next').disabled = pageNum >= pdfDoc.numPages;

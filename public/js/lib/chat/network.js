@@ -42,7 +42,7 @@ export function saveTextQCommon(ch, senderName, roomId, language, senderRole = '
   addCsrfToken(f);
 
   const request = createFetchRequest('POST', getBasePath() + '/text/save-q', {
-    onSuccess(response) {
+    onSuccess() {
       decreasependingrequests();
     },
     onError(response, context) {
@@ -57,6 +57,41 @@ export function saveTextQCommon(ch, senderName, roomId, language, senderRole = '
     context: 'saveTextQ',
   });
   request.send();
+}
+
+/**
+ * @summary Parse a raw chat queue line (who;lang;text[;role])
+ * @param {string} line - Raw line from the LinkQuestions file / SSE event
+ * @param {number} order - Message order (line index)
+ * @returns {Object|null} Parsed message or null
+ */
+export function parseChatLine(line, order) {
+  if (!line || typeof line.split !== 'function') return null;
+  const L = line.split(';');
+  if (L.length < 3) return null;
+  const who = L[0] || '';
+  const lang = L[1] || '';
+  const roleToken = (L[L.length - 1] || '').trim().toLowerCase();
+  const hasExplicitRole = ['intervenant', 'auditor'].includes(roleToken);
+  const senderRole = hasExplicitRole ? roleToken : '';
+  const textParts = hasExplicitRole ? L.slice(2, -1) : L.slice(2);
+  const text = textParts.join(';');
+  let isSpecial = false;
+  let specialType = '';
+
+  // Check for special messages
+  if (text.indexOf('[newstudentarrived]') >= 0) {
+    specialType = 'newstudentarrived';
+    isSpecial = true;
+  } else if (text.indexOf('[newstudentlived]') >= 0) {
+    specialType = 'newstudentlived';
+    isSpecial = true;
+  } else if (text.indexOf('[extratab') >= 0) {
+    specialType = 'extratab';
+    isSpecial = true;
+  }
+
+  return { who, text, lang, order, isSpecial, specialType, senderRole };
 }
 
 /**
@@ -101,7 +136,6 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       }
 
       const Told = response.responseText.split('\n');
-      const k = 0;
       const T = [];
 
       // Filter out empty lines
@@ -123,37 +157,13 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       }
       
       for (let i = startIndex; i < T.length; i++) {
-        const L = T[i].split(';');
-        if (L.length >= 3) {
-          const who = L[0] || '';
-          const lang = L[1] || '';
-          const roleToken = (L[L.length - 1] || '').trim().toLowerCase();
-          const hasExplicitRole = ['intervenant', 'auditor'].includes(roleToken);
-          const senderRole = hasExplicitRole ? roleToken : '';
-          const textParts = hasExplicitRole ? L.slice(2, -1) : L.slice(2);
-          const text = textParts.join(';');
-          let isSpecial = false;
-          let specialType = '';
-
-          // Check for special messages
-          if (text.indexOf('[newstudentarrived]') >= 0) {
-            specialType = 'newstudentarrived';
-            isSpecial = true;
-          } else if (text.indexOf('[newstudentlived]') >= 0) {
-            specialType = 'newstudentlived';
-            isSpecial = true;
-          } else if (text.indexOf('[extratab') >= 0) {
-            specialType = 'extratab';
-            isSpecial = true;
-          }
-
-          // Process messages through handler
-          // Skip ROBOT messages, but pass everything else including special messages
-          if (who !== 'ROBOT') {
-            if (messageHandler) {
-              messageHandler(who, text, lang, i, isSpecial, specialType, senderRole);
-            }
-          }
+        const parsed = parseChatLine(T[i], i);
+        // Skip ROBOT messages, but pass everything else including special messages
+        if (parsed && parsed.who !== 'ROBOT' && messageHandler) {
+          messageHandler(
+            parsed.who, parsed.text, parsed.lang, i,
+            parsed.isSpecial, parsed.specialType, parsed.senderRole
+          );
         }
       }
 

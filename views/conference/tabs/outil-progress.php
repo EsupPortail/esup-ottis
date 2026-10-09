@@ -11,6 +11,7 @@
     <div class="ottis-prog-file">
         <span id="fname"></span>
         <progress id="presentation-progress" max="100" value="0"
+                  class="translate" data-aria-key="conference.outil.importProgress"
                   aria-label="Progression de l'import"></progress>
         <span id="progress-status" class="ottis-prog-status"></span>
     </div>

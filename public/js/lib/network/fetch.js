@@ -3,7 +3,6 @@
  * ES Module for Fetch API operations
  */
 
-import { addCsrfToken } from './utils.js';
 
 /**
  * Create a fetch request with default error handling

@@ -3,10 +3,11 @@ import { hide, show } from '../dom/visibility.js';
 import { openDialog } from '../dom/dialog.js';
 import { getBuiltinLanguage } from '../state/auditor.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
-import { isBuiltinMicrosoftTranscriptionOn, isBuiltinExternalTranscriptionOn } from '../state/conference.js';
+import { isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
 import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer } from './microsoft.js';
 import { StartSpeechRecognition } from './speech.js';
 import { Traduction } from './translation.js';
+import { t } from '../i18n.js';
 /** @module conference/ui */
 
 export function FullScreen() {
@@ -24,7 +25,7 @@ export function FullScreen() {
   mybox.setAttribute('aria-pressed', newPressedState);
   
   // Mettre à jour le label
-  const newLabel = newPressedState ? 'Arrêter les sous-titres' : 'Lancer les sous-titres';
+  const newLabel = newPressedState ? t('conference.outil.micStop') : t('conference.outil.micStart');
   mybox.setAttribute('aria-label', newLabel);
 
   // Si on désactive le micro, arrêter la reconnaissance
@@ -52,7 +53,6 @@ export function SubWindow() {
   const sublink = _('sublink');
   if (!sublink) return; // Éléments supprimés
   event.preventDefault();
-  const window_width = window.screen.width;
   const windowFeatures = 'status=no,location=no,toolbar=no,menubar=no,width=1200,height=110';
   const link = sublink.innerHTML.replaceAll('&amp;', '&');
   window.open(link, '_blank', windowFeatures);
@@ -107,7 +107,7 @@ export function Micro() {
   mybox.setAttribute('aria-pressed', newPressedState);
   
   // Mettre à jour le label
-  const newLabel = newPressedState ? 'Arrêter les sous-titres' : 'Lancer les sous-titres';
+  const newLabel = newPressedState ? t('conference.outil.micStop') : t('conference.outil.micStart');
   mybox.setAttribute('aria-label', newLabel);
 
   // Si on désactive le micro, arrêter la reconnaissance
@@ -160,46 +160,53 @@ export function opentab(e) {
   showET(_(`embedET${tabnumber}`), tabnumber);
 }
 
-export function toggleTextBandDisplay() {
-  const useTextBand = _('usetextband').checked;
-  const pdfViewer = _('pdf-viewer');
-  const hasPresentation = pdfViewer && pdfViewer.style.visibility === 'visible';
+export function toggleTextBandDisplay(forceFixed = false) {
+  const useTextBandCheckbox = _('usetextband');
+  // En plein écran, le bloc flottant est remplace par le bloc fixe (etat case decochee)
+  const useTextBand = Boolean(useTextBandCheckbox && useTextBandCheckbox.checked)
+    && !forceFixed
+    && !document.fullscreenElement;
+  const live = _('live');
+  const floatLive = _('float-live');
+  const textfixe = _('textfixe');
+  const partialtitre = _('partialtitre');
+  const mic = _('micon');
 
   if (useTextBand) {
-    // Masquer textBand et textfixe, afficher partialtitre
-    _('textBand').style.display = 'none';
-    const partialtitre = _('partialtitre');
-    const textBand = _('textBand');
-    const textfixe = _('textfixe');
-    if (partialtitre) {
-      partialtitre.style.display = 'block';
-      partialtitre.classList.remove('hidden');
+    // Mode flottant : masquer la zone fixe, afficher le bloc flottant avec le micro
+    const liveWidth = live ? live.offsetWidth : 0;
+    if (partialtitre && textfixe) {
+      partialtitre.innerHTML = window.DOMPurify.sanitize(textfixe.innerHTML);
     }
-    if (!hasPresentation && textfixe) {
-      textfixe.style.display = 'none';
+    if (live) {
+      live.style.display = 'none';
     }
-    // Synchroniser le contenu
-    if (partialtitre && textBand) {
-      partialtitre.innerHTML = window.DOMPurify.sanitize(textBand.innerHTML);
+    if (floatLive) {
+      floatLive.hidden = false;
+      if (mic) {
+        floatLive.insertBefore(mic, floatLive.firstChild);
+      }
+      // Largeur identique au bloc fixe (mesuree avant masquage)
+      if (liveWidth > 0) {
+        floatLive.style.width = `${Math.min(liveWidth, window.innerWidth - 16)}px`;
+      }
+      // Centrage horizontal a l'ouverture (position haute)
+      floatLive.style.left = `${Math.max(8, (window.innerWidth - floatLive.offsetWidth) / 2)}px`;
+      floatLive.style.top = '1rem';
     }
   } else {
-    // Masquer partialtitre, afficher textBand et textfixe (si pas de presentation)
-    const partialtitre = _('partialtitre');
-    const textBand = _('textBand');
-    const textfixe = _('textfixe');
-    if (partialtitre) {
-      partialtitre.style.display = 'none';
-      partialtitre.classList.add('hidden');
+    // Mode fixe : masquer le bloc flottant, retablir la zone fixe
+    if (textfixe && partialtitre) {
+      textfixe.innerHTML = window.DOMPurify.sanitize(partialtitre.innerHTML);
     }
-    if (textBand) {
-      textBand.style.display = 'block';
+    if (floatLive) {
+      floatLive.hidden = true;
     }
-    if (!hasPresentation && textfixe) {
-      textfixe.style.display = 'block';
-      // Synchroniser le contenu de textfixe avec partialtitre
-      if (partialtitre) {
-        textfixe.innerHTML = window.DOMPurify.sanitize(partialtitre.innerHTML);
-      }
+    if (live) {
+      live.style.display = 'flex';
+    }
+    if (mic && live) {
+      live.insertBefore(mic, live.firstChild);
     }
   }
 }

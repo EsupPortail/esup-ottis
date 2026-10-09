@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
+use App\Service\RoomPresence;
 use App\Service\RandomNameGenerator;
 
 /**
@@ -26,11 +27,12 @@ class AuditorController extends BaseController
      */
     public function index(): void
     {
-        // Load chat component functions
-        require_once __DIR__ . '/../../includes/chat-component.php';
-
         // Set session marker
         $_SESSION['from'] = 'student';
+
+        // Interface auditeur en anglais par defaut, sauf si une langue
+        // est explicitement demandee (?lang=) ou deja definie en session
+        $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? 'en';
 
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');
@@ -73,10 +75,8 @@ class AuditorController extends BaseController
 
         // Define styles for this page
         $this->viewData['pageStyles'] = [
-            'styles/auditor.css',
-            'https://fonts.googleapis.com/icon?family=Material+Icons',
-            'styles/auditor-specific.css',
-            'styles/chat.css'
+            'styles/conference-new.css',
+            'styles/auditor-new.css',
         ];
 
         // Define scripts for this page
@@ -123,14 +123,34 @@ class AuditorController extends BaseController
             '/js/lib/auditor/network.js',  // Must load BEFORE auditor-init.js (provides readText)
             '/js/auditor-init.js',
             '/js/lib/auditor/post.js',  // REQUIRED for openLanguageDialog - must load AFTER auditor-init.js
+            '/js/lib/auditor/seg.js',   // Segmented control VO / langue (vue Transcription)
         ];
 
         $this->viewData['pageScripts'] = $pageScripts;
-        $this->viewData['chatScripts'] = $chatScripts;
+        // Le layout commun ne rend que $pageScripts (comme pour la conference) :
+        // on y fusionne la liste des scripts modules de l'auditeur.
+        $this->viewData['pageScripts'] = array_merge($pageScripts, $chatScripts);
+        $this->viewData['isAuditorPage'] = true;
 
-        // Render the auditor view (without layout as it has its own HTML structure)
-        $this->layout = false;
+        // Render the auditor view with the shared layout (header/footer communs)
         $this->render('auditor/index');
+    }
+
+    /**
+     * Statut de la conference pour la page auditor :
+     * repond {"live": true|false} selon la presence d'une page
+     * conference ouverte (RoomPresence) pour la salle demandee.
+     */
+    public function status(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+
+        if ($roomid === '' || $roomid === 'UNKNOWN'
+            || !preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)) {
+            $this->jsonResponse(['live' => false]);
+        }
+
+        $this->jsonResponse(['live' => RoomPresence::isLive($roomid)]);
     }
 
     /**

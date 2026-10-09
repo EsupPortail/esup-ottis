@@ -89,8 +89,8 @@ if (typeof window !== 'undefined') {
   // Fake SpeechRecognition for browsers that don't support it
   function fakeSpeechRecognition() {
     this.lang = '';
-    this.onresult = function (e) {};
-    this.onend = function (e) {};
+    this.onresult = function () {};
+    this.onend = function () {};
     this.start = function () {};
     this.stop = function () {};
     this.abort = function () {};
