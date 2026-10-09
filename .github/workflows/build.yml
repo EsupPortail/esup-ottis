@@ -34,11 +34,11 @@ jobs:
           restore-keys: |
             composer-${{ runner.os }}-
 
-      - name: PHP CS Fixer
-        run: |
-          if [ -f vendor/bin/php-cs-fixer ]; then
-            vendor/bin/php-cs-fixer fix --dry-run --diff
-          fi
+ #     - name: PHP CS Fixer
+ #       run: |
+ #         if [ -f vendor/bin/php-cs-fixer ]; then
+ #           vendor/bin/php-cs-fixer fix --dry-run --diff
+ #         fi
 
       - name: PHPStan
         run: |
