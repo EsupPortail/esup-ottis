@@ -3,8 +3,11 @@
 /**
  * Routes Configuration for OMIST Application
  *
- * This file centralizes all route definitions for the MVC architecture.
- * Each route maps a URL path to a controller and action method.
+ * Single source of truth for all routes: this file is loaded by
+ * public/index.php, which registers each route for the HTTP methods
+ * listed in 'methods'.
+ *
+ * 'params' documents the dynamic segments (e.g. '/conference/{roomId}').
  */
 
 return [
@@ -12,25 +15,20 @@ return [
     // Public Pages - GET Routes
     // =========================================================================
 
-    // Home page
     '/' => [
         'controller' => \App\Controller\HomeController::class,
         'action' => 'index',
         'methods' => ['GET']
     ],
-
-    // Session keep-alive (conference) : rafraichit la session sans contenu
     '/keepalive' => [
         'controller' => \App\Controller\HomeController::class,
         'action' => 'keepalive',
         'methods' => ['GET']
     ],
-
-    // Conference pages
     '/conference' => [
         'controller' => \App\Controller\ConferenceController::class,
         'action' => 'index',
-        'methods' => ['GET', 'POST']
+        'methods' => ['GET']
     ],
     '/conference/{roomId}' => [
         'controller' => \App\Controller\ConferenceController::class,
@@ -38,8 +36,6 @@ return [
         'methods' => ['GET'],
         'params' => ['roomId']
     ],
-
-    // Auditor page
     '/auditor' => [
         'controller' => \App\Controller\AuditorController::class,
         'action' => 'index',
@@ -51,11 +47,34 @@ return [
         'methods' => ['GET'],
         'params' => ['roomId']
     ],
-
-    // Subtitles
     '/subtitles' => [
         'controller' => \App\Controller\SubtitlesController::class,
         'action' => 'index',
+        'methods' => ['GET']
+    ],
+
+    // =========================================================================
+    // Static Pages (footer links)
+    // =========================================================================
+
+    '/mentions-legales' => [
+        'controller' => \App\Controller\PageController::class,
+        'action' => 'mentionsLegales',
+        'methods' => ['GET']
+    ],
+    '/donnees-personnelles' => [
+        'controller' => \App\Controller\PageController::class,
+        'action' => 'donneesPersonnelles',
+        'methods' => ['GET']
+    ],
+    '/accessibilite' => [
+        'controller' => \App\Controller\PageController::class,
+        'action' => 'accessibilite',
+        'methods' => ['GET']
+    ],
+    '/plan-du-site' => [
+        'controller' => \App\Controller\PageController::class,
+        'action' => 'planDuSite',
         'methods' => ['GET']
     ],
 
@@ -68,64 +87,25 @@ return [
         'action' => 'handle',
         'methods' => ['GET', 'POST']
     ],
-    '/readupload' => [
+    '/upload/handle' => [
         'controller' => \App\Controller\UploadController::class,
-        'action' => 'read',
+        'action' => 'handle',
         'methods' => ['GET', 'POST']
     ],
 
-    // Text processing
-    '/readtext' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'read',
-        'methods' => ['GET', 'POST']
-    ],
-    '/readtextQ' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'readQ',
-        'methods' => ['GET', 'POST']
-    ],
-    '/readtextTranscriptSub' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'readTranscriptSub',
-        'methods' => ['GET', 'POST']
-    ],
-    '/read-vo' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'readVO',
-        'methods' => ['GET', 'POST']
-    ],
-    '/translate' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'translate',
-        'methods' => ['GET', 'POST']
-    ],
+    // =========================================================================
+    // API Endpoints - Text Processing
+    // =========================================================================
 
-    // Text processing with /text/ prefix (for JavaScript compatibility)
     '/text/read' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'read',
         'methods' => ['GET', 'POST']
     ],
-    '/text/readQ' => [
+    '/text/read-q' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readQ',
         'methods' => ['GET', 'POST']
-    ],
-    '/text/translate' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'translate',
-        'methods' => ['GET', 'POST']
-    ],
-    '/text/save' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'save',
-        'methods' => ['POST']
-    ],
-    '/text/saveQ' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'saveQ',
-        'methods' => ['POST']
     ],
     '/text/read-transcript-sub' => [
         'controller' => \App\Controller\TextController::class,
@@ -137,61 +117,66 @@ return [
         'action' => 'readVO',
         'methods' => ['GET', 'POST']
     ],
-    '/text/read-q' => [
+    '/text/save' => [
         'controller' => \App\Controller\TextController::class,
-        'action' => 'readQ',
+        'action' => 'save',
         'methods' => ['GET', 'POST']
     ],
     '/text/save-q' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'saveQ',
-        'methods' => ['POST']
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/translate' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'translate',
+        'methods' => ['GET', 'POST']
+    ],
+    '/text/chat-stream' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'chatStream',
+        'methods' => ['GET']
+    ],
+    '/room/metadata' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'roomMetadata',
+        'methods' => ['GET']
     ],
 
-    // Image processing
-    '/readimage' => [
+    // =========================================================================
+    // API Endpoints - Image Processing
+    // =========================================================================
+
+    '/image/read' => [
         'controller' => \App\Controller\ImageController::class,
         'action' => 'read',
         'methods' => ['GET', 'POST']
     ],
-
-    // =========================================================================
-    // Save Endpoints - POST Routes
-    // =========================================================================
-
-    '/savetext' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'save',
-        'methods' => ['POST']
-    ],
-    '/savetextQ' => [
-        'controller' => \App\Controller\TextController::class,
-        'action' => 'saveQ',
-        'methods' => ['POST']
-    ],
-    '/saveimage' => [
+    '/image/save' => [
         'controller' => \App\Controller\ImageController::class,
         'action' => 'save',
-        'methods' => ['POST']
-    ],
-
-    // Email
-    '/sendamail' => [
-        'controller' => \App\Controller\EmailController::class,
-        'action' => 'send',
-        'methods' => ['POST']
-    ],
-    '/transcription-sub' => [
-        'controller' => \App\Controller\ExtractController::class,
-        'action' => 'transcriptionSub',
         'methods' => ['GET', 'POST']
     ],
 
     // =========================================================================
-    // Extraction Tools
+    // API Endpoints - Email
     // =========================================================================
 
-    // New MVC-style routes for extraction
+    '/email/send' => [
+        'controller' => \App\Controller\EmailController::class,
+        'action' => 'send',
+        'methods' => ['GET', 'POST']
+    ],
+
+    // =========================================================================
+    // API Endpoints - Extraction Tools
+    // =========================================================================
+
+    '/extract/transcription-sub' => [
+        'controller' => \App\Controller\ExtractController::class,
+        'action' => 'transcriptionSub',
+        'methods' => ['GET', 'POST']
+    ],
     '/extract/slides-notes' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'slidesNotes',
@@ -215,11 +200,6 @@ return [
     '/extract/pptx-notes' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'pptxNotes',
-        'methods' => ['GET', 'POST']
-    ],
-    '/ExtractSlidesNotes' => [
-        'controller' => \App\Controller\ExtractController::class,
-        'action' => 'slidesNotes',
         'methods' => ['GET', 'POST']
     ],
 ];

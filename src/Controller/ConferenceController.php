@@ -60,10 +60,6 @@ class ConferenceController extends BaseController
 
         // Define scripts for this page
         $this->viewData['pageScripts'] = [
-            // Store must be loaded FIRST
-            '/js/lib/state/store.js',
-            '/js/lib/state/shared.js',
-            '/js/lib/state/conference.js',
             'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
         ];
@@ -147,47 +143,12 @@ class ConferenceController extends BaseController
 
         $this->viewData['isConferencePage'] = true;
 
-        // Tous les scripts nécessaires pour la SPA (tous les onglets chargés)
+        // Tous les scripts sont charges via le graphe d'imports de conference-init.js.
+        // Une seule balise d'entree garantit une instance unique par module ES :
+        // le cache-busting (?v=) ne doit jamais s'appliquer a une URL importee,
+        // sinon la deduplication des modules par URL est cassee (double evaluation,
+        // double QR code, ecouteurs dupliques).
         $afterContentScripts = '';
-
-        // DOM and Network utilities
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/selector.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/styles.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/visibility.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/layout.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/events.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/dom/dialog.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/utils.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/xhr.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/fetch.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/network/counter.js"></script>';
-
-        // Language utilities
-        $afterContentScripts .= '<script type="module" src="/js/lib/language/state.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/language/management.js"></script>';
-
-        // Chat utilities
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/state.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/utils.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/utils/cleanup.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/alert.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/network.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/main.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/handlers.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/chat/display.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/index.js"></script>';
-
-        // Conference scripts (tous les onglets)
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-viewer.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/core.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/pdf-fullscreen/ui.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/events.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/notebook.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/config-functions.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/post.js"></script>';
-        $afterContentScripts .= '<script type="module" src="/js/lib/conference/speech.js"></script>';
-
-        // Script d'initialisation
         $afterContentScripts .= '<script type="module" src="/js/conference-init.js"></script>';
 
         // Script de test pour localhost
