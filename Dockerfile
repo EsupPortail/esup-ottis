@@ -41,6 +41,7 @@ RUN a2enmod rewrite \
 # Code de l'application
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
+RUN chmod -R 775 tmp/ uploads/ logs/
 RUN git config --global --add safe.directory /var/www/html
 WORKDIR /var/www/html
 
