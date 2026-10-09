@@ -261,6 +261,23 @@ function ottisInitCas(array $casConfig): void
         echo '<h1>Accès interdit</h1><p>Cette zone est réservée au personnel et aux enseignants.</p>';
         exit;
     }
+
+    // Reconnexion CAS (retour avec ticket) : si l'URL d'origine a ete perdue
+    // (session detruite, ottis_return_to absent) et que l'intervenant possede
+    // une salle encore recente, y revenir directement pour ne pas perdre la
+    // conference et les auditeurs qui y sont lies.
+    if (isset($_GET['ticket'])
+        && class_exists(\App\Security\RoomTokenManager::class)
+        && (ottisCurrentPath() === '/'
+            || (ottisCurrentPath() === '/conference' && empty($_GET['ROOMID'])))) {
+        $recentRoom = \App\Security\RoomTokenManager::findRecentRoomByOwner(
+            (string) ($_SESSION['cas_user'] ?? '')
+        );
+        if ($recentRoom !== null) {
+            header('Location: /conference/' . rawurlencode($recentRoom), true, 302);
+            exit;
+        }
+    }
 }
 
 ottisInitCas($casConfig);

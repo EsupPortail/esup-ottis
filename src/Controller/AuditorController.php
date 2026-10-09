@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
+use App\Service\RoomPresence;
 use App\Service\RandomNameGenerator;
 
 /**
@@ -133,6 +134,23 @@ class AuditorController extends BaseController
 
         // Render the auditor view with the shared layout (header/footer communs)
         $this->render('auditor/index');
+    }
+
+    /**
+     * Statut de la conference pour la page auditor :
+     * repond {"live": true|false} selon la presence d'une page
+     * conference ouverte (RoomPresence) pour la salle demandee.
+     */
+    public function status(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+
+        if ($roomid === '' || $roomid === 'UNKNOWN'
+            || !preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)) {
+            $this->jsonResponse(['live' => false]);
+        }
+
+        $this->jsonResponse(['live' => RoomPresence::isLive($roomid)]);
     }
 
     /**

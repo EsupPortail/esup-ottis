@@ -27,3 +27,7 @@ export const setBuiltinLanguage = (value) => set({ builtin_language: value });
 // Auditor configuration
 export const getAuditorConfig = () => get('auditorConfig') || {};
 export const setAuditorConfig = (config) => set({ auditorConfig: config });
+
+// Présence de la conference (page conference ouverte côté serveur)
+export const isConferenceLive = () => get('conferenceLive') || false;
+export const setConferenceLive = (value) => set({ conferenceLive: !!value });

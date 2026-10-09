@@ -10,7 +10,7 @@ import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
 import { EcrireNB, EcrireNBSub } from './display.js';
 import { setLiveStatus } from './live-status.js';
-import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
+import { getBuiltinVoice, getBuiltinLanguage, isConferenceLive, setConferenceLive } from '../state/auditor.js';
 import {
     getBasePath, getRoomToken, getMaxOrder, setMaxOrder,
     getAllPhrases, setPhrase, pushToTranslate, getCurrentOrder,
@@ -37,7 +37,8 @@ function readText() {
     const request = createFetchRequest('POST', getBasePath() + '/text/read', {
       onSuccess(response) {
         decreasependingrequests();
-        setLiveStatus(true);
+        // Badge "En direct" uniquement si le statut serveur dit "live"
+        setLiveStatus(isConferenceLive());
         const T = response.responseText.split('\n');
         let maxi = -1;
         const readedorder = (`0${T[0]}`).split(';')[0] * 1;
@@ -456,4 +457,44 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
 //   }
 // }
 
-export { readText, readTextSub, readTextSubTranscript /* readImage DISABLED */ };
+/**
+ * @summary Interroge le serveur pour savoir si la page conference est ouverte.
+ * Met à jour le drapeau partagé et le badge "En direct" / "En erreur".
+ * Sans ROOMID (page auditor ouverte hors lien conference) : erreur directe.
+ */
+function checkConferenceStatus() {
+  const roomIdEl = _('classroomid');
+  const roomId = roomIdEl ? roomIdEl.value : '';
+  if (!roomId || roomId === 'UNKNOWN') {
+    setConferenceLive(false);
+    setLiveStatus(false);
+    return;
+  }
+
+  const f = new FormData();
+  f.append('ROOMID', roomId);
+  f.append('room_token', getRoomToken());
+  addCsrfToken(f);
+
+  const request = createFetchRequest('POST', getBasePath() + '/auditor/status', {
+    onSuccess(response) {
+      let live = false;
+      try {
+        live = !!JSON.parse(response.responseText).live;
+      } catch (err) {
+        live = false;
+      }
+      setConferenceLive(live);
+      setLiveStatus(live);
+    },
+    onError() {
+      // Échec réseau : conserver l'état connu (pas de faux "En erreur" sur un timeout)
+    },
+    data: f,
+    timeout: 10000,
+    context: 'checkConferenceStatus',
+  });
+  request.send();
+}
+
+export { readText, readTextSub, readTextSubTranscript, checkConferenceStatus /* readImage DISABLED */ };

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
+use App\Service\RoomPresence;
 use App\Service\RoomInfoService;
 use App\Service\TokenConfigService;
 use App\Service\TranslatorStatsService;
@@ -65,17 +66,22 @@ class ConferenceController extends BaseController
         ];
 
         // Get or generate classroom ID
+        // Identification de l'intervenant d'abord : necessaire pour retrouver sa salle
+        $uid = $_SESSION['cas_user'] ?? RoomInfoService::getUserId('anonymous');
+        $uid = is_string($uid) && trim($uid) !== '' ? trim($uid) : 'anonymous';
         $classroomid = $this->getParam('ROOMID');
         if (empty($classroomid)) {
-            $classroomid = md5(gmdate('Y-m-d\TH:i:s\Z'));
+            // Retour d'un intervenant (ex. reconnexion CAS) : reutiliser sa salle
+            // la plus recente pour ne pas perdre la conference et les auditeurs
+            $classroomid = RoomTokenManager::findRecentRoomByOwner($uid)
+                ?? md5(gmdate('Y-m-d\TH:i:s\Z'));
         }
 
         // Use services to load data
         $T_lang = LanguageLoader::load();
-        $uid = $_SESSION['cas_user'] ?? RoomInfoService::getUserId('anonymous');
-        $uid = is_string($uid) && trim($uid) !== '' ? trim($uid) : 'anonymous';
         $roomToken = RoomTokenManager::generateRoomToken($classroomid, $uid);
         RoomTokenManager::setRoomOwnerUid($classroomid, $uid);
+        RoomPresence::heartbeat($classroomid);
         $appid = RoomInfoService::generateAppId();
         $uid = trim($uid) !== '' ? trim($uid) : 'anonymous';
         $casAttributes = $_SESSION['cas_attributes'] ?? [];
@@ -159,6 +165,44 @@ class ConferenceController extends BaseController
         $this->viewData['afterContentScripts'] = $afterContentScripts;
 
         $this->render('conference/index');
+    }
+
+    /**
+     * Heartbeat periodique envoye par la page conference :
+     * signale que la page est ouverte (conference "en direct").
+     */
+    public function heartbeat(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+        $roomToken = (string) $this->postParam('room_token', '');
+
+        if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)
+            || !RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
+            $this->textResponse('Invalid room', 403);
+        }
+
+        RoomPresence::heartbeat($roomid);
+        // Activite recente sur la salle : maintient la fenetre de recuperation
+        RoomTokenManager::touchRoomToken($roomid);
+        $this->jsonResponse(['ok' => true]);
+    }
+
+    /**
+     * Signal de fermeture envoye par la page conference (sendBeacon) :
+     * marque la conference comme fermee pour les auditeurs.
+     */
+    public function close(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+        $roomToken = (string) $this->postParam('room_token', '');
+
+        if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)
+            || !RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
+            $this->textResponse('Invalid room', 403);
+        }
+
+        RoomPresence::close($roomid);
+        $this->jsonResponse(['ok' => true]);
     }
 
     /**

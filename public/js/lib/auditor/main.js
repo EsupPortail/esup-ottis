@@ -4,7 +4,7 @@ import { _ } from '../dom/selector.js';
  */
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 import { isLanguageSelected, setGotolive } from '../state/shared.js';
-import { readText } from './network.js';
+import { readText, checkConferenceStatus } from './network.js';
 import { startChatStream } from '../chat/sse.js';
 import { defaultMessageHandler } from '../chat/handlers.js';
 import { setupChatInput } from '../chat/input.js';
@@ -75,6 +75,11 @@ function Init() {
 
   // Setup chat input Enter key handler
   setupChatInput();
+
+  // Statut de la conférence : vérifie immédiatement puis toutes les 10 s.
+  // Sans ROOMID ou conférence fermée, le badge passe "En erreur".
+  checkConferenceStatus();
+  safeSetInterval(checkConferenceStatus, 10000);
 
   /*
     setTimeout(function() {

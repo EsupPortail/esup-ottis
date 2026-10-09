@@ -36,6 +36,16 @@ return [
         'methods' => ['GET'],
         'params' => ['roomId']
     ],
+    '/conference/heartbeat' => [
+        'controller' => \App\Controller\ConferenceController::class,
+        'action' => 'heartbeat',
+        'methods' => ['POST']
+    ],
+    '/conference/close' => [
+        'controller' => \App\Controller\ConferenceController::class,
+        'action' => 'close',
+        'methods' => ['POST']
+    ],
     '/auditor' => [
         'controller' => \App\Controller\AuditorController::class,
         'action' => 'index',
@@ -46,6 +56,11 @@ return [
         'action' => 'show',
         'methods' => ['GET'],
         'params' => ['roomId']
+    ],
+    '/auditor/status' => [
+        'controller' => \App\Controller\AuditorController::class,
+        'action' => 'status',
+        'methods' => ['POST']
     ],
     '/subtitles' => [
         'controller' => \App\Controller\SubtitlesController::class,
