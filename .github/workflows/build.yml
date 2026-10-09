@@ -76,7 +76,3 @@ jobs:
         with:
           tag_name: v0.1.2
           generate_release_notes: true
-          
-      - name: Vérifier le contenu de l'image
-        run: |
-          docker run --rm ghcr.io/esupportail/esup-ottis/ottis:latest test -f /var/www/html/index.php && echo "Fichiers présents" || echo "Pas de fichiers"  
