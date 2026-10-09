@@ -40,14 +40,13 @@ RUN a2enmod rewrite \
     && mkdir -p /var/www/html \
     && mkdir -p /tmp /uploads /logs \
     && chmod -R 775 /tmp /uploads /logs
+    && chown -R www-data:www-data /tmp /uploads /logs
 
 # Code de l'application
 COPY . /var/www/html/
-RUN chown -R www-data:www-data /var/www/html
 
 RUN git config --global --add safe.directory /var/www/html
 WORKDIR /var/www/html
-
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
