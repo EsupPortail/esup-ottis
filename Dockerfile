@@ -35,16 +35,16 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # Activer les modules Apache utiles
+
 RUN a2enmod rewrite \
     && mkdir -p /var/www/html \
-    && mkdir -p /tmp \
-    && mkdir -p /uploads \
-    && mkdir -p /logs
+    && mkdir -p /tmp /uploads /logs \
+    && chmod -R 775 /tmp /uploads /logs
 
 # Code de l'application
 COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 775 tmp/ uploads/ logs/
+
 RUN git config --global --add safe.directory /var/www/html
 WORKDIR /var/www/html
 
