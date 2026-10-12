@@ -31,7 +31,7 @@ cat > "$REPORT_FILE" << 'EOF'
 # 📊 Rapport de Détection de Code Mort et Commenté
 **Date :** $(date +"%Y-%m-%d %H:%M:%S")  
 **Tâche :** 16 - Supprimer tout le code commenté (code mort)  
-**Projet :** OMIST Automatic Translator
+**Projet :** OTTIS Automatic Translator
 
 ---
 

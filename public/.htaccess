@@ -1,4 +1,4 @@
-# Apache configuration for OMIST Front Controller
+# Apache configuration for OTTIS Front Controller
 # This file routes all requests to the public/index.php Front Controller
 
 # Disable OPcache for debugging

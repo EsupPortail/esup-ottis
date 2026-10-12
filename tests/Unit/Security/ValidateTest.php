@@ -6,7 +6,7 @@
  * Tests pour les fonctions de validation dans Security/validate.php
  */
 
-namespace OMIST\Tests\Unit\Security;
+namespace OTTIS\Tests\Unit\Security;
 
 use PHPUnit\Framework\TestCase;
 

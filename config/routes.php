@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Routes Configuration for OMIST Application
+ * Routes Configuration for OTTIS Application
  *
  * Single source of truth for all routes: this file is loaded by
  * public/index.php, which registers each route for the HTTP methods

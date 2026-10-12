@@ -29,7 +29,7 @@
     const auditorName = <?php echo json_encode($randomname ?? ''); ?>;
     const auditorUid = <?php echo json_encode($randomname ?? 'auditor'); ?>;
     const intervenantUid = <?php echo json_encode($intervenantUid ?? null); ?>;
-    globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
+    globalThis.OTTIS_USER = Object.assign(globalThis.OTTIS_USER || {}, {
         fullName: auditorName,
         uid: auditorUid,
         isIntervenant: false
@@ -363,7 +363,7 @@
             if (value === 'Intervenant' && nom) nom.value = 'Auditor';
             if (nerr) nerr.textContent = '';
             if (nom) nom.removeAttribute('aria-invalid');
-            globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
+            globalThis.OTTIS_USER = Object.assign(globalThis.OTTIS_USER || {}, {
                 fullName: value,
                 uid: value,
             });

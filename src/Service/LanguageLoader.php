@@ -6,7 +6,7 @@ namespace App\Service;
  * LanguageLoader - Service for loading supported languages from CSV file
  *
  * This service provides a centralized way to load and manage the list of supported
- * languages for the OMIST translation system.
+ * languages for the OTTIS translation system.
  */
 class LanguageLoader
 {

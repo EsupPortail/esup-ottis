@@ -243,9 +243,9 @@ sudo systemctl restart apache2
 ```apache
 <VirtualHost *:80>
     ServerName ottis.votre-domaine.fr
-    DocumentRoot /chemin/vers/omist/public
+    DocumentRoot /chemin/vers/ottis/public
     
-    <Directory /chemin/vers/omist/public>
+    <Directory /chemin/vers/ottis/public>
         AllowOverride All
         Require all granted
     </Directory>

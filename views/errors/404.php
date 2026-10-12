@@ -2,7 +2,7 @@
 /**
  * Template de page d'erreur 404 - Non trouvé
  *
- * @package OMIST\Views\Errors
+ * @package OTTIS\Views\Errors
  */
 
 // Définir le code HTTP
@@ -17,7 +17,7 @@ $showDetails = !function_exists('isProductionEnvironment') || !isProductionEnvir
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page non trouvée | OMIST</title>
+    <title>404 - Page non trouvée | OTTIS</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -144,7 +144,7 @@ $showDetails = !function_exists('isProductionEnvironment') || !isProductionEnvir
         </div>
 
         <div class="error-footer">
-            OMIST Automatic Translator &copy; <?php echo date('Y'); ?>
+            OTTIS Automatic Translator &copy; <?php echo date('Y'); ?>
         </div>
     </div>
 </body>

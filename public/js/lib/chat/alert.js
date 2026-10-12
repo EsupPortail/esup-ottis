@@ -1,6 +1,6 @@
 /**
  * chat-alert.js
- * Chat notification alert component for OMIST
+ * Chat notification alert component for OTTIS
  * Provides a blinking alert indicator when new messages are received
  * Works with both auditor and conference interfaces
  */

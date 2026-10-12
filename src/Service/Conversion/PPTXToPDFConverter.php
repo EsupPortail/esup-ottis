@@ -40,7 +40,7 @@ class PPTXToPDFConverter
         $this->imageWidth = $imageWidth;
         $this->imageHeight = $imageHeight;
         $this->pdfDpi = $pdfDpi;
-        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_pptx2pdf/';
+        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/ottis_pptx2pdf/';
 
         // Vérifier que TCPDF est disponible
         $this->verifyTCPDF();

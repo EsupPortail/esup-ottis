@@ -22,7 +22,7 @@ class ExtractController extends BaseController
     protected function initialize(): void
     {
         parent::initialize();
-        $this->tmpDir = sys_get_temp_dir() . '/omist/';
+        $this->tmpDir = sys_get_temp_dir() . '/ottis/';
         $this->proxy = getenv('HTTP_PROXY') ?: '';
     }
 

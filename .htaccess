@@ -1,4 +1,4 @@
-# Apache configuration for OMIST application
+# Apache configuration for OTTIS application
 # Main .htaccess file - redirects to public/ directory
 
 <IfModule mod_rewrite.c>

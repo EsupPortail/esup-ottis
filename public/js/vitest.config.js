@@ -1,5 +1,5 @@
 /**
- * Configuration Vitest pour les tests JavaScript du projet OMIST
+ * Configuration Vitest pour les tests JavaScript du projet OTTIS
  * Environnement : Node.js + jsdom pour simuler le navigateur
  * Modules ES natifs supportés
  */

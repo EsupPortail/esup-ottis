@@ -1,10 +1,10 @@
 # Ignore configuration and secret files
 config.php
 config OLD.php
-OMIST_Tools/config.py
-OMIST_Tools/configOT.php
-OMIST_Tools/config_database.php
-OMIST_Tools/config_sh
+OTTIS_Tools/config.py
+OTTIS_Tools/configOT.php
+OTTIS_Tools/config_database.php
+OTTIS_Tools/config_sh
 tables/tokens.json
 # Ignore environment and local files
 .env
@@ -16,7 +16,7 @@ package-lock.json
 public/js/package*.json
 
 # Ignore generated and temporary files
-OMIST_Tools/__pycache__/
+OTTIS_Tools/__pycache__/
 node_modules/
 tmp/
 .cache/

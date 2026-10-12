@@ -45,8 +45,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 <body <?php echo isset($onloadScripts) ? 'onload="' . htmlspecialchars($onloadScripts, ENT_QUOTES) . '"' : ''; ?>>
     <header>
         <nav>
-            <!-- <a href="https://omist-preprod.intra.univ-nantes.fr/"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a> -->
-            <a href="<?php echo e($pageDestination ?? './'); ?>"><img id="logoNU" src="./images/omist-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
+            <!-- <a href="https://omist-preprod.intra.univ-nantes.fr/"><img id="logoNU" src="./images/ottis-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a> -->
+            <a href="<?php echo e($pageDestination ?? './'); ?>"><img id="logoNU" src="./images/ottis-top-logo-nav_ssfd.png" alt="Logo Nantes Université"></a>
                 <menu>
                     <li><a href="mailto:support-omist@univ-nantes.fr" style="text-decoration: none" ><i class="fa fa-envelope fa-2x" id="iconeAideEmail"></i><span class="icone-menu">Contact</span></a></li>
                     <li><a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" style="text-decoration: none" ><i class="fa fa-question-circle fa-2x" id="iconeAideMadoc"></i><span class="icone-menu translate" data-key="scenarios.aide">Aide sur Madoc</span></a></li>

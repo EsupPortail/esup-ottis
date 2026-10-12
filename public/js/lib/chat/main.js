@@ -37,7 +37,7 @@ export function saveTextQ(ch) {
   const auditorNameEl = _('AuditorName');
   const classroomIdEl = _('classroomid');
   const currentUserNameEl = document.getElementById('CurrentUserDisplayName');
-  const currentUser = globalThis.OMIST_USER || {};
+  const currentUser = globalThis.OTTIS_USER || {};
 
   if (currentUser.fullName) {
     senderName = currentUser.fullName;

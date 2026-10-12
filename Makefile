@@ -1,5 +1,5 @@
 #===============================================================================
-# Makefile - Outils de qualité de code pour le projet OMIST
+# Makefile - Outils de qualité de code pour le projet OTTIS
 #===============================================================================
 
 .PHONY: help install check fix lint lint-js lint-php

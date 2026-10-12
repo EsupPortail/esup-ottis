@@ -1,6 +1,6 @@
 /**
  * @module lib/i18n
- * Internationalization (i18n) utilities for OMIST
+ * Internationalization (i18n) utilities for OTTIS
  * Handles loading translations and translating DOM elements
  */
 

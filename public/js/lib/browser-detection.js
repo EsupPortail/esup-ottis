@@ -1,6 +1,6 @@
 /**
  * @module lib/browser-detection
- * Browser detection utilities for OMIST
+ * Browser detection utilities for OTTIS
  * Detects non-Chrome/Edge browsers and shows warning banner
  */
 

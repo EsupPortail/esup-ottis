@@ -48,7 +48,7 @@ class SubtitlesController extends BaseController
         $MicrosoftRegion = $tokenConfig->getMicrosoftRegion();
 
         // Set page data
-        $this->viewData['pageTitle'] = 'OMIST - Subtitles';
+        $this->viewData['pageTitle'] = 'OTTIS - Subtitles';
         $this->viewData['wooclapaddress'] = $wooclapaddress;
         $this->viewData['randomname'] = $randomname;
         $this->viewData['T_lang'] = $T_lang;

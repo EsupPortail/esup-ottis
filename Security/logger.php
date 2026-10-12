@@ -4,9 +4,9 @@
  * Logger wrapper pour Monolog
  *
  * Ce fichier fournit une fonction globale logger() et des helpers pour
- * utiliser Monolog partout dans l'application OMIST.
+ * utiliser Monolog partout dans l'application OTTIS.
  *
- * @package OMIST\Security
+ * @package OTTIS\Security
  */
 
 if (!function_exists('logger')) {
@@ -53,7 +53,7 @@ if (!function_exists('logger')) {
         try {
             require_once __DIR__ . '/../vendor/autoload.php';
 
-            $logger = new \Monolog\Logger('OMIST-FALLBACK');
+            $logger = new \Monolog\Logger('OTTIS-FALLBACK');
 
             // Handler de secours vers php://stderr
             $handler = new \Monolog\Handler\StreamHandler('php://stderr', \Monolog\Level::Debug);

@@ -35,7 +35,7 @@ class UploadController extends BaseController
 
         // Si pas accessible en écriture, utiliser sys temp dir
         if (!is_writable($this->uploadDir)) {
-            $this->uploadDir = sys_get_temp_dir() . '/omist_uploads/';
+            $this->uploadDir = sys_get_temp_dir() . '/ottis_uploads/';
             if (!file_exists($this->uploadDir)) {
                 mkdir($this->uploadDir, 0775, true);
             }

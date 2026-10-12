@@ -34,7 +34,7 @@ class RoomTokenManager
 
         // Si le répertoire existe mais n'est pas accessible en écriture, utiliser sys temp dir
         if (!is_writable($dir)) {
-            $dir = sys_get_temp_dir() . '/omist_tokens/';
+            $dir = sys_get_temp_dir() . '/ottis_tokens/';
             if (!is_dir($dir)) {
                 mkdir($dir, 0775, true);
             }

@@ -29,7 +29,7 @@ globalThis.DOMPurify = {
 };
 
 // Mock des variables globales utilisées dans le projet
-globalThis.omistConfig = {
+globalThis.ottisConfig = {
   apiUrl: 'http://localhost:8080',
   debug: false,
 };

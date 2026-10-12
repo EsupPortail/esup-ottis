@@ -84,8 +84,8 @@ export function SlideNotesUncloud(uncloudlink) {
     onSuccess: completeHandler,
     onError(response) {
       if (response.status === 0 && response.statusText === 'Timeout') {
-        _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OMIST Toolbox and use the generated html file instead.';
-        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
+        _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OTTIS Toolbox and use the generated html file instead.';
+        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OTTIS Toolbox and use the generated html file instead.');
       }
     },
   });
@@ -110,7 +110,7 @@ export function SlideNotesUncloudHtml(uncloudhtmllink) {
     onError(response) {
       if (response.status === 0 && response.statusText === 'Timeout') {
         _('spinnertxt').innerHTML = 'No presentation yet...<br/>Please go to the complete lesson tab to import it.';
-        alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OMIST Toolbox and use the generated html file instead.');
+        alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OTTIS Toolbox and use the generated html file instead.');
       }
     },
   });

@@ -68,7 +68,7 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
   // Conference : le tchat suit la langue du conferencier (select "Langue du conferencier")
   // Auditeur : langue choisie au pop-up (builtin_voice), sinon builtin_language
   let currentLang = '';
-  const currentUser = globalThis.OMIST_USER || {};
+  const currentUser = globalThis.OTTIS_USER || {};
   const classroomLanguageSelect = document.getElementById('classroomlanguage');
   if (currentUser.isIntervenant && classroomLanguageSelect && classroomLanguageSelect.value) {
     currentLang = classroomLanguageSelect.value;
