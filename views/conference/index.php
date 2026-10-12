@@ -29,7 +29,7 @@ $commonData = [
     window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken, ENT_QUOTES); ?>';
     const intervenantName = <?php echo json_encode($currentUserDisplayName ?? $uid ?? ''); ?>;
     const intervenantUid = <?php echo json_encode($uid ?? 'anonymous'); ?>;
-    globalThis.OMIST_USER = Object.assign(globalThis.OMIST_USER || {}, {
+    globalThis.OTTIS_USER = Object.assign(globalThis.OTTIS_USER || {}, {
         fullName: intervenantName,
         uid: intervenantUid,
         isIntervenant: true

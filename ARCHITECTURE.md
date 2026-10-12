@@ -1,9 +1,9 @@
-# Architecture MVC - OMIST
+# Architecture MVC - OTTIS
 
 ## 📁 Structure des Dossiers
 
 ```
-omist/
+ottis/
 ├── config/                   # Fichiers de configuration
 │   └── routes.php           # Définition centralisée des routes
 ├── public/                  # Point d'entrée web
@@ -77,7 +77,7 @@ omist/
   {
       public function index(): void
       {
-          $this->viewData['pageTitle'] = 'Omist';
+          $this->viewData['pageTitle'] = 'Ottis';
           $this->render('home/index');
       }
   }

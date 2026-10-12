@@ -8,7 +8,7 @@ while (ob_get_level()) {
 // Active le logging complet
 ini_set('display_errors', 0);  // ⚠️ Désactivé pour éviter le HTML dans la réponse
 ini_set('log_errors', 1);
-ini_set('error_log', '/var/log/omist_debug.log');
+ini_set('error_log', '/var/log/ottis_debug.log');
 error_reporting(E_ALL);
 
 // Simule une requête POST avec un fichier test

@@ -33,7 +33,7 @@ class PresentationConverter
      */
     public function __construct(string $tempDir = null)
     {
-        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_converter/';
+        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/ottis_converter/';
 
         if (!file_exists($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);

@@ -40,7 +40,7 @@ class PPTXSlideRenderer
         string $tempDir = null,
         string $fontPath = null
     ) {
-        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_slide_render/';
+        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/ottis_slide_render/';
         $this->defaultWidth = $defaultWidth;
         $this->defaultHeight = $defaultHeight;
         $this->fontPath = $fontPath;

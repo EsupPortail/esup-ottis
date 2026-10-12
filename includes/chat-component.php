@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Chat Component - Reusable chat interface for OMIST
+ * Chat Component - Reusable chat interface for OTTIS
  *
  * This component provides a standardized chat interface that can be used across
  * conference.php, and auditor.php to eliminate code duplication.
  *
- * @package OMIST
+ * @package OTTIS
  * @subpackage Chat
  */
 

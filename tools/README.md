@@ -1,4 +1,4 @@
-# Outils de Qualité de Code - Projet OMIST
+# Outils de Qualité de Code - Projet OTTIS
 
 Ce dossier contient les scripts et configurations pour les outils de qualité de code du projet.
 

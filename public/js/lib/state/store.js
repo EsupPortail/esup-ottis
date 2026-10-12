@@ -1,13 +1,13 @@
 /**
  * @module lib/state/store
- * Store centralisé pour l'application OMIST
+ * Store centralisé pour l'application OTTIS
  * 
  * Pattern : Encapsulation via closure + Publish/Subscribe
  * 
  * Utilisation :
  *   import { get, set, subscribe, getState, reset, increment, push } from './lib/state/store.js';
  * 
- * @author OMIST Team
+ * @author OTTIS Team
  * @version 1.0
  */
 

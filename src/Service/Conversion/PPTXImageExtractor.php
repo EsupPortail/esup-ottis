@@ -17,7 +17,7 @@ class PPTXImageExtractor
 
     public function __construct(string $tempDir = null)
     {
-        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/omist_pptx_images/';
+        $this->tempDir = $tempDir ?: sys_get_temp_dir() . '/ottis_pptx_images/';
 
         if (!file_exists($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);

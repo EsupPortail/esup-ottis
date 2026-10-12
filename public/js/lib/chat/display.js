@@ -49,7 +49,7 @@ export function EcrireCR(who, ch, order, isIntervenant = false) {
 
   const senderIdentity = parseChatIdentity(who);
   const displayWho = senderIdentity.displayName || senderIdentity.uid || who || '';
-  const currentUser = globalThis.OMIST_USER || {};
+  const currentUser = globalThis.OTTIS_USER || {};
   const isMe = Boolean(displayWho)
     && (displayWho === currentUser.fullName || senderIdentity.uid === currentUser.uid);
 

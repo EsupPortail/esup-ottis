@@ -3,7 +3,7 @@
 /**
  * Configuration de Monolog pour le logging
  *
- * Ce fichier configure le système de logging pour l'application OMIST.
+ * Ce fichier configure le système de logging pour l'application OTTIS.
  * Il gère différents environnements (development, staging, production) et
  * différents niveaux de log (DEBUG, INFO, WARNING, ERROR, CRITICAL).
  */
@@ -29,7 +29,7 @@ $output = "%datetime% [%level_name%] %channel%.%context%: %message%\n";
 $formatter = new LineFormatter($output, $dateFormat);
 
 // Créer le logger principal
-$logger = new Logger('OMIST');
+$logger = new Logger('OTTIS');
 
 // ============================================================================
 // Configuration commune à tous les environnements

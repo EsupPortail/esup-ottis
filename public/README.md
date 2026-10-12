@@ -1,6 +1,6 @@
 # Public Directory - Front Controller
 
-This directory serves as the **single entry point** for all HTTP requests to the OMIST application.
+This directory serves as the **single entry point** for all HTTP requests to the OTTIS application.
 
 ## Structure
 

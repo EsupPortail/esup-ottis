@@ -6,7 +6,7 @@
  * Tests pour les fonctions de sanitization dans Security/sanitize.php
  */
 
-namespace OMIST\Tests\Unit\Security;
+namespace OTTIS\Tests\Unit\Security;
 
 use PHPUnit\Framework\TestCase;
 

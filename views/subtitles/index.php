@@ -157,9 +157,9 @@
 <main>
 <h1 style="display:none;">Sous-titres</h1>
 </main>
-<div id="logonext"><img src="images/logo-next-omist.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
+<div id="logonext"><img src="images/logo-next-ottis.png" alt="Logo du projet d'Isite NExT" style="width: 109px; height: 50px;"></div>
 
-<div id="titre" style="line-height: 28px;"><h1>Automatic translation provided by NExT OMIST Project</h1></div>
+<div id="titre" style="line-height: 28px;"><h1>Automatic translation provided by NExT OTTIS Project</h1></div>
 	<div id="VOBanner"></div>
 	<div id="classroom" style="display: none;" aria-live="polite" aria-atomic="true"></div>
 	<div id="scrollbarSub"></div>

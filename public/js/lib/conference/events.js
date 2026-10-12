@@ -222,7 +222,7 @@ function initMiconCompatibility() {
  */
 function initConferenceChatAlert() {
   safeSetTimeout(() => {
-    const currentUser = globalThis.OMIST_USER || {};
+    const currentUser = globalThis.OTTIS_USER || {};
     const currentUserNameEl = document.getElementById('CurrentUserDisplayName');
     const userName = currentUser.fullName || (currentUserNameEl && currentUserNameEl.value) || 'Intervenant';
     initChatAlert(userName);

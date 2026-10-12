@@ -1,10 +1,10 @@
 /**
- * Matomo Analytics Tracking for OMIST
+ * Matomo Analytics Tracking for OTTIS
  * This script initializes the Matomo (formerly Piwik) web analytics tracker.
  * It must be loaded as a classic script (not ES module) to ensure proper initialization.
  *
  * Tracker URL: https://analytics.univ-nantes.fr/matomo.php
- * Site ID: 62 (OMIST)
+ * Site ID: 62 (OTTIS)
  */
 
 // Initialize _paq array if it doesn't exist

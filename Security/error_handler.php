@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gestionnaire d'erreurs centralisé pour OMIST
+ * Gestionnaire d'erreurs centralisé pour OTTIS
  *
  * Ce fichier fournit un gestionnaire centralisé pour toutes les erreurs PHP,
  * exceptions et erreurs fatales. Il intègre Monolog pour le logging et
  * affiche des pages d'erreur personnalisées.
  *
- * @package OMIST\Security
+ * @package OTTIS\Security
  */
 
 if (!defined('APP_ROOT')) {
@@ -51,7 +51,7 @@ function getErrorLogger(): \Monolog\Logger
             // Fallback si logger.php n'est pas disponible
             try {
                 require_once APP_ROOT . '/vendor/autoload.php';
-                $logger = new \Monolog\Logger('OMIST-ERROR');
+                $logger = new \Monolog\Logger('OTTIS-ERROR');
                 $handler = new \Monolog\Handler\StreamHandler('php://stderr', \Monolog\Level::Error);
                 $logger->pushHandler($handler);
             } catch (\Exception $e) {
@@ -144,7 +144,7 @@ function sendGenericErrorPage(int $httpCode, string $title, string $message): vo
         <div class="error-code">{$httpCode}</div>
         <h1 class="error-title">{$title}</h1>
         <p class="error-message">{$message}</p>
-        <div class="error-footer">OMIST Automatic Translator</div>
+        <div class="error-footer">OTTIS Automatic Translator</div>
     </div>
 </body>
 </html>

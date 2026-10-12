@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
 /**
- * Front Controller - Main entry point for the OMIST application
+ * Front Controller - Main entry point for the OTTIS application
  *
  * This file serves as the single entry point for all HTTP requests.
  * It initializes the application, sets up autoloading, and dispatches
