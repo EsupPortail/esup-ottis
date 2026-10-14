@@ -42,6 +42,7 @@ public/js/vitest.config.js
 .vibe/
 AGENTS.md
 vibe-safe
+TODO.md
 
 # Ignore test files
 public/test*.php
@@ -67,5 +68,3 @@ composer.phar
 tables/tokens_OLD.json
 
 README_OLD.md
-
-vibe-safe
