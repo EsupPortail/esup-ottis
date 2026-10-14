@@ -230,16 +230,12 @@ if ($match !== null) {
             }
         } catch (\Throwable $e) {
             // Log error with Monolog
-            if (function_exists('log_error')) {
-                log_error('Controller Error: {error}', [
-                    'error' => $e->getMessage(),
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                    'trace' => $e->getTraceAsString()
-                ]);
-            } else {
-                error_log('Controller Error: ' . $e->getMessage());
-            }
+            \App\Utils\Logger::error('Controller Error: {error}', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
 
             // Display error if display_errors is enabled (for debugging)
             if (ini_get('display_errors')) {

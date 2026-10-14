@@ -13,9 +13,6 @@
         "phpunit/phpunit": "^10.0"
     },
     "autoload": {
-        "files": [
-            "Security/logger.php"
-        ],
         "psr-4": {
             "App\\": "src/"
         }

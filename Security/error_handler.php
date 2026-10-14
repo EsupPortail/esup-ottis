@@ -41,32 +41,7 @@ function isProductionEnvironment(): bool
  */
 function getErrorLogger(): \Monolog\Logger
 {
-    static $logger = null;
-
-    if ($logger === null) {
-        if (file_exists(APP_ROOT . '/Security/logger.php')) {
-            require_once APP_ROOT . '/Security/logger.php';
-            $logger = logger();
-        } else {
-            // Fallback si logger.php n'est pas disponible
-            try {
-                require_once APP_ROOT . '/vendor/autoload.php';
-                $logger = new \Monolog\Logger('OTTIS-ERROR');
-                $handler = new \Monolog\Handler\StreamHandler('php://stderr', \Monolog\Level::Error);
-                $logger->pushHandler($handler);
-            } catch (\Exception $e) {
-                error_log('Failed to initialize error logger: ' . $e->getMessage());
-                $logger = new class () {
-                    public function __call($name, $arguments)
-                    {
-                        return null;
-                    }
-                };
-            }
-        }
-    }
-
-    return $logger;
+    return \App\Utils\Logger::get();
 }
 
 /**

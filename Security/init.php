@@ -18,9 +18,6 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     require_once __DIR__ . '/../vendor/autoload.php';
 }
 
-// Charger le logger dès que possible (il charge autoload.php lui-même si nécessaire)
-require_once __DIR__ . '/logger.php';
-
 // Charger le gestionnaire d'erreurs centralisé
 require_once __DIR__ . '/error_handler.php';
 
