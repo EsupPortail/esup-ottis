@@ -71,9 +71,9 @@
 | **php** | ^8.2 | Langage PHP | Runtime |
 | **[phpoffice/phppresentation](https://github.com/PHPOffice/PHPPresentation)** | ^1.2 | Lecture/écriture de présentations PowerPoint | Utilisée dans `PPTXNotesExtractor.php` (fallback) |
 | **[phpoffice/common](https://github.com/PHPOffice/Common)** | ^1.1 | Bibliotheque commune PHPOffice | Dépendance transitive de phppresentation |
-| **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `Security/init.php`, `public/index.php` |
-| **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.5 | Logging structuré | Utilisée dans `config/logging.php`, `Security/logger.php` |
-| **[apereo/phpcas](https://github.com/apereo/phpCAS)** | ^1.6.2 | Authentification CAS (SSO) | Utilisée dans `Security/init.php` |
+| **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `src/Core/Bootstrap.php` |
+| **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.5 | Logging structuré | Utilisée dans `config/logging.php`, `src/Utils/Logger.php` |
+| **[apereo/phpcas](https://github.com/apereo/phpCAS)** | ^1.6.2 | Authentification CAS (SSO) | Utilisée dans `src/Security/CasAuthenticator.php` |
 
 ### Extensions PHP requises
 
@@ -128,6 +128,12 @@ sudo apt-get install -y libreoffice curl
 sudo apt-get install -y postfix
 ```
 
+### Installer les dépendances de développement
+
+```bash
+composer install
+```
+
 ### Configurer l'environnement
 
 ```bash
@@ -163,34 +169,11 @@ extension=imagick
 
 ### Fichier ottis.conf
 
-user = ottis
-group = www-data
-
-listen = /run/php/php-fpm.omist.sock
-
-listen.owner = www-data
-listen.group = www-data
-
-pm = dynamic
-pm.max_children = 5
-pm.start_servers = 2
-pm.min_spare_servers = 1
-pm.max_spare_servers = 3
-; max_requests afin de permettre le renouvellement périodique des workers.
-pm.max_requests = 500 ;
-
-; Activer les access logs FPM et configurer un fichier error_log pour qu'il soit accessible par l'utilisateur du pool
-php_admin_value[error_log] = /home/omist/logs/fpm-error.log
-php_admin_flag[log_errors] = on
-
-; Limiter la mémoire
-php_admin_value[memory_limit]=512M
-
-; Upload settings
-php_admin_value[upload_max_filesize] = 50M
-php_admin_value[post_max_size] = 50M
-php_admin_value[max_execution_time] = 300
-php_admin_value[max_input_time] = 300
+Un exemple complet et générique est fourni dans
+[`examples/ottis.conf.example`](examples/ottis.conf.example) : copier le fichier vers
+`/etc/php/<version>/fpm/pool.d/ottis.conf`, adapter les chemins (`/srv/ottis`,
+`/run/php/ottis.sock`) et le propriétaire du pool, puis recharger FPM
+(`sudo systemctl reload php<version>-fpm`).
 
 
 ### Fichier `.env`
@@ -204,27 +187,23 @@ APP_ENV=production        # Obligatoire : development, staging, ou production
 # Authentification CAS (true/false - voir section "Authentification CAS" ci-dessous)
 CAS_ENABLED=false
 
-# Serveur LibreTranslate (optionnel - défaut : https://translate.terraprint.co/translate)
-LIBRETRANSLATESERVER=
-
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
 ```
 
-> **Note** : les tokens API de traduction ne se configurent **pas** dans ce fichier, mais dans `tables/tokens.json` (voir ci-dessus). Seules les variables listées ci-dessus sont lues par le code.
-
-> **Important** : Les tokens API (GOOGLE_API_TOKENS, DEEPL_FREE_TOKENS, DEEPL_PRO_TOKENS, MICROSOFT_TRANSLATOR_KEY, etc.) **ne sont PAS configurés dans le fichier .env**. Ils doivent être définis dans le fichier **`tables/tokens.json`** avec la structure suivante :
+> **Toute la configuration de la traduction se fait dans `tables/tokens.json`** (copiez `tables/tokens.json.example`) : choix du traducteur, tokens API et serveur LibreTranslate. Le `.env` ne porte que les réglages d'infrastructure. Structure :
 >
 > ```json
 > {
 >   "WHICHTRANSLATOR": ["DEEPLFREE"],
 >   "GOOGLETOKENS": ["votre_token_google_1", "votre_token_google_2"],
 >   "DEEPLFREETOKENS": ["votre_token_deepl_free"],
->   "DEEPLPROTOKENS": []
+>   "DEEPLPROTOKENS": [],
+>   "LIBRETRANSLATESERVER": ["https://translate.terraprint.co/translate"]
 > }
 > ```
 >
-> La clé `LIBRETRANSLATESERVER` ne se configure pas dans `tokens.json` mais dans `.env` (voir ci-dessus). Les clés lues par le code (`src/Service/TokenConfigService.php`) sont : `WHICHTRANSLATOR`, `GOOGLETOKENS`, `DEEPLFREETOKENS`, `DEEPLPROTOKENS`.
+> Les clés lues par le code (`src/Service/TokenConfigService.php`) sont : `WHICHTRANSLATOR`, `GOOGLETOKENS`, `DEEPLFREETOKENS`, `DEEPLPROTOKENS`, `LIBRETRANSLATESERVER` (défaut appliqué si absente ou vide).
 
 ### Configuration Apache
 
@@ -240,20 +219,9 @@ sudo systemctl restart apache2
 
 ### Configuration du VirtualHost (exemple)
 
-```apache
-<VirtualHost *:80>
-    ServerName ottis.votre-domaine.fr
-    DocumentRoot /chemin/vers/ottis/public
-    
-    <Directory /chemin/vers/ottis/public>
-        AllowOverride All
-        Require all granted
-    </Directory>
-    
-    ErrorLog ${APACHE_LOG_DIR}/ottis-error.log
-    CustomLog ${APACHE_LOG_DIR}/ottis-access.log combined
-</VirtualHost>
-```
+Un exemple complet est fourni dans
+[`examples/ottis-vhost.conf.example`](examples/ottis-vhost.conf.example) : DocumentRoot
+vers `public/`, socket FPM du pool (`/run/php/ottis.sock`), `AllowOverride All`.
 
 
 
@@ -293,7 +261,6 @@ composer install --no-dev --optimize-autoloader
 
 # Vérifier la configuration
 APP_ENV=production \
-APP_DEBUG=false \
 php public/index.php
 ```
 
@@ -322,11 +289,14 @@ php public/index.php
 ├── .env.example              # Modèle de configuration environnement
 ├── .htaccess                 # Configuration Apache (racine)
 ├── ARCHITECTURE.md           # Documentation de l'architecture MVC
+├── examples/                 # Exemples de configuration serveur (FPM, VirtualHost)
 ├── LICENSE                   # Licence Apache 2.0
 ├── Makefile                 # Tâches de qualité de code
 ├── composer.json            # Dépendances PHP
+├── includes/                 # Includes procéduraux (chat-component.php)
 ├── phpunit.xml              # Configuration PHPUnit
 ├── phpstan.neon             # Configuration PHPStan
+├── tables/                   # Données applicatives (tokens.json des traducteurs)
 │
 ├── config/                  # Configuration applicative
 │   ├── cas.php              # Configuration de l'authentification CAS
@@ -356,42 +326,21 @@ php public/index.php
 │   ├── styles/            # Feuilles de style CSS
 │   └── uploads/            # Fichiers uploadés
 │
-├── Security/                # Modules de sécurité (hérités)
-│   ├── csrf.php             # Protection CSRF
-│   ├── error_handler.php   # Gestionnaire d'erreurs
-│   ├── init.php            # Initialisation
-│   ├── load_env.php        # Chargement .env (fallback)
-│   ├── logger.php          # Wrapper Monolog
-│   ├── room_tokens.php     # Gestion des tokens de salle
-│   ├── sanitize.php        # Sanitization
-│   └── validate.php         # Validation
-│
 ├── src/                    # Code source PHP (PSR-4: App\\)
-│   ├── Controller/          # Contrôleurs MVC
-│   │   ├── AuditorController.php
-│   │   ├── BaseController.php      # Classe de base
-│   │   ├── ConferenceController.php
-│   │   ├── EmailController.php
-│   │   ├── ExtractController.php
-│   │   ├── HomeController.php
-│   │   ├── ImageController.php
-│   │   ├── SubtitlesController.php
-│   │   ├── TextController.php
-│   │   └── UploadController.php
-│   ├── Model/               # Modèles (à développer)
-│   ├── Security/            # Sécurité MVC
-│   │   └── RoomTokenManager.php
+│   ├── Controller/          # Contrôleurs MVC (BaseController + 10 contrôleurs métier)
+│   ├── Core/                # Bootstrap applicatif
+│   │   └── Bootstrap.php    # Erreurs -> .env -> session 8h -> CAS -> CSRF
+│   ├── Error/               # Gestion des erreurs
+│   │   └── ErrorHandler.php
+│   ├── Security/            # Sécurité
+│   │   ├── CasAuthenticator.php  # Authentification CAS
+│   │   └── RoomTokenManager.php  # Tokens par salle
 │   ├── Service/             # Services
-│   │   ├── LanguageLoader.php
-│   │   ├── RandomNameGenerator.php
-│   │   ├── RoomInfoService.php
-│   │   ├── Router.php              # Routeur HTTP
-│   │   └── TokenConfigService.php
+│   │   ├── Conversion/      # Convertisseurs PPTX/ODP -> PDF
+│   │   └── Router.php, LanguageLoader.php, ... (services métier)
 │   └── Utils/               # Utilitaires
-│       ├── Csrf.php
-│       ├── PPTXNotesExtractor.php  # Extraction des notes PPTX
-│       ├── Sanitizer.php
-│       └── Validator.php
+│       ├── Csrf.php, Logger.php, Sanitizer.php, Validator.php
+│       └── PPTXNotesExtractor.php, ... (extracteurs PPTX)
 │
 ├── tests/                   # Tests PHP
 │   ├── Integration/
@@ -411,7 +360,8 @@ php public/index.php
 │   ├── home/                # Vues accueil
 │   ├── layouts/            # Layouts
 │   │   └── default.php
-│   ├── partials/            # Partials (à créer)
+│   ├── pages/               # Vues de pages
+│   ├── partials/            # Partials
 │   ├── remote/              # Vues distantes
 │   ├── subtitles/           # Vues sous-titres
 │   └── upload/              # Vues upload
@@ -434,7 +384,13 @@ Le projet suit une **architecture MVC (Modèle-Vue-Contrôleur)** moderne avec :
 - **Contrôleurs** (`src/Controller/`) : Logique métier
 - **Services** (`src/Service/`) : Logique réutilisable
 - **Vues** (`views/`) : Présentation (PHP + HTML)
-- **Modèles** (`src/Model/`) : Accès aux données (à développer)
+- **Bootstrap** (`src/Core/Bootstrap.php`) : Initialisation applicative (erreurs, .env, session, CAS, CSRF)
+
+Flux d'une requête :
+
+```
+HTTP Request -> Apache .htaccess -> public/index.php -> Router::match() -> Controller::action() -> Response (HTML, JSON, redirect)
+```
 
 ---
 
@@ -461,12 +417,35 @@ Ce projet est distribué sous la licence **Apache 2.0**.
 4. **Exécuter les tests** : `make test`
 5. **Soumettre une Pull Request**
 
+### Outils de qualité
+
+| Commande | Rôle |
+|----------|------|
+| `make check` | Vérifier la qualité du code (PHP + JS) |
+| `make fix` | Corriger automatiquement (PHP + JS) |
+| `make check-php` | PHPStan (niveau 5) + PHP-CS-Fixer (PSR-12) + PHPUnit |
+| `make check-js` | ESLint |
+| `make test` | Tests PHP + JavaScript |
+
+Commandes directes utiles :
+
+```bash
+vendor/bin/phpstan analyse                     # analyse statique complète
+vendor/bin/php-cs-fixer fix --dry-run --diff  # vérifier le style sans modifier
+vendor/bin/php-cs-fixer fix path/to/file.php   # corriger un fichier
+vendor/bin/phpstan analyse path/to/file.php   # analyser un fichier
+```
+
+`make help` liste toutes les cibles disponibles.
+
 ### Bonnes pratiques
 
 - **PHP** : Utiliser les classes du namespace `App\`
 - **Contrôleurs** : Étendre `BaseController`
 - **Vues** : Utiliser `$this->escape()` pour les sorties utilisateur
+- **Validation** : Valider les entrées via `App\Utils\Validator`
 - **Routes** : Définir dans `config/routes.php`
+- **Production** : HTTPS obligatoire
 - **Tests** : Couvrir les nouvelles fonctionnalités
 
 ### Rapport de bugs
@@ -496,8 +475,8 @@ Pour des questions sur :
 | Version | 0.4.0 |
 | Langues supportées | 100+ |
 | Contrôleurs | 10 |
-| Services | 5 |
-| Tests unitaires PHP | 2 fichiers |
+| Services | 12 |
+| Tests unitaires PHP | 39 tests (2 fichiers) |
 | Tests JavaScript | 25+ fichiers |
 | Dépendances PHP | 6 (production) + 3 (dev) |
 | Dépendances JS | 6 (dev) + 2 (tests) |
