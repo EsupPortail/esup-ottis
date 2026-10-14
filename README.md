@@ -377,20 +377,43 @@ php public/index.php
 
 ## Architecture
 
-Le projet suit une **architecture MVC (Modèle-Vue-Contrôleur)** moderne avec :
-
-- **Front Controller** (`public/index.php`) : Point d'entrée unique
-- **Routeur** (`src/Service/Router.php`) : Gestion des URLs et routage
-- **Contrôleurs** (`src/Controller/`) : Logique métier
-- **Services** (`src/Service/`) : Logique réutilisable
-- **Vues** (`views/`) : Présentation (PHP + HTML)
-- **Bootstrap** (`src/Core/Bootstrap.php`) : Initialisation applicative (erreurs, .env, session, CAS, CSRF)
+Le projet suit une **architecture MVC (Modèle-Vue-Contrôleur)** : point d'entrée unique (`public/index.php`), routeur (`config/routes.php`), contrôleurs et services PSR-4 (`src/`), vues (`views/`), initialisés par `src/Core/Bootstrap.php` (erreurs, `.env`, session 8 h, CAS, CSRF).
 
 Flux d'une requête :
 
 ```
 HTTP Request -> Apache .htaccess -> public/index.php -> Router::match() -> Controller::action() -> Response (HTML, JSON, redirect)
 ```
+
+Le détail — structure des dossiers, composants clés, création d'une page, bonnes pratiques — est documenté dans [ARCHITECTURE.md](ARCHITECTURE.md).
+
+### Flux des sous-titres en direct
+
+```
+Conference (dictée)                          Auditor (sous-titres)
+----------------------                       ----------------------
+Web Speech API (partiels 2-5x/s)
+  |  EcrirePartial
+  v
+POST /extract/transcription-sub
+  |  ExtractController::transcriptionSub
+  v
+/tmp/ottis/VerylastSub_{roomId}  <---------- POST /text/read-last-sub (poll 300 ms)
+   (dernière ligne = partiel courant)            TextController::readLastSub
+   (déjà traduit dans la langue des              (lecture depuis la fin, room token)
+    sous-titres de la conférence)                |
+                                                 |  langue auditor != langue des sous-titres ?
+                                                 v
+                                                POST /text/translate (throttle 1/5 par phrase)
+                                                 v
+                                               #fixed-title / #titre
+```
+
+Points clés :
+
+- Le partiel n'écrit que dans les zones sous-titres transitoires (`#fixed-title`, `#titre`) : le notebook et l'output de la vue Transcription restent alimentés uniquement par les lignes finalisées.
+- Les lignes finalisées empruntent un chemin distinct : `/text/save` -> `tmp/Link_{roomId}`, lues par le poll `/text/read` (2 s) ; elles remplacent le partiel à la fin de chaque phrase.
+- Les fichiers ne sont pas tous au même endroit : `VerylastSub_{roomId}` vit dans `sys_get_temp_dir()/ottis/` (répertoire système), `Link_{roomId}` et `Verylast_{roomId}` dans `tmp/` du projet. Toute nouvelle lecture/écriture doit viser le bon répertoire (voir le bug silencieux de `readTranscriptSub` dans `TODO.md`).
 
 ---
 

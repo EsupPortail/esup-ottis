@@ -131,6 +131,13 @@ Après modification des classes, exécuter :
 composer dump-autoload
 ```
 
+## 🖥️ Couche JavaScript (`public/js`)
+
+- **Points d'entrée** : `conference-init.js`, `auditor-init.js`, `home-init.js`
+- **Modules** : `lib/conference/`, `lib/auditor/`, `lib/chat/` (modules ES)
+- **État partagé** : `lib/state/store.js` (store commun conference/auditor, initialisé depuis `window.pageData`)
+- **Flux de données runtime** (fichiers `tmp/`, endpoints `/text/*`, sous-titres en direct) : voir la section « Flux des sous-titres en direct » du [README](README.md)
+
 ## 📝 Création d'une Nouvelle Page
 
 ### 1. Créer le Contrôleur
@@ -229,24 +236,25 @@ composer dump-autoload
 
 ### Tests
 ```bash
-# À créer : tests pour les contrôleurs
-./vendor/bin/phpunit tests/Controller/
+# PHP (à la racine du projet ; sur ce poste, vider LD_LIBRARY_PATH, voir README)
+LD_LIBRARY_PATH= php vendor/bin/phpunit
+
+# JavaScript (Vitest)
+cd public/js && LD_LIBRARY_PATH= npx vitest run
 ```
 
-## 📋 Tâches Restantes (Tâche 12)
+## 📋 Migration MVC (Tâche 12) — état
 
 - [x] Créer la structure de dossiers MVC
 - [x] Créer le Front Controller
 - [x] Créer le Routeur
 - [x] Créer le BaseController
 - [x] Créer un exemple de contrôleur (HomeController)
-- [x] Créer le layout par défaut
-- [x] Créer une vue d'exemple
+- [x] Créer les contrôleurs métier (Conference, Auditor, Text, Extract, etc.)
+- [x] Créer le layout par défaut et les vues de toutes les pages
 - [x] Configurer les routes
-- [ ] Créer les contrôleurs manquants (ConferenceController, AuditorController, etc.)
-- [ ] Migrer la logique des anciens fichiers PHP vers les contrôleurs
-- [ ] Créer les vues pour toutes les pages
-- [ ] Tester la compatibilité avec l'ancien code
+- [x] Migrer la logique des anciens fichiers PHP vers les contrôleurs
+- [x] Tester la compatibilité avec l'ancien code (PHPUnit : 39 tests)
 - [ ] Documenter les endpoints API
 
 ## 📞 Support
