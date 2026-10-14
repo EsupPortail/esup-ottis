@@ -9,8 +9,6 @@ $finder = Finder::create()
     ->exclude('vendor')
     ->exclude('tmp')
     ->exclude('uploads')
-    // Exclure les fichiers legacy pendant migration
-    ->notPath('Security/init.php')
     ->name('*.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);

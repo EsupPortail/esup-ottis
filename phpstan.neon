@@ -7,7 +7,6 @@ parameters:
         - tests/phpstan/stubs/GlobalConstants.php
     paths:
         - src
-        - Security
         - config
         - includes
     excludePaths:
@@ -16,7 +15,6 @@ parameters:
             - node_modules/*
             - tmp/*
             - uploads/*
-            - Security/init.php
             - src/Controller/UploadController.php
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false

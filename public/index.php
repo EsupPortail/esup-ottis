@@ -21,15 +21,16 @@ define('APP_VIEWS', APP_ROOT . '/views');
 // Ensure no output before headers
 ob_start();
 
-// Load Composer autoloader and Security init FIRST to have error handler available
+// Load Composer autoloader and bootstrap the application
 $autoloadPath = APP_ROOT . '/vendor/autoload.php';
 if (file_exists($autoloadPath)) {
     require $autoloadPath;
     try {
-        require_once APP_ROOT . '/Security/init.php';
-    } catch (Exception $e) {
-        error_log('Security/init.php load failed: ' . $e->getMessage());
-        // Continue without Security/init.php in case of error
+        \App\Core\Bootstrap::run();
+    } catch (\Exception $e) {
+        error_log('Bootstrap failed: ' . $e->getMessage());
+        // Continue en cas d'erreur (ex. CAS non configure : la barriere
+        // de controle CAS plus bas renverra 403 sur les routes protegees)
     }
 } else {
     // Fallback for development without Composer
@@ -48,21 +49,6 @@ header('Pragma: no-cache');
 header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
-
-// Load environment variables
-if (class_exists('Dotenv\Dotenv')) {
-    try {
-        $dotenv = \Dotenv\Dotenv::createImmutable(APP_ROOT);
-        $dotenv->safeLoad();
-    } catch (Exception $e) {
-        error_log('Dotenv load failed: ' . $e->getMessage());
-    }
-}
-
-// Initialize session
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 $casConfigPath = APP_ROOT . '/config/cas.php';
 $casConfig = [];
