@@ -16,8 +16,6 @@ parameters:
             - node_modules/*
             - tmp/*
             - uploads/*
-            - Security/sanitize.php
-            - Security/validate.php
             - Security/init.php
             - src/Controller/UploadController.php
     inferPrivatePropertyTypeFromConstructor: true

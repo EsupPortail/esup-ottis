@@ -59,11 +59,6 @@ if (class_exists('Dotenv\Dotenv')) {
     }
 }
 
-// Initialize sanitization functions
-if (file_exists(APP_ROOT . '/Security/sanitize.php')) {
-    require_once APP_ROOT . '/Security/sanitize.php';
-}
-
 // Initialize session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

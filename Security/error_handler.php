@@ -288,8 +288,8 @@ function handleShutdown(): void
             echo '<h2>Erreur Fatale</h2>';
             echo '<p>Une erreur fatale est survenue. L\'application ne peut pas continuer.</p>';
             if (!isProductionEnvironment()) {
-                echo '<p><small>Fichier: ' . e($error['file']) . ':' . e((string)$error['line']) . '</small></p>';
-                echo '<p><small>Message: ' . e($error['message']) . '</small></p>';
+                echo '<p><small>Fichier: ' . htmlspecialchars($error['file'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . ':' . htmlspecialchars((string)$error['line'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</small></p>';
+                echo '<p><small>Message: ' . htmlspecialchars($error['message'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</small></p>';
             }
             echo '</div>';
         }

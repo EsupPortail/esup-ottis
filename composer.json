@@ -14,8 +14,6 @@
     },
     "autoload": {
         "files": [
-            "Security/validate.php",
-            "Security/sanitize.php",
             "Security/logger.php"
         ],
         "psr-4": {

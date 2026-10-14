@@ -34,10 +34,6 @@ try {
     error_log('Dotenv load failed: ' . $e->getMessage());
 }
 
-// Inclure les fichiers de sécurité
-require_once __DIR__ . '/validate.php';
-require_once __DIR__ . '/sanitize.php';
-
 // Démarrer la session si ce n'est pas déjà fait
 if (session_status() === PHP_SESSION_NONE) {
     // Session longue duree (8h) : une conference ne doit pas perdre sa session
