@@ -61,6 +61,7 @@ if (!function_exists('ottis_asset_url')) {
     <script type="module" src="./js/lib/i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="<?php echo ottis_asset_url('./js/lib/analytics.js'); ?>"></script>
+    <script type="module" src="<?php echo ottis_asset_url('./js/lib/browser-detection.js'); ?>"></script>
 
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
@@ -130,8 +131,8 @@ if (isset($isAuditorPage) && $isAuditorPage) {
             </menu>
         </nav>
 
-        <div id="firefox-warning" class="alert-banner">
-            <p class="translate" data-key="index.alertBrowser">⚠️ Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <b>Chrome ou Edge</b> pour une expérience optimale.</p>
+        <div id="firefox-warning" class="alert-banner" role="alert">
+            <p class="translate" data-key="index.alertBrowser">Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <strong>Chrome ou Edge</strong> pour une expérience optimale.</p>
         </div>
     </header>
 

@@ -34,6 +34,7 @@ body {
 header.ottis-header {
     background-color: #051535;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -171,16 +172,40 @@ header.ottis-header {
 }
 
 .alert-banner {
-    background-color: #ff4444;
+    background-color: #b40000;
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
+    width: 100%;
     display: none;
+}
+
+/* Pop-up d'alerte navigateur (page accueil) */
+#browser-alert-dialog {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    max-width: 480px;
+    width: calc(100% - 32px);
+    margin: auto;
+    padding: 28px;
+}
+
+#browser-alert-dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#browser-alert-dialog h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1c1c2e;
+    margin-bottom: 12px;
+}
+
+#browser-alert-dialog p {
+    color: #1c1c2e;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 @media (max-width: 640px) {

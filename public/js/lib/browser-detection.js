@@ -16,6 +16,29 @@ export function isNotChromeOrEdge() {
 }
 
 /**
+ * Open the browser alert dialog when present on the page (home page only)
+ */
+const openBrowserAlertDialog = () => {
+  const dialog = document.getElementById('browser-alert-dialog');
+  if (!dialog || dialog.open) {
+    return;
+  }
+  const closeButton = document.getElementById('browser-alert-dialog-close');
+  const previouslyFocused = document.activeElement;
+
+  if (closeButton) {
+    closeButton.addEventListener('click', () => dialog.close(), { once: true });
+  }
+  dialog.addEventListener('close', () => {
+    if (previouslyFocused instanceof HTMLElement) {
+      previouslyFocused.focus();
+    }
+  }, { once: true });
+
+  dialog.showModal();
+};
+
+/**
  * Initialize browser detection and show warning banner if needed
  * Must be called after DOM is loaded
  */
@@ -26,6 +49,7 @@ export function initBrowserDetection() {
       warningElement.style.display = 'block';
     }
     document.body.classList.add('firefox-warning-active');
+    openBrowserAlertDialog();
   }
 }
 

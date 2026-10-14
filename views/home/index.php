@@ -49,6 +49,13 @@
             </div>
         </div>
     </div>
+
+    <!-- Pop-up d'alerte navigateur non supporte (RGAA : dialog natif, focus gere par showModal) -->
+    <dialog id="browser-alert-dialog" role="alertdialog" aria-labelledby="browser-alert-dialog-title" aria-describedby="browser-alert-dialog-message">
+        <h2 id="browser-alert-dialog-title" class="translate" data-key="index.alertBrowserTitle">Navigateur non supporté</h2>
+        <p id="browser-alert-dialog-message" class="translate" data-key="index.alertBrowser">Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <strong>Chrome ou Edge</strong> pour une expérience optimale.</p>
+        <button type="button" id="browser-alert-dialog-close" class="btn-primary translate" data-key="index.alertBrowserClose">Fermer</button>
+    </dialog>
 </div>
 
 <script>
