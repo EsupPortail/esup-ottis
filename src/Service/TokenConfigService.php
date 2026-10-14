@@ -131,7 +131,12 @@ class TokenConfigService
      */
     public function getLibreTranslateServer(): string
     {
-        return getenv('LIBRETRANSLATESERVER') ?: 'https://translate.terraprint.co/translate';
+        $server = $this->allTokens['LIBRETRANSLATESERVER'] ?? '';
+        if (is_array($server)) {
+            $server = $server[0] ?? '';
+        }
+
+        return trim((string) $server) ?: 'https://translate.terraprint.co/translate';
     }
 
     /**
