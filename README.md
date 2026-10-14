@@ -400,7 +400,34 @@ Ce projet est distribué sous la licence **Apache 2.0**.
 
 - **Fichier** : [LICENSE](LICENSE)
 - **Résumé** : Vous pouvez utiliser, modifier et distribuer ce logiciel selon les termes de la licence Apache 2.0.
-- **Auteurs** : Jérémie BOURDON, Jeanne DIONISI, Thibaut AURIACOMBE (Nantes Université)
+- **Auteurs OMIST** : Jérémie BOURDON, Jeanne DIONISI (Nantes Université), Thibaut AURIACOMBE (Nantes Université)
+- **Auteurs OTTIS** : Thibaut AURIACOMBE (Nantes Université)
+
+---
+
+## Usage de l'intelligence artificielle
+
+Le développement de ce projet a été assisté par des outils d'intelligence
+artificielle générative (agent de programmation IA), sous la supervision et la
+responsabilité pleine de l'équipe de développement.
+
+### Périmètre d'usage
+
+- Rédaction et remaniement de code PHP et JavaScript
+- Rédaction de la documentation technique (README, ARCHITECTURE)
+- Écriture de tests unitaires et d'intégration
+- Analyse statique, correction de bugs et revue de code assistée
+
+### Cadre et garanties
+
+- Tout code généré ou modifié par l'IA a été relu et validé par un membre de
+  l'équipe avant intégration
+- Les comportements sont vérifiés à la suite de tests (`make test`) et
+  d'analyse statique (`make check`)
+- L'IA n'a jamais eu accès à des secrets : les tokens API et mots de passe
+  restent hors du dépôt
+- Les choix d'architecture et les décisions fonctionnelles relèvent de
+  l'équipe ; l'IA est un outil d'assistance, pas un auteur
 
 ---
 
