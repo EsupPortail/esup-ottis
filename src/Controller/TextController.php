@@ -374,6 +374,59 @@ class TextController extends BaseController
     }
 
     /**
+     * Read the last partial subtitle line
+     *
+     * Returns the last non-empty line of tmp/VerylastSub_{ROOMID}: the partial
+     * subtitle (already in the conference subtitle language) published by the
+     * conference page while the speaker is still talking. Used by the auditor
+     * page to display live subtitles without waiting for the end of the line.
+     *
+     * @return void
+     */
+    public function readLastSub(): void
+    {
+        $roomid = (string) $this->postParam('ROOMID', '');
+        $roomToken = (string) $this->postParam('room_token', '');
+
+        if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $roomid)) {
+            $this->textResponse('');
+        }
+
+        if (!\App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
+            $this->jsonResponse(['error' => 'Token invalide.'], 403);
+        }
+
+        // ExtractController::transcriptionSub ecrit les partiels dans
+        // sys_get_temp_dir()/ottis/ : lire au meme endroit.
+        $filename = sys_get_temp_dir() . '/ottis/VerylastSub_' . $roomid;
+        if (!file_exists($filename) || !is_readable($filename)) {
+            $this->textResponse('');
+        }
+
+        $last = '';
+        $fd = @fopen($filename, 'r');
+        if ($fd !== false) {
+            // Lecture depuis la fin : le fichier grossit a chaque partiel publie
+            $size = (int) filesize($filename);
+            $window = 65536;
+            $start = max(0, $size - $window);
+            @fseek($fd, $start);
+            $chunk = (string) @fread($fd, $size - $start);
+            fclose($fd);
+            $lines = explode("\n", $chunk);
+            for ($i = count($lines) - 1; $i >= 0; $i--) {
+                $line = trim($lines[$i]);
+                if ($line !== '') {
+                    $last = $line;
+                    break;
+                }
+            }
+        }
+
+        $this->textResponse($last);
+    }
+
+    /**
      * Save text content
      *
      * Validates CSRF token and saves text content to tmp/Link file.

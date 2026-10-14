@@ -127,6 +127,11 @@ return [
         'action' => 'readTranscriptSub',
         'methods' => ['GET', 'POST']
     ],
+    '/text/read-last-sub' => [
+        'controller' => \App\Controller\TextController::class,
+        'action' => 'readLastSub',
+        'methods' => ['GET', 'POST']
+    ],
     '/text/read-vo' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readVO',

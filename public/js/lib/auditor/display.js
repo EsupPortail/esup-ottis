@@ -28,6 +28,19 @@ function EcrireNBSub(ch) {
 }
 
 /**
+ * @summary Function that update the subtitle divs with a partial line
+ * (live subtitle while the speaker is still dictating).
+ * @param {string} ch - The partial text to display.
+ */
+function EcrirePartialSub(ch) {
+  if (ch === undefined || ch === null || ch === '') return;
+  const titre = _('titre');
+  const fixedTitle = _('fixed-title');
+  if (titre) titre.innerHTML = window.DOMPurify.sanitize(ch);
+  if (fixedTitle) fixedTitle.innerHTML = window.DOMPurify.sanitize(ch);
+}
+
+/**
  * @summary Function that update the "output" div.
  * @param {string} ch - The text that is adding to the notebook.
  */
@@ -61,4 +74,4 @@ function showBanner(e) {
   if (el) el.style.transform = 'scale(1)';
 }
 
-export { EcrireNB, EcrireNBSub, Ecrire, hideBanner, showBanner };
+export { EcrireNB, EcrireNBSub, EcrirePartialSub, Ecrire, hideBanner, showBanner };
