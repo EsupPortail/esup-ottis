@@ -160,15 +160,8 @@ if ($isDevEnvironment) {
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
 
-    // Validate that we have a valid controller class
-    if (empty($controllerClass)) {
-        $match = null;
-    }
-}
-
-if ($match !== null) {
-    // Check if controller exists and is instantiable
-    if (class_exists($controllerClass)) {
+    // Check that we have a valid controller class
+    if (!empty($controllerClass) && class_exists($controllerClass)) {
         try {
             $controller = new $controllerClass($router);
 
@@ -245,6 +238,3 @@ if ($match !== null) {
     http_response_code(404);
     exit;
 }
-
-// Clean output buffer
-ob_end_flush();

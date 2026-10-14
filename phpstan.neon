@@ -9,13 +9,13 @@ parameters:
         - src
         - config
         - includes
+        - public/index.php
     excludePaths:
         analyse:
             - vendor/*
             - node_modules/*
             - tmp/*
             - uploads/*
-            - src/Controller/UploadController.php
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false
     checkDynamicProperties: true

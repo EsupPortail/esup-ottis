@@ -291,7 +291,7 @@ class UploadController extends BaseController
             $converted = false;
             error_log('[UPLOAD-DEBUG] 16. Attente conversion (max ' . $maxAttempts . ' tentatives)...');
 
-            while ($attempt < $maxAttempts && !$converted) {
+            while ($attempt < $maxAttempts) {
                 $attempt++;
                 error_log('[UPLOAD-DEBUG] 16a. Tentative ' . $attempt . '...');
                 if (file_exists($pdfPath)) {
