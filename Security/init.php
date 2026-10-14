@@ -19,7 +19,7 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
 }
 
 // Charger le gestionnaire d'erreurs centralisé
-require_once __DIR__ . '/error_handler.php';
+\App\Error\ErrorHandler::init();
 
 // Charger les variables d'environnement avec Dotenv
 try {
