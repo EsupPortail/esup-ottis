@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
-use App\Service\RoomPresence;
 use App\Service\RoomInfoService;
+use App\Service\RoomPresence;
 use App\Service\TokenConfigService;
 use App\Service\TranslatorStatsService;
 

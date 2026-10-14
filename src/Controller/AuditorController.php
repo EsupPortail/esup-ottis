@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
-use App\Service\RoomPresence;
 use App\Service\RandomNameGenerator;
+use App\Service\RoomPresence;
 
 /**
  * AuditorController - Handles the student/attendee view for conference rooms

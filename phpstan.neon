@@ -16,13 +16,9 @@ parameters:
             - node_modules/*
             - tmp/*
             - uploads/*
-            - Security/tmp/*
             - Security/sanitize.php
             - Security/validate.php
-            - Security/room_tokens.php
-            - Security/validate_room_token.php
             - Security/init.php
-            - Security/load_env.php
             - src/Controller/UploadController.php
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false

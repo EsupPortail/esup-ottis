@@ -33,10 +33,6 @@ if (file_exists($autoloadPath)) {
     }
 } else {
     // Fallback for development without Composer
-    $fallbackAutoload = APP_ROOT . '/Security/load_env.php';
-    if (file_exists($fallbackAutoload)) {
-        require $fallbackAutoload;
-    }
 }
 
 // Set default timezone
@@ -63,10 +59,6 @@ if (class_exists('Dotenv\Dotenv')) {
     }
 }
 
-// Initialize security functions
-if (file_exists(APP_ROOT . '/Security/load_env.php')) {
-    require_once APP_ROOT . '/Security/load_env.php';
-}
 // Initialize sanitization functions
 if (file_exists(APP_ROOT . '/Security/sanitize.php')) {
     require_once APP_ROOT . '/Security/sanitize.php';
