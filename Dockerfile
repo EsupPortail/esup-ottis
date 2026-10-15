@@ -1,10 +1,7 @@
 FROM php:8.2-fpm
 
 # Mettre à jour et installer les paquets
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libreoffice \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) \
+RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-core-nogui \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
