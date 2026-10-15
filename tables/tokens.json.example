@@ -1,5 +1,6 @@
 {
     "WHICHTRANSLATOR": ["DEEPLFREE"],
+    "LIBRETRANSLATESERVER": ["https://translate.terraprint.co/translate"],
     "GOOGLETOKENS": [],
     "DEEPLFREETOKENS": [],
     "DEEPLPROTOKENS": []

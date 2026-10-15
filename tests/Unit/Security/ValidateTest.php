@@ -3,11 +3,12 @@
 /**
  * Unit tests for Validation functions
  *
- * Tests pour les fonctions de validation dans Security/validate.php
+ * Tests pour la classe App\Utils\Validator
  */
 
 namespace OTTIS\Tests\Unit\Security;
 
+use App\Utils\Validator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 class ValidateTest extends TestCase
 {
     // ========================================================================
-    // validateRoomId() Tests
+    // Validator::validateRoomId() Tests
     // ========================================================================
 
     /**
@@ -38,7 +39,7 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($validIds as $roomId) {
-            $this->assertTrue(validateRoomId($roomId), "Failed for: $roomId");
+            $this->assertTrue(Validator::validateRoomId($roomId), "Failed for: $roomId");
         }
     }
 
@@ -76,7 +77,7 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($invalidIds as $roomId) {
-            $this->assertFalse(validateRoomId($roomId), 'Should be invalid: ' . var_export($roomId, true));
+            $this->assertFalse(Validator::validateRoomId($roomId), 'Should be invalid: ' . var_export($roomId, true));
         }
     }
 
@@ -86,20 +87,20 @@ class ValidateTest extends TestCase
     public function testValidateRoomIdEdgeCases(): void
     {
         // Exactly 64 characters
-        $this->assertTrue(validateRoomId(str_repeat('a', 64)));
+        $this->assertTrue(Validator::validateRoomId(str_repeat('a', 64)));
 
         // Exactly 1 character
-        $this->assertTrue(validateRoomId('a'));
+        $this->assertTrue(Validator::validateRoomId('a'));
 
         // Only underscores and hyphens
-        $this->assertTrue(validateRoomId('___---'));
+        $this->assertTrue(Validator::validateRoomId('___---'));
 
         // Only numbers
-        $this->assertTrue(validateRoomId('123456'));
+        $this->assertTrue(Validator::validateRoomId('123456'));
     }
 
     // ========================================================================
-    // sanitizeText() Tests
+    // Validator::sanitizeText() Tests
     // ========================================================================
 
     /**
@@ -108,7 +109,7 @@ class ValidateTest extends TestCase
     public function testSanitizeTextWithNormalText(): void
     {
         $text = 'Hello World';
-        $result = sanitizeText($text);
+        $result = Validator::sanitizeText($text);
         $this->assertEquals('Hello World', $result);
     }
 
@@ -118,7 +119,7 @@ class ValidateTest extends TestCase
     public function testSanitizeTextRemovesHtmlTags(): void
     {
         $text = '<script>alert("XSS")</script>Hello';
-        $result = sanitizeText($text);
+        $result = Validator::sanitizeText($text);
 
         $this->assertStringNotContainsString('<script>', $result);
         $this->assertStringNotContainsString('</script>', $result);
@@ -133,7 +134,7 @@ class ValidateTest extends TestCase
     public function testSanitizeTextEncodesHtmlEntities(): void
     {
         $text = '<b>Bold & Beautiful</b>';
-        $result = sanitizeText($text);
+        $result = Validator::sanitizeText($text);
 
         // strip_tags removes the <b> tags, htmlspecialchars encodes the &
         $this->assertStringNotContainsString('<b>', $result);
@@ -148,7 +149,7 @@ class ValidateTest extends TestCase
     public function testSanitizeTextReplacesNewlines(): void
     {
         $text = "Line 1\nLine 2\r\nLine 3\rLine 4";
-        $result = sanitizeText($text);
+        $result = Validator::sanitizeText($text);
 
         $this->assertStringNotContainsString("\n", $result);
         $this->assertStringNotContainsString("\r", $result);
@@ -161,7 +162,7 @@ class ValidateTest extends TestCase
     public function testSanitizeTextCollapsesMultipleSpaces(): void
     {
         $text = 'Hello    World';
-        $result = sanitizeText($text);
+        $result = Validator::sanitizeText($text);
 
         $this->assertEquals('Hello World', $result);
     }
@@ -172,7 +173,7 @@ class ValidateTest extends TestCase
     public function testSanitizeTextWithMaxLength(): void
     {
         $longText = str_repeat('a', 100);
-        $result = sanitizeText($longText, 50);
+        $result = Validator::sanitizeText($longText, 50);
 
         $this->assertEquals(50, strlen($result));
         $this->assertEquals(str_repeat('a', 50), $result);
@@ -184,21 +185,29 @@ class ValidateTest extends TestCase
     public function testSanitizeTextTrimsWhitespace(): void
     {
         $text = '  Hello World  ';
-        $result = sanitizeText($text);
+        $result = Validator::sanitizeText($text);
 
         $this->assertEquals('Hello World', $result);
     }
 
     /**
-     * Test sanitizeText with non-string input
+     * Test sanitizeText rejects non-string input
      */
-    public function testSanitizeTextWithNonStringInput(): void
+    public function testSanitizeTextRejectsNonStringInput(): void
     {
-        $this->assertEquals('', sanitizeText(null));
-        $this->assertEquals('', sanitizeText(123));
-        $this->assertEquals('', sanitizeText([]));
-        $this->assertEquals('', sanitizeText(new \stdClass()));
-        $this->assertEquals('', sanitizeText(true));
+        // Validator::sanitizeText est type string : les appelants valident
+        // le type en amont. En mode weak (pas de strict_types), les scalaires
+        // int/bool sont convertis ; seuls null/array/object levent TypeError
+        $caught = 0;
+        foreach ([null, [], new \stdClass()] as $value) {
+            try {
+                Validator::sanitizeText($value);
+                $this->fail('TypeError attendue pour : ' . var_export($value, true));
+            } catch (\TypeError $e) {
+                $caught++;
+            }
+        }
+        $this->assertSame(3, $caught);
     }
 
     /**
@@ -217,7 +226,7 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($xssPayloads as $testCase) {
-            $result = sanitizeText($testCase['input']);
+            $result = Validator::sanitizeText($testCase['input']);
 
             foreach ($testCase['should_not_contain'] as $forbidden) {
                 $this->assertStringNotContainsString(
@@ -234,7 +243,7 @@ class ValidateTest extends TestCase
     }
 
     // ========================================================================
-    // validateLanguage() Tests
+    // Validator::validateLanguage() Tests
     // ========================================================================
 
     /**
@@ -260,7 +269,7 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($validLanguages as $lang) {
-            $this->assertEquals($lang, validateLanguage($lang));
+            $this->assertEquals($lang, Validator::validateLanguage($lang));
         }
     }
 
@@ -284,7 +293,7 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($invalidInputs as $lang) {
-            $this->assertEquals('fr', validateLanguage($lang));
+            $this->assertEquals('fr', Validator::validateLanguage($lang));
         }
     }
 
@@ -294,17 +303,17 @@ class ValidateTest extends TestCase
     public function testValidateLanguageEdgeCases(): void
     {
         // Exactly 2 characters
-        $this->assertEquals('ab', validateLanguage('ab'));
+        $this->assertEquals('ab', Validator::validateLanguage('ab'));
 
         // Exactly 15 characters
-        $this->assertEquals(str_repeat('a', 15), validateLanguage(str_repeat('a', 15)));
+        $this->assertEquals(str_repeat('a', 15), Validator::validateLanguage(str_repeat('a', 15)));
 
         // Numeric language code (valid per regex)
-        $this->assertEquals('12', validateLanguage('12'));
+        $this->assertEquals('12', Validator::validateLanguage('12'));
     }
 
     // ========================================================================
-    // validateLineId() Tests
+    // Validator::validateLineId() Tests
     // ========================================================================
 
     /**
@@ -315,7 +324,7 @@ class ValidateTest extends TestCase
         $validIds = ['0', '1', '100', '999999', '-5', '3.14'];
 
         foreach ($validIds as $lineId) {
-            $result = validateLineId($lineId);
+            $result = Validator::validateLineId($lineId);
             $this->assertIsInt($result);
             $this->assertEquals((int)$lineId, $result);
         }
@@ -338,7 +347,7 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($invalidInputs as $lineId) {
-            $this->assertEquals(0, validateLineId($lineId));
+            $this->assertEquals(0, Validator::validateLineId($lineId));
         }
     }
 
@@ -347,13 +356,13 @@ class ValidateTest extends TestCase
      */
     public function testValidateLineIdWithIntegerInput(): void
     {
-        $this->assertEquals(123, validateLineId(123));
-        $this->assertEquals(0, validateLineId(0));
-        $this->assertEquals(-456, validateLineId(-456));
+        $this->assertEquals(123, Validator::validateLineId(123));
+        $this->assertEquals(0, Validator::validateLineId(0));
+        $this->assertEquals(-456, Validator::validateLineId(-456));
     }
 
     // ========================================================================
-    // validateTmpFilePath() Tests
+    // Validator::validateTmpFilePath() Tests
     // ========================================================================
 
     /**
@@ -366,7 +375,7 @@ class ValidateTest extends TestCase
 
         foreach ($validRoomIds as $roomId) {
             foreach ($validPrefixes as $prefix) {
-                $result = validateTmpFilePath($roomId, $prefix);
+                $result = Validator::validateTmpFilePath($roomId, $prefix);
                 $expected = 'tmp/' . $prefix . '_' . $roomId;
                 $this->assertEquals($expected, $result);
             }
@@ -378,7 +387,7 @@ class ValidateTest extends TestCase
      */
     public function testValidateTmpFilePathWithDefaultPrefix(): void
     {
-        $result = validateTmpFilePath('room123');
+        $result = Validator::validateTmpFilePath('room123');
         $this->assertEquals('tmp/Link_room123', $result);
     }
 
@@ -387,10 +396,12 @@ class ValidateTest extends TestCase
      */
     public function testValidateTmpFilePathWithInvalidRoomId(): void
     {
-        $invalidRoomIds = ['', 'room with spaces', 'room@test', 123, null, []];
+        // Validator::validateTmpFilePath est type string : les non-strings
+        // sont hors contrat (TypeError ou conversion PHP en mode weak)
+        $invalidRoomIds = ['', 'room with spaces', 'room@test'];
 
         foreach ($invalidRoomIds as $roomId) {
-            $this->assertFalse(validateTmpFilePath($roomId, 'Link'));
+            $this->assertFalse(Validator::validateTmpFilePath($roomId, 'Link'));
         }
     }
 
@@ -402,7 +413,7 @@ class ValidateTest extends TestCase
         $invalidPrefixes = ['Invalid', 'Test', '', 'Link2', 'link'];
 
         foreach ($invalidPrefixes as $prefix) {
-            $this->assertFalse(validateTmpFilePath('room123', $prefix));
+            $this->assertFalse(Validator::validateTmpFilePath('room123', $prefix));
         }
     }
 
@@ -414,13 +425,13 @@ class ValidateTest extends TestCase
         $validPrefixes = ['Link', 'Translated', 'Verylast', 'Image', 'ImageID', 'LinkQuestions'];
 
         foreach ($validPrefixes as $prefix) {
-            $result = validateTmpFilePath('test', $prefix);
+            $result = Validator::validateTmpFilePath('test', $prefix);
             $this->assertStringStartsWith('tmp/' . $prefix . '_', $result);
         }
     }
 
     // ========================================================================
-    // secureOpenTmpFile() Tests
+    // Validator::secureOpenTmpFile() Tests
     // ========================================================================
 
     /**
@@ -428,7 +439,7 @@ class ValidateTest extends TestCase
      */
     public function testSecureOpenTmpFileWithInvalidRoomId(): void
     {
-        $result = secureOpenTmpFile('', 'Link', 'r');
+        $result = Validator::secureOpenTmpFile('', 'Link', 'r');
         $this->assertFalse($result);
     }
 
@@ -437,7 +448,7 @@ class ValidateTest extends TestCase
      */
     public function testSecureOpenTmpFileWithInvalidPrefix(): void
     {
-        $result = secureOpenTmpFile('room123', 'InvalidPrefix', 'r');
+        $result = Validator::secureOpenTmpFile('room123', 'InvalidPrefix', 'r');
         $this->assertFalse($result);
     }
 
@@ -448,7 +459,7 @@ class ValidateTest extends TestCase
     {
         // Mock a roomId that would try to traverse directories
         // This should be caught by validateRoomId
-        $result = secureOpenTmpFile('../room', 'Link', 'r');
+        $result = Validator::secureOpenTmpFile('../room', 'Link', 'r');
         $this->assertFalse($result);
     }
 
@@ -467,7 +478,7 @@ class ValidateTest extends TestCase
 
         // For now, we verify that the function returns false for invalid paths
         // The actual file opening depends on the filesystem, which we can't reliably test
-        $result = secureOpenTmpFile('test', 'Link', 'r');
+        $result = Validator::secureOpenTmpFile('test', 'Link', 'r');
         // This will return false because the file doesn't exist, which is fine
         $this->assertIsBool($result);
     }
@@ -507,8 +518,8 @@ class ValidateTest extends TestCase
         ];
 
         foreach ($invalidInputs as $input) {
-            $pathResult = validateTmpFilePath($input['roomId'], $input['prefix']);
-            $fileResult = secureOpenTmpFile($input['roomId'], $input['prefix'], 'r');
+            $pathResult = Validator::validateTmpFilePath($input['roomId'], $input['prefix']);
+            $fileResult = Validator::secureOpenTmpFile($input['roomId'], $input['prefix'], 'r');
 
             // If path validation fails, file opening should also fail
             if ($pathResult === false) {
@@ -530,20 +541,20 @@ class ValidateTest extends TestCase
         $prefix = 'Link';
 
         // Step 1: Validate room ID
-        $this->assertTrue(validateRoomId($roomId));
+        $this->assertTrue(Validator::validateRoomId($roomId));
 
         // Step 2: Validate file path
-        $filePath = validateTmpFilePath($roomId, $prefix);
+        $filePath = Validator::validateTmpFilePath($roomId, $prefix);
         $this->assertStringStartsWith('tmp/Link_conference123', $filePath);
 
         // Step 3: Validate language
-        $this->assertEquals('en', validateLanguage('en'));
+        $this->assertEquals('en', Validator::validateLanguage('en'));
 
         // Step 4: Validate line ID
-        $this->assertEquals(42, validateLineId('42'));
+        $this->assertEquals(42, Validator::validateLineId('42'));
 
         // Step 5: Sanitize text
-        $text = sanitizeText('<script>test</script>');
+        $text = Validator::sanitizeText('<script>test</script>');
         $this->assertStringNotContainsString('<script>', $text);
     }
 }

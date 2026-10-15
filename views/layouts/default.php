@@ -57,15 +57,16 @@ if (!function_exists('ottis_asset_url')) {
     // i18n.js est aussi importe par des modules ES (URL nue, ex : import '../i18n.js').
     // La balise doit charger la MEME URL, sinon le module est instancie deux fois
     // (double passe de traduction). Pas de cache-busting (?v=) ici pour cette raison.
-    ?>
+?>
     <script type="module" src="./js/lib/i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script src="<?php echo ottis_asset_url('./js/lib/analytics.js'); ?>"></script>
+    <script type="module" src="<?php echo ottis_asset_url('./js/lib/browser-detection.js'); ?>"></script>
 
     <?php if (!empty($pageScripts)): ?>
         <?php foreach ($pageScripts as $script): ?>
             <?php
-            $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
+        $isModule = (strpos($script, '/js/') !== false && strpos($script, 'analytics.js') === false && strpos($script, 'node_modules') === false);
             $typeAttr = $isModule ? 'type="module"' : '';
             ?>
             <script <?php echo $typeAttr; ?> src="<?php echo $this->escape(ottis_asset_url($script)); ?>"></script>
@@ -130,8 +131,8 @@ if (isset($isAuditorPage) && $isAuditorPage) {
             </menu>
         </nav>
 
-        <div id="firefox-warning" class="alert-banner">
-            <p class="translate" data-key="index.alertBrowser">⚠️ Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <b>Chrome ou Edge</b> pour une expérience optimale.</p>
+        <div id="firefox-warning" class="alert-banner" role="alert">
+            <p class="translate" data-key="index.alertBrowser">Vous utilisez un navigateur non supporté. Certaines fonctionnalités peuvent ne pas s'afficher correctement. Nous vous recommandons d'utiliser <strong>Chrome ou Edge</strong> pour une expérience optimale.</p>
         </div>
     </header>
 

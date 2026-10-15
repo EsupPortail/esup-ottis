@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Utils\Logger;
+
 /**
  * UploadController - Handles presentation file upload with automatic conversion to PDF
  * All output files are PDF format for consistent display with PDF.js
@@ -109,7 +111,7 @@ class UploadController extends BaseController
         error_log('[UPLOAD-DEBUG] 4d. tmp_name: ' . $file['tmp_name']);
 
         // Log file info
-        log_info('Fichier: ' . $file['name'] . ', Taille: ' . $file['size'] . ', Type: ' . $file['type'] . ', Error: ' . $file['error']);
+        Logger::info('Fichier: ' . $file['name'] . ', Taille: ' . $file['size'] . ', Type: ' . $file['type'] . ', Error: ' . $file['error']);
 
         // Handle upload errors
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -136,7 +138,7 @@ class UploadController extends BaseController
                     break;
             }
             error_log('[UPLOAD-DEBUG] 5. Erreur upload: ' . $errorMessage . ' (code: ' . $file['error'] . ')');
-            log_error('ERREUR UPLOAD: ' . $errorMessage . ' (code: ' . $file['error'] . ')');
+            Logger::error('ERREUR UPLOAD: ' . $errorMessage . ' (code: ' . $file['error'] . ')');
             $this->jsonResponse([
                 'status' => 'error',
                 'message' => $errorMessage,
@@ -166,7 +168,7 @@ class UploadController extends BaseController
 
         if (!in_array($extension, $allowedExtensions)) {
             error_log('[UPLOAD-DEBUG] 7a. Extension non autorisée: ' . $extension);
-            log_error('ERREUR: Invalid file type: ' . $extension);
+            Logger::error('ERREUR: Invalid file type: ' . $extension);
             $this->jsonResponse([
                 'status' => 'error',
                 'message' => 'Invalid file type. Allowed: ' . implode(', ', $allowedExtensions)
@@ -187,7 +189,7 @@ class UploadController extends BaseController
 
         if (!in_array($detectedMime, $allowedMimeTypes)) {
             error_log('[UPLOAD-DEBUG] 8c. MIME non autorisé: ' . $detectedMime);
-            log_error('ERREUR: Invalid MIME type: ' . $detectedMime);
+            Logger::error('ERREUR: Invalid MIME type: ' . $detectedMime);
             $this->jsonResponse([
                 'status' => 'error',
                 'message' => 'Invalid MIME type. Detected: ' . $detectedMime
@@ -201,7 +203,7 @@ class UploadController extends BaseController
         error_log('[UPLOAD-DEBUG] 9. Vérification taille: ' . $file['size'] . ' octets (max: ' . $maxFileSize . ')');
         if ($file['size'] > $maxFileSize) {
             error_log('[UPLOAD-DEBUG] 9a. Fichier trop grand');
-            log_error('ERREUR: File too large (' . $file['size'] . ' bytes)');
+            Logger::error('ERREUR: File too large (' . $file['size'] . ' bytes)');
             $this->jsonResponse([
                 'status' => 'error',
                 'message' => 'File too large. Maximum size: 50MB'
@@ -216,7 +218,7 @@ class UploadController extends BaseController
             error_log('[UPLOAD-DEBUG] 10a. Répertoire inexistant, création...');
             if (!mkdir($this->uploadDir, 0755, true)) {
                 error_log('[UPLOAD-DEBUG] 10b. ÉCHEC création répertoire');
-                log_error('ERREUR: Failed to create upload directory');
+                Logger::error('ERREUR: Failed to create upload directory');
                 $this->jsonResponse([
                     'status' => 'error',
                     'message' => 'Failed to create upload directory'
@@ -238,7 +240,7 @@ class UploadController extends BaseController
         error_log('UploadController: Moving file from ' . $file['tmp_name'] . ' to ' . $targetPath);
         if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
             error_log('[UPLOAD-DEBUG] 12a. ÉCHEC déplacement du fichier');
-            log_error('ERREUR: Failed to save uploaded file');
+            Logger::error('ERREUR: Failed to save uploaded file');
             $this->jsonResponse([
                 'status' => 'error',
                 'message' => 'Failed to save uploaded file'
@@ -289,7 +291,7 @@ class UploadController extends BaseController
             $converted = false;
             error_log('[UPLOAD-DEBUG] 16. Attente conversion (max ' . $maxAttempts . ' tentatives)...');
 
-            while ($attempt < $maxAttempts && !$converted) {
+            while ($attempt < $maxAttempts) {
                 $attempt++;
                 error_log('[UPLOAD-DEBUG] 16a. Tentative ' . $attempt . '...');
                 if (file_exists($pdfPath)) {
@@ -304,7 +306,7 @@ class UploadController extends BaseController
             // Check if conversion succeeded
             if ($converted && file_exists($pdfPath)) {
                 error_log('[UPLOAD-DEBUG] 17. Conversion réussie !');
-                log_info('SUCCÈS: Conversion réussie (attempts: ' . $attempt . ')');
+                Logger::info('SUCCÈS: Conversion réussie (attempts: ' . $attempt . ')');
                 // Remove original file (PPTX or ODP)
                 unlink($targetPath);
                 $targetPath = $pdfPath;
@@ -317,7 +319,7 @@ class UploadController extends BaseController
                 if (file_exists($targetPath)) {
                     unlink($targetPath);
                 }
-                log_error('ERREUR CONVERSION: ' . implode(' ', $output) . ' (attempts: ' . $attempt . ')');
+                Logger::error('ERREUR CONVERSION: ' . implode(' ', $output) . ' (attempts: ' . $attempt . ')');
                 $this->jsonResponse([
                     'status' => 'error',
                     'message' => 'Failed to convert file to PDF',
@@ -330,7 +332,7 @@ class UploadController extends BaseController
         }
 
         error_log('[UPLOAD-DEBUG] 19. Préparation réponse finale...');
-        log_info('Réponse: ' . json_encode([
+        Logger::info('Réponse: ' . json_encode([
             'status' => 'success',
             'file' => $targetPath,
             'exists' => file_exists($targetPath) ? 'YES' : 'NO'

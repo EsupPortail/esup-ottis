@@ -9,7 +9,7 @@
 http_response_code(404);
 
 // Si on est en production, ne pas afficher de détails sensibles
-$showDetails = !function_exists('isProductionEnvironment') || !isProductionEnvironment();
+$showDetails = !\App\Error\ErrorHandler::isProduction();
 
 ?>
 <!DOCTYPE html>

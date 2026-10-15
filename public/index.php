@@ -21,22 +21,19 @@ define('APP_VIEWS', APP_ROOT . '/views');
 // Ensure no output before headers
 ob_start();
 
-// Load Composer autoloader and Security init FIRST to have error handler available
+// Load Composer autoloader and bootstrap the application
 $autoloadPath = APP_ROOT . '/vendor/autoload.php';
 if (file_exists($autoloadPath)) {
     require $autoloadPath;
     try {
-        require_once APP_ROOT . '/Security/init.php';
-    } catch (Exception $e) {
-        error_log('Security/init.php load failed: ' . $e->getMessage());
-        // Continue without Security/init.php in case of error
+        \App\Core\Bootstrap::run();
+    } catch (\Exception $e) {
+        error_log('Bootstrap failed: ' . $e->getMessage());
+        // Continue en cas d'erreur (ex. CAS non configure : la barriere
+        // de controle CAS plus bas renverra 403 sur les routes protegees)
     }
 } else {
     // Fallback for development without Composer
-    $fallbackAutoload = APP_ROOT . '/Security/load_env.php';
-    if (file_exists($fallbackAutoload)) {
-        require $fallbackAutoload;
-    }
 }
 
 // Set default timezone
@@ -52,30 +49,6 @@ header('Pragma: no-cache');
 header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
-
-// Load environment variables
-if (class_exists('Dotenv\Dotenv')) {
-    try {
-        $dotenv = \Dotenv\Dotenv::createImmutable(APP_ROOT);
-        $dotenv->safeLoad();
-    } catch (Exception $e) {
-        error_log('Dotenv load failed: ' . $e->getMessage());
-    }
-}
-
-// Initialize security functions
-if (file_exists(APP_ROOT . '/Security/load_env.php')) {
-    require_once APP_ROOT . '/Security/load_env.php';
-}
-// Initialize sanitization functions
-if (file_exists(APP_ROOT . '/Security/sanitize.php')) {
-    require_once APP_ROOT . '/Security/sanitize.php';
-}
-
-// Initialize session
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 $casConfigPath = APP_ROOT . '/config/cas.php';
 $casConfig = [];
@@ -187,15 +160,8 @@ if ($isDevEnvironment) {
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
 
-    // Validate that we have a valid controller class
-    if (empty($controllerClass)) {
-        $match = null;
-    }
-}
-
-if ($match !== null) {
-    // Check if controller exists and is instantiable
-    if (class_exists($controllerClass)) {
+    // Check that we have a valid controller class
+    if (!empty($controllerClass) && class_exists($controllerClass)) {
         try {
             $controller = new $controllerClass($router);
 
@@ -243,16 +209,12 @@ if ($match !== null) {
             }
         } catch (\Throwable $e) {
             // Log error with Monolog
-            if (function_exists('log_error')) {
-                log_error('Controller Error: {error}', [
-                    'error' => $e->getMessage(),
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                    'trace' => $e->getTraceAsString()
-                ]);
-            } else {
-                error_log('Controller Error: ' . $e->getMessage());
-            }
+            \App\Utils\Logger::error('Controller Error: {error}', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ]);
 
             // Display error if display_errors is enabled (for debugging)
             if (ini_get('display_errors')) {
@@ -276,6 +238,3 @@ if ($match !== null) {
     http_response_code(404);
     exit;
 }
-
-// Clean output buffer
-ob_end_flush();

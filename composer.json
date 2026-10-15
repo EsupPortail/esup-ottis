@@ -13,14 +13,6 @@
         "phpunit/phpunit": "^10.0"
     },
     "autoload": {
-        "files": [
-            "Security/validate.php",
-            "Security/sanitize.php",
-            "Security/room_tokens.php",
-            "Security/validate_room_token.php",
-            "Security/load_env.php",
-            "Security/logger.php"
-        ],
         "psr-4": {
             "App\\": "src/"
         }

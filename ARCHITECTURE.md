@@ -12,27 +12,24 @@ ottis/
 ├── src/                     # Code source PHP (PSR-4)
 │   ├── Controller/          # Contrôleurs MVC
 │   │   ├── BaseController.php  # Classe de base des contrôleurs
-│   │   └── HomeController.php  # Exemple: contrôleur de la page d'accueil
-│   ├── Model/               # Modèles (à créer)
+│   │   └── UploadController.php, ... (contrôleurs métier)
+│   ├── Core/                # Bootstrap de l'application
+│   │   └── Bootstrap.php    # ErrorHandler -> Dotenv -> session 8h -> CAS -> CSRF
+│   ├── Error/               # Gestion des erreurs
+│   │   └── ErrorHandler.php # Handlers PHP + pages d'erreur
 │   ├── Service/             # Services
-│   │   └── Router.php       # Routeur HTTP
+│   │   └── Router.php, ... (services métier)
 │   ├── Utils/               # Utilitaires
-│   └── Security/            # Sécurité (existants)
-│       ├── Csrf.php         # Protection CSRF
-│       ├── Sanitizer.php    # Sanitization
-│       └── Validator.php     # Validation
+│   │   └── Csrf.php, Logger.php, Sanitizer.php, Validator.php, ...
+│   └── Security/            # Sécurité
+│       ├── CasAuthenticator.php  # Authentification CAS
+│       └── RoomTokenManager.php  # Tokens par salle
 ├── views/                   # Vues MVC
-│   ├── home/                # Vues de la page d'accueil
-│   │   └── index.php        # Vue d'accueil
-│   ├── layouts/             # Layouts
-│   │   └── default.php      # Layout par défaut
-│   ├── conference/          # Vues de la conference (à créer)
-│   └── partials/            # Partials (à créer)
-├── assets/                  # Assets statiques (à créer)
-│   ├── css/
-│   ├── js/
-│   └── images/
-└── config.php              # Configuration (existante)
+│   ├── layouts/             # Layouts (default.php)
+│   ├── errors/              # Pages d'erreur (404, 500, maintenance)
+│   └── auditor/, conference/, ... (vues métier)
+├── includes/                # Includes procéduraux (chat-component.php)
+└── tables/                  # Données applicatives (tokens.json des traducteurs)
 ```
 
 ## 🎯 Composants Clés
@@ -41,11 +38,10 @@ ottis/
 - **Rôle** : Point d'entrée unique pour toutes les requêtes HTTP
 - **Fonctionnalités** :
   - Initialisation de l'autoloading Composer
-  - Chargement des variables d'environnement
+  - Bootstrap applicatif : \App\Core\Bootstrap::run() (erreurs, .env, session 8h, CAS, CSRF)
   - Création du routeur
   - Routage des requêtes vers les contrôleurs
   - Gestion des erreurs
-  - Compatibilité ascendante avec l'ancien code
 
 ### 2. Routeur (`src/Service/Router.php`)
 - **Rôle** : Analyser les requêtes HTTP et les associer aux contrôleurs
@@ -135,6 +131,13 @@ Après modification des classes, exécuter :
 composer dump-autoload
 ```
 
+## 🖥️ Couche JavaScript (`public/js`)
+
+- **Points d'entrée** : `conference-init.js`, `auditor-init.js`, `home-init.js`
+- **Modules** : `lib/conference/`, `lib/auditor/`, `lib/chat/` (modules ES)
+- **État partagé** : `lib/state/store.js` (store commun conference/auditor, initialisé depuis `window.pageData`)
+- **Flux de données runtime** (fichiers `tmp/`, endpoints `/text/*`, sous-titres en direct) : voir la section « Flux des sous-titres en direct » du [README](README.md)
+
 ## 📝 Création d'une Nouvelle Page
 
 ### 1. Créer le Contrôleur
@@ -186,17 +189,15 @@ Ajouter dans `config/routes.php` :
 ],
 ```
 
-## 🔄 Compatibilité Ascendante
+## 🔄 Migration depuis l'ancienne couche Security/
 
-Le Front Controller maintient la compatibilité avec l'ancien code de plusieurs manières :
+La couche procédurale `Security/` a été entièrement migrée en classes PSR-4 :
 
-1. **Fallback vers les anciens fichiers PHP** : Si aucune route ne correspond, le système tente de trouver le fichier PHP correspondant à la racine.
+1. **Bootstrap** (`App\Core\Bootstrap`) : séquence erreurs -> .env -> session (8h) -> CAS -> CSRF, appelée depuis `public/index.php`.
 
-2. **Maintien des URLs existantes** : Les routes pour `/conference.php`, `/auditor.php`, etc. sont définies dans le routeur.
+2. **Correspondances** : `Security/logger.php` -> `App\Utils\Logger` ; `Security/error_handler.php` -> `App\Error\ErrorHandler` ; `Security/init.php` (CAS) -> `App\Security\CasAuthenticator` ; `Security/room_tokens.php` + `validate_room_token.php` -> `App\Security\RoomTokenManager` ; `Security/validate.php`/`sanitize.php` -> `App\Utils\Validator`/`Sanitizer`.
 
-3. **Inclusion des fichiers de configuration existants** : Les fichiers comme `Security/load_env.php` sont toujours chargés.
-
-4. **Gestion des sessions** : La session est initialisée automatiquement dans le BaseController.
+3. **Plus de fichiers chargés à chaque requête** : l'autoloading est exclusivement PSR-4 (`App\` -> `src/`).
 
 ## 📊 Bonnes Pratiques
 
@@ -235,24 +236,25 @@ composer dump-autoload
 
 ### Tests
 ```bash
-# À créer : tests pour les contrôleurs
-./vendor/bin/phpunit tests/Controller/
+# PHP (à la racine du projet ; sur ce poste, vider LD_LIBRARY_PATH, voir README)
+LD_LIBRARY_PATH= php vendor/bin/phpunit
+
+# JavaScript (Vitest)
+cd public/js && LD_LIBRARY_PATH= npx vitest run
 ```
 
-## 📋 Tâches Restantes (Tâche 12)
+## 📋 Migration MVC (Tâche 12) — état
 
 - [x] Créer la structure de dossiers MVC
 - [x] Créer le Front Controller
 - [x] Créer le Routeur
 - [x] Créer le BaseController
 - [x] Créer un exemple de contrôleur (HomeController)
-- [x] Créer le layout par défaut
-- [x] Créer une vue d'exemple
+- [x] Créer les contrôleurs métier (Conference, Auditor, Text, Extract, etc.)
+- [x] Créer le layout par défaut et les vues de toutes les pages
 - [x] Configurer les routes
-- [ ] Créer les contrôleurs manquants (ConferenceController, AuditorController, etc.)
-- [ ] Migrer la logique des anciens fichiers PHP vers les contrôleurs
-- [ ] Créer les vues pour toutes les pages
-- [ ] Tester la compatibilité avec l'ancien code
+- [x] Migrer la logique des anciens fichiers PHP vers les contrôleurs
+- [x] Tester la compatibilité avec l'ancien code (PHPUnit : 39 tests)
 - [ ] Documenter les endpoints API
 
 ## 📞 Support

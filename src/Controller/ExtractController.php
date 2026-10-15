@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Utils\PPTXNotesExtractor;
 
+if (!defined('APP_ROOT')) {
+    define('APP_ROOT', dirname(__DIR__, 2));
+}
+
 /**
  * ExtractController - Handles PowerPoint and document extraction operations
  */

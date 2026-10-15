@@ -1,10 +1,6 @@
 # Ignore configuration and secret files
 config.php
 config OLD.php
-OTTIS_Tools/config.py
-OTTIS_Tools/configOT.php
-OTTIS_Tools/config_database.php
-OTTIS_Tools/config_sh
 tables/tokens.json
 # Ignore environment and local files
 .env
@@ -16,7 +12,6 @@ package-lock.json
 public/js/package*.json
 
 # Ignore generated and temporary files
-OTTIS_Tools/__pycache__/
 node_modules/
 tmp/
 .cache/
@@ -47,6 +42,7 @@ public/js/vitest.config.js
 .vibe/
 AGENTS.md
 vibe-safe
+TODO.md
 
 # Ignore test files
 public/test*.php
@@ -72,5 +68,3 @@ composer.phar
 tables/tokens_OLD.json
 
 README_OLD.md
-
-vibe-safe

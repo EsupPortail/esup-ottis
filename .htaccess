@@ -1,81 +1,75 @@
-# Apache configuration for OTTIS Front Controller
-# This file routes all requests to the public/index.php Front Controller
-
-# Disable OPcache for debugging
+# Apache configuration for OTTIS application
+# Main .htaccess file - redirects to public/ directory
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
-    # If the request is for an existing file or directory in /public, serve it directly
-    RewriteCond %{REQUEST_FILENAME} -f [OR]
-    RewriteCond %{REQUEST_FILENAME} -d [OR]
+    # FORCER le passage par index.php pour toutes les routes API (readimage, translate, etc.)
+    # Exception : fichiers statiques (css, js, images)
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+    RewriteCond %{REQUEST_URI} !^/(js/|css/|images/|libs/|lang/|favicon\.ico)
+    RewriteRule ^ - [L]
+    
+    RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+    RewriteRule ^ - [L]
+    
     RewriteCond %{REQUEST_FILENAME} -l
     RewriteRule ^ - [L]
     
-    # Serve index.php for all non-existing files/dirs with PATH_INFO
+    # Redirect all other requests to /public/index.php with PATH_INFO
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php/$1 [PT,L]
-    
-    # All 404s are handled by FallbackResource in root .htaccess
+    RewriteRule ^(.*)$ /public/index.php/$1 [PT,L,QSA]
 </IfModule>
 
-# Custom error documents - Handled by FallbackResource in root .htaccess
-
-# Security: Disable directory listing
+# Désactiver l'indexation des répertoires
 Options -Indexes
 
-# Security: Protect sensitive files
-<FilesMatch "\.(env|log|sql|md|lock|yml|yaml|xml|ini|conf|config)$">
+# Bloquer l'accès direct aux fichiers uploadés
+RewriteEngine On
+
+# Empêcher le listing des répertoires
+Options -Indexes
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://analytics.univ-nantes.fr; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://api.deepl.com https://app.wooclap.com https://analytics.univ-nantes.fr; frame-src https://app.wooclap.com; worker-src 'self' blob:;"
+</IfModule>
+
+# Prevent access to sensitive files
+<FilesMatch "^\.">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Deny from all
+</FilesMatch>
+
+# Block access to environment files
+<FilesMatch "\.(env|local|dist|example)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
     </IfModule>
 </FilesMatch>
 
-# Set PHP version (if available)
-# Requires PHP 8.1+
+# PHP settings
 <IfModule mod_php.c>
-    AddHandler "php81-script" .php
-</IfModule>
-
-# Cache control for static files
-<IfModule mod_expires.c>
-    ExpiresActive On
-    ExpiresByType image/jpg "access 1 year"
-    ExpiresByType image/jpeg "access 1 year"
-    ExpiresByType image/png "access 1 year"
-    ExpiresByType image/gif "access 1 year"
-    ExpiresByType image/svg+xml "access 1 year"
-    ExpiresByType font/woff "access 1 month"
-    ExpiresByType font/woff2 "access 1 month"
-    ExpiresByType font/ttf "access 1 month"
-</IfModule>
-
-# JavaScript et CSS : revalidation systemematique (304) obligatoire.
-# Les modules ES sont importes via des URL brutes (non versionnees) :
-# un cache long figerait des versions intermediaires du graphe de modules
-# (ex. display.js ancien appele par handlers.js + display.js nouveau en entree).
-<IfModule mod_headers.c>
-    Header set Cache-Control "no-cache" "expr=%{CONTENT_TYPE} =~ m|javascript|"
-    Header set Cache-Control "no-cache" "expr=%{CONTENT_TYPE} =~ m|^text/css|"
-</IfModule>
-
-# Compress text files
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
-</IfModule>
-
-# =============================================================================
-# Upload Settings - Increase file upload limits
-# =============================================================================
-<IfModule mod_php.c>
-    php_value upload_max_filesize 50M
-    php_value post_max_size 50M
-    php_value max_file_uploads 20
+    php_value upload_max_filesize 100M
+    php_value post_max_size 100M
     php_value max_execution_time 300
-    php_value max_input_time 300
+    php_value memory_limit 512M
+    php_flag display_errors Off
+    php_flag log_errors On
 </IfModule>
+
+# Custom error documents - Handled by mod_rewrite in /public/.htaccess (removed to prevent Apache from sending error headers before PHP)
+# ErrorDocument 400 /public/index.php
+# ErrorDocument 401 /public/index.php
+# ErrorDocument 403 /public/index.php
+# ErrorDocument 404 /public/index.php
+# ErrorDocument 500 /public/index.php
+# ErrorDocument 502 /public/index.php
+# ErrorDocument 503 /public/index.php
+# ErrorDocument 504 /public/index.php

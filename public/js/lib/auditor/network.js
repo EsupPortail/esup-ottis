@@ -8,7 +8,7 @@ import { CompleteTranslation } from './translation.js';
 import { increasependingrequests, decreasependingrequests } from '../utils/request-counter.js';
 import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
-import { EcrireNB, EcrireNBSub } from './display.js';
+import { EcrireNB, EcrireNBSub, EcrirePartialSub } from './display.js';
 import { setLiveStatus } from './live-status.js';
 import { getBuiltinVoice, getBuiltinLanguage, isConferenceLive, setConferenceLive } from '../state/auditor.js';
 import {
@@ -17,8 +17,176 @@ import {
     incrementCurrentOrder, getInputNumber, setInputNumber,
     setLine,
     setToSayKey, getLastNotebookVOContent, setLastNotebookVOContent,
+    getAllLines,
     get
 } from '../state/shared.js';
+
+/**
+ * Sous-titres en direct : la conference publie le partiel en cours de dictee
+ * (deja traduit dans la langue des sous-titres de la conference) dans
+ * tmp/VerylastSub via /extract/transcription-sub. L'auditor affiche la
+ * derniere ligne publiee sans attendre la fin de la ligne.
+ */
+let lastPartialSub = '';
+let lastPartialSubTranslated = '';
+let partialSubTranslationNum = 0;
+let partialSubRequestInFlight = false;
+const PARTIAL_SUB_TRANSLATION_FREQ = 5;
+
+/**
+ * @summary Langue choisie par l'auditor (pop-up Langue / panneau Langue).
+ * @returns {string} Code sur 2 caracteres ('fr'), '' si inconnue.
+ */
+function getAuditorLanguage() {
+  const builtinVoice = getBuiltinVoice();
+  const builtinLanguage = getBuiltinLanguage();
+  if (builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
+    return builtinVoice.lang.substr(0, 2).toLowerCase();
+  }
+  if (builtinLanguage && typeof builtinLanguage === 'string') {
+    return builtinLanguage.substr(0, 2).toLowerCase();
+  }
+  return '';
+}
+
+/**
+ * @summary Langue des sous-titres de la conference (index 1 de currentconfig).
+ * Le partiel publie dans VerylastSub est dans cette langue.
+ * @returns {string} Code sur 2 caracteres, '' si inconnue.
+ */
+function getConferenceSubtitleLanguage() {
+  // Source de verite : la derniere ligne finalisee recue (tmp/Link_ contient
+  // la langue cible = langue des sous-titres de la conference, donc celle
+  // des partiels publies dans VerylastSub).
+  const allLines = getAllLines() || {};
+  const ids = Object.keys(allLines).sort((a, b) => (a * 1) - (b * 1));
+  for (let i = ids.length - 1; i >= 0; i--) {
+    const line = allLines[ids[i]];
+    if (line && line.targetLang && typeof line.targetLang === 'string') {
+      return line.targetLang.substr(0, 2).toLowerCase();
+    }
+  }
+
+  // Repli (aucune ligne finalisee recue) : index 1 de currentconfig.
+  // supportedlanguages est un objet PHP indexe par code langue (pas un
+  // tableau) : numeroter par insertion (ordre du CSV preserve).
+  const config = get('currentconfig') || '';
+  if (typeof config !== 'string' || config.length < 2) return '';
+  const supported = get('supportedlanguages') || [];
+  const languages = Array.isArray(supported) ? supported : Object.values(supported);
+  const index = config.charCodeAt(1) - 65;
+  const lang = languages[index] && languages[index].code;
+  return (typeof lang === 'string' && lang) ? lang.substr(0, 2).toLowerCase() : '';
+}
+
+/**
+ * @summary Traduit un partiel via /text/translate (lineid DIRECT, comme en conference).
+ */
+function translatePartialSub(ch, targetLang, sourceLang, callback) {
+  const f = new FormData();
+  f.append('texte', ch);
+  f.append('lang', targetLang);
+  f.append('langinput', sourceLang);
+  f.append('ROOMID', _('classroomid').value);
+  f.append('lineid', 'DIRECT');
+  addCsrfToken(f);
+
+  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
+    onSuccess(response) {
+      let translated = '';
+      try {
+        const parsedResponse = JSON.parse(response.responseText);
+        if ((!parsedResponse.error) && parsedResponse.data && parsedResponse.data.translations
+          && parsedResponse.data.translations[0] && parsedResponse.data.translations[0].text) {
+          translated = parsedResponse.data.translations[0].text;
+        }
+      } catch (error) {
+        console.error('translatePartialSub: JSON parse error:', error);
+      }
+      if (callback) callback(translated);
+    },
+    onError(response, context) {
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('translatePartialSub request failed. Context:', context);
+      }
+      if (callback) callback('');
+    },
+    data: f,
+    timeout: 5000,
+    context: 'translatePartialSub',
+  });
+  request.send();
+}
+
+/**
+ * @summary Affiche le partiel recu, traduit si la langue de l'auditor
+ * differe de la langue des sous-titres de la conference.
+ * Throttle 1/PARTIAL_SUB_TRANSLATION_FREQ identique a conference
+ * (EcrireTranslatePartial / LiveTranslationFreq).
+ */
+function displayPartialSub(partial) {
+  const auditorLang = getAuditorLanguage();
+  const subtitleLang = getConferenceSubtitleLanguage();
+
+  // Langue inconnue ou identique : affichage direct du partiel publie
+  if (!subtitleLang || !auditorLang || auditorLang === subtitleLang) {
+    lastPartialSubTranslated = '';
+    EcrirePartialSub(partial);
+    return;
+  }
+
+  if (partialSubTranslationNum % PARTIAL_SUB_TRANSLATION_FREQ === 0) {
+    translatePartialSub(partial, auditorLang, subtitleLang, (translated) => {
+      if (translated) {
+        lastPartialSubTranslated = translated;
+        EcrirePartialSub(translated);
+      }
+    });
+  } else if (lastPartialSubTranslated) {
+    EcrirePartialSub(lastPartialSubTranslated);
+  }
+  partialSubTranslationNum++;
+}
+
+/**
+ * @summary Poll la derniere ligne partielle publiee par la conference
+ * et l'affiche immediatement dans la zone de sous-titres.
+ */
+function readTextPartial() {
+  if (_('classroomid').value === '' || _('classroomid').value === 'UNKNOWN') return;
+  if (partialSubRequestInFlight) return;
+  partialSubRequestInFlight = true;
+
+  const f = new FormData();
+  f.append('ROOMID', _('classroomid').value);
+  f.append('room_token', getRoomToken());
+  addCsrfToken(f);
+
+  const request = createFetchRequest('POST', getBasePath() + '/text/read-last-sub', {
+    onSuccess(response) {
+      partialSubRequestInFlight = false;
+      const partial = response.responseText.trim();
+      if (partial === '' || partial === lastPartialSub) return;
+      // Nouvelle phrase : le partiel ne prolonge pas le precedent,
+      // reinitialiser le throttle pour traduire immediatement.
+      if (!partial.startsWith(lastPartialSub)) {
+        partialSubTranslationNum = 0;
+      }
+      lastPartialSub = partial;
+      displayPartialSub(partial);
+    },
+    onError(response, context) {
+      partialSubRequestInFlight = false;
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        console.error('readTextPartial request failed. Context:', context);
+      }
+    },
+    data: f,
+    timeout: 4000,
+    context: 'readTextPartial',
+  });
+  request.send();
+}
 
 /**
  * @summary Verify if there is something new pronounced by the teacher (MAIN queue).
@@ -497,4 +665,4 @@ function checkConferenceStatus() {
   request.send();
 }
 
-export { readText, readTextSub, readTextSubTranscript, checkConferenceStatus /* readImage DISABLED */ };
+export { readText, readTextSub, readTextSubTranscript, readTextPartial, checkConferenceStatus /* readImage DISABLED */ };

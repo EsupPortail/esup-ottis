@@ -4,7 +4,7 @@ import { _ } from '../dom/selector.js';
  */
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
 import { isLanguageSelected, setGotolive } from '../state/shared.js';
-import { readText, checkConferenceStatus } from './network.js';
+import { readText, readTextPartial, checkConferenceStatus } from './network.js';
 import { startChatStream } from '../chat/sse.js';
 import { defaultMessageHandler } from '../chat/handlers.js';
 import { setupChatInput } from '../chat/input.js';
@@ -43,6 +43,14 @@ function startAuditorPolling() {
           // readImage(); // DISABLED - Obsolete image sharing
         }
       }, 2000);
+
+      // Sous-titres en direct : poll rapide du partiel en cours (VerylastSub),
+      // affiche immediatement sans attendre la fin de la ligne (comme en conference)
+      safeSetInterval(() => {
+        if (typeof _ !== 'undefined' && _('classroomid') && _('classroomid').value !== '') {
+          readTextPartial();
+        }
+      }, 300);
 
       // Flux SSE du tchat (remplace le polling, désactivé en attente du SSE)
       if (typeof startChatStream === 'function') {
