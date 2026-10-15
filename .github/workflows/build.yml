@@ -10,6 +10,7 @@ on:
 env:
   -APP_NAME : OTTIS
   -APP_RELEASE: OTTIS
+  -createrelease: true
 
 jobs:
   build:
@@ -78,11 +79,11 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Create release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref }}
-          generate_release_notes: true
+#      - name: Create release
+#        uses: softprops/action-gh-release@v2
+#        with:
+#          tag_name: ${{ github.ref }}
+#          generate_release_notes: true
 
       - name: Attach tarball to github release
         uses: svenstaro/upload-release-action@v2
