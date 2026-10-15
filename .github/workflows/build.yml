@@ -8,8 +8,8 @@ on:
   pull_request:
   
 env:
-  - APP_NAME : OTTIS
-  - APP_RELEASE: OTTIS
+  -APP_NAME : OTTIS
+  -APP_RELEASE: OTTIS
 
 jobs:
   build:
