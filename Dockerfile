@@ -38,10 +38,10 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 RUN a2enmod rewrite \
     && mkdir -p /var/www/html \
-    && mkdir -p /var/www/html/public/tmp \
-    && mkdir -p /uploads /logs \
-    && chmod -R 775 /var/www/html/public/tmp /uploads /logs \
-    && chown -R www-data:www-data /var/www/html/public/tmp /uploads /logs
+    && mkdir -p /var/www/html/public \
+    && mkdir -p /tmp /uploads /logs \
+    && chmod -R 775 /tmp /uploads /logs \
+    && chown -R www-data:www-data /tmp /uploads /logs
 
 # Code de l'application
 COPY . /var/www/html/
