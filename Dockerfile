@@ -40,7 +40,7 @@ RUN a2enmod rewrite \
     && mkdir -p /var/www/html \
     && mkdir -p /var/www/html/public/tmp \
     && mkdir -p /uploads /logs \
-    && chmod -R 775 //var/www/html/public/tmp /uploads /logs \
+    && chmod -R 775 /var/www/html/public/tmp /uploads /logs \
     && chown -R www-data:www-data /var/www/html/public/tmp /uploads /logs
 
 # Code de l'application
