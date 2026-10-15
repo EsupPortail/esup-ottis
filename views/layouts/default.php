@@ -23,6 +23,7 @@ if (!function_exists('ottis_asset_url')) {
         return $url;
     }
 }
+$appConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/config/app.php';
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $this->escape($language ?? 'fr'); ?>">
@@ -101,8 +102,9 @@ if (isset($isAuditorPage) && $isAuditorPage) {
             </div>
 
             <menu class="ottis-nav__menu">
+                <?php if (!empty($appConfig['contact_email'])): ?>
                 <li>
-                    <a href="mailto:support-omist@univ-nantes.fr">
+                    <a href="mailto:<?php echo $this->escape($appConfig['contact_email']); ?>">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                             <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="white" stroke-width="1.3"/>
                             <path d="M1 5l7 5 7-5" stroke="white" stroke-width="1.3"/>
@@ -110,16 +112,19 @@ if (isset($isAuditorPage) && $isAuditorPage) {
                         <span class="translate" data-key="nav.contact">Contact</span>
                     </a>
                 </li>
+                <?php endif; ?>
+                <?php if (!empty($appConfig['help_url'])): ?>
                 <li>
-                    <a href="https://madoc.univ-nantes.fr/course/view.php?id=58282" target="_blank" rel="noopener noreferrer">
+                    <a href="<?php echo $this->escape($appConfig['help_url']); ?>" target="_blank" rel="noopener noreferrer">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                             <circle cx="8" cy="8" r="6.5" stroke="white" stroke-width="1.3"/>
                             <path d="M8 7v5" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
                             <circle cx="8" cy="5" r="0.8" fill="white"/>
                         </svg>
-                        <span class="translate" data-key="nav.help">Aide sur Madoc</span>
+                        <span class="translate" data-key="nav.help">Aide</span>
                     </a>
                 </li>
+                <?php endif; ?>
                 <li id="language_element">
                     <label class="ottis-language" for="language-select">
                         <select id="language-select">

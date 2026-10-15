@@ -16,7 +16,7 @@
     },
     "nav": {
         "contact": "Contact",
-        "help": "Aide sur Madoc"
+        "help": "Aide"
     },
     "footer": {
         "copyright": "© Nantes Université - 2026",
@@ -26,7 +26,7 @@
         "sitemap": "Plan du site"
     },
     "scenarios": {
-        "aide": "Aide sur Madoc",
+        "aide": "Aide",
         "choix": "Choisissez votre scénario",
         "externe": "Êtes-vous externe à Nantes Université ?"
     },

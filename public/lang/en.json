@@ -16,7 +16,7 @@
     },
     "nav": {
         "contact": "Contact",
-        "help": "Help on Madoc"
+        "help": "Help"
     },
     "footer": {
         "copyright": "© Nantes Université - 2026",
@@ -26,7 +26,7 @@
         "sitemap": "Sitemap"
     },
     "scenarios": {
-        "aide": "Help on Madoc",
+        "aide": "Help",
         "choix": "Choose your scenario",
         "externe": "Are you external to Nantes Université?"
     },
