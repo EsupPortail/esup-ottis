@@ -33,7 +33,10 @@ jobs:
           key: composer-${{ runner.os }}-${{ hashFiles('composer.lock') }}
           restore-keys: |
             composer-${{ runner.os }}-
-
+    
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+    
  #     - name: PHP CS Fixer
  #       run: |
  #         if [ -f vendor/bin/php-cs-fixer ]; then
@@ -61,16 +64,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.vars.outputs.image_name }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          
+#      - name: Build and push Docker image
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: .
+#          file: ./Dockerfile
+#          push: true
+#          tags: ${{ steps.vars.outputs.image_name }}
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
+
+
       - name: Create release
         uses: softprops/action-gh-release@v2
         with:
