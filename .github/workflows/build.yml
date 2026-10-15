@@ -53,14 +53,7 @@ jobs:
           if [ -f vendor/bin/phpstan ]; then
             vendor/bin/phpstan analyse src --memory-limit=512M
           fi
-          
-      - name: Set lowercase image name
-        id: vars
-        run: |
-          echo "image_name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:latest" | tr '[:upper:]' '[:lower:]' >> $GITHUB_OUTPUT
-      
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+       
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -69,33 +62,74 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+     
+      - name: Build artifact
+        run: |
+          mkdir dist
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='tests' \
+            . dist/
+      
+      - name: Create archive
+        run: |
+          cd dist
+          zip -r ../esup-ottis.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: esup-ottis
+          path: esup-ottis.zip
+
+  release:
+    needs: build
+    name: on publie une release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: esup-ottis
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: esup-ottis.zip
+          generate_release_notes: true
+
+  publish:
+    needs: release
+    name: on créé notre image Docker
+    runs-on: ubuntu-latest
+
+    steps:
+     - name: Set lowercase image name
+       id: vars
+       run: |
+          echo "image_name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:latest" | tr '[:upper:]' '[:lower:]' >> $GITHUB_OUTPUT
+
+     - name: Set up Docker Buildx
+       uses: docker/setup-buildx-action@v3
+
+     - name: Login to GitHub Container Registry
+       uses: docker/login-action@v3
+       with:
+         registry: ghcr.io
+         username: ${{ github.actor }}
+         password: ${{ secrets.GITHUB_TOKEN }}
+
+       
+      
+     - name: Build and push Docker image
+       uses: docker/build-push-action@v5
+       with:
           context: .
           file: ./Dockerfile
           push: true
           tags: ${{ steps.vars.outputs.image_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-#      - name: Create release
-#        uses: softprops/action-gh-release@v2
-#        with:
-#          tag_name: ${{ github.ref }}
-#          generate_release_notes: true
-
-      - name: Attach tarball to github release
-        uses: svenstaro/upload-release-action@v2
-        id: attach_to_release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.APP_NAME }}/build/${{ env.APP_NAME }}.tar.gz
-          asset_name: ${{ env.APP_NAME }}.tar.gz
-          tag: ${{ github.ref }}
-          draft: true
-          overwrite: true
-          #body: ${{ steps.changelog.outputs.markdown }}
-          release_name: ${{ env.APP_RELEASE }}
-
-          
