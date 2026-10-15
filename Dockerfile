@@ -5,8 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-cor
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN a2enmod rewrite \
-    && mkdir -p /var/www/html/public/uploads /var/www/html/public/logs \
+RUN mkdir -p /var/www/html/public/uploads /var/www/html/public/logs \
     && chmod -R 775 /var/www/html/public/uploads /var/www/html/public/logs \
     && chown -R www-data:www-data /var/www/html/public/uploads /var/www/html/public/logs
 
