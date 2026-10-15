@@ -5,6 +5,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-cor
     libfreetype-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
+    libmagickwand-dev \
+    libcurl4-openssl-dev \
+    libxml2-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    curl \
+    postfix \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install -j$(nproc) gd \
 	&& docker-php-ext-install zip \
