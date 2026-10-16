@@ -24,7 +24,7 @@ function countLines(elm) {
   const el = _(elm);
   if (!el) return 0;
   const divHeight = el.offsetHeight;
-  const lineHeight = parseInt(el.style.lineHeight);
+  const lineHeight = parseInt(el.style.lineHeight, 10);
   const lines = divHeight / lineHeight;
   return lines;
 }
@@ -37,7 +37,7 @@ function countLines(elm) {
 function auto_size_text(elm = 'titre', max_lines = 3) {
   const el = _(elm);
   const lines = countLines(elm);
-  let size = parseInt(el.style.fontSize.replace('px', ''));
+  let size = parseInt(el.style.fontSize.replace('px', ''), 10);
   if (lines > max_lines) {
     size--;
     el.style.fontSize = `${size}px`;

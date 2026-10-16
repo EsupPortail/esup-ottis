@@ -21,6 +21,7 @@ export function initQRCode() {
     // QR unique du lien de partage (affiché dans le panel, déplacé dans le dialog pour l'agrandissement)
     const sharedqr = document.getElementById('sharedqr');
     if (sharedqr && sharedlink && sharedlink.href) {
+      // eslint-disable-next-line no-new -- instanciation a effet de bord (bibliotheque QRCode)
       new window.QRCode(sharedqr, {
         text: sharedlink.href,
         width: 256,
@@ -45,6 +46,7 @@ export function initQRCode() {
     const remoteqr = document.getElementById('remoteqr');
 
     if (remoteqr && remotelink) {
+      // eslint-disable-next-line no-new -- instanciation a effet de bord (bibliotheque QRCode)
       new window.QRCode(remoteqr, {
         text: remotelink.href,
         width: 128,
@@ -227,9 +229,7 @@ export function initSharePanel() {
         document.body.removeChild(zone);
       }
       if (cst) {
-        cst.textContent = ok
-          ? t('conference.partage.copied')
-          : t('conference.partage.copyFailed');
+        cst.textContent = ok ? t('conference.partage.copied') : t('conference.partage.copyFailed');
       }
     });
   }

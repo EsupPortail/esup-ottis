@@ -10,12 +10,12 @@ import { _ } from './selector.js';
  * @param {string} wname - Window element ID
  */
 export function resizeWindow(wname) {
-    const wc = _(wname);
-    if (!wc) return;
-    wc.style.width = `${window.innerWidth - 20}px`;
-    wc.style.height = `${window.innerHeight - 48}px`;
-    wc.style.top = '48px';
-    wc.style.left = '0px';
+  const wc = _(wname);
+  if (!wc) return;
+  wc.style.width = `${window.innerWidth - 20}px`;
+  wc.style.height = `${window.innerHeight - 48}px`;
+  wc.style.top = '48px';
+  wc.style.left = '0px';
 }
 
 /**
@@ -25,12 +25,12 @@ export function resizeWindow(wname) {
  * @param {number} y - Y position
  */
 export function position(element, x, y) {
-    const el = typeof element === 'string' ? _(element) : element;
-    if (el) {
-        el.style.position = 'absolute';
-        el.style.left = x + 'px';
-        el.style.top = y + 'px';
-    }
+  const el = typeof element === 'string' ? _(element) : element;
+  if (el) {
+    el.style.position = 'absolute';
+    el.style.left = `${x}px`;
+    el.style.top = `${y}px`;
+  }
 }
 
 /**
@@ -40,13 +40,13 @@ export function position(element, x, y) {
  * @returns {Object} - Object with top and left properties (includes scroll offset)
  */
 export function getPosition(element) {
-    const el = typeof element === 'string' ? _(element) : element;
-    if (el) {
-        const rect = el.getBoundingClientRect();
-        return {
-            top: rect.top + window.scrollY,
-            left: rect.left + window.scrollX,
-        };
-    }
-    return { top: 0, left: 0 };
+  const el = typeof element === 'string' ? _(element) : element;
+  if (el) {
+    const rect = el.getBoundingClientRect();
+    return {
+      top: rect.top + window.scrollY,
+      left: rect.left + window.scrollX,
+    };
+  }
+  return { top: 0, left: 0 };
 }

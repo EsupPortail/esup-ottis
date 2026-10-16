@@ -8,7 +8,8 @@
  */
 
 // Initialize _paq array if it doesn't exist
-let _paq = window._paq = window._paq || [];
+// eslint-disable-next-line no-multi-assign, no-underscore-dangle
+const _paq = (window._paq = window._paq || []);
 
 // Track the current page view
 _paq.push(['trackPageView']);
@@ -17,17 +18,15 @@ _paq.push(['trackPageView']);
 _paq.push(['enableLinkTracking']);
 
 // Configure Matomo tracker
-(function() {
-  const trackerUrl = 'https://analytics.univ-nantes.fr/';
-  _paq.push(['setTrackerUrl', trackerUrl + 'matomo.php']);
-  _paq.push(['setSiteId', '62']);
+const trackerUrl = 'https://analytics.univ-nantes.fr/';
+_paq.push(['setTrackerUrl', `${trackerUrl}matomo.php`]);
+_paq.push(['setSiteId', '62']);
 
-  // Load Matomo script asynchronously
-  const doc = document;
-  const script = doc.createElement('script');
-  const firstScript = doc.getElementsByTagName('script')[0];
+// Load Matomo script asynchronously
+const doc = document;
+const script = doc.createElement('script');
+const firstScript = doc.getElementsByTagName('script')[0];
 
-  script.async = true;
-  script.src = trackerUrl + 'matomo.js';
-  firstScript.parentNode.insertBefore(script, firstScript);
-})();
+script.async = true;
+script.src = `${trackerUrl}matomo.js`;
+firstScript.parentNode.insertBefore(script, firstScript);

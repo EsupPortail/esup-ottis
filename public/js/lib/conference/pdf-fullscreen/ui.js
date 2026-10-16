@@ -4,6 +4,7 @@
  */
 
 import { _ } from '../../dom/selector.js';
+import { setPdfDoc, setPageNum } from '../state/pdf.js';
 import { addCsrfToken } from '../network.js';
 import { calculateFullscreenScale, ensureFullscreenExited } from './core.js';
 import { displayPDF } from '../pdf-viewer.js';
@@ -22,7 +23,9 @@ export function showPresentationError(message) {
   const statusEl = _('progress-status');
   if (statusEl) {
     if (typeof DOMPurify !== 'undefined') {
-      statusEl.innerHTML = DOMPurify.sanitize(`<span style="color: red; font-weight: bold;">ERREUR: ${message}</span>`);
+      statusEl.innerHTML = DOMPurify.sanitize(
+        `<span style="color: red; font-weight: bold;">ERREUR: ${message}</span>`
+      );
     } else {
       statusEl.innerHTML = `<span style="color: red; font-weight: bold;">ERREUR: ${message}</span>`;
     }
@@ -41,7 +44,10 @@ export function handleFileSelect(event) {
   const file = fileInput.files[0];
 
   if (typeof window !== 'undefined' && window.console && window.console.info) {
-    console.info('handleFileSelect: Fichier sélectionné', { fileName: file?.name, fileSize: file?.size });
+    console.info('handleFileSelect: Fichier sélectionné', {
+      fileName: file?.name,
+      fileSize: file?.size,
+    });
   }
 
   if (!file) {
@@ -198,28 +204,29 @@ export function closePresentation() {
   // ottis-live-area reste visible (déplacé en dehors de pdf-viewer)
 
   // Réinitialiser le state PDF
-  if (typeof setPdfDoc !== 'undefined') setPdfDoc(null);
-  if (typeof setPageNum !== 'undefined') setPageNum(1);
+  setPdfDoc(null);
+  setPageNum(1);
 }
 
 /**
  * Gère le changement d'état du plein écran
  */
 export function handleFullscreenStateChange() {
-  const isFullscreen = document.fullscreenElement
-                        || document.webkitFullscreenElement
-                        || document.mozFullScreenElement
-                        || document.msFullscreenElement;
+  const isFullscreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullscreenElement;
 
   const fullscreenBtn = _('pdf-fullscreen-btn');
   const pdfViewer = _('pdf-viewer');
 
-  const isPdfFullscreen = pdfViewer && (
-    pdfViewer === document.fullscreenElement
-        || pdfViewer === document.webkitFullscreenElement
-        || pdfViewer === document.mozFullScreenElement
-        || pdfViewer === document.msFullscreenElement
-  );
+  const isPdfFullscreen =
+    pdfViewer &&
+    (pdfViewer === document.fullscreenElement ||
+      pdfViewer === document.webkitFullscreenElement ||
+      pdfViewer === document.mozFullScreenElement ||
+      pdfViewer === document.msFullscreenElement);
 
   if (isFullscreen && isPdfFullscreen) {
     if (fullscreenBtn) {
@@ -249,10 +256,11 @@ export function setupPdfFullscreenListeners() {
   document.addEventListener('MSFullscreenChange', handleFullscreenStateChange);
 
   window.addEventListener('resize', () => {
-    const isFullscreen = document.fullscreenElement
-                            || document.webkitFullscreenElement
-                            || document.mozFullScreenElement
-                            || document.msFullscreenElement;
+    const isFullscreen =
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement;
 
     if (isFullscreen) {
       safeSetTimeout(() => {

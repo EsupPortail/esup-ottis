@@ -32,7 +32,15 @@ export let inputnumberQ = 0;
 export let inputnumber = 0;
 
 /** @type {number} */
-export const Studentinputnumber = 0;
+export let Studentinputnumber = 0;
+
+/**
+ * Set the Studentinputnumber value
+ * @param {number} value - The new value
+ */
+export function setStudentinputnumber(value) {
+  Studentinputnumber = value;
+}
 
 /** @type {number} */
 export let delayReadtextQ = 5000;
@@ -55,8 +63,6 @@ export const MaxSavedLines = 100;
 
 /** @type {number} */
 export let timenew_question = 0;
-
-
 
 // =============================================================================
 // Setter functions for core state

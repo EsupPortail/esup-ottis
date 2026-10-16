@@ -46,7 +46,12 @@ export function doContinuousRecognition(key, region) {
   if (key && region) {
     // Cela nécessiterait l'import de Microsoft Cognitive Services SDK
     // Pour l'instant, on utilise un fallback vers Web Speech API
-    console.log('Microsoft Azure Speech Recognition would be initialized here with key:', key, 'region:', region);
+    console.log(
+      'Microsoft Azure Speech Recognition would be initialized here with key:',
+      key,
+      'region:',
+      region
+    );
   }
 }
 
@@ -63,10 +68,8 @@ export function stopRecognizer() {
     }
   }
 
-  // Fallback pour Web Speech API
-  if (typeof speechRecognition !== 'undefined' && speechRecognition) {
-    speechRecognition.stop();
-  }
+  // Fallback Web Speech API (herite du code pre-modules) : instance globale
+  // speechRecognition supprimee lors de la migration, remplacer par builtin_recognition
 }
 
 /**

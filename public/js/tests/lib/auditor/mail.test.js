@@ -10,12 +10,14 @@ describe('lib/auditor/mail.js - Mail Functions', () => {
     vi.restoreAllMocks();
 
     // Mock global dependencies
-    global._ = vi.fn((id) => (id === 'dialog_MailTo' ? { value: 'test@example.com' }
-      : id === 'dialog_MailSubject' ? { value: 'Test Subject' }
-        : id === 'dialog_MailBody' ? { innerHTML: '<p>Test Body</p>' }
-          : id === 'classroomid' ? { value: 'room123' }
-            : id === 'dialog_MailFrom' ? { value: '' }
-              : null));
+    const elementsById = {
+      dialog_MailTo: { value: 'test@example.com' },
+      dialog_MailSubject: { value: 'Test Subject' },
+      dialog_MailBody: { innerHTML: '<p>Test Body</p>' },
+      classroomid: { value: 'room123' },
+      dialog_MailFrom: { value: '' },
+    };
+    global._ = vi.fn((id) => elementsById[id] || null);
     global.DOMPurify = { sanitize: vi.fn((html) => html) };
     global.alert = vi.fn();
     global.prompt = vi.fn(() => 'user@example.com');

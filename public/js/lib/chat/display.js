@@ -26,7 +26,7 @@ export function parseChatIdentity(senderValue) {
 }
 
 export function isIntervenantSender(who, isIntervenant = false) {
-  if (Boolean(isIntervenant)) {
+  if (isIntervenant) {
     return true;
   }
 
@@ -50,8 +50,9 @@ export function EcrireCR(who, ch, order, isIntervenant = false) {
   const senderIdentity = parseChatIdentity(who);
   const displayWho = senderIdentity.displayName || senderIdentity.uid || who || '';
   const currentUser = globalThis.OTTIS_USER || {};
-  const isMe = Boolean(displayWho)
-    && (displayWho === currentUser.fullName || senderIdentity.uid === currentUser.uid);
+  const isMe =
+    Boolean(displayWho) &&
+    (displayWho === currentUser.fullName || senderIdentity.uid === currentUser.uid);
 
   const d = new Date();
   const time = `${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
@@ -63,8 +64,9 @@ export function EcrireCR(who, ch, order, isIntervenant = false) {
   }
 
   // Rendu maquette : bulle + meta (nom, heure) ; moi a droite, les autres a gauche
-  ScreenCR[order] = `<li class="${msgClasses.join(' ')}">`
-    + `<p class="meta"><strong>${escapeHtml(displayWho)}</strong> <time>${time}</time></p>`
-    + `<p class="bub">${escapeHtml(ch)}</p></li>`;
+  ScreenCR[order] =
+    `<li class="${msgClasses.join(' ')}">` +
+    `<p class="meta"><strong>${escapeHtml(displayWho)}</strong> <time>${time}</time></p>` +
+    `<p class="bub">${escapeHtml(ch)}</p></li>`;
   RefreshCR();
 }

@@ -3,8 +3,13 @@
  * Tests des utilitaires réseau de la conférence
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { addCsrfToken, createXhrRequest, createFetchRequest, fetchWithErrorHandling } from '../../../lib/conference/network.js';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import {
+  addCsrfToken,
+  createXhrRequest,
+  createFetchRequest,
+  fetchWithErrorHandling,
+} from '../../../lib/conference/network.js';
 
 describe('lib/conference/network.js - Conference Network Utilities', () => {
   beforeEach(() => {

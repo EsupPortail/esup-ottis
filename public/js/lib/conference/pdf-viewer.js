@@ -1,7 +1,27 @@
-import { canvas, ctx, currentRenderTask, hasSavedInitialDimensions, pageNum, pageNumPending, pageRendering, pdfDoc, scale, setCanvas, setCtx, setCurrentRenderTask, setHasSavedInitialDimensions, setInitialClientHeight, setInitialClientWidth, setPageNum, setPageNumPending, setPageRendering, setPdfDoc } from './state/pdf.js';
+import {
+  canvas,
+  ctx,
+  currentRenderTask,
+  hasSavedInitialDimensions,
+  pageNum,
+  pageNumPending,
+  pageRendering,
+  pdfDoc,
+  scale,
+  setCanvas,
+  setCtx,
+  setCurrentRenderTask,
+  setHasSavedInitialDimensions,
+  setInitialClientHeight,
+  setInitialClientWidth,
+  setPageNum,
+  setPageNumPending,
+  setPageRendering,
+  setPdfDoc,
+} from './state/pdf.js';
 import { previousimage, setPreviousimage } from './state/translation.js';
 
-import { b64toBlob } from './utils.js';
+import { b64toBlob, resizeSlides } from './utils.js';
 import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
 import { showPresentationError } from './pdf-fullscreen/ui.js';
 import { t } from '../i18n.js';
@@ -25,7 +45,7 @@ export function progressHandler(event) {
 }
 
 export function ShowImage(n) {
-  if (n != previousimage) {
+  if (String(n) !== String(previousimage)) {
     EcrireNBonly(`---------- Slide ${n} ----------`);
     EcrireNBonlyVO(`---------- Slide ${n} ----------`);
     setPreviousimage(n);
@@ -63,67 +83,20 @@ export function ShowImage(n) {
         context: 'ShowImage',
       });
       request.send();
-      //	request.onload = function(event) {};
+      // request.onload = function(event) {};
     }
   }
 }
 
-export function SlideNotesUncloud(uncloudlink) {
-  _('spinnertxt').innerHTML = 'Your presentation is not ready yet....<br/>Still working on it...';
-  const scriptfile = '/extract/pptx-images';
-  const formdata = new FormData();
-  formdata.append('ACCESS', _('classroomid').value);
-  formdata.append('uncloudlink', uncloudlink);
-  addCsrfToken(formdata);
-
-  const request = createFetchRequest('POST', scriptfile, {
-    data: formdata,
-    timeout: 30000,
-    context: 'SlideNotesUNCloud',
-    onUploadProgress: progressHandler,
-    onSuccess: completeHandler,
-    onError(response) {
-      if (response.status === 0 && response.statusText === 'Timeout') {
-        _('spinnertxt').innerHTML = 'Your PPTX presentation is too long to be imported directly.<br/>Please convert it first with the OTTIS Toolbox and use the generated html file instead.';
-        alert('Your PPTX presentation cannot be converted directly within the online tool. Please convert it first with the OTTIS Toolbox and use the generated html file instead.');
-      }
-    },
-  });
-  request.send();
-}
-
-export function SlideNotesUncloudHtml(uncloudhtmllink) {
-  _('spinnertxt').innerHTML = 'Your presentation is not ready yet....<br/>Still working on it...';
-
-  const scriptfile = '/extract/slides-notes-apphtml';
-  const formdata = new FormData();
-  formdata.append('ACCESS', _('classroomid').value);
-  formdata.append('uncloudlink', uncloudhtmllink);
-  addCsrfToken(formdata);
-
-  const request = createFetchRequest('POST', scriptfile, {
-    data: formdata,
-    timeout: 30000,
-    context: 'SlideNotesUncloudHtml',
-    onUploadProgress: progressHandler,
-    onSuccess: completeHandler,
-    onError(response) {
-      if (response.status === 0 && response.statusText === 'Timeout') {
-        _('spinnertxt').innerHTML = 'No presentation yet...<br/>Please go to the complete lesson tab to import it.';
-        alert('Your presentation cannot be converted directly within the online tool. Please convert it first with the OTTIS Toolbox and use the generated html file instead.');
-      }
-    },
-  });
-  request.send();
-}
-
 export function configurePdfJs() {
   if (typeof pdfjsLib !== 'undefined') {
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
     // Add CMap support for proper character encoding in PDFs
     // This resolves "TT: undefined function" warnings
-    pdfjsLib.GlobalWorkerOptions.cMapUrl = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
+    pdfjsLib.GlobalWorkerOptions.cMapUrl =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
     pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
   } else {
     safeSetTimeout(configurePdfJs, 200);
@@ -156,10 +129,11 @@ export function renderPage(num) {
 
   // Return the promise chain
   return pdfDoc.getPage(num).then((page) => {
-    const isFullscreen = document.fullscreenElement
-                            || document.webkitFullscreenElement
-                            || document.mozFullScreenElement
-                            || document.msFullscreenElement;
+    const isFullscreen =
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement;
 
     let viewport;
     if (isFullscreen) {
@@ -212,34 +186,39 @@ export function renderPage(num) {
     updatePdfNavigation();
 
     // Return the render task promise for chaining
-    return renderTask.promise.then(() => {
-      setCurrentRenderTask(null);
-      setPageRendering(false);
-      if (pageNumPending !== null) {
-        renderPage(pageNumPending);
-        setPageNumPending(null);
-      }
-    }).catch((error) => {
-      // Handle render errors (e.g., cancelled)
-      if (error.name !== 'RenderingCancelledException') {
-        console.error('Render error:', error);
-      }
-      setCurrentRenderTask(null);
-      setPageRendering(false);
-      if (pageNumPending !== null) {
-        renderPage(pageNumPending);
-        setPageNumPending(null);
-      }
-      // Re-throw to allow error handling
-      throw error;
-    });
+    return renderTask.promise
+      .then(() => {
+        setCurrentRenderTask(null);
+        setPageRendering(false);
+        if (pageNumPending !== null) {
+          renderPage(pageNumPending);
+          setPageNumPending(null);
+        }
+      })
+      .catch((error) => {
+        // Handle render errors (e.g., cancelled)
+        if (error.name !== 'RenderingCancelledException') {
+          console.error('Render error:', error);
+        }
+        setCurrentRenderTask(null);
+        setPageRendering(false);
+        if (pageNumPending !== null) {
+          renderPage(pageNumPending);
+          setPageNumPending(null);
+        }
+        // Re-throw to allow error handling
+        throw error;
+      });
   });
 }
 
 export function updatePdfNavigation() {
   if (!pdfDoc) return;
 
-  get('pdf-page-indicator').textContent = t('conference.pdf.pageIndicator', { n: pageNum, m: pdfDoc.numPages });
+  get('pdf-page-indicator').textContent = t('conference.pdf.pageIndicator', {
+    n: pageNum,
+    m: pdfDoc.numPages,
+  });
   get('pdf-page-input').value = pageNum;
   get('pdf-prev').disabled = pageNum <= 1;
   get('pdf-next').disabled = pageNum >= pdfDoc.numPages;
@@ -259,7 +238,7 @@ export function nextPage() {
 
 export function goToPage(num) {
   const pageInput = get('pdf-page-input');
-  num = parseInt(num);
+  num = parseInt(num, 10);
   if (num >= 1 && num <= pdfDoc.numPages) {
     setPageNum(num);
     queueRenderPage(pageNum);
@@ -295,17 +274,15 @@ export function displayPDF(url) {
     const pdfControl = get('pdf-control');
 
     if (pdfViewer) pdfViewer.style.visibility = 'visible';
-    const canvas = get('pdf-canvas');
-    if (canvas) canvas.style.display = 'block';
+    const pdfCanvas = get('pdf-canvas');
+    if (pdfCanvas) pdfCanvas.style.display = 'block';
     if (textViewer) textViewer.style.display = 'none';
     if (pdfControl) pdfControl.style.display = 'block';
-    // Masquer textfixe quand une presentation est chargée
-    const textfixe = get('textfixe');
-    if (textfixe) textfixe.style.display = 'none';
 
     // Passer l'URL directement à PDF.js (plus simple et évite les problèmes de Blob)
-    pdfjsLib.getDocument(url).promise
-      .then((pdf) => {
+    pdfjsLib
+      .getDocument(url)
+      .promise.then((pdf) => {
         setPdfDoc(pdf);
         setPageNum(1);
 
@@ -321,7 +298,7 @@ export function displayPDF(url) {
               setHasSavedInitialDimensions(true);
             }
           }
-          
+
           // Masquer la barre de progression une fois le PDF chargé
           const dProg = get('d-prog');
           if (dProg) {
@@ -351,12 +328,9 @@ export function displayTextContent(content) {
   }
   // Masquer pdf-viewer mais garder textBand visible (visibility: visible)
   if (pdfViewer) pdfViewer.style.visibility = 'hidden';
-  const canvas = get('pdf-canvas');
-  if (canvas) canvas.style.display = 'none';
+  const pdfCanvas = get('pdf-canvas');
+  if (pdfCanvas) pdfCanvas.style.display = 'none';
   if (pdfControl) pdfControl.style.display = 'none';
-  // Masquer textfixe quand une presentation (texte) est chargée
-  const textfixe = get('textfixe');
-  if (textfixe) textfixe.style.display = 'none';
 }
 
 export function togglePdfFullscreen() {
@@ -368,8 +342,11 @@ export function togglePdfFullscreen() {
   }
 
   // Check if already in fullscreen
-  const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement
-                        || document.mozFullScreenElement || document.msFullscreenElement;
+  const isFullscreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullscreenElement;
 
   if (isFullscreen) {
     // Exit fullscreen

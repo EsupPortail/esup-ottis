@@ -29,11 +29,15 @@ const openBrowserAlertDialog = () => {
   if (closeButton) {
     closeButton.addEventListener('click', () => dialog.close(), { once: true });
   }
-  dialog.addEventListener('close', () => {
-    if (previouslyFocused instanceof HTMLElement) {
-      previouslyFocused.focus();
-    }
-  }, { once: true });
+  dialog.addEventListener(
+    'close',
+    () => {
+      if (previouslyFocused instanceof HTMLElement) {
+        previouslyFocused.focus();
+      }
+    },
+    { once: true }
+  );
 
   dialog.showModal();
 };

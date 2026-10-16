@@ -13,7 +13,11 @@ import { _ } from '../dom/selector.js';
  * @returns {string} Libelle affiche dans le segment
  */
 function formatLangLabel(lang) {
-  return String(lang || '').trim().toUpperCase() || '—';
+  return (
+    String(lang || '')
+      .trim()
+      .toUpperCase() || '—'
+  );
 }
 
 /**

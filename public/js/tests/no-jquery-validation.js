@@ -190,6 +190,7 @@
         }
       } catch (e) {
         // Cross-origin stylesheets may throw
+        // eslint-disable-next-line no-continue -- passage a la feuille de style suivante
         continue;
       }
     }
@@ -211,8 +212,10 @@
     console.log(`[jQuery Removal Validation] Failed: ${results.failed}`);
 
     if (results.failed > 0) {
+      // eslint-disable-next-line max-len
       console.warn('%c[jQuery Removal Validation] ⚠️  Some tests failed. Please review the errors above.', 'color: #FF9800;');
     } else {
+      // eslint-disable-next-line max-len
       console.log('%c[jQuery Removal Validation] ✅ All validation tests passed! jQuery has been successfully removed.', 'color: #4CAF50; font-weight: bold;');
     }
 

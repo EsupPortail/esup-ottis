@@ -18,7 +18,9 @@ export * from './config-functions.js';
 export * from '../dom/dialog.js';
 export * from './network.js';
 export * from './utils.js';
-export * from './compat.js';
+// compat.js re-exporte aussi getRoomToken (fourni par state.js ci-dessous) :
+// export explicite pour eviter l'ambiguite des doubles export *.
+export { EcrireCR, AbortTimeout } from './compat.js';
 export * from './events.js';
 export * from './post.js';
 export * from './state.js';

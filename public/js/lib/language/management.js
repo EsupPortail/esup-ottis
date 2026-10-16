@@ -3,13 +3,13 @@
  * ES Module for setting and managing language preferences
  */
 
-import { 
-  TLangInput, 
-  AllOutputVoices, 
-  currentInputLanguage, 
+import {
+  TLangInput,
+  AllOutputVoices,
+  currentInputLanguage,
   currentOutputVoice,
   setCurrentInputLanguage,
-  setCurrentOutputVoice 
+  setCurrentOutputVoice,
 } from './state.js';
 
 /**
@@ -18,23 +18,23 @@ import {
  * @param {boolean} [updateUI=true] - Whether to update UI elements
  */
 export function setLanguageInput(langId, updateUI = true) {
-    // TLangInput is an array of strings, so check if it includes the langId directly
-    const langExists = TLangInput.includes(langId);
-    if (langExists) {
-        // Update the current language using the setter function
-        setCurrentInputLanguage(langId);
-        
-        // Store in localStorage for persistence
-        localStorage.setItem('inputLanguage', langId);
-        
-        // Update UI if requested
-        if (updateUI) {
-            updateLanguageInputsUI(langId);
-        }
-        
-        return true;
+  // TLangInput is an array of strings, so check if it includes the langId directly
+  const langExists = TLangInput.includes(langId);
+  if (langExists) {
+    // Update the current language using the setter function
+    setCurrentInputLanguage(langId);
+
+    // Store in localStorage for persistence
+    localStorage.setItem('inputLanguage', langId);
+
+    // Update UI if requested
+    if (updateUI) {
+      updateLanguageInputsUI(langId);
     }
-    return false;
+
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -43,23 +43,23 @@ export function setLanguageInput(langId, updateUI = true) {
  * @param {boolean} [updateUI=true] - Whether to update UI elements
  */
 export function setLanguageOutput(voiceId, updateUI = true) {
-    // AllOutputVoices can contain objects with id property or SpeechSynthesisVoice objects with lang property
-    const voice = AllOutputVoices.find(v => (v.id && v.id === voiceId) || v.lang === voiceId);
-    if (voice) {
-        // Update the current voice using the setter function
-        setCurrentOutputVoice(voiceId);
-        
-        // Store in localStorage for persistence
-        localStorage.setItem('outputVoice', voiceId);
-        
-        // Update UI if requested
-        if (updateUI) {
-            updateVoiceSelectsUI(voiceId);
-        }
-        
-        return true;
+  // AllOutputVoices can contain objects with id property or SpeechSynthesisVoice objects with lang property
+  const voice = AllOutputVoices.find((v) => (v.id && v.id === voiceId) || v.lang === voiceId);
+  if (voice) {
+    // Update the current voice using the setter function
+    setCurrentOutputVoice(voiceId);
+
+    // Store in localStorage for persistence
+    localStorage.setItem('outputVoice', voiceId);
+
+    // Update UI if requested
+    if (updateUI) {
+      updateVoiceSelectsUI(voiceId);
     }
-    return false;
+
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -67,7 +67,7 @@ export function setLanguageOutput(voiceId, updateUI = true) {
  * @returns {string}
  */
 export function getCurrentInputLanguage() {
-    return currentInputLanguage;
+  return currentInputLanguage;
 }
 
 /**
@@ -75,25 +75,28 @@ export function getCurrentInputLanguage() {
  * @returns {string}
  */
 export function getCurrentOutputVoice() {
-    return currentOutputVoice;
+  return currentOutputVoice;
 }
 
 /**
  * Load language preferences from localStorage
  */
 export function loadLanguagePreferences() {
-    const savedInput = localStorage.getItem('inputLanguage');
-    const savedOutput = localStorage.getItem('outputVoice');
-    
-    // TLangInput is an array of strings
-    if (savedInput && TLangInput.includes(savedInput)) {
-        setCurrentInputLanguage(savedInput);
-    }
-    
-    // AllOutputVoices can contain both SpeechSynthesisVoice objects and plain objects with id property
-    if (savedOutput && AllOutputVoices.some(v => (v.id && v.id === savedOutput) || v.lang === savedOutput)) {
-        setCurrentOutputVoice(savedOutput);
-    }
+  const savedInput = localStorage.getItem('inputLanguage');
+  const savedOutput = localStorage.getItem('outputVoice');
+
+  // TLangInput is an array of strings
+  if (savedInput && TLangInput.includes(savedInput)) {
+    setCurrentInputLanguage(savedInput);
+  }
+
+  // AllOutputVoices can contain both SpeechSynthesisVoice objects and plain objects with id property
+  if (
+    savedOutput &&
+    AllOutputVoices.some((v) => (v.id && v.id === savedOutput) || v.lang === savedOutput)
+  ) {
+    setCurrentOutputVoice(savedOutput);
+  }
 }
 
 /**
@@ -101,12 +104,12 @@ export function loadLanguagePreferences() {
  * @param {string} langId - Selected language ID
  */
 function updateLanguageInputsUI(langId) {
-    const inputs = document.querySelectorAll('[data-language-input]');
-    inputs.forEach(input => {
-        if (input.value === langId) {
-            input.checked = true;
-        }
-    });
+  const inputs = document.querySelectorAll('[data-language-input]');
+  inputs.forEach((input) => {
+    if (input.value === langId) {
+      input.checked = true;
+    }
+  });
 }
 
 /**
@@ -114,12 +117,12 @@ function updateLanguageInputsUI(langId) {
  * @param {string} voiceId - Selected voice ID
  */
 function updateVoiceSelectsUI(voiceId) {
-    const selects = document.querySelectorAll('[data-voice-select]');
-    selects.forEach(select => {
-        if (select.value === voiceId) {
-            select.selected = true;
-        }
-    });
+  const selects = document.querySelectorAll('[data-voice-select]');
+  selects.forEach((select) => {
+    if (select.value === voiceId) {
+      select.selected = true;
+    }
+  });
 }
 
 /**
@@ -128,9 +131,9 @@ function updateVoiceSelectsUI(voiceId) {
  * @returns {string}
  */
 export function getLanguageDisplayName(langId) {
-    // TLangInput is an array of strings, so just return the langId
-    // For display names, we'd need a mapping, but for now return the ID
-    return langId;
+  // TLangInput is an array of strings, so just return the langId
+  // For display names, we'd need a mapping, but for now return the ID
+  return langId;
 }
 
 /**
@@ -139,6 +142,6 @@ export function getLanguageDisplayName(langId) {
  * @returns {string}
  */
 export function getVoiceDisplayName(voiceId) {
-    const voice = AllOutputVoices.find(v => (v.id && v.id === voiceId) || v.lang === voiceId);
-    return voice ? (voice.name || voice.lang) : voiceId;
+  const voice = AllOutputVoices.find((v) => (v.id && v.id === voiceId) || v.lang === voiceId);
+  return voice ? voice.name || voice.lang : voiceId;
 }

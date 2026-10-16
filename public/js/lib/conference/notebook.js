@@ -1,10 +1,20 @@
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
 import { getSubtitleLanguage } from '../state/conference.js';
 import {
-  MaxSavedLines, NBconnectedusers, Tconnectedusers,
-  setNBconnectedusers, removeFromTconnectedusers, setNbnewQ
+  MaxSavedLines,
+  NBconnectedusers,
+  Tconnectedusers,
+  setNBconnectedusers,
+  removeFromTconnectedusers,
+  setNbnewQ,
 } from './state/core.js';
-import { getInputNumber, setInputNumber, getInputNumberQ, setInputNumberQ, getBasePath } from '../state/shared.js';
+import {
+  getInputNumber,
+  setInputNumber,
+  getInputNumberQ,
+  setInputNumberQ,
+  getBasePath,
+} from '../state/shared.js';
 import { setLastPartialTranslation } from './state/translation.js';
 
 import { EventNewQuestion } from './utils.js';
@@ -19,7 +29,7 @@ import { safeSetTimeout } from '../utils/cleanup.js';
 
 export function addSlideToNB(ch) {
   let tobesaidbetweenslides = '';
-  if (_('tobesaid').value != '') tobesaidbetweenslides = `${_('tobesaid').value}.`;
+  if (_('tobesaid').value !== '') tobesaidbetweenslides = `${_('tobesaid').value}.`;
   addToNB(tobesaidbetweenslides, 0);
   const Tch = ch.split('<br/>');
   for (let i = 0; i < Tch.length; i++) {
@@ -30,9 +40,11 @@ export function addSlideToNB(ch) {
 export function addToNB(ch, before) {
   const speechlanguage = _('speechlanguage').value;
   let tobeinserted = '';
-  if (speechlanguage != 'same') tobeinserted = `${speechlanguage}:|:`;
+  if (speechlanguage !== 'same') tobeinserted = `${speechlanguage}:|:`;
   let tobesaidbetweenslides = '';
-  if (before == 1 && _('tobesaid').value != '') tobesaidbetweenslides = `${tobeinserted + _('tobesaid').value}. <br/>`;
+  if (before === 1 && _('tobesaid').value !== '') {
+    tobesaidbetweenslides = `${tobeinserted + _('tobesaid').value}. <br/>`;
+  }
 
   ch = tobesaidbetweenslides + tobeinserted + ch;
   // _('notebook').innerHTML+='<br/>'+ch;
@@ -58,7 +70,10 @@ export function EcrireNB(ch) {
   // else
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
-  _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML + ch}<br/>`, sanitizeOptions);
+  _('notebook').innerHTML = window.DOMPurify.sanitize(
+    `${_('notebook').innerHTML + ch}<br/>`,
+    sanitizeOptions
+  );
   // EcrireTitle(ch);
 }
 
@@ -67,7 +82,10 @@ export function EcrireNBonly(ch) {
   // logNotebookEvent('EcrireNBonly', 'notebook', ch, currentContent);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
-  _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML + ch}<br/>`, sanitizeOptions);
+  _('notebook').innerHTML = window.DOMPurify.sanitize(
+    `${_('notebook').innerHTML + ch}<br/>`,
+    sanitizeOptions
+  );
 }
 
 export function EcrireNBonlyVO(ch) {
@@ -75,7 +93,10 @@ export function EcrireNBonlyVO(ch) {
   // logNotebookEvent('EcrireNBonlyVO', 'notebookVO', ch, currentContent);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
-  _('notebookVO').innerHTML = window.DOMPurify.sanitize(`${_('notebookVO').innerHTML + ch}<br/>`, sanitizeOptions);
+  _('notebookVO').innerHTML = window.DOMPurify.sanitize(
+    `${_('notebookVO').innerHTML + ch}<br/>`,
+    sanitizeOptions
+  );
 }
 
 export function EcrirePartial(ch) {
@@ -89,7 +110,7 @@ export function EcrirePartial(ch) {
   setLastPartialTranslation(ch);
 
   // Mettre à jour l'interface
-  if (ch != 'undefined' && ch != undefined) {
+  if (ch != null && ch !== 'undefined') {
     const textBandEl = _('textBand');
     if (textBandEl) {
       textBandEl.innerHTML = window.DOMPurify.sanitize(ch);
@@ -121,7 +142,7 @@ export function EcrirePartial(ch) {
   }
 
   // Créer la requête POST avec FormData
-  const url = `/extract/transcription-sub`;
+  const url = '/extract/transcription-sub';
   const formData = new FormData();
   formData.append('texte', ch);
   formData.append('ROOMID', roomId);
@@ -157,7 +178,7 @@ export function EcrirePartial(ch) {
 export function Ecrire(ch) {
   const outputElement = _('output');
   if (!outputElement) return;
-  if (outputElement.innerHTML == '') outputElement.innerHTML = window.DOMPurify.sanitize(ch);
+  if (outputElement.innerHTML === '') outputElement.innerHTML = window.DOMPurify.sanitize(ch);
   else outputElement.innerHTML = window.DOMPurify.sanitize(`${ch}<br/>${outputElement.innerHTML}`);
 }
 
@@ -176,10 +197,10 @@ export function saveText(ch) {
   }
 
   let inputlanguage = getBuiltinLanguage();
-  if (ch.indexOf(':|:') >= 0) { // If there are a language indication
+  if (ch.indexOf(':|:') >= 0) {
+    // If there are a language indication
     const Tch = ch.split(':|:');
-    inputlanguage = Tch[0];
-    ch = Tch[1];
+    [inputlanguage, ch] = Tch;
   }
   const f = new FormData();
   f.append('lineid', getInputNumber());
@@ -191,14 +212,14 @@ export function saveText(ch) {
   f.append('room_token', getRoomToken());
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/save', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/save`, {
     data: f,
     timeout: 10000,
     context: 'saveText',
   });
   request.send();
 
-  //	request.onload = function(event) {};
+  // request.onload = function(event) {};
 }
 
 export function saveTextWithTranslation(sourceText, translatedText) {
@@ -230,7 +251,7 @@ export function saveTextWithTranslation(sourceText, translatedText) {
   f.append('room_token', getRoomToken());
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/save', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/save`, {
     data: f,
     timeout: 10000,
     context: 'saveTextWithTranslation',
@@ -245,14 +266,14 @@ export function saveTextNB() {
 
 export function readTextQ() {
   const classroomidEl = _('classroomid');
-  if (classroomidEl && classroomidEl.value != '') {
+  if (classroomidEl && classroomidEl.value !== '') {
     const f = new FormData();
     f.append('lineid', 0);
     f.append('ROOMID', classroomidEl.value);
     f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const request = createFetchRequest('POST', getBasePath() + '/text/read-q', {
+    const request = createFetchRequest('POST', `${getBasePath()}/text/read-q`, {
       onSuccess(response) {
         const Told = response.responseText.split('\n');
         const T = [];
@@ -268,31 +289,37 @@ export function readTextQ() {
         for (let i = startIndex; i < T.length; i++) {
           const L = T[i].split(';');
           // Safety check - ensure L has enough elements
-          if (L.length < 3) continue;
-
-          if (L[2].indexOf('[newstudentarrived]') >= 0) {
-            setNBconnectedusers(NBconnectedusers + 1);
-            Tconnectedusers.push(L[0]);
-            updateUsers();
-          } else if (L[2].indexOf('[newstudentlived]') >= 0) {
-            setNBconnectedusers(NBconnectedusers - 1);
-            removeFromTconnectedusers(L[0]);
-            if (typeof updateUsers === 'function') updateUsers();
-          } else {
-            setNbnewQ(nbnewQ + 1);
-            // Use same logic as defaultMessageHandler (builtin_voice.lang first)
-            const bv = getBuiltinVoice();
-            const bl = getBuiltinLanguage();
-            let currentLang = '';
-            if (typeof bv !== 'undefined' && bv && bv.lang) {
-              currentLang = bv.lang;
-            } else if (typeof bl !== 'undefined' && bl) {
-              currentLang = bl;
-            }
-            if (L.length >= 2 && currentLang && L[1] && L[1].substr && currentLang.substr(0, 2) !== L[1].substr(0, 2)) {
-              TranslateQ(L[2], currentLang.substr(0, 2), L[1].substr(0, 2), L[0], i);
-            } else if (L.length >= 1) {
-              EcrireCR(L[0], L[2], i);
+          if (L.length >= 3) {
+            if (L[2].indexOf('[newstudentarrived]') >= 0) {
+              setNBconnectedusers(NBconnectedusers + 1);
+              Tconnectedusers.push(L[0]);
+              updateUsers();
+            } else if (L[2].indexOf('[newstudentlived]') >= 0) {
+              setNBconnectedusers(NBconnectedusers - 1);
+              removeFromTconnectedusers(L[0]);
+              if (typeof updateUsers === 'function') updateUsers();
+            } else {
+              setNbnewQ(nbnewQ + 1);
+              // Use same logic as defaultMessageHandler (builtin_voice.lang first)
+              const bv = getBuiltinVoice();
+              const bl = getBuiltinLanguage();
+              let currentLang = '';
+              if (typeof bv !== 'undefined' && bv && bv.lang) {
+                currentLang = bv.lang;
+              } else if (typeof bl !== 'undefined' && bl) {
+                currentLang = bl;
+              }
+              if (
+                L.length >= 2 &&
+                currentLang &&
+                L[1] &&
+                L[1].substr &&
+                currentLang.substr(0, 2) !== L[1].substr(0, 2)
+              ) {
+                TranslateQ(L[2], currentLang.substr(0, 2), L[1].substr(0, 2), L[0], i);
+              } else if (L.length >= 1) {
+                EcrireCR(L[0], L[2], i);
+              }
             }
           }
         }
@@ -318,21 +345,27 @@ export function TranslateQ(ch, l, linput, name, order) {
   formData.append('lang', l);
   formData.append('langinput', linput);
   const classroomidEl = _('classroomid');
-  formData.append('ROOMID', (classroomidEl && classroomidEl.value) ? classroomidEl.value : '');
+  formData.append('ROOMID', classroomidEl && classroomidEl.value ? classroomidEl.value : '');
   formData.append('room_token', getRoomToken());
 
   const whichtranslatorEl = _('whichtranslator');
-  const whichtranslator = (whichtranslatorEl && whichtranslatorEl.value) ? whichtranslatorEl.value : '';
+  const whichtranslator =
+    whichtranslatorEl && whichtranslatorEl.value ? whichtranslatorEl.value : '';
   if (whichtranslator) formData.append('whichtranslator', whichtranslator);
 
   addCsrfToken(formData);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
     onSuccess(response) {
       try {
         const parsedResponse = JSON.parse(response.responseText);
 
-        if (parsedResponse && !parsedResponse.error && parsedResponse.data && parsedResponse.data.translations) {
+        if (
+          parsedResponse &&
+          !parsedResponse.error &&
+          parsedResponse.data &&
+          parsedResponse.data.translations
+        ) {
           const translatedText = parsedResponse.data.translations[0].text;
           if (true) {
             EcrireCR(name, translatedText, order);

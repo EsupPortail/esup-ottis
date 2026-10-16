@@ -80,8 +80,6 @@ describe('utils/dialog.js - Dialog Utilities', () => {
 
   describe('upgradeLegacyDialogs()', () => {
     it('should upgrade legacy dialog divs', () => {
-      const createDialogSpy = vi.spyOn({ createDialog }, 'createDialog');
-
       // Mock the dialog IDs check
       const dialogDiv = document.getElementById('dialog-invite');
       dialogDiv.id = 'dialog-invite';

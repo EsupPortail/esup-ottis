@@ -7,20 +7,20 @@
 // Import state variables and functions from NEW centralized store
 import {
   getAllOutputVoices as AllOutputVoices,
-  getTLangInput as TLangInput
+  getTLangInput as TLangInput,
 } from '../state/shared.js';
 
 import {
   getSubtitleLanguage as subtitle_language,
   getInputNumberQ as inputnumberQ,
-  setInputNumberQ as setInputnumberQ
+  setInputNumberQ as setInputnumberQ,
 } from '../state/conference.js';
 
 import {
   getBuiltinVoice as builtin_voice,
   getBuiltinLanguage as builtin_language,
   setBuiltinVoice,
-  setBuiltinLanguage
+  setBuiltinLanguage,
 } from '../state/auditor.js';
 
 import { recharger } from '../chat/utils.js';
@@ -45,13 +45,13 @@ export {
 
 // URL parameters - these were in the original conference-def.js
 // Parse URL parameters
-export let zoomid = '';
-export let uncloudlink = '';
-export let uncloudhtmllink = '';
-export let targettab = 0;
+export const zoomid = '';
+export const uncloudlink = '';
+export const uncloudhtmllink = '';
+export const targettab = 0;
 
 // Additional state variables from conference-def.js
-export let inSlideTab = false;
+export const inSlideTab = false;
 export const speech_language = 'same';
 
 // Speech recognition variables
@@ -84,23 +84,24 @@ export function setBuiltinMicrosoftTranscriptionon(value) {
   builtin_microsofttranscritionon = value;
 }
 
+// Fake SpeechRecognition for browsers that don't support it
+function fakeSpeechRecognition() {
+  this.lang = '';
+  this.onresult = function () {};
+  this.onend = function () {};
+  this.start = function () {};
+  this.stop = function () {};
+  this.abort = function () {};
+  this.continuous = true;
+  this.interimResults = true;
+  this.enableAutomaticPunctuation = true;
+  this.maxAlternatives = 1;
+}
+
 // Initialize speech recognition
 if (typeof window !== 'undefined') {
-  // Fake SpeechRecognition for browsers that don't support it
-  function fakeSpeechRecognition() {
-    this.lang = '';
-    this.onresult = function () {};
-    this.onend = function () {};
-    this.start = function () {};
-    this.stop = function () {};
-    this.abort = function () {};
-    this.continuous = true;
-    this.interimResults = true;
-    this.enableAutomaticPunctuation = true;
-    this.maxAlternatives = 1;
-  }
-
-  const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition || fakeSpeechRecognition;
+  const SpeechRecognitionAPI =
+    window.SpeechRecognition || window.webkitSpeechRecognition || fakeSpeechRecognition;
   builtin_recognition = new SpeechRecognitionAPI();
 
   if (builtin_recognition) {
@@ -165,5 +166,3 @@ export function setLanguageOutputAndRetranslate(i) {
   // Reload and retranslate all messages with the new language
   recharger();
 }
-
-

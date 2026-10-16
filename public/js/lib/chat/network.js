@@ -41,7 +41,7 @@ export function saveTextQCommon(ch, senderName, roomId, language, senderRole = '
   // Ajouter le token CSRF pour la protection
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/save-q', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/save-q`, {
     onSuccess() {
       decreasependingrequests();
     },
@@ -122,10 +122,14 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
   addCsrfToken(f);
 
   // Callbacks pour le polling adaptatif
-  const handleRateLimit = () => { if (typeof onRateLimit === 'function') onRateLimit(); };
-  const handleSuccess = () => { if (typeof onSuccess === 'function') onSuccess(); };
+  const handleRateLimit = () => {
+    if (typeof onRateLimit === 'function') onRateLimit();
+  };
+  const handleSuccess = () => {
+    if (typeof onSuccess === 'function') onSuccess();
+  };
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/read-q', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/read-q`, {
     onSuccess(response) {
       decreasependingrequests();
 
@@ -150,19 +154,24 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
 
       // Process new messages
       const startIndex = getInputNumberQ();
-      
+
       // Update inputnumberQ immediately to prevent overlapping requests from reprocessing messages
       if (T.length > startIndex) {
         setInputNumberQ(T.length);
       }
-      
+
       for (let i = startIndex; i < T.length; i++) {
         const parsed = parseChatLine(T[i], i);
         // Skip ROBOT messages, but pass everything else including special messages
         if (parsed && parsed.who !== 'ROBOT' && messageHandler) {
           messageHandler(
-            parsed.who, parsed.text, parsed.lang, i,
-            parsed.isSpecial, parsed.specialType, parsed.senderRole
+            parsed.who,
+            parsed.text,
+            parsed.lang,
+            i,
+            parsed.isSpecial,
+            parsed.specialType,
+            parsed.senderRole
           );
         }
       }
@@ -180,12 +189,12 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
     },
     onError(response, context) {
       decreasependingrequests();
-      
+
       // Appeler le callback de rate limit pour le polling adaptatif
       if (response.status === 429) {
         handleRateLimit();
       }
-      
+
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
         console.error('readTextQ request failed. Context:', context);
@@ -226,13 +235,18 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
 
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
     onSuccess(response) {
       decreasependingrequests();
 
       try {
         const parsedResponse = JSON.parse(response.responseText);
-        if (!parsedResponse.error && parsedResponse.data && parsedResponse.data.translations && parsedResponse.data.translations[0]) {
+        if (
+          !parsedResponse.error &&
+          parsedResponse.data &&
+          parsedResponse.data.translations &&
+          parsedResponse.data.translations[0]
+        ) {
           const translation = parsedResponse.data.translations[0].text;
           if (translation) {
             EcrireCR(name, translation, order, senderRole === 'intervenant');
@@ -241,13 +255,21 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
             if (ScreenCR[order] === undefined) {
               EcrireCR(name, ch, order, senderRole === 'intervenant');
             }
-            console.error('Translation ERROR - No translation text found, not displaying original to avoid overwrite:', ch);
+            console.error(
+              'Translation ERROR - No translation text found, not displaying original to avoid overwrite:',
+              ch
+            );
           }
         } else {
           if (ScreenCR[order] === undefined) {
             EcrireCR(name, ch, order, senderRole === 'intervenant');
           }
-          console.error('Translation ERROR - Response:', parsedResponse, 'Raw:', response.responseText);
+          console.error(
+            'Translation ERROR - Response:',
+            parsedResponse,
+            'Raw:',
+            response.responseText
+          );
         }
       } catch (e) {
         if (ScreenCR[order] === undefined) {
@@ -265,7 +287,10 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
       }
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('[TRANSLATE-Q] Request failed (not displaying original text to avoid overwrite). Context:', context);
+        console.error(
+          '[TRANSLATE-Q] Request failed (not displaying original text to avoid overwrite). Context:',
+          context
+        );
       }
     },
     data: f,

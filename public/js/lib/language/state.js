@@ -7,32 +7,30 @@
  * Available output voices
  * @type {Array}
  */
-export let AllOutputVoices = [
-    { id: 'fr-FR', name: 'Français' },
-    { id: 'en-US', name: 'English' },
-    { id: 'es-ES', name: 'Español' },
-    { id: 'de-DE', name: 'Deutsch' },
-    { id: 'it-IT', name: 'Italiano' },
-    { id: 'pt-PT', name: 'Português' },
-    { id: 'ru-RU', name: 'Русский' },
-    { id: 'zh-CN', name: '中文' },
-    { id: 'ja-JP', name: '日本語' },
-    { id: 'ar-SA', name: 'العربية' }
+export const AllOutputVoices = [
+  { id: 'fr-FR', name: 'Français' },
+  { id: 'en-US', name: 'English' },
+  { id: 'es-ES', name: 'Español' },
+  { id: 'de-DE', name: 'Deutsch' },
+  { id: 'it-IT', name: 'Italiano' },
+  { id: 'pt-PT', name: 'Português' },
+  { id: 'ru-RU', name: 'Русский' },
+  { id: 'zh-CN', name: '中文' },
+  { id: 'ja-JP', name: '日本語' },
+  { id: 'ar-SA', name: 'العربية' },
 ];
 
 /**
  * Available input languages
  * @type {Array<string>}
  */
-export let TLangInput = [
-    'fr', 'en', 'es', 'de', 'it', 'pt', 'ru', 'zh', 'ja', 'ar'
-];
+export const TLangInput = ['fr', 'en', 'es', 'de', 'it', 'pt', 'ru', 'zh', 'ja', 'ar'];
 
 /**
  * Maximum number of voices to display
  * @type {number}
  */
-export let maxvoices = 10;
+export const maxvoices = 10;
 
 /**
  * Current input language
@@ -45,7 +43,7 @@ export let currentInputLanguage = 'fr';
  * @param {string} langId - Language ID
  */
 export function setCurrentInputLanguage(langId) {
-    currentInputLanguage = langId;
+  currentInputLanguage = langId;
 }
 
 /**
@@ -59,7 +57,7 @@ export let currentOutputVoice = 'fr-FR';
  * @param {string} voiceId - Voice ID
  */
 export function setCurrentOutputVoice(voiceId) {
-    currentOutputVoice = voiceId;
+  currentOutputVoice = voiceId;
 }
 
 /**
@@ -68,7 +66,7 @@ export function setCurrentOutputVoice(voiceId) {
  * @returns {Object|null}
  */
 export function getVoiceById(id) {
-    return AllOutputVoices.find(voice => voice.id === id) || null;
+  return AllOutputVoices.find((voice) => voice.id === id) || null;
 }
 
 /**
@@ -77,8 +75,6 @@ export function getVoiceById(id) {
  * @returns {string|null}
  */
 export function getInputLanguageById(id) {
-    // TLangInput is an array of strings, so just check if it exists
-    return TLangInput.includes(id) ? id : null;
+  // TLangInput is an array of strings, so just check if it exists
+  return TLangInput.includes(id) ? id : null;
 }
-
-

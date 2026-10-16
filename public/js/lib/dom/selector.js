@@ -9,7 +9,7 @@
  * @returns {HTMLElement|null}
  */
 export function get(id) {
-    return document.getElementById(id);
+  return document.getElementById(id);
 }
 
 /**
@@ -18,7 +18,7 @@ export function get(id) {
  * @returns {HTMLElement|null}
  */
 export function query(selector) {
-    return document.querySelector(selector);
+  return document.querySelector(selector);
 }
 
 /**
@@ -27,7 +27,7 @@ export function query(selector) {
  * @returns {NodeList}
  */
 export function queryAll(selector) {
-    return document.querySelectorAll(selector);
+  return document.querySelectorAll(selector);
 }
 
 /**
@@ -36,7 +36,7 @@ export function queryAll(selector) {
  * @returns {HTMLElement|null}
  */
 export function _(id) {
-    return get(id);
+  return get(id);
 }
 
 /**
@@ -47,14 +47,14 @@ export function _(id) {
  * @returns {string|null} The attribute value if value is not provided
  */
 export function attr(element, name, value) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (!el) return null;
+  const el = typeof element === 'string' ? get(element) : element;
+  if (!el) return null;
 
-    if (value !== undefined) {
-        el.setAttribute(name, value);
-        return value;
-    }
-    return el.getAttribute(name);
+  if (value !== undefined) {
+    el.setAttribute(name, value);
+    return value;
+  }
+  return el.getAttribute(name);
 }
 
 /**
@@ -64,12 +64,12 @@ export function attr(element, name, value) {
  * @returns {string} The element value if value is not provided
  */
 export function val(element, value) {
-    const el = typeof element === 'string' ? get(element) : element;
-    if (!el) return null;
+  const el = typeof element === 'string' ? get(element) : element;
+  if (!el) return null;
 
-    if (value !== undefined) {
-        el.value = value;
-        return value;
-    }
-    return el.value;
+  if (value !== undefined) {
+    el.value = value;
+    return value;
+  }
+  return el.value;
 }

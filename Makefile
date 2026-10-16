@@ -4,6 +4,9 @@
 
 .PHONY: help install check fix lint lint-js lint-php
 
+# Vider LD_LIBRARY_PATH heritee de l'extension VS Code (libstdc++ trop ancienne pour php/node)
+export LD_LIBRARY_PATH :=
+
 # Couleurs pour l'affichage
 GREEN := \033[0;32m
 YELLOW := \033[1;33m

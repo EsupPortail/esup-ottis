@@ -34,7 +34,7 @@ export function startChatStream(roomId, messageHandler) {
     last_id: String(getInputNumberQ()),
   });
 
-  chatSource = new EventSource(getBasePath() + '/text/chat-stream?' + params.toString());
+  chatSource = new EventSource(`${getBasePath()}/text/chat-stream?${params.toString()}`);
 
   chatSource.onmessage = (ev) => {
     const index = Number.parseInt(ev.lastEventId, 10);
@@ -44,8 +44,13 @@ export function startChatStream(roomId, messageHandler) {
     const parsed = parseChatLine(ev.data, index);
     if (parsed && parsed.who !== 'ROBOT' && typeof messageHandler === 'function') {
       messageHandler(
-        parsed.who, parsed.text, parsed.lang, parsed.order,
-        parsed.isSpecial, parsed.specialType, parsed.senderRole
+        parsed.who,
+        parsed.text,
+        parsed.lang,
+        parsed.order,
+        parsed.isSpecial,
+        parsed.specialType,
+        parsed.senderRole
       );
       // Alertes conference (badge nouveau message)
       if (nbnewQ > 0 && typeof EventNewQuestion === 'function') {

@@ -20,8 +20,8 @@ let chatScreenElement = null;
 /**
  * Current chat session state variables from legacy
  */
-export let currentdiscours = -1;
-export let gotolive = false;
+export const currentdiscours = -1;
+export const gotolive = false;
 
 /**
  * Text to say (for speech synthesis) - Object indexed by line ID
@@ -52,23 +52,23 @@ export let currentSessionId = null;
  * @param {HTMLElement|string} screenElement - Chat screen element or its ID
  */
 export function initChatState(screenElement) {
-    if (typeof screenElement === 'string') {
-        chatScreenElement = document.getElementById(screenElement);
-    } else {
-        chatScreenElement = screenElement;
-    }
-    
-    // Clear existing content
-    if (chatScreenElement) {
-        chatScreenElement.innerHTML = '';
-    }
-    
-    // Reset state
-    ScreenCR.length = 0;
-    ToSay = {};
-    ToTranslate = [];
-    chatHistory.length = 0;
-    currentSessionId = null;
+  if (typeof screenElement === 'string') {
+    chatScreenElement = document.getElementById(screenElement);
+  } else {
+    chatScreenElement = screenElement;
+  }
+
+  // Clear existing content
+  if (chatScreenElement) {
+    chatScreenElement.innerHTML = '';
+  }
+
+  // Reset state
+  ScreenCR.length = 0;
+  ToSay = {};
+  ToTranslate = [];
+  chatHistory.length = 0;
+  currentSessionId = null;
 }
 
 /**
@@ -76,11 +76,11 @@ export function initChatState(screenElement) {
  * @param {HTMLElement|string} element - Element or element ID
  */
 export function setScreenCR(element) {
-    if (typeof element === 'string') {
-        chatScreenElement = document.getElementById(element);
-    } else {
-        chatScreenElement = element;
-    }
+  if (typeof element === 'string') {
+    chatScreenElement = document.getElementById(element);
+  } else {
+    chatScreenElement = element;
+  }
 }
 
 /**
@@ -88,7 +88,7 @@ export function setScreenCR(element) {
  * @returns {Array}
  */
 export function getScreenCR() {
-    return ScreenCR;
+  return ScreenCR;
 }
 
 /**
@@ -96,7 +96,7 @@ export function getScreenCR() {
  * @returns {HTMLElement|null}
  */
 export function getChatScreenElement() {
-    return chatScreenElement;
+  return chatScreenElement;
 }
 
 /**
@@ -107,18 +107,18 @@ export function getChatScreenElement() {
  * @param {string} [message.timestamp] - Message timestamp
  */
 export function addToHistory(message) {
-    chatHistory.push({
-        text: message.text,
-        sender: message.sender || 'user',
-        timestamp: message.timestamp || new Date().toISOString()
-    });
+  chatHistory.push({
+    text: message.text,
+    sender: message.sender || 'user',
+    timestamp: message.timestamp || new Date().toISOString(),
+  });
 }
 
 /**
  * Clear chat history
  */
 export function clearHistory() {
-    chatHistory.length = 0;
+  chatHistory.length = 0;
 }
 
 /**
@@ -127,8 +127,8 @@ export function clearHistory() {
  * @param {string} text - Text to say
  */
 export function setToSay(id, text) {
-    ToSay = {};
-    ToSay[`${id}`] = text;
+  ToSay = {};
+  ToSay[`${id}`] = text;
 }
 
 /**
@@ -136,7 +136,7 @@ export function setToSay(id, text) {
  * @param {Array} items - Translation request array [id, sourceLang, sourceText, targetLang, targetText]
  */
 export function setToTranslate(items) {
-    ToTranslate = Array.isArray(items) ? items : [];
+  ToTranslate = Array.isArray(items) ? items : [];
 }
 
 /**
@@ -144,7 +144,7 @@ export function setToTranslate(items) {
  * @returns {string}
  */
 export function getToSay() {
-    return ToSay;
+  return ToSay;
 }
 
 /**
@@ -152,5 +152,5 @@ export function getToSay() {
  * @returns {string}
  */
 export function getToTranslate() {
-    return ToTranslate;
+  return ToTranslate;
 }

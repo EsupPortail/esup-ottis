@@ -15,41 +15,41 @@
  * @returns {XMLHttpRequest}
  */
 export function createXhrRequest(method, url, callback, options = {}) {
-    const { data = null, async = true, headers = {} } = options;
-    
-    const xhr = new XMLHttpRequest();
-    xhr.open(method, url, async);
-    
-    // Set headers
-    for (const [key, value] of Object.entries(headers)) {
-        xhr.setRequestHeader(key, value);
+  const { data = null, async = true, headers = {} } = options;
+
+  const xhr = new XMLHttpRequest();
+  xhr.open(method, url, async);
+
+  // Set headers
+  Object.entries(headers).forEach(([key, value]) => {
+    xhr.setRequestHeader(key, value);
+  });
+
+  // Set CSRF header if available
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+  if (csrfToken) {
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+  }
+
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      try {
+        const response = xhr.responseText ? JSON.parse(xhr.responseText) : null;
+        callback(null, response, xhr);
+      } catch (e) {
+        callback(new Error('Failed to parse JSON response'), null, xhr);
+      }
+    } else {
+      handleXhrError(xhr, callback);
     }
-    
-    // Set CSRF header if available
-    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-    if (csrfToken) {
-        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-    }
-    
-    xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            try {
-                const response = xhr.responseText ? JSON.parse(xhr.responseText) : null;
-                callback(null, response, xhr);
-            } catch (e) {
-                callback(new Error('Failed to parse JSON response'), null, xhr);
-            }
-        } else {
-            handleXhrError(xhr, callback);
-        }
-    };
-    
-    xhr.onerror = function() {
-        callback(new Error('Network error'), null, xhr);
-    };
-    
-    xhr.send(data ? JSON.stringify(data) : null);
-    return xhr;
+  };
+
+  xhr.onerror = function () {
+    callback(new Error('Network error'), null, xhr);
+  };
+
+  xhr.send(data ? JSON.stringify(data) : null);
+  return xhr;
 }
 
 /**
@@ -58,17 +58,19 @@ export function createXhrRequest(method, url, callback, options = {}) {
  * @param {Function} callback - Error callback
  */
 export function handleXhrError(xhr, callback) {
-    let error;
-    try {
-        const response = xhr.responseText ? JSON.parse(xhr.responseText) : null;
-        error = new Error(response?.message || response?.error || `HTTP ${xhr.status}: ${xhr.statusText}`);
-        error.status = xhr.status;
-        error.response = response;
-    } catch (e) {
-        error = new Error(`HTTP ${xhr.status}: ${xhr.statusText}`);
-        error.status = xhr.status;
-    }
-    callback(error, null, xhr);
+  let error;
+  try {
+    const response = xhr.responseText ? JSON.parse(xhr.responseText) : null;
+    error = new Error(
+      response?.message || response?.error || `HTTP ${xhr.status}: ${xhr.statusText}`
+    );
+    error.status = xhr.status;
+    error.response = response;
+  } catch (e) {
+    error = new Error(`HTTP ${xhr.status}: ${xhr.statusText}`);
+    error.status = xhr.status;
+  }
+  callback(error, null, xhr);
 }
 
 /**
@@ -78,7 +80,7 @@ export function handleXhrError(xhr, callback) {
  * @returns {XMLHttpRequest}
  */
 export function get(url, callback) {
-    return createXhrRequest('GET', url, callback);
+  return createXhrRequest('GET', url, callback);
 }
 
 /**
@@ -89,8 +91,8 @@ export function get(url, callback) {
  * @returns {XMLHttpRequest}
  */
 export function post(url, data, callback) {
-    return createXhrRequest('POST', url, callback, { 
-        data,
-        headers: { 'Content-Type': 'application/json' }
-    });
+  return createXhrRequest('POST', url, callback, {
+    data,
+    headers: { 'Content-Type': 'application/json' },
+  });
 }

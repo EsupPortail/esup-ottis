@@ -1,7 +1,7 @@
 /**
  * @module lib/state/conference
  * État spécifique à l'interface conference (professeur)
- * 
+ *
  * Utilisation :
  *   import { getClassroomId, getRoomToken, getWhichTranslator } from './lib/state/conference.js';
  */
@@ -52,11 +52,21 @@ export const setBuiltinRecognition = (value) => set({ builtin_recognition: value
 export const isBuiltinRecognitionOn = () => get('builtin_recognitionon') || false;
 export const setBuiltinRecognitionOn = (value) => set({ builtin_recognitionon: value });
 
-export const isBuiltinExternalTranscriptionOn = () => get('builtin_externaltranscritionon') || false;
-export const setBuiltinExternalTranscriptionOn = (value) => set({ builtin_externaltranscritionon: value });
+export function isBuiltinExternalTranscriptionOn() {
+  return get('builtin_externaltranscritionon') || false;
+}
 
-export const isBuiltinMicrosoftTranscriptionOn = () => get('builtin_microsofttranscritionon') || false;
-export const setBuiltinMicrosoftTranscriptionOn = (value) => set({ builtin_microsofttranscritionon: value });
+export function setBuiltinExternalTranscriptionOn(value) {
+  set({ builtin_externaltranscritionon: value });
+}
+
+export function isBuiltinMicrosoftTranscriptionOn() {
+  return get('builtin_microsofttranscritionon') || false;
+}
+
+export function setBuiltinMicrosoftTranscriptionOn(value) {
+  set({ builtin_microsofttranscritionon: value });
+}
 
 // Conference translation state
 export const getSubtitleLanguage = () => get('subtitle_language') || '';

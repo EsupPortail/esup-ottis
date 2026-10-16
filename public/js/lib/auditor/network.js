@@ -10,15 +10,30 @@ import { addCsrfToken } from '../network/utils.js';
 import { createFetchRequest } from '../conference/network.js';
 import { EcrireNB, EcrireNBSub, EcrirePartialSub } from './display.js';
 import { setLiveStatus } from './live-status.js';
-import { getBuiltinVoice, getBuiltinLanguage, isConferenceLive, setConferenceLive } from '../state/auditor.js';
 import {
-    getBasePath, getRoomToken, getMaxOrder, setMaxOrder,
-    getAllPhrases, setPhrase, pushToTranslate, getCurrentOrder,
-    incrementCurrentOrder, getInputNumber, setInputNumber,
-    setLine,
-    setToSayKey, getLastNotebookVOContent, setLastNotebookVOContent,
-    getAllLines,
-    get
+  getBuiltinVoice,
+  getBuiltinLanguage,
+  isConferenceLive,
+  setConferenceLive,
+} from '../state/auditor.js';
+import {
+  getBasePath,
+  getRoomToken,
+  getMaxOrder,
+  setMaxOrder,
+  getAllPhrases,
+  setPhrase,
+  pushToTranslate,
+  getCurrentOrder,
+  incrementCurrentOrder,
+  getInputNumber,
+  setInputNumber,
+  setLine,
+  setToSayKey,
+  getLastNotebookVOContent,
+  setLastNotebookVOContent,
+  getAllLines,
+  get,
 } from '../state/shared.js';
 
 /**
@@ -59,7 +74,7 @@ function getConferenceSubtitleLanguage() {
   // la langue cible = langue des sous-titres de la conference, donc celle
   // des partiels publies dans VerylastSub).
   const allLines = getAllLines() || {};
-  const ids = Object.keys(allLines).sort((a, b) => (a * 1) - (b * 1));
+  const ids = Object.keys(allLines).sort((a, b) => a * 1 - b * 1);
   for (let i = ids.length - 1; i >= 0; i--) {
     const line = allLines[ids[i]];
     if (line && line.targetLang && typeof line.targetLang === 'string') {
@@ -76,7 +91,7 @@ function getConferenceSubtitleLanguage() {
   const languages = Array.isArray(supported) ? supported : Object.values(supported);
   const index = config.charCodeAt(1) - 65;
   const lang = languages[index] && languages[index].code;
-  return (typeof lang === 'string' && lang) ? lang.substr(0, 2).toLowerCase() : '';
+  return typeof lang === 'string' && lang ? lang.substr(0, 2).toLowerCase() : '';
 }
 
 /**
@@ -91,13 +106,18 @@ function translatePartialSub(ch, targetLang, sourceLang, callback) {
   f.append('lineid', 'DIRECT');
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
     onSuccess(response) {
       let translated = '';
       try {
         const parsedResponse = JSON.parse(response.responseText);
-        if ((!parsedResponse.error) && parsedResponse.data && parsedResponse.data.translations
-          && parsedResponse.data.translations[0] && parsedResponse.data.translations[0].text) {
+        if (
+          !parsedResponse.error &&
+          parsedResponse.data &&
+          parsedResponse.data.translations &&
+          parsedResponse.data.translations[0] &&
+          parsedResponse.data.translations[0].text
+        ) {
           translated = parsedResponse.data.translations[0].text;
         }
       } catch (error) {
@@ -162,7 +182,7 @@ function readTextPartial() {
   f.append('room_token', getRoomToken());
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/read-last-sub', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/read-last-sub`, {
     onSuccess(response) {
       partialSubRequestInFlight = false;
       const partial = response.responseText.trim();
@@ -202,14 +222,14 @@ function readText() {
     f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const request = createFetchRequest('POST', getBasePath() + '/text/read', {
+    const request = createFetchRequest('POST', `${getBasePath()}/text/read`, {
       onSuccess(response) {
         decreasependingrequests();
         // Badge "En direct" uniquement si le statut serveur dit "live"
         setLiveStatus(isConferenceLive());
         const T = response.responseText.split('\n');
         let maxi = -1;
-        const readedorder = (`0${T[0]}`).split(';')[0] * 1;
+        const readedorder = `0${T[0]}`.split(';')[0] * 1;
         if (readedorder > getMaxOrder()) {
           setMaxOrder(readedorder);
           for (let i = 0; i < T.length; i++) {
@@ -229,7 +249,7 @@ function readText() {
                   EcrireNB(sourceText);
 
                   // Stocker les métadonnées pour reconstruction lors du changement de langue
-                  setLine(L[1], {sourceLang, sourceText, targetLang, targetText});
+                  setLine(L[1], { sourceLang, sourceText, targetLang, targetText });
 
                   // Toujours ajouter à ToTranslate pour traitement dans l'ordre
                   // CompleteTranslation gérera l'affichage dans l'output
@@ -273,12 +293,12 @@ function readTextSub() {
     f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const request = createFetchRequest('POST', getBasePath() + '/text/read', {
+    const request = createFetchRequest('POST', `${getBasePath()}/text/read`, {
       onSuccess(response) {
         decreasependingrequests();
         const T = response.responseText.split('\n');
         let maxi = -1;
-        const readedorder = (`0${T[0]}`).split(';')[0] * 1;
+        const readedorder = `0${T[0]}`.split(';')[0] * 1;
         if (readedorder > getMaxOrder()) {
           setMaxOrder(readedorder);
           for (let i = 0; i < T.length; i++) {
@@ -299,9 +319,18 @@ function readTextSub() {
                   const builtinLanguage = getBuiltinLanguage();
                   // Use builtin_voice.lang first (auditor output voice),
                   // fallback to builtin_language
-                  if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
+                  if (
+                    typeof builtinVoice !== 'undefined' &&
+                    builtinVoice &&
+                    builtinVoice.lang &&
+                    typeof builtinVoice.lang === 'string'
+                  ) {
                     currentLang = builtinVoice.lang.substr(0, 2);
-                  } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
+                  } else if (
+                    typeof builtinLanguage !== 'undefined' &&
+                    builtinLanguage &&
+                    typeof builtinLanguage === 'string'
+                  ) {
                     currentLang = builtinLanguage.substr(0, 2);
                   }
 
@@ -313,7 +342,7 @@ function readTextSub() {
                     setToSayKey(L[1], targetText);
                   } else {
                     // Stocker les métadonnées pour reconstruction lors du changement de langue
-                    setLine(L[1], {sourceLang, sourceText, targetLang, targetText});
+                    setLine(L[1], { sourceLang, sourceText, targetLang, targetText });
                     pushToTranslate([L[1], sourceLang, sourceText, targetLang, targetText]);
                   }
                 }
@@ -354,57 +383,61 @@ function readTextSubTranscript() {
     f.append('room_token', getRoomToken());
     addCsrfToken(f);
 
-    const requestTranscriptSub = createFetchRequest('POST', getBasePath() + '/text/read-transcript-sub', {
-      onSuccess(response) {
-        decreasependingrequests();
-        const T = response.responseText.split('\n');
+    const requestTranscriptSub = createFetchRequest(
+      'POST',
+      `${getBasePath()}/text/read-transcript-sub`,
+      {
+        onSuccess(response) {
+          decreasependingrequests();
+          const T = response.responseText.split('\n');
 
-        // Construire le contenu complet du notebook Sub (sous-titres) avec tri par ordre
-        const lines = [];
-        for (let i = 0; i < T.length; i++) {
-          const line = T[i].trim();
-          if (line) {
-            const parts = line.split(';');
-            if (parts.length > 1) {
-              lines.push({
-                order: parseInt(parts[0], 10),
-                content: parts.slice(1).join(';')
-              });
+          // Construire le contenu complet du notebook Sub (sous-titres) avec tri par ordre
+          const lines = [];
+          for (let i = 0; i < T.length; i++) {
+            const line = T[i].trim();
+            if (line) {
+              const parts = line.split(';');
+              if (parts.length > 1) {
+                lines.push({
+                  order: parseInt(parts[0], 10),
+                  content: parts.slice(1).join(';'),
+                });
+              }
             }
           }
-        }
-        // Trier par ordre numérique
-        lines.sort((a, b) => a.order - b.order);
-        // Concaténer dans l'ordre
-        let notebookContent = '';
-        for (let i = 0; i < lines.length; i++) {
-          if (i > 0) {
-            notebookContent += '<br/>';
+          // Trier par ordre numérique
+          lines.sort((a, b) => a.order - b.order);
+          // Concaténer dans l'ordre
+          let notebookContent = '';
+          for (let i = 0; i < lines.length; i++) {
+            if (i > 0) {
+              notebookContent += '<br/>';
+            }
+            notebookContent += lines[i].content;
           }
-          notebookContent += lines[i].content;
-        }
 
-        // Mettre à jour VOBanner et notebook avec le contenu des sous-titres
-        if (notebookContent !== getLastNotebookVOContent() && notebookContent !== '') {
-          setLastNotebookVOContent(notebookContent);
-          _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookContent);
-          _('notebook').innerHTML = window.DOMPurify.sanitize(notebookContent);
-        }
+          // Mettre à jour VOBanner et notebook avec le contenu des sous-titres
+          if (notebookContent !== getLastNotebookVOContent() && notebookContent !== '') {
+            setLastNotebookVOContent(notebookContent);
+            _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookContent);
+            _('notebook').innerHTML = window.DOMPurify.sanitize(notebookContent);
+          }
 
-        // === NOUVEAU: Récupérer aussi le notebook VO et appliquer la logique pour output ===
-        updateOutputBasedOnLanguage();
-      },
-      onError(response, context) {
-        // Ignorer les timeouts de polling (comportement normal)
-        if (response.status !== 0 || response.statusText !== 'Timeout') {
-          console.error('readTextSubTranscript request failed. Context:', context);
-        }
-        decreasependingrequests();
-      },
-      data: f,
-      timeout: 10000,
-      context: 'readTextSubTranscript',
-    });
+          // === NOUVEAU: Récupérer aussi le notebook VO et appliquer la logique pour output ===
+          updateOutputBasedOnLanguage();
+        },
+        onError(response, context) {
+          // Ignorer les timeouts de polling (comportement normal)
+          if (response.status !== 0 || response.statusText !== 'Timeout') {
+            console.error('readTextSubTranscript request failed. Context:', context);
+          }
+          decreasependingrequests();
+        },
+        data: f,
+        timeout: 10000,
+        context: 'readTextSubTranscript',
+      }
+    );
     requestTranscriptSub.send();
   }
 }
@@ -422,8 +455,13 @@ function updateOutputBasedOnLanguage() {
   const supportedLanguages = get('supportedlanguages') || [];
   const selectedLangSelect = _('classroomlanguage');
 
-  if (!roomId || !config || config.length < 2
-    || !selectedLangSelect || !supportedLanguages.length) {
+  if (
+    !roomId ||
+    !config ||
+    config.length < 2 ||
+    !selectedLangSelect ||
+    !supportedLanguages.length
+  ) {
     return;
   }
 
@@ -489,7 +527,7 @@ function fetchVerylastContent(roomId, roomToken, callback) {
   f.append('room_token', roomToken);
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/read-vo', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/read-vo`, {
     onSuccess(response) {
       const T = response.responseText.split('\n');
       const lines = [];
@@ -500,7 +538,7 @@ function fetchVerylastContent(roomId, roomToken, callback) {
           if (parts.length > 1) {
             lines.push({
               order: parseInt(parts[0], 10),
-              content: parts.slice(1).join(';')
+              content: parts.slice(1).join(';'),
             });
           }
         }
@@ -526,7 +564,7 @@ function fetchVerylastContent(roomId, roomToken, callback) {
     },
     data: f,
     timeout: 5000,
-    context: 'fetchVerylastContent'
+    context: 'fetchVerylastContent',
   });
   request.send();
 }
@@ -547,7 +585,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
   f.append('room_token', roomToken);
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/read-transcript-sub', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/read-transcript-sub`, {
     onSuccess(response) {
       const T = response.responseText.split('\n');
       const lines = [];
@@ -558,7 +596,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
           if (parts.length > 1) {
             lines.push({
               order: parseInt(parts[0], 10),
-              content: parts.slice(1).join(';')
+              content: parts.slice(1).join(';'),
             });
           }
         }
@@ -584,7 +622,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
     },
     data: f,
     timeout: 5000,
-    context: 'fetchVerylastSubContent'
+    context: 'fetchVerylastSubContent',
   });
   request.send();
 }
@@ -644,7 +682,7 @@ function checkConferenceStatus() {
   f.append('room_token', getRoomToken());
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/auditor/status', {
+  const request = createFetchRequest('POST', `${getBasePath()}/auditor/status`, {
     onSuccess(response) {
       let live = false;
       try {
@@ -665,4 +703,10 @@ function checkConferenceStatus() {
   request.send();
 }
 
-export { readText, readTextSub, readTextSubTranscript, readTextPartial, checkConferenceStatus /* readImage DISABLED */ };
+export {
+  readText,
+  readTextSub,
+  readTextSubTranscript,
+  readTextPartial,
+  checkConferenceStatus /* readImage DISABLED */,
+};

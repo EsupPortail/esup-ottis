@@ -14,19 +14,21 @@ export function makeDraggable(element) {
   const el = typeof element === 'string' ? document.getElementById(element) : element;
   if (!el) return;
 
-  let pos1 = 0; let pos2 = 0; let pos3 = 0; let
-    pos4 = 0;
+  let pos1 = 0;
+  let pos2 = 0;
+  let pos3 = 0;
+  let pos4 = 0;
   let moveListener = null;
   let upListener = null;
 
   /**
-     * Get the element's current position
-     * @param {HTMLElement} el - The element
-     * @returns {Object} Position { left: number, top: number }
-     */
-  function getPosition(el) {
-    const rect = el.getBoundingClientRect();
-    const style = window.getComputedStyle(el);
+   * Get the element's current position
+   * @param {HTMLElement} el - The element
+   * @returns {Object} Position { left: number, top: number }
+   */
+  function getPosition(elem) {
+    const rect = elem.getBoundingClientRect();
+    const style = window.getComputedStyle(elem);
     const { position } = style;
 
     // Pour position:fixed, les coordonnées sont déjà relatives au viewport
@@ -57,7 +59,7 @@ export function makeDraggable(element) {
     // Utiliser addEventListener pour éviter les conflits avec d'autres handlers
     // et capturer les événements même hors de l'élément
     upListener = () => closeDrag();
-    moveListener = (e) => elementDrag(e);
+    moveListener = (event) => elementDrag(event);
     document.addEventListener('mouseup', upListener, { once: true, capture: true });
     document.addEventListener('mousemove', moveListener, { capture: true });
   }
@@ -73,7 +75,7 @@ export function makeDraggable(element) {
 
     // Utiliser addEventListener pour éviter les conflits
     upListener = () => closeDrag();
-    moveListener = (e) => elementDrag(e);
+    moveListener = (event) => elementDrag(event);
     document.addEventListener('touchend', upListener, { once: true, capture: true });
     document.addEventListener('touchmove', moveListener, { capture: true, passive: false });
   }

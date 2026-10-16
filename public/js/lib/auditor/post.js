@@ -8,7 +8,12 @@ import { startAuditorPolling } from './main.js';
 import { readText, readTextSubTranscript } from './network.js';
 import { readTextQCommon } from '../chat/network.js';
 import { defaultMessageHandler } from '../chat/handlers.js';
-import { setLanguageSelected, setFirstClick, setFirstTime, setDiscoursRate } from '../state/shared.js';
+import {
+  setLanguageSelected,
+  setFirstClick,
+  setFirstTime,
+  setDiscoursRate,
+} from '../state/shared.js';
 import { setLanguageOutput } from '../language/management.js';
 import { setBuiltinVoice } from '../state/auditor.js';
 import { rebuildOutputForLanguage } from './translation.js';
@@ -38,12 +43,12 @@ export function fixTitle() {
   let e = document.getElementById('titre');
   if (e && e.style.height) {
     const height = parseInt(e.style.height.replace('px', ''), 10) || 0;
-    e.style.top = `${innerHeight - height - 100 - 10}px`;
+    e.style.top = `${window.innerHeight - height - 100 - 10}px`;
   }
   e = document.getElementById('VOBanner');
   if (e && e.style.height) {
     const height = parseInt(e.style.height.replace('px', ''), 10) || 0;
-    e.style.top = `${innerHeight - height - 100 - 10}px`;
+    e.style.top = `${window.innerHeight - height - 100 - 10}px`;
   }
 }
 
@@ -54,15 +59,15 @@ export function MinTitlePos() {
   let e = document.getElementById('titre');
   if (e) {
     const postop = parseInt(e.style.top.replace('px', ''), 10) || 0;
-    if (postop > innerHeight - 50) {
-      e.style.top = `${innerHeight - 50}px`;
+    if (postop > window.innerHeight - 50) {
+      e.style.top = `${window.innerHeight - 50}px`;
     }
   }
   e = document.getElementById('VOBanner');
   if (e) {
     const postop = parseInt(e.style.top.replace('px', ''), 10) || 0;
-    if (postop > innerHeight - 50) {
-      e.style.top = `${innerHeight - 50}px`;
+    if (postop > window.innerHeight - 50) {
+      e.style.top = `${window.innerHeight - 50}px`;
     }
   }
 }
@@ -244,10 +249,7 @@ function waitForReadTextAndStart() {
   if (typeof readText === 'function' && typeof startAuditorPolling === 'function') {
     startAuditorPolling();
   } else {
-    safeSetTimeout(
-      waitForReadTextAndStart,
-      100
-    );
+    safeSetTimeout(waitForReadTextAndStart, 100);
   }
 }
 

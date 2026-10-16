@@ -19,7 +19,9 @@ import { EnvoiMail } from './lib/auditor/mail.js';
 import { DownloadSpeechLesson } from './lib/download.js';
 
 // Get user name from DOM
-const userName = document.getElementById('AuditorName') ? document.getElementById('AuditorName').value : window.randomname;
+const userName = document.getElementById('AuditorName')
+  ? document.getElementById('AuditorName').value
+  : window.randomname;
 
 // Initialize chat alert
 if (typeof initChatAlert === 'function') {
@@ -78,10 +80,7 @@ function setupEventListeners() {
       const classroomidEl = document.getElementById('classroomid');
       const notebookEl = document.getElementById('notebook');
       if (classroomidEl && notebookEl && typeof DownloadSpeechLesson === 'function') {
-        DownloadSpeechLesson(
-          `lesson_${classroomidEl.value}.txt`,
-          notebookEl.innerHTML
-        );
+        DownloadSpeechLesson(`lesson_${classroomidEl.value}.txt`, notebookEl.innerHTML);
       }
     });
   }
@@ -93,10 +92,7 @@ function setupEventListeners() {
       const classroomidEl = document.getElementById('classroomid');
       const outputEl = document.getElementById('output');
       if (classroomidEl && outputEl && typeof DownloadSpeechLesson === 'function') {
-        DownloadSpeechLesson(
-          `translated_lesson_${classroomidEl.value}.txt`,
-          outputEl.innerHTML
-        );
+        DownloadSpeechLesson(`translated_lesson_${classroomidEl.value}.txt`, outputEl.innerHTML);
       }
     });
   }

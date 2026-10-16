@@ -11,8 +11,8 @@ import { _ } from './selector.js';
  * @param {HTMLElement|string} element - Element or element ID
  */
 export function hide(element) {
-    const el = typeof element === 'string' ? _(element) : element;
-    if (el) el.style.display = 'none';
+  const el = typeof element === 'string' ? _(element) : element;
+  if (el) el.style.display = 'none';
 }
 
 /**
@@ -21,8 +21,8 @@ export function hide(element) {
  * @param {string} [display='block'] - Display value
  */
 export function show(element, display = 'block') {
-    const el = typeof element === 'string' ? _(element) : element;
-    if (el) el.style.display = display;
+  const el = typeof element === 'string' ? _(element) : element;
+  if (el) el.style.display = display;
 }
 
 /**
@@ -30,8 +30,8 @@ export function show(element, display = 'block') {
  * @param {HTMLElement|string} element - Element or element ID
  */
 export function toggle(element) {
-    const el = typeof element === 'string' ? _(element) : element;
-    if (el) {
-        el.style.display = el.style.display === 'none' ? '' : 'none';
-    }
+  const el = typeof element === 'string' ? _(element) : element;
+  if (el) {
+    el.style.display = el.style.display === 'none' ? '' : 'none';
+  }
 }

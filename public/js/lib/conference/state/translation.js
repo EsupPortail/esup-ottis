@@ -8,6 +8,16 @@
 // =============================================================================
 
 /** @type {string} */
+// =============================================================================
+// Langue des sous-titres (désormais gérée par le store)
+// =============================================================================
+
+// =============================================================================
+// Voix disponibles
+// =============================================================================
+
+import { AllOutputVoices, TLangInput } from '../../language/state.js';
+
 export let lastPartialTranslation = '';
 
 /** @type {Array} */
@@ -18,24 +28,13 @@ export const StudentToTranslate2 = [];
 // =============================================================================
 
 /** @type {number} */
-export const Studentcurrentdiscours = 0;
+export let Studentcurrentdiscours = 0;
 
 /** @type {Object} */
 export const StudentToSay = {};
 
 /** @type {boolean} */
-export const Studentgotolive = false;
-
-// =============================================================================
-// Langue des sous-titres (désormais gérée par le store)
-// =============================================================================
-
-
-// =============================================================================
-// Voix disponibles
-// =============================================================================
-
-import { AllOutputVoices, TLangInput } from '../../language/state.js';
+export let Studentgotolive = false;
 export { AllOutputVoices, TLangInput };
 
 // =============================================================================
@@ -43,7 +42,7 @@ export { AllOutputVoices, TLangInput };
 // =============================================================================
 
 /** @type {boolean} */
-export const readytotalk = false;
+export let readytotalk = false;
 
 /** @type {number} */
 export let previousimage = 0;
@@ -61,12 +60,11 @@ export let LiveTranslationNum = 0;
 export const LiveTranslationFreq = 5;
 
 /** @type {boolean} */
-export const Studentcompletespeechactive = false;
+export let Studentcompletespeechactive = false;
 
 // =============================================================================
 // Setter functions for translation state (désormais gérée par le store)
 // =============================================================================
-
 
 /**
  * Set the last partial translation
@@ -90,6 +88,38 @@ export function setLastSentenceTranslated(value) {
  */
 export function setLiveTranslationNum(value) {
   LiveTranslationNum = value;
+}
+
+/**
+ * Set the readytotalk flag
+ * @param {boolean} value - Whether the speaker is ready
+ */
+export function setReadytotalk(value) {
+  readytotalk = value;
+}
+
+/**
+ * Set the Studentgotolive flag
+ * @param {boolean} value - Whether the student went live
+ */
+export function setStudentgotolive(value) {
+  Studentgotolive = value;
+}
+
+/**
+ * Set the Studentcurrentdiscours index
+ * @param {number} value - The current discours index
+ */
+export function setStudentcurrentdiscours(value) {
+  Studentcurrentdiscours = value;
+}
+
+/**
+ * Set the Studentcompletespeechactive flag
+ * @param {boolean} value - Whether a complete speech is active
+ */
+export function setStudentcompletespeechactive(value) {
+  Studentcompletespeechactive = value;
 }
 
 /**

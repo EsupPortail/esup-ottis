@@ -100,22 +100,31 @@ function Init() {
 
   // Keyboard navigation
   document.addEventListener('keyup', (event) => {
-    if (['AuditorName', 'dialog_MailTo', 'dialog_MailFrom', 'dialog_MailSubject', 'question'].indexOf(document.activeElement.id) < 0) {
+    if (
+      ['AuditorName', 'dialog_MailTo', 'dialog_MailFrom', 'dialog_MailSubject', 'question'].indexOf(
+        document.activeElement.id
+      ) < 0
+    ) {
       // Tab navigation removed - all sections are now displayed sequentially
-      if (event.code === 'KeyL') { // go to live
+      if (event.code === 'KeyL') {
+        // go to live
         setGotolive(true);
         CompleteSpeech();
       }
-      if (event.code === 'KeyF') { // go fullscreen
+      if (event.code === 'KeyF') {
+        // go fullscreen
         GoFS();
       }
-      if (event.code === 'KeyR') { // repeat
+      if (event.code === 'KeyR') {
+        // repeat
         Parle(_('titre').innerHTML);
       }
-      if (event.code === 'ArrowUp') { // Move the subtitles UP
+      if (event.code === 'ArrowUp') {
+        // Move the subtitles UP
         _('titre').style.top = `${_('titre').style.top.replace('px', '') * 1 - 5}px`;
       }
-      if (event.code === 'ArrowDown') { // Move the subtitles Down
+      if (event.code === 'ArrowDown') {
+        // Move the subtitles Down
         _('titre').style.top = `${_('titre').style.top.replace('px', '') * 1 + 5}px`;
       }
     }

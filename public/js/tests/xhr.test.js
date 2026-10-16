@@ -410,8 +410,7 @@ describe('XHR Module - createFetchRequest', () => {
 
   it('should handle timeout', async () => {
     const onError = vi.fn();
-    let resolveFetch;
-    const fetchPromise = new Promise((resolve) => { resolveFetch = resolve; });
+    const fetchPromise = new Promise(() => {});
     globalThis.fetch.mockReturnValue(fetchPromise);
 
     const request = createFetchRequest('GET', 'test.php', {
@@ -423,7 +422,9 @@ describe('XHR Module - createFetchRequest', () => {
     request.send();
 
     // Wait for timeout to trigger
-    await new Promise(resolve => setTimeout(resolve, 20));
+    await new Promise((resolve) => {
+      setTimeout(resolve, 20);
+    });
 
     expect(onError).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalled();
@@ -487,7 +488,7 @@ describe('XHR Module - createFetchRequest', () => {
     await request.send();
 
     const callArgs = fetch.mock.calls[0];
-    const body = callArgs[1].body;
+    const { body } = callArgs[1];
 
     expect(typeof body).toBe('string');
     expect(body).toContain('key=value');

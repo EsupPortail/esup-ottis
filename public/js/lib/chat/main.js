@@ -5,8 +5,6 @@
 import { _ } from '../dom/selector.js';
 import { readTextQCommon, saveTextQCommon } from './network.js';
 import { defaultMessageHandler } from './handlers.js';
-import { safeSetInterval } from '../utils/cleanup.js';
-import { isLanguageSelected, setChatPollingStarted, getChatPollingIntervalId, setChatPollingIntervalId } from '../state/shared.js';
 import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
 
 /**
@@ -78,8 +76,11 @@ export function saveTextQ(ch) {
  */
 export function startChatPolling() {
   // Polling DISABLED - Waiting for SSE migration to avoid PHP-FPM saturation
-  console.log("Chat polling DISABLED - Waiting for SSE migration");
-  return;
+  console.log('Chat polling DISABLED - Waiting for SSE migration');
+  /* Polling desactive en attendant la migration SSE (code conserve pour reactivation)
+     Reactiver aussi : import { safeSetInterval } de ../utils/cleanup.js et
+     { isLanguageSelected, setChatPollingStarted, getChatPollingIntervalId,
+     setChatPollingIntervalId } de ../state/shared.js
 
   const hasDialogChoose = !!document.getElementById('dialog-choose');
 
@@ -96,7 +97,7 @@ export function startChatPolling() {
   const MAX_INTERVAL = 5000;
   const INCREMENT = 500;
   const SUCCESS_THRESHOLD = 5;
-  
+
   let consecutiveErrors = 0;
   let consecutiveSuccesses = 0;
 
@@ -128,7 +129,7 @@ export function startChatPolling() {
   const pollChat = () => {
     const classroomIdEl = _('classroomid');
     let roomId = '';
-    
+
     if (classroomIdEl) {
       roomId = classroomIdEl.value;
     }
@@ -139,6 +140,7 @@ export function startChatPolling() {
   };
 
   setChatPollingIntervalId(safeSetInterval(pollChat, currentInterval));
+  */
 }
 
 // Expose globally for inline event handlers - removed, use ES module imports instead

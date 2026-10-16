@@ -71,8 +71,6 @@ export let originalTextBandStyle = '';
 /** @type {Object} */
 export let originalPdfControlStyle = { cssText: '', buttonStyles: [] };
 
-
-
 /** @type {string} */
 export let originalTextBandDisplay = '';
 

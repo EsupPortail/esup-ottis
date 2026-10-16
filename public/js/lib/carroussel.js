@@ -9,7 +9,9 @@
  * @param {Object} swiper - Swiper instance
  */
 function updateTouchMove(swiper) {
-  const hasOverflow = swiper.slides.length * (swiper.slides[0]?.offsetWidth + swiper.params.spaceBetween) > swiper.size;
+  const hasOverflow =
+    swiper.slides.length > 0 &&
+    swiper.slides.length * (swiper.slides[0].offsetWidth + swiper.params.spaceBetween) > swiper.size;
   swiper.allowTouchMove = hasOverflow;
   swiper.loop = hasOverflow;
 
@@ -25,7 +27,7 @@ function updateTouchMove(swiper) {
  */
 function updateNavigationVisibility(swiper) {
   const totalSlides = swiper.slides.length;
-  const slidesPerView = swiper.params.slidesPerView;
+  const { slidesPerView } = swiper.params;
 
   if (totalSlides <= slidesPerView) {
     const prevButton = document.querySelector('.swiper-button-prev');
@@ -70,18 +72,18 @@ export function initCarrousel() {
     // Responsive breakpoints
     breakpoints: {
       640: { slidesPerView: 2, spaceBetween: 10 },
-      1024: { slidesPerView: 3, spaceBetween: 20 }
+      1024: { slidesPerView: 3, spaceBetween: 20 },
     },
 
     on: {
-      init: function() {
+      init() {
         updateTouchMove(this);
         updateNavigationVisibility(this);
       },
-      resize: function() {
+      resize() {
         updateTouchMove(this);
-      }
-    }
+      },
+    },
   });
 
   return swiper;

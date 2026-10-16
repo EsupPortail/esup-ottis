@@ -3,6 +3,13 @@ import { EcrireCR as libEcrireCR } from '../chat/display.js';
 import { AbortTimeout as xhrAbortTimeout } from '../xhr.js';
 
 /**
+ * Re-exports from other modules
+ */
+// ROOM_TOKEN est désormais géré directement via getRoomToken() du store
+// Export de getRoomToken pour compatibilité
+import { getRoomToken } from '../state/shared.js';
+
+/**
  * Write with carriage return - re-export from lib
  * @param {string} who - The sender
  * @param {string} ch - The text to write
@@ -20,11 +27,4 @@ export function EcrireCR(who, ch, order) {
 export function AbortTimeout(r, s) {
   return xhrAbortTimeout(r, s);
 }
-
-/**
- * Re-exports from other modules
- */
-// ROOM_TOKEN est désormais géré directement via getRoomToken() du store
-// Export de getRoomToken pour compatibilité
-import { getRoomToken } from '../state/shared.js';
 export { getRoomToken };

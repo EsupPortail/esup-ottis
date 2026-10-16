@@ -4,7 +4,12 @@ import { openDialog } from '../dom/dialog.js';
 import { getBuiltinLanguage } from '../state/auditor.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
 import { isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
-import { MicrosoftKey, MicrosoftRegion, doContinuousRecognition, stopRecognizer } from './microsoft.js';
+import {
+  MicrosoftKey,
+  MicrosoftRegion,
+  doContinuousRecognition,
+  stopRecognizer,
+} from './microsoft.js';
 import { StartSpeechRecognition } from './speech.js';
 import { Traduction } from './translation.js';
 import { t } from '../i18n.js';
@@ -23,7 +28,7 @@ export function FullScreen() {
   const isPressed = mybox.getAttribute('aria-pressed') === 'true';
   const newPressedState = !isPressed;
   mybox.setAttribute('aria-pressed', newPressedState);
-  
+
   // Mettre à jour le label
   const newLabel = newPressedState ? t('conference.outil.micStop') : t('conference.outil.micStart');
   mybox.setAttribute('aria-label', newLabel);
@@ -52,7 +57,6 @@ export function FullScreen() {
 export function SubWindow() {
   const sublink = _('sublink');
   if (!sublink) return; // Éléments supprimés
-  event.preventDefault();
   const windowFeatures = 'status=no,location=no,toolbar=no,menubar=no,width=1200,height=110';
   const link = sublink.innerHTML.replaceAll('&amp;', '&');
   window.open(link, '_blank', windowFeatures);
@@ -61,7 +65,7 @@ export function SubWindow() {
 export function showET(obj, num) {
   if (obj.checked) {
     const url = _(`extraurl${num}`).value;
-    if (url != '') {
+    if (url !== '') {
       _(`spanembedET${num}`).innerHTML = 'Yes !';
       show(`titleextratab${num}`);
       _(`extratab${num}`).src = url;
@@ -80,11 +84,11 @@ export function showET(obj, num) {
 export function Micro() {
   const mybox = _('micon');
   const recognitiononEl = _('recognitionon');
-  
+
   if (!recognitiononEl) {
     return;
   }
-  
+
   const currentCheckedState = recognitiononEl.checked;
   const newCheckedState = !currentCheckedState;
 
@@ -94,7 +98,7 @@ export function Micro() {
   } catch (e) {
     return;
   }
-  
+
   try {
     setBuiltinRecognitionon(newCheckedState);
   } catch (e) {
@@ -105,7 +109,7 @@ export function Micro() {
   const isPressed = mybox.getAttribute('aria-pressed') === 'true';
   const newPressedState = !isPressed;
   mybox.setAttribute('aria-pressed', newPressedState);
-  
+
   // Mettre à jour le label
   const newLabel = newPressedState ? t('conference.outil.micStop') : t('conference.outil.micStart');
   mybox.setAttribute('aria-label', newLabel);
@@ -123,24 +127,21 @@ export function Micro() {
       stopRecognizer();
     }
   }
-  
+
   if (_('recognitionon').checked && !isBuiltinMicrosoftTranscriptionOn()) {
     try {
       StartSpeechRecognition(Traduction);
     } catch (e) {
+      // Erreur au demarrage de la reconnaissance vocale, ignoree
     }
-  } else {
   }
-  /* else {
-            StopStudentReadText();
-        } */
 }
 
 export function Embedcode() {
   const url = _('chatlink').href;
-  //  navigator.clipboard.writeText('<iframe style="width:100%; overflow: auto; height: 500px" src="'+url+'"></iframe>');
   //  alert("HTML code copied to clipboard !");
-  _('embedcontent').value = `<iframe style="width:100%; overflow: auto; height: 500px" src="${url}"></iframe>`;
+  _('embedcontent').value =
+    `<iframe style="width:100%; overflow: auto; height: 500px" src="${url}"></iframe>`;
 }
 
 export function sendnotebook() {
@@ -154,7 +155,7 @@ export function sendnotebook() {
 export function opentab(e) {
   const url = e.innerHTML;
   let tabnumber = 1;
-  while (tabnumber < 4 && _(`extraurl${tabnumber}`).value != '') tabnumber++;
+  while (tabnumber < 4 && _(`extraurl${tabnumber}`).value !== '') tabnumber++;
   _(`extraurl${tabnumber}`).value = url;
   _(`embedET${tabnumber}`).checked = true;
   showET(_(`embedET${tabnumber}`), tabnumber);
@@ -163,9 +164,10 @@ export function opentab(e) {
 export function toggleTextBandDisplay(forceFixed = false) {
   const useTextBandCheckbox = _('usetextband');
   // En plein écran, le bloc flottant est remplace par le bloc fixe (etat case decochee)
-  const useTextBand = Boolean(useTextBandCheckbox && useTextBandCheckbox.checked)
-    && !forceFixed
-    && !document.fullscreenElement;
+  const useTextBand =
+    Boolean(useTextBandCheckbox && useTextBandCheckbox.checked) &&
+    !forceFixed &&
+    !document.fullscreenElement;
   const live = _('live');
   const floatLive = _('float-live');
   const textfixe = _('textfixe');

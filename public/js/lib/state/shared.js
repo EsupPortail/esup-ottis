@@ -1,41 +1,41 @@
 /**
  * @module lib/state/shared
  * État partagé entre conference et auditor
- * 
+ *
  * Re-exporte les éléments du store pour une import simplifiée.
- * 
+ *
  * Utilisation :
  *   import { getToSay, pushToSay, getToTranslate, pushToTranslate } from './lib/state/shared.js';
  */
 
 // Importer l'API complète du store
 import {
-    getState,
-    get,
-    set,
-    reset,
-    subscribe,
-    increment,
-    push,
-    setAt,
-    removeAt,
-    setProp,
-    deleteProp
+  getState,
+  get,
+  set,
+  reset,
+  subscribe,
+  increment,
+  push,
+  setAt,
+  removeAt,
+  setProp,
+  deleteProp,
 } from './store.js';
 
 // Ré-exporter l'API complète du store
 export {
-    getState,
-    get,
-    set,
-    reset,
-    subscribe,
-    increment,
-    push,
-    setAt,
-    removeAt,
-    setProp,
-    deleteProp
+  getState,
+  get,
+  set,
+  reset,
+  subscribe,
+  increment,
+  push,
+  setAt,
+  removeAt,
+  setProp,
+  deleteProp,
 };
 
 // ============================================================================

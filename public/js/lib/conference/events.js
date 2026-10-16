@@ -16,7 +16,10 @@ document.addEventListener('ottis:languagechange', () => {
   const mic = document.getElementById('micon');
   if (mic) {
     const isPressed = mic.getAttribute('aria-pressed') === 'true';
-    mic.setAttribute('aria-label', isPressed ? t('conference.outil.micStop') : t('conference.outil.micStart'));
+    mic.setAttribute(
+      'aria-label',
+      isPressed ? t('conference.outil.micStop') : t('conference.outil.micStart')
+    );
   }
 });
 
@@ -135,7 +138,6 @@ export function initConferenceEvents() {
     micon.addEventListener('click', () => {
       Micro();
     });
-  } else {
   }
 
   // PDF close button
@@ -224,7 +226,8 @@ function initConferenceChatAlert() {
   safeSetTimeout(() => {
     const currentUser = globalThis.OTTIS_USER || {};
     const currentUserNameEl = document.getElementById('CurrentUserDisplayName');
-    const userName = currentUser.fullName || (currentUserNameEl && currentUserNameEl.value) || 'Intervenant';
+    const userName =
+      currentUser.fullName || (currentUserNameEl && currentUserNameEl.value) || 'Intervenant';
     initChatAlert(userName);
   }, 500);
 }

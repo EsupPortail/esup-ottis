@@ -116,7 +116,11 @@ export async function changeLanguage(lang) {
   document.documentElement.lang = lang;
   const params = new URLSearchParams(window.location.search);
   params.set('lang', lang);
-  window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+  window.history.replaceState(
+    null,
+    '',
+    `${window.location.pathname}?${params.toString()}${window.location.hash}`
+  );
   await initTranslations(lang);
   document.dispatchEvent(new CustomEvent('ottis:languagechange', { detail: { lang } }));
 }
@@ -128,9 +132,8 @@ export async function changeLanguage(lang) {
 export function getCurrentLanguage() {
   const urlParams = new URLSearchParams(window.location.search);
   // Page auditeur : interface en anglais par defaut
-  const defaultLang = document.body && document.body.classList.contains('ottis-page-auditor')
-    ? 'en'
-    : 'fr';
+  const defaultLang =
+    document.body && document.body.classList.contains('ottis-page-auditor') ? 'en' : 'fr';
   return urlParams.get('lang') || defaultLang;
 }
 

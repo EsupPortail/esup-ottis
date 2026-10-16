@@ -9,8 +9,13 @@ import { increasependingrequests, decreasependingrequests } from '../utils/reque
 import { addCsrfToken, createFetchRequest } from '../conference/network.js';
 import { getBuiltinVoice, getBuiltinLanguage } from '../state/auditor.js';
 import {
-    getBasePath, setToSayKey, unshiftToTranslate, getToTranslate,
-    setToTranslate, shiftToTranslate, getAllLines
+  getBasePath,
+  setToSayKey,
+  unshiftToTranslate,
+  getToTranslate,
+  setToTranslate,
+  shiftToTranslate,
+  getAllLines,
 } from '../state/shared.js';
 
 /**
@@ -39,18 +44,25 @@ function Translate(ch, l, linput, lineid) {
   f.append('lineid', lineid);
   addCsrfToken(f);
 
-  const request = createFetchRequest('POST', getBasePath() + '/text/translate', {
+  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
     onSuccess(response) {
       const parsedResponse = JSON.parse(response.responseText);
-      if ((!parsedResponse.error) && parsedResponse.data.translations) {
+      if (!parsedResponse.error && parsedResponse.data.translations) {
         const translatedText = parsedResponse.data.translations[0].text;
         setToSayKey(lineid, translatedText);
         // Réinsérer dans ToTranslate pour traitement dans l'ordre
         unshiftToTranslate([lineid, linput, ch, l, translatedText]);
       } else {
-        console.error('translation.js: Translation ERROR. Response:', parsedResponse, 'Raw:', response.responseText);
+        console.error(
+          'translation.js: Translation ERROR. Response:',
+          parsedResponse,
+          'Raw:',
+          response.responseText
+        );
         console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
-        alert(`Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`);
+        alert(
+          `Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`
+        );
         // Réinsérer avec un message d'erreur
         unshiftToTranslate([lineid, linput, ch, l, '---- Translation ERROR ---- (see console)']);
       }
@@ -101,38 +113,53 @@ function CompleteTranslation() {
     const builtinVoice = getBuiltinVoice();
     const builtinLanguage = getBuiltinLanguage();
     // Use builtin_voice.lang first (for auditor output voice), fallback to builtin_language
-    if (typeof builtinVoice !== 'undefined' && builtinVoice && builtinVoice.lang && typeof builtinVoice.lang === 'string') {
+    if (
+      typeof builtinVoice !== 'undefined' &&
+      builtinVoice &&
+      builtinVoice.lang &&
+      typeof builtinVoice.lang === 'string'
+    ) {
       currentLang = builtinVoice.lang.substr(0, 2);
-    } else if (typeof builtinLanguage !== 'undefined' && builtinLanguage && typeof builtinLanguage === 'string') {
+    } else if (
+      typeof builtinLanguage !== 'undefined' &&
+      builtinLanguage &&
+      typeof builtinLanguage === 'string'
+    ) {
       currentLang = builtinLanguage.substr(0, 2);
     }
 
     // If listener's language matches source or target language -> direct display
-    if (currentLang && sourceLang && typeof sourceLang === 'string' && currentLang === sourceLang.substr(0, 2)) {
+    if (
+      currentLang &&
+      sourceLang &&
+      typeof sourceLang === 'string' &&
+      currentLang === sourceLang.substr(0, 2)
+    ) {
       setToSayKey(id, sourceText);
       Ecrire(sourceText);
       CompleteTranslation();
-    } else if (currentLang && targetLang && typeof targetLang === 'string' && currentLang === targetLang.substr(0, 2)) {
+    } else if (
+      currentLang &&
+      targetLang &&
+      typeof targetLang === 'string' &&
+      currentLang === targetLang.substr(0, 2)
+    ) {
       setToSayKey(id, targetText);
       Ecrire(targetText);
       CompleteTranslation();
-    } else {
+    } else if (currentLang && currentLang !== '') {
       // Translation needed (target language is different)
-      if (currentLang && currentLang !== '') {
-        if (sourceLang && typeof sourceLang === 'string') {
-          Translate(sourceText, currentLang, sourceLang.substr(0, 2), id);
-        } else {
-          Translate(sourceText, currentLang, '', id);
-        }
+      if (sourceLang && typeof sourceLang === 'string') {
+        Translate(sourceText, currentLang, sourceLang.substr(0, 2), id);
       } else {
-        // No target language selected, display source text
-        Ecrire(sourceText);
+        Translate(sourceText, currentLang, '', id);
       }
+    } else {
+      // No target language selected, display source text
+      Ecrire(sourceText);
     }
-  } else {
-    if (_('synthesison').checked) {
-      CompleteSpeech();
-    }
+  } else if (_('synthesison').checked) {
+    CompleteSpeech();
   }
 }
 
@@ -145,20 +172,22 @@ function rebuildOutputForLanguage() {
   if (outputEl) {
     outputEl.innerHTML = '';
   }
-  
+
   // Vider ToTranslate pour reconstruction
   setToTranslate([]);
-  
+
   // Reconstruire ToTranslate depuis AllLines avec la nouvelle langue
   const allLines = getAllLines() || {};
   // Conserver l'ordre chronologique (lineid croissant) : unshift inverserait
   // la file et afficherait l'output a l'envers
-  const orderedIds = Object.keys(allLines).sort((a, b) => (a * 1) - (b * 1));
-  setToTranslate(orderedIds.map((lineId) => {
-    const line = allLines[lineId];
-    return [lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText];
-  }));
-  
+  const orderedIds = Object.keys(allLines).sort((a, b) => a * 1 - b * 1);
+  setToTranslate(
+    orderedIds.map((lineId) => {
+      const line = allLines[lineId];
+      return [lineId, line.sourceLang, line.sourceText, line.targetLang, line.targetText];
+    })
+  );
+
   // Laisser CompleteTranslation traiter toutes les lignes avec la nouvelle langue
   CompleteTranslation();
 }

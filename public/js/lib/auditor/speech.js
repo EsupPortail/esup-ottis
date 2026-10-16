@@ -5,8 +5,10 @@ import { _ } from '../dom/selector.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 import { getBuiltinVoice } from '../state/auditor.js';
 import {
-    getDiscoursRate, getToSay, getCurrentDiscours,
-    setCurrentDiscours
+  getDiscoursRate,
+  getToSay,
+  getCurrentDiscours,
+  setCurrentDiscours,
 } from '../state/shared.js';
 
 /**
@@ -16,7 +18,12 @@ import {
 function Parle(txt) {
   const builtinVoice = getBuiltinVoice();
   const discoursRate = getDiscoursRate();
-  if (typeof builtinVoice !== 'undefined' && builtinVoice && !builtinVoice.textonly && builtinVoice.lang) {
+  if (
+    typeof builtinVoice !== 'undefined' &&
+    builtinVoice &&
+    !builtinVoice.textonly &&
+    builtinVoice.lang
+  ) {
     const discours = new SpeechSynthesisUtterance(txt);
     discours.voice = builtinVoice;
     discours.rate = discoursRate;
@@ -35,7 +42,12 @@ function ParleThen(txt, f) {
   _('fixed-title').innerHTML = window.DOMPurify.sanitize(txt);
   const builtinVoice = getBuiltinVoice();
   const discoursRate = getDiscoursRate();
-  if (typeof builtinVoice !== 'undefined' && builtinVoice && !builtinVoice.textonly && builtinVoice.lang) {
+  if (
+    typeof builtinVoice !== 'undefined' &&
+    builtinVoice &&
+    !builtinVoice.textonly &&
+    builtinVoice.lang
+  ) {
     const discours = new SpeechSynthesisUtterance(txt);
     discours.voice = builtinVoice;
     discours.rate = discoursRate;
@@ -52,25 +64,23 @@ function ParleThen(txt, f) {
  * @summary Orchestrates the sequence of speeches
  */
 function CompleteSpeech() {
-  
   try {
     let maxId = -1;
     // Last ID in ToSay
     const toSay = getToSay() || {};
-    for (const key in toSay) {
-      const id = parseInt(key);
+    Object.keys(toSay).forEach((key) => {
+      const id = parseInt(key, 10);
       if (id > maxId) maxId = id;
-    }
-
+    });
 
     // ONLY read the last one, if there is something new
     if (maxId > getCurrentDiscours()) {
       const L = toSay[`${maxId}`].replace('&nbsp;', ' ');
       ParleThen(L, CompleteSpeech);
       setCurrentDiscours(maxId);
-    } else {
     }
   } catch (error) {
+    // Ignorer les erreurs de synthese vocale
   }
 }
 

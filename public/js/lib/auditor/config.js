@@ -13,11 +13,14 @@ import { showBanner, hideBanner } from './display.js';
  */
 export function applyConfigSub() {
   // Get config from window.pageData or fallback to global variable
-  const config = (typeof window !== 'undefined' && window.pageData && window.pageData.currentconfig) 
-    ? window.pageData.currentconfig 
-    : (typeof currentconfig !== 'undefined' ? currentconfig : '');
+  let config = '';
+  if (typeof window !== 'undefined' && window.pageData && window.pageData.currentconfig) {
+    config = window.pageData.currentconfig;
+  } else if (typeof currentconfig !== 'undefined') {
+    config = currentconfig;
+  }
 
-  if (config.length != 'ABYANACNNCNNNYYYYN'.length) return;
+  if (config.length !== 'ABYANACNNCNNNYYYYN'.length) return;
   // classroomlanguage
   _('classroomlanguage').selectedIndex = 1 * (config.charCodeAt(0) - 65);
   const classroomLangValue = _('classroomlanguage').value;
@@ -31,13 +34,13 @@ export function applyConfigSub() {
   setBuiltinVoice({ lang: voiceOutputValue });
 
   // subtitlebaron
-  if (config.charAt(2) == 'Y') {
+  if (config.charAt(2) === 'Y') {
     _('titre').style.visibility = 'visible';
   } else {
     _('titre').style.visibility = 'hidden';
   }
   // subtitlepartialbaron
-  if ((config.charAt(4) == 'Y')) {
+  if (config.charAt(4) === 'Y') {
     _('VOBanner').style.visibility = 'visible';
     showBanner('VOBanner');
   } else {

@@ -144,10 +144,19 @@ export function upgradeLegacyDialogs() {
     // Check if this div is referenced in any script as a dialog
     // For now, we'll just convert common dialog IDs
     const dialogIds = [
-      'dialog-invite', 'dialog-mail', 'dialog-message', 'dialog-warning',
-      'dialog-choose', 'dialog-download', 'dialog-licence', 'dialog-delay',
-      'dialog-ratio', 'dialog-all-lang', 'dialog-keywordParameter',
-      'mouse-position', 'dialog-message',
+      'dialog-invite',
+      'dialog-mail',
+      'dialog-message',
+      'dialog-warning',
+      'dialog-choose',
+      'dialog-download',
+      'dialog-licence',
+      'dialog-delay',
+      'dialog-ratio',
+      'dialog-all-lang',
+      'dialog-keywordParameter',
+      'mouse-position',
+      'dialog-message',
     ];
 
     if (dialogIds.some((id) => div.id === id)) {

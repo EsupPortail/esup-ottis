@@ -50,7 +50,7 @@ export function registerRequest(request) {
  * Clear all registered timers
  */
 export function clearAllTimers() {
-  activeTimers.forEach(timerId => {
+  activeTimers.forEach((timerId) => {
     try {
       clearTimeout(timerId);
       clearInterval(timerId);
@@ -65,7 +65,7 @@ export function clearAllTimers() {
  * Abort all registered requests
  */
 export function abortAllRequests() {
-  activeRequests.forEach(request => {
+  activeRequests.forEach((request) => {
     try {
       request.abort();
     } catch (error) {
@@ -79,7 +79,7 @@ export function abortAllRequests() {
  * Execute all registered cleanup callbacks
  */
 export function executeCleanupCallbacks() {
-  cleanupCallbacks.forEach(callback => {
+  cleanupCallbacks.forEach((callback) => {
     try {
       callback();
     } catch (error) {

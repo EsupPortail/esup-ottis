@@ -48,17 +48,20 @@ describe('Browser Module - whichBrowser', () => {
   });
 
   it('should detect Firefox', () => {
+    // eslint-disable-next-line max-len -- UserAgent reel, non fractionnable
     globalThis.navigator.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0';
     expect(whichBrowser()).toBe('Firefox');
   });
 
   it('should detect Safari', () => {
+    // eslint-disable-next-line max-len -- UserAgent reel, non fractionnable
     globalThis.navigator.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/14.1.1 Safari/605.1.15';
     expect(whichBrowser()).toBe('Safari');
   });
 
   it('should detect Edge', () => {
     // Use a userAgent that contains Edge but not Chrome
+    // eslint-disable-next-line max-len -- UserAgent reel, non fractionnable
     globalThis.navigator.userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Edge/44.19082.1164.0';
     expect(whichBrowser()).toBe('Edge');
   });

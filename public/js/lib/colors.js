@@ -40,8 +40,9 @@ export function getUserColor(username) {
   }
 
   // Generate random RGB values in 55-255 range to avoid too dark colors
-  let r; let g; let
-    b;
+  let r;
+  let g;
+  let b;
   do {
     r = Math.floor(Math.random() * 201) + 55;
     g = Math.floor(Math.random() * 201) + 55;

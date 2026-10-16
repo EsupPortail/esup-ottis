@@ -4,4 +4,3 @@
 
 export { _, get, query, queryAll, attr, val } from '../dom/selector.js';
 export { openDialog, closeDialog } from '../dom/dialog.js';
-

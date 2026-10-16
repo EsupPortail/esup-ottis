@@ -15,8 +15,10 @@ if (typeof window !== 'undefined') {
 
   // Configure PDF.js GlobalWorkerOptions (must be done before PDF.js is used)
   if (typeof window.pdfjsLib !== 'undefined') {
-    window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
-    window.pdfjsLib.GlobalWorkerOptions.cMapUrl = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
+    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    window.pdfjsLib.GlobalWorkerOptions.cMapUrl =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/cmaps/';
     window.pdfjsLib.GlobalWorkerOptions.cMapPacked = true;
   }
 }

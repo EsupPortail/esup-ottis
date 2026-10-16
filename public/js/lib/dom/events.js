@@ -13,14 +13,14 @@ import { safeSetTimeout } from '../utils/cleanup.js';
  * @param {boolean|Object} [options] - Event listener options
  */
 export function on(element, event, handler, options) {
-    const el = typeof element === 'string' ? document.getElementById(element) : element;
-    if (el) {
-        // Handle multiple events separated by spaces
-        const events = event.split(/\s+/);
-        events.forEach((evt) => {
-            el.addEventListener(evt, handler, options);
-        });
-    }
+  const el = typeof element === 'string' ? document.getElementById(element) : element;
+  if (el) {
+    // Handle multiple events separated by spaces
+    const events = event.split(/\s+/);
+    events.forEach((evt) => {
+      el.addEventListener(evt, handler, options);
+    });
+  }
 }
 
 /**
@@ -30,14 +30,14 @@ export function on(element, event, handler, options) {
  * @param {Function} handler - Event handler function
  */
 export function off(element, event, handler) {
-    const el = typeof element === 'string' ? document.getElementById(element) : element;
-    if (el) {
-        // Handle multiple events separated by spaces
-        const events = event.split(/\s+/);
-        events.forEach((evt) => {
-            el.removeEventListener(evt, handler);
-        });
-    }
+  const el = typeof element === 'string' ? document.getElementById(element) : element;
+  if (el) {
+    // Handle multiple events separated by spaces
+    const events = event.split(/\s+/);
+    events.forEach((evt) => {
+      el.removeEventListener(evt, handler);
+    });
+  }
 }
 
 /**
@@ -45,11 +45,11 @@ export function off(element, event, handler) {
  * @param {Function} callback - Function to execute
  */
 export function ready(callback) {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', callback);
-    } else {
-        safeSetTimeout(callback, 0);
-    }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', callback);
+  } else {
+    safeSetTimeout(callback, 0);
+  }
 }
 
 /**
@@ -59,9 +59,9 @@ export function ready(callback) {
  * @param {Object} [detail] - Event detail data
  */
 export function trigger(element, eventName, detail) {
-    const el = typeof element === 'string' ? document.getElementById(element) : element;
-    if (el) {
-        const event = new CustomEvent(eventName, { detail });
-        el.dispatchEvent(event);
-    }
+  const el = typeof element === 'string' ? document.getElementById(element) : element;
+  if (el) {
+    const event = new CustomEvent(eventName, { detail });
+    el.dispatchEvent(event);
+  }
 }

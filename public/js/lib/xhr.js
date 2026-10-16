@@ -84,11 +84,10 @@ export function createXhrRequest(method, url, options = {}) {
   }
 
   // Register XHR for automatic cleanup on page unload
-  xhr.abort = (function(originalAbort) {
-    return function() {
-      originalAbort.call(this);
-    };
-  })(xhr.abort);
+  const originalAbort = xhr.abort;
+  xhr.abort = function () {
+    originalAbort.call(this);
+  };
 
   registerRequest({ abort: () => xhr.abort() });
 
@@ -168,19 +167,19 @@ export function createFetchRequest(method, url, options = {}) {
         return Promise.resolve(xhr);
       },
       abort: () => xhr.abort(),
-      xhr: xhr
+      xhr,
     };
     return registerRequest(requestObj);
   }
 
   const controller = new AbortController();
-  const signal = controller.signal;
+  const { signal } = controller;
   let timeoutId = null;
 
   const fetchOptions = {
     method,
     signal,
-    headers: {}
+    headers: {},
   };
 
   if (data) {
@@ -217,7 +216,7 @@ export function createFetchRequest(method, url, options = {}) {
     status: response.status,
     statusText: response.statusText,
     responseText,
-    getResponseHeader: (header) => response.headers.get(header)
+    getResponseHeader: (header) => response.headers.get(header),
   });
 
   const request = {
@@ -253,11 +252,12 @@ export function createFetchRequest(method, url, options = {}) {
         if (onProgress && response.body) {
           const reader = response.body.getReader();
           const contentLength = response.headers.get('content-length');
-          const total = contentLength ? parseInt(contentLength) : 0;
+          const total = contentLength ? parseInt(contentLength, 10) : 0;
           let loaded = 0;
           const chunks = [];
 
           while (true) {
+            // eslint-disable-next-line no-await-in-loop -- lecture sequentielle du flux
             const { done, value } = await reader.read();
             if (done) break;
             chunks.push(value);
@@ -275,16 +275,20 @@ export function createFetchRequest(method, url, options = {}) {
         const successResponse = createResponseObject(response, responseText);
         if (onSuccess) onSuccess(successResponse);
         return successResponse;
-
       } catch (error) {
         if (timeoutId) clearTimeout(timeoutId);
         console.error('[xhr.js] Fetch error:', error);
         console.error('[xhr.js] URL:', url);
         console.error('[xhr.js] Method:', method);
         if (error.name === 'AbortError') {
-          if (onError) onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);
+          if (onError) {
+            onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);
+          }
         } else if (onError) {
-          onError({ status: 0, statusText: error.message || 'Network error', responseText: '' }, context);
+          onError(
+            { status: 0, statusText: error.message || 'Network error', responseText: '' },
+            context
+          );
         }
         return { status: 0, statusText: error.message || 'Network error', responseText: '' };
       }
@@ -292,7 +296,7 @@ export function createFetchRequest(method, url, options = {}) {
     abort: () => {
       if (timeoutId) clearTimeout(timeoutId);
       controller.abort();
-    }
+    },
   };
 
   return registerRequest(request);

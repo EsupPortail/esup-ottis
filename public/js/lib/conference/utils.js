@@ -1,8 +1,6 @@
-
 import { timenew_question, setTimenewQuestion } from './state/core.js';
 
 import { _, get } from '../dom/selector.js';
-import { hide, show } from '../dom/visibility.js';
 import { openDialog } from '../dom/dialog.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
@@ -73,7 +71,15 @@ export function formateresponse(datatxt, editable = true) {
     const slide = data[i];
     let txtnotes = '';
     for (let j = 0; j < slide.Notes.length; j++) {
-      if (slide.Notes[j].indexOf('[forward]') >= 0 || slide.Notes[j].indexOf('[backward]') >= 0 || slide.Notes[j].indexOf('[pause') >= 0 || slide.Notes[j].indexOf('[resource') >= 0 || slide.Notes[j].indexOf('[mouse') >= 0 || slide.Notes[j].indexOf('[notification') >= 0 || slide.Notes[j].indexOf('[wait') >= 0) {
+      if (
+        slide.Notes[j].indexOf('[forward]') >= 0 ||
+        slide.Notes[j].indexOf('[backward]') >= 0 ||
+        slide.Notes[j].indexOf('[pause') >= 0 ||
+        slide.Notes[j].indexOf('[resource') >= 0 ||
+        slide.Notes[j].indexOf('[mouse') >= 0 ||
+        slide.Notes[j].indexOf('[notification') >= 0 ||
+        slide.Notes[j].indexOf('[wait') >= 0
+      ) {
         slide.Notes[j] = '';
       } else {
         txtnotes = `${txtnotes + slide.Notes[j]} <br/>`;
@@ -88,16 +94,19 @@ export function formateresponse(datatxt, editable = true) {
       }
       safeSetTimeout(toexec, 10);
     } else {
-      //      res = res + '<dt><span onclick="addToNB(\''+txtnotes+'\',1); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
-      //      res = res + '<dt><span onclick="addSlideToNB(\''+txtnotes+'\'); ShowImage('+slide["Slide"]+'); currentDiscours='+currentPresentation.length+';">▶️</span>&nbsp;Slide #'+slide["Slide"]+'<img id="img_'+slide["Slide"]+'" width="50" src=""/></dt>\n';
       res = `${res}<dt>&nbsp;Slide #${slide.Slide}<img id="img_${slide.Slide}" width="50" src=""/></dt>\n`;
       let flag = false;
       for (let j = 0; j < slide.Notes.length; j++) {
-        if (slide.Notes[j].trim() != '') {
+        if (slide.Notes[j].trim() !== '') {
           if (editable) {
-            res = `${res}<dd>&nbsp;` + `<span id="SlideText${i}_${j}" contenteditable="true">${slide.Notes[j]}</span>` + '</dd>\n';
+            res =
+              `${res}<dd>&nbsp;` +
+              `<span id="SlideText${i}_${j}" contenteditable="true">${slide.Notes[j]}</span>` +
+              '</dd>\n';
           } else {
-            res = `${res}<dd><span onclick="addToNB('${slide.Notes[j]}',0); ShowImage(${slide.Slide}); currentDiscours=${currentPresentation.length};">▶️</span>&nbsp;${slide.Notes[j]}</dd>\n`;
+            res =
+              `${res}<dd><span onclick="addToNB('${slide.Notes[j]}',0); ShowImage(${slide.Slide});` +
+              ` currentDiscours=${currentPresentation.length};">▶️</span>&nbsp;${slide.Notes[j]}</dd>\n`;
           }
           currentPresentation.push({
             Slide: slide.Slide,
@@ -127,18 +136,18 @@ export function draw() {
   } else {
     const tab = _('questionicon');
     if (tab) {
-      tab.innerHTML = '<i class=\'material-icons\'>thumb_up</i>';
+      tab.innerHTML = '<i class="material-icons">thumb_up</i>';
       tab.style.backgroundColor = 'green';
     }
   }
 }
 
 export function EventNewQuestion() {
-  if (timenew_question == 0) {
+  if (timenew_question === 0) {
     setTimenewQuestion(10);
     const tab = _('questionicon');
     if (tab) {
-      tab.innerHTML = '<i class=\'material-icons blink\'>warning</i>';
+      tab.innerHTML = '<i class="material-icons blink">warning</i>';
       tab.style.backgroundColor = 'orange';
       draw();
     }
@@ -152,7 +161,7 @@ export function playlesson() {}
  *
  */
 
-function resizeSlides() {
+export function resizeSlides() {
   const slide = _('img_slides');
   if (!slide || !slide.width || !slide.height) {
     return;

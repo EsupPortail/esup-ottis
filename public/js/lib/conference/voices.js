@@ -1,9 +1,5 @@
-import {
-  getBuiltinVoice, setBuiltinLanguage
-} from '../state/auditor.js';
-import {
-  setSubtitleLanguage
-} from '../state/conference.js';
+import { getBuiltinVoice, setBuiltinLanguage } from '../state/auditor.js';
+import { setSubtitleLanguage } from '../state/conference.js';
 import { AllOutputVoices, TLangInput } from '../language/state.js';
 import { _ } from '../dom/selector.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
@@ -26,10 +22,10 @@ export function PopulateVoicesIn() {
   }
 
   // supportedLanguages can be either an array or an object (from pageData)
-  const languagesArray = Array.isArray(supportedLanguages) 
-    ? supportedLanguages 
+  const languagesArray = Array.isArray(supportedLanguages)
+    ? supportedLanguages
     : Object.entries(supportedLanguages);
-  
+
   if (languagesArray.length === 0) {
     setBuiltinLanguage('en-US');
     return;
@@ -39,7 +35,7 @@ export function PopulateVoicesIn() {
     // langEntry can be either {code, name_fr, name_vo} or [code, lang]
     const code = Array.isArray(langEntry) ? langEntry[0] : langEntry.code;
     const lang = Array.isArray(langEntry) ? langEntry[1] : langEntry;
-    
+
     if (TLangInput.indexOf(code) === -1) {
       const opt = document.createElement('option');
       opt.value = code;
@@ -60,20 +56,20 @@ export function PopulateSubtitlesLang() {
   if (!_('subtitlelanguage')) return;
   const select = _('subtitlelanguage');
   const supportedLanguages = getSupportedLanguages();
-  
+
   if (!supportedLanguages) {
     return;
   }
-  
+
   // supportedLanguages can be either an array or an object (from pageData)
-  const languagesArray = Array.isArray(supportedLanguages) 
-    ? supportedLanguages 
+  const languagesArray = Array.isArray(supportedLanguages)
+    ? supportedLanguages
     : Object.entries(supportedLanguages);
-  
+
   languagesArray.forEach((langEntry, index) => {
     const code = Array.isArray(langEntry) ? langEntry[0] : langEntry.code;
     const lang = Array.isArray(langEntry) ? langEntry[1] : langEntry;
-    
+
     const opt = document.createElement('option');
     opt.value = code;
 
@@ -91,16 +87,16 @@ export function PopulateSpeechLang() {
   if (!_('speechlanguage')) return;
   const select = _('speechlanguage');
   const supportedLanguages = getSupportedLanguages();
-  
+
   if (!supportedLanguages) {
     return;
   }
-  
+
   // supportedLanguages can be either an array or an object (from pageData)
-  const languagesArray = Array.isArray(supportedLanguages) 
-    ? supportedLanguages 
+  const languagesArray = Array.isArray(supportedLanguages)
+    ? supportedLanguages
     : Object.entries(supportedLanguages);
-  
+
   languagesArray.forEach((langEntry) => {
     const code = Array.isArray(langEntry) ? langEntry[0] : langEntry.code;
     const lang = Array.isArray(langEntry) ? langEntry[1] : langEntry;
@@ -125,8 +121,6 @@ export function Parle(txt) {
   discours.voice = bv;
   discours.lang = bv ? bv.lang : '';
   window.speechSynthesis.speak(discours);
-  discours.onend = ready;
-  discours.onerror = ready;
 }
 
 /**
@@ -154,18 +148,27 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
       // Sélectionner en-US par défaut (sans Male/Female), sinon la langue du navigateur
       const langCode = voices[i].lang.toLowerCase();
       const voiceName = voices[i].name.toLowerCase();
-      if (langCode.startsWith('en-us') && !voiceName.includes('male') && !voiceName.includes('female')) {
+      if (
+        langCode.startsWith('en-us') &&
+        !voiceName.includes('male') &&
+        !voiceName.includes('female')
+      ) {
         opt.selected = true;
         englishVoiceFound = true;
-      } else if (!englishVoiceFound && langCode.startsWith('en') && !voiceName.includes('male') && !voiceName.includes('female')) {
+      } else if (
+        !englishVoiceFound &&
+        langCode.startsWith('en') &&
+        !voiceName.includes('male') &&
+        !voiceName.includes('female')
+      ) {
         opt.selected = true;
         englishVoiceFound = true;
-      } else if (!englishVoiceFound && langCode.substr(0, 2) == navigator.language.substr(0, 2)) {
+      } else if (!englishVoiceFound && langCode.substr(0, 2) === navigator.language.substr(0, 2)) {
         opt.selected = true;
       }
       voices[i].textonly = false;
       AllOutputVoices.push(voices[i]);
-      opt.textContent = `${voices[i].lang} ${voices[i].name}${(voices[i].localService) ? '' : ' [external service]'}`;
+      opt.textContent = `${voices[i].lang} ${voices[i].name}${voices[i].localService ? '' : ' [external service]'}`;
       optgroup.appendChild(opt);
     }
   }
@@ -173,17 +176,17 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
   const supportedLanguagesRaw = getSupportedLanguages();
-  
+
   if (!supportedLanguagesRaw) {
     select.appendChild(optgroup2);
     return;
   }
-  
+
   // supportedLanguages can be either an array or an object (from pageData)
-  const supportedlanguages = Array.isArray(supportedLanguagesRaw) 
-    ? supportedLanguagesRaw 
+  const supportedlanguages = Array.isArray(supportedLanguagesRaw)
+    ? supportedLanguagesRaw
     : Object.values(supportedLanguagesRaw);
-  
+
   // Trouver l'index de en-US dans supportedlanguages
   let englishLangIndex = -1;
   for (let i = 0; i < supportedlanguages.length; i++) {
@@ -230,9 +233,6 @@ export function loadVoicesWhenAvailable(attempt = 0) {
 
   if (Tvoices.length !== 0) {
     InitVoices();
-    if (typeof Lancer === 'function') {
-      Lancer();
-    }
     // Ouvrir le pop-up de sélection de langue pour auditor
     if (typeof window.openLanguageDialog === 'function') {
       window.openLanguageDialog();

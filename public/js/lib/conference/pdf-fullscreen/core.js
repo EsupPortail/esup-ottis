@@ -4,20 +4,48 @@
  */
 
 import {
-  initialClientWidth, isCalculatingFullscreenScale, originalPdfControlStyle,
-  originalTextBandDisplay, originalTextBandStyle, originalTextBandVisibility,
-  originalTextBandParent, originalTextBandNextSibling, originalPdfControlParent,
-  originalPdfControlNextSibling, originalPdfViewerStyle, originalCanvasDisplay,
-  originalLiveStyle, originalLiveDisplay, originalLiveVisibility,
-  originalLiveParent, originalLiveNextSibling, pageNum,
-  pageRendering, pdfDoc, scale,
-  setScale, setFullscreenScale, setIsCalculatingFullscreenScale,
-  setOriginalCanvasDisplay, setOriginalCanvasWidth, setOriginalCanvasHeight,
-  setOriginalPdfControlStyle, setOriginalTextBandDisplay, setOriginalTextBandStyle,
-  setOriginalTextBandVisibility, setOriginalTextBandParent, setOriginalTextBandNextSibling,
-  setOriginalPdfControlParent, setOriginalPdfControlNextSibling, setOriginalPdfViewerStyle,
-  setOriginalPdfScale, setOriginalLiveStyle, setOriginalLiveDisplay,
-  setOriginalLiveVisibility, setOriginalLiveParent, setOriginalLiveNextSibling
+  initialClientWidth,
+  isCalculatingFullscreenScale,
+  originalPdfControlStyle,
+  originalTextBandDisplay,
+  originalTextBandStyle,
+  originalTextBandVisibility,
+  originalTextBandParent,
+  originalTextBandNextSibling,
+  originalPdfControlParent,
+  originalPdfControlNextSibling,
+  originalPdfViewerStyle,
+  originalCanvasDisplay,
+  originalLiveStyle,
+  originalLiveDisplay,
+  originalLiveVisibility,
+  originalLiveParent,
+  originalLiveNextSibling,
+  pageNum,
+  pageRendering,
+  pdfDoc,
+  scale,
+  setScale,
+  setFullscreenScale,
+  setIsCalculatingFullscreenScale,
+  setOriginalCanvasDisplay,
+  setOriginalCanvasWidth,
+  setOriginalCanvasHeight,
+  setOriginalPdfControlStyle,
+  setOriginalTextBandDisplay,
+  setOriginalTextBandStyle,
+  setOriginalTextBandVisibility,
+  setOriginalTextBandParent,
+  setOriginalTextBandNextSibling,
+  setOriginalPdfControlParent,
+  setOriginalPdfControlNextSibling,
+  setOriginalPdfViewerStyle,
+  setOriginalPdfScale,
+  setOriginalLiveStyle,
+  setOriginalLiveDisplay,
+  setOriginalLiveVisibility,
+  setOriginalLiveParent,
+  setOriginalLiveNextSibling,
 } from '../state.js';
 
 import { _ } from '../../dom/selector.js';
@@ -35,10 +63,11 @@ let pdfFullscreenActive = false;
 
 export function exitFullscreenAsync() {
   return new Promise((resolve) => {
-    const isFullscreen = document.fullscreenElement
-                           || document.webkitFullscreenElement
-                           || document.mozFullScreenElement
-                           || document.msFullscreenElement;
+    const isFullscreen =
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.mozFullScreenElement ||
+      document.msFullscreenElement;
 
     if (!isFullscreen) {
       resolve();
@@ -46,10 +75,11 @@ export function exitFullscreenAsync() {
     }
 
     const onFullscreenChange = () => {
-      const stillFullscreen = document.fullscreenElement
-                                   || document.webkitFullscreenElement
-                                   || document.mozFullScreenElement
-                                   || document.msFullscreenElement;
+      const stillFullscreen =
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement;
 
       if (!stillFullscreen) {
         document.removeEventListener('fullscreenchange', onFullscreenChange);
@@ -397,15 +427,16 @@ export function enterPdfFullscreen(element) {
     safeSetTimeout(onFullscreen, 500);
   });
 
-  requestPromise.then(() => {
-    applyFullscreenCanvasStyles();
-    calculateFullscreenScale();
+  requestPromise
+    .then(() => {
+      applyFullscreenCanvasStyles();
+      calculateFullscreenScale();
 
-    // Appliquer l'affichage selon la case (le plein écran impose le bloc fixe)
-    toggleTextBandDisplay(true);
-    pdfFullscreenActive = true;
-  }).catch(() => {
-  });
+      // Appliquer l'affichage selon la case (le plein écran impose le bloc fixe)
+      toggleTextBandDisplay(true);
+      pdfFullscreenActive = true;
+    })
+    .catch(() => {});
 }
 
 export function exitPdfFullscreen() {
@@ -417,33 +448,37 @@ export function exitPdfFullscreen() {
     fullscreenBtn.title = t('conference.outil.fullscreen');
   }
 
-  exitFullscreenAsync().then(() => {
-    restoreCanvasStyles(false);
-    
-    // Restaurer l'affichage de textBand/partialtitre selon useTextBand
-    safeSetTimeout(() => {
-      toggleTextBandDisplay();
-    }, 50);
+  exitFullscreenAsync()
+    .then(() => {
+      restoreCanvasStyles(false);
 
-    if (pdfDoc && initialClientWidth > 0) {
-      pdfDoc.getPage(1).then((page) => {
-        const viewport = page.getViewport({ scale: 1.0 });
-        const requiredScale = initialClientWidth / viewport.width;
-        setScale(requiredScale);
+      // Restaurer l'affichage de textBand/partialtitre selon useTextBand
+      safeSetTimeout(() => {
+        toggleTextBandDisplay();
+      }, 50);
 
-        if (pageNum) {
-          renderPage(pageNum);
-        }
-      }).catch(() => {
-        if (pageNum) {
-          renderPage(pageNum);
-        }
-      });
-    } else if (pageNum) {
-      renderPage(pageNum);
-    }
-  }).catch(() => {
-  });
+      if (pdfDoc && initialClientWidth > 0) {
+        pdfDoc
+          .getPage(1)
+          .then((page) => {
+            const viewport = page.getViewport({ scale: 1.0 });
+            const requiredScale = initialClientWidth / viewport.width;
+            setScale(requiredScale);
+
+            if (pageNum) {
+              renderPage(pageNum);
+            }
+          })
+          .catch(() => {
+            if (pageNum) {
+              renderPage(pageNum);
+            }
+          });
+      } else if (pageNum) {
+        renderPage(pageNum);
+      }
+    })
+    .catch(() => {});
 }
 
 /**
@@ -471,28 +506,32 @@ export function calculateFullscreenScale() {
   const availableHeight = window.innerHeight - reservedHeight;
   const availableWidth = window.innerWidth;
 
-  pdfDoc.getPage(1).then((page) => {
-    const originalViewport = page.getViewport({ scale: 1.0 });
-    const heightScale = availableHeight / originalViewport.height;
-    const widthScale = availableWidth / originalViewport.width;
-    const calculatedScale = Math.min(heightScale, widthScale) * 0.95;
-    setFullscreenScale(calculatedScale);
-    setScale(calculatedScale);
+  pdfDoc
+    .getPage(1)
+    .then((page) => {
+      const originalViewport = page.getViewport({ scale: 1.0 });
+      const heightScale = availableHeight / originalViewport.height;
+      const widthScale = availableWidth / originalViewport.width;
+      const calculatedScale = Math.min(heightScale, widthScale) * 0.95;
+      setFullscreenScale(calculatedScale);
+      setScale(calculatedScale);
 
-    if (pageNum && !pageRendering) {
-      renderPage(pageNum);
-    }
-    setIsCalculatingFullscreenScale(false);
-  }).catch(() => {
-    setIsCalculatingFullscreenScale(false);
-  });
+      if (pageNum && !pageRendering) {
+        renderPage(pageNum);
+      }
+      setIsCalculatingFullscreenScale(false);
+    })
+    .catch(() => {
+      setIsCalculatingFullscreenScale(false);
+    });
 }
 
 export function handleFullscreenResize() {
-  const isFullscreen = document.fullscreenElement
-                        || document.webkitFullscreenElement
-                        || document.mozFullScreenElement
-                        || document.msFullscreenElement;
+  const isFullscreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullscreenElement;
 
   if (isFullscreen) {
     safeSetTimeout(calculateFullscreenScale, 100);

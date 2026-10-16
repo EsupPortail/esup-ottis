@@ -17,16 +17,20 @@ import { saveTextQ } from './main.js';
 export function setupChatInput() {
   const questionEl = _('question');
   if (questionEl) {
-    questionEl.addEventListener('keyup', (event) => {
-      if (event.code === 'Enter') {
-        const text = questionEl.value.replaceAll('\n', '').trim();
-        if (text !== '') {
-          saveTextQ(text);
-          questionEl.value = '';
+    questionEl.addEventListener(
+      'keyup',
+      (event) => {
+        if (event.code === 'Enter') {
+          const text = questionEl.value.replaceAll('\n', '').trim();
+          if (text !== '') {
+            saveTextQ(text);
+            questionEl.value = '';
+          }
+          event.preventDefault();
+          event.stopPropagation();
         }
-        event.preventDefault();
-        event.stopPropagation();
-      }
-    }, false);
+      },
+      false
+    );
   }
 }

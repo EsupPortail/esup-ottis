@@ -4,7 +4,11 @@
     "plugin:security/recommended"
   ],
   "globals": {
-    "DOMPurify": "readonly"
+    "DOMPurify": "readonly",
+    "pdfjsLib": "readonly",
+    "Swiper": "readonly",
+    "PptxGenJS": "readonly",
+    "currentconfig": "writable"
   },
   "env": {
     "browser": true,
@@ -15,6 +19,9 @@
     "ecmaVersion": 2022,
     "sourceType": "module"
   },
+  "settings": {
+    "import/core-modules": ["vitest/config"]
+  },
   "plugins": [
     "security",
     "no-secrets"
@@ -23,10 +30,14 @@
     "no-var": "error",
     "prefer-const": "error",
     "prefer-arrow-callback": "error",
-    "func-style": ["error", "expression"],
+    "func-style": "off",
+    "func-names": "off",
+    "camelcase": "warn",
+    "no-plusplus": "off",
     "no-console": "warn",
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "eqeqeq": "error",
+    "eqeqeq": ["error", "smart"],
+    "max-len": ["error", { "code": 120 }],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "comma-dangle": ["error", {
@@ -41,15 +52,32 @@
     "no-trailing-spaces": "error",
     "object-curly-newline": ["error", { "multiline": true, "consistent": true }],
     "import/prefer-default-export": "off",
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
+    "import/no-mutable-exports": "off",
+    "import/no-cycle": "warn",
+    "no-param-reassign": "warn",
+    "operator-linebreak": "off",
+    "no-use-before-define": ["error", { "functions": false, "classes": true, "variables": true }],
     "no-secrets/no-secrets": "warn",
-    "security/detect-object-injection": "error"
+    "security/detect-object-injection": "off"
   },
   "overrides": [
     {
-      "files": ["*.test.js", "*.spec.js"],
+      "files": ["tests/no-jquery-validation.js"],
+      "globals": {
+        "get": "readonly",
+        "makeDraggable": "readonly"
+      },
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["*.test.js", "*.spec.js", "setup.js"],
       "rules": {
         "no-console": "off",
-        "no-unused-expressions": "off"
+        "no-unused-expressions": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
       }
     },
     {

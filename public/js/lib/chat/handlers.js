@@ -8,7 +8,14 @@ import { ColorsForCR } from '../colors.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 import { isSendInProgress, setSendInProgress } from '../state/shared.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
-import { nbnewQ, setNbnewQ, NBconnectedusers, Tconnectedusers, setNBconnectedusers, setTconnectedusers } from '../conference/state/core.js';
+import {
+  nbnewQ,
+  setNbnewQ,
+  NBconnectedusers,
+  Tconnectedusers,
+  setNBconnectedusers,
+  setTconnectedusers,
+} from '../conference/state/core.js';
 import { updateUsers } from '../conference/config-functions.js';
 import { TranslateQ } from './network.js';
 import { triggerNewMessageAlert } from './alert.js';
@@ -34,7 +41,15 @@ if (!ColorsForCR.Intervenant) {
  * @param {boolean} isSpecial - Is this a special message
  * @param {string} specialType - Type of special message
  */
-export function defaultMessageHandler(who, text, lang, order, isSpecial, specialType, senderRole = '') {
+export function defaultMessageHandler(
+  who,
+  text,
+  lang,
+  order,
+  isSpecial,
+  specialType,
+  senderRole = ''
+) {
   // Skip if message already displayed to prevent re-translation
   if (ScreenCR[order] !== undefined) {
     return;
@@ -47,9 +62,8 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
       setNBconnectedusers(NBconnectedusers + 1);
       Tconnectedusers.push(who);
       updateUsers();
-    }
-    // Handle new student lived (disconnected)
-    else if (specialType === 'newstudentlived') {
+      // Handle new student lived (disconnected)
+    } else if (specialType === 'newstudentlived') {
       setNBconnectedusers(NBconnectedusers - 1);
       setTconnectedusers(Tconnectedusers.filter((student) => student !== who));
       updateUsers();
@@ -83,14 +97,19 @@ export function defaultMessageHandler(who, text, lang, order, isSpecial, special
   }
 
   // Only translate if we have a language selected and it's different from the message language
-  if (currentLang && lang && typeof currentLang === 'string' && typeof lang === 'string'
-        && currentLang.substr(0, 2) !== lang.substr(0, 2)) {
-
+  if (
+    currentLang &&
+    lang &&
+    typeof currentLang === 'string' &&
+    typeof lang === 'string' &&
+    currentLang.substr(0, 2) !== lang.substr(0, 2)
+  ) {
     if (typeof TranslateQ === 'function') {
       TranslateQ(text, currentLang.substr(0, 2), lang.substr(0, 2), who, order, senderRole);
     }
   } else {
-    const hasIntervenantIdentity = senderRole === 'intervenant' || (!senderRole && isIntervenantSender(who));
+    const hasIntervenantIdentity =
+      senderRole === 'intervenant' || (!senderRole && isIntervenantSender(who));
     EcrireCR(who, text, order, hasIntervenantIdentity);
   }
 }
@@ -106,7 +125,7 @@ export function sendclick() {
     return;
   }
 
-  let questionElement = _('question');
+  const questionElement = _('question');
 
   if (questionElement) {
     const tosend = questionElement.value.replaceAll('\n', '').trim();

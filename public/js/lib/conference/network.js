@@ -1,5 +1,6 @@
 /** @module conference/network */
 import { safeSetTimeout } from '../utils/cleanup.js';
+import { showError } from './file-display.js';
 
 /**
  * Create and configure an XMLHttpRequest
@@ -47,15 +48,11 @@ export function createXhrRequest(method, url, options = {}) {
   };
 
   xhr.ontimeout = function () {
-    if (typeof showError !== 'undefined') {
-      showError('Request timed out', context);
-    }
+    showError('Request timed out', context);
   };
 
   xhr.onerror = function () {
-    if (typeof showError !== 'undefined') {
-      showError('Network error', context);
-    }
+    showError('Network error', context);
   };
 
   // Add progress event listeners if provided
@@ -127,18 +124,18 @@ export function createFetchRequest(method, url, options = {}) {
         return Promise.resolve(xhr);
       },
       abort: () => xhr.abort(),
-      xhr: xhr
+      xhr,
     };
   }
 
   const controller = new AbortController();
-  const signal = controller.signal;
+  const { signal } = controller;
   let timeoutId = null;
 
   const fetchOptions = {
     method,
     signal,
-    headers: {}
+    headers: {},
   };
 
   if (data) {
@@ -175,7 +172,7 @@ export function createFetchRequest(method, url, options = {}) {
     status: response.status,
     statusText: response.statusText,
     responseText,
-    getResponseHeader: (header) => response.headers.get(header)
+    getResponseHeader: (header) => response.headers.get(header),
   });
 
   const request = {
@@ -211,11 +208,12 @@ export function createFetchRequest(method, url, options = {}) {
         if (onProgress && response.body) {
           const reader = response.body.getReader();
           const contentLength = response.headers.get('content-length');
-          const total = contentLength ? parseInt(contentLength) : 0;
+          const total = contentLength ? parseInt(contentLength, 10) : 0;
           let loaded = 0;
           const chunks = [];
 
           while (true) {
+            // eslint-disable-next-line no-await-in-loop -- lecture sequentielle du flux
             const { done, value } = await reader.read();
             if (done) break;
             chunks.push(value);
@@ -233,13 +231,17 @@ export function createFetchRequest(method, url, options = {}) {
         const successResponse = createResponseObject(response, responseText);
         if (onSuccess) onSuccess(successResponse);
         return successResponse;
-
       } catch (error) {
         clearTimeout(timeoutId);
         if (error.name === 'AbortError') {
-          if (onError) onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);
+          if (onError) {
+            onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);
+          }
         } else if (onError) {
-          onError({ status: 0, statusText: error.message || 'Network error', responseText: '' }, context);
+          onError(
+            { status: 0, statusText: error.message || 'Network error', responseText: '' },
+            context
+          );
         }
         return { status: 0, statusText: error.message || 'Network error', responseText: '' };
       }
@@ -247,7 +249,7 @@ export function createFetchRequest(method, url, options = {}) {
     abort: () => {
       clearTimeout(timeoutId);
       controller.abort();
-    }
+    },
   };
 
   return request;

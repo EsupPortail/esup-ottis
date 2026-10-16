@@ -1,7 +1,7 @@
 /**
  * @module lib/state/auditor
  * État spécifique à l'interface auditor (étudiant)
- * 
+ *
  * Utilisation :
  *   import { getAuditorName, setAuditorName, isSynthesisOn } from './lib/state/auditor.js';
  */

@@ -1,5 +1,10 @@
 /** @module conference-init */
-import { loadVoicesWhenAvailable, applyConfig, initConferenceEvents, Init } from './lib/conference/index.js';
+import {
+  loadVoicesWhenAvailable,
+  applyConfig,
+  initConferenceEvents,
+  Init,
+} from './lib/conference/index.js';
 import { startChatStream } from './lib/chat/sse.js';
 import { defaultMessageHandler } from './lib/chat/handlers.js';
 import { safeSetInterval, safeSetTimeout } from './lib/utils/cleanup.js';
@@ -49,17 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return f;
     };
     const sendHeartbeat = () => {
-      fetch(getBasePath() + '/conference/heartbeat', {
+      fetch(`${getBasePath()}/conference/heartbeat`, {
         method: 'POST',
         body: buildPresenceData(),
-        credentials: 'same-origin'
+        credentials: 'same-origin',
       }).catch(() => {});
     };
     sendHeartbeat();
     safeSetInterval(sendHeartbeat, 20000);
     window.addEventListener('pagehide', () => {
       if (navigator.sendBeacon) {
-        navigator.sendBeacon(getBasePath() + '/conference/close', buildPresenceData());
+        navigator.sendBeacon(`${getBasePath()}/conference/close`, buildPresenceData());
       }
     });
   }

@@ -9,9 +9,11 @@ import { _ } from '../dom/selector.js';
  * @param {string} ch - The text that is adding to the notebook.
  */
 function EcrireNB(ch) {
-  if (_('notebook').innerHTML == '') {
+  if (_('notebook').innerHTML === '') {
     _('notebook').innerHTML = window.DOMPurify.sanitize(ch);
-  } else _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
+  } else {
+    _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
+  }
 
   // VOBanner
   _('VOBanner').innerHTML = window.DOMPurify.sanitize(ch);
@@ -22,9 +24,11 @@ function EcrireNB(ch) {
  * @param {string} ch - The text that is adding to the notebook.
  */
 function EcrireNBSub(ch) {
-  if (_('notebook').innerHTML == '') {
+  if (_('notebook').innerHTML === '') {
     _('notebook').innerHTML = window.DOMPurify.sanitize(ch);
-  } else _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
+  } else {
+    _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
+  }
 }
 
 /**
@@ -45,7 +49,7 @@ function EcrirePartialSub(ch) {
  * @param {string} ch - The text that is adding to the notebook.
  */
 function Ecrire(ch) {
-  if (_('output').innerHTML == '') _('output').innerHTML = window.DOMPurify.sanitize(ch);
+  if (_('output').innerHTML === '') _('output').innerHTML = window.DOMPurify.sanitize(ch);
   else _('output').innerHTML = window.DOMPurify.sanitize(`${_('output').innerHTML}<br/>${ch}`);
   _('titre').innerHTML = window.DOMPurify.sanitize(ch);
   _('fixed-title').innerHTML = window.DOMPurify.sanitize(ch);
