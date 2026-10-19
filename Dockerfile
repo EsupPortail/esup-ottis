@@ -1,7 +1,7 @@
 FROM php:8.2-fpm
 
 # Mettre à jour et installer les paquets
-RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-core-nogui \
+RUN apt-get update && apt-get install -y --no-install-recommends libreoffice \
     libfreetype-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
