@@ -75,8 +75,16 @@ describe('lib/dom.js - DOM Utilities', () => {
       const originalInnerWidth = window.innerWidth;
       const originalInnerHeight = window.innerHeight;
 
-      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1000 });
-      Object.defineProperty(window, 'innerHeight', { writable: true, configurable: true, value: 800 });
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: 1000,
+      });
+      Object.defineProperty(window, 'innerHeight', {
+        writable: true,
+        configurable: true,
+        value: 800,
+      });
 
       resizeWindow('window-element');
 
@@ -86,8 +94,16 @@ describe('lib/dom.js - DOM Utilities', () => {
       expect(element?.style.top).toBe('48px');
       expect(element?.style.left).toBe('0px');
 
-      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: originalInnerWidth });
-      Object.defineProperty(window, 'innerHeight', { writable: true, configurable: true, value: originalInnerHeight });
+      Object.defineProperty(window, 'innerWidth', {
+        writable: true,
+        configurable: true,
+        value: originalInnerWidth,
+      });
+      Object.defineProperty(window, 'innerHeight', {
+        writable: true,
+        configurable: true,
+        value: originalInnerHeight,
+      });
     });
 
     it('should not throw error for non-existent element', () => {

@@ -4,7 +4,13 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { openDialog, closeDialog, toggleDialog, createDialog, upgradeLegacyDialogs } from '../../lib/utils/dialog.js';
+import {
+  openDialog,
+  closeDialog,
+  toggleDialog,
+  createDialog,
+  upgradeLegacyDialogs,
+} from '../../lib/utils/dialog.js';
 
 describe('utils/dialog.js - Dialog Utilities', () => {
   beforeEach(() => {
@@ -59,9 +65,7 @@ describe('utils/dialog.js - Dialog Utilities', () => {
 
     it('should create dialog with buttons', () => {
       const result = createDialog('test-div', {
-        buttons: [
-          { text: 'OK' },
-        ],
+        buttons: [{ text: 'OK' }],
       });
 
       const button = result.querySelector('button');

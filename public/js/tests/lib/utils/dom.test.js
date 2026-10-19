@@ -4,7 +4,18 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { get, query, queryAll, on, off, ready, css, attr, val, getPosition as position } from '../../../lib/dom.js';
+import {
+  get,
+  query,
+  queryAll,
+  on,
+  off,
+  ready,
+  css,
+  attr,
+  val,
+  getPosition as position,
+} from '../../../lib/dom.js';
 
 describe('lib/dom.js - DOM Utilities (ES Module)', () => {
   beforeEach(() => {

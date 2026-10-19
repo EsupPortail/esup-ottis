@@ -94,8 +94,9 @@ describe('lib/conference/network.js - Conference Network Utilities', () => {
         status: 404,
       });
 
-      await expect(fetchWithErrorHandling('https://example.com/test'))
-        .rejects.toThrow('HTTP error! status: 404');
+      await expect(fetchWithErrorHandling('https://example.com/test')).rejects.toThrow(
+        'HTTP error! status: 404'
+      );
     });
 
     it('should pass options to fetch', async () => {
@@ -116,8 +117,9 @@ describe('lib/conference/network.js - Conference Network Utilities', () => {
     it('should handle network errors', async () => {
       global.fetch = vi.fn().mockRejectedValue(new Error('Network error'));
 
-      await expect(fetchWithErrorHandling('https://example.com/test'))
-        .rejects.toThrow('Network error');
+      await expect(fetchWithErrorHandling('https://example.com/test')).rejects.toThrow(
+        'Network error'
+      );
     });
   });
 

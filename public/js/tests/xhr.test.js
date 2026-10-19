@@ -17,6 +17,16 @@ import {
 // par un faux signal sans semantique d'annulation (test abort).
 const RealAbortController = globalThis.AbortController;
 
+// Mock fetch realiste : rejette si le signal d'annulation est leve
+// (une promesse qui ignore le signal ne declencherait jamais le catch).
+function abortableFetchMock(fetchUrl, opts) {
+  return new Promise((resolve, reject) => {
+    opts.signal.addEventListener('abort', () => {
+      reject(new DOMException('The operation was aborted.', 'AbortError'));
+    });
+  });
+}
+
 describe('XHR Module - addCsrfToken', () => {
   beforeEach(() => {
     document.body.innerHTML = '<input type="hidden" name="csrf_token" value="test-csrf-token">';
@@ -69,7 +79,9 @@ describe('XHR Module - handleXhrError', () => {
     const result = handleXhrError(mockXhr, 'test-context');
 
     expect(result).toBe(true);
-    expect(consoleErrorSpy).toHaveBeenCalledWith('[test-context] Network error: Unable to connect to server');
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      '[test-context] Network error: Unable to connect to server'
+    );
   });
 
   it('should handle HTTP 404 error', () => {
@@ -83,7 +95,9 @@ describe('XHR Module - handleXhrError', () => {
     const mockXhr = { status: 500, statusText: 'Internal Server Error' };
     handleXhrError(mockXhr, 'server-call');
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith('[server-call] HTTP error 500: Internal Server Error');
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      '[server-call] HTTP error 500: Internal Server Error'
+    );
   });
 
   it('should handle unexpected errors', () => {
@@ -149,7 +163,10 @@ describe('XHR Module - createXhrRequest', () => {
       data: 'key=value',
       contentType: 'application/x-www-form-urlencoded',
     });
-    expect(xhr.setRequestHeader).toHaveBeenCalledWith('Content-Type', 'application/x-www-form-urlencoded');
+    expect(xhr.setRequestHeader).toHaveBeenCalledWith(
+      'Content-Type',
+      'application/x-www-form-urlencoded'
+    );
   });
 
   it('should not set Content-Type for FormData', () => {
@@ -406,23 +423,22 @@ describe('XHR Module - createFetchRequest', () => {
     const request = createFetchRequest('GET', 'test.php', { onError, context: 'test' });
     await request.send();
 
-    expect(onError).toHaveBeenCalledWith({
-      status: 404,
-      statusText: 'Not Found',
-      responseText: 'Not Found',
-      getResponseHeader: expect.any(Function),
-    }, 'test');
+    expect(onError).toHaveBeenCalledWith(
+      {
+        status: 404,
+        statusText: 'Not Found',
+        responseText: 'Not Found',
+        getResponseHeader: expect.any(Function),
+      },
+      'test'
+    );
   });
 
   it('should handle timeout', async () => {
     const onError = vi.fn();
     // Mock realiste : fetch rejette si le signal d'annulation est leve
     // (une promesse qui ignore le signal ne declencherait jamais le catch)
-    globalThis.fetch = vi.fn((fetchUrl, opts) => new Promise((resolve, reject) => {
-      opts.signal.addEventListener('abort', () => {
-        reject(new DOMException('The operation was aborted.', 'AbortError'));
-      });
-    }));
+    globalThis.fetch = vi.fn(abortableFetchMock);
 
     const request = createFetchRequest('GET', 'test.php', {
       timeout: 10,
@@ -512,11 +528,7 @@ describe('XHR Module - createFetchRequest', () => {
     // Retablir le vrai AbortController : le faux du beforeEach n'a pas de
     // semantique d'annulation, indispensable pour tester abort().
     globalThis.AbortController = RealAbortController;
-    globalThis.fetch = vi.fn((fetchUrl, opts) => new Promise((resolve, reject) => {
-      opts.signal.addEventListener('abort', () => {
-        reject(new DOMException('The operation was aborted.', 'AbortError'));
-      });
-    }));
+    globalThis.fetch = vi.fn(abortableFetchMock);
 
     const request = createFetchRequest('GET', 'test.php');
     const sendPromise = request.send();

@@ -4,7 +4,13 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { EcrireNB, EcrireNBSub, Ecrire, hideBanner, showBanner } from '../../../lib/auditor/display.js';
+import {
+  EcrireNB,
+  EcrireNBSub,
+  Ecrire,
+  hideBanner,
+  showBanner,
+} from '../../../lib/auditor/display.js';
 
 describe('lib/auditor/display.js - Display Functions', () => {
   beforeEach(() => {

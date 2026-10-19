@@ -13,10 +13,7 @@ export default defineConfig({
     environment: 'jsdom',
 
     // Dossiers contenant les tests
-    include: [
-      '**/*.{test,spec}.js',
-      '**/*.{test,spec}.mjs',
-    ],
+    include: ['**/*.{test,spec}.js', '**/*.{test,spec}.mjs'],
 
     // Cache directory pour Vitest (pour éviter les problèmes de permissions)
     cache: {
@@ -24,32 +21,18 @@ export default defineConfig({
     },
 
     // Exclure les fichiers de configuration et node_modules
-    exclude: [
-      'node_modules/**',
-      '**/vendor/**',
-      '**/dist/**',
-      '**/build/**',
-    ],
+    exclude: ['node_modules/**', '**/vendor/**', '**/dist/**', '**/build/**'],
 
     // Configuration de la couverture de code (optionnel, à activer plus tard)
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: [
-        '**/utils/**/*.js',
-        '**/lib/**/*.js',
-      ],
-      exclude: [
-        '**/*.{test,spec}.js',
-        '**/tests/**',
-        '**/node_modules/**',
-      ],
+      include: ['**/utils/**/*.js', '**/lib/**/*.js'],
+      exclude: ['**/*.{test,spec}.js', '**/tests/**', '**/node_modules/**'],
     },
 
     // Global setup/teardown (optionnel)
-    setupFiles: [
-      './tests/setup.js',
-    ],
+    setupFiles: ['./tests/setup.js'],
 
     // Timeout par défaut pour les tests (en ms)
     testTimeout: 10000,

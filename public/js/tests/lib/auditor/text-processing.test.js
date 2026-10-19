@@ -4,7 +4,11 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { decodeHtmlEntities, countLines, auto_size_text } from '../../../lib/auditor/text-processing.js';
+import {
+  decodeHtmlEntities,
+  countLines,
+  auto_size_text,
+} from '../../../lib/auditor/text-processing.js';
 
 describe('lib/auditor/text-processing.js - Text Processing Utilities', () => {
   beforeEach(() => {

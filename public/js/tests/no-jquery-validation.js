@@ -12,6 +12,7 @@
  * 4. Look for "✅ PASS" or "❌ FAIL" results
  */
 
+// eslint-disable-next-line wrap-iife -- IIFE classique (script hors module), conflit de formatage Prettier/Airbnb
 (function () {
   // Test results storage
   const results = {
@@ -42,7 +43,10 @@
     return typeof context[name] === 'function';
   }
 
-  console.log('%c===== jQuery Removal Validation =====', 'color: #4CAF50; font-weight: bold; font-size: 16px;');
+  console.log(
+    '%c===== jQuery Removal Validation =====',
+    'color: #4CAF50; font-weight: bold; font-size: 16px;'
+  );
   console.log('[jQuery Removal Validation] Starting validation checks...');
 
   // ============================================
@@ -79,7 +83,10 @@
 
   utilityFunctions.forEach(({ name, context, description }) => {
     try {
-      logResult(`Utility function '${name}' exists (${description})`, functionExists(name, context));
+      logResult(
+        `Utility function '${name}' exists (${description})`,
+        functionExists(name, context)
+      );
     } catch (e) {
       logResult(`Utility function '${name}' check`, false, e.message);
     }
@@ -144,14 +151,9 @@
 
     scripts.forEach((script) => {
       const src = script.src.toLowerCase();
-      if (src.includes('jquery.min.js') || src.includes('jquery.js')
-                || src.includes('jquery-ui')) {
+      if (src.includes('jquery.min.js') || src.includes('jquery.js') || src.includes('jquery-ui')) {
         foundJQueryRef = true;
-        logResult(
-          'No jQuery scripts loaded',
-          false,
-          `Found jQuery reference: ${script.src}`
-        );
+        logResult('No jQuery scripts loaded', false, `Found jQuery reference: ${script.src}`);
       }
     });
 
@@ -175,10 +177,10 @@
         const rules = sheet.cssRules || sheet.rules;
         for (let j = 0; j < rules.length; j++) {
           const rule = rules[j];
-          if (rule.selectorText && (
-            rule.selectorText.includes('.jqueryselect')
-                        || rule.selectorText.includes('.ui-')
-          )) {
+          if (
+            rule.selectorText &&
+            (rule.selectorText.includes('.jqueryselect') || rule.selectorText.includes('.ui-'))
+          ) {
             foundJQueryUIClass = true;
             logResult(
               'No jQuery UI CSS classes found',
@@ -206,19 +208,28 @@
   // SUMMARY
   // ============================================
   setTimeout(() => {
-    console.log('%c===== Validation Summary =====', 'color: #4CAF50; font-weight: bold; font-size: 16px;');
+    console.log(
+      '%c===== Validation Summary =====',
+      'color: #4CAF50; font-weight: bold; font-size: 16px;'
+    );
     console.log(`[jQuery Removal Validation] Total tests: ${results.total}`);
     console.log(`[jQuery Removal Validation] Passed: ${results.passed}`);
     console.log(`[jQuery Removal Validation] Failed: ${results.failed}`);
 
     if (results.failed > 0) {
       // eslint-disable-next-line max-len
-      console.warn('%c[jQuery Removal Validation] ⚠️  Some tests failed. Please review the errors above.', 'color: #FF9800;');
+      console.warn(
+        '%c[jQuery Removal Validation] ⚠️  Some tests failed. Please review the errors above.',
+        'color: #FF9800;'
+      );
     } else {
       // eslint-disable-next-line max-len
-      console.log('%c[jQuery Removal Validation] ✅ All validation tests passed! jQuery has been successfully removed.', 'color: #4CAF50; font-weight: bold;');
+      console.log(
+        '%c[jQuery Removal Validation] ✅ All validation tests passed! jQuery has been successfully removed.',
+        'color: #4CAF50; font-weight: bold;'
+      );
     }
 
     console.log('========================================');
   }, 100);
-}());
+})();
