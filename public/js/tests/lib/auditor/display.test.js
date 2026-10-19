@@ -12,6 +12,7 @@ describe('lib/auditor/display.js - Display Functions', () => {
       <div id="notebook"></div>
       <div id="output"></div>
       <div id="titre"></div>
+      <div id="fixed-title"></div>
       <div id="VOBanner"></div>
       <div id="test-banner" style="transform: scale(1);"></div>
     `;

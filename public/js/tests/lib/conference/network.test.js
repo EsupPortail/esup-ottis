@@ -134,6 +134,9 @@ describe('lib/conference/network.js - Conference Network Utilities', () => {
       globalThis.XMLHttpRequest = vi.fn(() => ({
         open: vi.fn(),
         send: vi.fn(),
+        setRequestHeader: vi.fn(),
+        addEventListener: vi.fn(),
+        upload: { addEventListener: vi.fn() },
         timeout: 30000,
         readyState: 0,
         status: 0,
@@ -190,7 +193,7 @@ describe('lib/conference/network.js - Conference Network Utilities', () => {
       expect(consoleWarnSpy).toHaveBeenCalledWith(
         'createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback'
       );
-      expect(request.open).toBeDefined();
+      expect(request.xhr).toBeDefined();
     });
   });
 });

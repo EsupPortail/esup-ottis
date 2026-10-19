@@ -13,6 +13,10 @@ import {
   fetchWithErrorHandling,
 } from '../lib/xhr.js';
 
+// Capturer le vrai AbortController avant que des beforeEach ne le remplacent
+// par un faux signal sans semantique d'annulation (test abort).
+const RealAbortController = globalThis.AbortController;
+
 describe('XHR Module - addCsrfToken', () => {
   beforeEach(() => {
     document.body.innerHTML = '<input type="hidden" name="csrf_token" value="test-csrf-token">';
@@ -362,6 +366,7 @@ describe('XHR Module - createFetchRequest', () => {
     expect(fetch).toHaveBeenCalledWith('test.php', {
       method: 'POST',
       signal: expect.any(Object),
+      headers: {},
     });
   });
 
@@ -405,13 +410,19 @@ describe('XHR Module - createFetchRequest', () => {
       status: 404,
       statusText: 'Not Found',
       responseText: 'Not Found',
+      getResponseHeader: expect.any(Function),
     }, 'test');
   });
 
   it('should handle timeout', async () => {
     const onError = vi.fn();
-    const fetchPromise = new Promise(() => {});
-    globalThis.fetch.mockReturnValue(fetchPromise);
+    // Mock realiste : fetch rejette si le signal d'annulation est leve
+    // (une promesse qui ignore le signal ne declencherait jamais le catch)
+    globalThis.fetch = vi.fn((fetchUrl, opts) => new Promise((resolve, reject) => {
+      opts.signal.addEventListener('abort', () => {
+        reject(new DOMException('The operation was aborted.', 'AbortError'));
+      });
+    }));
 
     const request = createFetchRequest('GET', 'test.php', {
       timeout: 10,
@@ -434,6 +445,7 @@ describe('XHR Module - createFetchRequest', () => {
     globalThis.XMLHttpRequest = vi.fn(() => ({
       open: vi.fn(),
       send: vi.fn(),
+      setRequestHeader: vi.fn(),
       timeout: 30000,
     }));
 
@@ -445,7 +457,7 @@ describe('XHR Module - createFetchRequest', () => {
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       'createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback'
     );
-    expect(request.open).toBeDefined(); // Should be XMLHttpRequest
+    expect(request.xhr).toBeDefined(); // Should be XMLHttpRequest
 
     delete globalThis.XMLHttpRequest;
   });
@@ -468,6 +480,7 @@ describe('XHR Module - createFetchRequest', () => {
     expect(fetch).toHaveBeenCalledWith('test.php', {
       method: 'POST',
       signal: expect.any(Object),
+      headers: {},
       body: formData,
     });
   });
@@ -496,11 +509,22 @@ describe('XHR Module - createFetchRequest', () => {
   });
 
   it('should call abort function', async () => {
-    const request = createFetchRequest('GET', 'test.php');
-    const controller = globalThis.AbortController();
+    // Retablir le vrai AbortController : le faux du beforeEach n'a pas de
+    // semantique d'annulation, indispensable pour tester abort().
+    globalThis.AbortController = RealAbortController;
+    globalThis.fetch = vi.fn((fetchUrl, opts) => new Promise((resolve, reject) => {
+      opts.signal.addEventListener('abort', () => {
+        reject(new DOMException('The operation was aborted.', 'AbortError'));
+      });
+    }));
 
+    const request = createFetchRequest('GET', 'test.php');
+    const sendPromise = request.send();
     request.abort();
 
-    expect(controller.abort).toHaveBeenCalled();
+    // L'abort declenche le chemin AbortError : send() resout avec la reponse d'erreur
+    const result = await sendPromise;
+    expect(result.status).toBe(0);
+    expect(result.statusText).toBeTruthy();
   });
 });

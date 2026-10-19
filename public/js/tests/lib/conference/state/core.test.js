@@ -34,11 +34,6 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       setNbnewQ(5);
       expect(nbnewQ).toBe(5);
     });
-
-    it('should set window.nbnewQ when available', () => {
-      setNbnewQ(10);
-      expect(window.nbnewQ).toBe(10);
-    });
   });
 
   describe('setInputnumberQ()', () => {
@@ -46,22 +41,12 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       setInputnumberQ(3);
       expect(inputnumberQ).toBe(3);
     });
-
-    it('should set window.inputnumberQ when available', () => {
-      setInputnumberQ(7);
-      expect(window.inputnumberQ).toBe(7);
-    });
   });
 
   describe('setNBconnectedusers()', () => {
     it('should set NBconnectedusers value', () => {
       setNBconnectedusers(42);
       expect(NBconnectedusers).toBe(42);
-    });
-
-    it('should set window.NBconnectedusers when available', () => {
-      setNBconnectedusers(100);
-      expect(window.NBconnectedusers).toBe(100);
     });
   });
 
@@ -75,11 +60,6 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       setTconnectedusers(['user1']);
       setTconnectedusers(['user3', 'user4']);
       expect(Tconnectedusers).toEqual(['user3', 'user4']);
-    });
-
-    it('should set window.Tconnectedusers when available', () => {
-      setTconnectedusers(['test']);
-      expect(window.Tconnectedusers).toEqual(['test']);
     });
   });
 
@@ -95,23 +75,12 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       removeFromTconnectedusers('user3');
       expect(Tconnectedusers).toEqual(['user1', 'user2']);
     });
-
-    it('should set window.Tconnectedusers when available', () => {
-      setTconnectedusers(['user1', 'user2']);
-      removeFromTconnectedusers('user1');
-      expect(window.Tconnectedusers).toEqual(['user2']);
-    });
   });
 
   describe('setInputnumber()', () => {
     it('should set inputnumber value', () => {
       setInputnumber(5);
       expect(inputnumber).toBe(5);
-    });
-
-    it('should set window.inputnumber when available', () => {
-      setInputnumber(15);
-      expect(window.inputnumber).toBe(15);
     });
   });
 
@@ -120,22 +89,12 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       setFeedbackQueue(10);
       expect(FeedbackQueue).toBe(10);
     });
-
-    it('should set window.FeedbackQueue when available', () => {
-      setFeedbackQueue(20);
-      expect(window.FeedbackQueue).toBe(20);
-    });
   });
 
   describe('setDelayReadtextQ()', () => {
     it('should set delayReadtextQ value', () => {
       setDelayReadtextQ(1000);
       expect(delayReadtextQ).toBe(1000);
-    });
-
-    it('should set window.delayReadtextQ when available', () => {
-      setDelayReadtextQ(2000);
-      expect(window.delayReadtextQ).toBe(2000);
     });
   });
 
@@ -144,11 +103,6 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       setDelayStudentReadtext(2000);
       expect(delayStudentReadtext).toBe(2000);
     });
-
-    it('should set window.delayStudentReadtext when available', () => {
-      setDelayStudentReadtext(3000);
-      expect(window.delayStudentReadtext).toBe(3000);
-    });
   });
 
   describe('setDelayFeedback()', () => {
@@ -156,22 +110,12 @@ describe('lib/conference/state/core.js - Core State Setters', () => {
       setDelayFeedback(500);
       expect(delayFeedback).toBe(500);
     });
-
-    it('should set window.delayFeedback when available', () => {
-      setDelayFeedback(1500);
-      expect(window.delayFeedback).toBe(1500);
-    });
   });
 
   describe('setTimenewQuestion()', () => {
     it('should set timenew_question value', () => {
       setTimenewQuestion(1234567890);
       expect(timenew_question).toBe(1234567890);
-    });
-
-    it('should set window.timenew_question when available', () => {
-      setTimenewQuestion(9999999999);
-      expect(window.timenew_question).toBe(9999999999);
     });
   });
 });

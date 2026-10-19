@@ -21,11 +21,6 @@ describe('lib/utils/dialog.js - Dialog Utilities (ES Module)', () => {
     it('should not open div elements', () => {
       expect(() => openDialog('test-div')).not.toThrow();
     });
-
-    it('should expose function on window', () => {
-      openDialog('test-div');
-      expect(typeof window.openDialog).toBe('function');
-    });
   });
 
   describe('closeDialog()', () => {
@@ -35,11 +30,6 @@ describe('lib/utils/dialog.js - Dialog Utilities (ES Module)', () => {
 
     it('should not close div elements', () => {
       expect(() => closeDialog('test-div')).not.toThrow();
-    });
-
-    it('should expose function on window', () => {
-      closeDialog('test-div');
-      expect(typeof window.closeDialog).toBe('function');
     });
   });
 

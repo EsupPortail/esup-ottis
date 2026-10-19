@@ -23,8 +23,6 @@ tmp/
 js/coverage/
 js/cov
 public/js/coverage/
-public/js/tests/
-public/js/vitest.config.js
 # Ignore pre-commit test files
 .pre-commit/
 

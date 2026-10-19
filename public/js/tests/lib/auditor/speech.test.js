@@ -9,8 +9,12 @@ describe('lib/auditor/speech.js - Speech Functions', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
 
-    // Mock global dependencies
-    global._ = vi.fn((id) => (id === 'titre' ? { innerHTML: '' } : null));
+    // Le module importe le vrai _ de dom/selector.js : peupler le DOM jsdom
+    document.body.innerHTML = `
+      <div id="titre"></div>
+      <div id="fixed-title"></div>
+    `;
+    window.DOMPurify = { sanitize: vi.fn((text) => text) };
     global.DOMPurify = { sanitize: vi.fn((text) => text) };
     global.builtin_voice = null;
     global.builtin_discoursrate = 1;
