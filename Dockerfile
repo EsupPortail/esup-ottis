@@ -1,7 +1,10 @@
 FROM php:8.2-fpm
 
 # Mettre à jour et installer les paquets
-RUN apt-get update && apt-get install -y --no-install-recommends libreoffice \
+RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-core \
+    libreoffice-impress \
+	fonts-liberation \
+	fonts-dejavu-core \
     libfreetype-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
