@@ -34,6 +34,7 @@
     "func-names": "off",
     "camelcase": "warn",
     "no-plusplus": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_paq"] }],
     "no-console": "warn",
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "eqeqeq": ["error", "smart"],
