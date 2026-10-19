@@ -8,15 +8,13 @@
 export * from '../state/shared.js';
 export * from '../state/auditor.js';
 
-// state/conference.js fournit certains noms identiques à state/shared.js avec des
-// clés de store différentes (ex : 'ROOM_TOKEN' vs 'roomToken') : un double
-// export * les exclurait silencieusement (ambiguïté ESM). Réexport explicite de
-// tout, sauf getRoomToken, getCurrentDiscours, setCurrentDiscours,
-// getInputNumberQ et setInputNumberQ (fournis par state/shared.js ci-dessus).
+// state/conference.js : les anciens doublons de noms avec state/shared.js
+// (roomToken, inputnumberQ) ont ete supprimes et la variante auditor de
+// currentdiscours renommee (getAuditorCurrentDiscours) : il n'y a plus
+// d'ambiguite ESM. Liste explicite conservee par prudence.
 export {
   getClassroomId,
   setClassroomId,
-  setRoomToken,
   getWhichTranslator,
   setWhichTranslator,
   getTheme,

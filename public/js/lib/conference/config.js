@@ -8,13 +8,11 @@
 import {
   getAllOutputVoices as AllOutputVoices,
   getTLangInput as TLangInput,
-} from '../state/shared.js';
-
-import {
-  getSubtitleLanguage as subtitle_language,
   getInputNumberQ as inputnumberQ,
   setInputNumberQ as setInputnumberQ,
-} from '../state/conference.js';
+} from '../state/shared.js';
+
+import { getSubtitleLanguage as subtitle_language } from '../state/conference.js';
 
 import {
   getBuiltinVoice as builtin_voice,

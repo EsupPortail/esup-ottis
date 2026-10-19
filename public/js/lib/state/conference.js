@@ -3,7 +3,8 @@
  * État spécifique à l'interface conference (professeur)
  *
  * Utilisation :
- *   import { getClassroomId, getRoomToken, getWhichTranslator } from './lib/state/conference.js';
+ *   import { getClassroomId, getWhichTranslator } from './lib/state/conference.js';
+ * (roomToken : voir getRoomToken de state/shared.js, cle ROOM_TOKEN)
  */
 
 import { get, set, increment } from './store.js';
@@ -11,9 +12,6 @@ import { get, set, increment } from './store.js';
 // Classroom/Room information
 export const getClassroomId = () => get('classroomid') || '';
 export const setClassroomId = (id) => set({ classroomid: id });
-
-export const getRoomToken = () => get('roomToken') || '';
-export const setRoomToken = (token) => set({ roomToken: token });
 
 // Translator configuration
 export const getWhichTranslator = () => get('whichtranslator') || '';
@@ -71,6 +69,3 @@ export function setBuiltinMicrosoftTranscriptionOn(value) {
 // Conference translation state
 export const getSubtitleLanguage = () => get('subtitle_language') || '';
 export const setSubtitleLanguage = (lang) => set({ subtitle_language: lang });
-
-export const getInputNumberQ = () => get('inputnumberQ') || 0;
-export const setInputNumberQ = (value) => set({ inputnumberQ: value });

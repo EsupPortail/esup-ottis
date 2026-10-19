@@ -66,9 +66,10 @@ export const getAllLines = () => get('AllLines');
 export const setAllLines = (value) => set({ AllLines: value });
 export const setLine = (key, value) => setProp('AllLines', key, value);
 
-// currentdiscours
-export const getCurrentDiscours = () => get('currentdiscours');
-export const setCurrentDiscours = (value) => set({ currentdiscours: value });
+// auditorCurrentDiscours (ID de la phrase en cours, cote auditor -
+// ne pas confondre avec currentDiscours : index de diapositive, cote conference)
+export const getAuditorCurrentDiscours = () => get('auditorCurrentDiscours');
+export const setAuditorCurrentDiscours = (value) => set({ auditorCurrentDiscours: value });
 
 // gotolive
 export const isGotolive = () => get('gotolive');

@@ -35,6 +35,7 @@ import {
   getAllLines,
   get,
 } from '../state/shared.js';
+import { getCurrentConfig } from '../state/conference.js';
 
 /**
  * Sous-titres en direct : la conference publie le partiel en cours de dictee
@@ -85,7 +86,7 @@ function getConferenceSubtitleLanguage() {
   // Repli (aucune ligne finalisee recue) : index 1 de currentconfig.
   // supportedlanguages est un objet PHP indexe par code langue (pas un
   // tableau) : numeroter par insertion (ordre du CSV preserve).
-  const config = get('currentconfig') || '';
+  const config = getCurrentConfig() || '';
   if (typeof config !== 'string' || config.length < 2) return '';
   const supported = get('supportedlanguages') || [];
   const languages = Array.isArray(supported) ? supported : Object.values(supported);
@@ -451,7 +452,7 @@ function readTextSubTranscript() {
 function updateOutputBasedOnLanguage() {
   const roomId = _('classroomid')?.value;
   const roomToken = getRoomToken() || '';
-  const config = get('currentconfig') || '';
+  const config = getCurrentConfig() || '';
   const supportedLanguages = get('supportedlanguages') || [];
   const selectedLangSelect = _('classroomlanguage');
 

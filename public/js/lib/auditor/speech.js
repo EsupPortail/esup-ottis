@@ -7,8 +7,8 @@ import { getBuiltinVoice } from '../state/auditor.js';
 import {
   getDiscoursRate,
   getToSay,
-  getCurrentDiscours,
-  setCurrentDiscours,
+  getAuditorCurrentDiscours,
+  setAuditorCurrentDiscours,
 } from '../state/shared.js';
 
 /**
@@ -74,10 +74,10 @@ function CompleteSpeech() {
     });
 
     // ONLY read the last one, if there is something new
-    if (maxId > getCurrentDiscours()) {
+    if (maxId > getAuditorCurrentDiscours()) {
       const L = toSay[`${maxId}`].replace('&nbsp;', ' ');
       ParleThen(L, CompleteSpeech);
-      setCurrentDiscours(maxId);
+      setAuditorCurrentDiscours(maxId);
     }
   } catch (error) {
     // Ignorer les erreurs de synthese vocale

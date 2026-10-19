@@ -16,7 +16,6 @@
  * @param array $options {
  *     associative array with the following keys:
  *     - 'roomId': string - The ROOMID for the classroom
- *     - 'roomToken': string - The room token for multi-tab synchronization
  *     - 'userName': string - The username to display (e.g., "Red Alpaca")
  *     - 'isIntervenant': bool - Whether the user is an intervenant
  *     - 'containerClass': string - Optional CSS class for the container (default: 'chat-container')
@@ -30,7 +29,6 @@ function renderChatComponent($options = [])
     // Default options
     $defaults = [
         'roomId' => '',
-        'roomToken' => '',
         'userName' => '',
         'isIntervenant' => false,
         'containerClass' => 'chat-container',
@@ -42,7 +40,6 @@ function renderChatComponent($options = [])
 
     // Extract options
     $roomId = htmlspecialchars($options['roomId'], ENT_QUOTES, 'UTF-8');
-    $roomToken = htmlspecialchars($options['roomToken'], ENT_QUOTES, 'UTF-8');
     $userName = htmlspecialchars($options['userName'], ENT_QUOTES, 'UTF-8');
     $isIntervenant = $options['isIntervenant'];
     $containerClass = htmlspecialchars($options['containerClass'], ENT_QUOTES, 'UTF-8');

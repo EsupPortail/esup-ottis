@@ -118,7 +118,6 @@ class ConferenceController extends BaseController
         $jsVars = [
             'supportedlanguages' => $T_lang,
             'currentconfig' => $currentconfig,
-            'roomToken' => $roomToken,
             'intervenantUid' => $uid
         ];
 
