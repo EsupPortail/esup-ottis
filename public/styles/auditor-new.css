@@ -156,6 +156,11 @@
     color: var(--navy);
 }
 
+/* Retake UI : aeration entre le titre et le bloc alerte (vue Transcription) */
+.ottis-page-auditor #v-transcription .ottis-alert {
+    margin-top: 1.2rem;
+}
+
 /* Indicateur En direct / En erreur (contrastes >= 4.5:1, RGAA 4.1) */
 .ottis-page-auditor .live {
     display: inline-flex;
@@ -237,6 +242,10 @@
 
 .ottis-page-auditor .seg input:checked + span {
     background: var(--navy);
+    color: #fff;
+}
+
+.ottis-page-auditor .seg input:checked + span span {
     color: #fff;
 }
 
@@ -348,8 +357,6 @@
     width: 38px;
     height: 38px;
     border-radius: 0.8rem;
-    background: #fff;
-    color: var(--navy);
 }
 
 .ottis-page-auditor .rail #tchat-bubble svg {
@@ -360,6 +367,11 @@
 .ottis-page-auditor .rail #tchat-bubble .ottis-badge {
     top: -6px;
     right: -6px;
+}
+
+/* Retake UI : liseret blanc du badge sur le rail fonce (RGAA 3.3, contraste >= 3:1) */
+.ottis-page-auditor .rail .ottis-badge {
+    border: 2px solid #fff;
 }
 
 /* Nouveau message non lu : bulle orange clignotante (coupee si prefers-reduced-motion) */
