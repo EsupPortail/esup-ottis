@@ -6,13 +6,15 @@
         "conferenceTitle": "Conference",
         "conferenceDesc": "Allows subtitling a conference in the chosen language.",
         "conferenceButton": "Prepare the conference",
-        "title": "OTTIS makes it easier to include your interventions",
-        "cardTitle": "Subtitle your live intervention",
-        "cardText": "Add multilingual subtitles to your intervention (with or without support).",
+        "title": "Welcome to OTTIS",
+        "subtitle": "The tool that makes your presentations more inclusive",
+        "cardTitle": "Live subtitling",
+        "cardText": "Add subtitles to your presentation, in the language of your choice (with or without slides).",
         "cardButton": "Start the tool",
-        "accordionTitle": "Tips for optimal use of OTTIS",
+        "accordionTitle": "Tips",
         "tip1": "For effective capture, avoid noisy environments and prefer a quality microphone (ideally: headset or lavalier mic).",
-        "tip2": "For better subtitle readability, keep sentences short and pause at the end of each sentence."
+        "tip2": "For better subtitle readability, keep sentences short and pause at the end of each sentence.",
+        "tip3": "To move your slides forward or backward, use the keyboard (arrow keys), the mouse or a clicker."
     },
     "nav": {
         "contact": "Contact",
@@ -59,7 +61,7 @@
         },
         "langues": {
             "classroomLabel": "Speaker's language",
-            "classroomHelp": "Language spoken during the session; speech recognition is set to it.",
+            "classroomHelp": "Language spoken during the presentation.",
             "subtitleLabel": "Subtitles language",
             "subtitleHelp": "Subtitles will be translated into this language."
         },
@@ -75,7 +77,7 @@
         "partage": {
             "linkLabel": "Share link for the audience",
             "linkHelp": "Share this link with the audience so they can join the session.",
-            "copy": "Copy",
+            "copy": "Copy the share link",
             "copied": "Link copied to clipboard.",
             "copyFailed": "Copy failed: select the link and copy it manually.",
             "qrTitle": "QR Code",
@@ -99,7 +101,7 @@
             "converting": "Converting…",
             "processing": "Processing…",
             "displaying": "Displaying…",
-            "uploadFailed": "Upload failed: "
+            "uploadFailed": "Upload error. Please try again"
         },
         "pdf": {
             "pageIndicator": "Page {n} of {m}"

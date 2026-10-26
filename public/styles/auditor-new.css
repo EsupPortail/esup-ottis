@@ -72,7 +72,7 @@
    PANNEAU (Langue / Votre nom)
    ============================================= */
 .ottis-page-auditor .panel {
-    background: #fff;
+    background: #F3F4F6;
     border-right: 1px solid #e3e6eb;
 }
 
@@ -553,7 +553,7 @@
         left: 0;
         right: 0;
         bottom: 100%;
-        background: #fff;
+        background: #F3F4F6;
         max-height: calc(100vh - 10rem);
         overflow-y: auto;
         border-top: 1px solid #e3e6eb;

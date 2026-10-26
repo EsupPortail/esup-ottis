@@ -55,7 +55,7 @@
             <div id="pdf-control" class="ottis-pdf-control" hidden>
                 <div>
                     <button type="button" id="pdf-fullscreen-btn" class="translate" data-aria-key="conference.outil.fullscreen" aria-label="Plein &eacute;cran" title="Press ESC to exit fullscreen">
-                        Fullscreen
+                        <span class="translate" data-key="conference.outil.fullscreen">Plein &eacute;cran</span>
                     </button>
                     <button id="pdf-prev" disabled class="translate" data-aria-key="conference.outil.prevPage" aria-label="Page pr&eacute;c&eacute;dente">
                         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor">

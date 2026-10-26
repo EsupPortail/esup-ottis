@@ -150,7 +150,7 @@ header.ottis-header {
     align-items: center;
     justify-content: space-between;
     font-size: 0.75rem;
-    color: #666;
+    color: #101828;
     flex-wrap: wrap;
     gap: 8px;
 }
@@ -163,7 +163,7 @@ header.ottis-header {
 }
 
 .ottis-footer a {
-    color: #666;
+    color: #101828;
     text-decoration: none;
 }
 

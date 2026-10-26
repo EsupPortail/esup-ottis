@@ -11,6 +11,7 @@
     <!-- Langue du conf&eacute;rencier (l1 = classroomlanguage) -->
     <div class="ottis-form-group">
         <label for="classroomlanguage" class="translate" data-key="conference.langues.classroomLabel">Langue du conf&eacute;rencier</label>
+        <p class="ottis-hint translate" id="classroomlanguage-help" data-key="conference.langues.classroomHelp">Langue parl&eacute;e pendant l'intervention.</p>
         <div class="ottis-select-wrapper">
             <select id="classroomlanguage" class="ottis-select" aria-describedby="classroomlanguage-help">
                 <!-- Options g&eacute;n&eacute;r&eacute;es par JS -->
@@ -19,7 +20,6 @@
                 <path d="M6 9l6 6 6-6"/>
             </svg>
         </div>
-        <p class="ottis-hint translate" id="classroomlanguage-help" data-key="conference.langues.classroomHelp">Langue parl&eacute;e pendant l'intervention ; la reconnaissance vocale s'y r&egrave;gle.</p>
     </div>
 
     <!-- Langue des sous-titres (l2 = subtitlelanguage) -->

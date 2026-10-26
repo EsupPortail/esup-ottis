@@ -122,6 +122,11 @@
     min-height: 0;
 }
 
+/* Fond teinte du panneau latéral (retake UI) */
+.panel {
+    background: #F3F4F6;
+}
+
 /* Panel Header and Body (SPA structure) */
 .panel-header {
     display: flex;
@@ -532,7 +537,7 @@ progress::-moz-progress-bar {
     padding: 0;
 }
 .ottis-label-plain {
-    font-weight: 400 !important;
+    font-weight: 600 !important;
     color: var(--ink) !important;
 }
 .ottis-select-wrapper {
@@ -602,6 +607,11 @@ progress::-moz-progress-bar {
     font-size: 0.9rem;
     color: var(--muted);
     margin: 0.4rem 0 0;
+}
+
+/* Retake UI : interlignage resserré sous le legend, aéré avant les choix */
+#apparence-colors-help {
+    margin: 0.1rem 0 1rem;
 }
 
 /* Input Group */
@@ -1134,7 +1144,7 @@ progress::-moz-progress-bar {
 
 /* Panel Apparence - mise en forme aérée (RGAA 4.1) */
 .panel-apparence fieldset {
-    border: 1px solid #e3e6eb;
+    border: none;
     border-radius: 0.9rem;
     padding: 1rem;
     margin: 0 0 1.4rem;
@@ -1343,7 +1353,7 @@ progress#presentation-progress::-moz-progress-bar {
     .panel {
         /* Fond opaque : sans lui, le contenu central transparaît derrière
            le panneau ouvert en bas d'écran (feuille mobile) */
-        background: #fff;
+        background: #F3F4F6;
         /* Feuille flottante ancrée au-dessus du rail : hors flux pour ne pas
            allonger la page (le footer reste sous la barre épinglée) */
         position: absolute;

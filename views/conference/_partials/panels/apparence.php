@@ -29,9 +29,9 @@
         <legend class="translate" data-key="conference.apparence.floatLegend">Bloc de sous-titrage flottant</legend>
         <div class="ottis-form-group">
             <label class="ottis-checkbox">
+                <span class="translate" data-key="conference.apparence.floatLabel">Activer le bloc de sous-titrage flottant</span>
                 <input type="checkbox" id="usetextband" aria-describedby="apparence-float-help">
                 <span class="ottis-checkbox-custom"></span>
-                <span class="translate" data-key="conference.apparence.floatLabel">Activer le bloc de sous-titrage flottant</span>
             </label>
             <p class="ottis-hint translate" id="apparence-float-help" data-key="conference.apparence.floatHelp">Par défaut, les sous-titres seront statiques.</p>
         </div>

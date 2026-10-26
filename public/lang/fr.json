@@ -6,13 +6,15 @@
         "conferenceTitle": "Conférence",
         "conferenceDesc": "Permet de sous-titrer une conférence dans la langue choisie.",
         "conferenceButton": "Préparer la conférence",
-        "title": "OTTIS facilite l'inclusion de vos interventions",
-        "cardTitle": "Sous-titrer votre intervention en direct",
-        "cardText": "Ajoutez des sous-titres multilingues à votre intervention (avec ou sans support).",
+        "title": "Bienvenue sur OTTIS",
+        "subtitle": "L'outil qui facilite l'inclusion de vos interventions",
+        "cardTitle": "Sous-titrer en direct",
+        "cardText": "Ajoutez des sous-titres à votre intervention, dans la langue de votre choix (avec ou sans support).",
         "cardButton": "Démarrer l'outil",
-        "accordionTitle": "Conseils pour une utilisation optimale d'OTTIS",
+        "accordionTitle": "Conseils",
         "tip1": "Pour une captation efficace, éviter les environnements bruyants et privilégier un micro de qualité (de préférence : casque ou micro-cravate).",
-        "tip2": "Pour une meilleure lisibilité des sous-titres, faites des phrases courtes et marquez une pause en fin de chaque phrase."
+        "tip2": "Pour une meilleure lisibilité des sous-titres, faites des phrases courtes et marquez une pause en fin de chaque phrase.",
+        "tip3": "Pour faire avancer ou reculer votre diaporama, utilisez le clavier (flèches), la souris ou une zapette."
     },
     "nav": {
         "contact": "Contact",
@@ -59,7 +61,7 @@
         },
         "langues": {
             "classroomLabel": "Langue du conférencier",
-            "classroomHelp": "Langue parlée pendant l'intervention ; la reconnaissance vocale s'y règle.",
+            "classroomHelp": "Langue parlée pendant l'intervention.",
             "subtitleLabel": "Langue des sous-titres",
             "subtitleHelp": "Les sous-titres seront traduits dans cette langue."
         },
@@ -75,7 +77,7 @@
         "partage": {
             "linkLabel": "Lien de partage pour l'auditoire",
             "linkHelp": "Communiquez ce lien à l'auditoire pour qu'il rejoigne la session.",
-            "copy": "Copier",
+            "copy": "Copier le lien de partage",
             "copied": "Lien copié dans le presse-papiers.",
             "copyFailed": "Copie impossible : sélectionnez le lien et copiez-le manuellement.",
             "qrTitle": "QR Code",
@@ -99,7 +101,7 @@
             "converting": "Conversion en cours…",
             "processing": "Traitement en cours…",
             "displaying": "Affichage…",
-            "uploadFailed": "Échec de l'import : "
+            "uploadFailed": "Erreur de téléchargement. Merci de réessayer"
         },
         "pdf": {
             "pageIndicator": "Page {n} sur {m}"

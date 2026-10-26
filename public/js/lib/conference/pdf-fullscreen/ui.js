@@ -158,7 +158,7 @@ export function handleFileSelect(event) {
         progressBar.value = 0;
       }
       if (progressStatus) {
-        progressStatus.textContent = `${t('conference.progress.uploadFailed')}${error.message}`;
+        progressStatus.textContent = t('conference.progress.uploadFailed');
       }
       showPresentationError(`Upload failed: ${error.message}`);
     });
