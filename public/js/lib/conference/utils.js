@@ -136,6 +136,7 @@ export function draw() {
   } else {
     const tab = _('questionicon');
     if (tab) {
+      // eslint-disable-next-line no-secrets/no-secrets -- faux positif : balisage HTML d'icone Material, verifie sans secret
       tab.innerHTML = '<i class="material-icons">thumb_up</i>';
       tab.style.backgroundColor = 'green';
     }
@@ -176,7 +177,6 @@ export function resizeSlides() {
         slide.style.height=aggrandissmentY*slide.height+"px";
         */
     slide.style.transform = `scaleX(${aggrandissmentY}) scaleY(${aggrandissmentY})`;
-    //    slide.style.transform='scaleX('+aggrandissmentX+') scaleY('+aggrandissmentY+')';
   } else {
     /*    slide.width=aggrandissmentX*slide.width;
             slide.style.width=aggrandissmentX*slide.width+"px";
