@@ -136,7 +136,7 @@ export function draw() {
   } else {
     const tab = _('questionicon');
     if (tab) {
-      // eslint-disable-next-line no-secrets/no-secrets -- faux positif : balisage HTML d'icone Material, verifie sans secret
+      // eslint-disable-next-line no-secrets/no-secrets -- faux positif verifie : balisage HTML d'icone
       tab.innerHTML = '<i class="material-icons">thumb_up</i>';
       tab.style.backgroundColor = 'green';
     }

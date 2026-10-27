@@ -14,7 +14,12 @@ const translations = {};
  * @returns {*} The value at the path, or undefined
  */
 function getNestedValue(obj, path) {
-  return path.split('.').reduce((o, p) => (o || {})[p], obj);
+  // hasOwnProperty : les cles viennent d'attributs data-* de la page,
+  // ne pas remonter la chaine de prototypes
+  return path.split('.').reduce((o, p) => {
+    if (o && Object.prototype.hasOwnProperty.call(o, p)) return o[p];
+    return undefined;
+  }, obj);
 }
 
 /**
