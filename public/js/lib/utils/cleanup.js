@@ -1,3 +1,4 @@
+import * as logger from './logger.js';
 /**
  * @module utils/cleanup
  * Centralized cleanup utilities for preventing memory leaks
@@ -55,7 +56,7 @@ export function clearAllTimers() {
       clearTimeout(timerId);
       clearInterval(timerId);
     } catch (error) {
-      console.warn('Error clearing timer:', error);
+      logger.warn('Error clearing timer:', error);
     }
   });
   activeTimers.clear();
@@ -69,7 +70,7 @@ export function abortAllRequests() {
     try {
       request.abort();
     } catch (error) {
-      console.warn('Error aborting request:', error);
+      logger.warn('Error aborting request:', error);
     }
   });
   activeRequests.clear();
@@ -83,7 +84,7 @@ export function executeCleanupCallbacks() {
     try {
       callback();
     } catch (error) {
-      console.warn('Error in cleanup callback:', error);
+      logger.warn('Error in cleanup callback:', error);
     }
   });
   cleanupCallbacks.length = 0;

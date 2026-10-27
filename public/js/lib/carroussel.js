@@ -1,3 +1,4 @@
+import * as logger from './utils/logger.js';
 /**
  * @module lib/carroussel
  * Carrousel initialization using Swiper library
@@ -46,13 +47,13 @@ export function initCarrousel() {
   const swiperElement = document.querySelector('.swiper');
 
   if (!swiperElement) {
-    console.warn('Swiper container not found. Carrousel initialization skipped.');
+    logger.warn('Swiper container not found. Carrousel initialization skipped.');
     return null;
   }
 
   // Check if Swiper is available
   if (typeof Swiper === 'undefined') {
-    console.error('Swiper library not loaded. Please include Swiper JS before initializing carrousel.');
+    logger.error('Swiper library not loaded. Please include Swiper JS before initializing carrousel.');
     return null;
   }
 

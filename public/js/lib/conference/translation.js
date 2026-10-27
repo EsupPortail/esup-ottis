@@ -29,6 +29,7 @@ import {
 } from './notebook.js';
 import { Parle } from './voices.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
+import * as logger from '../utils/logger.js';
 
 /** @module conference/translation */
 
@@ -56,8 +57,8 @@ export function StudentTranslate2(ch, l, linput, lineid) {
   // Ajouter le token CSRF
   addCsrfToken(formData);
 
-  console.log('[StudentTranslate2] URL:', `${getBasePath()}/text/translate`);
-  console.log('[StudentTranslate2] formData entries:', Array.from(formData.entries()));
+  logger.debug('[StudentTranslate2] URL:', `${getBasePath()}/text/translate`);
+  logger.debug('[StudentTranslate2] formData entries:', Array.from(formData.entries()));
 
   const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
     onSuccess() {
@@ -66,8 +67,8 @@ export function StudentTranslate2(ch, l, linput, lineid) {
     onError(response, context) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('[StudentTranslate2] Translation request failed. Context:', context);
-        console.error('[StudentTranslate2] Response:', response);
+        logger.error('[StudentTranslate2] Translation request failed. Context:', context);
+        logger.error('[StudentTranslate2] Response:', response);
       }
     },
     data: formData,
@@ -104,14 +105,14 @@ export function StudentCompleteSpeech() {
     }
   }
   if (Studentgotolive) {
-    // console.log('Restart Speech');
-    // console.log('Discours : '+currentdiscours+'   '+nextdiscours)
+    // logger.debug('Restart Speech');
+    // logger.debug('Discours : '+currentdiscours+'   '+nextdiscours)
     for (let i = 1000; i > 0; i--) {
       if (StudentToSay[`${Studentcurrentdiscours + i}`]) {
         nextdiscours = Studentcurrentdiscours + i;
         break;
       }
-      // console.log('Discours next : '+currentdiscours+'   '+nextdiscours)
+      // logger.debug('Discours next : '+currentdiscours+'   '+nextdiscours)
       setStudentgotolive(false);
     }
   }
@@ -191,7 +192,7 @@ export function Translate(ch, l, linput, callback) {
         Ecrire(`${translatedText}`);
         if (callback) callback(translatedText);
       } else {
-        console.error('Translate: invalid translatedText', translatedText);
+        logger.error('Translate: invalid translatedText', translatedText);
         if (callback) callback('');
       }
     },
@@ -235,18 +236,18 @@ export function TranslateThen(ch, l, linput, f, forcelibre = false) {
           setLastSentenceTranslated(parsedResponse.data.translations[0].text);
           f(parsedResponse.data.translations[0].text);
         } else {
-          console.error('Erreur de traduction. Réponse :', parsedResponse);
+          logger.error('Erreur de traduction. Réponse :', parsedResponse);
           f('---- Translation ERROR ----');
         }
       } catch (error) {
-        console.error('Erreur de parsing JSON :', error, 'Réponse brute :', response.responseText);
+        logger.error('Erreur de parsing JSON :', error, 'Réponse brute :', response.responseText);
         f('---- JSON Parse ERROR ----');
       }
     },
     onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('Erreur HTTP :', response.status, response.statusText);
+        logger.error('Erreur HTTP :', response.status, response.statusText);
         f(`---- HTTP ERROR ${response.status} ----`);
       }
     },

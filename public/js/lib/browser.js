@@ -1,3 +1,4 @@
+import * as logger from './utils/logger.js';
 /**
  * @module lib/browser
  * Browser utilities and error handling
@@ -9,7 +10,7 @@
  * @param {string} [context=null] - Optional context for logging
  */
 export function showError(message, context = null) {
-  console.error(context ? `[${context}] ${message}` : message);
+  logger.error(context ? `[${context}] ${message}` : message);
 }
 
 /**

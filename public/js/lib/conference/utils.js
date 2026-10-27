@@ -5,6 +5,7 @@ import { openDialog } from '../dom/dialog.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
 import { setCurrentPresentation, setCurrentDiscours } from '../state/conference.js';
+import * as logger from '../utils/logger.js';
 
 /** @module conference/utils */
 
@@ -50,15 +51,15 @@ export function formateresponse(datatxt, editable = true) {
   try {
     data = JSON.parse(datatxt);
   } catch (e) {
-    console.error('Failed to parse JSON:', e, datatxt);
+    logger.error('Failed to parse JSON:', e, datatxt);
     return '<pre>Error: Invalid JSON response. Check server output.</pre>';
   }
   if (data && typeof data === 'object' && !Array.isArray(data) && data.error) {
-    console.error('Server returned error object:', data);
+    logger.error('Server returned error object:', data);
     return `<pre>Error: ${data.error || 'Unknown error'}${data.details ? `\nDetails: ${data.details}` : ''}</pre>`;
   }
   if (!Array.isArray(data)) {
-    console.error('Unexpected response format:', data);
+    logger.error('Unexpected response format:', data);
     return '<pre>Error: Unexpected response format from server.</pre>';
   }
   const currentPresentation = [];
@@ -66,7 +67,7 @@ export function formateresponse(datatxt, editable = true) {
   setCurrentDiscours(0);
   // alert(datatxt);
   let res = '';
-  // console.log(data);
+  // logger.debug(data);
   for (let i = 0; i < data.length; i++) {
     const slide = data[i];
     let txtnotes = '';

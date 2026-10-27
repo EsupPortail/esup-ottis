@@ -28,6 +28,7 @@ import { getRoomToken } from './compat.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
 import { EcrireTranslatePartial, StudentCompleteTranslation2, Traduction } from './translation.js';
+import * as logger from '../utils/logger.js';
 
 // Compteurs locaux herites du code pre-modules (etaient des globales de script)
 let Studentcurrentorder_readtext = 0;
@@ -81,7 +82,7 @@ export function StudentreadText() {
         onError(response, context) {
           // Ignorer les timeouts de polling (comportement normal)
           if (response.status !== 0 || response.statusText !== 'Timeout') {
-            console.error('StudentreadText request failed. Context:', context);
+            logger.error('StudentreadText request failed. Context:', context);
           }
         },
         data: f,

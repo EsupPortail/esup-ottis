@@ -10,6 +10,7 @@
 
 import { _ } from '../dom/selector.js';
 import '../utils/cleanup.js';
+import * as logger from '../utils/logger.js';
 
 // État du visualiseur PPTX
 let pptxLoaded = false;
@@ -33,17 +34,17 @@ async function loadPptxGenJS() {
     const script = document.createElement('script');
     script.src = scriptUrl;
     script.onload = () => {
-      console.log('PptxGenJS loaded successfully');
+      logger.debug('PptxGenJS loaded successfully');
       if (typeof PptxGenJS !== 'undefined') {
         pptxLoaded = true;
         resolve(true);
       } else {
-        console.error('PptxGenJS not available after loading');
+        logger.error('PptxGenJS not available after loading');
         reject(new Error('PptxGenJS failed to initialize'));
       }
     };
     script.onerror = () => {
-      console.error('Failed to load PptxGenJS from CDN');
+      logger.error('Failed to load PptxGenJS from CDN');
       reject(new Error('PptxGenJS CDN load failed'));
     };
     document.head.appendChild(script);
@@ -99,7 +100,7 @@ function renderSlideToHtml(slide) {
     return slide.content;
   }
 
-  console.error('Slide object:', slide);
+  logger.error('Slide object:', slide);
   return '<div style="color: red;">Impossible de rendre la slide</div>';
 }
 
@@ -110,7 +111,7 @@ export async function displayPPTX(pptxFile, containerId = 'pptx-viewer') {
   const container = _(containerId);
 
   if (!container) {
-    console.error(`Container #${containerId} not found`);
+    logger.error(`Container #${containerId} not found`);
     return;
   }
 
@@ -151,7 +152,7 @@ export async function displayPPTX(pptxFile, containerId = 'pptx-viewer') {
     // Ajouter les contrôles
     addControls(container, slidesData.length);
   } catch (error) {
-    console.error('Erreur PPTX:', error);
+    logger.error('Erreur PPTX:', error);
     container.innerHTML = `
             <div style="text-align: center; padding: 20px; color: red; background: #ffeeee;">
                 <p><strong>Erreur de chargement PPTX:</strong> ${error.message}</p>
@@ -216,7 +217,7 @@ export async function displayPPTXFromUrl(url, containerId = 'pptx-viewer') {
     const blob = await response.blob();
     await displayPPTX(blob, containerId);
   } catch (error) {
-    console.error('Erreur chargement URL PPTX:', error);
+    logger.error('Erreur chargement URL PPTX:', error);
     const container = _(containerId);
     if (container) {
       container.innerHTML = `<p style="color: red; text-align: center;">Erreur: ${error.message}</p>`;

@@ -24,6 +24,7 @@ import { EcrireCR, getRoomToken } from './compat.js';
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
+import * as logger from '../utils/logger.js';
 
 /** @module conference/notebook */
 
@@ -102,7 +103,7 @@ export function EcrireNBonlyVO(ch) {
 export function EcrirePartial(ch) {
   // Vérifier que ch est défini et non vide
   if (ch === undefined || ch === null || ch === 'undefined' || ch === '') {
-    console.error('EcrirePartial: Texte non défini ou vide.');
+    logger.error('EcrirePartial: Texte non défini ou vide.');
     return;
   }
 
@@ -131,13 +132,13 @@ export function EcrirePartial(ch) {
   // Vérifier que l'élément classroomid existe et a une valeur non vide
   const classroomIdElement = _('classroomid');
   if (!classroomIdElement) {
-    console.error('EcrirePartial: Éléments classroomid introuvable dans le DOM.');
+    logger.error('EcrirePartial: Éléments classroomid introuvable dans le DOM.');
     return;
   }
 
   const roomId = classroomIdElement.value;
   if (!roomId || roomId === '') {
-    console.error('EcrirePartial: ROOMID est vide ou non défini.');
+    logger.error('EcrirePartial: ROOMID est vide ou non défini.');
     return;
   }
 
@@ -153,19 +154,19 @@ export function EcrirePartial(ch) {
         try {
           const data = JSON.parse(response.responseText);
           if (data.status === 'error') {
-            console.error('Erreur serveur :', data.message);
+            logger.error('Erreur serveur :', data.message);
           }
         } catch (error) {
-          console.error('Erreur de parsing JSON. Réponse brute :', response.responseText);
+          logger.error('Erreur de parsing JSON. Réponse brute :', response.responseText);
         }
       } else {
-        console.error('Réponse vide du serveur.');
+        logger.error('Réponse vide du serveur.');
       }
     },
     onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('Erreur HTTP :', response.status, response.responseText);
+        logger.error('Erreur HTTP :', response.status, response.responseText);
       }
     },
     timeout: 10000,
@@ -185,14 +186,14 @@ export function Ecrire(ch) {
 export function saveText(ch) {
   // Vérifier que ch est défini et non vide
   if (ch === undefined || ch === null || ch === 'undefined' || ch === '') {
-    console.error('saveText: Texte non défini ou vide.');
+    logger.error('saveText: Texte non défini ou vide.');
     return;
   }
 
   // Vérifier que classroomid existe et a une valeur
   const classroomIdElement = _('classroomid');
   if (!classroomIdElement || !classroomIdElement.value) {
-    console.error('saveText: ROOMID non disponible.');
+    logger.error('saveText: ROOMID non disponible.');
     return;
   }
 
@@ -228,14 +229,14 @@ export function saveTextWithTranslation(sourceText, translatedText) {
 
   // Ensure we have valid data before sending
   if (!inputlanguage || !targetLanguage || !sourceText) {
-    console.error('saveTextWithTranslation: missing required parameters');
+    logger.error('saveTextWithTranslation: missing required parameters');
     return;
   }
 
   // Vérifier que classroomid existe et a une valeur
   const classroomIdElement = _('classroomid');
   if (!classroomIdElement || !classroomIdElement.value) {
-    console.error('saveTextWithTranslation: ROOMID non disponible.');
+    logger.error('saveTextWithTranslation: ROOMID non disponible.');
     return;
   }
 
@@ -261,7 +262,7 @@ export function saveTextWithTranslation(sourceText, translatedText) {
 
 export function saveTextNB() {
   // Deprecated: batch-save of notebook is not used in current flows.
-  console.warn('saveTextNB() is deprecated and has been disabled.');
+  logger.warn('saveTextNB() is deprecated and has been disabled.');
 }
 
 export function readTextQ() {
@@ -328,7 +329,7 @@ export function readTextQ() {
       onError(response, context) {
         // Ignorer les timeouts de polling (comportement normal)
         if (response.status !== 0 || response.statusText !== 'Timeout') {
-          console.error('readTextQ request failed. Context:', context);
+          logger.error('readTextQ request failed. Context:', context);
         }
       },
       data: f,
@@ -371,13 +372,13 @@ export function TranslateQ(ch, l, linput, name, order) {
             EcrireCR(name, translatedText, order);
           }
         } else {
-          console.error('Erreur de traduction. Réponse :', parsedResponse);
+          logger.error('Erreur de traduction. Réponse :', parsedResponse);
           if (true) {
             EcrireCR(name, '---- Translation ERROR ----', order);
           }
         }
       } catch (error) {
-        console.error('Erreur de parsing JSON :', error);
+        logger.error('Erreur de parsing JSON :', error);
         if (true) {
           EcrireCR(name, '---- JSON Parse ERROR ----', order);
         }
@@ -386,7 +387,7 @@ export function TranslateQ(ch, l, linput, name, order) {
     onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('Erreur HTTP :', response.status);
+        logger.error('Erreur HTTP :', response.status);
         if (true) {
           EcrireCR(name, `---- HTTP ERROR ${response.status} ----`, order);
         }

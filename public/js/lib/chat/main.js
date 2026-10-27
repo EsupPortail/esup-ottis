@@ -4,6 +4,7 @@
  */
 import { readTextQCommon } from './network.js';
 import { defaultMessageHandler } from './handlers.js';
+import * as logger from '../utils/logger.js';
 
 // Compat : saveTextQ vit desormais dans send.js (module feuille, evite le
 // cycle main<->handlers qui etait contourne par un import dynamique)
@@ -28,7 +29,7 @@ export function readTextQ(roomId, onRateLimit, onSuccess) {
  */
 export function startChatPolling() {
   // Polling DISABLED - Waiting for SSE migration to avoid PHP-FPM saturation
-  console.log('Chat polling DISABLED - Waiting for SSE migration');
+  logger.debug('Chat polling DISABLED - Waiting for SSE migration');
   /* Polling desactive en attendant la migration SSE (code conserve pour reactivation)
      Reactiver aussi : import { _ } de ../dom/selector.js,
      import { safeSetInterval } de ../utils/cleanup.js et

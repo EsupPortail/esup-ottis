@@ -4,6 +4,7 @@
  */
 import { showError } from './browser.js';
 import { registerRequest, safeSetTimeout } from './utils/cleanup.js';
+import * as logger from './utils/logger.js';
 
 /**
  * Handle XMLHttpRequest errors centrally
@@ -159,7 +160,7 @@ export function createFetchRequest(method, url, options = {}) {
   } = options;
 
   if (onUploadProgress) {
-    console.warn('createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback');
+    logger.warn('createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback');
     const xhr = createXhrRequest(method, url, options);
     const requestObj = {
       send: (body = data) => {
@@ -277,9 +278,9 @@ export function createFetchRequest(method, url, options = {}) {
         return successResponse;
       } catch (error) {
         if (timeoutId) clearTimeout(timeoutId);
-        console.error('[xhr.js] Fetch error:', error);
-        console.error('[xhr.js] URL:', url);
-        console.error('[xhr.js] Method:', method);
+        logger.error('[xhr.js] Fetch error:', error);
+        logger.error('[xhr.js] URL:', url);
+        logger.error('[xhr.js] Method:', method);
         if (error.name === 'AbortError') {
           if (onError) {
             onError({ status: 0, statusText: 'Request aborted', responseText: '' }, context);

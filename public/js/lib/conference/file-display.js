@@ -8,6 +8,7 @@ import { displayPDF, initPdfViewer } from './pdf-viewer.js';
 import { displayPPTXFromUrl } from './pptx-viewer.js';
 import { _ } from '../dom/selector.js';
 import { showError } from './errors.js';
+import * as logger from '../utils/logger.js';
 
 /**
  * Affiche un fichier selon son type.
@@ -60,7 +61,7 @@ function displayHTML(fileUrl) {
       htmlViewer.innerHTML = htmlContent;
     })
     .catch((error) => {
-      console.error('Erreur chargement HTML:', error);
+      logger.error('Erreur chargement HTML:', error);
       showError(`Erreur de chargement du fichier HTML: ${error.message}`);
     });
 }

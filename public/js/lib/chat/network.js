@@ -12,6 +12,7 @@ import { ScreenCR } from './state.js';
 import { nbnewQ, setNbnewQ } from '../conference/state/core.js';
 import { EventNewQuestion } from '../conference/utils.js';
 import { _ } from '../dom/selector.js';
+import * as logger from '../utils/logger.js';
 
 /**
  * @summary Send a new question to the classroom queue
@@ -49,7 +50,7 @@ export function saveTextQCommon(ch, senderName, roomId, language, senderRole = '
       decreasependingrequests();
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('saveTextQ request failed. Context:', context);
+        logger.error('saveTextQ request failed. Context:', context);
       }
     },
     data: f,
@@ -135,7 +136,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
 
       // Safety checks for response and responseText
       if (!response || typeof response.responseText !== 'string') {
-        console.error('readTextQ: Invalid response or responseText');
+        logger.error('readTextQ: Invalid response or responseText');
         return;
       }
 
@@ -197,7 +198,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
 
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('readTextQ request failed. Context:', context);
+        logger.error('readTextQ request failed. Context:', context);
       }
     },
     data: f,
@@ -255,7 +256,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
             if (ScreenCR[order] === undefined) {
               EcrireCR(name, ch, order, senderRole === 'intervenant');
             }
-            console.error(
+            logger.error(
               'Translation ERROR - No translation text found, not displaying original to avoid overwrite:',
               ch
             );
@@ -264,7 +265,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
           if (ScreenCR[order] === undefined) {
             EcrireCR(name, ch, order, senderRole === 'intervenant');
           }
-          console.error(
+          logger.error(
             'Translation ERROR - Response:',
             parsedResponse,
             'Raw:',
@@ -275,7 +276,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
         if (ScreenCR[order] === undefined) {
           EcrireCR(name, ch, order, senderRole === 'intervenant');
         }
-        console.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
+        logger.error('Translation ERROR - Exception:', e, 'Response:', response.responseText);
       }
     },
     onError(response, context) {
@@ -287,7 +288,7 @@ export function TranslateQ(ch, targetLang, sourceLang, name, order, senderRole =
       }
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error(
+        logger.error(
           '[TRANSLATE-Q] Request failed (not displaying original text to avoid overwrite). Context:',
           context
         );

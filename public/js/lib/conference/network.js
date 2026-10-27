@@ -1,6 +1,7 @@
 /** @module conference/network */
 import { safeSetTimeout } from '../utils/cleanup.js';
 import { showError } from './errors.js';
+import * as logger from '../utils/logger.js';
 
 /**
  * Create and configure an XMLHttpRequest
@@ -82,7 +83,7 @@ export async function fetchWithErrorHandling(url, options = {}) {
 
     return response;
   } catch (error) {
-    console.error('Fetch error:', error);
+    logger.error('Fetch error:', error);
     throw error;
   }
 }
@@ -116,7 +117,7 @@ export function createFetchRequest(method, url, options = {}) {
   } = options;
 
   if (onUploadProgress) {
-    console.warn('createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback');
+    logger.warn('createFetchRequest: Upload progress tracking requires XMLHttpRequest fallback');
     const xhr = createXhrRequest(method, url, options);
     return {
       send: (body = data) => {

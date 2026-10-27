@@ -1,3 +1,4 @@
+import * as logger from './utils/logger.js';
 /**
  * @module lib/i18n
  * Internationalization (i18n) utilities for OTTIS
@@ -75,7 +76,7 @@ async function loadTranslations(lang) {
     translations[lang] = await response.json();
     return translations[lang];
   } catch (error) {
-    console.error('Error loading translations:', error.message);
+    logger.error('Error loading translations:', error.message);
     translations[lang] = {};
     return {};
   }

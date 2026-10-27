@@ -11,6 +11,7 @@ import { calculateFullscreenScale, ensureFullscreenExited } from './core.js';
 import { displayPDF } from '../pdf-viewer.js';
 import { safeSetInterval, safeSetTimeout } from '../../utils/cleanup.js';
 import { t } from '../../i18n.js';
+import * as logger from '../../utils/logger.js';
 
 // =============================================================================
 // Gestion des événements et upload
@@ -25,7 +26,7 @@ export function handleFileSelect(event) {
   const file = fileInput.files[0];
 
   if (typeof window !== 'undefined' && window.console && window.console.info) {
-    console.info('handleFileSelect: Fichier sélectionné', {
+    logger.info('handleFileSelect: Fichier sélectionné', {
       fileName: file?.name,
       fileSize: file?.size,
     });
@@ -33,7 +34,7 @@ export function handleFileSelect(event) {
 
   if (!file) {
     if (typeof window !== 'undefined' && window.console && window.console.warn) {
-      console.warn('Aucun fichier sélectionné');
+      logger.warn('Aucun fichier sélectionné');
     }
     return;
   }
@@ -216,7 +217,7 @@ export function handleFullscreenStateChange() {
     }
   } else if (!isFullscreen) {
     if (typeof window !== 'undefined' && window.console && window.console.info) {
-      console.info('Sortie du plein écran (via state change)');
+      logger.info('Sortie du plein écran (via state change)');
     }
     // Sortie par Echap : restaurer les styles si exitPdfFullscreen n'a pas encore agi
     ensureFullscreenExited();

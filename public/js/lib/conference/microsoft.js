@@ -1,3 +1,4 @@
+import * as logger from '../utils/logger.js';
 /**
  * @module conference/microsoft
  * Gestion de la reconnaissance vocale Microsoft Azure
@@ -28,7 +29,7 @@ export let microsoftRecognizer = null;
  */
 export function doContinuousRecognition(key, region) {
   if (typeof SpeechRecognition === 'undefined' && typeof webkitSpeechRecognition === 'undefined') {
-    console.warn('Speech Recognition API not available');
+    logger.warn('Speech Recognition API not available');
     return;
   }
 
@@ -38,7 +39,7 @@ export function doContinuousRecognition(key, region) {
     try {
       microsoftRecognizer.stopContinuousRecognitionAsync();
     } catch (e) {
-      console.error('Error stopping Microsoft recognizer:', e);
+      logger.error('Error stopping Microsoft recognizer:', e);
     }
   }
 
@@ -46,7 +47,7 @@ export function doContinuousRecognition(key, region) {
   if (key && region) {
     // Cela nécessiterait l'import de Microsoft Cognitive Services SDK
     // Pour l'instant, on utilise un fallback vers Web Speech API
-    console.log(
+    logger.debug(
       'Microsoft Azure Speech Recognition would be initialized here with key:',
       key,
       'region:',
@@ -64,7 +65,7 @@ export function stopRecognizer() {
       microsoftRecognizer.stopContinuousRecognitionAsync();
       microsoftRecognizer = null;
     } catch (e) {
-      console.error('Error stopping Microsoft recognizer:', e);
+      logger.error('Error stopping Microsoft recognizer:', e);
     }
   }
 

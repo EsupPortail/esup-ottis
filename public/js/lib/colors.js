@@ -1,3 +1,4 @@
+import * as logger from './utils/logger.js';
 /**
  * @module lib/colors
  * Color management utilities for chat participants
@@ -61,7 +62,7 @@ export function getUserColor(username) {
     localStorage.setItem(storageKey, JSON.stringify(colors));
   } catch (e) {
     // localStorage might not be available (private browsing, etc.)
-    console.warn('Could not save user color to localStorage:', e);
+    logger.warn('Could not save user color to localStorage:', e);
   }
 
   return colors;

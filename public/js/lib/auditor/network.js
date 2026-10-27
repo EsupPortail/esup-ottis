@@ -36,6 +36,7 @@ import {
   get,
 } from '../state/shared.js';
 import { getCurrentConfig } from '../state/conference.js';
+import * as logger from '../utils/logger.js';
 
 /**
  * Sous-titres en direct : la conference publie le partiel en cours de dictee
@@ -122,13 +123,13 @@ function translatePartialSub(ch, targetLang, sourceLang, callback) {
           translated = parsedResponse.data.translations[0].text;
         }
       } catch (error) {
-        console.error('translatePartialSub: JSON parse error:', error);
+        logger.error('translatePartialSub: JSON parse error:', error);
       }
       if (callback) callback(translated);
     },
     onError(response, context) {
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('translatePartialSub request failed. Context:', context);
+        logger.error('translatePartialSub request failed. Context:', context);
       }
       if (callback) callback('');
     },
@@ -199,7 +200,7 @@ function readTextPartial() {
     onError(response, context) {
       partialSubRequestInFlight = false;
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('readTextPartial request failed. Context:', context);
+        logger.error('readTextPartial request failed. Context:', context);
       }
     },
     data: f,
@@ -267,7 +268,7 @@ function readText() {
       onError(response, context) {
         // Ignorer les timeouts de polling (comportement normal)
         if (response.status !== 0 || response.statusText !== 'Timeout') {
-          console.error('readText request failed. Context:', context);
+          logger.error('readText request failed. Context:', context);
           setLiveStatus(false);
         }
         decreasependingrequests();
@@ -357,7 +358,7 @@ function readTextSub() {
       onError(response, context) {
         // Ignorer les timeouts de polling (comportement normal)
         if (response.status !== 0 || response.statusText !== 'Timeout') {
-          console.error('readTextSub request failed. Context:', context);
+          logger.error('readTextSub request failed. Context:', context);
         }
         decreasependingrequests();
       },
@@ -430,7 +431,7 @@ function readTextSubTranscript() {
         onError(response, context) {
           // Ignorer les timeouts de polling (comportement normal)
           if (response.status !== 0 || response.statusText !== 'Timeout') {
-            console.error('readTextSubTranscript request failed. Context:', context);
+            logger.error('readTextSubTranscript request failed. Context:', context);
           }
           decreasependingrequests();
         },
@@ -559,7 +560,7 @@ function fetchVerylastContent(roomId, roomToken, callback) {
     onError(response, context) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('fetchVerylastContent request failed. Context:', context);
+        logger.error('fetchVerylastContent request failed. Context:', context);
       }
       callback('');
     },
@@ -617,7 +618,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
     onError(response, context) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('fetchVerylastSubContent request failed. Context:', context);
+        logger.error('fetchVerylastSubContent request failed. Context:', context);
       }
       callback('');
     },
@@ -652,7 +653,7 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
 //       onError(response, context) {
 //         // Ignorer les timeouts de polling (comportement normal)
 //         if (response.status !== 0 || response.statusText !== 'Timeout') {
-//           console.error('readImage request failed. Context:', context);
+//           logger.error('readImage request failed. Context:', context);
 //         }
 //         decreasependingrequests();
 //       },

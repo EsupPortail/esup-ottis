@@ -24,6 +24,7 @@ import {
 import { recharger } from '../chat/utils.js';
 import { readTextQ } from '../chat/main.js';
 import { _ } from '../dom/selector.js';
+import * as logger from '../utils/logger.js';
 
 // Note: config-functions.js is no longer re-exported here to break circular dependency
 // Removed unused import: readTextQ (was imported but never used)
@@ -136,7 +137,7 @@ if (typeof window !== 'undefined') {
  * @param {number} i - Language index
  */
 export function setLanguageInput(i) {
-  console.log('[CONFIG] setLanguageInput appelé avec i:', i);
+  logger.debug('[CONFIG] setLanguageInput appelé avec i:', i);
   // These variables are now getters from the centralized store
   const tLangInput = TLangInput();
   if (typeof tLangInput !== 'undefined' && tLangInput[i]) {

@@ -32,6 +32,7 @@ import { safeSetTimeout } from '../utils/cleanup.js';
 
 import { getRoomToken } from './compat.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
+import * as logger from '../utils/logger.js';
 
 // Alias pour compatibilité avec l'ancien code
 const get = _;
@@ -53,8 +54,8 @@ export function ShowImage(n) {
     EcrireNBonly(`---------- Slide ${n} ----------`);
     EcrireNBonlyVO(`---------- Slide ${n} ----------`);
     setPreviousimage(n);
-    // console.log('IMG OBJ = '+_("img_"+n));
-    // console.log('IMG URL = "'+_("img_"+n).src+'"');
+    // logger.debug('IMG OBJ = '+_("img_"+n));
+    // logger.debug('IMG URL = "'+_("img_"+n).src+'"');
     if (_(`img_${n}`) && _(`img_${n}`).src.length > 200) {
       _('img_slides').src = _(`img_${n}`).src;
       resizeSlides();
@@ -202,7 +203,7 @@ export function renderPage(num) {
       .catch((error) => {
         // Handle render errors (e.g., cancelled)
         if (error.name !== 'RenderingCancelledException') {
-          console.error('Render error:', error);
+          logger.error('Render error:', error);
         }
         setCurrentRenderTask(null);
         setPageRendering(false);

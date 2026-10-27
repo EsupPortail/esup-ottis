@@ -17,6 +17,7 @@ import {
   shiftToTranslate,
   getAllLines,
 } from '../state/shared.js';
+import * as logger from '../utils/logger.js';
 
 /**
  * @summary Translate a given string from a language to another
@@ -53,13 +54,13 @@ function Translate(ch, l, linput, lineid) {
         // Réinsérer dans ToTranslate pour traitement dans l'ordre
         unshiftToTranslate([lineid, linput, ch, l, translatedText]);
       } else {
-        console.error(
+        logger.error(
           'translation.js: Translation ERROR. Response:',
           parsedResponse,
           'Raw:',
           response.responseText
         );
-        console.error('Text being translated:', ch, 'From:', linput, 'To:', l);
+        logger.error('Text being translated:', ch, 'From:', linput, 'To:', l);
         alert(
           `Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`
         );
@@ -72,7 +73,7 @@ function Translate(ch, l, linput, lineid) {
     onError(response, context) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
-        console.error('translation.js: Translation request failed. Context:', context);
+        logger.error('translation.js: Translation request failed. Context:', context);
       }
       decreasependingrequests();
       CompleteTranslation();

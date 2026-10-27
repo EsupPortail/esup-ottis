@@ -6,6 +6,7 @@
  */
 
 import { _ } from '../dom/selector.js';
+import * as logger from '../utils/logger.js';
 
 /**
  * Affiche un message d'erreur dans le conteneur dedie (#file-error),
@@ -18,7 +19,7 @@ export function showError(message) {
     errorContainer.textContent = message;
     errorContainer.style.display = 'block';
   } else {
-    console.error('Erreur:', message);
+    logger.error('Erreur:', message);
     alert(`Erreur: ${message}`);
   }
 }
@@ -40,6 +41,6 @@ export function showPresentationError(message) {
     }
   }
   if (typeof window !== 'undefined' && window.console && window.console.error) {
-    console.error('Présentation error', { message });
+    logger.error('Présentation error', { message });
   }
 }
