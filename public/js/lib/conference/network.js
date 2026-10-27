@@ -1,6 +1,6 @@
 /** @module conference/network */
 import { safeSetTimeout } from '../utils/cleanup.js';
-import { showError } from './file-display.js';
+import { showError } from './errors.js';
 
 /**
  * Create and configure an XMLHttpRequest

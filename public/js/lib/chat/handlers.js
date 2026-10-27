@@ -16,7 +16,8 @@ import {
   setNBconnectedusers,
   setTconnectedusers,
 } from '../conference/state/core.js';
-import { updateUsers } from '../conference/config-functions.js';
+import { updateUsers } from '../conference/users.js';
+import { saveTextQ } from './send.js';
 import { TranslateQ } from './network.js';
 import { triggerNewMessageAlert } from './alert.js';
 import { ScreenCR } from './state.js';
@@ -133,12 +134,7 @@ export function sendclick() {
       // Set flag to prevent multiple submissions
       setSendInProgress(true);
 
-      // Import dynamique : main.js importe deja handlers.js (evite le cycle)
-      import('./main.js').then(({ saveTextQ }) => {
-        if (typeof saveTextQ === 'function') {
-          saveTextQ(tosend);
-        }
-      });
+      saveTextQ(tosend);
 
       // Disable send button if it exists
       const sendButton = document.getElementById('questionsend');

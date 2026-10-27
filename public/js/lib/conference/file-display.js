@@ -7,6 +7,7 @@
 import { displayPDF, initPdfViewer } from './pdf-viewer.js';
 import { displayPPTXFromUrl } from './pptx-viewer.js';
 import { _ } from '../dom/selector.js';
+import { showError } from './errors.js';
 
 /**
  * Affiche un fichier selon son type.
@@ -105,20 +106,5 @@ function showHtmlViewer() {
   const htmlViewer = _('html-viewer');
   if (htmlViewer) {
     htmlViewer.style.display = 'block';
-  }
-}
-
-/**
- * Affiche une erreur dans l'interface.
- * @param {string} message - Message d'erreur
- */
-export function showError(message) {
-  const errorContainer = _('file-error');
-  if (errorContainer) {
-    errorContainer.textContent = message;
-    errorContainer.style.display = 'block';
-  } else {
-    console.error('Erreur:', message);
-    alert(`Erreur: ${message}`);
   }
 }

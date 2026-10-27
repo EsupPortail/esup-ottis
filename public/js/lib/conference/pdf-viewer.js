@@ -22,8 +22,8 @@ import {
 import { previousimage, setPreviousimage } from './state/translation.js';
 
 import { b64toBlob, resizeSlides } from './utils.js';
-import { enterPdfFullscreen, exitPdfFullscreen } from './pdf-fullscreen/core.js';
-import { showPresentationError } from './pdf-fullscreen/ui.js';
+import { enterPdfFullscreen, exitPdfFullscreen, setPdfRenderer } from './pdf-fullscreen/core.js';
+import { showPresentationError } from './errors.js';
 import { t } from '../i18n.js';
 
 import { _ } from '../dom/selector.js';
@@ -37,6 +37,10 @@ import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
 const get = _;
 
 /** @module conference/pdf-viewer */
+
+// Inverser la dependance : core n'importe plus pdf-viewer, c'est ici qu'on
+// lui fournit la fonction de rendu (cycle core<->pdf-viewer).
+setPdfRenderer(renderPage);
 
 export function progressHandler(event) {
   const percent = (event.loaded / event.total) * 100;

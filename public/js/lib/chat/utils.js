@@ -5,7 +5,6 @@
 
 import { ScreenCR, ToSay, ToTranslate, chatHistory, clearHistory } from './state.js';
 import { _ } from '../dom/selector.js';
-import { readTextQ } from './main.js';
 import { setInputNumberQ } from '../state/shared.js';
 
 /**
@@ -51,10 +50,9 @@ export function recharger() {
   ClearCR();
   // Reset inputnumberQ to 0 to force reprocessing all messages (for language change)
   setInputNumberQ(0);
-  // Call legacy functions if they exist (will be migrated later)
-  if (typeof readTextQ !== 'undefined') {
-    readTextQ(_('classroomid')?.value);
-  }
+  // Le relancement du poll (readTextQ) est faite par l'appelant
+  // (conference/config.setLanguageOutputAndRetranslate) : ce module ne doit
+  // pas importer chat/main (cycle main->network->display->utils->main).
 }
 
 /**

@@ -4,6 +4,7 @@
  */
 
 import { _ } from '../../dom/selector.js';
+import { showPresentationError } from '../errors.js';
 import { setPdfDoc, setPageNum } from '../state/pdf.js';
 import { addCsrfToken } from '../network.js';
 import { calculateFullscreenScale, ensureFullscreenExited } from './core.js';
@@ -14,26 +15,6 @@ import { t } from '../../i18n.js';
 // =============================================================================
 // Gestion des événements et upload
 // =============================================================================
-
-/**
- * Affiche une erreur de présentation
- * @param {string} message - Le message d'erreur
- */
-export function showPresentationError(message) {
-  const statusEl = _('progress-status');
-  if (statusEl) {
-    if (typeof DOMPurify !== 'undefined') {
-      statusEl.innerHTML = DOMPurify.sanitize(
-        `<span style="color: red; font-weight: bold;">ERREUR: ${message}</span>`
-      );
-    } else {
-      statusEl.innerHTML = `<span style="color: red; font-weight: bold;">ERREUR: ${message}</span>`;
-    }
-  }
-  if (typeof window !== 'undefined' && window.console && window.console.error) {
-    console.error('Présentation error', { message });
-  }
-}
 
 /**
  * Gère la sélection de fichier PDF

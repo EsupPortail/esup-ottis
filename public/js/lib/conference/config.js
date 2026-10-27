@@ -22,6 +22,8 @@ import {
 } from '../state/auditor.js';
 
 import { recharger } from '../chat/utils.js';
+import { readTextQ } from '../chat/main.js';
+import { _ } from '../dom/selector.js';
 
 // Note: config-functions.js is no longer re-exported here to break circular dependency
 // Removed unused import: readTextQ (was imported but never used)
@@ -163,4 +165,7 @@ export function setLanguageOutputAndRetranslate(i) {
   setLanguageOutput(i);
   // Reload and retranslate all messages with the new language
   recharger();
+  // Relancer le poll du chat apres reinitialisation (deplacé depuis
+  // chat/utils.recharger pour casser le cycle main->network->display->utils->main)
+  readTextQ(_('classroomid')?.value);
 }

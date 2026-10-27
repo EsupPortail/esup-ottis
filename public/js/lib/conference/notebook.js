@@ -18,7 +18,7 @@ import {
 import { setLastPartialTranslation } from './state/translation.js';
 
 import { EventNewQuestion } from './utils.js';
-import { updateUsers } from './config-functions.js';
+import { updateUsers } from './users.js';
 import { EcrireCR, getRoomToken } from './compat.js';
 
 import { _ } from '../dom/selector.js';

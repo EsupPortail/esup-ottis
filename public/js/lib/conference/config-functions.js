@@ -1,5 +1,3 @@
-import { NBconnectedusers, Tconnectedusers } from './state/core.js';
-
 import { _ } from '../dom/selector.js';
 import '../utils/cleanup.js';
 import { getCurrentConfig, setCurrentConfig } from '../state/conference.js';
@@ -160,18 +158,6 @@ export function setLanguageStr(l) {
     s.selectedIndex = finded;
     setLanguageInput(_('classroomlanguage').value);
     Micro();
-  }
-}
-
-export function updateUsers() {
-  const connectedEl = _('connectedusers');
-  if (connectedEl) {
-    connectedEl.textContent = `${NBconnectedusers} connected users`;
-    if (Tconnectedusers && Array.isArray(Tconnectedusers)) {
-      connectedEl.title = Tconnectedusers.join(', ');
-    } else {
-      connectedEl.title = '';
-    }
   }
 }
 

@@ -49,10 +49,21 @@ import {
 } from '../state.js';
 
 import { _ } from '../../dom/selector.js';
-import { renderPage } from '../pdf-viewer.js';
 import { toggleTextBandDisplay } from '../ui.js';
 import { safeSetTimeout } from '../../utils/cleanup.js';
 import { t } from '../../i18n.js';
+
+// Rendu de page injecte par pdf-viewer (inversion de dependance) : core ne doit
+// pas importer pdf-viewer (cycle core<->pdf-viewer). Null tant que non enregistre.
+let renderCurrentPage = null;
+
+/**
+ * Enregistre la fonction de rendu fournie par pdf-viewer.
+ * @param {Function} renderFn - Fonction de rendu (renderPage)
+ */
+export function setPdfRenderer(renderFn) {
+  renderCurrentPage = renderFn;
+}
 
 // Indique que le plein ecran PDF est actif (styles appliques, non encore restaures)
 let pdfFullscreenActive = false;
@@ -466,16 +477,16 @@ export function exitPdfFullscreen() {
             setScale(requiredScale);
 
             if (pageNum) {
-              renderPage(pageNum);
+              if (renderCurrentPage) renderCurrentPage(pageNum);
             }
           })
           .catch(() => {
             if (pageNum) {
-              renderPage(pageNum);
+              if (renderCurrentPage) renderCurrentPage(pageNum);
             }
           });
       } else if (pageNum) {
-        renderPage(pageNum);
+        if (renderCurrentPage) renderCurrentPage(pageNum);
       }
     })
     .catch(() => {});
@@ -517,7 +528,7 @@ export function calculateFullscreenScale() {
       setScale(calculatedScale);
 
       if (pageNum && !pageRendering) {
-        renderPage(pageNum);
+        if (renderCurrentPage) renderCurrentPage(pageNum);
       }
       setIsCalculatingFullscreenScale(false);
     })
