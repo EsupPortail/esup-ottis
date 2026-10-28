@@ -732,6 +732,14 @@ progress::-moz-progress-bar {
     display: none !important;
 }
 
+/* En plein écran, le rendu est déjà ajusté par le JS (renderPage) :
+   les garde-fous d'affichage ne doivent pas écraser le ratio */
+.ottis-pdf-viewer:fullscreen canvas,
+.ottis-pdf-viewer:-webkit-full-screen canvas {
+    max-width: none;
+    max-height: none;
+}
+
 .ottis-pdf-viewer canvas {
     display: block;
     border: 1px solid #ccc;

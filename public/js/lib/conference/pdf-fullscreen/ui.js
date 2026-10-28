@@ -7,7 +7,11 @@ import { _ } from '../../dom/selector.js';
 import { showPresentationError } from '../errors.js';
 import { setPdfDoc, setPageNum } from '../state/pdf.js';
 import { addCsrfToken } from '../network.js';
-import { calculateFullscreenScale, ensureFullscreenExited } from './core.js';
+import {
+  calculateFullscreenScale,
+  ensureFullscreenExited,
+  setFullscreenButtonLabel,
+} from './core.js';
 import { displayPDF } from '../pdf-viewer.js';
 import { safeSetInterval, safeSetTimeout } from '../../utils/cleanup.js';
 import { t } from '../../i18n.js';
@@ -200,7 +204,6 @@ export function handleFullscreenStateChange() {
     document.mozFullScreenElement ||
     document.msFullscreenElement;
 
-  const fullscreenBtn = _('pdf-fullscreen-btn');
   const pdfViewer = _('pdf-viewer');
 
   const isPdfFullscreen =
@@ -211,20 +214,14 @@ export function handleFullscreenStateChange() {
       pdfViewer === document.msFullscreenElement);
 
   if (isFullscreen && isPdfFullscreen) {
-    if (fullscreenBtn) {
-      fullscreenBtn.textContent = t('conference.outil.exitFullscreen');
-      fullscreenBtn.title = t('conference.outil.exitFullscreen');
-    }
+    setFullscreenButtonLabel('conference.outil.exitFullscreen');
   } else if (!isFullscreen) {
     if (typeof window !== 'undefined' && window.console && window.console.info) {
       logger.info('Sortie du plein écran (via state change)');
     }
     // Sortie par Echap : restaurer les styles si exitPdfFullscreen n'a pas encore agi
     ensureFullscreenExited();
-    if (fullscreenBtn) {
-      fullscreenBtn.textContent = t('conference.outil.fullscreen');
-      fullscreenBtn.title = t('conference.outil.fullscreen');
-    }
+    setFullscreenButtonLabel('conference.outil.fullscreen');
   }
 }
 

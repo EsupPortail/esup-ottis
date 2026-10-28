@@ -173,11 +173,16 @@ export function toggleTextBandDisplay(forceFixed = false) {
   const textfixe = _('textfixe');
   const partialtitre = _('partialtitre');
   const mic = _('micon');
+  // Mode actif AVANT l'appel : le contenu n'est transporté que lors d'un
+  // vrai changement de mode (fixe <-> flottant). Un simple recalage
+  // (entrée/sortie de plein écran) ne doit pas écraser le sous-titre
+  // courant avec le contenu par défaut de l'autre bloc.
+  const wasFloat = floatLive ? !floatLive.hidden : false;
 
   if (useTextBand) {
     // Mode flottant : masquer la zone fixe, afficher le bloc flottant avec le micro
     const liveWidth = live ? live.offsetWidth : 0;
-    if (partialtitre && textfixe) {
+    if (!wasFloat && partialtitre && textfixe) {
       partialtitre.innerHTML = window.DOMPurify.sanitize(textfixe.innerHTML);
     }
     if (live) {
@@ -198,7 +203,7 @@ export function toggleTextBandDisplay(forceFixed = false) {
     }
   } else {
     // Mode fixe : masquer le bloc flottant, retablir la zone fixe
-    if (textfixe && partialtitre) {
+    if (wasFloat && textfixe && partialtitre) {
       textfixe.innerHTML = window.DOMPurify.sanitize(partialtitre.innerHTML);
     }
     if (floatLive) {

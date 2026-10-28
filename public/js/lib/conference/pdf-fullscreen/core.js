@@ -76,6 +76,25 @@ export function setEmbeddedScaleCalculator(scaleFn) {
   embeddedScaleCalculator = scaleFn;
 }
 
+/**
+ * Met à jour le libellé du bouton plein écran sans détruire son
+ * <span class="translate"> : le bouton continue de suivre les
+ * retraductions i18n et la liste d'éléments sauvegardée pour la
+ * restauration des styles (saveCurrentCanvasStyles) reste synchronisée.
+ * @param {string} key - Clé i18n du libellé
+ */
+export function setFullscreenButtonLabel(key) {
+  const fullscreenBtn = _('pdf-fullscreen-btn');
+  if (!fullscreenBtn) return;
+  const labelSpan = fullscreenBtn.querySelector('span');
+  if (labelSpan) {
+    labelSpan.textContent = t(key);
+  } else {
+    fullscreenBtn.textContent = t(key);
+  }
+  fullscreenBtn.title = t(key);
+}
+
 // Indique que le plein ecran PDF est actif (styles appliques, non encore restaures)
 let pdfFullscreenActive = false;
 
@@ -176,22 +195,8 @@ export function saveCurrentCanvasStyles() {
     setOriginalPdfControlParent(pdfControlEl.parentNode);
     setOriginalPdfControlNextSibling(pdfControlEl.nextSibling);
 
-    const controlButtons = pdfControlEl.querySelectorAll('button, input, span');
-    const savedButtonStyles = [];
-    controlButtons.forEach((el) => {
-      savedButtonStyles.push({
-        tagName: el.tagName,
-        background: el.style.background,
-        color: el.style.color,
-        border: el.style.border,
-        display: el.style.display,
-        visibility: el.style.visibility,
-      });
-    });
-
     setOriginalPdfControlStyle({
       cssText: pdfControlEl.style.cssText,
-      buttonStyles: savedButtonStyles,
     });
   }
 }
@@ -244,7 +249,7 @@ export function applyFullscreenCanvasStyles() {
 
   if (pdfControlEl) {
     pdfControlEl.style.position = 'fixed';
-    pdfControlEl.style.bottom = '100px';
+    pdfControlEl.style.bottom = '110px';
     pdfControlEl.style.left = '0';
     pdfControlEl.style.right = '0';
     pdfControlEl.style.height = '70px';
@@ -378,23 +383,17 @@ export function restoreCanvasStyles() {
     pdfControlEl.style.right = '';
     pdfControlEl.style.height = '';
 
-    if (originalPdfControlStyle.buttonStyles && originalPdfControlStyle.buttonStyles.length > 0) {
-      const controlButtons = pdfControlEl.querySelectorAll('button, input, span');
-      controlButtons.forEach((el, index) => {
-        if (index < originalPdfControlStyle.buttonStyles.length) {
-          const orig = originalPdfControlStyle.buttonStyles[index];
-          if (orig.tagName === el.tagName) {
-            if (orig.background !== undefined) el.style.background = orig.background;
-            if (orig.color !== undefined) el.style.color = orig.color;
-            if (orig.border !== undefined) el.style.border = orig.border;
-            if (orig.display !== undefined) el.style.display = orig.display;
-            if (orig.visibility !== undefined) el.style.visibility = orig.visibility;
-            el.style.margin = '';
-            el.style.padding = '';
-          }
-        }
-      });
-    }
+    // Restauration insensible à l'ordre/nombre d'éléments : on vide les
+    // styles inline posés par applyFullscreenCanvasStyles, la CSS reprend
+    // la main (les valeurs d'origine étaient vides par construction).
+    const controlButtons = pdfControlEl.querySelectorAll('button, input, span');
+    controlButtons.forEach((el) => {
+      el.style.background = '';
+      el.style.color = '';
+      el.style.border = '';
+      el.style.margin = '';
+      el.style.padding = '';
+    });
   }
 
   if (canvasEl) {
@@ -416,11 +415,7 @@ export function enterPdfFullscreen(element) {
   setOriginalPdfScale(scale);
   saveCurrentCanvasStyles();
 
-  const fullscreenBtn = _('pdf-fullscreen-btn');
-  if (fullscreenBtn) {
-    fullscreenBtn.textContent = t('conference.outil.exitFullscreen');
-    fullscreenBtn.title = t('conference.outil.exitFullscreen');
-  }
+  setFullscreenButtonLabel('conference.outil.exitFullscreen');
 
   const requestPromise = new Promise((resolve) => {
     const onFullscreen = () => {
@@ -464,11 +459,7 @@ export function enterPdfFullscreen(element) {
 export function exitPdfFullscreen() {
   pdfFullscreenActive = false;
 
-  const fullscreenBtn = _('pdf-fullscreen-btn');
-  if (fullscreenBtn) {
-    fullscreenBtn.textContent = t('conference.outil.fullscreen');
-    fullscreenBtn.title = t('conference.outil.fullscreen');
-  }
+  setFullscreenButtonLabel('conference.outil.fullscreen');
 
   exitFullscreenAsync()
     .then(() => {
@@ -511,7 +502,7 @@ export function calculateFullscreenScale() {
   }
   setIsCalculatingFullscreenScale(true);
 
-  const reservedHeight = 170;
+  const reservedHeight = 180;
   const availableHeight = window.innerHeight - reservedHeight;
   const availableWidth = window.innerWidth;
 

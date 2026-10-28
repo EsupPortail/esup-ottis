@@ -8,7 +8,6 @@ import { startChatPolling, saveTextQ } from '../chat/main.js';
 import { setupChatInput } from '../chat/input.js';
 import { Forward, Backward, SlideForward, SlideBackward } from './navigation.js';
 import { Micro, showET, toggleTextBandDisplay } from './ui.js';
-import { restoreCanvasStyles } from './pdf-fullscreen/core.js';
 
 // URL parameters - moved from config.js to break circular dependency
 let zoomid = '';
@@ -86,34 +85,11 @@ export function Init() {
     { capture: true }
   );
 
-  // Gestionnaire pour restaurer les styles à la sortie du plein écran
-  // Cela fonctionne pour Échap, bouton, Alt+F4, etc.
-  // PDF.js ne peut pas bloquer cet événement navigateur
-  function handleFullscreenExit() {
-    const isFullscreen =
-      document.fullscreenElement ||
-      document.webkitFullscreenElement ||
-      document.mozFullScreenElement ||
-      document.msFullscreenElement;
-
-    if (!isFullscreen) {
-      // Mettre à jour le bouton
-      const fullscreenBtn = _('pdf-fullscreen-btn');
-      if (fullscreenBtn) {
-        fullscreenBtn.textContent = 'Fullscreen';
-        fullscreenBtn.title = 'Toggle fullscreen mode';
-      }
-
-      // Restaurer les styles
-      restoreCanvasStyles(false);
-      toggleTextBandDisplay();
-    }
-  }
-
-  document.addEventListener('fullscreenchange', handleFullscreenExit);
-  document.addEventListener('webkitfullscreenchange', handleFullscreenExit);
-  document.addEventListener('mozfullscreenchange', handleFullscreenExit);
-  document.addEventListener('MSFullscreenChange', handleFullscreenExit);
+  // La sortie de plein écran (Échap, bouton, Alt+F4) est gérée par
+  // handleFullscreenStateChange -> ensureFullscreenExited (pdf-fullscreen) :
+  // le libellé du bouton passe par setFullscreenButtonLabel (i18n) et la
+  // restauration des styles par restoreCanvasStyles. L'ancien handler local
+  // écrasait le libellé avec une chaîne anglaise en dur.
 
   // setTimeout(Micro,1000);
   // setTimeout(Micro,1500);

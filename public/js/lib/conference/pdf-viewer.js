@@ -236,7 +236,10 @@ export function renderPage(num) {
       if (pdfViewerEl) {
         // Get the available dimensions from pdf-viewer
         const availableWidth = pdfViewerEl.clientWidth;
-        const availableHeight = pdfViewerEl.clientHeight;
+        // La feuille UA du navigateur force l'élément plein écran à
+        // 100vw x 100vh (!important) : réserver la bande basse
+        // (bulle live ~105px + contrôle 70px + écarts) ici, pas sur le viewer
+        const availableHeight = pdfViewerEl.clientHeight - 180;
 
         // Get page original dimensions
         const originalViewport = page.getViewport({ scale: 1.0 });
