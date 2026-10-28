@@ -197,29 +197,6 @@
     </form>
 </dialog>
 
-<!-- Dialogue d'envoi par mail (fonctionnalite existante conservee) -->
-<dialog id="dialog-mail" aria-labelledby="dialog-mail-title">
-    <form method="dialog">
-        <fieldset>
-            <legend class="sr-only">Send a mail</legend>
-            <?php echo \App\Utils\Csrf::field(); ?>
-            <h2 id="dialog-mail-title">Send a mail</h2>
-            <label for="dialog_MailTo">Mail to</label>
-            <input type="text" id="dialog_MailTo">
-            <label class="sr-only" for="dialog_MailFrom">Mail from</label>
-            <input type="text" id="dialog_MailFrom" readonly>
-            <label for="dialog_MailSubject">Subject</label>
-            <input type="text" id="dialog_MailSubject" readonly>
-            <label for="dialog_MailBody">Body</label>
-            <div id="dialog_MailBody"></div>
-            <menu>
-                <button type="submit" id="send-mail-btn">Send</button>
-                <button type="reset" id="cancel-mail-btn">Cancel</button>
-            </menu>
-        </fieldset>
-    </form>
-</dialog>
-
 <script type="module">
 (function () {
     'use strict';

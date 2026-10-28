@@ -1,13 +1,11 @@
 /**
  * @module lib/conference/post
  * Conference post-load initialization - converted from conference-post.js
- * Handles QR code generation, drag-and-drop, dialogs, and mail sending
+ * Handles QR code generation, drag-and-drop, and dialogs
  */
 
-import { addCsrfToken } from '../network/utils.js';
-import { createFetchRequest } from '../xhr.js';
 import { makeDraggable } from '../utils/draggable.js';
-import { upgradeLegacyDialogs, closeDialog } from '../utils/dialog.js';
+import { upgradeLegacyDialogs } from '../utils/dialog.js';
 import { t } from '../i18n.js';
 
 /**
@@ -150,45 +148,6 @@ export function FixTabOrderIssue() {
   for (let i = 0; i < l.length; i++) {
     if (l[i]) l[i].tabIndex = 0;
   }
-}
-
-/**
- * Send mail function
- */
-export function EnvoiMail() {
-  const FD = new FormData();
-
-  const dialog_MailFrom = document.getElementById('dialog_MailFrom');
-  const dialog_MailTo = document.getElementById('dialog_MailTo');
-  const dialog_MailSubject = document.getElementById('dialog_MailSubject');
-  const dialog_MailBody = document.getElementById('dialog_MailBody');
-
-  if (dialog_MailFrom) FD.append('from', dialog_MailFrom.value);
-  if (dialog_MailTo) FD.append('to', dialog_MailTo.value.replaceAll(' - ', ','));
-  if (dialog_MailSubject) FD.append('subject', dialog_MailSubject.value);
-  if (dialog_MailBody) FD.append('body', dialog_MailBody.innerHTML);
-
-  // Add CSRF token
-  addCsrfToken(FD);
-
-  const request = createFetchRequest('POST', '/email/send', {
-    onSuccess() {
-      alert('Mail sent.');
-    },
-    onError(response) {
-      // Ignorer les timeouts de polling (comportement normal)
-      if (response.status !== 0 || response.statusText !== 'Timeout') {
-        alert('Error, the mail cannot be sent.');
-      }
-    },
-    data: FD,
-    timeout: 10000,
-    context: 'EnvoiMail',
-  });
-
-  request.send();
-
-  closeDialog('dialog-mail');
 }
 
 /**

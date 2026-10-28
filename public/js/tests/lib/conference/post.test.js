@@ -21,11 +21,6 @@ describe('lib/conference/post.js - Conference Post Load', () => {
     expect(typeof initDialogs).toBe('function');
   });
 
-  it('should export EnvoiMail function', async () => {
-    const { EnvoiMail } = await import('../../../lib/conference/post.js');
-    expect(typeof EnvoiMail).toBe('function');
-  });
-
   it('should export initConferencePost function', async () => {
     const { initConferencePost } = await import('../../../lib/conference/post.js');
     expect(typeof initConferencePost).toBe('function');

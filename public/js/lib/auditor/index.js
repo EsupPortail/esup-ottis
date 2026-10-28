@@ -56,10 +56,6 @@
 // - readTextQ()
 // - showET(obj, num)
 
-// From mail.js:
-// - EnvoiMail()
-// - sendnotebook(content)
-
 // Export statement for ES modules (if used in module context)
 // export {
 //     decodeHtmlEntities, countLines, auto_size_text,
@@ -70,6 +66,5 @@
 //     Translate, CompleteTranslation,
 //     increasependingrequests, decreasependingrequests, readText, readTextSub,
 //     readTextSubTranscript, readImage,
-//     applyConfigSub, Lancer, Init, GoFS, readTextQ, showET,
-//     EnvoiMail, sendnotebook
+//     applyConfigSub, Lancer, Init, GoFS, readTextQ, showET
 // };

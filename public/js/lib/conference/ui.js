@@ -1,6 +1,5 @@
 import { _ } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
-import { openDialog } from '../dom/dialog.js';
 import { getBuiltinLanguage } from '../state/auditor.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
 import { isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
@@ -142,14 +141,6 @@ export function Embedcode() {
   //  alert("HTML code copied to clipboard !");
   _('embedcontent').value =
     `<iframe style="width:100%; overflow: auto; height: 500px" src="${url}"></iframe>`;
-}
-
-export function sendnotebook() {
-  _('dialog_MailFrom').value = 'bourdon-j@univ-nantes.fr';
-  _('dialog_MailTo').value = 'your.mail@univ-nantes.fr';
-  _('dialog_MailSubject').value = `Content of the lesson ${_('classroomid').value}`;
-  _('dialog_MailBody').innerHTML = window.DOMPurify.sanitize(_('notebook').innerHTML);
-  openDialog('dialog-mail');
 }
 
 export function opentab(e) {

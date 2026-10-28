@@ -101,7 +101,7 @@ function Init() {
   // Keyboard navigation
   document.addEventListener('keyup', (event) => {
     if (
-      ['AuditorName', 'dialog_MailTo', 'dialog_MailFrom', 'dialog_MailSubject', 'question'].indexOf(
+      ['AuditorName', 'question'].indexOf(
         document.activeElement.id
       ) < 0
     ) {

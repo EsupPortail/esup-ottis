@@ -15,7 +15,6 @@ import { Init } from './lib/auditor/main.js';
 import { initChatAlert } from './lib/chat/alert.js';
 import { loadVoicesWhenAvailable } from './lib/conference/voices.js';
 import { safeSetTimeout } from './lib/utils/cleanup.js';
-import { EnvoiMail } from './lib/auditor/mail.js';
 import { DownloadSpeechLesson } from './lib/download.js';
 
 // Get user name from DOM
@@ -93,30 +92,6 @@ function setupEventListeners() {
       const outputEl = document.getElementById('output');
       if (classroomidEl && outputEl && typeof DownloadSpeechLesson === 'function') {
         DownloadSpeechLesson(`translated_lesson_${classroomidEl.value}.txt`, outputEl.innerHTML);
-      }
-    });
-  }
-
-  // Send mail button (in dialog)
-  const sendMailBtn = document.getElementById('send-mail-btn');
-  if (sendMailBtn) {
-    sendMailBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (typeof EnvoiMail === 'function') {
-        EnvoiMail();
-      }
-    });
-  }
-
-  // Cancel mail button (in dialog)
-  const cancelMailBtn = document.getElementById('cancel-mail-btn');
-  if (cancelMailBtn) {
-    cancelMailBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const dialogMail = document.getElementById('dialog-mail');
-      if (dialogMail) {
-        dialogMail.close();
       }
     });
   }

@@ -113,7 +113,6 @@ class AuditorController extends BaseController
             '/js/lib/auditor/display.js',
             '/js/lib/auditor/config.js',  // Must load AFTER display.js (depends on showBanner, hideBanner)
             '/js/lib/auditor/translation.js',
-            '/js/lib/auditor/mail.js',
             '/js/lib/auditor/main.js',
             '/js/lib/chat/alert.js',
             '/js/lib/chat/network.js',

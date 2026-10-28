@@ -145,7 +145,6 @@ export function upgradeLegacyDialogs() {
     // For now, we'll just convert common dialog IDs
     const dialogIds = [
       'dialog-invite',
-      'dialog-mail',
       'dialog-message',
       'dialog-warning',
       'dialog-choose',

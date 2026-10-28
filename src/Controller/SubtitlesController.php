@@ -98,7 +98,6 @@ class SubtitlesController extends BaseController
             '/js/lib/auditor/speech.js',
             '/js/lib/auditor/display.js',
             '/js/lib/auditor/config.js',
-            '/js/lib/auditor/mail.js',
             '/js/lib/auditor/main.js'
         ];
 

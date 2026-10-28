@@ -217,16 +217,6 @@ function initializePost() {
     });
   }
 
-  // Dialog-mail cancel button
-  const dialogMail = document.getElementById('dialog-mail');
-  const cancelBtn = dialogMail?.querySelector('button[type="reset"]');
-  if (cancelBtn) {
-    cancelBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      dialogMail.close();
-    });
-  }
-
   // VoiceOutput change handler - retraduire quand l'utilisateur change la langue cible
   const voiceOutputSelect = document.getElementById('VoiceOutput');
   if (voiceOutputSelect) {
