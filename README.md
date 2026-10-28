@@ -187,10 +187,10 @@ APP_ENV=production        # Obligatoire : development, staging, ou production
 # Authentification CAS (true/false - voir section "Authentification CAS" ci-dessous)
 CAS_ENABLED=false
 
-# Serveur CAS (optionnel - voir section "Authentification CAS" ci-dessous)
-#CAS_HOST=cas.mon-etablissement.fr
-#CAS_PORT=443
-#CAS_URL=/cas/
+# Serveur CAS (CAS_HOST obligatoire si CAS activé - voir section dédiée)
+CAS_HOST=
+CAS_PORT=
+CAS_URL=
 
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
@@ -240,14 +240,14 @@ L'application s'appuie sur **apereo/phpcas** pour l'authentification centralisé
 
 ```ini
 CAS_ENABLED=true                      # Activation (unique interrupteur)
-CAS_HOST=cas.mon-etablissement.fr     # Serveur CAS (défaut : login.univ-nantes.fr)
-CAS_PORT=443                         # Port (défaut : 443)
-CAS_URL=/cas/                         # Contexte CAS (défaut : /cas26m/)
+CAS_HOST=cas.mon-etablissement.fr     # OBLIGATOIRE si CAS activé (aucune valeur par défaut)
+CAS_PORT=443                         # Port (optionnel, défaut générique : 443)
+CAS_URL=/cas/                         # Contexte CAS (optionnel, défaut générique : /cas)
 ```
 
-> **Important** : l'activation du CAS se pilote par la variable `CAS_ENABLED` du fichier `.env` (désactivée par défaut dans le dépôt). Pensez à définir `CAS_HOST` (et au besoin `CAS_PORT`/`CAS_URL`) à votre établissement avant de passer `CAS_ENABLED=true` : en leur absence, l'application pointe vers le serveur CAS de Nantes Université (valeur par défaut) et l'authentification échouera.
+> **Important** : `CAS_HOST` est **obligatoire** dès que `CAS_ENABLED=true` : les valeurs de Nantes Université ne sont pas des valeurs par défaut. Sans hôte configuré, un avertissement est journalisé à chaque requête et l'authentification échoue avec une erreur explicite (les routes protégées renvoient alors une erreur).
 
-- `CAS_HOST` / `CAS_PORT` / `CAS_URL` absents, vides ou invalides : les valeurs par défaut de `config/cas.php` (Nantes Université) sont conservées.
+- `CAS_PORT` / `CAS_URL` absents, vides ou invalides : défauts génériques `443` et `/cas` (avertissement en log si invalide).
 - `server_validation` (validation du certificat du serveur CAS) et `cert_path` se règlent dans `config/cas.php` : passez `server_validation` à `true` et renseignez `cert_path` pour un établissement disposant d'une PKI.
 - Contournement du CAS en développement : `APP_ENV=dev` ou `APP_ENV=local`, ou `dev_mode = true` dans `config/cas.php` (utilisateur factice `ottis-dev-user`). NB : `APP_ENV=development` ne contourne pas le CAS.
 

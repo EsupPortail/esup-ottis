@@ -77,7 +77,7 @@ class CasAuthenticator
         $serviceBaseUrl = self::currentServiceBaseUrl();
 
         if (empty($casHost)) {
-            throw new RuntimeException('CAS host is not configured. Please edit config/cas.php.');
+            throw new RuntimeException('CAS host is not configured. Please define CAS_HOST in the .env file.');
         }
 
         \phpCAS::client(
