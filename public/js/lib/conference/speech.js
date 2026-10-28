@@ -139,7 +139,7 @@ export function StartSpeechRecognition(callback) {
         if (_('recognitionon').checked) {
           if (isFinalResult) {
             // forceTranslate=true : la ligne finale doit etre traduite meme
-            // en mode TRANSLATION_PARTIAL_FREQ=none
+            // en mode CONFERENCE_TRANSLATION_PARTIAL_FREQ=none
             EcrireTranslatePartial(partial, () => {
               // Écrire le texte original uniquement si pas de traduction nécessaire
               if (getBuiltinLanguage() === getSubtitleLanguage()) {

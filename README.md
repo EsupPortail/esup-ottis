@@ -369,7 +369,6 @@ php public/index.php
 │   ├── cas.php              # Configuration de l'authentification CAS
 │   ├── logging.php          # Configuration Monolog
 │   ├── routes.php           # Définition des routes MVC
-│   └── security.php          # Configuration de sécurité
 │
 ├── public/                  # Point d'entrée web
 │   ├── .htaccess            # Configuration Apache
