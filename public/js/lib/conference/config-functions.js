@@ -10,7 +10,6 @@ import { Forward, Backward, SlideForward, SlideBackward } from './navigation.js'
 import { Micro, showET, toggleTextBandDisplay } from './ui.js';
 
 // URL parameters - moved from config.js to break circular dependency
-let zoomid = '';
 let targettab = 0;
 
 /** @module conference/config */
@@ -23,9 +22,8 @@ export function Lancer() {
 }
 
 export function Init() {
-  // Parse URL parameters for zoomid, uncloudlink, etc.
+  // Parse URL parameters
   const urlParams = new URL(window.location.toLocaleString()).searchParams;
-  if (urlParams.has('ZOOMID')) zoomid = urlParams.get('ZOOMID');
   if (urlParams.has('tab')) targettab = parseInt(urlParams.get('tab'), 10) || 0;
   if (urlParams.has('WhichTranslator')) {
     const whichtranslatorEl = _('whichtranslator');
@@ -101,7 +99,6 @@ export function Init() {
         _('spanembedwooclapon').innerHTML = 'No.';
         hide('titlewooclap');
     } */
-  if (zoomid !== '') startZoom(zoomid);
   if (targettab > 0) _(`ttab-${targettab}`).click();
 }
 
@@ -111,14 +108,6 @@ export function opentab_url(url) {
   _(`extraurl${tabnumber}`).value = url;
   _(`embedET${tabnumber}`).checked = true;
   showET(_(`embedET${tabnumber}`), tabnumber);
-}
-
-export function startZoom(zoomidToJoin) {
-  const lnk = `https://univ-nantes-fr.zoom.us/wc/join/${zoomidToJoin}`;
-  opentab_url(lnk);
-  if (window.confirm('Are you the host for this zoom session ?')) {
-    window.open(`https://univ-nantes-fr.zoom.us/wc/${zoomidToJoin}/start`);
-  }
 }
 
 export function setLanguageStr(l) {
