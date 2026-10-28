@@ -187,6 +187,11 @@ APP_ENV=production        # Obligatoire : development, staging, ou production
 # Authentification CAS (true/false - voir section "Authentification CAS" ci-dessous)
 CAS_ENABLED=false
 
+# Serveur CAS (optionnel - voir section "Authentification CAS" ci-dessous)
+#CAS_HOST=cas.mon-etablissement.fr
+#CAS_PORT=443
+#CAS_URL=/cas/
+
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
 
@@ -231,22 +236,20 @@ vers `public/`, socket FPM du pool (`/run/php/ottis.sock`), `AllowOverride All`.
 
 ### Authentification CAS (config/cas.php)
 
-L'application s'appuie sur **apereo/phpcas** pour l'authentification centralisée (SSO). La configuration se trouve dans `config/cas.php` :
+L'application s'appuie sur **apereo/phpcas** pour l'authentification centralisée (SSO). La configuration de base se trouve dans `config/cas.php` ; le serveur est surchargeable via le fichier `.env` :
 
-```php
-return [
-    'enabled' => (bool) (getenv('CAS_ENABLED') ?: false),   // Piloté par la variable CAS_ENABLED du fichier .env
-    'host' => 'login.univ-nantes.fr',
-    'port' => 443,
-    'url' => '/cas26m/',
-    'server_validation' => false,
-    'cert_path' => null,
-    'dev_mode' => false,
-    // ...
-];
+```ini
+CAS_ENABLED=true                      # Activation (unique interrupteur)
+CAS_HOST=cas.mon-etablissement.fr     # Serveur CAS (défaut : login.univ-nantes.fr)
+CAS_PORT=443                         # Port (défaut : 443)
+CAS_URL=/cas/                         # Contexte CAS (défaut : /cas26m/)
 ```
 
-> **Important** : l'activation du CAS se pilote par la variable `CAS_ENABLED` du fichier `.env` (désactivée par défaut dans le dépôt). Le fichier `config/cas.php` pointe vers le serveur CAS de Nantes Université : adaptez `host`, `port` et `url` à votre établissement avant de passer `CAS_ENABLED=true`, sinon les routes protégées renverront une erreur d'authentification.
+> **Important** : l'activation du CAS se pilote par la variable `CAS_ENABLED` du fichier `.env` (désactivée par défaut dans le dépôt). Pensez à définir `CAS_HOST` (et au besoin `CAS_PORT`/`CAS_URL`) à votre établissement avant de passer `CAS_ENABLED=true` : en leur absence, l'application pointe vers le serveur CAS de Nantes Université (valeur par défaut) et l'authentification échouera.
+
+- `CAS_HOST` / `CAS_PORT` / `CAS_URL` absents, vides ou invalides : les valeurs par défaut de `config/cas.php` (Nantes Université) sont conservées.
+- `server_validation` (validation du certificat du serveur CAS) et `cert_path` se règlent dans `config/cas.php` : passez `server_validation` à `true` et renseignez `cert_path` pour un établissement disposant d'une PKI.
+- Contournement du CAS en développement : `APP_ENV=dev` ou `APP_ENV=local`, ou `dev_mode = true` dans `config/cas.php` (utilisateur factice `ottis-dev-user`). NB : `APP_ENV=development` ne contourne pas le CAS.
 
 - **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`

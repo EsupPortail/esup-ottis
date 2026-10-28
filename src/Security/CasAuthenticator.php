@@ -60,7 +60,8 @@ class CasAuthenticator
             return;
         }
 
-        $appEnv = getenv('APP_ENV') ?: 'production';
+        // createImmutable() peuple $_ENV mais pas getenv() : lire $_ENV d'abord
+        $appEnv = trim((string) ($_ENV['APP_ENV'] ?? getenv('APP_ENV'))) ?: 'production';
         $casEnabled = (bool) ($casConfig['enabled'] ?? false);
 
         if (!$casEnabled || $appEnv === 'local' || $appEnv === 'dev' || ($casConfig['dev_mode'] ?? false)) {
