@@ -32,7 +32,7 @@ class RoomInfoService
     }
 
     /**
-     * Get the user ID from server authentication
+     * Get the user ID from the session (CAS or dev mode)
      *
      * @param string $default Default user ID if not authenticated
      * @return string User ID
@@ -44,18 +44,7 @@ class RoomInfoService
             return trim($sessionUid);
         }
 
-        $uid = $_SERVER['PHP_AUTH_USER'] ?? '';
-
-        if (empty($uid)) {
-            return $default;
-        }
-
-        // For non-univ-nantes.fr domains, use anonymous
-        if (strpos($_SERVER['SERVER_NAME'] ?? '', 'univ-nantes.fr') === false) {
-            return 'anonymous';
-        }
-
-        return $uid;
+        return $default;
     }
 
     /**
