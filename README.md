@@ -202,6 +202,10 @@ MATOMO_SITE_ID=
 # Vitesse de traduction (voir section "Vitesse de traduction" ci-dessous)
 CONFERENCE_TRANSLATION_PARTIAL_FREQ=5
 AUDITOR_TRANSLATION_PARTIAL_FREQ=5
+
+# Langues d'interface (voir section "Langues d'interface" ci-dessous)
+CONFERENCE_UI_LANGUAGE=fr
+AUDITOR_UI_LANGUAGE=en
 ```
 
 > **Toute la configuration de la traduction se fait dans `tables/tokens.json`** (copiez `tables/tokens.json.example`) : choix du traducteur, tokens API et serveur LibreTranslate. Le `.env` ne porte que les réglages d'infrastructure. Structure :
@@ -295,6 +299,22 @@ AUDITOR_TRANSLATION_PARTIAL_FREQ=5       # côté auditeur
 - Absente, vide ou invalide : `5` (comportement par défaut).
 - Chaque variable est indépendante : conférence et auditor peuvent avoir des fréquences différentes.
 - Les lignes finales (ajoutées au notebook) sont **toujours** traduites, quelle que soit la valeur.
+
+
+
+### Langues d'interface (CONFERENCE_UI_LANGUAGE / AUDITOR_UI_LANGUAGE)
+
+Langue d'affichage par défaut des pages, définie dans le fichier `.env` avec une variable par rôle :
+
+```ini
+CONFERENCE_UI_LANGUAGE=fr    # pages hors auditor (défaut actuel : fr)
+AUDITOR_UI_LANGUAGE=en       # pages auditor (défaut actuel : en)
+```
+
+- Code sur 2 lettres disposant d'un fichier de traduction `public/lang/{code}.json` (actuellement : `fr`, `en`).
+- Absentes ou vides : comportement actuel conservé (`fr` hors auditor, `en` pour l'auditor).
+- Invalide ou non supportée (ex. `de`) : repli sur `en` + avertissement en log.
+- Le paramètre `?lang=` et le sélecteur FR/EN de la navigation priment toujours sur ces valeurs (choix explicite de l'utilisateur).
 
 
 

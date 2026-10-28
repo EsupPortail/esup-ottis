@@ -137,9 +137,14 @@ export async function changeLanguage(lang) {
  */
 export function getCurrentLanguage() {
   const urlParams = new URLSearchParams(window.location.search);
-  // Page auditeur : interface en anglais par defaut
-  const defaultLang =
-    document.body && document.body.classList.contains('ottis-page-auditor') ? 'en' : 'fr';
+  // Defaut d'interface configure par le serveur (CONFERENCE_UI_LANGUAGE /
+  // AUDITOR_UI_LANGUAGE dans .env, via window.OTTIS_CONFIG), sinon
+  // comportement historique : en pour l'auditor, fr ailleurs.
+  const config = (typeof window !== 'undefined' && window.OTTIS_CONFIG) || {};
+  const isAuditorPage = document.body && document.body.classList.contains('ottis-page-auditor');
+  const defaultLang = isAuditorPage
+    ? config.auditor_ui_language || 'en'
+    : config.conference_ui_language || 'fr';
   return urlParams.get('lang') || defaultLang;
 }
 

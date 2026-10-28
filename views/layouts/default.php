@@ -61,6 +61,8 @@ $appConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/
         window.OTTIS_CONFIG = <?php echo json_encode([
             'conference_translation_partial_freq' => $appConfig['conference_translation_partial_freq'],
             'auditor_translation_partial_freq' => $appConfig['auditor_translation_partial_freq'],
+            'conference_ui_language' => $appConfig['conference_ui_language'],
+            'auditor_ui_language' => $appConfig['auditor_ui_language'],
         ]); ?>;
     </script>
 

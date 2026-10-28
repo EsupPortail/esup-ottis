@@ -60,8 +60,19 @@ abstract class BaseController
             session_start();
         }
 
+        // Langue d'interface par defaut : CONFERENCE_UI_LANGUAGE (.env),
+        // comportement historique 'fr' si absente (cf. config/app.php)
+        $appConfigPath = (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/config/app.php';
+        $defaultUiLanguage = 'fr';
+        if (file_exists($appConfigPath)) {
+            $loadedAppConfig = require $appConfigPath;
+            if (is_array($loadedAppConfig) && !empty($loadedAppConfig['conference_ui_language'])) {
+                $defaultUiLanguage = (string) $loadedAppConfig['conference_ui_language'];
+            }
+        }
+
         // Set language from GET parameter or session
-        $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? 'fr';
+        $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? $defaultUiLanguage;
 
         // Send no-cache headers for all pages
         $this->sendNoCacheHeaders();

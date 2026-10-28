@@ -30,9 +30,18 @@ class AuditorController extends BaseController
         // Set session marker
         $_SESSION['from'] = 'student';
 
-        // Interface auditeur en anglais par defaut, sauf si une langue
-        // est explicitement demandee (?lang=) ou deja definie en session
-        $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? 'en';
+        // Interface auditeur : AUDITOR_UI_LANGUAGE par defaut (.env, repli 'en'),
+        // sauf si une langue est explicitement demandee (?lang=) ou deja definie en session
+        $appConfigPath = (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/config/app.php';
+        $defaultAuditorUiLanguage = 'en';
+        if (file_exists($appConfigPath)) {
+            $loadedAppConfig = require $appConfigPath;
+            if (is_array($loadedAppConfig) && !empty($loadedAppConfig['auditor_ui_language'])) {
+                $defaultAuditorUiLanguage = (string) $loadedAppConfig['auditor_ui_language'];
+            }
+        }
+
+        $this->language = $_GET['lang'] ?? $_SESSION['lang'] ?? $defaultAuditorUiLanguage;
 
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');

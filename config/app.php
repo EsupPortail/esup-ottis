@@ -64,6 +64,33 @@ $ottisResolvePartialFreq = function (string $envName): string {
     return '5';
 };
 
+// Langues d'interface par defaut (CONFERENCE_UI_LANGUAGE / AUDITOR_UI_LANGUAGE) :
+// code sur 2 lettres avec fichier public/lang/{code}.json present.
+// Absentes ou vides : comportement actuel conserve (fr / en), sans avertissement.
+// Invalides ou sans fichier (ex. "de") : avertissement + repli sur 'en'.
+$ottisResolveUiLanguage = function (string $envName, string $default): string {
+    $value = strtolower(trim((string) ($_ENV[$envName] ?? getenv($envName))));
+    if ($value === '') {
+        return $default;
+    }
+    $langFile = (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__)) . '/public/lang/' . $value . '.json';
+    if (
+        filter_var($value, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^[a-z]{2}$/']]) === false
+        || !file_exists($langFile)
+    ) {
+        try {
+            \App\Utils\Logger::warning(
+                "config/app.php : {$envName} invalide ou non supportee ({$value}), repli sur 'en'"
+            );
+        } catch (\Throwable $e) {
+            // Le logger ne doit jamais bloquer l'application
+            error_log("config/app.php : {$envName} invalide ou non supportee ({$value}) (log indisponible)");
+        }
+        return 'en';
+    }
+    return $value;
+};
+
 return [
     // Adresse de contact affichée dans la navigation (lien mailto)
     'contact_email' => $ottisResolveEnv('CONTACT_EMAIL', FILTER_VALIDATE_EMAIL),
@@ -86,4 +113,9 @@ return [
     // Idem cote auditor (l'auditeur ne voit jamais de texte non traduit
     // en mode 'none'). Absente : 5.
     'auditor_translation_partial_freq' => $ottisResolvePartialFreq('AUDITOR_TRANSLATION_PARTIAL_FREQ'),
+
+    // Langue d'interface par defaut des pages hors auditor (BaseController)
+    'conference_ui_language' => $ottisResolveUiLanguage('CONFERENCE_UI_LANGUAGE', 'fr'),
+    // Langue d'interface par defaut des pages auditor
+    'auditor_ui_language' => $ottisResolveUiLanguage('AUDITOR_UI_LANGUAGE', 'en'),
 ];
