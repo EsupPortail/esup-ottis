@@ -85,7 +85,9 @@ function hideAllViewers() {
 function showPdfViewer() {
   const pdfViewer = _('pdf-viewer');
   if (pdfViewer) {
-    pdfViewer.style.display = 'block';
+    // Rendre la main à la CSS (#pdf-viewer : flex column + gap) au lieu de
+    // forcer display:block, qui neutralisait la mise en page prévue
+    pdfViewer.style.display = '';
     initPdfViewer(); // Initialise le canvas PDF.js
   }
 }

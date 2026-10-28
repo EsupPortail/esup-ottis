@@ -18,11 +18,17 @@ import {
   setPageNumPending,
   setPageRendering,
   setPdfDoc,
+  setScale,
 } from './state/pdf.js';
 import { previousimage, setPreviousimage } from './state/translation.js';
 
 import { b64toBlob, resizeSlides } from './utils.js';
-import { enterPdfFullscreen, exitPdfFullscreen, setPdfRenderer } from './pdf-fullscreen/core.js';
+import {
+  enterPdfFullscreen,
+  exitPdfFullscreen,
+  setEmbeddedScaleCalculator,
+  setPdfRenderer,
+} from './pdf-fullscreen/core.js';
 import { showPresentationError } from './errors.js';
 import { t } from '../i18n.js';
 
@@ -42,6 +48,8 @@ const get = _;
 // Inverser la dependance : core n'importe plus pdf-viewer, c'est ici qu'on
 // lui fournit la fonction de rendu (cycle core<->pdf-viewer).
 setPdfRenderer(renderPage);
+// Même principe pour l'ajustement d'échelle embarqué (sortie de plein écran).
+setEmbeddedScaleCalculator(calculateEmbeddedScale);
 
 export function progressHandler(event) {
   const percent = (event.loaded / event.total) * 100;
@@ -115,6 +123,86 @@ export function initPdfViewer() {
     setCtx(canvasEl.getContext('2d'));
   }
 }
+
+// Debounce du réajustement embarqué (listener resize)
+let embeddedScaleTimer = null;
+
+/**
+ * Calcule l'échelle embarquée pour que la page PDF tienne dans la zone
+ * disponible : présentation et bulle visibles sans scroll, ratio conservé.
+ * Équivalent embarqué de calculateFullscreenScale (pdf-fullscreen/core.js).
+ * @returns {Promise} Se résout après application de l'échelle
+ */
+export function calculateEmbeddedScale() {
+  const pdfViewerEl = _('pdf-viewer');
+  const containerEl = _('ottis-import');
+  const controlEl = _('pdf-control');
+  const liveEl = _('live');
+  if (!pdfViewerEl || !containerEl || !pdfDoc) {
+    return Promise.resolve();
+  }
+
+  return pdfDoc
+    .getPage(1)
+    .then((page) => {
+      const originalViewport = page.getViewport({ scale: 1.0 });
+      const viewerStyle = window.getComputedStyle(pdfViewerEl);
+
+      // Largeur : zone du viewer moins la bande du bouton de fermeture
+      const availableWidth =
+        pdfViewerEl.clientWidth - (parseFloat(viewerStyle.paddingRight) || 0);
+
+      // Hauteur : budget du conteneur (max-height CSS) moins la barre de
+      // navigation et la bulle de sous-titrage
+      const containerStyle = window.getComputedStyle(containerEl);
+      const containerMaxHeight = parseFloat(containerStyle.maxHeight);
+      const budgetHeight = Number.isFinite(containerMaxHeight)
+        ? containerMaxHeight
+        : window.innerHeight - 170;
+      const controlHeight = controlEl
+        ? controlEl.offsetHeight +
+          (parseFloat(window.getComputedStyle(controlEl).marginTop) || 0)
+        : 0;
+      const liveHeight = liveEl
+        ? liveEl.offsetHeight +
+          (parseFloat(window.getComputedStyle(liveEl).marginTop) || 0)
+        : 0;
+      const gap = parseFloat(viewerStyle.columnGap || viewerStyle.rowGap) || 0;
+      const heightForCanvas = budgetHeight - controlHeight - liveHeight - gap - 4;
+
+      const widthScale = availableWidth / originalViewport.width;
+      const heightScale = heightForCanvas / originalViewport.height;
+      // Marge de sécurité, comme le plein écran
+      const embeddedScale = Math.max(0.1, Math.min(widthScale, heightScale) * 0.95);
+
+      setScale(embeddedScale);
+      if (pageNum && !pageRendering) {
+        renderPage(pageNum);
+      }
+    })
+    .catch(() => {});
+}
+
+// Changement d'écran (resize) : réajuster la présentation hors plein écran.
+// En plein écran, c'est handleFullscreenResize qui recalcule.
+window.addEventListener('resize', () => {
+  const isFullscreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullScreenElement;
+  const canvasEl = _('pdf-canvas');
+  if (isFullscreen || !pdfDoc || !canvasEl || canvasEl.style.display === 'none') {
+    return;
+  }
+  if (embeddedScaleTimer) {
+    clearTimeout(embeddedScaleTimer);
+  }
+  embeddedScaleTimer = safeSetTimeout(() => {
+    embeddedScaleTimer = null;
+    calculateEmbeddedScale();
+  }, 150);
+});
 
 export function renderPage(num) {
   // Don't start new render if one is already in progress
@@ -304,11 +392,15 @@ export function displayPDF(url) {
             }
           }
 
-          // Masquer la barre de progression une fois le PDF chargé
-          const dProg = get('d-prog');
-          if (dProg) {
-            dProg.hidden = true;
-          }
+          // Ajuster la présentation à la place disponible
+          // (présentation + bulle visibles sans scroll)
+          return calculateEmbeddedScale().then(() => {
+            // Masquer la barre de progression une fois le PDF chargé
+            const dProg = get('d-prog');
+            if (dProg) {
+              dProg.hidden = true;
+            }
+          });
         });
       })
       .catch((error) => {

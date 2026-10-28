@@ -4,7 +4,6 @@
  */
 
 import {
-  initialClientWidth,
   isCalculatingFullscreenScale,
   originalPdfControlStyle,
   originalTextBandDisplay,
@@ -63,6 +62,18 @@ let renderCurrentPage = null;
  */
 export function setPdfRenderer(renderFn) {
   renderCurrentPage = renderFn;
+}
+
+// Ajustement d'échelle embarqué injecté par pdf-viewer (même principe que
+// setPdfRenderer : éviter le cycle d'imports core <-> pdf-viewer).
+let embeddedScaleCalculator = null;
+
+/**
+ * Enregistre la fonction d'ajustement d'échelle embarquée.
+ * @param {Function} scaleFn - Fonction d'ajustement (calculateEmbeddedScale)
+ */
+export function setEmbeddedScaleCalculator(scaleFn) {
+  embeddedScaleCalculator = scaleFn;
 }
 
 // Indique que le plein ecran PDF est actif (styles appliques, non encore restaures)
@@ -397,7 +408,7 @@ export function restoreCanvasStyles() {
     canvasEl.style.boxSizing = '';
     canvasEl.style.width = '';
     canvasEl.style.height = '';
-    canvasEl.style.maxWidth = 'none';
+    canvasEl.style.maxWidth = '';
   }
 }
 
@@ -468,26 +479,13 @@ export function exitPdfFullscreen() {
         toggleTextBandDisplay();
       }, 50);
 
-      if (pdfDoc && initialClientWidth > 0) {
-        pdfDoc
-          .getPage(1)
-          .then((page) => {
-            const viewport = page.getViewport({ scale: 1.0 });
-            const requiredScale = initialClientWidth / viewport.width;
-            setScale(requiredScale);
-
-            if (pageNum) {
-              if (renderCurrentPage) renderCurrentPage(pageNum);
-            }
-          })
-          .catch(() => {
-            if (pageNum) {
-              if (renderCurrentPage) renderCurrentPage(pageNum);
-            }
-          });
-      } else if (pageNum) {
-        if (renderCurrentPage) renderCurrentPage(pageNum);
-      }
+      // Réajuster l'échelle embarquée via la fonction injectée par pdf-viewer
+      // (remplace l'ancien recalcul basé sur la largeur seule)
+      safeSetTimeout(() => {
+        if (embeddedScaleCalculator) {
+          embeddedScaleCalculator();
+        }
+      }, 60);
     })
     .catch(() => {});
 }

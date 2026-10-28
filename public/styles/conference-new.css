@@ -201,7 +201,8 @@
 }
 
 /* Accessibilite */
-.sr-only {
+.sr-only,
+.ottis-sr {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
@@ -223,7 +224,7 @@
 }
 
 .ottis-section {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     text-align: center;
 }
 
@@ -235,7 +236,7 @@
 }
 
 .ottis-import-section {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     text-align: center;
 }
 
@@ -338,7 +339,7 @@ progress::-moz-progress-bar {
     align-items: center;
     gap: 0.6rem;
     max-width: calc(100% - 90px);
-    margin-top: 2rem;
+    margin-top: 1rem;
     background: var(--sb, #111a2e);
     color: var(--sf, #fff);
     border: 1px solid #e1e4ea;
@@ -679,9 +680,11 @@ progress::-moz-progress-bar {
 /* Conteneur import (PDF + live area) */
 .ottis-import-container {
     position: relative;
-    margin-top: 1rem;
-    min-height: 200px;
-    max-height: calc(100vh - 150px);
+    margin-top: 0;
+    /* Budget vertical : header (~62px) + padding .m (32px haut / 24px bas)
+       + footer (~46px) : présentation + bulle + footer visibles sans scroll */
+    max-height: calc(100vh - 170px);
+    max-height: calc(100dvh - 170px);
     overflow: auto;
 }
 
@@ -695,7 +698,6 @@ progress::-moz-progress-bar {
     margin: 0 auto;
     /* Bande réservée au bouton de fermeture, à droite de la présentation */
     padding-right: 3rem;
-    max-height: calc(100vh - 200px);
 }
 
 .ottis-pdf-close {
@@ -734,7 +736,10 @@ progress::-moz-progress-bar {
     display: block;
     border: 1px solid #ccc;
     max-width: 100%;
-    max-height: calc(100vh - 250px);
+    /* Garde-fou si l'ajustement JS n'a pas joué : budget conteneur (170px)
+       moins barre de navigation (~60px) et bulle (~119px) */
+    max-height: calc(100vh - 360px);
+    max-height: calc(100dvh - 360px);
     overflow: auto;
     background: white;
 }
@@ -1203,6 +1208,19 @@ progress::-moz-progress-bar {
     min-height: 0;
 }
 
+.ottis-page-conference #v-outil {
+    /* L'onglet Outil doit tenir à l'écran : le footer reste visible en bas,
+       la page ne s'allonge pas vers le bas au changement d'écran */
+    padding-bottom: 1.5rem;
+}
+
+@media (min-width: 900px) {
+    .ottis-page-conference .ottis-footer {
+        /* Une seule ligne : la hauteur du footer ne change pas d'un écran à l'autre */
+        flex-wrap: nowrap;
+    }
+}
+
 .ottis-page-conference .content {
     flex: 1;
     min-width: 0;
@@ -1377,8 +1395,55 @@ progress#presentation-progress::-moz-progress-bar {
         max-width: 100%;
     }
 
+    .ottis-import-container {
+        /* Header et footer multi-lignes + barre d'onglets épinglée :
+           réserver davantage pour éviter toute scroll bar */
+        max-height: calc(100vh - 320px);
+        max-height: calc(100dvh - 320px);
+    }
+
     /* Bloc de sous-titres flottant : passe SOUS la barre/panneau épinglé en bas */
     .ottis-float-live-area {
         z-index: 900;
+    }
+}
+
+@media (max-height: 700px) {
+    /* Écrans bas (portable, mise à l'échelle) : compacter l'accueil pour que
+       bulle + footer tiennent dans le viewport, sans scrollbar */
+    .ottis-page-conference #v-outil {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .ottis-section h1 {
+        margin-bottom: 0.6rem;
+    }
+
+    .ottis-drop-zone {
+        padding: 1.2rem 1rem;
+    }
+
+    .ottis-drop-upload {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 0.7rem;
+    }
+
+    .ottis-drop-upload svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    .ottis-drop-zone label {
+        margin-bottom: 0.5rem;
+    }
+
+    .ottis-note {
+        margin-top: 0.5rem;
+    }
+
+    .ottis-live-area {
+        padding: 1rem;
     }
 }
