@@ -9,7 +9,14 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <script type="module" src="/js/lib/i18n.js"></script>
+    <?php $matomoAppConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/config/app.php'; ?>
+    <?php if (!empty($matomoAppConfig['matomo_url']) && !empty($matomoAppConfig['matomo_site_id'])): ?>
+    <script>window.OTTIS_MATOMO = <?php echo json_encode([
+        'url' => $matomoAppConfig['matomo_url'],
+        'siteId' => $matomoAppConfig['matomo_site_id'],
+    ]); ?>;</script>
     <script src="/js/lib/analytics.js"></script>
+    <?php endif; ?>
 </head>
 <body>
     <h1>Upload Presentation File</h1>

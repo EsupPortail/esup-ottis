@@ -19,7 +19,10 @@
         <li><strong>Données d'authentification</strong> : identifiant institutionnel transmis par le service d'authentification centrale (CAS) de Nantes Université lors de la connexion ;</li>
         <li><strong>Contenus de session</strong> : transcriptions, traductions, messages du chat et notes générés pendant une intervention ;</li>
         <li><strong>Fichiers pédagogiques</strong> : présentations (PowerPoint, PDF) temporairement déposées pour être diffusées et sous-titrées ;</li>
-        <li><strong>Mesure d'audience</strong> : statistiques de fréquentation anonymisées (analytics.univ-nantes.fr).</li>
+        <?php $dpAppConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 3)) . '/config/app.php'; ?>
+        <?php if (!empty($dpAppConfig['matomo_url'])): ?>
+        <li><strong>Mesure d'audience</strong> : statistiques de fréquentation anonymisées (<?php echo htmlspecialchars((string) parse_url($dpAppConfig['matomo_url'], PHP_URL_HOST)); ?>).</li>
+        <?php endif; ?>
     </ul>
 
     <h2>Finalités et bases légales</h2>

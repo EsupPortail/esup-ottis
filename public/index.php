@@ -50,6 +50,24 @@ header('Expires: 0');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-cache, must-revalidate');
 
+// Content-Security-Policy : emise ici (et non dans .htaccess, dont un
+// "Header always set" ecraserait celle du PHP) pour injecter le domaine
+// Matomo configure (MATOMO_URL). Sans Matomo, son domaine n'est pas autorise.
+$appConfigPath = APP_ROOT . '/config/app.php';
+$appConfig = [];
+if (file_exists($appConfigPath)) {
+    $loadedAppConfig = require $appConfigPath;
+    if (is_array($loadedAppConfig)) {
+        $appConfig = $loadedAppConfig;
+    }
+}
+$matomoHost = '';
+if (!empty($appConfig['matomo_url'])) {
+    $matomoHost = (string) parse_url($appConfig['matomo_url'], PHP_URL_HOST);
+}
+$matomoCsp = $matomoHost !== '' ? ' https://' . $matomoHost : '';
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net{$matomoCsp}; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://api.deepl.com https://app.wooclap.com{$matomoCsp}; frame-src https://app.wooclap.com; worker-src 'self' blob:;");
+
 $casConfigPath = APP_ROOT . '/config/cas.php';
 $casConfig = [];
 if (file_exists($casConfigPath)) {

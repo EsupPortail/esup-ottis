@@ -189,6 +189,10 @@ CAS_ENABLED=false
 
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
+
+# Mesure d'audience Matomo (voir section "Mesure d'audience (Matomo)" ci-dessous)
+MATOMO_URL=
+MATOMO_SITE_ID=
 ```
 
 > **Toute la configuration de la traduction se fait dans `tables/tokens.json`** (copiez `tables/tokens.json.example`) : choix du traducteur, tokens API et serveur LibreTranslate. Le `.env` ne porte que les réglages d'infrastructure. Structure :
@@ -248,6 +252,21 @@ return [
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
 - **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
 - **Persistance de session** : la session PHP dure 8 h (cookie dédié) et est maintenue active pendant une conférence par un appel périodique à `/keepalive` (toutes les 10 minutes) ; si une reconnexion CAS devient nécessaire, elle est transparente (nettoyage du ticket, retour automatique à la page d'origine, salle conservée).
+
+
+
+### Mesure d'audience (Matomo)
+
+OTTIS intègre le traceur Matomo, **désactivé par défaut**. L'activation se pilote par le fichier `.env` :
+
+```ini
+MATOMO_URL=https://analytics.mon-etablissement.fr/matomo.php   # URL complète du tracker
+MATOMO_SITE_ID=42                                              # Identifiant du site
+```
+
+- `MATOMO_URL` absente, vide ou invalide, ou `MATOMO_SITE_ID` absent/invalide : Matomo reste désactivé — aucun script n'est émis côté client et le domaine n'apparaît pas dans la Content-Security-Policy.
+- La CSP (émise par `public/index.php`) autorise automatiquement le domaine du tracker configuré dans `script-src` et `connect-src`.
+- La page « Données personnelles » n'affiche la mention de mesure d'audience (avec le domaine du tracker) que si Matomo est activé.
 
 
 

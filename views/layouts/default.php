@@ -52,6 +52,12 @@ $appConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/
     <script>
         window.pageData = <?php echo json_encode($jsVars ?? []); ?>;
         window.ROOM_TOKEN = '<?php echo htmlspecialchars($roomToken ?? '', ENT_QUOTES); ?>';
+        <?php if (!empty($appConfig['matomo_url']) && !empty($appConfig['matomo_site_id'])): ?>
+        window.OTTIS_MATOMO = <?php echo json_encode([
+            'url' => $appConfig['matomo_url'],
+            'siteId' => $appConfig['matomo_site_id'],
+        ]); ?>;
+        <?php endif; ?>
     </script>
 
     <?php
@@ -61,7 +67,9 @@ $appConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/
 ?>
     <script type="module" src="./js/lib/i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+    <?php if (!empty($appConfig['matomo_url']) && !empty($appConfig['matomo_site_id'])): ?>
     <script src="<?php echo ottis_asset_url('./js/lib/analytics.js'); ?>"></script>
+    <?php endif; ?>
     <script type="module" src="<?php echo ottis_asset_url('./js/lib/browser-detection.js'); ?>"></script>
 
     <?php if (!empty($pageScripts)): ?>
