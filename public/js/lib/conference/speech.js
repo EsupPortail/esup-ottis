@@ -138,13 +138,15 @@ export function StartSpeechRecognition(callback) {
       if (partial.trim() !== '') {
         if (_('recognitionon').checked) {
           if (isFinalResult) {
+            // forceTranslate=true : la ligne finale doit etre traduite meme
+            // en mode TRANSLATION_PARTIAL_FREQ=none
             EcrireTranslatePartial(partial, () => {
               // Écrire le texte original uniquement si pas de traduction nécessaire
               if (getBuiltinLanguage() === getSubtitleLanguage()) {
                 EcrireNBonly(partial);
               }
               // Sinon: la traduction sera gérée par Traduction() via callback(partial)
-            });
+            }, true);
             callback(partial);
           } else {
             EcrireTranslatePartial(partial);

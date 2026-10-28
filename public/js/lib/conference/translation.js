@@ -276,6 +276,10 @@ export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
       EcrirePartial(ch);
     }
     if (callback) callback(ch);
+  } else if (LiveTranslationFreq === 0 && !forceTranslate) {
+    // Aucune traduction intermediaire : ne rien afficher tant que la ligne
+    // n'est pas finalisee - aucun texte non traduit ne doit apparaitre -
+    // les lignes finales (forceTranslate) restent traduites.
   } else {
     if (forceTranslate || LiveTranslationNum % LiveTranslationFreq === 0) {
       TranslateThen(

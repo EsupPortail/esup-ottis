@@ -56,8 +56,26 @@ export let lastSentenceTranslated = '';
 /** @type {number} */
 export let LiveTranslationNum = 0;
 
+// Frequence des traductions intermediaires (sous-titres partiels) :
+// 1 appel de traduction tous les N partiels ; 0 = aucune traduction
+// intermediaire (le texte final reste traduit). Configuree par le serveur
+// via window.OTTIS_CONFIG (CONFERENCE_TRANSLATION_PARTIAL_FREQ dans .env, defaut 5).
+const liveTranslationFreqConfig =
+  (typeof window !== 'undefined' &&
+    window.OTTIS_CONFIG &&
+    window.OTTIS_CONFIG.conference_translation_partial_freq) ||
+  '';
+
 /** @type {number} */
-export const LiveTranslationFreq = 5;
+export let LiveTranslationFreq = 5;
+if (String(liveTranslationFreqConfig).toLowerCase() === 'none') {
+  LiveTranslationFreq = 0;
+} else {
+  const parsedFreq = parseInt(liveTranslationFreqConfig, 10);
+  if (Number.isFinite(parsedFreq)) {
+    LiveTranslationFreq = parsedFreq <= 0 ? 1 : parsedFreq;
+  }
+}
 
 /** @type {boolean} */
 export let Studentcompletespeechactive = false;

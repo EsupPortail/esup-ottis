@@ -58,6 +58,10 @@ $appConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/
             'siteId' => $appConfig['matomo_site_id'],
         ]); ?>;
         <?php endif; ?>
+        window.OTTIS_CONFIG = <?php echo json_encode([
+            'conference_translation_partial_freq' => $appConfig['conference_translation_partial_freq'],
+            'auditor_translation_partial_freq' => $appConfig['auditor_translation_partial_freq'],
+        ]); ?>;
     </script>
 
     <?php

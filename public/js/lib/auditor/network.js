@@ -48,7 +48,24 @@ let lastPartialSub = '';
 let lastPartialSubTranslated = '';
 let partialSubTranslationNum = 0;
 let partialSubRequestInFlight = false;
-const PARTIAL_SUB_TRANSLATION_FREQ = 5;
+// Frequence des traductions intermediaires (sous-titres partiels) :
+// 1 appel de traduction tous les N partiels ; 0 = aucune traduction
+// intermediaire (le texte final reste traduit). Configuree par le serveur
+// via window.OTTIS_CONFIG (AUDITOR_TRANSLATION_PARTIAL_FREQ dans .env, defaut 5).
+const partialSubFreqConfig =
+  (typeof window !== 'undefined' &&
+    window.OTTIS_CONFIG &&
+    window.OTTIS_CONFIG.auditor_translation_partial_freq) ||
+  '';
+let PARTIAL_SUB_TRANSLATION_FREQ = 5;
+if (String(partialSubFreqConfig).toLowerCase() === 'none') {
+  PARTIAL_SUB_TRANSLATION_FREQ = 0;
+} else {
+  const parsedSubFreq = parseInt(partialSubFreqConfig, 10);
+  if (Number.isFinite(parsedSubFreq)) {
+    PARTIAL_SUB_TRANSLATION_FREQ = parsedSubFreq <= 0 ? 1 : parsedSubFreq;
+  }
+}
 
 /**
  * @summary Langue choisie par l'auditor (pop-up Langue / panneau Langue).
@@ -154,6 +171,14 @@ function displayPartialSub(partial) {
   if (!subtitleLang || !auditorLang || auditorLang === subtitleLang) {
     lastPartialSubTranslated = '';
     EcrirePartialSub(partial);
+    return;
+  }
+
+  // Aucune traduction intermediaire (AUDITOR_TRANSLATION_PARTIAL_FREQ=none) :
+  // ne rien afficher tant que la ligne n'est pas finalisee - aucun texte
+  // non traduit ne doit apparaitre - la ligne finale reste traduite.
+  if (PARTIAL_SUB_TRANSLATION_FREQ === 0) {
+    lastPartialSubTranslated = '';
     return;
   }
 

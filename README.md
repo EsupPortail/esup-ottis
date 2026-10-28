@@ -198,6 +198,10 @@ HTTP_PROXY=
 # Mesure d'audience Matomo (voir section "Mesure d'audience (Matomo)" ci-dessous)
 MATOMO_URL=
 MATOMO_SITE_ID=
+
+# Vitesse de traduction (voir section "Vitesse de traduction" ci-dessous)
+CONFERENCE_TRANSLATION_PARTIAL_FREQ=5
+AUDITOR_TRANSLATION_PARTIAL_FREQ=5
 ```
 
 > **Toute la configuration de la traduction se fait dans `tables/tokens.json`** (copiez `tables/tokens.json.example`) : choix du traducteur, tokens API et serveur LibreTranslate. Le `.env` ne porte que les réglages d'infrastructure. Structure :
@@ -270,6 +274,27 @@ MATOMO_SITE_ID=42                                              # Identifiant du 
 - `MATOMO_URL` absente, vide ou invalide, ou `MATOMO_SITE_ID` absent/invalide : Matomo reste désactivé — aucun script n'est émis côté client et le domaine n'apparaît pas dans la Content-Security-Policy.
 - La CSP (émise par `public/index.php`) autorise automatiquement le domaine du tracker configuré dans `script-src` et `connect-src`.
 - La page « Données personnelles » n'affiche la mention de mesure d'audience (avec le domaine du tracker) que si Matomo est activé.
+
+
+
+### Vitesse de traduction (sous-titres partiels)
+
+La fréquence des traductions intermédiaires (sous-titres en cours de dictée) se pilote par deux variables du fichier `.env`, une par rôle :
+
+```ini
+CONFERENCE_TRANSLATION_PARTIAL_FREQ=5    # côté intervenant
+AUDITOR_TRANSLATION_PARTIAL_FREQ=5       # côté auditeur
+```
+
+| Valeur | Comportement |
+|---|---|
+| `0` | Chaque partiel est traduit (vitesse max, crédit DeepL max) |
+| `N` (≥ 1) | 1 appel de traduction tous les N partiels |
+| `none` | Aucune traduction intermédiaire : aucun texte non traduit n'est affiché, seul le texte final est traduit |
+
+- Absente, vide ou invalide : `5` (comportement par défaut).
+- Chaque variable est indépendante : conférence et auditor peuvent avoir des fréquences différentes.
+- Les lignes finales (ajoutées au notebook) sont **toujours** traduites, quelle que soit la valeur.
 
 
 
