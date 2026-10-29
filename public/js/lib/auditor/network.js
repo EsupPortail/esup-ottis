@@ -396,76 +396,25 @@ function readTextSub() {
 }
 
 /**
- * @summary Verify if there is something new in the MAIN queue for transcribed subtitles.
- * Modifié pour gérer output selon la langue choisie
+ * @summary Rejoue l'historique du transcript dans le notebook et le VOBanner.
+ * Le notebook de l'auditeur affiche le transcript source (VO) : meme contenu
+ * que le flux live (EcrireNB(sourceText)). L'historique dans la langue de
+ * l'auditeur est gere par updateOutputBasedOnLanguage (output).
  */
 function readTextSubTranscript() {
   if (_('classroomid').value !== '') {
     increasependingrequests();
-    incrementCurrentOrder();
-    const f = new FormData();
-    f.append('lineid', getInputNumber());
-    f.append('ORDER', getCurrentOrder());
-    f.append('ROOMID', _('classroomid').value);
-    f.append('room_token', getRoomToken());
-    addCsrfToken(f);
-
-    const requestTranscriptSub = createFetchRequest(
-      'POST',
-      `${getBasePath()}/text/read-transcript-sub`,
-      {
-        onSuccess(response) {
-          decreasependingrequests();
-          const T = response.responseText.split('\n');
-
-          // Construire le contenu complet du notebook Sub (sous-titres) avec tri par ordre
-          const lines = [];
-          for (let i = 0; i < T.length; i++) {
-            const line = T[i].trim();
-            if (line) {
-              const parts = line.split(';');
-              if (parts.length > 1) {
-                lines.push({
-                  order: parseInt(parts[0], 10),
-                  content: parts.slice(1).join(';'),
-                });
-              }
-            }
-          }
-          // Trier par ordre numérique
-          lines.sort((a, b) => a.order - b.order);
-          // Concaténer dans l'ordre
-          let notebookContent = '';
-          for (let i = 0; i < lines.length; i++) {
-            if (i > 0) {
-              notebookContent += '<br/>';
-            }
-            notebookContent += lines[i].content;
-          }
-
-          // Mettre à jour VOBanner et notebook avec le contenu des sous-titres
-          if (notebookContent !== getLastNotebookVOContent() && notebookContent !== '') {
-            setLastNotebookVOContent(notebookContent);
-            _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookContent);
-            _('notebook').innerHTML = window.DOMPurify.sanitize(notebookContent);
-          }
-
-          // === NOUVEAU: Récupérer aussi le notebook VO et appliquer la logique pour output ===
-          updateOutputBasedOnLanguage();
-        },
-        onError(response, context) {
-          // Ignorer les timeouts de polling (comportement normal)
-          if (response.status !== 0 || response.statusText !== 'Timeout') {
-            logger.error('readTextSubTranscript request failed. Context:', context);
-          }
-          decreasependingrequests();
-        },
-        data: f,
-        timeout: 10000,
-        context: 'readTextSubTranscript',
+    // Historique du notebook/VOBanner : transcript source (VO)
+    fetchVerylastContent(_('classroomid').value, getRoomToken(), (notebookVOContent) => {
+      decreasependingrequests();
+      if (notebookVOContent !== getLastNotebookVOContent() && notebookVOContent !== '') {
+        setLastNotebookVOContent(notebookVOContent);
+        _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookVOContent);
+        _('notebook').innerHTML = window.DOMPurify.sanitize(notebookVOContent);
       }
-    );
-    requestTranscriptSub.send();
+
+      updateOutputBasedOnLanguage();
+    });
   }
 }
 
@@ -514,7 +463,7 @@ function updateOutputBasedOnLanguage() {
 
   // Récupérer le contenu de Verylast (notebookVO)
   fetchVerylastContent(roomId, roomToken, (notebookVOContent) => {
-    // Récupérer le contenu de VerylastSub (notebook)
+    // Récupérer le contenu de VerylastSub (notebook), dans la langue choisie
     fetchVerylastSubContent(roomId, roomToken, (notebookSubContent) => {
       let outputContent = '';
 
@@ -525,8 +474,10 @@ function updateOutputBasedOnLanguage() {
         // Langue choisie = langue subtitle → afficher notebook
         outputContent = notebookSubContent;
       } else {
-        // Langue choisie différente → afficher notebookVO (sera traduit par le système existant)
-        outputContent = notebookVOContent;
+        // Langue choisie différente → afficher l'historique des finales déjà
+        // traduites dans cette langue (FinalSub_{roomId}_{lang}, partagé entre
+        // les auditeurs de même langue) ; sinon la sortie reste au flux live.
+        outputContent = notebookSubContent;
       }
 
       // Remplir output si ce n'est pas déjà fait
@@ -534,12 +485,12 @@ function updateOutputBasedOnLanguage() {
       if (outputEl && outputContent && outputEl.innerHTML === '') {
         outputEl.innerHTML = window.DOMPurify.sanitize(outputContent);
       }
-    });
+    }, selectedLangCode);
   });
 }
 
 /**
- * Récupère le contenu de Verylast_{roomId}
+ * Récupère l'historique du transcript source (lignes finalisées de Link_{roomId})
  */
 function fetchVerylastContent(roomId, roomToken, callback) {
   if (!roomId) {
@@ -597,9 +548,11 @@ function fetchVerylastContent(roomId, roomToken, callback) {
 }
 
 /**
- * Récupère le contenu de VerylastSub_{roomId}
+ * Récupère le contenu de FinalSub_{roomId}_{lang} : historique des
+ * lignes finalisées dans la langue demandée (partagé entre les
+ * auditeurs de même langue, aucun appel au service de traduction).
  */
-function fetchVerylastSubContent(roomId, roomToken, callback) {
+function fetchVerylastSubContent(roomId, roomToken, callback, lang = '') {
   if (!roomId) {
     callback('');
     return;
@@ -610,6 +563,9 @@ function fetchVerylastSubContent(roomId, roomToken, callback) {
   f.append('ORDER', 1);
   f.append('ROOMID', roomId);
   f.append('room_token', roomToken);
+  if (lang) {
+    f.append('lang', lang);
+  }
   addCsrfToken(f);
 
   const request = createFetchRequest('POST', `${getBasePath()}/text/read-transcript-sub`, {

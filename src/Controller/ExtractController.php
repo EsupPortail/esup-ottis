@@ -351,6 +351,8 @@ class ExtractController extends BaseController
         // Get parameters from multiple sources
         $texte = $postData['texte'] ?? $_POST['texte'] ?? $this->requestParam('texte', '');
         $roomId = $postData['ROOMID'] ?? $_POST['ROOMID'] ?? $this->requestParam('ROOMID', '');
+        $isFinal = !empty($postData['FINAL']) || !empty($_POST['FINAL']);
+        $lang = strtolower(substr((string) ($postData['LANG'] ?? $_POST['LANG'] ?? ''), 0, 2));
 
         // Debug logging
         if (empty($texte) || empty($roomId)) {
@@ -403,6 +405,20 @@ class ExtractController extends BaseController
                 'message' => 'Impossible de sauvegarder le texte temporaire'
             ], 500);
             return;
+        }
+
+        // Les lignes finales alimentent aussi FinalSub_{roomId}_{lang} (prefixe C),
+        // lu par readTranscriptSub pour rejouer l'historique aux auditeurs :
+        // les partiels n'y figurent pas.
+        if ($isFinal && preg_match('/^[a-z]{2}$/', $lang)) {
+            $finalFile = $this->tmpDir . 'FinalSub_' . $roomId . '_' . $lang;
+            if (file_put_contents($finalFile, 'C;' . $texte . "\n", FILE_APPEND) === false) {
+                $this->jsonResponse([
+                    'status' => 'error',
+                    'message' => 'Impossible de sauvegarder la ligne finale'
+                ], 500);
+                return;
+            }
         }
 
         $this->jsonResponse(['status' => 'success', 'message' => 'Texte sauvegardé avec succès', 'texte' => $texte, 'roomId' => $roomId, 'filename' => $filename]);

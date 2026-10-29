@@ -6,6 +6,7 @@ import {
   Init,
 } from './lib/conference/index.js';
 import { startChatStream } from './lib/chat/sse.js';
+import { replayTranscriptHistory } from './lib/conference/notebook.js';
 import { defaultMessageHandler } from './lib/chat/handlers.js';
 import { safeSetInterval, safeSetTimeout } from './lib/utils/cleanup.js';
 import { addCsrfToken } from './lib/network/utils.js';
@@ -41,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (classroomIdEl && classroomIdEl.value) {
     startChatStream(classroomIdEl.value, defaultMessageHandler);
   }
+
+  // Salle reprise : rejouer l'historique du transcript dans les notebooks
+  replayTranscriptHistory();
 
   // Signaler la présence de la page conference : heartbeat périodique
   // (RoomPresence côté serveur) + beacon de fermeture immédiat.

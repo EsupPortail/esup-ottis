@@ -7,6 +7,7 @@ import {
   setNBconnectedusers,
   removeFromTconnectedusers,
   setNbnewQ,
+  setStudentinputnumber,
 } from './state/core.js';
 import {
   getInputNumber,
@@ -100,7 +101,7 @@ export function EcrireNBonlyVO(ch) {
   );
 }
 
-export function EcrirePartial(ch) {
+export function EcrirePartial(ch, isFinal = false, lang = '') {
   // Vérifier que ch est défini et non vide
   if (ch === undefined || ch === null || ch === 'undefined' || ch === '') {
     logger.error('EcrirePartial: Texte non défini ou vide.');
@@ -147,6 +148,14 @@ export function EcrirePartial(ch) {
   const formData = new FormData();
   formData.append('texte', ch);
   formData.append('ROOMID', roomId);
+  // FINAL=1 : la ligne est finalisee, elle alimente FinalSub_{roomId}_{lang}
+  // pour le rejou d'historique aux auditeurs (les partiels n'y figurent pas).
+  if (isFinal) {
+    formData.append('FINAL', '1');
+  }
+  if (lang) {
+    formData.append('LANG', lang);
+  }
 
   const request = createFetchRequest('POST', url, {
     onSuccess(response) {
@@ -396,6 +405,60 @@ export function TranslateQ(ch, l, linput, name, order) {
     data: formData,
     timeout: 10000,
     context: 'TranslateQ',
+  });
+  request.send();
+}
+
+/**
+ * @summary Rejoue l'historique du transcript d'une salle reprise.
+ * Lit toutes les lignes finalisées de Link_{roomId} (via /text/read) et
+ * remplit notebookVO (texte source) et notebook (traduction deja
+ * enregistree dans Link_) - aucun appel au service de traduction.
+ */
+export function replayTranscriptHistory() {
+  const classroomIdElement = _('classroomid');
+  if (!classroomIdElement || !classroomIdElement.value || classroomIdElement.value === 'UNKNOWN') return;
+
+  const f = new FormData();
+  f.append('lineid', 0);
+  f.append('ORDER', 1);
+  f.append('ROOMID', classroomIdElement.value);
+  addCsrfToken(f);
+
+  const request = createFetchRequest('POST', `${getBasePath()}/text/read`, {
+    onSuccess(response) {
+      const T = response.responseText.split('\n');
+      let maxId = -1;
+      for (let i = 0; i < T.length; i++) {
+        const line = T[i].trim();
+        if (line === '') continue;
+        // Format reponse : order;id;lang;texte;lang_cible;traduction
+        const L = line.split(';');
+        if (L.length > 3) {
+          const id = 1 * L[1];
+          if (id > maxId) maxId = id;
+          EcrireNBonlyVO(L[3]);
+          if (
+            L.length >= 6 &&
+            L[4] &&
+            L[5] &&
+            L[4].substr(0, 2).toLowerCase() !== L[2].substr(0, 2).toLowerCase()
+          ) {
+            EcrireNBonly(L[5]);
+          }
+        }
+      }
+      // Positionner le curseur apres la derniere ligne rejouee
+      if (maxId >= 0) setStudentinputnumber(maxId + 1);
+    },
+    onError(response, context) {
+      if (response.status !== 0 || response.statusText !== 'Timeout') {
+        logger.error('replayTranscriptHistory request failed. Context:', context);
+      }
+    },
+    data: f,
+    timeout: 10000,
+    context: 'replayTranscriptHistory',
   });
   request.send();
 }

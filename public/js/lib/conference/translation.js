@@ -1,17 +1,10 @@
 import {
-  StudentToSay,
-  StudentToTranslate2,
-  Studentcurrentdiscours,
-  Studentgotolive,
   lastPartialTranslation,
   lastSentenceTranslated,
   LiveTranslationNum,
   LiveTranslationFreq,
   setLastSentenceTranslated,
   setLiveTranslationNum,
-  setStudentcurrentdiscours,
-  setStudentgotolive,
-  setStudentcompletespeechactive,
 } from './state/translation.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
 import { getSubtitleLanguage, getWhichTranslator } from '../state/conference.js';
@@ -28,102 +21,9 @@ import {
   saveTextWithTranslation,
 } from './notebook.js';
 import { Parle } from './voices.js';
-import { safeSetTimeout } from '../utils/cleanup.js';
 import * as logger from '../utils/logger.js';
 
 /** @module conference/translation */
-
-export function StudentParleThen(txt, f) {
-  // EcrireFeedback(txt);
-  safeSetTimeout(f, 100 * txt.length);
-}
-
-export function StudentTranslate2(ch, l, linput, lineid) {
-  lineid = 'DIRECT';
-
-  const formData = new FormData();
-  formData.append('texte', ch);
-  formData.append('lang', l);
-  formData.append('langinput', linput);
-  formData.append('ROOMID', _('classroomid').value || '');
-  formData.append('lineid', lineid);
-
-  // Ajouter whichtranslator (apikey gere via config.php ou variable globale)
-  const whichtranslator = getWhichTranslator();
-  if (whichtranslator) {
-    formData.append('whichtranslator', whichtranslator);
-  }
-
-  // Ajouter le token CSRF
-  addCsrfToken(formData);
-
-  logger.debug('[StudentTranslate2] URL:', `${getBasePath()}/text/translate`);
-  logger.debug('[StudentTranslate2] formData entries:', Array.from(formData.entries()));
-
-  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
-    onSuccess() {
-      StudentCompleteTranslation2();
-    },
-    onError(response, context) {
-      // Ignorer les timeouts de polling (comportement normal)
-      if (response.status !== 0 || response.statusText !== 'Timeout') {
-        logger.error('[StudentTranslate2] Translation request failed. Context:', context);
-        logger.error('[StudentTranslate2] Response:', response);
-      }
-    },
-    data: formData,
-    timeout: 10000,
-    context: 'StudentTranslate2',
-  });
-  request.send();
-}
-
-export function StudentCompleteTranslation2() {
-  if (StudentToTranslate2.length > 0) {
-    const L = StudentToTranslate2[0];
-    StudentToTranslate2.splice(0, 1);
-    const subtitleLang = getSubtitleLanguage();
-    if (
-      typeof subtitleLang === 'string' &&
-      L &&
-      L[1] &&
-      typeof L[1] === 'string' &&
-      subtitleLang.substr(0, 2).toLowerCase() !== L[1].substr(0, 2)
-    ) {
-      // Ecrire("Push : "+L[2]);
-      StudentTranslate2(L[2], subtitleLang.substr(0, 2).toLowerCase(), L[1].substr(0, 2), L[0]);
-    } else StudentCompleteTranslation2();
-  } else safeSetTimeout(StudentCompleteTranslation2, 10);
-}
-
-export function StudentCompleteSpeech() {
-  let nextdiscours = Studentcurrentdiscours;
-  for (let i = 1; i < 1000; i++) {
-    if (StudentToSay[`${Studentcurrentdiscours + i}`]) {
-      nextdiscours = Studentcurrentdiscours + i;
-      break;
-    }
-  }
-  if (Studentgotolive) {
-    // logger.debug('Restart Speech');
-    // logger.debug('Discours : '+currentdiscours+'   '+nextdiscours)
-    for (let i = 1000; i > 0; i--) {
-      if (StudentToSay[`${Studentcurrentdiscours + i}`]) {
-        nextdiscours = Studentcurrentdiscours + i;
-        break;
-      }
-      // logger.debug('Discours next : '+currentdiscours+'   '+nextdiscours)
-      setStudentgotolive(false);
-    }
-  }
-  // Ecrire(currentdiscours+'   '+nextdiscours);
-  if (nextdiscours > Studentcurrentdiscours) {
-    let L = StudentToSay[`${nextdiscours}`];
-    L = L.replace('&nbsp;', ' ');
-    StudentParleThen(L, StudentCompleteSpeech);
-    setStudentcurrentdiscours(nextdiscours);
-  } else setStudentcompletespeechactive(false);
-}
 
 export function Traduction(ch) {
   const recognitionon = _('recognitionon').checked;
@@ -273,7 +173,7 @@ export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
     typeof subtitleLang === 'string' && subtitleLang ? subtitleLang.substr(0, 2).toLowerCase() : '';
   if (linput === loutput) {
     if (ch && ch.trim() !== '') {
-      EcrirePartial(ch);
+      EcrirePartial(ch, forceTranslate, loutput);
     }
     if (callback) callback(ch);
   } else if (LiveTranslationFreq === 0 && !forceTranslate) {
@@ -289,7 +189,7 @@ export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
         (translatedText) => {
           setLastSentenceTranslated(translatedText);
           if (lastSentenceTranslated && lastSentenceTranslated.trim() !== '') {
-            EcrirePartial(lastSentenceTranslated);
+            EcrirePartial(lastSentenceTranslated, forceTranslate, loutput);
           }
           if (callback) callback(lastPartialTranslation);
         },
@@ -297,7 +197,7 @@ export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
       );
     } else {
       if (lastSentenceTranslated && lastSentenceTranslated.trim() !== '') {
-        EcrirePartial(lastSentenceTranslated);
+        EcrirePartial(lastSentenceTranslated, false, loutput);
       }
       if (callback) callback(lastPartialTranslation);
     }

@@ -290,10 +290,13 @@ class TextController extends BaseController
     }
 
     /**
-     * Read transcript subtitles
+     * Read transcript subtitles history
      *
-     * Retrieves transcript subtitle content from tmp/VerylastSub file for a specific room.
-     * Used by readtextTranscriptSub.php legacy functionality.
+     * Retrieves the history of finalized subtitle lines for a room and
+     * language. Reads sys_get_temp_dir()/ottis/FinalSub_{roomId}_{lang}:
+     * finalized lines only (no partials), in the requested language.
+     * Used to replay the transcript history to an auditor joining
+     * mid-conference, without calling the translation API.
      *
      * @return void
      */
@@ -305,72 +308,44 @@ class TextController extends BaseController
         // Get and validate parameters
         $roomid = $this->postParam('ROOMID', '');
         $roomToken = $this->postParam('room_token', '');
-        $order = $this->postParam('ORDER', 0);
+        $lang = strtolower(substr((string) $this->postParam('lang', ''), 0, 2));
 
         // Validate room token
         if (!\App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken)) {
-            error_log("ERREUR: Token invalide pour ROOMID=$roomid");
             $this->jsonResponse(['error' => 'Token invalide.'], 403);
         }
 
         if (empty($roomid)) {
-            error_log('ERREUR: ROOMID non défini.');
             $this->textResponse('ERREUR: ROOMID manquant.');
         }
 
-        $filename = APP_ROOT . '/tmp/VerylastSub_' . $roomid;
-        error_log("Recherche du fichier: $filename");
-
-        if (!file_exists($filename)) {
-            error_log("ERREUR: Fichier $filename introuvable.");
-            $this->textResponse("ERREUR: Fichier $filename introuvable.");
+        if (!preg_match('/^[a-z]{2}$/', $lang)) {
+            $this->textResponse('');
         }
 
-        if (!is_readable($filename)) {
-            error_log("ERREUR: Impossible de lire $filename (permissions insuffisantes).");
-            $this->textResponse("ERREUR: Impossible de lire $filename.");
+        $filename = sys_get_temp_dir() . '/ottis/FinalSub_' . $roomid . '_' . $lang;
+
+        if (!file_exists($filename) || !is_readable($filename)) {
+            // Aucune ligne finale publiee dans cette langue : historique vide.
+            $this->textResponse('');
         }
 
-        $fd = fopen($filename, 'r');
-        if (!$fd) {
-            error_log("ERREUR: Impossible d'ouvrir $filename.");
-            $this->textResponse("ERREUR: Impossible d'ouvrir $filename.");
-        }
-
-        // Read all content
-        $output = '';
-        while ($ligne = fgets($fd)) {
-            $output .= $ligne;
-        }
-        fclose($fd);
-
-        error_log("Contenu du fichier $filename: " . trim($output));
-        error_log('Contenu brut ligne par ligne:');
-        $lines = explode("\n", trim($output));
-        foreach ($lines as $idx => $line) {
-            error_log("  Ligne $idx: " . trim($line));
-        }
-
-        if (empty(trim($output))) {
-            error_log("AVERTISSEMENT: Fichier $filename est vide.");
-            $this->textResponse('INFO: Fichier vide.');
-        } else {
-            // Prefix each line with sequential number
-            $lines = explode("\n", trim($output));
-            $result = '';
-            $lineNumber = 0;
-            foreach ($lines as $line) {
-                if (trim($line) !== '') {
-                    $result .= $lineNumber . ';' . $line . "\n";
-                    $lineNumber++;
-                }
+        $content = file_get_contents($filename);
+        $lines = explode("\n", trim((string) $content));
+        $result = '';
+        $lineNumber = 0;
+        foreach ($lines as $line) {
+            // Prefixe lineid (auditeur) ou C (conference) : retirer,
+            // la numerotation sequentielle est refaite ici.
+            $sep = strpos($line, ';');
+            $text = $sep !== false ? substr($line, $sep + 1) : $line;
+            if (trim($text) !== '') {
+                $result .= $lineNumber . ';' . $text . "\n";
+                $lineNumber++;
             }
-            error_log('Réponse envoyée: ' . trim($result));
-            error_log('readtextTranscriptSub - Nombre de lignes: ' . (substr_count(trim($result), '\n') + 1));
-            $this->textResponse(trim($result));
         }
 
-        error_log('readtextTranscriptSub - Fin de la requête');
+        $this->textResponse(trim($result));
     }
 
     /**
@@ -690,10 +665,11 @@ class TextController extends BaseController
     }
 
     /**
-     * Read text with line numbers (VO - Voice Over)
+     * Read the VO transcript history
      *
-     * Reads content from a temporary file and returns it with line numbers.
-     * Used by readtextVO.php legacy functionality.
+     * Returns the finalized lines of tmp/Link_{ROOMID} with their lineid
+     * and source text: the voice-original transcript of the room. Used to
+     * replay the VO history to an auditor joining mid-conference.
      *
      * @return void
      */
@@ -712,26 +688,25 @@ class TextController extends BaseController
             $this->jsonResponse(['error' => 'ROOMID manquant.'], 400);
         }
 
-        $filename = APP_ROOT . '/tmp/Verylast_' . $roomid;
+        $filename = APP_ROOT . '/tmp/Link_' . $roomid;
 
         if (!file_exists($filename) || !is_readable($filename)) {
-            $this->jsonResponse(['error' => "Fichier $filename introuvable ou illisible."], 404);
+            $this->textResponse('');
         }
 
         $content = file_get_contents($filename);
 
-        if (empty(trim($content))) {
-            $this->textResponse('INFO: Fichier vide.');
-        }
-
-        // Préfixer chaque ligne avec un numéro séquentiel
-        $lines = explode("\n", trim($content));
+        // Renvoyer le texte source de chaque finale, precede du lineid
+        $lines = explode("\n", trim((string) $content));
         $result = '';
-        $lineNumber = 0;
         foreach ($lines as $line) {
-            if (trim($line) !== '') {
-                $result .= $lineNumber . ';' . $line . "\n";
-                $lineNumber++;
+            if (trim($line) === '') {
+                continue;
+            }
+            $T = explode(';', $line);
+            if (count($T) > 3) {
+                // Format Link_ : id;lang;texte;lang_cible;traduction
+                $result .= $T[0] . ';' . $T[2] . "\n";
             }
         }
 
@@ -847,7 +822,7 @@ class TextController extends BaseController
 
         // Try to read from existing translation files
         if ($roomId != 'UNKNOWN') {
-            $result = $this->readFromTranslationFiles($roomId, $lineid, $lang);
+            $result = $this->readFromTranslationFiles($roomId, $lineid, $lang, $texte);
         }
 
         // If not found in files, call translation API
@@ -894,45 +869,59 @@ class TextController extends BaseController
     }
 
     /**
-     * Read from translation cache files
+     * Read from the per-language translation cache files
+     *
+     * Partial (lineid DIRECT): reads PartialSub_{roomId}_{lang}, keyed by
+     * md5 hash of the source text. Final (numeric lineid): reads
+     * FinalSub_{roomId}_{lang}, keyed by lineid. Both files live in
+     * sys_get_temp_dir()/ottis/ and are shared by all clients of the
+     * same language to avoid redundant translation API calls.
      *
      * @param string $roomId Room identifier
-     * @param string $lineid Line identifier
+     * @param string $lineid Line identifier ('DIRECT' for partial lines)
      * @param string $lang Target language
-     * @return string Translated text or empty string
+     * @param string $texte Source text (hash key for the partial cache)
+     * @return string JSON translation response or empty string on cache miss
      */
-    protected function readFromTranslationFiles(string $roomId, string $lineid, string $lang): string
+    protected function readFromTranslationFiles(string $roomId, string $lineid, string $lang, string $texte = ''): string
     {
         $result = '';
+        $lang = strtolower(substr($lang, 0, 2));
+        $ottisDir = sys_get_temp_dir() . '/ottis/';
 
         if ($lineid == 'DIRECT') {
-            $filename = APP_ROOT . '/tmp/Verylast_' . $roomId;
-            if (file_exists($filename)) {
-                $lines = file($filename, FILE_IGNORE_NEW_LINES);
-                foreach ($lines as $line) {
-                    $parts = explode(';', $line, 3);
-                    if (count($parts) > 2 && $lineid == $parts[0] && $lang == $parts[1]) {
-                        $result = $parts[2];
-                        if ($lang == 'en') {
-                            $result = $this->removeAccents($result);
-                        }
+            // Partiel courant : cache par langue, cle = empreinte du texte source
+            $filename = $ottisDir . 'PartialSub_' . $roomId . '_' . $lang;
+            if (is_readable($filename)) {
+                $content = file_get_contents($filename);
+                if ($content !== false) {
+                    $sep = strpos($content, ';');
+                    if ($sep !== false && substr($content, 0, $sep) === md5(trim($texte))) {
+                        $result = substr($content, $sep + 1);
                     }
                 }
             }
         } else {
-            $filename = APP_ROOT . '/tmp/Translated_' . $roomId;
-            if (file_exists($filename) && $lineid != 'NONE' && $lineid != '') {
+            // Finales : cache par langue, cle = lineid numerique
+            $filename = $ottisDir . 'FinalSub_' . $roomId . '_' . $lang;
+            if (is_readable($filename) && $lineid != 'NONE' && $lineid != '') {
                 $lines = file($filename, FILE_IGNORE_NEW_LINES);
                 foreach ($lines as $line) {
-                    $parts = explode(';', $line, 3);
-                    if (count($parts) > 2 && $lineid == $parts[0] && $lang == $parts[1]) {
-                        $result = $parts[2];
-                        if ($lang == 'en') {
-                            $result = $this->removeAccents($result);
-                        }
+                    $sep = strpos($line, ';');
+                    $prefix = $sep !== false ? substr($line, 0, $sep) : '';
+                    if ($sep !== false && ctype_digit($prefix) && $prefix === (string) $lineid) {
+                        $result = substr($line, $sep + 1);
                     }
                 }
             }
+        }
+
+        if ($result !== '') {
+            if ($lang == 'en') {
+                $result = $this->removeAccents($result);
+            }
+            // Meme forme de reponse que l'API, attendue par translate() et les clients
+            $result = json_encode(['translations' => [['text' => $result]]], JSON_UNESCAPED_UNICODE);
         }
 
         return $result;
@@ -1010,26 +999,54 @@ class TextController extends BaseController
                 break;
         }
 
-        // Save to translation file
+        // Cache par langue : finale (lineid numerique) -> FinalSub,
+        // partiel (lineid DIRECT) -> PartialSub
         if ($result !== false && $roomId != 'UNKNOWN' && $lineid != 'NONE' && $lineid != '') {
-            $translatedFile = APP_ROOT . '/tmp/Translated_' . $roomId;
-            $fd = @fopen($translatedFile, 'a');
-            if ($fd !== false) {
-                fputcsv($fd, [$lineid, $targetLang, $result], ';');
-                fclose($fd);
-            }
-        }
-
-        if ($lineid == 'NONE' && $roomId != 'UNKNOWN') {
-            $verylastFile = APP_ROOT . '/tmp/Verylast_' . $roomId;
-            $fd = @fopen($verylastFile, 'w');
-            if ($fd !== false) {
-                fputcsv($fd, [$lineid, $targetLang, $result], ';');
-                fclose($fd);
+            $translatedText = $this->extractTranslatedText($result);
+            if ($translatedText !== '') {
+                $ottisDir = sys_get_temp_dir() . '/ottis/';
+                if (!is_dir($ottisDir)) {
+                    @mkdir($ottisDir, 0777, true);
+                }
+                $cacheLang = strtolower(substr($targetLang, 0, 2));
+                if ($lineid === 'DIRECT') {
+                    $filename = $ottisDir . 'PartialSub_' . $roomId . '_' . $cacheLang;
+                    @file_put_contents($filename, md5(trim($text)) . ';' . $translatedText);
+                } else {
+                    $filename = $ottisDir . 'FinalSub_' . $roomId . '_' . $cacheLang;
+                    @file_put_contents($filename, $lineid . ';' . $translatedText . "\n", FILE_APPEND);
+                }
             }
         }
 
         return $result ?: json_encode(['error' => true, 'message' => 'Translation failed']);
+    }
+
+    /**
+     * Extract the translated text from a translation API response
+     *
+     * Handles DeepL Pro JSON, wrapped DeepL Free / LibreTranslate
+     * responses, and raw LibreTranslate responses.
+     *
+     * @param string $result JSON response from the translation API
+     * @return string Translated text or empty string
+     */
+    protected function extractTranslatedText(string $result): string
+    {
+        $decoded = json_decode($result, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return '';
+        }
+        if (isset($decoded['translations'][0]['text'])) {
+            return (string) $decoded['translations'][0]['text'];
+        }
+        if (isset($decoded['data']['translations'][0]['text'])) {
+            return (string) $decoded['data']['translations'][0]['text'];
+        }
+        if (isset($decoded['translatedText'])) {
+            return (string) $decoded['translatedText'];
+        }
+        return '';
     }
 
     /**
