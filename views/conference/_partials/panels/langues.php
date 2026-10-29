@@ -25,6 +25,7 @@
     <!-- Langue des sous-titres (l2 = subtitlelanguage) -->
     <div class="ottis-form-group">
         <label for="subtitlelanguage" class="translate" data-key="conference.langues.subtitleLabel">Langue des sous-titres</label>
+        <p class="ottis-hint translate" id="subtitlelanguage-help" data-key="conference.langues.subtitleHelp">Les sous-titres seront traduits dans cette langue.</p>
         <div class="ottis-select-wrapper">
             <select id="subtitlelanguage" class="ottis-select" aria-describedby="subtitlelanguage-help">
                 <!-- Options g&eacute;n&eacute;r&eacute;es par JS -->
@@ -33,6 +34,5 @@
                 <path d="M6 9l6 6 6-6"/>
             </svg>
         </div>
-        <p class="ottis-hint translate" id="subtitlelanguage-help" data-key="conference.langues.subtitleHelp">Les sous-titres seront traduits dans cette langue.</p>
     </div>
 </div>

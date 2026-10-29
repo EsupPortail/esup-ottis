@@ -495,6 +495,13 @@
     color: var(--navy);
 }
 
+/* Libellés de formulaires : une ligne au-dessus du champ, aérés
+   (pop-up choix de langue, panneau Votre nom) */
+.ottis-page-auditor .ottis-form-group-label {
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
 .ottis-page-auditor dialog input[type="text"] {
     width: 100%;
     padding: 0.6rem 0.8rem;

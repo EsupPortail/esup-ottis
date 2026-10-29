@@ -610,6 +610,13 @@ progress::-moz-progress-bar {
     margin: 0.4rem 0 0;
 }
 
+/* Interligne accru entre l'aide et le contrôle qui la suit (panels Langues / Partage) */
+#classroomlanguage-help,
+#subtitlelanguage-help,
+#sharedlink-help {
+    margin-bottom: 0.75rem;
+}
+
 /* Retake UI : interlignage resserré sous le legend, aéré avant les choix */
 #apparence-colors-help {
     margin: 0.1rem 0 1rem;
