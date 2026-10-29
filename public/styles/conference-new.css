@@ -1034,8 +1034,6 @@ progress::-moz-progress-bar {
 .ottis-box {
     width: 100%;
     min-height: 15rem;
-    max-height: 32rem;
-    overflow: auto;
     background: #fff;
     border: 3px solid var(--line);
     border-radius: 1.3rem;
@@ -1213,7 +1211,6 @@ progress::-moz-progress-bar {
     align-items: stretch;
     padding: 0;
     gap: 0;
-    min-height: 0;
     width: 100%;
 }
 
