@@ -9,90 +9,22 @@ import {
 } from '../state/conference.js';
 
 // Depuis translation.js
-import { StudentToTranslate2, setLiveTranslationNum, setReadytotalk } from './state/translation.js';
+import { setLiveTranslationNum, setReadytotalk } from './state/translation.js';
 
 // Depuis core.js
 import {
-  Studentinputnumber,
   setDelayStudentReadtext,
   setDelayReadtextQ,
-  setStudentinputnumber,
 } from './state/core.js';
 
 import { _ } from '../dom/selector.js';
-import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
-import { getBasePath } from '../state/shared.js';
 
-import { getRoomToken } from './compat.js';
 import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
-import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
-import { EcrireTranslatePartial, StudentCompleteTranslation2, Traduction } from './translation.js';
-import * as logger from '../utils/logger.js';
-
-// Compteurs locaux herites du code pre-modules (etaient des globales de script)
-let Studentcurrentorder_readtext = 0;
-const StudentAllPhrases = {};
-const StudentToTranslate = [];
+import { EcrireNBonly } from './notebook.js';
+import { EcrireTranslatePartial, Traduction } from './translation.js';
 
 /** @module conference/speech */
-
-export function StudentreadText() {
-  const synthesison = true;
-  if (synthesison) {
-    const classroomIdElement = _('classroomid');
-    if (classroomIdElement && classroomIdElement.value !== '') {
-      Studentcurrentorder_readtext++;
-      const f = new FormData();
-      f.append('lineid', Studentinputnumber); // Non utilisé côté PHP, conservé pour compatibilité
-      f.append('ORDER', Studentcurrentorder_readtext);
-      f.append('ROOMID', classroomIdElement.value);
-      f.append('room_token', getRoomToken());
-      addCsrfToken(f);
-
-      const request = createFetchRequest('POST', `${getBasePath()}/text/read`, {
-        onSuccess(response) {
-          if (!response.responseText.trim()) {
-            return;
-          }
-          // Traiter la réponse
-          const T = response.responseText.split('\n');
-          let maxi = -1;
-          for (let i = 0; i < T.length; i++) {
-            const parts = T[i].split(';');
-            if (T[i].trim() !== '' && parts.length >= 2) {
-              // Ignorer les lignes mal formatées
-              const lineData = parts.slice(1).join(';'); // Le reste = données de la ligne
-              const L = lineData.split(';');
-              if (L.length > 3) {
-                // Afficher le texte dans notebookVO
-                EcrireNBonlyVO(L[3]);
-                if (1 * L[1] > maxi) maxi = 1 * L[1];
-                if (StudentAllPhrases[1 * L[1]] === undefined) {
-                  StudentAllPhrases[1 * L[1]] = true;
-                  StudentToTranslate.push([L[1], L[2], L[3]]);
-                  StudentToTranslate2.push([L[1], L[2], L[3]]);
-                }
-              }
-            }
-          }
-          if (maxi > Studentinputnumber) setStudentinputnumber(maxi);
-          StudentCompleteTranslation2();
-        },
-        onError(response, context) {
-          // Ignorer les timeouts de polling (comportement normal)
-          if (response.status !== 0 || response.statusText !== 'Timeout') {
-            logger.error('StudentreadText request failed. Context:', context);
-          }
-        },
-        data: f,
-        timeout: 10000,
-        context: 'StudentreadText',
-      });
-      request.send();
-    }
-  }
-}
 
 export function setReadyToTalk() {
   setReadytotalk(true);

@@ -20,21 +20,6 @@ import { AllOutputVoices, TLangInput } from '../../language/state.js';
 
 export let lastPartialTranslation = '';
 
-/** @type {Array} */
-export const StudentToTranslate2 = [];
-
-// =============================================================================
-// État du discours étudiant
-// =============================================================================
-
-/** @type {number} */
-export let Studentcurrentdiscours = 0;
-
-/** @type {Object} */
-export const StudentToSay = {};
-
-/** @type {boolean} */
-export let Studentgotolive = false;
 export { AllOutputVoices, TLangInput };
 
 // =============================================================================
@@ -77,9 +62,6 @@ if (String(liveTranslationFreqConfig).toLowerCase() === 'none') {
   }
 }
 
-/** @type {boolean} */
-export let Studentcompletespeechactive = false;
-
 // =============================================================================
 // Setter functions for translation state (désormais gérée par le store)
 // =============================================================================
@@ -114,30 +96,6 @@ export function setLiveTranslationNum(value) {
  */
 export function setReadytotalk(value) {
   readytotalk = value;
-}
-
-/**
- * Set the Studentgotolive flag
- * @param {boolean} value - Whether the student went live
- */
-export function setStudentgotolive(value) {
-  Studentgotolive = value;
-}
-
-/**
- * Set the Studentcurrentdiscours index
- * @param {number} value - The current discours index
- */
-export function setStudentcurrentdiscours(value) {
-  Studentcurrentdiscours = value;
-}
-
-/**
- * Set the Studentcompletespeechactive flag
- * @param {boolean} value - Whether a complete speech is active
- */
-export function setStudentcompletespeechactive(value) {
-  Studentcompletespeechactive = value;
 }
 
 /**
