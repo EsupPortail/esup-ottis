@@ -23,4 +23,5 @@ export * from './utils.js';
 export { EcrireCR, AbortTimeout } from './compat.js';
 export * from './events.js';
 export * from './post.js';
+export * from './seg.js';
 export * from './state.js';

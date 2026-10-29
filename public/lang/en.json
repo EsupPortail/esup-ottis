@@ -44,8 +44,8 @@
         "outil": {
             "title": "Live subtitling",
             "importLabel": "Import your presentation",
-            "formats": "PPTX, PDF, ODP, HTML — max. 20 MB",
-            "fileHelp": "Select a presentation file to subtitle (20 MB maximum).",
+            "formats": "PPTX, PDF, ODP, HTML — max. 30 MB",
+            "fileHelp": "Select a presentation file to subtitle (30 MB maximum).",
             "animNote": "If your presentation contains animations, they will appear frozen.",
             "importProgress": "Import progress",
             "closePresentation": "Close the presentation",
@@ -88,10 +88,12 @@
             "noSettings": "No settings available for transcription."
         },
         "transcription": {
+            "title": "Transcription",
             "alert1": "Once OTTIS is closed, you will no longer have access to the transcription.",
             "alert2": "Remember to download the file(s) at the end of the session.",
-            "original": "Original speech",
-            "translated": "Translated speech",
+            "versionLegend": "Speech version",
+            "voLabel": "Original version",
+            "trLabel": "Translated version",
             "downloadOriginal": "Download the original speech (.txt)",
             "downloadTranslated": "Download the translated speech (.txt)"
         },

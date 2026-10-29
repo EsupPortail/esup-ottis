@@ -44,8 +44,8 @@
         "outil": {
             "title": "Sous-titrer en direct",
             "importLabel": "Importer votre présentation",
-            "formats": "PPTX, PDF, ODP, HTML — max. 20 Mo",
-            "fileHelp": "Sélectionnez un fichier de présentation à sous-titrer (20 Mo maximum).",
+            "formats": "PPTX, PDF, ODP, HTML — max. 30 Mo",
+            "fileHelp": "Sélectionnez un fichier de présentation à sous-titrer (30 Mo maximum).",
             "animNote": "Si votre présentation comporte des animations, elles apparaîtront figées.",
             "importProgress": "Progression de l'import",
             "closePresentation": "Fermer la présentation",
@@ -88,10 +88,12 @@
             "noSettings": "Aucun réglage disponible pour la transcription."
         },
         "transcription": {
+            "title": "Transcription",
             "alert1": "Une fois OTTIS fermé, vous n'aurez plus accès à la transcription.",
             "alert2": "Pensez à télécharger le ou les fichiers en fin d'intervention.",
-            "original": "Discours original",
-            "translated": "Discours traduit",
+            "versionLegend": "Version du discours",
+            "voLabel": "Version originale",
+            "trLabel": "Version traduite",
             "downloadOriginal": "Télécharger le discours original (.txt)",
             "downloadTranslated": "Télécharger le discours traduit (.txt)"
         },
