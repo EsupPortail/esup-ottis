@@ -74,7 +74,7 @@ class ConferenceController extends BaseController
             // Retour d'un intervenant (ex. reconnexion CAS) : reutiliser sa salle
             // la plus recente pour ne pas perdre la conference et les auditeurs
             $classroomid = RoomTokenManager::findRecentRoomByOwner($uid)
-                ?? md5(gmdate('Y-m-d\TH:i:s\Z'));
+                ?? md5(uniqid('', true) . random_bytes(8));
         }
 
         // Use services to load data

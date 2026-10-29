@@ -46,6 +46,12 @@ class AuditorController extends BaseController
         // Get room ID from request
         $classroomid = $this->getParam('ROOMID', '');
 
+        // Une page auditor sans salle n'a pas de sens : refuser au lieu de
+        // creer des fichiers de salle vide (room_token_, LinkQuestions_...).
+        if (!preg_match('/^[a-zA-Z0-9_-]{1,64}$/', $classroomid)) {
+            $this->errorResponse('ROOMID manquant ou invalide.', 400);
+        }
+
         // Generate room token and recover the room owner uid from the shared room metadata.
         $roomToken = RoomTokenManager::generateRoomToken($classroomid);
         $intervenantUid = RoomTokenManager::getRoomOwnerUid($classroomid);
