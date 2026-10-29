@@ -10,7 +10,7 @@ $casResolveEnv = function (string $envName, string $default, ?int $filter = null
     if ($value === '') {
         return $default;
     }
-    if ($filter !== null && filter_var($value, $filter, $options) === false) {
+    if ($filter !== null && filter_var($value, $filter, $options ?? []) === false) {
         $problem = 'invalide (' . $value . ')';
         try {
             \App\Utils\Logger::warning(

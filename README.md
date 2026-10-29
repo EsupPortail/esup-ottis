@@ -342,10 +342,37 @@ php public/index.php
   chmod -R 755 .
   chmod -R 775 tmp/ uploads/ logs/
   ```
-- Activer la rotation des logs :
-  ```bash
-  logrotate -f /etc/logrotate.d/ottis
+- Activer la rotation des logs — créer `/etc/logrotate.d/ottis` :
   ```
+  /home/omist/logs/*.log {
+      daily
+      rotate 14
+      compress
+      delaycompress
+      missingok
+      notifempty
+      copytruncate
+      dateext
+  }
+  ```
+  - `copytruncate` est indispensable : PHP-FPM garde `fpm-error.log` ouvert
+    en permanence ; sans lui, FPM continuerait à écrire dans le fichier renommé.
+  - Premier passage immédiat, puis le timer système `logrotate.timer` prend le
+    relais chaque nuit à minuit :
+    ```bash
+    logrotate -f /etc/logrotate.d/ottis
+    ```
+- Mettre en place le nettoyage quotidien du répertoire `tmp/` — créer
+  `/etc/cron.d/ottis` :
+  ```cron
+  # Nettoyage quotidien des fichiers temporaires OMIST
+  0 4 * * * www-data find /home/omist/tmp -mindepth 1 -delete
+  ```
+  - Passage à 4 h du matin, hors heures de cours. Les fichiers d'état
+    (`room_alive_*`, `room_token_*`) sont recréés automatiquement par les
+    heartbeat à la prochaine utilisation.
+  - Le daemon cron recharge `/etc/cron.d/` automatiquement : aucun restart
+    nécessaire après création du fichier.
 
 ---
 
