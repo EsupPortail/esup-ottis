@@ -263,6 +263,7 @@ CAS_URL=/cas/                         # Contexte CAS (optionnel, défaut génér
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
 - **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
 - **Persistance de session** : la session PHP dure 8 h (cookie dédié) et est maintenue active pendant une conférence par un appel périodique à `/keepalive` (toutes les 10 minutes) ; si une reconnexion CAS devient nécessaire, elle est transparente (nettoyage du ticket, retour automatique à la page d'origine, salle conservée).
+- **Reprise de salle** : un intervenant qui revient sur `/conference` retrouve sa salle la plus récente pendant 15 minutes après sa dernière activité (`RoomTokenManager::ROOM_RECOVERY_WINDOW = 900 s`, fenêtre rafraîchie par chaque heartbeat de la page conférence). Au-delà, une nouvelle salle lui est attribuée. À la reprise, le chat rejoue l'historique (SSE depuis l'index 0) et le transcript est rejoué dans les notebooks (`replayTranscriptHistory`, sans re-traduction).
 
 
 
@@ -479,7 +480,8 @@ Points clés :
 
 - Le partiel n'écrit que dans les zones sous-titres transitoires (`#fixed-title`, `#titre`) : le notebook et l'output de la vue Transcription restent alimentés uniquement par les lignes finalisées.
 - Les lignes finalisées empruntent un chemin distinct : `/text/save` -> `tmp/Link_{roomId}`, lues par le poll `/text/read` (2 s) ; elles remplacent le partiel à la fin de chaque phrase.
-- Les fichiers ne sont pas tous au même endroit : `VerylastSub_{roomId}` vit dans `sys_get_temp_dir()/ottis/` (répertoire système), `Link_{roomId}` et `Verylast_{roomId}` dans `tmp/` du projet. Toute nouvelle lecture/écriture doit viser le bon répertoire (voir le bug silencieux de `readTranscriptSub` dans `TODO.md`).
+- Les fichiers ne sont pas tous au même endroit : `VerylastSub_{roomId}`, `PartialSub_{roomId}_{lang}` et `FinalSub_{roomId}_{lang}` vivent dans `sys_get_temp_dir()/ottis/` (répertoire système), `Link_{roomId}` dans `tmp/` du projet. Toute nouvelle lecture/écriture doit viser le bon répertoire.
+- Cache de traduction par langue (`/tmp/ottis/`, partagé entre tous les clients d'une même langue) : `PartialSub_{roomId}_{lang}` conserve le partiel courant traduit (clé = empreinte md5 du texte source), `FinalSub_{roomId}_{lang}` accumule les lignes finalisées traduites (`lineid;texte` pour l'auditeur qui traduit, `C;texte` pour la conférence). `readTranscriptSub` rejoue cet historique à un auditor arrivant en cours de séance. Les fichiers `Translated_{roomId}` et `Verylast_{roomId}` sont retirés.
 
 ---
 
