@@ -6,7 +6,7 @@
  */
 
 import { _ } from '../dom/selector.js';
-import { NBconnectedusers, Tconnectedusers } from './state/core.js';
+import { getNBconnectedusers, getTconnectedusers } from './state/core.js';
 
 /**
  * Met a jour l'affichage du nombre d'utilisateurs connectes.
@@ -14,9 +14,10 @@ import { NBconnectedusers, Tconnectedusers } from './state/core.js';
 export function updateUsers() {
   const connectedEl = _('connectedusers');
   if (connectedEl) {
-    connectedEl.textContent = `${NBconnectedusers} connected users`;
-    if (Tconnectedusers && Array.isArray(Tconnectedusers)) {
-      connectedEl.title = Tconnectedusers.join(', ');
+    connectedEl.textContent = `${getNBconnectedusers()} connected users`;
+    const connected = getTconnectedusers();
+    if (connected && Array.isArray(connected)) {
+      connectedEl.title = connected.join(', ');
     } else {
       connectedEl.title = '';
     }

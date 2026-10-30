@@ -8,112 +8,372 @@
 // =============================================================================
 
 /** @type {Object|null} */
-export let pdfDoc = null;
+let pdfDoc = null;
 
 /** @type {number} */
-export let pageNum = 1;
+let pageNum = 1;
 
 /** @type {boolean} */
-export let pageRendering = false;
+let pageRendering = false;
 
 /** @type {number|null} */
-export let pageNumPending = null;
+let pageNumPending = null;
 
 /** @type {number} */
-export let scale = 1.5;
+let scale = 1.5;
 
 /** @type {HTMLCanvasElement|null} */
-export let canvas = null;
+let canvas = null;
 
 /** @type {CanvasRenderingContext2D|null} */
-export let ctx = null;
+let ctx = null;
 
 /** @type {Object|null} */
-export let currentRenderTask = null;
+let currentRenderTask = null;
 
 /** @type {number} */
-export let originalPdfScale = 1.5;
+let originalPdfScale = 1.5;
 
 /** @type {number} */
-export let fullscreenScale = 1.5;
+let fullscreenScale = 1.5;
 
 /** @type {boolean} */
-export let isCalculatingFullscreenScale = false;
+let isCalculatingFullscreenScale = false;
 
 /** @type {boolean} */
-export let hasSavedInitialDimensions = false;
+let hasSavedInitialDimensions = false;
 
 // =============================================================================
 // Styles originaux (pour le mode plein écran)
 // =============================================================================
 
 /** @type {string} */
-export let originalCanvasStyle = '';
+let originalCanvasStyle = '';
 
 /** @type {string} */
-export let originalCanvasDisplay = '';
+let originalCanvasDisplay = '';
 
 /** @type {number} */
-export let originalCanvasWidth = 0;
+let originalCanvasWidth = 0;
 
 /** @type {number} */
-export let originalCanvasHeight = 0;
+let originalCanvasHeight = 0;
 
 /** @type {number} */
-export let initialClientWidth = 0;
+let initialClientWidth = 0;
 
 /** @type {number} */
-export let initialClientHeight = 0;
+let initialClientHeight = 0;
 
 /** @type {string} */
-export let originalTextBandStyle = '';
+let originalTextBandStyle = '';
 
 /** @type {Object} */
-export let originalPdfControlStyle = { cssText: '', buttonStyles: [] };
+let originalPdfControlStyle = { cssText: '', buttonStyles: [] };
 
 /** @type {string} */
-export let originalTextBandDisplay = '';
+let originalTextBandDisplay = '';
 
 /** @type {string} */
-export let originalTextBandVisibility = '';
+let originalTextBandVisibility = '';
 
 // =============================================================================
 // Variables pour live (ottis-live-area) - Remplace textBand
 // =============================================================================
 
 /** @type {string} */
-export let originalLiveStyle = '';
+let originalLiveStyle = '';
 
 /** @type {string} */
-export let originalLiveDisplay = '';
+let originalLiveDisplay = '';
 
 /** @type {string} */
-export let originalLiveVisibility = '';
+let originalLiveVisibility = '';
 
 // =============================================================================
 // Positions DOM originales (pour le mode plein écran)
 // =============================================================================
 
 /** @type {Element|null} */
-export let originalTextBandParent = null;
+let originalTextBandParent = null;
 
 /** @type {Element|null} */
-export let originalTextBandNextSibling = null;
+let originalTextBandNextSibling = null;
 
 /** @type {Element|null} */
-export let originalLiveParent = null;
+let originalLiveParent = null;
 
 /** @type {Element|null} */
-export let originalLiveNextSibling = null;
+let originalLiveNextSibling = null;
 
 /** @type {Element|null} */
-export let originalPdfControlParent = null;
+let originalPdfControlParent = null;
 
 /** @type {Element|null} */
-export let originalPdfControlNextSibling = null;
+let originalPdfControlNextSibling = null;
 
 /** @type {string} */
-export let originalPdfViewerStyle = '';
+let originalPdfViewerStyle = '';
+
+// =============================================================================
+// Getters (variables privées, lecture externe via fonctions)
+// =============================================================================
+
+/**
+ * Get the pdfDoc value
+ * @returns {Object|null} The PDF document object
+ */
+export function getPdfDoc() {
+  return pdfDoc;
+}
+
+/**
+ * Get the pageNum value
+ * @returns {number} The page number
+ */
+export function getPageNum() {
+  return pageNum;
+}
+
+/**
+ * Get the pageRendering value
+ * @returns {boolean} The rendering status
+ */
+export function getPageRendering() {
+  return pageRendering;
+}
+
+/**
+ * Get the pageNumPending value
+ * @returns {number|null} The pending page number
+ */
+export function getPageNumPending() {
+  return pageNumPending;
+}
+
+/**
+ * Get the scale value
+ * @returns {number} The scale factor
+ */
+export function getScale() {
+  return scale;
+}
+
+/**
+ * Get the canvas value
+ * @returns {HTMLCanvasElement|null} The canvas element
+ */
+export function getCanvas() {
+  return canvas;
+}
+
+/**
+ * Get the ctx value
+ * @returns {CanvasRenderingContext2D|null} The canvas context
+ */
+export function getCtx() {
+  return ctx;
+}
+
+/**
+ * Get the currentRenderTask value
+ * @returns {Object|null} The current render task
+ */
+export function getCurrentRenderTask() {
+  return currentRenderTask;
+}
+
+/**
+ * Get the originalPdfScale value
+ * @returns {number} The original scale factor
+ */
+export function getOriginalPdfScale() {
+  return originalPdfScale;
+}
+
+/**
+ * Get the fullscreenScale value
+ * @returns {number} The scale factor
+ */
+export function getFullscreenScale() {
+  return fullscreenScale;
+}
+
+/**
+ * Get the isCalculatingFullscreenScale value
+ * @returns {boolean} The calculation status
+ */
+export function getIsCalculatingFullscreenScale() {
+  return isCalculatingFullscreenScale;
+}
+
+/**
+ * Get the hasSavedInitialDimensions value
+ * @returns {boolean} Whether initial dimensions have been saved
+ */
+export function getHasSavedInitialDimensions() {
+  return hasSavedInitialDimensions;
+}
+
+/**
+ * Get the originalCanvasStyle value
+ * @returns {string} The original canvas style
+ */
+export function getOriginalCanvasStyle() {
+  return originalCanvasStyle;
+}
+
+/**
+ * Get the originalCanvasDisplay value
+ * @returns {string} The original canvas display value
+ */
+export function getOriginalCanvasDisplay() {
+  return originalCanvasDisplay;
+}
+
+/**
+ * Get the originalCanvasWidth value
+ * @returns {number} The original canvas width
+ */
+export function getOriginalCanvasWidth() {
+  return originalCanvasWidth;
+}
+
+/**
+ * Get the originalCanvasHeight value
+ * @returns {number} The original canvas height
+ */
+export function getOriginalCanvasHeight() {
+  return originalCanvasHeight;
+}
+
+/**
+ * Get the initialClientWidth value
+ * @returns {number} The initial client width
+ */
+export function getInitialClientWidth() {
+  return initialClientWidth;
+}
+
+/**
+ * Get the initialClientHeight value
+ * @returns {number} The initial client height
+ */
+export function getInitialClientHeight() {
+  return initialClientHeight;
+}
+
+/**
+ * Get the originalTextBandStyle value
+ * @returns {string} The original text band style
+ */
+export function getOriginalTextBandStyle() {
+  return originalTextBandStyle;
+}
+
+/**
+ * Get the originalPdfControlStyle value
+ * @returns {Object} The original PDF control style
+ */
+export function getOriginalPdfControlStyle() {
+  return originalPdfControlStyle;
+}
+
+/**
+ * Get the originalTextBandDisplay value
+ * @returns {string} The original text band display value
+ */
+export function getOriginalTextBandDisplay() {
+  return originalTextBandDisplay;
+}
+
+/**
+ * Get the originalTextBandVisibility value
+ * @returns {string} The original text band visibility value
+ */
+export function getOriginalTextBandVisibility() {
+  return originalTextBandVisibility;
+}
+
+/**
+ * Get the originalLiveStyle value
+ * @returns {string} The original live style
+ */
+export function getOriginalLiveStyle() {
+  return originalLiveStyle;
+}
+
+/**
+ * Get the originalLiveDisplay value
+ * @returns {string} The original live display value
+ */
+export function getOriginalLiveDisplay() {
+  return originalLiveDisplay;
+}
+
+/**
+ * Get the originalLiveVisibility value
+ * @returns {string} The original live visibility value
+ */
+export function getOriginalLiveVisibility() {
+  return originalLiveVisibility;
+}
+
+/**
+ * Get the originalTextBandParent value
+ * @returns {Element|null} The original text band parent element
+ */
+export function getOriginalTextBandParent() {
+  return originalTextBandParent;
+}
+
+/**
+ * Get the originalTextBandNextSibling value
+ * @returns {Element|null} The original text band next sibling element
+ */
+export function getOriginalTextBandNextSibling() {
+  return originalTextBandNextSibling;
+}
+
+/**
+ * Get the originalLiveParent value
+ * @returns {Element|null} The original live parent element
+ */
+export function getOriginalLiveParent() {
+  return originalLiveParent;
+}
+
+/**
+ * Get the originalLiveNextSibling value
+ * @returns {Element|null} The original live next sibling element
+ */
+export function getOriginalLiveNextSibling() {
+  return originalLiveNextSibling;
+}
+
+/**
+ * Get the originalPdfControlParent value
+ * @returns {Element|null} The original PDF control parent element
+ */
+export function getOriginalPdfControlParent() {
+  return originalPdfControlParent;
+}
+
+/**
+ * Get the originalPdfControlNextSibling value
+ * @returns {Element|null} The original PDF control next sibling element
+ */
+export function getOriginalPdfControlNextSibling() {
+  return originalPdfControlNextSibling;
+}
+
+/**
+ * Get the originalPdfViewerStyle value
+ * @returns {string} The original PDF viewer style
+ */
+export function getOriginalPdfViewerStyle() {
+  return originalPdfViewerStyle;
+}
 
 // =============================================================================
 // PDF Viewer Setters

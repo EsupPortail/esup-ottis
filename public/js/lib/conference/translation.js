@@ -1,8 +1,8 @@
 import {
-  lastPartialTranslation,
-  lastSentenceTranslated,
-  LiveTranslationNum,
-  LiveTranslationFreq,
+  getLastPartialTranslation,
+  getLastSentenceTranslated,
+  getLiveTranslationNum,
+  getLiveTranslationFreq,
   setLastSentenceTranslated,
   setLiveTranslationNum,
 } from './state/translation.js';
@@ -176,31 +176,33 @@ export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {
       EcrirePartial(ch, forceTranslate, loutput);
     }
     if (callback) callback(ch);
-  } else if (LiveTranslationFreq === 0 && !forceTranslate) {
+  } else if (getLiveTranslationFreq() === 0 && !forceTranslate) {
     // Aucune traduction intermediaire : ne rien afficher tant que la ligne
     // n'est pas finalisee - aucun texte non traduit ne doit apparaitre -
     // les lignes finales (forceTranslate) restent traduites.
   } else {
-    if (forceTranslate || LiveTranslationNum % LiveTranslationFreq === 0) {
+    if (forceTranslate || getLiveTranslationNum() % getLiveTranslationFreq() === 0) {
       TranslateThen(
         ch,
         loutput,
         linput,
         (translatedText) => {
           setLastSentenceTranslated(translatedText);
-          if (lastSentenceTranslated && lastSentenceTranslated.trim() !== '') {
-            EcrirePartial(lastSentenceTranslated, forceTranslate, loutput);
+          const lastTranslated = getLastSentenceTranslated();
+          if (lastTranslated && lastTranslated.trim() !== '') {
+            EcrirePartial(lastTranslated, forceTranslate, loutput);
           }
-          if (callback) callback(lastPartialTranslation);
+          if (callback) callback(getLastPartialTranslation());
         },
         false
       );
     } else {
-      if (lastSentenceTranslated && lastSentenceTranslated.trim() !== '') {
-        EcrirePartial(lastSentenceTranslated, false, loutput);
+      const lastTranslated = getLastSentenceTranslated();
+      if (lastTranslated && lastTranslated.trim() !== '') {
+        EcrirePartial(lastTranslated, false, loutput);
       }
-      if (callback) callback(lastPartialTranslation);
+      if (callback) callback(getLastPartialTranslation());
     }
-    setLiveTranslationNum(LiveTranslationNum + 1);
+    setLiveTranslationNum(getLiveTranslationNum() + 1);
   }
 }

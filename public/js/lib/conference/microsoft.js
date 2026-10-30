@@ -20,7 +20,7 @@ export const MicrosoftRegion = '';
  * Instance du recognizer Microsoft
  * @type {Object|null}
  */
-export let microsoftRecognizer = null;
+let microsoftRecognizer = null;
 
 /**
  * Démarrer la reconnaissance vocale continue avec Microsoft Azure

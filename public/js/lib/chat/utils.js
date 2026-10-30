@@ -3,7 +3,7 @@
  * ES Module for chat-related utility functions
  */
 
-import { ScreenCR, ToSay, ToTranslate, chatHistory, clearHistory } from './state.js';
+import { ScreenCR, chatHistory, clearHistory, getToSay, getToTranslate } from './state.js';
 import { _ } from '../dom/selector.js';
 import { setInputNumberQ } from '../state/shared.js';
 
@@ -79,11 +79,11 @@ export function displayInCR(text, _className = '') {
  * Clear both ToSay and ToTranslate
  */
 export function clearChatText() {
-  // Mutation en place : les bindings importes ne sont pas reassignables
-  Object.keys(ToSay).forEach((key) => {
-    delete ToSay[key];
+  const toSay = getToSay();
+  Object.keys(toSay).forEach((key) => {
+    delete toSay[key];
   });
-  ToTranslate.length = 0;
+  getToTranslate().length = 0;
 }
 
 /**

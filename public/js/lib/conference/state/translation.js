@@ -18,7 +18,7 @@
 
 import { AllOutputVoices, TLangInput } from '../../language/state.js';
 
-export let lastPartialTranslation = '';
+let lastPartialTranslation = '';
 
 export { AllOutputVoices, TLangInput };
 
@@ -26,20 +26,14 @@ export { AllOutputVoices, TLangInput };
 // État du discours et de la parole
 // =============================================================================
 
-/** @type {boolean} */
-export let readytotalk = false;
-
 /** @type {number} */
-export let previousimage = 0;
-
-/** @type {number} */
-export let currentscroll = 1;
+let previousimage = 0;
 
 /** @type {string} */
-export let lastSentenceTranslated = '';
+let lastSentenceTranslated = '';
 
 /** @type {number} */
-export let LiveTranslationNum = 0;
+let LiveTranslationNum = 0;
 
 // Frequence des traductions intermediaires (sous-titres partiels) :
 // 1 appel de traduction tous les N partiels ; 0 = aucune traduction
@@ -52,7 +46,7 @@ const liveTranslationFreqConfig =
   '';
 
 /** @type {number} */
-export let LiveTranslationFreq = 5;
+let LiveTranslationFreq = 5;
 if (String(liveTranslationFreqConfig).toLowerCase() === 'none') {
   LiveTranslationFreq = 0;
 } else {
@@ -60,6 +54,50 @@ if (String(liveTranslationFreqConfig).toLowerCase() === 'none') {
   if (Number.isFinite(parsedFreq)) {
     LiveTranslationFreq = parsedFreq <= 0 ? 1 : parsedFreq;
   }
+}
+
+// =============================================================================
+// Getters (variables privées, lecture externe via fonctions)
+// =============================================================================
+
+/**
+ * Get the last partial translation
+ * @returns {string} The last partial translation
+ */
+export function getLastPartialTranslation() {
+  return lastPartialTranslation;
+}
+
+/**
+ * Get the last sentence translated
+ * @returns {string} The last sentence translated
+ */
+export function getLastSentenceTranslated() {
+  return lastSentenceTranslated;
+}
+
+/**
+ * Get the LiveTranslationNum value
+ * @returns {number} The live translation counter
+ */
+export function getLiveTranslationNum() {
+  return LiveTranslationNum;
+}
+
+/**
+ * Get the previousimage value
+ * @returns {number} The previous image number
+ */
+export function getPreviousimage() {
+  return previousimage;
+}
+
+/**
+ * Get the LiveTranslationFreq value
+ * @returns {number} The live translation frequency
+ */
+export function getLiveTranslationFreq() {
+  return LiveTranslationFreq;
 }
 
 // =============================================================================
@@ -91,25 +129,9 @@ export function setLiveTranslationNum(value) {
 }
 
 /**
- * Set the readytotalk flag
- * @param {boolean} value - Whether the speaker is ready
- */
-export function setReadytotalk(value) {
-  readytotalk = value;
-}
-
-/**
  * Set the previousimage value
  * @param {number} value - The previous image number
  */
 export function setPreviousimage(value) {
   previousimage = value;
-}
-
-/**
- * Set the currentscroll value
- * @param {number} value - The scroll position
- */
-export function setCurrentscroll(value) {
-  currentscroll = value;
 }

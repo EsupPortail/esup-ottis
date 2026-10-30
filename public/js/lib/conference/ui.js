@@ -1,7 +1,11 @@
 import { _ } from '../dom/selector.js';
 import { hide, show } from '../dom/visibility.js';
 import { getBuiltinLanguage } from '../state/auditor.js';
-import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
+import {
+  getBuiltinRecognition,
+  getBuiltinRecognitionon,
+  setBuiltinRecognitionon,
+} from './config.js';
 import { isBuiltinMicrosoftTranscriptionOn } from '../state/conference.js';
 import {
   MicrosoftKey,
@@ -36,11 +40,11 @@ export function FullScreen() {
   // Si on désactive le micro, arrêter la reconnaissance
   if (currentCheckedState && !newCheckedState) {
     if (!isBuiltinMicrosoftTranscriptionOn()) {
-      builtin_recognition.abort();
+      getBuiltinRecognition().abort();
     }
   }
   if (isBuiltinMicrosoftTranscriptionOn()) {
-    if (builtin_recognitionon) {
+    if (getBuiltinRecognitionon()) {
       doContinuousRecognition(MicrosoftKey, MicrosoftRegion, getBuiltinLanguage());
     } else {
       stopRecognizer();
@@ -50,7 +54,7 @@ export function FullScreen() {
     StartSpeechRecognition(Traduction);
   }
   /* else {
-          builtin_recognition.abort();
+          getBuiltinRecognition().abort();
         } */
 }
 
@@ -117,11 +121,11 @@ export function Micro() {
   // Si on désactive le micro, arrêter la reconnaissance
   if (currentCheckedState && !newCheckedState) {
     if (!isBuiltinMicrosoftTranscriptionOn()) {
-      builtin_recognition.abort();
+      getBuiltinRecognition().abort();
     }
   }
   if (isBuiltinMicrosoftTranscriptionOn()) {
-    if (builtin_recognitionon) {
+    if (getBuiltinRecognitionon()) {
       doContinuousRecognition(MicrosoftKey, MicrosoftRegion, getBuiltinLanguage());
     } else {
       stopRecognizer();

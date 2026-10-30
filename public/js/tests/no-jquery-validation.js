@@ -12,7 +12,6 @@
  * 4. Look for "✅ PASS" or "❌ FAIL" results
  */
 
-// eslint-disable-next-line wrap-iife -- IIFE classique (script hors module), conflit de formatage Prettier/Airbnb
 (function () {
   // Test results storage
   const results = {

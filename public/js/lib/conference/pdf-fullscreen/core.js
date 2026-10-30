@@ -4,26 +4,26 @@
  */
 
 import {
-  isCalculatingFullscreenScale,
-  originalPdfControlStyle,
-  originalTextBandDisplay,
-  originalTextBandStyle,
-  originalTextBandVisibility,
-  originalTextBandParent,
-  originalTextBandNextSibling,
-  originalPdfControlParent,
-  originalPdfControlNextSibling,
-  originalPdfViewerStyle,
-  originalCanvasDisplay,
-  originalLiveStyle,
-  originalLiveDisplay,
-  originalLiveVisibility,
-  originalLiveParent,
-  originalLiveNextSibling,
-  pageNum,
-  pageRendering,
-  pdfDoc,
-  scale,
+  getIsCalculatingFullscreenScale,
+  getOriginalPdfControlStyle,
+  getOriginalTextBandDisplay,
+  getOriginalTextBandStyle,
+  getOriginalTextBandVisibility,
+  getOriginalTextBandParent,
+  getOriginalTextBandNextSibling,
+  getOriginalPdfControlParent,
+  getOriginalPdfControlNextSibling,
+  getOriginalPdfViewerStyle,
+  getOriginalCanvasDisplay,
+  getOriginalLiveStyle,
+  getOriginalLiveDisplay,
+  getOriginalLiveVisibility,
+  getOriginalLiveParent,
+  getOriginalLiveNextSibling,
+  getPageNum,
+  getPageRendering,
+  getPdfDoc,
+  getScale,
   setScale,
   setFullscreenScale,
   setIsCalculatingFullscreenScale,
@@ -297,9 +297,25 @@ export function restoreCanvasStyles() {
   const pdfControlEl = _('pdf-control');
   const pdfViewerEl = _('pdf-viewer');
 
+  const viewerStyle = getOriginalPdfViewerStyle();
+  const textBandParent = getOriginalTextBandParent();
+  const textBandNextSibling = getOriginalTextBandNextSibling();
+  const textBandStyle = getOriginalTextBandStyle();
+  const textBandDisplay = getOriginalTextBandDisplay();
+  const textBandVisibility = getOriginalTextBandVisibility();
+  const liveParent = getOriginalLiveParent();
+  const liveNextSibling = getOriginalLiveNextSibling();
+  const liveStyle = getOriginalLiveStyle();
+  const liveDisplay = getOriginalLiveDisplay();
+  const liveVisibility = getOriginalLiveVisibility();
+  const controlStyle = getOriginalPdfControlStyle();
+  const controlParent = getOriginalPdfControlParent();
+  const controlNextSibling = getOriginalPdfControlNextSibling();
+  const canvasDisplay = getOriginalCanvasDisplay();
+
   if (pdfViewerEl) {
-    if (originalPdfViewerStyle && originalPdfViewerStyle.trim()) {
-      pdfViewerEl.style.cssText = originalPdfViewerStyle;
+    if (viewerStyle && viewerStyle.trim()) {
+      pdfViewerEl.style.cssText = viewerStyle;
     }
     pdfViewerEl.style.position = '';
     pdfViewerEl.style.top = '';
@@ -314,22 +330,22 @@ export function restoreCanvasStyles() {
   }
 
   if (textBandEl) {
-    if (originalTextBandParent && textBandEl.parentNode !== originalTextBandParent) {
-      if (originalTextBandNextSibling) {
-        originalTextBandParent.insertBefore(textBandEl, originalTextBandNextSibling);
+    if (textBandParent && textBandEl.parentNode !== textBandParent) {
+      if (textBandNextSibling) {
+        textBandParent.insertBefore(textBandEl, textBandNextSibling);
       } else {
-        originalTextBandParent.appendChild(textBandEl);
+        textBandParent.appendChild(textBandEl);
       }
     }
 
-    if (originalTextBandStyle && originalTextBandStyle.trim()) {
-      textBandEl.style.cssText = originalTextBandStyle;
+    if (textBandStyle && textBandStyle.trim()) {
+      textBandEl.style.cssText = textBandStyle;
     }
-    if (originalTextBandDisplay) {
-      textBandEl.style.display = originalTextBandDisplay;
+    if (textBandDisplay) {
+      textBandEl.style.display = textBandDisplay;
     }
-    if (originalTextBandVisibility) {
-      textBandEl.style.visibility = originalTextBandVisibility;
+    if (textBandVisibility) {
+      textBandEl.style.visibility = textBandVisibility;
     }
     textBandEl.style.position = '';
     textBandEl.style.bottom = '';
@@ -341,22 +357,22 @@ export function restoreCanvasStyles() {
   // Restaurer live (ottis-live-area)
   const liveEl = _('live');
   if (liveEl) {
-    if (originalLiveParent && liveEl.parentNode !== originalLiveParent) {
-      if (originalLiveNextSibling) {
-        originalLiveParent.insertBefore(liveEl, originalLiveNextSibling);
+    if (liveParent && liveEl.parentNode !== liveParent) {
+      if (liveNextSibling) {
+        liveParent.insertBefore(liveEl, liveNextSibling);
       } else {
-        originalLiveParent.appendChild(liveEl);
+        liveParent.appendChild(liveEl);
       }
     }
 
-    if (originalLiveStyle && originalLiveStyle.trim()) {
-      liveEl.style.cssText = originalLiveStyle;
+    if (liveStyle && liveStyle.trim()) {
+      liveEl.style.cssText = liveStyle;
     }
-    if (originalLiveDisplay) {
-      liveEl.style.display = originalLiveDisplay;
+    if (liveDisplay) {
+      liveEl.style.display = liveDisplay;
     }
-    if (originalLiveVisibility) {
-      liveEl.style.visibility = originalLiveVisibility;
+    if (liveVisibility) {
+      liveEl.style.visibility = liveVisibility;
     }
     liveEl.style.position = '';
     liveEl.style.bottom = '';
@@ -365,17 +381,17 @@ export function restoreCanvasStyles() {
     liveEl.style.height = '';
   }
 
-  if (pdfControlEl && originalPdfControlStyle) {
-    if (originalPdfControlParent && pdfControlEl.parentNode !== originalPdfControlParent) {
-      if (originalPdfControlNextSibling) {
-        originalPdfControlParent.insertBefore(pdfControlEl, originalPdfControlNextSibling);
+  if (pdfControlEl && controlStyle) {
+    if (controlParent && pdfControlEl.parentNode !== controlParent) {
+      if (controlNextSibling) {
+        controlParent.insertBefore(pdfControlEl, controlNextSibling);
       } else {
-        originalPdfControlParent.appendChild(pdfControlEl);
+        controlParent.appendChild(pdfControlEl);
       }
     }
 
-    if (originalPdfControlStyle.cssText && originalPdfControlStyle.cssText.trim()) {
-      pdfControlEl.style.cssText = originalPdfControlStyle.cssText;
+    if (controlStyle.cssText && controlStyle.cssText.trim()) {
+      pdfControlEl.style.cssText = controlStyle.cssText;
     }
     pdfControlEl.style.position = '';
     pdfControlEl.style.bottom = '';
@@ -397,8 +413,8 @@ export function restoreCanvasStyles() {
   }
 
   if (canvasEl) {
-    if (originalCanvasDisplay) {
-      canvasEl.style.display = originalCanvasDisplay;
+    if (canvasDisplay) {
+      canvasEl.style.display = canvasDisplay;
     } else {
       canvasEl.style.display = '';
     }
@@ -412,7 +428,7 @@ export function restoreCanvasStyles() {
 }
 
 export function enterPdfFullscreen(element) {
-  setOriginalPdfScale(scale);
+  setOriginalPdfScale(getScale());
   saveCurrentCanvasStyles();
 
   setFullscreenButtonLabel('conference.outil.exitFullscreen');
@@ -493,11 +509,11 @@ export function ensureFullscreenExited() {
 
 export function calculateFullscreenScale() {
   const pdfCanvas = _('pdf-canvas');
-  if (!pdfCanvas || !pdfDoc) {
+  if (!pdfCanvas || !getPdfDoc()) {
     return;
   }
 
-  if (isCalculatingFullscreenScale) {
+  if (getIsCalculatingFullscreenScale()) {
     return;
   }
   setIsCalculatingFullscreenScale(true);
@@ -506,7 +522,7 @@ export function calculateFullscreenScale() {
   const availableHeight = window.innerHeight - reservedHeight;
   const availableWidth = window.innerWidth;
 
-  pdfDoc
+  getPdfDoc()
     .getPage(1)
     .then((page) => {
       const originalViewport = page.getViewport({ scale: 1.0 });
@@ -516,8 +532,9 @@ export function calculateFullscreenScale() {
       setFullscreenScale(calculatedScale);
       setScale(calculatedScale);
 
-      if (pageNum && !pageRendering) {
-        if (renderCurrentPage) renderCurrentPage(pageNum);
+      const num = getPageNum();
+      if (num && !getPageRendering()) {
+        if (renderCurrentPage) renderCurrentPage(num);
       }
       setIsCalculatingFullscreenScale(false);
     })

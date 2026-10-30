@@ -2,12 +2,11 @@ import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
 import { getSubtitleLanguage } from '../state/conference.js';
 import {
   MaxSavedLines,
-  NBconnectedusers,
-  Tconnectedusers,
+  getNBconnectedusers,
+  getTconnectedusers,
   setNBconnectedusers,
   removeFromTconnectedusers,
   setNbnewQ,
-  setStudentinputnumber,
 } from './state/core.js';
 import {
   getInputNumber,
@@ -301,11 +300,11 @@ export function readTextQ() {
           // Safety check - ensure L has enough elements
           if (L.length >= 3) {
             if (L[2].indexOf('[newstudentarrived]') >= 0) {
-              setNBconnectedusers(NBconnectedusers + 1);
-              Tconnectedusers.push(L[0]);
+              setNBconnectedusers(getNBconnectedusers() + 1);
+              getTconnectedusers().push(L[0]);
               updateUsers();
             } else if (L[2].indexOf('[newstudentlived]') >= 0) {
-              setNBconnectedusers(NBconnectedusers - 1);
+              setNBconnectedusers(getNBconnectedusers() - 1);
               removeFromTconnectedusers(L[0]);
               if (typeof updateUsers === 'function') updateUsers();
             } else {
@@ -451,8 +450,6 @@ export function replayTranscriptHistory() {
           }
         }
       }
-      // Positionner le curseur apres la derniere ligne rejouee
-      if (maxId >= 0) setStudentinputnumber(maxId + 1);
     },
     onError(response, context) {
       if (response.status !== 0 || response.statusText !== 'Timeout') {

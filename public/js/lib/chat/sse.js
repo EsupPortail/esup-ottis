@@ -8,7 +8,7 @@
 import { getRoomToken, getBasePath, getInputNumberQ, setInputNumberQ } from '../state/shared.js';
 import { parseChatLine } from './network.js';
 import { ClearCR } from './utils.js';
-import { nbnewQ, setNbnewQ } from '../conference/state/core.js';
+import { getNbnewQ, setNbnewQ } from '../conference/state/core.js';
 import { EventNewQuestion } from '../conference/utils.js';
 
 let chatSource = null;
@@ -53,7 +53,7 @@ export function startChatStream(roomId, messageHandler) {
         parsed.senderRole
       );
       // Alertes conference (badge nouveau message)
-      if (nbnewQ > 0 && typeof EventNewQuestion === 'function') {
+      if (getNbnewQ() > 0 && typeof EventNewQuestion === 'function') {
         EventNewQuestion();
       }
       setNbnewQ(0);

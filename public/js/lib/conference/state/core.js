@@ -9,50 +9,39 @@
 // =============================================================================
 
 /** @type {number} */
-export let NBconnectedusers = 0;
+let NBconnectedusers = 0;
 
 /** @type {Array} */
-export let Tconnectedusers = [];
+let Tconnectedusers = [];
 
 // =============================================================================
 // État des questions
 // =============================================================================
 
 /** @type {number} */
-export let nbnewQ = 0;
+let nbnewQ = 0;
 
 // =============================================================================
 // Chat/Queue State
 // =============================================================================
 
 /** @type {number} */
-export let inputnumberQ = 0;
+let inputnumberQ = 0;
 
 /** @type {number} */
-export let inputnumber = 0;
+let inputnumber = 0;
 
 /** @type {number} */
-export let Studentinputnumber = 0;
-
-/**
- * Set the Studentinputnumber value
- * @param {number} value - The new value
- */
-export function setStudentinputnumber(value) {
-  Studentinputnumber = value;
-}
+let delayReadtextQ = 5000;
 
 /** @type {number} */
-export let delayReadtextQ = 5000;
+let FeedbackQueue = 0;
 
 /** @type {number} */
-export let FeedbackQueue = 0;
+let delayStudentReadtext = 1000;
 
 /** @type {number} */
-export let delayStudentReadtext = 1000;
-
-/** @type {number} */
-export let delayFeedback = 1000;
+let delayFeedback = 1000;
 
 /** @type {number} */
 export const MaxSavedLines = 100;
@@ -62,7 +51,91 @@ export const MaxSavedLines = 100;
 // =============================================================================
 
 /** @type {number} */
-export let timenew_question = 0;
+let timenew_question = 0;
+
+// =============================================================================
+// Getters (variables privées, lecture externe via fonctions)
+// =============================================================================
+
+/**
+ * Get the NBconnectedusers value
+ * @returns {number} The number of connected users
+ */
+export function getNBconnectedusers() {
+  return NBconnectedusers;
+}
+
+/**
+ * Get the Tconnectedusers value
+ * @returns {Array} The connected users array
+ */
+export function getTconnectedusers() {
+  return Tconnectedusers;
+}
+
+/**
+ * Get the nbnewQ value
+ * @returns {number} The number of new questions
+ */
+export function getNbnewQ() {
+  return nbnewQ;
+}
+
+/**
+ * Get the inputnumberQ value
+ * @returns {number} The input number for questions
+ */
+export function getInputnumberQ() {
+  return inputnumberQ;
+}
+
+/**
+ * Get the inputnumber value
+ * @returns {number} The input number
+ */
+export function getInputnumber() {
+  return inputnumber;
+}
+
+/**
+ * Get the delayReadtextQ value
+ * @returns {number} The read text delay for questions
+ */
+export function getDelayReadtextQ() {
+  return delayReadtextQ;
+}
+
+/**
+ * Get the FeedbackQueue value
+ * @returns {number} The feedback queue count
+ */
+export function getFeedbackQueue() {
+  return FeedbackQueue;
+}
+
+/**
+ * Get the delayStudentReadtext value
+ * @returns {number} The student read text delay
+ */
+export function getDelayStudentReadtext() {
+  return delayStudentReadtext;
+}
+
+/**
+ * Get the delayFeedback value
+ * @returns {number} The feedback delay
+ */
+export function getDelayFeedback() {
+  return delayFeedback;
+}
+
+/**
+ * Get the timenew_question value
+ * @returns {number} The new question timestamp
+ */
+export function getTimenewQuestion() {
+  return timenew_question;
+}
 
 // =============================================================================
 // Setter functions for core state

@@ -55,10 +55,24 @@ export const inSlideTab = false;
 export const speech_language = 'same';
 
 // Speech recognition variables
-export let builtin_recognition;
-export let builtin_recognitionon = false;
-export let builtin_externaltranscritionon = false;
-export let builtin_microsofttranscritionon = false;
+let builtin_recognition;
+let builtin_recognitionon = false;
+
+/**
+ * Get the builtin recognition instance
+ * @returns {Object} The SpeechRecognition instance
+ */
+export function getBuiltinRecognition() {
+  return builtin_recognition;
+}
+
+/**
+ * Get the builtin_recognitionon flag
+ * @returns {boolean} Whether builtin recognition is on
+ */
+export function getBuiltinRecognitionon() {
+  return builtin_recognitionon;
+}
 
 /**
  * Set the builtin_recognitionon flag
@@ -66,22 +80,6 @@ export let builtin_microsofttranscritionon = false;
  */
 export function setBuiltinRecognitionon(value) {
   builtin_recognitionon = value;
-}
-
-/**
- * Set the builtin_externaltranscritionon flag
- * @param {boolean} value - The new value
- */
-export function setBuiltinExternalTranscriptionon(value) {
-  builtin_externaltranscritionon = value;
-}
-
-/**
- * Set the builtin_microsofttranscritionon flag
- * @param {boolean} value - The new value
- */
-export function setBuiltinMicrosoftTranscriptionon(value) {
-  builtin_microsofttranscritionon = value;
 }
 
 // Fake SpeechRecognition for browsers that don't support it

@@ -27,25 +27,19 @@ export const gotolive = false;
  * Text to say (for speech synthesis) - Object indexed by line ID
  * @type {Object}
  */
-export let ToSay = {};
+let ToSay = {};
 
 /**
  * Text to translate - Array of translation requests
  * @type {Array}
  */
-export let ToTranslate = [];
+let ToTranslate = [];
 
 /**
  * Chat messages history
  * @type {Array}
  */
 export const chatHistory = [];
-
-/**
- * Current chat session ID
- * @type {string|null}
- */
-export let currentSessionId = null;
 
 /**
  * Initialize chat state
@@ -68,7 +62,6 @@ export function initChatState(screenElement) {
   ToSay = {};
   ToTranslate = [];
   chatHistory.length = 0;
-  currentSessionId = null;
 }
 
 /**

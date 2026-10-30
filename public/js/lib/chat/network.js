@@ -9,7 +9,7 @@ import { increasependingrequests, decreasependingrequests } from '../utils/reque
 import { getRoomToken, getBasePath, getInputNumberQ, setInputNumberQ } from '../state/shared.js';
 import { EcrireCR } from './display.js';
 import { ScreenCR } from './state.js';
-import { nbnewQ, setNbnewQ } from '../conference/state/core.js';
+import { getNbnewQ, setNbnewQ } from '../conference/state/core.js';
 import { EventNewQuestion } from '../conference/utils.js';
 import { _ } from '../dom/selector.js';
 import * as logger from '../utils/logger.js';
@@ -178,7 +178,7 @@ export function readTextQCommon(roomId, messageHandler, onRateLimit, onSuccess) 
       }
 
       // Trigger EventNewQuestion for conference if new messages were processed
-      if (nbnewQ > 0 && typeof EventNewQuestion === 'function') {
+      if (getNbnewQ() > 0 && typeof EventNewQuestion === 'function') {
         EventNewQuestion();
       }
 

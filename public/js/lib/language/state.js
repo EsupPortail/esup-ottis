@@ -36,7 +36,7 @@ export const maxvoices = 10;
  * Current input language
  * @type {string}
  */
-export let currentInputLanguage = 'fr';
+let currentInputLanguage = 'fr';
 
 /**
  * Set the current input language
@@ -50,7 +50,23 @@ export function setCurrentInputLanguage(langId) {
  * Current output voice
  * @type {string}
  */
-export let currentOutputVoice = 'fr-FR';
+let currentOutputVoice = 'fr-FR';
+
+/**
+ * Get the current input language
+ * @returns {string} Language ID
+ */
+export function getCurrentInputLanguage() {
+  return currentInputLanguage;
+}
+
+/**
+ * Get the current output voice
+ * @returns {string} Voice ID
+ */
+export function getCurrentOutputVoice() {
+  return currentOutputVoice;
+}
 
 /**
  * Set the current output voice

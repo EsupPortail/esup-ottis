@@ -9,10 +9,10 @@ import { safeSetTimeout } from '../utils/cleanup.js';
 import { isSendInProgress, setSendInProgress } from '../state/shared.js';
 import { getBuiltinLanguage, getBuiltinVoice } from '../state/auditor.js';
 import {
-  nbnewQ,
+  getNbnewQ,
   setNbnewQ,
-  NBconnectedusers,
-  Tconnectedusers,
+  getNBconnectedusers,
+  getTconnectedusers,
   setNBconnectedusers,
   setTconnectedusers,
 } from '../conference/state/core.js';
@@ -60,13 +60,13 @@ export function defaultMessageHandler(
   if (isSpecial) {
     // Handle new student arrived
     if (specialType === 'newstudentarrived') {
-      setNBconnectedusers(NBconnectedusers + 1);
-      Tconnectedusers.push(who);
+      setNBconnectedusers(getNBconnectedusers() + 1);
+      getTconnectedusers().push(who);
       updateUsers();
       // Handle new student lived (disconnected)
     } else if (specialType === 'newstudentlived') {
-      setNBconnectedusers(NBconnectedusers - 1);
-      setTconnectedusers(Tconnectedusers.filter((student) => student !== who));
+      setNBconnectedusers(getNBconnectedusers() - 1);
+      setTconnectedusers(getTconnectedusers().filter((student) => student !== who));
       updateUsers();
     }
     // For other special messages, skip normal processing
@@ -77,7 +77,7 @@ export function defaultMessageHandler(
   triggerNewMessageAlert(who);
 
   // Track new questions for conference
-  setNbnewQ(nbnewQ + 1);
+  setNbnewQ(getNbnewQ() + 1);
 
   // Get current language
   // Conference : le tchat suit la langue du conferencier (select "Langue du conferencier")

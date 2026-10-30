@@ -1,4 +1,4 @@
-import { timenew_question, setTimenewQuestion } from './state/core.js';
+import { getTimenewQuestion, setTimenewQuestion } from './state/core.js';
 
 import { _, get } from '../dom/selector.js';
 import { openDialog } from '../dom/dialog.js';
@@ -18,32 +18,6 @@ export function myalert(ch) {
 export function getNotebookContent(elementId) {
   const el = get(elementId);
   return el ? `${el.innerHTML.replace(/<br\/?>$/, '').substring(0, 100)}...` : 'N/A';
-}
-
-export function b64toBlob(b64Data, contentType, sliceSize) {
-  contentType = contentType || '';
-  sliceSize = sliceSize || 512;
-
-  const byteCharacters = atob(b64Data);
-  const byteArrays = [];
-
-  for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-    const byteNumbers = new Array(slice.length);
-    for (let i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-
-    const byteArray = new Uint8Array(byteNumbers);
-
-    byteArrays.push(byteArray);
-  }
-
-  const blob = new Blob(byteArrays, {
-    type: contentType,
-  });
-  return blob;
 }
 
 export function formateresponse(datatxt, editable = true) {
@@ -131,8 +105,8 @@ export function formateresponse(datatxt, editable = true) {
 }
 
 export function draw() {
-  if (timenew_question > 0) {
-    setTimenewQuestion(timenew_question - 1);
+  if (getTimenewQuestion() > 0) {
+    setTimenewQuestion(getTimenewQuestion() - 1);
     safeSetTimeout(draw, 1000);
   } else {
     const tab = _('questionicon');
@@ -145,7 +119,7 @@ export function draw() {
 }
 
 export function EventNewQuestion() {
-  if (timenew_question === 0) {
+  if (getTimenewQuestion() === 0) {
     setTimenewQuestion(10);
     const tab = _('questionicon');
     if (tab) {

@@ -6,11 +6,11 @@
 import {
   TLangInput,
   AllOutputVoices,
-  currentInputLanguage,
-  currentOutputVoice,
   setCurrentInputLanguage,
   setCurrentOutputVoice,
 } from './state.js';
+
+export { getCurrentInputLanguage, getCurrentOutputVoice } from './state.js';
 
 /**
  * Set the input language
@@ -60,22 +60,6 @@ export function setLanguageOutput(voiceId, updateUI = true) {
     return true;
   }
   return false;
-}
-
-/**
- * Get current input language
- * @returns {string}
- */
-export function getCurrentInputLanguage() {
-  return currentInputLanguage;
-}
-
-/**
- * Get current output voice
- * @returns {string}
- */
-export function getCurrentOutputVoice() {
-  return currentOutputVoice;
 }
 
 /**

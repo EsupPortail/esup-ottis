@@ -9,32 +9,31 @@ import {
 } from '../state/conference.js';
 
 // Depuis translation.js
-import { setLiveTranslationNum, setReadytotalk } from './state/translation.js';
+import { setLiveTranslationNum } from './state/translation.js';
 
 // Depuis core.js
-import {
-  setDelayStudentReadtext,
-  setDelayReadtextQ,
-} from './state/core.js';
+import { setDelayStudentReadtext, setDelayReadtextQ } from './state/core.js';
 
 import { _ } from '../dom/selector.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
-import { builtin_recognition, builtin_recognitionon, setBuiltinRecognitionon } from './config.js';
+import {
+  getBuiltinRecognition,
+  getBuiltinRecognitionon,
+  setBuiltinRecognitionon,
+} from './config.js';
 import { EcrireNBonly } from './notebook.js';
 import { EcrireTranslatePartial, Traduction } from './translation.js';
 
 /** @module conference/speech */
 
 export function setReadyToTalk() {
-  setReadytotalk(true);
   _('bready').style.backgroundColor = 'green';
   StartSpeechRecognition(Traduction);
 }
 
 export function setNotReadyToTalk() {
   StopSpeechRecognition();
-  setReadytotalk(false);
   _('bready').style.backgroundColor = 'red';
 }
 
@@ -45,13 +44,13 @@ export function StartSpeechRecognition(callback) {
     return;
   }
   try {
-    builtin_recognition.lang = builtinLang;
+    getBuiltinRecognition().lang = builtinLang;
   } catch (e) {
     return;
   }
-  builtin_recognition.onresult = function (event) {
+  getBuiltinRecognition().onresult = function (event) {
     if (
-      builtin_recognitionon &&
+      getBuiltinRecognitionon() &&
       !isBuiltinExternalTranscriptionOn() &&
       !isBuiltinMicrosoftTranscriptionOn()
     ) {
@@ -72,13 +71,17 @@ export function StartSpeechRecognition(callback) {
           if (isFinalResult) {
             // forceTranslate=true : la ligne finale doit etre traduite meme
             // en mode CONFERENCE_TRANSLATION_PARTIAL_FREQ=none
-            EcrireTranslatePartial(partial, () => {
-              // Écrire le texte original uniquement si pas de traduction nécessaire
-              if (getBuiltinLanguage() === getSubtitleLanguage()) {
-                EcrireNBonly(partial);
-              }
-              // Sinon: la traduction sera gérée par Traduction() via callback(partial)
-            }, true);
+            EcrireTranslatePartial(
+              partial,
+              () => {
+                // Écrire le texte original uniquement si pas de traduction nécessaire
+                if (getBuiltinLanguage() === getSubtitleLanguage()) {
+                  EcrireNBonly(partial);
+                }
+                // Sinon: la traduction sera gérée par Traduction() via callback(partial)
+              },
+              true
+            );
             callback(partial);
           } else {
             EcrireTranslatePartial(partial);
@@ -88,14 +91,14 @@ export function StartSpeechRecognition(callback) {
       // builtin_recognition.stop();
     }
   };
-  builtin_recognition.onend = function () {
-    if (builtin_recognitionon) {
+  getBuiltinRecognition().onend = function () {
+    if (getBuiltinRecognitionon()) {
       StartSpeechRecognition(callback);
     }
   };
   setBuiltinRecognitionon(true);
   try {
-    builtin_recognition.start();
+    getBuiltinRecognition().start();
   } catch (e) {
     // Erreur au demarrage de la reconnaissance vocale, ignoree
   }
@@ -103,7 +106,7 @@ export function StartSpeechRecognition(callback) {
 
 export function StopSpeechRecognition() {
   setBuiltinRecognitionon(false);
-  builtin_recognition.stop();
+  getBuiltinRecognition().stop();
 }
 
 export function FreeResources() {

@@ -1,13 +1,13 @@
 import {
-  canvas,
-  ctx,
-  currentRenderTask,
-  hasSavedInitialDimensions,
-  pageNum,
-  pageNumPending,
-  pageRendering,
-  pdfDoc,
-  scale,
+  getCanvas,
+  getCtx,
+  getCurrentRenderTask,
+  getHasSavedInitialDimensions,
+  getPageNum,
+  getPageNumPending,
+  getPageRendering,
+  getPdfDoc,
+  getScale,
   setCanvas,
   setCtx,
   setCurrentRenderTask,
@@ -20,9 +20,9 @@ import {
   setPdfDoc,
   setScale,
 } from './state/pdf.js';
-import { previousimage, setPreviousimage } from './state/translation.js';
+import { getPreviousimage, setPreviousimage } from './state/translation.js';
 
-import { b64toBlob, resizeSlides } from './utils.js';
+import { resizeSlides } from './utils.js';
 import {
   enterPdfFullscreen,
   exitPdfFullscreen,
@@ -33,10 +33,8 @@ import { showPresentationError } from './errors.js';
 import { t } from '../i18n.js';
 
 import { _ } from '../dom/selector.js';
-import { addCsrfToken, createFetchRequest } from './network.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 
-import { getRoomToken } from './compat.js';
 import { EcrireNBonly, EcrireNBonlyVO } from './notebook.js';
 import * as logger from '../utils/logger.js';
 
@@ -58,7 +56,7 @@ export function progressHandler(event) {
 }
 
 export function ShowImage(n) {
-  if (String(n) !== String(previousimage)) {
+  if (String(n) !== String(getPreviousimage())) {
     EcrireNBonly(`---------- Slide ${n} ----------`);
     EcrireNBonlyVO(`---------- Slide ${n} ----------`);
     setPreviousimage(n);
@@ -67,36 +65,6 @@ export function ShowImage(n) {
     if (_(`img_${n}`) && _(`img_${n}`).src.length > 200) {
       _('img_slides').src = _(`img_${n}`).src;
       resizeSlides();
-
-      // Diffusion Image
-      const f = new FormData();
-      f.append('random', Math.floor(Math.random() * 10000));
-      const imageurl = _(`img_${n}`).src;
-      /*
-            let nimages=0;
-            let maxcar=10000;
-            for (let i=0; i*maxcar<imageurl.length;i++) {
-              f.append('image'+i,imageurl.substr(i*maxcar,maxcar));
-              nimages++;
-            }
-            f.append('nbimages',nimages);
-            */
-      const block = imageurl.split(';');
-      const contentType = block[0].split(':')[1];
-      const realData = block[1].split(',')[1];
-      const blob = b64toBlob(realData, contentType);
-      f.append('image', blob);
-      f.append('ROOMID', _('classroomid').value);
-      f.append('room_token', getRoomToken());
-      addCsrfToken(f);
-
-      const request = createFetchRequest('POST', '/image/save', {
-        data: f,
-        timeout: 10000,
-        context: 'ShowImage',
-      });
-      request.send();
-      // request.onload = function(event) {};
     }
   }
 }
@@ -138,19 +106,18 @@ export function calculateEmbeddedScale() {
   const containerEl = _('ottis-import');
   const controlEl = _('pdf-control');
   const liveEl = _('live');
-  if (!pdfViewerEl || !containerEl || !pdfDoc) {
+  if (!pdfViewerEl || !containerEl || !getPdfDoc()) {
     return Promise.resolve();
   }
 
-  return pdfDoc
+  return getPdfDoc()
     .getPage(1)
     .then((page) => {
       const originalViewport = page.getViewport({ scale: 1.0 });
       const viewerStyle = window.getComputedStyle(pdfViewerEl);
 
       // Largeur : zone du viewer moins la bande du bouton de fermeture
-      const availableWidth =
-        pdfViewerEl.clientWidth - (parseFloat(viewerStyle.paddingRight) || 0);
+      const availableWidth = pdfViewerEl.clientWidth - (parseFloat(viewerStyle.paddingRight) || 0);
 
       // Hauteur : budget du conteneur (max-height CSS) moins la barre de
       // navigation et la bulle de sous-titrage
@@ -160,12 +127,10 @@ export function calculateEmbeddedScale() {
         ? containerMaxHeight
         : window.innerHeight - 170;
       const controlHeight = controlEl
-        ? controlEl.offsetHeight +
-          (parseFloat(window.getComputedStyle(controlEl).marginTop) || 0)
+        ? controlEl.offsetHeight + (parseFloat(window.getComputedStyle(controlEl).marginTop) || 0)
         : 0;
       const liveHeight = liveEl
-        ? liveEl.offsetHeight +
-          (parseFloat(window.getComputedStyle(liveEl).marginTop) || 0)
+        ? liveEl.offsetHeight + (parseFloat(window.getComputedStyle(liveEl).marginTop) || 0)
         : 0;
       const gap = parseFloat(viewerStyle.columnGap || viewerStyle.rowGap) || 0;
       const heightForCanvas = budgetHeight - controlHeight - liveHeight - gap - 4;
@@ -176,8 +141,8 @@ export function calculateEmbeddedScale() {
       const embeddedScale = Math.max(0.1, Math.min(widthScale, heightScale) * 0.95);
 
       setScale(embeddedScale);
-      if (pageNum && !pageRendering) {
-        renderPage(pageNum);
+      if (getPageNum() && !getPageRendering()) {
+        renderPage(getPageNum());
       }
     })
     .catch(() => {});
@@ -192,7 +157,7 @@ window.addEventListener('resize', () => {
     document.mozFullScreenElement ||
     document.msFullScreenElement;
   const canvasEl = _('pdf-canvas');
-  if (isFullscreen || !pdfDoc || !canvasEl || canvasEl.style.display === 'none') {
+  if (isFullscreen || !getPdfDoc() || !canvasEl || canvasEl.style.display === 'none') {
     return;
   }
   if (embeddedScaleTimer) {
@@ -206,7 +171,7 @@ window.addEventListener('resize', () => {
 
 export function renderPage(num) {
   // Don't start new render if one is already in progress
-  if (pageRendering) {
+  if (getPageRendering()) {
     setPageNumPending(num);
     // Return a resolved promise for chaining
     return Promise.resolve();
@@ -215,136 +180,149 @@ export function renderPage(num) {
   setPageRendering(true);
 
   // Cancel any previous render task to avoid canvas conflicts
-  if (currentRenderTask) {
-    currentRenderTask.cancel();
+  const previousRenderTask = getCurrentRenderTask();
+  if (previousRenderTask) {
+    previousRenderTask.cancel();
     setCurrentRenderTask(null);
   }
 
   // Return the promise chain
-  return pdfDoc.getPage(num).then((page) => {
-    const isFullscreen =
-      document.fullscreenElement ||
-      document.webkitFullscreenElement ||
-      document.mozFullScreenElement ||
-      document.msFullscreenElement;
+  return getPdfDoc()
+    .getPage(num)
+    .then((page) => {
+      const isFullscreen =
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement;
 
-    let viewport;
-    if (isFullscreen) {
-      // In fullscreen mode, use the pdf-viewer dimensions to determine scale
-      // The pdf-viewer should have the correct dimensions from applyFullscreenCanvasStyles()
-      const pdfViewerEl = _('pdf-viewer');
-      if (pdfViewerEl) {
-        // Get the available dimensions from pdf-viewer
-        const availableWidth = pdfViewerEl.clientWidth;
-        // La feuille UA du navigateur force l'élément plein écran à
-        // 100vw x 100vh (!important) : réserver la bande basse
-        // (bulle live ~105px + contrôle 70px + écarts) ici, pas sur le viewer
-        const availableHeight = pdfViewerEl.clientHeight - 180;
+      let viewport;
+      if (isFullscreen) {
+        // In fullscreen mode, use the pdf-viewer dimensions to determine scale
+        // The pdf-viewer should have the correct dimensions from applyFullscreenCanvasStyles()
+        const pdfViewerEl = _('pdf-viewer');
+        if (pdfViewerEl) {
+          // Get the available dimensions from pdf-viewer
+          const availableWidth = pdfViewerEl.clientWidth;
+          // La feuille UA du navigateur force l'élément plein écran à
+          // 100vw x 100vh (!important) : réserver la bande basse
+          // (bulle live ~105px + contrôle 70px + écarts) ici, pas sur le viewer
+          const availableHeight = pdfViewerEl.clientHeight - 180;
 
-        // Get page original dimensions
-        const originalViewport = page.getViewport({ scale: 1.0 });
-        const widthScale = availableWidth / originalViewport.width;
-        const heightScale = availableHeight / originalViewport.height;
-        // Use the scale that fits the entire page without margins (we already reserved space in pdf-viewer)
-        const fsScale = Math.min(widthScale, heightScale);
+          // Get page original dimensions
+          const originalViewport = page.getViewport({ scale: 1.0 });
+          const widthScale = availableWidth / originalViewport.width;
+          const heightScale = availableHeight / originalViewport.height;
+          // Use the scale that fits the entire page without margins (we already reserved space in pdf-viewer)
+          const fsScale = Math.min(widthScale, heightScale);
 
-        viewport = page.getViewport({ scale: fsScale });
+          viewport = page.getViewport({ scale: fsScale });
 
-        // Also set canvas CSS size to match the rendered content for proper display
-        if (canvas) {
-          canvas.style.width = `${viewport.width}px`;
-          canvas.style.height = `${viewport.height}px`;
+          // Also set canvas CSS size to match the rendered content for proper display
+          const canvasEl = getCanvas();
+          if (canvasEl) {
+            canvasEl.style.width = `${viewport.width}px`;
+            canvasEl.style.height = `${viewport.height}px`;
+          }
+        } else {
+          // Fallback to normal scale
+          viewport = page.getViewport({ scale: getScale() });
         }
       } else {
-        // Fallback to normal scale
-        viewport = page.getViewport({ scale });
+        viewport = page.getViewport({ scale: getScale() });
       }
-    } else {
-      viewport = page.getViewport({ scale });
-    }
 
-    if (canvas) {
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-    }
+      const canvasEl = getCanvas();
+      if (canvasEl) {
+        canvasEl.height = viewport.height;
+        canvasEl.width = viewport.width;
+      }
 
-    const renderContext = {
-      canvasContext: ctx,
-      viewport,
-    };
+      const renderContext = {
+        canvasContext: getCtx(),
+        viewport,
+      };
 
-    const renderTask = page.render(renderContext);
+      const renderTask = page.render(renderContext);
 
-    // Store the current render task so it can be cancelled
-    setCurrentRenderTask(renderTask);
+      // Store the current render task so it can be cancelled
+      setCurrentRenderTask(renderTask);
 
-    // Update navigation UI
-    updatePdfNavigation();
+      // Update navigation UI
+      updatePdfNavigation();
 
-    // Return the render task promise for chaining
-    return renderTask.promise
-      .then(() => {
-        setCurrentRenderTask(null);
-        setPageRendering(false);
-        if (pageNumPending !== null) {
-          renderPage(pageNumPending);
-          setPageNumPending(null);
-        }
-      })
-      .catch((error) => {
-        // Handle render errors (e.g., cancelled)
-        if (error.name !== 'RenderingCancelledException') {
-          logger.error('Render error:', error);
-        }
-        setCurrentRenderTask(null);
-        setPageRendering(false);
-        if (pageNumPending !== null) {
-          renderPage(pageNumPending);
-          setPageNumPending(null);
-        }
-        // Re-throw to allow error handling
-        throw error;
-      });
-  });
+      // Return the render task promise for chaining
+      return renderTask.promise
+        .then(() => {
+          setCurrentRenderTask(null);
+          setPageRendering(false);
+          const pending = getPageNumPending();
+          if (pending !== null) {
+            renderPage(pending);
+            setPageNumPending(null);
+          }
+        })
+        .catch((error) => {
+          // Handle render errors (e.g., cancelled)
+          if (error.name !== 'RenderingCancelledException') {
+            logger.error('Render error:', error);
+          }
+          setCurrentRenderTask(null);
+          setPageRendering(false);
+          const pending = getPageNumPending();
+          if (pending !== null) {
+            renderPage(pending);
+            setPageNumPending(null);
+          }
+          // Re-throw to allow error handling
+          throw error;
+        });
+    });
 }
 
 export function updatePdfNavigation() {
-  if (!pdfDoc) return;
+  const doc = getPdfDoc();
+  const current = getPageNum();
+  if (!doc) return;
 
   get('pdf-page-indicator').textContent = t('conference.pdf.pageIndicator', {
-    n: pageNum,
-    m: pdfDoc.numPages,
+    n: current,
+    m: doc.numPages,
   });
-  get('pdf-page-input').value = pageNum;
-  get('pdf-prev').disabled = pageNum <= 1;
-  get('pdf-next').disabled = pageNum >= pdfDoc.numPages;
+  get('pdf-page-input').value = current;
+  get('pdf-prev').disabled = current <= 1;
+  get('pdf-next').disabled = current >= doc.numPages;
 }
 
 export function prevPage() {
-  if (pageNum <= 1) return;
-  setPageNum(pageNum - 1);
-  queueRenderPage(pageNum);
+  const current = getPageNum();
+  if (current <= 1) return;
+  setPageNum(current - 1);
+  queueRenderPage(current - 1);
 }
 
 export function nextPage() {
-  if (pageNum >= pdfDoc.numPages) return;
-  setPageNum(pageNum + 1);
-  queueRenderPage(pageNum);
+  const doc = getPdfDoc();
+  const current = getPageNum();
+  if (current >= doc.numPages) return;
+  setPageNum(current + 1);
+  queueRenderPage(current + 1);
 }
 
 export function goToPage(num) {
   const pageInput = get('pdf-page-input');
   num = parseInt(num, 10);
-  if (num >= 1 && num <= pdfDoc.numPages) {
+  const doc = getPdfDoc();
+  if (num >= 1 && num <= doc.numPages) {
     setPageNum(num);
-    queueRenderPage(pageNum);
+    queueRenderPage(num);
   } else if (pageInput) {
-    pageInput.value = pageNum;
+    pageInput.value = getPageNum();
   }
 }
 
 export function queueRenderPage(num) {
-  if (pageRendering) {
+  if (getPageRendering()) {
     setPageNumPending(num);
   } else {
     renderPage(num);
@@ -385,7 +363,7 @@ export function displayPDF(url) {
         // Rendre la première page et sauvegarder les dimensions initiales
         return renderPage(1).then(() => {
           // Sauvegarder l'échelle et les dimensions NATIVES (celles du chargement initial)
-          if (!hasSavedInitialDimensions) {
+          if (!getHasSavedInitialDimensions()) {
             const canvasEl = get('pdf-canvas');
             if (canvasEl) {
               // Sauvegarder la taille RENDUE (clientWidth/clientHeight), pas les attributs

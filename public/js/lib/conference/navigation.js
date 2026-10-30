@@ -11,7 +11,7 @@ import {
   getCurrentDiscours,
   setCurrentDiscours,
 } from '../state/conference.js';
-import { pdfDoc } from './state/pdf.js';
+import { getPdfDoc } from './state/pdf.js';
 
 /** @module conference/navigation */
 
@@ -57,7 +57,7 @@ export function SlideForward() {
   const presentation = getCurrentPresentation();
   if (!presentation || presentation.length === 0) {
     // Fallback to PDF navigation if a PDF is loaded
-    if (pdfDoc) {
+    if (getPdfDoc()) {
       nextPage();
     }
     return;
@@ -79,7 +79,7 @@ export function SlideBackward() {
   const presentation = getCurrentPresentation();
   if (!presentation || presentation.length === 0) {
     // Fallback to PDF navigation if a PDF is loaded
-    if (pdfDoc) {
+    if (getPdfDoc()) {
       prevPage();
     }
     return;
