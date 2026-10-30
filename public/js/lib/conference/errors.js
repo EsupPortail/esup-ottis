@@ -7,6 +7,7 @@
 
 import { _ } from '../dom/selector.js';
 import * as logger from '../utils/logger.js';
+import * as notify from '../utils/notify.js';
 
 /**
  * Affiche un message d'erreur dans le conteneur dedie (#file-error),
@@ -20,7 +21,7 @@ export function showError(message) {
     errorContainer.style.display = 'block';
   } else {
     logger.error('Erreur:', message);
-    alert(`Erreur: ${message}`);
+    notify.error(`Erreur: ${message}`);
   }
 }
 

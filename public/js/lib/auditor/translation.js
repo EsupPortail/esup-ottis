@@ -18,6 +18,7 @@ import {
   getAllLines,
 } from '../state/shared.js';
 import * as logger from '../utils/logger.js';
+import * as notify from '../utils/notify.js';
 
 /**
  * @summary Translate a given string from a language to another
@@ -61,8 +62,8 @@ function Translate(ch, l, linput, lineid) {
           response.responseText
         );
         logger.error('Text being translated:', ch, 'From:', linput, 'To:', l);
-        alert(
-          `Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..."\nCheck console for details.`
+        notify.error(
+          `Translation error for: "${ch ? ch.substr(0, 100) : 'null'}..." Check console for details.`
         );
         // Réinsérer avec un message d'erreur
         unshiftToTranslate([lineid, linput, ch, l, '---- Translation ERROR ---- (see console)']);

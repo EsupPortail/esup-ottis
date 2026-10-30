@@ -12,6 +12,7 @@ import {
 import { StartSpeechRecognition } from './speech.js';
 import { Traduction } from './translation.js';
 import { t } from '../i18n.js';
+import * as notify from '../utils/notify.js';
 /** @module conference/ui */
 
 export function FullScreen() {
@@ -69,7 +70,7 @@ export function showET(obj, num) {
       show(`titleextratab${num}`);
       _(`extratab${num}`).src = url;
     } else {
-      alert('Enter your url first !');
+      notify.warning('Enter your url first !');
       obj.checked = false;
       _(`spanembedET${num}`).innerHTML = 'No.';
       hide(`titleextratab${num}`);

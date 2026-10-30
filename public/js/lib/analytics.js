@@ -11,9 +11,9 @@
  * meme pas (garde cote serveur).
  */
 
+// eslint-disable-next-line wrap-iife -- script classique, IIFE pour isoler le scope
 (function () {
-  const matomoConfig =
-    (typeof window !== 'undefined' && window.OTTIS_MATOMO) || null;
+  const matomoConfig = (typeof window !== 'undefined' && window.OTTIS_MATOMO) || null;
   if (!matomoConfig || !matomoConfig.url || !matomoConfig.siteId) {
     return;
   }

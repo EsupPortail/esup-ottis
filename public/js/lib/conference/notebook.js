@@ -417,7 +417,9 @@ export function TranslateQ(ch, l, linput, name, order) {
  */
 export function replayTranscriptHistory() {
   const classroomIdElement = _('classroomid');
-  if (!classroomIdElement || !classroomIdElement.value || classroomIdElement.value === 'UNKNOWN') return;
+  if (!classroomIdElement || !classroomIdElement.value || classroomIdElement.value === 'UNKNOWN') {
+    return;
+  }
 
   const f = new FormData();
   f.append('lineid', 0);
@@ -431,8 +433,9 @@ export function replayTranscriptHistory() {
       let maxId = -1;
       for (let i = 0; i < T.length; i++) {
         const line = T[i].trim();
-        if (line === '') continue;
         // Format reponse : order;id;lang;texte;lang_cible;traduction
+        // eslint-disable-next-line no-continue -- ignorer les lignes vides dans le flux
+        if (line === '') continue;
         const L = line.split(';');
         if (L.length > 3) {
           const id = 1 * L[1];
