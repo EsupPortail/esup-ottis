@@ -552,8 +552,8 @@ class TextController extends BaseController
             $this->jsonResponse(['error' => 'Missing text'], 400);
         }
 
-        $ligneID = substr($_POST['lineid'], 0, 256);
-        $ligneID = preg_replace('/[^a-zA-Z0-9_\-:\s]/u', '', $ligneID);
+        $ligneID = mb_substr((string) $_POST['lineid'], 0, 256, 'UTF-8');
+        $ligneID = preg_replace('/[^\p{L}\p{N}_\-:\s]/u', '', $ligneID);
 
         $lang = substr($_POST['inputlanguage'], 0, 16);
         $lang = preg_replace('/[^a-zA-Z0-9_-]/', '', $lang);
