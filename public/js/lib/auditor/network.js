@@ -30,8 +30,6 @@ import {
   setInputNumber,
   setLine,
   setToSayKey,
-  getLastNotebookVOContent,
-  setLastNotebookVOContent,
   getAllLines,
   get,
 } from '../state/shared.js';
@@ -396,25 +394,20 @@ function readTextSub() {
 }
 
 /**
- * @summary Rejoue l'historique du transcript dans le notebook et le VOBanner.
- * Le notebook de l'auditeur affiche le transcript source (VO) : meme contenu
- * que le flux live (EcrireNB(sourceText)). L'historique dans la langue de
- * l'auditeur est gere par updateOutputBasedOnLanguage (output).
+ * @summary Pre-remplit l'output depuis l'historique serveur si disponible.
+ * Le notebook (VO) et l'output sont remplis par le flux readText : le premier
+ * poll part a lineid=0 et rejoue tout l'historique (EcrireNB pour le notebook,
+ * CompleteTranslation pour l'output et ses traductions).
  */
 function readTextSubTranscript() {
   if (_('classroomid').value !== '') {
-    increasependingrequests();
-    // Historique du notebook/VOBanner : transcript source (VO)
-    fetchVerylastContent(_('classroomid').value, getRoomToken(), (notebookVOContent) => {
-      decreasependingrequests();
-      if (notebookVOContent !== getLastNotebookVOContent() && notebookVOContent !== '') {
-        setLastNotebookVOContent(notebookVOContent);
-        _('VOBanner').innerHTML = window.DOMPurify.sanitize(notebookVOContent);
-        _('notebook').innerHTML = window.DOMPurify.sanitize(notebookVOContent);
-      }
-
-      updateOutputBasedOnLanguage();
-    });
+    // Le notebook (VO) et l'output sont remplis par le flux readText : le
+    // premier poll part a lineid=0 et rejoue tout l'historique via EcrireNB
+    // (notebook) et CompleteTranslation (output, avec traductions).
+    // L'ancienne reprise via /text/read-vo ecrasait le notebook, puis le flux
+    // re-appendait les memes lignes : source des lignes dupliquees dans la
+    // transcription VO.
+    updateOutputBasedOnLanguage();
   }
 }
 
