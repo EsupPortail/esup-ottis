@@ -49,7 +49,7 @@ if ($casEnabled && $casHost === '') {
         );
     } catch (\Throwable $e) {
         // Le logger ne doit jamais bloquer l'application
-        error_log("config/cas.php : CAS_ENABLED actif mais CAS_HOST non defini (log indisponible)");
+        error_log('config/cas.php : CAS_ENABLED actif mais CAS_HOST non defini (log indisponible)');
     }
 }
 
