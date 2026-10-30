@@ -34,13 +34,12 @@ function startAuditorPolling() {
 
   // Wait for required functions to be available
   function checkAndStart() {
-    if (typeof readText === 'function' /* && typeof readImage === 'function' */) {
+    if (typeof readText === 'function') {
       // Start centralized polling for auditor (2000ms interval to prevent 429 errors)
-      // This handles readText (main queue) /* , readImage (image queue) DISABLED */
+      // This handles readText (main queue)
       safeSetInterval(() => {
         if (typeof _ !== 'undefined' && _('classroomid') && _('classroomid').value !== '') {
           readText();
-          // readImage(); // DISABLED - Obsolete image sharing
         }
       }, 2000);
 
@@ -100,11 +99,7 @@ function Init() {
 
   // Keyboard navigation
   document.addEventListener('keyup', (event) => {
-    if (
-      ['AuditorName', 'question'].indexOf(
-        document.activeElement.id
-      ) < 0
-    ) {
+    if (['AuditorName', 'question'].indexOf(document.activeElement.id) < 0) {
       // Tab navigation removed - all sections are now displayed sequentially
       if (event.code === 'KeyL') {
         // go to live

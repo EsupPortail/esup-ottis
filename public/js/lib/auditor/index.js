@@ -44,7 +44,6 @@
 // - readText()
 // - readTextSub()
 // - readTextSubTranscript()
-// - readImage()
 
 // From config.js:
 // - applyConfigSub()
@@ -65,6 +64,6 @@
 //     EcrireNB, EcrireNBSub, Ecrire, hideBanner, showBanner,
 //     Translate, CompleteTranslation,
 //     increasependingrequests, decreasependingrequests, readText, readTextSub,
-//     readTextSubTranscript, readImage,
+//     readTextSubTranscript,
 //     applyConfigSub, Lancer, Init, GoFS, readTextQ, showET
 // };

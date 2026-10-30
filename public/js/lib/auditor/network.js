@@ -464,28 +464,33 @@ function updateOutputBasedOnLanguage() {
   // Récupérer le contenu de Verylast (notebookVO)
   fetchVerylastContent(roomId, roomToken, (notebookVOContent) => {
     // Récupérer le contenu de VerylastSub (notebook), dans la langue choisie
-    fetchVerylastSubContent(roomId, roomToken, (notebookSubContent) => {
-      let outputContent = '';
+    fetchVerylastSubContent(
+      roomId,
+      roomToken,
+      (notebookSubContent) => {
+        let outputContent = '';
 
-      if (selectedLangCode === sourceLangCode) {
-        // Langue choisie = langue source → afficher notebookVO
-        outputContent = notebookVOContent;
-      } else if (selectedLangCode === subtitleLangCode) {
-        // Langue choisie = langue subtitle → afficher notebook
-        outputContent = notebookSubContent;
-      } else {
-        // Langue choisie différente → afficher l'historique des finales déjà
-        // traduites dans cette langue (FinalSub_{roomId}_{lang}, partagé entre
-        // les auditeurs de même langue) ; sinon la sortie reste au flux live.
-        outputContent = notebookSubContent;
-      }
+        if (selectedLangCode === sourceLangCode) {
+          // Langue choisie = langue source → afficher notebookVO
+          outputContent = notebookVOContent;
+        } else if (selectedLangCode === subtitleLangCode) {
+          // Langue choisie = langue subtitle → afficher notebook
+          outputContent = notebookSubContent;
+        } else {
+          // Langue choisie différente → afficher l'historique des finales déjà
+          // traduites dans cette langue (FinalSub_{roomId}_{lang}, partagé entre
+          // les auditeurs de même langue) ; sinon la sortie reste au flux live.
+          outputContent = notebookSubContent;
+        }
 
-      // Remplir output si ce n'est pas déjà fait
-      const outputEl = _('output');
-      if (outputEl && outputContent && outputEl.innerHTML === '') {
-        outputEl.innerHTML = window.DOMPurify.sanitize(outputContent);
-      }
-    }, selectedLangCode);
+        // Remplir output si ce n'est pas déjà fait
+        const outputEl = _('output');
+        if (outputEl && outputContent && outputEl.innerHTML === '') {
+          outputEl.innerHTML = window.DOMPurify.sanitize(outputContent);
+        }
+      },
+      selectedLangCode
+    );
   });
 }
 
@@ -611,42 +616,6 @@ function fetchVerylastSubContent(roomId, roomToken, callback, lang = '') {
 }
 
 /**
- * @summary Verify if there is something new in the IMAGE queue and if so, load the image.
- * DISABLED - Obsolete image sharing functionality
- */
-// function readImage() {
-//   if (_('classroomid').value !== '') {
-//     increasependingrequests();
-//     const f = new FormData();
-//     f.append('random', window.currentrandom);
-//     f.append('ROOMID', _('classroomid').value);
-//     f.append('room_token', window.ROOM_TOKEN);
-//     addCsrfToken(f);
-//
-//     const request = createFetchRequest('POST', '/readimage', {
-//       onSuccess(response) {
-//         decreasependingrequests();
-//         if (response.responseText != '') {
-//           const Trep = response.responseText.split('|||');
-//           window.currentrandom = Trep[0];
-//         }
-//       },
-//       onError(response, context) {
-//         // Ignorer les timeouts de polling (comportement normal)
-//         if (response.status !== 0 || response.statusText !== 'Timeout') {
-//           logger.error('readImage request failed. Context:', context);
-//         }
-//         decreasependingrequests();
-//       },
-//       data: f,
-//       timeout: 10000,
-//       context: 'readImage',
-//     });
-//     request.send();
-//   }
-// }
-
-/**
  * @summary Interroge le serveur pour savoir si la page conference est ouverte.
  * Met à jour le drapeau partagé et le badge "En direct" / "En erreur".
  * Sans ROOMID (page auditor ouverte hors lien conference) : erreur directe.
@@ -686,10 +655,4 @@ function checkConferenceStatus() {
   request.send();
 }
 
-export {
-  readText,
-  readTextSub,
-  readTextSubTranscript,
-  readTextPartial,
-  checkConferenceStatus /* readImage DISABLED */,
-};
+export { readText, readTextSub, readTextSubTranscript, readTextPartial, checkConferenceStatus };

@@ -164,21 +164,6 @@ return [
     ],
 
     // =========================================================================
-    // API Endpoints - Image Processing
-    // =========================================================================
-
-    '/image/read' => [
-        'controller' => \App\Controller\ImageController::class,
-        'action' => 'read',
-        'methods' => ['GET', 'POST']
-    ],
-    '/image/save' => [
-        'controller' => \App\Controller\ImageController::class,
-        'action' => 'save',
-        'methods' => ['GET', 'POST']
-    ],
-
-    // =========================================================================
     // API Endpoints - Extraction Tools
     // =========================================================================
 

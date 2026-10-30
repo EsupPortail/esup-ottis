@@ -371,7 +371,7 @@ class ValidateTest extends TestCase
     public function testValidateTmpFilePathWithValidParameters(): void
     {
         $validRoomIds = ['room123', 'test', 'conference_01'];
-        $validPrefixes = ['Link', 'Translated', 'Verylast', 'Image', 'ImageID', 'LinkQuestions'];
+        $validPrefixes = ['Link', 'Translated', 'Verylast', 'LinkQuestions'];
 
         foreach ($validRoomIds as $roomId) {
             foreach ($validPrefixes as $prefix) {
@@ -422,7 +422,7 @@ class ValidateTest extends TestCase
      */
     public function testValidateTmpFilePathWithAllValidPrefixes(): void
     {
-        $validPrefixes = ['Link', 'Translated', 'Verylast', 'Image', 'ImageID', 'LinkQuestions'];
+        $validPrefixes = ['Link', 'Translated', 'Verylast', 'LinkQuestions'];
 
         foreach ($validPrefixes as $prefix) {
             $result = Validator::validateTmpFilePath('test', $prefix);

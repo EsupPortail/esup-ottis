@@ -91,7 +91,7 @@ class Validator
             return false;
         }
 
-        $allowedPrefixes = ['Link', 'Translated', 'Verylast', 'Image', 'ImageID', 'LinkQuestions'];
+        $allowedPrefixes = ['Link', 'Translated', 'Verylast', 'LinkQuestions'];
         if (!in_array($prefix, $allowedPrefixes)) {
             return false;
         }

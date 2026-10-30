@@ -142,10 +142,6 @@ export const shiftToTranslate = () => {
 export const getLastNotebookVOContent = () => get('lastNotebookVOContent');
 export const setLastNotebookVOContent = (value) => set({ lastNotebookVOContent: value });
 
-// currentrandom
-export const getCurrentRandom = () => get('currentrandom');
-export const setCurrentRandom = (value) => set({ currentrandom: value });
-
 // languageSelected
 export const isLanguageSelected = () => get('languageSelected');
 export const setLanguageSelected = (value) => set({ languageSelected: value });

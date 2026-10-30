@@ -66,7 +66,6 @@ const initialState = {
   // --- Chat ---
   nbrequests: 0,
   lastNotebookVOContent: '',
-  currentrandom: '',
   languageSelected: false,
   inputnumberQ: 0,
   sendInProgress: false,
@@ -247,7 +246,6 @@ if (typeof window !== 'undefined') {
     'builtin_language',
     'nbrequests',
     'lastNotebookVOContent',
-    'currentrandom',
     'languageSelected',
     'inputnumberQ',
     'sendInProgress',

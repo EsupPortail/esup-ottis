@@ -194,7 +194,6 @@ if ($match !== null) {
                                 str_starts_with($requestUri, '/text/') ||
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||
-                                str_starts_with($requestUri, '/image/') ||
                                 str_starts_with($requestUri, '/upload') ||
                                 str_starts_with($requestUri, '/auditor/') ||
                                 str_starts_with($requestUri, '/conference/') ||
@@ -205,8 +204,6 @@ if ($match !== null) {
                                 str_starts_with($requestUri, '/text/read') ||
                                 str_starts_with($requestUri, '/text/read-q') ||
                                 str_starts_with($requestUri, '/text/read-transcript-sub') ||
-                                str_starts_with($requestUri, '/image/save') ||
-                                str_starts_with($requestUri, '/image/read') ||
                                 str_starts_with($requestUri, '/email/send') ||
                                 str_starts_with($requestUri, '/text/translate') ||
                                 str_starts_with($requestUri, '/extract/transcription-sub') ||
