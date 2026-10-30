@@ -18,12 +18,6 @@ export const ScreenCR = [];
 let chatScreenElement = null;
 
 /**
- * Current chat session state variables from legacy
- */
-export const currentdiscours = -1;
-export const gotolive = false;
-
-/**
  * Text to say (for speech synthesis) - Object indexed by line ID
  * @type {Object}
  */

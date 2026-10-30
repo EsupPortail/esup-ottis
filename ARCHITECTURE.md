@@ -133,7 +133,7 @@ composer dump-autoload
 
 ## 🖥️ Couche JavaScript (`public/js`)
 
-- **Points d'entrée** : `conference-init.js`, `auditor-init.js`, `home-init.js`
+- **Points d'entrée** : `conference-init.js`, `auditor-init.js`
 - **Modules** : `lib/conference/`, `lib/auditor/`, `lib/chat/` (modules ES)
 - **État partagé** : `lib/state/store.js` (store commun conference/auditor, initialisé depuis `window.pageData`)
 - **Flux de données runtime** (fichiers `tmp/`, endpoints `/text/*`, sous-titres en direct) : voir la section « Flux des sous-titres en direct » du [README](README.md)

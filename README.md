@@ -415,7 +415,7 @@ php public/index.php
 │   │   │   ├── state/      # Gestion d'état
 │   │   │   └── utils/      # Utilitaires divers
 │   │   ├── tests/           # Tests JavaScript
-│   │   └── *.js            # Points d'entrée (auditor-init.js, conference-init.js, home-init.js)
+│   │   └── *.js            # Points d'entrée (auditor-init.js, conference-init.js)
 │   ├── lang/               # Fichiers de traduction JSON
 │   ├── styles/            # Feuilles de style CSS
 │   └── uploads/            # Fichiers uploadés

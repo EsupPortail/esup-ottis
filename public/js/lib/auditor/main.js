@@ -3,7 +3,7 @@ import { _ } from '../dom/selector.js';
  * Main initialization functions for auditor
  */
 import { safeSetInterval, safeSetTimeout } from '../utils/cleanup.js';
-import { isLanguageSelected, setGotolive } from '../state/shared.js';
+import { isLanguageSelected } from '../state/shared.js';
 import { readText, readTextPartial, checkConferenceStatus } from './network.js';
 import { startChatStream } from '../chat/sse.js';
 import { defaultMessageHandler } from '../chat/handlers.js';
@@ -103,7 +103,6 @@ function Init() {
       // Tab navigation removed - all sections are now displayed sequentially
       if (event.code === 'KeyL') {
         // go to live
-        setGotolive(true);
         CompleteSpeech();
       }
       if (event.code === 'KeyF') {

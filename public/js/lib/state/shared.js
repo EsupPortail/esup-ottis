@@ -71,14 +71,6 @@ export const setLine = (key, value) => setProp('AllLines', key, value);
 export const getAuditorCurrentDiscours = () => get('auditorCurrentDiscours');
 export const setAuditorCurrentDiscours = (value) => set({ auditorCurrentDiscours: value });
 
-// gotolive
-export const isGotolive = () => get('gotolive');
-export const setGotolive = (value) => set({ gotolive: value });
-
-// completespeechactive
-export const isCompletespeechactive = () => get('completespeechactive');
-export const setCompletespeechactive = (value) => set({ completespeechactive: value });
-
 // currentorder_readtext
 export const getCurrentOrder = () => get('currentorder_readtext');
 export const setCurrentOrder = (value) => set({ currentorder_readtext: value });
