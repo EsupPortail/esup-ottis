@@ -1,0 +1,138 @@
+name: PHP Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+  
+env:
+  -APP_NAME : OTTIS
+  -APP_RELEASE: OTTIS
+  -createrelease: true
+
+jobs:
+  build:
+    name: Build PHP
+    runs-on: ubuntu-latest
+  
+    strategy:
+      matrix:
+        php-version: ['8.2']
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-
+    
+      - name: Install dependencies
+        run: composer install --no-progress --prefer-dist --optimize-autoloader
+    
+ #     - name: PHP CS Fixer
+ #       run: |
+ #         if [ -f vendor/bin/php-cs-fixer ]; then
+ #           vendor/bin/php-cs-fixer fix --dry-run --diff
+ #         fi
+
+      - name: PHPStan
+        run: |
+          if [ -f vendor/bin/phpstan ]; then
+            vendor/bin/phpstan analyse src --memory-limit=512M
+          fi
+       
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+     
+      - name: Build artifact
+        run: |
+          mkdir dist
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='tests' \
+            . dist/
+      
+      - name: Create archive
+        run: |
+          cd dist
+          zip -r ../esup-ottis.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: esup-ottis
+          path: esup-ottis.zip
+
+  release:
+    needs: build
+    name: on publie une release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: esup-ottis
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: esup-ottis.zip
+          generate_release_notes: true
+
+  publish:
+    needs: release
+    name: on créé notre image Docker
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: Checkout source
+         uses: actions/checkout@v4
+
+       - name: Set lowercase image name
+         id: vars
+         run: |
+            echo "image_name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:latest" | tr '[:upper:]' '[:lower:]' >> $GITHUB_OUTPUT
+  
+       - name: Set up Docker Buildx
+         uses: docker/setup-buildx-action@v3
+  
+       - name: Login to GitHub Container Registry
+         uses: docker/login-action@v3
+         with:
+           registry: ghcr.io
+           username: ${{ github.actor }}
+           password: ${{ secrets.GITHUB_TOKEN }}
+  
+         
+        
+       - name: Build and push Docker image
+         uses: docker/build-push-action@v5
+         with:
+            context: .
+            file: ./Dockerfile
+            push: true
+            tags: ${{ steps.vars.outputs.image_name }}
+            cache-from: type=gha
+            cache-to: type=gha,mode=max
