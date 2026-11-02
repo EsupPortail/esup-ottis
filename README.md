@@ -50,7 +50,6 @@
 | **LibreOffice** | 7.x | **Requis** : conversion PPTX → PDF et ODP → PPTX (`soffice --headless`) | `sudo apt install libreoffice` |
 | **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") et statistiques d'usage DeepL | `sudo apt install curl` |
 | **ImageMagick** | 6.x ou 7.x | **Optionnel** : fallback PDF → Images si l'extension PHP `imagick` est absente | `sudo apt install imagemagick` |
-| **MTA** (postfix, sendmail…) | — | **Optionnel** : envoi d'e-mails (`/email/send`, fonction PHP `mail()`) | `sudo apt install postfix` |
 
 ### Serveur Web
 
@@ -96,12 +95,12 @@
 
 ```bash
 # HTTPS
-git clone https://gitlab.intra.univ-nantes.fr/dsin/spin/omist.git
+git clone https://github.com/EsupPortail/esup-ottis.git
 
 # ou SSH
-git clone git@gitlab.intra.univ-nantes.fr:dsin/spin/omist.git
+git clone git@github.com:EsupPortail/esup-ottis.git
 
-cd omist
+cd esup-ottis
 ```
 
 ### Installer les dépendances PHP (production)
@@ -123,9 +122,6 @@ sudo systemctl restart apache2
 
 # Installer les binaires externes requis
 sudo apt-get install -y libreoffice curl
-
-# Optionnel : agent de messagerie pour l'envoi d'e-mails (/email/send)
-sudo apt-get install -y postfix
 ```
 
 ### Installer les dépendances de développement
@@ -421,7 +417,7 @@ php public/index.php
 │   └── uploads/            # Fichiers uploadés
 │
 ├── src/                    # Code source PHP (PSR-4: App\\)
-│   ├── Controller/          # Contrôleurs MVC (BaseController + 10 contrôleurs métier)
+│   ├── Controller/          # Contrôleurs MVC (BaseController + 8 contrôleurs métier)
 │   ├── Core/                # Bootstrap applicatif
 │   │   └── Bootstrap.php    # Erreurs -> .env -> session 8h -> CAS -> CSRF
 │   ├── Error/               # Gestion des erreurs
@@ -430,8 +426,7 @@ php public/index.php
 │   │   ├── CasAuthenticator.php  # Authentification CAS
 │   │   └── RoomTokenManager.php  # Tokens par salle
 │   ├── Service/             # Services
-│   │   ├── Conversion/      # Convertisseurs PPTX/ODP -> PDF
-│   │   └── Router.php, LanguageLoader.php, ... (services métier)
+│   │   └── Router.php, LanguageLoader.php, TokenConfigService.php, ... (7 services métier)
 │   └── Utils/               # Utilitaires
 │       ├── Csrf.php, Logger.php, Sanitizer.php, Validator.php
 │       └── PPTXNotesExtractor.php, ... (extracteurs PPTX)
@@ -595,7 +590,7 @@ vendor/bin/phpstan analyse path/to/file.php   # analyser un fichier
 
 ### Rapport de bugs
 
-1. Vérifier les [issues existants](https://gitlab.intra.univ-nantes.fr/dsin/spin/omist/-/issues)
+1. Vérifier les [issues existants](https://github.com/EsupPortail/esup-ottis/issues)
 2. Créer un nouvel issue avec :
    - Étapes pour reproduire
    - Comportement attendu
@@ -619,10 +614,10 @@ Pour des questions sur :
 |----------|--------|
 | Version | 0.4.0 |
 | Langues supportées | 100+ |
-| Contrôleurs | 10 |
-| Services | 12 |
+| Contrôleurs | 8 |
+| Services | 7 |
 | Tests unitaires PHP | 39 tests (2 fichiers) |
-| Tests JavaScript | 25+ fichiers |
+| Tests JavaScript | 19 fichiers |
 | Dépendances PHP | 6 (production) + 3 (dev) |
 | Dépendances JS | 6 (dev) + 2 (tests) |
 
