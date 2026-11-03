@@ -461,7 +461,7 @@ function updateOutputBasedOnLanguage() {
       roomId,
       roomToken,
       (notebookSubContent) => {
-        let outputContent = '';
+        let outputContent;
 
         if (selectedLangCode === sourceLangCode) {
           // Langue choisie = langue source → afficher notebookVO
@@ -629,7 +629,7 @@ function checkConferenceStatus() {
 
   const request = createFetchRequest('POST', `${getBasePath()}/auditor/status`, {
     onSuccess(response) {
-      let live = false;
+      let live;
       try {
         live = !!JSON.parse(response.responseText).live;
       } catch (err) {

@@ -615,6 +615,6 @@ Pour des questions sur :
 | Tests unitaires PHP | 39 tests (2 fichiers) |
 | Tests JavaScript | 19 fichiers |
 | Dépendances PHP | 4 (production) + 3 (dev) |
-| Dépendances JS | 6 (dev) + 2 (tests) |
+| Dépendances JS | 13 (dev) + 2 (tests) |
 
 
