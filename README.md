@@ -38,7 +38,7 @@
 |-----------|-----------------|-------------|--------------|
 | **PHP** | 8.2 | Runtime PHP (requis par composer.json : `^8.2`) | `php -v` |
 | **Composer** | 2.x | Gestionnaire de dépendances PHP | `composer --version` |
-| **Node.js + npm** | 18.x / 9.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement ; installés via `cd public/js && npm install` | `node -v && npm -v` |
+| **Node.js + npm** | 22.x (LTS) / 10.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement ; installés via `cd public/js && npm install` | `node -v && npm -v` |
 
 ### Outils CLI requis
 
