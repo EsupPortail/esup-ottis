@@ -46,7 +46,6 @@
 |-------|---------|------|-------------|
 | **Git** | 2.x | Contrôle de version | `sudo apt install git` |
 | **Make** | 4.x | Exécution des tâches | `sudo apt install make` |
-| **Unzip** | 6.x | Extraction des archives | `sudo apt install unzip` |
 | **LibreOffice** | 7.x | **Requis** : conversion PPTX → PDF et ODP → PPTX (`soffice --headless`) | `sudo apt install libreoffice` |
 | **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") et statistiques d'usage DeepL | `sudo apt install curl` |
 | **ImageMagick** | 6.x ou 7.x | **Optionnel** : fallback PDF → Images si l'extension PHP `imagick` est absente | `sudo apt install imagemagick` |
@@ -68,8 +67,6 @@
 | Dépendance | Version | Rôle | Utilisation |
 |------------|---------|------|-------------|
 | **php** | ^8.2 | Langage PHP | Runtime |
-| **[phpoffice/phppresentation](https://github.com/PHPOffice/PHPPresentation)** | ^1.2 | Lecture/écriture de présentations PowerPoint | Utilisée dans `PPTXNotesExtractor.php` (fallback) |
-| **[phpoffice/common](https://github.com/PHPOffice/Common)** | ^1.1 | Bibliotheque commune PHPOffice | Dépendance transitive de phppresentation |
 | **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `src/Core/Bootstrap.php` |
 | **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.5 | Logging structuré | Utilisée dans `config/logging.php`, `src/Utils/Logger.php` |
 | **[apereo/phpcas](https://github.com/apereo/phpCAS)** | ^1.6.2 | Authentification CAS (SSO) | Utilisée dans `src/Security/CasAuthenticator.php` |
@@ -82,9 +79,8 @@
 | **curl** | — | Appels API traduction (DeepL, Google…) et phpCAS | `sudo apt install php-curl` | `php -m \| grep curl` |
 | **dom, xml, simplexml, xmlreader/writer** | — | Lecture des PPTX/ODP, phpCAS | `sudo apt install php-xml` | `php -m \| grep dom` |
 | **zip** | — | Extraction des archives PPTX/ODP | `sudo apt install php-zip` | `php -m \| grep zip` |
-| **gd** | — | Traitement d'images (phpoffice/phpspreadsheet, transitive) | `sudo apt install php-gd` | `php -m \| grep gd` |
-| **mbstring, iconv** | — | Chaînes multi-octets (phpspreadsheet) | `sudo apt install php-mbstring` | `php -m \| grep mbstring` |
-| **fileinfo, ctype, zlib** | — | Requises par les bibliothèques PHPOffice | généralement incluses | `php -m` |
+| **mbstring** | — | Chaînes multi-octets (`mb_substr`) | `sudo apt install php-mbstring` | `php -m \| grep mbstring` |
+| **fileinfo, ctype** | — | Détection MIME (`finfo_*`) et validation de type (`ctype_digit`) | généralement incluses | `php -m` |
 
 
 ---
@@ -116,7 +112,7 @@ mv composer.phar /usr/local/bin/composer
 composer install --no-dev --optimize-autoloader
 
 # Installer les extensions PHP requises
-sudo apt-get install -y php-imagick php-curl php-xml php-zip php-gd php-mbstring
+sudo apt-get install -y php-imagick php-curl php-xml php-zip php-mbstring
 sudo phpenmod imagick
 sudo systemctl restart apache2
 
@@ -618,7 +614,7 @@ Pour des questions sur :
 | Services | 7 |
 | Tests unitaires PHP | 39 tests (2 fichiers) |
 | Tests JavaScript | 19 fichiers |
-| Dépendances PHP | 6 (production) + 3 (dev) |
+| Dépendances PHP | 4 (production) + 3 (dev) |
 | Dépendances JS | 6 (dev) + 2 (tests) |
 
 

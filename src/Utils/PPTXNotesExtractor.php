@@ -2,7 +2,6 @@
 
 namespace App\Utils;
 
-use InvalidArgumentException;
 use RuntimeException;
 use ZipArchive;
 
@@ -11,7 +10,6 @@ use ZipArchive;
  *
  * Cette classe permet d'extraire les notes des slides d'une présentation PowerPoint
  * en parsant directement le XML contenu dans le fichier PPTX (qui est une archive ZIP).
- * Elle inclut un fallback vers PHPPresentation si nécessaire.
  */
 class PPTXNotesExtractor
 {
@@ -24,19 +22,11 @@ class PPTXNotesExtractor
      */
     public static function extract(string $filePath): array
     {
-        // Essayer d'abord le parsing XML direct (plus fiable pour les notes)
+        // Parsing XML direct (plus fiable pour les notes)
         try {
             return self::extractNotesFromXML($filePath);
         } catch (\Exception $e) {
-            // Fallback vers PHPPresentation si disponible
-            error_log('Parsing XML échoué, fallback vers PHPPresentation: ' . $e->getMessage());
-        }
-
-        // Si PHPPresentation n'est pas disponible ou échoue aussi
-        try {
-            return self::extractWithPHPPresentation($filePath);
-        } catch (\Exception $e) {
-            error_log('PHPPresentation échoué: ' . $e->getMessage());
+            error_log('Parsing XML échoué : ' . $e->getMessage());
         }
 
         throw new RuntimeException("Impossible d'extraire les notes du fichier PPTX");
@@ -117,44 +107,5 @@ class PPTXNotesExtractor
         }
 
         return $result;
-    }
-
-    /**
-     * Fallback: Extraction via PHPPresentation (si disponible)
-     *
-     * @param string $filePath Chemin vers le fichier PPTX
-     * @return array Tableau de slides avec leurs notes
-     */
-    private static function extractWithPHPPresentation(string $filePath): array
-    {
-        if (!file_exists($filePath)) {
-            throw new InvalidArgumentException("Fichier non trouvé : $filePath");
-        }
-
-        // Charger PHPPresentation si disponible
-        if (!class_exists('PhpOffice\PhpPresentation\IOFactory')) {
-            throw new RuntimeException('PHPPresentation non disponible');
-        }
-
-        $presentation = \PhpOffice\PhpPresentation\IOFactory::load($filePath);
-        $notes = [];
-
-        foreach ($presentation->getAllSlides() as $index => $slide) {
-            $noteObj = $slide->getNote();
-            $notesText = [];
-
-            foreach ($noteObj->getShapeCollection() as $shape) {
-                if (method_exists($shape, 'getText')) {
-                    $notesText[] = trim($shape->getText());
-                }
-            }
-
-            $notes[] = [
-                'Slide' => $index + 1,
-                'Notes' => $notesText
-            ];
-        }
-
-        return $notes;
     }
 }
