@@ -365,6 +365,19 @@ php public/index.php
     heartbeat à la prochaine utilisation.
   - Le daemon cron recharge `/etc/cron.d/` automatiquement : aucun restart
     nécessaire après création du fichier.
+- Mettre en place la supervision du service — une sonde NRPE est fournie dans
+  [`scripts/check_ottis.sh`](scripts/check_ottis.sh) :
+  ```bash
+  chmod +x /srv/ottis/scripts/check_ottis.sh
+  ```
+  - Elle interroge `GET /health` (route publique, sans CAS ni session, sans
+    appel externe, sans secret exposé). Codes de retour NRPE : `0` OK (status
+    `ok`), `1` WARNING (status `degraded` : dépendances optionnelles absentes,
+    ex. LibreOffice), `2` CRITICAL (503 : échec d'un check critique — stockage,
+    tokens de traduction, extensions PHP — ou service injoignable).
+  - L'URL est paramétrable : premier argument ou variable `CHECK_OTTIS_URL`
+    (défaut `http://localhost/health`). Exemple d'intégration NRPE :
+    `command[check_ottis]=/srv/ottis/scripts/check_ottis.sh`.
 
 ---
 
