@@ -191,6 +191,7 @@ if ($match !== null) {
                 // Inject BASE_PATH script only for HTML responses (not for API endpoints)
                 $requestUri = $_SERVER['REQUEST_URI'] ?? '';
                 $isApiRequest = str_starts_with($requestUri, '/keepalive') ||
+                                str_starts_with($requestUri, '/health') ||
                                 str_starts_with($requestUri, '/text/') ||
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||

@@ -25,6 +25,11 @@ return [
         'action' => 'keepalive',
         'methods' => ['GET']
     ],
+    '/health' => [
+        'controller' => \App\Controller\HealthController::class,
+        'action' => 'index',
+        'methods' => ['GET']
+    ],
     '/conference' => [
         'controller' => \App\Controller\ConferenceController::class,
         'action' => 'index',
