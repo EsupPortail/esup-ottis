@@ -336,7 +336,7 @@ php public/index.php
   ```
 - Activer la rotation des logs — créer `/etc/logrotate.d/ottis` :
   ```
-  /home/omist/logs/*.log {
+  /srv/ottis/logs/*.log {
       daily
       rotate 14
       compress
@@ -357,8 +357,8 @@ php public/index.php
 - Mettre en place le nettoyage quotidien du répertoire `tmp/` — créer
   `/etc/cron.d/ottis` :
   ```cron
-  # Nettoyage quotidien des fichiers temporaires OMIST
-  0 4 * * * www-data find /home/omist/tmp -mindepth 1 -delete
+  # Nettoyage quotidien des fichiers temporaires OTTIS
+  0 4 * * * www-data find /srv/ottis/tmp -mindepth 1 -delete
   ```
   - Passage à 4 h du matin, hors heures de cours. Les fichiers d'état
     (`room_alive_*`, `room_token_*`) sont recréés automatiquement par les
@@ -509,7 +509,7 @@ Ce projet est distribué sous la licence **Apache 2.0**.
 
 - **Fichier** : [LICENSE](LICENSE)
 - **Résumé** : Vous pouvez utiliser, modifier et distribuer ce logiciel selon les termes de la licence Apache 2.0.
-- **Auteurs OMIST** : Jérémie BOURDON, Jeanne DIONISI (Nantes Université), Thibaut AURIACOMBE (Nantes Université)
+- **Auteurs OMIST** : Jérémie BOURDON, Jeanne DIONISI (Nantes Université)
 - **Auteurs OTTIS** : Thibaut AURIACOMBE (Nantes Université)
 
 ---
