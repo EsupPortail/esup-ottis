@@ -354,15 +354,21 @@ php public/index.php
     ```bash
     logrotate -f /etc/logrotate.d/ottis
     ```
-- Mettre en place le nettoyage quotidien du répertoire `tmp/` — créer
+- Mettre en place le nettoyage quotidien des fichiers temporaires — créer
   `/etc/cron.d/ottis` :
   ```cron
   # Nettoyage quotidien des fichiers temporaires OTTIS
-  0 4 * * * www-data find /srv/ottis/tmp -mindepth 1 -delete
+  0 4 * * * www-data find /srv/ottis/tmp /srv/ottis/uploads /tmp/ottis /tmp/ottis_uploads /tmp/ottis_tokens -mindepth 1 -delete
   ```
-  - Passage à 4 h du matin, hors heures de cours. Les fichiers d'état
-    (`room_alive_*`, `room_token_*`) sont recréés automatiquement par les
-    heartbeat à la prochaine utilisation.
+  - Passage à 4 h du matin, hors heures de cours. Répertoires couverts :
+    `/srv/ottis/tmp/` (présentations `pres_*`, transcripts `Link_{roomId}`,
+    état des salles `room_alive_*`, `room_token_*` — recréés par les
+    heartbeat à la prochaine utilisation) ; `/srv/ottis/uploads/`
+    (téléchargements transitoires « uncloud » `uncloudfile_*`, journal
+    `upload_log.txt`) ; `/tmp/ottis/` (caches de sous-titres et traductions
+    `VerylastSub_*`, `PartialSub_*`, `FinalSub_*`) ; `/tmp/ottis_uploads/` et
+    `/tmp/ottis_tokens/` (répertoires de repli, utilisés seulement si
+    `/srv/ottis/tmp` n'est pas inscriptible).
   - Le daemon cron recharge `/etc/cron.d/` automatiquement : aucun restart
     nécessaire après création du fichier.
 - Mettre en place la supervision du service — une sonde NRPE est fournie dans
@@ -426,7 +432,7 @@ php public/index.php
 │   └── uploads/            # Fichiers uploadés
 │
 ├── src/                    # Code source PHP (PSR-4: App\\)
-│   ├── Controller/          # Contrôleurs MVC (BaseController + 8 contrôleurs métier)
+│   ├── Controller/          # Contrôleurs MVC (BaseController + 9 contrôleurs métier)
 │   ├── Core/                # Bootstrap applicatif
 │   │   └── Bootstrap.php    # Erreurs -> .env -> session 8h -> CAS -> CSRF
 │   ├── Error/               # Gestion des erreurs
@@ -623,9 +629,9 @@ Pour des questions sur :
 |----------|--------|
 | Version | 0.4.0 |
 | Langues supportées | 100+ |
-| Contrôleurs | 8 |
+| Contrôleurs | 9 |
 | Services | 7 |
-| Tests unitaires PHP | 39 tests (2 fichiers) |
+| Tests unitaires PHP | 47 tests (3 fichiers) |
 | Tests JavaScript | 19 fichiers |
 | Dépendances PHP | 4 (production) + 3 (dev) |
 | Dépendances JS | 13 (dev) + 2 (tests) |
