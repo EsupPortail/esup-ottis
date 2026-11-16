@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Utils\Logger;
 use RuntimeException;
 
 /**
@@ -109,7 +110,8 @@ class CasAuthenticator
             $_SESSION['cas_attributes'] = \phpCAS::getAttributes();
             $_SESSION['auth_provider'] = 'cas';
         } catch (\Throwable $e) {
-            error_log('phpCAS authentication failed: ' . $e->getMessage());
+            $casError = explode('CAS response:', $e->getMessage(), 2)[0];
+            Logger::error('phpCAS authentication failed: ' . substr($casError, 0, 400));
 
             // Ticket invalide ou déjà consommé : réessayer une fois sur la même URL sans le ticket
             if (isset($_GET['ticket'])) {
@@ -239,13 +241,6 @@ class CasAuthenticator
         }
 
         $host = (string) ($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost');
-        $uri = (string) ($_SERVER['REQUEST_URI'] ?? '/');
-        $path = parse_url($uri, PHP_URL_PATH) ?: '/';
-
-        if ($path === '/') {
-            return $scheme . '://' . $host . '/';
-        }
-
-        return $scheme . '://' . $host . $path;
+        return $scheme . '://' . $host;
     }
 }
