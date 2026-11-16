@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\TokenConfigService;
+use App\Utils\Logger;
 
 if (!defined('APP_ROOT')) {
     define('APP_ROOT', dirname(__DIR__, 2));
@@ -71,7 +72,7 @@ class TextController extends BaseController
             $T = explode(';', $ligne);
             // phpstan-ignore-next-line - explode always returns at least one element
             if ((int)$T[0] >= $ligneID) {
-                error_log('readtext - Ligne: ' . trim($ligne));
+                Logger::debug('readtext - Ligne: ' . trim($ligne));
                 $output .= $order . ';' . $ligne;
             }
         }
@@ -104,8 +105,8 @@ class TextController extends BaseController
         $roomTokenValid = false;
         if (!empty($roomToken) && !empty($roomid)) {
             $roomTokenValid = \App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken);
-            error_log('[CHAT-READ] room_token received: ' . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
-            error_log('[CHAT-READ] Token file exists: ' . (file_exists(APP_ROOT . '/tmp/room_token_' . basename($roomid)) ? 'YES' : 'NO'));
+            Logger::debug('[CHAT-READ] room_token received: ' . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
+            Logger::debug('[CHAT-READ] Token file exists: ' . (file_exists(APP_ROOT . '/tmp/room_token_' . basename($roomid)) ? 'YES' : 'NO'));
         }
 
         // If room token valid, allow access
@@ -526,8 +527,8 @@ class TextController extends BaseController
         $roomTokenValid = false;
         if (!empty($roomToken) && !empty($roomid)) {
             $roomTokenValid = \App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken);
-            error_log('[CHAT-SAVE] room_token received: ' . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
-            error_log('[CHAT-SAVE] Token file exists: ' . (file_exists(APP_ROOT . '/tmp/room_token_' . basename($roomid)) ? 'YES' : 'NO'));
+            Logger::debug('[CHAT-SAVE] room_token received: ' . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
+            Logger::debug('[CHAT-SAVE] Token file exists: ' . (file_exists(APP_ROOT . '/tmp/room_token_' . basename($roomid)) ? 'YES' : 'NO'));
         }
 
         // If room token valid, allow access
@@ -723,12 +724,12 @@ class TextController extends BaseController
      */
     public function translate(): void
     {
-        error_log('[TextController.translate] START - POST params: ' . json_encode($_POST));
-        error_log('[TextController.translate] CSRF valid: ' . var_export(\App\Utils\Csrf::verifyRequest(), true));
+        Logger::debug('[TextController.translate] START - POST params: ' . json_encode($_POST));
+        Logger::debug('[TextController.translate] CSRF valid: ' . var_export(\App\Utils\Csrf::verifyRequest(), true));
 
         // Validate CSRF token
         if (!\App\Utils\Csrf::verifyRequest()) {
-            error_log('[TextController.translate] CSRF FAILED');
+            Logger::warning('[TextController.translate] CSRF FAILED');
             $this->jsonResponse(['error' => true, 'message' => 'CSRF token validation failed'], 403);
             return;
         }
@@ -747,16 +748,16 @@ class TextController extends BaseController
         $tokenConfig = null;
         try {
             $tokenConfig = TokenConfigService::create();
-            error_log('TextController: TokenConfigService created');
+            Logger::debug('TextController: TokenConfigService created');
             if ($WhichTranslator === 'DEEPLPRO' || $WhichTranslator === 'DEEPL' || empty($WhichTranslator)) {
                 $apikey = $tokenConfig->getDeepLProApiToken();
-                error_log('TextController: Loaded DeepL Pro API key (length: ' . strlen($apikey) . ', empty: ' . var_export(empty($apikey), true) . ')');
+                Logger::debug('TextController: Loaded DeepL Pro API key (length: ' . strlen($apikey) . ', empty: ' . var_export(empty($apikey), true) . ')');
             } elseif ($WhichTranslator === 'DEEPLFREE') {
                 $apikey = $tokenConfig->getDeepLFreeApiToken();
-                error_log('TextController: Loaded DeepL Free API key (length: ' . strlen($apikey) . ', empty: ' . var_export(empty($apikey), true) . ')');
+                Logger::debug('TextController: Loaded DeepL Free API key (length: ' . strlen($apikey) . ', empty: ' . var_export(empty($apikey), true) . ')');
             }
         } catch (\Exception $e) {
-            error_log('TextController: Failed to load API key: ' . $e->getMessage());
+            Logger::warning('TextController: Failed to load API key: ' . $e->getMessage());
         }
 
         // Set default translator if not provided
@@ -829,7 +830,7 @@ class TextController extends BaseController
         if (empty($result)) {
             // Verify API key exists before calling translation API
             if (empty($apikey)) {
-                error_log('TextController: ERROR - No API key available for translator: ' . $WhichTranslator);
+                Logger::warning('TextController: ERROR - No API key available for translator: ' . $WhichTranslator);
                 $this->jsonResponse(['error' => true, 'message' => 'No API key available for translator: ' . $WhichTranslator], 400);
                 return;
             }

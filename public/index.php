@@ -28,7 +28,7 @@ if (file_exists($autoloadPath)) {
     try {
         \App\Core\Bootstrap::run();
     } catch (\Exception $e) {
-        error_log('Bootstrap failed: ' . $e->getMessage());
+        \App\Utils\Logger::error('Bootstrap failed: ' . $e->getMessage());
         // Continue en cas d'erreur (ex. CAS non configure : la barriere
         // de controle CAS plus bas renverra 403 sur les routes protegees)
     }
@@ -140,12 +140,12 @@ $basePathScript = "<script>window.BASE_PATH = '" . addslashes($basePath) . "';</
 // Logs de debug uniquement en environnement de développement
 $isDevEnvironment = in_array(strtolower(getenv('APP_ENV') ?: 'development'), ['development', 'dev', 'local'], true);
 if ($isDevEnvironment) {
-    error_log('BASE_PATH: ' . $basePath);
-    error_log('=== DEBUG REQUEST ===');
-    error_log('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
-    error_log('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
-    error_log('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
-    error_log('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('BASE_PATH: ' . $basePath);
+    \App\Utils\Logger::debug('=== DEBUG REQUEST ===');
+    \App\Utils\Logger::debug('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
 }
 
 // Register routes from the centralized configuration (config/routes.php)
@@ -162,17 +162,17 @@ foreach ($routeConfig as $path => $definition) {
 
 // DEBUG: Log des routes POST enregistrées (développement uniquement)
 if ($isDevEnvironment) {
-    error_log('=== POST ROUTES ===');
+    \App\Utils\Logger::debug('=== POST ROUTES ===');
     foreach ($router->getRoutes()['POST'] as $path => $handler) {
-        error_log("POST $path => " . $handler[0] . '::' . $handler[1]);
+        \App\Utils\Logger::debug("POST $path => " . $handler[0] . '::' . $handler[1]);
     }
 }
 
 // Try to match and dispatch the route
 $match = $router->match();
 if ($isDevEnvironment) {
-    error_log('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
-    error_log('[Router] Match result: ' . var_export($match, true));
+    \App\Utils\Logger::debug('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
+    \App\Utils\Logger::debug('[Router] Match result: ' . var_export($match, true));
 }
 
 if ($match !== null) {

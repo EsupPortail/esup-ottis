@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Utils\Logger;
+
 /**
  * TokenConfigService - Service for loading and managing API tokens from configuration
  *
@@ -61,7 +63,7 @@ class TokenConfigService
 
         // Validate that we have at least DeepL Pro tokens
         if (empty($this->allTokens['DEEPLPROTOKENS'] ?? [])) {
-            error_log("AVERTISSEMENT: Aucun token DeepL Pro trouvé dans {$this->tokensFile}.");
+            Logger::warning("AVERTISSEMENT: Aucun token DeepL Pro trouvé dans {$this->tokensFile}.");
         }
     }
 

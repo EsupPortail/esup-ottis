@@ -68,7 +68,7 @@ class Csrf
         $token = $_POST['csrf_token'] ?? '';
 
         if (!self::validateToken($token)) {
-            error_log('CSRF token validation failed for IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+            Logger::warning('CSRF token validation failed for IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
             return false;
         }
 

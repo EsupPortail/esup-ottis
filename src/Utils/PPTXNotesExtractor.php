@@ -26,7 +26,7 @@ class PPTXNotesExtractor
         try {
             return self::extractNotesFromXML($filePath);
         } catch (\Exception $e) {
-            error_log('Parsing XML échoué : ' . $e->getMessage());
+            Logger::error('Parsing XML échoué : ' . $e->getMessage());
         }
 
         throw new RuntimeException("Impossible d'extraire les notes du fichier PPTX");

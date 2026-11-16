@@ -5,6 +5,7 @@ namespace App\Core;
 use App\Error\ErrorHandler;
 use App\Security\CasAuthenticator;
 use App\Utils\Csrf;
+use App\Utils\Logger;
 
 if (!defined('APP_ROOT')) {
     define('APP_ROOT', dirname(__DIR__, 2));
@@ -29,7 +30,7 @@ class Bootstrap
                 $dotenv->load();
             }
         } catch (\Exception $e) {
-            error_log('Dotenv load failed: ' . $e->getMessage());
+            Logger::error('Dotenv load failed: ' . $e->getMessage());
         }
 
         // Démarrer la session si ce n'est pas déjà fait

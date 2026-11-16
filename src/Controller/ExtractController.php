@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Utils\Logger;
 use App\Utils\PPTXNotesExtractor;
 
 if (!defined('APP_ROOT')) {
@@ -220,7 +221,7 @@ class ExtractController extends BaseController
             try {
                 $notes = PPTXNotesExtractor::extract($tmp_file);
             } catch (\Exception $e) {
-                error_log('Note extraction failed: ' . $e->getMessage());
+                Logger::error('Note extraction failed: ' . $e->getMessage());
                 echo json_encode(['error' => 'Failed to extract notes: ' . $e->getMessage()]);
                 exit;
             }
@@ -242,7 +243,7 @@ class ExtractController extends BaseController
                     $T_images = $this->convertPdfToImages($pdfFile, $imagesDir);
                 }
             } catch (\Exception $e) {
-                error_log('Image extraction failed: ' . $e->getMessage());
+                Logger::warning('Image extraction failed: ' . $e->getMessage());
             }
 
             // Ajouter les images à chaque slide
@@ -312,7 +313,7 @@ class ExtractController extends BaseController
                     $notes = PPTXNotesExtractor::extract($convertedFile);
                     echo json_encode($notes);
                 } catch (\Exception $e) {
-                    error_log("Erreur d'extraction des notes PPTX: " . $e->getMessage());
+                    Logger::error("Erreur d'extraction des notes PPTX: " . $e->getMessage());
                     echo json_encode(['error' => 'Failed to extract notes: ' . $e->getMessage()]);
                 }
 
@@ -339,13 +340,13 @@ class ExtractController extends BaseController
     {
         // Read raw POST data
         $rawPostData = file_get_contents('php://input');
-        error_log('transcriptionSub: RAW POST = ' . $rawPostData);
+        Logger::debug('transcriptionSub: RAW POST = ' . $rawPostData);
 
         // Parse as URL-encoded form data
         $postData = [];
         if (!empty($rawPostData)) {
             parse_str($rawPostData, $postData);
-            error_log('transcriptionSub: Parsed data = ' . print_r($postData, true));
+            Logger::debug('transcriptionSub: Parsed data = ' . print_r($postData, true));
         }
 
         // Get parameters from multiple sources
@@ -356,9 +357,9 @@ class ExtractController extends BaseController
 
         // Debug logging
         if (empty($texte) || empty($roomId)) {
-            error_log('transcriptionSub: FINAL texte=' . var_export($texte, true) . ', roomId=' . var_export($roomId, true));
-            error_log('transcriptionSub: _POST=' . print_r($_POST, true));
-            error_log('transcriptionSub: _REQUEST=' . print_r($_REQUEST, true));
+            Logger::debug('transcriptionSub: FINAL texte=' . var_export($texte, true) . ', roomId=' . var_export($roomId, true));
+            Logger::debug('transcriptionSub: _POST=' . print_r($_POST, true));
+            Logger::debug('transcriptionSub: _REQUEST=' . print_r($_REQUEST, true));
         }
 
         if (empty($texte) || empty($roomId)) {
@@ -511,7 +512,7 @@ class ExtractController extends BaseController
                 }
             }
         } catch (\Exception $e) {
-            error_log('PDF to image conversion failed: ' . $e->getMessage());
+            Logger::warning('PDF to image conversion failed: ' . $e->getMessage());
         }
 
         return $imageFiles;
