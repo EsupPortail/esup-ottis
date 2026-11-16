@@ -1,10 +1,8 @@
 name: PHP Build and Push Docker Image
 
 on:
-  push:
-    branches:
-      - main
-      - develop
+  release:
+    types: [released]
   pull_request:
   
 env:
@@ -113,7 +111,7 @@ jobs:
        - name: Set lowercase image name
          id: vars
          run: |
-            echo "image_name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:$tag_name" | tr '[:upper:]' '[:lower:]' >> $GITHUB_OUTPUT
+            echo "image_name=ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/ottis:${{ github.ref_name }}" | tr '[:upper:]' '[:lower:]' >> $GITHUB_OUTPUT
   
        - name: Set up Docker Buildx
          uses: docker/setup-buildx-action@v3
