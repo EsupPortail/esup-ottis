@@ -354,6 +354,22 @@ php public/index.php
     ```bash
     logrotate -f /etc/logrotate.d/ottis
     ```
+  - `copytruncate` est aussi indispensable pour `app.log`/`errors.log` :
+    Monolog garde ses fichiers ouverts pendant l'exécution, exactement comme
+    FPM avec `fpm-error.log`.
+
+- Surveiller les bons fichiers : tous les logs applicatifs passent par Monolog
+  (`config/logging.php`) et ne sont jamais écrits directement dans
+  `fpm-error.log`.
+  - **Production** : `logs/app.log` (niveau WARNING et au-dessus) et
+    `logs/errors.log` (ERROR et au-dessus) — c'est là que remontent les échecs
+    CAS, les rejets d'upload, les événements de sécurité (CSRF, tokens de
+    salle) et les erreurs d'extraction.
+  - **Développement** : `logs/dev.log` (DEBUG — traces détaillées upload,
+    chat, traduction, routeur) et `logs/dev-errors.log`.
+  - `logs/fpm-error.log` ne reçoit plus que les erreurs PHP natives de FPM
+    (fatales, warnings, deprecated) : ce n'est plus là que se diagnostique le
+    fonctionnement applicatif.
 - Mettre en place le nettoyage quotidien des fichiers temporaires — créer
   `/etc/cron.d/ottis` :
   ```cron
