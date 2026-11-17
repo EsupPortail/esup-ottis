@@ -6,8 +6,6 @@ use App\Security\RoomTokenManager;
 use App\Service\LanguageLoader;
 use App\Service\RoomInfoService;
 use App\Service\RoomPresence;
-use App\Service\TokenConfigService;
-use App\Service\TranslatorStatsService;
 
 /**
  * ConferenceController - Handles conference room creation and management
@@ -26,7 +24,6 @@ class ConferenceController extends BaseController
      * - Room ID and token generation
      * - User identification
      * - Supported languages loading
-     * - DeepL API statistics
      * - Wooclap integration
      *
      * @return void
@@ -41,10 +38,6 @@ class ConferenceController extends BaseController
 
         // Get language from request
         $language = $this->getParam('lang', 'fr');
-
-        // Load config values from TokenConfigService
-        $tokenConfig = TokenConfigService::create();
-        $WhichTranslator = $tokenConfig->getWhichTranslator();
 
         // Load translations using parent method
         $this->viewData['language'] = $language;
@@ -93,17 +86,6 @@ class ConferenceController extends BaseController
         }
         $ip = RoomInfoService::getClientIp();
 
-        // Get DeepL statistics
-        $statsService = new TranslatorStatsService($tokenConfig->getProxy());
-        try {
-            $statsResult = $statsService->getTranslatorStats($WhichTranslator, $tokenConfig->getDeepLProApiToken() ?: $tokenConfig->getDeepLFreeApiToken());
-            $Stats_DEEPL = $statsResult['stats'] ?? [];
-            $percentage_DEEPL = $statsResult['percentage_used'] ?? 0;
-        } catch (\Throwable $e) {
-            $Stats_DEEPL = [];
-            $percentage_DEEPL = 0;
-        }
-
         // Get configuration parameter
         $currentconfig = $this->getParam('myconfig', 'AAYAYKCNYCNYNYNNN');
 
@@ -127,8 +109,6 @@ class ConferenceController extends BaseController
         $this->viewData['uid'] = $uid;
         $this->viewData['currentUserDisplayName'] = $currentUserDisplayName;
         $this->viewData['T_lang'] = $T_lang;
-        $this->viewData['Stats_DEEPL'] = $Stats_DEEPL;
-        $this->viewData['percentage_DEEPL'] = $percentage_DEEPL;
         $this->viewData['currentconfig'] = $currentconfig;
         $this->viewData['wooclapaddress'] = $wooclapaddress;
         $this->viewData['intervenantUid'] = $uid;

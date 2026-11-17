@@ -10,19 +10,71 @@ namespace App\Service;
  */
 class TranslatorStatsService
 {
+    /** Timeout curl pour les appels de statistiques (secondes) */
+    private const CURL_TIMEOUT_SECONDS = 10;
+
     /**
-     * @var string The proxy command prefix (empty string if not configured)
+     * @var string The proxy URL (empty string if not configured)
      */
     private string $proxy;
 
     /**
      * Constructor
      *
-     * @param string|null $proxy Proxy command prefix (e.g., 'proxy' or 'curl -x proxy.server:port')
+     * @param string|null $proxy Proxy URL, or legacy 'curl -x <url>' command prefix
      */
     public function __construct(?string $proxy = null)
     {
-        $this->proxy = $proxy ?? (getenv('HTTP_PROXY') ? 'curl -x ' . getenv('HTTP_PROXY') : '');
+        $this->proxy = self::normalizeProxy($proxy ?? (getenv('HTTP_PROXY') ?: ''));
+    }
+
+    /**
+     * Extract a proxy URL from the forms used around the codebase:
+     * '' (no proxy), a bare proxy URL, or the legacy 'curl -x <url>' prefix.
+     *
+     * @return string Proxy URL, or empty string if none
+     */
+    public static function normalizeProxy(string $proxy): string
+    {
+        $proxy = trim($proxy);
+        if (str_starts_with($proxy, 'curl -x ')) {
+            $proxy = trim(substr($proxy, strlen('curl -x ')));
+        }
+
+        return $proxy;
+    }
+
+    /**
+     * Build the curl command line. Takes no token on purpose: credentials
+     * travel via stdin (-K -), never on the command line (/proc/<pid>/cmdline).
+     *
+     * @param string $endpoint DeepL usage endpoint URL
+     * @param string $proxy Proxy URL, or empty string for a direct call
+     * @return string Shell command line
+     */
+    public static function buildCurlCommand(string $endpoint, string $proxy = ''): string
+    {
+        $command = 'curl -q -sS -m ' . self::CURL_TIMEOUT_SECONDS . ' -K - ' . escapeshellarg($endpoint);
+        if ($proxy !== '') {
+            $command .= ' -x ' . escapeshellarg($proxy);
+        }
+
+        return $command;
+    }
+
+    /**
+     * Build the curl configuration sent on stdin. Quotes and backslashes are
+     * stripped from the token: a corrupted value cannot inject another
+     * curl directive (e.g. url or output).
+     *
+     * @param string $apiToken DeepL API token
+     * @return string curl configuration (header directive)
+     */
+    public static function buildAuthConfig(string $apiToken): string
+    {
+        $safeToken = str_replace(['\\', '"'], '', $apiToken);
+
+        return 'header = "Authorization: DeepL-Auth-Key ' . $safeToken . '"' . "\n";
     }
 
     /**
@@ -37,20 +89,7 @@ class TranslatorStatsService
             return [];
         }
 
-        $command = $this->proxy . ' curl -q https://api.deepl.com/v2/usage?auth_key=' . $apiToken;
-        $output = [];
-        exec($command, $output, $returnCode);
-
-        if ($returnCode !== 0 || empty($output[0])) {
-            return [];
-        }
-
-        try {
-            $stats = json_decode($output[0], true, 512, JSON_THROW_ON_ERROR);
-            return is_array($stats) ? $stats : [];
-        } catch (\JsonException) {
-            return [];
-        }
+        return $this->fetchUsage('https://api.deepl.com/v2/usage', $apiToken);
     }
 
     /**
@@ -65,16 +104,40 @@ class TranslatorStatsService
             return [];
         }
 
-        $command = $this->proxy . ' curl -q https://api-free.deepl.com/v2/usage?auth_key=' . $apiToken;
-        $output = [];
-        exec($command, $output, $returnCode);
+        return $this->fetchUsage('https://api-free.deepl.com/v2/usage', $apiToken);
+    }
 
-        if ($returnCode !== 0 || empty($output[0])) {
+    /**
+     * Fetch a DeepL usage endpoint with the credentials sent to curl on
+     * stdin: the token never appears in the process arguments nor in a URL.
+     *
+     * @return array Decoded statistics, or empty array on error
+     */
+    private function fetchUsage(string $endpoint, string $apiToken): array
+    {
+        $process = proc_open(self::buildCurlCommand($endpoint, $this->proxy), [
+            0 => ['pipe', 'r'],
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
+        ], $pipes);
+
+        if (!is_resource($process)) {
+            return [];
+        }
+
+        fwrite($pipes[0], self::buildAuthConfig($apiToken));
+        fclose($pipes[0]);
+
+        $output = (string) stream_get_contents($pipes[1]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        if (proc_close($process) !== 0 || trim($output) === '') {
             return [];
         }
 
         try {
-            $stats = json_decode($output[0], true, 512, JSON_THROW_ON_ERROR);
+            $stats = json_decode($output, true, 512, JSON_THROW_ON_ERROR);
             return is_array($stats) ? $stats : [];
         } catch (\JsonException) {
             return [];
