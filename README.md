@@ -643,7 +643,7 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 0.4.0 |
+| Version | 1.0.0 |
 | Langues supportées | 100+ |
 | Contrôleurs | 9 |
 | Services | 7 |

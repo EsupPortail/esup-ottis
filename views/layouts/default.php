@@ -104,12 +104,7 @@ if (isset($isAuditorPage) && $isAuditorPage) {
             <div class="ottis-nav__brand">
                 <a href="<?php echo $this->escape($pageDestination ?? './'); ?>" class="ottis-brand" aria-label="Accueil">
                     <span class="ottis-brand__logo">
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-                            <rect x="2" y="2" width="6" height="6" rx="1" fill="white" fill-opacity="0.9"/>
-                            <rect x="10" y="2" width="6" height="6" rx="1" fill="white" fill-opacity="0.5"/>
-                            <rect x="2" y="10" width="6" height="6" rx="1" fill="white" fill-opacity="0.5"/>
-                            <rect x="10" y="10" width="6" height="6" rx="1" fill="white" fill-opacity="0.9"/>
-                        </svg>
+                        <img src="/images/logo_ottis.png" alt="" width="34" height="34">
                     </span>
                     <span class="ottis-brand__name">OTTIS</span>
                 </a>
