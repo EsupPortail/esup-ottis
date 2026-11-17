@@ -57,14 +57,6 @@ class ExtractController extends BaseController
     public function slidesNotesAppHTML(): void
     {
         if ($this->router->getMethod() === 'POST') {
-            // Verify CSRF token
-            try {
-                \App\Utils\Csrf::verifyRequest();
-            } catch (\Exception $e) {
-                $this->jsonResponse(['error' => 'CSRF token validation failed'], 403);
-                return;
-            }
-
             ini_set('upload_max_filesize', '50M');
             ini_set('post_max_size', '50M');
 
@@ -181,14 +173,6 @@ class ExtractController extends BaseController
     public function pptxImages(): void
     {
         if ($this->router->getMethod() === 'POST') {
-            // Verify CSRF token
-            try {
-                \App\Utils\Csrf::verifyRequest();
-            } catch (\Exception $e) {
-                $this->jsonResponse(['error' => 'CSRF token validation failed'], 403);
-                return;
-            }
-
             ini_set('upload_max_filesize', '50M');
             ini_set('post_max_size', '50M');
 

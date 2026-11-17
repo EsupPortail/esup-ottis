@@ -41,6 +41,11 @@ class Router
     private string $basePath = '';
 
     /**
+     * @var string|null Config path of the route matched by the last match() call
+     */
+    private ?string $matchedPath = null;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -150,9 +155,11 @@ class Router
     public function match(): ?array
     {
         $method = $this->method;
+        $this->matchedPath = null;
 
         // Try exact match first
         if (isset($this->routes[$method][$this->uri])) {
+            $this->matchedPath = $this->uri;
             return [
                 $this->routes[$method][$this->uri][0],
                 $this->routes[$method][$this->uri][1],
@@ -164,6 +171,7 @@ class Router
         foreach ($this->routes[$method] as $path => $handler) {
             $pattern = $this->pathToPattern($path);
             if (preg_match($pattern, $this->uri, $matches)) {
+                $this->matchedPath = $path;
                 // Extract parameters (skip full match at index 0)
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 return [$handler[0], $handler[1], $params];
@@ -207,6 +215,16 @@ class Router
     public function getUri(): string
     {
         return $this->uri;
+    }
+
+    /**
+     * Get the config path of the route matched by the last match() call
+     *
+     * @return string|null Matched config path (e.g. '/conference/{roomId}')
+     */
+    public function getMatchedPath(): ?string
+    {
+        return $this->matchedPath;
     }
 
     /**

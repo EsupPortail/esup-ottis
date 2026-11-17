@@ -66,6 +66,13 @@ class Csrf
         }
 
         $token = $_POST['csrf_token'] ?? '';
+        if ($token === '') {
+            // Fallback : en-tete X-CSRF-Token, pose par les modules front
+            // network/fetch.js et network/xhr.js (requetes JSON). Un site
+            // tiers ne peut pas poser cet en-tete sans preflight CORS,
+            // que l'application n'autorise pas.
+            $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+        }
 
         if (!self::validateToken($token)) {
             Logger::warning('CSRF token validation failed for IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));

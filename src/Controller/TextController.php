@@ -36,12 +36,6 @@ class TextController extends BaseController
      */
     public function read(): void
     {
-        // Validate CSRF token
-        if (!\App\Utils\Csrf::verifyRequest()) {
-            $this->textResponse('');
-            return;
-        }
-
         // Get and validate parameters
         $ligneID = (int)($this->postParam('lineid', 0));
         $roomid = $this->postParam('ROOMID', '');
@@ -101,22 +95,9 @@ class TextController extends BaseController
             $this->textResponse('Invalid ROOMID format');
         }
 
-        // Validate room token if provided
-        $roomTokenValid = false;
-        if (!empty($roomToken) && !empty($roomid)) {
-            $roomTokenValid = \App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken);
-            Logger::debug('[CHAT-READ] room_token received: ' . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
-            Logger::debug('[CHAT-READ] Token file exists: ' . (file_exists(APP_ROOT . '/tmp/room_token_' . basename($roomid)) ? 'YES' : 'NO'));
-        }
-
-        // If room token valid, allow access
-        if ($roomTokenValid) {
-            // Access granted
-        }
-        // Otherwise check CSRF
-        elseif (!\App\Utils\Csrf::verifyRequest()) {
-            $this->textResponse('');
-        }
+        // Autorisation POST (room token ou CSRF de session) : verifiee
+        // centralement par le front controller pour cette route marquee
+        // 'room_token' dans config/routes.php.
 
         // Build file path
         $filePath = APP_ROOT . '/tmp/LinkQuestions_' . $roomid;
@@ -303,9 +284,6 @@ class TextController extends BaseController
      */
     public function readTranscriptSub(): void
     {
-        // Validate CSRF token
-        \App\Utils\Csrf::verifyRequest();
-
         // Get and validate parameters
         $roomid = $this->postParam('ROOMID', '');
         $roomToken = $this->postParam('room_token', '');
@@ -430,9 +408,6 @@ class TextController extends BaseController
 
     public function save(): void
     {
-        // Validate CSRF token
-        \App\Utils\Csrf::verifyRequest();
-
         // Get and validate POST parameters
         $ligneID = (int)($this->postParam('lineid', 0));
         $text = $this->postParam('text', '');
@@ -523,22 +498,9 @@ class TextController extends BaseController
             $this->jsonResponse(['error' => 'Invalid ROOMID format'], 400);
         }
 
-        // Validate room token if provided
-        $roomTokenValid = false;
-        if (!empty($roomToken) && !empty($roomid)) {
-            $roomTokenValid = \App\Security\RoomTokenManager::validateRoomToken($roomid, $roomToken);
-            Logger::debug('[CHAT-SAVE] room_token received: ' . substr($roomToken, 0, 8) . "... for ROOMID=$roomid");
-            Logger::debug('[CHAT-SAVE] Token file exists: ' . (file_exists(APP_ROOT . '/tmp/room_token_' . basename($roomid)) ? 'YES' : 'NO'));
-        }
-
-        // If room token valid, allow access
-        if ($roomTokenValid) {
-            // Access granted
-        }
-        // Otherwise check CSRF
-        elseif (!\App\Utils\Csrf::verifyRequest()) {
-            $this->jsonResponse(['error' => 'CSRF token validation failed'], 403);
-        }
+        // Autorisation POST (room token ou CSRF de session) : verifiee
+        // centralement par le front controller pour cette route marquee
+        // 'room_token' dans config/routes.php.
 
         // Validate required parameters
         if (!isset($_POST['lineid'])) {
@@ -725,14 +687,6 @@ class TextController extends BaseController
     public function translate(): void
     {
         Logger::debug('[TextController.translate] START - POST params: ' . json_encode($_POST));
-        Logger::debug('[TextController.translate] CSRF valid: ' . var_export(\App\Utils\Csrf::verifyRequest(), true));
-
-        // Validate CSRF token
-        if (!\App\Utils\Csrf::verifyRequest()) {
-            Logger::warning('[TextController.translate] CSRF FAILED');
-            $this->jsonResponse(['error' => true, 'message' => 'CSRF token validation failed'], 403);
-            return;
-        }
 
         // Get and sanitize parameters
         $texte = $this->postParam('texte', '');

@@ -178,6 +178,33 @@ if ($isDevEnvironment) {
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
 
+    // CSRF central : toute requete etat-modifiante (POST/PUT/DELETE) doit
+    // presenter un token CSRF de session valide (champ csrf_token ou
+    // en-tete X-CSRF-Token). Les routes marquees 'room_token' => true dans
+    // config/routes.php admettent aussi un room token valide (beacon
+    // pagehide sans session, auditeur sans session active).
+    if (in_array($router->getMethod(), ['POST', 'PUT', 'DELETE'], true)) {
+        $csrfOk = \App\Utils\Csrf::verifyRequest();
+        if (!$csrfOk) {
+            $definition = $routeConfig[$router->getMatchedPath() ?? ''] ?? [];
+            if (!empty($definition['room_token'])) {
+                $csrfOk = \App\Security\RoomTokenManager::validateRoomToken(
+                    (string) ($_POST['ROOMID'] ?? ''),
+                    (string) ($_POST['room_token'] ?? '')
+                );
+            }
+        }
+        if (!$csrfOk) {
+            \App\Utils\Logger::warning('Rejected CSRF-less state-changing request: '
+                . $router->getMethod() . ' ' . $router->getUri()
+                . ' from IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+            http_response_code(403);
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'CSRF token validation failed']);
+            exit;
+        }
+    }
+
     // Check that we have a valid controller class
     if (!empty($controllerClass) && class_exists($controllerClass)) {
         try {

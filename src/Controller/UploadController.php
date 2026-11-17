@@ -71,27 +71,6 @@ class UploadController extends BaseController
         // === DEBUG: Début du traitement
         Logger::debug('[UPLOAD-DEBUG] 1. Début de processUpload');
 
-        // Verify CSRF token
-        Logger::debug('[UPLOAD-DEBUG] 2. Vérification CSRF...');
-        try {
-            if (!\App\Utils\Csrf::verifyRequest()) {
-                Logger::warning('[UPLOAD-DEBUG] 2a. CSRF INVALIDE');
-                $this->jsonResponse([
-                    'status' => 'error',
-                    'message' => 'CSRF token validation failed'
-                ], 403);
-                return;
-            }
-            Logger::debug('[UPLOAD-DEBUG] 2b. CSRF VALIDE');
-        } catch (\Exception $e) {
-            Logger::warning('[UPLOAD-DEBUG] 2c. Exception CSRF: ' . $e->getMessage());
-            $this->jsonResponse([
-                'status' => 'error',
-                'message' => 'CSRF token validation failed'
-            ], 403);
-            return;
-        }
-
         Logger::debug('[UPLOAD-DEBUG] 3. Vérification $_FILES...');
         if (!isset($_FILES['presentation_file'])) {
             Logger::debug('[UPLOAD-DEBUG] 3a. AUCUN FICHIER dans $_FILES');
