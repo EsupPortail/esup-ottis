@@ -11,20 +11,20 @@ namespace App\Service;
 class RandomNameGenerator
 {
     /**
-     * @var array List of colors to use for name generation
+     * @var array<int, string> List of colors to use for name generation
      */
     private array $colors = ['Red', 'Blue', 'Orange', 'Purple', 'Black', 'White', 'Green'];
 
     /**
-     * @var array List of objects/animals to use for name generation
+     * @var array<int, string> List of objects/animals to use for name generation
      */
     private array $objects = ['Alpaca', 'Alligator', 'Dragoon', 'Elephant', 'Lion', 'Panther', 'Tiger', 'Zebra'];
 
     /**
      * Constructor
      *
-     * @param array $colors Custom list of colors (optional)
-     * @param array $objects Custom list of objects/animals (optional)
+     * @param array<int, string> $colors Custom list of colors (optional)
+     * @param array<int, string> $objects Custom list of objects/animals (optional)
      */
     public function __construct(array $colors = [], array $objects = [])
     {
@@ -52,7 +52,7 @@ class RandomNameGenerator
      * Generate multiple random names
      *
      * @param int $count Number of names to generate
-     * @return array Array of random names
+     * @return array<int, string> Array of random names
      */
     public function generateMultiple(int $count): array
     {
@@ -77,7 +77,7 @@ class RandomNameGenerator
     /**
      * Get the list of colors
      *
-     * @return array List of colors
+     * @return array<int, string> List of colors
      */
     public function getColors(): array
     {
@@ -87,7 +87,7 @@ class RandomNameGenerator
     /**
      * Get the list of objects
      *
-     * @return array List of objects
+     * @return array<int, string> List of objects
      */
     public function getObjects(): array
     {

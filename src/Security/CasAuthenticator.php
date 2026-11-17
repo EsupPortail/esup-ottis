@@ -20,6 +20,8 @@ class CasAuthenticator
 {
     /**
      * Charge la configuration CAS (config/cas.php) avec les valeurs par défaut
+     *
+     * @return array<string, mixed> Configuration CAS fusionnee avec les defauts
      */
     public static function loadConfig(): array
     {
@@ -48,6 +50,8 @@ class CasAuthenticator
 
     /**
      * Initialise phpCAS en fonction des routes et de la config serveur
+     *
+     * @param array<string, mixed> $casConfig Configuration CAS (voir loadConfig)
      */
     public static function init(array $casConfig): void
     {

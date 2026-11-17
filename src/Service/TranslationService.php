@@ -16,8 +16,8 @@ class TranslationService
      * Traduit un texte via le service configure et construit la reponse
      * applicative. Reponse en cache si une traduction identique existe.
      *
-     * @param array{texte: mixed, lang: mixed, langinput: mixed, roomId: mixed, lineid: mixed, forcelibre: bool, whichtranslator: mixed} $params
-     * @return array{status: int, body: array}
+     * @param array{texte?: mixed, lang?: mixed, langinput?: mixed, roomId?: mixed, lineid?: mixed, forcelibre?: mixed, whichtranslator?: mixed} $params
+     * @return array{status: int, body: array<string, mixed>} Statut HTTP et corps de la reponse
      */
     public function translate(array $params): array
     {
@@ -72,8 +72,7 @@ class TranslationService
         $response = [
             'translator' => $whichTranslator,
             'roomId' => $roomId,
-            'key' => '',
-            'data' => []
+            'key' => ''
         ];
 
         $result = '';
@@ -279,7 +278,7 @@ class TranslationService
      *
      * @param string $url URL cible
      * @param string $payload Corps de la requete
-     * @param array $headers En-tetes de la requete
+     * @param array<int, string> $headers En-tetes de la requete ("Nom: valeur")
      * @return string|false Reponse, ou false en cas d'echec
      */
     private function httpPost(string $url, string $payload, array $headers): string|false
@@ -295,7 +294,6 @@ class TranslationService
             curl_setopt($curl, CURLOPT_FAILONERROR, false);
 
             $result = curl_exec($curl);
-            $error = curl_error($curl);
             $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             curl_close($curl);
 

@@ -47,7 +47,7 @@ class ChatService
      * Enregistre un message du tchat (nettoyage, role serveur, rate limit).
      *
      * @param array{lineid: mixed, inputlanguage: mixed, text: mixed, sender_role: mixed} $fields
-     * @return array{status: int, body: array}
+     * @return array{status: int, body: array<string, mixed>} Statut HTTP et corps de la reponse
      */
     public function postMessage(string $roomid, array $fields): array
     {

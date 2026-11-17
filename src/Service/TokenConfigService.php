@@ -13,7 +13,7 @@ use App\Utils\Logger;
 class TokenConfigService
 {
     /**
-     * @var array All tokens loaded from tokens.json
+     * @var array<string, mixed> All tokens loaded from tokens.json
      */
     private array $allTokens;
 
@@ -154,7 +154,7 @@ class TokenConfigService
     /**
      * Get all tokens (for backward compatibility)
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAllTokens(): array
     {
@@ -164,7 +164,7 @@ class TokenConfigService
     /**
      * Get supported languages for DeepL
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getDeepLKnownLanguages(): array
     {
@@ -174,7 +174,7 @@ class TokenConfigService
     /**
      * Get supported languages for LibreTranslate
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getLibreTranslateKnownLanguages(): array
     {

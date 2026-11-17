@@ -73,6 +73,11 @@ class HealthController extends BaseController
         ], $httpCode);
     }
 
+    /**
+     * Vérifie la version de PHP (>= 8.2 requise)
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkPhp(): array
     {
         if (version_compare(PHP_VERSION, '8.2.0', '>=')) {
@@ -81,6 +86,11 @@ class HealthController extends BaseController
         return ['status' => 'fail', 'detail' => 'PHP >= 8.2 requis, version ' . PHP_VERSION . ' detectee'];
     }
 
+    /**
+     * Vérifie la présence des extensions PHP requises
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkExtensions(): array
     {
         $missing = [];
@@ -95,6 +105,11 @@ class HealthController extends BaseController
         return ['status' => 'fail', 'detail' => 'extensions manquantes : ' . implode(', ', $missing)];
     }
 
+    /**
+     * Vérifie la présence et l'inscriptibilité des répertoires de travail
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkStorage(): array
     {
         $root = defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2);
@@ -113,6 +128,11 @@ class HealthController extends BaseController
         return ['status' => 'fail', 'detail' => implode(' ; ', $problems)];
     }
 
+    /**
+     * Vérifie le répertoire temporaire système de l'application
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkTempDir(): array
     {
         $dir = rtrim(sys_get_temp_dir(), '/') . '/ottis';
@@ -125,6 +145,11 @@ class HealthController extends BaseController
         return ['status' => 'ok', 'detail' => $dir];
     }
 
+    /**
+     * Vérifie la configuration du traducteur et de ses tokens
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkTranslation(): array
     {
         try {
@@ -161,6 +186,11 @@ class HealthController extends BaseController
         return new TokenConfigService();
     }
 
+    /**
+     * Vérifie la disponibilité d'ImageMagick (extension ou CLI)
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkImagick(): array
     {
         if (extension_loaded('imagick')) {
@@ -173,6 +203,11 @@ class HealthController extends BaseController
         return ['status' => 'warn', 'detail' => 'imagick absent et binaire convert introuvable : conversion PDF -> images indisponible'];
     }
 
+    /**
+     * Vérifie la disponibilité de LibreOffice pour les conversions
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkLibreOffice(): array
     {
         $soffice = trim((string) @shell_exec('command -v soffice 2>/dev/null'));
@@ -182,6 +217,11 @@ class HealthController extends BaseController
         return ['status' => 'warn', 'detail' => 'soffice introuvable : conversion PPTX -> PDF et ODP -> PPTX indisponible'];
     }
 
+    /**
+     * Vérifie la configuration CAS si l'authentification est activée
+     *
+     * @return array<string, string> Résultat de la sonde : ['status' => ok|warn|fail, 'detail' => description]
+     */
     protected function checkCas(): array
     {
         $enabled = filter_var(

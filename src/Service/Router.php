@@ -11,7 +11,7 @@ namespace App\Service;
 class Router
 {
     /**
-     * @var array Routes configuration: method => [path => [controller, action]]
+     * @var array<string, array<string, array<int, string>>> Routes configuration: method => [path => [controller, action]]
      */
     private array $routes = [
         'GET' => [],
@@ -31,7 +31,7 @@ class Router
     private string $uri;
 
     /**
-     * @var array Route parameters extracted from the URI
+     * @var array<string, string> Route parameters extracted from the URI
      */
     private array $params = [];
 
@@ -150,7 +150,7 @@ class Router
     /**
      * Match the current request to a route
      *
-     * @return array|null [controller, action, params] or null if no match
+     * @return array<int, mixed>|null [controller, action, params] or null if no match
      */
     public function match(): ?array
     {
@@ -230,7 +230,7 @@ class Router
     /**
      * Get route parameters
      *
-     * @return array Route parameters
+     * @return array<string, string> Route parameters
      */
     public function getParams(): array
     {
@@ -241,7 +241,7 @@ class Router
      * Generate a URL for a named route
      *
      * @param string $path Route path
-     * @param array $params Parameters to substitute
+     * @param array<string, string> $params Parameters to substitute
      * @return string Generated URL
      */
     public function generateUrl(string $path, array $params = []): string
@@ -282,7 +282,7 @@ class Router
     /**
      * Get all registered routes (for debugging)
      *
-     * @return array All registered routes
+     * @return array<string, array<string, array<int, string>>> All registered routes
      */
     public function getRoutes(): array
     {

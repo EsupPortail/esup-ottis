@@ -137,11 +137,10 @@ class RoomTokenManager
         $token = $current['token'];
         if ($token === '') {
             $token = self::generateRoomToken($roomid, $ownerUid);
-            $current = self::readRoomTokenData($roomid);
-            $token = $current['token'];
+            $timestamp = time();
+        } else {
+            $timestamp = $current['timestamp'] ?: time();
         }
-
-        $timestamp = $current['timestamp'] ?: time();
         $payload = $token . "\n" . $timestamp . "\n" . trim($ownerUid);
         file_put_contents($tokenFile, $payload);
     }
@@ -175,7 +174,6 @@ class RoomTokenManager
 
         $data = self::readRoomTokenData($roomid);
         $storedToken = $data['token'];
-        $timestamp = (int) $data['timestamp'];
 
         // Invalid token if empty or doesn't match
         if (empty($storedToken) || !hash_equals($storedToken, $token)) {

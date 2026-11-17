@@ -66,9 +66,6 @@ class ExtractController extends BaseController
                 return;
             }
 
-            $flag_justif = false;
-            $filename = $this->tmpDir . 'tmpfiles/test.html';
-
             $contenttxt = file_get_contents($tmp_file);
             $content = explode("\n", $contenttxt);
             $txtslidenotes = '';
@@ -90,7 +87,7 @@ class ExtractController extends BaseController
             $notes = [];
 
             // Récupération de la première langue des notes uniquement.
-            foreach ($Tnotes as $lang => $noteslang) {
+            foreach ($Tnotes as $noteslang) {
                 $notes = $noteslang;
                 break;
             }
@@ -121,7 +118,6 @@ class ExtractController extends BaseController
         if ($this->router->getMethod() === 'POST') {
             $tmp_file = $_FILES['ppt_presentation']['tmp_name'] ?? '';
 
-            $flag_justif = false;
             $filename = $this->tmpDir . 'tmpfiles/test.pptx';
 
             if (is_uploaded_file($tmp_file)) {
@@ -213,8 +209,6 @@ class ExtractController extends BaseController
             // Extraire les images (si LibreOffice/ImageMagick disponibles)
             $T_images = [];
             try {
-                $pdfFile = null;
-
                 // Convertir PPTX en PDF
                 $cmd = 'soffice --headless --convert-to pdf:impress_pdf_Export ' . escapeshellarg($tmp_file) . ' --outdir ' . escapeshellarg($workDir) . ' 2>/dev/null';
                 exec($cmd, $output, $return);
@@ -433,7 +427,7 @@ class ExtractController extends BaseController
                 $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
             }
 
-            $out = exec($command);
+            exec($command);
             if (!file_exists($tmp_file)) {
                 echo json_encode(['error' => 'Failed to download file from uncloudlink']);
                 exit;
@@ -461,7 +455,7 @@ class ExtractController extends BaseController
      *
      * @param string $pdfFile Path to the PDF file
      * @param string $imagesDir Directory to save JPG images
-     * @return array Array of generated image filenames
+     * @return array<int, string> Array of generated image filenames
      */
     private function convertPdfToImages(string $pdfFile, string $imagesDir): array
     {

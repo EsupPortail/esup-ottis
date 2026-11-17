@@ -7,7 +7,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.13",
-        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan": "^2.2",
         "phpunit/phpunit": "^10.0"
     },
     "autoload": {

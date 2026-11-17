@@ -16,7 +16,7 @@ class LanguageLoader
     private string $languagesFilePath;
 
     /**
-     * @var array|null Cached list of languages
+     * @var array<string, array<string, string>>|null Cached list of languages
      */
     private ?array $languagesCache = null;
 
@@ -42,7 +42,7 @@ class LanguageLoader
      *
      * The CSV file format is: name_vo;code;name_fr
      *
-     * @return array Array of languages indexed by their code, each containing:
+     * @return array<string, array<string, string>> Array of languages indexed by their code, each containing:
      *               - name_fr: French name
      *               - name_vo: Original name
      *               - code: Language code
@@ -93,7 +93,7 @@ class LanguageLoader
      * Get a specific language by code
      *
      * @param string $code Language code
-     * @return array|null Language data or null if not found
+     * @return array<string, string>|null Language data or null if not found
      */
     public function getLanguage(string $code): ?array
     {
@@ -104,7 +104,7 @@ class LanguageLoader
     /**
      * Get all language codes
      *
-     * @return array Array of language codes
+     * @return array<int, string> Array of language codes
      */
     public function getLanguageCodes(): array
     {
@@ -124,7 +124,7 @@ class LanguageLoader
     /**
      * Static helper method to load languages with default configuration
      *
-     * @return array Array of languages
+     * @return array<string, array<string, string>> Array of languages
      */
     public static function load(): array
     {

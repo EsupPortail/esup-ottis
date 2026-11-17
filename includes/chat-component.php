@@ -13,7 +13,7 @@
 /**
  * Render the chat component
  *
- * @param array $options {
+ * @param array<string, mixed> $options {
  *     associative array with the following keys:
  *     - 'roomId': string - The ROOMID for the classroom
  *     - 'userName': string - The username to display (e.g., "Red Alpaca")
@@ -39,9 +39,6 @@ function renderChatComponent($options = [])
     $options = array_merge($defaults, $options);
 
     // Extract options
-    $roomId = htmlspecialchars($options['roomId'], ENT_QUOTES, 'UTF-8');
-    $userName = htmlspecialchars($options['userName'], ENT_QUOTES, 'UTF-8');
-    $isIntervenant = $options['isIntervenant'];
     $containerClass = htmlspecialchars($options['containerClass'], ENT_QUOTES, 'UTF-8');
     $placeholder = htmlspecialchars($options['placeholder'], ENT_QUOTES, 'UTF-8');
     $labelText = htmlspecialchars($options['labelText'], ENT_QUOTES, 'UTF-8');

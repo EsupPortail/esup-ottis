@@ -55,41 +55,81 @@ class Logger
         return $logger;
     }
 
+    /**
+     * Loggue une erreur d'exécution
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function error(string $message, array $context = []): void
     {
         self::get()->error($message, $context);
     }
 
+    /**
+     * Loggue un avertissement
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function warning(string $message, array $context = []): void
     {
         self::get()->warning($message, $context);
     }
 
+    /**
+     * Loggue un message d'information
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function info(string $message, array $context = []): void
     {
         self::get()->info($message, $context);
     }
 
+    /**
+     * Loggue un message de débogage
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function debug(string $message, array $context = []): void
     {
         self::get()->debug($message, $context);
     }
 
+    /**
+     * Loggue une anomalie bloquante
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function critical(string $message, array $context = []): void
     {
         self::get()->critical($message, $context);
     }
 
+    /**
+     * Loggue un événement notable mais normal
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function notice(string $message, array $context = []): void
     {
         self::get()->notice($message, $context);
     }
 
+    /**
+     * Loggue une alerte demandant une action immédiate
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function alert(string $message, array $context = []): void
     {
         self::get()->alert($message, $context);
     }
 
+    /**
+     * Loggue une urgence rendant le système inutilisable
+     *
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     */
     public static function emergency(string $message, array $context = []): void
     {
         self::get()->emergency($message, $context);

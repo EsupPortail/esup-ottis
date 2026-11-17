@@ -18,7 +18,7 @@ class PPTXNotesExtractor
      *
      * @param string $filePath Chemin vers le fichier PPTX
      * @throws \Exception En cas d'erreur de lecture
-     * @return array Tableau de slides avec leurs notes
+     * @return array<int, array<string, mixed>> Tableau de slides avec leurs notes
      */
     public static function extract(string $filePath): array
     {
@@ -36,7 +36,7 @@ class PPTXNotesExtractor
      * Extrait les notes en parsant directement le XML du PPTX
      *
      * @param string $filePath Chemin vers le fichier PPTX
-     * @return array Tableau de slides avec leurs notes
+     * @return array<int, array<string, mixed>> Tableau de slides avec leurs notes
      */
     private static function extractNotesFromXML(string $filePath): array
     {
@@ -74,7 +74,7 @@ class PPTXNotesExtractor
      * Parse le contenu XML d'une slide de notes
      *
      * @param string $xmlContent Contenu XML
-     * @return array Tableau de lignes de texte
+     * @return array<int, string> Tableau de lignes de texte
      */
     private static function parseNotesXML(string $xmlContent): array
     {

@@ -66,10 +66,8 @@ class NotebookService
             $fd = fopen($filePath, 'r');
             if ($fd) {
                 while ($ligne = trim(fgets($fd, 4096))) {
-                    if ($ligne != '') {
-                        $TLines[] = $ligne;
-                        $ligneID++;
-                    }
+                    $TLines[] = $ligne;
+                    $ligneID++;
                 }
                 fclose($fd);
                 $lastLine = end($TLines);
