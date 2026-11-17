@@ -184,6 +184,9 @@ CAS_HOST=
 CAS_PORT=
 CAS_URL=
 
+# CA pour la validation TLS du serveur CAS (requise hors développement)
+CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt
+
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
 
@@ -243,12 +246,13 @@ CAS_ENABLED=true                      # Activation (unique interrupteur)
 CAS_HOST=cas.mon-etablissement.fr     # OBLIGATOIRE si CAS activé (aucune valeur par défaut)
 CAS_PORT=443                         # Port (optionnel, défaut générique : 443)
 CAS_URL=/cas/                         # Contexte CAS (optionnel, défaut générique : /cas)
+CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt  # CA pour la validation TLS (requise hors développement)
 ```
 
 > **Important** : `CAS_HOST` est **obligatoire** dès que `CAS_ENABLED=true` : les valeurs de Nantes Université ne sont pas des valeurs par défaut. Sans hôte configuré, un avertissement est journalisé à chaque requête et l'authentification échoue avec une erreur explicite (les routes protégées renvoient alors une erreur).
 
 - `CAS_PORT` / `CAS_URL` absents, vides ou invalides : défauts génériques `443` et `/cas` (avertissement en log si invalide).
-- `server_validation` (validation du certificat du serveur CAS) et `cert_path` se règlent dans `config/cas.php` : passez `server_validation` à `true` et renseignez `cert_path` pour un établissement disposant d'une PKI.
+- **Validation TLS** : `CAS_CERT_PATH` dans le `.env` (chemin du fichier CA, ex. `/etc/ssl/certs/ca-certificates.crt`, ou bundle d'une PKI interne). Renseigné, les tickets sont validés contre la CA (`phpCAS::setCasServerCACert`). Absent : la validation TLS est désactivée **uniquement en développement** (`development`, `dev`, `local`, `testing`) — hors développement, l'authentification est refusée avec une erreur explicite (fail-fast), jamais de validation silencieusement désactivée.
 - Contournement du CAS en développement : `APP_ENV=dev` ou `APP_ENV=local`, ou `dev_mode = true` dans `config/cas.php` (utilisateur factice `ottis-dev-user`). NB : `APP_ENV=development` ne contourne pas le CAS.
 
 - **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
@@ -333,7 +337,9 @@ php public/index.php
   chown -R www-data:www-data .
   chmod -R 755 .
   chmod -R 775 tmp/ uploads/ logs/
+  chmod 640 tables/tokens.json
   ```
+- `tables/tokens.json` porte les clés API des traducteurs : `640` uniquement (créé en `775` par défaut si vous passez par `cp` + éditeur) — lisible seulement par le propriétaire et le groupe FPM, jamais par les autres utilisateurs du serveur.
 - Activer la rotation des logs — créer `/etc/logrotate.d/ottis` :
   ```
   /srv/ottis/logs/*.log {

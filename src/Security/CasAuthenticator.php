@@ -91,8 +91,16 @@ class CasAuthenticator
 
         if (!empty($casConfig['cert_path'])) {
             \phpCAS::setCasServerCACert($casConfig['cert_path']);
-        } elseif (($casConfig['server_validation'] ?? false) === false) {
+        } elseif (in_array(strtolower($appEnv), ['development', 'dev', 'local', 'testing'], true)) {
             \phpCAS::setNoCasServerValidation();
+        } else {
+            Logger::error(
+                'CAS : CAS_CERT_PATH absent, validation TLS du serveur CAS refusee'
+                . ' -- definissez le chemin CA dans le .env'
+            );
+            throw new RuntimeException(
+                'CAS server TLS validation is mandatory outside development. Define CAS_CERT_PATH in the .env file.'
+            );
         }
 
         \phpCAS::handleLogoutRequests(false);

@@ -35,11 +35,16 @@ class Bootstrap
 
         // Démarrer la session si ce n'est pas déjà fait
         if (session_status() === PHP_SESSION_NONE) {
+            // Cookie de session : flag secure hors developpement (production,
+            // staging, defaut sans APP_ENV) ou l'application est servie en
+            // HTTPS ; absent en development/dev/local/testing (http://localhost).
+            $appEnv = strtolower(trim((string) ($_ENV['APP_ENV'] ?? getenv('APP_ENV'))) ?: 'production');
             session_set_cookie_params([
                 'lifetime' => 28800,
                 'path' => '/',
                 'httponly' => true,
                 'samesite' => 'Lax',
+                'secure' => !in_array($appEnv, ['development', 'dev', 'local', 'testing'], true),
             ]);
             ini_set('session.gc_maxlifetime', 28800);
             session_start();
