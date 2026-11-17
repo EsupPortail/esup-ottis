@@ -47,7 +47,7 @@
 | **Git** | 2.x | Contrôle de version | `sudo apt install git` |
 | **Make** | 4.x | Exécution des tâches | `sudo apt install make` |
 | **LibreOffice** | 7.x | **Requis** : conversion PPTX → PDF et ODP → PPTX (`soffice --headless`) | `sudo apt install libreoffice` |
-| **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") et statistiques d'usage DeepL | `sudo apt install curl` |
+| **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") | `sudo apt install curl` |
 | **ImageMagick** | 6.x ou 7.x | **Optionnel** : fallback PDF → Images si l'extension PHP `imagick` est absente | `sudo apt install imagemagick` |
 
 ### Serveur Web
@@ -463,17 +463,15 @@ php public/index.php
 │   │   ├── CasAuthenticator.php  # Authentification CAS
 │   │   └── RoomTokenManager.php  # Tokens par salle
 │   ├── Service/             # Services
-│   │   └── Router.php, LanguageLoader.php, TokenConfigService.php, ... (7 services métier)
+│   │   └── Router.php, TranslationService.php, NotebookService.php, ... (10 services métier)
 │   └── Utils/               # Utilitaires
 │       ├── Csrf.php, Logger.php, Sanitizer.php, Validator.php
 │       └── PPTXNotesExtractor.php, ... (extracteurs PPTX)
 │
 ├── tests/                   # Tests PHP
-│   ├── Integration/
-│   └── Unit/
-│       └── Security/
-│           ├── SanitizeTest.php
-│           └── ValidateTest.php
+│   ├── Integration/         # Tests d'intégration (HealthController)
+│   └── Unit/                # Tests unitaires par couche
+│       └── Core/ Error/ Security/ Service/ Utils/
 │
 ├── views/                   # Vues MVC
 │   ├── auditor/            # Vues auditeur
@@ -600,7 +598,7 @@ responsabilité pleine de l'équipe de développement.
 |----------|------|
 | `make check` | Vérifier la qualité du code (PHP + JS) |
 | `make fix` | Corriger automatiquement (PHP + JS) |
-| `make check-php` | PHPStan (niveau 5) + PHP-CS-Fixer (PSR-12) + PHPUnit |
+| `make check-php` | PHPStan (niveau 6) + PHP-CS-Fixer (PSR-12) + PHPUnit |
 | `make check-js` | ESLint |
 | `make test` | Tests PHP + JavaScript |
 
@@ -649,11 +647,11 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 0.4.0 |
+| Version | 1.0.1 |
 | Langues supportées | 100+ |
 | Contrôleurs | 9 |
-| Services | 7 |
-| Tests unitaires PHP | 47 tests (3 fichiers) |
+| Services | 10 |
+| Tests unitaires PHP | 113 tests (13 fichiers) |
 | Tests JavaScript | 19 fichiers |
 | Dépendances PHP | 4 (production) + 3 (dev) |
 | Dépendances JS | 13 (dev) + 2 (tests) |
