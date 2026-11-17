@@ -53,11 +53,6 @@ function Ecrire(ch) {
   else _('output').innerHTML = window.DOMPurify.sanitize(`${_('output').innerHTML}<br/>${ch}`);
   _('titre').innerHTML = window.DOMPurify.sanitize(ch);
   _('fixed-title').innerHTML = window.DOMPurify.sanitize(ch);
-  // _('subtitles').innerHTML=ch;
-
-  // bufferWC[placebufferWC] = ch;
-  // placebufferWC = (placebufferWC + 1) % sizebufferWC;
-  // buffer_has_changed = true;
 }
 
 /**

@@ -48,12 +48,8 @@ export function addToNB(ch, before) {
   }
 
   ch = tobesaidbetweenslides + tobeinserted + ch;
-  // _('notebook').innerHTML+='<br/>'+ch;
-  // EcrireTitle(ch);
-  // saveTextNB(_('notebook').innerHTML);
   const Tch = ch.split('<br/>');
   saveTextTable(Tch, 0);
-  // for (let c in Tch) saveText(Tch[c].replace(/<br\/>/gi,"").replace(/<br>/gi,""));
 }
 
 export function saveTextTable(T, i) {
@@ -66,21 +62,15 @@ export function saveTextTable(T, i) {
 }
 
 export function EcrireNB(ch) {
-  // if (_('notebook').innerHTML == "")
-  //  _('notebook').innerHTML=ch;
-  // else
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
   _('notebook').innerHTML = window.DOMPurify.sanitize(
     `${_('notebook').innerHTML + ch}<br/>`,
     sanitizeOptions
   );
-  // EcrireTitle(ch);
 }
 
 export function EcrireNBonly(ch) {
-  // let currentContent = getNotebookContent('notebook');
-  // logNotebookEvent('EcrireNBonly', 'notebook', ch, currentContent);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
   _('notebook').innerHTML = window.DOMPurify.sanitize(
@@ -90,8 +80,6 @@ export function EcrireNBonly(ch) {
 }
 
 export function EcrireNBonlyVO(ch) {
-  // let currentContent = getNotebookContent('notebookVO');
-  // logNotebookEvent('EcrireNBonlyVO', 'notebookVO', ch, currentContent);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
   _('notebookVO').innerHTML = window.DOMPurify.sanitize(
@@ -376,29 +364,21 @@ export function TranslateQ(ch, l, linput, name, order) {
           parsedResponse.data.translations
         ) {
           const translatedText = parsedResponse.data.translations[0].text;
-          if (true) {
-            EcrireCR(name, translatedText, order);
-          }
+          EcrireCR(name, translatedText, order);
         } else {
           logger.error('Erreur de traduction. Réponse :', parsedResponse);
-          if (true) {
-            EcrireCR(name, '---- Translation ERROR ----', order);
-          }
+          EcrireCR(name, '---- Translation ERROR ----', order);
         }
       } catch (error) {
         logger.error('Erreur de parsing JSON :', error);
-        if (true) {
-          EcrireCR(name, '---- JSON Parse ERROR ----', order);
-        }
+        EcrireCR(name, '---- JSON Parse ERROR ----', order);
       }
     },
     onError(response) {
       // Ignorer les timeouts de polling (comportement normal)
       if (response.status !== 0 || response.statusText !== 'Timeout') {
         logger.error('Erreur HTTP :', response.status);
-        if (true) {
-          EcrireCR(name, `---- HTTP ERROR ${response.status} ----`, order);
-        }
+        EcrireCR(name, `---- HTTP ERROR ${response.status} ----`, order);
       }
     },
     data: formData,

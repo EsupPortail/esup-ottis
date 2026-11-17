@@ -102,9 +102,6 @@ export function PopulateVoicesOutSub(selectname = 'VoiceOutput') {
   if (!select) return;
 
   AllOutputVoices.length = 0;
-  // while (select.firstChild) {
-  //     select.removeChild(select.firstChild);
-  // }
 
   const optgroup2 = document.createElement('optgroup');
   optgroup2.label = 'Text translation only';
@@ -138,7 +135,6 @@ export function PopulateVoicesIn() {
   const select2 = _('classroomlanguage');
   if (!select || !select2) return;
 
-  // let voices = window.speechSynthesis.getVoices();
   TLangInput.length = 0;
 
   const supportedlanguages = getSupportedLanguages();
@@ -166,8 +162,6 @@ export function PopulateVoicesInSub() {
   const select = _('classroomlanguage');
   if (!select) return;
 
-  // let select = _('VoiceInput');
-  // let voices = window.speechSynthesis.getVoices();
   TLangInput.length = 0;
 
   const supportedlanguages = getSupportedLanguages();
@@ -180,10 +174,6 @@ export function PopulateVoicesInSub() {
       TLangInput.push(lang);
       opt.textContent = `${lang} ${supportedlanguages[i].name_fr} ${supportedlanguages[i].name_vo}`;
       select.appendChild(opt);
-      // let opt2 = document.createElement("option");
-      // opt2.value = TLangInput.length;
-      // opt2.innerHTML = lang;
-      // select2.appendChild(opt2);
     }
   }
 }
@@ -199,7 +189,6 @@ function InitVoices() {
     window.openLanguageDialog();
   }
   // Ne PAS définir la langue ici - cela sera fait quand l'utilisateur valide le popup
-  // setLanguageOutputAndRetranslate(_("VoiceOutput").value);
 }
 
 /**

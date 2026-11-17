@@ -77,17 +77,4 @@ export function applyConfigSub() {
     ChangeOpacity('fixed-title', '0.5');
     ChangeOpacity('VOBanner', '0.5');
   }
-
-  // _('synthesison').checked=true;
-
-  // Micro
-  // _('microon').checked = (config.charAt(13) == "Y");
-  // _('spanmicroon').innerHTML = (config.charAt(13) == "Y") ? "Yes !" : "No.";
-  // if (_('microon').checked) {
-  //     show('micon');
-  // } else {
-  //     hide('micon');
-  // }
-
-  // updateConfig();
 }
