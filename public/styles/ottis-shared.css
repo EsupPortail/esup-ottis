@@ -1,6 +1,6 @@
 /* =============================================
-   CONFERENCE NEW STYLES - RGAA 4.1 CONFORME
-   Phase 1: Structure de base
+   OTTIS SHARED STYLES - design system commun
+   (composants ottis-* utilises par les pages conference et auditeur)
    ============================================= */
 
 :root {
@@ -88,6 +88,24 @@
     padding: 2rem 1.5rem 6rem;
     display: flex;
     flex-direction: column;
+}
+
+/* App-shell : la page ne défile pas à la fenêtre ; chaque onglet gère
+   son propre défilement interne (v-outil : conteneur d'import,
+   v-transcription : box de transcription). */
+.ottis-page-conference {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+.ottis-page-conference .ottis-main {
+    min-height: 0;
+    overflow: hidden;
+    padding-bottom: 1.5rem;
+}
+.ottis-page-conference .content,
+.ottis-page-conference .m {
+    min-height: 0;
 }
 
 /* Rail navigation active state */
@@ -565,44 +583,51 @@ progress::-moz-progress-bar {
     height: 16px;
 }
 
-/* Checkbox */
-.ottis-checkbox {
+/* Interrupteur (toggle) — port du style .ottis-switch de l'auditoire */
+.ottis-switch {
+    position: relative;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.6rem;
-    cursor: pointer;
-    font-weight: 600;
+    gap: 1rem;
+    font-weight: 700;
     color: var(--navy);
-    margin-bottom: 0.6rem;
+    cursor: pointer;
 }
-.ottis-checkbox input {
+.ottis-switch input {
     position: absolute;
     opacity: 0;
-    width: 0;
-    height: 0;
+    width: 1px;
+    height: 1px;
 }
-.ottis-checkbox-custom {
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 2px solid var(--line);
-    border-radius: 0.5rem;
-    background: #fff;
-    display: inline-block;
+.ottis-switch .tr {
+    width: 50px;
+    height: 28px;
+    border-radius: 14px;
+    /* Piste sombre : contraste >= 3:1 sur fond de panel #F3F4F6 (RGAA) */
+    background: var(--muted);
     position: relative;
+    flex: none;
 }
-.ottis-checkbox input:checked + .ottis-checkbox-custom {
-    background: #111a2e;
-    border-color: #111a2e;
-    color: #fff;
-}
-.ottis-checkbox input:checked + .ottis-checkbox-custom::before {
-    content: "\2713";
+.ottis-switch .tr::after {
+    content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 0.9rem;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+}
+.ottis-switch input:checked + .tr {
+    background: var(--navy);
+}
+.ottis-switch input:checked + .tr::after {
+    left: 25px;
+}
+.ottis-switch input:focus-visible + .tr {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
 }
 .ottis-hint {
     font-size: 0.9rem;
@@ -1038,6 +1063,26 @@ progress::-moz-progress-bar {
     margin: 0;
 }
 
+/* La vue Transcription : box fixe, seul son contenu défile — le sélecteur
+   VO/VT et les boutons restent visibles. */
+.ottis-page-conference #v-transcription .box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+.ottis-page-conference #v-transcription .box #notebook,
+.ottis-page-conference #v-transcription .box #notebookVO {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+.ottis-page-conference .seg input:checked + span span {
+    /* Texte blanc sur la pastille active (miroir de auditor-new.css) */
+    color: #fff;
+}
+
 /* Segmented control « Version du discours » */
 .ottis-page-conference .seg {
     display: inline-flex;
@@ -1086,6 +1131,10 @@ progress::-moz-progress-bar {
     gap: 0.8rem;
     align-items: flex-start;
     margin-top: 2.2rem;
+}
+.ottis-page-conference #v-transcription .dls .ottis-btn span {
+    /* Intitulé du bouton de téléchargement sur une seule ligne */
+    white-space: nowrap;
 }
 
 /* Media Queries */
@@ -1196,15 +1245,20 @@ progress::-moz-progress-bar {
 .panel-apparence fieldset {
     border: none;
     border-radius: 0.9rem;
-    padding: 1rem;
+    padding: 0.4rem 0 0;
     margin: 0 0 1.4rem;
 }
 
 .panel-apparence legend {
-    font-size: 0.95rem;
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight: 700;
     color: var(--navy);
-    padding: 0 0.4rem;
+    padding: 0;
+}
+
+.panel-apparence .ottis-switch {
+    /* Libellé « fin » : moins marqué que le titre du bloc (gras 700) */
+    font-weight: 400;
 }
 
 .panel-apparence .ottis-theme-choices {
@@ -1213,13 +1267,9 @@ progress::-moz-progress-bar {
     margin-bottom: 0;
 }
 
-.panel-apparence .ottis-checkbox {
-    margin-bottom: 0;
-}
-
 /* Focus visible sur les choix masqués visuellement (RGAA 7.1 / 10.4) */
 .ottis-choice input:focus-visible + .ottis-choice-label,
-.ottis-checkbox input:focus-visible + .ottis-checkbox-custom {
+.ottis-switch input:focus-visible + .tr {
     outline: 3px solid var(--focus);
     outline-offset: 2px;
 }

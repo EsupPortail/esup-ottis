@@ -30,9 +30,6 @@ class ConferenceController extends BaseController
      */
     public function index(): void
     {
-        // Load chat component functions
-        require_once __DIR__ . '/../../includes/chat-component.php';
-
         // Set session marker
         $_SESSION['from'] = 'teacher';
 
@@ -48,7 +45,6 @@ class ConferenceController extends BaseController
 
         // Define styles for this page
         $this->viewData['pageStyles'] = [
-            'styles/auditor.css',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
         ];
 

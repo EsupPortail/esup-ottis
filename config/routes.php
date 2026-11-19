@@ -73,8 +73,8 @@ return [
         'methods' => ['POST']
     ],
     '/subtitles' => [
-        'controller' => \App\Controller\SubtitlesController::class,
-        'action' => 'index',
+        'controller' => \App\Controller\AuditorController::class,
+        'action' => 'legacyRedirect',
         'methods' => ['GET']
     ],
 

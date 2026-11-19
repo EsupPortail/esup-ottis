@@ -5,15 +5,29 @@
 import { _ } from '../dom/selector.js';
 
 /**
+ * @summary Indique si la zone de transcription suit la fin du texte
+ * (l'utilisateur n'a pas remonté dans l'historique).
+ * @param {HTMLElement|null} el - Zone de transcription (#notebook / #output)
+ * @returns {boolean} true si un auto-scroll en bas est souhaité
+ */
+function isFollowedByUser(el) {
+  if (!el) return true;
+  return el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+}
+
+/**
  * @summary Function that update the "notebook" div.
  * @param {string} ch - The text that is adding to the notebook.
  */
 function EcrireNB(ch) {
-  if (_('notebook').innerHTML === '') {
-    _('notebook').innerHTML = window.DOMPurify.sanitize(ch);
+  const nb = _('notebook');
+  const follow = isFollowedByUser(nb);
+  if (nb.innerHTML === '') {
+    nb.innerHTML = window.DOMPurify.sanitize(ch);
   } else {
-    _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
+    nb.innerHTML = window.DOMPurify.sanitize(`${nb.innerHTML}<br/>${ch}`);
   }
+  if (follow) nb.scrollTop = nb.scrollHeight;
 
   // VOBanner
   _('VOBanner').innerHTML = window.DOMPurify.sanitize(ch);
@@ -24,11 +38,14 @@ function EcrireNB(ch) {
  * @param {string} ch - The text that is adding to the notebook.
  */
 function EcrireNBSub(ch) {
-  if (_('notebook').innerHTML === '') {
-    _('notebook').innerHTML = window.DOMPurify.sanitize(ch);
+  const nb = _('notebook');
+  const follow = isFollowedByUser(nb);
+  if (nb.innerHTML === '') {
+    nb.innerHTML = window.DOMPurify.sanitize(ch);
   } else {
-    _('notebook').innerHTML = window.DOMPurify.sanitize(`${_('notebook').innerHTML}<br/>${ch}`);
+    nb.innerHTML = window.DOMPurify.sanitize(`${nb.innerHTML}<br/>${ch}`);
   }
+  if (follow) nb.scrollTop = nb.scrollHeight;
 }
 
 /**
@@ -49,8 +66,11 @@ function EcrirePartialSub(ch) {
  * @param {string} ch - The text that is adding to the notebook.
  */
 function Ecrire(ch) {
-  if (_('output').innerHTML === '') _('output').innerHTML = window.DOMPurify.sanitize(ch);
-  else _('output').innerHTML = window.DOMPurify.sanitize(`${_('output').innerHTML}<br/>${ch}`);
+  const out = _('output');
+  const follow = isFollowedByUser(out);
+  if (out.innerHTML === '') out.innerHTML = window.DOMPurify.sanitize(ch);
+  else out.innerHTML = window.DOMPurify.sanitize(`${out.innerHTML}<br/>${ch}`);
+  if (follow) out.scrollTop = out.scrollHeight;
   _('titre').innerHTML = window.DOMPurify.sanitize(ch);
   _('fixed-title').innerHTML = window.DOMPurify.sanitize(ch);
 }

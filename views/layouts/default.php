@@ -46,7 +46,7 @@ $appConfig = require (defined('APP_ROOT') ? APP_ROOT : dirname(__DIR__, 2)) . '/
     <?php endif; ?>
 
     <?php if (isset($isConferencePage) && $isConferencePage): ?>
-        <link rel="stylesheet" href="<?php echo ottis_asset_url('/styles/conference-new.css'); ?>">
+        <link rel="stylesheet" href="<?php echo ottis_asset_url('/styles/ottis-shared.css'); ?>">
     <?php endif; ?>
 
     <script>

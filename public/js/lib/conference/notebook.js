@@ -28,6 +28,17 @@ import * as logger from '../utils/logger.js';
 
 /** @module conference/notebook */
 
+/**
+ * @summary Indique si la zone de transcription suit la fin du texte
+ * (l'utilisateur n'a pas remonté dans l'historique).
+ * @param {HTMLElement|null} el - Zone de transcription (#notebook / #notebookVO)
+ * @returns {boolean} true si un auto-scroll en bas est souhaité
+ */
+function isFollowedByUser(el) {
+  if (!el) return true;
+  return el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+}
+
 export function addSlideToNB(ch) {
   let tobesaidbetweenslides = '';
   if (_('tobesaid').value !== '') tobesaidbetweenslides = `${_('tobesaid').value}.`;
@@ -62,30 +73,30 @@ export function saveTextTable(T, i) {
 }
 
 export function EcrireNB(ch) {
+  const nb = _('notebook');
+  const follow = isFollowedByUser(nb);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
-  _('notebook').innerHTML = window.DOMPurify.sanitize(
-    `${_('notebook').innerHTML + ch}<br/>`,
-    sanitizeOptions
-  );
+  nb.innerHTML = window.DOMPurify.sanitize(`${nb.innerHTML + ch}<br/>`, sanitizeOptions);
+  if (follow) nb.scrollTop = nb.scrollHeight;
 }
 
 export function EcrireNBonly(ch) {
+  const nb = _('notebook');
+  const follow = isFollowedByUser(nb);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
-  _('notebook').innerHTML = window.DOMPurify.sanitize(
-    `${_('notebook').innerHTML + ch}<br/>`,
-    sanitizeOptions
-  );
+  nb.innerHTML = window.DOMPurify.sanitize(`${nb.innerHTML + ch}<br/>`, sanitizeOptions);
+  if (follow) nb.scrollTop = nb.scrollHeight;
 }
 
 export function EcrireNBonlyVO(ch) {
+  const nb = _('notebookVO');
+  const follow = isFollowedByUser(nb);
   // Use DOMPurify with allowed br tags to preserve line breaks
   const sanitizeOptions = { ALLOWED_TAGS: ['br'] };
-  _('notebookVO').innerHTML = window.DOMPurify.sanitize(
-    `${_('notebookVO').innerHTML + ch}<br/>`,
-    sanitizeOptions
-  );
+  nb.innerHTML = window.DOMPurify.sanitize(`${nb.innerHTML + ch}<br/>`, sanitizeOptions);
+  if (follow) nb.scrollTop = nb.scrollHeight;
 }
 
 export function EcrirePartial(ch, isFinal = false, lang = '') {

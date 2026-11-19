@@ -70,7 +70,7 @@
             "colorsHelp": "Ce choix s'applique au bloc de sous-titres affiché à l'écran.",
             "dark": "Fond sombre — texte blanc",
             "light": "Fond blanc — texte sombre",
-            "floatLegend": "Bloc de sous-titrage flottant",
+            "floatLegend": "Bloc de sous-titrage",
             "floatLabel": "Activer le bloc de sous-titrage flottant",
             "floatHelp": "Par défaut, les sous-titres seront statiques."
         },
@@ -156,8 +156,6 @@
             "alert1": "Une fois OTTIS fermé, vous n'aurez plus accès à la transcription.",
             "alert2": "Pensez à la télécharger en fin d'intervention, avant de fermer la fenêtre de votre navigateur.",
             "versionLegend": "Version du discours",
-            "voSr": " (version originale)",
-            "trSr": " (traduction)",
             "downloadOriginal": "Télécharger le discours original (.txt)",
             "downloadTranslated": "Télécharger le discours traduit (.txt)"
         },
