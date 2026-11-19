@@ -28,7 +28,6 @@ ottis/
 │   ├── layouts/             # Layouts (default.php)
 │   ├── errors/              # Pages d'erreur (404, 500, maintenance)
 │   └── auditor/, conference/, ... (vues métier)
-├── includes/                # Includes procéduraux (chat-component.php)
 └── tables/                  # Données applicatives (tokens.json des traducteurs)
 ```
 
@@ -240,4 +239,4 @@ Pour des questions sur l'architecture MVC, contacter l'équipe de développement
 ---
 
 **Document créé** : 26 août 2026
-**Version** : 1.1
+**Version** : 1.2

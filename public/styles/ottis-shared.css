@@ -1071,6 +1071,11 @@ progress::-moz-progress-bar {
     flex: 1;
     min-height: 0;
 }
+.ottis-page-conference #v-transcription .box .seg {
+    /* .box est en flex column : sans ceci, le fieldset s'étire sur toute
+       la largeur de la box et son fond dépasse le dernier segment */
+    align-self: flex-start;
+}
 .ottis-page-conference #v-transcription .box #notebook,
 .ottis-page-conference #v-transcription .box #notebookVO {
     flex: 1;
@@ -1106,7 +1111,7 @@ progress::-moz-progress-bar {
     height: 100%;
     cursor: pointer;
 }
-.ottis-page-conference .seg span {
+.ottis-page-conference .seg label > span {
     display: block;
     padding: 0.6rem 1.1rem;
     border-radius: 0.6rem;
@@ -1114,6 +1119,13 @@ progress::-moz-progress-bar {
     color: var(--muted);
     min-width: 4rem;
     text-align: center;
+}
+.ottis-page-conference .seg label > span span {
+    /* Contenu interne (libellé + code de langue) : inline, sans padding ni
+       largeur minimale — sinon pastille gonflée et texte sur 2 lignes */
+    display: inline;
+    padding: 0;
+    min-width: 0;
 }
 .ottis-page-conference .seg input:checked + span {
     background: var(--navy);
@@ -1554,6 +1566,9 @@ progress#presentation-progress::-moz-progress-bar {
     .ottis-page-conference #v-transcription {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 22rem;
+        /* h1 et alerte auto-placés sur les 2 premières rangées,
+           la box remplit la hauteur restante (dls en colonne droite) */
+        grid-template-rows: auto auto minmax(0, 1fr);
         column-gap: 2rem;
         align-content: start;
     }

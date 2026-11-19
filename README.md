@@ -257,6 +257,7 @@ CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt  # CA pour la validation TLS (r
 
 - **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
+  (`/subtitles` : alias de compatibilité, redirection 302 vers `/auditor`)
 - **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
 - **Persistance de session** : la session PHP dure 8 h (cookie dédié) et est maintenue active pendant une conférence par un appel périodique à `/keepalive` (toutes les 10 minutes) ; si une reconnexion CAS devient nécessaire, elle est transparente (nettoyage du ticket, retour automatique à la page d'origine, salle conservée).
 - **Reprise de salle** : un intervenant qui revient sur `/conference` retrouve sa salle la plus récente pendant 15 minutes après sa dernière activité (`RoomTokenManager::ROOM_RECOVERY_WINDOW = 900 s`, fenêtre rafraîchie par chaque heartbeat de la page conférence). Au-delà, une nouvelle salle lui est attribuée. À la reprise, le chat rejoue l'historique (SSE depuis l'index 0) et le transcript est rejoué dans les notebooks (`replayTranscriptHistory`, sans re-traduction).
@@ -421,7 +422,6 @@ php public/index.php
 ├── LICENSE                   # Licence Apache 2.0
 ├── Makefile                 # Tâches de qualité de code
 ├── composer.json            # Dépendances PHP
-├── includes/                 # Includes procéduraux (chat-component.php)
 ├── phpunit.xml              # Configuration PHPUnit
 ├── phpstan.neon             # Configuration PHPStan
 ├── tables/                   # Données applicatives (tokens.json des traducteurs)
@@ -454,7 +454,7 @@ php public/index.php
 │   └── uploads/            # Fichiers uploadés
 │
 ├── src/                    # Code source PHP (PSR-4: App\\)
-│   ├── Controller/          # Contrôleurs MVC (BaseController + 9 contrôleurs métier)
+│   ├── Controller/          # Contrôleurs MVC (BaseController + 8 contrôleurs métier)
 │   ├── Core/                # Bootstrap applicatif
 │   │   └── Bootstrap.php    # Erreurs -> .env -> session 8h -> CAS -> CSRF
 │   ├── Error/               # Gestion des erreurs
@@ -487,7 +487,6 @@ php public/index.php
 │   ├── pages/               # Vues de pages
 │   ├── partials/            # Partials
 │   ├── remote/              # Vues distantes
-│   ├── subtitles/           # Vues sous-titres
 │   └── upload/              # Vues upload
 │
 ├── scripts/                 # Scripts shell
@@ -647,9 +646,9 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 1.0.1 |
+| Version | 1.0.2 |
 | Langues supportées | 100+ |
-| Contrôleurs | 9 |
+| Contrôleurs | 8 |
 | Services | 10 |
 | Tests unitaires PHP | 113 tests (13 fichiers) |
 | Tests JavaScript | 19 fichiers |
