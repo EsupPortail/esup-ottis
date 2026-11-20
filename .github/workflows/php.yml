@@ -1,9 +1,8 @@
 name: PHP Build and Push Docker Image
 on:
   pull_request:
- 
-env:
-  -createrelease: true
+  release:
+    types: [published]
 
 jobs:
   build:
