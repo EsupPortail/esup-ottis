@@ -1,5 +1,8 @@
 name: PHP Build and Push Docker Image
 
+on:
+  release: 
+
 jobs:
   build:
     name: Build PHP
