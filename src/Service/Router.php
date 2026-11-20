@@ -11,7 +11,7 @@ namespace App\Service;
 class Router
 {
     /**
-     * @var array Routes configuration: method => [path => [controller, action]]
+     * @var array<string, array<string, array<int, string>>> Routes configuration: method => [path => [controller, action]]
      */
     private array $routes = [
         'GET' => [],
@@ -31,7 +31,7 @@ class Router
     private string $uri;
 
     /**
-     * @var array Route parameters extracted from the URI
+     * @var array<string, string> Route parameters extracted from the URI
      */
     private array $params = [];
 
@@ -39,6 +39,11 @@ class Router
      * @var string Base path for the application
      */
     private string $basePath = '';
+
+    /**
+     * @var string|null Config path of the route matched by the last match() call
+     */
+    private ?string $matchedPath = null;
 
     /**
      * Constructor
@@ -145,14 +150,16 @@ class Router
     /**
      * Match the current request to a route
      *
-     * @return array|null [controller, action, params] or null if no match
+     * @return array<int, mixed>|null [controller, action, params] or null if no match
      */
     public function match(): ?array
     {
         $method = $this->method;
+        $this->matchedPath = null;
 
         // Try exact match first
         if (isset($this->routes[$method][$this->uri])) {
+            $this->matchedPath = $this->uri;
             return [
                 $this->routes[$method][$this->uri][0],
                 $this->routes[$method][$this->uri][1],
@@ -164,6 +171,7 @@ class Router
         foreach ($this->routes[$method] as $path => $handler) {
             $pattern = $this->pathToPattern($path);
             if (preg_match($pattern, $this->uri, $matches)) {
+                $this->matchedPath = $path;
                 // Extract parameters (skip full match at index 0)
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
                 return [$handler[0], $handler[1], $params];
@@ -210,9 +218,19 @@ class Router
     }
 
     /**
+     * Get the config path of the route matched by the last match() call
+     *
+     * @return string|null Matched config path (e.g. '/conference/{roomId}')
+     */
+    public function getMatchedPath(): ?string
+    {
+        return $this->matchedPath;
+    }
+
+    /**
      * Get route parameters
      *
-     * @return array Route parameters
+     * @return array<string, string> Route parameters
      */
     public function getParams(): array
     {
@@ -223,7 +241,7 @@ class Router
      * Generate a URL for a named route
      *
      * @param string $path Route path
-     * @param array $params Parameters to substitute
+     * @param array<string, string> $params Parameters to substitute
      * @return string Generated URL
      */
     public function generateUrl(string $path, array $params = []): string
@@ -264,7 +282,7 @@ class Router
     /**
      * Get all registered routes (for debugging)
      *
-     * @return array All registered routes
+     * @return array<string, array<string, array<int, string>>> All registered routes
      */
     public function getRoutes(): array
     {

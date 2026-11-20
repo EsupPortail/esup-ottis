@@ -11,6 +11,25 @@ import {
   fetchWithErrorHandling,
 } from '../../../lib/conference/network.js';
 
+// Constructeurs de mocks : fonctions classiques pour rester constructibles
+// avec "new" (les fonctions fleches ne le sont pas sous Vitest 5)
+function MockXhrRequest() {
+  this.open = vi.fn();
+  this.send = vi.fn();
+  this.setRequestHeader = vi.fn();
+  this.addEventListener = vi.fn();
+  this.upload = { addEventListener: vi.fn() };
+  this.timeout = 30000;
+  this.readyState = 0;
+  this.status = 0;
+  this.responseText = '';
+}
+
+function MockAbortController() {
+  this.signal = {};
+  this.abort = vi.fn();
+}
+
 describe('lib/conference/network.js - Conference Network Utilities', () => {
   beforeEach(() => {
     document.body.innerHTML = '<input type="hidden" name="csrf_token" value="test-csrf-token">';
@@ -129,21 +148,8 @@ describe('lib/conference/network.js - Conference Network Utilities', () => {
     beforeEach(() => {
       consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       globalThis.fetch = vi.fn();
-      globalThis.AbortController = vi.fn().mockImplementation(() => ({
-        signal: {},
-        abort: vi.fn(),
-      }));
-      globalThis.XMLHttpRequest = vi.fn(() => ({
-        open: vi.fn(),
-        send: vi.fn(),
-        setRequestHeader: vi.fn(),
-        addEventListener: vi.fn(),
-        upload: { addEventListener: vi.fn() },
-        timeout: 30000,
-        readyState: 0,
-        status: 0,
-        responseText: '',
-      }));
+      globalThis.AbortController = MockAbortController;
+      globalThis.XMLHttpRequest = MockXhrRequest;
     });
 
     afterEach(() => {

@@ -124,7 +124,7 @@ class Validator
 
         $fd = @fopen($filepath, $mode);
         if ($fd === false) {
-            error_log("Impossible d'ouvrir le fichier: " . $filepath);
+            Logger::warning("Impossible d'ouvrir le fichier: " . $filepath);
             return false;
         }
 

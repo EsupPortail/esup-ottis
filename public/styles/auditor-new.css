@@ -1,7 +1,7 @@
 /* =============================================
    AUDITOR NEW STYLES - RGAA 4.1
    Base sur la maquette audit/maquette/auditor.html
-   et sur le systeme de la page conference (conference-new.css)
+   et sur le systeme de la page conference (ottis-shared.css)
    ============================================= */
 
 /* Focus visible (RGAA 7.1) */
@@ -203,6 +203,46 @@
     margin: 0;
 }
 
+.ottis-page-auditor {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+.ottis-page-auditor .ottis-main {
+    min-height: 0;
+    overflow: hidden;
+    padding-bottom: 1.5rem;
+}
+.ottis-page-auditor .content,
+.ottis-page-auditor .m {
+    min-height: 0;
+}
+
+/* La vue Transcription : box fixe, seul son contenu défile — le sélecteur
+   VO/VT et les boutons restent visibles. */
+.ottis-page-auditor #v-transcription {
+    display: flex;
+    flex-direction: column;
+}
+.ottis-page-auditor #v-transcription .box .seg {
+    /* .box est en flex column : sans ceci, le fieldset s'étire sur toute
+       la largeur de la box et son fond dépasse le dernier segment */
+    align-self: flex-start;
+}
+.ottis-page-auditor #v-transcription .box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+.ottis-page-auditor #v-transcription .box #notebook,
+.ottis-page-auditor #v-transcription .box #output {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
 /* Segmented control Version du discours */
 .ottis-page-auditor .seg {
     display: inline-flex;
@@ -229,7 +269,7 @@
     cursor: pointer;
 }
 
-.ottis-page-auditor .seg span {
+.ottis-page-auditor .seg label > span {
     display: block;
     padding: 0.6rem 1.1rem;
     border-radius: 0.6rem;
@@ -237,6 +277,13 @@
     color: var(--muted);
     min-width: 4rem;
     text-align: center;
+}
+.ottis-page-auditor .seg label > span span {
+    /* Contenu interne (libellé + code de langue) : inline, sans padding ni
+       largeur minimale — sinon pastille gonflée et texte sur 2 lignes */
+    display: inline;
+    padding: 0;
+    min-width: 0;
 }
 
 .ottis-page-auditor .seg input:checked + span {
@@ -596,6 +643,9 @@
     .ottis-page-auditor #v-transcription {
         display: grid;
         grid-template-columns: minmax(0, 1fr) 22rem;
+        /* h1 et alerte auto-placés sur les 2 premières rangées,
+           la box remplit la hauteur restante (dls en colonne droite) */
+        grid-template-rows: auto auto minmax(0, 1fr);
         column-gap: 2rem;
         align-content: start;
     }

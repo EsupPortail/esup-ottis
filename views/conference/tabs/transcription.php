@@ -19,11 +19,17 @@
         <legend class="sr-only translate" data-key="conference.transcription.versionLegend">Version du discours</legend>
         <label>
             <input type="radio" name="ver" id="seg-vo" value="vo" checked>
-            <span class="translate" data-key="conference.transcription.voLabel">Version originale</span>
+            <span>
+                <span class="translate" data-key="conference.transcription.voLabel">Version originale</span>
+                <span id="seg-vo-lang"></span>
+            </span>
         </label>
         <label>
             <input type="radio" name="ver" id="seg-tr" value="">
-            <span class="translate" data-key="conference.transcription.trLabel">Version traduite</span>
+            <span>
+                <span class="translate" data-key="conference.transcription.trLabel">Version traduite</span>
+                <span id="seg-tr-lang"></span>
+            </span>
         </label>
     </fieldset>
     <div id="notebookVO" role="region" tabindex="0" aria-labelledby="h-transcription" lang="fr"></div>
@@ -34,21 +40,11 @@
     <button type="button" class="ottis-btn ottis-btn--primary"
             id="buttondownloadspeechVO"
             data-s="notebookVO" data-f="discours-original.txt">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true" focusable="false">
-            <path d="M12 4v11M7 11l5 5 5-5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/>
-        </svg>
         <span class="translate" data-key="conference.transcription.downloadOriginal">T&eacute;l&eacute;charger le discours original (.txt)</span>
     </button>
     <button type="button" class="ottis-btn ottis-btn--primary"
             id="buttondownloadspeech"
             data-s="notebook" data-f="discours-traduit.txt">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true" focusable="false">
-            <path d="M12 4v11M7 11l5 5 5-5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/>
-        </svg>
         <span class="translate" data-key="conference.transcription.downloadTranslated">T&eacute;l&eacute;charger le discours traduit (.txt)</span>
     </button>
 </div>

@@ -189,6 +189,12 @@ class ErrorHandler
 
     /**
      * Affiche une page d'erreur personnalisée
+     *
+     * @param int $httpCode Code HTTP de la réponse
+     * @param string $title Titre affiché sur la page
+     * @param string $message Message affiché sur la page
+     * @param array<string, mixed> $context Données contextuelles pour le log
+     * @param bool $logError Journaliser l'erreur via Monolog
      */
     public static function renderErrorPage(int $httpCode, string $title, string $message, array $context = [], bool $logError = true): void
     {

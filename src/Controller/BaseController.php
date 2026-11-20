@@ -31,7 +31,7 @@ abstract class BaseController
     protected string|false|null $layout = 'default';
 
     /**
-     * @var array Data to pass to the view
+     * @var array<string, mixed> Data to pass to the view
      */
     protected array $viewData = [];
 
@@ -94,7 +94,7 @@ abstract class BaseController
      * Render a view with optional layout
      *
      * @param string $view View file name (without .php extension)
-     * @param array $data Data to pass to the view
+     * @param array<string, mixed> $data Data to pass to the view
      * @param string|false|null $layout Layout to use (null to use default, false for no layout)
      */
     protected function render(string $view, array $data = [], string|false|null $layout = null): void
@@ -171,7 +171,7 @@ abstract class BaseController
      * Render a partial view (without layout)
      *
      * @param string $partial Partial view name
-     * @param array $data Data to pass to the partial
+     * @param array<string, mixed> $data Data to pass to the partial
      */
     protected function renderPartial(string $partial, array $data = []): void
     {
@@ -244,7 +244,7 @@ abstract class BaseController
     /**
      * Get all GET parameters
      *
-     * @return array All GET parameters
+     * @return array<string, mixed> All GET parameters
      */
     protected function getAllGetParams(): array
     {
@@ -254,7 +254,7 @@ abstract class BaseController
     /**
      * Get all POST parameters
      *
-     * @return array All POST parameters
+     * @return array<string, mixed> All POST parameters
      */
     protected function getAllPostParams(): array
     {
@@ -348,7 +348,7 @@ abstract class BaseController
      * Generate a URL for a route
      *
      * @param string $path Route path
-     * @param array $params Route parameters
+     * @param array<string, string> $params Route parameters
      * @return string Generated URL
      */
     protected function url(string $path, array $params = []): string

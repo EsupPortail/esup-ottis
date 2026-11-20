@@ -81,7 +81,7 @@ class RoomInfoService
      *
      * @param string $roomId Room identifier
      * @param string $defaultUser Default user ID
-     * @return array Room information including IP, UID, app ID, and room token
+     * @return array<string, string> Room information including IP, UID, app ID, and room token
      */
     public static function getRoomInfo(string $roomId, string $defaultUser = 'anonymous'): array
     {

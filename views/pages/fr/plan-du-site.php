@@ -12,7 +12,6 @@
         <li><a href="/">Accueil</a> : présentation d'OTTIS et conseils pour une utilisation optimale ;</li>
         <li><a href="/conference">Sous-titrer une intervention</a> : outil de sous-titrage et de traduction en temps réel pour l'intervenant ;</li>
         <li><a href="/auditor">Interface auditeur</a> : sous-titres en direct, transcription téléchargeable et chat pour les participants ;</li>
-        <li><a href="/subtitles">Sous-titres</a> : accès aux sous-titres d'une salle.</li>
     </ul>
 
     <h2>Informations légales</h2>

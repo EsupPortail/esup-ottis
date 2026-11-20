@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Utils\Logger;
+
 /**
  * TokenConfigService - Service for loading and managing API tokens from configuration
  *
@@ -11,7 +13,7 @@ namespace App\Service;
 class TokenConfigService
 {
     /**
-     * @var array All tokens loaded from tokens.json
+     * @var array<string, mixed> All tokens loaded from tokens.json
      */
     private array $allTokens;
 
@@ -61,7 +63,7 @@ class TokenConfigService
 
         // Validate that we have at least DeepL Pro tokens
         if (empty($this->allTokens['DEEPLPROTOKENS'] ?? [])) {
-            error_log("AVERTISSEMENT: Aucun token DeepL Pro trouvé dans {$this->tokensFile}.");
+            Logger::warning("AVERTISSEMENT: Aucun token DeepL Pro trouvé dans {$this->tokensFile}.");
         }
     }
 
@@ -152,7 +154,7 @@ class TokenConfigService
     /**
      * Get all tokens (for backward compatibility)
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAllTokens(): array
     {
@@ -162,7 +164,7 @@ class TokenConfigService
     /**
      * Get supported languages for DeepL
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getDeepLKnownLanguages(): array
     {
@@ -172,7 +174,7 @@ class TokenConfigService
     /**
      * Get supported languages for LibreTranslate
      *
-     * @return array
+     * @return array<int, string>
      */
     public function getLibreTranslateKnownLanguages(): array
     {

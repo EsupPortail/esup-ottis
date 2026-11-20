@@ -26,12 +26,12 @@
     </fieldset>
 
     <fieldset>
-        <legend class="translate" data-key="conference.apparence.floatLegend">Bloc de sous-titrage flottant</legend>
+        <legend class="translate" data-key="conference.apparence.floatLegend">Bloc de sous-titrage</legend>
         <div class="ottis-form-group">
-            <label class="ottis-checkbox">
-                <span class="translate" data-key="conference.apparence.floatLabel">Activer le bloc de sous-titrage flottant</span>
-                <input type="checkbox" id="usetextband" aria-describedby="apparence-float-help">
-                <span class="ottis-checkbox-custom"></span>
+            <label class="ottis-switch">
+                <span class="translate" data-key="conference.apparence.floatLabel">Activer le bloc de sous-titrage</span>
+                <input type="checkbox" id="usetextband" role="switch" aria-describedby="apparence-float-help">
+                <span class="tr" aria-hidden="true"></span>
             </label>
             <p class="ottis-hint translate" id="apparence-float-help" data-key="conference.apparence.floatHelp">Par défaut, les sous-titres seront statiques.</p>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Utils\Logger;
 use RuntimeException;
 
 /**
@@ -19,6 +20,8 @@ class CasAuthenticator
 {
     /**
      * Charge la configuration CAS (config/cas.php) avec les valeurs par défaut
+     *
+     * @return array<string, mixed> Configuration CAS fusionnee avec les defauts
      */
     public static function loadConfig(): array
     {
@@ -47,6 +50,8 @@ class CasAuthenticator
 
     /**
      * Initialise phpCAS en fonction des routes et de la config serveur
+     *
+     * @param array<string, mixed> $casConfig Configuration CAS (voir loadConfig)
      */
     public static function init(array $casConfig): void
     {
@@ -90,8 +95,16 @@ class CasAuthenticator
 
         if (!empty($casConfig['cert_path'])) {
             \phpCAS::setCasServerCACert($casConfig['cert_path']);
-        } elseif (($casConfig['server_validation'] ?? false) === false) {
+        } elseif (in_array(strtolower($appEnv), ['development', 'dev', 'local', 'testing'], true)) {
             \phpCAS::setNoCasServerValidation();
+        } else {
+            Logger::error(
+                'CAS : CAS_CERT_PATH absent, validation TLS du serveur CAS refusee'
+                . ' -- definissez le chemin CA dans le .env'
+            );
+            throw new RuntimeException(
+                'CAS server TLS validation is mandatory outside development. Define CAS_CERT_PATH in the .env file.'
+            );
         }
 
         \phpCAS::handleLogoutRequests(false);
@@ -109,7 +122,8 @@ class CasAuthenticator
             $_SESSION['cas_attributes'] = \phpCAS::getAttributes();
             $_SESSION['auth_provider'] = 'cas';
         } catch (\Throwable $e) {
-            error_log('phpCAS authentication failed: ' . $e->getMessage());
+            $casError = explode('CAS response:', $e->getMessage(), 2)[0];
+            Logger::error('phpCAS authentication failed: ' . substr($casError, 0, 400));
 
             // Ticket invalide ou déjà consommé : réessayer une fois sur la même URL sans le ticket
             if (isset($_GET['ticket'])) {
@@ -239,13 +253,6 @@ class CasAuthenticator
         }
 
         $host = (string) ($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost');
-        $uri = (string) ($_SERVER['REQUEST_URI'] ?? '/');
-        $path = parse_url($uri, PHP_URL_PATH) ?: '/';
-
-        if ($path === '/') {
-            return $scheme . '://' . $host . '/';
-        }
-
-        return $scheme . '://' . $host . $path;
+        return $scheme . '://' . $host;
     }
 }

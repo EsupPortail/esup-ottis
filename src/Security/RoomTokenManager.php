@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Utils\Logger;
 use App\Utils\Validator;
 
 if (!defined('APP_ROOT')) {
@@ -99,7 +100,7 @@ class RoomTokenManager
                 if (!empty($ownerUid) && empty($existing['ownerUid'])) {
                     self::setRoomOwnerUid($roomid, $ownerUid);
                 }
-                error_log("RoomTokenManager: Reusing existing token for ROOMID=$roomid");
+                Logger::info("RoomTokenManager: Reusing existing token for ROOMID=$roomid");
                 return $existingToken;
             }
         }
@@ -112,9 +113,9 @@ class RoomTokenManager
         }
         $result = file_put_contents($tokenFile, $payload);
         if ($result === false) {
-            error_log("RoomTokenManager: Failed to write token file for ROOMID=$roomid");
+            Logger::error("RoomTokenManager: Failed to write token file for ROOMID=$roomid");
         }
-        error_log("RoomTokenManager: Generated new token for ROOMID=$roomid");
+        Logger::info("RoomTokenManager: Generated new token for ROOMID=$roomid");
         return $token;
     }
 
@@ -136,11 +137,10 @@ class RoomTokenManager
         $token = $current['token'];
         if ($token === '') {
             $token = self::generateRoomToken($roomid, $ownerUid);
-            $current = self::readRoomTokenData($roomid);
-            $token = $current['token'];
+            $timestamp = time();
+        } else {
+            $timestamp = $current['timestamp'] ?: time();
         }
-
-        $timestamp = $current['timestamp'] ?: time();
         $payload = $token . "\n" . $timestamp . "\n" . trim($ownerUid);
         file_put_contents($tokenFile, $payload);
     }
@@ -174,7 +174,6 @@ class RoomTokenManager
 
         $data = self::readRoomTokenData($roomid);
         $storedToken = $data['token'];
-        $timestamp = (int) $data['timestamp'];
 
         // Invalid token if empty or doesn't match
         if (empty($storedToken) || !hash_equals($storedToken, $token)) {
@@ -309,13 +308,13 @@ class RoomTokenManager
 
         if (empty($roomToken)) {
             http_response_code(403);
-            error_log("Room token missing for ROOMID=$roomid");
+            Logger::warning("Room token missing for ROOMID=$roomid");
             die('Room token missing');
         }
 
         if (!self::validateRoomToken($roomid, $roomToken)) {
             http_response_code(403);
-            error_log("Invalid room token for ROOMID=$roomid");
+            Logger::warning("Invalid room token for ROOMID=$roomid");
             die('Invalid room token');
         }
     }

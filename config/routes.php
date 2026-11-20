@@ -8,6 +8,9 @@
  * listed in 'methods'.
  *
  * 'params' documents the dynamic segments (e.g. '/conference/{roomId}').
+ *
+ * 'room_token' => true marque les routes POST admettant aussi un room token
+ * valide a la place du token CSRF de session (voir public/index.php).
  */
 
 return [
@@ -25,6 +28,11 @@ return [
         'action' => 'keepalive',
         'methods' => ['GET']
     ],
+    '/health' => [
+        'controller' => \App\Controller\HealthController::class,
+        'action' => 'index',
+        'methods' => ['GET']
+    ],
     '/conference' => [
         'controller' => \App\Controller\ConferenceController::class,
         'action' => 'index',
@@ -39,12 +47,14 @@ return [
     '/conference/heartbeat' => [
         'controller' => \App\Controller\ConferenceController::class,
         'action' => 'heartbeat',
-        'methods' => ['POST']
+        'methods' => ['POST'],
+        'room_token' => true
     ],
     '/conference/close' => [
         'controller' => \App\Controller\ConferenceController::class,
         'action' => 'close',
-        'methods' => ['POST']
+        'methods' => ['POST'],
+        'room_token' => true
     ],
     '/auditor' => [
         'controller' => \App\Controller\AuditorController::class,
@@ -63,8 +73,8 @@ return [
         'methods' => ['POST']
     ],
     '/subtitles' => [
-        'controller' => \App\Controller\SubtitlesController::class,
-        'action' => 'index',
+        'controller' => \App\Controller\AuditorController::class,
+        'action' => 'legacyRedirect',
         'methods' => ['GET']
     ],
 
@@ -120,17 +130,20 @@ return [
     '/text/read-q' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readQ',
-        'methods' => ['GET', 'POST']
+        'methods' => ['GET', 'POST'],
+        'room_token' => true
     ],
     '/text/read-transcript-sub' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readTranscriptSub',
-        'methods' => ['GET', 'POST']
+        'methods' => ['GET', 'POST'],
+        'room_token' => true
     ],
     '/text/read-last-sub' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'readLastSub',
-        'methods' => ['GET', 'POST']
+        'methods' => ['GET', 'POST'],
+        'room_token' => true
     ],
     '/text/read-vo' => [
         'controller' => \App\Controller\TextController::class,
@@ -145,7 +158,8 @@ return [
     '/text/save-q' => [
         'controller' => \App\Controller\TextController::class,
         'action' => 'saveQ',
-        'methods' => ['GET', 'POST']
+        'methods' => ['GET', 'POST'],
+        'room_token' => true
     ],
     '/text/translate' => [
         'controller' => \App\Controller\TextController::class,
@@ -170,7 +184,8 @@ return [
     '/extract/transcription-sub' => [
         'controller' => \App\Controller\ExtractController::class,
         'action' => 'transcriptionSub',
-        'methods' => ['GET', 'POST']
+        'methods' => ['GET', 'POST'],
+        'room_token' => true
     ],
     '/extract/slides-notes' => [
         'controller' => \App\Controller\ExtractController::class,

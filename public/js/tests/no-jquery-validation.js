@@ -216,13 +216,11 @@
     console.log(`[jQuery Removal Validation] Failed: ${results.failed}`);
 
     if (results.failed > 0) {
-      // eslint-disable-next-line max-len
       console.warn(
         '%c[jQuery Removal Validation] ⚠️  Some tests failed. Please review the errors above.',
         'color: #FF9800;'
       );
     } else {
-      // eslint-disable-next-line max-len
       console.log(
         '%c[jQuery Removal Validation] ✅ All validation tests passed! jQuery has been successfully removed.',
         'color: #4CAF50; font-weight: bold;'

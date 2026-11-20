@@ -17,6 +17,28 @@ import {
 // par un faux signal sans semantique d'annulation (test abort).
 const RealAbortController = globalThis.AbortController;
 
+// Constructeurs de mocks : fonctions classiques pour rester constructibles
+// avec "new" (les fonctions fleches ne le sont pas sous Vitest 5)
+function MockXhrRequest() {
+  this.open = vi.fn();
+  this.send = vi.fn();
+  this.setRequestHeader = vi.fn();
+  this.timeout = 0;
+  this.readyState = 0;
+  this.status = 0;
+  this.responseText = '';
+  this.onreadystatechange = null;
+  this.ontimeout = null;
+  this.onerror = null;
+  this.addEventListener = vi.fn();
+  this.upload = { addEventListener: vi.fn() };
+}
+
+function MockAbortController() {
+  this.signal = {};
+  this.abort = vi.fn();
+}
+
 // Mock fetch realiste : rejette si le signal d'annulation est leve
 // (une promesse qui ignore le signal ne declencherait jamais le catch).
 function abortableFetchMock(fetchUrl, opts) {
@@ -123,20 +145,7 @@ describe('XHR Module - handleXhrError', () => {
 
 describe('XHR Module - createXhrRequest', () => {
   beforeEach(() => {
-    globalThis.XMLHttpRequest = vi.fn(() => ({
-      open: vi.fn(),
-      send: vi.fn(),
-      setRequestHeader: vi.fn(),
-      timeout: 0,
-      readyState: 0,
-      status: 0,
-      responseText: '',
-      onreadystatechange: null,
-      ontimeout: null,
-      onerror: null,
-      addEventListener: vi.fn(),
-      upload: { addEventListener: vi.fn() },
-    }));
+    globalThis.XMLHttpRequest = MockXhrRequest;
   });
 
   afterEach(() => {
@@ -337,10 +346,7 @@ describe('XHR Module - createFetchRequest', () => {
     consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     globalThis.fetch = vi.fn();
-    globalThis.AbortController = vi.fn().mockImplementation(() => ({
-      signal: {},
-      abort: vi.fn(),
-    }));
+    globalThis.AbortController = MockAbortController;
   });
 
   afterEach(() => {
@@ -458,12 +464,7 @@ describe('XHR Module - createFetchRequest', () => {
   });
 
   it('should fall back to XMLHttpRequest when onUploadProgress is provided', () => {
-    globalThis.XMLHttpRequest = vi.fn(() => ({
-      open: vi.fn(),
-      send: vi.fn(),
-      setRequestHeader: vi.fn(),
-      timeout: 30000,
-    }));
+    globalThis.XMLHttpRequest = MockXhrRequest;
 
     const onUploadProgress = vi.fn();
     const request = createFetchRequest('POST', 'test.php', {

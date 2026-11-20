@@ -1,6 +1,6 @@
 # Architecture MVC - OTTIS
 
-## 📁 Structure des Dossiers
+## Structure des Dossiers
 
 ```
 ottis/
@@ -28,11 +28,10 @@ ottis/
 │   ├── layouts/             # Layouts (default.php)
 │   ├── errors/              # Pages d'erreur (404, 500, maintenance)
 │   └── auditor/, conference/, ... (vues métier)
-├── includes/                # Includes procéduraux (chat-component.php)
 └── tables/                  # Données applicatives (tokens.json des traducteurs)
 ```
 
-## 🎯 Composants Clés
+## Composants Clés
 
 ### 1. Front Controller (`public/index.php`)
 - **Rôle** : Point d'entrée unique pour toutes les requêtes HTTP
@@ -79,7 +78,7 @@ ottis/
   }
   ```
 
-## 🚀 Mise en Route
+## Mise en Route
 
 ### Configuration Apache
 
@@ -131,14 +130,14 @@ Après modification des classes, exécuter :
 composer dump-autoload
 ```
 
-## 🖥️ Couche JavaScript (`public/js`)
+## Couche JavaScript (`public/js`)
 
 - **Points d'entrée** : `conference-init.js`, `auditor-init.js`
 - **Modules** : `lib/conference/`, `lib/auditor/`, `lib/chat/` (modules ES)
 - **État partagé** : `lib/state/store.js` (store commun conference/auditor, initialisé depuis `window.pageData`)
 - **Flux de données runtime** (fichiers `tmp/`, endpoints `/text/*`, sous-titres en direct) : voir la section « Flux des sous-titres en direct » du [README](README.md)
 
-## 📝 Création d'une Nouvelle Page
+## Création d'une Nouvelle Page
 
 ### 1. Créer le Contrôleur
 
@@ -189,40 +188,30 @@ Ajouter dans `config/routes.php` :
 ],
 ```
 
-## 🔄 Migration depuis l'ancienne couche Security/
-
-La couche procédurale `Security/` a été entièrement migrée en classes PSR-4 :
-
-1. **Bootstrap** (`App\Core\Bootstrap`) : séquence erreurs -> .env -> session (8h) -> CAS -> CSRF, appelée depuis `public/index.php`.
-
-2. **Correspondances** : `Security/logger.php` -> `App\Utils\Logger` ; `Security/error_handler.php` -> `App\Error\ErrorHandler` ; `Security/init.php` (CAS) -> `App\Security\CasAuthenticator` ; `Security/room_tokens.php` + `validate_room_token.php` -> `App\Security\RoomTokenManager` ; `Security/validate.php`/`sanitize.php` -> `App\Utils\Validator`/`Sanitizer`.
-
-3. **Plus de fichiers chargés à chaque requête** : l'autoloading est exclusivement PSR-4 (`App\` -> `src/`).
-
-## 📊 Bonnes Pratiques
+## Bonnes Pratiques
 
 ### Contrôleurs
-- ✅ Utiliser `extends BaseController`
-- ✅ Définir des méthodes d'action publiques (ex: `index()`, `show()`, `store()`)
-- ✅ Utiliser `$this->viewData` pour passer des données aux vues
-- ✅ Utiliser `$this->render()` pour afficher les vues
-- ❌ Ne pas accéder directement à `$_GET`, `$_POST` (utiliser `$this->getParam()`, `$this->postParam()`)
-- ❌ Ne pas sortir directement du HTML (toujours passer par une vue)
+- Utiliser `extends BaseController`
+- Définir des méthodes d'action publiques (ex: `index()`, `show()`, `store()`)
+- Utiliser `$this->viewData` pour passer des données aux vues
+- Utiliser `$this->render()` pour afficher les vues
+- Ne pas accéder directement à `$_GET`, `$_POST` (utiliser `$this->getParam()`, `$this->postParam()`)
+- Ne pas sortir directement du HTML (toujours passer par une vue)
 
 ### Vues
-- ✅ Utiliser `$this->escape()` pour toutes les sorties utilisateur
-- ✅ Garder la logique métier dans les contrôleurs
-- ✅ Utiliser les layouts pour le code commun
-- ❌ Ne pas inclure directement des fichiers PHP
-- ❌ Ne pas accéder directement à `$_SESSION`
+- Utiliser `$this->escape()` pour toutes les sorties utilisateur
+- Garder la logique métier dans les contrôleurs
+- Utiliser les layouts pour le code commun
+- Ne pas inclure directement des fichiers PHP
+- Ne pas accéder directement à `$_SESSION`
 
 ### Routes
-- ✅ Utiliser des noms de routes descriptifs
-- ✅ Spécifier les méthodes HTTP supportées
-- ✅ Utiliser des paramètres nommés pour les segments dynamiques
-- ❌ Ne pas dupliquer les définitions de routes
+- Utiliser des noms de routes descriptifs
+- Spécifier les méthodes HTTP supportées
+- Utiliser des paramètres nommés pour les segments dynamiques
+- Ne pas dupliquer les définitions de routes
 
-## 🔧 Outils de Développement
+## Outils de Développement
 
 ### Vérification de la syntaxe
 ```bash
@@ -243,26 +232,11 @@ LD_LIBRARY_PATH= php vendor/bin/phpunit
 cd public/js && LD_LIBRARY_PATH= npx vitest run
 ```
 
-## 📋 Migration MVC (Tâche 12) — état
-
-- [x] Créer la structure de dossiers MVC
-- [x] Créer le Front Controller
-- [x] Créer le Routeur
-- [x] Créer le BaseController
-- [x] Créer un exemple de contrôleur (HomeController)
-- [x] Créer les contrôleurs métier (Conference, Auditor, Text, Extract, etc.)
-- [x] Créer le layout par défaut et les vues de toutes les pages
-- [x] Configurer les routes
-- [x] Migrer la logique des anciens fichiers PHP vers les contrôleurs
-- [x] Tester la compatibilité avec l'ancien code (PHPUnit : 39 tests)
-- [ ] Documenter les endpoints API
-
-## 📞 Support
+## Support
 
 Pour des questions sur l'architecture MVC, contacter l'équipe de développement.
 
 ---
 
-**Document créé** : 26 août 2026  
-**Version** : 1.0  
-**Auteur** : Mistral Vibe (Tâche 12 - Réorganisation en architecture MVC)
+**Document créé** : 26 août 2026
+**Version** : 1.2

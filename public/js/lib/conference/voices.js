@@ -140,37 +140,35 @@ export function PopulateVoicesOut(selectname = 'VoiceOutput') {
   const voices = window.speechSynthesis.getVoices();
   let englishVoiceFound = false;
   for (let i = 0; i < voices.length; i++) {
-    if (true) {
-      const opt = document.createElement('option');
-      // Use voice.lang as the value instead of numeric index
-      const voiceId = voices[i].lang;
-      opt.value = voiceId;
-      // Sélectionner en-US par défaut (sans Male/Female), sinon la langue du navigateur
-      const langCode = voices[i].lang.toLowerCase();
-      const voiceName = voices[i].name.toLowerCase();
-      if (
-        langCode.startsWith('en-us') &&
-        !voiceName.includes('male') &&
-        !voiceName.includes('female')
-      ) {
-        opt.selected = true;
-        englishVoiceFound = true;
-      } else if (
-        !englishVoiceFound &&
-        langCode.startsWith('en') &&
-        !voiceName.includes('male') &&
-        !voiceName.includes('female')
-      ) {
-        opt.selected = true;
-        englishVoiceFound = true;
-      } else if (!englishVoiceFound && langCode.substr(0, 2) === navigator.language.substr(0, 2)) {
-        opt.selected = true;
-      }
-      voices[i].textonly = false;
-      AllOutputVoices.push(voices[i]);
-      opt.textContent = `${voices[i].lang} ${voices[i].name}${voices[i].localService ? '' : ' [external service]'}`;
-      optgroup.appendChild(opt);
+    const opt = document.createElement('option');
+    // Use voice.lang as the value instead of numeric index
+    const voiceId = voices[i].lang;
+    opt.value = voiceId;
+    // Sélectionner en-US par défaut (sans Male/Female), sinon la langue du navigateur
+    const langCode = voices[i].lang.toLowerCase();
+    const voiceName = voices[i].name.toLowerCase();
+    if (
+      langCode.startsWith('en-us') &&
+      !voiceName.includes('male') &&
+      !voiceName.includes('female')
+    ) {
+      opt.selected = true;
+      englishVoiceFound = true;
+    } else if (
+      !englishVoiceFound &&
+      langCode.startsWith('en') &&
+      !voiceName.includes('male') &&
+      !voiceName.includes('female')
+    ) {
+      opt.selected = true;
+      englishVoiceFound = true;
+    } else if (!englishVoiceFound && langCode.substr(0, 2) === navigator.language.substr(0, 2)) {
+      opt.selected = true;
     }
+    voices[i].textonly = false;
+    AllOutputVoices.push(voices[i]);
+    opt.textContent = `${voices[i].lang} ${voices[i].name}${voices[i].localService ? '' : ' [external service]'}`;
+    optgroup.appendChild(opt);
   }
   select.appendChild(optgroup);
   const optgroup2 = document.createElement('optgroup');
