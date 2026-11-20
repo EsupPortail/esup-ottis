@@ -2,7 +2,7 @@ name: PHP Build and Push Docker Image
 
 on:
   release: 
-    types: [created,edited,released]
+    types: [created,edited,released,published]
     
 jobs:
   build:
