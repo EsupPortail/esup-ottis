@@ -77,7 +77,7 @@ jobs:
   release:
     name: on publie une release
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
+#    if: github.event_name == 'release'
     outputs:
       version: ${{ steps.calc.outputs.version }}  # Expose it to other jobs
   
@@ -113,7 +113,7 @@ jobs:
     needs: release
     name: on créé notre image Docker
     runs-on: ubuntu-latest
-    if: github.event_name == 'release'
+#    if: github.event_name == 'release'
     steps:
        - name: Checkout source
          uses: actions/checkout@v4
