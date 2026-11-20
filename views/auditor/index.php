@@ -158,11 +158,11 @@
                 <legend class="sr-only translate" data-key="auditor.transcription.versionLegend">Version du discours</legend>
                 <label>
                     <input type="radio" name="ver" id="seg-vo" value="vo" checked>
-                    <span><span id="seg-vo-label">VO</span><span class="sr-only translate" data-key="auditor.transcription.voSr"> (version originale)</span></span>
+                    <span><span id="seg-vo-label">Version originale</span></span>
                 </label>
                 <label>
                     <input type="radio" name="ver" id="seg-tr" value="">
-                    <span><span id="seg-tr-label">&mdash;</span><span class="sr-only translate" data-key="auditor.transcription.trSr"> (traduction)</span></span>
+                    <span><span id="seg-tr-label">Version traduite</span></span>
                 </label>
             </fieldset>
             <div id="notebook"></div>
@@ -170,11 +170,9 @@
         </div>
         <div class="dls">
             <button type="button" class="btn btn--primary" id="download-notebook-btn">
-                <span aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v11M7 11l5 5 5-5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span>
                 <span class="translate" data-key="auditor.transcription.downloadOriginal">T&eacute;l&eacute;charger le discours original (.txt)</span>
             </button>
             <button type="button" class="btn btn--primary" id="download-output-btn">
-                <span aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v11M7 11l5 5 5-5M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span>
                 <span class="translate" data-key="auditor.transcription.downloadTranslated">T&eacute;l&eacute;charger le discours traduit (.txt)</span>
             </button>
         </div>

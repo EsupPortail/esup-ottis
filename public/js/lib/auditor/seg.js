@@ -25,17 +25,26 @@ function formatLangLabel(lang) {
  */
 function updateSpeechVersion() {
   const classroomLanguage = _('classroomlanguage');
+  const origLangLabel = classroomLanguage && classroomLanguage.value
+    ? formatLangLabel(classroomLanguage.value)
+    : '';
   const voLabel = _('seg-vo-label');
   if (voLabel) {
-    // Libelle du segment VO : code de la langue originale de la conference
-    voLabel.textContent = formatLangLabel(
-      classroomLanguage && classroomLanguage.value ? classroomLanguage.value : 'VO'
-    );
+    // Libelle du segment VO : « Version originale (<code>) », sans parenthèses
+    // tant que la langue n'est pas connue
+    voLabel.textContent = origLangLabel === '—'
+      ? 'Version originale'
+      : `Version originale (${origLangLabel})`;
   }
   const voiceOutput = _('VoiceOutput');
   const lang = voiceOutput && voiceOutput.value ? voiceOutput.value : '';
+  const trLangLabel = lang ? formatLangLabel(lang) : '';
   const label = _('seg-tr-label');
-  if (label) label.textContent = formatLangLabel(lang);
+  if (label) {
+    label.textContent = trLangLabel === '—'
+      ? 'Version traduite'
+      : `Version traduite (${trLangLabel})`;
+  }
   const radio = _('seg-tr');
   if (radio) radio.value = lang;
   const output = _('output');

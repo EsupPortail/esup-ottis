@@ -16,6 +16,17 @@ use App\Service\RoomPresence;
 class AuditorController extends BaseController
 {
     /**
+     * Alias de l'ancienne page /subtitles : redirige vers l'interface
+     * auditeur en conservant le ROOMID (anciens liens partages).
+     */
+    public function legacyRedirect(): void
+    {
+        $roomId = $this->getParam('ROOMID', '');
+        $target = '/auditor' . ($roomId !== '' ? '?ROOMID=' . urlencode($roomId) : '');
+        $this->redirect($target, 302);
+    }
+
+    /**
      * Display the auditor interface
      *
      * Renders the student/attendee view for joining conference rooms.
@@ -90,7 +101,7 @@ class AuditorController extends BaseController
 
         // Define styles for this page
         $this->viewData['pageStyles'] = [
-            'styles/conference-new.css',
+            'styles/ottis-shared.css',
             'styles/auditor-new.css',
         ];
 

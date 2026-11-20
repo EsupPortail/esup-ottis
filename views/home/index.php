@@ -34,9 +34,9 @@
         <div class="accordion-body" id="acc-body">
             <div class="tip-card">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                    <rect x="7" y="2" width="6" height="10" rx="3" stroke="#1c1c2e" stroke-width="1.4"/>
-                    <path d="M4 10a6 6 0 0012 0" stroke="#1c1c2e" stroke-width="1.4" stroke-linecap="round"/>
-                    <path d="M10 16v2" stroke="#1c1c2e" stroke-width="1.4" stroke-linecap="round"/>
+                    <rect x="7" y="2" width="6" height="10" rx="3" stroke="#973C00" stroke-width="1.4"/>
+                    <path d="M4 10a6 6 0 0012 0" stroke="#973C00" stroke-width="1.4" stroke-linecap="round"/>
+                    <path d="M10 16v2" stroke="#973C00" stroke-width="1.4" stroke-linecap="round"/>
                 </svg>
                 <p class="translate" data-key="index.tip1">Pour une captation efficace, éviter les environnements bruyants et privilégier un micro de qualité (de préférence : casque ou micro-cravate).</p>
             </div>

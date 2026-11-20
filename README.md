@@ -38,7 +38,7 @@
 |-----------|-----------------|-------------|--------------|
 | **PHP** | 8.2 | Runtime PHP (requis par composer.json : `^8.2`) | `php -v` |
 | **Composer** | 2.x | Gestionnaire de dépendances PHP | `composer --version` |
-| **Node.js + npm** | 18.x / 9.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement ; installés via `cd public/js && npm install` | `node -v && npm -v` |
+| **Node.js + npm** | 22.x (LTS) / 10.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement ; installés via `cd public/js && npm install` | `node -v && npm -v` |
 
 ### Outils CLI requis
 
@@ -46,9 +46,8 @@
 |-------|---------|------|-------------|
 | **Git** | 2.x | Contrôle de version | `sudo apt install git` |
 | **Make** | 4.x | Exécution des tâches | `sudo apt install make` |
-| **Unzip** | 6.x | Extraction des archives | `sudo apt install unzip` |
 | **LibreOffice** | 7.x | **Requis** : conversion PPTX → PDF et ODP → PPTX (`soffice --headless`) | `sudo apt install libreoffice` |
-| **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") et statistiques d'usage DeepL | `sudo apt install curl` |
+| **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") | `sudo apt install curl` |
 | **ImageMagick** | 6.x ou 7.x | **Optionnel** : fallback PDF → Images si l'extension PHP `imagick` est absente | `sudo apt install imagemagick` |
 
 ### Serveur Web
@@ -68,8 +67,6 @@
 | Dépendance | Version | Rôle | Utilisation |
 |------------|---------|------|-------------|
 | **php** | ^8.2 | Langage PHP | Runtime |
-| **[phpoffice/phppresentation](https://github.com/PHPOffice/PHPPresentation)** | ^1.2 | Lecture/écriture de présentations PowerPoint | Utilisée dans `PPTXNotesExtractor.php` (fallback) |
-| **[phpoffice/common](https://github.com/PHPOffice/Common)** | ^1.1 | Bibliotheque commune PHPOffice | Dépendance transitive de phppresentation |
 | **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `src/Core/Bootstrap.php` |
 | **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.5 | Logging structuré | Utilisée dans `config/logging.php`, `src/Utils/Logger.php` |
 | **[apereo/phpcas](https://github.com/apereo/phpCAS)** | ^1.6.2 | Authentification CAS (SSO) | Utilisée dans `src/Security/CasAuthenticator.php` |
@@ -82,9 +79,8 @@
 | **curl** | — | Appels API traduction (DeepL, Google…) et phpCAS | `sudo apt install php-curl` | `php -m \| grep curl` |
 | **dom, xml, simplexml, xmlreader/writer** | — | Lecture des PPTX/ODP, phpCAS | `sudo apt install php-xml` | `php -m \| grep dom` |
 | **zip** | — | Extraction des archives PPTX/ODP | `sudo apt install php-zip` | `php -m \| grep zip` |
-| **gd** | — | Traitement d'images (phpoffice/phpspreadsheet, transitive) | `sudo apt install php-gd` | `php -m \| grep gd` |
-| **mbstring, iconv** | — | Chaînes multi-octets (phpspreadsheet) | `sudo apt install php-mbstring` | `php -m \| grep mbstring` |
-| **fileinfo, ctype, zlib** | — | Requises par les bibliothèques PHPOffice | généralement incluses | `php -m` |
+| **mbstring** | — | Chaînes multi-octets (`mb_substr`) | `sudo apt install php-mbstring` | `php -m \| grep mbstring` |
+| **fileinfo, ctype** | — | Détection MIME (`finfo_*`) et validation de type (`ctype_digit`) | généralement incluses | `php -m` |
 
 
 ---
@@ -116,7 +112,7 @@ mv composer.phar /usr/local/bin/composer
 composer install --no-dev --optimize-autoloader
 
 # Installer les extensions PHP requises
-sudo apt-get install -y php-imagick php-curl php-xml php-zip php-gd php-mbstring
+sudo apt-get install -y php-imagick php-curl php-xml php-zip php-mbstring
 sudo phpenmod imagick
 sudo systemctl restart apache2
 
@@ -188,6 +184,9 @@ CAS_HOST=
 CAS_PORT=
 CAS_URL=
 
+# CA pour la validation TLS du serveur CAS (requise hors développement)
+CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt
+
 # Proxy (optionnel - laisser vide si aucun)
 HTTP_PROXY=
 
@@ -247,16 +246,18 @@ CAS_ENABLED=true                      # Activation (unique interrupteur)
 CAS_HOST=cas.mon-etablissement.fr     # OBLIGATOIRE si CAS activé (aucune valeur par défaut)
 CAS_PORT=443                         # Port (optionnel, défaut générique : 443)
 CAS_URL=/cas/                         # Contexte CAS (optionnel, défaut générique : /cas)
+CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt  # CA pour la validation TLS (requise hors développement)
 ```
 
 > **Important** : `CAS_HOST` est **obligatoire** dès que `CAS_ENABLED=true` : les valeurs de Nantes Université ne sont pas des valeurs par défaut. Sans hôte configuré, un avertissement est journalisé à chaque requête et l'authentification échoue avec une erreur explicite (les routes protégées renvoient alors une erreur).
 
 - `CAS_PORT` / `CAS_URL` absents, vides ou invalides : défauts génériques `443` et `/cas` (avertissement en log si invalide).
-- `server_validation` (validation du certificat du serveur CAS) et `cert_path` se règlent dans `config/cas.php` : passez `server_validation` à `true` et renseignez `cert_path` pour un établissement disposant d'une PKI.
+- **Validation TLS** : `CAS_CERT_PATH` dans le `.env` (chemin du fichier CA, ex. `/etc/ssl/certs/ca-certificates.crt`, ou bundle d'une PKI interne). Renseigné, les tickets sont validés contre la CA (`phpCAS::setCasServerCACert`). Absent : la validation TLS est désactivée **uniquement en développement** (`development`, `dev`, `local`, `testing`) — hors développement, l'authentification est refusée avec une erreur explicite (fail-fast), jamais de validation silencieusement désactivée.
 - Contournement du CAS en développement : `APP_ENV=dev` ou `APP_ENV=local`, ou `dev_mode = true` dans `config/cas.php` (utilisateur factice `ottis-dev-user`). NB : `APP_ENV=development` ne contourne pas le CAS.
 
 - **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
+  (`/subtitles` : alias de compatibilité, redirection 302 vers `/auditor`)
 - **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
 - **Persistance de session** : la session PHP dure 8 h (cookie dédié) et est maintenue active pendant une conférence par un appel périodique à `/keepalive` (toutes les 10 minutes) ; si une reconnexion CAS devient nécessaire, elle est transparente (nettoyage du ticket, retour automatique à la page d'origine, salle conservée).
 - **Reprise de salle** : un intervenant qui revient sur `/conference` retrouve sa salle la plus récente pendant 15 minutes après sa dernière activité (`RoomTokenManager::ROOM_RECOVERY_WINDOW = 900 s`, fenêtre rafraîchie par chaque heartbeat de la page conférence). Au-delà, une nouvelle salle lui est attribuée. À la reprise, le chat rejoue l'historique (SSE depuis l'index 0) et le transcript est rejoué dans les notebooks (`replayTranscriptHistory`, sans re-traduction).
@@ -337,10 +338,12 @@ php public/index.php
   chown -R www-data:www-data .
   chmod -R 755 .
   chmod -R 775 tmp/ uploads/ logs/
+  chmod 640 tables/tokens.json
   ```
+- `tables/tokens.json` porte les clés API des traducteurs : `640` uniquement (créé en `775` par défaut si vous passez par `cp` + éditeur) — lisible seulement par le propriétaire et le groupe FPM, jamais par les autres utilisateurs du serveur.
 - Activer la rotation des logs — créer `/etc/logrotate.d/ottis` :
   ```
-  /home/omist/logs/*.log {
+  /srv/ottis/logs/*.log {
       daily
       rotate 14
       compress
@@ -358,17 +361,52 @@ php public/index.php
     ```bash
     logrotate -f /etc/logrotate.d/ottis
     ```
-- Mettre en place le nettoyage quotidien du répertoire `tmp/` — créer
+  - `copytruncate` est aussi indispensable pour `app.log`/`errors.log` :
+    Monolog garde ses fichiers ouverts pendant l'exécution, exactement comme
+    FPM avec `fpm-error.log`.
+
+- Surveiller les bons fichiers : tous les logs applicatifs passent par Monolog
+  (`config/logging.php`) et ne sont jamais écrits directement dans
+  `fpm-error.log`.
+  - **Production** : `logs/app.log` (niveau WARNING et au-dessus) et
+    `logs/errors.log` (ERROR et au-dessus) — c'est là que remontent les échecs
+    CAS, les rejets d'upload, les événements de sécurité (CSRF, tokens de
+    salle) et les erreurs d'extraction.
+  - **Développement** : `logs/dev.log` (DEBUG — traces détaillées upload,
+    chat, traduction, routeur) et `logs/dev-errors.log`.
+  - `logs/fpm-error.log` ne reçoit plus que les erreurs PHP natives de FPM
+    (fatales, warnings, deprecated) : ce n'est plus là que se diagnostique le
+    fonctionnement applicatif.
+- Mettre en place le nettoyage quotidien des fichiers temporaires — créer
   `/etc/cron.d/ottis` :
   ```cron
-  # Nettoyage quotidien des fichiers temporaires OMIST
-  0 4 * * * www-data find /home/omist/tmp -mindepth 1 -delete
+  # Nettoyage quotidien des fichiers temporaires OTTIS
+  0 4 * * * www-data find /srv/ottis/tmp /srv/ottis/uploads /tmp/ottis /tmp/ottis_uploads /tmp/ottis_tokens -mindepth 1 -delete
   ```
-  - Passage à 4 h du matin, hors heures de cours. Les fichiers d'état
-    (`room_alive_*`, `room_token_*`) sont recréés automatiquement par les
-    heartbeat à la prochaine utilisation.
+  - Passage à 4 h du matin, hors heures de cours. Répertoires couverts :
+    `/srv/ottis/tmp/` (présentations `pres_*`, transcripts `Link_{roomId}`,
+    état des salles `room_alive_*`, `room_token_*` — recréés par les
+    heartbeat à la prochaine utilisation) ; `/srv/ottis/uploads/`
+    (téléchargements transitoires « uncloud » `uncloudfile_*`, journal
+    `upload_log.txt`) ; `/tmp/ottis/` (caches de sous-titres et traductions
+    `VerylastSub_*`, `PartialSub_*`, `FinalSub_*`) ; `/tmp/ottis_uploads/` et
+    `/tmp/ottis_tokens/` (répertoires de repli, utilisés seulement si
+    `/srv/ottis/tmp` n'est pas inscriptible).
   - Le daemon cron recharge `/etc/cron.d/` automatiquement : aucun restart
     nécessaire après création du fichier.
+- Mettre en place la supervision du service — une sonde NRPE est fournie dans
+  [`scripts/check_ottis.sh`](scripts/check_ottis.sh) :
+  ```bash
+  chmod +x /srv/ottis/scripts/check_ottis.sh
+  ```
+  - Elle interroge `GET /health` (route publique, sans CAS ni session, sans
+    appel externe, sans secret exposé). Codes de retour NRPE : `0` OK (status
+    `ok`), `1` WARNING (status `degraded` : dépendances optionnelles absentes,
+    ex. LibreOffice), `2` CRITICAL (503 : échec d'un check critique — stockage,
+    tokens de traduction, extensions PHP — ou service injoignable).
+  - L'URL est paramétrable : premier argument ou variable `CHECK_OTTIS_URL`
+    (défaut `http://localhost/health`). Exemple d'intégration NRPE :
+    `command[check_ottis]=/srv/ottis/scripts/check_ottis.sh`.
 
 ---
 
@@ -384,7 +422,6 @@ php public/index.php
 ├── LICENSE                   # Licence Apache 2.0
 ├── Makefile                 # Tâches de qualité de code
 ├── composer.json            # Dépendances PHP
-├── includes/                 # Includes procéduraux (chat-component.php)
 ├── phpunit.xml              # Configuration PHPUnit
 ├── phpstan.neon             # Configuration PHPStan
 ├── tables/                   # Données applicatives (tokens.json des traducteurs)
@@ -426,17 +463,15 @@ php public/index.php
 │   │   ├── CasAuthenticator.php  # Authentification CAS
 │   │   └── RoomTokenManager.php  # Tokens par salle
 │   ├── Service/             # Services
-│   │   └── Router.php, LanguageLoader.php, TokenConfigService.php, ... (7 services métier)
+│   │   └── Router.php, TranslationService.php, NotebookService.php, ... (10 services métier)
 │   └── Utils/               # Utilitaires
 │       ├── Csrf.php, Logger.php, Sanitizer.php, Validator.php
 │       └── PPTXNotesExtractor.php, ... (extracteurs PPTX)
 │
 ├── tests/                   # Tests PHP
-│   ├── Integration/
-│   └── Unit/
-│       └── Security/
-│           ├── SanitizeTest.php
-│           └── ValidateTest.php
+│   ├── Integration/         # Tests d'intégration (HealthController)
+│   └── Unit/                # Tests unitaires par couche
+│       └── Core/ Error/ Security/ Service/ Utils/
 │
 ├── views/                   # Vues MVC
 │   ├── auditor/            # Vues auditeur
@@ -452,7 +487,6 @@ php public/index.php
 │   ├── pages/               # Vues de pages
 │   ├── partials/            # Partials
 │   ├── remote/              # Vues distantes
-│   ├── subtitles/           # Vues sous-titres
 │   └── upload/              # Vues upload
 │
 ├── scripts/                 # Scripts shell
@@ -513,7 +547,7 @@ Ce projet est distribué sous la licence **Apache 2.0**.
 
 - **Fichier** : [LICENSE](LICENSE)
 - **Résumé** : Vous pouvez utiliser, modifier et distribuer ce logiciel selon les termes de la licence Apache 2.0.
-- **Auteurs OMIST** : Jérémie BOURDON, Jeanne DIONISI (Nantes Université), Thibaut AURIACOMBE (Nantes Université)
+- **Auteurs OMIST** : Jérémie BOURDON, Jeanne DIONISI (Nantes Université)
 - **Auteurs OTTIS** : Thibaut AURIACOMBE (Nantes Université)
 
 ---
@@ -563,7 +597,7 @@ responsabilité pleine de l'équipe de développement.
 |----------|------|
 | `make check` | Vérifier la qualité du code (PHP + JS) |
 | `make fix` | Corriger automatiquement (PHP + JS) |
-| `make check-php` | PHPStan (niveau 5) + PHP-CS-Fixer (PSR-12) + PHPUnit |
+| `make check-php` | PHPStan (niveau 6) + PHP-CS-Fixer (PSR-12) + PHPUnit |
 | `make check-js` | ESLint |
 | `make test` | Tests PHP + JavaScript |
 
@@ -612,13 +646,13 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 0.4.0 |
+| Version | 1.0.2 |
 | Langues supportées | 100+ |
 | Contrôleurs | 8 |
-| Services | 7 |
-| Tests unitaires PHP | 39 tests (2 fichiers) |
+| Services | 10 |
+| Tests unitaires PHP | 113 tests (13 fichiers) |
 | Tests JavaScript | 19 fichiers |
-| Dépendances PHP | 6 (production) + 3 (dev) |
-| Dépendances JS | 6 (dev) + 2 (tests) |
+| Dépendances PHP | 4 (production) + 3 (dev) |
+| Dépendances JS | 13 (dev) + 2 (tests) |
 
 

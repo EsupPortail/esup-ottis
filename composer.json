@@ -1,15 +1,13 @@
 {
     "require": {
         "php": "^8.2",
-        "phpoffice/phppresentation": "^1.2",
-        "phpoffice/common": "^1.1",
         "vlucas/phpdotenv": "^5.5",
         "monolog/monolog": "^3.5",
         "apereo/phpcas": "^1.6.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.13",
-        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan": "^2.2",
         "phpunit/phpunit": "^10.0"
     },
     "autoload": {

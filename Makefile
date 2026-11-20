@@ -21,9 +21,6 @@ PHPSTAN := vendor/bin/phpstan
 # Binaire PHPUnit (si disponible)
 PHPUNIT := vendor/bin/phpunit
 
-# Binaire ESLint (si disponible)
-ESLINT := public/js/node_modules/.bin/eslint
-
 # Binaire Prettier (si disponible)
 PRETTIER := public/js/node_modules/.bin/prettier
 
@@ -101,12 +98,12 @@ test: test-php test-js ## Exécuter tous les tests (PHP + JavaScript)
 
 check-js: ## Vérifier le code JavaScript (ESLint)
 	@echo "$(YELLOW)Analyse du code JavaScript avec ESLint...$(NC)"
-	$(ESLINT) public/js --ext .js
+	cd public/js && ./node_modules/.bin/eslint .
 
 
 fix-js: ## Corriger automatiquement le code JavaScript
 	@echo "$(YELLOW)Correction automatique du code JavaScript...$(NC)"
-	$(ESLINT) public/js --ext .js --fix
+	cd public/js && ./node_modules/.bin/eslint . --fix
 
 
 check-format-js: ## Vérifier le format JavaScript (Prettier)

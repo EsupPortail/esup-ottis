@@ -28,7 +28,7 @@ if (file_exists($autoloadPath)) {
     try {
         \App\Core\Bootstrap::run();
     } catch (\Exception $e) {
-        error_log('Bootstrap failed: ' . $e->getMessage());
+        \App\Utils\Logger::error('Bootstrap failed: ' . $e->getMessage());
         // Continue en cas d'erreur (ex. CAS non configure : la barriere
         // de controle CAS plus bas renverra 403 sur les routes protegees)
     }
@@ -140,12 +140,12 @@ $basePathScript = "<script>window.BASE_PATH = '" . addslashes($basePath) . "';</
 // Logs de debug uniquement en environnement de développement
 $isDevEnvironment = in_array(strtolower(getenv('APP_ENV') ?: 'development'), ['development', 'dev', 'local'], true);
 if ($isDevEnvironment) {
-    error_log('BASE_PATH: ' . $basePath);
-    error_log('=== DEBUG REQUEST ===');
-    error_log('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
-    error_log('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
-    error_log('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
-    error_log('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('BASE_PATH: ' . $basePath);
+    \App\Utils\Logger::debug('=== DEBUG REQUEST ===');
+    \App\Utils\Logger::debug('SCRIPT_NAME: ' . ($_SERVER['SCRIPT_NAME'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('REQUEST_URI: ' . ($_SERVER['REQUEST_URI'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('PATH_INFO: ' . ($_SERVER['PATH_INFO'] ?? 'NOT SET'));
+    \App\Utils\Logger::debug('REQUEST_METHOD: ' . ($_SERVER['REQUEST_METHOD'] ?? 'NOT SET'));
 }
 
 // Register routes from the centralized configuration (config/routes.php)
@@ -162,21 +162,48 @@ foreach ($routeConfig as $path => $definition) {
 
 // DEBUG: Log des routes POST enregistrées (développement uniquement)
 if ($isDevEnvironment) {
-    error_log('=== POST ROUTES ===');
+    \App\Utils\Logger::debug('=== POST ROUTES ===');
     foreach ($router->getRoutes()['POST'] as $path => $handler) {
-        error_log("POST $path => " . $handler[0] . '::' . $handler[1]);
+        \App\Utils\Logger::debug("POST $path => " . $handler[0] . '::' . $handler[1]);
     }
 }
 
 // Try to match and dispatch the route
 $match = $router->match();
 if ($isDevEnvironment) {
-    error_log('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
-    error_log('[Router] Match result: ' . var_export($match, true));
+    \App\Utils\Logger::debug('[Router] URI: ' . ($router->getUri()) . ', Method: ' . ($router->getMethod()));
+    \App\Utils\Logger::debug('[Router] Match result: ' . var_export($match, true));
 }
 
 if ($match !== null) {
     [$controllerClass, $action, $params] = $match;
+
+    // CSRF central : toute requete etat-modifiante (POST/PUT/DELETE) doit
+    // presenter un token CSRF de session valide (champ csrf_token ou
+    // en-tete X-CSRF-Token). Les routes marquees 'room_token' => true dans
+    // config/routes.php admettent aussi un room token valide (beacon
+    // pagehide sans session, auditeur sans session active).
+    if (in_array($router->getMethod(), ['POST', 'PUT', 'DELETE'], true)) {
+        $csrfOk = \App\Utils\Csrf::verifyRequest();
+        if (!$csrfOk) {
+            $definition = $routeConfig[$router->getMatchedPath() ?? ''] ?? [];
+            if (!empty($definition['room_token'])) {
+                $csrfOk = \App\Security\RoomTokenManager::validateRoomToken(
+                    (string) ($_POST['ROOMID'] ?? ''),
+                    (string) ($_POST['room_token'] ?? '')
+                );
+            }
+        }
+        if (!$csrfOk) {
+            \App\Utils\Logger::warning('Rejected CSRF-less state-changing request: '
+                . $router->getMethod() . ' ' . $router->getUri()
+                . ' from IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+            http_response_code(403);
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'CSRF token validation failed']);
+            exit;
+        }
+    }
 
     // Check that we have a valid controller class
     if (!empty($controllerClass) && class_exists($controllerClass)) {
@@ -191,6 +218,7 @@ if ($match !== null) {
                 // Inject BASE_PATH script only for HTML responses (not for API endpoints)
                 $requestUri = $_SERVER['REQUEST_URI'] ?? '';
                 $isApiRequest = str_starts_with($requestUri, '/keepalive') ||
+                                str_starts_with($requestUri, '/health') ||
                                 str_starts_with($requestUri, '/text/') ||
                                 str_starts_with($requestUri, '/extract/') ||
                                 str_starts_with($requestUri, '/email/') ||

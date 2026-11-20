@@ -40,6 +40,12 @@ $casHost = $casResolveEnv(
 $casPort = (int) $casResolveEnv('CAS_PORT', '443', FILTER_VALIDATE_INT);
 $casUrl = $casResolveEnv('CAS_URL', '/cas');
 
+// CA de validation du serveur CAS : chemin du fichier de certificats
+// (ex. /etc/ssl/certs/ca-certificates.crt, ou bundle d'une PKI interne).
+// Hors developpement, sans cette valeur, CasAuthenticator refuse
+// l'authentification (fail-fast) au lieu de desactiver la validation TLS.
+$casCertPath = $casResolveEnv('CAS_CERT_PATH', '');
+
 // CAS active sans serveur configure : avertissement explicite.
 // L'authentification echouera (RuntimeException de CasAuthenticator).
 if ($casEnabled && $casHost === '') {
@@ -60,8 +66,8 @@ return [
     'host' => $casHost,
     'port' => $casPort,
     'url' => $casUrl,
-    'server_validation' => false,
-    'cert_path' => null,
+    'server_validation' => $casCertPath !== '',
+    'cert_path' => $casCertPath !== '' ? $casCertPath : null,
     'dev_mode' => false,
     'protected_routes' => [
         '/',

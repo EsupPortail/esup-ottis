@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Utils\Logger;
 use App\Utils\PPTXNotesExtractor;
 
 if (!defined('APP_ROOT')) {
@@ -56,14 +57,6 @@ class ExtractController extends BaseController
     public function slidesNotesAppHTML(): void
     {
         if ($this->router->getMethod() === 'POST') {
-            // Verify CSRF token
-            try {
-                \App\Utils\Csrf::verifyRequest();
-            } catch (\Exception $e) {
-                $this->jsonResponse(['error' => 'CSRF token validation failed'], 403);
-                return;
-            }
-
             ini_set('upload_max_filesize', '50M');
             ini_set('post_max_size', '50M');
 
@@ -72,9 +65,6 @@ class ExtractController extends BaseController
             if ($tmp_file === false) {
                 return;
             }
-
-            $flag_justif = false;
-            $filename = $this->tmpDir . 'tmpfiles/test.html';
 
             $contenttxt = file_get_contents($tmp_file);
             $content = explode("\n", $contenttxt);
@@ -97,7 +87,7 @@ class ExtractController extends BaseController
             $notes = [];
 
             // Récupération de la première langue des notes uniquement.
-            foreach ($Tnotes as $lang => $noteslang) {
+            foreach ($Tnotes as $noteslang) {
                 $notes = $noteslang;
                 break;
             }
@@ -128,7 +118,6 @@ class ExtractController extends BaseController
         if ($this->router->getMethod() === 'POST') {
             $tmp_file = $_FILES['ppt_presentation']['tmp_name'] ?? '';
 
-            $flag_justif = false;
             $filename = $this->tmpDir . 'tmpfiles/test.pptx';
 
             if (is_uploaded_file($tmp_file)) {
@@ -180,14 +169,6 @@ class ExtractController extends BaseController
     public function pptxImages(): void
     {
         if ($this->router->getMethod() === 'POST') {
-            // Verify CSRF token
-            try {
-                \App\Utils\Csrf::verifyRequest();
-            } catch (\Exception $e) {
-                $this->jsonResponse(['error' => 'CSRF token validation failed'], 403);
-                return;
-            }
-
             ini_set('upload_max_filesize', '50M');
             ini_set('post_max_size', '50M');
 
@@ -220,7 +201,7 @@ class ExtractController extends BaseController
             try {
                 $notes = PPTXNotesExtractor::extract($tmp_file);
             } catch (\Exception $e) {
-                error_log('Note extraction failed: ' . $e->getMessage());
+                Logger::error('Note extraction failed: ' . $e->getMessage());
                 echo json_encode(['error' => 'Failed to extract notes: ' . $e->getMessage()]);
                 exit;
             }
@@ -228,8 +209,6 @@ class ExtractController extends BaseController
             // Extraire les images (si LibreOffice/ImageMagick disponibles)
             $T_images = [];
             try {
-                $pdfFile = null;
-
                 // Convertir PPTX en PDF
                 $cmd = 'soffice --headless --convert-to pdf:impress_pdf_Export ' . escapeshellarg($tmp_file) . ' --outdir ' . escapeshellarg($workDir) . ' 2>/dev/null';
                 exec($cmd, $output, $return);
@@ -242,7 +221,7 @@ class ExtractController extends BaseController
                     $T_images = $this->convertPdfToImages($pdfFile, $imagesDir);
                 }
             } catch (\Exception $e) {
-                error_log('Image extraction failed: ' . $e->getMessage());
+                Logger::warning('Image extraction failed: ' . $e->getMessage());
             }
 
             // Ajouter les images à chaque slide
@@ -312,7 +291,7 @@ class ExtractController extends BaseController
                     $notes = PPTXNotesExtractor::extract($convertedFile);
                     echo json_encode($notes);
                 } catch (\Exception $e) {
-                    error_log("Erreur d'extraction des notes PPTX: " . $e->getMessage());
+                    Logger::error("Erreur d'extraction des notes PPTX: " . $e->getMessage());
                     echo json_encode(['error' => 'Failed to extract notes: ' . $e->getMessage()]);
                 }
 
@@ -339,13 +318,13 @@ class ExtractController extends BaseController
     {
         // Read raw POST data
         $rawPostData = file_get_contents('php://input');
-        error_log('transcriptionSub: RAW POST = ' . $rawPostData);
+        Logger::debug('transcriptionSub: RAW POST = ' . $rawPostData);
 
         // Parse as URL-encoded form data
         $postData = [];
         if (!empty($rawPostData)) {
             parse_str($rawPostData, $postData);
-            error_log('transcriptionSub: Parsed data = ' . print_r($postData, true));
+            Logger::debug('transcriptionSub: Parsed data = ' . print_r($postData, true));
         }
 
         // Get parameters from multiple sources
@@ -356,9 +335,9 @@ class ExtractController extends BaseController
 
         // Debug logging
         if (empty($texte) || empty($roomId)) {
-            error_log('transcriptionSub: FINAL texte=' . var_export($texte, true) . ', roomId=' . var_export($roomId, true));
-            error_log('transcriptionSub: _POST=' . print_r($_POST, true));
-            error_log('transcriptionSub: _REQUEST=' . print_r($_REQUEST, true));
+            Logger::debug('transcriptionSub: FINAL texte=' . var_export($texte, true) . ', roomId=' . var_export($roomId, true));
+            Logger::debug('transcriptionSub: _POST=' . print_r($_POST, true));
+            Logger::debug('transcriptionSub: _REQUEST=' . print_r($_REQUEST, true));
         }
 
         if (empty($texte) || empty($roomId)) {
@@ -448,7 +427,7 @@ class ExtractController extends BaseController
                 $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
             }
 
-            $out = exec($command);
+            exec($command);
             if (!file_exists($tmp_file)) {
                 echo json_encode(['error' => 'Failed to download file from uncloudlink']);
                 exit;
@@ -476,7 +455,7 @@ class ExtractController extends BaseController
      *
      * @param string $pdfFile Path to the PDF file
      * @param string $imagesDir Directory to save JPG images
-     * @return array Array of generated image filenames
+     * @return array<int, string> Array of generated image filenames
      */
     private function convertPdfToImages(string $pdfFile, string $imagesDir): array
     {
@@ -511,7 +490,7 @@ class ExtractController extends BaseController
                 }
             }
         } catch (\Exception $e) {
-            error_log('PDF to image conversion failed: ' . $e->getMessage());
+            Logger::warning('PDF to image conversion failed: ' . $e->getMessage());
         }
 
         return $imageFiles;
