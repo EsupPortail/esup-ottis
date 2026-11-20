@@ -77,6 +77,7 @@ jobs:
     name: on publie une release
     runs-on: ubuntu-latest
 #    if: github.event_name == 'release'
+    needs: build
     outputs:
       version: ${{ steps.calc.outputs.version }}  # Expose it to other jobs
   
