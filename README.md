@@ -47,7 +47,7 @@
 | **Git** | 2.x | Contrôle de version | `sudo apt install git` |
 | **Make** | 4.x | Exécution des tâches | `sudo apt install make` |
 | **LibreOffice** | 7.x | **Requis** : conversion PPTX → PDF et ODP → PPTX (`soffice --headless`) | `sudo apt install libreoffice` |
-| **curl** (CLI) | 7.x | **Requis** : téléchargement de fichiers distants ("uncloud") | `sudo apt install curl` |
+| **curl** (CLI) | 7.x | **Requis** : sonde de supervision `scripts/check_ottis.sh` (interrogation de la route `/health`) | `sudo apt install curl` |
 | **ImageMagick** | 6.x ou 7.x | **Optionnel** : fallback PDF → Images si l'extension PHP `imagick` est absente | `sudo apt install imagemagick` |
 
 ### Serveur Web
@@ -76,7 +76,7 @@
 | Extension | Version | Rôle | Installation | Vérification |
 |-----------|---------|------|-------------|--------------|
 | **imagick** | latest | Conversion PDF → Images (méthode primaire) | `sudo apt install php-imagick` + `sudo phpenmod imagick` | `php -m \| grep imagick` |
-| **curl** | — | Appels API traduction (DeepL, Google…) et phpCAS | `sudo apt install php-curl` | `php -m \| grep curl` |
+| **curl** | — | Appels API traduction (DeepL) et phpCAS | `sudo apt install php-curl` | `php -m \| grep curl` |
 | **dom, xml, simplexml, xmlreader/writer** | — | Lecture des PPTX/ODP, phpCAS | `sudo apt install php-xml` | `php -m \| grep dom` |
 | **zip** | — | Extraction des archives PPTX/ODP | `sudo apt install php-zip` | `php -m \| grep zip` |
 | **mbstring** | — | Chaînes multi-octets (`mb_substr`) | `sudo apt install php-mbstring` | `php -m \| grep mbstring` |
@@ -187,9 +187,6 @@ CAS_URL=
 # CA pour la validation TLS du serveur CAS (requise hors développement)
 CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt
 
-# Proxy (optionnel - laisser vide si aucun)
-HTTP_PROXY=
-
 # Mesure d'audience Matomo (voir section "Mesure d'audience (Matomo)" ci-dessous)
 MATOMO_URL=
 MATOMO_SITE_ID=
@@ -203,19 +200,19 @@ CONFERENCE_UI_LANGUAGE=fr
 AUDITOR_UI_LANGUAGE=en
 ```
 
-> **Toute la configuration de la traduction se fait dans `tables/tokens.json`** (copiez `tables/tokens.json.example`) : choix du traducteur, tokens API et serveur LibreTranslate. Le `.env` ne porte que les réglages d'infrastructure. Structure :
+> **Toute la configuration de la traduction se fait dans `tables/tokens.json`** (copiez `tables/tokens.json.example`) : choix du traducteur et tokens API. Le `.env` ne porte que les réglages d'infrastructure. Structure :
 >
 > ```json
 > {
 >   "WHICHTRANSLATOR": ["DEEPLFREE"],
->   "GOOGLETOKENS": ["votre_token_google_1", "votre_token_google_2"],
 >   "DEEPLFREETOKENS": ["votre_token_deepl_free"],
 >   "DEEPLPROTOKENS": [],
 >   "LIBRETRANSLATESERVER": ["https://translate.terraprint.co/translate"]
 > }
 > ```
 >
-> Les clés lues par le code (`src/Service/TokenConfigService.php`) sont : `WHICHTRANSLATOR`, `GOOGLETOKENS`, `DEEPLFREETOKENS`, `DEEPLPROTOKENS`, `LIBRETRANSLATESERVER` (défaut appliqué si absente ou vide).
+> Les clés de configuration sont : `WHICHTRANSLATOR`, `DEEPLFREETOKENS`, `DEEPLPROTOKENS`, `LIBRETRANSLATESERVER` (défaut appliqué si absente ou vide).
+> Les traducteurs utilisables en l'état sont `DEEPLPRO` (ou `DEEPL`) et `DEEPLFREE`.
 
 ### Configuration Apache
 
@@ -344,8 +341,9 @@ php public/index.php
 - Activer la rotation des logs — créer `/etc/logrotate.d/ottis` :
   ```
   /srv/ottis/logs/*.log {
+      su www-data www-data
       daily
-      rotate 14
+      rotate 90
       compress
       delaycompress
       missingok
@@ -354,6 +352,16 @@ php public/index.php
       dateext
   }
   ```
+  - `su www-data www-data` est obligatoire dès que le répertoire des journaux
+    est inscriptible par un groupe autre que `root` (déploiement opéré par un
+    utilisateur non-root) : sans cette directive, logrotate refuse la rotation
+    (« parent directory has insecure permissions »). Adapter le couple
+    utilisateur/groupe au propriétaire réel des fichiers `.log`
+    (ex. `su mon-utilisateur www-data`).
+  - `rotate 90` avec une rotation quotidienne maintient 3 mois de rétention —
+    le minimum attendu pour les journaux d'événements de sécurité. Vérifier la
+    capacité disque en conséquence, ou centraliser les journaux vers le
+    collecteur de l'établissement qui assume la rétention longue.
   - `copytruncate` est indispensable : PHP-FPM garde `fpm-error.log` ouvert
     en permanence ; sans lui, FPM continuerait à écrire dans le fichier renommé.
   - Premier passage immédiat, puis le timer système `logrotate.timer` prend le
@@ -387,8 +395,7 @@ php public/index.php
     `/srv/ottis/tmp/` (présentations `pres_*`, transcripts `Link_{roomId}`,
     état des salles `room_alive_*`, `room_token_*` — recréés par les
     heartbeat à la prochaine utilisation) ; `/srv/ottis/uploads/`
-    (téléchargements transitoires « uncloud » `uncloudfile_*`, journal
-    `upload_log.txt`) ; `/tmp/ottis/` (caches de sous-titres et traductions
+    (journal `upload_log.txt`) ; `/tmp/ottis/` (caches de sous-titres et traductions
     `VerylastSub_*`, `PartialSub_*`, `FinalSub_*`) ; `/tmp/ottis_uploads/` et
     `/tmp/ottis_tokens/` (répertoires de repli, utilisés seulement si
     `/srv/ottis/tmp` n'est pas inscriptible).
@@ -646,7 +653,7 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 1.0.2 |
+| Version | 1.0.3 |
 | Langues supportées | 100+ |
 | Contrôleurs | 8 |
 | Services | 10 |
