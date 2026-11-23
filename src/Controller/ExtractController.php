@@ -19,16 +19,10 @@ class ExtractController extends BaseController
      */
     private string $tmpDir;
 
-    /**
-     * Proxy command prefix
-     */
-    private string $proxy;
-
     protected function initialize(): void
     {
         parent::initialize();
         $this->tmpDir = sys_get_temp_dir() . '/ottis/';
-        $this->proxy = getenv('HTTP_PROXY') ?: '';
     }
 
     /**
@@ -60,7 +54,7 @@ class ExtractController extends BaseController
             ini_set('upload_max_filesize', '50M');
             ini_set('post_max_size', '50M');
 
-            // Handle file upload or uncloudlink
+            // Handle file upload
             $tmp_file = $this->getPresentationFile();
             if ($tmp_file === false) {
                 return;
@@ -173,12 +167,12 @@ class ExtractController extends BaseController
             ini_set('post_max_size', '50M');
 
             // Check for input
-            if (!isset($_FILES['ppt_presentation']) && !isset($_POST['uncloudlink'])) {
-                echo json_encode(['error' => 'No file or uncloudlink provided']);
+            if (!isset($_FILES['ppt_presentation'])) {
+                echo json_encode(['error' => 'No file provided']);
                 exit;
             }
 
-            // Handle file upload or uncloudlink
+            // Handle file upload
             $tmp_file = $this->getPresentationFile();
             if ($tmp_file === false) {
                 return;
@@ -404,37 +398,12 @@ class ExtractController extends BaseController
     }
 
     /**
-     * Get presentation file from either upload or uncloudlink
+     * Get presentation file from upload
      *
      * @return string|false Path to the presentation file or false on error
      */
     private function getPresentationFile(): string|false
     {
-        // Handle uncloudlink
-        if (isset($_POST['uncloudlink']) && trim($_POST['uncloudlink']) != '') {
-            $uncloudlink = $_POST['uncloudlink'];
-            if (strpos($uncloudlink, 'download') === false) {
-                $uncloudlink .= '/download';
-            }
-
-            // For HTML: use .html extension
-            if (strpos($uncloudlink, '.html') !== false) {
-                $tmp_file = APP_ROOT . '/uploads/uncloudfile_' . md5(gmdate('U')) . '.html';
-                $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
-            } else {
-                // For PPTX: use .pptx extension
-                $tmp_file = APP_ROOT . '/uploads/uncloudfile_' . md5(gmdate('U')) . '.pptx';
-                $command = $this->proxy . 'curl -q ' . escapeshellarg($uncloudlink) . ' -o ' . escapeshellarg($tmp_file);
-            }
-
-            exec($command);
-            if (!file_exists($tmp_file)) {
-                echo json_encode(['error' => 'Failed to download file from uncloudlink']);
-                exit;
-            }
-            return $tmp_file;
-        }
-
         // Handle file upload
         if (!isset($_FILES['ppt_presentation']) || $_FILES['ppt_presentation']['error'] !== UPLOAD_ERR_OK) {
             echo json_encode(['error' => 'Uploaded file not found or upload error: ' . ($_FILES['ppt_presentation']['error'] ?? 'No file')]);

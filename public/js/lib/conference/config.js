@@ -46,8 +46,6 @@ export {
 
 // URL parameters - these were in the original conference-def.js
 // Parse URL parameters
-export const uncloudlink = '';
-export const uncloudhtmllink = '';
 export const targettab = 0;
 
 // Additional state variables from conference-def.js
