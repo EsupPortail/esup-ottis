@@ -658,7 +658,7 @@ Pour des questions sur :
 | Contrôleurs | 8 |
 | Services | 10 |
 | Tests unitaires PHP | 113 tests (13 fichiers) |
-| Tests JavaScript | 19 fichiers |
+| Tests JavaScript | 20 fichiers |
 | Dépendances PHP | 4 (production) + 3 (dev) |
 | Dépendances JS | 13 (dev) + 2 (tests) |
 

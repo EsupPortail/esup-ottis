@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
 # Mettre à jour et installer les paquets
 RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-core \
@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends libreoffice-cor
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install -j$(nproc) gd \
 	&& docker-php-ext-install zip \
+	&& pecl install imagick \
+	&& docker-php-ext-enable imagick \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
