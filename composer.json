@@ -21,5 +21,8 @@
         },
         "optimize-autoloader": true,
         "sort-packages": true
+    },
+    "license":{
+        "GPL-2.0-or-later"
     }
 }
