@@ -11,6 +11,7 @@ import { getSubtitleLanguage, getWhichTranslator } from '../state/conference.js'
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { attemptBoundedRetry } from '../network/retry.js';
 import { getBasePath } from '../state/shared.js';
 import {
   Ecrire,
@@ -83,7 +84,7 @@ export function Translate(ch, l, linput, callback) {
     l,
     linput,
     (translatedText) => {
-      if (typeof translatedText === 'string') {
+      if (typeof translatedText === 'string' && translatedText !== '') {
         // Only speak if voice is available
         if (typeof getBuiltinVoice() !== 'undefined' && getBuiltinVoice()) {
           Parle(translatedText);
@@ -92,7 +93,11 @@ export function Translate(ch, l, linput, callback) {
         Ecrire(`${translatedText}`);
         if (callback) callback(translatedText);
       } else {
-        logger.error('Translate: invalid translatedText', translatedText);
+        // Traduction indisponible : aucune ligne d'erreur dans le notebook,
+        // la ligne finale est conservee en VO (callback '')
+        if (typeof translatedText !== 'string') {
+          logger.error('Translate: invalid translatedText', translatedText);
+        }
         if (callback) callback('');
       }
     },
@@ -101,61 +106,81 @@ export function Translate(ch, l, linput, callback) {
 }
 
 export function TranslateThen(ch, l, linput, f, forcelibre = false) {
-  const formData = new FormData();
-  formData.append('texte', ch);
-  formData.append('lang', l);
-  formData.append('langinput', linput);
-  formData.append('ROOMID', _('classroomid').value || '');
-  formData.append('lineid', 'DIRECT');
+  // Anti-cascade : les erreurs transport passageres (reseau, 429, 5xx)
+  // sont relancees avec backoff borne ; jamais de texte d'erreur dans le
+  // transcript - ces lignes etaient dictees puis retraduites, aggravant
+  // la saturation qu'elles resultaient.
+  let attempt = 0;
 
-  if (forcelibre) {
-    formData.append('forcelibre', 'true');
-  }
+  const sendRequest = () => {
+    attempt += 1;
+    const formData = new FormData();
+    formData.append('texte', ch);
+    formData.append('lang', l);
+    formData.append('langinput', linput);
+    formData.append('ROOMID', _('classroomid').value || '');
+    formData.append('lineid', 'DIRECT');
 
-  // Ajouter whichtranslator (apikey gere via config.php ou variable globale)
-  const whichtranslator = getWhichTranslator();
-  if (whichtranslator) {
-    formData.append('whichtranslator', whichtranslator);
-  }
+    if (forcelibre) {
+      formData.append('forcelibre', 'true');
+    }
 
-  addCsrfToken(formData);
+    // Ajouter whichtranslator (apikey gere via config.php ou variable globale)
+    const whichtranslator = getWhichTranslator();
+    if (whichtranslator) {
+      formData.append('whichtranslator', whichtranslator);
+    }
 
-  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
-    onSuccess(response) {
-      try {
-        const parsedResponse = JSON.parse(response.responseText);
+    addCsrfToken(formData);
 
-        if (
-          parsedResponse &&
-          !parsedResponse.error &&
-          parsedResponse.data &&
-          parsedResponse.data.translations &&
-          parsedResponse.data.translations[0] &&
-          parsedResponse.data.translations[0].text
-        ) {
-          setLastSentenceTranslated(parsedResponse.data.translations[0].text);
-          f(parsedResponse.data.translations[0].text);
-        } else {
-          logger.error('Erreur de traduction. Réponse :', parsedResponse);
-          f('---- Translation ERROR ----');
+    const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
+      onSuccess(response) {
+        try {
+          const parsedResponse = JSON.parse(response.responseText);
+
+          if (
+            parsedResponse &&
+            !parsedResponse.error &&
+            parsedResponse.data &&
+            parsedResponse.data.translations &&
+            parsedResponse.data.translations[0] &&
+            parsedResponse.data.translations[0].text
+          ) {
+            setLastSentenceTranslated(parsedResponse.data.translations[0].text);
+            f(parsedResponse.data.translations[0].text);
+          } else {
+            logger.error('Erreur de traduction. Réponse :', parsedResponse);
+            f('');
+          }
+        } catch (error) {
+          logger.error('Erreur de parsing JSON :', error, 'Réponse brute :', response.responseText);
+          f('');
         }
-      } catch (error) {
-        logger.error('Erreur de parsing JSON :', error, 'Réponse brute :', response.responseText);
-        f('---- JSON Parse ERROR ----');
-      }
-    },
-    onError(response) {
-      // Ignorer les timeouts de polling (comportement normal)
-      if (response.status !== 0 || response.statusText !== 'Timeout') {
-        logger.error('Erreur HTTP :', response.status, response.statusText);
-        f(`---- HTTP ERROR ${response.status} ----`);
-      }
-    },
-    data: formData,
-    timeout: 10000,
-    context: 'TranslateThen',
-  });
-  request.send();
+      },
+      onError(response) {
+        // Ignorer les timeouts de polling (comportement normal) et leur
+        // artefact d'annulation : le transport appelle 'Timeout' PUIS
+        // 'Request aborted' pour un seul depassement de delai — reessayer
+        // ici amplifierait la charge au pire moment.
+        if (
+          response.status === 0 &&
+          (response.statusText === 'Timeout' || response.statusText === 'Request aborted')
+        ) {
+          return;
+        }
+        attemptBoundedRetry(sendRequest, response, attempt, () => {
+          logger.error('Traduction abandonnee :', response.status, response.statusText);
+          f('');
+        });
+      },
+      data: formData,
+      timeout: 10000,
+      context: 'TranslateThen',
+    });
+    request.send();
+  };
+
+  sendRequest();
 }
 
 export function EcrireTranslatePartial(ch, callback, forceTranslate = false) {

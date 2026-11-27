@@ -69,7 +69,7 @@ class CasAuthenticatorTest extends TestCase
     {
         $hasAccess = fn (): bool => $this->invokePrivate('casUserHasInternalAccess');
 
-        foreach (['faculty', 'staff', 'employee', 'teacher'] as $affiliation) {
+        foreach (['faculty', 'staff', 'employee', 'teacher', 'affiliate'] as $affiliation) {
             $_SESSION['cas_attributes'] = ['eduPersonAffiliation' => [$affiliation]];
             $this->assertTrue($hasAccess(), "affiliation $affiliation doit etre autorisee");
         }

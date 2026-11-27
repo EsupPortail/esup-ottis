@@ -36,7 +36,7 @@
 
 | Composant | Version minimale | Description | Vérification |
 |-----------|-----------------|-------------|--------------|
-| **PHP** | 8.2 | Runtime PHP (requis par composer.json : `^8.2`) | `php -v` |
+| **PHP** | 8.4 | Runtime PHP (requis par composer.json : `^8.4`) | `php -v` |
 | **Composer** | 2.x | Gestionnaire de dépendances PHP | `composer --version` |
 | **Node.js + npm** | 22.x (LTS) / 10.x | Outils qualité JS (ESLint, Prettier, Vitest) pour `make check` / `make test` — développement uniquement ; installés via `cd public/js && npm install` | `node -v && npm -v` |
 
@@ -66,7 +66,7 @@
 
 | Dépendance | Version | Rôle | Utilisation |
 |------------|---------|------|-------------|
-| **php** | ^8.2 | Langage PHP | Runtime |
+| **php** | ^8.4 | Langage PHP | Runtime |
 | **[vlucas/phpdotenv](https://github.com/vlucas/phpdotenv)** | ^5.5 | Chargement des variables d'environnement | Utilisée dans `src/Core/Bootstrap.php` |
 | **[monolog/monolog](https://github.com/Seldaek/monolog)** | ^3.5 | Logging structuré | Utilisée dans `config/logging.php`, `src/Utils/Logger.php` |
 | **[apereo/phpcas](https://github.com/apereo/phpCAS)** | ^1.6.2 | Authentification CAS (SSO) | Utilisée dans `src/Security/CasAuthenticator.php` |
@@ -255,7 +255,7 @@ CAS_CERT_PATH=/etc/ssl/certs/ca-certificates.crt  # CA pour la validation TLS (r
 - **Routes protégées** (CAS obligatoire) : `/`, `/conference`, `/conference/{roomId}`
 - **Routes publiques** (sans CAS) : `/auditor`, `/auditor/{roomId}`
   (`/subtitles` : alias de compatibilité, redirection 302 vers `/auditor`)
-- **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher` (sinon HTTP 403).
+- **Filtrage par affiliation** : l'accès aux zones protégées exige une affiliation `eduPersonAffiliation` parmi `faculty`, `staff`, `employee`, `teacher`, `affiliate` (sinon HTTP 403). `affiliate` correspond notamment à un prestataire, à condition que le CAS renvoie exactement cette valeur.
 - **Persistance de session** : la session PHP dure 8 h (cookie dédié) et est maintenue active pendant une conférence par un appel périodique à `/keepalive` (toutes les 10 minutes) ; si une reconnexion CAS devient nécessaire, elle est transparente (nettoyage du ticket, retour automatique à la page d'origine, salle conservée).
 - **Reprise de salle** : un intervenant qui revient sur `/conference` retrouve sa salle la plus récente pendant 15 minutes après sa dernière activité (`RoomTokenManager::ROOM_RECOVERY_WINDOW = 900 s`, fenêtre rafraîchie par chaque heartbeat de la page conférence). Au-delà, une nouvelle salle lui est attribuée. À la reprise, le chat rejoue l'historique (SSE depuis l'index 0) et le transcript est rejoué dans les notebooks (`replayTranscriptHistory`, sans re-traduction).
 
@@ -653,7 +653,7 @@ Pour des questions sur :
 
 | Métrique | Valeur |
 |----------|--------|
-| Version | 1.0.3 |
+| Version | 1.0.4 |
 | Langues supportées | 100+ |
 | Contrôleurs | 8 |
 | Services | 10 |

@@ -23,6 +23,7 @@ import { EcrireCR, getRoomToken } from './compat.js';
 
 import { _ } from '../dom/selector.js';
 import { addCsrfToken, createFetchRequest } from './network.js';
+import { attemptBoundedRetry } from '../network/retry.js';
 import { safeSetTimeout } from '../utils/cleanup.js';
 import * as logger from '../utils/logger.js';
 
@@ -348,55 +349,68 @@ export function readTextQ() {
 }
 
 export function TranslateQ(ch, l, linput, name, order) {
-  const formData = new FormData();
-  formData.append('texte', ch);
-  formData.append('lang', l);
-  formData.append('langinput', linput);
-  const classroomidEl = _('classroomid');
-  formData.append('ROOMID', classroomidEl && classroomidEl.value ? classroomidEl.value : '');
-  formData.append('room_token', getRoomToken());
+  // Anti-cascade : reessai borne sur erreur transport passagere ; jamais
+  // de texte d'erreur dans le notebook (la ligne est omise a l'echec).
+  let attempt = 0;
 
-  const whichtranslatorEl = _('whichtranslator');
-  const whichtranslator =
-    whichtranslatorEl && whichtranslatorEl.value ? whichtranslatorEl.value : '';
-  if (whichtranslator) formData.append('whichtranslator', whichtranslator);
+  const sendRequest = () => {
+    attempt += 1;
+    const formData = new FormData();
+    formData.append('texte', ch);
+    formData.append('lang', l);
+    formData.append('langinput', linput);
+    const classroomidEl = _('classroomid');
+    formData.append('ROOMID', classroomidEl && classroomidEl.value ? classroomidEl.value : '');
+    formData.append('room_token', getRoomToken());
 
-  addCsrfToken(formData);
+    const whichtranslatorEl = _('whichtranslator');
+    const whichtranslator =
+      whichtranslatorEl && whichtranslatorEl.value ? whichtranslatorEl.value : '';
+    if (whichtranslator) formData.append('whichtranslator', whichtranslator);
 
-  const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
-    onSuccess(response) {
-      try {
-        const parsedResponse = JSON.parse(response.responseText);
+    addCsrfToken(formData);
 
-        if (
-          parsedResponse &&
-          !parsedResponse.error &&
-          parsedResponse.data &&
-          parsedResponse.data.translations
-        ) {
-          const translatedText = parsedResponse.data.translations[0].text;
-          EcrireCR(name, translatedText, order);
-        } else {
-          logger.error('Erreur de traduction. Réponse :', parsedResponse);
-          EcrireCR(name, '---- Translation ERROR ----', order);
+    const request = createFetchRequest('POST', `${getBasePath()}/text/translate`, {
+      onSuccess(response) {
+        try {
+          const parsedResponse = JSON.parse(response.responseText);
+
+          if (
+            parsedResponse &&
+            !parsedResponse.error &&
+            parsedResponse.data &&
+            parsedResponse.data.translations
+          ) {
+            const translatedText = parsedResponse.data.translations[0].text;
+            EcrireCR(name, translatedText, order);
+          } else {
+            logger.error('Erreur de traduction. Réponse :', parsedResponse);
+          }
+        } catch (error) {
+          logger.error('Erreur de parsing JSON :', error);
         }
-      } catch (error) {
-        logger.error('Erreur de parsing JSON :', error);
-        EcrireCR(name, '---- JSON Parse ERROR ----', order);
-      }
-    },
-    onError(response) {
-      // Ignorer les timeouts de polling (comportement normal)
-      if (response.status !== 0 || response.statusText !== 'Timeout') {
-        logger.error('Erreur HTTP :', response.status);
-        EcrireCR(name, `---- HTTP ERROR ${response.status} ----`, order);
-      }
-    },
-    data: formData,
-    timeout: 10000,
-    context: 'TranslateQ',
-  });
-  request.send();
+      },
+      onError(response) {
+        // Ignorer les timeouts de polling et leur artefact d'annulation
+        // ('Timeout' PUIS 'Request aborted') : pas de reessai ni de trace
+        if (
+          response.status === 0 &&
+          (response.statusText === 'Timeout' || response.statusText === 'Request aborted')
+        ) {
+          return;
+        }
+        attemptBoundedRetry(sendRequest, response, attempt, () => {
+          logger.error('Traduction Q abandonnee :', response.status, response.statusText);
+        });
+      },
+      data: formData,
+      timeout: 10000,
+      context: 'TranslateQ',
+    });
+    request.send();
+  };
+
+  sendRequest();
 }
 
 /**

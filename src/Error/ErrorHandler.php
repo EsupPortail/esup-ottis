@@ -271,7 +271,7 @@ HTML;
         return match ($errno) {
             E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR => Level::Critical,
             E_WARNING, E_CORE_WARNING, E_COMPILE_WARNING, E_USER_WARNING => Level::Warning,
-            E_NOTICE, E_USER_NOTICE, E_STRICT => Level::Notice,
+            E_NOTICE, E_USER_NOTICE => Level::Notice,
             E_DEPRECATED, E_USER_DEPRECATED => Level::Info,
             default => Level::Error,
         };

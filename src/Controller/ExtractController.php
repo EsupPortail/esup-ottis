@@ -310,6 +310,8 @@ class ExtractController extends BaseController
      */
     public function transcriptionSub(): void
     {
+        session_write_close();
+
         // Read raw POST data
         $rawPostData = file_get_contents('php://input');
         Logger::debug('transcriptionSub: RAW POST = ' . $rawPostData);
