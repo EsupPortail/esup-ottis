@@ -2,7 +2,7 @@
 # Makefile - Outils de qualité de code pour le projet OTTIS
 #===============================================================================
 
-.PHONY: help install check fix lint lint-js lint-php
+.PHONY: help install check fix lint lint-js lint-php audit audit-php audit-js audit-semgrep audit-secrets
 
 # Vider LD_LIBRARY_PATH heritee de l'extension VS Code (libstdc++ trop ancienne pour php/node)
 export LD_LIBRARY_PATH :=
@@ -33,6 +33,7 @@ help: ## Afficher l'aide
 	@echo "  install           - Installer les dépendances Composer"
 	@echo "  check             - Vérifier la qualité du code (PHP + JS)"
 	@echo "  fix               - Corriger automatiquement le code (PHP + JS)"
+	@echo "  audit             - Audit sécurité (dépendances, secrets, Semgrep)"
 	@echo ""
 	@echo "  check-php         - Vérifier le code PHP (PHPStan + PHP-CS-Fixer + PHPUnit)"
 	@echo "  fix-php           - Corriger automatiquement le code PHP"
@@ -123,6 +124,29 @@ fix-format-js: ## Formater le code JavaScript (Prettier)
 check: check-php check-js check-format-js ## Vérifier toute la qualité du code
 
 fix: fix-php fix-js fix-format-js ## Corriger automatiquement tout le code
+
+
+#===============================================================================
+# Audit automatique (sécurité et dépendances)
+#===============================================================================
+
+audit-php: ## Audit des dépendances PHP (CVE / paquets abandonnés)
+	@echo "$(YELLOW)Audit des dépendances Composer...$(NC)"
+	composer audit
+
+audit-js: ## Audit des dépendances npm (niveau high et au-dessus)
+	@echo "$(YELLOW)Audit des dépendances npm...$(NC)"
+	cd public/js && npm audit --audit-level=high
+
+audit-semgrep: ## Analyse statique de sécurité (Semgrep, packs auto)
+	@echo "$(YELLOW)Analyse de sécurité Semgrep...$(NC)"
+	semgrep --config auto --error
+
+audit-secrets: ## Détection de secrets versionnés (nécessite gitleaks)
+	@echo "$(YELLOW)Scan de secrets versionnés (gitleaks)...$(NC)"
+	gitleaks detect --redact --no-banner --exit-code 1
+
+audit: audit-php audit-js audit-secrets audit-semgrep ## Audit complet (dépendances + secrets + SAST)
 
 
 #===============================================================================

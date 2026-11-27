@@ -221,7 +221,7 @@ class CasAuthenticator
             $affiliations = [$affiliations];
         }
 
-        $allowedAffiliations = ['faculty', 'staff', 'employee', 'teacher'];
+        $allowedAffiliations = ['faculty', 'staff', 'employee', 'teacher', 'affiliate'];
 
         foreach ($affiliations as $value) {
             if ($value === null || $value === '') {

@@ -142,16 +142,6 @@ class TokenConfigService
     }
 
     /**
-     * Get the proxy command prefix
-     *
-     * @return string
-     */
-    public function getProxy(): string
-    {
-        return getenv('HTTP_PROXY') ? 'curl -x ' . getenv('HTTP_PROXY') : '';
-    }
-
-    /**
      * Get all tokens (for backward compatibility)
      *
      * @return array<string, mixed>

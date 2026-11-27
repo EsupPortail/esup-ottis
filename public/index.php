@@ -66,7 +66,7 @@ if (!empty($appConfig['matomo_url'])) {
     $matomoHost = (string) parse_url($appConfig['matomo_url'], PHP_URL_HOST);
 }
 $matomoCsp = $matomoHost !== '' ? ' https://' . $matomoHost : '';
-header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net{$matomoCsp}; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://api.deepl.com https://app.wooclap.com{$matomoCsp}; frame-src https://app.wooclap.com; worker-src 'self' blob:;");
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net{$matomoCsp}; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; connect-src 'self' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://app.wooclap.com{$matomoCsp}; frame-src https://app.wooclap.com; worker-src 'self' blob:;");
 
 $casConfigPath = APP_ROOT . '/config/cas.php';
 $casConfig = [];

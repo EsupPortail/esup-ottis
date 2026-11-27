@@ -245,6 +245,8 @@ class TextController extends BaseController
      */
     public function translate(): void
     {
+        session_write_close();
+
         $result = $this->translation->translate([
             'texte' => $this->postParam('texte', ''),
             'lang' => $this->postParam('lang', ''),
