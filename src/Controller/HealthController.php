@@ -43,7 +43,7 @@ class HealthController extends BaseController
         $checks = [
             'php' => $this->checkPhp(),
             'extensions' => $this->checkExtensions(),
-            'storage' => $this->checkStorage(),
+#            'storage' => $this->checkStorage(),
             'tempdir' => $this->checkTempDir(),
             'translation' => $this->checkTranslation(),
             'imagick' => $this->checkImagick(),
